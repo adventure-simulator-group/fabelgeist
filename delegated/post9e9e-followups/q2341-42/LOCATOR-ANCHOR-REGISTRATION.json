@@ -1,0 +1,21 @@
+{
+  "registered_utc": "2026-11-12T17:48:56.852923+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "queries": [
+    {
+      "term": "fn calculate_official_minute",
+      "paths": [
+        "crates/adventuresim-core/src",
+        "crates/adventuresim-stdb-module/src/time"
+      ]
+    },
+    {
+      "term": "wilderness_canonical_anchor_minute",
+      "paths": [
+        "crates/adventuresim-stdb-module/src/strategic",
+        "crates/adventuresim-stdb-module/src/time"
+      ]
+    }
+  ],
+  "scope": "fixed string; no body credit, retains first 100 and prints first 20"
+}

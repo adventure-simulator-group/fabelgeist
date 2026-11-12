@@ -1,0 +1,156 @@
+[
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+    "calls": [
+      {
+        "call": 315,
+        "nearest_declaration": [
+          130,
+          "fn travel_to_case_site_impl("
+        ]
+      },
+      {
+        "call": 344,
+        "nearest_declaration": [
+          130,
+          "fn travel_to_case_site_impl("
+        ]
+      },
+      {
+        "call": 406,
+        "nearest_declaration": [
+          370,
+          "fn complete_settlement_arrival("
+        ]
+      },
+      {
+        "call": 736,
+        "nearest_declaration": [
+          494,
+          "fn travel_to_settlement_impl("
+        ]
+      },
+      {
+        "call": 960,
+        "nearest_declaration": [
+          860,
+          "pub fn continue_camp_travel(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {"
+        ]
+      },
+      {
+        "call": 988,
+        "nearest_declaration": [
+          860,
+          "pub fn continue_camp_travel(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {"
+        ]
+      }
+    ],
+    "locators": {
+      "quest_journey_minutes": {
+        "count": 2,
+        "first_30": [
+          263,
+          620
+        ],
+        "truncated": false
+      },
+      "travel_minutes": {
+        "count": 15,
+        "first_30": [
+          261,
+          272,
+          283,
+          292,
+          306,
+          326,
+          377,
+          394,
+          395,
+          550,
+          694,
+          710,
+          727,
+          748,
+          768
+        ],
+        "truncated": false
+      },
+      "start_party_journey": {
+        "count": 2,
+        "first_30": [
+          275,
+          675
+        ],
+        "truncated": false
+      },
+      "advance_party_movement_until_encounter": {
+        "count": 3,
+        "first_30": [
+          293,
+          712,
+          918
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+    "calls": [
+      {
+        "call": 734,
+        "nearest_declaration": [
+          666,
+          "pub(crate) fn attach_seeded_party_member("
+        ]
+      },
+      {
+        "call": 1535,
+        "nearest_declaration": [
+          1383,
+          "pub fn accept_party_join_request("
+        ]
+      }
+    ],
+    "locators": {}
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+    "calls": [
+      {
+        "call": 686,
+        "nearest_declaration": [
+          499,
+          "pub fn seed_standalone_tactical_mission("
+        ]
+      }
+    ],
+    "locators": {}
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+    "calls": [
+      {
+        "call": 246,
+        "nearest_declaration": [
+          120,
+          "fn create_strategic_incident("
+        ]
+      }
+    ],
+    "locators": {}
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+    "calls": [
+      {
+        "call": 454,
+        "nearest_declaration": [
+          349,
+          "pub fn configure_simulation_character("
+        ]
+      }
+    ],
+    "locators": {}
+  }
+]

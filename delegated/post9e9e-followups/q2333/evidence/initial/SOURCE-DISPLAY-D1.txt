@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:491-545
+ 491     let actor = ctx
+ 492         .db
+ 493         .character()
+ 494         .id()
+ 495         .find(character_id)
+ 496         .ok_or("Character not found")?;
+ 497     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 498     materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
+ 499     Ok(())
+ 500 }
+ 501 
+ 502 #[reducer]
+ 503 pub fn administer_tincture_from_container(
+ 504     ctx: &ReducerContext,
+ 505     actor_id: u64,
+ 506     patient_id: u64,
+ 507     object_id: u64,
+ 508     dose_milliunits: u32,
+ 509 ) -> Result<(), String> {
+ 510     crate::strategic::require_strategic_gateway(ctx)?;
+ 511     crate::disease::require_intervention_relationship(ctx, actor_id, patient_id)?;
+ 512     let tincture_dose = DoseMilliunits::try_new(dose_milliunits)
+ 513         .map_err(|_| "Tincture dose must be between 1 and 1000 milliunits")?;
+ 514     if tincture_dose.is_zero() || tincture_dose > DoseMilliunits::STANDARD {
+ 515         return Err("Tincture dose must be between 1 and 1000 milliunits".into());
+ 516     }
+ 517     let object = require_tincture_vessel(ctx, object_id)?;
+ 518     let actor = ctx
+ 519         .db
+ 520         .character()
+ 521         .id()
+ 522         .find(actor_id)
+ 523         .ok_or("Character not found")?;
+ 524     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 525     materialize_mature_tincture(ctx, object_id, refresh_clock(ctx)?);
+ 526     let process = ctx
+ 527         .db
+ 528         .tincture_process()
+ 529         .container_object_id()
+ 530         .find(object_id)
+ 531         .ok_or("Bottle has no tincture process")?;
+ 532     if !process.matured {
+ 533         return Err("Tincture has not matured".into());
+ 534     }
+ 535     let key = format!("container|{object_id}|{}", process.intervention_profile_id);
+ 536     let mut component = ctx
+ 537         .db
+ 538         .medicinal_component()
+ 539         .key()
+ 540         .find(key.clone())
+ 541         .ok_or("Mature tincture has no medicinal component")?;
+ 542     let fraction = tincture_dose.as_standard_doses();
+ 543     let standard_doses = component.potency_units * fraction;
+ 544     let mut administered_dose = DoseMilliunits::try_from_standard_doses_rounded(standard_doses)
+ 545         .map_err(|_| "Tincture potency is outside the supported dose range")?;

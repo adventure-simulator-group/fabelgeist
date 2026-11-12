@@ -1,0 +1,81 @@
+  50 
+  51 impl MaterialComponentMicrounits {
+  52     const MICROUNITS_PER_UNIT: f64 = 1_000_000.0;
+  53 
+  54     pub fn try_from_units(units: f32) -> Result<Option<Self>, MaterialError> {
+  55         if !units.is_finite() || units < 0.0 {
+  56             return Err(MaterialError::InvalidMeasure);
+  57         }
+  58         let microunits = f64::from(units) * Self::MICROUNITS_PER_UNIT;
+  59         if microunits > u64::MAX as f64 {
+  60             return Err(MaterialError::Overflow);
+  61         }
+  62         Ok(NonZeroU64::new(microunits.round() as u64).map(Self))
+  63     }
+  64 
+  65     pub const fn get(self) -> NonZeroU64 {
+  66         self.0
+  67     }
+  68 
+  69     pub fn as_units(self) -> f64 {
+  70         self.0.get() as f64 / Self::MICROUNITS_PER_UNIT
+  71     }
+  72 }
+  73 
+  74 /// Exact volume measured in whole milliliters.
+  75 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+  76 pub struct Milliliters(u64);
+  77 
+  78 impl Milliliters {
+  79     pub const ZERO: Self = Self(0);
+  80 
+  81     pub const fn new(value: u64) -> Self {
+  82         Self(value)
+  83     }
+  84 
+  85     pub const fn get(self) -> u64 {
+  86         self.0
+  87     }
+  88 
+  89     pub const fn is_zero(self) -> bool {
+  90         self.0 == 0
+  91     }
+  92 
+  93     pub const fn checked_add(self, other: Self) -> Option<Self> {
+  94         match self.0.checked_add(other.0) {
+  95             Some(value) => Some(Self(value)),
+  96             None => None,
+  97         }
+  98     }
+  99 
+ 100     pub const fn checked_sub(self, other: Self) -> Option<Self> {
+ 101         match self.0.checked_sub(other.0) {
+ 102             Some(value) => Some(Self(value)),
+ 103             None => None,
+ 104         }
+ 105     }
+ 106 }
+ 107 
+ 108 impl From<u64> for Milliliters {
+ 109     fn from(value: u64) -> Self {
+ 110         Self::new(value)
+ 111     }
+ 112 }
+ 113 
+ 114 impl From<Milliliters> for u64 {
+ 115     fn from(value: Milliliters) -> Self {
+ 116         value.get()
+ 117     }
+ 118 }
+ 119 
+ 120 /// Exact volume measured in microliters.
+ 121 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+ 122 pub struct Microliters(u64);
+ 123 
+ 124 impl Microliters {
+ 125     pub const MICROLITERS_PER_MILLILITER: u64 = 1_000;
+ 126     pub const MICROLITERS_PER_LITER: u64 = 1_000_000;
+ 127     pub const ZERO: Self = Self(0);
+ 128 
+ 129     pub const fn new(value: u64) -> Self {
+ 130         Self(value)

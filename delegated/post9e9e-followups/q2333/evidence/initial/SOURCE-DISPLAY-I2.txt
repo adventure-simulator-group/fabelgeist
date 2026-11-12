@@ -1,0 +1,81 @@
+SOURCE crates/adventuresim-stdb-module/src/inventory_amount.rs:81-160
+  81     party_inventory_item_id: u64,
+  82 ) -> Option<ConsumableFractionMicros> {
+  83     ctx.db
+  84         .party_item_amount()
+  85         .party_inventory_item_id()
+  86         .find(party_inventory_item_id)
+  87         .map(|row| persisted_fraction(row.remaining_fraction_micros))
+  88 }
+  89 
+  90 pub fn consume_personal(
+  91     ctx: &ReducerContext,
+  92     inventory_item_id: u64,
+  93     requested_fraction: ConsumableFractionMicros,
+  94 ) -> Result<ConsumableFractionMicros, String> {
+  95     if requested_fraction.is_zero() {
+  96         return Ok(ConsumableFractionMicros::ZERO);
+  97     }
+  98     let mut state = ctx
+  99         .db
+ 100         .inventory_item_amount()
+ 101         .inventory_item_id()
+ 102         .find(inventory_item_id)
+ 103         .ok_or("Measured personal item state is missing")?;
+ 104     let available = persisted_fraction(state.remaining_fraction_micros);
+ 105     let consumed = requested_fraction.min(available);
+ 106     let remaining = available
+ 107         .checked_sub(consumed)
+ 108         .expect("consumed fraction cannot exceed available fraction");
+ 109     state.remaining_fraction_micros = remaining.get();
+ 110     if remaining.is_zero() {
+ 111         ctx.db
+ 112             .inventory_item_amount()
+ 113             .inventory_item_id()
+ 114             .delete(inventory_item_id);
+ 115         ctx.db.inventory_item().id().delete(inventory_item_id);
+ 116     } else {
+ 117         ctx.db
+ 118             .inventory_item_amount()
+ 119             .inventory_item_id()
+ 120             .update(state);
+ 121     }
+ 122     Ok(consumed)
+ 123 }
+ 124 
+ 125 pub fn consume_party(
+ 126     ctx: &ReducerContext,
+ 127     party_inventory_item_id: u64,
+ 128     requested_fraction: ConsumableFractionMicros,
+ 129 ) -> Result<ConsumableFractionMicros, String> {
+ 130     if requested_fraction.is_zero() {
+ 131         return Ok(ConsumableFractionMicros::ZERO);
+ 132     }
+ 133     let mut state = ctx
+ 134         .db
+ 135         .party_item_amount()
+ 136         .party_inventory_item_id()
+ 137         .find(party_inventory_item_id)
+ 138         .ok_or("Measured party item state is missing")?;
+ 139     let available = persisted_fraction(state.remaining_fraction_micros);
+ 140     let consumed = requested_fraction.min(available);
+ 141     let remaining = available
+ 142         .checked_sub(consumed)
+ 143         .expect("consumed fraction cannot exceed available fraction");
+ 144     state.remaining_fraction_micros = remaining.get();
+ 145     if remaining.is_zero() {
+ 146         ctx.db
+ 147             .party_item_amount()
+ 148             .party_inventory_item_id()
+ 149             .delete(party_inventory_item_id);
+ 150         ctx.db
+ 151             .party_inventory_item()
+ 152             .id()
+ 153             .delete(party_inventory_item_id);
+ 154     } else {
+ 155         ctx.db
+ 156             .party_item_amount()
+ 157             .party_inventory_item_id()
+ 158             .update(state);
+ 159     }
+ 160     Ok(consumed)

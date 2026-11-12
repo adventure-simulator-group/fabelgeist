@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "operation": "HISTORY-SHAPE-VIEW metadata display",
+      "result": "tool output was truncated because unrelated root metadata keys were too broad; full registered JSON is retained; only subsequent bounded redisplay is used for this assessment."
+    },
+    {
+      "operation": "HISTORY-CURRENT-METADATA-VIEW display",
+      "result": "tool output truncated due all 12 scalar row metadata; complete saved view retained; only subsequent registered bounded row 10 and global fields support assessment."
+    },
+    {
+      "operation": "ledger snapshot anchor placement",
+      "result": "Snapshot was first written as a uniquely derived REDACTED-LOCAL-PATH-0031 sibling file instead of inside a fresh scratch directory; then moved into the fresh unique anchor directory. No pre-write existence check was made for that derived sibling name, so prior existence cannot be established. It was outside the user working trees and publication checkout; no claim about a prior REDACTED-LOCAL-PATH-0031 sibling is made. The anchor digest is recorded."
+    }
+  ]
+}

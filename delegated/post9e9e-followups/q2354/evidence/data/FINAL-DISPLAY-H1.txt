@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/residence/properties/materialization.rs:1-60
+   1 //! Transfer census counts into named occupancy when the normal NPC owner
+   2 //! materializes a household. Registration itself never creates characters.
+   3 use super::*;
+   4 
+   5 /// One-time census provenance; later moves do not cause a second allocation.
+   6 #[derive(Clone, Debug)]
+   7 #[table(accessor = generated_resident_home)]
+   8 pub struct GeneratedResidentHome {
+   9     #[primary_key]
+  10     pub character_id: u64,
+  11     pub property_id: String,
+  12 }
+  13 
+  14 pub(crate) fn bind_generated_households(
+  15     ctx: &ReducerContext,
+  16     settlement_id: &str,
+  17 ) -> Result<(), String> {
+  18     if ctx
+  19         .db
+  20         .settlement_property_manifest()
+  21         .settlement_id()
+  22         .find(settlement_id.to_owned())
+  23         .is_none()
+  24     {
+  25         return Ok(());
+  26     }
+  27     let mut groups = std::collections::BTreeMap::<String, Vec<u64>>::new();
+  28     for resident in ctx
+  29         .db
+  30         .settlement_resident_profile()
+  31         .home_settlement_id()
+  32         .filter(settlement_id)
+  33     {
+  34         if ctx
+  35             .db
+  36             .generated_resident_home()
+  37             .character_id()
+  38             .find(resident.character_id)
+  39             .is_some()
+  40         {
+  41             continue;
+  42         }
+  43         let member = ctx
+  44             .db
+  45             .household_member()
+  46             .character_id()
+  47             .find(resident.character_id)
+  48             .ok_or("Materialized resident has no authoritative household")?;
+  49         groups
+  50             .entry(member.household_id)
+  51             .or_default()
+  52             .push(resident.character_id);
+  53     }
+  54     for (_, members) in groups {
+  55         let required = u32::try_from(members.len()).map_err(|error| error.to_string())?;
+  56         let mut available = ctx
+  57             .db
+  58             .household_property_occupancy()
+  59             .iter()
+  60             .filter(|home| {

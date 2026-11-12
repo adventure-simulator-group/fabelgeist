@@ -1,0 +1,67 @@
+{
+  "lens": 13,
+  "namespace": "PL13-256",
+  "status": "Completed own Lens13 ordered native assessment; root adoption pending",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-256.json",
+    "sha256": "7d5a574db3e10da2d66edf20877005ded18d7a48861f23df63e12a51f759bcab"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 1119,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_eof": 1451,
+      "prospective_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 ordered native stablecontainer object/capacity/graph/amount/custody identity contracts and connectedfood/tincture lifecycle; existingtests sourceonly/noexecution.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "source_identity_qualification": null,
+  "partial_read_union": [
+    {
+      "original": 1119,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-256-PARTIAL-001.json",
+        "sha256": "5df3ad615aeaf2b7abdd12752169b49d9aceb60a1ce86bfbcc7311687352da3e"
+      },
+      "previous_personal_ranges": [
+        [
+          1,
+          660
+        ]
+      ],
+      "new_personal_ranges": [
+        [
+          661,
+          1451
+        ]
+      ],
+      "union": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "reread_claimed": false
+    }
+  ],
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false
+}

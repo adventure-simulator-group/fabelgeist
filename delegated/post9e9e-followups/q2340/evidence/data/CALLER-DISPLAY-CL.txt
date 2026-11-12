@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/challenges.rs:2365-2440
+2365     });
+2366     crate::investigation::disclose_exact_case_site(
+2367         ctx,
+2368         character_id,
+2369         &case_id,
+2370         &site,
+2371         "the Order of St. George",
+2372     )?;
+2373     let destination = JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+2374         id: case_site_id,
+2375         name: site.name.clone(),
+2376     });
+2377     party.active_contract_id = Some(contract_id.clone());
+2378     if matches!(launch, ErrantryLaunch::DirectDemoCamp(_)) {
+2379         let camp_movement_minute = 60;
+2380         let camp_elapsed_minute = 60;
+2381         ctx.db.party_journey_authority().insert(PartyJourney {
+2382             party_id: party_id.clone(),
+2383             gateway_bucket: 0,
+2384             origin: JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+2385                 id: origin_settlement_id,
+2386                 name: origin_settlement.name,
+2387             }),
+2388             destination: destination.clone(),
+2389             total_movement_minutes: 120,
+2390             completed_movement_minutes: camp_movement_minute,
+2391             reached_camp_movement_minutes: vec![camp_movement_minute],
+2392             actual_camp_intervals: Vec::new(),
+2393             forecast_camp_intervals: Vec::new(),
+2394             fatigue_percent: party.camp_fatigue_percent,
+2395             departure_minute: now,
+2396             total_elapsed_minutes: 120,
+2397             completed_elapsed_minutes: camp_elapsed_minute,
+2398             walking_minutes_per_day: party.walking_minutes_per_day,
+2399             travel_at_night: party.travel_at_night,
+2400         });
+2401         ctx.db
+2402             .party_journey_encounter_authority()
+2403             .insert(PartyJourneyEncounterAuthority {
+2404                 party_id: party_id.clone(),
+2405                 seed: ctx.random(),
+2406                 next_roll: 1,
+2407                 narrative_rest_elapsed_minutes: 0,
+2408             });
+2409         party.current_settlement_id = None;
+2410         party.current_case_site_id = None;
+2411         party.camp_destination = Some(destination);
+2412         party.camp_remaining_minutes = 60;
+2413         ctx.db.party_authority().id().update(party);
+2414         for member_id in living_party_member_ids(ctx, &party_id) {
+2415             let mut member = ctx
+2416                 .db
+2417                 .character()
+2418                 .id()
+2419                 .find(member_id)
+2420                 .ok_or("Party member not found")?;
+2421             member.current_settlement_id = None;
+2422             crate::investigation::set_character_case_site(ctx, member_id, None)?;
+2423             ctx.db.character().id().update(member);
+2424         }
+2425         bind_errantry_trials_to_current_camp(ctx, &party_id)?;
+2426     } else {
+2427         ctx.db.party_authority().id().update(party);
+2428     }
+2429     Ok(MaterializedErrantry {
+2430         case_id,
+2431         contract_id,
+2432     })
+2433 }
+2434 
+2435 #[cfg(test)]
+2436 mod challenge_source_boundary_tests {
+2437     use super::{
+2438         ChallengeAttemptReceipt, ERRANTRY_FINALE_THREAT_ID, ErrantryChallengeId,
+2439         ErrantryChallengeNamespace, narrative_combat_roll, puzzle_demo_suffix,
+2440         validate_challenge_retry,

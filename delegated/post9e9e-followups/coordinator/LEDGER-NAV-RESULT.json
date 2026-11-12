@@ -1,0 +1,553 @@
+{
+  "ledger_entries_at_revision": 1051,
+  "matched_metadata_rows": [
+    {
+      "ledger_index": 27,
+      "id": "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001",
+      "record": "ASSESSMENT-L01-BASIS-WIRE-95E.json",
+      "classification": "same first-failure family as checkpoint 059 basis-point wire admission, independently traced at 95e",
+      "discovery": "partial; actual serialized ingress, all consumers, native SpacetimeDB codec, feature resolution and aliases remain open"
+    },
+    {
+      "ledger_index": 93,
+      "id": "REVIEW-LEAF-ROUGHNESS-AUTHORITY-001",
+      "record": "ASSESSMENT-L07-LEAF-ROUGHNESS-95E.json",
+      "classification": "earlier leaf roughness lane question narrowed to a selected current material producer and shader consumer",
+      "discovery": "partial; intended roughness policy, actual textures, shader variants, all material consumers and historical aliases remain open",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/segovb_continuation/lens13/discovery_receipts/226"
+      ]
+    },
+    {
+      "ledger_index": 234,
+      "id": "ADLER-L11-CLOUD-BAKE-PLATFORM-ADMISSION",
+      "record": "ASSESSMENT-CLOUD-BAKE-ADMISSION-95E.json",
+      "classification": "Existing 059 Lens11 conditional finding re-assessed at 95e through browser configuration, cloud update and shader source; no runtime incident or new historical unique finding.",
+      "discovery": "partial conditional source argument; browser/device output, producer and policy open",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-CLOUD-BAKE-PLATFORM-ADMISSION",
+        "baseline-059/queue.json#/entries/1300",
+        "baseline-059/queue.json#/entries/1301"
+      ]
+    },
+    {
+      "ledger_index": 245,
+      "id": "REVIEW-GRASS-CHUNK-DEFORMATION-BOUNDS-001",
+      "record": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json",
+      "classification": "New conditional current source question: the chunk culling bound does not explicitly include shader wind or player deformation; no culled scene or visual result observed.",
+      "discovery": "partial; source-level bound/deformation mismatch and native culling gate, reachability and impact open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1310",
+        "baseline-059/queue.json#/entries/1314",
+        "baseline-059/queue.json#/entries/1315"
+      ]
+    },
+    {
+      "ledger_index": 283,
+      "id": "REVIEW-CITY-TRAFFIC-NEUTRAL-SHOULDER-001",
+      "record": "ASSESSMENT-CITY-TRAFFIC-CONTEXT-95E.json",
+      "classification": "Newly assessed95e conditional material-channel question, connected to recovered Segovb pending queue1393; no historical finding or checkpoint3821 attribution.",
+      "discovery": "partial; conditional shader-source interpretation differs from earlier preliminary neutral-mode assessment, policy and native outcome open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1393"
+      ]
+    },
+    {
+      "ledger_index": 442,
+      "id": "ADLER-L11-ROAD-INFERENCE-TERRAIN-ERROR-ADMISSION",
+      "record": "ASSESSMENT-ROAD-BASIS-POINTS-95E.json",
+      "classification": "Original road inference finding reconnected: all terrain planning errors are treated as skipped links, including fallible cell/pack errors.",
+      "discovery": "partial; selected planning, lazy chunk errors and inference consumer traced; actual failing candidate, final world consequences and aliases remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/130",
+        "REVIEW-MAP-RELIEF-SAMPLE-ERROR-001"
+      ]
+    },
+    {
+      "ledger_index": 443,
+      "id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "record": "ASSESSMENT-ROAD-BASIS-POINTS-95E.json",
+      "classification": "Original basis-point finding reconnected: transparent derived Serde construction can admit underlying values outside the checked constructor range; complement can underflow with checks enabled.",
+      "discovery": "partial; unsigned/signed constructors, derived Serde path, selected wrapper and consumer traced; native generated schema, all producers and aliases remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/131"
+      ]
+    },
+    {
+      "ledger_index": 470,
+      "id": "REVIEW-BODY-CLOTH-ORDINAL-PRECISION-95E",
+      "record": "ASSESSMENT-ARMOR-BODY-COORD-95E.json",
+      "classification": "A body-cloth point ordinal beyond binary32 exact integer precision can be rounded before the shader converts it back to a table index.",
+      "discovery": "partial; current ordinal producer, shader consumer and selected source-table producers traced; accepted size bounds, allocation capacity, other consumers and aliases open",
+      "historical_related_records": []
+    },
+    {
+      "ledger_index": 476,
+      "id": "REVIEW-ORNAMENT-FILLET-WAVE-ROOM-95E",
+      "record": "ASSESSMENT-ORNAMENT-TEXTURE-95E.json",
+      "classification": "Allowed procedural ornament line width and fillets can reduce the wave room to zero, making a positive wave amplitude generate a straight center stripe in the shader source.",
+      "discovery": "partial; selected validator, creator controls, host payload and shader relationship traced; other motifs and design policy remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1816",
+        "baseline-059/queue.json#/entries/2279",
+        "baseline-059/queue.json#/entries/291",
+        "adler/READ-L11-350.json via ASSESSMENT-STAGING-TASSETS-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 501,
+      "id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
+      "record": "ASSESSMENT-KERNEL-95E.json",
+      "classification": "Original uniform ABI finding reconnected: reflection omits member kind/shape and fast and standard packers can accept incompatible or omitted values differently.",
+      "discovery": "partial; current member metadata and both packers traced; valid shader admission, padding, producer types and aliases remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/151",
+        "baseline-059/queue.json#/entries/295",
+        "adler/READ-L11-356.json via ASSESSMENT-KERNEL-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 506,
+      "id": "REVIEW-KERNEL-CACHE-POISON-HANDLING-95E",
+      "record": "ASSESSMENT-KERNEL-95E.json",
+      "classification": "Kernel cache lock access and uniform arena allocation use production unwrap or expect despite the crate rule requiring explicit handling.",
+      "discovery": "partial; exact source and governing rule traced; lock poison policy and all consumers remain open",
+      "historical_related_records": [
+        "segovb/READ-L12-740.json via ASSESSMENT-KERNEL-95E.json",
+        "segovb/READ-L12-741.json via ASSESSMENT-KERNEL-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 508,
+      "id": "REVIEW-GPU-SHADER-PARSE-CAUSES-95E",
+      "record": "ASSESSMENT-KERNEL-95E.json",
+      "classification": "Original GLSL and WGSL parser failures lose their native error objects at distinct shared shader parsing branches.",
+      "discovery": "partial; current parse branches traced; exact native cause types, consumers and presentation remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/360",
+        "baseline-059/queue.json#/entries/361",
+        "segovb/READ-L12-749.json via ASSESSMENT-KERNEL-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 514,
+      "id": "REVIEW-RADIX-SORT-DISPATCH-DIMENSION-95E",
+      "record": "ASSESSMENT-READBACK-SORT-95E.json",
+      "classification": "A sufficiently large radix sort can exceed a selected device per-dimension workgroup limit because histogram and scatter use an unfolded x-only dispatch.",
+      "discovery": "partial; direct dispatch, shader indexing, pinned device-limit definition and selected callers traced; actual limits, allocations, application counts and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2406",
+        "baseline-059/queue.json#/entries/3142"
+      ]
+    },
+    {
+      "ledger_index": 559,
+      "id": "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+      "classification": "The public bind-group helper retains reflected member and resource names as strings and rematches them against supplied parameter names.",
+      "discovery": "partial; public helper and reflected name state traced; actual producers, native symbol owner and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/317",
+        "baseline-059/queue.json#/entries/2331",
+        "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 579,
+      "id": "REVIEW-GPU-UNIFORM-MAT3-BOUNDS-95E",
+      "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+      "classification": "A mismatched public Mat3 parameter and short reflected member can pass the coarse size check and request a slice beyond the uniform byte vector.",
+      "discovery": "partial; public reflection shape, helper guard and per-element writes traced; real producer validity, other packers and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/151",
+        "baseline-059/queue.json#/entries/2331",
+        "ASSESSMENT-KERNEL-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 595,
+      "id": "SEGOVB-L12-GPU-PIPELINE-SHADER-MODULE-MISSING-REASON",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "ComputePipeline shader.moduleNone emitsclosedtext at89",
+      "discovery": "partial; selected current first source branch traced; native callers, error policy and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/355",
+        "segovb/READ-L12-749.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 599,
+      "id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "Sparse reflected shader groups are compacted into layout vector positions that can differ from their retained native group numbers.",
+      "discovery": "partial; current producer, native positional descriptor and pass recipient traced; supported sparse shader policy and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/370",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L11-627.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 600,
+      "id": "REVIEW-GPU-PIPELINE-CACHE-INPUT-IDENTITY-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "The shared ComputePipeline cache keys only an entry-point hash although device, shader module and layouts are separate inputs or mutable public state.",
+      "discovery": "partial; current cache key, hit order and public shared state traced; actual producer lifetimes, device identity and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/150",
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 601,
+      "id": "REVIEW-GPU-SHADER-SOURCE-MODULE-COHERENCE-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "Public ComputeShader code and native module can diverge, while reflection reads code and pipeline creation uses module.",
+      "discovery": "partial; public fields and respective reflection/module consumers traced; actual producers and immutable admission policy open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 602,
+      "id": "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "Reflection stores one uniform binding and size per group while accumulating layout entries and members for every encountered uniform resource.",
+      "discovery": "partial; selected reflection producer and pass consumer traced; supported shader shape and native policy open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 603,
+      "id": "REVIEW-GPU-REFLECTION-ARRAYED-IMAGE-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "reflection passes dimension and class without retaining the image arrayed property",
+      "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 604,
+      "id": "REVIEW-GPU-REFLECTION-MULTISAMPLED-IMAGE-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "texture layout is always created with multisampled false",
+      "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 605,
+      "id": "REVIEW-GPU-REFLECTION-STORAGE-ACCESS-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "any STORE access selects WriteOnly, even when READ is also present",
+      "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 606,
+      "id": "REVIEW-GPU-REFLECTION-SAMPLER-KIND-95E",
+      "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+      "classification": "sampler bindings are always classified Filtering",
+      "discovery": "partial; current reflection operation traced; supported shader feature subset and actual caller needs open",
+      "historical_related_records": [
+        "segovb/READ-L11-626.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "segovb/READ-L12-CONNECTED-TEAM-004.json via ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 610,
+      "id": "SEGOVB-L12-GPU-SHADER-LANGUAGE-STRING-DISPATCH",
+      "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
+      "classification": "detect_from_code43 constructs exactly glsl45/wgsl47 Strings, parse_naga retains54/rematches56 ratherthanadmittedclosedchoice",
+      "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/359",
+        "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 611,
+      "id": "SEGOVB-L12-GPU-SHADER-GLSL-PARSE-CAUSE-ERASURE",
+      "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
+      "classification": "NagaGLSL frontend.parse typedcause debugformatted66",
+      "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/360",
+        "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 612,
+      "id": "SEGOVB-L12-GPU-SHADER-WGSL-PARSE-CAUSE-ERASURE",
+      "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
+      "classification": "NagaWGSL parse_str typedParseError68 projected to diagnosticString69 then onlytext70",
+      "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/361",
+        "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 622,
+      "id": "REVIEW-HAIR-GROWTH-GPU-CODE-95E",
+      "record": "ASSESSMENT-HAIR-GROWTH-95E.json",
+      "classification": "GPU growth codes depend on the manually maintained Growth::ALL order matching shader case numbers.",
+      "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+      "historical_related_records": [
+        "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+        "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+        "baseline-059/queue.json#/entries/1835"
+      ]
+    },
+    {
+      "ledger_index": 625,
+      "id": "REVIEW-HAIR-GPU-IMAGE-DENSITY-95E",
+      "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+      "classification": "A public GPU groom accepts an image density mask but its root shader receives no image and treats it like Uniform.",
+      "discovery": "partial; selected current source and original attribution traced; admitted producers, supported policy and exact aliases remain open",
+      "historical_related_records": [
+        "segovb/READ-L12-751.json via ASSESSMENT-HAIR-GPU-GROW-95E.json",
+        "adler/READ-L11-364.json via ASSESSMENT-HAIR-GPU-GROW-95E.json",
+        "baseline-059/queue.json#/entries/163",
+        "baseline-059/queue.json#/entries/373"
+      ]
+    },
+    {
+      "ledger_index": 635,
+      "id": "REVIEW-HAIR-GUIDE-PATH-INDEX-95E",
+      "record": "ASSESSMENT-HAIR-GUIDES-95E.json",
+      "classification": "The guide shader indexes a flattened path with u32 guide index times u32 max_path, while host sizing uses u64.",
+      "discovery": "partial; selected producer, current operation and prior attribution traced; supported input policy and exact aliases open",
+      "historical_related_records": [
+        "segovb/READ-L12-752.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+        "adler/READ-L11-364.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+        "baseline-059/queue.json#/entries/1837"
+      ]
+    },
+    {
+      "ledger_index": 692,
+      "id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+      "classification": "At box medial-axis coordinates, the inspected host and shader formulas select different zero-sign normals in their source-language models.",
+      "discovery": "partial; registered delegated source and selected consumers connected; remaining producers, policies and native outcomes open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/174"
+      ]
+    },
+    {
+      "ledger_index": 710,
+      "id": "REVIEW-PHYSICS-SWEPT-MESH-FINAL-SURFACE-95E",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+      "classification": "The swept candidate box does not by itself establish entry-side handling when the shader selects a final-position nearest face.",
+      "discovery": "partial; exact registered delegated bodies and selected support reviewed; policy, ordinary reachability and global aliases remain open",
+      "historical_related_records": [
+        "DELEGATED-EVIDENCE-CHECKPOINT-3.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 717,
+      "id": "ADLER-L11-XPBD-SPRING-DAMPING-CONTROL",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json",
+      "classification": "The public spring retains a damping component that the inspected shader calculation does not consume.",
+      "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/177"
+      ]
+    },
+    {
+      "ledger_index": 726,
+      "id": "SEGOVB-L12-CONNECTED-XPBD-SPRING-DAMPING-CONSUMER",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json",
+      "classification": "The spring shader consumes no retained damping component on the inspected public constructor path.",
+      "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/453"
+      ]
+    },
+    {
+      "ledger_index": 732,
+      "id": "REVIEW-SHELL-COLLISION-QUANTIZATION-95E",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json",
+      "classification": "A representable positive collision correction can quantize to zero in the fixed-point shader source.",
+      "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+      "historical_related_records": [
+        "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 804,
+      "id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-QUERYCARDINALITY",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+      "classification": "The database query-one row cardinality loses its selected structured stage or cause at the inspected boundary.",
+      "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/531"
+      ]
+    },
+    {
+      "ledger_index": 805,
+      "id": "SEGOVB-L12-SPACETIME-QUERY-SATS-INTO-PROJECTIONERROR",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+      "classification": "The database query projection conversion error loses its selected structured stage or cause at the inspected boundary.",
+      "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/532"
+      ]
+    },
+    {
+      "ledger_index": 806,
+      "id": "SEGOVB-L12-SPACETIME-QUERY-ONE-SATS-INTO-PROJECTIONERROR",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+      "classification": "The database query-one projection conversion error loses its selected structured stage or cause at the inspected boundary.",
+      "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/533"
+      ]
+    },
+    {
+      "ledger_index": 811,
+      "id": "SEGOVB-L12-SATS-MALFORMED-WIRE-REASON-STRING",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+      "classification": "The database malformed SATS wire reason loses its selected structured stage or cause at the inspected boundary.",
+      "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/538"
+      ]
+    },
+    {
+      "ledger_index": 858,
+      "id": "REVIEW-HEALTH-TREND-TEXT-PRECISION-95E",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json",
+      "classification": "Accessible trend labels truncate basis-point values while plotted coordinates retain them.",
+      "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+      "historical_related_records": [
+        "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 1000,
+      "id": "CANDIDATE-MESH-NEGATIVE-SHELL-INVERTS-BOUNDS",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json",
+      "classification": "The public surface is accepted without a local finite/nonnegative check. record_bounds passes thickness as the margin; the triangle-bounds shader text computes min(vertices) − margin and max(vertices) + margin, then sends those raw boxes to BVH build/refit. For the stated input the generated interval is inverted, so it cannot represent an ordinary lower/upper enclosure on that axis. The later contact search binds thickness plus particle radius. No GPU compilation, execution, input witness, or observed missed collision is claimed.",
+      "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+      "historical_related_records": [
+        "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 1010,
+      "id": "CANDIDATE-PREFIX-FOLDED-GRID-EXTRA-WORKGROUPS",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12F-95E.json",
+      "classification": "grid chooses x = min(blocks, 65,535) and y = ceil(blocks/x), which can schedule padded groups. scan_blocks computes the linear block but only guards individual data accesses with index < count; lane 255 writes sums[block] whenever write_sums is set, without checking block < logical blocks. At count 16,776,961 and scratch capacity equal to count, logical blocks and first-level scratch slots are 65,536, while the grid has 131,070 groups; padded groups therefore address outside that bound. This is mathematical source reasoning, not a shader execution or generated fixture. The dated W3C WGSL draft classifies an executed out-of-bounds access as a dynamic error with multiple permitted outcomes; neither guaranteed corruption nor a particular backend response is asserted.",
+      "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+      "historical_related_records": [
+        "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-12F-95E.json"
+      ]
+    },
+    {
+      "ledger_index": 1030,
+      "id": "CANDIDATE-XPBD-KERNEL-INCIDENCE-ARITY-CONTRACT",
+      "record": "ASSESSMENT-CENTRAL-INCIDENCE-13P-95E.json",
+      "classification": "If an otherwise admissible custom caller can pair the distance kernel with a complete one-record arity-one incidence and its other required bindings, and a nonempty solve reaches the shader, the shown populated upload contains one particle word while DISTANCE source refers to logical words 0 and 1 for constraint zero. This is a source-level mismatch of the selected layouts, not proof of a dispatched call, successful native binding or a particular GPU result.",
+      "discovery": "partial; registered source shows conditional width mismatch; supported caller, native acceptance, behavior and intended schema remain open",
+      "historical_related_records": [
+        "delegated/xpbd-incidence-address-hair-ops-report.json",
+        "baseline-059/queue.json#/entries/620",
+        "baseline-059/queue.json#/entries/625",
+        "baseline-059/queue.json#/entries/1859",
+        "REVIEW-XPBD-RAW-ATTACHMENT-STRIDE-95E",
+        "REVIEW-XPBD-CONSTRAINT-PARTICLE-MEMBERSHIP-95E"
+      ]
+    },
+    {
+      "ledger_index": 1047,
+      "id": "relationship-preparation-view-material-quantum-95e",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json",
+      "classification": "A conditional positive residual food amount can be offered for grinding by the view while whole-milligram MaterialMeasure admission rejects the unchanged lot.",
+      "discovery": "partial; supported controls, unrelated admission guards, intended quantum and all presentation/producer paths remain open",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2321",
+        "baseline-059/queue.json#/entries/2318"
+      ],
+      "current_related_records": [
+        "REVIEW-PREPARATION-RIGHTS-BINDING-001",
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      ]
+    }
+  ],
+  "queue_selections": [
+    {
+      "index": 131,
+      "contract_id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "historical_lens": 11,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/131",
+      "current_reconciliation": "partial original basis-point wire admission finding now connected to pinned Serde derive, constructor bounds and complement consumer; see ASSESSMENT-ROAD-BASIS-POINTS-95E.json; no full reconciliation or checkpoint3821 attribution; separate selected SATS macro path and direct-caller safeguards assessed conditionally in ASSESSMENT-CENTRAL-SATS-13G-95E.json; native expansion and supported ingress remain open"
+    },
+    {
+      "index": 151,
+      "contract_id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
+      "historical_lens": 11,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/151",
+      "current_reconciliation": "partial original uniform ABI finding linked to current reflection metadata and fast/standard packing, missing and wrong-kind conditions; see ASSESSMENT-KERNEL-95E.json; no full reconciliation or checkpoint3821 attribution; selected GPU bind/buffer source further traced in ASSESSMENT-GPU-BIND-BUFFER-95E.json; parent and aliases remain open; selected compute pass/pipeline current source further traced in ASSESSMENT-GPU-PASS-PIPELINE-95E.json; original identities and full reconciliation remain open; parameters/context and pinned native source further traced in ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json; full reconciliation remains open"
+    },
+    {
+      "index": 317,
+      "contract_id": "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "historical_lens": 12,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/317",
+      "current_reconciliation": "partial original SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION current selected source reconnected in ASSESSMENT-GPU-BIND-BUFFER-95E.json; distinct first operations and recorded alias qualifications retained; no full reconciliation or checkpoint3821 attribution; parameters/context and pinned native source further traced in ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json; full reconciliation remains open; hair GPU parameter producers selected in ASSESSMENT-HAIR-GPU-GROW-95E.json; original identities and full reconciliation remain open; guide native parameter producer further connected in ASSESSMENT-HAIR-GUIDES-95E.json; original identities and full reconciliation remain open"
+    },
+    {
+      "index": 370,
+      "contract_id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "historical_lens": 12,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/370",
+      "current_reconciliation": "partial original SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION selected current source and qualified earlier evidence reconnected in ASSESSMENT-GPU-PASS-PIPELINE-95E.json; distinct first predicates and e275/6533 attributions retained; no full reconciliation or checkpoint3821 attribution"
+    },
+    {
+      "index": 2331,
+      "contract_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "historical_lens": 12,
+      "historical_status": "open-source-reconciliation",
+      "source_pointer": "/entries/2331",
+      "current_reconciliation": "partial original PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION current selected source reconnected in ASSESSMENT-GPU-BIND-BUFFER-95E.json; distinct first operations and recorded alias qualifications retained; no full reconciliation or checkpoint3821 attribution; selected compute pass/pipeline current source further traced in ASSESSMENT-GPU-PASS-PIPELINE-95E.json; original identities and full reconciliation remain open; parameters/context and pinned native source further traced in ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json; full reconciliation remains open; hair GPU parameter producers selected in ASSESSMENT-HAIR-GPU-GROW-95E.json; original identities and full reconciliation remain open; guide native parameter producer further connected in ASSESSMENT-HAIR-GUIDES-95E.json; original identities and full reconciliation remain open"
+    },
+    {
+      "index": 2332,
+      "contract_id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "historical_lens": 12,
+      "historical_status": "open-source-reconciliation",
+      "source_pointer": "/entries/2332",
+      "current_reconciliation": "partial opaque reflection and checked PositiveLength source in ASSESSMENT-DELEGATED-RECONCILIATION-13E-95E.json; actual feature/caller, other types and SATS branch remain open; the SATS branch has a bounded macro and current owner/caller source assessment in ASSESSMENT-CENTRAL-SATS-13G-95E.json, with expansion and native ingress unproved"
+    },
+    {
+      "index": 2333,
+      "contract_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+      "historical_lens": 13,
+      "historical_status": "open-connected-source-current-alias-qualification",
+      "source_pointer": "/entries/2333",
+      "current_reconciliation": "unassessed"
+    }
+  ],
+  "qualification": "Only a literal search of selected metadata fields; relationships, aliases and semantic absence remain open."
+}

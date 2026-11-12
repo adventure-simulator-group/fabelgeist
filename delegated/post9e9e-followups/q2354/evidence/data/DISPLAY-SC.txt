@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/time/schedule.rs:75-130
+  75 ) -> ScheduleAllocation {
+  76     let mut effective = schedule.clone();
+  77     let redistributed = adventuresim_core::strategic_schedule::ValidatedSchedule::try_from(core_schedule(schedule))
+  78         .expect("saved schedules are validated on write")
+  79         .effective_at(location, redistribution_seed);
+  80     effective.combat_training_minutes = redistributed.combat_training_minutes;
+  81     effective.carousing_minutes = redistributed.carousing_minutes;
+  82     effective.socializing_minutes = redistributed.socializing_minutes;
+  83     effective.apprenticeship_minutes = redistributed.apprenticeship_minutes;
+  84     effective.profession_practice_minutes = redistributed.profession_practice_minutes;
+  85     effective.labor_minutes = redistributed.labor;
+  86     effective.prayer_minutes = redistributed.prayer;
+  87     effective.thievery_minutes = redistributed.thievery;
+  88     effective.raiding_minutes = redistributed.raiding;
+  89     effective
+  90 }
+  91 
+  92 fn default_schedule(character_id: u64) -> CharacterTrainingSchedule {
+  93     CharacterTrainingSchedule {
+  94         character_id,
+  95         downtime: ScheduleAllocation::default(),
+  96     }
+  97 }
+  98 
+  99 fn ensure_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+ 100     let official_minutes = refresh_clock(ctx)?;
+ 101     if ctx
+ 102         .db
+ 103         .character_time()
+ 104         .character_id()
+ 105         .find(character_id)
+ 106         .is_none()
+ 107     {
+ 108         ctx.db.character_time().insert(CharacterTime {
+ 109             character_id,
+ 110             scan_id: character_id,
+ 111             minutes: official_minutes,
+ 112         });
+ 113     }
+ 114     if ctx
+ 115         .db
+ 116         .character_training_schedule()
+ 117         .character_id()
+ 118         .find(character_id)
+ 119         .is_none()
+ 120     {
+ 121         ctx.db
+ 122             .character_training_schedule()
+ 123             .insert(default_schedule(character_id));
+ 124     }
+ 125     Ok(())
+ 126 }
+ 127 
+ 128 fn validate_organization_schedule(
+ 129     ctx: &ReducerContext,
+ 130     character_id: u64,

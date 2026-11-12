@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/residence.rs:1150-1210
+1150         character_id,
+1151         now,
+1152         ResidenceTransitionKind::Recovered,
+1153     );
+1154     Ok(())
+1155 }
+1156 
+1157 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+1158 pub(crate) enum NpcResidenceOutcome {
+1159     AlreadyOccupant,
+1160     RecoveredOwner,
+1161     Rented(HousingTier),
+1162     NoAffordableOffer,
+1163     NotAtHome,
+1164 }
+1165 
+1166 /// Scheduler-only residence policy using the same holdings and billing rules.
+1167 pub(crate) fn settle_npc_residence(
+1168     ctx: &ReducerContext,
+1169     character_id: u64,
+1170     home_settlement_id: &str,
+1171 ) -> Result<NpcResidenceOutcome, String> {
+1172     let character = crate::character::require_living_character(ctx, character_id)?;
+1173     if character.current_settlement_id.as_deref() != Some(home_settlement_id) {
+1174         return Ok(NpcResidenceOutcome::NotAtHome);
+1175     }
+1176     if ctx
+1177         .db
+1178         .residence_occupant()
+1179         .character_id()
+1180         .find(character_id)
+1181         .and_then(|home| ctx.db.settlement_property().id().find(home.property_id))
+1182         .is_some_and(|property| property.settlement_id == home_settlement_id)
+1183     {
+1184         return Ok(NpcResidenceOutcome::AlreadyOccupant);
+1185     }
+1186     let owned = ctx
+1187         .db
+1188         .residence_holding()
+1189         .holder_character_id()
+1190         .filter(character_id)
+1191         .filter(|holding| {
+1192             holding.tenure == ResidenceTenure::Owner
+1193                 && holding.settlement_id == home_settlement_id
+1194                 && holding.status != ResidenceHoldingStatus::Relinquished
+1195         })
+1196         .min_by_key(|holding| (holding.acquired_ordinal, holding.id.clone()));
+1197     if let Some(holding) = owned {
+1198         if holding.status == ResidenceHoldingStatus::Dormant
+1199             && recover_owned_residence_internal(ctx, character_id, &holding.id).is_err()
+1200         {
+1201             return Ok(NpcResidenceOutcome::NoAffordableOffer);
+1202         }
+1203         designate_holding_at(
+1204             ctx,
+1205             character_id,
+1206             &holding.id,
+1207             residence_now(ctx, character_id)?,
+1208         )?;
+1209         return Ok(if holding.status == ResidenceHoldingStatus::Dormant {
+1210             NpcResidenceOutcome::RecoveredOwner

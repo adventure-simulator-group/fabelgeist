@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""Display a prospectively registered exact source window; create output exclusively."""
+import json,pathlib,sys
+p=pathlib.Path(__file__).resolve().parent
+path,lo,hi,label=sys.argv[1],int(sys.argv[2]),int(sys.argv[3]),sys.argv[4]
+regs=[json.loads(f.read_text()) for f in p.glob("SOURCE*REGISTRATION.json")]
+assert any(any(x["path"]==path and x["range"][0]<=lo<=hi<=x["range"][1] for x in r.get("sources",[])) for r in regs)
+lines=(p/"source-95e"/path).read_text().splitlines()
+assert 1<=lo<=hi<=len(lines)
+out="".join(f"{i:4d} {lines[i-1]}\n" for i in range(lo,hi+1))
+f=p/"displays"/f"{label}-{lo}-{hi}.txt"
+with f.open("x") as h:h.write(out)
+print(out,end="")

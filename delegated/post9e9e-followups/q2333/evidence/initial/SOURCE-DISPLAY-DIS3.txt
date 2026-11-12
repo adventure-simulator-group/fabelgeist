@@ -1,0 +1,55 @@
+SOURCE crates/adventuresim-stdb-module/src/disease.rs:2222-2275
+2222 pub(crate) fn administer_intervention_component(
+2223     ctx: &ReducerContext,
+2224     patient_id: u64,
+2225     preparation_id: &str,
+2226     profile_version: u16,
+2227     dose: physiology::DoseMilliunits,
+2228 ) -> Result<(), String> {
+2229     if dose.is_zero() {
+2230         return Ok(());
+2231     }
+2232     let profile = physiology::intervention_profile(preparation_id, profile_version)
+2233         .ok_or("Unknown medicinal component profile version")?;
+2234     if profile.route != physiology::InterventionRoute::Oral {
+2235         return Err("Only oral medicinal components can be consumed with food".into());
+2236     }
+2237     let now = ctx
+2238         .db
+2239         .character_time()
+2240         .character_id()
+2241         .find(patient_id)
+2242         .ok_or("Patient time not found")?
+2243         .minutes;
+2244     let key = physiology_key(ctx)?;
+2245     let (sensitivity_bps, adverse_bps) = private_variation(ctx, patient_id, now, preparation_id)?;
+2246     ctx.db
+2247         .physiology_administration()
+2248         .insert(PhysiologyAdministration {
+2249             id: 0,
+2250             patient_id,
+2251             preparation_id: preparation_id.into(),
+2252             profile_version,
+2253             route: InterventionRoute::Oral,
+2254             dose_milliunits: dose.get(),
+2255             region: None,
+2256             administered_at: now,
+2257             stopped_at: None,
+2258             sensitivity_bps,
+2259             adverse_bps,
+2260             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+2261             phenotype_key_version: key.version,
+2262         });
+2263     commit_terminal_at_boundary(ctx, patient_id, now)
+2264 }
+2265 
+2266 #[reducer]
+2267 pub fn stop_preparation(
+2268     ctx: &ReducerContext,
+2269     actor_id: u64,
+2270     administration_id: u64,
+2271 ) -> Result<(), String> {
+2272     let mut administration = ctx
+2273         .db
+2274         .physiology_administration()
+2275         .id()

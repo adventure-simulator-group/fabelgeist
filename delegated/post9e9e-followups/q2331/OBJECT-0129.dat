@@ -1,0 +1,34 @@
+ 380 "#
+ 381     )
+ 382 }
+ 383 
+ 384 /// Triangle bounds for the mesh BVH, expanded by the collision shell so that a
+ 385 /// query for a point in the shell does not have to expand its own box.
+ 386 pub const TRIANGLE_BOUNDS: &str = r#"
+ 387 @group(0) @binding(0) var<storage, read> mesh_positions: array<vec4<f32>>;
+ 388 @group(0) @binding(1) var<storage, read> mesh_triangles: array<u32>;
+ 389 @group(0) @binding(2) var<storage, read_write> primitive_bounds: array<vec4<f32>>;
+ 390 
+ 391 struct Params {
+ 392     count: u32,
+ 393     margin: f32,
+ 394     pad0: u32,
+ 395     pad1: u32,
+ 396 };
+ 397 @group(0) @binding(3) var<uniform> params: Params;
+ 398 
+ 399 @compute @workgroup_size(256)
+ 400 fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
+ 401     let index = global_id.x;
+ 402     if (index >= params.count) {
+ 403         return;
+ 404     }
+ 405     let a = mesh_positions[mesh_triangles[index * 3u]].xyz;
+ 406     let b = mesh_positions[mesh_triangles[index * 3u + 1u]].xyz;
+ 407     let c = mesh_positions[mesh_triangles[index * 3u + 2u]].xyz;
+ 408 
+ 409     let margin = vec3<f32>(params.margin);
+ 410     primitive_bounds[index * 2u] = vec4<f32>(min(a, min(b, c)) - margin, 0.0);
+ 411     primitive_bounds[index * 2u + 1u] = vec4<f32>(max(a, max(b, c)) + margin, 0.0);
+ 412 }
+ 413 "#;

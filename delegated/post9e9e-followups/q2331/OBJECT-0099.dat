@@ -1,0 +1,156 @@
+# Bounded q2331 shader parameter-name propagation review
+
+Fresh source-only review by `/root/verifier_scope`, pinned to product revision
+`95e63628f9d70b8dd6e6fede64334696c6995009`. It does not close a whole lens or
+make a ledger/count decision. WGSL and macro-bearing Rust were inspected only
+as text. No shader, parser, macro, product code, fixture, build, test, renderer,
+GPU operation, runtime probe, implementation or repair was executed.
+
+## Original record and separately attributed evidence
+
+Original 059 queue `/entries/2331`, at evidence revision
+`56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e`, is the connected contract
+`PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION`, with status
+`open-source-reconciliation`. Both original granular proposed views explicitly
+record `current_reconciled: false`, `audit_discovery_closed: false`, and zero
+body credit. The second view qualifies the existing reflection, parameter and
+fast/general consumer graph, while retaining current source, exact aliases,
+unnamed identifiers, optional/default uniform and ABI policy as open. Neither
+view gives a whole-lens or runtime/repair pass. The exact q2331 original slice
+matches the separately labeled reconstructed public 059 entry at evidence
+revision `26e360920b7b2ec32d5c76238623eaf6d6617d7e`; the full streams differ.
+Neither is checkpoint 3821.
+
+All 27 q2331 directly hash-cited records, eight first-view nested proof records,
+and six records hash-cited by recovered root verification were recovered to
+the cited hashes. The latter include historical preflight/adapter scripts,
+preserved as inert evidence and never run. Eight candidate root/verification
+records separately match original transport digest, byte count and relative
+suffix; q2331 does not independently cite their expected hashes. Their own
+proposal/receipt hash relationships are checked, and their custody qualification
+is retained. Metadata on the same machine does not prove independent custody.
+
+The historical personal source reader is `/root/lens12_frontier`; root
+adoptions preserve that attribution and record no root rereads. Historical
+740/741/748/749 and the connected shader-reflection receipt lack a top-level
+personal-read time. Registration before a later root timestamp does not justify
+inventing one. Roles 2635/2636 were then future proofs with zero ordered credit,
+subject to later count-once rules. The mesh role 2551 was first read in a
+separately registered connected receipt and reused at ordered 865, whose
+`fresh_personal_body_reads` is empty; it was not a fresh 865 reread. Original
+Windows literal-path failures and exact-field-only normalization qualifications
+remain in the packet. No historical credit is transferred to this review.
+
+The twelve cited source files all match their recorded historical 6533 source
+hashes. Nine are byte-identical at 95e; `kernel/fast.rs`,
+`compute/pipeline/mod.rs`, and `compute_shader.rs` differ. The captured diffs
+show validation-observation changes in those three files, not equivalence of
+whole revisions, transitive dependencies or execution. The receipt records this
+reviewer's 26 current source displays and unread complements; the earlier
+reviewer's full historical reads remain separately attributed.
+
+## Current source graph and actual examples
+
+`compute/pipeline/reflection.rs:16-55,69-129` reads parsed native variable
+names for storage/texture/sampler bindings and bare struct member names for
+uniforms, preserving binding/group metadata separately in `ReflectionData`
+(`gpu/shader.rs:3-40`). `PassParameters` stores one `IndexMap<String,
+PassParameter>` and exposes insertion, lookup, a public map and conversion
+from a map (`gpu/parameters/mod.rs:5-40`). The general pass rematches member and
+resource names before constructing native bindings
+(`compute/pass/mod.rs:70-90,218-258,426-479`); the cached path separately
+rematches buffer and uniform names (`kernel/fast.rs:234-255,316-375`). The
+original primary `create_bind_groups` helper has its own lookups
+(`gpu/bind_group.rs:7-35,155-159,183-187,256-258`). A scoped direct literal
+search under `crates/` found only that helper's definition; it does not rule
+out aliases, external/public callers, macros or other call syntax. The current
+pass and cached callers are independently traced.
+
+The source uses genuine authored shader names, an open native namespace; raw
+strings alone do not establish a closed-game-enum defect. For a concrete
+bounded match, the prefix-sum WGSL text declares `data`, `sums`, `count`,
+`write_sums`, `pad0`, and `pad1` (`prefix_sum.rs:69-81,126-138`), while its
+host `record_level` inserts those same strings (`prefix_sum.rs:272-301`). The
+names' textual correspondence is source evidence, not proof of compilation or
+execution. Likewise, `TraversalConfig` provides default open identifiers and
+interpolates its fields into traversal source (`bvh/shaders.rs:390-490`);
+`GpuBvh::bind` uses those fields as keys (`bvh/mod.rs:166-179`). The mesh
+caller generates with a default-derived config and binds the default fields
+(`physics/mesh.rs:183-195`), whose declared textual buffer names appear in
+`physics/wgsl.rs:205-225`. The separately attributed prior
+`/root/mhr_character` BVH shader report already records this relationship and
+keeps native/custom namespace policy open.
+
+## Conditional questions and existing ownership
+
+1. **Group-qualified uniform names.** Reflection records a uniform member's
+   bare name and its offset/size, without the containing uniform variable name
+   or group in that member (`reflection.rs:113-129`, `shader.rs:3-8`). The
+   general pass iterates groups but queries one flat parameter map using only
+   that bare name (`compute/pass/mod.rs:70-90`). A hypothetical otherwise
+   admitted shader with group 0 and group 1 uniform structs both containing a
+   `count` member is therefore looked up using the same map key in each group;
+   the map cannot express distinct values for those two `count` fields. Whether
+   such a shader is valid/supported by the intended interface, whether the
+   names should intentionally share values, and whether any current producer
+   requires different values remain open. This is a source-level conditional,
+   not a parsed shader, execution, native-error claim, or accepted unique
+   finding. It refines q2331/q317's name-owner question; exact alias and policy
+   belong to central reconciliation.
+
+2. **Missing uniform policy and selection path.** `Kernel::run` compiles and
+   calls general `ComputePass::dispatch` (`kernel/mod.rs:147-166`), whose
+   uniform buffer starts zeroed and whose missing member lookup is skipped
+   (`compute/pass/mod.rs:84-90`). A nonempty `KernelBatch::dispatch` selects
+   `FastPath` when available (`kernel/mod.rs:249-286`), whose `write_uniform`
+   returns an error when a member is missing (`kernel/fast.rs:316-332`). This
+   is a conditional source comparison for prior successful setup and a
+   nonzero dispatch; it does not establish runtime acceptance or a requirement
+   that routes behave identically. The separately attributed current
+   `ASSESSMENT-KERNEL-95E` already records this distinction under original
+   q151's uniform-ABI/default policy. Its own type/shape and bounds questions
+   remain separate from the spelling/name contract.
+
+3. **Other existing reflection-shape questions are not new findings here.**
+   The source compacts present group layouts (`reflection.rs:25-45`) but later
+   indexes with the original group number and binds produced groups by vector
+   enumeration (`compute/pass/mod.rs:70-80,469-479`). Original 059 q370 and
+   the prior current pass/pipeline assessment already record this sparse-group
+   first operation. A group's `uniform_binding`/size are also overwritten as
+   additional uniforms append members (`reflection.rs:113-129`); the recovered
+   873 reuse qualification and prior current assessment already record this
+   multi-uniform policy case. Actual shader admission, native behavior and
+   optional shape policies remain untested, and these distinct operations do
+   not become aliases merely because related fixes might touch reflection.
+
+Original 059 q317 records the retained `SEGOVB-L12` name-propagation finding
+at the same original `create_bind_groups` first contract as historical
+proposal 748/PAR, with original index 2274 and zero accepted-unique increment
+in that proposal. This is concrete related-record evidence; it does not settle
+global aliases. Original q318–320 and q340–341 are separate first-reason
+records, while q151 owns uniform ABI and q370 owns sparse group position. The
+prior current bind assessment's conditional Mat3 example has separate helper
+and pass sites; no shared remedy alone establishes aliasing. Other located
+historical shader candidates include unrelated material/native scopes and are
+not promoted into this contract.
+
+A later connected ledger decision should preserve the open authored namespace,
+distinguish variable/member/group identities where supported, decide missing
+uniform and type/layout admission policy at the relevant adapters, and retain
+sparse/multiple-uniform and individual diagnostic operations as separate
+relationships until the actual alias/repair dependency is established. Any
+acceptance involving parsers, shaders, devices or runtime is deferred beyond
+this source-only audit; no repair is proposed or performed here.
+
+## Evidence and limits
+
+`VERIFY-EVIDENCE.py` checks the exact packet file set and hashes, source
+captures/registered displays, original/reconstructed queue slices, selected
+historical and current records, and optional Git/transport bindings. The
+separate privacy scan receipt binds the packet manifest. Three source requests
+were explicitly clamped to verified EOF; their actual displayed intervals are
+in `SOURCE-READ-RECEIPT.json` and `DISPLAY-QUALIFICATIONS.json`. Bounded
+locators confer no body or global-absence credit. Hashes, chronological
+attestations and bounded scans cannot establish comprehension, native shader
+admission, supported callers, product behavior, independent custody or missing
+checkpoint 3821 state.

@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:85-160
+  85     {
+  86         if let Some(last) = camps.last_mut()
+  87             && last.movement_minute == segment.movement_start
+  88             && last
+  89                 .elapsed_start_minute
+  90                 .saturating_add(last.elapsed_minutes)
+  91                 == segment.elapsed_start
+  92         {
+  93             last.elapsed_minutes = last.elapsed_minutes.saturating_add(segment.elapsed_minutes);
+  94             last.average_fatigue_end = segment.average_fatigue_end;
+  95             last.maximum_fatigue_end = last.maximum_fatigue_end.max(segment.maximum_fatigue_end);
+  96             continue;
+  97         }
+  98         if camps.len() >= MAX_ITINERARY_SEGMENTS {
+  99             break;
+ 100         }
+ 101         camps.push(JourneyCampInterval {
+ 102             movement_minute: segment.movement_start,
+ 103             elapsed_start_minute: segment.elapsed_start,
+ 104             elapsed_minutes: segment.elapsed_minutes,
+ 105             average_fatigue_start: segment.average_fatigue_start,
+ 106             average_fatigue_end: segment.average_fatigue_end,
+ 107             maximum_fatigue_end: segment.maximum_fatigue_end,
+ 108         });
+ 109     }
+ 110     camps
+ 111 }
+ 112 
+ 113 fn start_party_journey(
+ 114     ctx: &ReducerContext,
+ 115     party: &Party,
+ 116     origin: JourneyEndpoint,
+ 117     destination: JourneyEndpoint,
+ 118     total_movement_minutes: u64,
+ 119     departure_minute: StrategicMinute,
+ 120     route: Option<&JourneyRoutePlan>,
+ 121 ) -> Result<(), String> {
+ 122     require_no_unresolved_encounter(ctx, &party.id)?;
+ 123     if ctx
+ 124         .db
+ 125         .strategic_encounter()
+ 126         .party_id()
+ 127         .find(&party.id)
+ 128         .is_some()
+ 129     {
+ 130         ctx.db.strategic_encounter().party_id().delete(&party.id);
+ 131     }
+ 132     if ctx
+ 133         .db
+ 134         .party_journey_authority()
+ 135         .party_id()
+ 136         .find(&party.id)
+ 137         .is_some()
+ 138     {
+ 139         ctx.db
+ 140             .party_journey_authority()
+ 141             .party_id()
+ 142             .delete(&party.id);
+ 143     }
+ 144     if ctx
+ 145         .db
+ 146         .party_journey_route_authority()
+ 147         .party_id()
+ 148         .find(&party.id)
+ 149         .is_some()
+ 150     {
+ 151         ctx.db
+ 152             .party_journey_route_authority()
+ 153             .party_id()
+ 154             .delete(&party.id);
+ 155     }
+ 156     let fatigue_percent = party.camp_fatigue_percent;
+ 157     // This authority describes the active leg only. A later return starts its
+ 158     // own journey and itinerary; including a speculative return here doubles
+ 159     // camp exposure and disagrees with movement progress.
+ 160     let itinerary = forecast_itinerary(

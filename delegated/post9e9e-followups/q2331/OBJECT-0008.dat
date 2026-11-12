@@ -1,0 +1,27 @@
+{
+  "id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+  "primary_original_index": 2274,
+  "primary_source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+  "classification": "Distinct source-proven first contract; exact aliases/current/nativeconsumer pending",
+  "first_failed_contract": "create_bind_groups parameters API11 and ReflectionData member.name35/buffername157/texture185/sampler257 retain primitiveStringidentity andrematch35/159/187/258 before nativebindgroup conversion",
+  "canonical_owner": "Shaderparameter/binding identity shared with actual reflection and pass parameter admission; pass diagnosticname12 separate",
+  "exact_function_ownership": [
+    "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs SHAe88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95 ::create_bind_groups7..303"
+  ],
+  "producer_api_state_consumer_native_boundary": "Reflection/native shader names producerpending -> retained ReflectionData/IndexMap Stringparameters -> create_bind_groups7 actualrematches -> typed PassParameter match -> nativeUniformbytes,BindGroupEntry -> device.create_bind_group291 -> pass dispatch actualcaller nextsource.",
+  "connected_repair_scope": [
+    "Carry actual admitted shader binding identity from reflection/parameterproducer through retainedIndexMap and bindingconsumer",
+    "Keep arbitrary native shader names at exact codec boundary; no invented closed built-in shadergrammar"
+  ],
+  "dependencies": [
+    "Actual ReflectionData/PassParameter producers and pass dispatch callers in ordered upcoming2279+",
+    "Canonical existingowner/exactalias/current-all20 and optionaluniformpolicy"
+  ],
+  "acceptance_requirements": [
+    "Actual native authored names usable without postadmission rawStringrematches",
+    "Missing/unmatched/wrongtype parameter and explicitdefault policy remainsstructured anddecided",
+    "Native diagnosticpasslabel remains presentation; noerrorprose/obsoleteAPI preservation"
+  ],
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false
+}

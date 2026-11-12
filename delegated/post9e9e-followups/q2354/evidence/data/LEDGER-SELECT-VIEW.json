@@ -1,0 +1,64 @@
+[
+  {
+    "pointer": "/newly_assessed_ledger/entries/121",
+    "value": {
+      "id": "REVIEW-POPULATION-RESEED-HOUSEHOLD-001",
+      "lens": 7,
+      "severity": "unassigned; source-established overwrite conditional on an already changed resident household and a successful repeated setup",
+      "classification": "New bounded 95e authority assessment of seeded resident replay; no observed game incident or historical unique-count change is claimed.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/967",
+        "baseline-059/queue.json#/entries/968",
+        "baseline-059/queue.json#/entries/969",
+        "segovb/READ-L12-267.json via ASSESSMENT-L05-COURTSHIP-LOCATION-95E.json"
+      ],
+      "relationship_qualification": "The seed household replay is a bounded new current authority trace, with historical aliases still open. The profession-label issue revisits the same 059 contract; no additional historical unique-count change is inferred. The separate packing trace stays under its existing ledger record.",
+      "discovery": "partial; admitted player/NPC sequence, all seed callers, transaction outcomes, roster changes and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-L07-POPULATION-REPLAY-95E.json"
+    }
+  },
+  {
+    "pointer": "/newly_assessed_ledger/entries/122",
+    "value": {
+      "id": "SEGOVB-L12-RESIDENT-PROFESSION-TEXT-AUTHORITY",
+      "lens": 12,
+      "severity": "unassigned; display string is used to decide a professional role, while changed-label or mismatched native admission is unestablished",
+      "classification": "95e revisit of the same earlier Lens12 source contract; not a new unique historical defect.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/967",
+        "baseline-059/queue.json#/entries/968",
+        "baseline-059/queue.json#/entries/969",
+        "baseline-059/queue.json#/entries/226",
+        "segovb/READ-L12-278.json via ASSESSMENT-L07-POPULATION-REPLAY-95E.json"
+      ],
+      "relationship_qualification": "The seed household replay is a bounded new current authority trace, with historical aliases still open. The profession-label issue revisits the same 059 contract; no additional historical unique-count change is inferred. The separate packing trace stays under its existing ledger record.",
+      "discovery": "partial; full profession producer/catalog, persisted native admission, all role consumers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-L07-POPULATION-REPLAY-95E.json"
+    }
+  },
+  {
+    "pointer": "/newly_assessed_ledger/entries/841",
+    "value": {
+      "id": "SEGOVB-L11-STALE-RESIDENT-SELECTION",
+      "lens": 11,
+      "additional_current_lenses": [],
+      "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+      "severity": "unassigned; historical bounded contract or open policy question",
+      "classification": "A completed resident request can publish a global selection after its originating mount is stale.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/203"
+      ],
+      "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+      "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+      "connected_repair_direction": "Bind successful async result admission to the current mount and target identity.",
+      "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+    }
+  }
+]

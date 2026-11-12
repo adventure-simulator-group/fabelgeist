@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-stdb-module/src/world_actor/presence.rs:76-115
+  76                 && row.left_at.is_none_or(|left| minute < left)
+  77         });
+  78     let row = rows.next()?;
+  79     rows.next().is_none().then_some(row)
+  80 }
+  81 
+  82 fn case_context_party_visible_at_view(
+  83     ctx: &ViewContext,
+  84     row: &CharacterContextMembership,
+  85     party: &crate::strategic::Party,
+  86 ) -> bool {
+  87     ctx.db
+  88         .character_time()
+  89         .character_id()
+  90         .find(party.leader_id)
+  91         .is_some_and(|time| {
+  92             let minute = time.minutes;
+  93             context_membership_valid_at(row, minute)
+  94                 && character_case_site_occupancy_at_view(ctx, party.leader_id, minute)
+  95                     .map(|occupancy| occupancy.case_site_id.to_place())
+  96                     .zip(canonical_case_site_place(&row.location_id))
+  97                     .is_some_and(|(party_place, context_place)| party_place == context_place)
+  98                 && exact_case_site_visible_to_observer_view(
+  99                     ctx,
+ 100                     party.leader_id,
+ 101                     &row.location_id,
+ 102                     minute,
+ 103                 )
+ 104                 && (row.role != CharacterContextRole::Patient
+ 105                     || crate::outbreak::case_patient_visible_to_character_view(
+ 106                         ctx,
+ 107                         party.leader_id,
+ 108                         &row.context_id,
+ 109                         minute,
+ 110                     ))
+ 111         })
+ 112 }
+ 113 
+ 114 fn actor_case_presence(
+ 115     ctx: &ReducerContext,

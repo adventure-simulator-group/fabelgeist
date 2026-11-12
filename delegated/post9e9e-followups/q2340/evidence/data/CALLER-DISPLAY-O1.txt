@@ -1,0 +1,87 @@
+SOURCE crates/adventuresim-stdb-module/src/outbreak.rs:815-900
+ 815         .character_id()
+ 816         .filter(character_id)
+ 817         .any(|receipt| {
+ 818             receipt.problem_id == authority.problem_id
+ 819                 && receipt.settlement_id == authority.settlement_id
+ 820                 && receipt.learned_at <= minute
+ 821         })
+ 822 }
+ 823 
+ 824 pub(crate) fn case_patient_visible_to_character(
+ 825     ctx: &ReducerContext,
+ 826     character_id: u64,
+ 827     case_id: &str,
+ 828     minute: StrategicMinute,
+ 829 ) -> bool {
+ 830     let Some(authority) = ctx
+ 831         .db
+ 832         .outbreak_authority()
+ 833         .case_id()
+ 834         .find(case_id.to_owned())
+ 835     else {
+ 836         return false;
+ 837     };
+ 838     ctx.db
+ 839         .local_problem_receipt()
+ 840         .character_id()
+ 841         .filter(character_id)
+ 842         .any(|receipt| {
+ 843             receipt.problem_id == authority.problem_id
+ 844                 && receipt.settlement_id == authority.settlement_id
+ 845                 && receipt.learned_at <= minute
+ 846         })
+ 847 }
+ 848 
+ 849 fn materialize_patient_corpse(
+ 850     ctx: &ReducerContext,
+ 851     generated: &adventuresim_core::quest_generation::GeneratedCase,
+ 852     exposure: &adventuresim_core::quest_generation::OutbreakExposure,
+ 853     settlement_id: &str,
+ 854     death_minute: StrategicMinute,
+ 855 ) -> Result<String, String> {
+ 856     use adventuresim_core::{
+ 857         autopsy::SystemicPathologySnapshot,
+ 858         disease::{InfectionEpisode, Symptom, combined_state},
+ 859         physiology::Meter,
+ 860         quest_generation::OutbreakPatientDeathKind,
+ 861     };
+ 862     let outbreak = generated
+ 863         .outbreak
+ 864         .as_ref()
+ 865         .ok_or("Outbreak truth missing")?;
+ 866     let cause = match exposure.death_kind {
+ 867         Some(OutbreakPatientDeathKind::CarrierAttack) => crate::character::DeathCause::Combat,
+ 868         Some(OutbreakPatientDeathKind::Disease) => crate::character::DeathCause::Disease,
+ 869         None => return Err("Living outbreak patient cannot materialize a corpse".into()),
+ 870     };
+ 871     let source = match exposure.death_kind {
+ 872         Some(OutbreakPatientDeathKind::CarrierAttack) => crate::character::DeathSource::Autoresolve,
+ 873         _ => crate::character::DeathSource::Disease,
+ 874     };
+ 875     crate::investigation::set_character_case_site(
+ 876         ctx,
+ 877         exposure.patient_character_id,
+ 878         Some(outbreak.patient_presentation_site.0.clone()),
+ 879     )?;
+ 880     let death_source_id = format!("outbreak-victim:{}", generated.canonical_case_id);
+ 881     if let Some(existing) = ctx
+ 882         .db
+ 883         .character_death()
+ 884         .character_id()
+ 885         .find(exposure.patient_character_id)
+ 886         && (existing.strategic_minute != death_minute
+ 887             || existing.source_id.as_deref() != Some(death_source_id.as_str()))
+ 888     {
+ 889         return Err("Outbreak patient death provenance collision".into());
+ 890     }
+ 891     crate::character::transition_character_to_dead_at(
+ 892         ctx,
+ 893         exposure.patient_character_id,
+ 894         cause,
+ 895         source,
+ 896         Some(death_source_id),
+ 897         death_minute,
+ 898     )?;
+ 899     let corpse_id = format!("corpse:character:{}", exposure.patient_character_id);
+ 900     let episode = InfectionEpisode {

@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:255-315
+ 255         ctx,
+ 256         character_id,
+ 257         day,
+ 258         NpcPolicyDecisionPhase::Schedule,
+ 259         outcome,
+ 260         None,
+ 261         minute,
+ 262     );
+ 263     Ok(())
+ 264 }
+ 265 
+ 266 fn settle_housing_decision(
+ 267     ctx: &ReducerContext,
+ 268     character_id: u64,
+ 269     home_settlement_id: &str,
+ 270     minute: StrategicMinute,
+ 271 ) -> Result<(), String> {
+ 272     let day = minute.day_index();
+ 273     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Housing) {
+ 274         return Ok(());
+ 275     }
+ 276     let character = ctx
+ 277         .db
+ 278         .character()
+ 279         .id()
+ 280         .find(character_id)
+ 281         .ok_or("NPC policy character not found")?;
+ 282     let outcome = if !character.alive || character.age_years < ADULT_AGE_YEARS {
+ 283         NpcPolicyDecisionOutcome::Ineligible
+ 284     } else {
+ 285         match crate::residence::settle_npc_residence(ctx, character_id, home_settlement_id)? {
+ 286             crate::residence::NpcResidenceOutcome::AlreadyOccupant => {
+ 287                 NpcPolicyDecisionOutcome::HousingAlreadyOccupied
+ 288             }
+ 289             crate::residence::NpcResidenceOutcome::RecoveredOwner => {
+ 290                 NpcPolicyDecisionOutcome::HousingRecovered
+ 291             }
+ 292             crate::residence::NpcResidenceOutcome::Rented(tier) => match tier {
+ 293                 adventuresim_core::courtship::HousingTier::Cheap => {
+ 294                     NpcPolicyDecisionOutcome::HousingRentedCheap
+ 295                 }
+ 296                 adventuresim_core::courtship::HousingTier::Moderate => {
+ 297                     NpcPolicyDecisionOutcome::HousingRentedModerate
+ 298                 }
+ 299                 adventuresim_core::courtship::HousingTier::Fancy => {
+ 300                     NpcPolicyDecisionOutcome::HousingRentedFancy
+ 301                 }
+ 302             },
+ 303             crate::residence::NpcResidenceOutcome::NoAffordableOffer => {
+ 304                 NpcPolicyDecisionOutcome::HousingUnaffordable
+ 305             }
+ 306             crate::residence::NpcResidenceOutcome::NotAtHome => {
+ 307                 NpcPolicyDecisionOutcome::HousingNotAtHome
+ 308             }
+ 309         }
+ 310     };
+ 311     record_decision(
+ 312         ctx,
+ 313         character_id,
+ 314         day,
+ 315         NpcPolicyDecisionPhase::Housing,

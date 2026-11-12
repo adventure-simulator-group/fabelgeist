@@ -1,0 +1,147 @@
+{
+      "contract_id": "SEGOVB-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+      "kind": "retained-finding-or-question",
+      "lens": 12,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "first_failed_contract_or_unresolved_question": "ComputePass.record reflection OptionNone emitsclosedprose at68",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+          "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              484
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+          "proof_pointer": "/rows/0",
+          "receipt": {
+            "path": "segovb/READ-L12-749.json",
+            "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+          "source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              187
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+          "proof_pointer": "/rows/1",
+          "receipt": {
+            "path": "segovb/READ-L12-749.json",
+            "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+          "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              42
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+          "proof_pointer": "/rows/2",
+          "receipt": {
+            "path": "segovb/READ-L12-749.json",
+            "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+          "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              129
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+          "proof_pointer": "/rows/3",
+          "receipt": {
+            "path": "segovb/READ-L12-749.json",
+            "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+          "source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              73
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+          "proof_pointer": "/rows/4",
+          "receipt": {
+            "path": "segovb/READ-L12-749.json",
+            "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2279,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2279"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": null,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../segovb/READ-L12-749.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+      "remaining_evidence": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    }

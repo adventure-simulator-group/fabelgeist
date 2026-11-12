@@ -1,0 +1,255 @@
+# Exact873..880 delta from authenticated inspected865..872v3; old helper immutable.
+# Default read-only; --write is root-only after semantic review.
+"""UNEXECUTED root-only writer proposal. Root reviews and executes only.
+
+Whole-bundle read-only preflight precedes every output. Existing source/body
+validators are unchanged. Per-batch exact authority archives preserve recovery.
+No product execution; root is the sole authoritative writer.
+"""
+import argparse
+import ast
+import datetime
+import hashlib
+import json
+import pathlib
+import subprocess
+import sys
+
+R = pathlib.Path('target/726-audit-adler-20261027')
+S, W = R / 'segovb', R / 'workflow-20261030'
+LP, CP = R / 'evidence/continuation-segovb/ledger.json', R / 'CURRENT-ADLER.json'
+RECOVERY = {}
+# Reuse only three inspected primitive definitions, never historical top-level.
+old = R / 'root-evidence-helper-history-20261029/root_l12_bundle857_864_adopt_v6.py'
+assert hashlib.sha256(old.read_bytes()).hexdigest() == '208627a906f477e3d6813627eaf66d81524f0502e496ac0bc3c6c3446f172422'
+tree = ast.parse(old.read_text())
+defs = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name in {'sha', 'read', 'save'}]
+assert [n.name for n in defs] == ['sha', 'read', 'save']
+exec(compile(ast.Module(body=defs, type_ignores=[]), str(old), 'exec'), globals())
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--ledger-sha256', required=True)
+    ap.add_argument('--selector-sha256', required=True)
+    ap.add_argument('--queue-number', required=True, type=int)
+    ap.add_argument('--write', action='store_true', help='Root-only authority mutation after review; omitted means read-only')
+    args = ap.parse_args()
+    assert sha(LP) == args.ledger_sha256 and sha(CP) == args.selector_sha256
+    bp = R / 'parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json'
+    bs = '2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df'
+    assert sha(bp) == bs
+    B = json.loads(bp.read_text())
+    pf = R / 'parallel-l12-20261029/preflight-l12-bundle-004-PROPOSAL.py'
+    assert sha(pf) == '13c4828c8d4c528c92f5eea45863a42a60b95e21fb60670791c40e5701d99f07'
+    subprocess.run([sys.executable, str(pf), '--ledger-sha256', args.ledger_sha256,
+                    '--selector-sha256', args.selector_sha256], check=True)
+    L, C = json.loads(LP.read_text()), json.loads(CP.read_text())
+    cl = L['segovb_continuation']['lens12']
+    assert (cl['next_original'], cl['next_batch']) == (2571, 873)
+    assert sha(R / 'adler/QUALIFICATION-L12-234-READLOG.json') == '1c240c4538e8734144ed75e55ce6fbf6e136a606c95446ddeb2fb1ec3c00e60d'
+    proposals = [(ref, read(ref)) for ref in B['immutable_proposals']]
+    source_rows = {x['original_index']: x for _, j in proposals for x in j['rows']}
+    assert len(source_rows) == 21
+    adopted_paths = []
+    old_shape = {'path', 'sha256', 'adopted_continuation_registration_number', 'qualification'}
+    team19_shape = {'isolated_registration_number', 'continuation_registration_number', 'registration', 'root_adoption'}
+    counts = [0, 0]
+    for entry in cl['parallel_registration_adoptions']:
+        if set(entry) == old_shape:
+            read({'path': entry['path'], 'sha256': entry['sha256']})
+            adopted_paths.append(entry['path'])
+            counts[0] += 1
+        else:
+            assert set(entry) == team19_shape
+            assert 581 <= entry['isolated_registration_number'] <= 591
+            assert entry['continuation_registration_number'] == entry['isolated_registration_number'] + 971
+            assert entry['registration']['path'] == f"parallel-l12-20261029/REGISTRATION-PAR-L12-{entry['isolated_registration_number']}.json"
+            rg = read(entry['registration'])
+            root = entry['root_adoption']
+            assert root['path'] == 'segovb/READ-L12-CONNECTED-TEAM-019.json' and root['sha256'] == '5aa61e7d3aa266ac7ebbf4597f24eeb02bfe7c5a14a1a120a5ba50fe495ac23a'
+            ar = read(root)
+            av = read({'path': root['verification'], 'sha256': root['verification_sha256']})
+            assert root['verification_sha256'] == '1a4dda2616c55c4f879c2b980f8764f292dc092b0dd059203bcb2d265157bfa4'
+            assert av['receipt_sha256'] == root['sha256'] and av['strict_preflight']['preflight'] == 'passed'
+            match = [z for z in ar['root_registration_adoption_mapping'] if z['isolated_registration'] == entry['isolated_registration_number']]
+            assert len(match) == 1 and match[0]['continuation_registration'] == entry['continuation_registration_number'] and match[0]['source_id'] == rg['source_id']
+            adopted_paths.append(entry['registration']['path'])
+            counts[1] += 1
+    assert counts == [611, 11] and len(set(adopted_paths)) == 622
+    for ref, j in proposals:
+        for stem in ('READ', 'STATE', 'VERIFY'):
+            assert not (S / f'{stem}-L12-{j["proposed_batch"]}.json').exists()
+        for row in j['rows']:
+            assert row['registration'] not in adopted_paths
+    assert all(row['qualified_same_lens_reuse_ranges_and_exact_proofs'] == [] for row in source_rows.values())
+    # Authenticate all partials and exact additive field qualifications, no extra credits.
+    for ref in B['qualifications']:
+        read(ref)
+    for ref in B['recovery_checkpoint']['bounded_partial_receipts']:
+        partial = read(ref)
+        assert partial['lens'] == 12 and partial['product_execution'] is False
+        for row in partial['rows']:
+            rg = read({'path': row['registration'], 'sha256': row['registration_sha256']})
+            assert row['source_id'] == rg['source_id'] and row['source_sha256'] == rg['source_sha256']
+            assert row['actual_EOF'] == rg['actual_EOF']
+            assert all(1 <= a <= z <= row['actual_EOF'] for a, z in row['assessed_ranges'])
+            points = lambda rr: {n for a, z in rr for n in range(a, z + 1)}
+            assert points(row['assessed_ranges']) <= points(rg['ranges'])
+            assert points(row['fresh_personal_body_reads']) <= points(row['assessed_ranges'])
+            assert row['body_output_truncation_status'] == 'untruncated'
+            assert row['attribution'] == 'Subagent /root/lens12_frontier personal prospective bounded untruncated read'
+            assert datetime.datetime.fromisoformat(rg['registered_at']) < datetime.datetime.fromisoformat(partial['at'])
+    for update in B['contract_updates']:
+        for item in update['exact_source_identities_and_assessed_ranges']:
+            if update['contract_id_or_proposed_new_id'] == 'PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION':
+                # Exact9 historical personal proofs use original_agent_receipt, not modern receipt.
+                assert item['original_index'] in {2243, 2244, 2274, 2279, 2280, 2281, 2283, 2635, 2636}
+                pj = read(item['original_agent_receipt'])
+                rg = read(item['prospective_registration'])
+                ar = read(item['root_adoption'])
+                row = pj
+                for key in item['row_pointer'].split('/')[1:]:
+                    row = row[int(key)] if isinstance(row, list) else row[key]
+                rootrow = ar
+                for key in item['root_row_pointer'].split('/')[1:]:
+                    rootrow = rootrow[int(key)] if isinstance(rootrow, list) else rootrow[key]
+                for key in ('source_id', 'source_sha256', 'actual_EOF', 'assessed_ranges', 'attribution'):
+                    assert row[key] == rootrow[key] == item[key]
+                assert rg['source_id'] == item['source_id'] and rg['source_sha256'] == item['source_sha256']
+                assert rg['actual_EOF'] == item['actual_EOF'] and rg['ranges'] == item['assessed_ranges']
+            else:
+                assert update['contract_id_or_proposed_new_id'] in {'L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS', 'PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL'}
+                pj = read(item['receipt'])
+                row = pj['rows'][int(item['row_pointer'].split('/')[-1])]
+                assert row['source_id'] == item['source_id'] and row['source_sha256'] == item['source_sha256']
+                assert row['assessed_ranges'] == item['assessed_ranges'] and row['attribution'] == item['attribution']
+    canonical = 'SEGOVB-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL'
+    assert canonical not in L['discovery_findings_and_dependencies']
+    assert not any(x['id'] == canonical for x in cl['source_findings'])
+    oldq = L['audit_workflow']['closure_queue']
+    assert C['audit_workflow']['closure_queue'] == oldq
+    Q = read(oldq)
+    qpath, upath = W / f'CLOSURE-QUEUE-{args.queue_number:03}.json', W / f'QUEUE-UPDATE-{args.queue_number:03}.json'
+    assert not qpath.exists() and not upath.exists()
+    assert sha(LP) == args.ledger_sha256 and sha(CP) == args.selector_sha256
+    if not args.write:
+        print(json.dumps({'mode': 'read_only', 'preflight': 'passed', 'authority_writes': 0,
+            'would_adopt_batches': [873, 880], 'would_add_original_roles': 21,
+            'new_candidate': canonical, 'accepted_count_change': 0, 'implementation_gate_complete': False}))
+        return
+    adapter = {'path': str(pathlib.Path(__file__).resolve().relative_to(R.resolve())), 'sha256': sha(pathlib.Path(__file__))}
+    bundle = {'path': str(bp.relative_to(R)), 'sha256': bs}
+    receipts = []
+    initial_registration = cl['next_registration']
+    for ref, j in proposals:
+        L, C = json.loads(LP.read_text()), json.loads(CP.read_text())
+        cl = L['segovb_continuation']['lens12']
+        lh = sha(LP)
+        batch = j['proposed_batch']
+        assert C['ledger_sha256'] == lh
+        assert cl['next_batch'] == batch and cl['next_original'] == cl['original_accounted'] == j['proposed_original_before']
+        previous = R / cl['current_state']
+        assert sha(previous) == cl['current_state_sha256']
+        hp = R / 'checkpoint-history' / f'{lh}.json'
+        archive = {'ledger': L, 'current': C}
+        if hp.exists():
+            assert json.loads(hp.read_text()) == archive
+            RECOVERY[str(hp)] = sha(hp)
+        save(hp, archive)
+        now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+        rp, sp, vp = (S / f'{stem}-L12-{batch}.json' for stem in ('READ', 'STATE', 'VERIFY'))
+        fresh = j['rows']
+        start, end = cl['next_registration'], cl['next_registration'] + len(fresh)
+        mappings = [{'path': x['registration'], 'sha256': x['registration_sha256'],
+                     'adopted_continuation_registration_number': start + n,
+                     'qualification': 'Root adoption number only; original agent prospective chronology/body attribution preserved.'} for n, x in enumerate(fresh)]
+        save(rp, {'kind': 'Root adoption of delegated independent Lens12 ordered audit evidence', 'lens': 12, 'batch': batch, 'at': now,
+                  'proposal': ref['path'], 'proposal_sha256': ref['sha256'], 'validated_bundle': bundle, 'rows': j['rows'],
+                  'delegated_attribution_preserved': True, 'root_personal_rereads': [], 'adopted_registration_mapping': mappings,
+                  'new_original_roles': len(j['rows']), 'new_overlay_merged_shared_or_extension_credit': 0,
+                  'new_global_source_registration_records': 0, 'accepted_unique_count_change': 0, 'new_findings': j['new_findings'],
+                  'current_source_reconciled': False, 'inherited_disease1093_read_qualification_unchanged': True,
+                  'runtime_validation': 'Not run; source audit only', 'pending': j['pending_connected_contracts'],
+                  'scope_qualifications': j['scope_qualifications'], 'additive_qualifications': B['qualifications'],
+                  'implementation_gate_complete': False})
+        save(sp, {'lens': 12, 'kind': 'Source-accounted original roles with connected audit contracts incomplete',
+                  'original_accounted': j['proposed_original_after'], 'original_total': 2853, 'next_original': j['proposed_original_after'],
+                  'predecessor': str(previous.relative_to(R)), 'predecessor_sha256': sha(previous),
+                  'receipt': str(rp.relative_to(R)), 'receipt_sha256': sha(rp),
+                  'inherited_disease1093_read_qualification': 'adler/QUALIFICATION-L12-234-READLOG.json',
+                  'qualification_sha256': '1c240c4538e8734144ed75e55ce6fbf6e136a606c95446ddeb2fb1ec3c00e60d',
+                  'other_populations_counts_unchanged': True, 'all_inherited_qualifications_retained': True,
+                  'next_batch': batch + 1, 'next_registration': end, 'delegated_registration_mapping': mappings,
+                  'implementation_gate_complete': False})
+        save(vp, {'lens': 12, 'kind': 'Evidence-only whole-bundle strict source preflight and ordered root adoption',
+                  'receipt_sha256': sha(rp), 'state_sha256': sha(sp), 'proposal_sha256': ref['sha256'],
+                  'ruleset': {'path': str(pf.relative_to(R)), 'sha256': sha(pf)}, 'root_adapter': adapter,
+                  'exact_source_registry_Git_native_crate_hash_EOF_recursive_ranges_reuse_partial_qualifications_checked': True,
+                  'other_lens_coverage_transferred': False, 'new_original_roles': len(j['rows']), 'product_execution': False, 'gate': False})
+        aref = {'path': str(rp.relative_to(R)), 'sha256': sha(rp)}
+        if batch == 878:
+            finding = dict(j['new_findings'][0])
+            assert finding['id'] == 'PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL'
+            finding.update(id=canonical, source_original_index=2587,
+                source_sha256=finding['primary_source_sha256'], exact_global_alias_inventory_complete=False,
+                current_reconciled=False, repair_status='Not started; audit only',
+                source_receipt='../../' + str(rp.relative_to(R)), source_receipt_sha256=sha(rp))
+            L['discovery_findings_and_dependencies'][canonical] = finding
+            cl['source_findings'].append({'id': canonical, 'receipt': str(rp.relative_to(R)),
+                'receipt_sha256': sha(rp), 'unique_count_change': 0})
+        cl.update(next_original=j['proposed_original_after'], original_accounted=j['proposed_original_after'], next_batch=batch + 1,
+                  next_registration=end, last_checkpoint_at=now, current_state=str(sp.relative_to(R)), current_state_sha256=sha(sp))
+        cl['discovery_receipts'].append(aref)
+        cl['parallel_registration_adoptions'].extend(mappings)
+        cl.setdefault('pending_connected_contracts', []).append(j['pending_connected_contracts'])
+        cl.setdefault('other_lens_original_revisit_queues', []).append({'proposal': ref, 'actual_scopes': j['necessary_all_other_lens_queue'], 'all_other_lenses_pending': True, 'body_or_population_credit': 0})
+        cl.setdefault('bundle_adoptions', []).append({'bundle': bundle, 'batch': batch, 'receipt': aref, 'current_credit': 0})
+        coverage = next(z for z in L['lens_coverage'] if z['number'] == 12)
+        coverage.update(current_successor='../../' + str(sp.relative_to(R)), current_successor_sha256=sha(sp),
+                        latest_receipt='../../' + str(rp.relative_to(R)), current_original_accounted=j['proposed_original_after'])
+        L['segovb_continuation']['last_checkpoint_at'] = now
+        LP.write_text(json.dumps(L, indent=2) + '\n')
+        C.update(at=now, ledger_sha256=sha(LP), previous_checkpoint_archive=str(hp.relative_to(R)))
+        next(z for z in C['frontiers'] if z['lens'] == 12).update(original_accounted=j['proposed_original_after'], next_original=j['proposed_original_after'],
+            state=str(sp.relative_to(R)), state_sha256=sha(sp), latest_receipt=str(rp.relative_to(R)), next_action=j['pending_connected_contracts'])
+        CP.write_text(json.dumps(C, indent=2) + '\n')
+        receipts.append(aref)
+    assert cl['next_registration'] == initial_registration + 21
+    entries = {x['contract_id']: x for x in Q['entries']}
+    for n, update in enumerate(B['contract_updates']):
+        cid = update['contract_id_or_proposed_new_id']
+        e = entries.setdefault(cid, {'contract_id': cid, 'kind': 'connected-contract', 'lens': 12, 'status': 'open-source-reconciliation', 'body_or_population_credit': 0, 'implementation_gate_complete': False})
+        assert e['lens'] == 12
+        e.setdefault('granular_contract_views', []).append({'bundle': {**bundle, 'row_pointer': f'/contract_updates/{n}'}, 'contract_update_as_proposed': update,
+            'exact_source_identities_and_assessed_ranges': update['exact_source_identities_and_assessed_ranges'], 'current_reconciled': False, 'audit_discovery_closed': False, 'body_credit': 0})
+        e.setdefault('remaining_evidence', []).append({'remaining_exact_contract_evidence': update['remaining_evidence'], 'historical_obligations_preserved': True})
+        e.setdefault('dependencies', []).extend(y for y in update['dependencies'] if y not in e.get('dependencies', []))
+        for k, value in [('canonical_owner', update['canonical_owner_or_explicit_unresolved_owner_question']), ('first_failed_contract_or_unresolved_question', update['first_failed_contract_or_unresolved_question']), ('closure_condition', update['closure_condition'])]:
+            e.setdefault(k, value)
+    Q.setdefault('current_delta_followups', []).append({'bundle': bundle, 'updates': B['current_delta_updates'], 'new_current_body_credit': 0, 'current_delta_closed': False})
+    Q['progress']['original_inventory']['lens12'] = {'accounted': 2592, 'next_original': 2592, 'remaining': 261, 'proof': {'path': cl['current_state'], 'sha256': cl['current_state_sha256']}}
+    Q['progress']['reconciliation_closure']['queue_entries_not_unique_findings'] = len(entries)
+    Q.update(at=now, predecessor=oldq, entries=list(entries.values()), latest_contract_updates=[x['contract_id_or_proposed_new_id'] for x in B['contract_updates']])
+    L, C = json.loads(LP.read_text()), json.loads(CP.read_text())
+    lh = sha(LP)
+    assert C['ledger_sha256'] == lh and L['audit_workflow']['closure_queue'] == oldq
+    hp = R / 'checkpoint-history' / f'{lh}.json'
+    save(hp, {'ledger': L, 'current': C})
+    save(qpath, Q)
+    save(upath, {'at': now, 'bundle': bundle, 'ordered_adoptions': receipts, 'contract_updates': B['contract_updates'],
+                 'current_delta_updates': B['current_delta_updates'], 'exact_additive_metadata_qualifications': B['qualifications'],
+                 'new_body_or_unique_credit_from_queue': 0, 'product_execution': False})
+    qr = {'path': str(qpath.relative_to(R)), 'sha256': sha(qpath)}
+    L['audit_workflow']['closure_queue'] = qr
+    L['audit_workflow']['queue_updates'].append({'path': str(upath.relative_to(R)), 'sha256': sha(upath)})
+    LP.write_text(json.dumps(L, indent=2) + '\n')
+    C['audit_workflow']['closure_queue'] = qr
+    C.update(at=now, ledger_sha256=sha(LP), previous_checkpoint_archive=str(hp.relative_to(R)))
+    CP.write_text(json.dumps(C, indent=2) + '\n')
+    print(json.dumps({'adopted_batches': [873, 880], 'L12_original': 2592, 'next_batch': 881,
+                      'next_registration': cl['next_registration'], 'queue': qr, 'ledger': sha(LP), 'implementation_gate_complete': False}))
+
+
+if __name__ == '__main__':
+    main()

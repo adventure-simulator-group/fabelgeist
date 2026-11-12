@@ -1,0 +1,41 @@
+  10 
+  11 pub const TRUTHFUL_WITNESS_RULES_VERSION: u16 = 3;
+  12 pub const RUNE_TRANSFORMATION_RULES_VERSION: u16 = 4;
+  13 
+  14 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  15 pub enum PuzzleKind {
+  16     OrderedSigils,
+  17     TruthfulWitnesses,
+  18     RuneTransformation,
+  19     LogicGrid,
+  20     ResourceAllocation,
+  21 }
+  22 
+  23 impl PuzzleKind {
+  24     pub const ALL: [Self; 5] = [
+  25         Self::OrderedSigils,
+  26         Self::TruthfulWitnesses,
+  27         Self::RuneTransformation,
+  28         Self::LogicGrid,
+  29         Self::ResourceAllocation,
+  30     ];
+  31 
+  32     pub const fn slug(self) -> &'static str {
+  33         match self {
+  34             Self::OrderedSigils => "ordered-sigils",
+  35             Self::TruthfulWitnesses => "truthful-witnesses",
+  36             Self::RuneTransformation => "rune-transformation",
+  37             Self::LogicGrid => "logic-grid",
+  38             Self::ResourceAllocation => "resource-allocation",
+  39         }
+  40     }
+  41 
+  42     pub fn from_slug(value: &str) -> Option<Self> {
+  43         Self::ALL.into_iter().find(|kind| kind.slug() == value)
+  44     }
+  45 }
+  46 
+  47 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  48 pub struct GenerationRequest {
+  49     pub seed: Seed,
+  50     pub spec: PuzzleSpec,

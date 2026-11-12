@@ -1,0 +1,909 @@
+{
+  "lens": 12,
+  "kind": "Root adoption of exact delegated collision/location/CaseSite/dialogue connected evidence",
+  "at": "2026-10-29T21:58:11.968946+00:00",
+  "manifest": {
+    "path": "parallel-l12-20261029/ADOPTION-MANIFEST-PAR-L12-CONNECTED-TEAM006.json",
+    "sha256": "f6e71bbe56655aec12d6b9c75e9d56635464b32e9a1c95183ac8468db8337865"
+  },
+  "evidence_refs": [
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+      "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-777-LOCATION-DECLARATIONS.json",
+      "sha256": "50c66fec8f9ae63798e650059f4d3783cb1b86ed0233f410f4f59236faec5182"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-778-CORE-LOCATION-OWNERS.json",
+      "sha256": "6e5b9e9d6aaf8200554fca0d550ed9af6396ba971ed9b9dd5d3b06a6a6415a19"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-779-CASE-SITE-OWNER.json",
+      "sha256": "fddbc7d41358874fae712d7bdd23b8e3724731f4455f0e512187447ed6b7a135"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+      "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+    }
+  ],
+  "checked_rows": [
+    {
+      "original_index": 2481,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "actual_EOF": 55,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-294-CONNECTED-ORIGINAL2481.json",
+      "registration_sha256": "42dd4b18ca945006ab9f0487221abab056e1d8926898a2dbb1be847ab490536d",
+      "assessed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          55
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+      },
+      "row_pointer": "/rows/0",
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-294-LOCATOR-ORIGINAL2481.json",
+        "sha256": "ed7841605a5d98d8a2b0ca6cd17812489e92a98ea4e5b27a1522937d247f589e"
+      }
+    },
+    {
+      "original_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-295-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "836597fe23f165417a284943252775af4f326fb043554c37f43878f2ae9283eb",
+      "assessed_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+      },
+      "row_pointer": "/rows/1",
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-295-LOCATOR-ORIGINAL2482.json",
+        "sha256": "f4cfd3c919958df7b302c98b2630ab0feb6a02211b1c35f792b19fc045788347"
+      }
+    },
+    {
+      "original_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-296-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "651c6609d72bd67811c756cba1212d9596a522ba94c4a4a3b06fcb50c944393f",
+      "assessed_ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          134,
+          211
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+      },
+      "row_pointer": "/rows/2",
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-296-LOCATOR-ORIGINAL2482.json",
+        "sha256": "78528b876a46430d905f4afbe2ca881ea6346aa5c65c0a1837172892e67eb02e"
+      }
+    },
+    {
+      "original_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+      "registration_sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2",
+      "assessed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          205
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+      },
+      "row_pointer": "/rows/3",
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-297-LOCATOR-ORIGINAL2551.json",
+        "sha256": "fc1c0fa40bb1095b9eea77156ceba18f2502e64a9b7ad6330312f577b29b4330"
+      }
+    },
+    {
+      "original_index": 2329,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/wgsl.rs",
+      "actual_EOF": 413,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-298-CONNECTED-ORIGINAL2329-BOUNDS.json",
+      "registration_sha256": "307091b535bcfd878364f9ba62523a36ff470be4df9a74cf404fc7a497c681a2",
+      "assessed_ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          386,
+          413
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df"
+      },
+      "row_pointer": "/rows/4"
+    },
+    {
+      "original_index": 2355,
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/location_urls.rs",
+      "actual_EOF": 208,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-324.json",
+      "registration_sha256": "416e10e9b48720f66862fc9a5c4014e0ce3366b3153bc4b0f398218bf282b025",
+      "assessed_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          75
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-777-LOCATION-DECLARATIONS.json",
+        "sha256": "50c66fec8f9ae63798e650059f4d3783cb1b86ed0233f410f4f59236faec5182"
+      },
+      "row_pointer": "/rows/0"
+    },
+    {
+      "original_index": null,
+      "source_id": "pr-working:crates/strategic-web/src/location_urls/patterns.rs",
+      "source_sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/location_urls/patterns.rs",
+      "actual_EOF": 148,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-325-CONNECTED-LOCATION-PATTERNS.json",
+      "registration_sha256": "ffe7cd69f9da0675632cff9c41df54074b0682b55a74a454c06c38201246870f",
+      "assessed_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          148
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-777-LOCATION-DECLARATIONS.json",
+        "sha256": "50c66fec8f9ae63798e650059f4d3783cb1b86ed0233f410f4f59236faec5182"
+      },
+      "row_pointer": "/rows/1"
+    },
+    {
+      "original_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/organization.rs",
+      "actual_EOF": 1251,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-327-CONNECTED-ORIGINAL960.json",
+      "registration_sha256": "7380bdeb357a0182fa777cbfae5cfb15b95e1895ae07789d226d05fcc89d4e23",
+      "assessed_ranges": [
+        [
+          531,
+          561
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          531,
+          561
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-778-CORE-LOCATION-OWNERS.json",
+        "sha256": "6e5b9e9d6aaf8200554fca0d550ed9af6396ba971ed9b9dd5d3b06a6a6415a19"
+      },
+      "row_pointer": "/rows/0"
+    },
+    {
+      "original_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/strategic_place.rs",
+      "actual_EOF": 998,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-328-CONNECTED-ORIGINAL1010.json",
+      "registration_sha256": "30fe303661eb5d7c4c45890aeecc314253efe8d56828a2110ad5cba739715f02",
+      "assessed_ranges": [
+        [
+          128,
+          210
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          128,
+          210
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-778-CORE-LOCATION-OWNERS.json",
+        "sha256": "6e5b9e9d6aaf8200554fca0d550ed9af6396ba971ed9b9dd5d3b06a6a6415a19"
+      },
+      "row_pointer": "/rows/1"
+    },
+    {
+      "original_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/organization.rs",
+      "actual_EOF": 1251,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-329-CONNECTED-ORIGINAL960.json",
+      "registration_sha256": "c77ebc0e3a9dc0be030d0f21623394d6716a5eed341dc3ceabe64ada4548ac21",
+      "assessed_ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          91,
+          129
+        ],
+        [
+          226,
+          251
+        ],
+        [
+          430,
+          449
+        ],
+        [
+          487,
+          494
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          29
+        ],
+        [
+          91,
+          129
+        ],
+        [
+          226,
+          251
+        ],
+        [
+          430,
+          449
+        ],
+        [
+          487,
+          494
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-778-CORE-LOCATION-OWNERS.json",
+        "sha256": "6e5b9e9d6aaf8200554fca0d550ed9af6396ba971ed9b9dd5d3b06a6a6415a19"
+      },
+      "row_pointer": "/rows/2"
+    },
+    {
+      "original_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/strategic_place.rs",
+      "actual_EOF": 998,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-330-CONNECTED-ORIGINAL1010.json",
+      "registration_sha256": "bac093fc1472cedef25927f96b10d65c57377b20708a23dc238405c2bcd253ea",
+      "assessed_ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          120,
+          127
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          15
+        ],
+        [
+          120,
+          127
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-778-CORE-LOCATION-OWNERS.json",
+        "sha256": "6e5b9e9d6aaf8200554fca0d550ed9af6396ba971ed9b9dd5d3b06a6a6415a19"
+      },
+      "row_pointer": "/rows/3"
+    },
+    {
+      "original_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/strategic_place.rs",
+      "actual_EOF": 998,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-335-CONNECTED-ORIGINAL1010.json",
+      "registration_sha256": "4dabdf8b5098fb83e60720e5cb746e0fbe613c45bc154ff2c0d8f1dcf814f1cf",
+      "assessed_ranges": [
+        [
+          16,
+          119
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          16,
+          119
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-779-CASE-SITE-OWNER.json",
+        "sha256": "fddbc7d41358874fae712d7bdd23b8e3724731f4455f0e512187447ed6b7a135"
+      },
+      "row_pointer": "/rows/0"
+    },
+    {
+      "original_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/strategic_place.rs",
+      "actual_EOF": 998,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-336-CONNECTED-ORIGINAL1010.json",
+      "registration_sha256": "48213f60b1edf5012ce1eee8b8026fc870291f8d2f271a9157af9604f2b3ca7b",
+      "assessed_ranges": [
+        [
+          421,
+          453
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          421,
+          453
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-779-CASE-SITE-OWNER.json",
+        "sha256": "fddbc7d41358874fae712d7bdd23b8e3724731f4455f0e512187447ed6b7a135"
+      },
+      "row_pointer": "/rows/1"
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-339.json",
+      "registration_sha256": "54dfe094d8e8495985e68d214428129c9453b43792c15cae942db2cf6bd3b084",
+      "assessed_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/0",
+      "qualified_prior_partial": {
+        "path": "parallel-l12-20261029/READ-PARTIAL-PAR-L12-780-ORIGINAL2361-001.json",
+        "sha256": "dcdffe2d5ad436c971966e8783bba3cddfb4714f6f5eeb298052965e6f2eac0f",
+        "ranges": [
+          [
+            1,
+            23
+          ]
+        ],
+        "new_rereads": 0
+      }
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-340.json",
+      "registration_sha256": "0760fedba8c53f7b9191ccf15e18af854ac8f92f8dd0fbc841e2b85351378313",
+      "assessed_ranges": [
+        [
+          1031,
+          1102
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1031,
+          1102
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/1"
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-341.json",
+      "registration_sha256": "2b67dbfd679cc7a4b5403944e5d133a23b93303e5fe0baf7616350fdfd97d956",
+      "assessed_ranges": [
+        [
+          63,
+          174
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          63,
+          174
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/2"
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-342.json",
+      "registration_sha256": "0ae83b9ee4e95a3e6b50a3dfe35b894beead6c03b51ed332b9082fe5279a0929",
+      "assessed_ranges": [
+        [
+          1103,
+          1121
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1103,
+          1121
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/3"
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-343.json",
+      "registration_sha256": "cd50f7073ab636f2886d658da681f2bb5349f3db44faf80f15952e6926d2025f",
+      "assessed_ranges": [
+        [
+          1259,
+          1319
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1259,
+          1319
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/4"
+    },
+    {
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-344.json",
+      "registration_sha256": "28839a7b70040c40b2fc67c060ac0fdb9994a6ac9992efcc71bf4046f2b9031c",
+      "assessed_ranges": [
+        [
+          1236,
+          1258
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1236,
+          1258
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-780-DIALOGUE-CALLERS.json",
+        "sha256": "f655022d68d162bfef22097175d37bb0f8afb9d187a564a4424d3d815aafbf09"
+      },
+      "row_pointer": "/rows/5"
+    }
+  ],
+  "source_agent_read_attribution_qualification": "Each exact registration and source-agent receipt attests personal body reads after registration. Receipts777/779/780 omit machine timestamps; no synthetic read timestamp or root personal-read attestation may be created. Their preserved attributions and partial001 timestamp govern.",
+  "qualified_future_original_proofs": [
+    {
+      "original_index": 2481,
+      "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+      "receipt_sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+      "row_pointer": "/rows/0",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-294-CONNECTED-ORIGINAL2481.json",
+      "registration_sha256": "42dd4b18ca945006ab9f0487221abab056e1d8926898a2dbb1be847ab490536d",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "actual_EOF": 55,
+      "assessed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "ordered_credit_now": 0,
+      "future_rule": "For exact ordered roles2481/2482/2551 later requalify identity/revision/hash/EOF/required ranges/registration/agent attribution; count once then with zero rereads, zero ordered credit now.2482 has separately registered original material and host signed-distance scopes; never count twice."
+    },
+    {
+      "original_index": 2482,
+      "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+      "receipt_sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+      "row_pointer": "/rows/1",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-295-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "836597fe23f165417a284943252775af4f326fb043554c37f43878f2ae9283eb",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "assessed_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "ordered_credit_now": 0,
+      "future_rule": "For exact ordered roles2481/2482/2551 later requalify identity/revision/hash/EOF/required ranges/registration/agent attribution; count once then with zero rereads, zero ordered credit now.2482 has separately registered original material and host signed-distance scopes; never count twice."
+    },
+    {
+      "original_index": 2482,
+      "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+      "receipt_sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+      "row_pointer": "/rows/2",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-296-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "651c6609d72bd67811c756cba1212d9596a522ba94c4a4a3b06fcb50c944393f",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "assessed_ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "ordered_credit_now": 0,
+      "future_rule": "For exact ordered roles2481/2482/2551 later requalify identity/revision/hash/EOF/required ranges/registration/agent attribution; count once then with zero rereads, zero ordered credit now.2482 has separately registered original material and host signed-distance scopes; never count twice."
+    },
+    {
+      "original_index": 2551,
+      "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+      "receipt_sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+      "row_pointer": "/rows/3",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+      "registration_sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "assessed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "ordered_credit_now": 0,
+      "future_rule": "For exact ordered roles2481/2482/2551 later requalify identity/revision/hash/EOF/required ranges/registration/agent attribution; count once then with zero rereads, zero ordered credit now.2482 has separately registered original material and host signed-distance scopes; never count twice."
+    }
+  ],
+  "primary_source_proofs": [
+    {
+      "receipt": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-769.json",
+        "sha256": "0c57dc2447db2efad63a1e67ed8a0621f814b0e13d2a24d0c340a9aab8dcc7f3"
+      },
+      "row_pointer": "/rows/1",
+      "original_index": 2328,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/contact.rs",
+      "actual_EOF": 261,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-291.json",
+      "registration_sha256": "f88d4b6fe224752e10f7e147cdb5b8e4b0dfe8047666cbd64801cefed1e4b29d",
+      "assessed_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          261
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+    },
+    {
+      "receipt": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-777.json",
+        "sha256": "e614c22765d92bf4362c97c56336d06008e0ad3760a2690645759d53548456b5"
+      },
+      "row_pointer": "/rows/1",
+      "original_index": 2355,
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/location_urls.rs",
+      "actual_EOF": 208,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-323.json",
+      "registration_sha256": "7f10ea76034a4505569f1d5bf7629cb514bac3482e522d93d6baa5dd6ba6e62f",
+      "assessed_ranges": [
+        [
+          76,
+          208
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          76,
+          208
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+    },
+    {
+      "receipt": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-779.json",
+        "sha256": "66e1322ea193261b2f79a060e4764b44b5e53abf26cc717f5e42acb3c248ba03"
+      },
+      "row_pointer": "/rows/3",
+      "original_index": 2360,
+      "source_id": "pr-working:crates/strategic-web/src/routes/data.rs",
+      "source_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/data.rs",
+      "actual_EOF": 308,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-334.json",
+      "registration_sha256": "101bbff78da92a0f9ddcad14ac4522ea4f9e6efa19dc015da20b88356e9fa604",
+      "assessed_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          308
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+    },
+    {
+      "receipt": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-780.json",
+        "sha256": "4db6d5ccf95319ac89b991f9fba52bb669bf685417e6f396ca3f2a86a2752bc6"
+      },
+      "row_pointer": "/rows/0",
+      "original_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-337.json",
+      "registration_sha256": "f1fac5fb1f65b182d5228d4fd177664887ff5feb9a8e2b2ecba0613ef855f9d2",
+      "assessed_ranges": [
+        [
+          24,
+          62
+        ],
+        [
+          175,
+          387
+        ],
+        [
+          392,
+          423
+        ],
+        [
+          939,
+          1030
+        ],
+        [
+          1320,
+          1897
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1320,
+          1897
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+    }
+  ],
+  "scope_qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-294-LOCATOR-ORIGINAL2481.json",
+      "sha256": "ed7841605a5d98d8a2b0ca6cd17812489e92a98ea4e5b27a1522937d247f589e"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-295-LOCATOR-ORIGINAL2482.json",
+      "sha256": "f4cfd3c919958df7b302c98b2630ab0feb6a02211b1c35f792b19fc045788347"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-296-LOCATOR-ORIGINAL2482.json",
+      "sha256": "78528b876a46430d905f4afbe2ca881ea6346aa5c65c0a1837172892e67eb02e"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-297-LOCATOR-ORIGINAL2551.json",
+      "sha256": "fc1c0fa40bb1095b9eea77156ceba18f2502e64a9b7ad6330312f577b29b4330"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-PARTIAL-PAR-L12-780-ORIGINAL2361-001.json",
+      "sha256": "dcdffe2d5ad436c971966e8783bba3cddfb4714f6f5eeb298052965e6f2eac0f"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-769-779-AUDIT-ONLY-HEADERS.json",
+      "sha256": "351b26df807c617f296776c7188cfb8a24674e5d76a026203198cff27f952d3d"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-780-ORIGINAL2361-STRICT-GAP-READ.json",
+      "sha256": "a64fefdb23f9d151dc7e003ba06e55bb17ed90992a3ef03522c2246490ce099b"
+    }
+  ],
+  "service_admission_additive_qualification": {
+    "prior_proposal": "parallel-l12-20261029/PROPOSAL-L12-777.json",
+    "prior_proposal_sha256": "e614c22765d92bf4362c97c56336d06008e0ad3760a2690645759d53548456b5",
+    "json_pointer": "/new_findings/0",
+    "effective": "All8knownservice Somevalues physicallyadmitted: secondexpect113 isguarded-current-mapping/rule-only, noordinaryknownservicefailure. Firstunknownserviceexpect112 remainsconditionalpublicadmission. Rawservice/chapter internalidentityscope/canonicalall20/current remainsopen."
+  },
+  "root_personal_rereads": [],
+  "original_overlay_merged_shared_extension_credit": 0,
+  "new_global_identity_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Not run; audit source/evidence only",
+  "pending_connected_contracts": [
+    "Current-main/all20 and exact canonical aliases remain open",
+    "Native signum/WGSLsign and BVH traversal, generated catalogue/source validation, actual social/native dialogue/browser consumers remain pending",
+    "Frozen checkout is not current-main reconciliation"
+  ]
+}

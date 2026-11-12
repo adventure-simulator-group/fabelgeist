@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_planning.rs:100-175
+ 100                 distances.insert(neighbor, next_distance);
+ 101                 pending.push(std::cmp::Reverse((next_distance, neighbor)));
+ 102             }
+ 103         }
+ 104     }
+ 105     destinations
+ 106 }
+ 107 
+ 108 fn journey_minutes(distance_m: u64) -> u64 {
+ 109     distance_m
+ 110         .saturating_mul(MINUTES_PER_HOUR)
+ 111         .div_ceil(
+ 112             adventuresim_core::strategic_time::OVERLAND_WALKING_SPEED_KM_PER_HOUR
+ 113                 * METERS_PER_KILOMETER,
+ 114         )
+ 115         .max(1)
+ 116 }
+ 117 
+ 118 fn quest_journey_minutes(distance_m: u64) -> u64 {
+ 119     journey_minutes(distance_m).saturating_mul(QUEST_TRAVEL_SPEED_DIVISOR)
+ 120 }
+ 121 
+ 122 fn validate_journey_route(
+ 123     ctx: &ReducerContext,
+ 124     route: &JourneyRoutePlan,
+ 125     origin: (f64, f64),
+ 126     destination: (f64, f64),
+ 127 ) -> Result<(), String> {
+ 128     let authority = require_strategic_gateway(ctx)?;
+ 129     if authority.terrain_schema != 3
+ 130         || authority.terrain_package_digest.as_deref() != Some(route.package_digest.as_str())
+ 131     {
+ 132         return Err("Terrain route does not match the gateway terrain package".into());
+ 133     }
+ 134     validate_journey_route_payload(route, origin, destination)
+ 135 }
+ 136 
+ 137 fn validate_journey_route_payload(
+ 138     route: &JourneyRoutePlan,
+ 139     origin: (f64, f64),
+ 140     destination: (f64, f64),
+ 141 ) -> Result<(), String> {
+ 142     const MAX_POINTS: usize = 512;
+ 143     const MAX_SPANS: usize = 256;
+ 144     if !valid_route_digest(&route.package_digest) {
+ 145         return Err("Terrain route has an invalid package digest".into());
+ 146     }
+ 147     if route.weather_rules_version != adventuresim_core::weather::WEATHER_RULES_VERSION
+ 148         || route.weather_interval_start.floor_to_interval_minutes(
+ 149             adventuresim_core::weather::WEATHER_INTERVAL_MINUTES,
+ 150         ) != Some(route.weather_interval_start)
+ 151         || route.intensity_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
+ 152         || route.ground_moisture_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
+ 153         || route.snow_cover_bps > adventuresim_world_schema::BASIS_POINTS_PER_WHOLE
+ 154         || (route.precipitation == Precipitation::Clear && route.intensity_bps != 0)
+ 155     {
+ 156         return Err("Terrain route has an invalid weather departure snapshot".into());
+ 157     }
+ 158     if !(2..=MAX_POINTS).contains(&route.points.len())
+ 159         || route.spans.is_empty()
+ 160         || route.spans.len() > MAX_SPANS
+ 161         || route.distance_m == 0
+ 162         || route.distance_m > 2_000_000
+ 163         || route.minutes == 0
+ 164         || route.minutes > 2_000_000
+ 165     {
+ 166         return Err("Terrain route exceeds its collection or aggregate bounds".into());
+ 167     }
+ 168     let Some(coordinates) = route
+ 169         .points
+ 170         .iter()
+ 171         .map(wgs84_route_coordinate)
+ 172         .collect::<Option<Vec<_>>>()
+ 173     else {
+ 174         return Err("Terrain route contains an invalid coordinate".into());
+ 175     };

@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:685-765
+ 685                         .map_err(|_| "Case-site identity is malformed".to_owned())?,
+ 686                     name: origin_name.clone(),
+ 687                 }),
+ 688                 _ => return Err("Journey origin kind is invalid".into()),
+ 689             },
+ 690             JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+ 691                 id: destination.id.clone(),
+ 692                 name: destination.name.clone(),
+ 693             }),
+ 694             travel_minutes,
+ 695             departure_minute,
+ 696             route.as_ref(),
+ 697         )?;
+ 698     }
+ 699     let departing_settlement = character.current_settlement_id.is_some();
+ 700     if let Some(current_party) = party.as_ref() {
+ 701         crate::condition::prepare_party_waterskins(ctx, &current_party.id, departing_settlement)?;
+ 702     }
+ 703     for traveler_id in traveler_ids.iter().copied() {
+ 704         crate::condition::prepare_character_waterskins(ctx, traveler_id, departing_settlement)?;
+ 705     }
+ 706     let mut party_movement_committed = false;
+ 707     if let Some(current_party) = party.as_ref() {
+ 708         let party_id = current_party.id.clone();
+ 709         let proposed_leg_minutes =
+ 710             travel_minutes.min(party_next_walking_minutes(ctx, &party_id, travel_minutes)?);
+ 711         let (leg_minutes, encounter, narrative, next_roll) =
+ 712             advance_party_movement_until_encounter(
+ 713                 ctx,
+ 714                 &party_id,
+ 715                 &traveler_ids,
+ 716                 proposed_leg_minutes,
+ 717             )?;
+ 718         party = Some(
+ 719             ctx.db
+ 720                 .party_authority()
+ 721                 .id()
+ 722                 .find(&party_id)
+ 723                 .ok_or("Party changed during travel")?,
+ 724         );
+ 725         party_movement_committed = true;
+ 726         let interrupted = encounter.is_some() || narrative.is_some();
+ 727         if interrupted || leg_minutes < travel_minutes {
+ 728             for traveler_id in living_party_member_ids(ctx, &party_id) {
+ 729                 let mut traveler = ctx
+ 730                     .db
+ 731                     .character()
+ 732                     .id()
+ 733                     .find(traveler_id)
+ 734                     .ok_or("Party member not found")?;
+ 735                 traveler.current_settlement_id = None;
+ 736                 crate::investigation::set_character_case_site(ctx, traveler.id, None)?;
+ 737                 ctx.db.character().id().update(traveler);
+ 738             }
+ 739             let party = party.as_mut().expect("party was just reloaded");
+ 740             set_party_journey_state(
+ 741                 party,
+ 742                 None,
+ 743                 None,
+ 744                 Some(JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+ 745                     id: settlement_id,
+ 746                     name: destination.name.clone(),
+ 747                 })),
+ 748                 travel_minutes.saturating_sub(leg_minutes),
+ 749             );
+ 750             ctx.db.party_authority().id().update(party.clone());
+ 751             if interrupted {
+ 752                 record_party_journey_interruption(ctx, &party.id, leg_minutes);
+ 753                 commit_encounter_scan(ctx, &party.id, next_roll, encounter, narrative)?;
+ 754             } else {
+ 755                 record_party_journey_camp(ctx, &party.id, leg_minutes)?;
+ 756                 commit_encounter_scan(ctx, &party.id, next_roll, None, None)?;
+ 757             }
+ 758             return Ok(());
+ 759         }
+ 760     }
+ 761     complete_settlement_arrival(
+ 762         ctx,
+ 763         traveler_ids,
+ 764         party.as_mut(),
+ 765         &destination,

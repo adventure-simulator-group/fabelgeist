@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Record exact personally displayed current source intervals, not captured-file credit."""
+import datetime as dt,hashlib,json,pathlib,re
+p=pathlib.Path(__file__).resolve().parent
+load=lambda n:json.loads((p/n).read_text())
+rows=load("SOURCE-CAPTURES.json")+[load("SOURCE-SHADER-CAPTURE.json"),load("SOURCE-MESH-CAPTURE.json")]
+captures={r["path"]:r for r in rows};assert len(captures)==len(rows)
+labels={"bvh":"crates/fabelgeist-bvh/src/gpu/mod.rs","bvh_shaders":"crates/fabelgeist-bvh/src/gpu/shaders.rs","mesh":"crates/fabelgeist-physics/src/mesh.rs","mesh_wgsl":"crates/fabelgeist-physics/src/wgsl.rs","prefix":"crates/fabelgeist-compute/src/prefix_sum.rs","kernel":"crates/fabelgeist-compute/src/kernel/mod.rs","fast":"crates/fabelgeist-compute/src/kernel/fast.rs","bind_group":"crates/fabelgeist-gpu/src/data/gpu/bind_group.rs","pass":"crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs","params":"crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs","shader":"crates/fabelgeist-gpu/src/data/gpu/shader.rs","reflection":"crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs","compute_shader":"crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs","pipeline":"crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"}
+regs=[]
+for f in p.glob("SOURCE*REGISTRATION.json"):
+ d=json.loads(f.read_text())
+ if "sources" in d:regs.append((f.name,d))
+def spans(ns):
+ out=[]
+ for i in sorted(ns):
+  if not out or out[-1][1]+1!=i:out.append([i,i])
+  else:out[-1][1]=i
+ return out
+seen={s:set() for s in captures};chunks=[]
+for f in sorted((p/"displays").glob("*.txt")):
+ m=re.fullmatch(r"(.+)-(\d+)-(\d+)\.txt",f.name);assert m;label,lo,hi=m.group(1),int(m.group(2)),int(m.group(3));src=labels[label];saved=dt.datetime.fromtimestamp(f.stat().st_mtime,dt.timezone.utc).isoformat();matching=[(n,r) for n,r in regs if r["registered_utc"]<=saved and any(x["path"]==src and x["range"][0]<=lo<=hi<=x["range"][1] for x in r["sources"])];assert matching,(f,saved)
+ n,r=sorted(matching,key=lambda x:x[1]["registered_utc"])[0];b=f.read_bytes();lines=(p/captures[src]["capture"]).read_text().splitlines();expected="".join(f"{i:4d} {lines[i-1]}\n" for i in range(lo,hi+1)).encode();assert b==expected;seen[src].update(range(lo,hi+1));chunks.append({"source_path":src,"start":lo,"end":hi,"display":str(f.relative_to(p)),"registration":n,"saved_utc":saved,"sha256":hashlib.sha256(b).hexdigest()})
+coverage=[]
+for src,x in sorted(captures.items()):coverage.append({"source_path":src,"eof":x["eof"],"personally_displayed":spans(seen[src]),"unread":spans(set(range(1,x["eof"]+1))-seen[src])})
+doc={"source_revision":"95e63628f9d70b8dd6e6fede64334696c6995009","reader":"/root/verifier_scope","chunks":chunks,"coverage":coverage,"unique_lines_personally_displayed":sum(map(len,seen.values())),"qualification":"Only listed exact displays count; captures, registered supersets, old reads and locator results confer no additional credit. Timestamps attest process order, not comprehension."}
+with (p/"SOURCE-READ-RECEIPT.json").open("x") as f:json.dump(doc,f,indent=2);f.write("\n")
+print("chunks",len(chunks),"unique lines",sum(map(len,seen.values())),"captured sources",len(captures))

@@ -1,0 +1,287 @@
+{
+  "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+  "lens": 12,
+  "batch": 748,
+  "at": "2026-10-29T20:46:14.318058+00:00",
+  "proposal": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+  "proposal_sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+  "rows": [
+    {
+      "original_index": 2274,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "actual_EOF": 303,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "registration_sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "assessed_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          303
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2274\u20132278 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "create_bind_groups7..303"
+        ],
+        "string_inventory": [
+          "parameters IndexMap<String,PassParameter>11; pass_name &str12 useddiagnosticlabels only. reflection uniform member.name35/buffername157/texture185/sampler257 rematchparameters35/159/187/258. Fixed finalnativeWGPUlabels136/292 arepresentation, distinctshaderbindingidentity."
+        ],
+        "trace": [
+          "Reflection/native shader names producerpending -> retained ReflectionData/IndexMap Stringparameters -> create_bind_groups7 actualrematches -> typed PassParameter match -> nativeUniformbytes,BindGroupEntry -> device.create_bind_group291 -> pass dispatch actualcaller nextsource."
+        ],
+        "conditional_cases": [
+          "Missing uniform members35 silentlydefaultzero32; unmatched/wrong uniform variants128 silent. Optional/defaultpolicy and actual reflectedtype correctness require reflection/caller admission, no claimed unconditional defective zero defaults. Mat3 stride member.size/3 assumes actualreflectedlayout; actualnativeadmission needed beforebounds/panicclaim. Texture format None198 permits skipcomparison220 intentionallysupportsview-onlytextures; do notforceunderlying texture. Missingresources/types/formats/dimensions individuallydifferentfirstpredicates."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2275,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "source_sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "actual_EOF": 53,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-234.json",
+      "registration_sha256": "9043c4423df63933262a534688ac70af917802356db52b7bc01b65eeca7ef795",
+      "assessed_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          53
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2274\u20132278 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "BufferByteOffset.checked_after14/From19..42/Display44..53"
+        ],
+        "string_inventory": [
+          "No stringstate/API; typed byteextent/address; numeric Display finalpresentation."
+        ],
+        "trace": [
+          "Raw unsigned lengths/addresses -> distinctbespoke wrappers -> checkedoffsetsum14 -> caller bounds -> nativeu64 write."
+        ],
+        "conditional_cases": [
+          "No implicit boundedextent invariant in simplewrapper; it models quantity, consumer ownsbufferbounds. Default0 extentnotautomaticallyinvalidoutsideallocation."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2276,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "source_sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "actual_EOF": 178,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-235.json",
+      "registration_sha256": "7af3334495064c143b3f6acb590690be63e1493972d3d208d04db84a9bf162ea",
+      "assessed_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          178
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2274\u20132278 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Buffer.new23/read40..126/write127/write_at133/from_upload153/PartialEq172"
+        ],
+        "string_inventory": [
+          "BufferLabel nativeowner reexport12; fixedStaging Buffer50 native diagnostic. Distinct closedreasons29/100/108/141/144; nativeBufferAsyncError89/109 converted to prose."
+        ],
+        "trace": [
+          "Typedbyteextent+BufferDefinition -> nativeallocate31 -> Buffer retainsnativeArc/size/usage17..19 -> Readback.new42 -> stagingnativecopy60 -> map_async71 typedresult oneshot72 -> nativepoll85/97 orwasmrx107 -> reason89/109 -> mappedbytes114 -> Readback.copy_from115 -> publicResultVecT125."
+        ],
+        "conditional_cases": [
+          "Native poll results85/97 discarded; exactnativePollError policy needs wgpu29 actualsource to classifymissingcause, no invented native failure. Directly public fields17..19 can be independently mutated; actual producers/currentaggregateobligations remain. Both successbranches118 unmapcorrectly; errorcleanup beforeunmap and mmapusage/COPY_SRC/nativealignment require actualnativecontract; not closedbyoriginalrolecount."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2277,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "source_sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "actual_EOF": 89,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-236.json",
+      "registration_sha256": "03392fe1875f8f48f27c7b470388e706689ae43fd932a19b8abed8cf2b9bc5d1",
+      "assessed_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          89
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2274\u20132278 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Readback.new11..26/copy_from28..44; existing testsource47..89"
+        ],
+        "string_inventory": [
+          "Closedreasonprose16/20/30; native TryFromIntError12 propagated typed via ?; no arbitrary stringidentity."
+        ],
+        "trace": [
+          "Nativebufferlength -> checkedusize12 -> nonzeroelement15/wholeelements19 -> Vec capacity23 -> bytesminimum30 -> bytecopy35/lengthset41 -> typedVec43 -> Buffer.read115/125."
+        ],
+        "conditional_cases": [
+          "AnyBitPatternpermitsbitvalues; unalignedsource copiedbytewise so no falsecastalignmentclaim. Mappedallocationpaddingexplicit29, accepts longerbytes30; zero byteLen withnonzeroT legitimate, testedsource72..78 notrun. Existing test unwraps only cfgtest no productoutside-test claim."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2278,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "source_sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "actual_EOF": 58,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-237.json",
+      "registration_sha256": "aef09c8fc81c55f3ec8754032db0a13e00d2763980252e49505fa65f8c0a35cc",
+      "assessed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          58
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2274\u20132278 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "BufferUpload.from_elements26/length30/occupancy34/with_empty_word43/write_to50..57"
+        ],
+        "string_inventory": [
+          "No Stringstate/API; typed borrowedNoUninitbytes/occupancy/extent/address remainuntilnativewrite."
+        ],
+        "trace": [
+          "Nativeelements -> bytemuckcast_slice27 -> retainedborrowedbytes21 -> typedlength31 orwith_empty_word45 -> nativequeue.write_buffer56 convertsaddressonly."
+        ],
+        "conditional_cases": [
+          "Empty scalarwordmode43 explicit armorcontract; comment established42 does not requireobsoletecompatibility. Actualbinding shader/nativealignment consumer needed; no assertion that legitimateemptyupload mustreject."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "delegated_attribution_preserved": true,
+  "root_personal_rereads": [],
+  "adopted_registration_mapping": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "adopted_continuation_registration_number": 1204,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-234.json",
+      "sha256": "9043c4423df63933262a534688ac70af917802356db52b7bc01b65eeca7ef795",
+      "adopted_continuation_registration_number": 1205,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-235.json",
+      "sha256": "7af3334495064c143b3f6acb590690be63e1493972d3d208d04db84a9bf162ea",
+      "adopted_continuation_registration_number": 1206,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-236.json",
+      "sha256": "03392fe1875f8f48f27c7b470388e706689ae43fd932a19b8abed8cf2b9bc5d1",
+      "adopted_continuation_registration_number": 1207,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-237.json",
+      "sha256": "aef09c8fc81c55f3ec8754032db0a13e00d2763980252e49505fa65f8c0a35cc",
+      "adopted_continuation_registration_number": 1208,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    }
+  ],
+  "future_same_lens_ordered_applications": [],
+  "connected_future_original_evidence": [],
+  "new_own_lens_native_views": [],
+  "additional_connected_body_receipts": [],
+  "new_original_roles": 5,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "new_global_source_registration_records": 0,
+  "accepted_unique_count_change": 0,
+  "new_findings": [
+    "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+    "SEGOVB-L12-GPU-BIND-LAYOUT-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-BIND-TEXTURE-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-TEXTURE-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-BIND-TEXTURE-FORMAT-REASON",
+    "SEGOVB-L12-GPU-BIND-TEXTURE-DIMENSION-REASON",
+    "SEGOVB-L12-GPU-BIND-TEXTURE-VIEW-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-SAMPLER-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-SAMPLER-RESOURCE-MISSING-REASON",
+    "SEGOVB-L12-GPU-BIND-SAMPLER-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-BUFFER-ZERO-EXTENT-REASON",
+    "SEGOVB-L12-GPU-BUFFER-WRITE-OFFSET-OVERFLOW-REASON",
+    "SEGOVB-L12-GPU-BUFFER-WRITE-EXTENT-REASON",
+    "SEGOVB-L12-GPU-BUFFER-NATIVE-CHANNEL-CLOSED-REASON",
+    "SEGOVB-L12-GPU-BUFFER-WASM-CHANNEL-CLOSED-REASON",
+    "SEGOVB-L12-GPU-BUFFER-NATIVE-MAP-CAUSE-ERASURE",
+    "SEGOVB-L12-GPU-BUFFER-WASM-MAP-CAUSE-ERASURE",
+    "SEGOVB-L12-GPU-READBACK-ZERO-SIZED-ELEMENT-REASON",
+    "SEGOVB-L12-GPU-READBACK-PARTIAL-ELEMENT-REASON",
+    "SEGOVB-L12-GPU-READBACK-TRUNCATED-BYTES-REASON"
+  ],
+  "current_source_reconciled": false,
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "implementation_gate_complete": false,
+  "runtime_validation": "Not run; source audit only",
+  "pending": [
+    "Actualreflection/shaderparameterproducer and pass pipeline/caller/nativewgpu29 body requirements, optionaluniform/defaultpolicy, mappingpollcauses/errorcleanup/usage/alignment remain open",
+    "BufferDefinition/BufferLabel actualbody sources mustbe located/read if notalready qualified; declarations are notbodycoverage",
+    "All prior connected/future/native/mandatory/current/all20/exactalias requirements remain open"
+  ],
+  "connected_contract_resolutions": [],
+  "additive_corrections": []
+}

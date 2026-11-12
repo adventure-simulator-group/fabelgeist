@@ -1,0 +1,44 @@
+SOURCE crates/adventuresim-stdb-module/src/time/clock.rs:85-127
+  85 
+  86 fn advance_married_family_by(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     elapsed: u64,
+  90 ) -> Result<(), String> {
+  91     if elapsed == 0
+  92         || ctx
+  93             .db
+  94             .npc_policy()
+  95             .character_id()
+  96             .find(character_id)
+  97             .is_some()
+  98     {
+  99         return Ok(());
+ 100     }
+ 101     for related_id in married_family_npc_ids(ctx, character_id) {
+ 102         if !ctx
+ 103             .db
+ 104             .character()
+ 105             .id()
+ 106             .find(related_id)
+ 107             .is_some_and(|character| character.alive)
+ 108         {
+ 109             continue;
+ 110         }
+ 111         ensure_character_time(ctx, related_id)?;
+ 112         let target = ctx
+ 113             .db
+ 114             .character_time()
+ 115             .character_id()
+ 116             .find(related_id)
+ 117             .ok_or("Married family member has no subjective clock")?
+ 118             .minutes;
+ 119         let target = target.saturating_add_minutes(elapsed);
+ 120         advance_stationary_character_to(ctx, related_id, target)?;
+ 121     }
+ 122     Ok(())
+ 123 }
+ 124 
+ 125 pub fn initialize_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+ 126     ensure_character_time(ctx, character_id)
+ 127 }

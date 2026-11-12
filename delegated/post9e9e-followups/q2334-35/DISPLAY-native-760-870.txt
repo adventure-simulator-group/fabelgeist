@@ -1,0 +1,111 @@
+ 760         _ => return Ok(()),
+ 761     }
+ 762     if let Some(other_id) = merged_object_id {
+ 763         ctx.db.inventory_object().id().delete(other_id);
+ 764     }
+ 765     ctx.db.inventory_object().id().delete(emptied.id);
+ 766     Ok(())
+ 767 }
+ 768 
+ 769 #[cfg(test)]
+ 770 mod tests {
+ 771     use super::empty_container_can_stack;
+ 772 
+ 773     #[test]
+ 774     fn only_empty_root_containers_without_instance_condition_stack() {
+ 775         assert!(empty_container_can_stack(false, false, false));
+ 776         assert!(!empty_container_can_stack(true, false, false));
+ 777         assert!(!empty_container_can_stack(false, true, false));
+ 778         assert!(!empty_container_can_stack(false, false, true));
+ 779     }
+ 780 
+ 781     #[test]
+ 782     fn generic_solid_containers_are_authoring_driven() {
+ 783         let source = include_str!("inventory_container.rs")
+ 784             .rsplit_once("pub(crate) fn require_object")
+ 785             .expect("post-test production section")
+ 786             .1;
+ 787         assert!(source.contains("parent_definition.container_capacity_ml == 0"));
+ 788         assert!(!source.contains("GENERIC_CONTAINER_IDS"));
+ 789     }
+ 790 
+ 791     #[test]
+ 792     fn physical_object_row_lookup_matches_the_bespoke_location() {
+ 793         let lookup = include_str!("inventory_container.rs")
+ 794             .split("pub(crate) fn object_for_row")
+ 795             .nth(1)
+ 796             .and_then(|tail| tail.split("pub(crate) fn object_is_nonempty").next())
+ 797             .expect("physical object row lookup");
+ 798         assert!(lookup.contains("InventoryLocation::Personal"));
+ 799         assert!(lookup.contains("InventoryLocation::Party"));
+ 800         assert!(!lookup.contains("location_kind"));
+ 801         assert!(!lookup.contains("location_owner"));
+ 802     }
+ 803 
+ 804     #[test]
+ 805     fn empty_container_reconciliation_covers_removal_and_automatic_drain() {
+ 806         let source = include_str!("inventory_container.rs")
+ 807             .rsplit_once("pub(crate) fn require_object")
+ 808             .expect("post-test production section")
+ 809             .1;
+ 810         let remove = source
+ 811             .split("pub fn remove_inventory_item_from_container")
+ 812             .nth(1)
+ 813             .unwrap()
+ 814             .split("pub fn discard_container_water")
+ 815             .next()
+ 816             .unwrap();
+ 817         assert!(remove.contains("merge_empty_container(ctx, child_object_id)"));
+ 818         assert!(remove.contains("merge_empty_container(ctx, former_parent)"));
+ 819         let drain = source
+ 820             .split("pub(crate) fn consume_contained_water")
+ 821             .nth(1)
+ 822             .unwrap()
+ 823             .split("fn require_mutable")
+ 824             .next()
+ 825             .unwrap();
+ 826         assert!(drain.contains("resolve_object_custody"));
+ 827         assert!(drain.contains("resolved.root == *expected_custody"));
+ 828         assert!(drain.contains("merge_empty_container(ctx, liquid.container_object_id)"));
+ 829     }
+ 830 
+ 831     #[test]
+ 832     fn direct_object_mutators_require_resolved_actor_custody() {
+ 833         let source = include_str!("inventory_container.rs")
+ 834             .rsplit_once("pub(crate) fn require_object")
+ 835             .expect("post-test production section")
+ 836             .1;
+ 837         for reducer in [
+ 838             "pub fn remove_inventory_item_from_container",
+ 839             "pub fn discard_container_water",
+ 840         ] {
+ 841             let body = source.split(reducer).nth(1).expect("direct object reducer");
+ 842             assert!(body.contains("require_actor_carried_object"));
+ 843         }
+ 844         let lookup = include_str!("inventory_container.rs")
+ 845             .split("pub(crate) fn object_for_row")
+ 846             .nth(1)
+ 847             .and_then(|tail| tail.split("fn insert_carried_object").next())
+ 848             .expect("physical object lookup");
+ 849         assert!(lookup.contains("if matches.next().is_some()"));
+ 850         assert!(lookup.contains("duplicate physical object identities"));
+ 851     }
+ 852 
+ 853     #[test]
+ 854     fn empty_container_merge_authenticates_exact_root_before_mutation() {
+ 855         let source = crate::production_source(include_str!("inventory_container.rs"));
+ 856         let merge = source
+ 857             .split("pub(crate) fn merge_empty_container")
+ 858             .nth(1)
+ 859             .and_then(|tail| tail.split("#[cfg(test)]").next())
+ 860             .expect("empty-container merge");
+ 861         let source_validation = merge
+ 862             .find("require_exact_carried_backing(ctx, &emptied, &expected)?")
+ 863             .unwrap();
+ 864         let target_validation = merge
+ 865             .find("require_exact_carried_backing(ctx, &object, &expected)?")
+ 866             .unwrap();
+ 867         let first_delete = merge.find(".delete(source.id)").unwrap();
+ 868         assert!(source_validation < first_delete);
+ 869         assert!(target_validation < first_delete);
+ 870     }

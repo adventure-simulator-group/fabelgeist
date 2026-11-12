@@ -1,0 +1,2701 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "lens": 12,
+  "created_at": "2026-10-30T01:47:04.286645+00:00",
+  "base_authority_snapshot": {
+    "ledger": {
+      "path": "evidence/continuation-segovb/ledger.json",
+      "sha256": "0f08c13a569306cbd655258a3e6c47563030d454284f6040c6ea5facf7beb233"
+    },
+    "selector": {
+      "path": "CURRENT-ADLER.json",
+      "sha256": "dc60b92ff736bf8704e8602f7c64fe112852fb2eeda2638f50dca5ab2e6073a9"
+    },
+    "lens12_next_original": 2550,
+    "lens12_next_batch": 865,
+    "lens12_next_registration": 1563,
+    "selected_workflow": {
+      "kind": "Bounded metadata-only workflow adjustment at user request",
+      "at": "2026-10-30T00:30:50.014991+00:00",
+      "assessment": {
+        "path": "workflow-20261030/ASSESSMENT-001.json",
+        "sha256": "159309eabb93f739700f1cb32dd56091532a0c5262604f6b5a5519d52ca96122"
+      },
+      "proposal_protocol": {
+        "path": "workflow-20261030/PROPOSAL-PROTOCOL-001.json",
+        "sha256": "8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed"
+      },
+      "closure_queue": {
+        "path": "workflow-20261030/CLOSURE-QUEUE-025.json",
+        "sha256": "f144bdbb3b22de539d49a21f57760034e1992cb68ce80526e958ec6443c24205"
+      },
+      "progress": {
+        "path": "workflow-20261030/PROGRESS-001.json",
+        "sha256": "9363259b2faccad75121bbe4f5b904da1ebe45d21008991a7b158ac5e4f18a1b"
+      },
+      "sole_authoritative_writer": "root",
+      "queue_updates_required_per_future_bundle": true,
+      "product_execution": false,
+      "implementation_gate_complete": false,
+      "queue_updates": [
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-002.json",
+          "sha256": "48fd551ff762702c321890910d1db1e4b32a741d6b245a0230fda2652a5590f4"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-003.json",
+          "sha256": "84e7d8e066239127f0fb7eee086a221a5737c96d29262518fff39a0a622eccdf"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-004.json",
+          "sha256": "6411a648879d5c13ca8f3fada5c7df71a925f3099bb8eaece3fd993f8b9b57bf"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-005.json",
+          "sha256": "489479603cb8573004f27184abf86b69ea333238d5ac4bbf005191f984706eb5"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-006.json",
+          "sha256": "549d91abc63994f9f8d7d495f1512433d354e7811c6de592ab072d7eeb83014d"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-007.json",
+          "sha256": "2daf0bf920d0436b718eaddce9883b81bb4f71cd5a35224a09f71ba96a9b48ce"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-008.json",
+          "sha256": "c75600737f2b0b3c5dab94cb31924b2f11570a013be66d92d08e2375beceb23b"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-009.json",
+          "sha256": "530a6afa358e6e50268197ef0cea147b5a3de730125a3ada2ec95e256bfc7a2a"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-010.json",
+          "sha256": "a30f1cbe3653cfc4c4ffeace1769d2880b1e170472fe89ae5be56e8e3fd0da83"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-011.json",
+          "sha256": "1a0cd16ac2a2df952cad838c609e76c87ca0fa69a9a28322567fecec17c9677f"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-012.json",
+          "sha256": "f4fd2f0192e74870a5b73548bd442f0825f49654536cf9e8c4fe11eaccb9c247"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-013.json",
+          "sha256": "267364f9b0e551141a8b29a9025f95d2976a9eb433fec26b6990189af16a39ac"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-014.json",
+          "sha256": "863534cb9d63f0437294a490e1972a81ab5f953af49af69e9ac39082b580814d"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-015.json",
+          "sha256": "bebf0c8893675030c1c5afd1f0bd4b650936eda787d8fbcb24071e38f9c0cff4"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-016.json",
+          "sha256": "1a1f98a8a5ff0f0a7b888c002807c768a0a8f188bdd2747132c303a074516fcc"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-017.json",
+          "sha256": "6affcd0f0452bbecbc64c37671051ab3cfe53445cddbd85cbad7da31636ce362"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-018.json",
+          "sha256": "2d57e2f18f7859cc2b977f31f24d910d501aa4e26cefd50745628911cdd1e5e7"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-019.json",
+          "sha256": "a5953ae897e1d45819c00aaf058135537a8b7ef1142d31a93c4c487e3ec9edde"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-020.json",
+          "sha256": "47f09adc8c8453755e4da875ba6dc9b56c4050766ff2f79a8a34bf9a05161da4"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-021.json",
+          "sha256": "afbfa670d809d9d47d17de9c0b1ca76d92f3471803181026941ccbda4b14663c"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-022.json",
+          "sha256": "84f10782b35ce1b231e64b7cb46f6f29f5486fc1f9922a651b8ee2c10ed6cd31"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-023.json",
+          "sha256": "f01a00f9a12a7376e65530826469a37f40539a9cd261d029713583d5ebd4f765"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-024.json",
+          "sha256": "32461c269a8934fa95980ccb457d2a4039fa58e6d52ba9cd4f568f0c714f2335"
+        },
+        {
+          "path": "workflow-20261030/QUEUE-UPDATE-025.json",
+          "sha256": "4f790a0f3fa1e3376fb790013ce9531bf16ce3009c25157b8e7e04803723527b"
+        }
+      ]
+    },
+    "root_current_main_target": "e2755a732c84e67296b5e3441a4259a84f461b2f"
+  },
+  "ordered_frontier_before": {
+    "original": 2550,
+    "batch": 865
+  },
+  "ordered_frontier_after": {
+    "original": 2571,
+    "batch": 873
+  },
+  "population_deltas_separate": {
+    "original_roles": 21,
+    "overlays": 0,
+    "frozen_merged_paths": 0,
+    "original_shared_scopes": 0,
+    "registered_extensions": 0,
+    "global_source_identities": 0,
+    "accepted_unique_findings": 0
+  },
+  "immutable_proposals": [
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+      "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "batch": 865,
+      "original_before": 2550,
+      "original_after": 2552
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+      "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6",
+      "batch": 866,
+      "original_before": 2552,
+      "original_after": 2557
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+      "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "batch": 867,
+      "original_before": 2557,
+      "original_after": 2559
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-868.json",
+      "sha256": "049b48615647c7ec5f0128de96f207691a2fcd863797f24112dab0728d0b35c3",
+      "batch": 868,
+      "original_before": 2559,
+      "original_after": 2561
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-869.json",
+      "sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38",
+      "batch": 869,
+      "original_before": 2561,
+      "original_after": 2563
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+      "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5",
+      "batch": 870,
+      "original_before": 2563,
+      "original_after": 2567
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-871.json",
+      "sha256": "4185b42db420181847ea47022449f44cdbd83c2c1ce0cc833ed7a74eb86f8070",
+      "batch": 871,
+      "original_before": 2567,
+      "original_after": 2569
+    },
+    {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+      "sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02",
+      "batch": 872,
+      "original_before": 2569,
+      "original_after": 2571
+    }
+  ],
+  "prospective_registration_proofs": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-592.json",
+      "sha256": "25e27d3a4461c8e892ccbbbd176f3ca62f274951569da9a4e42ecd08bb66e936"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+      "sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-595.json",
+      "sha256": "d867efa95ba36aaa03dde853c63c373a535ae1550d873c16f1065c37d764e385"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-596.json",
+      "sha256": "f4d0a6e49302fec15b972e5e2f0d830fbdd7bc6c40e13904f63be9d87b10ad0d"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-597.json",
+      "sha256": "26a5a77e842b72bfb596688b8146e816c218438cceed079332f451a073c53a1d"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-598.json",
+      "sha256": "df171f9c41709251199c1b65b9fd160ba32a01a59ea9e2bc357965b5715dc164"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-599.json",
+      "sha256": "158f0098be61292a92ef14fcf767cfb73b77f4b157aa4fb1bc6134d9aaba8bab"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-602.json",
+      "sha256": "25c0bf0429138f379cac2bab379c88ffde1c1f9fbdd2acc737df350675ed6dfe"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-603.json",
+      "sha256": "2b6adea3afafc16ef205bfd3acbb573a516c0ce200811314de599cf3bebeef19"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-604.json",
+      "sha256": "4756ab984e8a2971c86383d1b80090ce5306dd6a133831b50bc1825397379950"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-605.json",
+      "sha256": "d0cb46b3a765c09f39c947a7903f3e7d9f9bc4052c96004f2c1780f4a17b43f6"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-608.json",
+      "sha256": "f0cdb3d671271790dae2a0461057e783f138cb531e99b0aae22ee5da5ae755cd"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-609.json",
+      "sha256": "8366509f010cb7ec89406c46cbf4a94926b8cc0490f7f268fde41a8335bdc18f"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-610.json",
+      "sha256": "579a4566995236ccda0cba9032d7532fcacfd204139311f388680c9ad2d20d27"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-611.json",
+      "sha256": "b066f7d4d0cca50c43bdbc3f48884d59f6818ded9d62335b63c1f1f6efe5e48f"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-612.json",
+      "sha256": "333e8c085113af8c653fa47b5279d639385b913743dfc08d097f5635038ce697"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-613.json",
+      "sha256": "eb706ace4cf473fb64ad2a8f70cb20b9498a34ff9b5092b8b0209a0cd7865f5f"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-615.json",
+      "sha256": "92145e80ec47d308ec77bba34d660a754a28ff5cdc0f25c99efbb15ca1fa492b"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-616.json",
+      "sha256": "4dbb18c258b7d9238c6698cc39eff079b4f3999dd65511303cba7260c08035e1"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-617.json",
+      "sha256": "67e5a6945402ddd0ebc71502bb715624319e347f37300978e770a03ebb7fa6e4"
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-618.json",
+      "sha256": "3c588855d15e81881990a950b142027faac412099c7a0569e5c30d46ca2e573c"
+    }
+  ],
+  "exact_source_read_rows": [
+    {
+      "original_index": 2550,
+      "proposal_batch": 865,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-bvh/src/gpu/mod.rs"
+      },
+      "actual_EOF_or_visual_contract": 376,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-592.json",
+        "sha256": "25e27d3a4461c8e892ccbbbd176f3ca62f274951569da9a4e42ecd08bb66e936"
+      },
+      "requested_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          139,
+          174
+        ],
+        [
+          304,
+          376
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "BvhKernels34/with_cache49..59/GpuBvh68..87/new91..137/bind175..179/params181..188/record_build197..254/record_refit262..272/record_refit_passes274..300; required1..138+175..303, allother376bodyseparateprospective593connectedread"
+        ],
+        "string_inventory": [
+          "NativeBufferDefinition labels101/106/111/116/121/126/131 arehuman GPUdiagnosticlabels. PassParameters keys count/pad0183..186/primitive_bounds225/scene_bounds226/codes232/indices233/nodes247/parents248/right_children249/node_bounds284/nativekernelbindingkeysneedactualPassParameters/KernelBatch/ShaderSource/TraversalConfig implementation andexistingowner beforeclaimnativeadapterorinternalStringfailure. No newStringfindingfromliteralalone."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "WgpuContext+KernelCache -> actualshaderSourcefactories51..56/RadixSort57 -> retainedArc<Kernel>BvhKernels35..41 -> GpuBvhfreshnativeBuffers+capacity/count0 -> PassParametersnativeportkeys -> KernelBatch.dispatch/nativeGPUcommands -> node/indexbuffers -> traversalbinding/HostNode/nativephysicsconsumer; exactnativeparameterinterface andshaders/callers stillnecessary.",
+          "Publiccount/capacity -> record_buildcapacitycheck203/retainedcount209 -> intentionalemptyreturn210 -> clear/bounds/codes dispatch222/227/234 -> RadixSort236 -> hierarchy250 -> refit/gather252 -> nativebuffers; record_refit usesretainedsamecount270 perdocumentedtopologymode259."
+        ],
+        "conditional_cases": [
+          "Actualzero-capacitynew normalizesmin1:92; zero-countrecordbuildemptyreturn210 andrefit267 explicitmode, notbackcompatdefect. Nativecount/capacity2n-1 arithmetic/Bufferlimits andclientlayoutadmission needindependentactualsource; no allGPUvalidity claim.",
+          "Count209changesbeforefallibledispatch; .count docs143lastrecorded notlastsubmitted andlocalone-offbuild304errorsdropbatch; actualKernelBatch/callerfailure/submission policy neededbeforestatefinding. Publicmutablebuffers72/75 andreadhostslice consumers documentedbutno invalidbufferfailure assumedwithoutactualinputcontract.",
+          "Additional593disjointbody109linescomplete samefilepersonal376union, connectedreceiptstillrootadoptionpending; requiredoriginal267freshlinesonlyhere, no connectedrole/globalcountfromsamefile. Sourcequeries/read_nodes methods inspectedas sourceonly, noGPU/probe/readbackexecution."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2551,
+      "proposal_batch": 865,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-physics/src/mesh.rs"
+      },
+      "actual_EOF_or_visual_contract": 205,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+        "sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2"
+      },
+      "requested_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [
+        {
+          "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-FUTURE-ORIGINAL2551.json",
+          "sha256": "ee27af5534de1ad23c1614c5a3fa159cba5db3ff23303b636ed65c1be84ef7c5"
+        }
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+        ],
+        "string_inventory": [
+          "Closed reasons62/67/123 distinct exactnonempty/triangleindices/updateextent predicates. Native bufferlabels85/92/97 andbatchlabels170/177 presentation. Rawmesh_positions/mesh_triangles/primitive_bounds/count/margin/pad0/pad1 keys137..145 +193/194 supportexistingGPUparameteridentity. TraversalConfig.callback bvh_hit186 retained raw callable-name protocol -> traversal_source189 -> mesh_source311 text splice -> native bvh_hit284; actualTraversalConfig semanticowner/bodyneeded, not assume samealias as shaderbindingname."
+        ],
+        "trace": [
+          "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+        ],
+        "conditional_cases": [
+          "Normal new validates all triangleindices65 before shaderindex andnonempty61; closesordinaryinvalidindex claim fromunmutatedconstructor. Public positions/triangles/bounds/bvh fields38..44 can independentlyreplace andinconsistentlyretainprivatecounts; real aggregateinstancecontract/callers need rootcanonicalproof. write_positionscast121 before equality means lengths differing2^32 can compareequal, hugeconditional/no actualassetswitness.",
+          "Dynamicwrite_positions120 deliberatelyrequirescallerrecord_refit perdoc118; separate explicitstep legitimate, not automaticallystaleBVH defect. Surface.thickness publiclymutable45 can requireboundrecompute; actualquerymargin335+storedexpandedbounds may safelydoubleexpand, optimization/correctness policyopen. No negativebounds/finitevalues/nativeBVH proofyet."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2552,
+      "proposal_batch": 866,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture.rs",
+      "source_sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28"
+      },
+      "actual_EOF_or_visual_contract": 345,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-595.json",
+        "sha256": "d867efa95ba36aaa03dde853c63c373a535ae1550d873c16f1065c37d764e385"
+      },
+      "requested_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          13,
+          345
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "FurnitureLocal11/GeometryFrameimpl12; exact1..12,13..345unread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; FurnitureLocal markerownslocalmetresframe, nativeSerdeimportsnotmodulebodycredit."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Furniturelocalrecipecoordinates -> canonicalFurnitureLocalGeometryFrame -> latertypedCollisionCuboid/LodMesh -> nativeplaced/render/collisionports; laterfactory/getter/nativecollisionbodyunread."
+        ],
+        "conditional_cases": [
+          "Uninhabitedmarker11 iscoordinate-spaceowner ratherthanruntimecategoryfield; actualrelatedtypedproducers/nativeadapters remainindependent. Ground-centredY0comment9 isdeclaredmode, notuniversalplacement/geometryproof."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2553,
+      "proposal_batch": 866,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "source_sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb"
+      },
+      "actual_EOF_or_visual_contract": 45,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-596.json",
+        "sha256": "f4d0a6e49302fec15b972e5e2f0d830fbdd7bc6c40e13904f63be9d87b10ad0d"
+      },
+      "requested_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "RoomIndex20/from_ordinal22/from_serialized31/index34/serialized_ordinal37/Display41..45 full45"
+        ],
+        "string_inventory": [
+          "NoStringAPI; OrdinalError retainsRecipeOrdinalRole::Room26 +rawordinal27 +nativeTryFromIntError28; Display43 finalnativefmt. NativeSerde transparent19 acceptsrawu16ownedserializedroomordinal."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Nativeusizeauthoredordinal -> checkedu16TryFrom23 -> RoomIndex orstructuredOrdinalError -> retainedtypedroomindices -> index34/serialized37 finalnativearray/wireports; actualcallers/nativearraybounds remainindependent."
+        ],
+        "conditional_cases": [
+          "Zeroordinallegitimatefirstauthoredroom index; no imposednonzeroID orobsoleteAPIpreservation. Nativeu16wire ordinaladmission broadentireu16 policy notproofactualroomexists; room-countaggregate/callerowner othernecessarycontracts."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2554,
+      "proposal_batch": 866,
+      "proposal_row_pointer": "/rows/2",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "source_sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c"
+      },
+      "actual_EOF_or_visual_contract": 137,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-597.json",
+        "sha256": "26a5a77e842b72bfb596688b8146e816c218438cceed079332f451a073c53a1d"
+      },
+      "requested_ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          78
+        ],
+        [
+          91,
+          137
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "RecipeOrdinalRole79..82/OrdinalError85..90 only; other137notfreshread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; typedStorey/Roomrole +usizeordinal +#[source]TryFromIntError preservesactualoverflowclassification/cause to finalDisplay84."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualRoomIndex::from_ordinal2553 -> canonicalOrdinalError{role,ordinal,cause} -> privateGenerationError::Ordinal andnativeSerde/errorboundary; actualphysicalconsumers notinferredfromPRcounterpart."
+        ],
+        "conditional_cases": [
+          "Own840PRfull137samehashlocatedbeforecurrentreadbutphysicalidentity/producerrolequalifiedfresh12linesonlyhere; preservepriorPRattribution nofakephysicalfull137. No mandatoryroleenumexpansionwithoutactualnewordinalmeaning."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2555,
+      "proposal_batch": 866,
+      "proposal_row_pointer": "/rows/3",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "source_sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b"
+      },
+      "actual_EOF_or_visual_contract": 341,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-598.json",
+        "sha256": "df171f9c41709251199c1b65b9fd160ba32a01a59ea9e2bc357965b5715dc164"
+      },
+      "requested_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          50,
+          341
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "PlanVertex5..7/ArchitecturalPlanPoint13/from_metres15/metres29/TryFrom33/Deserialize39/PlanVertex45..49;50..341unread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; GeometryError::NonFinite18 typedGeometryRole/CoordinateAxis retaineduntilnativeSerdecustom42 finaladapter. PlanVertex methodnativeVec2geometryprojection, notprivateStringowner."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "NativeVec2 -> finiteadmission17 withactualXorZcontext -> retainedArchitecturalPlanPoint privateVec2 -> PlanVertex/explicitmetres29 -> nativepolygonalgorithm; nativeSerde39 readmitsviafrom_metres beforeformattingatboundary."
+        ],
+        "conditional_cases": [
+          "Finitepointadmitsnegative/zeroordinaryplanpositions; no nonnegativeworldconstraint. Finitepointnotconvex/simple/quantizedpolygonaggregateproof; openPlanVerteximplcontract/other341bodyunread. No serde/runtimeprobe."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2556,
+      "proposal_batch": 866,
+      "proposal_row_pointer": "/rows/4",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "source_sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0"
+      },
+      "actual_EOF_or_visual_contract": 206,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-599.json",
+        "sha256": "158f0098be61292a92ef14fcf767cfb73b77f4b157aa4fb1bc6134d9aaba8bab"
+      },
+      "requested_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          129
+        ],
+        [
+          143,
+          206
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "InteriorField::from_plan tail130..142 onlyoriginalrole; completefunction/signature/other206bodyseparate600connectedread"
+        ],
+        "string_inventory": [
+          "NoStringinactualtypedShutterLight opening_id/contributions/openness0 initializer134..138; canonicalOpeningAssemblyIdtypeactualproducerconfirmed600body, notinferredsolelyfromname."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualBTreeMapOpeningAssemblyId\u2192Vec(index,LightSample) constructedoutsideoriginalscopebutfresh600 -> into_iter/map134 -> retainedShutterLight{opening_id,contributions,openness0}-> InteriorField.shutters -> actualshutterupdate/nativeGPUconsumer."
+        ],
+        "conditional_cases": [
+          "Opaqueleavesstartclosedopenness0legitimateinitialmode; existingfullfield206bodyqualifiedvia59913+600193disjoint but600connectedrootadoptionpending, no entire206countasoriginalfresh. Nativeidentity/frame/sample/numericaggregate othercontracts explicit."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2557,
+      "proposal_batch": 867,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "source_sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093"
+      },
+      "actual_EOF_or_visual_contract": 86,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-602.json",
+        "sha256": "25c0bf0429138f379cac2bab379c88ffde1c1f9fbdd2acc737df350675ed6dfe"
+      },
+      "requested_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "AnimationFrequency24..43; AnimationSampleRate45..86 full body, Serde native f32 conversion attributes12/21."
+        ],
+        "string_inventory": [
+          "Only native Serde attribute grammar try_from/into f32; no private String owner, prose classifier, magic dynamic identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native f32 -> AnimationFrequency::try_from finite positive33..41 -> retained frequency + checked reciprocal PositiveAnimationDuration71..78 -> native hertz47/interval51/span division60..62 and serialized original frequency84."
+        ],
+        "conditional_cases": [
+          "Frequency calibration explicitly permits no representable reciprocal18..19 while sample-rate constructor checks reciprocal72. Distinct valid semantic contracts, not redundant owner by scalar representation.",
+          "Native exact original frequency bits retained, no obsolete API compatibility obligation; sample-count division order intentional, no arithmetic defect from normalization alone. Other numeric/aggregate/lifetime contracts independent."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2558,
+      "proposal_batch": 867,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-compute/src/prefix_sum.rs"
+      },
+      "actual_EOF_or_visual_contract": 408,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-603.json",
+        "sha256": "2b6adea3afafc16ef205bfd3acbb573a516c0ce200811314de599cf3bebeef19"
+      },
+      "requested_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          307,
+          408
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "ScanElementCount44..64; native WGSL scan_blocks_code69..124/add_offsets_code126..154; grid157..160; PrefixSumScratch175..211; PrefixSum new222/with_cache226/record240..270/record_level272..303; one-off run body307..408 unread."
+        ],
+        "string_inventory": [
+          "WGSL generators return native shader program String, parameters count/pad0/pad1/data/write_sums/sums282..296 match authored WGSL69..154; debug buffer labels186/194 native diagnostic ports. No closed-name defect solely from literals. ScanError preserves typed counts/byte extents and native anyhow source39, no error-prose parsing."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Typed ScanElementCount -> scratch checked capacity250 and native BufferByteLength256 -> actual PassParameters raw name map281..296 -> KernelBatch.dispatch290/297/301 + recursive call299 -> native WGSL uniforms/storage69..154; exact parameter family owner proof independent."
+        ],
+        "conditional_cases": [
+          "count0 intentional no-op247, scratch capacity max1 intentional176; shader addition wraps documented237, not overflow compatibility defect.",
+          "record-level recursion MissingScratchLevel294 structured failure; native GPU resource/context/buffer alias/dispatch layout/maximum bounds remain actual connected contracts, no runtime or native execution.",
+          "All original recursive registry scopes union1..306 personally read; source307..408 unassessed, tests/run not claimed."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2559,
+      "proposal_batch": 868,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "source_sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487"
+      },
+      "actual_EOF_or_visual_contract": 1813,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-604.json",
+        "sha256": "4756ab984e8a2971c86383d1b80090ce5306dd6a133831b50bc1825397379950"
+      },
+      "requested_ranges": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          156
+        ],
+        [
+          231,
+          668
+        ],
+        [
+          717,
+          1813
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "apply_head_and_torso_look157..226; procedural_tuning669..671; additive_look_rotation673..681; guarded_camera_look683..691; constrained_camera_look693..715. Exact scopes also include comments228..230/blank716, no jump body."
+        ],
+        "string_inventory": [
+          "No String API. Typed BoneRole, WeaponGuardState, PostureTransitionState, actual native quaternion/vector rotations, optional component queries."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "CharacterLook/PresentedSkeleton + actual owner current Transform176 -> guarded_camera_look180/weapon posture typed modes -> native residual camera look693 and bone-specific weights195 -> normalized native quaternion674 -> retained Transform219/ProceduralLookStatebase_rotation678 -> Bevy native transform propagation later."
+        ],
+        "conditional_cases": [
+          "Missing owner transform skips176; absent guard/posture disables look689 intentionally; irrelevant bone roles skip202. Legitimate optional modes, no compatibility defect.",
+          "Rear hemisphere fold atan2(x,absz)703 explicitly resolves ambiguous behind-body turn, joint-limit clamp709/713 intentional normalization. No unsupported restriction invented from existing raw angles.",
+          "Actual raw CharacterLook yaw/pitch native projection696 and native Quat normalization674 need numeric/admission/aggregate appropriate-lens evidence; no String finding from math. Other1813 source unassessed."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2560,
+      "proposal_batch": 868,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "source_sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/model.rs"
+      },
+      "actual_EOF_or_visual_contract": 331,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-605.json",
+        "sha256": "d0cb46b3a765c09f39c947a7903f3e7d9f9bc4052c96004f2c1780f4a17b43f6"
+      },
+      "requested_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          170,
+          331
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "GridPoint25..36; CellDiameter41..81; GridLength86..108; Cell116..138; Direction149..169 full functions. Source170..331 unread."
+        ],
+        "string_inventory": [
+          "Native Serde custom error prose79/106 final adapter only; snake_case141 native enum wire grammar. No error-prose classifier or arbitrary private String identity in required169."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native integer/Serde input -> CellDiameter nonzero42/whole-grid checked58 or GridLength positive87 -> retained private newtypes -> explicit metres/grid units native projection50/54/95. Direction typed owner maps native vector offsets152/opposite161; Cell carries native grid coordinates111."
+        ],
+        "conditional_cases": [
+          "Signed/zero Cell/GridPoint positions legitimate; positive lengths distinct from world positions, not common-scalar aliases. Whole-cell diameter rejection59 intentional authored contract, no obsolete API preservation.",
+          "Cell::neighbour130 uses i16 addition of Direction offset; native boundary overflow/actual authored coordinate reachable domain is independent numeric/admission contract for appropriate lens, no String finding or runtime witness.",
+          "Serde string literals final boundary; do not preserve error prose or require bespoke type for native decoder error text."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2561,
+      "proposal_batch": 869,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+      "source_sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 372,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-608.json",
+        "sha256": "f0cdb3d671271790dae2a0461057e783f138cb531e99b0aae22ee5da5ae755cd"
+      },
+      "requested_ranges": [
+        [
+          251,
+          293
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          251,
+          293
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          251,
+          293
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          250
+        ],
+        [
+          294,
+          372
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "sats_derive251..266; deserialize269..271/serialize274..276/schema_type279..293. Macro bodies inspected only, no generation executed."
+        ],
+        "string_inventory": [
+          "Native compiler token paths crate_fallback257..261, own type/field identifiers/schema registration names and native compile_error264. Legitimate open authored compiler namespace; no private String classification defect."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual #[SpacetimeType] dispatch279 -> syn AST256 -> sats_type_from_derive262 -> generated schema/deserialize/serialize286..288; native __make_register_reftype290. Concrete firstparty namespace/reexport feature/field invariant proof separate."
+        ],
+        "conditional_cases": [
+          "assume_in_module switches explicit spacetimedb::spacetimedb_lib vs spacetimedb_lib, legitimate macro entry mode. Only exact named native dispatch, no whole package/reducer/view/table/serialize body credit.",
+          "Exact native body matches complete cached crate checksum frozen locks; current main still independent."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2562,
+      "proposal_batch": 869,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 752,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-609.json",
+        "sha256": "8366509f010cb7ec89406c46cbf4a94926b8cc0490f7f268fde41a8335bdc18f"
+      },
+      "requested_ranges": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          53
+        ],
+        [
+          86,
+          86
+        ],
+        [
+          97,
+          97
+        ],
+        [
+          144,
+          272
+        ],
+        [
+          288,
+          294
+        ],
+        [
+          330,
+          330
+        ],
+        [
+          638,
+          727
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "sats_type_from_derive54..85/is_repr_c87..96/extract_sats_type98..143; add_type_bounds273..287; extract_repr_c_primitive295..329; derive_deserialize331..637 full; variant_data728..752 full. Other schema145..271/serialize639..726 unassessed."
+        ],
+        "string_inventory": [
+          "Native Rust field/variant identifiers become native SATS product/sum schema names63/74, matched at actual decoder boundary501..505/626..630 to generated enums. Native unknown/missing/duplicate-field constructors preserve decoder context; no application magic String from compiler symbol grammar."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native syn AST -> typed SatsTypeData Product/Sum58..80 with authored crate/name111..129 -> derive_deserialize331 -> native field decoders434/457 -> raw named constructor432/461, or sum native tag/name619/626 -> native variant payload533/538 -> concrete application retained bespoke value only after actual macro namespace/firstparty admission is connected."
+        ],
+        "conditional_cases": [
+          "Named-product generator constructs fields directly432..436/461..464 and validate delegates field validation440/478, with no whole bespoke constructor hook in this source branch. Exact application invariant bypass finding requires actual firstparty type/derive/admission/reexport path; no supported bypass witness invented from native body alone.",
+          "reprC primitive fast path362..385 copies native bytes when no padding; native soundness/alignments not a Lens12 acceptance and no generated/runtime/probe executed.",
+          "Sum unit/newtype shapes deliberately allowed variant_data728..752; unsupported multi-field variants emit native compiler diagnostics. No arbitrary application variant restriction or obsolete macro API preservation.",
+          "Exact native package version/checksum qualified for both frozen PR and physical locks; actual selected feature/namespace and current main remain explicit independent qualifications."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2563,
+      "proposal_batch": 870,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+      "source_sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 907,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-610.json",
+        "sha256": "579a4566995236ccda0cba9032d7532fcacfd204139311f388680c9ad2d20d27"
+      },
+      "requested_ranges": [
+        [
+          60,
+          117
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          60,
+          117
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          60,
+          117
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          118,
+          907
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "match_reflect_impls60..117 original scope; closing118 separately614 read; full actual function60..118 aggregate"
+        ],
+        "string_inventory": [
+          "Native token AST/compiler diagnostics only. Opaque/struct/tuple/enum dispatch74..107, explicit optional FromReflect auto-derive metadata. No private String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual ReflectDerive -> impl_opaque100 /FromReflect102 conditional -> generated native type reflection. Concrete application attrs/remote/constructor contracts independent."
+        ],
+        "conditional_cases": [
+          "Opaque vs struct reflection intentionally distinct, None for disabled from_reflect legitimate mode; no body credit for other struct/enum generators."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2564,
+      "proposal_batch": 870,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+      "source_sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 353,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-611.json",
+        "sha256": "b066f7d4d0cca50c43bdbc3f48884d59f6818ded9d62335b63c1f1f6efe5e48f"
+      },
+      "requested_ranges": [
+        [
+          25,
+          59
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          25,
+          59
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          25,
+          59
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          60,
+          353
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "from_reflect::impl_opaque25..56 full; next enum header59 only"
+        ],
+        "string_inventory": [
+          "No String API; typed native try_downcast_ref37/44 then clone36/43. Native remote wrapper conversion35 deliberately maps remote type, not application prose."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Opaque ReflectMeta type path -> native remote or self downcast -> clone -> ReflectRemote::into_wrapper35 -> Option<Self>52; actual firstparty remote invariant/into_wrapper body needed before admission conclusion."
+        ],
+        "conditional_cases": [
+          "Own/self typed clone cannot itself manufacture invalid new value from valid Self; remote unchecked public wrapper concern requires concrete wrapper/remote admission contract, not blanket rejection of legitimate native reflection."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2565,
+      "proposal_batch": 870,
+      "proposal_row_pointer": "/rows/2",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+      "source_sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 131,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-612.json",
+        "sha256": "333e8c085113af8c653fa47b5279d639385b913743dfc08d097f5635038ce697"
+      },
+      "requested_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "impls::opaque::impl_opaque10..131 full"
+        ],
+        "string_inventory": [
+          "Native TypePath String diagnostics ApplyError::MismatchedTypes99..102 remain final native reflection port. No internal application closed identity classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ReflectMeta -> opaque TypeInfo26/registered native traits -> remote try_apply39 assigns Self(clone remote)40 or own clone47 -> native PartialReflect/ReflectOwned/ReflectMut ports106..123 -> concrete retained wrapper only after actual caller."
+        ],
+        "conditional_cases": [
+          "Remote try_apply creates tuple wrapper directly40 in native macro body; supported invariant failure requires concrete remote type/wrapper/ReflectRemote/attrs/caller source. No demand preserve Box downcasts or error prose. functions/auto_register/documentation modes conditional by native feature, no activation inferred."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2566,
+      "proposal_batch": 870,
+      "proposal_row_pointer": "/rows/3",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+      "source_sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 257,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-613.json",
+        "sha256": "eb706ace4cf473fb64ad2a8f70cb20b9498a34ff9b5092b8b0209a0cd7865f5f"
+      },
+      "requested_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          175,
+          257
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "impl_full_reflect7..80; common_partial_reflect_methods82..172 complete; auto_register header174 only"
+        ],
+        "string_inventory": [
+          "No application String classifier. Native Any/type reflection/proc_macro TokenStream and optional hash/debug/comparison implementations are actual native compiler/reflection boundaries."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Meta remote wrapper -> native as_any_mut exposes self.0 at28..29 vs own self45..46; set75 takes typed Reflect; common PartialReflect mut projection145/160 returns self; actual application remote writable boundary may require validation owner, not proven safe/unsafe by macro names."
+        ],
+        "conditional_cases": [
+          "Typed Self mutation preserves input type, does not itself prove bespoke invariant if native remote primitive can be externally mutated; concrete application accepted-mode/native callers are required. No unrelated auto_register175+ coverage."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2567,
+      "proposal_batch": 871,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+      "source_sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 500,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-615.json",
+        "sha256": "92145e80ec47d308ec77bba34d660a754a28ff5cdc0f25c99efbb15ca1fa492b"
+      },
+      "requested_ranges": [
+        [
+          21,
+          241
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          21,
+          241
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          21,
+          241
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          242,
+          500
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "reflect_remote21..100; generate_remote_wrapper114..130; impl_reflect_remote139..212; historicalcontext assertion docs213..241 read only, no assertion-body coverage."
+        ],
+        "string_inventory": [
+          "Native compiler attributes/tokens/type paths/diagnostics. Native remote mutable projection/transparent conversion no String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "RemoteArgs parse22 and AST29 -> generated wrapper with public remote field128 -> ReflectDerive set_remote43 -> opaque native generator76 +FromReflect78 -> native as_remote_mut158/into_wrapper190 -> actual application retained wrapper only if concrete derive/caller established."
+        ],
+        "conditional_cases": [
+          "Generated pub field128/as_remote_mut158/as_wrapper_mut186/into_wrapper190 expose remote native value directly. This is actual native API behavior, not supported application bypass proof by itself; bespoke wrapper domain/actual attrs/native caller must be assessed.",
+          "No requirement to preserve obsolete Box/downcast/error prose/native generated API; sourceonly docs213..241 unexecuted and no compiler/assertion changes. Native lifetime/layout safety not Lens12 acceptance."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2568,
+      "proposal_batch": 871,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+      "source_sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 59,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-616.json",
+        "sha256": "4dbb18c258b7d9238c6698cc39eff079b4f3999dd65511303cba7260c08035e1"
+      },
+      "requested_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "impl_get_type_registration8..59 full function/file"
+        ],
+        "string_inventory": [
+          "Native compiler type registration trait/tokens, no private application String key or prose classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ReflectMeta attrs/typed dependencies16..18 -> native TypeRegistry registration48/ReflectFromPtr49/optional ReflectFromReflect32/serialization41 -> actual native reflection consumers; concrete app activation independently."
+        ],
+        "conditional_cases": [
+          "Disabled auto FromReflect legitimately omits registration30..35; optional serialization metadata38..43 and dependency functions18..25 are supported modes. Registration existence does not prove user validation/admission or current behavior."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2569,
+      "proposal_batch": 872,
+      "proposal_row_pointer": "/rows/0",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+      "source_sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 1422,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-617.json",
+        "sha256": "67e5a6945402ddd0ebc71502bb715624319e347f37300978e770a03ebb7fa6e4"
+      },
+      "requested_ranges": [
+        [
+          184,
+          327
+        ],
+        [
+          489,
+          500
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          184,
+          327
+        ],
+        [
+          489,
+          500
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          184,
+          327
+        ],
+        [
+          489,
+          500
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          183
+        ],
+        [
+          328,
+          488
+        ],
+        [
+          501,
+          1422
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "ReflectDerive::from_input184..322 full; follow-on docs323..327 only; ReflectMeta::get_type_registration489..498 full; doc499..500 only."
+        ],
+        "string_inventory": [
+          "Native compiler attribute strings type_path/type_name parsed to syn::Path/Ident223/240. Native compile error prose final compiler adapter; legitimate open Rust namespace not application String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Concrete derive AST attrs -> ContainerAttributes.parse_meta_list201 -> typed native ReflectTypePath269/ReflectMeta275 -> is_opaque290 selects Opaque291 before field collection -> actual registration helper493 None serialization/deps495..496 -> native reflected application wrapper only after actual derive identity/caller qualified."
+        ],
+        "conditional_cases": [
+          "Opaque selection bypasses field collection intentionally; cannot treat lack field exposure as admission bypass without actual bespoke owner/native route. Inherited source role exclusions retained, no set_remote body328+ or whole1422 coverage.",
+          "Custom type name requires custom path260..264 native compiler grammar, legitimate normalization. No compatibility obligation to preserve native error prose."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "original_index": 2570,
+      "proposal_batch": 872,
+      "proposal_row_pointer": "/rows/1",
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+      "source_sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+      "revision_or_transport_qualification": {},
+      "actual_EOF_or_visual_contract": 693,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-618.json",
+        "sha256": "3c588855d15e81881990a950b142027faac412099c7a0569e5c30d46ca2e573c"
+      },
+      "requested_ranges": [
+        [
+          219,
+          246
+        ],
+        [
+          390,
+          400
+        ],
+        [
+          621,
+          663
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          219,
+          246
+        ],
+        [
+          390,
+          400
+        ],
+        [
+          621,
+          663
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          219,
+          246
+        ],
+        [
+          390,
+          400
+        ],
+        [
+          621,
+          663
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          218
+        ],
+        [
+          247,
+          389
+        ],
+        [
+          401,
+          620
+        ],
+        [
+          664,
+          693
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "parse_meta_list219..225 full; parse_container_attribute228..246 partial dispatch only; parse_opaque395..399 full; get_clone_impl621..637 full; custom_attributes639..641/custom_where644..646/no_field_bounds649..651/no_auto_register655..657/is_opaque660..662 full. Other693 body unassessed."
+        ],
+        "string_inventory": [
+          "Native token grammar keywords opaque/from_reflect/type_path and compiler symbols; native optional clone generation returns typed ReflectCloneError ports625/631, no application String classification."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native reflect attr parse219 -> dispatch242 selects parse_opaque395 setting typedbool397 -> is_opaque660 -> ReflectDeriveOpaque291 -> actual native opaque reflection. CloneImplemented clonesSelf626, custom callback632, absentclone635 remains None; actual application attrs/callback bodies must qualify separately."
+        ],
+        "conditional_cases": [
+          "Clone not implemented means legitimate optional native facility, no defect from missing optional callback. Opaque flag is native framework option with meaningful clear boolean grammar, not semantic application enum conversion requirement.",
+          "parse_container_attribute247+ branch remainder and parse_terminated body not read; no claim exhaustively supported attrs or complete parser. Only direct opaque selection and listed clone/getters proven."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    }
+  ],
+  "semantic_dispositions": [
+    {
+      "original_index": 2550,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+        "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "BvhKernels34/with_cache49..59/GpuBvh68..87/new91..137/bind175..179/params181..188/record_build197..254/record_refit262..272/record_refit_passes274..300; required1..138+175..303, allother376bodyseparateprospective593connectedread"
+        ],
+        "string_inventory": [
+          "NativeBufferDefinition labels101/106/111/116/121/126/131 arehuman GPUdiagnosticlabels. PassParameters keys count/pad0183..186/primitive_bounds225/scene_bounds226/codes232/indices233/nodes247/parents248/right_children249/node_bounds284/nativekernelbindingkeysneedactualPassParameters/KernelBatch/ShaderSource/TraversalConfig implementation andexistingowner beforeclaimnativeadapterorinternalStringfailure. No newStringfindingfromliteralalone."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "WgpuContext+KernelCache -> actualshaderSourcefactories51..56/RadixSort57 -> retainedArc<Kernel>BvhKernels35..41 -> GpuBvhfreshnativeBuffers+capacity/count0 -> PassParametersnativeportkeys -> KernelBatch.dispatch/nativeGPUcommands -> node/indexbuffers -> traversalbinding/HostNode/nativephysicsconsumer; exactnativeparameterinterface andshaders/callers stillnecessary.",
+          "Publiccount/capacity -> record_buildcapacitycheck203/retainedcount209 -> intentionalemptyreturn210 -> clear/bounds/codes dispatch222/227/234 -> RadixSort236 -> hierarchy250 -> refit/gather252 -> nativebuffers; record_refit usesretainedsamecount270 perdocumentedtopologymode259."
+        ],
+        "conditional_cases": [
+          "Actualzero-capacitynew normalizesmin1:92; zero-countrecordbuildemptyreturn210 andrefit267 explicitmode, notbackcompatdefect. Nativecount/capacity2n-1 arithmetic/Bufferlimits andclientlayoutadmission needindependentactualsource; no allGPUvalidity claim.",
+          "Count209changesbeforefallibledispatch; .count docs143lastrecorded notlastsubmitted andlocalone-offbuild304errorsdropbatch; actualKernelBatch/callerfailure/submission policy neededbeforestatefinding. Publicmutablebuffers72/75 andreadhostslice consumers documentedbutno invalidbufferfailure assumedwithoutactualinputcontract.",
+          "Additional593disjointbody109linescomplete samefilepersonal376union, connectedreceiptstillrootadoptionpending; requiredoriginal267freshlinesonlyhere, no connectedrole/globalcountfromsamefile. Sourcequeries/read_nodes methods inspectedas sourceonly, noGPU/probe/readbackexecution."
+        ]
+      }
+    },
+    {
+      "original_index": 2551,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+        "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+        ],
+        "string_inventory": [
+          "Closed reasons62/67/123 distinct exactnonempty/triangleindices/updateextent predicates. Native bufferlabels85/92/97 andbatchlabels170/177 presentation. Rawmesh_positions/mesh_triangles/primitive_bounds/count/margin/pad0/pad1 keys137..145 +193/194 supportexistingGPUparameteridentity. TraversalConfig.callback bvh_hit186 retained raw callable-name protocol -> traversal_source189 -> mesh_source311 text splice -> native bvh_hit284; actualTraversalConfig semanticowner/bodyneeded, not assume samealias as shaderbindingname."
+        ],
+        "trace": [
+          "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+        ],
+        "conditional_cases": [
+          "Normal new validates all triangleindices65 before shaderindex andnonempty61; closesordinaryinvalidindex claim fromunmutatedconstructor. Public positions/triangles/bounds/bvh fields38..44 can independentlyreplace andinconsistentlyretainprivatecounts; real aggregateinstancecontract/callers need rootcanonicalproof. write_positionscast121 before equality means lengths differing2^32 can compareequal, hugeconditional/no actualassetswitness.",
+          "Dynamicwrite_positions120 deliberatelyrequirescallerrecord_refit perdoc118; separate explicitstep legitimate, not automaticallystaleBVH defect. Surface.thickness publiclymutable45 can requireboundrecompute; actualquerymargin335+storedexpandedbounds may safelydoubleexpand, optimization/correctness policyopen. No negativebounds/finitevalues/nativeBVH proofyet."
+        ]
+      }
+    },
+    {
+      "original_index": 2552,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+        "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "FurnitureLocal11/GeometryFrameimpl12; exact1..12,13..345unread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; FurnitureLocal markerownslocalmetresframe, nativeSerdeimportsnotmodulebodycredit."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Furniturelocalrecipecoordinates -> canonicalFurnitureLocalGeometryFrame -> latertypedCollisionCuboid/LodMesh -> nativeplaced/render/collisionports; laterfactory/getter/nativecollisionbodyunread."
+        ],
+        "conditional_cases": [
+          "Uninhabitedmarker11 iscoordinate-spaceowner ratherthanruntimecategoryfield; actualrelatedtypedproducers/nativeadapters remainindependent. Ground-centredY0comment9 isdeclaredmode, notuniversalplacement/geometryproof."
+        ]
+      }
+    },
+    {
+      "original_index": 2553,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+        "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "RoomIndex20/from_ordinal22/from_serialized31/index34/serialized_ordinal37/Display41..45 full45"
+        ],
+        "string_inventory": [
+          "NoStringAPI; OrdinalError retainsRecipeOrdinalRole::Room26 +rawordinal27 +nativeTryFromIntError28; Display43 finalnativefmt. NativeSerde transparent19 acceptsrawu16ownedserializedroomordinal."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Nativeusizeauthoredordinal -> checkedu16TryFrom23 -> RoomIndex orstructuredOrdinalError -> retainedtypedroomindices -> index34/serialized37 finalnativearray/wireports; actualcallers/nativearraybounds remainindependent."
+        ],
+        "conditional_cases": [
+          "Zeroordinallegitimatefirstauthoredroom index; no imposednonzeroID orobsoleteAPIpreservation. Nativeu16wire ordinaladmission broadentireu16 policy notproofactualroomexists; room-countaggregate/callerowner othernecessarycontracts."
+        ]
+      }
+    },
+    {
+      "original_index": 2554,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+        "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6"
+      },
+      "row_pointer": "/rows/2",
+      "assessment": {
+        "exact_function_ownership": [
+          "RecipeOrdinalRole79..82/OrdinalError85..90 only; other137notfreshread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; typedStorey/Roomrole +usizeordinal +#[source]TryFromIntError preservesactualoverflowclassification/cause to finalDisplay84."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualRoomIndex::from_ordinal2553 -> canonicalOrdinalError{role,ordinal,cause} -> privateGenerationError::Ordinal andnativeSerde/errorboundary; actualphysicalconsumers notinferredfromPRcounterpart."
+        ],
+        "conditional_cases": [
+          "Own840PRfull137samehashlocatedbeforecurrentreadbutphysicalidentity/producerrolequalifiedfresh12linesonlyhere; preservepriorPRattribution nofakephysicalfull137. No mandatoryroleenumexpansionwithoutactualnewordinalmeaning."
+        ]
+      }
+    },
+    {
+      "original_index": 2555,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+        "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6"
+      },
+      "row_pointer": "/rows/3",
+      "assessment": {
+        "exact_function_ownership": [
+          "PlanVertex5..7/ArchitecturalPlanPoint13/from_metres15/metres29/TryFrom33/Deserialize39/PlanVertex45..49;50..341unread"
+        ],
+        "string_inventory": [
+          "NoStringAPI; GeometryError::NonFinite18 typedGeometryRole/CoordinateAxis retaineduntilnativeSerdecustom42 finaladapter. PlanVertex methodnativeVec2geometryprojection, notprivateStringowner."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "NativeVec2 -> finiteadmission17 withactualXorZcontext -> retainedArchitecturalPlanPoint privateVec2 -> PlanVertex/explicitmetres29 -> nativepolygonalgorithm; nativeSerde39 readmitsviafrom_metres beforeformattingatboundary."
+        ],
+        "conditional_cases": [
+          "Finitepointadmitsnegative/zeroordinaryplanpositions; no nonnegativeworldconstraint. Finitepointnotconvex/simple/quantizedpolygonaggregateproof; openPlanVerteximplcontract/other341bodyunread. No serde/runtimeprobe."
+        ]
+      }
+    },
+    {
+      "original_index": 2556,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+        "sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6"
+      },
+      "row_pointer": "/rows/4",
+      "assessment": {
+        "exact_function_ownership": [
+          "InteriorField::from_plan tail130..142 onlyoriginalrole; completefunction/signature/other206bodyseparate600connectedread"
+        ],
+        "string_inventory": [
+          "NoStringinactualtypedShutterLight opening_id/contributions/openness0 initializer134..138; canonicalOpeningAssemblyIdtypeactualproducerconfirmed600body, notinferredsolelyfromname."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualBTreeMapOpeningAssemblyId\u2192Vec(index,LightSample) constructedoutsideoriginalscopebutfresh600 -> into_iter/map134 -> retainedShutterLight{opening_id,contributions,openness0}-> InteriorField.shutters -> actualshutterupdate/nativeGPUconsumer."
+        ],
+        "conditional_cases": [
+          "Opaqueleavesstartclosedopenness0legitimateinitialmode; existingfullfield206bodyqualifiedvia59913+600193disjoint but600connectedrootadoptionpending, no entire206countasoriginalfresh. Nativeidentity/frame/sample/numericaggregate othercontracts explicit."
+        ]
+      }
+    },
+    {
+      "original_index": 2557,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+        "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "AnimationFrequency24..43; AnimationSampleRate45..86 full body, Serde native f32 conversion attributes12/21."
+        ],
+        "string_inventory": [
+          "Only native Serde attribute grammar try_from/into f32; no private String owner, prose classifier, magic dynamic identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native f32 -> AnimationFrequency::try_from finite positive33..41 -> retained frequency + checked reciprocal PositiveAnimationDuration71..78 -> native hertz47/interval51/span division60..62 and serialized original frequency84."
+        ],
+        "conditional_cases": [
+          "Frequency calibration explicitly permits no representable reciprocal18..19 while sample-rate constructor checks reciprocal72. Distinct valid semantic contracts, not redundant owner by scalar representation.",
+          "Native exact original frequency bits retained, no obsolete API compatibility obligation; sample-count division order intentional, no arithmetic defect from normalization alone. Other numeric/aggregate/lifetime contracts independent."
+        ]
+      }
+    },
+    {
+      "original_index": 2558,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+        "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "ScanElementCount44..64; native WGSL scan_blocks_code69..124/add_offsets_code126..154; grid157..160; PrefixSumScratch175..211; PrefixSum new222/with_cache226/record240..270/record_level272..303; one-off run body307..408 unread."
+        ],
+        "string_inventory": [
+          "WGSL generators return native shader program String, parameters count/pad0/pad1/data/write_sums/sums282..296 match authored WGSL69..154; debug buffer labels186/194 native diagnostic ports. No closed-name defect solely from literals. ScanError preserves typed counts/byte extents and native anyhow source39, no error-prose parsing."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Typed ScanElementCount -> scratch checked capacity250 and native BufferByteLength256 -> actual PassParameters raw name map281..296 -> KernelBatch.dispatch290/297/301 + recursive call299 -> native WGSL uniforms/storage69..154; exact parameter family owner proof independent."
+        ],
+        "conditional_cases": [
+          "count0 intentional no-op247, scratch capacity max1 intentional176; shader addition wraps documented237, not overflow compatibility defect.",
+          "record-level recursion MissingScratchLevel294 structured failure; native GPU resource/context/buffer alias/dispatch layout/maximum bounds remain actual connected contracts, no runtime or native execution.",
+          "All original recursive registry scopes union1..306 personally read; source307..408 unassessed, tests/run not claimed."
+        ]
+      }
+    },
+    {
+      "original_index": 2559,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-868.json",
+        "sha256": "049b48615647c7ec5f0128de96f207691a2fcd863797f24112dab0728d0b35c3"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "apply_head_and_torso_look157..226; procedural_tuning669..671; additive_look_rotation673..681; guarded_camera_look683..691; constrained_camera_look693..715. Exact scopes also include comments228..230/blank716, no jump body."
+        ],
+        "string_inventory": [
+          "No String API. Typed BoneRole, WeaponGuardState, PostureTransitionState, actual native quaternion/vector rotations, optional component queries."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "CharacterLook/PresentedSkeleton + actual owner current Transform176 -> guarded_camera_look180/weapon posture typed modes -> native residual camera look693 and bone-specific weights195 -> normalized native quaternion674 -> retained Transform219/ProceduralLookStatebase_rotation678 -> Bevy native transform propagation later."
+        ],
+        "conditional_cases": [
+          "Missing owner transform skips176; absent guard/posture disables look689 intentionally; irrelevant bone roles skip202. Legitimate optional modes, no compatibility defect.",
+          "Rear hemisphere fold atan2(x,absz)703 explicitly resolves ambiguous behind-body turn, joint-limit clamp709/713 intentional normalization. No unsupported restriction invented from existing raw angles.",
+          "Actual raw CharacterLook yaw/pitch native projection696 and native Quat normalization674 need numeric/admission/aggregate appropriate-lens evidence; no String finding from math. Other1813 source unassessed."
+        ]
+      }
+    },
+    {
+      "original_index": 2560,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-868.json",
+        "sha256": "049b48615647c7ec5f0128de96f207691a2fcd863797f24112dab0728d0b35c3"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "GridPoint25..36; CellDiameter41..81; GridLength86..108; Cell116..138; Direction149..169 full functions. Source170..331 unread."
+        ],
+        "string_inventory": [
+          "Native Serde custom error prose79/106 final adapter only; snake_case141 native enum wire grammar. No error-prose classifier or arbitrary private String identity in required169."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native integer/Serde input -> CellDiameter nonzero42/whole-grid checked58 or GridLength positive87 -> retained private newtypes -> explicit metres/grid units native projection50/54/95. Direction typed owner maps native vector offsets152/opposite161; Cell carries native grid coordinates111."
+        ],
+        "conditional_cases": [
+          "Signed/zero Cell/GridPoint positions legitimate; positive lengths distinct from world positions, not common-scalar aliases. Whole-cell diameter rejection59 intentional authored contract, no obsolete API preservation.",
+          "Cell::neighbour130 uses i16 addition of Direction offset; native boundary overflow/actual authored coordinate reachable domain is independent numeric/admission contract for appropriate lens, no String finding or runtime witness.",
+          "Serde string literals final boundary; do not preserve error prose or require bespoke type for native decoder error text."
+        ]
+      }
+    },
+    {
+      "original_index": 2561,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-869.json",
+        "sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "sats_derive251..266; deserialize269..271/serialize274..276/schema_type279..293. Macro bodies inspected only, no generation executed."
+        ],
+        "string_inventory": [
+          "Native compiler token paths crate_fallback257..261, own type/field identifiers/schema registration names and native compile_error264. Legitimate open authored compiler namespace; no private String classification defect."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual #[SpacetimeType] dispatch279 -> syn AST256 -> sats_type_from_derive262 -> generated schema/deserialize/serialize286..288; native __make_register_reftype290. Concrete firstparty namespace/reexport feature/field invariant proof separate."
+        ],
+        "conditional_cases": [
+          "assume_in_module switches explicit spacetimedb::spacetimedb_lib vs spacetimedb_lib, legitimate macro entry mode. Only exact named native dispatch, no whole package/reducer/view/table/serialize body credit.",
+          "Exact native body matches complete cached crate checksum frozen locks; current main still independent."
+        ]
+      }
+    },
+    {
+      "original_index": 2562,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-869.json",
+        "sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "sats_type_from_derive54..85/is_repr_c87..96/extract_sats_type98..143; add_type_bounds273..287; extract_repr_c_primitive295..329; derive_deserialize331..637 full; variant_data728..752 full. Other schema145..271/serialize639..726 unassessed."
+        ],
+        "string_inventory": [
+          "Native Rust field/variant identifiers become native SATS product/sum schema names63/74, matched at actual decoder boundary501..505/626..630 to generated enums. Native unknown/missing/duplicate-field constructors preserve decoder context; no application magic String from compiler symbol grammar."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native syn AST -> typed SatsTypeData Product/Sum58..80 with authored crate/name111..129 -> derive_deserialize331 -> native field decoders434/457 -> raw named constructor432/461, or sum native tag/name619/626 -> native variant payload533/538 -> concrete application retained bespoke value only after actual macro namespace/firstparty admission is connected."
+        ],
+        "conditional_cases": [
+          "Named-product generator constructs fields directly432..436/461..464 and validate delegates field validation440/478, with no whole bespoke constructor hook in this source branch. Exact application invariant bypass finding requires actual firstparty type/derive/admission/reexport path; no supported bypass witness invented from native body alone.",
+          "reprC primitive fast path362..385 copies native bytes when no padding; native soundness/alignments not a Lens12 acceptance and no generated/runtime/probe executed.",
+          "Sum unit/newtype shapes deliberately allowed variant_data728..752; unsupported multi-field variants emit native compiler diagnostics. No arbitrary application variant restriction or obsolete macro API preservation.",
+          "Exact native package version/checksum qualified for both frozen PR and physical locks; actual selected feature/namespace and current main remain explicit independent qualifications."
+        ]
+      }
+    },
+    {
+      "original_index": 2563,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+        "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "match_reflect_impls60..117 original scope; closing118 separately614 read; full actual function60..118 aggregate"
+        ],
+        "string_inventory": [
+          "Native token AST/compiler diagnostics only. Opaque/struct/tuple/enum dispatch74..107, explicit optional FromReflect auto-derive metadata. No private String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual ReflectDerive -> impl_opaque100 /FromReflect102 conditional -> generated native type reflection. Concrete application attrs/remote/constructor contracts independent."
+        ],
+        "conditional_cases": [
+          "Opaque vs struct reflection intentionally distinct, None for disabled from_reflect legitimate mode; no body credit for other struct/enum generators."
+        ]
+      }
+    },
+    {
+      "original_index": 2564,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+        "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "from_reflect::impl_opaque25..56 full; next enum header59 only"
+        ],
+        "string_inventory": [
+          "No String API; typed native try_downcast_ref37/44 then clone36/43. Native remote wrapper conversion35 deliberately maps remote type, not application prose."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Opaque ReflectMeta type path -> native remote or self downcast -> clone -> ReflectRemote::into_wrapper35 -> Option<Self>52; actual firstparty remote invariant/into_wrapper body needed before admission conclusion."
+        ],
+        "conditional_cases": [
+          "Own/self typed clone cannot itself manufacture invalid new value from valid Self; remote unchecked public wrapper concern requires concrete wrapper/remote admission contract, not blanket rejection of legitimate native reflection."
+        ]
+      }
+    },
+    {
+      "original_index": 2565,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+        "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5"
+      },
+      "row_pointer": "/rows/2",
+      "assessment": {
+        "exact_function_ownership": [
+          "impls::opaque::impl_opaque10..131 full"
+        ],
+        "string_inventory": [
+          "Native TypePath String diagnostics ApplyError::MismatchedTypes99..102 remain final native reflection port. No internal application closed identity classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ReflectMeta -> opaque TypeInfo26/registered native traits -> remote try_apply39 assigns Self(clone remote)40 or own clone47 -> native PartialReflect/ReflectOwned/ReflectMut ports106..123 -> concrete retained wrapper only after actual caller."
+        ],
+        "conditional_cases": [
+          "Remote try_apply creates tuple wrapper directly40 in native macro body; supported invariant failure requires concrete remote type/wrapper/ReflectRemote/attrs/caller source. No demand preserve Box downcasts or error prose. functions/auto_register/documentation modes conditional by native feature, no activation inferred."
+        ]
+      }
+    },
+    {
+      "original_index": 2566,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+        "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5"
+      },
+      "row_pointer": "/rows/3",
+      "assessment": {
+        "exact_function_ownership": [
+          "impl_full_reflect7..80; common_partial_reflect_methods82..172 complete; auto_register header174 only"
+        ],
+        "string_inventory": [
+          "No application String classifier. Native Any/type reflection/proc_macro TokenStream and optional hash/debug/comparison implementations are actual native compiler/reflection boundaries."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Meta remote wrapper -> native as_any_mut exposes self.0 at28..29 vs own self45..46; set75 takes typed Reflect; common PartialReflect mut projection145/160 returns self; actual application remote writable boundary may require validation owner, not proven safe/unsafe by macro names."
+        ],
+        "conditional_cases": [
+          "Typed Self mutation preserves input type, does not itself prove bespoke invariant if native remote primitive can be externally mutated; concrete application accepted-mode/native callers are required. No unrelated auto_register175+ coverage."
+        ]
+      }
+    },
+    {
+      "original_index": 2567,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-871.json",
+        "sha256": "4185b42db420181847ea47022449f44cdbd83c2c1ce0cc833ed7a74eb86f8070"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "reflect_remote21..100; generate_remote_wrapper114..130; impl_reflect_remote139..212; historicalcontext assertion docs213..241 read only, no assertion-body coverage."
+        ],
+        "string_inventory": [
+          "Native compiler attributes/tokens/type paths/diagnostics. Native remote mutable projection/transparent conversion no String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "RemoteArgs parse22 and AST29 -> generated wrapper with public remote field128 -> ReflectDerive set_remote43 -> opaque native generator76 +FromReflect78 -> native as_remote_mut158/into_wrapper190 -> actual application retained wrapper only if concrete derive/caller established."
+        ],
+        "conditional_cases": [
+          "Generated pub field128/as_remote_mut158/as_wrapper_mut186/into_wrapper190 expose remote native value directly. This is actual native API behavior, not supported application bypass proof by itself; bespoke wrapper domain/actual attrs/native caller must be assessed.",
+          "No requirement to preserve obsolete Box/downcast/error prose/native generated API; sourceonly docs213..241 unexecuted and no compiler/assertion changes. Native lifetime/layout safety not Lens12 acceptance."
+        ]
+      }
+    },
+    {
+      "original_index": 2568,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-871.json",
+        "sha256": "4185b42db420181847ea47022449f44cdbd83c2c1ce0cc833ed7a74eb86f8070"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "impl_get_type_registration8..59 full function/file"
+        ],
+        "string_inventory": [
+          "Native compiler type registration trait/tokens, no private application String key or prose classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ReflectMeta attrs/typed dependencies16..18 -> native TypeRegistry registration48/ReflectFromPtr49/optional ReflectFromReflect32/serialization41 -> actual native reflection consumers; concrete app activation independently."
+        ],
+        "conditional_cases": [
+          "Disabled auto FromReflect legitimately omits registration30..35; optional serialization metadata38..43 and dependency functions18..25 are supported modes. Registration existence does not prove user validation/admission or current behavior."
+        ]
+      }
+    },
+    {
+      "original_index": 2569,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+        "sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02"
+      },
+      "row_pointer": "/rows/0",
+      "assessment": {
+        "exact_function_ownership": [
+          "ReflectDerive::from_input184..322 full; follow-on docs323..327 only; ReflectMeta::get_type_registration489..498 full; doc499..500 only."
+        ],
+        "string_inventory": [
+          "Native compiler attribute strings type_path/type_name parsed to syn::Path/Ident223/240. Native compile error prose final compiler adapter; legitimate open Rust namespace not application String classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Concrete derive AST attrs -> ContainerAttributes.parse_meta_list201 -> typed native ReflectTypePath269/ReflectMeta275 -> is_opaque290 selects Opaque291 before field collection -> actual registration helper493 None serialization/deps495..496 -> native reflected application wrapper only after actual derive identity/caller qualified."
+        ],
+        "conditional_cases": [
+          "Opaque selection bypasses field collection intentionally; cannot treat lack field exposure as admission bypass without actual bespoke owner/native route. Inherited source role exclusions retained, no set_remote body328+ or whole1422 coverage.",
+          "Custom type name requires custom path260..264 native compiler grammar, legitimate normalization. No compatibility obligation to preserve native error prose."
+        ]
+      }
+    },
+    {
+      "original_index": 2570,
+      "proposal": {
+        "path": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+        "sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02"
+      },
+      "row_pointer": "/rows/1",
+      "assessment": {
+        "exact_function_ownership": [
+          "parse_meta_list219..225 full; parse_container_attribute228..246 partial dispatch only; parse_opaque395..399 full; get_clone_impl621..637 full; custom_attributes639..641/custom_where644..646/no_field_bounds649..651/no_auto_register655..657/is_opaque660..662 full. Other693 body unassessed."
+        ],
+        "string_inventory": [
+          "Native token grammar keywords opaque/from_reflect/type_path and compiler symbols; native optional clone generation returns typed ReflectCloneError ports625/631, no application String classification."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native reflect attr parse219 -> dispatch242 selects parse_opaque395 setting typedbool397 -> is_opaque660 -> ReflectDeriveOpaque291 -> actual native opaque reflection. CloneImplemented clonesSelf626, custom callback632, absentclone635 remains None; actual application attrs/callback bodies must qualify separately."
+        ],
+        "conditional_cases": [
+          "Clone not implemented means legitimate optional native facility, no defect from missing optional callback. Opaque flag is native framework option with meaningful clear boolean grammar, not semantic application enum conversion requirement.",
+          "parse_container_attribute247+ branch remainder and parse_terminated body not read; no claim exhaustively supported attrs or complete parser. Only direct opaque selection and listed clone/getters proven."
+        ]
+      }
+    }
+  ],
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Existing shader parameter reflection/binding owner; actual typed-name vs native namespace boundary remains exact owner question",
+      "first_failed_contract_or_unresolved_question": "Actual new GpuBvh/PrefixSum caller supplies raw native parameter keys and retained native resources; connect existing own741/748/749 first retained name/consumer proof before alias/native adapter disposition. Native arbitrary shader namespace is legitimate.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+          "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+          "assessed_ranges": [
+            [
+              1,
+              138
+            ],
+            [
+              175,
+              303
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+            "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+            "batch": 865,
+            "original_before": 2550,
+            "original_after": 2552
+          },
+          "row_pointer": "/rows/0",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+          "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+          "assessed_ranges": [
+            [
+              1,
+              205
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+            "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+            "batch": 865,
+            "original_before": 2550,
+            "original_after": 2552
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read"
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+          "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+          "assessed_ranges": [
+            [
+              1,
+              306
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+            "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+            "batch": 867,
+            "original_before": 2557,
+            "original_after": 2559
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        }
+      ],
+      "remaining_evidence": [
+        "Qualify exact own741/748/749 receipts/prospective ranges/root adoptions, actual reflection retained map and binding adapters; traversal2660 new601 separate packet.",
+        "Current-main actual variants/all20/exact canonical finding aliases."
+      ],
+      "dependencies": [
+        "Original748 canonical source finding ownership; source-native config/tokens are not proof of private closed classifier failure."
+      ],
+      "closure_condition": "Audit closes this caller extension after exact existing owner/native boundary source qualification and current/alias disposition; later repair/runtime acceptance remains distinct and unexecuted.",
+      "existing_contract_revisit_identity_proof_if_any": "Same actual PassParameters/KernelBatch producer route and exact existing candidate primary2274; common proposed typed-name remedy alone not alias."
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Native SATS decoder and Bevy opaque/remote reflection framework ports; concrete firstparty bespoke admission owner remains explicit question",
+      "first_failed_contract_or_unresolved_question": "Native bodies directly construct product fields and expose remote mutable/projected values; these are actual native facilities with no private String classifier. Concrete supported application invariant failure needs exact type/derive/namespace/feature/caller qualification.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+          "source_sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+          "assessed_ranges": [
+            [
+              251,
+              293
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-869.json",
+            "sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38",
+            "batch": 869,
+            "original_before": 2561,
+            "original_after": 2563
+          },
+          "row_pointer": "/rows/0",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+          "source_sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+          "assessed_ranges": [
+            [
+              54,
+              85
+            ],
+            [
+              87,
+              96
+            ],
+            [
+              98,
+              143
+            ],
+            [
+              273,
+              287
+            ],
+            [
+              295,
+              329
+            ],
+            [
+              331,
+              637
+            ],
+            [
+              728,
+              752
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-869.json",
+            "sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38",
+            "batch": 869,
+            "original_before": 2561,
+            "original_after": 2563
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+          "source_sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+          "assessed_ranges": [
+            [
+              60,
+              117
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+            "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5",
+            "batch": 870,
+            "original_before": 2563,
+            "original_after": 2567
+          },
+          "row_pointer": "/rows/0",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+          "source_sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+          "assessed_ranges": [
+            [
+              25,
+              59
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+            "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5",
+            "batch": 870,
+            "original_before": 2563,
+            "original_after": 2567
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+          "source_sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+          "assessed_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+            "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5",
+            "batch": 870,
+            "original_before": 2563,
+            "original_after": 2567
+          },
+          "row_pointer": "/rows/2",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+          "source_sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+          "assessed_ranges": [
+            [
+              1,
+              174
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-870.json",
+            "sha256": "865707a14f3c631d75dcb19edb17aaf1407bd8c92763877c3a85c21fef0aded5",
+            "batch": 870,
+            "original_before": 2563,
+            "original_after": 2567
+          },
+          "row_pointer": "/rows/3",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+          "source_sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+          "assessed_ranges": [
+            [
+              21,
+              241
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-871.json",
+            "sha256": "4185b42db420181847ea47022449f44cdbd83c2c1ce0cc833ed7a74eb86f8070",
+            "batch": 871,
+            "original_before": 2567,
+            "original_after": 2569
+          },
+          "row_pointer": "/rows/0",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+          "source_sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+          "assessed_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-871.json",
+            "sha256": "4185b42db420181847ea47022449f44cdbd83c2c1ce0cc833ed7a74eb86f8070",
+            "batch": 871,
+            "original_before": 2567,
+            "original_after": 2569
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+          "source_sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+          "assessed_ranges": [
+            [
+              184,
+              327
+            ],
+            [
+              489,
+              500
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+            "sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02",
+            "batch": 872,
+            "original_before": 2569,
+            "original_after": 2571
+          },
+          "row_pointer": "/rows/0",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+          "source_sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+          "assessed_ranges": [
+            [
+              219,
+              246
+            ],
+            [
+              390,
+              400
+            ],
+            [
+              621,
+              663
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+            "sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02",
+            "batch": 872,
+            "original_before": 2569,
+            "original_after": 2571
+          },
+          "row_pointer": "/rows/1",
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        }
+      ],
+      "remaining_evidence": [
+        "Concrete firstparty wrappers and actual enabled derive/reexport/native mutation routes where materially needed; no whole foreign package inference.",
+        "Current package lock/member/feature/actual source and existing exact aliases remain independent."
+      ],
+      "dependencies": [
+        "New connected606/607 exact frozen lock clauses checksum-bound cached complete crates (separate pending packet).",
+        "Native source role exclusions and partial attribute parser remainder preserved; no runtime/proc-macro generation."
+      ],
+      "closure_condition": "Root may retain source-scoped native-adapter/no-String disposition after strict adoption and qualify concrete application/current contracts separately. Fully documented native-only rejection does not require runtime validation.",
+      "existing_contract_revisit_identity_proof_if_any": "Proposed granular source contract; root dedup against existing native admission queue by exact IDs/first contract, no novel global-source or finding count inferred."
+    }
+  ],
+  "current_delta_updates": [
+    {
+      "scope": "PRoriginal2550/2551frozencontracts",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exactcurrent-mainidentity/range/body/attribution qualification andnativeportpolicy"
+    },
+    {
+      "scope": "Physicaloriginal2552..2556frozencontracts",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exactcurrent-mainidentity/range/bodyqualification andactualnativeowners"
+    },
+    {
+      "scope": "Original2557 physical and2558 frozen PR",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current main bodies and native ownership"
+    },
+    {
+      "scope": "Original2559 physical and2560 frozen PR",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current-main source/body/owner qualification"
+    },
+    {
+      "scope": "Original2561..2562 locked native macro bodies/actual caller",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Current lock and exact body/namespace/feature qualification"
+    },
+    {
+      "scope": "Native reflection2563..2566 and concrete application routes",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current lock/member/namespace/feature/accepted native caller proof"
+    },
+    {
+      "scope": "Native reflection original2567..2568 and concrete application routes",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current lock/member/namespace/feature/accepted native caller proof"
+    },
+    {
+      "scope": "Native reflection original2569..2570 and concrete firstparty routes",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current lock/namespace/body/feature/native consumer proof"
+    }
+  ],
+  "qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-602-WINDOWS-ORIGINAL2557.json",
+      "sha256": "5b87ee3d6d33755838b8b4bc5abe7f135a53afbaba973c9b6ef58ef16be2d6a4"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-603-WINDOWS-ORIGINAL2558.json",
+      "sha256": "e7c28bc76bc3eb0d22499a2c44262f3ec96357487b686c15422dcd52813f8743"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-604-WINDOWS-ORIGINAL2559.json",
+      "sha256": "73b93cae05d6bb2aa37f13fe05105944f68b642d8675c6f4c779c8a9dcdcdbda"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-605-WINDOWS-ORIGINAL2560.json",
+      "sha256": "7e32bc58838feb5c31fd1c8d0abccfa29bf3b4f5d5431d444d7dd597651f182a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-608-WINDOWS-ORIGINAL2561.json",
+      "sha256": "0be5839e18ddd31416392be28545ace7b7ff7b968f46cf774c9e0600cff912b0"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-609-WINDOWS-ORIGINAL2562.json",
+      "sha256": "ff3f663267a7aaffc3624e0b66434d2790df28244d87f07ff1bc40eff4829c53"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-610-WINDOWS-ORIGINAL2563.json",
+      "sha256": "0ed4932bc21d0f642d8fb7a5537ffaef50e51ceb3662d8e719f1f5090ef9dc9d"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-611-WINDOWS-ORIGINAL2564.json",
+      "sha256": "b052df976fc7d8e1f9eaf72b9bf9e8b8ab09cde51b7111fd956aa3f1bcf94554"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-612-WINDOWS-ORIGINAL2565.json",
+      "sha256": "95da2869695fc85d0e4b1f5755249603e373f7c5b7cc25fd49d23ecabdd0299a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-613-WINDOWS-ORIGINAL2566.json",
+      "sha256": "1a57b3d94602fccaf2178338dada3e57dbfae4f9d1831c3c1c67a1af31d4503a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-615-WINDOWS-ORIGINAL2567.json",
+      "sha256": "7969c5e17d0df8999496802238f6022b26d4d63ad21cf4404b46380e67f56a1e"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-616-WINDOWS-ORIGINAL2568.json",
+      "sha256": "8a6c1a52660554d27eec9753c337a0580aa6b26762db7698a918feb98c2e7be4"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-617-WINDOWS-ORIGINAL2569.json",
+      "sha256": "20ee0765d9713a67540c23b7de5e84c15b8236d8dea777fe0c60b45d79d60fbd"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-618-WINDOWS-ORIGINAL2570.json",
+      "sha256": "6414aecf08e455eaa39758ef6ae1382c7084ddb0c2ae83e5725ccb25cc5fa7a3"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-FUTURE-ORIGINAL2551.json",
+      "sha256": "ee27af5534de1ad23c1614c5a3fa159cba5db3ff23303b636ed65c1be84ef7c5"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-871-CURRENT-DELTA-SCOPE.json",
+      "sha256": "d941b47ff8a07d9ba3126c8a3ace9356d3b3d8650bd7482ea40ff45f0ce1509a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-872-CUMULATIVE-PARTIAL-FRESH.json",
+      "sha256": "411b5cf13081521776668fa9978a22505b5830a8817123e4894621b46f424a66"
+    }
+  ],
+  "recovery_checkpoint": {
+    "state": {
+      "path": "parallel-l12-20261029/STATE-PAR-L12-872.json",
+      "sha256": "d51676298247b843affa207cc7e7c5fe77b0998170ce0ff35466a5e584b820c6"
+    },
+    "next_original": 2571,
+    "next_batch": 873,
+    "next_isolated_registration": 619,
+    "root_authority_updated": false,
+    "fresh_personal_assessed_lines_counted_once": 2510,
+    "qualified_reuse_lines_counted_once": 205,
+    "bounded_partial_receipts": [
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-865-001.json",
+        "sha256": "193b64d7eaaf3cbf3706d7ea074a52f674b22c01370fcce4747d86d0c83eb529"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-867-001.json",
+        "sha256": "48f270d166bdeac38aa223ffd9617c38e04fced515c19fe80212bf5376ac6477"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-867-002.json",
+        "sha256": "f017cbdefef38126b62b7348362d1f0afabf9415e0143ab3350394b0dd16d5d7"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-868-001.json",
+        "sha256": "db1b18ad494cf595b59c246402acb3a7875b2d84a33248b8589f7b74e28a3737"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-869-001.json",
+        "sha256": "4a0a98514c0d79c7f1d298b522be5219a738d495dfbbf02ea7473b6da32fdd0d"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-869-002.json",
+        "sha256": "3ee4070058c43c4cbc46c4c28bf26fb5b3a19c8c7d707c73efdf8c5e6854daf5"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-870-001.json",
+        "sha256": "e77c535ff32aa80f0ec8a7cf7cab92446612a6bd1cec7ccc5280185d1cd5a6ca"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-870-002.json",
+        "sha256": "c26721c9b41ad2c0e87dea69446b7ab0ee4211d2849cc0380c5b6d9ee97b4c27"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-871-001.json",
+        "sha256": "a1b76ce283ddef1def470db4ead9f4f6662ea5e66e139ee7c7d4f95184e4626f"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-PAR-L12-872-001.json",
+        "sha256": "cbf733f22bf9abda1794767d6d7252d8c2a81a134851f4b2454d64e2065f7059"
+      }
+    ],
+    "registered_unread_sources": [],
+    "preservation": "Ignored evidence only, exclusive writes; immutable historical receipts and additive exact qualifications. Stashes/product unchanged."
+  },
+  "validation_ruleset": {
+    "path": "parallel-l12-20261029/preflight-l12-bundle-002-PROPOSAL.py",
+    "status": "New UNEXECUTED read-only helper proposal; exact hash sent alongside after creation",
+    "immutable_primitives": {
+      "path": "parallel-l12-20261029/preflight-l12-bundle-001-PROPOSAL.py",
+      "sha256": "d8455cd4234499fbb07e16bf91ea3506ce221e395b6d7647c9c62a586d3808ea"
+    }
+  },
+  "new_ruleset_delta": {
+    "scope": "Exact21 ordered original rows2550..2570, source classes frozenPR/dirtyphysical/checksum-qualified native; exact own future2551 only",
+    "strict_cases": [
+      "Exact prospective registry identity/hash/EOF/full recursive range unions and attribution",
+      "Native2561..2570 complete cached crate checksum/native member matched to personally read both frozen source lock clauses; no installed/current assumption",
+      "Exact2551 old receipt/registration/rootfuture selected proof, zero reread and absent ordered application",
+      "Exact listed Windows locators only; no generic normalization/flat/EOF exceptions",
+      "Cumulative partial fresh repeated fields qualified at exact receipt/hash/row; no extra rereads",
+      "Current scope copied label871 qualified additively, no source change"
+    ]
+  },
+  "separate_unadopted_connected_receipts": [
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+      "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-866-INTERIOR-FIELD-CONTRACT.json",
+      "sha256": "4d892b8d00dfa9628b5aabde91beb0e0120d727e6f60fb073d369f5bc36913c0"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-867-TRAVERSAL-NATIVE-NAMES.json",
+      "sha256": "ec4935b7d930909e9b8135fe9229163b65e94b58baa3c016bc91546c0c679489"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+      "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-870-REFLECTION-DISPATCH-CLOSING.json",
+      "sha256": "a834cdace6d8af1dbdeaae4a1569ef295bf03437bbc2236d2116a39584c0cff4"
+    }
+  ],
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

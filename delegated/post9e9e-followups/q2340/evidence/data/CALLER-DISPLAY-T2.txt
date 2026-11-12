@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:311-365
+ 311                 .id()
+ 312                 .find(member_id)
+ 313                 .ok_or("Party member not found")?;
+ 314             member.current_settlement_id = None;
+ 315             crate::investigation::set_character_case_site(ctx, member.id, None)?;
+ 316             ctx.db.character().id().update(member);
+ 317         }
+ 318         set_party_journey_state(
+ 319             &mut party,
+ 320             None,
+ 321             None,
+ 322             Some(JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 323                 id: CaseSiteId::from(case_site_id),
+ 324                 name: site.name.clone(),
+ 325             })),
+ 326             travel_minutes.saturating_sub(leg_minutes),
+ 327         );
+ 328         ctx.db.party_authority().id().update(party);
+ 329         if interrupted {
+ 330             record_party_journey_interruption(ctx, &party_id, leg_minutes);
+ 331             commit_encounter_scan(ctx, &party_id, next_roll, encounter, narrative)?;
+ 332         } else {
+ 333             // A departure outside the walking window reaches a real initial
+ 334             // camp at movement minute zero. Persist that reached identity just
+ 335             // like every later camp so rest/continue and fixture custody agree.
+ 336             record_party_journey_camp(ctx, &party_id, leg_minutes)?;
+ 337             commit_encounter_scan(ctx, &party_id, next_roll, None, None)?;
+ 338         }
+ 339         return Ok(());
+ 340     }
+ 341     for member_id in traveler_ids {
+ 342         if let Some(mut member) = ctx.db.character().id().find(member_id) {
+ 343             member.current_settlement_id = None;
+ 344             crate::investigation::set_character_case_site(
+ 345                 ctx,
+ 346                 member.id,
+ 347                 Some(case_site_id.clone()),
+ 348             )?;
+ 349             ctx.db.character().id().update(member);
+ 350             mark_case_site_visited(ctx, member_id, &site)?;
+ 351         }
+ 352     }
+ 353     set_party_journey_state(
+ 354         &mut party,
+ 355         None,
+ 356         Some(CaseSiteId::from(case_site_id)),
+ 357         None,
+ 358         0,
+ 359     );
+ 360     ctx.db.party_authority().id().update(party);
+ 361     commit_case_site_arrival_objectives(ctx, &party_id, &site)?;
+ 362     finish_party_journey(ctx, &party_id);
+ 363     Ok(())
+ 364 }
+ 365 

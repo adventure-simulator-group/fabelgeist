@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "case": "public",
+      "exit": 0,
+      "stdout_sha256": "af42f637ca0af0a7c22ecc17778799498238862a065afb3295f5a80dee61a239",
+      "stdout_bytes": 148,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    },
+    {
+      "case": "keyed",
+      "exit": 0,
+      "stdout_sha256": "c2c2307e566e042f95a6d11f10159cf9d96356e81803a90efa0988e45860b871",
+      "stdout_bytes": 199,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    }
+  ],
+  "manifest_sha256": "a3c7ce940dd8bb80bcfface711d1aa9252cea18d2fb531f5de58ec5ab57f92a0",
+  "encryption_source_script_sha256": "fa80f06682f71a7b2262cffcc7eb90c06a90c8063b0156e76ae46b337f6f6d48",
+  "objects": 20,
+  "qualification": "The source archiver and source map remain private because they contain local paths. The keyed verifier authenticated plaintext archives in memory without restoration. Ciphertext is opaque to privacy scans. Key custody is same-machine only."
+}

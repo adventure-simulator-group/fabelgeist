@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:70-145
+  70     pub phase: NpcPolicyDecisionPhase,
+  71     pub outcome: NpcPolicyDecisionOutcome,
+  72     pub target_character_id: Option<u64>,
+  73     pub decided_minute: StrategicMinute,
+  74 }
+  75 
+  76 #[derive(Clone, Debug)]
+  77 #[table(accessor = npc_causal_schedule, scheduled(run_npc_causal_tick))]
+  78 pub struct NpcCausalSchedule {
+  79     #[primary_key]
+  80     pub scheduled_id: u64,
+  81     pub scheduled_at: ScheduleAt,
+  82 }
+  83 
+  84 pub fn initialize_npc_causal_schedule(ctx: &ReducerContext) {
+  85     if ctx
+  86         .db
+  87         .npc_causal_schedule()
+  88         .scheduled_id()
+  89         .find(NPC_CAUSAL_SCHEDULE_ID)
+  90         .is_none()
+  91     {
+  92         ctx.db.npc_causal_schedule().insert(NpcCausalSchedule {
+  93             scheduled_id: NPC_CAUSAL_SCHEDULE_ID,
+  94             scheduled_at: TimeDuration::from_micros(NPC_CAUSAL_INTERVAL_MICROS).into(),
+  95         });
+  96     }
+  97 }
+  98 
+  99 fn stable_npc_cohort(
+ 100     ctx: &ReducerContext,
+ 101     target_minute: adventuresim_world_schema::calendar::StrategicMinute,
+ 102 ) -> Vec<CharacterTime> {
+ 103     let mut candidates: Vec<_> = ctx
+ 104         .db
+ 105         .npc_policy()
+ 106         .iter()
+ 107         .filter_map(|policy| {
+ 108             let person = ctx.db.character().id().find(policy.character_id)?;
+ 109             let time = ctx
+ 110                 .db
+ 111                 .character_time()
+ 112                 .character_id()
+ 113                 .find(policy.character_id)?;
+ 114             (person.alive && time.minutes < target_minute).then_some(time)
+ 115         })
+ 116         .collect();
+ 117     candidates.sort_by_key(|time| (time.minutes, time.character_id));
+ 118     let Some(frontier) = candidates.first().map(|time| time.minutes) else {
+ 119         return candidates;
+ 120     };
+ 121     candidates.retain(|time| time.minutes == frontier);
+ 122     candidates.truncate(MAX_NPCS_PER_CAUSAL_TICK);
+ 123     candidates
+ 124 }
+ 125 
+ 126 fn receipt_id(character_id: u64, day: u64, phase: NpcPolicyDecisionPhase) -> String {
+ 127     format!("npc-policy:{character_id}:{day}:{}", phase.stable_id())
+ 128 }
+ 129 
+ 130 fn phase_already_decided(
+ 131     ctx: &ReducerContext,
+ 132     character_id: u64,
+ 133     day: u64,
+ 134     phase: NpcPolicyDecisionPhase,
+ 135 ) -> bool {
+ 136     ctx.db
+ 137         .npc_policy_decision_receipt()
+ 138         .id()
+ 139         .find(receipt_id(character_id, day, phase))
+ 140         .is_some()
+ 141 }
+ 142 
+ 143 fn record_decision(
+ 144     ctx: &ReducerContext,
+ 145     character_id: u64,

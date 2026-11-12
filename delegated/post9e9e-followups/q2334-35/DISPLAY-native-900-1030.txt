@@ -1,0 +1,131 @@
+ 900             .nth(1)
+ 901             .unwrap()
+ 902             .split("fn require_exact_carried_backing")
+ 903             .next()
+ 904             .unwrap();
+ 905         assert_eq!(
+ 906             deletion
+ 907                 .matches("delete_container_water_contributions")
+ 908                 .count(),
+ 909             1
+ 910         );
+ 911     }
+ 912 }
+ 913 
+ 914 pub(crate) fn require_object(
+ 915     ctx: &ReducerContext,
+ 916     character_id: u64,
+ 917     scope: CarriedInventoryScope,
+ 918     row_id: u64,
+ 919 ) -> Result<InventoryObject, String> {
+ 920     let object = object_for_row(ctx, scope, row_id)?
+ 921         .ok_or("Inventory row has no stable physical object identity")?;
+ 922     let actor = ctx
+ 923         .db
+ 924         .character()
+ 925         .id()
+ 926         .find(character_id)
+ 927         .ok_or("Character not found")?;
+ 928     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 929     Ok(object)
+ 930 }
+ 931 
+ 932 fn measured_volume_ml(
+ 933     ctx: &ReducerContext,
+ 934     object: &InventoryObject,
+ 935     definition: &crate::Item,
+ 936 ) -> u64 {
+ 937     let amount = match &object.location {
+ 938         InventoryLocation::Personal(location) => ctx
+ 939             .db
+ 940             .inventory_item_amount()
+ 941             .inventory_item_id()
+ 942             .find(location.row_id)
+ 943             .map(|row| row.remaining_fraction_micros),
+ 944         InventoryLocation::Party(location) => ctx
+ 945             .db
+ 946             .party_item_amount()
+ 947             .party_inventory_item_id()
+ 948             .find(location.row_id)
+ 949             .map(|row| row.remaining_fraction_micros),
+ 950         _ => None,
+ 951     };
+ 952     let Some(fraction_micros) = amount else {
+ 953         return 0;
+ 954     };
+ 955     let fraction = adventuresim_core::inventory_measurement::ConsumableFractionMicros::try_new(
+ 956         fraction_micros,
+ 957     )
+ 958     .expect("persisted consumable fraction must not exceed one whole");
+ 959     let full_ml = if definition.alcohol_serving_ml > 0 {
+ 960         definition.alcohol_serving_ml
+ 961     } else {
+ 962         definition.exterior_volume_ml
+ 963     };
+ 964     fraction.scale_floor(u64::from(full_ml))
+ 965 }
+ 966 
+ 967 fn graph(ctx: &ReducerContext) -> Result<ContainmentGraph, String> {
+ 968     let objects = ctx
+ 969         .db
+ 970         .inventory_object()
+ 971         .iter()
+ 972         .map(|object| {
+ 973             let definition = ctx
+ 974                 .db
+ 975                 .item()
+ 976                 .id()
+ 977                 .find(object.item_id.clone())
+ 978                 .ok_or_else(|| format!("Unknown item {}", object.item_id))?;
+ 979             Ok(Object {
+ 980                 id: PhysicalObjectId::try_new(object.id).map_err(|error| error.to_string())?,
+ 981                 exterior_volume: Milliliters::new(u64::from(definition.exterior_volume_ml)),
+ 982                 capacity: (definition.container_capacity_ml > 0)
+ 983                     .then(|| Milliliters::new(u64::from(definition.container_capacity_ml))),
+ 984                 measured_volume: {
+ 985                     let measured_volume = measured_volume_ml(ctx, &object, &definition);
+ 986                     (measured_volume > 0).then(|| Milliliters::new(measured_volume))
+ 987                 },
+ 988             })
+ 989         })
+ 990         .collect::<Result<Vec<_>, String>>()?;
+ 991     let mut graph = ContainmentGraph::new(objects).map_err(str::to_owned)?;
+ 992     for edge in ctx.db.inventory_containment().iter() {
+ 993         graph
+ 994             .insert(
+ 995                 PhysicalObjectId::try_new(edge.child_object_id)
+ 996                     .map_err(|error| error.to_string())?,
+ 997                 PhysicalObjectId::try_new(edge.parent_object_id)
+ 998                     .map_err(|error| error.to_string())?,
+ 999             )
+1000             .map_err(str::to_owned)?;
+1001     }
+1002     Ok(graph)
+1003 }
+1004 
+1005 fn liquid_used(ctx: &ReducerContext, container_object_id: u64) -> u64 {
+1006     ctx.db
+1007         .container_liquid()
+1008         .container_object_id()
+1009         .find(container_object_id)
+1010         .map_or(0, |row| row.water_ml)
+1011 }
+1012 
+1013 pub(crate) fn contained_water_ml(
+1014     ctx: &ReducerContext,
+1015     expected_custody: &OperationalCustody,
+1016 ) -> Result<u64, String> {
+1017     let mut total = 0_u64;
+1018     for liquid in ctx
+1019         .db
+1020         .container_liquid()
+1021         .iter()
+1022         .filter(|liquid| liquid.liquid_item_id == WATER_ITEM_ID)
+1023     {
+1024         let object = ctx
+1025             .db
+1026             .inventory_object()
+1027             .id()
+1028             .find(liquid.container_object_id)
+1029             .ok_or("Contained water has no physical container object")?;
+1030         if crate::object_custody::resolve_object_custody(ctx, &object)?.root == *expected_custody {

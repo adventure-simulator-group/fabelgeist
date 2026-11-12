@@ -1,0 +1,67 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/containers.rs:350-415
+ 350     {
+ 351         Ok(()) => StatusCode::NO_CONTENT.into_response(),
+ 352         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+ 353     }
+ 354 }
+ 355 
+ 356 pub(super) async fn pour_inventory_container_tincture_spirit(
+ 357     State(state): State<AppState>,
+ 358     session: Session,
+ 359     Form(form): Form<ContainerTinctureForm>,
+ 360 ) -> Response {
+ 361     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 362         return StatusCode::UNAUTHORIZED.into_response();
+ 363     };
+ 364     let spirit = state
+ 365         .db
+ 366         .query_sats::<InventoryItem>(&format!(
+ 367             "SELECT * FROM inventory_item WHERE character_id = {}",
+ 368             actor.id
+ 369         ))
+ 370         .await
+ 371         .unwrap_or_default()
+ 372         .into_iter()
+ 373         .filter(|row| row.item_id == "tincture_spirit" && row.quantity > 0)
+ 374         .min_by_key(|row| row.id);
+ 375     let Some(spirit) = spirit else {
+ 376         return (StatusCode::BAD_REQUEST, "No tincture spirit is carried").into_response();
+ 377     };
+ 378     match state
+ 379         .db
+ 380         .call(
+ 381             "pour_tincture_spirit_into_container",
+ 382             &[
+ 383                 json!(actor.id),
+ 384                 json!(spirit.id),
+ 385                 json!(form.container_object_id),
+ 386             ],
+ 387         )
+ 388         .await
+ 389     {
+ 390         Ok(()) => StatusCode::NO_CONTENT.into_response(),
+ 391         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+ 392     }
+ 393 }
+ 394 
+ 395 pub(super) async fn start_inventory_container_tincture(
+ 396     State(state): State<AppState>,
+ 397     session: Session,
+ 398     Form(form): Form<ContainerTinctureForm>,
+ 399 ) -> Response {
+ 400     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 401         return StatusCode::UNAUTHORIZED.into_response();
+ 402     };
+ 403     match state
+ 404         .db
+ 405         .call(
+ 406             "start_poppy_tincture",
+ 407             &[json!(actor.id), json!(form.container_object_id)],
+ 408         )
+ 409         .await
+ 410     {
+ 411         Ok(()) => StatusCode::NO_CONTENT.into_response(),
+ 412         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+ 413     }
+ 414 }
+ 415 

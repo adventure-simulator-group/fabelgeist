@@ -1,0 +1,141 @@
+ 570             .investigation_action_capability()
+ 571             .id()
+ 572             .find(&capability_id)
+ 573             .is_none_or(|current| {
+ 574                 current.owner_character_id != character_id
+ 575                     || !current.active
+ 576                     || current.version != expected_capability_version
+ 577                     || current.generated_case_id != authority.case_id
+ 578                     || current.target_id != capability.target_id
+ 579             })
+ 580         || ctx
+ 581             .db
+ 582             .container_liquid()
+ 583             .container_object_id()
+ 584             .find(object.id)
+ 585             .map(|liquid| (liquid.liquid_item_id, liquid.water_ml))
+ 586             != existing_liquid
+ 587                 .as_ref()
+ 588                 .map(|liquid| (liquid.liquid_item_id.clone(), liquid.water_ml))
+ 589     {
+ 590         return Err("Water collection is unavailable".into());
+ 591     }
+ 592     let source_before = source.available_ml;
+ 593     let source_revision_before = source.revision;
+ 594     let current_concentration = concentration_at_collection(&lot, plan.time().end_minute);
+ 595     let requested_microliters = Microliters::try_from_milliliters(Milliliters::new(requested_ml))
+ 596         .map_err(|_| "Requested water volume exceeds the material range")?;
+ 597     let contaminant_load_microunits =
+ 598         (current_concentration.max(0.0) * requested_microliters.get() as f32).round() as u64;
+ 599     source.available_ml = source_after;
+ 600     source.revision = source
+ 601         .revision
+ 602         .checked_add(1)
+ 603         .ok_or("Water source revision overflow")?;
+ 604     ctx.db.outbreak_water_source().fixture_id().update(source);
+ 605     if let Some(mut liquid) = existing_liquid {
+ 606         liquid.water_ml = container_after;
+ 607         ctx.db
+ 608             .container_liquid()
+ 609             .container_object_id()
+ 610             .update(liquid);
+ 611     } else {
+ 612         ctx.db.container_liquid().insert(crate::ContainerLiquid {
+ 613             container_object_id: object.id,
+ 614             liquid_item_id: crate::inventory_container::WATER_ITEM_ID.into(),
+ 615             water_ml: container_after,
+ 616         });
+ 617     }
+ 618     ctx.db
+ 619         .container_water_contribution()
+ 620         .insert(ContainerWaterContribution {
+ 621             material_lot_id: output_lot_id,
+ 622             container_object_id: object.id,
+ 623             amount_microliters: requested_microliters.get(),
+ 624             contaminant_load_microunits,
+ 625             collected_at: plan.time().end_minute,
+ 626         });
+ 627     ctx.db.water_output_lot().insert(WaterOutputLot {
+ 628         id: output_lot_id,
+ 629         container_object_id: object.id,
+ 630         source_material_lot_id: lot.id,
+ 631         amount_ml: requested_ml,
+ 632         contaminant_load_microunits,
+ 633         concentration_anchor: current_concentration,
+ 634         growth_per_hour: lot.growth_per_hour,
+ 635         anchor_minute: plan.time().end_minute,
+ 636     });
+ 637     ctx.db
+ 638         .water_collection_receipt()
+ 639         .insert(WaterCollectionReceipt {
+ 640             request_id,
+ 641             character_id,
+ 642             capability_id,
+ 643             capability_version: expected_capability_version,
+ 644             source_fixture_id,
+ 645             container_object_id: object.id,
+ 646             material_lot_id: output_lot_id,
+ 647             source_material_lot_id: lot.id,
+ 648             source_revision_before,
+ 649             source_amount_before_ml: source_before,
+ 650             source_amount_after_ml: source_after,
+ 651             contaminant_load_microunits,
+ 652             amount_ml: requested_ml,
+ 653             collected_at: plan.time().end_minute,
+ 654         });
+ 655     Ok(())
+ 656 }
+ 657 
+ 658 pub(crate) fn contained_water_contamination(
+ 659     ctx: &ReducerContext,
+ 660     container_object_id: u64,
+ 661     minute: StrategicMinute,
+ 662 ) -> Result<Vec<(u64, f32, f32, Microliters)>, String> {
+ 663     let source_total = match ctx
+ 664         .db
+ 665         .container_liquid()
+ 666         .container_object_id()
+ 667         .find(container_object_id)
+ 668     {
+ 669         Some(liquid) => Microliters::try_from_milliliters(Milliliters::new(liquid.water_ml))
+ 670             .map_err(|_| "Container water volume exceeds the material range")?,
+ 671         None => Microliters::ZERO,
+ 672     };
+ 673     container_water_contamination(
+ 674         ctx,
+ 675         container_object_id,
+ 676         source_total,
+ 677         Microliters::new(u64::MAX),
+ 678         minute,
+ 679     )
+ 680 }
+ 681 
+ 682 fn container_water_contamination(
+ 683     ctx: &ReducerContext,
+ 684     container_object_id: u64,
+ 685     source_total: Microliters,
+ 686     moved: Microliters,
+ 687     minute: StrategicMinute,
+ 688 ) -> Result<Vec<(u64, f32, f32, Microliters)>, String> {
+ 689     let mut contributions = ctx
+ 690         .db
+ 691         .container_water_contribution()
+ 692         .container_object_id()
+ 693         .filter(container_object_id)
+ 694         .collect::<Vec<_>>();
+ 695     contributions.sort_by_key(|row| row.material_lot_id);
+ 696     let mut result = Vec::new();
+ 697     for contribution in contributions {
+ 698         let lot = ctx
+ 699             .db
+ 700             .water_output_lot()
+ 701             .id()
+ 702             .find(contribution.material_lot_id)
+ 703             .ok_or("Contained water material provenance is incomplete")?;
+ 704         if lot.id != contribution.material_lot_id {
+ 705             return Err("Contained water material provenance conflicts".into());
+ 706         }
+ 707         if contribution.amount_microliters == 0 {
+ 708             return Err("Contained water material has zero measure".into());
+ 709         }
+ 710         let (amount_microliters, selected_load) =

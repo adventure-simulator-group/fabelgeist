@@ -1,0 +1,73 @@
+   1 use anyhow::anyhow;
+   2 
+   3 #[derive(Debug, Clone)]
+   4 pub struct UniformMember {
+   5     pub name: String,
+   6     pub offset: u32,
+   7     pub size: u32,
+   8 }
+   9 
+  10 #[derive(Debug, Clone)]
+  11 pub struct TextureBinding {
+  12     pub name: String,
+  13     pub binding: u32,
+  14     pub format: Option<wgpu::TextureFormat>,
+  15     pub dimension: wgpu::TextureViewDimension,
+  16 }
+  17 
+  18 #[derive(Debug, Clone)]
+  19 pub struct BufferBinding {
+  20     pub name: String,
+  21     pub binding: u32,
+  22     pub ty: wgpu::BufferBindingType,
+  23 }
+  24 
+  25 #[derive(Debug, Clone, Default)]
+  26 pub struct BindGroupReflection {
+  27     pub index: u32,
+  28     pub uniform_members: Vec<UniformMember>,
+  29     pub uniform_buffer_size: u32,
+  30     pub uniform_binding: Option<u32>,
+  31     pub texture_bindings: Vec<TextureBinding>,
+  32     pub sampler_bindings: Vec<(String, u32)>, // name, binding index
+  33     pub buffer_bindings: Vec<BufferBinding>,
+  34 }
+  35 
+  36 #[derive(Debug, Clone)]
+  37 pub struct ReflectionData {
+  38     pub bind_groups: Vec<BindGroupReflection>,
+  39     pub fragment_entry_point: String,
+  40     pub vertex_entry_point: String,
+  41 }
+  42 
+  43 pub fn detect_from_code(code: &str) -> String {
+  44     if code.contains("#version") {
+  45         return "glsl".to_string();
+  46     }
+  47     "wgsl".to_string()
+  48 }
+  49 
+  50 pub fn parse_naga(
+  51     code: &str,
+  52     stage: wgpu::naga::ShaderStage,
+  53 ) -> anyhow::Result<wgpu::naga::Module> {
+  54     let lang = detect_from_code(code);
+  55 
+  56     if lang == "glsl" {
+  57         let mut frontend = wgpu::naga::front::glsl::Frontend::default();
+  58         frontend
+  59             .parse(
+  60                 &wgpu::naga::front::glsl::Options {
+  61                     stage,
+  62                     defines: Default::default(),
+  63                 },
+  64                 code,
+  65             )
+  66             .map_err(|e| anyhow!("GLSL Parse Error: {:?}", e))
+  67     } else {
+  68         wgpu::naga::front::wgsl::parse_str(code).map_err(|e| {
+  69             let message = e.emit_to_string(code);
+  70             anyhow!("WGSL Parse Error: {}", message)
+  71         })
+  72     }
+  73 }

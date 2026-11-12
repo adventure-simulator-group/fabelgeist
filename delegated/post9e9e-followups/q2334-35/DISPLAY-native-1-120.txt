@@ -1,0 +1,120 @@
+   1 //! Stable inventory-object identity and generic litre-based containment.
+   2 //!
+   3 //! Inventory rows provide carried custody and storage. Discrete items receive
+   4 //! their stable object identity when the row is created, and containment edges
+   5 //! use that identity so a whole subtree can travel atomically.
+   6 
+   7 use adventuresim_core::{
+   8     inventory_containers::{ContainmentGraph, Object},
+   9     item_references::STANDARD_WATERSKIN_ID,
+  10     material::{Microliters, Milliliters},
+  11     physical_object::{
+  12         CarriedInventoryScope, InventoryLocation, OperationalCustody, PhysicalObjectId,
+  13     },
+  14 };
+  15 use spacetimedb::{ReducerContext, Table, reducer, table};
+  16 
+  17 use crate::character::character as _;
+  18 use crate::item::item as _;
+  19 use crate::strategic::{party_authority, party_inventory_item, party_item_condition};
+  20 use crate::{
+  21     fireplace_dish, fireplace_station, inventory_item, inventory_item_amount, item_condition,
+  22     party_item_amount,
+  23 };
+  24 
+  25 mod object_lookup;
+  26 
+  27 pub(crate) use object_lookup::object_for_row;
+  28 
+  29 pub const WATER_ITEM_ID: &str = "water";
+  30 fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
+  31     !has_contents && !is_nested && !has_condition
+  32 }
+  33 
+  34 #[derive(Clone, Debug)]
+  35 #[table(accessor = inventory_object, public)]
+  36 pub struct InventoryObject {
+  37     #[primary_key]
+  38     #[auto_inc]
+  39     pub id: u64,
+  40     #[index(btree)]
+  41     pub item_id: String,
+  42     pub location: InventoryLocation,
+  43 }
+  44 
+  45 #[derive(Clone, Debug)]
+  46 #[table(accessor = inventory_containment, public)]
+  47 pub struct InventoryContainment {
+  48     #[primary_key]
+  49     pub child_object_id: u64,
+  50     #[index(btree)]
+  51     pub parent_object_id: u64,
+  52 }
+  53 
+  54 #[derive(Clone, Debug)]
+  55 #[table(accessor = container_liquid, public)]
+  56 pub struct ContainerLiquid {
+  57     #[primary_key]
+  58     pub container_object_id: u64,
+  59     /// Authored substance identity; liquids in one container never mix
+  60     /// implicitly. The volume is counted exactly once by capacity checks.
+  61     pub liquid_item_id: String,
+  62     pub water_ml: u64,
+  63 }
+  64 
+  65 fn insert_carried_object(
+  66     ctx: &ReducerContext,
+  67     item_id: &str,
+  68     location: InventoryLocation,
+  69 ) -> Result<InventoryObject, String> {
+  70     let scope = location
+  71         .scope()
+  72         .ok_or("Stable physical objects require carried custody at insertion")?;
+  73     let row_id = location
+  74         .row_id()
+  75         .ok_or("Stable physical object has no backing inventory row")?;
+  76     if object_for_row(ctx, scope, row_id)?.is_some() {
+  77         return Err("Inventory row already has a stable physical object identity".into());
+  78     }
+  79     Ok(ctx.db.inventory_object().insert(InventoryObject {
+  80         id: 0,
+  81         item_id: item_id.into(),
+  82         location,
+  83     }))
+  84 }
+  85 
+  86 pub(crate) fn insert_personal_object(
+  87     ctx: &ReducerContext,
+  88     row: &crate::InventoryItem,
+  89 ) -> Result<InventoryObject, String> {
+  90     if row.quantity != 1 {
+  91         return Err("Stable personal inventory objects require quantity-one rows".into());
+  92     }
+  93     insert_carried_object(
+  94         ctx,
+  95         &row.item_id,
+  96         InventoryLocation::personal(row.character_id, row.id),
+  97     )
+  98 }
+  99 
+ 100 pub(crate) fn insert_party_object(
+ 101     ctx: &ReducerContext,
+ 102     row: &crate::strategic::PartyInventoryItem,
+ 103 ) -> Result<InventoryObject, String> {
+ 104     if row.quantity != 1 {
+ 105         return Err("Stable party inventory objects require quantity-one rows".into());
+ 106     }
+ 107     insert_carried_object(
+ 108         ctx,
+ 109         &row.item_id,
+ 110         InventoryLocation::party(row.party_id.clone(), row.id),
+ 111     )
+ 112 }
+ 113 
+ 114 pub(crate) fn object_is_nonempty(ctx: &ReducerContext, object_id: u64) -> bool {
+ 115     ctx.db
+ 116         .inventory_containment()
+ 117         .parent_object_id()
+ 118         .filter(object_id)
+ 119         .next()
+ 120         .is_some()

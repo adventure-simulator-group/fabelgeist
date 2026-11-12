@@ -1,0 +1,38 @@
+{
+  "lens": 2,
+  "at": "2026-10-30T02:14:43.443349+00:00",
+  "kind": "Prospective complete required receiving functions from EXT003",
+  "trigger": {
+    "path": "root-l2-extension-20261030/READ-ROOT-L2-EXT-003.json",
+    "sha256": "ffd100e0c28365cb2fdca16d9bf3adc0a866ff6ef9946801d3fa2f471e5099af"
+  },
+  "rows": [
+    {
+      "registration": "ROOT-L2-EXT-0007",
+      "lens": 2,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "source_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_EOF": 2815,
+      "source_object": "root-l2-extension-20261030/objects/b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "prospective_ranges": [
+        [
+          606,
+          612
+        ],
+        [
+          650,
+          693
+        ]
+      ],
+      "complete_relevant_scope": "Complete endpoint identity predicate andtwoactual view/reducer PartyJourney database lookup consumers of coreboundcamppredicate",
+      "body_credit_before_read": 0,
+      "original_role_credit": 0
+    }
+  ],
+  "source_identity_novelty_pending": true,
+  "other_lens_body_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

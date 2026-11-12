@@ -1,0 +1,58 @@
+SOURCE crates/adventuresim-stdb-module/src/investigation/model.rs:1000-1056
+1000     pub id: String,
+1001     #[index(btree)]
+1002     pub owner_character_id: u64,
+1003     pub case_id: String,
+1004     pub capability_id: String,
+1005     /// Exact completed attempt that produced this outcome. Empty for
+1006     /// non-attempt events such as dialogue contact and stale-capability refresh.
+1007     pub attempt_id: String,
+1008     pub safe_wording: String,
+1009     /// Observer chronology used by owner-facing investigation projections.
+1010     pub recorded_at: StrategicMinute,
+1011     /// Authoritative world chronology used only by server-side fairness rules.
+1012     pub official_recorded_at: StrategicMinute,
+1013 }
+1014 
+1015 /// Private per-party presentation choice. Tracking does not accept a contract,
+1016 /// disclose knowledge, move a party, satisfy an objective, or award anything.
+1017 #[derive(Clone, Debug)]
+1018 #[table(accessor = party_case_site_tracking)]
+1019 pub struct PartyCaseSiteTracking {
+1020     #[primary_key]
+1021     pub party_id: String,
+1022     pub observer_character_id: u64,
+1023     pub case_site_id: CaseSiteId,
+1024     pub tracked_at: StrategicMinute,
+1025 }
+1026 
+1027 /// Private physical occupancy. Public character rows deliberately contain no
+1028 /// case-site identifier.
+1029 #[derive(Clone, Debug)]
+1030 #[table(accessor = character_case_site_occupancy)]
+1031 pub struct CharacterCaseSiteOccupancy {
+1032     #[primary_key]
+1033     pub id: String,
+1034     #[index(btree)]
+1035     pub character_id: u64,
+1036     #[index(btree)]
+1037     pub gateway_bucket: u8,
+1038     pub case_site_id: CaseSiteId,
+1039     pub entered_at: StrategicMinute,
+1040     pub left_at: Option<StrategicMinute>,
+1041 }
+1042 
+1043 pub(crate) fn current_character_case_site_occupancy(
+1044     ctx: &ReducerContext,
+1045     character_id: u64,
+1046 ) -> Option<CharacterCaseSiteOccupancy> {
+1047     let mut rows = ctx
+1048         .db
+1049         .character_case_site_occupancy()
+1050         .character_id()
+1051         .filter(character_id)
+1052         .filter(|row| row.left_at.is_none());
+1053     let row = rows.next()?;
+1054     rows.next().is_none().then_some(row)
+1055 }
+1056 

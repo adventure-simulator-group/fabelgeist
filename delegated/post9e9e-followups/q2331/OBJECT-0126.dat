@@ -1,0 +1,146 @@
+  60             .finish()
+  61     }
+  62 }
+  63 
+  64 impl PartialEq for Kernel {
+  65     fn eq(&self, other: &Self) -> bool {
+  66         self.pipeline.shader.code == other.pipeline.shader.code
+  67     }
+  68 }
+  69 
+  70 impl Kernel {
+  71     /// Compile WGSL into a kernel. The source is ordinary WGSL with explicit
+  72     /// `@group(0) @binding(n)` declarations; the binding *names* are what a
+  73     /// dispatch matches its parameters against.
+  74     pub fn new(context: &WgpuContext, code: impl Into<String>) -> Result<Self> {
+  75         // Shader and pipeline creation read back validation error scopes,
+  76         // which interleave badly when two threads compile at once.
+  77         let _compiling = COMPILING
+  78             .lock()
+  79             .unwrap_or_else(|poisoned| poisoned.into_inner());
+  80         let code = code.into();
+  81 
+  82         let module =
+  83             fabelgeist_gpu::data::gpu::shader::parse_naga(&code, wgpu::naga::ShaderStage::Compute)?;
+  84         let entry = module
+  85             .entry_points
+  86             .iter()
+  87             .find(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
+  88             .ok_or_else(|| anyhow!("Kernel: no compute entry point"))?;
+  89         let workgroup_size = entry.workgroup_size;
+  90         let entry_point = entry.name.clone();
+  91 
+  92         if workgroup_size.contains(&0) {
+  93             return Err(anyhow!(
+  94                 "Kernel `{entry_point}`: workgroup size {workgroup_size:?} has a zero dimension"
+  95             ));
+  96         }
+  97 
+  98         let shader = ComputeShader::new(context, code.clone())?;
+  99         let mut pipeline = ComputePipeline::prepare(context, shader)?;
+ 100 
+ 101         let fast = match pipeline
+ 102             .shader
+ 103             .module
+ 104             .as_ref()
+ 105             .zip(pipeline.reflection.as_ref())
+ 106         {
+ 107             Some((module, reflection)) => {
+ 108                 fast::FastPath::new(context, module, &entry_point, reflection)?
+ 109             }
+ 110             None => None,
+ 111         };
+ 112 
+ 113         // The batched layout owns its pipeline. Compile the static layout only
+ 114         // for kernels requiring it, or when a caller uses a one-off dispatch.
+ 115         if fast.is_none() {
+ 116             pipeline.compile(context)?;
+ 117         }
+ 118 
+ 119         Ok(Self {
+ 120             pipeline,
+ 121             workgroup_size,
+ 122             entry_point,
+ 123             fast,
+ 124         })
+ 125     }
+ 126 
+ 127     /// Whether this kernel dispatches through the cached path.
+ 128     pub fn is_cached(&self) -> bool {
+ 129         self.fast.is_some()
+ 130     }
+ 131 
+ 132     /// Workgroup count that covers `items` invocations along x.
+ 133     pub fn groups_for(&self, items: u32) -> [u32; 3] {
+ 134         [items.div_ceil(self.workgroup_size[0]), 1, 1]
+ 135     }
+ 136 
+ 137     /// Workgroup count that covers `items` invocations, folded into y past
+ 138     /// the 65535 groups one dimension may hold. The kernel recovers its item
+ 139     /// with [`FOLDED_INDEX_WGSL`]'s `folded_index`, and must bounds-check it:
+ 140     /// the last row of groups overshoots.
+ 141     pub fn groups_folded(&self, items: u32) -> [u32; 3] {
+ 142         let groups = items.div_ceil(self.workgroup_size[0]);
+ 143         let x = groups.clamp(1, MAX_GROUPS);
+ 144         [x, groups.div_ceil(x), 1]
+ 145     }
+ 146 
+ 147     /// Run this kernel on its own -- one encoder, one submit. Convenient for a
+ 148     /// one-off; use a [`KernelBatch`] for anything in a loop.
+ 149     pub fn run(
+ 150         &self,
+ 151         context: &WgpuContext,
+ 152         parameters: PassParameters,
+ 153         groups: [u32; 3],
+ 154     ) -> Result<()> {
+ 155         let pipeline = {
+ 156             let _compiling = COMPILING
+ 157                 .lock()
+ 158                 .unwrap_or_else(|poisoned| poisoned.into_inner());
+ 159             let mut pipeline = self.pipeline.clone();
+ 160             pipeline.compile(context)?;
+ 161             pipeline
+ 162         };
+ 163         ComputePass::dispatch(
+ 164             context, pipeline, parameters, groups[0], groups[1], groups[2],
+ 165         )
+ 166     }
+ 167 }
+ 168 
+ 169 /// Compiles each distinct kernel source once and hands out clones after that.
+ 170 ///
+ 171 /// Kernels here are generated -- a constraint kernel is a template with the
+ 172 /// fabric model pasted into it -- so the same source comes back around every
+ 173 /// frame and for every solver instance. Compiling it once per source rather
+ 174 /// than once per call is the difference between a stutter and a steady frame.
+ 175 #[derive(Clone, Debug, Default)]
+ 176 pub struct KernelCache {
+ 177     kernels: Arc<RwLock<HashMap<String, Arc<Kernel>>>>,
+ 178 }
+ 179 
+ 180 impl KernelCache {
+ 181     pub fn new() -> Self {
+ 182         Self::default()
+ 183     }
+ 184 
+ 185     pub fn get(&self, context: &WgpuContext, code: &str) -> Result<Arc<Kernel>> {
+ 186         if let Some(kernel) = self.kernels.read().unwrap().get(code) {
+ 187             return Ok(kernel.clone());
+ 188         }
+ 189 
+ 190         // Compiled outside the write lock: a shader compile is slow, and
+ 191         // holding the lock across it would serialise every other kernel's
+ 192         // first use behind this one.
+ 193         let kernel = Arc::new(Kernel::new(context, code)?);
+ 194 
+ 195         let mut kernels = self.kernels.write().unwrap();
+ 196         // A racing caller may have inserted the same source in the meantime;
+ 197         // keep theirs, so that every holder of this source shares one pipeline.
+ 198         Ok(kernels.entry(code.to_string()).or_insert(kernel).clone())
+ 199     }
+ 200 
+ 201     pub fn len(&self) -> usize {
+ 202         self.kernels.read().unwrap().len()
+ 203     }
+ 204 
+ 205     pub fn is_empty(&self) -> bool {

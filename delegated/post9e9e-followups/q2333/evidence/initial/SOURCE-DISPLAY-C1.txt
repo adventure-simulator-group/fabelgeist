@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:275-345
+ 275 pub fn pour_tincture_spirit_into_container(
+ 276     ctx: &ReducerContext,
+ 277     character_id: u64,
+ 278     spirit_id: u64,
+ 279     object_id: u64,
+ 280 ) -> Result<(), String> {
+ 281     crate::strategic::require_strategic_gateway(ctx)?;
+ 282     crate::character::require_living_character(ctx, character_id)?;
+ 283     let mut spirit = ctx
+ 284         .db
+ 285         .inventory_item()
+ 286         .id()
+ 287         .find(spirit_id)
+ 288         .ok_or("Tincture spirit not found")?;
+ 289     if spirit.character_id != character_id
+ 290         || spirit.item_id != "tincture_spirit"
+ 291         || spirit.quantity == 0
+ 292     {
+ 293         return Err("Select one carried 150 ml tincture-spirit serving".into());
+ 294     }
+ 295     let object = require_tincture_vessel(ctx, object_id)?;
+ 296     let actor = ctx
+ 297         .db
+ 298         .character()
+ 299         .id()
+ 300         .find(character_id)
+ 301         .ok_or("Character not found")?;
+ 302     let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 303     if !matches!(
+ 304         custody.root,
+ 305         adventuresim_core::physical_object::OperationalCustody::Character(id)
+ 306             if id.get() == character_id
+ 307     ) {
+ 308         return Err("Tincture vessel is not in this character's personal custody".into());
+ 309     }
+ 310     if crate::inventory_container::object_is_nonempty(ctx, object_id) {
+ 311         return Err("Add tincture spirit before solid ingredients".into());
+ 312     }
+ 313     let definition = ctx
+ 314         .db
+ 315         .item()
+ 316         .id()
+ 317         .find(object.item_id)
+ 318         .ok_or("Container definition not found")?;
+ 319     if definition.container_capacity_ml < 150 {
+ 320         return Err("Tincture vessel is too small for 150 ml of spirit".into());
+ 321     }
+ 322     spirit.quantity -= 1;
+ 323     if spirit.quantity == 0 {
+ 324         ctx.db.inventory_item().id().delete(spirit.id);
+ 325     } else {
+ 326         ctx.db.inventory_item().id().update(spirit);
+ 327     }
+ 328     ctx.db.container_liquid().insert(crate::ContainerLiquid {
+ 329         container_object_id: object_id,
+ 330         liquid_item_id: "tincture_spirit".into(),
+ 331         water_ml: 150,
+ 332     });
+ 333     Ok(())
+ 334 }
+ 335 
+ 336 #[reducer]
+ 337 pub fn start_poppy_tincture(
+ 338     ctx: &ReducerContext,
+ 339     character_id: u64,
+ 340     object_id: u64,
+ 341 ) -> Result<(), String> {
+ 342     crate::strategic::require_strategic_gateway(ctx)?;
+ 343     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 344     if actor.has_tactical_server_assignment() {
+ 345         return Err("Tincturing is unavailable during a tactical encounter".into());

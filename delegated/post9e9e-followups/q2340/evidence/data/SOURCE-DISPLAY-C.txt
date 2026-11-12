@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/investigation/model.rs:1111-1165
+1111     if previous_site.as_deref() == case_site_id.as_ref().map(CaseSiteId::as_str) {
+1112         return Ok(());
+1113     }
+1114     if previous_site.as_deref() != case_site_id.as_ref().map(CaseSiteId::as_str)
+1115         && let Some(previous_site) = previous_site.as_deref()
+1116     {
+1117         for membership in ctx
+1118             .db
+1119             .character_context_membership()
+1120             .location_id()
+1121             .filter(&previous_site.to_owned())
+1122             .filter(|membership| membership.is_open())
+1123         {
+1124             crate::social::close_physiology_presence_between(
+1125                 ctx,
+1126                 character_id,
+1127                 membership.character_id,
+1128             );
+1129         }
+1130     }
+1131     crate::outbreak::record_case_site_presence_transition(
+1132         ctx,
+1133         character_id,
+1134         case_site_id.as_ref().map(CaseSiteId::as_str),
+1135     );
+1136     if let Some(mut current) = current {
+1137         current.left_at = Some(minute);
+1138         ctx.db.character_case_site_occupancy().id().update(current);
+1139     }
+1140     if let Some(case_site_id) = case_site_id {
+1141         ctx.db
+1142             .character_case_site_occupancy()
+1143             .insert(CharacterCaseSiteOccupancy {
+1144                 id: format!(
+1145                     "case-occupancy:{character_id}:{minute}:{}",
+1146                     case_site_id.as_str()
+1147                 ),
+1148                 character_id,
+1149                 gateway_bucket: 0,
+1150                 case_site_id,
+1151                 entered_at: minute,
+1152                 left_at: None,
+1153             });
+1154     }
+1155     Ok(())
+1156 }
+1157 
+1158 #[derive(Clone, Debug)]
+1159 #[table(accessor = investigation_sharing_receipt)]
+1160 pub struct InvestigationSharingReceipt {
+1161     #[primary_key]
+1162     pub id: String,
+1163     pub sender_id: u64,
+1164     pub recipient_id: u64,
+1165     pub source_record_id: String,

@@ -1,0 +1,46 @@
+ 470     mass += water_ml / 1_000.0;
+ 471     let contributed_water_microliters = contained_water_materials
+ 472         .iter()
+ 473         .try_fold(Microliters::ZERO, |total, row| total.checked_add(row.3))
+ 474         .ok_or("Contained water material volume overflow")?;
+ 475     let public_water_microliters = Microliters::try_from_nonnegative_milliliters_rounded(water_ml)
+ 476         .ok_or("Cooking water volume is invalid")?;
+ 477     if contributed_water_microliters > public_water_microliters {
+ 478         return Err("Contained water material exceeds its public volume".into());
+ 479     }
+ 480     for (material_lot_id, current, water_growth, amount_microliters) in &contained_water_materials {
+ 481         let water_mass_kg = amount_microliters.as_water_kilograms_f32();
+ 482         let water_load = current * water_mass_kg;
+ 483         loads.push(water_load);
+ 484         growth.push(*water_growth);
+ 485         growth_mass += water_growth.max(0.0) * water_mass_kg;
+ 486         contamination_contribution_ids.push(format!("water-output-lot:{material_lot_id}"));
+ 487         contamination_contribution_loads.push(water_load);
+ 488     }
+ 489     let target = food::cooking_duration_minutes_for_check(method, &safety, mass, check)
+ 490         .ok_or("Cooking duration could not be calculated")?;
+ 491     let flavor_quality = food::aggregate_flavor_quality(method, flavors, mass);
+ 492     let quality = food::cooked_quality(
+ 493         food::chef_quality_tier(check),
+ 494         flavor_quality,
+ 495         method == CookingMethod::PanFry
+ 496             && !food::pan_fry_has_enough_fat(culinary_fat_mass, ingredient_mass),
+ 497     );
+ 498     // Everything above is preflight. Mutation starts here and remains atomic.
+ 499     if let Some(instrument_object_id) = station.instrument_object_id
+ 500         && contained_water_ml > 0
+ 501     {
+ 502         ctx.db
+ 503             .container_liquid()
+ 504             .container_object_id()
+ 505             .delete(instrument_object_id);
+ 506         crate::outbreak::delete_container_water_contributions(ctx, instrument_object_id);
+ 507     }
+ 508     for (id, fraction, available, mut lot) in selected {
+ 509         if fraction == available {
+ 510             match inventory_scope {
+ 511                 CarriedInventoryScope::Personal => {
+ 512                     ctx.db
+ 513                         .inventory_item_amount()
+ 514                         .inventory_item_id()
+ 515                         .delete(id);

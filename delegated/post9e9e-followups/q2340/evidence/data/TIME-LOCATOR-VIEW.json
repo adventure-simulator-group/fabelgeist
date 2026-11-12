@@ -1,0 +1,396 @@
+[
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+    "bytes": 12475,
+    "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+    "computed_git_blob_sha1": "42fbacec718b1b161484c20a58624cbb4737c999",
+    "connector_sha": "42fbacec718b1b161484c20a58624cbb4737c999",
+    "blob_match": true,
+    "keys": [
+      "content",
+      "encoding",
+      "sha",
+      "display_url",
+      "display_title"
+    ],
+    "hits": {
+      "fn quest_journey_minutes": {
+        "count": 1,
+        "first_40": [
+          118
+        ],
+        "truncated": false
+      },
+      "fn validate_journey_route": {
+        "count": 2,
+        "first_40": [
+          122,
+          137
+        ],
+        "truncated": false
+      },
+      "minutes == 0": {
+        "count": 2,
+        "first_40": [
+          163,
+          227
+        ],
+        "truncated": false
+      },
+      "duration_minutes": {
+        "count": 2,
+        "first_40": [
+          227,
+          231
+        ],
+        "truncated": false
+      },
+      "minute": {
+        "count": 19,
+        "first_40": [
+          108,
+          118,
+          119,
+          148,
+          163,
+          164,
+          205,
+          210,
+          227,
+          231,
+          232,
+          234,
+          235,
+          242,
+          244,
+          245,
+          255,
+          257,
+          281
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+    "bytes": 31853,
+    "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+    "computed_git_blob_sha1": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+    "connector_sha": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+    "blob_match": true,
+    "keys": [
+      "content",
+      "encoding",
+      "sha",
+      "display_url",
+      "display_title"
+    ],
+    "hits": {
+      "fn start_party_journey": {
+        "count": 1,
+        "first_40": [
+          113
+        ],
+        "truncated": false
+      },
+      "minutes == 0": {
+        "count": 5,
+        "first_40": [
+          382,
+          469,
+          562,
+          632,
+          841
+        ],
+        "truncated": false
+      },
+      "duration_minutes": {
+        "count": 1,
+        "first_40": [
+          524
+        ],
+        "truncated": false
+      },
+      "minute": {
+        "count": 127,
+        "first_40": [
+          1,
+          12,
+          13,
+          18,
+          25,
+          87,
+          89,
+          90,
+          93,
+          102,
+          103,
+          104,
+          118,
+          119,
+          161,
+          162,
+          163,
+          180,
+          181,
+          182,
+          186,
+          187,
+          188,
+          189,
+          198,
+          214,
+          226,
+          236,
+          237,
+          238,
+          239,
+          240,
+          241,
+          242,
+          243,
+          245,
+          246,
+          259,
+          265,
+          266
+        ],
+        "truncated": true
+      },
+      "movement": {
+        "count": 63,
+        "first_40": [
+          4,
+          17,
+          25,
+          87,
+          102,
+          118,
+          159,
+          162,
+          172,
+          180,
+          181,
+          182,
+          236,
+          237,
+          239,
+          243,
+          245,
+          246,
+          259,
+          265,
+          266,
+          275,
+          276,
+          306,
+          311,
+          318,
+          319,
+          320,
+          321,
+          324,
+          329,
+          331,
+          355,
+          356,
+          359,
+          360,
+          365,
+          366,
+          372,
+          376
+        ],
+        "truncated": true
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+    "bytes": 54084,
+    "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+    "computed_git_blob_sha1": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+    "connector_sha": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+    "blob_match": true,
+    "keys": [
+      "content",
+      "encoding",
+      "sha",
+      "display_url",
+      "display_title"
+    ],
+    "hits": {
+      "fn advance_party_movement_until_encounter": {
+        "count": 1,
+        "first_40": [
+          591
+        ],
+        "truncated": false
+      },
+      "fn revalidate_party_after_departure_sync": {
+        "count": 1,
+        "first_40": [
+          1374
+        ],
+        "truncated": false
+      },
+      "minutes == 0": {
+        "count": 1,
+        "first_40": [
+          1312
+        ],
+        "truncated": false
+      },
+      "duration_minutes": {
+        "count": 1,
+        "first_40": [
+          6
+        ],
+        "truncated": false
+      },
+      "minute": {
+        "count": 90,
+        "first_40": [
+          1,
+          5,
+          6,
+          29,
+          56,
+          57,
+          218,
+          221,
+          234,
+          235,
+          237,
+          238,
+          239,
+          242,
+          266,
+          267,
+          268,
+          281,
+          287,
+          305,
+          306,
+          307,
+          326,
+          327,
+          333,
+          385,
+          402,
+          404,
+          460,
+          464,
+          465,
+          466,
+          468,
+          477,
+          488,
+          492,
+          493,
+          503,
+          513,
+          520
+        ],
+        "truncated": true
+      },
+      "movement": {
+        "count": 13,
+        "first_40": [
+          56,
+          57,
+          243,
+          266,
+          305,
+          460,
+          477,
+          591,
+          608,
+          1299,
+          1321,
+          1322,
+          1325
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+    "bytes": 23560,
+    "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+    "computed_git_blob_sha1": "965aec5634dad55bab94097ddccbf54049135848",
+    "connector_sha": "965aec5634dad55bab94097ddccbf54049135848",
+    "blob_match": true,
+    "keys": [
+      "content",
+      "encoding",
+      "sha",
+      "display_url",
+      "display_title"
+    ],
+    "hits": {
+      "fn synchronize_party_departure_time": {
+        "count": 1,
+        "first_40": [
+          571
+        ],
+        "truncated": false
+      },
+      "minutes == 0": {
+        "count": 1,
+        "first_40": [
+          246
+        ],
+        "truncated": false
+      },
+      "minute": {
+        "count": 55,
+        "first_40": [
+          32,
+          33,
+          45,
+          52,
+          57,
+          60,
+          75,
+          79,
+          82,
+          161,
+          225,
+          228,
+          246,
+          285,
+          288,
+          312,
+          313,
+          315,
+          316,
+          321,
+          328,
+          330,
+          334,
+          342,
+          343,
+          353,
+          381,
+          387,
+          397,
+          398,
+          468,
+          483,
+          484,
+          488,
+          489,
+          498,
+          502,
+          505,
+          508,
+          518
+        ],
+        "truncated": true
+      }
+    }
+  }
+]

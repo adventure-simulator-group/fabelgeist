@@ -1,0 +1,255 @@
+[
+  {
+    "read_record": "segovb/READ-L12-865.json",
+    "root_fields": {
+      "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+      "lens": 12,
+      "batch": 865,
+      "at": "2026-10-30T02:09:03.969852+00:00",
+      "proposal": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+      "proposal_sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "validated_bundle": {
+        "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+        "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111"
+      },
+      "delegated_attribution_preserved": true,
+      "root_personal_rereads": [],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false,
+      "runtime_validation": "Not run; source audit only",
+      "implementation_gate_complete": false
+    },
+    "matching_source_rows": [
+      {
+        "original_index": 2550,
+        "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+        "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+        "actual_EOF": 376,
+        "assessed_ranges": [
+          [
+            1,
+            138
+          ],
+          [
+            175,
+            303
+          ]
+        ],
+        "fresh_personal_body_reads": [
+          [
+            1,
+            138
+          ],
+          [
+            175,
+            303
+          ]
+        ],
+        "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+      },
+      {
+        "original_index": 2551,
+        "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+        "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-physics/src/mesh.rs",
+        "actual_EOF": 205,
+        "assessed_ranges": [
+          [
+            1,
+            205
+          ]
+        ],
+        "fresh_personal_body_reads": [],
+        "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+        "qualified_future_receipt": {
+          "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+          "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+          "row_pointer": "/rows/3"
+        },
+        "qualified_root_future_adoption": {
+          "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+          "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7",
+          "future_proof_pointer": "/qualified_future_original_proofs/3",
+          "checked_source_pointer": "/checked_rows/3"
+        },
+        "new_ordered_population_credit": 1,
+        "future_ordered_count_pending": false
+      }
+    ],
+    "verify_record": "segovb/VERIFY-L12-865.json",
+    "verification": {
+      "lens": 12,
+      "kind": "Evidence-only whole-bundle strict source preflight and ordered root adoption",
+      "receipt_sha256": "54da866e53296db57685422807ec153ff6d46c4260e11bfe8ad899e168810a62",
+      "state_sha256": "a9a107d42a0b2393b440ef23d9d0c92a6df1a7f91a3e0dc750bddf667b39fd51",
+      "proposal_sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "ruleset": {
+        "path": "parallel-l12-20261029/preflight-l12-bundle-002-PROPOSAL.py",
+        "sha256": "440b3fc092b427a68a9932dd1eb9ad1ef00db5ec367200d326f9f622feab6d61"
+      },
+      "root_adapter": {
+        "path": "parallel-l12-20261029/root-l12-bundle865-872-adopt-v3-PROPOSAL.py",
+        "sha256": "ec5609ae2d26a8d0879e099d0e5dcc6d734698d349dc027415d04cbc911c8e64"
+      },
+      "exact_source_registry_Git_native_crate_hash_EOF_recursive_ranges_reuse_partial_qualifications_checked": true,
+      "other_lens_coverage_transferred": false,
+      "new_original_roles": 2,
+      "product_execution": false,
+      "gate": false
+    }
+  },
+  {
+    "read_record": "segovb/READ-L12-867.json",
+    "root_fields": {
+      "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+      "lens": 12,
+      "batch": 867,
+      "at": "2026-10-30T02:09:04.187527+00:00",
+      "proposal": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+      "proposal_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "validated_bundle": {
+        "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+        "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111"
+      },
+      "delegated_attribution_preserved": true,
+      "root_personal_rereads": [],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false,
+      "runtime_validation": "Not run; source audit only",
+      "implementation_gate_complete": false
+    },
+    "matching_source_rows": [
+      {
+        "original_index": 2558,
+        "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+        "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+        "actual_EOF": 408,
+        "assessed_ranges": [
+          [
+            1,
+            306
+          ]
+        ],
+        "fresh_personal_body_reads": [
+          [
+            1,
+            306
+          ]
+        ],
+        "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+      }
+    ],
+    "verify_record": "segovb/VERIFY-L12-867.json",
+    "verification": {
+      "lens": 12,
+      "kind": "Evidence-only whole-bundle strict source preflight and ordered root adoption",
+      "receipt_sha256": "96cff9d3388f218f0951c1f9d140d70628662c964437f4b10d40603f8d99134e",
+      "state_sha256": "969508b64b8bb907a82c5fcb10d70111fbe79b932f36c2b6822e8be24269fb5b",
+      "proposal_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "ruleset": {
+        "path": "parallel-l12-20261029/preflight-l12-bundle-002-PROPOSAL.py",
+        "sha256": "440b3fc092b427a68a9932dd1eb9ad1ef00db5ec367200d326f9f622feab6d61"
+      },
+      "root_adapter": {
+        "path": "parallel-l12-20261029/root-l12-bundle865-872-adopt-v3-PROPOSAL.py",
+        "sha256": "ec5609ae2d26a8d0879e099d0e5dcc6d734698d349dc027415d04cbc911c8e64"
+      },
+      "exact_source_registry_Git_native_crate_hash_EOF_recursive_ranges_reuse_partial_qualifications_checked": true,
+      "other_lens_coverage_transferred": false,
+      "new_original_roles": 2,
+      "product_execution": false,
+      "gate": false
+    }
+  },
+  {
+    "read_record": "segovb/READ-L12-873.json",
+    "root_fields": {
+      "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+      "lens": 12,
+      "batch": 873,
+      "at": "2026-10-30T03:12:18.314543+00:00",
+      "proposal": "parallel-l12-20261029/PROPOSAL-L12-873.json",
+      "proposal_sha256": "b55f83388524f74abdcb09c1df974c6065bdb711c214a4c66f636162146cd363",
+      "validated_bundle": {
+        "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+        "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df"
+      },
+      "delegated_attribution_preserved": true,
+      "root_personal_rereads": [],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false,
+      "runtime_validation": "Not run; source audit only",
+      "implementation_gate_complete": false
+    },
+    "matching_source_rows": [],
+    "verify_record": "segovb/VERIFY-L12-873.json",
+    "verification": {
+      "lens": 12,
+      "kind": "Evidence-only whole-bundle strict source preflight and ordered root adoption",
+      "receipt_sha256": "3e8e0d143e3f4fbe563366e2d9a958ffce9868c14f9078642754ca77dc6f8b2a",
+      "state_sha256": "72ce81cf8ce50f06dbf0e5a90d29ae9cddc17804cf9d52970b59cd44af7ef745",
+      "proposal_sha256": "b55f83388524f74abdcb09c1df974c6065bdb711c214a4c66f636162146cd363",
+      "ruleset": {
+        "path": "parallel-l12-20261029/preflight-l12-bundle-004-PROPOSAL.py",
+        "sha256": "13c4828c8d4c528c92f5eea45863a42a60b95e21fb60670791c40e5701d99f07"
+      },
+      "root_adapter": {
+        "path": "parallel-l12-20261029/root-l12-bundle873-880-adopt-v2-PROPOSAL.py",
+        "sha256": "5ada589fe6ace352d7493db4875d7f9179798540bd80abffb50392b2e18652d1"
+      },
+      "exact_source_registry_Git_native_crate_hash_EOF_recursive_ranges_reuse_partial_qualifications_checked": true,
+      "other_lens_coverage_transferred": false,
+      "new_original_roles": 4,
+      "product_execution": false,
+      "gate": false
+    }
+  },
+  {
+    "read_record": "segovb/READ-L12-880.json",
+    "root_fields": {
+      "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+      "lens": 12,
+      "batch": 880,
+      "at": "2026-10-30T03:12:19.100100+00:00",
+      "proposal": "parallel-l12-20261029/PROPOSAL-L12-880.json",
+      "proposal_sha256": "db46befefab243f5297dd0f4505a1b20ddf7d356255ce6a39f8bfa0b6e2e8bb7",
+      "validated_bundle": {
+        "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+        "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df"
+      },
+      "delegated_attribution_preserved": true,
+      "root_personal_rereads": [],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false,
+      "runtime_validation": "Not run; source audit only",
+      "implementation_gate_complete": false
+    },
+    "matching_source_rows": [],
+    "verify_record": "segovb/VERIFY-L12-880.json",
+    "verification": {
+      "lens": 12,
+      "kind": "Evidence-only whole-bundle strict source preflight and ordered root adoption",
+      "receipt_sha256": "a1b17982fdef8064dd00e3b18965e15b02ce2849c705fb0dcf5970b96f507269",
+      "state_sha256": "27e22bd592bf9f58734eb39433bd7645231dd8207f71a56ca3c4eb9d53f1d988",
+      "proposal_sha256": "db46befefab243f5297dd0f4505a1b20ddf7d356255ce6a39f8bfa0b6e2e8bb7",
+      "ruleset": {
+        "path": "parallel-l12-20261029/preflight-l12-bundle-004-PROPOSAL.py",
+        "sha256": "13c4828c8d4c528c92f5eea45863a42a60b95e21fb60670791c40e5701d99f07"
+      },
+      "root_adapter": {
+        "path": "parallel-l12-20261029/root-l12-bundle873-880-adopt-v2-PROPOSAL.py",
+        "sha256": "5ada589fe6ace352d7493db4875d7f9179798540bd80abffb50392b2e18652d1"
+      },
+      "exact_source_registry_Git_native_crate_hash_EOF_recursive_ranges_reuse_partial_qualifications_checked": true,
+      "other_lens_coverage_transferred": false,
+      "new_original_roles": 2,
+      "product_execution": false,
+      "gate": false
+    }
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "registered_utc": "2026-11-12T17:48:15.960964+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "queries": [
+    {
+      "term": "fn synchronize_party_departure_time",
+      "paths": [
+        "crates/adventuresim-stdb-module/src"
+      ]
+    },
+    {
+      "term": "WORLD_START_MINUTE",
+      "paths": [
+        "crates/adventuresim-world-schema/src/calendar.rs",
+        "crates/adventuresim-stdb-module/src/time.rs"
+      ]
+    },
+    {
+      "term": "refresh_clock",
+      "paths": [
+        "crates/adventuresim-stdb-module/src/time.rs"
+      ]
+    }
+  ],
+  "qualification": "Fixed-string scoped locator; first 10 printed, at most 100 retained; no source-body credit."
+}

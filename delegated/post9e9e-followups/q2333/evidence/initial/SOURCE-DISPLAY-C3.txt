@@ -1,0 +1,81 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:411-490
+ 411     let inventory = ctx
+ 412         .db
+ 413         .inventory_item()
+ 414         .id()
+ 415         .find(ingredient_location.row_id)
+ 416         .ok_or("Poppy inventory row is missing")?;
+ 417     let lot = crate::food::personal_lot(ctx, ingredient_location.row_id)
+ 418         .ok_or("Poppy measured lot is missing")?;
+ 419     if inventory.quantity != 1
+ 420         || lot.preparation != FoodPreparation::Ground
+ 421         || (lot.mass_kg - 0.05).abs() > 0.000_1
+ 422     {
+ 423         return Err("Poppy tincture requires one exact 50 g ground-poppy lot".into());
+ 424     }
+ 425     let mut skills = ctx
+ 426         .db
+ 427         .character_skills()
+ 428         .character_id()
+ 429         .find(character_id)
+ 430         .ok_or("Character skills not found")?;
+ 431     let attributes = ctx
+ 432         .db
+ 433         .character_attributes()
+ 434         .character_id()
+ 435         .find(character_id)
+ 436         .ok_or("Character attributes not found")?;
+ 437     let check = Skill::Herbalism
+ 438         .capped_training_rank(skills.effective_skill_hours(Skill::Herbalism), &attributes);
+ 439     if check < MIN_HERBALISM_CHECK {
+ 440         return Err("At least 0.5 Herbalism is required to prepare a medicinal tincture".into());
+ 441     }
+ 442     if !crate::time::advance_character_wait_time(ctx, character_id, TINCTURE_SETUP_MINUTES)? {
+ 443         return Ok(());
+ 444     }
+ 445     let now = crate::time::refresh_clock(ctx)?;
+ 446     let ready = now
+ 447         .checked_add_minutes(adventuresim_core::herbalism::POPPY_TINCTURE_MATURATION_MINUTES)
+ 448         .ok_or("Tincture completion time overflow")?;
+ 449     // Commit boundary: consume the exact measured ingredient and its stable object.
+ 450     consume_tincture_ingredient(ctx, inventory.id, ingredient.id);
+ 451     let gain = apply_direct_training(
+ 452         Skill::Herbalism,
+ 453         &mut skills.herbalism_hours,
+ 454         TINCTURE_SETUP_MINUTES as f32 / 60.0,
+ 455         &attributes,
+ 456     );
+ 457     ctx.db.character_skills().character_id().update(skills);
+ 458     crate::condition::record_mastery_training_morale(
+ 459         ctx,
+ 460         character_id,
+ 461         TINCTURE_SETUP_MINUTES,
+ 462         gain.excess_effective_hours,
+ 463     );
+ 464     crate::capability::refresh_character_capability(ctx, character_id)?;
+ 465     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+ 466     ctx.db.tincture_process().insert(TinctureProcess {
+ 467         container_object_id: object_id,
+ 468         started_at_world_minute: now,
+ 469         ready_at_world_minute: ready,
+ 470         matured: false,
+ 471         preparer_character_id: character_id,
+ 472         intervention_profile_id: POPPY_PROFILE_ID.into(),
+ 473         profile_version: POPPY_PROFILE_VERSION,
+ 474         pinned_potency_units: (check / 5.0).clamp(0.1, 1.0),
+ 475         ingredient_object_id: ingredient.id,
+ 476         ingredient_item_id: ingredient.item_id,
+ 477         ingredient_mass_grams: 50,
+ 478     });
+ 479     Ok(())
+ 480 }
+ 481 
+ 482 #[reducer]
+ 483 pub fn refresh_tincture(
+ 484     ctx: &ReducerContext,
+ 485     character_id: u64,
+ 486     object_id: u64,
+ 487 ) -> Result<(), String> {
+ 488     crate::strategic::require_strategic_gateway(ctx)?;
+ 489     crate::character::require_living_character(ctx, character_id)?;
+ 490     let object = require_tincture_vessel(ctx, object_id)?;

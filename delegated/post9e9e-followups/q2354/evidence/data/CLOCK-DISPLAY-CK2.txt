@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-stdb-module/src/time/clock.rs:56-85
+  56             .map(|row| row.character_id),
+  57     );
+  58     related.extend(
+  59         ctx.db
+  60             .character_kinship()
+  61             .subject_id()
+  62             .filter(character_id)
+  63             .map(|row| row.related_id),
+  64     );
+  65     related.remove(&character_id);
+  66     related
+  67         .into_iter()
+  68         .filter(|related_id| {
+  69             ctx.db
+  70                 .npc_policy()
+  71                 .character_id()
+  72                 .find(*related_id)
+  73                 .is_some()
+  74         })
+  75         .filter(|related_id| {
+  76             ctx.db
+  77                 .character()
+  78                 .id()
+  79                 .find(*related_id)
+  80                 .is_none_or(|related| related.party_id != character_party_id)
+  81         })
+  82         .take(32)
+  83         .collect()
+  84 }
+  85 

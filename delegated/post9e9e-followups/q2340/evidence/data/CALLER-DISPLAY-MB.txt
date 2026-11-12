@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:635-705
+ 635     crate::world_actor::materialize_context_roster(
+ 636         ctx,
+ 637         crate::world_actor::CharacterContextKind::HostileGroup,
+ 638         &group.id,
+ 639         group.case_site_id.as_str(),
+ 640         group.enemy_count,
+ 641     )?;
+ 642     configure_tactical_enemy_fixture(ctx, &hostile_group_id, &enemy_fixture)?;
+ 643     let objective_id = format!("objective:standalone:{mission_id}");
+ 644     if ctx.db.case_authority().id().find(&case_id).is_none() {
+ 645         use adventuresim_core::case::{
+ 646             Objective, ObjectiveExpression, ObjectiveId, ObjectivePath, ObjectiveRequirement,
+ 647         };
+ 648         let expression = ObjectiveExpression {
+ 649             alternatives: vec![ObjectivePath {
+ 650                 objectives: vec![Objective {
+ 651                     id: ObjectiveId::new(objective_id.clone())
+ 652                         .map_err(|_| "Standalone tactical objective ID is invalid".to_string())?,
+ 653                     requirement: ObjectiveRequirement::Defeat {
+ 654                         hostile_group_id: hostile_group_id.clone(),
+ 655                         count: required_enemy_kills.max(1),
+ 656                     },
+ 657                 }],
+ 658             }],
+ 659         };
+ 660         ctx.db.case_authority().insert(CaseAuthority {
+ 661             id: case_id.clone(),
+ 662             provenance_kind: InvestigationProvenanceKind::Manual,
+ 663             generated_case_id: String::new(),
+ 664             investigation_case_id: format!("investigation:standalone:{mission_id}"),
+ 665             local_problem_id: None,
+ 666             objective_expression_json: serde_json::to_string(&expression)
+ 667                 .map_err(|_| "Standalone tactical objective serialization failed")?,
+ 668             resolution_status: CaseStatus::Open,
+ 669             resolved_by_party_id: None,
+ 670         });
+ 671     }
+ 672 
+ 673     let mut party = ctx
+ 674         .db
+ 675         .party_authority()
+ 676         .id()
+ 677         .find(&party_id)
+ 678         .ok_or("Party not found")?;
+ 679     party.current_settlement_id = None;
+ 680     party.current_case_site_id = Some(case_site.id.clone());
+ 681     if party.wilderness_canonical_anchor_minute.is_none() {
+ 682         party.wilderness_canonical_anchor_minute = Some(crate::time::refresh_clock(ctx)?);
+ 683         party.wilderness_elapsed_minutes = 0;
+ 684     }
+ 685     ctx.db.party_authority().id().update(party.clone());
+ 686     crate::investigation::set_character_case_site(
+ 687         ctx,
+ 688         character_id,
+ 689         Some(case_site.id.as_str().to_owned()),
+ 690     )?;
+ 691     let capability_id = format!("mission-approach:standalone:{mission_id}");
+ 692     if ctx
+ 693         .db
+ 694         .mission_approach_capability()
+ 695         .id()
+ 696         .find(&capability_id)
+ 697         .is_none()
+ 698     {
+ 699         ctx.db
+ 700             .mission_approach_capability()
+ 701             .insert(MissionApproachCapability {
+ 702                 id: capability_id.clone(),
+ 703                 observer_character_id: character_id,
+ 704                 hostile_group_id: hostile_group_id.clone(),
+ 705                 case_id: case_id.clone(),

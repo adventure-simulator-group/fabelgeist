@@ -1,0 +1,115 @@
+1126     let mut liquids = Vec::new();
+1127     for liquid in ctx
+1128         .db
+1129         .container_liquid()
+1130         .iter()
+1131         .filter(|liquid| liquid.liquid_item_id == WATER_ITEM_ID)
+1132     {
+1133         let object = ctx
+1134             .db
+1135             .inventory_object()
+1136             .id()
+1137             .find(liquid.container_object_id)
+1138             .ok_or("Contained water has no physical container object")?;
+1139         let resolved = crate::object_custody::resolve_object_custody(ctx, &object)?;
+1140         if resolved.root == *expected_custody {
+1141             liquids.push(liquid);
+1142         }
+1143     }
+1144     liquids.sort_by_key(|liquid| liquid.container_object_id);
+1145     let mut remaining = requested_ml;
+1146     for mut liquid in liquids {
+1147         let consumed = remaining.min(liquid.water_ml);
+1148         crate::outbreak::consume_container_water_contributions(
+1149             ctx,
+1150             liquid.container_object_id,
+1151             liquid.water_ml,
+1152             consumed,
+1153             consumer_character_id,
+1154         )?;
+1155         liquid.water_ml -= consumed;
+1156         remaining -= consumed;
+1157         if liquid.water_ml == 0 {
+1158             ctx.db
+1159                 .container_liquid()
+1160                 .container_object_id()
+1161                 .delete(liquid.container_object_id);
+1162             merge_empty_container(ctx, liquid.container_object_id)?;
+1163         } else {
+1164             ctx.db
+1165                 .container_liquid()
+1166                 .container_object_id()
+1167                 .update(liquid);
+1168         }
+1169         if remaining == 0 {
+1170             break;
+1171         }
+1172     }
+1173     Ok(requested_ml - remaining)
+1174 }
+1175 
+1176 pub(crate) fn require_mutable(ctx: &ReducerContext, object_id: u64) -> Result<(), String> {
+1177     let mut cursor = Some(object_id);
+1178     for _ in 0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH {
+1179         let Some(id) = cursor else { return Ok(()) };
+1180         if ctx
+1181             .db
+1182             .inventory_object()
+1183             .id()
+1184             .find(id)
+1185             .is_some_and(|object| object.location.is_fireplace())
+1186         {
+1187             return Err(
+1188                 "Retrieve the container from its fireplace before changing its contents".into(),
+1189             );
+1190         }
+1191         if ctx.db.fireplace_station().iter().any(|station| {
+1192             station.instrument_object_id == Some(id)
+1193                 && ctx
+1194                     .db
+1195                     .fireplace_dish()
+1196                     .station_key()
+1197                     .find(station.key)
+1198                     .is_some()
+1199         }) {
+1200             return Err("Container contents are locked while cooking".into());
+1201         }
+1202         if crate::herbalism::container_is_processing(ctx, id) {
+1203             return Err("Container contents are locked while a tincture is macerating".into());
+1204         }
+1205         cursor = ctx
+1206             .db
+1207             .inventory_containment()
+1208             .child_object_id()
+1209             .find(id)
+1210             .map(|edge| edge.parent_object_id);
+1211     }
+1212     Err("Container ancestry exceeds the maximum depth".into())
+1213 }
+1214 
+1215 pub(crate) fn require_container_capacity(
+1216     ctx: &ReducerContext,
+1217     container_object_id: u64,
+1218     additional_ml: u64,
+1219 ) -> Result<(), String> {
+1220     let object = ctx
+1221         .db
+1222         .inventory_object()
+1223         .id()
+1224         .find(container_object_id)
+1225         .ok_or("Container object not found")?;
+1226     let definition = ctx
+1227         .db
+1228         .item()
+1229         .id()
+1230         .find(object.item_id)
+1231         .ok_or("Container definition not found")?;
+1232     if definition.container_capacity_ml == 0 {
+1233         return Err("That item is not a container".into());
+1234     }
+1235     let container_object_id =
+1236         PhysicalObjectId::try_new(container_object_id).map_err(|error| error.to_string())?;
+1237     let used = graph(ctx)?
+1238         .used_volume(container_object_id)
+1239         .map_err(str::to_owned)?
+1240         .checked_add(Milliliters::new(liquid_used(

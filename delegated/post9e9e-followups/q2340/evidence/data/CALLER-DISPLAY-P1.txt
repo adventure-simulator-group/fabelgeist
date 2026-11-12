@@ -1,0 +1,42 @@
+SOURCE crates/adventuresim-stdb-module/src/world_actor/presence.rs:35-75
+  35         CharacterContextKind::CaseSite | CharacterContextKind::HostileGroup
+  36     ) && contact_ref == EXACT_CASE_CONTEXT_CONTACT_REF
+  37         && expected_revision == actual_revision
+  38 }
+  39 
+  40 fn exactly_one<T>(mut values: impl Iterator<Item = T>) -> Option<T> {
+  41     let value = values.next()?;
+  42     values.next().is_none().then_some(value)
+  43 }
+  44 
+  45 fn projected_case_context_claim(
+  46     ctx: &ReducerContext,
+  47     observer_character_id: u64,
+  48     membership: &CharacterContextMembership,
+  49     minute: StrategicMinute,
+  50 ) -> Option<(String, u32)> {
+  51     context_membership_valid_at(membership, minute)
+  52         .then(|| (membership.id.clone(), membership.revision))
+  53         .filter(|_| {
+  54             crate::investigation::exact_case_site_for_observer_at(
+  55                 ctx,
+  56                 observer_character_id,
+  57                 &membership.location_id,
+  58                 minute,
+  59             )
+  60             .is_some()
+  61         })
+  62 }
+  63 
+  64 fn character_case_site_occupancy_at_view(
+  65     ctx: &ViewContext,
+  66     character_id: u64,
+  67     minute: StrategicMinute,
+  68 ) -> Option<crate::investigation::CharacterCaseSiteOccupancy> {
+  69     let mut rows = ctx
+  70         .db
+  71         .character_case_site_occupancy()
+  72         .character_id()
+  73         .filter(character_id)
+  74         .filter(|row| {
+  75             row.entered_at <= minute

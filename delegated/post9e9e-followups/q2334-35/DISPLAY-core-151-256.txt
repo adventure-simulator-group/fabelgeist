@@ -1,0 +1,106 @@
+ 151         if !self.objects.contains_key(&root) {
+ 152             return Err("Unknown inventory object");
+ 153         }
+ 154         let mut result = vec![root];
+ 155         let mut cursor = 0;
+ 156         while cursor < result.len() {
+ 157             if cursor >= MAX_CONTAINER_DEPTH * self.objects.len().max(1) {
+ 158                 return Err("Containment traversal bound exceeded");
+ 159             }
+ 160             let parent = result[cursor];
+ 161             for child in self
+ 162                 .parent_by_child
+ 163                 .iter()
+ 164                 .filter_map(|(child, candidate)| (*candidate == parent).then_some(*child))
+ 165             {
+ 166                 if result.contains(&child) {
+ 167                     return Err("Containment cycle");
+ 168                 }
+ 169                 result.push(child);
+ 170             }
+ 171             cursor += 1;
+ 172         }
+ 173         Ok(result)
+ 174     }
+ 175 }
+ 176 
+ 177 #[cfg(test)]
+ 178 mod tests {
+ 179     use super::*;
+ 180 
+ 181     fn object(id: u64, exterior: u64, capacity: u64) -> Object {
+ 182         Object {
+ 183             id: PhysicalObjectId::try_new(id).unwrap(),
+ 184             exterior_volume: Milliliters::new(exterior),
+ 185             capacity: (capacity > 0).then(|| Milliliters::new(capacity)),
+ 186             measured_volume: None,
+ 187         }
+ 188     }
+ 189 
+ 190     #[test]
+ 191     fn exact_fit_succeeds_and_one_ml_over_fails() {
+ 192         let mut exact =
+ 193             ContainmentGraph::new([object(1, 100, 1_000), object(2, 1_000, 0)]).unwrap();
+ 194         assert_eq!(exact.insert(object_id(2), object_id(1)), Ok(()));
+ 195         let mut over = ContainmentGraph::new([object(1, 100, 999), object(2, 1_000, 0)]).unwrap();
+ 196         assert_eq!(
+ 197             over.insert(object_id(2), object_id(1)),
+ 198             Err("Container capacity exceeded")
+ 199         );
+ 200     }
+ 201 
+ 202     #[test]
+ 203     fn liquid_uses_current_volume_and_grandchildren_are_not_double_counted() {
+ 204         let mut graph = ContainmentGraph::new([
+ 205             object(1, 500, 1_000),
+ 206             object(2, 900, 800),
+ 207             Object {
+ 208                 id: PhysicalObjectId::try_new(3).unwrap(),
+ 209                 exterior_volume: Milliliters::new(1_000),
+ 210                 capacity: None,
+ 211                 measured_volume: Some(Milliliters::new(700)),
+ 212             },
+ 213         ])
+ 214         .unwrap();
+ 215         graph.insert(object_id(3), object_id(2)).unwrap();
+ 216         graph.insert(object_id(2), object_id(1)).unwrap();
+ 217         assert_eq!(graph.used_volume(object_id(2)), Ok(Milliliters::new(700)));
+ 218         assert_eq!(graph.used_volume(object_id(1)), Ok(Milliliters::new(900)));
+ 219     }
+ 220 
+ 221     #[test]
+ 222     fn rejects_self_cycles_and_excessive_ancestry() {
+ 223         let mut graph = ContainmentGraph::new((1..=18).map(|id| object(id, 1, 2))).unwrap();
+ 224         assert!(graph.insert(object_id(1), object_id(1)).is_err());
+ 225         for id in 2..=17 {
+ 226             graph.insert(object_id(id - 1), object_id(id)).unwrap();
+ 227         }
+ 228         assert!(graph.insert(object_id(17), object_id(1)).is_err());
+ 229         assert!(graph.insert(object_id(17), object_id(18)).is_err());
+ 230     }
+ 231 
+ 232     #[test]
+ 233     fn subtree_is_atomic_and_deterministic() {
+ 234         let mut graph = ContainmentGraph::new((1..=4).map(|id| object(id, 1, 10))).unwrap();
+ 235         graph.insert(object_id(2), object_id(1)).unwrap();
+ 236         graph.insert(object_id(3), object_id(1)).unwrap();
+ 237         graph.insert(object_id(4), object_id(2)).unwrap();
+ 238         assert_eq!(
+ 239             graph.subtree(object_id(1)).unwrap(),
+ 240             vec![object_id(1), object_id(2), object_id(3), object_id(4)]
+ 241         );
+ 242         assert!(graph.is_nonempty(object_id(1)));
+ 243     }
+ 244 
+ 245     fn object_id(id: u64) -> PhysicalObjectId {
+ 246         PhysicalObjectId::try_new(id).unwrap()
+ 247     }
+ 248 
+ 249     #[test]
+ 250     fn duplicate_physical_object_ids_are_rejected() {
+ 251         assert_eq!(
+ 252             ContainmentGraph::new([object(1, 100, 100), object(1, 100, 100)]),
+ 253             Err("Duplicate inventory object identity")
+ 254         );
+ 255     }
+ 256 }

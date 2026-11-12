@@ -1,0 +1,76 @@
+SOURCE crates/adventuresim-stdb-module/src/time/stationary.rs:81-155
+  81         effective_location_schedule(
+  82             &organization_schedule,
+  83             execution_location.policy,
+  84             fabelgeist_determinism::Seed::from_u64(character_id),
+  85         )
+  86     };
+  87     let injury_limit = crate::surgery::preview_injury_boundary(
+  88         ctx,
+  89         character_id,
+  90         requested_elapsed,
+  91         InjuryRecoveryMinutes::new(requested_elapsed),
+  92     )?
+  93     .elapsed;
+  94     let (elapsed, terminal) =
+  95         crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, true)?;
+  96     let convalescing = convalescence_minutes(
+  97         ctx,
+  98         character_id,
+  99         party_physiology_check(ctx, character_id)?,
+ 100     )
+ 101     .min(elapsed);
+ 102     let settled = crate::surgery::settle_injuries(
+ 103         ctx,
+ 104         character_id,
+ 105         elapsed,
+ 106         InjuryRecoveryMinutes::new(elapsed),
+ 107     )?;
+ 108     let elapsed = settled.elapsed;
+ 109     character_time.minutes = starting_minute.saturating_add_minutes(elapsed);
+ 110     ctx.db
+ 111         .character_time()
+ 112         .character_id()
+ 113         .update(character_time);
+ 114     advance_married_family_by(ctx, character_id, elapsed)?;
+ 115     let at_settlement = character.current_settlement_id.is_some();
+ 116     crate::condition::apply_weather_exposure(
+ 117         ctx,
+ 118         character_id,
+ 119         starting_minute,
+ 120         elapsed,
+ 121         false,
+ 122         if at_settlement {
+ 123             ExposureShelter::Indoor
+ 124         } else {
+ 125             ExposureShelter::Field(FieldShelter::Bivouac)
+ 126         },
+ 127     )?;
+ 128     crate::social::settle_shared_party_time(ctx, character_id);
+ 129     crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
+ 130     settle_lifecycle_after_character_time_write(
+ 131         ctx,
+ 132         character_id,
+ 133         starting_minute.saturating_add_minutes(elapsed),
+ 134     )?;
+ 135     if terminal.is_some() || !settled.alive {
+ 136         crate::organization::settle_membership_dues(ctx, character_id)?;
+ 137         return Ok(());
+ 138     }
+ 139     let training_elapsed = elapsed.saturating_sub(convalescing);
+ 140     let socializing_before = total_socializing_receipt_minutes(ctx, character_id);
+ 141     if at_settlement && training_elapsed > 0 {
+ 142         crate::relationship::apply_scheduled_socializing(
+ 143             ctx,
+ 144             character_id,
+ 145             effective_schedule.socializing_minutes,
+ 146             target_minutes.saturating_sub_minutes(training_elapsed),
+ 147             target_minutes,
+ 148         )?;
+ 149     }
+ 150     let realized_socializing_minutes =
+ 151         total_socializing_receipt_minutes(ctx, character_id).saturating_sub(socializing_before);
+ 152     let mut realized_training_schedule = effective_schedule.clone();
+ 153     if realized_socializing_minutes == 0 {
+ 154         // An unavailable Socializing allocation is downtime/Leisure, not
+ 155         // imaginary practice of Charm, Insight, or Deception.

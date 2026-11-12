@@ -1,0 +1,55 @@
+{
+  "schema": "q2332-independent-evidence-receipts-v1",
+  "created_at_utc": "2026-11-12T17:24:50.720495+00:00",
+  "public_manifest_sha256": "88543253ef77062f39b3b9b0ab2785e2c366397813455d45ea70948aaebd9549",
+  "public_archive_sha256": "db3b157e91150741fa17e40a89a8c3a518d9c4e6baca423b1d9da57a51f683f2",
+  "private_original_manifest_sha256": "601fd2f9bbfd7a18292d653d6d129c25b8a92ea8ee20c45203adadcb12d697c2",
+  "receipts": [
+    {
+      "file": "PRIVATE-REPLAY-VERIFY.json",
+      "bytes": 639,
+      "sha256": "c4b3714a3871f17458af1f5c198747148097132f2dba9dd46216d40efcb10779"
+    },
+    {
+      "file": "PRIVATE-VERIFY.json",
+      "bytes": 406,
+      "sha256": "b6b10b68883cc18fb0a8f33ce8184cf090a31c2532d39551ff98ba3e3289efb2"
+    },
+    {
+      "file": "PUBLIC-PRIVACY-SCAN.json",
+      "bytes": 1176,
+      "sha256": "03cda71219cf13b88c525dc0a95c5079be4344134f9918b286e73487cbef2a03"
+    },
+    {
+      "file": "PUBLIC-VERIFY.json",
+      "bytes": 536,
+      "sha256": "71c984bf6cf2bd44962f9b3d51a1f3c0ac375619bdc1b9df190194d4f04990ae"
+    },
+    {
+      "file": "TREE-NAME-CLASSIFICATION.json",
+      "bytes": 767,
+      "sha256": "a972d243357ee84b7f2eef343a702862765f87e8e3e5bb723487d9a935f090c4"
+    },
+    {
+      "file": "TREE-NAME-SCAN.json",
+      "bytes": 1028,
+      "sha256": "a4e9dbeeb0b3923d321a6af652f386e5e26193dd61f264e4adfd2ee9b2ca4440"
+    }
+  ],
+  "privacy_scope": {
+    "target": "the complete three-file public transport directory, including recursive gzip and tar expansions and separately checked raw Git tree names",
+    "max_individual_view_bytes": 134217728,
+    "max_recursion_depth": 18,
+    "recursive_views": 578,
+    "text_views": 548,
+    "binary_views": 18,
+    "gzip_views": 6,
+    "tar_views": 6,
+    "exceptions": [],
+    "forbidden_digest_occurrences": 0,
+    "scanner_text_candidate_counts": {},
+    "tree_name_addendum": "Three generic home/users/temp word candidates in standalone tree basenames; zero local-account-name, email-like or credential-like matches. No raw name values printed.",
+    "limitations": "Pattern and encoding limited; unknown personal data, unsupported representations and unrelated earlier public Git history are not cleared. This scan did not inspect product execution or runtime behavior."
+  },
+  "verification_scope": "Public archive/member/source tree proofs, locked archives/native members, registered displays and optional commit root checked read-only; private replay independently checked against the separate exact originals. Whole-file identities are not individual private path digests."
+}

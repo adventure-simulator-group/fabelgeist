@@ -1,0 +1,60 @@
+ 201                             bg_reflection.index
+ 202                         )),
+ 203                         contents: &buffer_data,
+ 204                         usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+ 205                     });
+ 206                 uniform_buffer = Some(buffer);
+ 207             }
+ 208 
+ 209             if let Some(buffer) = &uniform_buffer
+ 210                 && let Some(uniform_binding_idx) = bg_reflection.uniform_binding
+ 211             {
+ 212                 bind_group_entries.push(wgpu::BindGroupEntry {
+ 213                     binding: uniform_binding_idx,
+ 214                     resource: buffer.as_entire_binding(),
+ 215                 });
+ 216             }
+ 217 
+ 218             // 2. Buffers (Storage / Uniform from Buffer)
+ 219             for buffer_binding in &bg_reflection.buffer_bindings {
+ 220                 let name = &buffer_binding.name;
+ 221                 let binding = buffer_binding.binding;
+ 222                 let val = parameters.get(name).ok_or_else(|| {
+ 223                     anyhow!(
+ 224                         "ComputePass: Parameter '{}' (buffer binding {}) not found",
+ 225                         name,
+ 226                         binding
+ 227                     )
+ 228                 })?;
+ 229 
+ 230                 if let PassParameter::Buffer(gpu_buf) = val {
+ 231                     let binding_resource = if u64::from(gpu_buf.size) < gpu_buf.buffer.size() {
+ 232                         wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+ 233                             buffer: &gpu_buf.buffer,
+ 234                             offset: 0,
+ 235                             size: Some(std::num::NonZeroU64::new(u64::from(gpu_buf.size)).unwrap()),
+ 236                         })
+ 237                     } else {
+ 238                         gpu_buf.buffer.as_entire_binding()
+ 239                     };
+ 240                     bind_group_entries.push(wgpu::BindGroupEntry {
+ 241                         binding,
+ 242                         resource: binding_resource,
+ 243                     });
+ 244                 } else {
+ 245                     return Err(anyhow!("ComputePass: Parameter '{}' is not a Buffer", name));
+ 246                 }
+ 247             }
+ 248 
+ 249             // 3. Textures
+ 250             let mut texture_views = Vec::new();
+ 251             for binding_info in &bg_reflection.texture_bindings {
+ 252                 let name = &binding_info.name;
+ 253                 let binding = binding_info.binding;
+ 254                 let val = parameters.get(name).ok_or_else(|| {
+ 255                     anyhow!(
+ 256                         "ComputePass: Parameter '{}' (texture binding {}) not found",
+ 257                         name,
+ 258                         binding
+ 259                     )
+ 260                 })?;

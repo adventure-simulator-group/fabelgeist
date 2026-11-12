@@ -1,0 +1,106 @@
+ 205 }
+ 206 
+ 207 /// One strategic place referent.
+ 208 ///
+ 209 /// The coarse `Settlement` shell is deliberately unequal to all exact venues.
+ 210 /// A chapter that shares an effective service venue uses `SettlementVenue`;
+ 211 /// its
+ 212 /// institutional identity remains on a separate chapter fixture.
+ 213 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+ 214 pub enum StrategicPlaceId {
+ 215     Settlement {
+ 216         settlement_id: StrategicIdentityComponent,
+ 217     },
+ 218     SettlementVenue {
+ 219         settlement_id: StrategicIdentityComponent,
+ 220         kind: SettlementVenueKind,
+ 221     },
+ 222     ChapterVenue {
+ 223         settlement_id: StrategicIdentityComponent,
+ 224         organization_id: StrategicIdentityComponent,
+ 225         authored_location_id: StrategicIdentityComponent,
+ 226     },
+ 227     Residence {
+ 228         settlement_id: StrategicIdentityComponent,
+ 229         holding_id: StrategicIdentityComponent,
+ 230     },
+ 231     CaseSite {
+ 232         site_id: CaseSiteId,
+ 233     },
+ 234     JourneyCamp {
+ 235         party_id: StrategicIdentityComponent,
+ 236         departure_minute: StrategicMinute,
+ 237         movement_minute: u64,
+ 238     },
+ 239 }
+ 240 
+ 241 impl StrategicPlaceId {
+ 242     pub fn settlement(settlement_id: impl Into<String>) -> Result<Self, PlaceIdentityError> {
+ 243         Ok(Self::Settlement {
+ 244             settlement_id: StrategicIdentityComponent::try_new(settlement_id)?,
+ 245         })
+ 246     }
+ 247 
+ 248     pub fn settlement_venue(
+ 249         settlement_id: impl Into<String>,
+ 250         kind: SettlementVenueKind,
+ 251     ) -> Result<Self, PlaceIdentityError> {
+ 252         Ok(Self::SettlementVenue {
+ 253             settlement_id: StrategicIdentityComponent::try_new(settlement_id)?,
+ 254             kind,
+ 255         })
+ 256     }
+ 257 
+ 258     pub fn chapter_venue(
+ 259         settlement_id: impl Into<String>,
+ 260         organization_id: impl Into<String>,
+ 261         authored_location_id: impl Into<String>,
+ 262     ) -> Result<Self, PlaceIdentityError> {
+ 263         Ok(Self::ChapterVenue {
+ 264             settlement_id: StrategicIdentityComponent::try_new(settlement_id)?,
+ 265             organization_id: StrategicIdentityComponent::try_new(organization_id)?,
+ 266             authored_location_id: StrategicIdentityComponent::try_new(authored_location_id)?,
+ 267         })
+ 268     }
+ 269 
+ 270     pub fn residence(
+ 271         settlement_id: impl Into<String>,
+ 272         holding_id: impl Into<String>,
+ 273     ) -> Result<Self, PlaceIdentityError> {
+ 274         Ok(Self::Residence {
+ 275             settlement_id: StrategicIdentityComponent::try_new(settlement_id)?,
+ 276             holding_id: StrategicIdentityComponent::try_new(holding_id)?,
+ 277         })
+ 278     }
+ 279 
+ 280     pub fn case_site(site_id: impl Into<String>) -> Result<Self, PlaceIdentityError> {
+ 281         Ok(Self::CaseSite {
+ 282             site_id: CaseSiteId::try_new(site_id)?,
+ 283         })
+ 284     }
+ 285 
+ 286     pub fn journey_camp(
+ 287         party_id: impl Into<String>,
+ 288         departure_minute: StrategicMinute,
+ 289         movement_minute: u64,
+ 290     ) -> Result<Self, PlaceIdentityError> {
+ 291         Ok(Self::JourneyCamp {
+ 292             party_id: StrategicIdentityComponent::try_new(party_id)?,
+ 293             departure_minute,
+ 294             movement_minute,
+ 295         })
+ 296     }
+ 297 
+ 298     /// Settlement scope where it is an intrinsic part of the identity.
+ 299     ///
+ 300     /// `None` does not mean that a case site or camp has no geography; those
+ 301     /// associations belong to authoritative state rather than this identity.
+ 302     pub fn settlement_id(&self) -> Option<&str> {
+ 303         match self {
+ 304             Self::Settlement { settlement_id }
+ 305             | Self::SettlementVenue { settlement_id, .. }
+ 306             | Self::ChapterVenue { settlement_id, .. }
+ 307             | Self::Residence { settlement_id, .. } => Some(settlement_id.as_str()),
+ 308             Self::CaseSite { .. } | Self::JourneyCamp { .. } => None,
+ 309         }
+ 310     }

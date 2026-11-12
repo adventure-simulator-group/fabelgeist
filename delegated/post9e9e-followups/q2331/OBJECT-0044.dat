@@ -1,0 +1,327 @@
+{
+      "contract_id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
+      "kind": "retained-finding-or-question",
+      "lens": 11,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "Reflected uniform ABI and PassParameter packing admission.",
+      "first_failed_contract_or_unresolved_question": "Reflected shader field identity must retain native scalar kind and shape, then supplied parameter kind/width must be checked before packing or reporting dispatch preparation success.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-color/src/lib.rs",
+          "source_sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              24
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/0",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-color/src/space.rs",
+          "source_sha256": "127a0d4e4f1d78bbdb1eaf0f6bd6ec6ac4e841d6b3cd7b287fc90d914ab25a49",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              356
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/1",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+          "source_sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              271
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/2",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/Cargo.toml",
+          "source_sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              33
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/3",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+          "source_sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              175
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/4",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+          "source_sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              360
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/5",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+          "source_sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              86
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/6",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+          "source_sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              271
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/7",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+          "source_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              379
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/8",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+          "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              406
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/9",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+          "source_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              16
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/10",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+          "source_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              294
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/11",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+          "source_sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              327
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/12",
+          "receipt": {
+            "path": "adler/READ-L11-356.json",
+            "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2244,
+              "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2244"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf:201-234,296-308,320-379;dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274:262-276",
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2243,
+              "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2243"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf:201-234,296-308,320-379;dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274:262-276",
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../adler/READ-L11-356.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-UNIFORM-ABI-ADMISSION",
+      "remaining_evidence": [
+        "Actual UniformMember/PassParameter/PassParameters owners and standard packer behavior",
+        "Current/all20 shader layout/native field family dedup",
+        "Connected wrong-kind/width/missing uniform acceptance",
+        "Reconcile actual standard create_bind_groups missing/Unsigned behavior and logical-vs-backing buffer binding extents with cached dispatch before final uniform owner repair."
+      ],
+      "dependencies": [
+        "Actual UniformMember/PassParameter/PassParameters owners and standard packer behavior",
+        "Current/all20 shader layout/native field family dedup",
+        "Connected wrong-kind/width/missing uniform acceptance",
+        "Reconcile actual standard create_bind_groups missing/Unsigned behavior and logical-vs-backing buffer binding extents with cached dispatch before final uniform owner repair."
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Wrong scalar kind or vector/matrix shape yields structured mismatch",
+        "No out-of-block write is silently skipped as success",
+        "Correct layouts preserve GPU padding and offsets",
+        "Fast and standard dispatch enforce coherent native layout admission",
+        "Correct unsigned uniforms preserve supplied integer value on standard and cached paths; omitted required fields cannot silently become zero unless explicitly part of final shader contract."
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    }

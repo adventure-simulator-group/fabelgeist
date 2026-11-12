@@ -1,0 +1,642 @@
+{
+  "GPU-SHADER-PARAMETER-NAME-PROPAGATION": {
+    "status": 0,
+    "matches_total": 94,
+    "retained": [
+      {
+        "path": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+        "line": 236
+      },
+      {
+        "path": "BASELINE-95E-20261110.json",
+        "line": 11421
+      },
+      {
+        "path": "RECONCILIATION-059.json",
+        "line": 2312
+      },
+      {
+        "path": "RECONCILIATION-059.json",
+        "line": 2316
+      },
+      {
+        "path": "RECONCILIATION-059.json",
+        "line": 16531
+      },
+      {
+        "path": "RECONCILIATION-059.json",
+        "line": 16535
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 39065
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 39066
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 39105
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 83574
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 65020
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 65145
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 199879
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 199893
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 200044
+      },
+      {
+        "path": "delegated/bvh-shaders-report.json",
+        "line": 517
+      },
+      {
+        "path": "delegated/bvh-shaders-report.json",
+        "line": 572
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2623-2624/history/published/BASELINE-95E-20261110.json",
+        "line": 11405
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2623-2624/history/published/working-baseline-observed.json",
+        "line": 11405
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2626-2628/reference/BASELINE-95E-20261110.json",
+        "line": 11405
+      },
+      {
+        "path": "delegated/independent-evidence-reviews/reviews/cp38/reference/committed-baseline-at-56f.json",
+        "line": 11405
+      },
+      {
+        "path": "delegated/independent-evidence-reviews/reviews/cp38/reference/working-baseline-observed.json",
+        "line": 11405
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 39065
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 39066
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 39105
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 83574
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 65020
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 65145
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 199879
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 199893
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 200044
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1926
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1928
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1545
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1546
+      },
+      {
+        "path": "recovered/ledger-command-outputs/OUTPUTS.jsonl",
+        "line": 606
+      },
+      {
+        "path": "recovered/ledger-command-outputs/OUTPUTS.jsonl",
+        "line": 792
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 218
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 719
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 722
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 751
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 763
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 764
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 765
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 917
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 918
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 919
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 923
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 945
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 947
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 948
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 1035
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 1070
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 1106
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 1832
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2272
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2273
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2275
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 632
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 670
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 678
+      },
+      {
+        "path": "recovered/source-registration-outputs/REDACTED-RECORDS.jsonl",
+        "line": 37
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 4918
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 6118
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 16778
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 17778
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 18268
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 18488
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 18888
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 22058
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 22738
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/CANDIDATE-INDEX.json",
+        "line": 25426
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 3452
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 4292
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 11908
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 12608
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 12951
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 13105
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 13385
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 15604
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 16080
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 18544
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/EXTENDED-INDEX.json",
+        "line": 23960
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 729
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 825
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 945
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 952
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 1170
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 1479
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2105
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2630
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2666
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2886
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2905
+      }
+    ],
+    "omitted": 0
+  },
+  "uniform_binding": {
+    "status": 0,
+    "matches_total": 26,
+    "retained": [
+      {
+        "path": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "line": 214
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 40892
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 63342
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 63460
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 40892
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 63342
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 63460
+      },
+      {
+        "path": "recovered/l13-root-696/2c4834b4e785ba6cd61e34c2e73b203fb88daec8cb4c305c6ca8018c7db821c1",
+        "line": 259
+      },
+      {
+        "path": "recovered/l13-root-696/644c62e69fe8b9d9cb83d76220f09eb65ccacdc5b7d0350de9dad192b503f67e",
+        "line": 251
+      },
+      {
+        "path": "recovered/l13-root-696/displays/51107.txt",
+        "line": 121
+      },
+      {
+        "path": "recovered/l13-root-696/sources/fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+        "line": 120
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 626
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 627
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 668
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 672
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-02.jsonl",
+        "line": 675
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 472
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 473
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 476
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 698
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 699
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 722
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-04.jsonl",
+        "line": 723
+      },
+      {
+        "path": "recovered/source-registration-outputs/RECORDS-05.jsonl",
+        "line": 440
+      },
+      {
+        "path": "recovered/transcript-helper-candidates/CANDIDATES.jsonl",
+        "line": 718
+      },
+      {
+        "path": "verify_gpu_pass_pipeline_95e.py",
+        "line": 52
+      }
+    ],
+    "omitted": 0
+  },
+  "shader parameter name": {
+    "status": 0,
+    "matches_total": 8,
+    "retained": [
+      {
+        "path": "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+        "line": 254
+      },
+      {
+        "path": "delegated/hair-grow-input-profile-report.json",
+        "line": 478
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1926
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1928
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1545
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1546
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2273
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2275
+      }
+    ],
+    "omitted": 0
+  },
+  "missing uniform": {
+    "status": 0,
+    "matches_total": 25,
+    "retained": [
+      {
+        "path": "ASSESSMENT-KERNEL-95E.json",
+        "line": 343
+      },
+      {
+        "path": "baseline-059/ledger.json",
+        "line": 30053
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 40355
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 40361
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 200135
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "line": 200584
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/ledger.json",
+        "line": 30053
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 40355
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 40361
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 200135
+      },
+      {
+        "path": "delegated/privacy-baseline059-proposal/baseline-059/queue.json",
+        "line": 200584
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1881
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1882
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1884
+      },
+      {
+        "path": "recovered/audit-write-command-candidates/COMMANDS.jsonl",
+        "line": 1926
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1523
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1524
+      },
+      {
+        "path": "recovered/ledger-command-outputs/COMMANDS.jsonl",
+        "line": 1545
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 752
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 1990
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2229
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2231
+      },
+      {
+        "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+        "line": 2273
+      },
+      {
+        "path": "recovered/transcript-helper-candidates/CANDIDATES.jsonl",
+        "line": 372
+      },
+      {
+        "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+        "line": 2225
+      }
+    ],
+    "omitted": 0
+  }
+}

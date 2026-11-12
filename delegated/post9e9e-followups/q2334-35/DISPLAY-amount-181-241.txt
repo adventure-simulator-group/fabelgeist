@@ -1,0 +1,61 @@
+ 181     });
+ 182     Ok(())
+ 183 }
+ 184 
+ 185 pub fn move_party_to_personal(
+ 186     ctx: &ReducerContext,
+ 187     party_inventory_item_id: u64,
+ 188     inventory_item_id: u64,
+ 189 ) -> Result<(), String> {
+ 190     let state = ctx
+ 191         .db
+ 192         .party_item_amount()
+ 193         .party_inventory_item_id()
+ 194         .find(party_inventory_item_id)
+ 195         .ok_or("Measured party item state is missing")?;
+ 196     ctx.db
+ 197         .party_item_amount()
+ 198         .party_inventory_item_id()
+ 199         .delete(party_inventory_item_id);
+ 200     ctx.db.inventory_item_amount().insert(InventoryItemAmount {
+ 201         inventory_item_id,
+ 202         remaining_fraction_micros: state.remaining_fraction_micros,
+ 203     });
+ 204     Ok(())
+ 205 }
+ 206 
+ 207 #[cfg(test)]
+ 208 mod tests {
+ 209     use super::*;
+ 210 
+ 211     #[test]
+ 212     fn only_divisible_consumable_definitions_are_measured() {
+ 213         let food = crate::Item {
+ 214             kind: crate::CatalogItemKind::Food,
+ 215             ..crate::Item::default()
+ 216         };
+ 217         let alcohol = crate::Item {
+ 218             alcohol_serving_ml: 500,
+ 219             ..crate::Item::default()
+ 220         };
+ 221         let soap = crate::Item {
+ 222             id: adventuresim_core::item_references::SOFT_SOAP_ID.into(),
+ 223             ..crate::Item::default()
+ 224         };
+ 225         let sword = crate::Item {
+ 226             id: "sword".into(),
+ 227             kind: crate::CatalogItemKind::Weapon,
+ 228             ..crate::Item::default()
+ 229         };
+ 230         let steel = crate::Item {
+ 231             id: "steel_stock".into(),
+ 232             ..crate::Item::default()
+ 233         };
+ 234 
+ 235         assert!(is_measured_definition(&food));
+ 236         assert!(is_measured_definition(&alcohol));
+ 237         assert!(is_measured_definition(&soap));
+ 238         assert!(!is_measured_definition(&sword));
+ 239         assert!(is_measured_definition(&steel));
+ 240     }
+ 241 }

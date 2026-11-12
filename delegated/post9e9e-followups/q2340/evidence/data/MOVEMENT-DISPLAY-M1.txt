@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:530-590
+ 530         let snow_share =
+ 531             f32::from(snow_cover_bps.min(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE))
+ 532                 / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE);
+ 533         let underlying_hours = hours * (1.0 - snow_share);
+ 534         exposure[0] += underlying_hours * f32::from(span.terrain.plains) / 1_000.0;
+ 535         exposure[1] += underlying_hours * f32::from(span.terrain.forest) / 1_000.0;
+ 536         exposure[2] += underlying_hours * f32::from(span.terrain.hills) / 1_000.0;
+ 537         exposure[3] += underlying_hours * f32::from(span.terrain.wetlands) / 1_000.0;
+ 538         exposure[4] += underlying_hours * f32::from(span.terrain.urban) / 1_000.0;
+ 539         exposure[5] += hours * snow_share;
+ 540     }
+ 541     exposure
+ 542 }
+ 543 
+ 544 fn advance_party_movement(
+ 545     ctx: &ReducerContext,
+ 546     party_id: &str,
+ 547     traveler_ids: &[u64],
+ 548     requested_minutes: u64,
+ 549 ) -> Result<(u64, bool), String> {
+ 550     let disease_plan =
+ 551         crate::disease::plan_party_disease_interval(ctx, traveler_ids, requested_minutes, false)?;
+ 552     let mut safe_prefixes = Vec::with_capacity(traveler_ids.len());
+ 553     for member_id in traveler_ids {
+ 554         safe_prefixes.push(crate::time::preview_travel_time_in_plan(
+ 555             ctx,
+ 556             *member_id,
+ 557             requested_minutes,
+ 558             &disease_plan,
+ 559         )?);
+ 560     }
+ 561     let actual_minutes = common_movement_prefix(requested_minutes, safe_prefixes.iter().copied());
+ 562     if actual_minutes == 0 {
+ 563         let mut all_survived = true;
+ 564         for (member_id, safe_prefix) in traveler_ids.iter().zip(safe_prefixes) {
+ 565             if zero_boundary_requires_settlement(actual_minutes, safe_prefix) {
+ 566                 all_survived &= settle_travel_boundary(ctx, *member_id)?;
+ 567             }
+ 568         }
+ 569         return Ok((0, all_survived));
+ 570     }
+ 571     let mut all_survived = true;
+ 572     for member_id in traveler_ids.iter().copied() {
+ 573         all_survived &= crate::time::advance_travel_time_in_plan(
+ 574             ctx,
+ 575             member_id,
+ 576             actual_minutes,
+ 577             &disease_plan,
+ 578         )?;
+ 579     }
+ 580     // Training is committed only after every participant's authoritative
+ 581     // clock has committed the same safe movement prefix.
+ 582     let mut mastery_excess = train_party_terrain_movement(ctx, party_id, actual_minutes)?;
+ 583     for (character_id, excess) in train_party_oral_communication(ctx, party_id, actual_minutes) {
+ 584         *mastery_excess.entry(character_id).or_default() += excess;
+ 585     }
+ 586     for (character_id, excess) in mastery_excess {
+ 587         crate::condition::record_mastery_training_morale(ctx, character_id, actual_minutes, excess);
+ 588     }
+ 589     advance_party_wilderness_elapsed(ctx, party_id, actual_minutes)?;
+ 590     Ok((actual_minutes, all_survived))

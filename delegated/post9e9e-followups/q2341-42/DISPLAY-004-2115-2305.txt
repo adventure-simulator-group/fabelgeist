@@ -1,0 +1,191 @@
+2115             .db
+2116             .contract_authority()
+2117             .id()
+2118             .find(&active)
+2119             .ok_or("Active quest not found")?;
+2120         return Err(format!(
+2121             "Finish or abandon the active quest '{}' before accepting errantry",
+2122             active_contract.title
+2123         ));
+2124     }
+2125     let puzzle_kind = match launch {
+2126         ErrantryLaunch::NormalTravel => adventuresim_puzzles::PuzzleKind::OrderedSigils,
+2127         ErrantryLaunch::DirectDemoCamp(kind) => kind,
+2128     };
+2129     let ordinal = ctx
+2130         .db
+2131         .challenge_authority()
+2132         .party_id()
+2133         .filter(&party_id)
+2134         .filter(|challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
+2135             (ErrantryLaunch::NormalTravel, Some(identity)) => {
+2136                 identity.namespace == ErrantryChallengeNamespace::Order
+2137                     && identity.puzzle_kind == puzzle_kind.slug()
+2138                     && identity.character_id == character_id
+2139             }
+2140             (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
+2141                 identity.namespace == ErrantryChallengeNamespace::Demo
+2142                     && identity.character_id == character_id
+2143             }
+2144             (_, None) => false,
+2145         })
+2146         .count() as u64;
+2147     let suffix = errantry_suffix(character_id, ordinal, launch);
+2148     let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]);
+2149     let road_definition =
+2150         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
+2151             .ok_or("No quest-eligible road encounter is available")?;
+2152     let case_id = format!("case:errantry-puzzle:{suffix}");
+2153     let contract_id = format!("contract:errantry-puzzle:{suffix}");
+2154     let challenge_id = format!("challenge:{}:{suffix}", puzzle_kind.slug());
+2155     let courier_challenge_id = format!("challenge:road-encounter:{suffix}");
+2156     let case_site_id = CaseSiteId::from(format!("case-site:errantry-finale:{suffix}"));
+2157     let hostile_group_id = format!("hostile-group:errantry-finale:{suffix}");
+2158     // The preliminary trial is a true optional boon: defeating the finale
+2159     // resolves the case whether or not ChallengeSolved was emitted.
+2160     let objective = adventuresim_core::case::ObjectiveExpression::new(vec![
+2161         adventuresim_core::case::ObjectivePath {
+2162             objectives: vec![adventuresim_core::case::Objective {
+2163                 id: adventuresim_core::case::ObjectiveId::new(format!(
+2164                     "objective:defeat-finale:{suffix}"
+2165                 ))
+2166                 .map_err(|_| "Finale objective ID is invalid")?,
+2167                 requirement: adventuresim_core::case::ObjectiveRequirement::Defeat {
+2168                     hostile_group_id: hostile_group_id.clone(),
+2169                     count: 4,
+2170                 },
+2171             }],
+2172         },
+2173     ])
+2174     .map_err(|_| "Puzzle objective is invalid")?;
+2175     let objective_expression_json =
+2176         serde_json::to_string(&objective).map_err(|_| "Could not encode puzzle objective")?;
+2177     ctx.db.case_authority().insert(CaseAuthority {
+2178         id: case_id.clone(),
+2179         investigation_case_id: format!("errantry:{suffix}"),
+2180         provenance_kind: InvestigationProvenanceKind::Manual,
+2181         generated_case_id: String::new(),
+2182         local_problem_id: None,
+2183         objective_expression_json,
+2184         resolution_status: CaseStatus::Open,
+2185         resolved_by_party_id: None,
+2186     });
+2187     let (title, description, frame_name, charge) = match puzzle_kind {
+2188         adventuresim_puzzles::PuzzleKind::OrderedSigils => (
+2189             "The Trial of Five Signs",
+2190             "A knightly errand leads directly to a trial of ordered signs.",
+2191             "five-signs",
+2192             "Keep faith upon the road and answer the trial with discernment.",
+2193         ),
+2194         adventuresim_puzzles::PuzzleKind::TruthfulWitnesses => (
+2195             "The Trial of Three Witnesses",
+2196             "A knightly errand leads directly to a trial of testimony and judgment.",
+2197             "three-witnesses",
+2198             "Hear each witness upon the road and judge the one safe path.",
+2199         ),
+2200         adventuresim_puzzles::PuzzleKind::RuneTransformation => (
+2201             "The Trial of the Changing Runes",
+2202             "A knightly errand leads directly to a trial of a hidden rune law.",
+2203             "changing-runes",
+2204             "Study what enters and emerges, then name the rune the law must yield.",
+2205         ),
+2206         adventuresim_puzzles::PuzzleKind::LogicGrid => (
+2207             "The Trial of the Pilgrims' Bonds",
+2208             "A knightly errand leads directly to a trial matching pilgrims, tokens, and roads.",
+2209             "pilgrims-bonds",
+2210             "Restore each pilgrim's token and road from the Lady's formal clues.",
+2211         ),
+2212         adventuresim_puzzles::PuzzleKind::ResourceAllocation => (
+2213             "The Trial of the Measured Pack",
+2214             "A knightly errand leads directly to a trial of burdens and preparation.",
+2215             "measured-pack",
+2216             "Choose the most ready pack that meets every named hazard within its burden.",
+2217         ),
+2218     };
+2219     ctx.db.contract_authority().insert(ContractAuthority {
+2220         id: contract_id.clone(),
+2221         gateway_bucket: 0,
+2222         case_id: case_id.clone(),
+2223         title: title.into(),
+2224         description: description.into(),
+2225         difficulty: 1,
+2226         gold_reward: 0,
+2227         xp_reward: 0,
+2228         settlement_id: issuer_settlement_id.clone(),
+2229         service_id: "errantry:order_saint_george".into(),
+2230         issuer_resident_character_id: issuer.character_id,
+2231         status: ContractStatus::Accepted,
+2232         accepted_by: Some(party_id.clone()),
+2233         opposition_wording: "an enchanted gate".into(),
+2234         opposition_count_wording: "a household guard".into(),
+2235         accepted_at_minute: Some(crate::time::refresh_clock(ctx)?),
+2236         paid_at_minute: None,
+2237     });
+2238     let puzzle = adventuresim_puzzles::PuzzleAuthority::generate(puzzle_kind, seed);
+2239     let now = crate::time::refresh_clock(ctx)?;
+2240     let site_coordinate = Wgs84CoordinateE7::from_longitude_latitude_degrees(
+2241         origin_settlement.coord_x + 0.02,
+2242         origin_settlement.coord_y + 0.02,
+2243     )
+2244     .ok_or("Errantry site is not a valid WGS84 coordinate")?;
+2245     let site = CaseSiteAuthority {
+2246         id_key: case_site_id.as_str().to_owned(),
+2247         id: case_site_id.clone(),
+2248         case_id: case_id.clone(),
+2249         origin_settlement_id: origin_settlement_id.clone(),
+2250         name: "The Black Knight's Ford".into(),
+2251         description: "A ford held by a knight who preys upon travelers.".into(),
+2252         scene_key: "forest-clearing".into(),
+2253         longitude_e7: site_coordinate.longitude().get(),
+2254         latitude_e7: site_coordinate.latitude().get(),
+2255         coordinates_are_geographic: true,
+2256         distance_m: 2_000,
+2257     };
+2258     ctx.db.case_site_authority().insert(site.clone());
+2259     materialize_hostile_group(
+2260         ctx,
+2261         &hostile_group_id,
+2262         &site,
+2263         ERRANTRY_FINALE_THREAT_ID.into(),
+2264         4,
+2265         6,
+2266     )?;
+2267     let frame = adventuresim_core::errantry::ErrantryFrame {
+2268         id: format!("errantry:{frame_name}:{suffix}"),
+2269         purpose: adventuresim_core::errantry::ErrantryPurpose::ProveWorth,
+2270         charge: charge.into(),
+2271         trials: vec![
+2272             adventuresim_core::errantry::TrialBinding {
+2273                 order: 0,
+2274                 trial_id: format!("trial:{frame_name}:{suffix}"),
+2275                 challenge_id: Some(challenge_id.clone()),
+2276                 site_id: "journey-camp:unbound".into(),
+2277                 kind: adventuresim_core::errantry::TrialKind::Puzzle,
+2278             },
+2279             adventuresim_core::errantry::TrialBinding {
+2280                 order: 1,
+2281                 trial_id: format!("trial:wounded-courier:{suffix}"),
+2282                 challenge_id: Some(courier_challenge_id.clone()),
+2283                 site_id: "journey-camp:unbound".into(),
+2284                 kind: adventuresim_core::errantry::TrialKind::Social,
+2285             },
+2286         ],
+2287     };
+2288     ctx.db.challenge_authority().insert(ChallengeAuthority {
+2289         id: challenge_id.clone(),
+2290         gateway_bucket: 0,
+2291         case_id: case_id.clone(),
+2292         party_id: party_id.clone(),
+2293         finale_case_site_id: case_site_id.clone(),
+2294         finale_hostile_group_id: hostile_group_id.clone(),
+2295         journey_departure_minute: StrategicMinute::ZERO,
+2296         camp_movement_minute: 0,
+2297         camp_elapsed_minute: 0,
+2298         errantry_frame_json: serde_json::to_string(&frame)
+2299             .map_err(|_| "Could not encode errantry frame authority")?,
+2300         puzzle_json: serde_json::to_string(&puzzle)
+2301             .map_err(|_| "Could not encode puzzle authority")?,
+2302         presenter_catalog_id: ChallengePresenterCatalogId::LadyBeneathThornV1,
+2303         revision: 0,
+2304         solved_at_minute: None,
+2305     });

@@ -1,0 +1,61 @@
+ 230                 site.coordinates_are_geographic && origin.coordinates_are_geographic;
+ 231             let origin_coordinates = decode_position_e7(
+ 232                 origin.longitude_e7,
+ 233                 origin.latitude_e7,
+ 234                 origin_is_geographic,
+ 235             )
+ 236             .ok_or("Current case site has an invalid WGS84 coordinate")?;
+ 237             (
+ 238                 JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 239                     id: origin.id.clone(),
+ 240                     name: origin.name,
+ 241                 }),
+ 242                 origin_coordinates,
+ 243                 origin_is_geographic,
+ 244                 false,
+ 245             )
+ 246         };
+ 247     let destination = decode_position_e7(lead.longitude_e7, lead.latitude_e7, origin_is_geographic)
+ 248         .ok_or("Destination case site has an invalid WGS84 coordinate")?;
+ 249     if let Some(route) = route.as_ref() {
+ 250         validate_route_departure_weather_interval(route, departure_minute)?;
+ 251         validate_journey_route(ctx, route, origin_coordinates, destination)?;
+ 252         validate_return_journey_route(ctx, route, destination, origin_coordinates)?;
+ 253     }
+ 254     let distance_m = straight_line_distance_m(
+ 255         origin_coordinates.0,
+ 256         origin_coordinates.1,
+ 257         destination.0,
+ 258         destination.1,
+ 259         origin_is_geographic,
+ 260     );
+ 261     let travel_minutes = route
+ 262         .as_ref()
+ 263         .map_or_else(|| quest_journey_minutes(distance_m), |route| route.minutes);
+ 264     let route = match route {
+ 265         Some(route) => route,
+ 266         None => authoritative_straight_line_case_route(
+ 267             departure_minute,
+ 268             origin_coordinates,
+ 269             destination,
+ 270             origin_is_geographic,
+ 271             distance_m,
+ 272             travel_minutes,
+ 273         )?,
+ 274     };
+ 275     start_party_journey(
+ 276         ctx,
+ 277         &party,
+ 278         origin_endpoint,
+ 279         JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 280             id: site.id.clone(),
+ 281             name: site.name.clone(),
+ 282         }),
+ 283         travel_minutes,
+ 284         departure_minute,
+ 285         Some(&route),
+ 286     )?;
+ 287     crate::condition::prepare_party_waterskins(ctx, &party_id, departing_settlement)?;
+ 288     for member_id in traveler_ids.iter().copied() {
+ 289         crate::condition::prepare_character_waterskins(ctx, member_id, departing_settlement)?;
+ 290     }

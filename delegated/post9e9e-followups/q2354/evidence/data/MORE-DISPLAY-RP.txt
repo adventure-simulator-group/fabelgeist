@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs:1-60
+   1 //! Persist finalized resident drafts without revising their demographics.
+   2 use super::*;
+   3 use fabelgeist_determinism::Seed;
+   4 
+   5 const CLERIC: &str = "cleric";
+   6 const REEVE: &str = "reeve";
+   7 const HERBALIST_SERVICE: &str = "herbalist";
+   8 const RELIGION_SERVICE: &str = "religion";
+   9 
+  10 struct PreparedResident {
+  11     input: GenerationInput,
+  12     profile: population::GeneratedPopulationProfile,
+  13     provider: bool,
+  14     age_band: AgeBand,
+  15     stable_seed: Seed,
+  16 }
+  17 
+  18 impl PreparedResident {
+  19     fn new(draft: &ResidentDraft) -> Result<Self, String> {
+  20         let provider = draft.business_id.is_some() || draft.service.is_some();
+  21         let input = GenerationInput {
+  22             seed: draft.seed.clone(),
+  23             location: location_context(&draft.location)?,
+  24             is_service_provider: provider,
+  25             service_id: draft.service.clone(),
+  26             profession_override: provider.then(|| draft.profession.clone()),
+  27             local_role: draft.role.clone(),
+  28             age: draft.exact_age.map(AgeBand::for_years),
+  29             available_bridges: BTreeSet::from(RESIDENT_BRIDGES),
+  30         };
+  31         let profile = population::generate(&input)?;
+  32         let age_band = profile.age;
+  33         Ok(Self {
+  34             input,
+  35             profile,
+  36             provider,
+  37             age_band,
+  38             stable_seed: resident_random(&draft.seed, ResidentEntropyStream::Identity).next_seed(),
+  39         })
+  40     }
+  41 
+  42     fn exact_age(&self, draft: &ResidentDraft) -> u16 {
+  43         draft.exact_age.unwrap_or(match self.age_band {
+  44             AgeBand::Child => 8,
+  45             AgeBand::Adolescent => 15,
+  46             AgeBand::Adult => 30,
+  47             AgeBand::Elder => 68,
+  48         })
+  49     }
+  50 }
+  51 
+  52 fn ensure_roles(
+  53     ctx: &ReducerContext,
+  54     settlement_id: &str,
+  55     character_id: u64,
+  56     profession: &str,
+  57 ) -> Result<(), String> {
+  58     let settlement = ctx
+  59         .db
+  60         .settlement()

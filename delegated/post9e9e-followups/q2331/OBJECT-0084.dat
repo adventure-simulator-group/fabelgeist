@@ -1,0 +1,49 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2273\u20132278 GPU manifest, bind-group and buffer sources; separately displayed changed manifest; selected reflection, current typed-error, compute readback and Cargo-locked native wgpu source.",
+  "observations": {
+    "1": {
+      "contract": "Uniform reflection and matrix bounds",
+      "trace": "UniformMember retains only name, offset and size. The public create_bind_groups chooses encoding from the supplied parameter variant. Its Mat3 arm checks offset+member.size <= uniform-buffer length, sets col_stride=member.size/3, then writes three f32 components for each of three columns. Symbolically, for a caller-supplied public reflection member offset0,size12 in a 12-byte block and a matching-name Mat3 parameter, the guard passes and stride is4; at column1, row2 the code requests bytes12..16, beyond the 12-byte vector.",
+      "remaining": "Original151 already identified shared uniform ABI mismatch and delegate2331 had explicitly left Mat3 stride and bounds admission open. This conditional public-metadata example assumes an available context/layout and mismatched member/parameter; it does not establish a real shader or ordinary producer reaches it. The separate actual ComputePass and cached path have their own packers; do not generalize helper behavior to them. No reflection object, slice, shader, GPU or panic ran."
+    },
+    "5": {
+      "contract": "Separate closed bind and buffer reasons",
+      "trace": "Historical queue318\u2013333 and336\u2013338 name distinct first checks for layout, buffer, texture, sampler, extent, native/WASM channel and host-copy conditions. The selected source expresses these as separate anyhow prose, while the observed native mapping errors are different source-bearing operations.",
+      "remaining": "Keep each historical identity, branch and platform rather than inferring aliases from a common error type remedy. Whether each caller needs typed error handling remains open; no resource/error path ran."
+    }
+  },
+  "reconnected": {
+    "2": {
+      "id": "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "queue": 317,
+      "qualification": "Original distinct finding or closed-reason identity; q334/335 are retained under the explicit original Adler158 subcontracts rather than counted as independent aliases."
+    },
+    "3": {
+      "id": "SEGOVB-L12-GPU-BIND-LAYOUT-MISSING-REASON",
+      "queue": 318,
+      "qualification": "Original distinct finding or closed-reason identity; q334/335 are retained under the explicit original Adler158 subcontracts rather than counted as independent aliases."
+    }
+  },
+  "explicit_historical_subcontract_aliases": [
+    {
+      "parent": "ADLER-L11-BUFFER-READBACK-ERROR-OWNERSHIP",
+      "queue": 334,
+      "id": "SEGOVB-L12-GPU-BUFFER-NATIVE-MAP-CAUSE-ERASURE",
+      "site": "native map cause at Buffer.read89"
+    },
+    {
+      "parent": "ADLER-L11-BUFFER-READBACK-ERROR-OWNERSHIP",
+      "queue": 335,
+      "id": "SEGOVB-L12-GPU-BUFFER-WASM-MAP-CAUSE-ERASURE",
+      "site": "WASM map cause at Buffer.read109"
+    }
+  ],
+  "candidate_0": {
+    "id": "REVIEW-GPU-UNIFORM-MAT3-BOUNDS-95E",
+    "qualification": "Conditional Mat3 out-of-bounds source example refines previously open original151/2331 ABI question; no global alias claim."
+  },
+  "remaining": "Continue original2279 and all thirteen lenses. Actual shader/caller invariants, logical buffer extent policy, native error and platform behaviors, global aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

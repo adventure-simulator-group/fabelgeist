@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:125-154
+ 125 pub(crate) fn delete_container_medicine(ctx: &ReducerContext, object_id: u64) {
+ 126     ctx.db
+ 127         .tincture_process()
+ 128         .container_object_id()
+ 129         .delete(object_id);
+ 130     for component in ctx
+ 131         .db
+ 132         .medicinal_component()
+ 133         .iter()
+ 134         .filter(|row| row.carrier_kind == "container" && row.carrier_id == object_id)
+ 135         .collect::<Vec<_>>()
+ 136     {
+ 137         ctx.db.medicinal_component().key().delete(component.key);
+ 138     }
+ 139 }
+ 140 
+ 141 fn materialize_mature_tincture(ctx: &ReducerContext, object_id: u64, now: StrategicMinute) {
+ 142     let Some(mut process) = ctx
+ 143         .db
+ 144         .tincture_process()
+ 145         .container_object_id()
+ 146         .find(object_id)
+ 147     else {
+ 148         return;
+ 149     };
+ 150     if process.matured || now < process.ready_at_world_minute {
+ 151         return;
+ 152     }
+ 153     process.matured = true;
+ 154     ctx.db

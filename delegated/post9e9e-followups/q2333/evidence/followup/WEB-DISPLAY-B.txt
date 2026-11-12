@@ -1,0 +1,42 @@
+SOURCE crates/strategic-web/static/inventory-browser.js:1030-1070
+1030         const requested = global.prompt?.("Milliliters", "1000");
+1031         if (requested && Number(requested) > 0) postContainer(
+1032           "/api/inventory/containers/discard-water",
+1033           { container_object_id: browser.dataset.openContainerObjectId, requested_ml: requested },
+1034         ).catch((error) => global.alert?.(error.message));
+1035         return;
+1036       }
+1037       const tinctureAction = event.target.closest("[data-container-spirit],[data-container-tincture]");
+1038       if (tinctureAction) {
+1039         event.preventDefault();
+1040         postContainer(
+1041           tinctureAction.matches("[data-container-spirit]")
+1042             ? "/api/inventory/containers/tincture-spirit"
+1043             : "/api/inventory/containers/tincture-start",
+1044           { container_object_id: browser.dataset.openContainerObjectId },
+1045         ).catch((error) => global.alert?.(error.message));
+1046         return;
+1047       }
+1048       const tinctureLifecycleAction = event.target.closest("[data-container-tincture-refresh],[data-container-tincture-dose]");
+1049       if (tinctureLifecycleAction) {
+1050         event.preventDefault();
+1051         postContainer(
+1052           tinctureLifecycleAction.matches("[data-container-tincture-dose]")
+1053             ? "/api/inventory/containers/tincture-dose"
+1054             : "/api/inventory/containers/tincture-refresh",
+1055           { container_object_id: browser.dataset.openContainerObjectId, dose_milliunits: 100 },
+1056         ).catch((error) => global.alert?.(error.message));
+1057         return;
+1058       }
+1059       const coinAction = event.target.closest("[data-coin-action]");
+1060       if (coinAction) {
+1061         event.preventDefault(); event.stopImmediatePropagation();
+1062         const row = coinAction.closest(".currency-parent-row");
+1063         const buttons = row?._currencyComponents?.map((component) => component.querySelector("button.trade-transfer:not([disabled])")).filter(Boolean) || [];
+1064         const mode = coinAction.dataset.transferMode || "one";
+1065         if (mode === "one") buttons.find((button) => currencyRowQuantity(button.closest("tr")) > 0)?.click();
+1066         else if (mode === "all") buttons.forEach((button) => { button.dataset.transferMode = "all"; button.click(); });
+1067         else {
+1068           let remaining = Math.max(0, currencyRowQuantity(row) - Number(coinAction.dataset.target || 0));
+1069           buttons.forEach((button) => {
+1070             if (remaining === 0) return;

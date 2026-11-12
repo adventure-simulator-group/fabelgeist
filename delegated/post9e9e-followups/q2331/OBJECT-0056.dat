@@ -1,0 +1,138 @@
+[
+  {
+    "original_index": 2244,
+    "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+    "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "git_path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "actual_EOF": 406,
+    "assessed_ranges": [
+      [
+        1,
+        406
+      ]
+    ],
+    "prospective_registration": {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+      "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4"
+    },
+    "original_agent_receipt": {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+      "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871"
+    },
+    "row_pointer": "/rows/0",
+    "root_adoption": {
+      "path": "segovb/READ-L12-741.json",
+      "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b"
+    },
+    "root_row_pointer": "/rows/0",
+    "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+    "new_personal_reads": [],
+    "source_semantic_contract": {
+      "exact_function_ownership": [
+        "Kernel.new74..125/groups_for133/groups_folded141/run149..167/KernelCache.get185..199/len201/KernelBatch.dispatch250/dispatch_folded295/dispatch_items308/copy_buffer319/after_submit349/submit355..362; contexttest384..406 sourceonly"
+      ],
+      "string_inventory": [
+        "Kernel.entry_point45 is actual naga native parsed entryname90 retained to native pipeline; codeString74/nativecachekeyString177 is actual full WGSL program, not gameplayidentifier. labelled230 &str native diagnostic. Closed internal prose errors missingcompute88/zero workgroup93/copybounds321 remain exact typedreason ownership candidates."
+      ],
+      "trace": [
+        "Actual shader source -> parse_naga83 -> computed entrypoint/workgroup -> ComputeShader98/ComputePipeline.prepare99 -> FastPath.new108 (same firstcause site fast155) -> KernelCache.get193 retains ArcKernel -> armor MetalGpu cache54/ArmorGpu cache192 -> downstream formatters124/329 -> public result/native material consumer. Dispatch KernelBatch264 directly calls FastPath.prepare then uniforms332/369 errors propagate to earlier armor operations."
+      ],
+      "conditional_cases": [
+        "Emptydispatch groups0 returnsOk258 and foldeditems0 returnsOk301 legitimate simulation emptyconstraint mode, not compatibilitydefect. General ComputePass fallback278 is supported native binding shape; no removal demand.",
+        "KernelCache keyed codeonly177/get186, ignoring currentcontext on cachehit. Conditional cross-device identity contract requires actual cache ownership/caller-context graph and native resource device ownership before ordinary failure; not a rawStringwrapper remedy. Lockunwrap186/195/202 outside-test rulecases, no invented poisonedlock witness."
+      ]
+    },
+    "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+  },
+  {
+    "original_index": 2274,
+    "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "git_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "actual_EOF": 303,
+    "assessed_ranges": [
+      [
+        1,
+        303
+      ]
+    ],
+    "prospective_registration": {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782"
+    },
+    "original_agent_receipt": {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+      "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7"
+    },
+    "row_pointer": "/rows/0",
+    "root_adoption": {
+      "path": "segovb/READ-L12-748.json",
+      "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1"
+    },
+    "root_row_pointer": "/rows/0",
+    "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+    "new_personal_reads": [],
+    "source_semantic_contract": {
+      "exact_function_ownership": [
+        "create_bind_groups7..303"
+      ],
+      "string_inventory": [
+        "parameters IndexMap<String,PassParameter>11; pass_name &str12 useddiagnosticlabels only. reflection uniform member.name35/buffername157/texture185/sampler257 rematchparameters35/159/187/258. Fixed finalnativeWGPUlabels136/292 arepresentation, distinctshaderbindingidentity."
+      ],
+      "trace": [
+        "Reflection/native shader names producerpending -> retained ReflectionData/IndexMap Stringparameters -> create_bind_groups7 actualrematches -> typed PassParameter match -> nativeUniformbytes,BindGroupEntry -> device.create_bind_group291 -> pass dispatch actualcaller nextsource."
+      ],
+      "conditional_cases": [
+        "Missing uniform members35 silentlydefaultzero32; unmatched/wrong uniform variants128 silent. Optional/defaultpolicy and actual reflectedtype correctness require reflection/caller admission, no claimed unconditional defective zero defaults. Mat3 stride member.size/3 assumes actualreflectedlayout; actualnativeadmission needed beforebounds/panicclaim. Texture format None198 permits skipcomparison220 intentionallysupportsview-onlytextures; do notforceunderlying texture. Missingresources/types/formats/dimensions individuallydifferentfirstpredicates."
+      ]
+    },
+    "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+  },
+  {
+    "original_index": 2279,
+    "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "actual_EOF": 484,
+    "assessed_ranges": [
+      [
+        1,
+        484
+      ]
+    ],
+    "prospective_registration": {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152"
+    },
+    "original_agent_receipt": {
+      "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+      "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+    },
+    "row_pointer": "/rows/0",
+    "root_adoption": {
+      "path": "segovb/READ-L12-749.json",
+      "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+    },
+    "root_row_pointer": "/rows/0",
+    "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+    "new_personal_reads": [],
+    "source_semantic_contract": {
+      "exact_function_ownership": [
+        "ComputePass.dispatch9..35/record37..484"
+      ],
+      "string_inventory": [
+        "PassParameters.get Stringmember90/buffername220/texture252/sampler427 rematches; native diagnosticlabels20/200/460/472 only. Exact closed reasons50/68/77/224/245/256/356/395/405/415/430/444/450; retained validation text56 alreadyfirsterased atpipeline117."
+      ],
+      "trace": [
+        "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding."
+      ],
+      "conditional_cases": [
+        "Uniformdefaults/unsupportedvariant191/zero87 are actualpolicy; nativeformat sRGBcounterpart269/298/326/369..388 explicitnormalization, notcompatibilitydefect. TextureView349 legitimate. Distinct create_bind_groups earlier ignoresUnsigned/TextureView while record supportsboth: actualcaller/sharedcontract needed before rejection, no generic sameness requirement. NativeMat3 admission/size required beforeboundsclaim. NonZero235 conditionalpublicBuffer.sizezero route retainedseparately."
+      ]
+    },
+    "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+  }
+]

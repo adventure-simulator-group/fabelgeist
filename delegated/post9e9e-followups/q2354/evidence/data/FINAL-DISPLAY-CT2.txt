@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/courtship.rs:280-350
+ 280 /// Scheduler-only NPC-to-NPC courtship and engagement transaction. Expected
+ 281 /// social ineligibility is a no-op outcome; missing canonical components or a
+ 282 /// broken invariant aborts the scheduler reducer.
+ 283 pub(crate) fn establish_npc_courtship_and_wedding(
+ 284     ctx: &ReducerContext,
+ 285     suitor_id: u64,
+ 286     partner_id: u64,
+ 287 ) -> Result<NpcCourtshipOutcome, CourtshipPairError> {
+ 288     if suitor_id == partner_id
+ 289         || ctx.db.npc_policy().character_id().find(suitor_id).is_none()
+ 290         || ctx
+ 291             .db
+ 292             .npc_policy()
+ 293             .character_id()
+ 294             .find(partner_id)
+ 295             .is_none()
+ 296     {
+ 297         return Ok(NpcCourtshipOutcome::Ineligible);
+ 298     }
+ 299     let suitor = ctx
+ 300         .db
+ 301         .character()
+ 302         .id()
+ 303         .find(suitor_id)
+ 304         .ok_or("NPC suitor character not found")?;
+ 305     let partner = ctx
+ 306         .db
+ 307         .character()
+ 308         .id()
+ 309         .find(partner_id)
+ 310         .ok_or("NPC partner character not found")?;
+ 311     let suitor_time = canonical_now(ctx, suitor_id)?;
+ 312     let partner_time = canonical_now(ctx, partner_id)?;
+ 313     let effective_minute = suitor_time.max(partner_time);
+ 314     if !suitor.alive
+ 315         || !partner.alive
+ 316         || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
+ 317             < ADULT_AGE_YEARS
+ 318         || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
+ 319             < ADULT_AGE_YEARS
+ 320         || suitor.current_settlement_id.is_none()
+ 321         || suitor.current_settlement_id != partner.current_settlement_id
+ 322     {
+ 323         return Ok(NpcCourtshipOutcome::Ineligible);
+ 324     }
+ 325     let suitor_personality = ctx
+ 326         .db
+ 327         .character_personality()
+ 328         .character_id()
+ 329         .find(suitor_id)
+ 330         .ok_or("NPC suitor personality not found")?;
+ 331     let partner_personality = ctx
+ 332         .db
+ 333         .character_personality()
+ 334         .character_id()
+ 335         .find(partner_id)
+ 336         .ok_or("NPC partner personality not found")?;
+ 337     if !inclination_accepts(
+ 338         suitor_personality.inclination,
+ 339         partner_personality.presentation,
+ 340     ) || !inclination_accepts(
+ 341         partner_personality.inclination,
+ 342         suitor_personality.presentation,
+ 343     ) {
+ 344         return Ok(NpcCourtshipOutcome::Ineligible);
+ 345     }
+ 346     if relationship_conflicts_at(ctx, suitor_id, effective_minute, None)
+ 347         || relationship_conflicts_at(ctx, partner_id, effective_minute, None)
+ 348         || ctx.db.character_kinship().iter().any(|edge| {
+ 349             (edge.subject_id == suitor_id && edge.related_id == partner_id)
+ 350                 || (edge.subject_id == partner_id && edge.related_id == suitor_id)

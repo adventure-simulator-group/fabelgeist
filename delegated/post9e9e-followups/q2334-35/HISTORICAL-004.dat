@@ -1,0 +1,470 @@
+{
+  "lens": 13,
+  "kind": "Separate owncurrent selectedsource adoption;0originalrolecredit",
+  "at": "2026-10-30T03:45:13.918830+00:00",
+  "packet": {
+    "path": "parallel-l13-20261029/CURRENT-SOURCE-PROPOSAL-PL13-ZEROOPTION-001.json",
+    "sha256": "7cb1d2c50a53e3a01823de173ecf97c74a2c669a241203cecea2fc40e4950337"
+  },
+  "source_components": [
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+        "sha256": "5e3dbffad19103ed09855bf938113023a88f653571e14f530b22ad3178d682d9"
+      },
+      "pointers": [
+        "/rows/0",
+        "/rows/1"
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+      },
+      "pointers": [
+        "/rows/0",
+        "/rows/1",
+        "/rows/2",
+        "/rows/3"
+      ]
+    },
+    {
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+      },
+      "pointers": [
+        "/rows/0",
+        "/rows/1",
+        "/rows/2",
+        "/rows/3"
+      ]
+    }
+  ],
+  "source_rows": [
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_eof": 1451,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+        "sha256": "5e3dbffad19103ed09855bf938113023a88f653571e14f530b22ad3178d682d9"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+        "sha256": "57926af0e0ba4a124ef53ec97f296f5409a09af8c59f42e2b6e54f398936081a"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_by_L13_ranges": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/inventory_containers.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_eof": 256,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+        "sha256": "5e3dbffad19103ed09855bf938113023a88f653571e14f530b22ad3178d682d9"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+        "sha256": "57926af0e0ba4a124ef53ec97f296f5409a09af8c59f42e2b6e54f398936081a"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_by_L13_ranges": [
+        [
+          77,
+          156
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:content/items/catalog.yaml",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "actual_eof": 9828,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "8c50aa8b179e63140ded8287ccaffdd82525576db0cc4bc3a1bc9662d78d351a"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_by_L13_ranges": [
+        [
+          143,
+          180
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_eof": 868,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "8c50aa8b179e63140ded8287ccaffdd82525576db0cc4bc3a1bc9662d78d351a"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_by_L13_ranges": [
+        [
+          73,
+          109
+        ],
+        [
+          219,
+          611
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_eof": 241,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "8c50aa8b179e63140ded8287ccaffdd82525576db0cc4bc3a1bc9662d78d351a"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_by_L13_ranges": [
+        [
+          1,
+          32
+        ],
+        [
+          63,
+          124
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:content/items/catalog.yaml",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "actual_eof": 9828,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+        "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-APPLE-001.json",
+        "sha256": "5c4c588ef89e7cf2db9b880a690b7a3a35ae92fc85237f929ec33a800a9b539e"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_by_L13_ranges": [
+        [
+          330,
+          390
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "actual_eof": 614,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "b0cfa945475b9dded08324d4ae105e4ed7fa9d3d73313391be27ab5995665c1b"
+      },
+      "registration_pointer": "/sources/0",
+      "assessed_by_L13_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "actual_eof": 614,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "b0cfa945475b9dded08324d4ae105e4ed7fa9d3d73313391be27ab5995665c1b"
+      },
+      "registration_pointer": "/sources/1",
+      "assessed_by_L13_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "actual_eof": 957,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "b0cfa945475b9dded08324d4ae105e4ed7fa9d3d73313391be27ab5995665c1b"
+      },
+      "registration_pointer": "/sources/2",
+      "assessed_by_L13_ranges": [
+        [
+          1,
+          17
+        ],
+        [
+          77,
+          304
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    },
+    {
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/build.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "actual_eof": 511,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+        "sha256": "b0cfa945475b9dded08324d4ae105e4ed7fa9d3d73313391be27ab5995665c1b"
+      },
+      "registration_pointer": "/sources/3",
+      "assessed_by_L13_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "all_other_lenses_pending": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "other_lens_body_credit": 0,
+      "new_source_identity_count_inferred": 0
+    }
+  ],
+  "strict_preflight": {
+    "preflight_only": true,
+    "authoritative_writes": 0,
+    "current_selected_source_rows": 10,
+    "current_contract_views": 1,
+    "new_registration_authority_records_not_unique": 4,
+    "original_frontier_unchanged": 1180,
+    "all_other_lenses_queue": {
+      "path": "parallel-l13-20261029/EXTENSION-QUEUE-PL13-CURRENT-ZEROOPTION-001.json",
+      "sha256": "7ede7c0cd5ff0eeb6d5bfae6370690c50f752dbff07afb25340179e0f07c0f78"
+    },
+    "catalogue_frozen_to_e275_delta_separate": true,
+    "remote_main_advance": false,
+    "current_wholecatalogue_closed": false,
+    "body_or_population_credit_from_queue": 0,
+    "product_execution": false
+  },
+  "qualified_current_delta": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/CURRENT-DELTA-PL13-CATALOGUE-FROZEN-TO-E275-001.json",
+    "sha256": "2a0d2b4557df4bdea62203ab32b087fcbb80b791a084f2f7d659f757c93c20b1"
+  },
+  "catalogue_identity_qualification": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-CURRENT-CATALOGUE-DELTA-001.json",
+    "sha256": "92c90e907d93dbaba5f027694d31739bf78193e9960528499768c09780763dd5"
+  },
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "other_lens_credit": 0,
+  "current_reconciled": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

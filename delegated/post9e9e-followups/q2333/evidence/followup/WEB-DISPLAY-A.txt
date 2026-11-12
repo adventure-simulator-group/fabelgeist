@@ -1,0 +1,30 @@
+SOURCE crates/strategic-web/static/inventory-browser.js:910-938
+ 910       close.className = "inventory-container-close";
+ 911       close.dataset.containerClose = "true";
+ 912       close.textContent = "Close";
+ 913       close.setAttribute("aria-label", "Close container inventory");
+ 914       counterpart.prepend(close);
+ 915     }
+ 916     close.hidden = false;
+ 917     let water = counterpart.querySelector("[data-container-water-actions]");
+ 918     if (!water) {
+ 919       water = document.createElement("div"); water.dataset.containerWaterActions = "true";
+ 920       water.className = "inventory-container-water-actions";
+ 921       water.innerHTML = '<span data-container-tincture-status></span><button type="button" data-container-discard-water>Discard water</button><button type="button" data-container-spirit>Pour tincture spirit</button><button type="button" data-container-tincture>Start tincture</button><button type="button" data-container-tincture-refresh>Refresh tincture</button><button type="button" data-container-tincture-dose>Take 10% dose</button>';
+ 922       close.after(water);
+ 923     }
+ 924     water.hidden = !/^\d+$/.test(id);
+ 925     const vessel = authoritativeContainerSnapshot?.presentations?.find((item) => String(item.object_id) === id)?.tincture_vessel === true;
+ 926     const tincture = authoritativeContainerSnapshot?.tinctures?.find((item) => String(item.container_object_id) === id);
+ 927     water.querySelector("[data-container-spirit]").hidden = !vessel || Boolean(tincture);
+ 928     water.querySelector("[data-container-tincture]").hidden = !vessel || Boolean(tincture);
+ 929     water.querySelector("[data-container-tincture-refresh]").hidden = !tincture || tincture.matured;
+ 930     water.querySelector("[data-container-tincture-dose]").hidden = !tincture?.matured;
+ 931     const tinctureStatus = water.querySelector("[data-container-tincture-status]");
+ 932     tinctureStatus.textContent = tincture ? (tincture.matured ? "Tincture ready" : "Tincture maturing") : "";
+ 933     counterpart.dataset.openContainerObjectId = id;
+ 934     if (!counterpart._containerDropBound) {
+ 935       counterpart._containerDropBound = true;
+ 936       counterpart.addEventListener("dragover", (event) => event.preventDefault());
+ 937       counterpart.addEventListener("drop", (event) => {
+ 938         const child = event.dataTransfer?.getData("application/x-adventuresim-inventory-object");

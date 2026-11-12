@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population.rs:400-465
+ 400             .ok_or_else(|| "Business operator identity conflicts with existing authority".into());
+ 401     }
+ 402     if ctx
+ 403         .db
+ 404         .settlement_business_operator()
+ 405         .operator_character_id()
+ 406         .find(operator_character_id)
+ 407         .is_some()
+ 408     {
+ 409         return Err("Settlement resident is already assigned to another business".into());
+ 410     }
+ 411     ctx.db
+ 412         .settlement_business_operator()
+ 413         .insert(SettlementBusinessOperator {
+ 414             id,
+ 415             settlement_id: business_id.settlement_id.clone(),
+ 416             business_id: business_id.clone(),
+ 417             operator_character_id,
+ 418         });
+ 419     Ok(())
+ 420 }
+ 421 
+ 422 #[cfg(feature = "authority-tests")]
+ 423 mod authority_tests;
+ 424 mod resident_persistence;
+ 425 use resident_persistence::insert_resident_draft;
+ 426 
+ 427 pub fn ensure_settlement_population(
+ 428     ctx: &ReducerContext,
+ 429     settlement_id: &str,
+ 430 ) -> Result<(), String> {
+ 431     crate::social_roles::ensure_settlement_social_organizations(ctx, settlement_id)?;
+ 432     let (drafts, household_groups) = settlement_resident_drafts(ctx, settlement_id)?;
+ 433     for draft in drafts {
+ 434         insert_resident_draft(ctx, settlement_id, draft)?;
+ 435     }
+ 436     for organization in adventuresim_core::organization::organizations_for_chapter(settlement_id) {
+ 437         let representative_character_id =
+ 438             adventuresim_core::organization::organization_representative_id(
+ 439                 settlement_id,
+ 440                 &organization.id,
+ 441             );
+ 442         let mut representative = ctx
+ 443             .db
+ 444             .settlement_resident_profile()
+ 445             .character_id()
+ 446             .find(representative_character_id)
+ 447             .ok_or("Organization representative was not seeded")?;
+ 448         representative.service_id.clear();
+ 449         representative.organization_id = organization.id.clone();
+ 450         representative.conversation_id = "organization-representative".into();
+ 451         representative.clothing =
+ 452             "well-kept clothing bearing the institution's public insignia".into();
+ 453         ctx.db
+ 454             .settlement_resident_profile()
+ 455             .character_id()
+ 456             .update(representative);
+ 457     }
+ 458     crate::relationship::ensure_seeded_family_households(ctx, settlement_id, &household_groups)?;
+ 459     crate::residence::bind_generated_households(ctx, settlement_id)
+ 460 }
+ 461 pub fn npc_is_present(
+ 462     ctx: &ReducerContext,
+ 463     presence: &SettlementResidentPresence,
+ 464     minute: StrategicMinute,
+ 465 ) -> bool {

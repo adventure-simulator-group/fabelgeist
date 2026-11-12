@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/encounters.rs:651-690
+ 651     let Some(mut encounter) = encounter else {
+ 652         return Ok(());
+ 653     };
+ 654     let member_ids = living_party_member_ids(ctx, party_id);
+ 655     if member_ids.is_empty() {
+ 656         return Err("A party with no living members cannot enter an encounter".into());
+ 657     }
+ 658     let capable = member_ids
+ 659         .iter()
+ 660         .filter(|id| {
+ 661             ctx.db
+ 662                 .character_capability()
+ 663                 .character_id()
+ 664                 .find(**id)
+ 665                 .is_some_and(|capability| capability.melee || capability.ranged)
+ 666         })
+ 667         .count()
+ 668         .max(1) as u16;
+ 669     let archetype = match encounter.archetype.as_str() {
+ 670         "bandit" => adventuresim_core::encounter::EncounterArchetype::Bandits,
+ 671         "goblin" => adventuresim_core::encounter::EncounterArchetype::Goblins,
+ 672         "skeleton" => adventuresim_core::encounter::EncounterArchetype::Undead,
+ 673         _ => return Err("Encounter has an unknown archetype".into()),
+ 674     };
+ 675     let awareness = match (encounter.party_aware, encounter.enemy_aware) {
+ 676         (true, false) => adventuresim_core::encounter::Awareness::PartyOnly,
+ 677         (false, true) => adventuresim_core::encounter::Awareness::EnemyOnly,
+ 678         (true, true) => adventuresim_core::encounter::Awareness::Both,
+ 679         (false, false) => return Err("Encounter has no aware participants".into()),
+ 680     };
+ 681     let terrain_kind = JourneyTerrainKind::from_stable_id(&encounter.terrain)
+ 682         .ok_or_else(|| "Encounter has an unknown terrain code".to_owned())?;
+ 683     let terrain = core_encounter_terrain(terrain_kind);
+ 684     encounter.enemy_count = adventuresim_core::encounter::scale_enemy_count(
+ 685         adventuresim_core::encounter::enemy_count(seed, encounter.roll_index, capable),
+ 686         archetype,
+ 687     );
+ 688     encounter.party_speed_m_per_minute =
+ 689         adventuresim_core::encounter::sustainable_speed_m_per_minute(
+ 690             current_party_fatigue_percent(ctx, &member_ids),

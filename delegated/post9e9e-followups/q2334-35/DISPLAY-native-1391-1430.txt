@@ -1,0 +1,40 @@
+1391         .id()
+1392         .find(character_id)
+1393         .ok_or("Character not found")?;
+1394     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+1395     require_mutable(ctx, container_object_id)?;
+1396     let mut liquid = ctx
+1397         .db
+1398         .container_liquid()
+1399         .container_object_id()
+1400         .find(container_object_id)
+1401         .ok_or("Container has no water")?;
+1402     if liquid.liquid_item_id != WATER_ITEM_ID {
+1403         return Err("Container does not hold water".into());
+1404     }
+1405     if liquid.water_ml < requested_ml {
+1406         return Err("Container does not hold that much water".into());
+1407     }
+1408     crate::outbreak::take_container_water_contributions(
+1409         ctx,
+1410         container_object_id,
+1411         Microliters::try_from_milliliters(Milliliters::new(liquid.water_ml))
+1412             .map_err(|_| "Container water volume is too large")?,
+1413         Microliters::try_from_milliliters(Milliliters::new(requested_ml))
+1414             .map_err(|_| "Requested water volume is too large")?,
+1415     )?;
+1416     liquid.water_ml -= requested_ml;
+1417     if liquid.water_ml == 0 {
+1418         ctx.db
+1419             .container_liquid()
+1420             .container_object_id()
+1421             .delete(container_object_id);
+1422         merge_empty_container(ctx, container_object_id)?;
+1423     } else {
+1424         ctx.db
+1425             .container_liquid()
+1426             .container_object_id()
+1427             .update(liquid);
+1428     }
+1429     Ok(())
+1430 }

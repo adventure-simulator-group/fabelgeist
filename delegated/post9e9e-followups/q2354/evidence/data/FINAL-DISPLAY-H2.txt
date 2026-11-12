@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-stdb-module/src/residence/properties/materialization.rs:61-111
+  61                 home.unmaterialized_residents >= required
+  62                     && ctx
+  63                         .db
+  64                         .settlement_property()
+  65                         .id()
+  66                         .find(&home.property_id)
+  67                         .is_some_and(|property| property.settlement_id == settlement_id)
+  68             })
+  69             .collect::<Vec<_>>();
+  70         available.sort_by(|left, right| left.property_id.cmp(&right.property_id));
+  71         let mut home = available
+  72             .into_iter()
+  73             .next()
+  74             .ok_or("No census home can house the materialized family")?;
+  75         home.unmaterialized_residents -= required;
+  76         ctx.db
+  77             .household_property_occupancy()
+  78             .household_id()
+  79             .update(home.clone());
+  80         for character_id in members {
+  81             ctx.db
+  82                 .generated_resident_home()
+  83                 .insert(GeneratedResidentHome {
+  84                     character_id,
+  85                     property_id: home.property_id.clone(),
+  86                 });
+  87             if ctx
+  88                 .db
+  89                 .residence_occupant()
+  90                 .character_id()
+  91                 .find(character_id)
+  92                 .is_none()
+  93             {
+  94                 let occupant = ResidenceOccupant {
+  95                     character_id,
+  96                     property_id: home.property_id.clone(),
+  97                     holding_id: None,
+  98                     admitted_minute: StrategicMinute::ZERO,
+  99                 };
+ 100                 occupancy::record(
+ 101                     ctx,
+ 102                     &occupant,
+ 103                     StrategicMinute::ZERO,
+ 104                     PropertyOccupancyKind::Admitted,
+ 105                 );
+ 106                 occupancy::store_current(ctx, occupant);
+ 107             }
+ 108         }
+ 109     }
+ 110     Ok(())
+ 111 }

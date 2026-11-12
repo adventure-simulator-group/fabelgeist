@@ -1,0 +1,46 @@
+ 300     Interrupted,
+ 301 }
+ 302 
+ 303 #[derive(Clone, Debug, Eq, PartialEq)]
+ 304 pub struct PrivateRejection<R: DomainRequirement, C: DomainCapability> {
+ 305     failed: Vec<ActionRequirement<R, C>>,
+ 306     public: PublicRejection,
+ 307 }
+ 308 
+ 309 impl<R: DomainRequirement, C: DomainCapability> PrivateRejection<R, C> {
+ 310     pub fn failed_requirements(&self) -> &[ActionRequirement<R, C>] {
+ 311         &self.failed
+ 312     }
+ 313     pub const fn sanitized(&self) -> PublicRejection {
+ 314         self.public
+ 315     }
+ 316 }
+ 317 
+ 318 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 319 pub struct RequestedDuration(NonZeroU64);
+ 320 
+ 321 impl RequestedDuration {
+ 322     pub fn try_new(minutes: u64) -> Result<Self, DurationError> {
+ 323         NonZeroU64::new(minutes)
+ 324             .map(Self)
+ 325             .ok_or(DurationError::ZeroDuration)
+ 326     }
+ 327     pub const fn minutes(self) -> u64 {
+ 328         self.0.get()
+ 329     }
+ 330 }
+ 331 
+ 332 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 333 pub enum DurationError {
+ 334     ZeroDuration,
+ 335 }
+ 336 
+ 337 #[derive(Clone, Debug, Eq, PartialEq)]
+ 338 pub struct ScheduledInterruption<I: DomainInterruption> {
+ 339     pub at_minute: StrategicMinute,
+ 340     pub cause: I,
+ 341 }
+ 342 
+ 343 #[derive(Clone, Debug, Eq, PartialEq)]
+ 344 pub struct TimeBoundaries<I: DomainInterruption> {
+ 345     pub terminal_minute: Option<StrategicMinute>,

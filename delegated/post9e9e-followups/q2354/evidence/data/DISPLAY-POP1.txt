@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population.rs:75-130
+  75     character_id: u64,
+  76 ) -> Option<ResolvedSettlementResident> {
+  77     let profile = ctx
+  78         .db
+  79         .settlement_resident_profile()
+  80         .character_id()
+  81         .find(character_id)?;
+  82     let character = ctx.db.character().id().find(character_id)?;
+  83     let personality = ctx
+  84         .db
+  85         .character_personality()
+  86         .character_id()
+  87         .find(character_id)?;
+  88     Some(ResolvedSettlementResident {
+  89         profile,
+  90         name: character.name,
+  91         age_band: AgeBand::for_years(character.age_years),
+  92         sex: personality.sex,
+  93         presentation: personality.presentation,
+  94     })
+  95 }
+  96 
+  97 pub fn resolve_settlement_resident_view(
+  98     ctx: &ViewContext,
+  99     character_id: u64,
+ 100 ) -> Option<ResolvedSettlementResident> {
+ 101     let profile = ctx
+ 102         .db
+ 103         .settlement_resident_profile()
+ 104         .character_id()
+ 105         .find(character_id)?;
+ 106     let character = ctx.db.character().id().find(character_id)?;
+ 107     let personality = ctx
+ 108         .db
+ 109         .character_personality()
+ 110         .character_id()
+ 111         .find(character_id)?;
+ 112     Some(ResolvedSettlementResident {
+ 113         profile,
+ 114         name: character.name,
+ 115         age_band: AgeBand::for_years(character.age_years),
+ 116         sex: personality.sex,
+ 117         presentation: personality.presentation,
+ 118     })
+ 119 }
+ 120 
+ 121 /// Settlement NPC facts that the registered gateway may project to players.
+ 122 ///
+ 123 /// Keep this row explicit: `SettlementResidentProfile` also contains private demographic
+ 124 /// and traversal authority that must never become subscription data merely
+ 125 /// because the authoritative table gains another field.
+ 126 #[derive(Clone, Debug, SpacetimeType)]
+ 127 pub struct BackendSettlementResident {
+ 128     pub character_id: u64,
+ 129     pub home_settlement_id: String,
+ 130     pub name: String,

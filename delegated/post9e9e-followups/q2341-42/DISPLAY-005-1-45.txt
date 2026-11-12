@@ -1,0 +1,45 @@
+   1 //! Shared non-leap strategic calendar and its absolute minute coordinate.
+   2 //!
+   3 //! Calendar calculations and stored absolute instants use [`CalendarYear`] and
+   4 //! [`StrategicMinute`]. Transport adapters convert to raw integers only where
+   5 //! their protocols require it.
+   6 
+   7 use serde::{Deserialize, Serialize};
+   8 use std::fmt;
+   9 
+  10 pub const MINUTES_PER_DAY: u64 = 24 * 60;
+  11 pub const DAYS_PER_WEEK: u64 = 7;
+  12 const SUNDAY_INDEX: u64 = 6;
+  13 pub const DAYS_PER_YEAR: u64 = 365;
+  14 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+  15 /// Calendar year containing strategic minute zero.
+  16 pub const WORLD_START_YEAR: CalendarYear = CalendarYear { year: 1544 };
+  17 /// August 20 at 00:00 in the shared non-leap strategic calendar.
+  18 pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
+  19 pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
+  20     minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,
+  21 };
+  22 
+  23 /// Whether a zero-based day index falls on Sunday.
+  24 pub const fn is_sunday_day_index(day_index: u64) -> bool {
+  25     day_index % DAYS_PER_WEEK == SUNDAY_INDEX
+  26 }
+  27 
+  28 /// A positive calendar year. There is no year zero in this calendar.
+  29 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+  30 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+  31 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+  32 #[serde(try_from = "i32", into = "i32")]
+  33 pub struct CalendarYear {
+  34     year: i32,
+  35 }
+  36 
+  37 impl fmt::Display for CalendarYear {
+  38     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  39         self.year.fmt(formatter)
+  40     }
+  41 }
+  42 
+  43 impl CalendarYear {
+  44     pub const fn new(year: i32) -> Option<Self> {
+  45         if year > 0 { Some(Self { year }) } else { None }

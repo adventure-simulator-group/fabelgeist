@@ -1,0 +1,121 @@
+ 260 }
+ 261 
+ 262 pub(crate) fn party_journey_is_current_camp(party: &Party, journey: &PartyJourney) -> bool {
+ 263     party_journey_is_active(party, journey)
+ 264         && journey
+ 265             .reached_camp_movement_minutes
+ 266             .contains(&journey.completed_movement_minutes)
+ 267 }
+ 268 
+ 269 /// A resolved interruption or an ordinary walking boundary remains an active
+ 270 /// journey location, but it is not a durable camp and therefore owns no camp
+ 271 /// fireplace custody.
+ 272 pub(crate) fn party_journey_is_between_camps(party: &Party, journey: &PartyJourney) -> bool {
+ 273     party_journey_is_active(party, journey)
+ 274         && !journey
+ 275             .reached_camp_movement_minutes
+ 276             .contains(&journey.completed_movement_minutes)
+ 277 }
+ 278 
+ 279 /// Canonical identity for the party's currently reached journey camp.
+ 280 ///
+ 281 /// The identity names the camp only. This adapter proves that the named camp
+ 282 /// is the party's coherent current off-settlement location before returning
+ 283 /// it to presence and fixture consumers.
+ 284 pub(crate) fn current_journey_camp_place(
+ 285     ctx: &ReducerContext,
+ 286     party_id: &str,
+ 287 ) -> Result<adventuresim_core::strategic_place::StrategicPlaceId, String> {
+ 288     let party = ctx
+ 289         .db
+ 290         .party_authority()
+ 291         .id()
+ 292         .find(party_id.to_string())
+ 293         .ok_or("Party not found")?;
+ 294     let journey = ctx
+ 295         .db
+ 296         .party_journey_authority()
+ 297         .party_id()
+ 298         .find(party_id.to_string())
+ 299         .ok_or("Journey camp not found")?;
+ 300     if !party_journey_is_current_camp(&party, &journey) {
+ 301         return Err("This is not the party's current journey camp".into());
+ 302     }
+ 303     adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
+ 304         party_id,
+ 305 journey.departure_minute,
+ 306         journey.completed_movement_minutes,
+ 307     )
+ 308     .map_err(|_| "Journey camp has an invalid canonical identity".into())
+ 309 }
+ 310 
+ 311 fn record_party_journey_interruption(ctx: &ReducerContext, party_id: &str, movement_minutes: u64) {
+ 312     if let Some(mut journey) = ctx
+ 313         .db
+ 314         .party_journey_authority()
+ 315         .party_id()
+ 316         .find(party_id.to_string())
+ 317     {
+ 318         journey.completed_movement_minutes = journey
+ 319             .completed_movement_minutes
+ 320             .saturating_add(movement_minutes)
+ 321             .min(journey.total_movement_minutes);
+ 322         journey.completed_elapsed_minutes = journey
+ 323             .completed_elapsed_minutes
+ 324             .saturating_add(movement_minutes);
+ 325         ctx.db.party_journey_authority().party_id().update(journey);
+ 326     }
+ 327 }
+ 328 
+ 329 /// Promote the exact movement boundary of a finally resolved interruption to
+ 330 /// a reached journey stop. Until resolution the encounter, rather than camp
+ 331 /// activity or onward movement, owns this location.
+ 332 fn establish_resolved_encounter_journey_camp(
+ 333     ctx: &ReducerContext,
+ 334     encounter: &StrategicEncounter,
+ 335 ) -> Result<(), String> {
+ 336     if encounter.status != StrategicEncounterStatus::Resolved {
+ 337         return Ok(());
+ 338     }
+ 339     let Some(party) = ctx.db.party_authority().id().find(&encounter.party_id) else {
+ 340         return Ok(());
+ 341     };
+ 342     let Some(mut journey) = ctx
+ 343         .db
+ 344         .party_journey_authority()
+ 345         .party_id()
+ 346         .find(&encounter.party_id)
+ 347     else {
+ 348         return Ok(());
+ 349     };
+ 350     let exact_incomplete_stop = party.id == encounter.party_id
+ 351         && journey.party_id == encounter.party_id
+ 352         && party.current_settlement_id.is_none()
+ 353         && party.current_case_site_id.is_none()
+ 354         && party.camp_destination.as_ref() == Some(&journey.destination)
+ 355         && journey.completed_movement_minutes < journey.total_movement_minutes
+ 356         && encounter.journey_movement_minute == journey.completed_movement_minutes;
+ 357     if !exact_incomplete_stop
+ 358         || journey
+ 359             .reached_camp_movement_minutes
+ 360             .contains(&journey.completed_movement_minutes)
+ 361     {
+ 362         return Ok(());
+ 363     }
+ 364     journey
+ 365         .reached_camp_movement_minutes
+ 366         .push(journey.completed_movement_minutes);
+ 367     ctx.db.party_journey_authority().party_id().update(journey);
+ 368     bind_errantry_trials_to_current_camp(ctx, &encounter.party_id)?;
+ 369     Ok(())
+ 370 }
+ 371 
+ 372 /// Award conserved terrain exposure for the exact movement interval about to
+ 373 /// be advanced. Camp time never reaches this function. The persisted route is
+ 374 /// the departure snapshot, so chunked/offline continuation cannot change the
+ 375 /// check, duration, or skill mixture mid-journey.
+ 376 fn train_party_terrain_movement(
+ 377     ctx: &ReducerContext,
+ 378     party_id: &str,
+ 379     movement_minutes: u64,
+ 380 ) -> Result<std::collections::BTreeMap<u64, f32>, String> {

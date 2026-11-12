@@ -1,0 +1,46 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population.rs:131-175
+ 131     pub age_band: AgeBand,
+ 132     pub presentation: Presentation,
+ 133     pub height: String,
+ 134     pub build: String,
+ 135     pub hair: String,
+ 136     pub facial_hair: String,
+ 137     pub complexion: String,
+ 138     pub visible_features: String,
+ 139     pub clothing: String,
+ 140     pub profession: String,
+ 141     pub household_kind: String,
+ 142     pub local_role: String,
+ 143     pub service_id: String,
+ 144     pub organization_id: String,
+ 145     pub conversation_id: String,
+ 146 }
+ 147 
+ 148 fn project_backend_settlement_resident(
+ 149     ctx: &ViewContext,
+ 150     profile: SettlementResidentProfile,
+ 151 ) -> Option<BackendSettlementResident> {
+ 152     let character = ctx.db.character().id().find(profile.character_id)?;
+ 153     let personality = ctx
+ 154         .db
+ 155         .character_personality()
+ 156         .character_id()
+ 157         .find(profile.character_id)?;
+ 158     let age_band = AgeBand::for_years(character.age_years);
+ 159     Some(BackendSettlementResident {
+ 160         character_id: profile.character_id,
+ 161         home_settlement_id: profile.home_settlement_id,
+ 162         name: character.name,
+ 163         age_band,
+ 164         presentation: personality.presentation,
+ 165         height: profile.height,
+ 166         build: profile.build,
+ 167         hair: profile.hair,
+ 168         facial_hair: profile.facial_hair,
+ 169         complexion: profile.complexion,
+ 170         visible_features: profile.visible_features,
+ 171         clothing: profile.clothing,
+ 172         profession: profile.profession,
+ 173         household_kind: profile.household_kind,
+ 174         local_role: profile.local_role,
+ 175         service_id: profile.service_id,

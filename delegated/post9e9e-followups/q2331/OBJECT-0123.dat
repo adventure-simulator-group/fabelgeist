@@ -1,0 +1,131 @@
+ 105 }
+ 106 
+ 107 /// What a prepared dispatch needs at record time.
+ 108 pub(super) struct Prepared {
+ 109     pub pipeline: wgpu::ComputePipeline,
+ 110     pub bind_group: wgpu::BindGroup,
+ 111     pub dynamic_offset: Option<u32>,
+ 112 }
+ 113 
+ 114 impl CompiledLayout {
+ 115     fn new(
+ 116         context: &WgpuContext,
+ 117         entries: &[wgpu::BindGroupLayoutEntry],
+ 118         module: &wgpu::ShaderModule,
+ 119         entry_point: &str,
+ 120     ) -> Result<Self> {
+ 121         #[cfg(not(target_arch = "wasm32"))]
+ 122         let error_scope = context.validation_observation.start_scope(&context.device);
+ 123         let layout = context
+ 124             .device
+ 125             .create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+ 126                 label: Some("Kernel Bind Layout"),
+ 127                 entries,
+ 128             });
+ 129         let pipeline_layout =
+ 130             context
+ 131                 .device
+ 132                 .create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+ 133                     label: Some("Kernel Pipeline Layout"),
+ 134                     bind_group_layouts: &[Some(&layout)],
+ 135                     immediate_size: 0,
+ 136                 });
+ 137         let pipeline = context
+ 138             .device
+ 139             .create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
+ 140                 label: Some("Kernel Pipeline"),
+ 141                 layout: Some(&pipeline_layout),
+ 142                 module,
+ 143                 entry_point: Some(entry_point),
+ 144                 compilation_options: wgpu::PipelineCompilationOptions::default(),
+ 145                 cache: None,
+ 146             });
+ 147         #[cfg(not(target_arch = "wasm32"))]
+ 148         if let Some(error_scope) = error_scope {
+ 149             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+ 150             if let Some(error) = pollster::block_on(error_scope.pop()) {
+ 151                 return Err(anyhow!("Kernel Pipeline Creation Error: {error}"));
+ 152             }
+ 153         }
+ 154         Ok(Self { layout, pipeline })
+ 155     }
+ 156 }
+ 157 
+ 158 impl FastPath {
+ 159     /// Build a fast path for this kernel, or `None` if its shape does not
+ 160     /// suit one.
+ 161     pub(super) fn new(
+ 162         context: &WgpuContext,
+ 163         module: &wgpu::ShaderModule,
+ 164         entry_point: &str,
+ 165         reflection: &fabelgeist_gpu::data::gpu::shader::ReflectionData,
+ 166     ) -> Result<Option<Self>> {
+ 167         // One bind group only. Everything the solver writes uses group 0, and
+ 168         // supporting more would mean a dynamic offset per group.
+ 169         if reflection.bind_groups.len() != 1 {
+ 170             return Ok(None);
+ 171         }
+ 172         let group = &reflection.bind_groups[0];
+ 173         if group.index != 0 {
+ 174             return Ok(None);
+ 175         }
+ 176         // Textures and samplers would each need their own cache key and their
+ 177         // own lifetime handling; nothing on the solver path uses them.
+ 178         if !group.texture_bindings.is_empty() || !group.sampler_bindings.is_empty() {
+ 179             return Ok(None);
+ 180         }
+ 181 
+ 182         let mut entries: Vec<wgpu::BindGroupLayoutEntry> = group
+ 183             .buffer_bindings
+ 184             .iter()
+ 185             .map(|binding| wgpu::BindGroupLayoutEntry {
+ 186                 binding: binding.binding,
+ 187                 visibility: wgpu::ShaderStages::COMPUTE,
+ 188                 ty: wgpu::BindingType::Buffer {
+ 189                     ty: binding.ty,
+ 190                     has_dynamic_offset: false,
+ 191                     min_binding_size: None,
+ 192                 },
+ 193                 count: None,
+ 194             })
+ 195             .collect();
+ 196 
+ 197         let uniform_size = group.uniform_buffer_size as u64;
+ 198         if uniform_size as usize > MAX_UNIFORM_BYTES {
+ 199             return Ok(None);
+ 200         }
+ 201         let uniform_binding = group.uniform_binding.filter(|_| uniform_size > 0);
+ 202         if let Some(binding) = uniform_binding {
+ 203             entries.push(wgpu::BindGroupLayoutEntry {
+ 204                 binding,
+ 205                 visibility: wgpu::ShaderStages::COMPUTE,
+ 206                 ty: wgpu::BindingType::Buffer {
+ 207                     ty: wgpu::BufferBindingType::Uniform,
+ 208                     // The whole point: one buffer, one bind group, and the
+ 209                     // per-dispatch values selected by offset.
+ 210                     has_dynamic_offset: true,
+ 211                     min_binding_size: std::num::NonZeroU64::new(uniform_size),
+ 212                 },
+ 213                 count: None,
+ 214             });
+ 215         }
+ 216         entries.sort_by_key(|entry| entry.binding);
+ 217 
+ 218         let compiled = CompiledLayout::new(context, &entries, module, entry_point)?;
+ 219 
+ 220         let alignment = context.device.limits().min_uniform_buffer_offset_alignment as u64;
+ 221         let stride = uniform_size.div_ceil(alignment.max(1)) * alignment.max(1);
+ 222 
+ 223         Ok(Some(Self {
+ 224             pipeline: compiled.pipeline,
+ 225             layout: compiled.layout,
+ 226             buffers: group.buffer_bindings.clone(),
+ 227             uniform_binding,
+ 228             uniform_members: group.uniform_members.clone(),
+ 229             uniform_size,
+ 230             stride,
+ 231         }))
+ 232     }
+ 233 
+ 234     /// Resolve the bind group and write this dispatch's uniform values.
+ 235     pub(super) fn prepare(

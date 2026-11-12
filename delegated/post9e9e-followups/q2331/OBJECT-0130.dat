@@ -1,0 +1,42 @@
+   1 pub mod parameter;
+   2 use indexmap::IndexMap;
+   3 pub use parameter::*;
+   4 
+   5 #[derive(Clone, Debug)]
+   6 pub struct PassParameters {
+   7     pub parameters: IndexMap<String, PassParameter>,
+   8 }
+   9 
+  10 impl PassParameters {
+  11     pub fn new() -> Self {
+  12         Self {
+  13             parameters: IndexMap::new(),
+  14         }
+  15     }
+  16 
+  17     pub fn insert(&mut self, key: impl Into<String>, value: impl Into<PassParameter>) {
+  18         self.parameters.insert(key.into(), value.into());
+  19     }
+  20 
+  21     pub fn get(&self, key: &str) -> Option<&PassParameter> {
+  22         self.parameters.get(key)
+  23     }
+  24 }
+  25 
+  26 impl Default for PassParameters {
+  27     fn default() -> Self {
+  28         Self::new()
+  29     }
+  30 }
+  31 
+  32 impl From<IndexMap<String, PassParameter>> for PassParameters {
+  33     fn from(value: IndexMap<String, PassParameter>) -> Self {
+  34         Self { parameters: value }
+  35     }
+  36 }
+  37 
+  38 impl From<PassParameters> for IndexMap<String, PassParameter> {
+  39     fn from(value: PassParameters) -> Self {
+  40         value.parameters
+  41     }
+  42 }

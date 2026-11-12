@@ -1,0 +1,45 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:201-244
+ 201             let origin_is_geographic =
+ 202                 site.coordinates_are_geographic && origin.source_node_id.is_some();
+ 203             let origin_coordinates = if origin_is_geographic {
+ 204                 Wgs84CoordinateE7::from_longitude_latitude_degrees(origin.coord_x, origin.coord_y)
+ 205                     .ok_or("Current settlement has an invalid WGS84 coordinate")?
+ 206                     .longitude_latitude_degrees()
+ 207             } else {
+ 208                 (origin.coord_x, origin.coord_y)
+ 209             };
+ 210             (
+ 211                 JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+ 212                     id: origin.id.clone(),
+ 213                     name: origin.name,
+ 214                 }),
+ 215                 origin_coordinates,
+ 216                 origin_is_geographic,
+ 217                 true,
+ 218             )
+ 219         } else {
+ 220             let origin_id = expected_case_site_id
+ 221                 .as_ref()
+ 222                 .ok_or("Current case site not found")?;
+ 223             let origin = ctx
+ 224                 .db
+ 225                 .case_site_authority()
+ 226                 .id_key()
+ 227                 .find(origin_id.to_string())
+ 228                 .ok_or("Current case site not found")?;
+ 229             let origin_is_geographic =
+ 230                 site.coordinates_are_geographic && origin.coordinates_are_geographic;
+ 231             let origin_coordinates = decode_position_e7(
+ 232                 origin.longitude_e7,
+ 233                 origin.latitude_e7,
+ 234                 origin_is_geographic,
+ 235             )
+ 236             .ok_or("Current case site has an invalid WGS84 coordinate")?;
+ 237             (
+ 238                 JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 239                     id: origin.id.clone(),
+ 240                     name: origin.name,
+ 241                 }),
+ 242                 origin_coordinates,
+ 243                 origin_is_geographic,
+ 244                 false,

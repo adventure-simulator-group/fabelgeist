@@ -1,0 +1,35 @@
+{
+  "registered_utc": "2026-11-12T17:44:49.266262+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "paths": [
+    "crates/adventuresim-core/src",
+    "crates/adventuresim-stdb-module/src/strategic",
+    "crates/adventuresim-world-schema/src"
+  ],
+  "terms": [
+    "struct PartyJourney",
+    "start_party_journey",
+    "advance_party_movement",
+    "advance_party_wilderness_elapsed",
+    "journey_local_minute",
+    "record_party_journey_camp",
+    "record_party_camp_rest",
+    "bind_errantry_trials_to_current_camp",
+    "materialize_order_errantry",
+    "submit_puzzle_challenge",
+    "enum StrategicPlaceId",
+    "struct StrategicIdentityComponent",
+    "struct CaseSiteId",
+    "struct RequestedDuration",
+    "struct MinuteSpan",
+    "struct ActivityMinutes",
+    "struct StrategicMinuteOfDay",
+    "struct ReligionMinutes",
+    "struct InjuryRecoveryMinutes",
+    "struct ErrantryFrame",
+    "struct TrialBinding",
+    "errantry_suffix",
+    "puzzle_demo_suffix"
+  ],
+  "qualification": "Fixed-string, case-sensitive; retains at most 100 path/line hits per term, prints first four only; no source-body credit."
+}

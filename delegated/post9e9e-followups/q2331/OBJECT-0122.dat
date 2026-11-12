@@ -1,0 +1,84 @@
+   1 use crate::data::{gpu::shader::parse_naga, shader};
+   2 use crate::globals::WgpuContext;
+   3 use anyhow::{Result, anyhow};
+   4 use std::sync::{Arc, Mutex};
+   5 
+   6 #[derive(Clone, Debug, Default)]
+   7 pub struct ComputeShader {
+   8     pub code: String,
+   9     pub module: Option<Arc<wgpu::ShaderModule>>,
+  10     pub error: Arc<Mutex<Option<String>>>,
+  11 }
+  12 impl ComputeShader {
+  13     pub fn new(context: &WgpuContext, code: String) -> Result<ComputeShader> {
+  14         // 1. Naga Parse & Deep Validation
+  15         let is_glsl = shader::detect_from_code(&code) == "glsl";
+  16         let naga_res = parse_naga(&code, wgpu::naga::ShaderStage::Compute)
+  17             .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
+  18 
+  19         let mut validator = wgpu::naga::valid::Validator::new(
+  20             wgpu::naga::valid::ValidationFlags::all(),
+  21             wgpu::naga::valid::Capabilities::all(),
+  22         );
+  23 
+  24         let info = if let Ok(info) = validator.validate(&naga_res) {
+  25             info
+  26         } else {
+  27             let e = validator.validate(&naga_res).unwrap_err();
+  28             let message = e.emit_to_string(&code);
+  29             return Err(anyhow::anyhow!(
+  30                 "Compute Shader Validation Error: {}",
+  31                 message
+  32             ));
+  33         };
+  34 
+  35         // 2. Convert to WGSL for WGPU compatibility (if it was GLSL)
+  36         let wgsl_code = if is_glsl {
+  37             match wgpu::naga::back::wgsl::write_string(
+  38                 &naga_res,
+  39                 &info,
+  40                 wgpu::naga::back::wgsl::WriterFlags::empty(),
+  41             ) {
+  42                 Ok(s) => s,
+  43                 Err(e) => return Err(anyhow!("Failed to convert GLSL to WGSL: {}", e)),
+  44             }
+  45         } else {
+  46             code.clone()
+  47         };
+  48 
+  49         // 3. WGPU Validation & Creation
+  50         #[cfg(not(target_arch = "wasm32"))]
+  51         let error_scope = context.validation_observation.start_scope(&context.device);
+  52 
+  53         let sm = context
+  54             .device
+  55             .create_shader_module(wgpu::ShaderModuleDescriptor {
+  56                 label: Some("ComputeShader"),
+  57                 source: wgpu::ShaderSource::Wgsl(std::borrow::Cow::Borrowed(&wgsl_code)),
+  58             });
+  59         let module = Some(Arc::new(sm));
+  60 
+  61         let error = Arc::new(Mutex::new(None));
+  62 
+  63         #[cfg(not(target_arch = "wasm32"))]
+  64         if let Some(error_scope) = error_scope {
+  65             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+  66             if let Some(e) = pollster::block_on(error_scope.pop()) {
+  67                 return Err(anyhow!("Compute Shader Validation Error: {}", e));
+  68             }
+  69         }
+  70 
+  71         let definition = ComputeShader {
+  72             code: code.clone(),
+  73             module,
+  74             error,
+  75         };
+  76 
+  77         Ok(definition)
+  78     }
+  79 }
+  80 impl PartialEq for ComputeShader {
+  81     fn eq(&self, other: &Self) -> bool {
+  82         self.code == other.code
+  83     }
+  84 }

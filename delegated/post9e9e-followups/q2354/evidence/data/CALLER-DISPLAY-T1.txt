@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/tactical/request.rs:1-60
+   1 use spacetimedb::{ReducerContext, SpacetimeType};
+   2 
+   3 use crate::{
+   4     character::character,
+   5     investigation::CaseSiteAuthority,
+   6     settlement_population::{settlement_business_operator, settlement_resident_profile},
+   7     strategic::settlement,
+   8 };
+   9 
+  10 /// Mission-lifetime display snapshot of the Character projection at capture.
+  11 /// Later requests recapture names; an active scene never observes a rename.
+  12 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
+  13 pub struct TacticalBusinessOperator {
+  14     pub business_id: adventuresim_world_schema::settlement_buildings::BusinessId,
+  15     pub operator_character_id: u64,
+  16     pub operator_name: String,
+  17 }
+  18 
+  19 /// Immutable mission input, captured with the request and consumed by the
+  20 /// dispatcher. Scene validation checks derived shop brands against these
+  21 /// operator names and building uses; no live settlement refresh occurs.
+  22 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
+  23 pub struct TacticalSettlementSnapshot {
+  24     pub id: String,
+  25     pub population_level: i32,
+  26     pub population_estimate: u32,
+  27     pub economy: adventuresim_world_schema::SettlementEconomyProfile,
+  28     pub operators: Vec<TacticalBusinessOperator>,
+  29 }
+  30 
+  31 /// A case site is inside its origin settlement only when it has no travel
+  32 /// distance from that settlement. The origin is a provenance relationship; it
+  33 /// does not by itself make a wilderness site part of the settlement scene.
+  34 pub(crate) fn case_site_is_inside_origin_settlement(case_site: &CaseSiteAuthority) -> bool {
+  35     case_site.distance_m == 0
+  36 }
+  37 
+  38 pub(crate) fn tactical_settlement_snapshot(
+  39     ctx: &ReducerContext,
+  40     case_site: &CaseSiteAuthority,
+  41 ) -> Result<Option<TacticalSettlementSnapshot>, String> {
+  42     if !case_site_is_inside_origin_settlement(case_site) {
+  43         return Ok(None);
+  44     }
+  45     let origin_settlement_id = &case_site.origin_settlement_id;
+  46     let settlement = ctx.db.settlement().id().find(origin_settlement_id);
+  47     let Some(settlement) = settlement else {
+  48         return Ok(None);
+  49     };
+  50     if settlement.scene_key != case_site.scene_key {
+  51         return Ok(None);
+  52     }
+  53     crate::settlement_population::ensure_settlement_population(ctx, origin_settlement_id)?;
+  54     let mut operators = ctx
+  55         .db
+  56         .settlement_business_operator()
+  57         .settlement_id()
+  58         .filter(&origin_settlement_id.to_owned())
+  59         .map(|assignment| {
+  60             if assignment.business_id.settlement_id != origin_settlement_id.as_str() {

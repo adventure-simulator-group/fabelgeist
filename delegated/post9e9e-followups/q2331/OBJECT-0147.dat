@@ -1,0 +1,186 @@
+{
+  "kind": "Isolated ordered L12 source assessment proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 867,
+  "proposed_original_before": 2557,
+  "proposed_original_after": 2559,
+  "new_original_roles_proposed": 2,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Not run; existing test source/evidence only",
+  "at": "2026-10-30T01:37:23.443194+00:00",
+  "new_findings": [],
+  "body_output_truncation_status": "Everycreditedbodypacketuntruncated; metadata-onlysearches/truncations0credit",
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-866.json",
+  "predecessor_proposal_sha256": "805004dfdf8212777b9aa1afd1af99e841946a119fc5a96f0b8dc17b37c03de6",
+  "rows": [
+    {
+      "original_index": 2557,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "source_sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "actual_EOF": 86,
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-602-WINDOWS-ORIGINAL2557.json",
+        "sha256": "5b87ee3d6d33755838b8b4bc5abe7f135a53afbaba973c9b6ef58ef16be2d6a4"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-602.json",
+      "registration_sha256": "25c0bf0429138f379cac2bab379c88ffde1c1f9fbdd2acc737df350675ed6dfe",
+      "source_object": "parallel-l12-20261029/source-867-868-20261030/744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "requested_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          86
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "AnimationFrequency24..43; AnimationSampleRate45..86 full body, Serde native f32 conversion attributes12/21."
+        ],
+        "string_inventory": [
+          "Only native Serde attribute grammar try_from/into f32; no private String owner, prose classifier, magic dynamic identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native f32 -> AnimationFrequency::try_from finite positive33..41 -> retained frequency + checked reciprocal PositiveAnimationDuration71..78 -> native hertz47/interval51/span division60..62 and serialized original frequency84."
+        ],
+        "conditional_cases": [
+          "Frequency calibration explicitly permits no representable reciprocal18..19 while sample-rate constructor checks reciprocal72. Distinct valid semantic contracts, not redundant owner by scalar representation.",
+          "Native exact original frequency bits retained, no obsolete API compatibility obligation; sample-count division order intentional, no arithmetic defect from normalization alone. Other numeric/aggregate/lifetime contracts independent."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursive range pairs within EOF prospectively covered; exact listed Windows fields only; no generic normalization/EOF tail."
+    },
+    {
+      "original_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "actual_EOF": 408,
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-603-WINDOWS-ORIGINAL2558.json",
+        "sha256": "e7c28bc76bc3eb0d22499a2c44262f3ec96357487b686c15422dcd52813f8743"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-603.json",
+      "registration_sha256": "2b6adea3afafc16ef205bfd3acbb573a516c0ce200811314de599cf3bebeef19",
+      "source_object": "parallel-l12-20261029/source-867-868-20261030/d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "requested_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          306
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "ScanElementCount44..64; native WGSL scan_blocks_code69..124/add_offsets_code126..154; grid157..160; PrefixSumScratch175..211; PrefixSum new222/with_cache226/record240..270/record_level272..303; one-off run body307..408 unread."
+        ],
+        "string_inventory": [
+          "WGSL generators return native shader program String, parameters count/pad0/pad1/data/write_sums/sums282..296 match authored WGSL69..154; debug buffer labels186/194 native diagnostic ports. No closed-name defect solely from literals. ScanError preserves typed counts/byte extents and native anyhow source39, no error-prose parsing."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Typed ScanElementCount -> scratch checked capacity250 and native BufferByteLength256 -> actual PassParameters raw name map281..296 -> KernelBatch.dispatch290/297/301 + recursive call299 -> native WGSL uniforms/storage69..154; exact parameter family owner proof independent."
+        ],
+        "conditional_cases": [
+          "count0 intentional no-op247, scratch capacity max1 intentional176; shader addition wraps documented237, not overflow compatibility defect.",
+          "record-level recursion MissingScratchLevel294 structured failure; native GPU resource/context/buffer alias/dispatch layout/maximum bounds remain actual connected contracts, no runtime or native execution.",
+          "All original recursive registry scopes union1..306 personally read; source307..408 unassessed, tests/run not claimed."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursive range pairs within EOF prospectively covered; exact listed Windows fields only; no generic normalization/EOF tail."
+    }
+  ],
+  "pending_connected_contracts": [
+    "Exact own GPU parameter family741/748/749 qualification and actual native ports; no alias by common String remedy.",
+    "Current-main/all20/all13/populations/extensions/exact aliases remain independent."
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2557,
+      "source_sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact frequency/reciprocal/aggregate/native shader/count/scratch/parameter contracts require independent appropriate-lens assessment."
+    },
+    {
+      "original_index": 2558,
+      "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact frequency/reciprocal/aggregate/native shader/count/scratch/parameter contracts require independent appropriate-lens assessment."
+    }
+  ],
+  "scope_qualifications": [
+    "Original2557 recursive union1..86 and2558 union1..306 fully personally read; source2558 remaining307..408 no credit. Exact identity-specific Windows fields preserved."
+  ],
+  "contract_updates": [],
+  "current_delta_updates": [
+    {
+      "scope": "Original2557 physical and2558 frozen PR",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current main bodies and native ownership"
+    }
+  ],
+  "actual_new_body_lines_counted_once_in_ordered_rows": 392,
+  "partial_read_receipts": [
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-867-001.json",
+      "sha256": "48f270d166bdeac38aa223ffd9617c38e04fced515c19fe80212bf5376ac6477"
+    },
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-867-002.json",
+      "sha256": "f017cbdefef38126b62b7348362d1f0afabf9415e0143ab3350394b0dd16d5d7"
+    }
+  ]
+}

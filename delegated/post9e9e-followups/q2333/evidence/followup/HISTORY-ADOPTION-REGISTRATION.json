@@ -1,0 +1,42 @@
+{
+  "at_utc": "2026-11-12T17:09:37.231970+00:00",
+  "selections": {
+    "parallel-l13-20261029/READ-PL13-255.json": [
+      "lens",
+      "namespace",
+      "status",
+      "registered_before_read_attestation",
+      "product_execution",
+      "current_reconciled",
+      "global_clearance",
+      "authoritative_counts_changed",
+      "accepted_unique_count_change"
+    ],
+    "segovb/READ-L13-PARALLEL-253.json": [
+      "lens",
+      "kind",
+      "delegated_receipt",
+      "original_before",
+      "original_after",
+      "new_original_roles",
+      "root_personal_rereads",
+      "accepted_unique_count_change",
+      "current_source_reconciled",
+      "runtime_validation",
+      "implementation_gate_complete"
+    ],
+    "segovb/READ-L13-CURRENT-TEAM-002.json": [
+      "lens",
+      "kind",
+      "source_receipt",
+      "source_rows",
+      "original_overlay_merged_shared_credit",
+      "accepted_unique_count_change",
+      "other_lens_credit",
+      "current_reconciled",
+      "runtime_validation",
+      "implementation_gate_complete"
+    ]
+  },
+  "purpose": "separate original Lens13 reader, frozen root adoption, and e275 selected-current adoption; no new source credit"
+}

@@ -1,0 +1,86 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/containers.rs:1-85
+   1 #[derive(Serialize)]
+   2 pub(super) struct ContainerSnapshot {
+   3     objects: Vec<spacetimedb_sats::serde::SerdeWrapper<InventoryObject>>,
+   4     edges: Vec<spacetimedb_sats::serde::SerdeWrapper<InventoryContainment>>,
+   5     liquids: Vec<spacetimedb_sats::serde::SerdeWrapper<ContainerLiquid>>,
+   6     presentations: Vec<ContainerItemPresentation>,
+   7     tinctures: Vec<spacetimedb_sats::serde::SerdeWrapper<BackendTinctureStatus>>,
+   8 }
+   9 
+  10 #[derive(Debug, Serialize)]
+  11 pub(super) struct ContainerItemPresentation {
+  12     object_id: u64,
+  13     item_id: String,
+  14     display_name: String,
+  15     quantity: u32,
+  16     exterior_volume_ml: u32,
+  17     container_capacity_ml: u32,
+  18     tincture_vessel: bool,
+  19 }
+  20 
+  21 #[derive(Deserialize)]
+  22 pub(super) struct ContainerMoveForm {
+  23     child_object_id: u64,
+  24     parent_object_id: u64,
+  25 }
+  26 
+  27 #[derive(Clone, Copy)]
+  28 struct CarriedInventoryView {
+  29     scope: CarriedInventoryScope,
+  30     row_id: u64,
+  31 }
+  32 
+  33 impl CarriedInventoryView {
+  34     fn from_location(location: &InventoryLocation) -> Option<Self> {
+  35         match location {
+  36             InventoryLocation::Personal(location) => Some(Self {
+  37                 scope: CarriedInventoryScope::Personal,
+  38                 row_id: location.row_id,
+  39             }),
+  40             InventoryLocation::Party(location) => Some(Self {
+  41                 scope: CarriedInventoryScope::Party,
+  42                 row_id: location.row_id,
+  43             }),
+  44             InventoryLocation::Fireplace(_) | InventoryLocation::Repair(_) => None,
+  45         }
+  46     }
+  47 }
+  48 
+  49 #[derive(Deserialize)]
+  50 pub(super) struct ContainerRemoveForm {
+  51     child_object_id: u64,
+  52 }
+  53 #[derive(Deserialize)]
+  54 pub(super) struct ContainerWaterForm {
+  55     container_object_id: u64,
+  56     requested_ml: u64,
+  57 }
+  58 #[derive(Deserialize)]
+  59 pub(super) struct ContainerTinctureForm {
+  60     container_object_id: u64,
+  61 }
+  62 #[derive(Deserialize)]
+  63 pub(super) struct ContainerTinctureDoseForm {
+  64     container_object_id: u64,
+  65     #[serde(default = "default_tincture_dose")]
+  66     dose_milliunits: u32,
+  67 }
+  68 fn default_tincture_dose() -> u32 {
+  69     100
+  70 }
+  71 
+  72 pub(super) async fn inventory_containers(
+  73     State(state): State<AppState>,
+  74     session: Session,
+  75 ) -> Response {
+  76     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+  77         return StatusCode::UNAUTHORIZED.into_response();
+  78     };
+  79     let fireplace_roots = state
+  80         .db
+  81         .query_sats::<BackendFireplaceStation>(&format!(
+  82             "SELECT * FROM backend_fireplace_stations WHERE character_id = {}",
+  83             actor.id
+  84         ))
+  85         .await

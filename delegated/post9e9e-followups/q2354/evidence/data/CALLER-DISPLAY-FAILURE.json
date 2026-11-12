@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "python3",
+    "<LOCAL_PATH_0021>",
+    "CL",
+    "crates/adventuresim-stdb-module/src/time/clock.rs",
+    "85",
+    "135"
+  ],
+  "repeat_exit": 1,
+  "repeat_stdout": "",
+  "repeat_stderr": "Traceback (most recent call last):\n  File \"<LOCAL_PATH_0021>\", line 3, in <module>\n    s=Path(__file__).resolve().parent;label,path,a,b=sys.argv[1],sys.argv[2],int(sys.argv[3]),int(sys.argv[4]);reg=json.loads((s/'CALLER-DISPLAY-REGISTRATION.json').read_text());assert any(a>=x and b<=y for x,y in reg['windows'][path]);raw=(s/'sources'/'95e'/path).read_bytes();lines=raw.decode().splitlines();assert 1<=a<=b<=len(lines);text=f'SOURCE {path}:{a}-{b}\\n'+''.join(f'{i:4} {lines[i-1]}\\n' for i in range(a,b+1));name=f'CALLER-DISPLAY-{label}.txt'\n                                                                                                                                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "prior_failure": "same request initially exceeded actual EOF, failed assertion before any display artifact; this repeat preserves the failure",
+  "actual_eof": 127
+}

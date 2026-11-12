@@ -1,0 +1,94 @@
+{
+  "lens": 13,
+  "status": "Prospective selected existing-own proof supplement; rawpriorproof and failedtruncateddisplay preserved",
+  "prior_proof": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/PROOF-PL13-263-INVESTIGABILITY-OWN-REUSE-001.json",
+    "sha256": "02e52781cfd52a7bbb415913b64b6d4a5381240ea0372d71948bb38642f28be5"
+  },
+  "sources": [
+    {
+      "original": 881,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 1558,
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "prior_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-141.json",
+        "sha256": "05311f0f2fda46166b389d64bfb963ca7dd42e1a69d6bdfea2598df9c352785a"
+      },
+      "prior_read_pointer": "/rows/0",
+      "prior_assessed_ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-141.json",
+        "sha256": "84032bb54179474752f267e49076528874a9e0c8a9232216b34c247027a11d84"
+      },
+      "registration_pointer": "/sources/0",
+      "selected_reread_ranges": [
+        [
+          611,
+          712
+        ]
+      ],
+      "qualification": "Exactpriorownfullbodyproof; focusedreread withinalreadyassessed scope,0newbody/originalcredit."
+    },
+    {
+      "original": 850,
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 509,
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "prior_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-129.json",
+        "sha256": "11c21b0595bdab312150c21708f07c317ed6809efd7a6a505c197439e305c8e1"
+      },
+      "prior_read_pointer": "/rows/0",
+      "prior_assessed_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-129.json",
+        "sha256": "3ccad9fe023af70e5eebaec19155749e8b230ba197a01e04c8edd1a72fc3520a"
+      },
+      "registration_pointer": "/sources/0",
+      "selected_reread_ranges": [
+        [
+          60,
+          160
+        ]
+      ],
+      "qualification": "Exactpriorownfullbodyproof; focusedreread withinalreadyassessed scope,0newbody/originalcredit."
+    }
+  ],
+  "actual_truncation_qualification": {
+    "source_id": "pr-working:content/quests/bestiary.yaml",
+    "attempted_reread_ranges": [
+      [
+        1,
+        156
+      ]
+    ],
+    "actual_output_reported_truncated": true,
+    "new_body_credit": 0,
+    "replacement_untruncated_selected_display": [
+      [
+        1,
+        15
+      ]
+    ],
+    "interpretation": "Failedfullfocusedreread adds0coverage; original199full156ownqualifiedevidence remains unchanged. Onlyreplacement1..15 newlyreread untruncated; no needclaimfull156reread."
+  },
+  "new_source_ids": 0,
+  "original_delta": 0,
+  "authority_changes": 0,
+  "product_execution": false
+}

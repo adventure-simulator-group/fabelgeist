@@ -1,0 +1,804 @@
+//! Framework-independent arithmetic for measured inventory definitions.
+//!
+//! The persistent inventory schema is not implemented yet. This module is the
+//! small arithmetic boundary reducers can adopt if that work is revived.
+
+use std::num::NonZeroU32;
+
+/// A non-zero count of fungible inventory items.
+#[derive(
+    Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Deserialize, serde::Serialize,
+)]
+#[serde(transparent)]
+pub struct ItemQuantity(NonZeroU32);
+
+impl ItemQuantity {
+    pub const ONE: Self = Self(NonZeroU32::MIN);
+
+    pub const fn new(value: u32) -> Option<Self> {
+        match NonZeroU32::new(value) {
+            Some(value) => Some(Self(value)),
+            None => None,
+        }
+    }
+
+    pub const fn get(self) -> u32 {
+        self.0.get()
+    }
+}
+
+/// One-millionth fixed-point fraction of a whole consumable item.
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub struct ConsumableFractionMicros(u32);
+
+impl ConsumableFractionMicros {
+    pub const MICROS_PER_WHOLE: u32 = 1_000_000;
+    pub const MINIMUM_NONZERO: Self = Self(1);
+    pub const ZERO: Self = Self(0);
+    pub const WHOLE: Self = Self(Self::MICROS_PER_WHOLE);
+
+    pub const fn try_new(fraction_micros: u32) -> Result<Self, MeasurementError> {
+        if fraction_micros > Self::MICROS_PER_WHOLE {
+            return Err(MeasurementError::FractionExceedsWhole);
+        }
+        Ok(Self(fraction_micros))
+    }
+
+    pub const fn whole_divided_by(parts: u32) -> Self {
+        assert!(parts > 0, "a whole cannot be divided into zero parts");
+        Self(Self::MICROS_PER_WHOLE / parts)
+    }
+
+    pub fn try_from_ratio(numerator: u64, denominator: u64) -> Result<Self, MeasurementError> {
+        if denominator == 0 {
+            return Err(MeasurementError::ZeroCapacity);
+        }
+        let fraction_micros = u128::from(Self::MICROS_PER_WHOLE)
+            .checked_mul(u128::from(numerator))
+            .ok_or(MeasurementError::Overflow)?
+            .div_ceil(u128::from(denominator));
+        let fraction_micros =
+            u32::try_from(fraction_micros.min(u128::from(Self::MICROS_PER_WHOLE)))
+                .map_err(|_| MeasurementError::Overflow)?;
+        Ok(Self(fraction_micros))
+    }
+
+    pub const fn get(self) -> u32 {
+        self.0
+    }
+
+    pub const fn is_zero(self) -> bool {
+        self.0 == 0
+    }
+
+    pub fn as_unit_f32(self) -> f32 {
+        self.0 as f32 / Self::MICROS_PER_WHOLE as f32
+    }
+
+    pub fn scale_floor(self, whole: u64) -> u64 {
+        ((u128::from(whole) * u128::from(self.0)) / u128::from(Self::MICROS_PER_WHOLE)) as u64
+    }
+
+    pub fn try_scaled_floor(self, factor: f32) -> Result<Self, MeasurementError> {
+        if !factor.is_finite() || !(0.0..=1.0).contains(&factor) {
+            return Err(MeasurementError::InvalidFractionScale);
+        }
+        Self::try_new((self.0 as f32 * factor).floor() as u32)
+    }
+
+    pub const fn checked_sub(self, other: Self) -> Option<Self> {
+        match self.0.checked_sub(other.0) {
+            Some(value) => Some(Self(value)),
+            None => None,
+        }
+    }
+
+    pub const fn checked_mul(self, multiplier: u32) -> Option<Self> {
+        match self.0.checked_mul(multiplier) {
+            Some(value) if value <= Self::MICROS_PER_WHOLE => Some(Self(value)),
+            _ => None,
+        }
+    }
+}
+
+impl TryFrom<u32> for ConsumableFractionMicros {
+    type Error = MeasurementError;
+
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        Self::try_new(value)
+    }
+}
+
+impl From<ConsumableFractionMicros> for u32 {
+    fn from(value: ConsumableFractionMicros) -> Self {
+        value.get()
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum MeasurementKind {
+    /// The item itself is consumed. An empty row has no remaining object.
+    Depletable,
+    /// A fungible quantity-one lot with no container tare.
+    BulkLot,
+    /// Contents are consumed while the recoverable container remains.
+    Containerized,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct MeasurementProfile {
+    /// For a measured row, adapters supply the measured object's immutable
+    /// kind snapshot here rather than re-reading the current item definition.
+    pub kind: MeasurementKind,
+    /// Standard immutable basis copied to an object when ordinary stock opens.
+    pub standard_basis: MeasurementBasis,
+}
+
+/// Immutable integer basis for one measured object or derived lot.
+///
+/// Recipe outputs may use a basis different from the item definition's
+/// standard basis. Remaining amount is mutable state and is not stored here.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct MeasurementBasis {
+    /// Full contents in the definition's fixed-point unit.
+    pub capacity: u64,
+    /// Mass of full contents in the game's fixed mass subunit.
+    pub full_contents_mass: u64,
+    /// Intrinsic value of full contents in the game's currency subunit.
+    pub full_contents_value: u64,
+    /// Mass retained at zero contents. Must be zero for depletable items.
+    pub tare_mass: u64,
+    /// Intrinsic value retained at zero contents. Must be zero for depletable items.
+    pub tare_value: u64,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct MeasuredInventoryRow {
+    /// Number of full unopened units, or exactly one for measured state.
+    pub quantity: ItemQuantity,
+    /// `None` is a full unopened stack. `Some` is a quantity-one measured row.
+    pub remaining_amount: Option<u64>,
+    /// Immutable per-object basis. Required whenever measured state exists.
+    pub instance_basis: Option<MeasurementBasis>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct EffectiveTotals {
+    pub mass: u64,
+    pub value: u64,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum MeasurementError {
+    ZeroCapacity,
+    NonContainerHasTare,
+    MeasuredRowIsNotSingleton,
+    BulkLotMustBeMeasuredSingleton,
+    MissingInstanceBasis,
+    UnexpectedInstanceBasis,
+    AmountExceedsCapacity,
+    FractionExceedsWhole,
+    InvalidFractionScale,
+    InvalidPricingFactor,
+    Overflow,
+}
+
+impl MeasurementProfile {
+    pub fn validate(self) -> Result<Self, MeasurementError> {
+        self.validate_basis(self.standard_basis)?;
+        Ok(self)
+    }
+
+    fn validate_basis(self, basis: MeasurementBasis) -> Result<(), MeasurementError> {
+        if basis.capacity == 0 {
+            return Err(MeasurementError::ZeroCapacity);
+        }
+        if matches!(
+            self.kind,
+            MeasurementKind::Depletable | MeasurementKind::BulkLot
+        ) && (basis.tare_mass != 0 || basis.tare_value != 0)
+        {
+            return Err(MeasurementError::NonContainerHasTare);
+        }
+        basis
+            .tare_mass
+            .checked_add(basis.full_contents_mass)
+            .ok_or(MeasurementError::Overflow)?;
+        basis
+            .tare_value
+            .checked_add(basis.full_contents_value)
+            .ok_or(MeasurementError::Overflow)?;
+        Ok(())
+    }
+
+    pub fn effective_totals(
+        self,
+        row: MeasuredInventoryRow,
+    ) -> Result<EffectiveTotals, MeasurementError> {
+        let profile = self.validate()?;
+        if profile.kind == MeasurementKind::BulkLot
+            && (row.quantity != ItemQuantity::ONE || row.remaining_amount.is_none())
+        {
+            return Err(MeasurementError::BulkLotMustBeMeasuredSingleton);
+        }
+
+        match row.remaining_amount {
+            None => {
+                if row.instance_basis.is_some() {
+                    return Err(MeasurementError::UnexpectedInstanceBasis);
+                }
+                let basis = profile.standard_basis;
+                let unit_mass = basis
+                    .tare_mass
+                    .checked_add(basis.full_contents_mass)
+                    .ok_or(MeasurementError::Overflow)?;
+                let unit_value = basis
+                    .tare_value
+                    .checked_add(basis.full_contents_value)
+                    .ok_or(MeasurementError::Overflow)?;
+                Ok(EffectiveTotals {
+                    mass: unit_mass
+                        .checked_mul(u64::from(row.quantity.get()))
+                        .ok_or(MeasurementError::Overflow)?,
+                    value: unit_value
+                        .checked_mul(u64::from(row.quantity.get()))
+                        .ok_or(MeasurementError::Overflow)?,
+                })
+            }
+            Some(amount) => {
+                if row.quantity != ItemQuantity::ONE {
+                    return Err(MeasurementError::MeasuredRowIsNotSingleton);
+                }
+                let basis = row
+                    .instance_basis
+                    .ok_or(MeasurementError::MissingInstanceBasis)?;
+                profile.validate_basis(basis)?;
+                if amount > basis.capacity {
+                    return Err(MeasurementError::AmountExceedsCapacity);
+                }
+                let contents_mass =
+                    prorated_floor(basis.full_contents_mass, amount, basis.capacity)?;
+                let contents_value =
+                    prorated_floor(basis.full_contents_value, amount, basis.capacity)?;
+                Ok(EffectiveTotals {
+                    mass: basis
+                        .tare_mass
+                        .checked_add(contents_mass)
+                        .ok_or(MeasurementError::Overflow)?,
+                    value: basis
+                        .tare_value
+                        .checked_add(contents_value)
+                        .ok_or(MeasurementError::Overflow)?,
+                })
+            }
+        }
+    }
+}
+
+/// Prorate once in widened integer arithmetic, rounding toward zero.
+///
+/// Applying this to partitions cannot make their summed result exceed the
+/// unsplit result. Authoritative trade still prices complete rows so repeated
+/// partitioning cannot exploit independently rounded merchant quotes.
+pub fn prorated_floor(full: u64, amount: u64, capacity: u64) -> Result<u64, MeasurementError> {
+    if capacity == 0 {
+        return Err(MeasurementError::ZeroCapacity);
+    }
+    if amount > capacity {
+        return Err(MeasurementError::AmountExceedsCapacity);
+    }
+    Ok(((u128::from(full) * u128::from(amount)) / u128::from(capacity)) as u64)
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct PricingFactor {
+    pub numerator: u64,
+    pub denominator: u64,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PriceRounding {
+    /// Merchant purchases an inventory line from the player.
+    Floor,
+    /// Merchant sells an inventory line to the player.
+    Ceil,
+}
+
+/// Price one complete line after aggregating intrinsic row values.
+///
+/// Factors are reduced across each other before multiplication. The composed
+/// ratio is applied once and rounded once in the requested direction.
+pub fn checked_aggregate_price(
+    row_intrinsic_values: &[u64],
+    factors: &[PricingFactor],
+    rounding: PriceRounding,
+) -> Result<u64, MeasurementError> {
+    let line_value = row_intrinsic_values
+        .iter()
+        .try_fold(0_u64, |total, value| {
+            total.checked_add(*value).ok_or(MeasurementError::Overflow)
+        })?;
+    let mut numerator = 1_u128;
+    let mut denominator = 1_u128;
+    for factor in factors {
+        if factor.numerator == 0 || factor.denominator == 0 {
+            return Err(MeasurementError::InvalidPricingFactor);
+        }
+        let mut next_numerator = u128::from(factor.numerator);
+        let mut next_denominator = u128::from(factor.denominator);
+
+        let cancel_numerator = greatest_common_divisor(next_numerator, denominator);
+        next_numerator /= cancel_numerator;
+        denominator /= cancel_numerator;
+
+        let cancel_denominator = greatest_common_divisor(next_denominator, numerator);
+        next_denominator /= cancel_denominator;
+        numerator /= cancel_denominator;
+
+        numerator = numerator
+            .checked_mul(next_numerator)
+            .ok_or(MeasurementError::Overflow)?;
+        denominator = denominator
+            .checked_mul(next_denominator)
+            .ok_or(MeasurementError::Overflow)?;
+    }
+
+    let mut reduced_line = u128::from(line_value);
+    let cancel_line = greatest_common_divisor(reduced_line, denominator);
+    reduced_line /= cancel_line;
+    denominator /= cancel_line;
+    let scaled = reduced_line
+        .checked_mul(numerator)
+        .ok_or(MeasurementError::Overflow)?;
+    let quotient = scaled / denominator;
+    let remainder = scaled % denominator;
+    let rounded = match rounding {
+        PriceRounding::Floor => quotient,
+        PriceRounding::Ceil if remainder == 0 => quotient,
+        PriceRounding::Ceil => quotient.checked_add(1).ok_or(MeasurementError::Overflow)?,
+    };
+    u64::try_from(rounded).map_err(|_| MeasurementError::Overflow)
+}
+
+const fn greatest_common_divisor(mut left: u128, mut right: u128) -> u128 {
+    while right != 0 {
+        let remainder = left % right;
+        left = right;
+        right = remainder;
+    }
+    left
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn item_quantity_serializes_as_a_validated_nonzero_number() {
+        let quantity = ItemQuantity::new(7).unwrap();
+        assert_eq!(serde_json::to_string(&quantity).unwrap(), "7");
+        assert_eq!(serde_json::from_str::<ItemQuantity>("7").unwrap(), quantity);
+        assert!(serde_json::from_str::<ItemQuantity>("0").is_err());
+    }
+
+    fn soap() -> MeasurementProfile {
+        MeasurementProfile {
+            kind: MeasurementKind::Depletable,
+            standard_basis: MeasurementBasis {
+                capacity: 100,
+                full_contents_mass: 250,
+                full_contents_value: 17,
+                tare_mass: 0,
+                tare_value: 0,
+            },
+        }
+    }
+
+    #[test]
+    fn fixed_point_fraction_rounds_up_and_caps_at_one_unit() {
+        assert_eq!(
+            ConsumableFractionMicros::try_from_ratio(1, 25),
+            ConsumableFractionMicros::try_new(40_000)
+        );
+        assert_eq!(
+            ConsumableFractionMicros::try_from_ratio(25, 100),
+            ConsumableFractionMicros::try_new(250_000)
+        );
+        assert_eq!(
+            ConsumableFractionMicros::try_from_ratio(2, 1),
+            Ok(ConsumableFractionMicros::WHOLE)
+        );
+        assert_eq!(
+            ConsumableFractionMicros::try_from_ratio(1, 0),
+            Err(MeasurementError::ZeroCapacity)
+        );
+        assert_eq!(
+            ConsumableFractionMicros::try_new(1_000_001),
+            Err(MeasurementError::FractionExceedsWhole)
+        );
+    }
+
+    #[test]
+    fn fixed_point_scaling_rounds_down() {
+        assert_eq!(
+            ConsumableFractionMicros::try_new(500_000)
+                .unwrap()
+                .scale_floor(425),
+            212
+        );
+        assert_eq!(ConsumableFractionMicros::WHOLE.scale_floor(30), 30);
+        assert_eq!(
+            ConsumableFractionMicros::WHOLE.try_scaled_floor(0.25),
+            ConsumableFractionMicros::try_new(250_000)
+        );
+        assert_eq!(
+            ConsumableFractionMicros::WHOLE.try_scaled_floor(1.1),
+            Err(MeasurementError::InvalidFractionScale)
+        );
+    }
+
+    fn bottle() -> MeasurementProfile {
+        MeasurementProfile {
+            kind: MeasurementKind::Containerized,
+            standard_basis: MeasurementBasis {
+                capacity: 750,
+                full_contents_mass: 750,
+                full_contents_value: 11,
+                tare_mass: 400,
+                tare_value: 3,
+            },
+        }
+    }
+
+    fn unopened(quantity: u32) -> MeasuredInventoryRow {
+        MeasuredInventoryRow {
+            quantity: ItemQuantity::new(quantity).expect("test quantity must be positive"),
+            remaining_amount: None,
+            instance_basis: None,
+        }
+    }
+
+    fn measured(profile: MeasurementProfile, amount: u64) -> MeasuredInventoryRow {
+        MeasuredInventoryRow {
+            quantity: ItemQuantity::ONE,
+            remaining_amount: Some(amount),
+            instance_basis: Some(profile.standard_basis),
+        }
+    }
+
+    #[test]
+    fn depletable_partial_scales_mass_and_value() {
+        let totals = soap().effective_totals(measured(soap(), 40)).unwrap();
+        assert_eq!(
+            totals,
+            EffectiveTotals {
+                mass: 100,
+                value: 6
+            }
+        );
+    }
+
+    #[test]
+    fn containerized_empty_and_partial_retain_tare() {
+        let empty = bottle().effective_totals(measured(bottle(), 0)).unwrap();
+        let partial = bottle().effective_totals(measured(bottle(), 375)).unwrap();
+        assert_eq!(
+            empty,
+            EffectiveTotals {
+                mass: 400,
+                value: 3
+            }
+        );
+        assert_eq!(
+            partial,
+            EffectiveTotals {
+                mass: 775,
+                value: 8
+            }
+        );
+    }
+
+    #[test]
+    fn unopened_stacks_multiply_full_unit_totals() {
+        let totals = bottle().effective_totals(unopened(4)).unwrap();
+        assert_eq!(
+            totals,
+            EffectiveTotals {
+                mass: 4_600,
+                value: 56
+            }
+        );
+    }
+
+    #[test]
+    fn opened_full_matches_one_unopened_unit() {
+        let unopened = bottle().effective_totals(unopened(1)).unwrap();
+        let opened = bottle()
+            .effective_totals(measured(bottle(), bottle().standard_basis.capacity))
+            .unwrap();
+        assert_eq!(opened, unopened);
+    }
+
+    #[test]
+    fn invalid_profiles_and_rows_are_rejected() {
+        assert_eq!(
+            MeasurementProfile {
+                standard_basis: MeasurementBasis {
+                    capacity: 0,
+                    ..soap().standard_basis
+                },
+                ..soap()
+            }
+            .validate(),
+            Err(MeasurementError::ZeroCapacity)
+        );
+        assert_eq!(
+            MeasurementProfile {
+                standard_basis: MeasurementBasis {
+                    tare_mass: 1,
+                    ..soap().standard_basis
+                },
+                ..soap()
+            }
+            .validate(),
+            Err(MeasurementError::NonContainerHasTare)
+        );
+        assert_eq!(
+            soap().effective_totals(MeasuredInventoryRow {
+                quantity: ItemQuantity::new(2).unwrap(),
+                remaining_amount: Some(50),
+                instance_basis: Some(soap().standard_basis),
+            }),
+            Err(MeasurementError::MeasuredRowIsNotSingleton)
+        );
+        assert_eq!(
+            soap().effective_totals(measured(soap(), 101)),
+            Err(MeasurementError::AmountExceedsCapacity)
+        );
+        assert!(ItemQuantity::new(0).is_none());
+        assert_eq!(prorated_floor(1, 0, 0), Err(MeasurementError::ZeroCapacity));
+    }
+
+    #[test]
+    fn overflow_is_reported_instead_of_saturating() {
+        let profile = MeasurementProfile {
+            kind: MeasurementKind::Containerized,
+            standard_basis: MeasurementBasis {
+                capacity: 1,
+                full_contents_mass: u64::MAX,
+                full_contents_value: 1,
+                tare_mass: 0,
+                tare_value: 0,
+            },
+        };
+        assert_eq!(
+            profile.effective_totals(unopened(2)),
+            Err(MeasurementError::Overflow)
+        );
+        assert_eq!(
+            MeasurementProfile {
+                standard_basis: MeasurementBasis {
+                    tare_mass: 1,
+                    ..profile.standard_basis
+                },
+                ..profile
+            }
+            .validate(),
+            Err(MeasurementError::Overflow)
+        );
+    }
+
+    #[test]
+    fn mass_and_value_are_monotonic() {
+        let mut previous = EffectiveTotals { mass: 0, value: 0 };
+        for amount in 0..=bottle().standard_basis.capacity {
+            let current = bottle()
+                .effective_totals(measured(bottle(), amount))
+                .unwrap();
+            assert!(current.mass >= previous.mass);
+            assert!(current.value >= previous.value);
+            previous = current;
+        }
+    }
+
+    #[test]
+    fn measured_rows_use_their_immutable_instance_basis() {
+        let derived_basis = MeasurementBasis {
+            capacity: 600,
+            full_contents_mass: 900,
+            full_contents_value: 20,
+            tare_mass: 0,
+            tare_value: 0,
+        };
+        let totals = soap()
+            .effective_totals(MeasuredInventoryRow {
+                quantity: ItemQuantity::ONE,
+                remaining_amount: Some(300),
+                instance_basis: Some(derived_basis),
+            })
+            .unwrap();
+        assert_eq!(
+            totals,
+            EffectiveTotals {
+                mass: 450,
+                value: 10
+            }
+        );
+        assert_eq!(
+            soap().effective_totals(MeasuredInventoryRow {
+                quantity: ItemQuantity::ONE,
+                remaining_amount: Some(50),
+                instance_basis: None,
+            }),
+            Err(MeasurementError::MissingInstanceBasis)
+        );
+    }
+
+    #[test]
+    fn bulk_lots_are_always_measured_singletons() {
+        let profile = MeasurementProfile {
+            kind: MeasurementKind::BulkLot,
+            standard_basis: soap().standard_basis,
+        };
+        assert_eq!(
+            profile.effective_totals(unopened(1)),
+            Err(MeasurementError::BulkLotMustBeMeasuredSingleton)
+        );
+        assert_eq!(
+            profile.effective_totals(unopened(3)),
+            Err(MeasurementError::BulkLotMustBeMeasuredSingleton)
+        );
+        assert!(
+            profile
+                .effective_totals(measured(profile, profile.standard_basis.capacity))
+                .is_ok()
+        );
+    }
+
+    #[test]
+    fn partition_rounding_cannot_create_contents_value() {
+        let whole = prorated_floor(11, 750, 750).unwrap();
+        let parts = [1_u64, 100, 249, 400]
+            .into_iter()
+            .map(|amount| prorated_floor(11, amount, 750).unwrap())
+            .sum::<u64>();
+        assert_eq!(1 + 100 + 249 + 400, 750);
+        assert!(parts <= whole);
+
+        for split in 0..=750 {
+            let left = prorated_floor(11, split, 750).unwrap();
+            let right = prorated_floor(11, 750 - split, 750).unwrap();
+            assert!(left + right <= whole);
+        }
+    }
+
+    #[test]
+    fn aggregate_pricing_rounds_once_in_the_required_direction() {
+        let factors = [
+            PricingFactor {
+                numerator: 3,
+                denominator: 2,
+            },
+            PricingFactor {
+                numerator: 5,
+                denominator: 3,
+            },
+        ];
+        assert_eq!(
+            checked_aggregate_price(&[1], &factors, PriceRounding::Floor),
+            Ok(2)
+        );
+        assert_eq!(
+            checked_aggregate_price(&[1], &factors, PriceRounding::Ceil),
+            Ok(3)
+        );
+        assert_eq!(
+            checked_aggregate_price(&[2, 3], &factors, PriceRounding::Floor),
+            Ok(12)
+        );
+        assert_eq!(
+            checked_aggregate_price(&[2, 3], &factors, PriceRounding::Ceil),
+            Ok(13)
+        );
+        assert_eq!(
+            checked_aggregate_price(
+                &[7],
+                &[
+                    PricingFactor {
+                        numerator: u64::MAX,
+                        denominator: u64::MAX,
+                    },
+                    PricingFactor {
+                        numerator: u64::MAX,
+                        denominator: u64::MAX,
+                    },
+                ],
+                PriceRounding::Floor
+            ),
+            Ok(7)
+        );
+    }
+
+    #[test]
+    fn split_sale_cannot_create_player_proceeds() {
+        let factors = [PricingFactor {
+            numerator: 3,
+            denominator: 2,
+        }];
+        let aggregate = checked_aggregate_price(&[1, 1], &factors, PriceRounding::Floor).unwrap();
+        let split = checked_aggregate_price(&[1], &factors, PriceRounding::Floor).unwrap()
+            + checked_aggregate_price(&[1], &factors, PriceRounding::Floor).unwrap();
+        assert_eq!(aggregate, 3);
+        assert_eq!(split, 2);
+        assert!(split <= aggregate);
+
+        let aggregate_sale =
+            checked_aggregate_price(&[1, 1], &factors, PriceRounding::Ceil).unwrap();
+        let split_sale = checked_aggregate_price(&[1], &factors, PriceRounding::Ceil).unwrap()
+            + checked_aggregate_price(&[1], &factors, PriceRounding::Ceil).unwrap();
+        assert_eq!(aggregate_sale, 3);
+        assert_eq!(split_sale, 4);
+    }
+
+    #[test]
+    fn pricing_rejects_invalid_factors_and_overflow() {
+        assert_eq!(
+            checked_aggregate_price(
+                &[1],
+                &[PricingFactor {
+                    numerator: 1,
+                    denominator: 0,
+                }],
+                PriceRounding::Floor
+            ),
+            Err(MeasurementError::InvalidPricingFactor)
+        );
+        assert_eq!(
+            checked_aggregate_price(
+                &[1],
+                &[PricingFactor {
+                    numerator: 0,
+                    denominator: 1,
+                }],
+                PriceRounding::Floor
+            ),
+            Err(MeasurementError::InvalidPricingFactor)
+        );
+        assert_eq!(
+            checked_aggregate_price(&[u64::MAX, 1], &[], PriceRounding::Floor),
+            Err(MeasurementError::Overflow)
+        );
+        assert_eq!(
+            checked_aggregate_price(
+                &[u64::MAX],
+                &[PricingFactor {
+                    numerator: u64::MAX,
+                    denominator: 1,
+                }],
+                PriceRounding::Ceil
+            ),
+            Err(MeasurementError::Overflow)
+        );
+        assert_eq!(
+            checked_aggregate_price(
+                &[1],
+                &[
+                    PricingFactor {
+                        numerator: u64::MAX,
+                        denominator: 1,
+                    },
+                    PricingFactor {
+                        numerator: u64::MAX,
+                        denominator: 1,
+                    },
+                    PricingFactor {
+                        numerator: u64::MAX,
+                        denominator: 1,
+                    },
+                ],
+                PriceRounding::Floor
+            ),
+            Err(MeasurementError::Overflow)
+        );
+    }
+}

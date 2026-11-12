@@ -1,0 +1,7 @@
+{
+  "scope": "private same-machine sealed-evidence copy only",
+  "failure": "The inline copy script looked for MANIFEST.json in the q2333 safe-successor root, but that manifest is named SUCCESSOR-MANIFEST.json. FileNotFoundError occurred before q2333 safe or later sources were copied.",
+  "partial_effects": "Nine named directories through q2333-original were copied before failure; no public checkpoint or product file was changed.",
+  "provenance": "The exact inline command and traceback are in the agent tool transcript; no separate script or traceback file was saved.",
+  "next_step": "Retain and compare all partial copies byte-for-byte with their source before exclusively creating only missing directories."
+}

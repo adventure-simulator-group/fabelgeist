@@ -1,0 +1,65 @@
+ 420                 bind_group_entries.push(wgpu::BindGroupEntry {
+ 421                     binding: *binding,
+ 422                     resource: wgpu::BindingResource::TextureView(view),
+ 423                 });
+ 424             }
+ 425 
+ 426             // 4. Samplers
+ 427             for (name, binding) in &bg_reflection.sampler_bindings {
+ 428                 let val = parameters.get(name).ok_or_else(|| {
+ 429                     anyhow!(
+ 430                         "ComputePass: Parameter '{}' (sampler binding {}) not found",
+ 431                         name,
+ 432                         binding
+ 433                     )
+ 434                 })?;
+ 435 
+ 436                 if let PassParameter::Sampler(s) = val {
+ 437                     if let Some(wgpu_sampler) = &s.sampler {
+ 438                         bind_group_entries.push(wgpu::BindGroupEntry {
+ 439                             binding: *binding,
+ 440                             resource: wgpu::BindingResource::Sampler(wgpu_sampler),
+ 441                         });
+ 442                     } else {
+ 443                         return Err(anyhow!(
+ 444                             "ComputePass: Sampler '{}' has no WGPU resource",
+ 445                             name
+ 446                         ));
+ 447                     }
+ 448                 } else {
+ 449                     return Err(anyhow!(
+ 450                         "ComputePass: Parameter '{}' is not a Sampler",
+ 451                         name
+ 452                     ));
+ 453                 }
+ 454             }
+ 455 
+ 456             let bind_group = context
+ 457                 .device
+ 458                 .create_bind_group(&wgpu::BindGroupDescriptor {
+ 459                     label: Some(&format!(
+ 460                         "ComputePass Group {} Bind Group",
+ 461                         bg_reflection.index
+ 462                     )),
+ 463                     layout,
+ 464                     entries: &bind_group_entries,
+ 465                 });
+ 466             bind_groups.push(bind_group);
+ 467         }
+ 468 
+ 469         // Frame: Compute Pass
+ 470         {
+ 471             let mut compute_pass = encoder.begin_compute_pass(&wgpu::ComputePassDescriptor {
+ 472                 label: Some("ComputePass"),
+ 473                 timestamp_writes: None,
+ 474             });
+ 475             compute_pass.set_pipeline(pipeline);
+ 476             for (i, bg) in bind_groups.iter().enumerate() {
+ 477                 compute_pass.set_bind_group(i as u32, bg, &[]);
+ 478             }
+ 479             compute_pass.dispatch_workgroups(workgroups_x, workgroups_y, workgroups_z);
+ 480         }
+ 481 
+ 482         Ok(())
+ 483     }
+ 484 }

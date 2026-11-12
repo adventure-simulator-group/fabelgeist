@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-stdb-module/src/tactical/request.rs:61-100
+  61                 return Err("Business operator crosses the tactical settlement boundary".into());
+  62             }
+  63             ctx.db
+  64                 .settlement_resident_profile()
+  65                 .character_id()
+  66                 .find(assignment.operator_character_id)
+  67                 .filter(|resident| resident.home_settlement_id == origin_settlement_id.as_str())
+  68                 .ok_or("Business operator is not a resident of its settlement")?;
+  69             let operator_name = ctx
+  70                 .db
+  71                 .character()
+  72                 .id()
+  73                 .find(assignment.operator_character_id)
+  74                 .ok_or("Business operator is missing its Character")?
+  75                 .name;
+  76             Ok(TacticalBusinessOperator {
+  77                 business_id: assignment.business_id,
+  78                 operator_character_id: assignment.operator_character_id,
+  79                 operator_name,
+  80             })
+  81         })
+  82         .collect::<Result<Vec<_>, String>>()?;
+  83     operators.sort_by(|left, right| left.business_id.cmp(&right.business_id));
+  84     Ok(Some(TacticalSettlementSnapshot {
+  85         id: settlement.id,
+  86         population_level: settlement.population_level,
+  87         population_estimate: settlement.population_estimate,
+  88         economy: settlement.economy,
+  89         operators,
+  90     }))
+  91 }
+  92 
+  93 pub(crate) fn tactical_party_roster(
+  94     ctx: &ReducerContext,
+  95     party_id: &str,
+  96 ) -> Result<
+  97     adventuresim_core::mission::TacticalPartyRoster,
+  98     adventuresim_core::mission::TacticalRosterError,
+  99 > {
+ 100     adventuresim_core::mission::TacticalPartyRoster::try_from(

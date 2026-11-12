@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/mod.rs:55-115
+  55 include!("lifecycle.rs");
+  56 include!("socializing.rs");
+  57 include!("courtship_discovery.rs");
+  58 include!("courtship.rs");
+  59 
+  60 /// Process one chronological queue across every globally due relationship
+  61 /// event. Full stable keys are ordered before the bound is applied, and
+  62 /// temporarily deferred player events do not consume capacity.
+  63 pub fn settle_due_lifecycle_events_global(
+  64     ctx: &ReducerContext,
+  65     now: StrategicMinute,
+  66     limit: usize,
+  67 ) -> Result<usize, String> {
+  68     let mut due: Vec<_> = ctx
+  69         .db
+  70         .exclusive_commitment()
+  71         .iter()
+  72         .filter(|row| {
+  73             row.effective_minute <= now
+  74                 && row.status == CommitmentStatus::Reserved
+  75                 && row.kind == CommitmentKind::Engagement
+  76         })
+  77         .map(|row| DueLifecycleEvent::Wedding {
+  78             effective_minute: row.effective_minute,
+  79             id: row.id,
+  80             participant_id: row.first_character_id,
+  81         })
+  82         .chain(
+  83             ctx.db
+  84                 .pregnancy()
+  85                 .iter()
+  86                 .filter(|row| row.due_minute <= now && row.status == PregnancyStatus::Active)
+  87                 .map(|row| DueLifecycleEvent::Birth {
+  88                     effective_minute: row.due_minute,
+  89                     id: row.id,
+  90                     mother_id: row.mother_id,
+  91                 }),
+  92         )
+  93         .collect();
+  94     due.sort_by(|left, right| left.stable_key().cmp(&right.stable_key()));
+  95     due.retain(|event| event.processable(ctx));
+  96     due.truncate(limit);
+  97     let count = due.len();
+  98     for event in due {
+  99         match event {
+ 100             DueLifecycleEvent::Wedding {
+ 101                 effective_minute,
+ 102                 id,
+ 103                 participant_id,
+ 104             } => {
+ 105                 if let Err(error) = settle_due_weddings(ctx, participant_id, effective_minute) {
+ 106                     if let Some(commitment) = ctx.db.exclusive_commitment().id().find(&id) {
+ 107                         transition_commitment_terminal(
+ 108                             ctx,
+ 109                             commitment,
+ 110                             CommitmentStatus::Cancelled,
+ 111                             CommitmentTerminalReason::ResidenceUnavailable,
+ 112                             effective_minute,
+ 113                         )?;
+ 114                     }
+ 115                     record_lifecycle_failure(

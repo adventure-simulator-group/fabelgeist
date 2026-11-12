@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:85-145
+  85     );
+  86     let precipitation = weather.precipitation;
+  87     let package_digest = authoritative_case_route_binding_digest(
+  88         departure_minute,
+  89         &points[0],
+  90         &points[1],
+  91         coordinates_are_geographic,
+  92         distance_m,
+  93         minutes,
+  94     );
+  95     let span = JourneyTerrainSpan {
+  96         kind: JourneyTerrainKind::Open,
+  97         terrain: JourneyTerrainWeights {
+  98             plains: 1_000,
+  99             forest: 0,
+ 100             hills: 0,
+ 101             wetlands: 0,
+ 102             urban: 0,
+ 103         },
+ 104         training_multiplier_permille: 1_000,
+ 105         check_millirank: 0,
+ 106         start_minute: 0,
+ 107         duration_minutes: minutes,
+ 108     };
+ 109     Ok(JourneyRoutePlan {
+ 110         package_digest,
+ 111         weather_rules_version: weather.rules_version,
+ 112         weather_interval_start: weather.interval_start_minute,
+ 113         precipitation,
+ 114         intensity_bps: weather.intensity_bps,
+ 115         ground_moisture_bps: weather.ground_moisture_bps,
+ 116         snow_cover_bps: weather.snow_cover_bps,
+ 117         distance_m,
+ 118         minutes,
+ 119         points: points.clone(),
+ 120         spans: vec![span.clone()],
+ 121         return_route: Some(JourneyRouteLeg {
+ 122             distance_m,
+ 123             minutes,
+ 124             points: points.into_iter().rev().collect(),
+ 125             spans: vec![span],
+ 126         }),
+ 127     })
+ 128 }
+ 129 
+ 130 fn travel_to_case_site_impl(
+ 131     ctx: &ReducerContext,
+ 132     character_id: u64,
+ 133     case_site_id: String,
+ 134     route: Option<JourneyRoutePlan>,
+ 135 ) -> Result<(), String> {
+ 136     crate::character::require_living_character(ctx, character_id)?;
+ 137     let Some(character) = ctx.db.character().id().find(character_id) else {
+ 138         return Err("Character not found".into());
+ 139     };
+ 140     let Some(party_id) = character.party_id.clone() else {
+ 141         return Err("Must be in a party to travel to a case site".into());
+ 142     };
+ 143     let Some(mut party) = ctx.db.party_authority().id().find(&party_id) else {
+ 144         return Err("Party not found".into());
+ 145     };

@@ -1,0 +1,101 @@
+ 600                 quest_reward_addendum: private.reward_addendum,
+ 601             })
+ 602         })
+ 603         .collect()
+ 604 }
+ 605 
+ 606 fn journey_destination_matches(endpoint: &JourneyEndpoint, case_site_id: &CaseSiteId) -> bool {
+ 607     matches!(
+ 608         endpoint,
+ 609         JourneyEndpoint::CaseSite(site) if &site.id == case_site_id
+ 610     )
+ 611 }
+ 612 
+ 613 fn journey_at_bound_trial_camp(journey: &PartyJourney, challenge: &ChallengeAuthority) -> bool {
+ 614     adventuresim_core::errantry::journey_camp_identity_matches(
+ 615         journey.departure_minute,
+ 616         journey.completed_movement_minutes,
+ 617         &journey.reached_camp_movement_minutes,
+ 618         challenge.journey_departure_minute,
+ 619         challenge.camp_movement_minute,
+ 620     ) && journey_destination_matches(&journey.destination, &challenge.finale_case_site_id)
+ 621 }
+ 622 
+ 623 fn journey_at_bound_road_challenge(
+ 624     journey: &PartyJourney,
+ 625     challenge: &RoadChallengeAuthority,
+ 626     origin: NarrativeEncounterOrigin,
+ 627 ) -> bool {
+ 628     match origin {
+ 629         NarrativeEncounterOrigin::ChanceTravel => {
+ 630             journey.departure_minute == challenge.journey_departure_minute
+ 631                 && journey.completed_movement_minutes == challenge.camp_movement_minute
+ 632                 && journey.completed_elapsed_minutes == challenge.available_at_elapsed_minute
+ 633         }
+ 634         NarrativeEncounterOrigin::ChanceRest
+ 635         | NarrativeEncounterOrigin::Errantry
+ 636         | NarrativeEncounterOrigin::DeveloperDemo => {
+ 637             adventuresim_core::errantry::rested_road_trial_camp_matches(
+ 638                 journey.departure_minute,
+ 639                 journey.completed_movement_minutes,
+ 640                 journey.completed_elapsed_minutes,
+ 641                 &journey.reached_camp_movement_minutes,
+ 642                 challenge.journey_departure_minute,
+ 643                 challenge.camp_movement_minute,
+ 644                 challenge.available_at_elapsed_minute,
+ 645             )
+ 646         }
+ 647     }
+ 648 }
+ 649 
+ 650 fn party_at_bound_trial_camp_view(
+ 651     ctx: &ViewContext,
+ 652     party: &Party,
+ 653     challenge: &ChallengeAuthority,
+ 654 ) -> bool {
+ 655     party.current_settlement_id.is_none()
+ 656         && party.current_case_site_id.is_none()
+ 657         && party.camp_destination.is_some()
+ 658         && ctx
+ 659             .db
+ 660             .party_journey_authority()
+ 661             .party_id()
+ 662             .find(&party.id)
+ 663             .is_some_and(|journey| journey_at_bound_trial_camp(&journey, challenge))
+ 664         && !ctx
+ 665             .db
+ 666             .strategic_encounter()
+ 667             .party_id()
+ 668             .find(&party.id)
+ 669             .is_some_and(|encounter| encounter.status == StrategicEncounterStatus::AwaitingChoice)
+ 670 }
+ 671 
+ 672 fn party_at_bound_trial_camp(
+ 673     ctx: &ReducerContext,
+ 674     party: &Party,
+ 675     challenge: &ChallengeAuthority,
+ 676 ) -> bool {
+ 677     party.current_settlement_id.is_none()
+ 678         && party.current_case_site_id.is_none()
+ 679         && party.camp_destination.is_some()
+ 680         && ctx
+ 681             .db
+ 682             .party_journey_authority()
+ 683             .party_id()
+ 684             .find(&party.id)
+ 685             .is_some_and(|journey| journey_at_bound_trial_camp(&journey, challenge))
+ 686         && !ctx
+ 687             .db
+ 688             .strategic_encounter()
+ 689             .party_id()
+ 690             .find(&party.id)
+ 691             .is_some_and(|encounter| encounter.status == StrategicEncounterStatus::AwaitingChoice)
+ 692 }
+ 693 
+ 694 pub(crate) fn party_at_bound_road_challenge_view(
+ 695     ctx: &ViewContext,
+ 696     party: &Party,
+ 697     challenge: &RoadChallengeAuthority,
+ 698 ) -> bool {
+ 699     let Some(private) = ctx
+ 700         .db

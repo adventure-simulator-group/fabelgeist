@@ -1,0 +1,62 @@
+[
+  {
+    "query": {
+      "term": "fn synchronize_party_departure_time",
+      "paths": [
+        "crates/adventuresim-stdb-module/src"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+        "line": 571
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "WORLD_START_MINUTE",
+      "paths": [
+        "crates/adventuresim-world-schema/src/calendar.rs",
+        "crates/adventuresim-stdb-module/src/time.rs"
+      ]
+    },
+    "total": 5,
+    "retained": [
+      {
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "line": 19
+      },
+      {
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "line": 421
+      },
+      {
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "line": 427
+      },
+      {
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "line": 433
+      },
+      {
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "line": 532
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "refresh_clock",
+      "paths": [
+        "crates/adventuresim-stdb-module/src/time.rs"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  }
+]

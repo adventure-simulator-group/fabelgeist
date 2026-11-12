@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-core/src/physiology.rs:45-115
+  45     }
+  46 }
+  47 
+  48 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  49 pub enum BodyMassError {
+  50     NonFinite,
+  51     OutOfRange,
+  52 }
+  53 
+  54 /// Fixed-point medicinal dose where 1,000 milliunits is one standard dose.
+  55 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+  56 pub struct DoseMilliunits(u32);
+  57 
+  58 impl DoseMilliunits {
+  59     pub const MILLIUNITS_PER_STANDARD_DOSE: u32 = 1_000;
+  60     pub const MAX: Self = Self(8 * Self::MILLIUNITS_PER_STANDARD_DOSE);
+  61     pub const MINIMUM_NONZERO: Self = Self(1);
+  62     pub const ZERO: Self = Self(0);
+  63     pub const STANDARD: Self = Self(Self::MILLIUNITS_PER_STANDARD_DOSE);
+  64 
+  65     pub const fn try_new(milliunits: u32) -> Result<Self, DoseError> {
+  66         if milliunits > Self::MAX.0 {
+  67             return Err(DoseError::ExceedsMaximum);
+  68         }
+  69         Ok(Self(milliunits))
+  70     }
+  71 
+  72     pub fn try_from_standard_doses_rounded(standard_doses: f32) -> Result<Self, DoseError> {
+  73         if !standard_doses.is_finite() || standard_doses < 0.0 {
+  74             return Err(DoseError::InvalidMagnitude);
+  75         }
+  76         let milliunits = (standard_doses * Self::MILLIUNITS_PER_STANDARD_DOSE as f32).round();
+  77         if milliunits > Self::MAX.0 as f32 {
+  78             return Err(DoseError::ExceedsMaximum);
+  79         }
+  80         Ok(Self(milliunits as u32))
+  81     }
+  82 
+  83     pub const fn get(self) -> u32 {
+  84         self.0
+  85     }
+  86 
+  87     pub const fn is_zero(self) -> bool {
+  88         self.0 == 0
+  89     }
+  90 
+  91     pub fn as_standard_doses(self) -> f32 {
+  92         self.0 as f32 / Self::MILLIUNITS_PER_STANDARD_DOSE as f32
+  93     }
+  94 }
+  95 
+  96 impl TryFrom<u32> for DoseMilliunits {
+  97     type Error = DoseError;
+  98 
+  99     fn try_from(value: u32) -> Result<Self, Self::Error> {
+ 100         Self::try_new(value)
+ 101     }
+ 102 }
+ 103 
+ 104 impl From<DoseMilliunits> for u32 {
+ 105     fn from(value: DoseMilliunits) -> Self {
+ 106         value.get()
+ 107     }
+ 108 }
+ 109 
+ 110 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 111 pub enum DoseError {
+ 112     InvalidMagnitude,
+ 113     ExceedsMaximum,
+ 114 }
+ 115 

@@ -1,0 +1,22 @@
+{
+  "event": "same-machine verifier correction replay",
+  "cases": [
+    {
+      "case": "keyless",
+      "exit": 0,
+      "stdout_bytes": 134,
+      "stdout_sha256": "424ad7cbe60723bd6bf95c8f7ecaf380fb6468e5a2de267d3eea12eae25ce4ac",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "keyed",
+      "exit": 0,
+      "stdout_bytes": 155,
+      "stdout_sha256": "0a23ee0a8d7234e177d0beb8c1c76eb6390eeff9d633a3ba87f406891b30ae28",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Keyed authentication used the separately held same-machine key. No raw log was restored. This does not establish independent custody or product behavior."
+}

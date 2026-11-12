@@ -1,0 +1,71 @@
+ 620         .ok_or("Character needs not found")?;
+ 621 
+ 622     let needs_plan = elapsed_needs_plan(
+ 623         needs.food_balance_kcal,
+ 624         needs.water_balance_ml,
+ 625         elapsed_minutes,
+ 626         provision,
+ 627     );
+ 628     needs.food_balance_kcal = needs_plan.food_balance_kcal;
+ 629     ctx.db
+ 630         .character_needs()
+ 631         .character_id()
+ 632         .update(needs.clone());
+ 633     if needs_plan.consume_stored_food {
+ 634         crate::food::consume_travel_food_to_zero(ctx, character_id)?;
+ 635     }
+ 636     needs = ctx
+ 637         .db
+ 638         .character_needs()
+ 639         .character_id()
+ 640         .find(character_id)
+ 641         .ok_or("Character needs not found")?;
+ 642 
+ 643     needs.water_balance_ml = needs_plan.water_balance_ml;
+ 644     if needs_plan.consume_stored_water && needs.water_balance_ml < 0.0 {
+ 645         if let Some(party_id) = ctx
+ 646             .db
+ 647             .character()
+ 648             .id()
+ 649             .find(character_id)
+ 650             .and_then(|row| row.party_id)
+ 651         {
+ 652             let party_custody =
+ 653                 adventuresim_core::physical_object::OperationalCustody::party(party_id.clone())
+ 654                     .map_err(|error| error.to_string())?;
+ 655             let contained = crate::inventory_container::consume_contained_water(
+ 656                 ctx,
+ 657                 character_id,
+ 658                 &party_custody,
+ 659                 (-needs.water_balance_ml).max(0.0).ceil() as u64,
+ 660             )?;
+ 661             needs.water_balance_ml += contained as f32;
+ 662         }
+ 663         let personal_custody =
+ 664             adventuresim_core::physical_object::OperationalCustody::character(character_id)
+ 665                 .map_err(|error| error.to_string())?;
+ 666         let contained = crate::inventory_container::consume_contained_water(
+ 667             ctx,
+ 668             character_id,
+ 669             &personal_custody,
+ 670             (-needs.water_balance_ml).max(0.0).ceil() as u64,
+ 671         )?;
+ 672         needs.water_balance_ml += contained as f32;
+ 673     }
+ 674     ctx.db.character_needs().character_id().update(needs);
+ 675     Ok(())
+ 676 }
+ 677 
+ 678 fn total_damage(limbs: &CharacterLimbs) -> f32 {
+ 679     [
+ 680         limbs.left_arm_health,
+ 681         limbs.right_arm_health,
+ 682         limbs.left_leg_health,
+ 683         limbs.right_leg_health,
+ 684         limbs.head_health,
+ 685         limbs.chest_health,
+ 686         limbs.stomach_health,
+ 687     ]
+ 688     .into_iter()
+ 689     .map(|health| (1.0 - health).max(0.0))
+ 690     .sum()

@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:3320-3379
+3320             hearing: 7.0,
+3321             left_arm_strength: 8.0,
+3322             right_arm_strength: 9.0,
+3323             left_leg_strength: 10.0,
+3324             right_leg_strength: 11.0,
+3325             left_arm_agility: 12.0,
+3326             right_arm_agility: 13.0,
+3327             left_leg_agility: 14.0,
+3328             right_leg_agility: 15.0,
+3329         };
+3330         let row = CharacterAttributes::from((41, values.clone()));
+3331         assert_eq!(row.character_id, 41);
+3332         assert_eq!(row.endurance, values.endurance);
+3333         assert_eq!(row.right_leg_agility, values.right_leg_agility);
+3334         assert_eq!(row.values(), values);
+3335 
+3336         let source = crate::production_source(include_str!("character.rs"));
+3337         let row_definition = source
+3338             .split("pub struct CharacterAttributes")
+3339             .nth(1)
+3340             .and_then(|tail| tail.split("impl CharacterAttributes").next())
+3341             .expect("flattened persistence row");
+3342         assert!(row_definition.contains("pub endurance: f32"));
+3343         assert!(row_definition.contains("pub right_leg_agility: f32"));
+3344         assert!(!row_definition.contains("pub values:"));
+3345         assert!(!source.contains("impl std::ops::Deref for CharacterAttributes"));
+3346     }
+3347 
+3348     #[test]
+3349     fn membership_period_is_anchored_to_current_character_time() {
+3350         assert_eq!(
+3351             initial_membership_minutes(StrategicMinute::new(9_000), None),
+3352             (StrategicMinute::new(9_000), StrategicMinute::MAX)
+3353         );
+3354         assert_eq!(
+3355             initial_membership_minutes(StrategicMinute::new(9_000), Some(30)),
+3356             (
+3357                 StrategicMinute::new(9_000),
+3358                 StrategicMinute::new(9_000).saturating_add_days(30)
+3359             )
+3360         );
+3361     }
+3362 
+3363     #[test]
+3364     fn named_character_id_has_a_fixed_versioned_vector() {
+3365         assert_eq!(named_character_id("Ada", 123), 13_606_231_571_106_619_916);
+3366         assert_ne!(
+3367             named_character_id("Ada", 123),
+3368             named_character_id("Ada", 124)
+3369         );
+3370     }
+3371 
+3372     #[test]
+3373     fn herbalism_foraging_demo_resets_mutually_exclusive_presence() {
+3374         let source = crate::production_source(include_str!("character.rs"));
+3375         let fixture = source
+3376             .split("pub(crate) fn seed_herbalism_demo_character")
+3377             .nth(1)
+3378             .unwrap()
+3379             .split("pub(crate) fn seed_bestiary_scholar_character")

@@ -1,0 +1,111 @@
+ 380         nodes[index * 2u + 1u] = vec4<f32>(upper, bitcast<f32>(1u));
+ 381     }} else {{
+ 382         nodes[index * 2u] = vec4<f32>(lower, nodes[index * 2u].w);
+ 383         nodes[index * 2u + 1u] = vec4<f32>(upper, bitcast<f32>(0u));
+ 384     }}
+ 385 }}
+ 386 "#
+ 387     )
+ 388 }
+ 389 
+ 390 /// How a generated traversal names the buffers it reads and the function it
+ 391 /// calls back into.
+ 392 ///
+ 393 /// The defaults match what [`super::GpuBvh::parameters`] binds, so a kernel
+ 394 /// that takes the BVH as-is only needs to set `callback`.
+ 395 #[derive(Clone, Debug)]
+ 396 pub struct TraversalConfig {
+ 397     /// Name of the `fn (primitive: u32)` the traversal calls per hit. It must
+ 398     /// be declared before the generated source.
+ 399     pub callback: String,
+ 400     pub nodes: String,
+ 401     pub right_children: String,
+ 402     pub indices: String,
+ 403     /// Prefix on the generated function names, so that one kernel can
+ 404     /// traverse two different hierarchies.
+ 405     pub prefix: String,
+ 406     /// Traversal stack depth. A Morton hierarchy over duplicate-heavy input
+ 407     /// can get deep, so this is generous by default.
+ 408     pub stack_size: u32,
+ 409 }
+ 410 
+ 411 impl Default for TraversalConfig {
+ 412     fn default() -> Self {
+ 413         Self {
+ 414             callback: "bvh_hit".into(),
+ 415             nodes: "bvh_nodes".into(),
+ 416             right_children: "bvh_right_children".into(),
+ 417             indices: "bvh_indices".into(),
+ 418             prefix: "bvh".into(),
+ 419             stack_size: 64,
+ 420         }
+ 421     }
+ 422 }
+ 423 
+ 424 impl TraversalConfig {
+ 425     pub fn with_callback(callback: impl Into<String>) -> Self {
+ 426         Self {
+ 427             callback: callback.into(),
+ 428             ..Default::default()
+ 429         }
+ 430     }
+ 431 }
+ 432 
+ 433 /// WGSL for walking the hierarchy from inside another kernel.
+ 434 ///
+ 435 /// Generates `<prefix>_query_aabb(lower, upper)` and
+ 436 /// `<prefix>_query_point(point, radius)`, both calling `callback(primitive)`
+ 437 /// for every primitive whose *box* passes. The caller does the exact test --
+ 438 /// the BVH only ever promises candidates.
+ 439 pub fn traversal_source(config: &TraversalConfig) -> String {
+ 440     let TraversalConfig {
+ 441         callback,
+ 442         nodes,
+ 443         right_children,
+ 444         indices,
+ 445         prefix,
+ 446         stack_size,
+ 447     } = config;
+ 448 
+ 449     format!(
+ 450         r#"
+ 451 fn {prefix}_query_aabb(query_lower: vec3<f32>, query_upper: vec3<f32>) {{
+ 452     var stack: array<u32, {stack_size}u>;
+ 453     var depth = 1u;
+ 454     stack[0] = 0u;
+ 455 
+ 456     // A full stack drops the deepest branch rather than writing out of
+ 457     // bounds, so an over-deep tree loses candidates instead of corrupting
+ 458     // memory next door.
+ 459     loop {{
+ 460         if (depth == 0u) {{
+ 461             break;
+ 462         }}
+ 463         depth = depth - 1u;
+ 464         let index = stack[depth];
+ 465 
+ 466         let lower = {nodes}[index * 2u];
+ 467         let upper = {nodes}[index * 2u + 1u];
+ 468         if (any(lower.xyz > query_upper) || any(upper.xyz < query_lower)) {{
+ 469             continue;
+ 470         }}
+ 471 
+ 472         if (bitcast<u32>(upper.w) != 0u) {{
+ 473             {callback}({indices}[bitcast<u32>(lower.w)]);
+ 474         }} else {{
+ 475             if (depth + 2u <= {stack_size}u) {{
+ 476                 stack[depth] = bitcast<u32>(lower.w);
+ 477                 stack[depth + 1u] = {right_children}[index];
+ 478                 depth = depth + 2u;
+ 479             }}
+ 480         }}
+ 481     }}
+ 482 }}
+ 483 
+ 484 fn {prefix}_query_point(point: vec3<f32>, radius: f32) {{
+ 485     let r = vec3<f32>(radius);
+ 486     {prefix}_query_aabb(point - r, point + r);
+ 487 }}
+ 488 "#
+ 489     )
+ 490 }

@@ -1,0 +1,15 @@
+{
+  "event": "second standalone post9e9e evidence verifier failure",
+  "exit": 1,
+  "verifier_sha256": "73816bcd2ddc27fe463ae5e09d9d0f1908438ff884712a0d27f6ff928525df4f",
+  "replayed_raw_log_sha256": "d961eb750f59ef4582c3dc9476ed48782591199d6dac480ba9c5a52d5423bf68",
+  "replayed_raw_log_bytes": 422,
+  "pathsafe_log_sha256": "281b70fa40bf62d309de9779dba5f91248751a939c926036b8b87887ac9a295f",
+  "path_substitutions": 1,
+  "ciphertext_sha256": "dde63e90d1a7ba8ee668db452d8bfe27983274c5acdda912c41274c651b66ce0",
+  "ciphertext_bytes": 450,
+  "associated_data": "726-audit-private-evidence:post9e9e-verifier-second-failure:v1",
+  "reason": "The preparation aggregated paths using pathlib component order, whereas the verifier used string order. Both name and byte sets matched, but aggregate ordering differed.",
+  "correction": "Recompute the aggregate using explicit path-component ordering.",
+  "qualification": "The first occurrence is in the tool transcript, not directly captured. This independently repeated failure retains an exact encrypted replay and a path-safe reconstruction; the separate same-machine key is required. No product execution or audit closure."
+}

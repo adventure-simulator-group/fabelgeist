@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-stdb-module/src/residence.rs:1211-1240
+1211         } else {
+1212             NpcResidenceOutcome::AlreadyOccupant
+1213         });
+1214     }
+1215     ensure_settlement_residence_offers(ctx, home_settlement_id)?;
+1216     let available = crate::item::personal_currency_total(ctx, character_id);
+1217     let now = residence_now(ctx, character_id)?;
+1218     let mut resolved = ctx
+1219         .db
+1220         .settlement_property()
+1221         .settlement_id()
+1222         .filter(home_settlement_id)
+1223         .filter(|property| properties::available_property(ctx, &property.id, now).is_ok())
+1224         .map(|property| {
+1225             let row = offer(ctx, home_settlement_id, property.tier)?;
+1226             Ok((
+1227                 property.id,
+1228                 property.tier,
+1229                 adventuresim_core::npc_policy::NpcHouseOffer {
+1230                     rank: match property.tier {
+1231                         HousingTier::Cheap => 0,
+1232                         HousingTier::Moderate => 1,
+1233                         HousingTier::Fancy => 2,
+1234                     },
+1235                     initial_cost: u64::from(row.rent_per_period),
+1236                     recurring_cost: u64::from(row.rent_per_period),
+1237                 },
+1238             ))
+1239         })
+1240         .collect::<Result<Vec<_>, String>>()?;

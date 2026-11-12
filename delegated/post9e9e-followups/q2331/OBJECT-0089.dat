@@ -1,0 +1,33 @@
+{
+  "registered_utc": "2026-11-12T17:06:53.404408+00:00",
+  "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "path": "baseline-059/queue.json",
+  "scope": "entry contract_id, canonical_owner and first_failed_contract_or_unresolved_question fields only",
+  "patterns": [
+    {
+      "all": [
+        "shader",
+        "parameter"
+      ]
+    },
+    {
+      "all": [
+        "uniform",
+        "shader"
+      ]
+    },
+    {
+      "all": [
+        "binding",
+        "reflection"
+      ]
+    },
+    {
+      "all": [
+        "bind",
+        "group"
+      ]
+    }
+  ],
+  "purpose": "Locate related original 059 diagnostic/default/namespace contracts by index and ID only; retain first 100, print first 20."
+}

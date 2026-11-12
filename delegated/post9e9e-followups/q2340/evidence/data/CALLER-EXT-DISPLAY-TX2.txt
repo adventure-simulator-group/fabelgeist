@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:146-200
+ 146     if party.leader_id != character_id {
+ 147         return Err("Only the party leader can travel".into());
+ 148     }
+ 149     require_no_unresolved_encounter(ctx, &party_id)?;
+ 150     if party.camp_destination.is_some() {
+ 151         return Err("Break camp and continue the current journey first".into());
+ 152     }
+ 153     exact_case_site_for_observer(ctx, character_id, &case_site_id)
+ 154         .ok_or("That exact site has not been disclosed to this observer")?;
+ 155     let expected_settlement_id = party.current_settlement_id.clone();
+ 156     let expected_case_site_id = party.current_case_site_id.clone();
+ 157     if expected_settlement_id.is_some() == expected_case_site_id.is_some() {
+ 158         return Err("Party must be at one authoritative location to travel".into());
+ 159     }
+ 160     if character.current_settlement_id != expected_settlement_id
+ 161         || crate::investigation::character_case_site_id(ctx, character_id)
+ 162             != expected_case_site_id
+ 163                 .as_ref()
+ 164                 .map(|id| id.as_str().to_owned())
+ 165     {
+ 166         return Err("Party leader location does not match the party".into());
+ 167     }
+ 168     if expected_case_site_id
+ 169         .as_ref()
+ 170         .is_some_and(|origin| origin.as_str() == case_site_id)
+ 171     {
+ 172         return Err("The party is already at that case site".into());
+ 173     }
+ 174     require_party_ready(ctx, &party_id)?;
+ 175     let traveler_ids = living_party_member_ids(ctx, &party_id);
+ 176     let Some(departure_minute) = crate::time::synchronize_party_departure_time(ctx, &traveler_ids)?
+ 177     else {
+ 178         return Ok(());
+ 179     };
+ 180     party = revalidate_party_after_departure_sync(
+ 181         ctx,
+ 182         &party_id,
+ 183         character_id,
+ 184         expected_settlement_id.as_deref(),
+ 185         expected_case_site_id.as_deref(),
+ 186         None,
+ 187         false,
+ 188     )?;
+ 189     let (site, lead) = exact_case_site_for_observer(ctx, character_id, &case_site_id)
+ 190         .ok_or("Exact destination knowledge changed during departure synchronization")?;
+ 191     let traveler_ids = living_party_member_ids(ctx, &party_id);
+ 192 
+ 193     let (origin_endpoint, origin_coordinates, origin_is_geographic, departing_settlement) =
+ 194         if let Some(origin_id) = expected_settlement_id.as_deref() {
+ 195             let origin = ctx
+ 196                 .db
+ 197                 .settlement()
+ 198                 .id()
+ 199                 .find(origin_id.to_owned())
+ 200                 .ok_or("Current settlement not found")?;

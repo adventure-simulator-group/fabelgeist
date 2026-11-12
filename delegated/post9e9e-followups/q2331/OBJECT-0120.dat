@@ -1,0 +1,41 @@
+ 240     // rides alongside rather than inside.
+ 241     nodes[i * 2u + 1u].w = bitcast<f32>(0u);
+ 242     right_children[i] = right;
+ 243     parents[left] = i;
+ 244     parents[right] = i;
+ 245 }}
+ 246 "#
+ 247     )
+ 248 }
+ 249 
+ 250 /// Reset every node's bounds to the empty box, ready for the push-up.
+ 251 pub fn clear_bounds_source() -> String {
+ 252     format!(
+ 253         r#"
+ 254 @group(0) @binding(0) var<storage, read_write> node_bounds: array<atomic<u32>>;
+ 255 {PARAMS}
+ 256 @group(0) @binding(1) var<uniform> params: Params;
+ 257 {ORDERED_FLOAT}
+ 258 
+ 259 @compute @workgroup_size(256)
+ 260 fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {{
+ 261     // Six words per node: three for the lower corner, three for the upper.
+ 262     let index = global_id.x;
+ 263     let nodes = 2u * params.count - 1u;
+ 264     if (index >= nodes) {{
+ 265         return;
+ 266     }}
+ 267     let empty_low = ordered_from_float(0x1p+127f);
+ 268     let empty_high = ordered_from_float(-0x1p+127f);
+ 269     atomicStore(&node_bounds[index * 6u + 0u], empty_low);
+ 270     atomicStore(&node_bounds[index * 6u + 1u], empty_low);
+ 271     atomicStore(&node_bounds[index * 6u + 2u], empty_low);
+ 272     atomicStore(&node_bounds[index * 6u + 3u], empty_high);
+ 273     atomicStore(&node_bounds[index * 6u + 4u], empty_high);
+ 274     atomicStore(&node_bounds[index * 6u + 5u], empty_high);
+ 275 }}
+ 276 "#
+ 277     )
+ 278 }
+ 279 
+ 280 /// Bottom-up refit, done by having each leaf push its own box into every

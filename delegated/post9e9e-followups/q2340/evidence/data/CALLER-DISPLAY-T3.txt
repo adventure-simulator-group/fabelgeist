@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:366-425
+ 366 #[expect(
+ 367     clippy::too_many_arguments,
+ 368     reason = "arrival applies each distinct travel, party, and companion outcome"
+ 369 )]
+ 370 fn complete_settlement_arrival(
+ 371     ctx: &ReducerContext,
+ 372     traveler_ids: Vec<u64>,
+ 373     mut party: Option<&mut Party>,
+ 374     destination: &Settlement,
+ 375     settlement_id: &str,
+ 376     departing_case_site: Option<&str>,
+ 377     travel_minutes_to_advance: Option<u64>,
+ 378     rest_temporary_companions: bool,
+ 379 ) -> Result<(), String> {
+ 380     let canonical_excursion = party
+ 381         .as_ref()
+ 382         .and_then(|party| party.wilderness_canonical_anchor_minute)
+ 383         .map(|start| crate::time::refresh_clock(ctx).map(|end| (start, end)))
+ 384         .transpose()?;
+ 385     for traveler_id in traveler_ids {
+ 386         if let Some((canonical_start, canonical_end)) = canonical_excursion {
+ 387             crate::condition::apply_canonical_wilderness_observance(
+ 388                 ctx,
+ 389                 traveler_id,
+ 390                 canonical_start,
+ 391                 canonical_end,
+ 392             )?;
+ 393         }
+ 394         if let Some(travel_minutes) = travel_minutes_to_advance
+ 395             && !advance_travel_time(ctx, traveler_id, travel_minutes)?
+ 396         {
+ 397             return Ok(());
+ 398         }
+ 399         let mut traveler = ctx
+ 400             .db
+ 401             .character()
+ 402             .id()
+ 403             .find(traveler_id)
+ 404             .ok_or("Party member not found")?;
+ 405         traveler.current_settlement_id = Some(settlement_id.to_owned());
+ 406         crate::investigation::set_character_case_site(ctx, traveler.id, None)?;
+ 407         ctx.db.character().id().update(traveler);
+ 408         if !crate::time::synchronize_to_settlement_time_of_day(ctx, traveler_id)? {
+ 409             continue;
+ 410         }
+ 411         crate::condition::replenish_needs_at_settlement(ctx, traveler_id)?;
+ 412         crate::condition::refresh_character_strategic_condition(ctx, traveler_id)?;
+ 413         crate::organization::reconcile_presentation(ctx, traveler_id)?;
+ 414         crate::capability::refresh_character_capability(ctx, traveler_id)?;
+ 415         if rest_temporary_companions {
+ 416             crate::time::rest_temporary_party_member_until_healed_at_settlement(ctx, traveler_id)?;
+ 417         }
+ 418     }
+ 419 
+ 420     if let Some(party) = party.as_mut() {
+ 421         set_party_journey_state(party, Some(settlement_id.to_owned()), None, None, 0);
+ 422         ctx.db.party_authority().id().update((*party).clone());
+ 423         finish_party_journey(ctx, &party.id);
+ 424         let departing_incident = departing_case_site.and_then(|site_id| {
+ 425             ctx.db.strategic_incident().iter().find(|incident| {

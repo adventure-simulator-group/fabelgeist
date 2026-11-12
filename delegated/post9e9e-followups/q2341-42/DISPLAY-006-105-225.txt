@@ -1,0 +1,121 @@
+ 105             average_fatigue_start: segment.average_fatigue_start,
+ 106             average_fatigue_end: segment.average_fatigue_end,
+ 107             maximum_fatigue_end: segment.maximum_fatigue_end,
+ 108         });
+ 109     }
+ 110     camps
+ 111 }
+ 112 
+ 113 fn start_party_journey(
+ 114     ctx: &ReducerContext,
+ 115     party: &Party,
+ 116     origin: JourneyEndpoint,
+ 117     destination: JourneyEndpoint,
+ 118     total_movement_minutes: u64,
+ 119     departure_minute: StrategicMinute,
+ 120     route: Option<&JourneyRoutePlan>,
+ 121 ) -> Result<(), String> {
+ 122     require_no_unresolved_encounter(ctx, &party.id)?;
+ 123     if ctx
+ 124         .db
+ 125         .strategic_encounter()
+ 126         .party_id()
+ 127         .find(&party.id)
+ 128         .is_some()
+ 129     {
+ 130         ctx.db.strategic_encounter().party_id().delete(&party.id);
+ 131     }
+ 132     if ctx
+ 133         .db
+ 134         .party_journey_authority()
+ 135         .party_id()
+ 136         .find(&party.id)
+ 137         .is_some()
+ 138     {
+ 139         ctx.db
+ 140             .party_journey_authority()
+ 141             .party_id()
+ 142             .delete(&party.id);
+ 143     }
+ 144     if ctx
+ 145         .db
+ 146         .party_journey_route_authority()
+ 147         .party_id()
+ 148         .find(&party.id)
+ 149         .is_some()
+ 150     {
+ 151         ctx.db
+ 152             .party_journey_route_authority()
+ 153             .party_id()
+ 154             .delete(&party.id);
+ 155     }
+ 156     let fatigue_percent = party.camp_fatigue_percent;
+ 157     // This authority describes the active leg only. A later return starts its
+ 158     // own journey and itinerary; including a speculative return here doubles
+ 159     // camp exposure and disagrees with movement progress.
+ 160     let itinerary = forecast_itinerary(
+ 161         departure_minute,
+ 162         total_movement_minutes,
+ 163         party.walking_minutes_per_day,
+ 164         party.travel_at_night,
+ 165         &party_itinerary_members(ctx, &party.id)?,
+ 166     )
+ 167     .ok_or("Unable to forecast the party itinerary")?;
+ 168     if itinerary.truncated {
+ 169         return Err("Journey requires too many itinerary checkpoints".into());
+ 170     }
+ 171     // Actual departure ends any uninterrupted site/protection interval before
+ 172     // movement time is committed. Re-entering can create a new guard, but
+ 173     // never retroactively repairs this one.
+ 174     break_party_objective_continuity(ctx, &party.id)?;
+ 175     ctx.db.party_journey_authority().insert(PartyJourney {
+ 176         party_id: party.id.clone(),
+ 177         gateway_bucket: 0,
+ 178         origin,
+ 179         destination,
+ 180         total_movement_minutes,
+ 181         completed_movement_minutes: 0,
+ 182         reached_camp_movement_minutes: Vec::new(),
+ 183         actual_camp_intervals: Vec::new(),
+ 184         forecast_camp_intervals: itinerary_camps(&itinerary),
+ 185         fatigue_percent,
+ 186         departure_minute,
+ 187         total_elapsed_minutes: itinerary.total_elapsed_minutes,
+ 188         completed_elapsed_minutes: 0,
+ 189         walking_minutes_per_day: party.walking_minutes_per_day,
+ 190         travel_at_night: party.travel_at_night,
+ 191     });
+ 192     ctx.db
+ 193         .party_journey_encounter_authority()
+ 194         .insert(PartyJourneyEncounterAuthority {
+ 195             party_id: party.id.clone(),
+ 196             seed: ctx.random(),
+ 197             next_roll: 1,
+ 198             narrative_rest_elapsed_minutes: 0,
+ 199         });
+ 200     if let Some(route) = route {
+ 201         ctx.db
+ 202             .party_journey_route_authority()
+ 203             .insert(PartyJourneyRoute {
+ 204                 party_id: party.id.clone(),
+ 205                 gateway_bucket: 0,
+ 206                 package_digest: route.package_digest.clone(),
+ 207                 weather_rules_version: route.weather_rules_version,
+ 208                 weather_interval_start: route.weather_interval_start,
+ 209                 precipitation: route.precipitation,
+ 210                 intensity_bps: route.intensity_bps,
+ 211                 ground_moisture_bps: route.ground_moisture_bps,
+ 212                 snow_cover_bps: route.snow_cover_bps,
+ 213                 distance_m: route.distance_m,
+ 214                 minutes: route.minutes,
+ 215                 points: route.points.clone(),
+ 216                 spans: route.spans.clone(),
+ 217                 return_route: route.return_route.clone(),
+ 218             });
+ 219     }
+ 220     Ok(())
+ 221 }
+ 222 
+ 223 fn record_party_journey_camp(
+ 224     ctx: &ReducerContext,
+ 225     party_id: &str,

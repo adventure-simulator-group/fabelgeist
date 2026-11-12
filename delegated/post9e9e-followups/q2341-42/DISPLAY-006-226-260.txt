@@ -1,0 +1,35 @@
+ 226     leg_minutes: u64,
+ 227 ) -> Result<(), String> {
+ 228     let Some(mut journey) = ctx
+ 229         .db
+ 230         .party_journey_authority()
+ 231         .party_id()
+ 232         .find(party_id.to_string())
+ 233     else {
+ 234         return Ok(());
+ 235     };
+ 236     journey.completed_movement_minutes = journey
+ 237         .completed_movement_minutes
+ 238         .saturating_add(leg_minutes)
+ 239         .min(journey.total_movement_minutes);
+ 240     journey.completed_elapsed_minutes = journey
+ 241         .completed_elapsed_minutes
+ 242         .saturating_add(leg_minutes);
+ 243     if journey.reached_camp_movement_minutes.last() != Some(&journey.completed_movement_minutes) {
+ 244         journey
+ 245             .reached_camp_movement_minutes
+ 246             .push(journey.completed_movement_minutes);
+ 247     }
+ 248     ctx.db.party_journey_authority().party_id().update(journey);
+ 249     bind_errantry_trials_to_current_camp(ctx, party_id)?;
+ 250     Ok(())
+ 251 }
+ 252 
+ 253 /// One predicate shared by every authoritative consumer that treats a party
+ 254 /// and journey row as an exact reached camp.
+ 255 fn party_journey_is_active(party: &Party, journey: &PartyJourney) -> bool {
+ 256     party.current_settlement_id.is_none()
+ 257         && party.current_case_site_id.is_none()
+ 258         && party.camp_destination.as_ref() == Some(&journey.destination)
+ 259         && journey.completed_movement_minutes < journey.total_movement_minutes
+ 260 }

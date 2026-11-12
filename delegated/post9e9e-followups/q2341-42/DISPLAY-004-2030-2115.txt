@@ -1,0 +1,86 @@
+2030         || session.conversation_id != "organization-representative"
+2031     {
+2032         return Err("Errantry must be accepted in the owning organization dialogue".into());
+2033     }
+2034     let npc = require_live_dialogue_presence(ctx, &session, character_id)?;
+2035     let organization_id =
+2036         exact_organization_representative(ctx, &npc, &session.settlement_id, &session.location_id)
+2037             .ok_or("Dialogue NPC is not an exact chapter representative")?;
+2038     let organization = adventuresim_core::organization::organization(&organization_id)
+2039         .filter(|organization| organization.errantry_issuance)
+2040         .ok_or("This organization cannot issue errantry")?;
+2041     if organization.id != ERRANTRY_ISSUER_ORGANIZATION_ID {
+2042         return Err("Only the Order of St. George can issue this errantry".into());
+2043     }
+2044     let materialized = materialize_order_errantry(
+2045         ctx,
+2046         character_id,
+2047         Some((npc, session.settlement_id, session.location_id)),
+2048         ErrantryLaunch::NormalTravel,
+2049     )?;
+2050     ctx.db
+2051         .order_errantry_acceptance_receipt()
+2052         .insert(OrderErrantryAcceptanceReceipt {
+2053             id: receipt_id,
+2054             dialogue_session_id,
+2055             action_id,
+2056             character_id,
+2057             case_id: materialized.case_id,
+2058             contract_id: materialized.contract_id,
+2059         });
+2060     Ok(())
+2061 }
+2062 
+2063 fn materialize_order_errantry(
+2064     ctx: &ReducerContext,
+2065     character_id: u64,
+2066     issuer_override: Option<(
+2067         crate::settlement_population::SettlementResidentProfile,
+2068         String,
+2069         String,
+2070     )>,
+2071     launch: ErrantryLaunch,
+2072 ) -> Result<MaterializedErrantry, String> {
+2073     let character = crate::character::require_living_character(ctx, character_id)?;
+2074     let party_id = character.party_id.clone().ok_or("Must be in a party")?;
+2075     let mut party = ctx
+2076         .db
+2077         .party_authority()
+2078         .id()
+2079         .find(&party_id)
+2080         .ok_or("Party not found")?;
+2081     if party.leader_id != character_id {
+2082         return Err("Only the party leader can accept or load this errantry".into());
+2083     }
+2084     if let ErrantryLaunch::DirectDemoCamp(puzzle_kind) = launch
+2085         && let Some((challenge, contract)) =
+2086             active_puzzle_demo(ctx, &party_id, character_id, puzzle_kind)
+2087     {
+2088         if let Some(active) = party.active_contract_id.as_deref()
+2089             && active != contract.id
+2090         {
+2091             return Err("Finish or abandon the active quest before loading the puzzle demo".into());
+2092         }
+2093         party.active_contract_id = Some(contract.id.clone());
+2094         ctx.db.party_authority().id().update(party);
+2095         return Ok(MaterializedErrantry {
+2096             case_id: challenge.case_id,
+2097             contract_id: contract.id,
+2098         });
+2099     }
+2100     let origin_settlement_id = character
+2101         .current_settlement_id
+2102         .clone()
+2103         .ok_or("Load a fresh puzzle demo while in a settlement")?;
+2104     let origin_settlement = ctx
+2105         .db
+2106         .settlement()
+2107         .id()
+2108         .find(&origin_settlement_id)
+2109         .ok_or("Current settlement not found")?;
+2110     let (issuer, issuer_settlement_id, issuer_location_id) = issuer_override
+2111         .or_else(|| order_errantry_issuer(ctx))
+2112         .ok_or("No live Order of St. George chapter representative")?;
+2113     if let Some(active) = party.active_contract_id.clone() {
+2114         let active_contract = ctx
+2115             .db

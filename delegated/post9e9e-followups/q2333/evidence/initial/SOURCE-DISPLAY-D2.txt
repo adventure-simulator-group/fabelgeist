@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:546-600
+ 546     if administered_dose.is_zero() {
+ 547         administered_dose = DoseMilliunits::MINIMUM_NONZERO;
+ 548     }
+ 549     crate::disease::administer_intervention_component(
+ 550         ctx,
+ 551         patient_id,
+ 552         &component.intervention_profile_id,
+ 553         component.profile_version,
+ 554         administered_dose,
+ 555     )?;
+ 556     component.potency_units -= standard_doses;
+ 557     let mut liquid = ctx
+ 558         .db
+ 559         .container_liquid()
+ 560         .container_object_id()
+ 561         .find(object_id)
+ 562         .ok_or("Tincture liquid is missing")?;
+ 563     liquid.water_ml = liquid
+ 564         .water_ml
+ 565         .saturating_sub(((liquid.water_ml as f32) * fraction).ceil().max(1.0) as u64);
+ 566     if component.potency_units <= 0.000_001 || liquid.water_ml == 0 {
+ 567         delete_container_medicine(ctx, object_id);
+ 568         ctx.db
+ 569             .container_liquid()
+ 570             .container_object_id()
+ 571             .delete(object_id);
+ 572         crate::inventory_container::merge_empty_container(ctx, object_id)?;
+ 573     } else {
+ 574         ctx.db.medicinal_component().key().update(component);
+ 575         ctx.db
+ 576             .container_liquid()
+ 577             .container_object_id()
+ 578             .update(liquid);
+ 579     }
+ 580     Ok(())
+ 581 }
+ 582 
+ 583 #[cfg(test)]
+ 584 mod tests {
+ 585     #[test]
+ 586     fn tincture_lifecycle_is_private_pinned_consuming_and_transfer_safe() {
+ 587         let source = format!(
+ 588             "{}{}",
+ 589             crate::production_source(include_str!("herbalism.rs")),
+ 590             crate::production_source(include_str!("herbalism/ingredient.rs")),
+ 591         );
+ 592         assert!(source.contains("started_at_world_minute"));
+ 593         assert!(source.contains("pinned_potency_units"));
+ 594         assert!(source.contains("ingredient_object_id"));
+ 595         assert!(source.contains("delete_personal_food_lot"));
+ 596         assert!(source.contains("capped_training_rank"));
+ 597         assert!(source.contains("materialize_mature_tincture"));
+ 598         assert!(!source.contains("removed_herbalism_menu"));
+ 599     }
+ 600 }

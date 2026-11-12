@@ -1,0 +1,442 @@
+{
+  "kind": "Necessary connected L12 collision producers/owners/native recipient evidence; root adoption required",
+  "lens": 12,
+  "at": "2026-10-29T20:59:20.265166+00:00",
+  "rows": [
+    {
+      "original_index": 2481,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "actual_EOF": 55,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-294-CONNECTED-ORIGINAL2481.json",
+      "registration_sha256": "42dd4b18ca945006ab9f0487221abab056e1d8926898a2dbb1be847ab490536d",
+      "assessed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          55
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ColliderCount From9/Display14/bind20; ColliderCapacity::for_count33/fit36/byte_length43"
+        ],
+        "string_inventory": [
+          "collider_count21 raw uniform key crosses PassParameters map to exact WGSL params2329:156; supports existing parameter-key migration, no newuniquealiascount. Count usize privately retained diagnostic while capacity nativeu32 separate explicit allocationpolicy."
+        ],
+        "trace": [
+          "Collisions.set_colliders2328:73 fullhostlen -> ColliderCount -> Capacity.fit36 truncation/for_count33 next_power_of_two then truncation34 -> BufferByteLength44 -> native allocation -> retained capacity/buffer -> ColliderCount.bind20 truncates to nativeu32 -> WGSLfor179 count."
+        ],
+        "conditional_cases": [
+          "Full host count admission does not establish u32 representability; for_count34 next_power_of_two overflow/truncation and fit37 asu32 comparison can disagree with actual host length. Actual >u32 length requires huge source/host memory; no realized asset/runtimewitness. Code docs26 explicitlydescribe retention, not justification to preserve invalid behavior. Native countlimits/error policy needs decision."
+        ]
+      },
+      "new_original_credit": 0,
+      "other_lens_credit": 0,
+      "current_source_reconciled": false,
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-294-LOCATOR-ORIGINAL2481.json",
+        "sha256": "ed7841605a5d98d8a2b0ca6cd17812489e92a98ea4e5b27a1522937d247f589e"
+      }
+    },
+    {
+      "original_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-295-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "836597fe23f165417a284943252775af4f326fb043554c37f43878f2ae9283eb",
+      "assessed_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Collider::new56/plane64/ground69/sphere73/capsule77/with_friction81/with_thickness86/kind91/pack101; pack_colliders212"
+        ],
+        "string_inventory": [
+          "No production String fields. Shape enum carries native payload until native packedkind91->from_bits129->WGSLbitcast2329:40; actualbitcodec justified not categorical magicnumberdefect. Raw Vec3/radii/unitquaternion/finite/friction/thicknesspolicy remains ownnumerical/admission contracts."
+        ],
+        "trace": [
+          "Public Shape::Box center/halfextents/rotation36 orotherconstructor -> Collider publicfields44/new56 -> pack101 -> native16floats/bitkind129/friction130/thickness131 -> pack_colliders212 -> BufferUpload in2328 -> WGSLcollider_surface39 -> nativepositions."
+        ],
+        "conditional_cases": [
+          "Collidernew accepts actualpublic Box withcenter0/positiveextents/unitquat, so boxcenter shader concern notdependent on malformed shape. Frictionzero explicitlegitimate. Zero-lengthcapsule sphere fallbackhost156 andWGSL65 intentional. Finitepositivegeometry/normalizedrotationnotadmittedbyconstructors, policy/nativecontracts open. Futureoriginalscopeexact1..133+212..218; host signed_distance separate nextrow, no hiddenfulloriginalcredit."
+        ]
+      },
+      "new_original_credit": 0,
+      "other_lens_credit": 0,
+      "current_source_reconciled": false,
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-295-LOCATOR-ORIGINAL2482.json",
+        "sha256": "f4cfd3c919958df7b302c98b2630ab0feb6a02211b1c35f792b19fc045788347"
+      }
+    },
+    {
+      "original_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-296-CONNECTED-ORIGINAL2482.json",
+      "registration_sha256": "651c6609d72bd67811c756cba1212d9596a522ba94c4a4a3b06fcb50c944393f",
+      "assessed_ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          134,
+          211
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Collider::signed_distance140..197; quaternion_rotate201/conjugate207"
+        ],
+        "string_inventory": [
+          "No string APIs; actual host mirrored signed-distance normal native math function."
+        ],
+        "trace": [
+          "Admitted finite Boxcenter/extent/unitrotation -> hostlocal177 -> nearestface189 -> Rust f32::signum191 -> rotateddirection194. Exact WGSLlocal79 -> qaxis90 -> WGSLsign91..95 -> collisionresponse121. Native Rustsignum/WGSLsign zero semantics require qualified foreignproof before supported parity conclusion."
+        ],
+        "conditional_cases": [
+          "Potential host/WGSLtie/zero-axisnormal mismatch source trace saved honestly, no runtime/foreignbody coverage. Boxcenter geometricnearestface legitimatelyambiguous but usable finite outwarddirection required to resolve penetration; actual WGSLsign0 expectedzero still needs nativecontractproof. Tiedaxes host q.max_axis vsWGSL>= xpriority may differ but anyfiniteoutwardface at exacttie canbevalid, not automatic defect."
+        ]
+      },
+      "new_original_credit": 0,
+      "other_lens_credit": 0,
+      "current_source_reconciled": false,
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-296-LOCATOR-ORIGINAL2482.json",
+        "sha256": "78528b876a46430d905f4afbe2ca881ea6346aa5c65c0a1837172892e67eb02e"
+      }
+    },
+    {
+      "original_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+      "registration_sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2",
+      "assessed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          205
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "function_contract": {
+        "exact_function_ownership": [
+          "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+        ],
+        "string_inventory": [
+          "Closed reasons62/67/123 distinct exactnonempty/triangleindices/updateextent predicates. Native bufferlabels85/92/97 andbatchlabels170/177 presentation. Rawmesh_positions/mesh_triangles/primitive_bounds/count/margin/pad0/pad1 keys137..145 +193/194 supportexistingGPUparameteridentity. TraversalConfig.callback bvh_hit186 retained raw callable-name protocol -> traversal_source189 -> mesh_source311 text splice -> native bvh_hit284; actualTraversalConfig semanticowner/bodyneeded, not assume samealias as shaderbindingname."
+        ],
+        "trace": [
+          "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+        ],
+        "conditional_cases": [
+          "Normal new validates all triangleindices65 before shaderindex andnonempty61; closesordinaryinvalidindex claim fromunmutatedconstructor. Public positions/triangles/bounds/bvh fields38..44 can independentlyreplace andinconsistentlyretainprivatecounts; real aggregateinstancecontract/callers need rootcanonicalproof. write_positionscast121 before equality means lengths differing2^32 can compareequal, hugeconditional/no actualassetswitness.",
+          "Dynamicwrite_positions120 deliberatelyrequirescallerrecord_refit perdoc118; separate explicitstep legitimate, not automaticallystaleBVH defect. Surface.thickness publiclymutable45 can requireboundrecompute; actualquerymargin335+storedexpandedbounds may safelydoubleexpand, optimization/correctness policyopen. No negativebounds/finitevalues/nativeBVH proofyet."
+        ]
+      },
+      "new_original_credit": 0,
+      "other_lens_credit": 0,
+      "current_source_reconciled": false,
+      "exact_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-297-LOCATOR-ORIGINAL2551.json",
+        "sha256": "fc1c0fa40bb1095b9eea77156ceba18f2502e64a9b7ad6330312f577b29b4330"
+      }
+    },
+    {
+      "original_index": 2329,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/wgsl.rs",
+      "actual_EOF": 413,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-298-CONNECTED-ORIGINAL2329-BOUNDS.json",
+      "registration_sha256": "307091b535bcfd878364f9ba62523a36ff470be4df9a74cf404fc7a497c681a2",
+      "assessed_ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          386,
+          413
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "function_contract": {
+        "exact_function_ownership": [
+          "NativeWGSL TRIANGLE_BOUNDS386..413/main400"
+        ],
+        "string_inventory": [
+          "Native shader fieldnames match actualMeshCollider.record_bounds keys; additive supportpriorparameteridentity, no new count"
+        ],
+        "trace": [
+          "MeshCollider positions/triangles validatednew -> nativebuffers -> count/margin uniforms -> guardedindex402 -> trianglevertices405..407 -> minmaxexpandedbounds410..411 -> nativeBVHbuild/refit -> meshtraversal"
+        ],
+        "conditional_cases": [
+          "Exactpreviouslyexcludedtail386..413 read afterprospective298. Originalordered2329alreadycountproposedonce769 exact1..385; thisconnectedtailcreditzero expandsowncombinedcoverage1..413 without fictitiousfullreread. Wrongpublicbuffer/NaN/negative margin/native trianglecountlimits remain conditional ownerobligations."
+        ]
+      },
+      "new_original_credit": 0,
+      "other_lens_credit": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "PAR-L12-PHYSICS-MESH-TRIANGLES-EMPTY-REASON",
+      "primary_original_index": 2551,
+      "primary_source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "classification": "L12 retained exact predicate; alias/current/native closure open",
+      "first_failed_contract": "new61 sees emptytriangles -> closedprose62",
+      "canonical_owner": "MeshCollider admission error with typed triangle/vertex/count context",
+      "exact_function_ownership": [
+        "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+      ],
+      "connected_repair_scope": [
+        "Exactpredicate retainedthroughpublicMeshconstructor/updatecaller/finaldiagnostic; distinct fromcontactcount/Buffer/nativecompile errors"
+      ],
+      "dependencies": [
+        "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+      ],
+      "acceptance_requirements": [
+        "Structuralpredicate and expected/actual context survive untilfinaldiagnostic; validnonemptyindexedmesh/update modes preserved; no oldprose/API/downcast preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-PHYSICS-MESH-TRIANGLE-VERTEX-INDEX-REASON",
+      "primary_original_index": 2551,
+      "primary_source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "classification": "L12 retained exact predicate; alias/current/native closure open",
+      "first_failed_contract": "new65 sees actualtriangle vertexoutsidepositions.len -> closedprose67",
+      "canonical_owner": "MeshCollider admission error with typed triangle/vertex/count context",
+      "exact_function_ownership": [
+        "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+      ],
+      "connected_repair_scope": [
+        "Exactpredicate retainedthroughpublicMeshconstructor/updatecaller/finaldiagnostic; distinct fromcontactcount/Buffer/nativecompile errors"
+      ],
+      "dependencies": [
+        "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+      ],
+      "acceptance_requirements": [
+        "Structuralpredicate and expected/actual context survive untilfinaldiagnostic; validnonemptyindexedmesh/update modes preserved; no oldprose/API/downcast preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-PHYSICS-MESH-VERTEX-UPDATE-COUNT-REASON",
+      "primary_original_index": 2551,
+      "primary_source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "classification": "L12 retained exact predicate; alias/current/native closure open",
+      "first_failed_contract": "write_positions121 compares truncatedprovidedcount withretainednativecount -> closedprose123",
+      "canonical_owner": "MeshCollider admission error with typed triangle/vertex/count context",
+      "exact_function_ownership": [
+        "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+      ],
+      "connected_repair_scope": [
+        "Exactpredicate retainedthroughpublicMeshconstructor/updatecaller/finaldiagnostic; distinct fromcontactcount/Buffer/nativecompile errors"
+      ],
+      "dependencies": [
+        "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+      ],
+      "acceptance_requirements": [
+        "Structuralpredicate and expected/actual context survive untilfinaldiagnostic; validnonemptyindexedmesh/update modes preserved; no oldprose/API/downcast preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "primary_original_index": 2481,
+      "primary_source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "classification": "Conditional connected numeric admission, impracticallylarge witness unexecuted/native policy pending",
+      "first_failed_contract": "Fullusize ColliderCount feeds truncating asu32 fit37/next_power_of_two truncation34/nativebind21 without representability admission",
+      "canonical_owner": "Collider native-count and capacity conversion policy",
+      "exact_function_ownership": [
+        "ColliderCount From9/Display14/bind20; ColliderCapacity::for_count33/fit36/byte_length43"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Collisions.set_colliders2328:73 fullhostlen -> ColliderCount -> Capacity.fit36 truncation/for_count33 next_power_of_two then truncation34 -> BufferByteLength44 -> native allocation -> retained capacity/buffer -> ColliderCount.bind20 truncates to nativeu32 -> WGSLfor179 count."
+      ],
+      "connected_repair_scope": [
+        "Count producer/set/update/bufferallocation/native uniform; exact overflow/truncation sites separatelyqualify canonicalaliases"
+      ],
+      "dependencies": [
+        "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+      ],
+      "acceptance_requirements": [
+        "Admittedcount/allocation/dispatch represent samecardinality; unrepresentable counts rejected before mutation; no demand preserve truncation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "primary_original_index": 2328,
+      "primary_source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "classification": "Conditional aggregate state after native allocation failure; no injected/runtime failure witness",
+      "first_failed_contract": "set_colliders75 stores newcapacity before Buffer::new76 may Err; buffer replacement79..80 doesnot occur on error, retainedcapacitycan describe largerallocation than oldbuffer",
+      "canonical_owner": "Collisions live analytic buffer/capacity aggregate transition",
+      "exact_function_ownership": [
+        "Collisions::set_colliders72..89; ColliderCapacity::fit36/byte_length43; Buffer::new actualprior2276 body"
+      ],
+      "producer_api_state_consumer_native_boundary": [
+        "Initial16slots -> attempted17colliders sets32capacity -> if nativeallocation Err old16slotbuffer remains -> later20colliders fitRetained37 -> oldbufferwrite checkedextent -> error; this is conditionalfailedtransaction state, not GPU out-of-bounds claim"
+      ],
+      "connected_repair_scope": [
+        "Fallible allocation/upload and retainedbuffer/capacity/CPUlist transition withexactnative error paths"
+      ],
+      "dependencies": [
+        "ActualnativeBuffer::new failure contract/caller retry policy/current/canonical alias; count doc25 explicitly notprooflivebuffer"
+      ],
+      "acceptance_requirements": [
+        "Any returnederror leaves internallyconsistentoldstate or explicitnonusable state; successfulreplacement commitslivebuffer/capacity/list together; no runtime acceptance claimed"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "qualified_future_reuse": {
+    "2481": "rows0 exactfull55, orderedcredit0; useexactreg/hash/locator/attribution andcountonce later",
+    "2482": "row1 exactoriginal1..133+212..218; row2 connected134..211 fillsnecessarywholebody; no extraorderedcredit; exactcountonce later",
+    "2551": "row3 exactfull205, orderedcredit0/countonce later",
+    "2329": "Alreadyoriginalcountproposed769 exact1..385; row4 onlynewtail386..413, zerorecount"
+  },
+  "pending_conditional_case": {
+    "box_normal": "ActualvalidShapeBoxconstructor/pack/hostsigned_distance/WGSLgraph proven; nativeRustsignum/WGSLsign zero contracts stillunread, no supportedruntime finding yet",
+    "bvh_traversal": "Actualrawcallbackbvh_hit/TraversalConfig\u2192nativeWGSL symbol contract; necessaryfuture2550andtraversalgenerator bodypending, no aliasbystringremedy"
+  },
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2481,
+      "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exactcollisionproducer/numerical/aggregate/nativeboundarycontracts"
+    },
+    {
+      "original_index": 2482,
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exactcollisionproducer/numerical/aggregate/nativeboundarycontracts"
+    },
+    {
+      "original_index": 2482,
+      "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exactcollisionproducer/numerical/aggregate/nativeboundarycontracts"
+    },
+    {
+      "original_index": 2551,
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exactcollisionproducer/numerical/aggregate/nativeboundarycontracts"
+    },
+    {
+      "original_index": 2329,
+      "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exactcollisionproducer/numerical/aggregate/nativeboundarycontracts"
+    }
+  ],
+  "new_original_roles": 0,
+  "new_global_identity_credit": 0,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": "None"
+}

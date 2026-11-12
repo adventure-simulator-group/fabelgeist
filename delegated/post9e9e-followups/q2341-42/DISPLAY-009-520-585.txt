@@ -1,0 +1,66 @@
+ 520             end_minute: left.end_minute.min(checkpoint_end),
+ 521             location_id: left.location_id,
+ 522         },
+ 523         LeisureInterval {
+ 524             start_minute: right.start_minute.max(checkpoint_start),
+ 525             end_minute: right.end_minute.min(checkpoint_end),
+ 526             location_id: right.location_id,
+ 527         },
+ 528     )
+ 529 }
+ 530 
+ 531 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 532 pub struct MinuteSpan {
+ 533     pub start_minute: StrategicMinute,
+ 534     pub end_minute: StrategicMinute,
+ 535 }
+ 536 
+ 537 /// Return candidate coverage not already represented by existing spans.
+ 538 /// Existing spans may be unordered, overlapping, or duplicated; the result is
+ 539 /// sorted and disjoint so retries cannot create additional Leisure.
+ 540 pub fn uncovered_minute_spans(
+ 541     candidate: MinuteSpan,
+ 542     existing: impl IntoIterator<Item = MinuteSpan>,
+ 543 ) -> Vec<MinuteSpan> {
+ 544     if candidate.end_minute <= candidate.start_minute {
+ 545         return Vec::new();
+ 546     }
+ 547     let mut covered: Vec<_> = existing
+ 548         .into_iter()
+ 549         .filter_map(|span| {
+ 550             let start = candidate.start_minute.max(span.start_minute);
+ 551             let end = candidate.end_minute.min(span.end_minute);
+ 552             (end > start).then_some(MinuteSpan {
+ 553                 start_minute: start,
+ 554                 end_minute: end,
+ 555             })
+ 556         })
+ 557         .collect();
+ 558     covered.sort_by_key(|span| (span.start_minute, span.end_minute));
+ 559     let mut result = Vec::new();
+ 560     let mut cursor = candidate.start_minute;
+ 561     for span in covered {
+ 562         if span.start_minute > cursor {
+ 563             result.push(MinuteSpan {
+ 564                 start_minute: cursor,
+ 565                 end_minute: span.start_minute,
+ 566             });
+ 567         }
+ 568         cursor = cursor.max(span.end_minute);
+ 569         if cursor >= candidate.end_minute {
+ 570             break;
+ 571         }
+ 572     }
+ 573     if cursor < candidate.end_minute {
+ 574         result.push(MinuteSpan {
+ 575             start_minute: cursor,
+ 576             end_minute: candidate.end_minute,
+ 577         });
+ 578     }
+ 579     result
+ 580 }
+ 581 
+ 582 /// Stable lifecycle identity derived from separately framed context fields.
+ 583 pub fn stable_lifecycle_hash(domain: &str, parts: &[&str]) -> u64 {
+ 584     let fields: Vec<_> = parts.iter().map(|part| part.as_bytes()).collect();
+ 585     fabelgeist_determinism::Seed::derive(

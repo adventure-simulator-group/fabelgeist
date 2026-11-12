@@ -1,0 +1,21 @@
+  15     Settlement { has_inn: bool },
+  16     NamedOutdoorLocation,
+  17     IneligibleNamedLocation,
+  18     JourneyCamp,
+  19 }
+  20 
+  21 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  22 pub enum LocationActivity {
+  23     Carousing,
+  24     Thievery,
+  25     Raiding,
+  26 }
+  27 
+  28 pub const ACTIVITY_SEGMENT_MINUTES: u16 = 15;
+  29 
+  30 impl ActivityLocation {
+  31     /// Site eligibility uses current authority, never an observer-facing ID alias.
+  32     pub const fn case_site(distance_metres: u64, is_incident: bool) -> Self {
+  33         if distance_metres > 0 && !is_incident {
+  34             Self::NamedOutdoorLocation
+  35         } else {

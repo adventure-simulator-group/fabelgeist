@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/family.rs:120-190
+ 120 struct SeededHouseholdPlan {
+ 121     household_id: String,
+ 122     family_key: String,
+ 123     members: Vec<(u64, HouseholdRole)>,
+ 124     kinships: Vec<(u64, u64, KinshipKind)>,
+ 125 }
+ 126 
+ 127 fn seeded_household_plan(
+ 128     settlement_id: &str,
+ 129     family: &[u64],
+ 130 ) -> Result<Option<SeededHouseholdPlan>, String> {
+ 131     let Some(first_character_id) = family.first() else {
+ 132         return Ok(None);
+ 133     };
+ 134     let roles = [
+ 135         HouseholdRole::Head,
+ 136         HouseholdRole::Spouse,
+ 137         HouseholdRole::AdultChild,
+ 138         HouseholdRole::AdultChild,
+ 139     ];
+ 140     if family.len() > roles.len() {
+ 141         return Err("Seeded household exceeds the supported family shape".into());
+ 142     }
+ 143     let members = family.iter().copied().zip(roles).collect();
+ 144     let kinships = if family.len() == roles.len() {
+ 145         let mut edges = Vec::with_capacity(10);
+ 146         for child in [family[2], family[3]] {
+ 147             for parent in [family[0], family[1]] {
+ 148                 edges.push((child, parent, KinshipKind::Parent));
+ 149                 edges.push((parent, child, KinshipKind::Child));
+ 150             }
+ 151         }
+ 152         edges.push((family[2], family[3], KinshipKind::Sibling));
+ 153         edges.push((family[3], family[2], KinshipKind::Sibling));
+ 154         edges
+ 155     } else {
+ 156         Vec::new()
+ 157     };
+ 158     Ok(Some(SeededHouseholdPlan {
+ 159         household_id: format!("household:seeded:{settlement_id}:{first_character_id}"),
+ 160         family_key: format!("seeded:{settlement_id}:{first_character_id}"),
+ 161         members,
+ 162         kinships,
+ 163     }))
+ 164 }
+ 165 
+ 166 pub fn ensure_seeded_family_households(
+ 167     ctx: &ReducerContext,
+ 168     settlement_id: &str,
+ 169     household_groups: &[Vec<u64>],
+ 170 ) -> Result<(), String> {
+ 171     for family in household_groups {
+ 172         let Some(plan) = seeded_household_plan(settlement_id, family)? else {
+ 173             continue;
+ 174         };
+ 175         if ctx.db.household().id().find(&plan.household_id).is_none() {
+ 176             ctx.db.household().insert(Household {
+ 177                 id: plan.household_id.clone(),
+ 178                 home_settlement_id: settlement_id.to_owned(),
+ 179                 created_minute: StrategicMinute::ZERO,
+ 180             });
+ 181         }
+ 182         for &(character_id, role) in &plan.members {
+ 183             join_household(ctx, &plan.household_id, character_id, StrategicMinute::ZERO, role);
+ 184         }
+ 185         let noble = plan.members.iter().any(|(character_id, _)| {
+ 186             crate::social_roles::character_has_profession(ctx, *character_id, "noble")
+ 187                 .unwrap_or(false)
+ 188         });
+ 189         for &(character_id, _) in &plan.members {
+ 190             crate::social_roles::ensure_character_family_role(

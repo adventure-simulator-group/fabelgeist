@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/encounters.rs:580-650
+ 580             selection.roll_index, terrain, selection.party_roll, selection.enemy_roll
+ 581         ),
+ 582     )?;
+ 583     Ok((
+ 584         selection.boundary_minute.saturating_sub(completed),
+ 585         Some(encounter),
+ 586         None,
+ 587         selection.roll_index.saturating_add(1),
+ 588     ))
+ 589 }
+ 590 
+ 591 fn advance_party_movement_until_encounter(
+ 592     ctx: &ReducerContext,
+ 593     party_id: &str,
+ 594     traveler_ids: &[u64],
+ 595     proposed_leg_minutes: u64,
+ 596 ) -> Result<
+ 597     (
+ 598         u64,
+ 599         Option<StrategicEncounter>,
+ 600         Option<adventuresim_core::encounter::NarrativeSelection>,
+ 601         u64,
+ 602     ),
+ 603     String,
+ 604 > {
+ 605     let (requested_leg_minutes, mut encounter, mut narrative, mut next_roll) =
+ 606         maybe_interrupt_travel(ctx, party_id, proposed_leg_minutes)?;
+ 607     let (actual_minutes, _) =
+ 608         advance_party_movement(ctx, party_id, traveler_ids, requested_leg_minutes)?;
+ 609     if actual_minutes < requested_leg_minutes {
+ 610         let (rescanned_minutes, rescanned_encounter, rescanned_narrative, rescanned_next_roll) =
+ 611             maybe_interrupt_travel(ctx, party_id, actual_minutes)?;
+ 612         debug_assert_eq!(rescanned_minutes, actual_minutes);
+ 613         encounter = rescanned_encounter;
+ 614         narrative = rescanned_narrative;
+ 615         next_roll = rescanned_next_roll;
+ 616     }
+ 617     Ok((actual_minutes, encounter, narrative, next_roll))
+ 618 }
+ 619 
+ 620 /// Commits the scan cursor and, when one was found, materializes the encounter
+ 621 /// only after every traveler has reached the same canonical boundary.
+ 622 fn commit_encounter_scan(
+ 623     ctx: &ReducerContext,
+ 624     party_id: &str,
+ 625     next_roll: u64,
+ 626     encounter: Option<StrategicEncounter>,
+ 627     narrative: Option<adventuresim_core::encounter::NarrativeSelection>,
+ 628 ) -> Result<(), String> {
+ 629     let mut authority = ctx
+ 630         .db
+ 631         .party_journey_encounter_authority()
+ 632         .party_id()
+ 633         .find(party_id.to_string())
+ 634         .ok_or("Journey encounter authority is missing")?;
+ 635     authority.next_roll = next_roll;
+ 636     let seed = authority.seed;
+ 637     ctx.db
+ 638         .party_journey_encounter_authority()
+ 639         .party_id()
+ 640         .update(authority);
+ 641 
+ 642     if let Some(selection) = narrative {
+ 643         return materialize_chance_narrative_encounter(
+ 644             ctx,
+ 645             party_id,
+ 646             &selection,
+ 647             NarrativeEncounterOrigin::ChanceTravel,
+ 648         );
+ 649     }
+ 650 

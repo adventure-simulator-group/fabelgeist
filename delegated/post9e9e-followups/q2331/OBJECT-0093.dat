@@ -1,0 +1,61 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2243\u20132245 historical/current kernel bodies, selected reflection/packing, validation, device/cache and buffer sources, pinned wgpu binding semantics.",
+  "observations": {
+    "0": {
+      "contract": "Historical revision and validation observation",
+      "trace": "Historical6533 fast.rs starts its native scope from context.blocking_validation; current95e replaces this with validation_observation.start_scope. Current owned native contexts select BlockingScopes, while borrowed and browser contexts select Uncaptured. In a blocking scope, current CompiledLayout still discards device.poll result, pops the scope and formats a captured wgpu error into an anyhow message. The separately available ValidationScope::finish source preserves progress failure, native failure or both.",
+      "remaining": "Original Adler356 queue149 and delegate740 queue293 describe the same selected historical pipeline-validation formatting operation; their independent records are retained and a global alias is not asserted. The poll-progress loss is a distinct current first outcome. No validation scope, polling, error, pipeline, driver or test ran; actual native completion and final consumers remain open."
+    },
+    "2": {
+      "contract": "Uniform ABI and standard/cached behavior",
+      "trace": "Reflection records a uniform member name, byte offset and size but not scalar kind or vector/matrix shape. Cached write_uniform selects bytes from the supplied PassParameter variant without comparing member size or type; a supplied u32 value1 for a hypothetical f32 member writes integer bits rather than f32 1.0 bits. For a hypothetical reflected scalar at byte12 of a16-byte block, a supplied Vec2 would exceed the block and its put closure silently skips the write before returning Ok. Fast mode reports an omitted member, while the selected general ComputePass source initializes the block to zeros and does nothing for omitted members or unsupported variants.",
+      "remaining": "Original Adler356 queue151 already requires tracing standard packing and no silent out-of-block write; delegate740 separately recorded distinct fast error-reason contracts. No shader, reflection, bytes, cast, output, pass or test ran. Actual valid WGSL layouts, all parameter producers, standard path policies and exact related aliases remain open."
+    },
+    "4": {
+      "contract": "Distinct typed compute failure reasons",
+      "trace": "Cached dispatch creates separately worded errors for missing or non-buffer parameters, missing uniforms and unsupported uniform kinds. Kernel::new separately formats no compute entry or a zero workgroup dimension; KernelBatch::copy_buffer separately formats logical source/destination extent failures. These are original delegate740/741 reason contracts with different first predicates.",
+      "remaining": "A connected error owner can retain distinct reasons without treating them as aliases. Whether a parser reaches the zero-workgroup branch, all native resource causes, final presentation and cross-lens dedup remain open; no error was produced."
+    },
+    "5": {
+      "contract": "Production unwrap and expect rule",
+      "trace": "Current KernelCache::get, len and their RwLock access use unwrap in non-test source. UniformArena::allocate uses expect after the source either already has a chunk or pushes a newly created one. Pinned crates/AGENTS.md forbids unwrap or expect outside tests.",
+      "remaining": "Delegate741 already identified lock unwrap rule cases and delegate740 noted the arena expect. Poisoned-lock behavior is conditional on a writer panic; no poisoning or panic was observed. The arena invariant makes an ordinary missing-chunk failure unproven, even though its direct source conflicts with the stated rule."
+    },
+    "6": {
+      "contract": "Standard GPU pipeline and shader parser causes",
+      "trace": "The separately selected ComputePipeline standard path stores a captured native validation error as text, then compile formats that retained text. The shared parse_naga source formats a GLSL parser error and converts WGSL parser error into diagnostic text. Original delegate749 recorded these as separate native pipeline, GLSL and WGSL first-cause contracts.",
+      "remaining": "These are not aliases of the cached CompiledLayout error at original Adler149/delegate293; each operation and historical identity remains distinct. No shader, parser, pipeline, device, error or test ran. Complete native error consumers, source chains and cross-path reconciliation remain open."
+    }
+  },
+  "uniform_historical": {
+    "id": "ADLER-L11-UNIFORM-ABI-ADMISSION",
+    "queue": 151,
+    "qualification": "Original reflected uniform admission finding including standard/cached behavior."
+  },
+  "candidates": [
+    {
+      "id": "REVIEW-FAST-ZERO-LOGICAL-BINDING-95E",
+      "qualification": "Conditional cached zero-logical binding contrast with original standard-pass q352."
+    },
+    {
+      "id": "REVIEW-KERNEL-VALIDATION-POLL-LOSS-95E",
+      "qualification": "Current validation-scope poll outcome omission distinguished from formatted native cause."
+    },
+    {
+      "id": "REVIEW-KERNEL-CACHE-POISON-HANDLING-95E",
+      "qualification": "Delegate740/741 already noted production expect/unwrap rule cases; current source and rule evidence refine them."
+    }
+  ],
+  "connected_historical_shader_family": {
+    "ledger_id": "REVIEW-GPU-SHADER-PARSE-CAUSES-95E",
+    "queue_indices": [
+      360,
+      361
+    ],
+    "qualification": "The original GLSL and WGSL first causes remain separate named subcontracts and are not aliased to each other or to pipeline validation."
+  },
+  "remaining": "Continue original2246 and all thirteen lenses; native device/context/ABI policies, selected consumer reachability, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

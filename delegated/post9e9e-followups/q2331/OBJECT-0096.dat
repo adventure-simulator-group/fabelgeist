@@ -1,0 +1,43 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2279\u20132280 compute-pass and pipeline bodies, prior historical and e275 reviewer records, selected reflection, native layout and scope source.",
+  "observations": {
+    "1": {
+      "contract": "Separate matrix packers",
+      "trace": "The public bind helper and ComputePass.record each have separate Mat3 arms with the same coarse offset+member.size guard, member.size/3 stride and three-by-three f32 element writes. The prior conditional 12-byte member/block and Mat3 mismatch therefore has the same source-level out-of-bounds request at each distinct operation.",
+      "remaining": "Original151 and delegate2331 already identified ABI and Mat3 admission as open; the helper and compute-pass sites remain distinct, and the cached fast packer is not asserted to share this precise operation. No reflection, shader, buffer or slice ran."
+    },
+    "2": {
+      "contract": "Sparse native group identity",
+      "trace": "ReflectedInterface accumulates groups in a BTreeMap keyed by actual group number, then pushes only present layouts and reflection records into compact vectors. ComputePipeline publishes the dense vector to the native PipelineLayoutDescriptor, whose pinned wgpu source says array position names the set number. ComputePass uses the retained original index to get a layout, then later binds built groups by enumeration position.",
+      "remaining": "Original370 and earlier independently attributed Lens11 626/627 already identified the same first compaction failure and native position rule; the hypothetical sparse group is conditional on supported shader policy and earlier validation may reject before record. No shader, device or native operation ran."
+    },
+    "3": {
+      "contract": "Multiple uniforms and resource capabilities",
+      "trace": "GroupBuilder.uniform overwrites a single uniform_binding and uniform_buffer_size for every uniform resource in a group while accumulating members and layout entries. Image reflection matches dimension and class while discarding other image fields, hard-codes multisampled false, selects WriteOnly for any STORE bit, and classifies all samplers as Filtering.",
+      "remaining": "Earlier e275 Lens11 delegate626 explicitly recorded these distinct questions. They are conditional on admitted multiple blocks or texture/sampler features; the API may deliberately restrict supported shader shapes. No shader, reflection or GPU ran, and no shared remedy implies aliasing these different operations."
+    },
+    "4": {
+      "contract": "Shader, layout and cache identity",
+      "trace": "ComputeShader exposes code and module separately; ComputePipeline.prepare reflects the code, while pipeline creation uses the module. ComputePipeline exposes shader, layouts and reflection, and Clone shares pipeline_cache. The cache key hashes only entry_point and returns a hit before reading device, module or layouts.",
+      "remaining": "Original Adler150 qualification and earlier e275 Lens11 delegate626 already raised mutable shader and cache identity. Public divergent values or cross-device use are conditional, with actual producer ownership and intended immutable lifecycle unresolved. No pipeline, device, mutation or cache lookup ran."
+    },
+    "7": {
+      "contract": "Separate historical error reasons",
+      "trace": "Historical queue339\u2013351 and354\u2013358 separately name missing pipeline/reflection/layout and resource/type conditions, plus pipeline cache/lock/module/entry/reflection conditions. Current source still expresses those selected first checks as separate anyhow prose.",
+      "remaining": "Preserve each original identity and distinguish it from same-worded errors in the separate bind helper; shared repair machinery does not establish aliases. Actual caller need for structured reasons and global aliases remain open. No error ran."
+    }
+  },
+  "sparse_group_historical": {
+    "id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+    "queue": 370,
+    "qualification": "Original distinct pass/pipeline reason or sparse layout identity; preserve original historical and earlier e275 reviewer attribution."
+  },
+  "multiple_uniform_candidate": {
+    "id": "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E",
+    "qualification": "Current source refinement or previously raised conditional owner/policy question; no product execution and no global alias determination."
+  },
+  "remaining": "Continue original2281 and all thirteen lenses. Supported shader group/resource policy, actual cache and device ownership, runtime errors, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,116 @@
+ 440             Self::MalformedEncoding => "malformed strategic identity encoding",
+ 441             Self::UnsupportedVersion => "unsupported strategic identity version",
+ 442             Self::UnknownPlaceKind => "unknown strategic place kind",
+ 443             Self::UnknownFixtureKind => "unknown strategic fixture kind",
+ 444             Self::UnknownVenue => "unknown settlement venue",
+ 445             Self::InvalidComponent => "invalid strategic identity component",
+ 446             Self::InvalidNumber => "invalid strategic identity number",
+ 447             Self::NonCanonicalNumber => "non-canonical strategic identity number",
+ 448             Self::InvalidAssociation => "fixture is not valid for that strategic place",
+ 449         })
+ 450     }
+ 451 }
+ 452 
+ 453 impl std::error::Error for PlaceIdentityError {}
+ 454 
+ 455 impl fmt::Display for StrategicPlaceId {
+ 456     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+ 457         formatter.write_str("place:")?;
+ 458         formatter.write_str(FORMAT_VERSION)?;
+ 459         match self {
+ 460             Self::Settlement { settlement_id } => {
+ 461                 write!(formatter, ":settlement:{}", encode(settlement_id.as_str()))
+ 462             }
+ 463             Self::SettlementVenue {
+ 464                 settlement_id,
+ 465                 kind,
+ 466             } => write!(
+ 467                 formatter,
+ 468                 ":venue:{}:{}",
+ 469                 encode(settlement_id.as_str()),
+ 470                 kind.id()
+ 471             ),
+ 472             Self::ChapterVenue {
+ 473                 settlement_id,
+ 474                 organization_id,
+ 475                 authored_location_id,
+ 476             } => write!(
+ 477                 formatter,
+ 478                 ":chapter:{}:{}:{}",
+ 479                 encode(settlement_id.as_str()),
+ 480                 encode(organization_id.as_str()),
+ 481                 encode(authored_location_id.as_str())
+ 482             ),
+ 483             Self::Residence {
+ 484                 settlement_id,
+ 485                 holding_id,
+ 486             } => write!(
+ 487                 formatter,
+ 488                 ":residence:{}:{}",
+ 489                 encode(settlement_id.as_str()),
+ 490                 encode(holding_id.as_str())
+ 491             ),
+ 492             Self::CaseSite { site_id } => {
+ 493                 write!(formatter, ":case-site:{}", encode(site_id.as_str()))
+ 494             }
+ 495             Self::JourneyCamp {
+ 496                 party_id,
+ 497                 departure_minute,
+ 498                 movement_minute,
+ 499             } => write!(
+ 500                 formatter,
+ 501                 ":journey-camp:{}:{departure_minute}:{movement_minute}",
+ 502                 encode(party_id.as_str())
+ 503             ),
+ 504         }
+ 505     }
+ 506 }
+ 507 
+ 508 impl FromStr for StrategicPlaceId {
+ 509     type Err = PlaceIdentityError;
+ 510 
+ 511     fn from_str(value: &str) -> Result<Self, Self::Err> {
+ 512         if value.len() > MAX_STRATEGIC_PLACE_ID_BYTES {
+ 513             return Err(PlaceIdentityError::MalformedEncoding);
+ 514         }
+ 515         let parts = value.split(':').collect::<Vec<_>>();
+ 516         if parts.first() != Some(&"place") {
+ 517             return Err(PlaceIdentityError::MalformedEncoding);
+ 518         }
+ 519         if parts.get(1) != Some(&FORMAT_VERSION) {
+ 520             return Err(PlaceIdentityError::UnsupportedVersion);
+ 521         }
+ 522         match parts.as_slice() {
+ 523             ["place", _, "settlement", settlement_id] => Self::settlement(decode(settlement_id)?),
+ 524             ["place", _, "venue", settlement_id, kind] => Self::settlement_venue(
+ 525                 decode(settlement_id)?,
+ 526                 SettlementVenueKind::from_id(kind).ok_or(PlaceIdentityError::UnknownVenue)?,
+ 527             ),
+ 528             [
+ 529                 "place",
+ 530                 _,
+ 531                 "chapter",
+ 532                 settlement_id,
+ 533                 organization_id,
+ 534                 authored_location_id,
+ 535             ] => Self::chapter_venue(
+ 536                 decode(settlement_id)?,
+ 537                 decode(organization_id)?,
+ 538                 decode(authored_location_id)?,
+ 539             ),
+ 540             ["place", _, "residence", settlement_id, holding_id] => {
+ 541                 Self::residence(decode(settlement_id)?, decode(holding_id)?)
+ 542             }
+ 543             ["place", _, "case-site", site_id] => Self::case_site(decode(site_id)?),
+ 544             ["place", _, "journey-camp", party_id, departure, movement] => Self::journey_camp(
+ 545                 decode(party_id)?,
+ 546                 StrategicMinute::new(parse_canonical_u64(departure)?),
+ 547                 parse_canonical_u64(movement)?,
+ 548             ),
+ 549             ["place", _, _, ..] => Err(PlaceIdentityError::UnknownPlaceKind),
+ 550             _ => Err(PlaceIdentityError::MalformedEncoding),
+ 551         }
+ 552     }
+ 553 }
+ 554 
+ 555 impl fmt::Display for StrategicFixtureId {

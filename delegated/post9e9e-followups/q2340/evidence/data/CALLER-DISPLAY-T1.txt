@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:245-310
+ 245             )
+ 246         };
+ 247     let destination = decode_position_e7(lead.longitude_e7, lead.latitude_e7, origin_is_geographic)
+ 248         .ok_or("Destination case site has an invalid WGS84 coordinate")?;
+ 249     if let Some(route) = route.as_ref() {
+ 250         validate_route_departure_weather_interval(route, departure_minute)?;
+ 251         validate_journey_route(ctx, route, origin_coordinates, destination)?;
+ 252         validate_return_journey_route(ctx, route, destination, origin_coordinates)?;
+ 253     }
+ 254     let distance_m = straight_line_distance_m(
+ 255         origin_coordinates.0,
+ 256         origin_coordinates.1,
+ 257         destination.0,
+ 258         destination.1,
+ 259         origin_is_geographic,
+ 260     );
+ 261     let travel_minutes = route
+ 262         .as_ref()
+ 263         .map_or_else(|| quest_journey_minutes(distance_m), |route| route.minutes);
+ 264     let route = match route {
+ 265         Some(route) => route,
+ 266         None => authoritative_straight_line_case_route(
+ 267             departure_minute,
+ 268             origin_coordinates,
+ 269             destination,
+ 270             origin_is_geographic,
+ 271             distance_m,
+ 272             travel_minutes,
+ 273         )?,
+ 274     };
+ 275     start_party_journey(
+ 276         ctx,
+ 277         &party,
+ 278         origin_endpoint,
+ 279         JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 280             id: site.id.clone(),
+ 281             name: site.name.clone(),
+ 282         }),
+ 283         travel_minutes,
+ 284         departure_minute,
+ 285         Some(&route),
+ 286     )?;
+ 287     crate::condition::prepare_party_waterskins(ctx, &party_id, departing_settlement)?;
+ 288     for member_id in traveler_ids.iter().copied() {
+ 289         crate::condition::prepare_character_waterskins(ctx, member_id, departing_settlement)?;
+ 290     }
+ 291     let proposed_leg_minutes =
+ 292         travel_minutes.min(party_next_walking_minutes(ctx, &party.id, travel_minutes)?);
+ 293     let (leg_minutes, encounter, narrative, next_roll) = advance_party_movement_until_encounter(
+ 294         ctx,
+ 295         &party_id,
+ 296         &traveler_ids,
+ 297         proposed_leg_minutes,
+ 298     )?;
+ 299     party = ctx
+ 300         .db
+ 301         .party_authority()
+ 302         .id()
+ 303         .find(&party_id)
+ 304         .ok_or("Party changed during travel")?;
+ 305     let interrupted = encounter.is_some() || narrative.is_some();
+ 306     if interrupted || leg_minutes < travel_minutes {
+ 307         for member_id in living_party_member_ids(ctx, &party_id) {
+ 308             let mut member = ctx
+ 309                 .db
+ 310                 .character()

@@ -1,0 +1,196 @@
+{
+  "root_current_receipts": [
+    {
+      "capture": "HISTORICAL-003.dat",
+      "kind": "Separate current selected source adoption; zero original role credit",
+      "at": "2026-10-30T02:43:16.042595+00:00",
+      "component": {
+        "kind": "own-L13-current-selected-body-only-no-original-credit",
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-255-262-001.json",
+          "sha256": "284ce46dc6c4722f39f4ea5fd52d12c957dd58f22dca744842328418c4fbc50d"
+        },
+        "verification": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-CURRENT-255-262-001.json",
+          "sha256": "264098bd8fd4aaf89fb403300d7f467110491da39a95bfc2709ba72658f5abe0"
+        },
+        "source_rows": 12,
+        "original_role_credit": 0,
+        "global_current_credit": 0,
+        "root_adoption_separate": true
+      },
+      "row_count": 12,
+      "source_revision_set": [],
+      "preflight": {
+        "preflight_only": true,
+        "new_batches": [
+          263,
+          264,
+          265,
+          266,
+          267,
+          268,
+          269,
+          270
+        ],
+        "legacy_batches_preserved": [
+          81,
+          262
+        ],
+        "planned_next_original": 1148,
+        "authoritative_writes": 0,
+        "root_personal_rereads": 0,
+        "accepted_unique_count_change": 0,
+        "new_fresh_original_roles": 16,
+        "qualified_ordered_reuses": [
+          1136,
+          1139
+        ],
+        "contract_updates_pending_root_semantic_adoption": 3,
+        "separate_current_selected_source_rows": 12,
+        "current_component_adopted_by_this_writer": false,
+        "runtime_validation": "Not run"
+      },
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0,
+      "runtime_validation": "Not run"
+    },
+    {
+      "capture": "HISTORICAL-004.dat",
+      "kind": "Separate owncurrent selectedsource adoption;0originalrolecredit",
+      "at": "2026-10-30T03:45:13.918830+00:00",
+      "component": [
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-COMPLETION-001.json",
+            "sha256": "5e3dbffad19103ed09855bf938113023a88f653571e14f530b22ad3178d682d9"
+          },
+          "pointers": [
+            "/rows/0",
+            "/rows/1"
+          ]
+        },
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-PRODUCER-001.json",
+            "sha256": "eb634f754e1655fb519bc5146d34390be8779565392124307f1d73bcb56c52e7"
+          },
+          "pointers": [
+            "/rows/0",
+            "/rows/1",
+            "/rows/2",
+            "/rows/3"
+          ]
+        },
+        {
+          "read": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-LOADER-001.json",
+            "sha256": "1b97e44e03c8c450782a2fa7bea6c18f49dc25fc865ef8f11151f764033a6afc"
+          },
+          "pointers": [
+            "/rows/0",
+            "/rows/1",
+            "/rows/2",
+            "/rows/3"
+          ]
+        }
+      ],
+      "row_count": 10,
+      "source_revision_set": [
+        "e2755a732c84e67296b5e3441a4259a84f461b2f"
+      ],
+      "preflight": {
+        "preflight_only": true,
+        "authoritative_writes": 0,
+        "current_selected_source_rows": 10,
+        "current_contract_views": 1,
+        "new_registration_authority_records_not_unique": 4,
+        "original_frontier_unchanged": 1180,
+        "all_other_lenses_queue": {
+          "path": "parallel-l13-20261029/EXTENSION-QUEUE-PL13-CURRENT-ZEROOPTION-001.json",
+          "sha256": "7ede7c0cd5ff0eeb6d5bfae6370690c50f752dbff07afb25340179e0f07c0f78"
+        },
+        "catalogue_frozen_to_e275_delta_separate": true,
+        "remote_main_advance": false,
+        "current_wholecatalogue_closed": false,
+        "body_or_population_credit_from_queue": 0,
+        "product_execution": false
+      },
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0,
+      "runtime_validation": "Not run"
+    },
+    {
+      "capture": "HISTORICAL-005.dat",
+      "kind": "Separatecurrentreachedsubtree/depth dependencyadoption;0originalcredit",
+      "at": "2026-10-30T03:54:15.003390+00:00",
+      "component": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+        "sha256": "82cca9fb43b38371460ee506d466af9885c055140e7df974b72016894c8f0d97"
+      },
+      "row_count": 2,
+      "source_revision_set": [
+        "e2755a732c84e67296b5e3441a4259a84f461b2f"
+      ],
+      "preflight": {
+        "preflight_only": true,
+        "authoritative_writes": 0,
+        "current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "selected_current_rows": 2,
+        "qualified_prior_current_source_components": 2,
+        "exact_full_core_source_union": [
+          [
+            1,
+            256
+          ]
+        ],
+        "new_authority_records_not_unique": 2,
+        "original_frontier_unchanged": 1180,
+        "original_overlay_merged_shared_unique_credit": 0,
+        "all_other_lenses_queue": {
+          "path": "parallel-l13-20261029/EXTENSION-QUEUE-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+          "sha256": "43a992597f91ffef7eb67df25647a853300a4ec9137e6a776ff5217add325f70"
+        },
+        "current_global_closed": false,
+        "product_execution": false
+      },
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0,
+      "runtime_validation": "Not run"
+    }
+  ],
+  "proposal": {
+    "lens": 13,
+    "status": "Typed currentselectedsource adoptionproposal, no authoritywriterexecution",
+    "qualification": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-CURRENT-CATALOGUE-DELTA-001.json",
+      "sha256": "92c90e907d93dbaba5f027694d31739bf78193e9960528499768c09780763dd5"
+    },
+    "contract_updates": [
+      {
+        "contract_id": "PL13-256-MEASURED-ZERO-VOLUME-OPTION-PENDING",
+        "canonical_owner": "crates/adventuresim-stdb-module/src/inventory_container.rs::measured_volume_ml",
+        "first_failed_contract": "Valid remaining fraction with positive mass but measured0ml is mapped to absence; graph forwards OptionNone and core new/insert substitutes full exterior volume.",
+        "source_chain": "Authored currentApple225/.18\u2192build compile_items JSONembedding\u2192corecatalog::catalog typedItemDefinition\u2192nativeitem::project_definition exterior225\u2192public add_fireplace_ingredients admittedpartial999998\u2192retained2micros InventoryItemAmount\u2192native measured_volume_ml0\u2192None\u2192graph\u2192core InventoryObject/insert exteriorfallback+capacitygate.",
+        "disposition": "Retain source-supported exactexistingowner finding; actualcapacityfailure effect conditional on supportedplacement andparentfreecapacity. No universal inability or runtimepass.",
+        "audit_closure_condition": "Existing local zero-vs-absence contract fully documented with exact source-owned producer/consumer and currentselectedsource evidence. Root exactalias and broader currentdeltas remain; no additional runtime needed for audit discovery.",
+        "repair_acceptance": [
+          "Represent measuredzero distinctly from absentmeasurement across nativegraph/coreadmission.",
+          "Use2micros225mlfood case to verifyzero measured stayszero and None fallback remains legitimate for unmeasuredobject.",
+          "Verifycapacityacceptance honors authoritative measuredvolume and rootrepairdependencies; execute tests only later implementation goal."
+        ],
+        "remaining_specific_evidence": [
+          "Global exactalias reconciliation and allregistered populations by root.",
+          "Concrete supported parent placement if alleging a specific capacity-failure incident; current evidence only establishes capacitygate effect conditional."
+        ],
+        "dependencies": [
+          "Core inventory_measurement fraction semantics already qualified own prior source; currentselectedowner bodies here.",
+          "Catalogueadmissionvalidators are called in source; no build/testexecution and no fullcurrentvalidatorclearance."
+        ]
+      }
+    ],
+    "accepted_unique_count_change": 0,
+    "product_execution": false,
+    "global_clearance": false
+  }
+}

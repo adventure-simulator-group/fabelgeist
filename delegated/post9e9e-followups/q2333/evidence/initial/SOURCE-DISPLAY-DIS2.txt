@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-stdb-module/src/disease.rs:2176-2221
+2176         .id()
+2177         .find(inventory_item_id)
+2178         .ok_or("Preparation is not in the patient's inventory")?;
+2179     if inventory.character_id != patient_id || inventory.quantity != 1 {
+2180         return Err("Preparation must be an individual item in the patient's inventory".into());
+2181     }
+2182     let profile = physiology::intervention_profile(&inventory.item_id, profile_version)
+2183         .ok_or("Unknown preparation profile version")?;
+2184     if profile.route != route {
+2185         return Err("Preparation does not support that route".into());
+2186     }
+2187     let now = ctx
+2188         .db
+2189         .character_time()
+2190         .character_id()
+2191         .find(patient_id)
+2192         .ok_or("Patient time not found")?
+2193         .minutes;
+2194     let key = physiology_key(ctx)?;
+2195     let (sensitivity_bps, adverse_bps) =
+2196         private_variation(ctx, patient_id, now, &inventory.item_id)?;
+2197     ctx.db
+2198         .physiology_administration()
+2199         .insert(PhysiologyAdministration {
+2200             id: 0,
+2201             patient_id,
+2202             preparation_id: inventory.item_id,
+2203             profile_version,
+2204             route,
+2205             dose_milliunits: dose.get(),
+2206             region,
+2207             administered_at: now,
+2208             stopped_at: None,
+2209             sensitivity_bps,
+2210             adverse_bps,
+2211             ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+2212             phenotype_key_version: key.version,
+2213         });
+2214     ctx.db.inventory_item().id().delete(inventory_item_id);
+2215     commit_terminal_at_boundary(ctx, patient_id, now)?;
+2216     Ok(())
+2217 }
+2218 
+2219 /// Applies a pinned generic intervention component without consuming a
+2220 /// standalone medication item. Shared carriers (notably food lots) call this with the
+2221 /// exact proportional amount they consumed.

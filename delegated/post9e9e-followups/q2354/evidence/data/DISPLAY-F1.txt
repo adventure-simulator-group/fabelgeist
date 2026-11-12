@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/family.rs:45-120
+  45         return;
+  46     }
+  47     leave_household(ctx, character_id);
+  48     ctx.db.household_member().insert(HouseholdMember {
+  49         id: format!("household:{household_id}:{character_id}"),
+  50         household_id: household_id.to_owned(),
+  51         character_id,
+  52         joined_minute: minute,
+  53         role,
+  54     });
+  55 }
+  56 
+  57 pub fn record_character_birth(ctx: &ReducerContext, character_id: u64, birth_minute: i64) {
+  58     if ctx
+  59         .db
+  60         .character_birth()
+  61         .character_id()
+  62         .find(character_id)
+  63         .is_none()
+  64     {
+  65         ctx.db.character_birth().insert(CharacterBirth {
+  66             character_id,
+  67             birth_minute,
+  68         });
+  69     }
+  70 }
+  71 
+  72 pub fn set_seeded_character_birth_from_age(
+  73     ctx: &ReducerContext,
+  74     character_id: u64,
+  75     age_years: u16,
+  76 ) {
+  77     let row = CharacterBirth {
+  78         character_id,
+  79         birth_minute: StrategicMinute::ZERO.signed_birth_minute_for_age(age_years),
+  80     };
+  81     if ctx
+  82         .db
+  83         .character_birth()
+  84         .character_id()
+  85         .find(character_id)
+  86         .is_some()
+  87     {
+  88         ctx.db.character_birth().character_id().update(row);
+  89     } else {
+  90         ctx.db.character_birth().insert(row);
+  91     }
+  92 }
+  93 
+  94 pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
+  95     ctx.db.character().id().find(character_id)?;
+  96     let birth = ctx.db.character_birth().character_id().find(character_id)?;
+  97     Some(minute.age_years_since_signed_birth(birth.birth_minute))
+  98 }
+  99 
+ 100 /// Refresh the cached display age from the authoritative birth coordinate.
+ 101 /// Calling this at every lifecycle boundary naturally promotes dependents at
+ 102 /// their yearly boundary without granting newborn starter equipment.
+ 103 pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) {
+ 104     let Some(mut character) = ctx.db.character().id().find(character_id) else {
+ 105         return;
+ 106     };
+ 107     let Some(age_years) = effective_age_years(ctx, character_id, minute) else {
+ 108         return;
+ 109     };
+ 110     if character.age_years != age_years {
+ 111         character.age_years = age_years;
+ 112         ctx.db.character().id().update(character);
+ 113     }
+ 114 }
+ 115 
+ 116 /// Turn the deterministic resident roster into coherent authoritative family
+ 117 /// units. Demographics are finalized by settlement population planning before
+ 118 /// character creation; this pass only records roles and relationships.
+ 119 #[derive(Debug, PartialEq, Eq)]
+ 120 struct SeededHouseholdPlan {

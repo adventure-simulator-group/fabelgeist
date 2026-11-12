@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:161-190
+ 161         departure_minute,
+ 162         total_movement_minutes,
+ 163         party.walking_minutes_per_day,
+ 164         party.travel_at_night,
+ 165         &party_itinerary_members(ctx, &party.id)?,
+ 166     )
+ 167     .ok_or("Unable to forecast the party itinerary")?;
+ 168     if itinerary.truncated {
+ 169         return Err("Journey requires too many itinerary checkpoints".into());
+ 170     }
+ 171     // Actual departure ends any uninterrupted site/protection interval before
+ 172     // movement time is committed. Re-entering can create a new guard, but
+ 173     // never retroactively repairs this one.
+ 174     break_party_objective_continuity(ctx, &party.id)?;
+ 175     ctx.db.party_journey_authority().insert(PartyJourney {
+ 176         party_id: party.id.clone(),
+ 177         gateway_bucket: 0,
+ 178         origin,
+ 179         destination,
+ 180         total_movement_minutes,
+ 181         completed_movement_minutes: 0,
+ 182         reached_camp_movement_minutes: Vec::new(),
+ 183         actual_camp_intervals: Vec::new(),
+ 184         forecast_camp_intervals: itinerary_camps(&itinerary),
+ 185         fatigue_percent,
+ 186         departure_minute,
+ 187         total_elapsed_minutes: itinerary.total_elapsed_minutes,
+ 188         completed_elapsed_minutes: 0,
+ 189         walking_minutes_per_day: party.walking_minutes_per_day,
+ 190         travel_at_night: party.travel_at_night,

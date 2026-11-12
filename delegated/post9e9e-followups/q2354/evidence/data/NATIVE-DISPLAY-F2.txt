@@ -1,0 +1,78 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/family.rs:191-267
+ 191                 ctx,
+ 192                 character_id,
+ 193                 &plan.family_key,
+ 194                 noble,
+ 195             )?;
+ 196         }
+ 197         for &(subject_id, related_id, kind) in &plan.kinships {
+ 198             ensure_kinship(ctx, subject_id, related_id, kind, StrategicMinute::ZERO);
+ 199         }
+ 200     }
+ 201     Ok(())
+ 202 }
+ 203 
+ 204 fn father_of_at(
+ 205     ctx: &ReducerContext,
+ 206     child_id: u64,
+ 207     minute: StrategicMinute,
+ 208 ) -> Result<Option<u64>, String> {
+ 209     let father = ctx.db.character_kinship().iter().find_map(|edge| {
+ 210         (edge.subject_id == child_id
+ 211             && edge.kind == KinshipKind::Parent
+ 212             && edge.established_minute <= minute)
+ 213             .then(|| {
+ 214                 ctx.db
+ 215                     .character_personality()
+ 216                     .character_id()
+ 217                     .find(edge.related_id)
+ 218                     .filter(|personality| personality.sex == Sex::Male)
+ 219                     .map(|_| edge.related_id)
+ 220             })
+ 221             .flatten()
+ 222     });
+ 223     let Some(father) = father else {
+ 224         return Ok(None);
+ 225     };
+ 226     if canonical_now(ctx, father)? != minute {
+ 227         return Err("The prospective bride's father has not reached the relationship date".into());
+ 228     }
+ 229     Ok(character_alive_at(ctx, father, minute).then_some(father))
+ 230 }
+ 231 
+ 232 fn relationship_conflicts_at(
+ 233     ctx: &ReducerContext,
+ 234     character_id: u64,
+ 235     minute: StrategicMinute,
+ 236     permitted_courtship_id: Option<&str>,
+ 237 ) -> bool {
+ 238     let courtship_conflict = ctx.db.courtship().iter().any(|row| {
+ 239         (row.first_character_id == character_id || row.second_character_id == character_id)
+ 240             && Some(row.id.as_str()) != permitted_courtship_id
+ 241             && row.started_minute <= minute
+ 242             && row.resolved_minute.is_none_or(|resolved| resolved > minute)
+ 243     });
+ 244     let commitment_conflict = ctx.db.exclusive_commitment().iter().any(|row| {
+ 245         (row.first_character_id == character_id || row.second_character_id == character_id)
+ 246             && row.created_minute <= minute
+ 247             && row.resolved_minute.is_none_or(|resolved| resolved > minute)
+ 248     });
+ 249     let marriage_conflict = ctx.db.marriage().iter().any(|row| {
+ 250         (row.first_character_id == character_id || row.second_character_id == character_id)
+ 251             && row.married_minute <= minute
+ 252             && row.resolved_minute.is_none_or(|resolved| resolved > minute)
+ 253     });
+ 254     courtship_conflict || commitment_conflict || marriage_conflict
+ 255 }
+ 256 
+ 257 fn formal_dowry_amount(father_wealth: u64) -> u32 {
+ 258     if father_wealth >= 300 {
+ 259         100
+ 260     } else if father_wealth >= 100 {
+ 261         45
+ 262     } else if father_wealth >= 30 {
+ 263         15
+ 264     } else {
+ 265         0
+ 266     }
+ 267 }

@@ -1,0 +1,86 @@
+ 245         let next = i128::from(birth_minute).checked_add(
+ 246             i128::try_from(completed.checked_add(1)?).ok()? * i128::from(MINUTES_PER_YEAR),
+ 247         )?;
+ 248         let next = Self::new(u64::try_from(next).ok()?);
+ 249         (self < next && next < end).then_some(next)
+ 250     }
+ 251 
+ 252     /// Zero-based day count since the calendar epoch.
+ 253     pub const fn day_index(self) -> u64 {
+ 254         self.minutes / MINUTES_PER_DAY
+ 255     }
+ 256 
+ 257     pub const fn period_index(self, period_minutes: u64) -> Option<u64> {
+ 258         self.minutes.checked_div(period_minutes)
+ 259     }
+ 260 
+ 261     pub const fn offset_within_interval_minutes(self, interval_minutes: u64) -> Option<u64> {
+ 262         self.minutes.checked_rem(interval_minutes)
+ 263     }
+ 264 
+ 265     /// Cumulative integer allocation for a fixed share of each calendar day.
+ 266     pub const fn cumulative_daily_share_minutes(self, share_minutes: u64) -> u64 {
+ 267         self.minutes.saturating_mul(share_minutes) / MINUTES_PER_DAY
+ 268     }
+ 269 
+ 270     /// Fractional elapsed days for astronomical presentation.
+ 271     pub fn days_since_epoch_f32(self) -> f32 {
+ 272         self.minutes as f32 / MINUTES_PER_DAY as f32
+ 273     }
+ 274 
+ 275     pub const fn day_start(self) -> Self {
+ 276         Self::new(self.day_index() * MINUTES_PER_DAY)
+ 277     }
+ 278 
+ 279     pub const fn day_start_for_index(day_index: u64) -> Self {
+ 280         Self::new(day_index.saturating_mul(MINUTES_PER_DAY))
+ 281     }
+ 282 
+ 283     pub const fn checked_day_start_for_index(day_index: u64) -> Option<Self> {
+ 284         match day_index.checked_mul(MINUTES_PER_DAY) {
+ 285             Some(minutes) => Some(Self::new(minutes)),
+ 286             None => None,
+ 287         }
+ 288     }
+ 289 
+ 290     /// Absolute start of a fixed-width period, if the width and result fit.
+ 291     pub const fn checked_period_start_for_index(
+ 292         period_index: u64,
+ 293         period_minutes: u64,
+ 294     ) -> Option<Self> {
+ 295         if period_minutes == 0 {
+ 296             return None;
+ 297         }
+ 298         match period_index.checked_mul(period_minutes) {
+ 299             Some(minutes) => Some(Self::new(minutes)),
+ 300             None => None,
+ 301         }
+ 302     }
+ 303 
+ 304     /// Advance the time of day while keeping this minute's calendar day.
+ 305     pub const fn wrapping_day_offset(self, elapsed_minutes: u64) -> Self {
+ 306         let minute_of_day =
+ 307             (self.minute_of_day() as u64 + elapsed_minutes % MINUTES_PER_DAY) % MINUTES_PER_DAY;
+ 308         self.day_start().saturating_add_minutes(minute_of_day)
+ 309     }
+ 310 
+ 311     /// Place a local clock reading on this minute's calendar day, wrapping
+ 312     /// elapsed journey time within that day.
+ 313     pub const fn with_wrapped_time_of_day(
+ 314         self,
+ 315         starting_minute_of_day: u16,
+ 316         elapsed_minutes: u64,
+ 317     ) -> Self {
+ 318         let minute_of_day = (starting_minute_of_day as u64 % MINUTES_PER_DAY
+ 319             + elapsed_minutes % MINUTES_PER_DAY)
+ 320             % MINUTES_PER_DAY;
+ 321         self.day_start().saturating_add_minutes(minute_of_day)
+ 322     }
+ 323 
+ 324     pub const fn minute_of_day(self) -> u16 {
+ 325         (self.minutes % MINUTES_PER_DAY) as u16
+ 326     }
+ 327 
+ 328     /// Minutes until a clock position later in the current or next day.
+ 329     pub const fn minutes_until_time_of_day(self, target: u16) -> Option<u16> {
+ 330         if target as u64 > MINUTES_PER_DAY {

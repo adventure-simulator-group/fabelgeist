@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-core/src/physiology.rs:620-649
+ 620     InterventionProfile {
+ 621         preparation_id: crate::item_references::MEDICATION_IDS[12],
+ 622         version: 1,
+ 623         route: InterventionRoute::Oral,
+ 624         duration_minutes: 3 * 60,
+ 625         loss_delta_per_unit: MeterVector::from_const([
+ 626             (Meter::Inflammation, -0.09),
+ 627             (Meter::Neurologic, -0.06),
+ 628         ]),
+ 629         adverse_delta_per_unit: MeterVector::from_const([(Meter::Hydration, 0.06)]),
+ 630     },
+ 631     InterventionProfile {
+ 632         preparation_id: crate::item_references::MEDICATION_IDS[13],
+ 633         version: 1,
+ 634         route: InterventionRoute::Topical,
+ 635         duration_minutes: 12 * 60,
+ 636         loss_delta_per_unit: MeterVector::from_const([
+ 637             (Meter::TissueIntegrity, -0.10),
+ 638             (Meter::Inflammation, -0.05),
+ 639         ]),
+ 640         adverse_delta_per_unit: MeterVector::ZERO,
+ 641     },
+ 642 ];
+ 643 
+ 644 impl MeterVector {
+ 645     const fn from_const<const N: usize>(entries: [(Meter, f32); N]) -> Self {
+ 646         let mut values = [0.0; METER_COUNT];
+ 647         let mut i = 0;
+ 648         while i < N {
+ 649             values[entries[i].0 as usize] = entries[i].1;

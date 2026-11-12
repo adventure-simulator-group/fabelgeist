@@ -1,0 +1,56 @@
+1370             != Some(ERRANTRY_ISSUER_ORGANIZATION_ID)
+1371     {
+1372         return Err("Errantry issuer is not the exact live Order chapter representative".into());
+1373     }
+1374     let case = ctx
+1375         .db
+1376         .case_authority()
+1377         .id()
+1378         .find(&case_id)
+1379         .ok_or("Case not found")?;
+1380     if case.resolution_status != CaseStatus::Open {
+1381         return Err("Case is no longer open".into());
+1382     }
+1383     if !party_at_bound_trial_camp(ctx, &party, &challenge) {
+1384         return Err(
+1385             "The fey trial is available only at its bound camp, after pending encounters".into(),
+1386         );
+1387     }
+1388     if !challenge.is_open() {
+1389         return Err("Challenge is closed".into());
+1390     }
+1391     if challenge.revision != expected_revision {
+1392         return Err("Challenge revision is stale".into());
+1393     }
+1394     let puzzle: adventuresim_puzzles::PuzzleAuthority =
+1395         serde_json::from_str(&challenge.puzzle_json)
+1396             .map_err(|_| "Challenge authority is invalid")?;
+1397     let frame: adventuresim_core::errantry::ErrantryFrame =
+1398         serde_json::from_str(&challenge.errantry_frame_json)
+1399             .map_err(|_| "Errantry frame authority is invalid")?;
+1400     let bound_trial = frame
+1401         .trials
+1402         .iter()
+1403         .find(|trial| trial.challenge_id.as_deref() == Some(&challenge.id))
+1404         .ok_or("Challenge is not bound to its errantry frame")?;
+1405     if bound_trial.site_id
+1406         != format!(
+1407             "journey-camp:{}:{}",
+1408             challenge.journey_departure_minute, challenge.camp_movement_minute
+1409         )
+1410         || bound_trial.kind != adventuresim_core::errantry::TrialKind::Puzzle
+1411     {
+1412         return Err("Errantry trial binding does not match challenge authority".into());
+1413     }
+1414     puzzle
+1415         .validate()
+1416         .map_err(|_| "Challenge authority failed deterministic replay")?;
+1417     let replay = puzzle.replay().map_err(str::to_string)?;
+1418     if replay != puzzle {
+1419         return Err("Challenge deterministic replay does not match authority".into());
+1420     }
+1421     let correct = puzzle
+1422         .check(&submission)
+1423         .map_err(|_| "Puzzle answer does not match this challenge")?;
+1424     let now = crate::time::refresh_clock(ctx)?;
+1425     let resulting_revision = expected_revision.saturating_add(1);

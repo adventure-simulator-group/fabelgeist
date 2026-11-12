@@ -1,0 +1,100 @@
+   1 #[reducer]
+   2 pub fn travel_to_case_site(
+   3     ctx: &ReducerContext,
+   4     character_id: u64,
+   5     case_site_id: CaseSiteId,
+   6 ) -> Result<(), String> {
+   7     require_strategic_gateway(ctx)?;
+   8     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), None)
+   9 }
+  10 
+  11 #[reducer]
+  12 pub fn travel_to_case_site_planned(
+  13     ctx: &ReducerContext,
+  14     character_id: u64,
+  15     case_site_id: CaseSiteId,
+  16     route: JourneyRoutePlan,
+  17 ) -> Result<(), String> {
+  18     require_strategic_gateway(ctx)?;
+  19     travel_to_case_site_impl(ctx, character_id, case_site_id.into_string(), Some(route))
+  20 }
+  21 
+  22 fn authoritative_case_route_binding_digest(
+  23     departure_minute: StrategicMinute,
+  24     origin: &JourneyRoutePoint,
+  25     destination: &JourneyRoutePoint,
+  26     coordinates_are_geographic: bool,
+  27     distance_m: u64,
+  28     minutes: u64,
+  29 ) -> String {
+  30     use sha2::Digest as _;
+  31 
+  32     let mut hash = sha2::Sha256::new();
+  33     for value in [
+  34         b"adventuresim.authoritative-case-route".as_slice(),
+  35         1u16.to_le_bytes().as_slice(),
+  36         departure_minute.get().to_le_bytes().as_slice(),
+  37         origin.latitude_e7.to_le_bytes().as_slice(),
+  38         origin.longitude_e7.to_le_bytes().as_slice(),
+  39         destination.latitude_e7.to_le_bytes().as_slice(),
+  40         destination.longitude_e7.to_le_bytes().as_slice(),
+  41         [u8::from(coordinates_are_geographic)].as_slice(),
+  42         distance_m.to_le_bytes().as_slice(),
+  43         minutes.to_le_bytes().as_slice(),
+  44     ] {
+  45         hash.update((value.len() as u64).to_le_bytes());
+  46         hash.update(value);
+  47     }
+  48     format!("{:x}", hash.finalize())
+  49 }
+  50 
+  51 fn authoritative_straight_line_case_route(
+  52     departure_minute: StrategicMinute,
+  53     origin: (f64, f64),
+  54     destination: (f64, f64),
+  55     coordinates_are_geographic: bool,
+  56     distance_m: u64,
+  57     minutes: u64,
+  58 ) -> Result<JourneyRoutePlan, String> {
+  59     let origin = encode_position_e7(origin.0, origin.1, coordinates_are_geographic)
+  60         .ok_or("Journey origin is not a valid WGS84 coordinate")?;
+  61     let destination = encode_position_e7(destination.0, destination.1, coordinates_are_geographic)
+  62         .ok_or("Journey destination is not a valid WGS84 coordinate")?;
+  63     let points = vec![
+  64         JourneyRoutePoint {
+  65             latitude_e7: origin.latitude_e7,
+  66             longitude_e7: origin.longitude_e7,
+  67         },
+  68         JourneyRoutePoint {
+  69             latitude_e7: destination.latitude_e7,
+  70             longitude_e7: destination.longitude_e7,
+  71         },
+  72     ];
+  73     let origin_microdegrees = adventuresim_world_schema::coordinates::Wgs84CoordinateE7::new(
+  74         points[0].latitude_e7,
+  75         points[0].longitude_e7,
+  76     )
+  77     .map(adventuresim_world_schema::coordinates::Wgs84CoordinateMicrodegrees::from_e7)
+  78     .ok_or("Journey origin is not a valid WGS84 coordinate")?;
+  79     let weather = adventuresim_core::weather::weather_at(
+  80         adventuresim_core::weather::WORLD_WEATHER_SEED,
+  81         departure_minute,
+  82         origin_microdegrees.latitude().get(),
+  83         origin_microdegrees.longitude().get(),
+  84         0,
+  85     );
+  86     let precipitation = weather.precipitation;
+  87     let package_digest = authoritative_case_route_binding_digest(
+  88         departure_minute,
+  89         &points[0],
+  90         &points[1],
+  91         coordinates_are_geographic,
+  92         distance_m,
+  93         minutes,
+  94     );
+  95     let span = JourneyTerrainSpan {
+  96         kind: JourneyTerrainKind::Open,
+  97         terrain: JourneyTerrainWeights {
+  98             plains: 1_000,
+  99             forest: 0,
+ 100             hills: 0,

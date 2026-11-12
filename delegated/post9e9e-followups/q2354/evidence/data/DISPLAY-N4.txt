@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:440-500
+ 440         character_id,
+ 441         policy_seed,
+ 442         day,
+ 443         candidates,
+ 444     )
+ 445     .map_err(|conflict| conflict.to_string())
+ 446 }
+ 447 
+ 448 /// Formal eligibility is directional even though the autonomous candidate
+ 449 /// encounter is not. Normalize an opposite-sex pair so scheduler character
+ 450 /// order cannot turn a father-approved relationship informal. Same-sex and
+ 451 /// otherwise non-formal pairs retain the deterministic actor/candidate order.
+ 452 fn npc_courtship_roles(
+ 453     actor_id: u64,
+ 454     actor_sex: Sex,
+ 455     candidate_id: u64,
+ 456     candidate_sex: Sex,
+ 457 ) -> (u64, u64) {
+ 458     match (actor_sex, candidate_sex) {
+ 459         (Sex::Female, Sex::Male) => (candidate_id, actor_id),
+ 460         _ => (actor_id, candidate_id),
+ 461     }
+ 462 }
+ 463 
+ 464 fn process_policy_decisions(ctx: &ReducerContext, time: &CharacterTime) -> Result<(), String> {
+ 465     let policy = ctx
+ 466         .db
+ 467         .npc_policy()
+ 468         .character_id()
+ 469         .find(time.character_id)
+ 470         .ok_or("NPC causal cohort contains a character without policy")?;
+ 471     let minute = time.minutes;
+ 472     initialize_saved_schedule_once(ctx, time.character_id, policy.policy_seed, minute)?;
+ 473     settle_housing_decision(ctx, time.character_id, &policy.home_settlement_id, minute)?;
+ 474     settle_romance_decision(ctx, time.character_id, policy.policy_seed, minute)?;
+ 475     Ok(())
+ 476 }
+ 477 
+ 478 /// Private recurring scheduler entry point. Lifecycle events are processed
+ 479 /// independently of the NPC batch so a wedding or birth never waits for either
+ 480 /// participant to log in or to be selected for policy advancement.
+ 481 #[reducer]
+ 482 pub fn run_npc_causal_tick(
+ 483     ctx: &ReducerContext,
+ 484     _schedule: NpcCausalSchedule,
+ 485 ) -> Result<(), String> {
+ 486     if ctx.sender() != ctx.database_identity() {
+ 487         return Err("NPC causal processing may only be invoked by its scheduler".into());
+ 488     }
+ 489     let official_minute = crate::time::refresh_clock(ctx)?;
+ 490 
+ 491     crate::relationship::settle_due_lifecycle_events_global(
+ 492         ctx,
+ 493         official_minute,
+ 494         MAX_LIFECYCLE_EVENTS_PER_CAUSAL_TICK,
+ 495     )?;
+ 496 
+ 497     let cohort = stable_npc_cohort(ctx, official_minute);
+ 498     // The cohort observes one exact personal-time frontier. All durable policy
+ 499     // choices are resolved before any member advances, preventing a low id
+ 500     // from gaining an extra day of state that changes a peer's same-frontier

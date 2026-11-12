@@ -1,0 +1,146 @@
+2300         puzzle_json: serde_json::to_string(&puzzle)
+2301             .map_err(|_| "Could not encode puzzle authority")?,
+2302         presenter_catalog_id: ChallengePresenterCatalogId::LadyBeneathThornV1,
+2303         revision: 0,
+2304         solved_at_minute: None,
+2305     });
+2306     ctx.db
+2307         .road_challenge_authority()
+2308         .insert(RoadChallengeAuthority {
+2309             id: courier_challenge_id.clone(),
+2310             gateway_bucket: 0,
+2311             party_id: party_id.clone(),
+2312             case_id: case_id.clone(),
+2313             finale_case_site_id: Some(case_site_id.clone()),
+2314             finale_hostile_group_id: hostile_group_id.clone(),
+2315             journey_departure_minute: StrategicMinute::ZERO,
+2316             camp_movement_minute: 0,
+2317             available_at_elapsed_minute: 0,
+2318             catalog_id: road_definition.id.clone(),
+2319             catalog_revision: road_definition.version,
+2320             catalog_digest: adventuresim_core::road_encounter_catalog::digest().into(),
+2321             absolute_minute: StrategicMinute::ZERO,
+2322             longitude_e7: 0,
+2323             latitude_e7: 0,
+2324             trigger: NarrativeEncounterTrigger::Rest,
+2325             revision: 0,
+2326             resolved_choice: None,
+2327             resolved_deed: None,
+2328             virtue_exemplified: None,
+2329             result_transcript: None,
+2330         });
+2331     crate::world_actor::materialize_road_encounter_cast(
+2332         ctx,
+2333         &courier_challenge_id,
+2334         road_definition,
+2335         now,
+2336     )?;
+2337     ctx.db
+2338         .narrative_encounter_private_authority()
+2339         .insert(NarrativeEncounterPrivateAuthority {
+2340             occurrence_id: courier_challenge_id.clone(),
+2341             origin: NarrativeEncounterOrigin::Errantry,
+2342             case_id: Some(case_id.clone()),
+2343             finale_case_site_id: Some(case_site_id.clone()),
+2344             finale_hostile_group_id: Some(hostile_group_id.clone()),
+2345             reward_eligible: true,
+2346             reward_addendum: None,
+2347         });
+2348     let finale_defenses = vec![
+2349         adventuresim_core::errantry::FinaleDefenseKind::UnnaturalProwess,
+2350         adventuresim_core::errantry::FinaleDefenseKind::Reinforcements,
+2351         adventuresim_core::errantry::FinaleDefenseKind::SupernaturalArmor,
+2352     ];
+2353     ctx.db.errantry_authority().insert(ErrantryAuthority {
+2354         case_id: case_id.clone(),
+2355         contract_id: contract_id.clone(),
+2356         issuer_organization_id: ERRANTRY_ISSUER_ORGANIZATION_ID.into(),
+2357         issuer_resident_character_id: issuer.character_id,
+2358         issuer_settlement_id,
+2359         issuer_location_id,
+2360         finale_case_site_id: case_site_id.clone(),
+2361         finale_hostile_group_id: hostile_group_id,
+2362         preliminary_challenge_ids: vec![challenge_id.clone(), courier_challenge_id],
+2363         finale_defenses_json: serde_json::to_string(&finale_defenses)
+2364             .map_err(|_| "Could not encode finale defenses")?,
+2365     });
+2366     crate::investigation::disclose_exact_case_site(
+2367         ctx,
+2368         character_id,
+2369         &case_id,
+2370         &site,
+2371         "the Order of St. George",
+2372     )?;
+2373     let destination = JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+2374         id: case_site_id,
+2375         name: site.name.clone(),
+2376     });
+2377     party.active_contract_id = Some(contract_id.clone());
+2378     if matches!(launch, ErrantryLaunch::DirectDemoCamp(_)) {
+2379         let camp_movement_minute = 60;
+2380         let camp_elapsed_minute = 60;
+2381         ctx.db.party_journey_authority().insert(PartyJourney {
+2382             party_id: party_id.clone(),
+2383             gateway_bucket: 0,
+2384             origin: JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+2385                 id: origin_settlement_id,
+2386                 name: origin_settlement.name,
+2387             }),
+2388             destination: destination.clone(),
+2389             total_movement_minutes: 120,
+2390             completed_movement_minutes: camp_movement_minute,
+2391             reached_camp_movement_minutes: vec![camp_movement_minute],
+2392             actual_camp_intervals: Vec::new(),
+2393             forecast_camp_intervals: Vec::new(),
+2394             fatigue_percent: party.camp_fatigue_percent,
+2395             departure_minute: now,
+2396             total_elapsed_minutes: 120,
+2397             completed_elapsed_minutes: camp_elapsed_minute,
+2398             walking_minutes_per_day: party.walking_minutes_per_day,
+2399             travel_at_night: party.travel_at_night,
+2400         });
+2401         ctx.db
+2402             .party_journey_encounter_authority()
+2403             .insert(PartyJourneyEncounterAuthority {
+2404                 party_id: party_id.clone(),
+2405                 seed: ctx.random(),
+2406                 next_roll: 1,
+2407                 narrative_rest_elapsed_minutes: 0,
+2408             });
+2409         party.current_settlement_id = None;
+2410         party.current_case_site_id = None;
+2411         party.camp_destination = Some(destination);
+2412         party.camp_remaining_minutes = 60;
+2413         ctx.db.party_authority().id().update(party);
+2414         for member_id in living_party_member_ids(ctx, &party_id) {
+2415             let mut member = ctx
+2416                 .db
+2417                 .character()
+2418                 .id()
+2419                 .find(member_id)
+2420                 .ok_or("Party member not found")?;
+2421             member.current_settlement_id = None;
+2422             crate::investigation::set_character_case_site(ctx, member_id, None)?;
+2423             ctx.db.character().id().update(member);
+2424         }
+2425         bind_errantry_trials_to_current_camp(ctx, &party_id)?;
+2426     } else {
+2427         ctx.db.party_authority().id().update(party);
+2428     }
+2429     Ok(MaterializedErrantry {
+2430         case_id,
+2431         contract_id,
+2432     })
+2433 }
+2434 
+2435 #[cfg(test)]
+2436 mod challenge_source_boundary_tests {
+2437     use super::{
+2438         ChallengeAttemptReceipt, ERRANTRY_FINALE_THREAT_ID, ErrantryChallengeId,
+2439         ErrantryChallengeNamespace, narrative_combat_roll, puzzle_demo_suffix,
+2440         validate_challenge_retry,
+2441     };
+2442 
+2443     #[test]
+2444     fn errantry_challenge_id_requires_the_exact_tagged_shape() {
+2445         let parsed = ErrantryChallengeId::parse("challenge:logic:demo:7:2").unwrap();

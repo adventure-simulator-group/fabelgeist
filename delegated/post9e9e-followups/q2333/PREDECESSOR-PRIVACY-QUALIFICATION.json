@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-12T17:25:59.246593+00:00",
+  "classification": "predecessor withheld from publication: path-value digests are sensitive linkable fingerprints",
+  "predecessor_manifest_sha256": "dd87f8bcbc08e8a5523167b15fe8b69d983ab7d2bfbd3fda766d5ebd53140985",
+  "predecessor_crosswalk_sha256": "4aa65600e59c32ac1e713f84eb31d658b709b80c8655d088ab774b5a5edc1518",
+  "predecessor_archive_sha256": "d656eecf2537ebebdb2f5bb0efcd864400846f5f76fc78b127292a7e09fc0169",
+  "alias_rows": 140,
+  "alias_rows_with_removed_value_sha256": 140,
+  "redaction_edits": 596,
+  "edits_with_removed_value_sha256": 596,
+  "explanation": "Unsalted hashes of removed paths enable equality linkage and candidate-path dictionary matching. Prior privacy scans did not test this path-derived digest corpus; their zero findings do not clear the predecessor.",
+  "action": "Retain the predecessor and the prior scan receipts privately and unchanged. Rebuild from the exact original without publishing path-value digests.",
+  "custody_qualification": "No claim about publication or independent custody is inferred."
+}

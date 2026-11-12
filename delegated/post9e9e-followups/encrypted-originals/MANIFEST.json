@@ -1,0 +1,229 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "q2328-original",
+      "ciphertext": "q2328-original.aesgcm",
+      "ciphertext_sha256": "05b0d6ef3d18e3d0d1a0411e5bc2267be03e07344361f5936570346257aef3e4",
+      "ciphertext_bytes": 189612,
+      "plaintext_archive_sha256": "e343f29cd983b0f82cec2aa7b145323355a07fb37ff4c9110c312fa4964534d1",
+      "plaintext_archive_bytes": 189584,
+      "regular_files": 147,
+      "directories": 14,
+      "associated_data": "726-audit-private-evidence:q2328-original:v1"
+    },
+    {
+      "label": "q2330-original",
+      "ciphertext": "q2330-original.aesgcm",
+      "ciphertext_sha256": "1a4dbaaf03bef7f9dd77a9f700b3f2162947a33e6ae70731631b4b7df3b6d70a",
+      "ciphertext_bytes": 497327,
+      "plaintext_archive_sha256": "ce573c1eca4f6123cafcb3168f706f9b867522fcebf5ddc3ce2264e7591de16b",
+      "plaintext_archive_bytes": 497299,
+      "regular_files": 172,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:q2330-original:v1"
+    },
+    {
+      "label": "q2326-failed-verifier",
+      "ciphertext": "q2326-failed-verifier.aesgcm",
+      "ciphertext_sha256": "5a795cb69b91f7209dcdf7af93803004e05a65fd8495bbe205944c2ce434f79c",
+      "ciphertext_bytes": 1277,
+      "plaintext_archive_sha256": "e177a975ae0147c049dbe17eead834ccd13270cbe26178b97c2b9b3ee05247a1",
+      "plaintext_archive_bytes": 1249,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2326-failed-verifier:v1"
+    },
+    {
+      "label": "q14c-failed-driver",
+      "ciphertext": "q14c-failed-driver.aesgcm",
+      "ciphertext_sha256": "e19041b7a53e84e48889f5c8c62f41d4c424c35c5e327c69108f6392ca482eed",
+      "ciphertext_bytes": 1872,
+      "plaintext_archive_sha256": "6a57240b08cce580fd092e1736b3480be30956978fc6cfa11f542f55121ec690",
+      "plaintext_archive_bytes": 1844,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q14c-failed-driver:v1"
+    },
+    {
+      "label": "q2333-temp-incident-original",
+      "ciphertext": "q2333-temp-incident-original.aesgcm",
+      "ciphertext_sha256": "003122c66cc79252f910db0040811f1001425667497f71bab57373d67df59667",
+      "ciphertext_bytes": 1132,
+      "plaintext_archive_sha256": "95a2627dc4601df91f8ddb0caaa14fc294df3a4e3d26ad455ffab9f51d797f47",
+      "plaintext_archive_bytes": 1104,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2333-temp-incident-original:v1"
+    },
+    {
+      "label": "q2331-original",
+      "ciphertext": "q2331-original.aesgcm",
+      "ciphertext_sha256": "04a3241d9bd20abe75c53cc7321658042a9f38043de544105008e75d5068a1e7",
+      "ciphertext_bytes": 383152,
+      "plaintext_archive_sha256": "08975021b3fefa4595e0ce5fa8decb8443e4dfc7b710075bfaceafd95f8431d3",
+      "plaintext_archive_bytes": 383124,
+      "regular_files": 208,
+      "directories": 24,
+      "associated_data": "726-audit-private-evidence:q2331-original:v1"
+    },
+    {
+      "label": "q2331-key",
+      "ciphertext": "q2331-key.aesgcm",
+      "ciphertext_sha256": "174d66bb71d7d5fabbffe51299e2143ba0f51c9d4b88a274be70adc6dde61cb8",
+      "ciphertext_bytes": 191,
+      "plaintext_archive_sha256": "5051de59a8761fd920b4779fa948bea563f5a6e1fbfb067ccc9d9388bfff5a27",
+      "plaintext_archive_bytes": 163,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2331-key:v1"
+    },
+    {
+      "label": "q2332-original",
+      "ciphertext": "q2332-original.aesgcm",
+      "ciphertext_sha256": "126b96216d20fa0547e40effd5da0187a20691168896fa9c667e46463f433bbe",
+      "ciphertext_bytes": 1167597,
+      "plaintext_archive_sha256": "c6a06a571c9cd85cc0bb258bbccf12f078e3f814fae11fef48f3e8e1b203de21",
+      "plaintext_archive_bytes": 1167569,
+      "regular_files": 277,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:q2332-original:v1"
+    },
+    {
+      "label": "q2333-original",
+      "ciphertext": "q2333-original.aesgcm",
+      "ciphertext_sha256": "54612bd681df3cecf5195f16e6a39d678ab414d6d8a8dd3a23a9eece0e44ce71",
+      "ciphertext_bytes": 593668,
+      "plaintext_archive_sha256": "390d7917cab70043bf0bdaa3bc0141f78f349bf3c121086234f1466ab7d52c65",
+      "plaintext_archive_bytes": 593640,
+      "regular_files": 260,
+      "directories": 35,
+      "associated_data": "726-audit-private-evidence:q2333-original:v1"
+    },
+    {
+      "label": "q2333-external-anchors",
+      "ciphertext": "q2333-external-anchors.aesgcm",
+      "ciphertext_sha256": "d4063a9ffe2ffb2857b387c1e7f84ea0591fe565a45adb7cfade64d4ef5962a1",
+      "ciphertext_bytes": 3087745,
+      "plaintext_archive_sha256": "e0635cdfaf4f4c6fd72a6285836d02d9f1aa090fb0b59f9259dc838b1c052538",
+      "plaintext_archive_bytes": 3087717,
+      "regular_files": 7,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2333-external-anchors:v1"
+    },
+    {
+      "label": "q2333-withheld-predecessor",
+      "ciphertext": "q2333-withheld-predecessor.aesgcm",
+      "ciphertext_sha256": "7122037cff65723d61b0e62f1b741b77194897efb97799ce67569546403d2763",
+      "ciphertext_bytes": 649337,
+      "plaintext_archive_sha256": "e3fdafb2c15f24d2a2e984b5258551799cf96c8ea7228ec2a9da56f38a4186dc",
+      "plaintext_archive_bytes": 649309,
+      "regular_files": 268,
+      "directories": 36,
+      "associated_data": "726-audit-private-evidence:q2333-withheld-predecessor:v1"
+    },
+    {
+      "label": "q2333-withheld-delivery",
+      "ciphertext": "q2333-withheld-delivery.aesgcm",
+      "ciphertext_sha256": "782bf2350491be0105353847112f10dc7df0f2faa5873abb2e5233eaf9f0fd3f",
+      "ciphertext_bytes": 675896,
+      "plaintext_archive_sha256": "89b48eae0345cb0ae994d6cbee2a216dc8ec493cb3a1999cfa955e36743b3339",
+      "plaintext_archive_bytes": 675868,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2333-withheld-delivery:v1"
+    },
+    {
+      "label": "q2336-37-original",
+      "ciphertext": "q2336-37-original.aesgcm",
+      "ciphertext_sha256": "41d3d870288cfde3c65795e6016db38b8c9957885c585dd55229685607b782d9",
+      "ciphertext_bytes": 324975,
+      "plaintext_archive_sha256": "4605ccec77ea7a82540615c6bad654f84b1c0a0a69139c5524eadca674323d7d",
+      "plaintext_archive_bytes": 324947,
+      "regular_files": 228,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:q2336-37-original:v1"
+    },
+    {
+      "label": "q2340-original",
+      "ciphertext": "q2340-original.aesgcm",
+      "ciphertext_sha256": "d3df76e550b85891a95568c1c6252a6bc84de860fcce12fe28ae8afc711b087e",
+      "ciphertext_bytes": 1071554,
+      "plaintext_archive_sha256": "4c267f3981adc7b15e52e3119490a88def307091350636db45760c54e7ebb01b",
+      "plaintext_archive_bytes": 1071526,
+      "regular_files": 247,
+      "directories": 25,
+      "associated_data": "726-audit-private-evidence:q2340-original:v1"
+    },
+    {
+      "label": "q2340-ledger-snapshot",
+      "ciphertext": "q2340-ledger-snapshot.aesgcm",
+      "ciphertext_sha256": "a30c527c1cb4bfd6ca2834b72b2950e1de9258856b0504321cf67e6ecad2af6a",
+      "ciphertext_bytes": 208347,
+      "plaintext_archive_sha256": "9fbb61a76fb6964a5b04fa5badcc154fc7d65cb1a71a3706cb3ff49f5695866c",
+      "plaintext_archive_bytes": 208319,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2340-ledger-snapshot:v1"
+    },
+    {
+      "label": "q2341-42-original",
+      "ciphertext": "q2341-42-original.aesgcm",
+      "ciphertext_sha256": "b07fe0099ed7339d3b591a71c517a3ad0ff550cb9dc8749a49ab97a053501de0",
+      "ciphertext_bytes": 284285,
+      "plaintext_archive_sha256": "689eef1c587a4b9454a5c43edf88a38acd7c4a1c6c6b4664d9cea72fff3dda99",
+      "plaintext_archive_bytes": 284257,
+      "regular_files": 164,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2341-42-original:v1"
+    },
+    {
+      "label": "q2341-42-key",
+      "ciphertext": "q2341-42-key.aesgcm",
+      "ciphertext_sha256": "28559536a51e8292bdb1cf175a694954b83d4c8d86dedde2505fead1d3ce443b",
+      "ciphertext_bytes": 188,
+      "plaintext_archive_sha256": "622d7f3d966848a2269898ee732acdc5035d0e62b10d3fbc813b629c2e58a40a",
+      "plaintext_archive_bytes": 160,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2341-42-key:v1"
+    },
+    {
+      "label": "q2352-53-original",
+      "ciphertext": "q2352-53-original.aesgcm",
+      "ciphertext_sha256": "dc22a6ce3d8f372098f7a1f2cf3b53acc6ceb3f6255321d66c7910bb6131593c",
+      "ciphertext_bytes": 194988,
+      "plaintext_archive_sha256": "88b6f5d397dd531adef02fe95c71f88359eb6bb0ee11f56c936d5edf84b7edcf",
+      "plaintext_archive_bytes": 194960,
+      "regular_files": 158,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:q2352-53-original:v1"
+    },
+    {
+      "label": "q2352-53-original-manifest",
+      "ciphertext": "q2352-53-original-manifest.aesgcm",
+      "ciphertext_sha256": "7a6bcbeed72ad615d924d1fc262df30a2ffdb3a3689ae7926747613e08cd4948",
+      "ciphertext_bytes": 8754,
+      "plaintext_archive_sha256": "95f1d925887385f728bb1e5f1658594943be564091146616214a895ff7053a54",
+      "plaintext_archive_bytes": 8726,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2352-53-original-manifest:v1"
+    },
+    {
+      "label": "q2354-original",
+      "ciphertext": "q2354-original.aesgcm",
+      "ciphertext_sha256": "caf1dab20449aae09b926c1a371d4e30287b8d677f70072bb09b1924e586fc8b",
+      "ciphertext_bytes": 364135,
+      "plaintext_archive_sha256": "c996d35bc50d7c0e13b4522a19af9ce0ad425ac14db0af32d14041dd4b18c627",
+      "plaintext_archive_bytes": 364107,
+      "regular_files": 288,
+      "directories": 34,
+      "associated_data": "726-audit-private-evidence:q2354-original:v1"
+    }
+  ],
+  "key_custody": "One separately held private same-machine key; no key bytes are included in this manifest. Some encrypted objects also preserve separately held earlier recovery keys.",
+  "qualification": "Each source was archived and authenticated round-trip verified against its exact file bytes and modes. Ciphertext is opaque to content scans; no independent key custody, product behavior or checkpoint3821 recovery is established."
+}

@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/governance.rs:1361-1420
+1361         .filter(&target_party_id)
+1362         .find(is_general_join_role)
+1363         .unwrap_or_else(|| {
+1364             ctx.db
+1365                 .party_recruitment_role()
+1366                 .insert(PartyRecruitmentRole {
+1367                     id: 0,
+1368                     party_id: target_party_id.clone(),
+1369                     purpose: RecruitmentRolePurpose::GeneralJoin,
+1370                     name: "Unassigned".into(),
+1371                     requirements: RoleRequirements::default(),
+1372                     quantity: 0,
+1373                 })
+1374         });
+1375     request_to_join_party(ctx, character_id, role.id)
+1376 }
+1377 
+1378 fn is_general_join_role(role: &PartyRecruitmentRole) -> bool {
+1379     role.purpose == RecruitmentRolePurpose::GeneralJoin
+1380 }
+1381 
+1382 #[reducer]
+1383 pub fn accept_party_join_request(
+1384     ctx: &ReducerContext,
+1385     leader_id: u64,
+1386     request_id: u64,
+1387 ) -> Result<(), String> {
+1388     require_strategic_character_authority(ctx, leader_id)?;
+1389     crate::character::require_living_character(ctx, leader_id)?;
+1390     let Some(request) = ctx.db.party_join_request().id().find(request_id) else {
+1391         return Err("Join request not found".into());
+1392     };
+1393     let Some(party) = ctx.db.party_authority().id().find(&request.party_id) else {
+1394         return Err("Party not found".into());
+1395     };
+1396     let recruitment_offer = require_open_recruitment_offer(ctx, &party)?;
+1397     require_no_unresolved_encounter(ctx, &request.party_id)?;
+1398     if party.leader_id != leader_id {
+1399         return Err("Only the party leader can accept join requests".into());
+1400     }
+1401     let role = ctx
+1402         .db
+1403         .party_recruitment_role()
+1404         .id()
+1405         .find(request.recruitment_role_id)
+1406         .ok_or("Recruitment role not found")?;
+1407     if role.quantity > 0 && filled_role_slots(ctx, role.id) >= role.quantity {
+1408         return Err("Recruitment role is full".into());
+1409     }
+1410     let character = ctx
+1411         .db
+1412         .character()
+1413         .id()
+1414         .find(request.character_id)
+1415         .ok_or("Applicant not found")?;
+1416     let source_party_id = character.party_id.clone().ok_or("Applicant has no party")?;
+1417     require_no_unresolved_encounter(ctx, &source_party_id)?;
+1418     let source_party = ctx
+1419         .db
+1420         .party_authority()

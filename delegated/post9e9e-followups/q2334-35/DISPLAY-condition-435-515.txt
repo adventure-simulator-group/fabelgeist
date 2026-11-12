@@ -1,0 +1,81 @@
+ 435 fn food_reserve_days(needs: &CharacterNeeds) -> f32 {
+ 436     needs.food_balance_kcal.max(0.0) / STRATEGIC_TRAVEL_KCAL_PER_DAY
+ 437 }
+ 438 
+ 439 fn water_reserve_days(needs: &CharacterNeeds) -> f32 {
+ 440     needs.water_balance_ml.max(0.0) / STRATEGIC_TRAVEL_WATER_ML_PER_DAY
+ 441 }
+ 442 
+ 443 pub(crate) fn water_capacity_ml(ctx: &ReducerContext, character_id: u64) -> u32 {
+ 444     let capacity_per_container = ctx
+ 445         .db
+ 446         .item()
+ 447         .id()
+ 448         .find(STANDARD_WATERSKIN_ID.to_string())
+ 449         .map_or(0, |item| item.water_capacity_ml);
+ 450     inventory_quantity(ctx, character_id, STANDARD_WATERSKIN_ID)
+ 451         .saturating_mul(capacity_per_container)
+ 452 }
+ 453 
+ 454 pub fn prepare_party_waterskins(
+ 455     ctx: &ReducerContext,
+ 456     party_id: &str,
+ 457     from_settlement: bool,
+ 458 ) -> Result<(), String> {
+ 459     if from_settlement {
+ 460         let custody = adventuresim_core::physical_object::OperationalCustody::party(party_id)
+ 461             .map_err(|error| error.to_string())?;
+ 462         crate::inventory_container::fill_carried_waterskins(ctx, &custody)?;
+ 463     }
+ 464     Ok(())
+ 465 }
+ 466 
+ 467 pub fn prepare_character_waterskins(
+ 468     ctx: &ReducerContext,
+ 469     character_id: u64,
+ 470     from_settlement: bool,
+ 471 ) -> Result<(), String> {
+ 472     initialize_character_condition(ctx, character_id)?;
+ 473     if from_settlement {
+ 474         let custody =
+ 475             adventuresim_core::physical_object::OperationalCustody::character(character_id)
+ 476                 .map_err(|error| error.to_string())?;
+ 477         crate::inventory_container::fill_carried_waterskins(ctx, &custody)?;
+ 478     }
+ 479     Ok(())
+ 480 }
+ 481 
+ 482 pub fn replenish_needs_at_settlement(
+ 483     ctx: &ReducerContext,
+ 484     character_id: u64,
+ 485 ) -> Result<(), String> {
+ 486     initialize_character_condition(ctx, character_id)?;
+ 487     let mut needs = ctx
+ 488         .db
+ 489         .character_needs()
+ 490         .character_id()
+ 491         .find(character_id)
+ 492         .ok_or("Character needs not found")?;
+ 493     // Arrival grants no free provisions and clears any travel surplus so the
+ 494     // character can immediately eat a deliberate dinner.
+ 495     needs.food_balance_kcal = needs.food_balance_kcal.min(0.0);
+ 496     needs.water_balance_ml = STRATEGIC_TRAVEL_WATER_ML_PER_DAY;
+ 497     ctx.db.character_needs().character_id().update(needs);
+ 498     let custody = adventuresim_core::physical_object::OperationalCustody::character(character_id)
+ 499         .map_err(|error| error.to_string())?;
+ 500     crate::inventory_container::fill_carried_waterskins(ctx, &custody)?;
+ 501     Ok(())
+ 502 }
+ 503 
+ 504 pub fn apply_elapsed_needs(
+ 505     ctx: &ReducerContext,
+ 506     character_id: u64,
+ 507     elapsed_minutes: u64,
+ 508 ) -> Result<(), String> {
+ 509     apply_elapsed_needs_with_provision(
+ 510         ctx,
+ 511         character_id,
+ 512         elapsed_minutes,
+ 513         ElapsedNeedsProvision::PersonalSupplies,
+ 514     )
+ 515 }

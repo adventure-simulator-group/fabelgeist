@@ -1,0 +1,99 @@
+ 111     }
+ 112 
+ 113     fn uniform(
+ 114         &mut self,
+ 115         module: &wgpu::naga::Module,
+ 116         ty: wgpu::naga::Handle<wgpu::naga::Type>,
+ 117         binding: u32,
+ 118     ) {
+ 119         let ty = &module.types[ty];
+ 120         self.reflection.uniform_binding = Some(binding);
+ 121         if let wgpu::naga::TypeInner::Struct { members, span } = &ty.inner {
+ 122             self.reflection.uniform_buffer_size = *span;
+ 123             for member in members {
+ 124                 self.reflection.uniform_members.push(UniformMember {
+ 125                     name: member.name.clone().unwrap_or_default(),
+ 126                     offset: member.offset,
+ 127                     size: module.types[member.ty].inner.size(module.to_ctx()),
+ 128                 });
+ 129             }
+ 130         } else {
+ 131             self.reflection.uniform_buffer_size = ty.inner.size(module.to_ctx());
+ 132         }
+ 133         self.entry(
+ 134             binding,
+ 135             wgpu::BindingType::Buffer {
+ 136                 ty: wgpu::BufferBindingType::Uniform,
+ 137                 has_dynamic_offset: false,
+ 138                 min_binding_size: None,
+ 139             },
+ 140         );
+ 141     }
+ 142 
+ 143     fn image(
+ 144         &mut self,
+ 145         name: String,
+ 146         binding: u32,
+ 147         dimension: wgpu::naga::ImageDimension,
+ 148         class: &wgpu::naga::ImageClass,
+ 149     ) {
+ 150         let dimension = match dimension {
+ 151             wgpu::naga::ImageDimension::D1 => wgpu::TextureViewDimension::D1,
+ 152             wgpu::naga::ImageDimension::D2 => wgpu::TextureViewDimension::D2,
+ 153             wgpu::naga::ImageDimension::D3 => wgpu::TextureViewDimension::D3,
+ 154             wgpu::naga::ImageDimension::Cube => wgpu::TextureViewDimension::Cube,
+ 155         };
+ 156         let mut format = None;
+ 157         let ty = match class {
+ 158             wgpu::naga::ImageClass::Storage {
+ 159                 format: storage,
+ 160                 access,
+ 161             } => {
+ 162                 let storage = TextureFormat::naga_to_wgpu_format(*storage);
+ 163                 format = Some(storage);
+ 164                 wgpu::BindingType::StorageTexture {
+ 165                     access: if access.contains(wgpu::naga::StorageAccess::STORE) {
+ 166                         wgpu::StorageTextureAccess::WriteOnly
+ 167                     } else {
+ 168                         wgpu::StorageTextureAccess::ReadOnly
+ 169                     },
+ 170                     format: storage,
+ 171                     view_dimension: dimension,
+ 172                 }
+ 173             }
+ 174             _ => wgpu::BindingType::Texture {
+ 175                 multisampled: false,
+ 176                 view_dimension: dimension,
+ 177                 sample_type: sample_type(class),
+ 178             },
+ 179         };
+ 180         self.entry(binding, ty);
+ 181         self.reflection.texture_bindings.push(TextureBinding {
+ 182             name,
+ 183             binding,
+ 184             format,
+ 185             dimension,
+ 186         });
+ 187     }
+ 188 
+ 189     fn entry(&mut self, binding: u32, ty: wgpu::BindingType) {
+ 190         self.entries.push(wgpu::BindGroupLayoutEntry {
+ 191             binding,
+ 192             visibility: wgpu::ShaderStages::COMPUTE,
+ 193             ty,
+ 194             count: None,
+ 195         });
+ 196     }
+ 197 }
+ 198 
+ 199 fn sample_type(class: &wgpu::naga::ImageClass) -> wgpu::TextureSampleType {
+ 200     match class {
+ 201         wgpu::naga::ImageClass::Sampled { kind, .. } => match kind {
+ 202             wgpu::naga::ScalarKind::Uint => wgpu::TextureSampleType::Uint,
+ 203             wgpu::naga::ScalarKind::Sint => wgpu::TextureSampleType::Sint,
+ 204             _ => wgpu::TextureSampleType::Float { filterable: true },
+ 205         },
+ 206         wgpu::naga::ImageClass::Depth { .. } => wgpu::TextureSampleType::Depth,
+ 207         _ => wgpu::TextureSampleType::Float { filterable: true },
+ 208     }
+ 209 }

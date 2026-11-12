@@ -1,0 +1,30 @@
+[
+  {
+    "argv": [
+      "python3",
+      "<LOCAL_PATH_0036>",
+      "P1",
+      "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "100",
+      "175"
+    ],
+    "repeat_exit_code": 1,
+    "repeat_stdout": "",
+    "repeat_stderr": "Traceback (most recent call last):\n  File \"<LOCAL_PATH_0036>\", line 3, in <module>\n    s=Path(__file__).resolve().parent;label,path,a,b=sys.argv[1],sys.argv[2],int(sys.argv[3]),int(sys.argv[4]);reg=json.loads((s/'TIME-DISPLAY-REGISTRATION.json').read_text());assert any(a>=x and b<=y for x,y in reg['windows'][path]);raw=(s/'sources'/reg['revision']/path).read_bytes();lines=raw.decode().splitlines();assert 1<=a<=b<=len(lines);text=f'SOURCE {path}:{a}-{b}\\n'+''.join(f'{i:4} {lines[i-1]}\\n' for i in range(a,b+1));name=f'TIME-DISPLAY-{label}.txt'\n                                                                                                                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1021, in read_bytes\n    with self.open(mode='rb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '<LOCAL_PATH_0037>'\n",
+    "prior_attempt": "same command failed FileNotFoundError before any source display or file creation; repeated here to preserve exact failure output"
+  },
+  {
+    "argv": [
+      "python3",
+      "<LOCAL_PATH_0036>",
+      "P2",
+      "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "190",
+      "250"
+    ],
+    "repeat_exit_code": 1,
+    "repeat_stdout": "",
+    "repeat_stderr": "Traceback (most recent call last):\n  File \"<LOCAL_PATH_0036>\", line 3, in <module>\n    s=Path(__file__).resolve().parent;label,path,a,b=sys.argv[1],sys.argv[2],int(sys.argv[3]),int(sys.argv[4]);reg=json.loads((s/'TIME-DISPLAY-REGISTRATION.json').read_text());assert any(a>=x and b<=y for x,y in reg['windows'][path]);raw=(s/'sources'/reg['revision']/path).read_bytes();lines=raw.decode().splitlines();assert 1<=a<=b<=len(lines);text=f'SOURCE {path}:{a}-{b}\\n'+''.join(f'{i:4} {lines[i-1]}\\n' for i in range(a,b+1));name=f'TIME-DISPLAY-{label}.txt'\n                                                                                                                                                                                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1021, in read_bytes\n    with self.open(mode='rb') as f:\n         ^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.12/pathlib.py\", line 1015, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '<LOCAL_PATH_0037>'\n",
+    "prior_attempt": "same command failed FileNotFoundError before any source display or file creation; repeated here to preserve exact failure output"
+  }
+]

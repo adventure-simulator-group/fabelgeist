@@ -1,0 +1,153 @@
+{
+  "lens": 13,
+  "namespace": "PL13-184",
+  "status": "Ordered actual physical custody IDs and physiology quantity/effect/time/observation owners",
+  "registration": {
+    "path": "REDACTED-LOCAL-PATH-0020",
+    "sha256": "8642ff0ac1b8549043f9ed342cf934d05230a7efd694020cc546016ad7c3e763"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 963,
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "object_path": "REDACTED-LOCAL-PATH-0080",
+      "actual_eof": 383,
+      "prospective_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 physical-object / plague numeric producer, state and native contracts; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 964,
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "object_path": "REDACTED-LOCAL-PATH-0006",
+      "actual_eof": 1169,
+      "prospective_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 physical-object / plague numeric producer, state and native contracts; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "connected": [],
+  "numeric_role_inventory": [
+    "963 PhysicalObjectId/CustodyCharacterId NonZeroU64, strict party canonicaltext<=256, ObjectCustody rejects self-containment and transfer preservesidentity. Closed operationalcustody separate from legalpermission, backing InventoryLocation public raw row/characterIDs and strings therefore native projection/admission must establish correspondence. Multi-object cycles external graph obligation; not falsely guaranteed by one-object constructor.",
+    "964 BodyMassKg finite20..300kg yields bounded1400..21000 bloodml; DoseMilliunits private0..8000/1000perstandard, roundedfloat conversion checksfinite/nonnegative/max8000 including multiplyoverflow, tinypositive->0 is intentional rounded zero. Closed Meter10/Region7/Humour4 enum indices safe. HUMOUR_WEIGHTS intentionally lossy many-to-one disclosure. Interventionprofiles14 closed peractual946 medicationIDs and fixeddurations/versions; no normalmode falsely treated compatibility defect.",
+    "964 MeterVector public rawarray; bounded functions sanitize finite_or_zero and clamp[-1,2], scaledamount[-16,16]. humours readsrawdeviations thenclamps[-1,1], disease_meter_state directweightedcurve dependsactual912 authoredfinite[-1,2] validation and actualboundedphenotype. Sequential clamp order remains native aggregation/policy issue, not unproved ordinaryinvalidinputfinding. piecewise uses saturatingtime span/fraction, duplicate/minuteorder requires producer contracts; actual912validate catalogue already ownread, alternatepublicconstructor remainsconditional.",
+    "964 Administration effect_at resolves exactprofileversion, route andnow>=administered, end=min(stopped,scheduledend), dose<=8 times sensitivity[.75,1.25], adverse<=.25 and boundedmeterops. It does not itself filterpatientID; actual native perpatient slice and publicdurable row admission/identity authority must be traced. Unknownversion/route yields0 legitimate failclosed readbehavior; no obsoleteprofile compatibility required.",
+    "964 phenotype HMAC-SHA256 frames keyversion/fullu64character/episode/meter, 53bitunit maps.72..1.28 thenmean-normalizes; baseline\u00b1.02. Secretgeneration/storage/permission and replaypinning are native contracts, no crypto execution. first_terminal_crossing sorts/dedups supplied strategicbreakpoints, binarysearches only when rightendpointterminal, assumes linearity/monotonic threshold crossing inside each interval. Actual native structural minute producer, clamp-induced kinks/mixedcurve cancellation andsingleton interval policy remain connected before ordinary missfinding.",
+    "964 presence canonical=minclocks andband<=5; closemaxstart/minclocks prevents negative span; containsinclusivebothends intentional adjacentpresence policyneedsnative. Quantizehumours finite/clamp\u00b110000bps, step1000/500/250/100/50/25 fitsi16 andsymmetricrounding; observationsdaily1440min. Observernoise boundedamplitudes.07..02, region*4+humour<=27, dayfraction<1, fullseed HMAC usespatient XOR rotatedday ascomposite discriminator; intentionally presentationonly, actualdisclosure/native notebook consumers required. Fixturesread neverrun."
+  ],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-184-PHYSIOLOGY-TERMINAL-NATIVE-PENDING",
+      "status": "Conditional structural-boundary and connected native effect authority",
+      "scope": "Trace actual disease/profile numerical admission, patient-specific administration slice, breakpoint generation and clamped piecewise state used by first_terminal_crossing, terminal persistence/time ordering, presence/noise/chart public consumers. Preserve singleton/clamp-kink questions without an invented ordinary death miss; determine exact existing aliases by first failed function/contract. Physical object raw backing projection/custody/graph native boundary remains open.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 2,
+  "proposed_next_original": 965,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "963 full383 personally before partial001;964 full1169 from prefixes460/920 and fresh921..1169. Registration purpose accidentally says plague; exactregisteredsource_id/hash/ranges alwaysphysiology.rs. No plaguebody or native/current/foreign credit."
+  ],
+  "partial_checkpoints": [
+    {
+      "path": "REDACTED-LOCAL-PATH-0081",
+      "sha256": "dfb4d9c73d3ecddf5dd9c434eb6845b576e3bdc40b335e8d8378224ee111a89f"
+    },
+    {
+      "path": "REDACTED-LOCAL-PATH-0082",
+      "sha256": "2c8dff854e0651ae6ef519b28a1469dbf6e0a541f750d1936467c034d55e66cf"
+    }
+  ],
+  "partial_read_union": [
+    {
+      "original": 964,
+      "read": {
+        "path": "REDACTED-LOCAL-PATH-0081",
+        "sha256": "dfb4d9c73d3ecddf5dd9c434eb6845b576e3bdc40b335e8d8378224ee111a89f"
+      },
+      "previous_personal_ranges": [
+        [
+          1,
+          460
+        ]
+      ],
+      "new_personal_ranges": [
+        [
+          461,
+          920
+        ]
+      ],
+      "union": [
+        [
+          1,
+          920
+        ]
+      ],
+      "reread_claimed": false
+    },
+    {
+      "original": 964,
+      "read": {
+        "path": "REDACTED-LOCAL-PATH-0082",
+        "sha256": "2c8dff854e0651ae6ef519b28a1469dbf6e0a541f750d1936467c034d55e66cf"
+      },
+      "previous_personal_ranges": [
+        [
+          1,
+          920
+        ]
+      ],
+      "new_personal_ranges": [
+        [
+          921,
+          1169
+        ]
+      ],
+      "union": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "reread_claimed": false
+    }
+  ]
+}

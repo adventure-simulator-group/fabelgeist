@@ -1,0 +1,100 @@
+   1 // Owns official and personal clock initialization, refresh, and family-clock propagation.
+   2 pub fn initialize_time(ctx: &ReducerContext) {
+   3     if ctx.db.world_clock().id().find(0).is_none() {
+   4         ctx.db.world_clock().insert(WorldClock {
+   5             id: 0,
+   6             official_minutes: WORLD_START_MINUTE,
+   7             epoch_micros: ctx.timestamp.to_micros_since_unix_epoch(),
+   8         });
+   9     }
+  10 }
+  11 
+  12 pub fn refresh_clock(ctx: &ReducerContext) -> Result<StrategicMinute, String> {
+  13     if ctx.db.world_clock().id().find(0).is_none() {
+  14         initialize_time(ctx);
+  15     }
+  16     let mut clock = ctx
+  17         .db
+  18         .world_clock()
+  19         .id()
+  20         .find(0)
+  21         .ok_or_else(|| "World clock is not initialized".to_string())?;
+  22     let official_minutes = calculate_official_minute(
+  23         clock.epoch_micros,
+  24         ctx.timestamp.to_micros_since_unix_epoch(),
+  25     );
+  26     if official_minutes != clock.official_minutes {
+  27         clock.official_minutes = official_minutes;
+  28         ctx.db.world_clock().id().update(clock);
+  29     }
+  30     Ok(official_minutes)
+  31 }
+  32 
+  33 fn married_family_npc_ids(ctx: &ReducerContext, character_id: u64) -> Vec<u64> {
+  34     let character_party_id = ctx
+  35         .db
+  36         .character()
+  37         .id()
+  38         .find(character_id)
+  39         .and_then(|character| character.party_id);
+  40     let active_marriage = ctx.db.marriage().iter().find(|row| {
+  41         row.status == MarriageStatus::Active
+  42             && (row.first_character_id == character_id || row.second_character_id == character_id)
+  43     });
+  44     let Some(marriage) = active_marriage else {
+  45         return Vec::new();
+  46     };
+  47     let mut related = std::collections::BTreeSet::from([
+  48         marriage.first_character_id,
+  49         marriage.second_character_id,
+  50     ]);
+  51     related.extend(
+  52         ctx.db
+  53             .household_member()
+  54             .household_id()
+  55             .filter(&marriage.household_id)
+  56             .map(|row| row.character_id),
+  57     );
+  58     related.extend(
+  59         ctx.db
+  60             .character_kinship()
+  61             .subject_id()
+  62             .filter(character_id)
+  63             .map(|row| row.related_id),
+  64     );
+  65     related.remove(&character_id);
+  66     related
+  67         .into_iter()
+  68         .filter(|related_id| {
+  69             ctx.db
+  70                 .npc_policy()
+  71                 .character_id()
+  72                 .find(*related_id)
+  73                 .is_some()
+  74         })
+  75         .filter(|related_id| {
+  76             ctx.db
+  77                 .character()
+  78                 .id()
+  79                 .find(*related_id)
+  80                 .is_none_or(|related| related.party_id != character_party_id)
+  81         })
+  82         .take(32)
+  83         .collect()
+  84 }
+  85 
+  86 fn advance_married_family_by(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     elapsed: u64,
+  90 ) -> Result<(), String> {
+  91     if elapsed == 0
+  92         || ctx
+  93             .db
+  94             .npc_policy()
+  95             .character_id()
+  96             .find(character_id)
+  97             .is_some()
+  98     {
+  99         return Ok(());
+ 100     }

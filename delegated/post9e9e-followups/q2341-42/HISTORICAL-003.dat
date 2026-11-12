@@ -1,0 +1,107 @@
+{
+  "lens": 2,
+  "at": "2026-10-30T02:19:12.736429+00:00",
+  "kind": "Actual current journey coordinate producers and native records; complete registered scoped functions",
+  "registration": {
+    "path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-CURRENT-002.json",
+    "sha256": "cc0dbc76a5a0289cbfc286aa34d86ff3839e0d462643e505fed8b60e5948bd3f"
+  },
+  "rows": [
+    {
+      "registration": "ROOT-L2-CURRENT-0008",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "source_sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "actual_EOF": 908,
+      "source_object": "root-l2-extension-20261030/objects/ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "prospective_ranges": [
+        [
+          113,
+          310
+        ],
+        [
+          544,
+          619
+        ],
+        [
+          722,
+          766
+        ]
+      ],
+      "complete_relevant_scope": "start_party_journey; record_party_journey_camp; active/current/between predicates; current_journey_camp_place; advance_party_movement; advance_party_wilderness_elapsed; journey_local_minute; record_party_camp_rest. Existingallotherfunctions/bodyobligationsunchanged; newmaterialdependencies registered after identification.",
+      "body_credit_before_read": 0,
+      "assessed_ranges": [
+        [
+          113,
+          310
+        ],
+        [
+          544,
+          619
+        ],
+        [
+          722,
+          766
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          113,
+          310
+        ],
+        [
+          544,
+          619
+        ],
+        [
+          722,
+          766
+        ]
+      ],
+      "body_output_truncated": false,
+      "attribution": "Root personal Lens2 post-registration bounded untruncated displays"
+    }
+  ],
+  "partial_union": {
+    "receipt": {
+      "path": "root-l2-extension-20261030/PARTIAL-ROOT-L2-CURRENT-002-001.json",
+      "sha256": "85a07615f9b4d4487198e07d930e6d674da945baeb7cfaae778c65e8bcdbeac5"
+    },
+    "prior_assessed_ranges": [
+      [
+        113,
+        310
+      ]
+    ],
+    "new_personal_ranges": [
+      [
+        544,
+        619
+      ],
+      [
+        722,
+        766
+      ]
+    ],
+    "reread_claimed": false
+  },
+  "fresh_assessed_lines_once": 319,
+  "registered_unread_ranges": [],
+  "source_contract_dispositions": [
+    "Actual start_party_journey113..221 insertscompleted movement181 andelapsed188 as0 afterforecast/truncation/continuity guards. Zero isintentional currentproducerstate, not an inventedexternalDBwriter. Positive-onlyRequestedDuration cannotcovertheseprogress coordinates withoutnarrowingadmission.",
+    "record_party_journey_camp223..251 advancesmovement cappedtotaland elapsedby legminutes, recordsreachedmovementidentity thenbindstrials. record_party_camp_rest722..765 changeselapsed740/748 whilepreservingmovement coordinate753, explicitdifferencebetweenmovementandelapsedroles. Missingjourney returnsOk intentionaloptionalrecord mode; no runtimefailureclaim.",
+    "actualcurrentcampguard255..267 requires incoherentsettlement/case/campdestination exclusion and reachedmovementmembership; between-camps272..277 is intentional distinctmode. current_journey_camp_place284..309 sends partyID/departure/movement intoStrategicPlaceId::journey_camp; actualownerconstructor isnewrequireddependency.",
+    "advance_party_movement544..591 returns actualsafetime+survival andhasexplicitactual0 settlement branch562..570; no positive-onlyactualelapsedtypefit. advance_party_wilderness_elapsed593..614 explicitlyaccepts0asno-op, otherelapsedsaturatingnativefield update onlyafterclockinitialized; no assumedoverflow/panic orruntimeeffect.",
+    "journey_local_minute616..618 callsStrategicMinute::wrapping_day_offset forfrozen daynormalized localclock. Thislegitimate normalization requiresactualownerbodyqualification; do notlabelitascompatibilitydefect orfullworldclockloss fromnamealone.",
+    "Additional primitive roles(fatiguef32/partyIDs/tuplebool/protocol0/roll1 androuteflags) observedonlyatactualnativeinterfaces; existingowner admission/meaning remainseparatewholeproducer questions. No native time/forecast/disease/custody/effect bodies inferredfromcallnames."
+  ],
+  "remaining_evidence": [
+    "Prospectively qualifycomplete StrategicMinute::wrapping_day_offset andStrategicPlaceId::journey_camp actualcurrentownerfunctions, plus any requiredidentity/quantitydependencies.",
+    "Complete bounded existingowner search:MinuteSpan/ActivityMinutes/StrategicMinuteOfDay/ReligionMinutes/otherelapsed types differinrange/frame/authority; namesalone notproof ofmatch orrejection.",
+    "Frame/trial/challenge/site identities andglobalexactaliases/currentgraph obligation retained; current scopedproducerproof doesnotcloseall13/all20/originalpopulations."
+  ],
+  "original_overlay_merged_shared_or_accepted_unique_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

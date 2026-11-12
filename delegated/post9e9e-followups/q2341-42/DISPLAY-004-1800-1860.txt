@@ -1,0 +1,61 @@
+1800                     && contract.accepted_by.as_deref() == Some(party_id)
+1801             })?;
+1802         Some((challenge, contract))
+1803     })
+1804 }
+1805 
+1806 #[derive(Clone, Copy, Eq, PartialEq)]
+1807 enum ErrantryChallengeNamespace {
+1808     Demo,
+1809     Order,
+1810 }
+1811 
+1812 struct ErrantryChallengeId<'a> {
+1813     puzzle_kind: &'a str,
+1814     namespace: ErrantryChallengeNamespace,
+1815     character_id: u64,
+1816 }
+1817 
+1818 impl<'a> ErrantryChallengeId<'a> {
+1819     fn parse(value: &'a str) -> Option<Self> {
+1820         let mut parts = value.split(':');
+1821         let domain = parts.next()?;
+1822         let puzzle_kind = parts.next()?;
+1823         let namespace = match parts.next()? {
+1824             "demo" => ErrantryChallengeNamespace::Demo,
+1825             "order" => ErrantryChallengeNamespace::Order,
+1826             _ => return None,
+1827         };
+1828         let character_id = parts.next()?.parse().ok()?;
+1829         let _ordinal = parts.next()?.parse::<u64>().ok()?;
+1830         if domain != "challenge" || puzzle_kind.is_empty() || parts.next().is_some() {
+1831             return None;
+1832         }
+1833         Some(Self {
+1834             puzzle_kind,
+1835             namespace,
+1836             character_id,
+1837         })
+1838     }
+1839 }
+1840 
+1841 fn puzzle_demo_suffix(character_id: u64, ordinal: u64) -> String {
+1842     format!("demo:{character_id}:{ordinal}")
+1843 }
+1844 
+1845 fn errantry_suffix(character_id: u64, ordinal: u64, launch: ErrantryLaunch) -> String {
+1846     match launch {
+1847         ErrantryLaunch::DirectDemoCamp(_) => puzzle_demo_suffix(character_id, ordinal),
+1848         ErrantryLaunch::NormalTravel => format!("order:{character_id}:{ordinal}"),
+1849     }
+1850 }
+1851 
+1852 fn order_errantry_issuer(
+1853     ctx: &ReducerContext,
+1854 ) -> Option<(
+1855     crate::settlement_population::SettlementResidentProfile,
+1856     String,
+1857     String,
+1858 )> {
+1859     let order = adventuresim_core::organization::organization(ERRANTRY_ISSUER_ORGANIZATION_ID)
+1860         .filter(|organization| organization.errantry_issuance)?;

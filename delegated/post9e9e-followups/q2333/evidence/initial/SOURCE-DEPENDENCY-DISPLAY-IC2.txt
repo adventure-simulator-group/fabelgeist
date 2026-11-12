@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-stdb-module/src/inventory_container.rs:1070-1115
+1070     ctx: &ReducerContext,
+1071     custody: &OperationalCustody,
+1072 ) -> Result<(), String> {
+1073     let mut waterskins = ctx
+1074         .db
+1075         .inventory_object()
+1076         .item_id()
+1077         .filter(STANDARD_WATERSKIN_ID)
+1078         .collect::<Vec<_>>();
+1079     waterskins.sort_by_key(|object| object.id);
+1080     for object in waterskins {
+1081         if crate::object_custody::resolve_object_custody(ctx, &object)?.root != *custody {
+1082             continue;
+1083         }
+1084         require_mutable(ctx, object.id)?;
+1085         let existing = ctx
+1086             .db
+1087             .container_liquid()
+1088             .container_object_id()
+1089             .find(object.id);
+1090         if existing
+1091             .as_ref()
+1092             .is_some_and(|liquid| liquid.liquid_item_id != WATER_ITEM_ID)
+1093         {
+1094             continue;
+1095         }
+1096         let added_ml = remaining_container_capacity_ml(ctx, object.id)?;
+1097         if added_ml == 0 {
+1098             continue;
+1099         }
+1100         if let Some(mut liquid) = existing {
+1101             liquid.water_ml = liquid
+1102                 .water_ml
+1103                 .checked_add(added_ml)
+1104                 .ok_or("Water volume overflow")?;
+1105             ctx.db
+1106                 .container_liquid()
+1107                 .container_object_id()
+1108                 .update(liquid);
+1109         } else {
+1110             ctx.db.container_liquid().insert(ContainerLiquid {
+1111                 container_object_id: object.id,
+1112                 liquid_item_id: WATER_ITEM_ID.into(),
+1113                 water_ml: added_ml,
+1114             });
+1115         }

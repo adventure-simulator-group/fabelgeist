@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/encounters.rs:1285-1335
+1285     let redirect_departure_minute = living_party_member_ids(ctx, &party.id)
+1286         .into_iter()
+1287         .filter_map(|member_id| ctx.db.character_time().character_id().find(member_id))
+1288         .map(|time| time.minutes)
+1289         .max()
+1290         .unwrap_or(journey.departure_minute);
+1291     let travel_minutes = if let Some(route) = route.as_ref() {
+1292         validate_camp_redirect_weather_interval(route, redirect_departure_minute)?;
+1293         let current_route = ctx
+1294             .db
+1295             .party_journey_route_authority()
+1296             .party_id()
+1297             .find(&party.id)
+1298             .ok_or("Camp has no persisted terrain route")?;
+1299         let origin = route_position_at_minute(&current_route, journey.completed_movement_minutes)
+1300             .ok_or("Camp route position is unavailable")?;
+1301         validate_journey_route(
+1302             ctx,
+1303             route,
+1304             origin,
+1305             (destination.coord_x, destination.coord_y),
+1306         )?;
+1307         route.minutes
+1308     } else {
+1309         camp_redirect_minutes(&journey, &destination.id)
+1310             .ok_or("That settlement is not an endpoint of this camp journey")?
+1311     };
+1312     if travel_minutes == 0 {
+1313         return Err("The party is already at that journey endpoint".into());
+1314     }
+1315 
+1316     journey.origin = JourneyEndpoint::Camp(party.id.clone());
+1317     journey.destination = JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+1318         id: destination.id.clone(),
+1319         name: destination.name.clone(),
+1320     });
+1321     journey.total_movement_minutes = travel_minutes;
+1322     journey.completed_movement_minutes = 0;
+1323     journey.departure_minute = redirect_departure_minute;
+1324     journey.completed_elapsed_minutes = 0;
+1325     journey.reached_camp_movement_minutes.clear();
+1326     journey.actual_camp_intervals.clear();
+1327     journey.forecast_camp_intervals.clear();
+1328     ctx.db.party_journey_authority().party_id().update(journey);
+1329     if ctx
+1330         .db
+1331         .party_journey_route_authority()
+1332         .party_id()
+1333         .find(&party.id)
+1334         .is_some()
+1335     {

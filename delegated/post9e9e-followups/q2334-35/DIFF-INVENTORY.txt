@@ -1,0 +1,43 @@
+diff --git a/crates/adventuresim-stdb-module/src/inventory_container.rs b/crates/adventuresim-stdb-module/src/inventory_container.rs
+index c96fd85ab..80bf707f3 100644
+--- a/crates/adventuresim-stdb-module/src/inventory_container.rs
++++ b/crates/adventuresim-stdb-module/src/inventory_container.rs
+@@ -23,4 +23,8 @@ use crate::{
+ };
+ 
++mod object_lookup;
++
++pub(crate) use object_lookup::object_for_row;
++
+ pub const WATER_ITEM_ID: &str = "water";
+ fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
+@@ -59,29 +63,4 @@ pub struct ContainerLiquid {
+ }
+ 
+-pub(crate) fn object_for_row(
+-    ctx: &ReducerContext,
+-    scope: CarriedInventoryScope,
+-    row_id: u64,
+-) -> Result<Option<InventoryObject>, String> {
+-    let mut matches =
+-        ctx.db
+-            .inventory_object()
+-            .iter()
+-            .filter(|object| match (&object.location, scope) {
+-                (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => {
+-                    location.row_id == row_id
+-                }
+-                (InventoryLocation::Party(location), CarriedInventoryScope::Party) => {
+-                    location.row_id == row_id
+-                }
+-                _ => false,
+-            });
+-    let first = matches.next();
+-    if matches.next().is_some() {
+-        return Err("Inventory row has duplicate physical object identities".into());
+-    }
+-    Ok(first)
+-}
+-
+ fn insert_carried_object(
+     ctx: &ReducerContext,

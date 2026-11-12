@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-stdb-module/src/disease.rs:2110-2175
+2110         .db
+2111         .character_attributes()
+2112         .character_id()
+2113         .find(patient_id)
+2114         .map_or(3.0, |attributes| attributes.immunity);
+2115     let interventions = intervention_rows(ctx, patient_id)?;
+2116     let key = physiology_key(ctx)?;
+2117     if let Some(meter) = private_combined_at(
+2118         patient_id,
+2119         &episodes,
+2120         &interventions,
+2121         minute,
+2122         immunity,
+2123         &key,
+2124     )
+2125     .terminal()
+2126     {
+2127         finish_disease_interval(ctx, patient_id, Some(terminal_failure_for_meter(meter)))?;
+2128     }
+2129     Ok(())
+2130 }
+2131 
+2132 #[reducer]
+2133 #[expect(
+2134     clippy::too_many_arguments,
+2135     reason = "the reducer ABI exposes each validated administration input"
+2136 )]
+2137 pub fn administer_preparation(
+2138     ctx: &ReducerContext,
+2139     actor_id: u64,
+2140     patient_id: u64,
+2141     inventory_item_id: u64,
+2142     profile_version: u16,
+2143     route: InterventionRoute,
+2144     dose_milliunits: u32,
+2145     region: Option<BodyRegion>,
+2146 ) -> Result<(), String> {
+2147     require_intervention_relationship(ctx, actor_id, patient_id)?;
+2148     administer_preparation_inner(
+2149         ctx,
+2150         patient_id,
+2151         inventory_item_id,
+2152         profile_version,
+2153         route,
+2154         dose_milliunits,
+2155         region,
+2156     )
+2157 }
+2158 
+2159 fn administer_preparation_inner(
+2160     ctx: &ReducerContext,
+2161     patient_id: u64,
+2162     inventory_item_id: u64,
+2163     profile_version: u16,
+2164     route: InterventionRoute,
+2165     dose_milliunits: u32,
+2166     region: Option<BodyRegion>,
+2167 ) -> Result<(), String> {
+2168     let dose = physiology::DoseMilliunits::try_new(dose_milliunits)
+2169         .map_err(|_| "Intervention dose must be between 1 and 8000 milliunits")?;
+2170     if dose.is_zero() {
+2171         return Err("Intervention dose must be between 1 and 8000 milliunits".into());
+2172     }
+2173     let inventory = ctx
+2174         .db
+2175         .inventory_item()

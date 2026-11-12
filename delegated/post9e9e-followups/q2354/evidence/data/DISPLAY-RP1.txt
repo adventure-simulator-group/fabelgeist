@@ -1,0 +1,92 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs:90-180
+  90     settlement_id: &str,
+  91     draft: &ResidentDraft,
+  92 ) -> Result<bool, String> {
+  93     let Some(existing) = ctx
+  94         .db
+  95         .settlement_resident_profile()
+  96         .character_id()
+  97         .find(draft.character_id())
+  98     else {
+  99         return Ok(false);
+ 100     };
+ 101     if existing.home_settlement_id != settlement_id {
+ 102         return Err("Settlement resident identity crosses a settlement boundary".into());
+ 103     }
+ 104     ensure_roles(
+ 105         ctx,
+ 106         settlement_id,
+ 107         draft.character_id(),
+ 108         &existing.profession,
+ 109     )?;
+ 110     ensure_business_operator_row(ctx, draft.business_id.as_ref(), draft.character_id())?;
+ 111     Ok(true)
+ 112 }
+ 113 
+ 114 fn insert_identity(
+ 115     ctx: &ReducerContext,
+ 116     settlement_id: &str,
+ 117     draft: &ResidentDraft,
+ 118     prepared: &PreparedResident,
+ 119 ) -> Result<(), String> {
+ 120     let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+ 121         .birth_year_for_age(prepared.exact_age(draft))
+ 122         .ok_or("Resident age predates the calendar")?;
+ 123     let identity = crate::character::generated_historical_identity(
+ 124         draft.sex,
+ 125         prepared.stable_seed.into(),
+ 126         birth_year,
+ 127         draft.inherited_surname.clone(),
+ 128     )
+ 129     .map_err(|error| error.to_string())?;
+ 130     let name = adventuresim_world_schema::person_names::render_personal_name(
+ 131         &identity,
+ 132         identity.native_culture,
+ 133         adventuresim_world_schema::person_names::NameRegister::Everyday,
+ 134         draft.sex,
+ 135     )
+ 136     .map_err(|error| error.to_string())?
+ 137     .into_string();
+ 138     let personality = crate::personality::personality_from_stable_seed_with_demographics(
+ 139         crate::character::CharacterId::new(draft.character_id()),
+ 140         prepared.stable_seed,
+ 141         draft.sex,
+ 142         draft.presentation,
+ 143     );
+ 144     let life = NpcLifeFacts {
+ 145         age_years: prepared.exact_age(draft),
+ 146         organization_id: None,
+ 147         literacy: None,
+ 148     };
+ 149     insert_persistent_npc_character(
+ 150         ctx,
+ 151         name,
+ 152         draft.character_id(),
+ 153         settlement_id,
+ 154         prepared.stable_seed,
+ 155         None,
+ 156         &life,
+ 157         &personality,
+ 158     )?;
+ 159     crate::character::assign_character_name_identity(ctx, draft.character_id().into(), identity)
+ 160         .map_err(|error| error.to_string())?;
+ 161     ctx.db.npc_policy().insert(NpcPolicy {
+ 162         character_id: draft.character_id(),
+ 163         home_settlement_id: settlement_id.into(),
+ 164         policy_seed: prepared.stable_seed,
+ 165     });
+ 166     Ok(())
+ 167 }
+ 168 
+ 169 fn conversation_id(draft: &ResidentDraft, provider: bool) -> &'static str {
+ 170     if !provider {
+ 171         "local-resident"
+ 172     } else if draft.service.as_deref() == Some(HERBALIST_SERVICE) {
+ 173         "herbalist-examination"
+ 174     } else if draft.service.as_deref() == Some(RELIGION_SERVICE) {
+ 175         "religion-service"
+ 176     } else {
+ 177         "service-professions"
+ 178     }
+ 179 }
+ 180 

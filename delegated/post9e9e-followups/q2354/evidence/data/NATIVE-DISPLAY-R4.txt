@@ -1,0 +1,27 @@
+SOURCE crates/adventuresim-stdb-module/src/residence.rs:785-810
+ 785     ctx: &ReducerContext,
+ 786     holding_id: &str,
+ 787     due_minute: StrategicMinute,
+ 788 ) -> (u32, u32) {
+ 789     let Some(holding) = ctx.db.residence_holding().id().find(holding_id.to_owned()) else {
+ 790         return (0, 0);
+ 791     };
+ 792     let residents = occupancy::residents_at(ctx, &holding.property_id, due_minute)
+ 793         .into_iter()
+ 794         .filter(|character_id| {
+ 795             occupant_holding_id_at(ctx, *character_id, due_minute).as_deref() == Some(holding_id)
+ 796         });
+ 797     let mut adults = 0_u32;
+ 798     let mut dependents = 0_u32;
+ 799     for character_id in residents {
+ 800         let effective_age = crate::relationship::effective_age_years(ctx, character_id, due_minute);
+ 801         let underage =
+ 802             effective_age.is_some_and(|age| age < adventuresim_core::courtship::ADULT_AGE_YEARS);
+ 803         if underage {
+ 804             dependents = dependents.saturating_add(1);
+ 805         } else {
+ 806             adults = adults.saturating_add(1);
+ 807             if let Some(mut member) = ctx
+ 808                 .db
+ 809                 .household_member()
+ 810                 .character_id()

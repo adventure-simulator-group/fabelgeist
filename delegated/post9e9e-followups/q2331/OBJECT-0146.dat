@@ -1,0 +1,185 @@
+{
+  "kind": "Isolated ordered L12 source assessment proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 865,
+  "proposed_original_before": 2550,
+  "proposed_original_after": 2552,
+  "new_original_roles_proposed": 2,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Not run; existing test source/evidence only",
+  "at": "2026-10-30T01:23:39.289667+00:00",
+  "new_findings": [],
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-864.json",
+  "predecessor_proposal_sha256": "92448e76db90dbaca904520327ab41bd0c8f8998cc84416fa05e55bfc53f9817",
+  "rows": [
+    {
+      "original_index": 2550,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "actual_EOF": 376,
+      "source_object": "parallel-l12-20261029/source-865-20261030/6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-592.json",
+      "registration_sha256": "25e27d3a4461c8e892ccbbbd176f3ca62f274951569da9a4e42ecd08bb66e936",
+      "assessed_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "Allrecursive original/effective/qualified/material scopes validpairs withinEOF andprospectiveunion; noflat/Windows/tailcases.",
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "BvhKernels34/with_cache49..59/GpuBvh68..87/new91..137/bind175..179/params181..188/record_build197..254/record_refit262..272/record_refit_passes274..300; required1..138+175..303, allother376bodyseparateprospective593connectedread"
+        ],
+        "string_inventory": [
+          "NativeBufferDefinition labels101/106/111/116/121/126/131 arehuman GPUdiagnosticlabels. PassParameters keys count/pad0183..186/primitive_bounds225/scene_bounds226/codes232/indices233/nodes247/parents248/right_children249/node_bounds284/nativekernelbindingkeysneedactualPassParameters/KernelBatch/ShaderSource/TraversalConfig implementation andexistingowner beforeclaimnativeadapterorinternalStringfailure. No newStringfindingfromliteralalone."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "WgpuContext+KernelCache -> actualshaderSourcefactories51..56/RadixSort57 -> retainedArc<Kernel>BvhKernels35..41 -> GpuBvhfreshnativeBuffers+capacity/count0 -> PassParametersnativeportkeys -> KernelBatch.dispatch/nativeGPUcommands -> node/indexbuffers -> traversalbinding/HostNode/nativephysicsconsumer; exactnativeparameterinterface andshaders/callers stillnecessary.",
+          "Publiccount/capacity -> record_buildcapacitycheck203/retainedcount209 -> intentionalemptyreturn210 -> clear/bounds/codes dispatch222/227/234 -> RadixSort236 -> hierarchy250 -> refit/gather252 -> nativebuffers; record_refit usesretainedsamecount270 perdocumentedtopologymode259."
+        ],
+        "conditional_cases": [
+          "Actualzero-capacitynew normalizesmin1:92; zero-countrecordbuildemptyreturn210 andrefit267 explicitmode, notbackcompatdefect. Nativecount/capacity2n-1 arithmetic/Bufferlimits andclientlayoutadmission needindependentactualsource; no allGPUvalidity claim.",
+          "Count209changesbeforefallibledispatch; .count docs143lastrecorded notlastsubmitted andlocalone-offbuild304errorsdropbatch; actualKernelBatch/callerfailure/submission policy neededbeforestatefinding. Publicmutablebuffers72/75 andreadhostslice consumers documentedbutno invalidbufferfailure assumedwithoutactualinputcontract.",
+          "Additional593disjointbody109linescomplete samefilepersonal376union, connectedreceiptstillrootadoptionpending; requiredoriginal267freshlinesonlyhere, no connectedrole/globalcountfromsamefile. Sourcequeries/read_nodes methods inspectedas sourceonly, noGPU/probe/readbackexecution."
+        ]
+      }
+    },
+    {
+      "original_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-297-CONNECTED-ORIGINAL2551.json",
+      "registration_sha256": "c775932c5dbd4f683b64a465389d4be90c8c1dc2fe051312b45b07d2e0c03cb2",
+      "assessed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "fresh_personal_body_reads": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+      "qualified_same_lens_reuse": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-FUTURE-ORIGINAL2551.json",
+        "sha256": "ee27af5534de1ad23c1614c5a3fa159cba5db3ff23303b636ed65c1be84ef7c5"
+      },
+      "qualified_future_receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS.json",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+        "row_pointer": "/rows/3"
+      },
+      "qualified_root_future_adoption": {
+        "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+        "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7",
+        "future_proof_pointer": "/qualified_future_original_proofs/3",
+        "checked_source_pointer": "/checked_rows/3"
+      },
+      "identity_specific_locator_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-297-LOCATOR-ORIGINAL2551.json",
+        "sha256": "fc1c0fa40bb1095b9eea77156ceba18f2502e64a9b7ad6330312f577b29b4330"
+      },
+      "function_contract": {
+        "exact_function_ownership": [
+          "MeshSurface::default28; MeshCollider::new53/triangle_count110/vertex_count114/write_positions120/record_bounds135/record_rebuild153/record_refit162/rebuild169/refit176/kernel_source184/bind192/pack_positions199"
+        ],
+        "string_inventory": [
+          "Closed reasons62/67/123 distinct exactnonempty/triangleindices/updateextent predicates. Native bufferlabels85/92/97 andbatchlabels170/177 presentation. Rawmesh_positions/mesh_triangles/primitive_bounds/count/margin/pad0/pad1 keys137..145 +193/194 supportexistingGPUparameteridentity. TraversalConfig.callback bvh_hit186 retained raw callable-name protocol -> traversal_source189 -> mesh_source311 text splice -> native bvh_hit284; actualTraversalConfig semanticowner/bodyneeded, not assume samealias as shaderbindingname."
+        ],
+        "trace": [
+          "Native positions/triangles -> new61 nonempty+indices65 -> packed Vec4positions76/199 andtrianglearray77 -> Buffer uploads80/87 -> triangle_count truncation73/vertex_count102 -> retainedpublicBuffers38..44/privatecounts48..49 -> record_bounds135 -> newlyreadTRIANGLE_BOUNDS2329:386..413 -> retainedbounds -> GpuBvhbuild/refit156/165 -> rawTraversalcallback186/nativeWGSL -> contact mesh bind -> nativeparticle response."
+        ],
+        "conditional_cases": [
+          "Normal new validates all triangleindices65 before shaderindex andnonempty61; closesordinaryinvalidindex claim fromunmutatedconstructor. Public positions/triangles/bounds/bvh fields38..44 can independentlyreplace andinconsistentlyretainprivatecounts; real aggregateinstancecontract/callers need rootcanonicalproof. write_positionscast121 before equality means lengths differing2^32 can compareequal, hugeconditional/no actualassetswitness.",
+          "Dynamicwrite_positions120 deliberatelyrequirescallerrecord_refit perdoc118; separate explicitstep legitimate, not automaticallystaleBVH defect. Surface.thickness publiclymutable45 can requireboundrecompute; actualquerymargin335+storedexpandedbounds may safelydoubleexpand, optimization/correctness policyopen. No negativebounds/finitevalues/nativeBVH proofyet."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "new_ordered_population_credit": 1,
+      "future_ordered_count_pending": false,
+      "ordered_rule": "Exactoriginal2551same-lensfuturefull205qualified; originalcountONCEproposed, newrereads0/newregistrations0. Rootwillapplyorderedproofonlyafteradoption.",
+      "metadata_nested_range_shape_preflight": "Allrecursive2551originalrequiredfields listpairs withinEOF205 andqualifiedownfull205; exactnativeGit/pathsnapshotqualifierpreserved, noflat/tail/genericnormalization."
+    }
+  ],
+  "pending_connected_contracts": [
+    "ActualGpuBvhPassParameters/KernelBatch/ShaderSource/TraversalConfig nativebinding/key/errorstateports andclient/Bufferlimits stillrequired, noStringfindingfromnativekeysalone",
+    "Rootunadopted593GPUgaps/594actualResolvedGeometryretainedtype update preservesfuture2715partialzeroearly; sourceproofcannotclosecurrentmain/allnativegraphs",
+    "Inheritedmandatoryextensions/currentmain/all20/all13/populations/exactaliases/connectedunread/futureproofs remainindependent"
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2550,
+      "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "credit": 0,
+      "reason": "ActualGPU capacity/count/state/nativebinding/topology/bounds andMeshColliderproducer/nativeconsumer contracts requireeachlens ownqualifiedassessment"
+    },
+    {
+      "original_index": 2551,
+      "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "credit": 0,
+      "reason": "ActualGPU capacity/count/state/nativebinding/topology/bounds andMeshColliderproducer/nativeconsumer contracts requireeachlens ownqualifiedassessment"
+    }
+  ],
+  "scope_qualifications": [
+    "Original2551own769futureproofqualifiedat exactsourceID/revision/hash/EOF/205ranges/registration/row/attribution/rootTEAM006selectedproof; zero rereads/registrationsandoneorderedroleonce.",
+    "2550fullactualsourcepersonal376 viaordered592267+separateconnected593109disjoint; originalscope267countnot376newwhole. 594future2715partial104zeroearly, otherfuturematerialstillunread."
+  ],
+  "contract_updates": [],
+  "current_delta_updates": [
+    {
+      "scope": "PRoriginal2550/2551frozencontracts",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exactcurrent-mainidentity/range/body/attribution qualification andnativeportpolicy"
+    }
+  ],
+  "separate_unadopted_connected": {
+    "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+    "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937"
+  },
+  "actual_new_body_lines_counted_once_in_ordered_rows": 267,
+  "body_output_truncation_status": "Everycreditedbodypacketuntruncated; metadata-onlysearches/truncations0credit"
+}

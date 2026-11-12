@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:185-235
+ 185         .any(|receipt| {
+ 186             receipt.phase == NpcPolicyDecisionPhase::Schedule
+ 187                 && matches!(
+ 188                     receipt.outcome,
+ 189                     NpcPolicyDecisionOutcome::ScheduleInitialized
+ 190                         | NpcPolicyDecisionOutcome::SchedulePreserved
+ 191                 )
+ 192         })
+ 193 }
+ 194 
+ 195 fn initialize_saved_schedule_once(
+ 196     ctx: &ReducerContext,
+ 197     character_id: u64,
+ 198     policy_seed: Seed,
+ 199     minute: StrategicMinute,
+ 200 ) -> Result<(), String> {
+ 201     let day = minute.day_index();
+ 202     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Schedule) {
+ 203         return Ok(());
+ 204     }
+ 205     let age_years = crate::relationship::effective_age_years(ctx, character_id, minute)
+ 206         .ok_or("NPC policy character is missing age chronology")?;
+ 207     if age_years < ADULT_AGE_YEARS {
+ 208         // Dependents retain the empty schedule created with their full
+ 209         // Character. Childhood work and education are separate follow-ups;
+ 210         // never install the adult labor/socializing policy before adulthood.
+ 211         record_decision(
+ 212             ctx,
+ 213             character_id,
+ 214             day,
+ 215             NpcPolicyDecisionPhase::Schedule,
+ 216             NpcPolicyDecisionOutcome::Ineligible,
+ 217             None,
+ 218             minute,
+ 219         );
+ 220         return Ok(());
+ 221     }
+ 222     let mut schedule = ctx
+ 223         .db
+ 224         .character_training_schedule()
+ 225         .character_id()
+ 226         .find(character_id)
+ 227         .ok_or("NPC policy character is missing a saved schedule")?;
+ 228     let previously_initialized = has_initialized_schedule_decision(ctx, character_id);
+ 229     let outcome = if !previously_initialized && schedule_is_unallocated(&schedule.downtime) {
+ 230         let initial =
+ 231             adventuresim_core::npc_policy::initial_npc_schedule(character_id, policy_seed);
+ 232         schedule.downtime = ScheduleAllocation {
+ 233             reading_minutes: initial.reading_minutes,
+ 234             combat_training_minutes: initial.combat_training_minutes,
+ 235             carousing_minutes: initial.carousing_minutes,

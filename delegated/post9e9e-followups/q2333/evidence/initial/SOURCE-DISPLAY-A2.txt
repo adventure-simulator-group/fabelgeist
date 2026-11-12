@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:66-125
+  66         .is_some_and(|row| row.identity == ctx.sender())
+  67     {
+  68         return Vec::new();
+  69     }
+  70     // Views require an indexed scan; preparer IDs enumerate all processes.
+  71     ctx.db
+  72         .tincture_process()
+  73         .preparer_character_id()
+  74         .filter(0u64..)
+  75         .map(|row| BackendTinctureStatus {
+  76             container_object_id: row.container_object_id,
+  77             ready_at_world_minute: row.ready_at_world_minute,
+  78             matured: row.matured,
+  79         })
+  80         .collect()
+  81 }
+  82 
+  83 /// Private medicinal payload attached to a stable container or food-lot object.
+  84 #[derive(Clone, Debug)]
+  85 #[table(accessor = medicinal_component)]
+  86 pub struct MedicinalComponent {
+  87     #[primary_key]
+  88     pub key: String,
+  89     pub carrier_kind: String,
+  90     pub carrier_id: u64,
+  91     pub intervention_profile_id: String,
+  92     pub profile_version: u16,
+  93     pub potency_units: f32,
+  94 }
+  95 
+  96 fn is_tincture_vessel(item_id: &str) -> bool {
+  97     adventuresim_core::item_catalog::definition(item_id)
+  98         .is_some_and(|definition| definition.tags.iter().any(|tag| tag == "tincture_vessel"))
+  99 }
+ 100 
+ 101 fn require_tincture_vessel(
+ 102     ctx: &ReducerContext,
+ 103     object_id: u64,
+ 104 ) -> Result<crate::InventoryObject, String> {
+ 105     let object = ctx
+ 106         .db
+ 107         .inventory_object()
+ 108         .id()
+ 109         .find(object_id)
+ 110         .ok_or("Container not found")?;
+ 111     if !is_tincture_vessel(&object.item_id) {
+ 112         return Err("Tincturing requires a bottle or jar authored as a tincture vessel".into());
+ 113     }
+ 114     Ok(object)
+ 115 }
+ 116 
+ 117 pub(crate) fn container_is_processing(ctx: &ReducerContext, object_id: u64) -> bool {
+ 118     ctx.db
+ 119         .tincture_process()
+ 120         .container_object_id()
+ 121         .find(object_id)
+ 122         .is_some_and(|row| !row.matured)
+ 123 }
+ 124 
+ 125 pub(crate) fn delete_container_medicine(ctx: &ReducerContext, object_id: u64) {

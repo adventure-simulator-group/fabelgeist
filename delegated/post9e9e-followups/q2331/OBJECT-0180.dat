@@ -1,0 +1,227 @@
+{
+  "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+  "lens": 12,
+  "batch": 867,
+  "at": "2026-10-30T02:09:04.187527+00:00",
+  "proposal": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+  "proposal_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+  "validated_bundle": {
+    "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+    "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111"
+  },
+  "rows": [
+    {
+      "original_index": 2557,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "source_sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "actual_EOF": 86,
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-602-WINDOWS-ORIGINAL2557.json",
+        "sha256": "5b87ee3d6d33755838b8b4bc5abe7f135a53afbaba973c9b6ef58ef16be2d6a4"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-602.json",
+      "registration_sha256": "25c0bf0429138f379cac2bab379c88ffde1c1f9fbdd2acc737df350675ed6dfe",
+      "source_object": "parallel-l12-20261029/source-867-868-20261030/744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "requested_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          86
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "AnimationFrequency24..43; AnimationSampleRate45..86 full body, Serde native f32 conversion attributes12/21."
+        ],
+        "string_inventory": [
+          "Only native Serde attribute grammar try_from/into f32; no private String owner, prose classifier, magic dynamic identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native f32 -> AnimationFrequency::try_from finite positive33..41 -> retained frequency + checked reciprocal PositiveAnimationDuration71..78 -> native hertz47/interval51/span division60..62 and serialized original frequency84."
+        ],
+        "conditional_cases": [
+          "Frequency calibration explicitly permits no representable reciprocal18..19 while sample-rate constructor checks reciprocal72. Distinct valid semantic contracts, not redundant owner by scalar representation.",
+          "Native exact original frequency bits retained, no obsolete API compatibility obligation; sample-count division order intentional, no arithmetic defect from normalization alone. Other numeric/aggregate/lifetime contracts independent."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursive range pairs within EOF prospectively covered; exact listed Windows fields only; no generic normalization/EOF tail."
+    },
+    {
+      "original_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "actual_EOF": 408,
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-603-WINDOWS-ORIGINAL2558.json",
+        "sha256": "e7c28bc76bc3eb0d22499a2c44262f3ec96357487b686c15422dcd52813f8743"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-603.json",
+      "registration_sha256": "2b6adea3afafc16ef205bfd3acbb573a516c0ce200811314de599cf3bebeef19",
+      "source_object": "parallel-l12-20261029/source-867-868-20261030/d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "requested_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          306
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "ScanElementCount44..64; native WGSL scan_blocks_code69..124/add_offsets_code126..154; grid157..160; PrefixSumScratch175..211; PrefixSum new222/with_cache226/record240..270/record_level272..303; one-off run body307..408 unread."
+        ],
+        "string_inventory": [
+          "WGSL generators return native shader program String, parameters count/pad0/pad1/data/write_sums/sums282..296 match authored WGSL69..154; debug buffer labels186/194 native diagnostic ports. No closed-name defect solely from literals. ScanError preserves typed counts/byte extents and native anyhow source39, no error-prose parsing."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Typed ScanElementCount -> scratch checked capacity250 and native BufferByteLength256 -> actual PassParameters raw name map281..296 -> KernelBatch.dispatch290/297/301 + recursive call299 -> native WGSL uniforms/storage69..154; exact parameter family owner proof independent."
+        ],
+        "conditional_cases": [
+          "count0 intentional no-op247, scratch capacity max1 intentional176; shader addition wraps documented237, not overflow compatibility defect.",
+          "record-level recursion MissingScratchLevel294 structured failure; native GPU resource/context/buffer alias/dispatch layout/maximum bounds remain actual connected contracts, no runtime or native execution.",
+          "All original recursive registry scopes union1..306 personally read; source307..408 unassessed, tests/run not claimed."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursive range pairs within EOF prospectively covered; exact listed Windows fields only; no generic normalization/EOF tail."
+    }
+  ],
+  "delegated_attribution_preserved": true,
+  "root_personal_rereads": [],
+  "adopted_registration_mapping": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-602.json",
+      "sha256": "25c0bf0429138f379cac2bab379c88ffde1c1f9fbdd2acc737df350675ed6dfe",
+      "adopted_continuation_registration_number": 1569,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-603.json",
+      "sha256": "2b6adea3afafc16ef205bfd3acbb573a516c0ce200811314de599cf3bebeef19",
+      "adopted_continuation_registration_number": 1570,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    }
+  ],
+  "new_original_roles": 2,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "new_global_source_registration_records": 0,
+  "accepted_unique_count_change": 0,
+  "new_findings": [],
+  "current_source_reconciled": false,
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "runtime_validation": "Not run; source audit only",
+  "pending": [
+    "Exact own GPU parameter family741/748/749 qualification and actual native ports; no alias by common String remedy.",
+    "Current-main/all20/all13/populations/extensions/exact aliases remain independent."
+  ],
+  "scope_qualifications": [
+    "Original2557 recursive union1..86 and2558 union1..306 fully personally read; source2558 remaining307..408 no credit. Exact identity-specific Windows fields preserved."
+  ],
+  "additive_qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-602-WINDOWS-ORIGINAL2557.json",
+      "sha256": "5b87ee3d6d33755838b8b4bc5abe7f135a53afbaba973c9b6ef58ef16be2d6a4"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-603-WINDOWS-ORIGINAL2558.json",
+      "sha256": "e7c28bc76bc3eb0d22499a2c44262f3ec96357487b686c15422dcd52813f8743"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-604-WINDOWS-ORIGINAL2559.json",
+      "sha256": "73b93cae05d6bb2aa37f13fe05105944f68b642d8675c6f4c779c8a9dcdcdbda"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-605-WINDOWS-ORIGINAL2560.json",
+      "sha256": "7e32bc58838feb5c31fd1c8d0abccfa29bf3b4f5d5431d444d7dd597651f182a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-608-WINDOWS-ORIGINAL2561.json",
+      "sha256": "0be5839e18ddd31416392be28545ace7b7ff7b968f46cf774c9e0600cff912b0"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-609-WINDOWS-ORIGINAL2562.json",
+      "sha256": "ff3f663267a7aaffc3624e0b66434d2790df28244d87f07ff1bc40eff4829c53"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-610-WINDOWS-ORIGINAL2563.json",
+      "sha256": "0ed4932bc21d0f642d8fb7a5537ffaef50e51ceb3662d8e719f1f5090ef9dc9d"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-611-WINDOWS-ORIGINAL2564.json",
+      "sha256": "b052df976fc7d8e1f9eaf72b9bf9e8b8ab09cde51b7111fd956aa3f1bcf94554"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-612-WINDOWS-ORIGINAL2565.json",
+      "sha256": "95da2869695fc85d0e4b1f5755249603e373f7c5b7cc25fd49d23ecabdd0299a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-613-WINDOWS-ORIGINAL2566.json",
+      "sha256": "1a57b3d94602fccaf2178338dada3e57dbfae4f9d1831c3c1c67a1af31d4503a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-615-WINDOWS-ORIGINAL2567.json",
+      "sha256": "7969c5e17d0df8999496802238f6022b26d4d63ad21cf4404b46380e67f56a1e"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-616-WINDOWS-ORIGINAL2568.json",
+      "sha256": "8a6c1a52660554d27eec9753c337a0580aa6b26762db7698a918feb98c2e7be4"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-617-WINDOWS-ORIGINAL2569.json",
+      "sha256": "20ee0765d9713a67540c23b7de5e84c15b8236d8dea777fe0c60b45d79d60fbd"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-618-WINDOWS-ORIGINAL2570.json",
+      "sha256": "6414aecf08e455eaa39758ef6ae1382c7084ddb0c2ae83e5725ccb25cc5fa7a3"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-FUTURE-ORIGINAL2551.json",
+      "sha256": "ee27af5534de1ad23c1614c5a3fa159cba5db3ff23303b636ed65c1be84ef7c5"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-871-CURRENT-DELTA-SCOPE.json",
+      "sha256": "d941b47ff8a07d9ba3126c8a3ace9356d3b3d8650bd7482ea40ff45f0ce1509a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-872-CUMULATIVE-PARTIAL-FRESH.json",
+      "sha256": "411b5cf13081521776668fa9978a22505b5830a8817123e4894621b46f424a66"
+    }
+  ],
+  "implementation_gate_complete": false
+}

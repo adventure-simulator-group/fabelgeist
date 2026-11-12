@@ -1,0 +1,39 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:1-38
+   1 fn party_next_walking_minutes(
+   2     ctx: &ReducerContext,
+   3     party_id: &str,
+   4     remaining_movement: u64,
+   5 ) -> Result<u64, String> {
+   6     let party = ctx
+   7         .db
+   8         .party_authority()
+   9         .id()
+  10         .find(party_id.to_string())
+  11         .ok_or("Party not found")?;
+  12     let now = party_wilderness_environment_minutes(&party)
+  13         .map(|(journey_minute, _)| journey_minute)
+  14         .ok_or("Party wilderness clock is not initialized")?;
+  15     let itinerary = forecast_itinerary(
+  16         now,
+  17         remaining_movement,
+  18         party.walking_minutes_per_day,
+  19         party.travel_at_night,
+  20         &party_itinerary_members(ctx, party_id)?,
+  21     )
+  22     .ok_or("Unable to forecast the next travel leg")?;
+  23     Ok(itinerary.segments.first().map_or(0, |segment| {
+  24         if matches!(segment.kind, ItinerarySegmentKind::Walking) {
+  25             segment.movement_minutes
+  26         } else {
+  27             0
+  28         }
+  29     }))
+  30 }
+  31 
+  32 fn party_itinerary_members(
+  33     ctx: &ReducerContext,
+  34     party_id: &str,
+  35 ) -> Result<Vec<ItineraryMember>, String> {
+  36     let mut members = Vec::new();
+  37     for member_id in living_party_member_ids(ctx, party_id) {
+  38         let attributes = ctx

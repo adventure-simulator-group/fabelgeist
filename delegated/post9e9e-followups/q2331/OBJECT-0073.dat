@@ -1,0 +1,149 @@
+{
+      "contract_id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "kind": "retained-finding-or-question",
+      "lens": 12,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "ReflectedInterface aggregate index-to-native-layout mapping",
+      "first_failed_contract_or_unresolved_question": "ReflectedInterface.new BTreeMap retains nativegroupindices31 but compacts layouts.push39 while reflectedindex retained45; layout nativeposition can differ from originalgroupindex",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              88
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+          "proof_pointer": "/evidence/rows/0",
+          "receipt": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+            "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+          "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              209
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+          "proof_pointer": "/evidence/rows/1",
+          "receipt": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+            "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              88
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+          "proof_pointer": "/qualified_future_original_proofs/0",
+          "receipt": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+            "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+          "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              209
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+          "proof_pointer": "/qualified_future_original_proofs/1",
+          "receipt": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+            "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+          "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path_as_recorded": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              88
+            ]
+          ],
+          "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+          "proof_pointer": "/native_owner_qualification/evidence/exact_source_evidence",
+          "receipt": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+            "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+          },
+          "lens_context": 12,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2636,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2636"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": null,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../segovb/READ-L12-CONNECTED-TEAM-004.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "remaining_evidence": [
+        "Conditional supportednative shader withnoncontiguousgroupindices e.gonlygroup1; nativeWGSL/wgpu29 validindexlimits required",
+        "Actualcaller/admission mayimposecontiguousgroups policy; mustdecideexplicitly notinferordinaryproductionwitness",
+        "All-other-lens independentaggregate/admission qualifications and current/all20"
+      ],
+      "dependencies": [
+        "Conditional supportednative shader withnoncontiguousgroupindices e.gonlygroup1; nativeWGSL/wgpu29 validindexlimits required",
+        "Actualcaller/admission mayimposecontiguousgroups policy; mustdecideexplicitly notinferordinaryproductionwitness",
+        "All-other-lens independentaggregate/admission qualifications and current/all20"
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Admittedgroupindices mapcorrectly to native sparse layoutpositions or explicitdocumented/reportedadmissionrestriction",
+        "Binding/layoutnativeindexagreement verified afterrepairgate; no runtimeacceptancehere"
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    }

@@ -1,0 +1,205 @@
+   1 //! A triangle mesh collider, with the hierarchy that makes it queryable.
+   2 //!
+   3 //! The vertices live on the GPU and can be rewritten every frame, which is
+   4 //! what an animated body is. Rewriting them refits the hierarchy rather than
+   5 //! rebuilding it -- the topology has not changed, and a refit is a handful of
+   6 //! passes instead of a sort.
+   7 
+   8 use anyhow::anyhow;
+   9 use fabelgeist_bvh::gpu::{BvhKernels, GpuBvh, TraversalConfig, traversal_source};
+  10 use fabelgeist_compute::prelude::*;
+  11 use fabelgeist_gpu::prelude::BufferUpload;
+  12 use fabelgeist_gpu::prelude::*;
+  13 use fabelgeist_math::Vec3;
+  14 
+  15 use crate::wgsl;
+  16 
+  17 /// How far outside the surface a particle is still considered in contact, and
+  18 /// how much friction that contact has.
+  19 #[derive(Clone, Copy, Debug)]
+  20 pub struct MeshSurface {
+  21     /// The collision shell. A garment held half a centimetre off the skin
+  22     /// looks like cloth; held at zero it looks like paint.
+  23     pub thickness: f32,
+  24     pub friction: f32,
+  25 }
+  26 
+  27 impl Default for MeshSurface {
+  28     fn default() -> Self {
+  29         Self {
+  30             thickness: 0.006,
+  31             friction: 0.3,
+  32         }
+  33     }
+  34 }
+  35 
+  36 pub struct MeshCollider {
+  37     /// xyz = vertex position. `vec4` because that is what the kernels index.
+  38     pub positions: Buffer,
+  39     /// Three vertex indices per triangle.
+  40     pub triangles: Buffer,
+  41     /// Two `vec4` per triangle: the lower then the upper corner.
+  42     pub bounds: Buffer,
+  43 
+  44     pub bvh: GpuBvh,
+  45     pub surface: MeshSurface,
+  46 
+  47     triangle_bounds: std::sync::Arc<Kernel>,
+  48     vertex_count: u32,
+  49     triangle_count: u32,
+  50 }
+  51 
+  52 impl MeshCollider {
+  53     pub fn new(
+  54         context: &WgpuContext,
+  55         cache: &KernelCache,
+  56         bvh_kernels: BvhKernels,
+  57         positions: &[Vec3],
+  58         triangles: &[[u32; 3]],
+  59         surface: MeshSurface,
+  60     ) -> Result<Self> {
+  61         if triangles.is_empty() {
+  62             return Err(anyhow!("MeshCollider: no triangles"));
+  63         }
+  64         for (index, triangle) in triangles.iter().enumerate() {
+  65             if triangle.iter().any(|&v| v as usize >= positions.len()) {
+  66                 return Err(anyhow!(
+  67                     "MeshCollider: triangle {index} indexes past the {} vertices",
+  68                     positions.len()
+  69                 ));
+  70             }
+  71         }
+  72 
+  73         let triangle_count = triangles.len() as u32;
+  74         let storage = BufferDefinition::storage();
+  75 
+  76         let packed_positions = pack_positions(positions);
+  77         let flat_triangles: Vec<u32> = triangles.iter().flatten().copied().collect();
+  78 
+  79         let mut collider = Self {
+  80             positions: Buffer::from_upload(
+  81                 context,
+  82                 BufferUpload::from_elements(&packed_positions),
+  83                 storage
+  84                     .clone()
+  85                     .with_label(("mesh collider positions").into()),
+  86             )?,
+  87             triangles: Buffer::from_upload(
+  88                 context,
+  89                 BufferUpload::from_elements(&flat_triangles),
+  90                 storage
+  91                     .clone()
+  92                     .with_label(("mesh collider triangles").into()),
+  93             )?,
+  94             bounds: Buffer::new(
+  95                 context,
+  96                 (triangle_count as u64 * 32).into(),
+  97                 storage.with_label(("mesh collider triangle bounds").into()),
+  98             )?,
+  99             bvh: GpuBvh::new(context, bvh_kernels, triangle_count)?,
+ 100             surface,
+ 101             triangle_bounds: cache.get(context, wgsl::TRIANGLE_BOUNDS)?,
+ 102             vertex_count: positions.len() as u32,
+ 103             triangle_count,
+ 104         };
+ 105 
+ 106         collider.rebuild(context)?;
+ 107         Ok(collider)
+ 108     }
+ 109 
+ 110     pub fn triangle_count(&self) -> u32 {
+ 111         self.triangle_count
+ 112     }
+ 113 
+ 114     pub fn vertex_count(&self) -> u32 {
+ 115         self.vertex_count
+ 116     }
+ 117 
+ 118     /// Replace the vertex positions. The topology is unchanged, so the caller
+ 119     /// then wants [`MeshCollider::record_refit`] rather than a rebuild.
+ 120     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
+ 121         if positions.len() as u32 != self.vertex_count {
+ 122             return Err(anyhow!(
+ 123                 "MeshCollider: holds {} vertices, given {}",
+ 124                 self.vertex_count,
+ 125                 positions.len()
+ 126             ));
+ 127         }
+ 128         self.positions.write(
+ 129             context,
+ 130             BufferUpload::from_elements(&pack_positions(positions)),
+ 131         )?;
+ 132         Ok(())
+ 133     }
+ 134 
+ 135     fn record_bounds(&self, batch: &mut KernelBatch) -> Result<()> {
+ 136         let mut parameters = PassParameters::new();
+ 137         parameters.insert("mesh_positions", self.positions.clone());
+ 138         parameters.insert("mesh_triangles", self.triangles.clone());
+ 139         parameters.insert("primitive_bounds", self.bounds.clone());
+ 140         parameters.insert("count", self.triangle_count);
+ 141         // The bounds carry the collision shell, so a query for a point inside
+ 142         // the shell can use the point's own box rather than an expanded one.
+ 143         parameters.insert("margin", self.surface.thickness);
+ 144         parameters.insert("pad0", 0u32);
+ 145         parameters.insert("pad1", 0u32);
+ 146         batch.dispatch_items(&self.triangle_bounds, &parameters, self.triangle_count)?;
+ 147         Ok(())
+ 148     }
+ 149 
+ 150     /// Recompute the bounds and rebuild the hierarchy from scratch. Needed
+ 151     /// once, and again whenever the mesh has deformed far enough that its
+ 152     /// Morton ordering no longer reflects where the triangles are.
+ 153     pub fn record_rebuild(&mut self, batch: &mut KernelBatch) -> Result<()> {
+ 154         self.record_bounds(batch)?;
+ 155         let bounds = self.bounds.clone();
+ 156         self.bvh.record_build(batch, &bounds, self.triangle_count)?;
+ 157         Ok(())
+ 158     }
+ 159 
+ 160     /// Recompute the bounds and refit, keeping the ordering. What an animated
+ 161     /// body does every frame.
+ 162     pub fn record_refit(&mut self, batch: &mut KernelBatch) -> Result<()> {
+ 163         self.record_bounds(batch)?;
+ 164         let bounds = self.bounds.clone();
+ 165         self.bvh.record_refit(batch, &bounds)?;
+ 166         Ok(())
+ 167     }
+ 168 
+ 169     pub fn rebuild(&mut self, context: &WgpuContext) -> Result<()> {
+ 170         let mut batch = KernelBatch::labelled(context, "mesh collider rebuild");
+ 171         self.record_rebuild(&mut batch)?;
+ 172         batch.submit();
+ 173         Ok(())
+ 174     }
+ 175 
+ 176     pub fn refit(&mut self, context: &WgpuContext) -> Result<()> {
+ 177         let mut batch = KernelBatch::labelled(context, "mesh collider refit");
+ 178         self.record_refit(&mut batch)?;
+ 179         batch.submit();
+ 180         Ok(())
+ 181     }
+ 182 
+ 183     /// The WGSL for the resolve kernel, with this mesh's traversal pasted in.
+ 184     pub(crate) fn kernel_source() -> String {
+ 185         let config = TraversalConfig {
+ 186             callback: "bvh_hit".into(),
+ 187             ..Default::default()
+ 188         };
+ 189         wgsl::mesh_source(&traversal_source(&config))
+ 190     }
+ 191 
+ 192     pub(crate) fn bind(&self, parameters: &mut PassParameters) {
+ 193         parameters.insert("mesh_positions", self.positions.clone());
+ 194         parameters.insert("mesh_triangles", self.triangles.clone());
+ 195         self.bvh.bind(parameters, &TraversalConfig::default());
+ 196     }
+ 197 }
+ 198 
+ 199 pub fn pack_positions(positions: &[Vec3]) -> Vec<f32> {
+ 200     let mut packed = Vec::with_capacity(positions.len() * 4);
+ 201     for position in positions {
+ 202         packed.extend_from_slice(&[position.x, position.y, position.z, 0.0]);
+ 203     }
+ 204     packed
+ 205 }

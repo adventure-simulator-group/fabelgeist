@@ -1,0 +1,426 @@
+{
+  "kind": "Isolated ordered L12 source assessment proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 873,
+  "proposed_original_before": 2571,
+  "proposed_original_after": 2575,
+  "new_original_roles_proposed": 4,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Not run; source/evidence only",
+  "at": "2026-10-30T02:13:35.873699+00:00",
+  "new_findings": [],
+  "body_output_truncation_status": "All credited bounded packets untruncated; metadata navigation/truncations zero body credit",
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-872.json",
+  "predecessor_proposal_sha256": "ff1c5cbe02ce30c4d8e484ffaeb275f38e3abfb3b6beb0982e1b8f19022b7b02",
+  "rows": [
+    {
+      "original_index": 2571,
+      "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+      "source_sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "actual_EOF": 652,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "native_package": "bevy_reflect-0.19.1",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b",
+      "archive_member": "bevy_reflect-0.19.1/src/reflect.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-621-WINDOWS-ORIGINAL2571.json",
+        "sha256": "4696a737401572d3c01dd84b47f478e157422e8e249fc704970fc8969852d324"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-621.json",
+      "registration_sha256": "9783214e0afd67a3bc7fc9f00c7092dd14e2086c8d46b3d7545236034c2f406f",
+      "requested_ranges": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "PartialReflect::try_downcast_ref494..496/try_downcast_mut504..506; Reflect::downcast534..540/take547..549/downcast_ref574..576; other docs context only, extra mutable downcast584..586 separate628."
+        ],
+        "string_inventory": [
+          "Typed native runtime Any/downcast API; no application String classifier. No obsolete Box/downcast preservation obligation."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native dynamic Reflect -> actual try_as_reflect/Any downcast -> typed reference/value, remote projection actual macro880 native own623? Exact macro870/871 uses native remote field; concrete app type/caller/accepted invariant remains required."
+        ],
+        "conditional_cases": [
+          "downcast536 unwrap follows is<T>535 native type guard, no ordinary panic proven. Dynamic represented type explicitly distinct from underlying type554..558; legitimate native mode, do not conflate. Exact writable callee628 checked separately."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2572,
+      "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+      "source_sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "actual_EOF": 1123,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "native_package": "bevy_reflect-0.19.1",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b",
+      "archive_member": "bevy_reflect-0.19.1/src/type_registry.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-622-WINDOWS-ORIGINAL2572.json",
+        "sha256": "89d4f1026a5d20ef6a26bf095bb3f45aa1022d9d244839b5bf79609329c173e6"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-622.json",
+      "registration_sha256": "0df9a16979480b889646dcf77764140d42bb3e6c26a4f6a0301b2717f9ee890e",
+      "requested_ranges": [
+        [
+          881,
+          919
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          881,
+          919
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          881,
+          919
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "ReflectDeserialize881..911 full definition/deserialize895..902/FromType905..911; ReflectFromPtr docs913..919 only no pointer body."
+        ],
+        "string_inventory": [
+          "Native serde error custom901 is actual final decoder trait adapter, no private application error-prose classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "TypeRegistry FromType<T> stores fn908 invoking actual T::deserialize -> erased nativeSerde -> boxed typed Reflect -> actual deserialize895 Error::custom901 native associated-error boundary; concrete T admission remains its own contract."
+        ],
+        "conditional_cases": [
+          "Does not bypass concrete T::deserialize908, so native reflection deserialize alone is not proof of bypassing existing checked Serde implementation. Actual app derives/registration/native mutable route separate. No pointer/runtime execution."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2573,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "source_sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "actual_EOF": 986,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "native_package": "serde-saphyr-1.2.0",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_member": "serde-saphyr-1.2.0/src/de/api.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-623-WINDOWS-ORIGINAL2573.json",
+        "sha256": "e61da9963cee4de1b6db5608eb55746bb06d7b4aa42acaf34ba44c4d852a0261"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-623.json",
+      "registration_sha256": "cf6c69bb46cb5515640f3801369da49ea40b3f9bc4232e5bcffde9ebe92e91b0",
+      "requested_ranges": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "from_str84..89/from_str_with_options_impl92..99/from_str_with_options136..141 full; example docs100..112 and maybe_with_snippet header143..145 only."
+        ],
+        "string_inventory": [
+          "Native YAML text and final diagnostic snippets, not application semantic String identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native input -> defaults88/explicitOptions136 -> with_deserializer96 -> concrete T::deserialize97 -> retained T or typed native error; single-document/normalization callee2577 read separately."
+        ],
+        "conditional_cases": [
+          "Concrete T owns bespoke admission; native library allowing f32/f64 raw values is not application invariant failure without concrete derive/caller. Borrowed vs owned text modes legitimate."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2574,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "source_sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "actual_EOF": 760,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "native_package": "serde-saphyr-1.2.0",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_member": "serde-saphyr-1.2.0/src/de/options.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-624-WINDOWS-ORIGINAL2574.json",
+        "sha256": "039b1d6d39e5dd4b7f69fd33525283a4af07d65681339b8943103d34738bc330"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-624.json",
+      "registration_sha256": "0ee1c06a18f1c3b84ede919b33d17be70480ef0cbfd3785cb546043e28396b71",
+      "requested_ranges": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "Options field reject_non_finite_typeless_float248..265 docs/field; Default499..527 full."
+        ],
+        "string_inventory": [
+          "Native decoder policy fields/booleans and PropertySyntax enum typed; documentation native nonfinite canonical strings explicitly optional typeless mode, no magic application discriminator."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native Options::default -> typed duplicate/merge policies505..506/aliaslimits507/explicitflags -> Cfg -> actual native YAML decoder -> concrete T consumer independent."
+        ],
+        "conditional_cases": [
+          "Defaults reject typeless nonfinite514; concrete f32/f64 special .nan/.inf remain allowed254..259. strict_booleans false509/angle false510/property_map None522 are legitimate optional native modes, no demand remove normalization or preserve obsolete behavior."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    }
+  ],
+  "pending_connected_contracts": [
+    "Concrete firstparty typed Serde/reflection/remote/native mutable consumers and actual supported inputs remain separate where required.",
+    "Native helper normalizers/live event/scope/feature branches only as actually materially needed, no comprehensive package or runtime guarantee.",
+    "Current main/all20/all13/populations/extensions/exact aliases remain independent."
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2571,
+      "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+      "source_sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "ranges": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actual native Serde/reflection decoder to bespoke invariant/retained state/native mutable projection must be independently qualified by appropriate own lens."
+    },
+    {
+      "original_index": 2572,
+      "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+      "source_sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "ranges": [
+        [
+          881,
+          919
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actual native Serde/reflection decoder to bespoke invariant/retained state/native mutable projection must be independently qualified by appropriate own lens."
+    },
+    {
+      "original_index": 2573,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "source_sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "ranges": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actual native Serde/reflection decoder to bespoke invariant/retained state/native mutable projection must be independently qualified by appropriate own lens."
+    },
+    {
+      "original_index": 2574,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "source_sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "ranges": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "credit": 0,
+      "reason": "Actual native Serde/reflection decoder to bespoke invariant/retained state/native mutable projection must be independently qualified by appropriate own lens."
+    }
+  ],
+  "scope_qualifications": [
+    "Exact native frozen registry body/member from complete cached archive matching both personally read source lock clauses; not installed/current source assumption.",
+    "Native program text/Serde grammar/modes/normalization legitimate; no source-only token or Box/prose compatibility finding.",
+    "Historical broad read context genuinely read but no unrelated native function/type role inferred; exact incomplete bodies named."
+  ],
+  "contract_updates": [],
+  "current_delta_updates": [
+    {
+      "scope": "Native original2571..2574 reflection/YAML ports + concrete application routes",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Exact current lock/member/body/native caller feature/accepted-mode source qualification"
+    }
+  ],
+  "partial_read_receipts": [
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-873-001.json",
+      "sha256": "2c4cc2a77d9d106b6f1fb8fd7f113180b1a84d8a15759eb1877880ea4d6c59d9"
+    },
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-873-002.json",
+      "sha256": "858438b9da98cfa62a175c1e10af691983f3fbb241cc1036136f387517729c54"
+    }
+  ],
+  "actual_new_body_lines_counted_once_in_ordered_rows": 173
+}

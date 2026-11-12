@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:3380-3435
+3380             .next()
+3381             .unwrap();
+3382         for required in [
+3383             "if !party.is_solo",
+3384             "party.leader_id != HERBALISM_DEMO_CHARACTER_ID",
+3385             "members.len() != 1",
+3386             "members[0].character_id != HERBALISM_DEMO_CHARACTER_ID",
+3387             "set_character_case_site(ctx, HERBALISM_DEMO_CHARACTER_ID, None)",
+3388             "ensure_foraging_demo_settlement(ctx)",
+3389             "character.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into())",
+3390             "party.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into())",
+3391             "party.current_case_site_id = None",
+3392             "party.camp_destination = None",
+3393             "party.camp_remaining_minutes = 0",
+3394             "finish_party_journey(ctx, &party_id)",
+3395             "strategic_encounter().party_id().delete(&party_id)",
+3396         ] {
+3397             assert!(fixture.contains(required), "missing reset step: {required}");
+3398         }
+3399         let validation = fixture.find("if !party.is_solo").unwrap();
+3400         let first_reset = fixture
+3401             .find("set_character_case_site(ctx, HERBALISM_DEMO_CHARACTER_ID, None)")
+3402             .unwrap();
+3403         assert!(
+3404             validation < first_reset,
+3405             "party ownership must be validated first"
+3406         );
+3407         let scenarios =
+3408             crate::production_source(include_str!("strategic/development_scenarios.rs"));
+3409         let settlement = scenarios
+3410             .split("pub(crate) fn ensure_foraging_demo_settlement")
+3411             .nth(1)
+3412             .unwrap()
+3413             .split("fn ensure_scenario_character_at")
+3414             .next()
+3415             .unwrap();
+3416         assert!(settlement.contains("const ID: &str = \"dev-scenario-foraging\""));
+3417         assert!(settlement.contains("settlement.coord_x = 9.75"));
+3418         assert!(settlement.contains("settlement.coord_y = 51.75"));
+3419         assert!(
+3420             settlement.find("settlement.coord_y = 51.75").unwrap()
+3421                 < settlement.find("ensure_settlement_activity").unwrap()
+3422         );
+3423     }
+3424 
+3425     #[test]
+3426     fn stable_npc_life_is_order_independent_and_adult_bounded() {
+3427         let first = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
+3428         let _unrelated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(99));
+3429         let repeated = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(31));
+3430         assert_eq!(first, repeated);
+3431         assert!((18..=60).contains(&first.age_years));
+3432     }
+3433 
+3434     #[test]
+3435     fn creation_modes_separate_persistent_npcs_from_tactical_temporaries() {

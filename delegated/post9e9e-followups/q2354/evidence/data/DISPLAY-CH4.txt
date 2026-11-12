@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:2415-2475
+2415         ),
+2416         terrain_hills_hours: generated_skills.map_or_else(
+2417             || life_skills.map_or(0.0, |s| s.skills.terrain_hills),
+2418             |s| s.terrain_hills,
+2419         ),
+2420         terrain_wetlands_hours: generated_skills.map_or_else(
+2421             || life_skills.map_or(0.0, |s| s.skills.terrain_wetlands),
+2422             |s| s.terrain_wetlands,
+2423         ),
+2424         terrain_urban_hours: generated_skills.map_or_else(
+2425             || life_skills.map_or(0.0, |s| s.skills.terrain_urban),
+2426             |s| s.terrain_urban,
+2427         ),
+2428         terrain_snow_hours: generated_skills.map_or_else(
+2429             || life_skills.map_or(0.0, |s| s.skills.terrain_snow),
+2430             |s| s.terrain_snow,
+2431         ),
+2432         surgery_hours: generated_skills.map_or_else(
+2433             || life_skills.map_or(1000.0, |s| s.skills.surgery),
+2434             |s| s.surgery,
+2435         ),
+2436         tailoring_hours: generated_skills.map_or_else(
+2437             || life_skills.map_or(1000.0, |s| s.skills.tailoring),
+2438             |s| s.tailoring,
+2439         ),
+2440         smithing_hours: generated_skills.map_or_else(
+2441             || life_skills.map_or(1000.0, |s| s.skills.smithing),
+2442             |s| s.smithing,
+2443         ),
+2444     });
+2445     crate::time::initialize_character_time(ctx, id)?;
+2446     if let Some(minutes) = options.initial_time_minute {
+2447         let mut time = ctx
+2448             .db
+2449             .character_time()
+2450             .character_id()
+2451             .find(id)
+2452             .ok_or("New character time was not initialized")?;
+2453         time.minutes = minutes;
+2454         ctx.db.character_time().character_id().update(time);
+2455     }
+2456     let _character_limbs = ctx.db.character_limbs().insert(CharacterLimbs {
+2457         character_id: id,
+2458         left_arm_health: 1.0,
+2459         right_arm_health: 1.0,
+2460         left_leg_health: 1.0,
+2461         right_leg_health: 1.0,
+2462         head_health: 1.0,
+2463         chest_health: 1.0,
+2464         stomach_health: 1.0,
+2465     });
+2466     crate::surgery::initialize_character_injuries(ctx, character.id);
+2467     crate::condition::initialize_character_condition(ctx, character.id)?;
+2468     if let Some(starting) = starting {
+2469         let mut personality = crate::personality::CharacterPersonality::neutral(id);
+2470         for personality_trait in &starting.personality.traits {
+2471             use crate::personality::{
+2472                 Conscience, Conviction, Courtship, Drive, Hygiene, Mirth, Nerve, Outlook,
+2473                 SelfKnowledge, SelfRegard, Sociability, Temperance, Transparency,
+2474             };
+2475             match personality_trait {

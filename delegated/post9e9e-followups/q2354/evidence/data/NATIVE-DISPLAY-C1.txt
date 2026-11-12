@@ -1,0 +1,21 @@
+SOURCE crates/adventuresim-world-schema/src/calendar.rs:1-20
+   1 //! Shared non-leap strategic calendar and its absolute minute coordinate.
+   2 //!
+   3 //! Calendar calculations and stored absolute instants use [`CalendarYear`] and
+   4 //! [`StrategicMinute`]. Transport adapters convert to raw integers only where
+   5 //! their protocols require it.
+   6 
+   7 use serde::{Deserialize, Serialize};
+   8 use std::fmt;
+   9 
+  10 pub const MINUTES_PER_DAY: u64 = 24 * 60;
+  11 pub const DAYS_PER_WEEK: u64 = 7;
+  12 const SUNDAY_INDEX: u64 = 6;
+  13 pub const DAYS_PER_YEAR: u64 = 365;
+  14 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+  15 /// Calendar year containing strategic minute zero.
+  16 pub const WORLD_START_YEAR: CalendarYear = CalendarYear { year: 1544 };
+  17 /// August 20 at 00:00 in the shared non-leap strategic calendar.
+  18 pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
+  19 pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
+  20     minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,

@@ -1,0 +1,358 @@
+{
+  "schema": "726-central-followup-14d-synthesis-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "9e9e237c0c3c28278342e831da9f243fc2229e58",
+  "assessments": [
+    {
+      "queue_index": 2331,
+      "historical_contract_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "reviewer": "/root/verifier_scope",
+      "scope": "Shader reflection name owners and general/fast parameter consumers",
+      "assessment": "Uniform reflection retains bare member names while a single flat parameter map supplies values; hypothetical supported groups with identically named members cannot express distinct values through that map. Kernel::run selects the general pass, where absent members remain zeroed, while an eligible nonempty KernelBatch selects FastPath, where a missing member errors. Shader admission, supported callers, intended sharing/default policy and runtime effects remain open. Prior uniform ABI, sparse-group and multiple-uniform records are related but distinct first operations.",
+      "source_refs": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs:16-55,69-129",
+        "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs:5-40",
+        "crates/fabelgeist-compute/src/kernel/mod.rs:147-166,249-286",
+        "crates/fabelgeist-compute/src/kernel/fast.rs:234-255,316-375"
+      ],
+      "history": "059 q2331 remains open; its two original proposed views record no new ordered body credit or current reconciliation. The earlier lens12_frontier personal reads and root adoptions remain separately attributed. Twelve cited frozen source objects matched their recorded hashes; nine individually equal 95e and three differ. q317 shares the recorded first contract; q151 and q370 own separate ABI and sparse-group questions. The public packet encrypts three originals; exact recovery requires a separately held same-machine key."
+    },
+    {
+      "queue_index": 2332,
+      "historical_contract_id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "reviewer": "/root/mhr_character",
+      "scope": "Native SATS derive and selected reflection owner/admission checks",
+      "assessment": "The selected locked SATS derive templates construct product fields without calling an owner-wide constructor in the shown branches. The selected land-use import reducer reconstructs LandUseProfile with its exact 10000 sum before update or insertion; unsigned components then cannot individually exceed 10000. The selected opaque SignedLength reflection path does not itself demonstrate a private-inner-value bypass. Feature activation, macro expansion, other ingress and actual invalid wire values remain unproved.",
+      "source_refs": [
+        "crates/adventuresim-world-schema/src/lib.rs:1504-1633",
+        "crates/adventuresim-stdb-module/src/strategic/world_import.rs:522-549,682-716"
+      ],
+      "history": "Original 059 q2332 is open; 42 cited historical record identities are preserved and 22 path-containing records are publicly reconstructed. Earlier q131 and 13G basis-point work retain their own readers, revision and existing ledger identity. The selected P16 object was from a dirty working snapshot, not a clean tree."
+    },
+    {
+      "queue_index": 2333,
+      "historical_contract_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+      "reviewer": "/root/wrapped_scope",
+      "scope": "Tincture remaining potency, integer liquid and dose quantization",
+      "assessment": "A one-milliunit conditional request applies a fraction to remaining potency while rounding liquid removal up to a whole millilitre and rounding administration to milliunits with a minimum nonzero dose. At assumed potency 0.1 the modeled decrement is about 0.0001 standard dose while the minimum recorded administration is 0.001. A 150-request example requires every request and patient guard to succeed; it was not executed. The selected normal browser button sends 100, not 1, milliunits.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/herbalism.rs:275-332,337-478,503-578",
+        "crates/adventuresim-core/src/physiology.rs:54-92",
+        "crates/strategic-web/static/inventory-browser.js:921-932,1048-1056",
+        "crates/adventuresim-stdb-module/src/disease.rs:2080-2100,2222-2264"
+      ],
+      "history": "Original 059 q2333 is open; the Lens13 frozen 6533 reader and later e275 selected reviewer/adoptions remain distinct. Five selected files match 6533 and 95e individually, not whole revisions. The evidence report describes the exact private predecessor; its public successor reconstructs local paths and requires the separately held original and six anchors for full recovery."
+    },
+    {
+      "queue_index": 2334,
+      "historical_contract_id": "PL13-256-MEASURED-ZERO-VOLUME-OPTION-PENDING",
+      "reviewer": "/root/verifier_scope",
+      "scope": "Measured zero versus absent container occupancy volume",
+      "assessment": "The native adapter converts a computed zero millilitre measurement to None, while core occupancy treats None as full exterior volume and admits Some(0). An apple exterior of 225 mL scaled to two millionths floors to zero. A concrete capacity consequence requires a supported retained amount, parent placement and capacity; intended sub-millilitre policy remains open.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/inventory_container.rs:932-965,985-990",
+        "crates/adventuresim-core/src/inventory_containers.rs:29-40,58-74,92-95",
+        "crates/adventuresim-stdb-module/src/food/cooking.rs:75-102,313-360,508-554"
+      ],
+      "history": "The original 059 queue remains open. The frozen PL13-256 reader and later e275 selected adoption retain distinct attribution; the latter documented a local 225 mL/two-millionths chain, not global closure. Six historical product hashes matched; five selected e275 files equal 95e while native container source was split."
+    },
+    {
+      "queue_index": 2335,
+      "historical_contract_id": "PL13-256-CONTAINED-WATER-VOLUME-AND-PROVENANCE-PENDING",
+      "reviewer": "/root/verifier_scope",
+      "scope": "Contained water custody, mutability, volume and provenance",
+      "assessment": "Filling checks custody and require_mutable and uses checked capacity/addition; direct discard checks mutability, water identity and bounded unit conversion. Automatic consumption sorts eligible water containers and transfers provenance before decrement but does not itself call require_mutable. Supported overlap with processing or locked state, all writers, transaction behavior and complete provenance conservation remain open.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/inventory_container.rs:1013-1173,1372-1430",
+        "crates/adventuresim-stdb-module/src/outbreak.rs:128-155,172-238,592-635",
+        "crates/adventuresim-stdb-module/src/food/cooking.rs:470-506"
+      ],
+      "history": "Original 059 q2335 remains open and shares PL13-256 historical source work with q2334 without inheriting its later selected zero-volume disposition. q2299 water event authority and q2392 collection/terminal propagation are related but separate pending records."
+    },
+    {
+      "queue_index": 2336,
+      "historical_contract_id": "PL13-257-INVESTIGATION-VERSION-HISTORY-IDENTITY-PENDING",
+      "reviewer": "/root/mhr_character",
+      "scope": "Investigation capability versions and attempt retry identity",
+      "assessment": "Capability issuance starts at zero while selected capability and custody updates saturate. A matching actor/action/method/version receipt returns as a retry before the later active/version check. At a hypothetical saturated version after a relevant state change an earlier identity can still match; supported exhaustion, collision, repeated mutation and intended retry policy remain unproved.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/investigation/capabilities.rs:46-145",
+        "crates/adventuresim-stdb-module/src/investigation/actions.rs:784-906,1114-1148,1262-1302,1484-1508"
+      ],
+      "history": "Original 059 q2336 remains open. The historical record attributes frozen 6533 full source unions to an unnamed delegated Lens13 reader and root adoption without a root reread. Two source files match 6533/e275/95e individually; no e275 reread or whole-tree equality is inferred. Existing receipt-owner and correction-proposition records retain separate first contracts."
+    },
+    {
+      "queue_index": 2337,
+      "historical_contract_id": "PL13-257-INVESTIGATION-PARTICIPANT-TIME-COMMIT-PENDING",
+      "reviewer": "/root/mhr_character",
+      "scope": "Investigation participant clocks, partial advancement and exact-MAX plan boundary",
+      "assessment": "The selected time helper returns the leader minute without aligning existing participant clocks. In the interrupted path the receipt subtracts the leader start from the maximum retained participant clock; under the stated symbolic offset and partial-advance conditions this can include a pre-existing offset. Separately, the planner treats an end exactly at StrategicMinute::MAX as exhausted; if all native advances then report complete, its adapter reaches a later error. Supported combined states, rollback and intended duration/final-minute policies remain open. A terminal preview at equality can lose the terminal flag, while a false actual settlement is checked before completion effects.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/time/advancement.rs:299-338",
+        "crates/adventuresim-stdb-module/src/investigation/actions.rs:1309-1359,1625-1757"
+      ],
+      "history": "Original 059 q2337 remains open; frozen PL13-257 delegated reads and root adoption retain their own attribution. The exact-MAX and participant-clock paths have different first operations; itinerary and preparation exhaustion records are context, not automatic aliases."
+    },
+    {
+      "queue_index": 2340,
+      "historical_contract_id": "PL13-261-CASE-OCCUPANCY-SAME-MINUTE-IDENTITY-PENDING",
+      "reviewer": "/root/wrapped_scope",
+      "scope": "Case occupancy and outbreak presence at a character minute",
+      "assessment": "Changing case site closes an existing occupancy then inserts a key based on character, personal minute and site. A conditional leave and return within one minute can reuse an earlier closed key. A zero safe movement prefix provides a conditional same-minute exit path, not an established supported re-entry. A preceding outbreak helper can also skip an already existing same-minute presence key. Database uniqueness outcome, transaction rollback, impact and intended chronology remain open.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/investigation/model.rs:1027-1155",
+        "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:1-29,544-590",
+        "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:261-339,706-758",
+        "crates/adventuresim-stdb-module/src/outbreak.rs:1890-1943"
+      ],
+      "history": "Original 059 q2340 remains open; the original parallel-l13-20261029 reviewer read frozen 6533 model source and segovb adopted without a personal reread. That one model source equals 95e per file. The agent 17:48:19Z 1060-row literal ledger search is bounded, not proof of no alias."
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-gpu-uniform-member-group-ownership-95e",
+      "lens": 12,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Bare member keys cannot express distinct same-named group members in the selected flat parameter map.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2331"
+      ],
+      "current_related_records": [
+        "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+        "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Determine supported shader shapes and whether member identity includes the containing variable and group."
+    },
+    {
+      "id": "relationship-gpu-uniform-default-dispatch-selection-95e",
+      "lens": 12,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "General and fast kernel routes have different missing-uniform source behavior under their selected dispatch conditions.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2331"
+      ],
+      "current_related_records": [
+        "ADLER-L11-UNIFORM-ABI-ADMISSION",
+        "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Connect existing ABI/default policy to route selection without counting another established defect."
+    },
+    {
+      "id": "relationship-sats-basis-point-native-admission-95e",
+      "lens": 12,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Selected native product-construction templates add evidence to the existing basis-point wire-admission question.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2332"
+      ],
+      "current_related_records": [
+        "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+        "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace resolved features, native ingress and invariant-dependent consumers before deciding a shared admission owner."
+    },
+    {
+      "id": "relationship-landuse-sats-aggregate-import-guard-95e",
+      "lens": 12,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The generic native product template lacks an aggregate constructor while the selected importer reconstructs and checks the sum before persistence.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2332"
+      ],
+      "current_related_records": [
+        "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Preserve the selected safeguard and trace other aggregate ingress and consumers before any policy decision."
+    },
+    {
+      "id": "relationship-tincture-liquid-potency-quantum-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Remaining potency, integer liquid and minimum administered dose have distinct conditional rounding relationships.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2333"
+      ],
+      "current_related_records": [
+        "relationship-preparation-view-material-quantum-95e"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Define supported dosing, precision and residual-discard policy; food preparation is related context with a different first operation."
+    },
+    {
+      "id": "relationship-measured-zero-container-occupancy-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A computed measured zero becomes absence and can select full exterior occupancy in the receiving graph.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2334"
+      ],
+      "current_related_records": [
+        "relationship-preparation-view-material-quantum-95e",
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace supported placement and capacity and decide measured-zero and absent-measurement semantics."
+    },
+    {
+      "id": "relationship-water-consume-processing-mutability-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The selected automatic water-consumption body lacks the mutability guard seen on filling and discard.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2335"
+      ],
+      "current_related_records": [
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace reachable processing overlap and enclosing guards without assuming a supported conflicting state."
+    },
+    {
+      "id": "relationship-water-volume-provenance-conservation-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Checked water operations and selected provenance transfers form a partial conservation network across container, outbreak and cooking owners.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2335"
+      ],
+      "current_related_records": [
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace remaining writers, unit conversions, terminal propagation and transaction ownership."
+    },
+    {
+      "id": "relationship-investigation-version-saturated-retry-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A hypothetical saturated capability version can retain an earlier matching retry identity.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2336"
+      ],
+      "current_related_records": [
+        "SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER",
+        "PL13-260-INVESTIGATION-CORRECTION-PROPOSITION-IDENTITY-PENDING"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Determine supported lifetime bounds, reissue and retry identity policy while preserving separate receipt and proposition contracts."
+    },
+    {
+      "id": "relationship-investigation-participant-clock-duration-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The interrupted receipt combines the maximum participant clock with the leader start and can include a pre-existing offset under conditional states.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2337"
+      ],
+      "current_related_records": [
+        "SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace supported independent clocks and define the receipt duration authority before selecting a repair direction."
+    },
+    {
+      "id": "relationship-investigation-exact-max-plan-adapter-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The shared exact-MAX exhaustion decision and native completion branch can conditionally disagree at their adapter boundary.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2337"
+      ],
+      "current_related_records": [
+        "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+        "candidate-preparation-exhausted-clock-wait-95e"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Reconcile final-minute planning and transaction policy with distinct clock owners and supported reach."
+    },
+    {
+      "id": "relationship-case-occupancy-same-minute-identity-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Conditional same-minute return can reuse a closed case occupancy key while an earlier outbreak span transition has its own same-key behavior.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2340"
+      ],
+      "current_related_records": [
+        "relationship-investigation-participant-clock-duration-95e"
+      ],
+      "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+      "connected_repair_direction": "Trace supported re-entry, character-clock authority, database transaction behavior and coordinated presence chronology; related clock scope is not an alias."
+    }
+  ],
+  "evidence_classes": {
+    "recovered_evidence": "Individually hash-recovered 059 slices, historical sources and role records retain their original revisions and personal readers; separately held originals are required when public redactions or encryption apply.",
+    "reconstructed_records": "Path-redacted public queue slices, packet successors and selected safe representations are not original full queues or checkpoint3821 records. q2331 encrypted originals require a separately held same-machine key.",
+    "historical_summaries": "Original and later named-scope dispositions, source adoptions, truncated attempts and dirty snapshot qualifications remain distinct from newly assessed 95e work.",
+    "newly_assessed_work": "Eight bounded agent source assessments and twelve central planning relationships at 95e; report review does not transfer source or historical personal-read credit."
+  },
+  "recovery_qualification": "Final original checkpoint3821 queue and ledger remain missing. No earlier evidence is promoted into checkpoint3821. Same-machine replay and private custody do not establish independent custody.",
+  "counts": "Twelve relationships, including existing-issue evidence and conditional questions, not accepted unique defect counts. All thirteen lenses and 3713 semantic queue records remain open at this snapshot.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Static source reasoning only; all named support, feature, policy, reachability, transaction, effect, alias and wider lens obligations remain open."
+}

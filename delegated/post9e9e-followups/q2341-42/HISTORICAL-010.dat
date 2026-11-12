@@ -1,0 +1,125 @@
+{
+  "lens": 2,
+  "at": "2026-10-30T02:14:43.440981+00:00",
+  "kind": "Actual retained camp coordinates and two consumers; receiving native readcaller dependency remains",
+  "registration": {
+    "path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-003.json",
+    "sha256": "4c9815731ecca17fc108c080786373e050335a91e4e5e4b1f05b498c77d338f0"
+  },
+  "rows": [
+    {
+      "registration": "ROOT-L2-EXT-0004",
+      "lens": 2,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "source_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "actual_EOF": 1586,
+      "source_object": "root-l2-extension-20261030/objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "prospective_ranges": [
+        [
+          595,
+          676
+        ]
+      ],
+      "complete_relevant_scope": "JourneyCampInterval/endpoint definitions/endpoint helper and complete PartyJourney native table fields; exact retained movement/elapsed/camp roles",
+      "body_credit_before_read": 0,
+      "original_role_credit": 0,
+      "assessed_ranges": [
+        [
+          595,
+          676
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          595,
+          676
+        ]
+      ],
+      "body_output_truncated": false,
+      "attribution": "Root personal Lens2 post-registration bounded untruncated display"
+    },
+    {
+      "registration": "ROOT-L2-EXT-0005",
+      "lens": 2,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "source_sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "actual_EOF": 80,
+      "source_object": "root-l2-extension-20261030/objects/c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "prospective_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "complete_relevant_scope": "Complete RoadChallengeAuthority and ChallengeAuthority native field declarations for actualboundcamp coordinates; existingAdler008 registration preserved",
+      "body_credit_before_read": 0,
+      "original_role_credit": 0,
+      "assessed_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "body_output_truncated": false,
+      "attribution": "Root personal Lens2 post-registration bounded untruncated display"
+    },
+    {
+      "registration": "ROOT-L2-EXT-0006",
+      "lens": 2,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "source_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_EOF": 2815,
+      "source_object": "root-l2-extension-20261030/objects/b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "prospective_ranges": [
+        [
+          613,
+          649
+        ]
+      ],
+      "complete_relevant_scope": "Complete journey_at_bound_trial_camp and journey_at_bound_road_challenge actualtwo corepredicate callers",
+      "body_credit_before_read": 0,
+      "original_role_credit": 0,
+      "assessed_ranges": [
+        [
+          613,
+          649
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          613,
+          649
+        ]
+      ],
+      "body_output_truncated": false,
+      "attribution": "Root personal Lens2 post-registration bounded untruncated display"
+    }
+  ],
+  "fresh_assessed_lines": 199,
+  "observations": [
+    "PartyJourney native table retains absolute departure StrategicMinute666, movement total/completed655..656 and reached campsVec<u64>658, elapsed total/completed667..668. JourneyCampInterval independentlynamesmovement600/elapsedstart601/duration602. Native endpoint enum distinguishesSettlement/StringID, CaseSite/CaseSiteId andCamp(String); these identity roles are not interchangeablebyrepresentation.",
+    "ChallengeAuthority retains absolutebounddeparture60 alongside movement61/elapsed62 andtypedfinaleCaseSiteId58; RoadChallengeAuthority27..29 retains separate bounddeparture/movement/availableelapsed. Both openness predicates71/77 derive absence fromactualsolved/resolved fields; no redundantboolauthority foundinthese declarations.",
+    "Actualcorepredicate consumers613..648 pass the same distinct PartyJourney/ChallengeAuthority fields inexactroles. ChanceTravel requires exactelapsed equality632; rest/errantry/developermodes useelapsed>=available throughcore129. Legitimate mode difference isexplicit, no generic backwardcompatibilitydefect.",
+    "Native table gatewaybucket/party/case/catalog/revision andfatigue/threshold/travelnight fields observedasdistinctroles; no exactreplacement owner or invalidstatefinding assertedwithouttheiractualproducer/nativeadmission. Their broader owner questions remain separatelyrequired, no whole-tableownerclearance."
+  ],
+  "pending": [
+    "Register complete journey_destination_matches606..612 andnativeview/reducer camp lookup functions650..693; they are called or receive the assessed predicates.",
+    "Actualjourneyinitialization/movement/elapsedproducerbounds neededforzero policy; rawpublictable isnotan arbitraryexternallywritableDBconstructor proof.",
+    "Actualframe/trial/site identities, broader native field owner fits andcurrent/aliases remain open."
+  ],
+  "new_original_overlay_merged_shared_or_accepted_unique_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/courtship.rs:55-110
+  55 fn validate_canonical_courtship_pair(
+  56     ctx: &ReducerContext,
+  57     suitor_id: u64,
+  58     partner_id: u64,
+  59 ) -> Result<StrategicMinute, CourtshipPairError> {
+  60     if suitor_id == partner_id {
+  61         return Err("A character cannot court themself".into());
+  62     }
+  63     let suitor = ctx
+  64         .db
+  65         .character()
+  66         .id()
+  67         .find(suitor_id)
+  68         .ok_or("Suitor not found")?;
+  69     let partner = ctx
+  70         .db
+  71         .character()
+  72         .id()
+  73         .find(partner_id)
+  74         .ok_or("Potential partner not found")?;
+  75     let effective_minute = enforce_temporal_scope(
+  76         ctx,
+  77         suitor_id,
+  78         Some(partner_id),
+  79         TemporalScope::ExclusiveShared,
+  80     )?;
+  81     if !suitor.alive
+  82         || !partner.alive
+  83         || effective_age_years(ctx, suitor_id, effective_minute).unwrap_or(0)
+  84             < ADULT_AGE_YEARS
+  85         || effective_age_years(ctx, partner_id, effective_minute).unwrap_or(0)
+  86             < ADULT_AGE_YEARS
+  87     {
+  88         return Err(CourtshipPairError::rejected(
+  89             CourtshipRejectionCode::IneligibleCharacter,
+  90             "Courtship requires two living adult characters",
+  91         ));
+  92     }
+  93     if suitor.current_settlement_id != partner.current_settlement_id {
+  94         return Err(CourtshipPairError::rejected(
+  95             CourtshipRejectionCode::CoLocation,
+  96             "Courtship requires co-location",
+  97         ));
+  98     }
+  99     let suitor_personality = ctx
+ 100         .db
+ 101         .character_personality()
+ 102         .character_id()
+ 103         .find(suitor_id)
+ 104         .ok_or("Suitor personality not found")?;
+ 105     let partner_personality = ctx
+ 106         .db
+ 107         .character_personality()
+ 108         .character_id()
+ 109         .find(partner_id)
+ 110         .ok_or("Partner personality not found")?;

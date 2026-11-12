@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-core/src/physiology.rs:650-700
+ 650             i += 1;
+ 651         }
+ 652         Self(values)
+ 653     }
+ 654 }
+ 655 
+ 656 pub fn intervention_profile(id: &str, version: u16) -> Option<&'static InterventionProfile> {
+ 657     INTERVENTION_PROFILES
+ 658         .iter()
+ 659         .find(|profile| profile.preparation_id == id && profile.version == version)
+ 660 }
+ 661 
+ 662 /// Resolve the latest authored profile for a concrete preparation.
+ 663 ///
+ 664 /// Trusted callers use this when starting a new course. Durable
+ 665 /// administrations continue to pin their exact version for replay.
+ 666 pub fn current_intervention_profile(id: &str) -> Option<&'static InterventionProfile> {
+ 667     INTERVENTION_PROFILES
+ 668         .iter()
+ 669         .filter(|profile| profile.preparation_id == id)
+ 670         .max_by_key(|profile| profile.version)
+ 671 }
+ 672 
+ 673 #[derive(Clone, Debug, PartialEq)]
+ 674 pub struct Administration {
+ 675     pub id: u64,
+ 676     pub patient_id: u64,
+ 677     pub preparation_id: String,
+ 678     pub profile_version: u16,
+ 679     pub route: InterventionRoute,
+ 680     pub dose: DoseMilliunits,
+ 681     pub region: Option<BodyRegion>,
+ 682     pub administered_at: StrategicMinute,
+ 683     pub stopped_at: Option<StrategicMinute>,
+ 684     /// Secret-derived bounded sensitivity, persisted for replay without
+ 685     /// persisting or exposing the phenotype itself.
+ 686     pub sensitivity_bps: i16,
+ 687     pub adverse_bps: u16,
+ 688 }
+ 689 
+ 690 impl Administration {
+ 691     pub fn effect_at(&self, now: StrategicMinute) -> MeterVector {
+ 692         let Some(profile) = intervention_profile(&self.preparation_id, self.profile_version) else {
+ 693             return MeterVector::ZERO;
+ 694         };
+ 695         if self.route != profile.route || now < self.administered_at {
+ 696             return MeterVector::ZERO;
+ 697         }
+ 698         let end = self
+ 699             .stopped_at
+ 700             .unwrap_or_else(|| {

@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:1956-2015
+1956     pub literacy: Option<adventuresim_world_schema::WrittenLanguage>,
+1957 }
+1958 
+1959 impl NpcLifeFacts {
+1960     /// Produce the baseline life facts for a persistent NPC without consulting
+1961     /// reducer RNG. Authored organization and literacy can be overlaid by the
+1962     /// population importer before creation.
+1963     pub(crate) fn from_stable_seed(stable_seed: Seed) -> Self {
+1964         let draw = NPC_LIFE_AGE_DOMAIN.rng(stable_seed, &[]).index(43);
+1965         Self {
+1966             age_years: 18 + draw as u16,
+1967             organization_id: None,
+1968             literacy: None,
+1969         }
+1970     }
+1971 }
+1972 
+1973 pub(crate) fn insert_new_npc_character(
+1974     ctx: &ReducerContext,
+1975     name: String,
+1976     id: u64,
+1977     temporary: bool,
+1978 ) -> Result<(), String> {
+1979     let mode = if temporary {
+1980         CharacterCreationMode::TemporaryNpc
+1981     } else {
+1982         CharacterCreationMode::PersistentNpc
+1983     };
+1984     let life = NpcLifeFacts::from_stable_seed(fabelgeist_determinism::Seed::from_u64(id));
+1985     insert_character_with_origin(
+1986         ctx,
+1987         name,
+1988         id,
+1989         CharacterCreationOptions {
+1990             origin_settlement_id: None,
+1991             mode,
+1992             create_solo_party: temporary,
+1993             materialize_generated_carry: temporary,
+1994             stable_seed: fabelgeist_determinism::Seed::from_u64(id),
+1995             initial_time_minute: None,
+1996             field_actor: false,
+1997             npc_personality: None,
+1998         },
+1999         None,
+2000         Some(&life),
+2001     )
+2002 }
+2003 
+2004 /// Create a persistent, full-component NPC at an explicit settlement. Unlike a
+2005 /// player character or tactical temporary, the NPC begins outside any party.
+2006 #[expect(
+2007     clippy::too_many_arguments,
+2008     reason = "persistent NPC insertion keeps finalized life and personality facts explicit"
+2009 )]
+2010 pub(crate) fn insert_persistent_npc_character(
+2011     ctx: &ReducerContext,
+2012     name: String,
+2013     id: u64,
+2014     origin_settlement_id: &str,
+2015     stable_seed: Seed,

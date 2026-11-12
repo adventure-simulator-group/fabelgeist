@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-11-12T17:35:14.940296+00:00",
+  "pointers": {
+    "parallel-l13-20261029/READ-PL13-261.json": [
+      "/rows/0"
+    ],
+    "parallel-l13-20261029/REGISTRATION-PL13-261.json": [
+      "/sources/0"
+    ],
+    "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-255-262.json": [
+      "/contract_updates/12"
+    ]
+  },
+  "metadata_fields": {
+    "parallel-l13-20261029/READ-PL13-261.json": [
+      "lens",
+      "namespace",
+      "status",
+      "registered_before_read_attestation",
+      "product_execution",
+      "current_reconciled",
+      "global_clearance"
+    ],
+    "segovb/READ-L13-PARALLEL-259.json": [
+      "lens",
+      "kind",
+      "delegated_receipt",
+      "delegated_verification",
+      "original_before",
+      "original_after",
+      "new_original_roles",
+      "root_personal_rereads",
+      "accepted_unique_count_change",
+      "current_source_reconciled",
+      "runtime_validation",
+      "implementation_gate_complete"
+    ]
+  },
+  "purpose": "recover precise original row, proposal pointer, frozen registration and later root adoption; no new body credit"
+}

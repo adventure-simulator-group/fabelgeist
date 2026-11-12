@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/simulation.rs:405-475
+ 405         skills.bludgeon_hours,
+ 406         skills.sword_hours,
+ 407         skills.knife_hours,
+ 408         skills.dodge_hours,
+ 409         skills.block_hours,
+ 410         skills.bow_hours,
+ 411         skills.crossbow_hours,
+ 412         skills.firearm_hours,
+ 413         skills.throw_hours,
+ 414         skills.will_hours,
+ 415         skills.insight_hours,
+ 416         skills.charm_hours,
+ 417         skills.command_hours,
+ 418         skills.deception_hours,
+ 419         skills.physiology_hours,
+ 420         skills.stealth_hours,
+ 421         skills.balance_hours,
+ 422         skills.tailoring_hours,
+ 423     ]
+ 424     .into_iter()
+ 425     .all(|value| value.is_finite() && (0.0..=MAX_SIMULATION_SKILL_HOURS).contains(&value))
+ 426         && simulation_religion_hours_valid(skills.religion_hours)
+ 427         && simulation_bestiary_hours_valid(skills.bestiary_hours)
+ 428         && skills
+ 429             .oral_languages
+ 430             .direct_fields_valid(MAX_SIMULATION_SKILL_HOURS)
+ 431         && skills
+ 432             .written_languages
+ 433             .direct_fields_valid(MAX_SIMULATION_SKILL_HOURS);
+ 434     if !attributes_valid || !skills_valid || downtime.allocated_minutes() > MINUTES_PER_DAY {
+ 435         return Err("Simulation profile is outside bounded gameplay ranges".into());
+ 436     }
+ 437     if ctx.db.settlement().id().find(&settlement_id).is_none() {
+ 438         return Err("Simulation settlement not found".into());
+ 439     }
+ 440     let party_id = character
+ 441         .party_id
+ 442         .clone()
+ 443         .ok_or("Simulation character has no party")?;
+ 444     let mut solo_party = ctx
+ 445         .db
+ 446         .party_authority()
+ 447         .id()
+ 448         .find(&party_id)
+ 449         .ok_or("Simulation party not found")?;
+ 450     if solo_party.leader_id != character_id || !solo_party.is_solo {
+ 451         return Err("Simulation character must still lead its fresh solo party".into());
+ 452     }
+ 453     character.current_settlement_id = Some(settlement_id.clone());
+ 454     crate::investigation::set_character_case_site(ctx, character.id, None)?;
+ 455     ctx.db.character().id().update(character);
+ 456     solo_party.current_settlement_id = Some(settlement_id.clone());
+ 457     solo_party.current_case_site_id = None;
+ 458     ctx.db.party_authority().id().update(solo_party);
+ 459     ctx.db
+ 460         .character_attributes()
+ 461         .character_id()
+ 462         .update(attributes);
+ 463     ctx.db.character_skills().character_id().update(skills);
+ 464     let mut schedule: CharacterTrainingSchedule = ctx
+ 465         .db
+ 466         .character_training_schedule()
+ 467         .character_id()
+ 468         .find(character_id)
+ 469         .ok_or("Simulation schedule not found")?;
+ 470     schedule.downtime = downtime;
+ 471     ctx.db
+ 472         .character_training_schedule()
+ 473         .character_id()
+ 474         .update(schedule);
+ 475     ctx.db.simulation_character().insert(SimulationCharacter {

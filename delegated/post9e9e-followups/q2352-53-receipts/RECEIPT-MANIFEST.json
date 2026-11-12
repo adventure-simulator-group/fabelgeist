@@ -1,0 +1,51 @@
+{
+  "schema": "q2352-q2353-evidence-receipt-manifest-v1",
+  "created_at_utc": "2026-11-12T18:05:37.345043+00:00",
+  "public_manifest_sha256": "008f05c28bb3a9055d3531eb43754457d46d608d5c435c17f9ee58f010afae6f",
+  "archive_sha256": "9cd91b0a6da0fdfad7a1cd661b87b4b08213925886abdcfa7117cdef6f3f804f",
+  "receipts": [
+    {
+      "file": "PUBLIC-PRIVACY-SCAN.json",
+      "bytes": 1175,
+      "sha256": "8fb664a3fca49701f79c25a7846a7344cb1b2986cac70fb896ed528cd5e9a438"
+    },
+    {
+      "file": "PUBLIC-VERIFY.json",
+      "bytes": 420,
+      "sha256": "e7d2df45f8bd9817db61c24371437556504085f4597c84e57ddae41c0e0a1d24"
+    },
+    {
+      "file": "TREE-NAME-SCAN.json",
+      "bytes": 497,
+      "sha256": "fb80ea57b676c24214cf2bc2dc3fed05d69fa08f244357cecc1d535a90ef6972"
+    },
+    {
+      "file": "VALUE-DIGEST-059.json",
+      "bytes": 916,
+      "sha256": "9c855d90327592507095b1f1e8cb59c214b97488d3846735e62f936b6cbe1c57"
+    },
+    {
+      "file": "VALUE-DIGEST-Q2332.json",
+      "bytes": 905,
+      "sha256": "76eb16a1806ee1860b60ff829d1447077103a9b4c87c28f354420b3c92b615ff"
+    }
+  ],
+  "privacy_scope": {
+    "target": "Complete three-file public transport, including decoded gzip/tar members and metadata; raw Git tree entry names separately. SHA-256 forbidden corpora derived in memory from known private GPU records, q2332 original paths and the original 059 queue.",
+    "view_limit_bytes": 134217728,
+    "depth_limit": 18,
+    "recursive_views": 165,
+    "text_candidate_counts": {},
+    "known_forbidden_digest_occurrences": 0,
+    "main_exceptions": [],
+    "tree_name_files": 19,
+    "tree_entry_names": 614,
+    "tree_name_candidates": {},
+    "q2332_value_digest_matches": 0,
+    "q2332_digest_exceptions": [],
+    "original059_value_digest_matches": 0,
+    "original059_digest_exceptions": [],
+    "qualification": "No individual path value or path-derived digest is output. Limited by the listed corpus, encodings, archive support, depth and pattern recognition; unrelated past Git history and unknown sensitive values are not cleared."
+  },
+  "verification_scope": "The read-only verifier checked 160 archive members, eight historical originals, 17 source Git paths, 19 personal display receipts and two selected older 774 exact JSONL lines. Optional repository checks bound commits and original queue, ledger and 774 transport. No product behavior is validated."
+}

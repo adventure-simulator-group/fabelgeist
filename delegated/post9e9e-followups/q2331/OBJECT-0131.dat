@@ -1,0 +1,200 @@
+   1 use crate::data::{ComputePipeline, PassParameter, PassParameters};
+   2 use crate::globals::WgpuContext;
+   3 use anyhow::{Result, anyhow};
+   4 use wgpu::util::DeviceExt;
+   5 
+   6 pub struct ComputePass;
+   7 
+   8 impl ComputePass {
+   9     pub fn dispatch(
+  10         context: &WgpuContext,
+  11         pipeline_def: ComputePipeline,
+  12         parameters: PassParameters,
+  13         workgroups_x: u32,
+  14         workgroups_y: u32,
+  15         workgroups_z: u32,
+  16     ) -> Result<()> {
+  17         let mut encoder = context
+  18             .device
+  19             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
+  20                 label: Some("ComputePass Encoder"),
+  21             });
+  22 
+  23         Self::record(
+  24             context,
+  25             &pipeline_def,
+  26             &parameters,
+  27             &mut encoder,
+  28             workgroups_x,
+  29             workgroups_y,
+  30             workgroups_z,
+  31         )?;
+  32 
+  33         context.queue.submit(std::iter::once(encoder.finish()));
+  34         Ok(())
+  35     }
+  36 
+  37     pub fn record(
+  38         context: &WgpuContext,
+  39         pipeline_def: &ComputePipeline,
+  40         parameters: &PassParameters,
+  41         encoder: &mut wgpu::CommandEncoder,
+  42         workgroups_x: u32,
+  43         workgroups_y: u32,
+  44         workgroups_z: u32,
+  45     ) -> Result<()> {
+  46         // --- GET PIPELINE FROM INPUT ---
+  47         let pipeline_val = pipeline_def
+  48             .pipeline
+  49             .as_ref()
+  50             .ok_or_else(|| anyhow!("ComputePass: ComputePipeline missing actual WGPU pipeline."))?;
+  51 
+  52         // Check for validation errors in the pipeline itself
+  53         if let Ok(guard) = pipeline_def.validation_error.lock()
+  54             && let Some(err) = guard.as_ref()
+  55         {
+  56             return Err(anyhow!(
+  57                 "ComputePass: Cannot use invalid ComputePipeline: {}",
+  58                 err
+  59             ));
+  60         }
+  61 
+  62         let pipeline = pipeline_val;
+  63 
+  64         let bind_group_layouts = &pipeline_def.bind_group_layouts;
+  65         let reflection = pipeline_def
+  66             .reflection
+  67             .as_ref()
+  68             .ok_or_else(|| anyhow!("ComputePass: ComputePipeline missing ReflectionData"))?;
+  69 
+  70         let mut bind_groups = Vec::new();
+  71 
+  72         for bg_reflection in &reflection.bind_groups {
+  73             let layout = bind_group_layouts
+  74                 .get(bg_reflection.index as usize)
+  75                 .ok_or_else(|| {
+  76                     anyhow!(
+  77                         "ComputePass: Bind group layout index {} missing in pipeline",
+  78                         bg_reflection.index
+  79                     )
+  80                 })?;
+  81 
+  82             let mut bind_group_entries = Vec::new();
+  83 
+  84             // 1. Uniforms
+  85             let mut uniform_buffer = None;
+  86             if bg_reflection.uniform_buffer_size > 0 {
+  87                 let mut buffer_data = vec![0u8; bg_reflection.uniform_buffer_size as usize];
+  88 
+  89                 for member in &bg_reflection.uniform_members {
+  90                     if let Some(val) = parameters.get(&member.name) {
+  91                         match val {
+  92                             PassParameter::Number(n) => {
+  93                                 let bytes = (*n as f32).to_le_bytes();
+  94                                 if (member.offset as usize + 4) <= buffer_data.len() {
+  95                                     buffer_data[member.offset as usize..member.offset as usize + 4]
+  96                                         .copy_from_slice(&bytes);
+  97                                 }
+  98                             }
+  99                             PassParameter::Unsigned(u) => {
+ 100                                 let bytes = u.to_le_bytes();
+ 101                                 if (member.offset as usize + 4) <= buffer_data.len() {
+ 102                                     buffer_data[member.offset as usize..member.offset as usize + 4]
+ 103                                         .copy_from_slice(&bytes);
+ 104                                 }
+ 105                             }
+ 106                             PassParameter::Vec2(v) => {
+ 107                                 let bytes_x = v.x.to_le_bytes();
+ 108                                 let bytes_y = v.y.to_le_bytes();
+ 109                                 if (member.offset as usize + 8) <= buffer_data.len() {
+ 110                                     let start = member.offset as usize;
+ 111                                     buffer_data[start..start + 4].copy_from_slice(&bytes_x);
+ 112                                     buffer_data[start + 4..start + 8].copy_from_slice(&bytes_y);
+ 113                                 }
+ 114                             }
+ 115                             PassParameter::Vec3(v) => {
+ 116                                 let bytes_x = v.x.to_le_bytes();
+ 117                                 let bytes_y = v.y.to_le_bytes();
+ 118                                 let bytes_z = v.z.to_le_bytes();
+ 119                                 if (member.offset as usize + 12) <= buffer_data.len() {
+ 120                                     let start = member.offset as usize;
+ 121                                     buffer_data[start..start + 4].copy_from_slice(&bytes_x);
+ 122                                     buffer_data[start + 4..start + 8].copy_from_slice(&bytes_y);
+ 123                                     buffer_data[start + 8..start + 12].copy_from_slice(&bytes_z);
+ 124                                 }
+ 125                             }
+ 126                             PassParameter::Vec4(v) => {
+ 127                                 let bytes_x = v.x.to_le_bytes();
+ 128                                 let bytes_y = v.y.to_le_bytes();
+ 129                                 let bytes_z = v.z.to_le_bytes();
+ 130                                 let bytes_w = v.w.to_le_bytes();
+ 131                                 if (member.offset as usize + 16) <= buffer_data.len() {
+ 132                                     let start = member.offset as usize;
+ 133                                     buffer_data[start..start + 4].copy_from_slice(&bytes_x);
+ 134                                     buffer_data[start + 4..start + 8].copy_from_slice(&bytes_y);
+ 135                                     buffer_data[start + 8..start + 12].copy_from_slice(&bytes_z);
+ 136                                     buffer_data[start + 12..start + 16].copy_from_slice(&bytes_w);
+ 137                                 }
+ 138                             }
+ 139                             PassParameter::Mat2(v) => {
+ 140                                 if (member.offset as usize + 16) <= buffer_data.len() {
+ 141                                     let start = member.offset as usize;
+ 142                                     for i in 0..2 {
+ 143                                         for j in 0..2 {
+ 144                                             let offset = start + (i * 2 + j) * 4;
+ 145                                             buffer_data[offset..offset + 4]
+ 146                                                 .copy_from_slice(&v.columns[i][j].to_le_bytes());
+ 147                                         }
+ 148                                     }
+ 149                                 }
+ 150                             }
+ 151                             PassParameter::Mat3(v) => {
+ 152                                 if (member.offset as usize + member.size as usize)
+ 153                                     <= buffer_data.len()
+ 154                                 {
+ 155                                     let start = member.offset as usize;
+ 156                                     let col_stride = member.size / 3;
+ 157                                     for i in 0..3 {
+ 158                                         for j in 0..3 {
+ 159                                             let offset = start + i * col_stride as usize + j * 4;
+ 160                                             buffer_data[offset..offset + 4]
+ 161                                                 .copy_from_slice(&v.columns[i][j].to_le_bytes());
+ 162                                         }
+ 163                                     }
+ 164                                 }
+ 165                             }
+ 166                             PassParameter::Mat4(v) => {
+ 167                                 if (member.offset as usize + 64) <= buffer_data.len() {
+ 168                                     let start = member.offset as usize;
+ 169                                     for i in 0..4 {
+ 170                                         for j in 0..4 {
+ 171                                             let offset = start + (i * 4 + j) * 4;
+ 172                                             buffer_data[offset..offset + 4]
+ 173                                                 .copy_from_slice(&v.columns[i][j].to_le_bytes());
+ 174                                         }
+ 175                                     }
+ 176                                 }
+ 177                             }
+ 178                             PassParameter::Transform(v) => {
+ 179                                 let mat = v.to_mat4();
+ 180                                 if (member.offset as usize + 64) <= buffer_data.len() {
+ 181                                     let start = member.offset as usize;
+ 182                                     for i in 0..4 {
+ 183                                         for j in 0..4 {
+ 184                                             let offset = start + (i * 4 + j) * 4;
+ 185                                             buffer_data[offset..offset + 4]
+ 186                                                 .copy_from_slice(&mat.columns[i][j].to_le_bytes());
+ 187                                         }
+ 188                                     }
+ 189                                 }
+ 190                             }
+ 191                             _ => {}
+ 192                         }
+ 193                     }
+ 194                 }
+ 195 
+ 196                 let buffer = context
+ 197                     .device
+ 198                     .create_buffer_init(&wgpu::util::BufferInitDescriptor {
+ 199                         label: Some(&format!(
+ 200                             "ComputePass Group {} Uniforms",

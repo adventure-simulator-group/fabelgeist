@@ -1,0 +1,226 @@
+{
+  "kind": "Parallel L12 ordered fullsource proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 741,
+  "proposed_original_before": 2244,
+  "proposed_original_after": 2247,
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+  "predecessor_proposal_sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+  "rows": [
+    {
+      "original_index": 2244,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "actual_EOF": 406,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+      "registration_sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "assessed_ranges": [
+        [
+          1,
+          406
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          406
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2244\u20132250 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Kernel.new74..125/groups_for133/groups_folded141/run149..167/KernelCache.get185..199/len201/KernelBatch.dispatch250/dispatch_folded295/dispatch_items308/copy_buffer319/after_submit349/submit355..362; contexttest384..406 sourceonly"
+        ],
+        "string_inventory": [
+          "Kernel.entry_point45 is actual naga native parsed entryname90 retained to native pipeline; codeString74/nativecachekeyString177 is actual full WGSL program, not gameplayidentifier. labelled230 &str native diagnostic. Closed internal prose errors missingcompute88/zero workgroup93/copybounds321 remain exact typedreason ownership candidates."
+        ],
+        "trace": [
+          "Actual shader source -> parse_naga83 -> computed entrypoint/workgroup -> ComputeShader98/ComputePipeline.prepare99 -> FastPath.new108 (same firstcause site fast155) -> KernelCache.get193 retains ArcKernel -> armor MetalGpu cache54/ArmorGpu cache192 -> downstream formatters124/329 -> public result/native material consumer. Dispatch KernelBatch264 directly calls FastPath.prepare then uniforms332/369 errors propagate to earlier armor operations."
+        ],
+        "conditional_cases": [
+          "Emptydispatch groups0 returnsOk258 and foldeditems0 returnsOk301 legitimate simulation emptyconstraint mode, not compatibilitydefect. General ComputePass fallback278 is supported native binding shape; no removal demand.",
+          "KernelCache keyed codeonly177/get186, ignoring currentcontext on cachehit. Conditional cross-device identity contract requires actual cache ownership/caller-context graph and native resource device ownership before ordinary failure; not a rawStringwrapper remedy. Lockunwrap186/195/202 outside-test rulecases, no invented poisonedlock witness."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2245,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+      "source_sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/prelude.rs",
+      "actual_EOF": 16,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-199.json",
+      "registration_sha256": "e3a427e57457660176b4e0a2f45cf11cd30d98703242e2e17a797ed7fd9bc226",
+      "assessed_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          16
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2244\u20132250 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Prelude reexports9..16"
+        ],
+        "string_inventory": [
+          "No rawsemanticStringAPI; anyhow::Error/Result exported types15, no body or cause-erasure proof solely from typealias."
+        ],
+        "trace": [
+          "Internal pub(crate) GPU/native/math imports retain actual owningcrate boundary; external APIs reexport crate algorithms."
+        ],
+        "conditional_cases": [
+          "Not automatically unauthorized aliases/compatibilityshims; source explicit namespaceboundary3..7."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2246,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "source_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/readback.rs",
+      "actual_EOF": 294,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-200.json",
+      "registration_sha256": "b354238be5599885ff90b9a65d86ba83fec34e5ea339fe3d5d7ecd2114e53ff4",
+      "assessed_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          294
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2244\u20132250 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "StagedRange.bytes71/Readback.record81..119/record_pending122..146/read149..171/PendingReadback.try_read176..193/is_ready195..203/poll205..214/lock_state216..223; ReadbackError48..59/ReadbackState62..67/fulltests231..294 sourceonly"
+        ],
+        "string_inventory": [
+          "Native labelReadback104 and derived typederror display only; no rawStringtransport. Actual native BufferAsyncError source54/PollError56 retained as typed causes."
+        ],
+        "trace": [
+          "Armor Staging bufferorder2210? actual2201stage35 -> Readback.record one typed offset/BufferByteLength perinput88..92 with checked alignedextent95..101 -> nativecopies109..116 -> map/poll typederrors159/165 -> mappedrange -> original recorded slices167 -> Armor StagedResults bytes -> PartBuild.finish. Exact native lengths/order preserved on successful mapping; own armor buffers scratch min4 andpositions counts remain nativeadmission dependencies."
+        ],
+        "conditional_cases": [
+          "Pending/Ready/Failed/Taken enum intentionallyowns state; pendingNone180/takenAlreadyRead182; poisonlock recovery retains complete enum219..221 intentionalstatepolicy, not obsoletefallback.",
+          "Actual typed overflowchecks beforeGPUallocation103. No sourceproof of arbitrary native implementation guarantees/device-safety from header; mappedbytes and pointerwidth/nativeBuffer source bodies/features/current pending. No nativeexecution."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false,
+      "windows_locator_qualification": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2246-WINDOWS.json",
+      "windows_locator_qualification_sha256": "18f6432bbb3604d4084372aee0a661d958253a037d7e1745be431df532bc9ea6"
+    }
+  ],
+  "new_original_roles_proposed": 3,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "new_findings": [
+    {
+      "id": "PAR-L12-COMPUTE-MISSING-COMPUTE-ENTRY-REASON",
+      "classification": "Exact frozen native admission reason prose representation; alias/currentclosure pending",
+      "first_failed_contract": "actual parsed module lacks compute entrypoint87/88 represented solely as anyhow message at88 before public internal error propagation",
+      "canonical_owner": "Native compute kernel or dispatch validation error with exact reason and typed contextual entrypoint/groups/byte extents, composed with native parse/pipeline/buffer causes",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs SHAdae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274 ::Kernel::new74..125:88"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native parsed shader/buffer extents -> owning predicate -> anyhow prose -> Kernel/KernelCache/KernelBatch -> actual armor/solver caller (some read independently) -> public error aggregate/native presentation, full lastconsumer pending",
+      "connected_repair_scope": [
+        "Own this actual reason under canonical computeerror; propagate contextual fields without premature text",
+        "Keep native source/identifier namespaces at real parser/binding boundary"
+      ],
+      "dependencies": [
+        "Actual final caller/native cause taxonomy/current/all20; exact aliases reconcile perfunction/hash/firstpredicate, common remedy insufficient"
+      ],
+      "acceptance_requirements": [
+        "Reason and exact entrypoint/groups/byte context inspectable before nativefinalmessage",
+        "Invalid requests still rejected before native operation; validempty-dispatch/general binding modes remain supported",
+        "No oldAPI/prose/Boxdowncast compatibility or repairs/runtimevalidation before auditgate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-COMPUTE-ZERO-WORKGROUP-REASON",
+      "classification": "Exact frozen native admission reason prose representation; alias/currentclosure pending",
+      "first_failed_contract": "actual parsed entry workgroup_size contains0 at92 represented solely as anyhow message at93 before public internal error propagation",
+      "canonical_owner": "Native compute kernel or dispatch validation error with exact reason and typed contextual entrypoint/groups/byte extents, composed with native parse/pipeline/buffer causes",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs SHAdae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274 ::Kernel::new74..125:93"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native parsed shader/buffer extents -> owning predicate -> anyhow prose -> Kernel/KernelCache/KernelBatch -> actual armor/solver caller (some read independently) -> public error aggregate/native presentation, full lastconsumer pending",
+      "connected_repair_scope": [
+        "Own this actual reason under canonical computeerror; propagate contextual fields without premature text",
+        "Keep native source/identifier namespaces at real parser/binding boundary"
+      ],
+      "dependencies": [
+        "Actual final caller/native cause taxonomy/current/all20; exact aliases reconcile perfunction/hash/firstpredicate, common remedy insufficient"
+      ],
+      "acceptance_requirements": [
+        "Reason and exact entrypoint/groups/byte context inspectable before nativefinalmessage",
+        "Invalid requests still rejected before native operation; validempty-dispatch/general binding modes remain supported",
+        "No oldAPI/prose/Boxdowncast compatibility or repairs/runtimevalidation before auditgate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-COMPUTE-COPY-BOUNDS-REASON",
+      "classification": "Exact frozen native admission reason prose representation; alias/currentclosure pending",
+      "first_failed_contract": "bytes exceeds actual source or destination declared typedBuffer size320 represented solely as anyhow message at321 before public internal error propagation",
+      "canonical_owner": "Native compute kernel or dispatch validation error with exact reason and typed contextual entrypoint/groups/byte extents, composed with native parse/pipeline/buffer causes",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/mod.rs SHAdae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274 ::KernelBatch::copy_buffer319..330:321"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native parsed shader/buffer extents -> owning predicate -> anyhow prose -> Kernel/KernelCache/KernelBatch -> actual armor/solver caller (some read independently) -> public error aggregate/native presentation, full lastconsumer pending",
+      "connected_repair_scope": [
+        "Own this actual reason under canonical computeerror; propagate contextual fields without premature text",
+        "Keep native source/identifier namespaces at real parser/binding boundary"
+      ],
+      "dependencies": [
+        "Actual final caller/native cause taxonomy/current/all20; exact aliases reconcile perfunction/hash/firstpredicate, common remedy insufficient"
+      ],
+      "acceptance_requirements": [
+        "Reason and exact entrypoint/groups/byte context inspectable before nativefinalmessage",
+        "Invalid requests still rejected before native operation; validempty-dispatch/general binding modes remain supported",
+        "No oldAPI/prose/Boxdowncast compatibility or repairs/runtimevalidation before auditgate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "finding_connections": [
+    {
+      "finding": "PAR-L12-COMPUTE-PIPELINE-CAUSE-ERASURE",
+      "exact_connection": "Own source2243 fastCompiledLayout155 -> FastPath.new222 -> own2244 Kernel.new108 -> KernelCache.get193 -> own2193 MetalGpu.new54 and2196 ArmorGpu.new192 formatters. Distinct exact erasure sites preserve connected dependency, no automaticalias."
+    }
+  ],
+  "pending_connected_contracts": [
+    "Actual native parsedShader/Buffer/ReflectionData cause/extent/device ownership/features/current; KernelCache code-only key conditional contextgraph",
+    "Full nativefinalconsumers/all20/mandatory/prior connected qualifications remain open"
+  ],
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "authoritative_ledger_written": false,
+  "implementation_gate_complete": false
+}

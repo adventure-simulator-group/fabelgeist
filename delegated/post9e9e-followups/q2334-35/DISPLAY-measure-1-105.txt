@@ -1,0 +1,105 @@
+   1 //! Framework-independent arithmetic for measured inventory definitions.
+   2 //!
+   3 //! The persistent inventory schema is not implemented yet. This module is the
+   4 //! small arithmetic boundary reducers can adopt if that work is revived.
+   5 
+   6 use std::num::NonZeroU32;
+   7 
+   8 /// A non-zero count of fungible inventory items.
+   9 #[derive(
+  10     Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, serde::Deserialize, serde::Serialize,
+  11 )]
+  12 #[serde(transparent)]
+  13 pub struct ItemQuantity(NonZeroU32);
+  14 
+  15 impl ItemQuantity {
+  16     pub const ONE: Self = Self(NonZeroU32::MIN);
+  17 
+  18     pub const fn new(value: u32) -> Option<Self> {
+  19         match NonZeroU32::new(value) {
+  20             Some(value) => Some(Self(value)),
+  21             None => None,
+  22         }
+  23     }
+  24 
+  25     pub const fn get(self) -> u32 {
+  26         self.0.get()
+  27     }
+  28 }
+  29 
+  30 /// One-millionth fixed-point fraction of a whole consumable item.
+  31 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+  32 pub struct ConsumableFractionMicros(u32);
+  33 
+  34 impl ConsumableFractionMicros {
+  35     pub const MICROS_PER_WHOLE: u32 = 1_000_000;
+  36     pub const MINIMUM_NONZERO: Self = Self(1);
+  37     pub const ZERO: Self = Self(0);
+  38     pub const WHOLE: Self = Self(Self::MICROS_PER_WHOLE);
+  39 
+  40     pub const fn try_new(fraction_micros: u32) -> Result<Self, MeasurementError> {
+  41         if fraction_micros > Self::MICROS_PER_WHOLE {
+  42             return Err(MeasurementError::FractionExceedsWhole);
+  43         }
+  44         Ok(Self(fraction_micros))
+  45     }
+  46 
+  47     pub const fn whole_divided_by(parts: u32) -> Self {
+  48         assert!(parts > 0, "a whole cannot be divided into zero parts");
+  49         Self(Self::MICROS_PER_WHOLE / parts)
+  50     }
+  51 
+  52     pub fn try_from_ratio(numerator: u64, denominator: u64) -> Result<Self, MeasurementError> {
+  53         if denominator == 0 {
+  54             return Err(MeasurementError::ZeroCapacity);
+  55         }
+  56         let fraction_micros = u128::from(Self::MICROS_PER_WHOLE)
+  57             .checked_mul(u128::from(numerator))
+  58             .ok_or(MeasurementError::Overflow)?
+  59             .div_ceil(u128::from(denominator));
+  60         let fraction_micros =
+  61             u32::try_from(fraction_micros.min(u128::from(Self::MICROS_PER_WHOLE)))
+  62                 .map_err(|_| MeasurementError::Overflow)?;
+  63         Ok(Self(fraction_micros))
+  64     }
+  65 
+  66     pub const fn get(self) -> u32 {
+  67         self.0
+  68     }
+  69 
+  70     pub const fn is_zero(self) -> bool {
+  71         self.0 == 0
+  72     }
+  73 
+  74     pub fn as_unit_f32(self) -> f32 {
+  75         self.0 as f32 / Self::MICROS_PER_WHOLE as f32
+  76     }
+  77 
+  78     pub fn scale_floor(self, whole: u64) -> u64 {
+  79         ((u128::from(whole) * u128::from(self.0)) / u128::from(Self::MICROS_PER_WHOLE)) as u64
+  80     }
+  81 
+  82     pub fn try_scaled_floor(self, factor: f32) -> Result<Self, MeasurementError> {
+  83         if !factor.is_finite() || !(0.0..=1.0).contains(&factor) {
+  84             return Err(MeasurementError::InvalidFractionScale);
+  85         }
+  86         Self::try_new((self.0 as f32 * factor).floor() as u32)
+  87     }
+  88 
+  89     pub const fn checked_sub(self, other: Self) -> Option<Self> {
+  90         match self.0.checked_sub(other.0) {
+  91             Some(value) => Some(Self(value)),
+  92             None => None,
+  93         }
+  94     }
+  95 
+  96     pub const fn checked_mul(self, multiplier: u32) -> Option<Self> {
+  97         match self.0.checked_mul(multiplier) {
+  98             Some(value) if value <= Self::MICROS_PER_WHOLE => Some(Self(value)),
+  99             _ => None,
+ 100         }
+ 101     }
+ 102 }
+ 103 
+ 104 impl TryFrom<u32> for ConsumableFractionMicros {
+ 105     type Error = MeasurementError;

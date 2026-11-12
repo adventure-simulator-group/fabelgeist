@@ -1,0 +1,60 @@
+   1 //! Validated daily allocations and read-only, location-dependent redistribution.
+   2 use crate::activity::{ACTIVITY_SEGMENT_MINUTES, ActivityLocation, LocationActivity};
+   3 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+   4 use fabelgeist_determinism::Seed;
+   5 use fabelgeist_determinism::StreamId;
+   6 
+   7 /// A parsed organization allocation: zero minutes cannot carry a stale
+   8 /// organization and positive minutes cannot omit the organization that grants
+   9 /// the activity.
+  10 #[derive(Clone, Debug, PartialEq, Eq)]
+  11 pub enum OrganizationAllocation {
+  12     None,
+  13     Scheduled {
+  14         minutes: ActivityMinutes,
+  15         organization_id: String,
+  16     },
+  17 }
+  18 
+  19 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  20 pub struct ActivityMinutes(u16);
+  21 
+  22 impl ActivityMinutes {
+  23     pub fn get(self) -> u16 {
+  24         self.0
+  25     }
+  26 }
+  27 
+  28 impl TryFrom<u16> for ActivityMinutes {
+  29     type Error = ScheduleParseError;
+  30 
+  31     fn try_from(minutes: u16) -> Result<Self, Self::Error> {
+  32         minutes
+  33             .is_multiple_of(ACTIVITY_SEGMENT_MINUTES)
+  34             .then_some(Self(minutes))
+  35             .ok_or(ScheduleParseError::NotQuarterHour)
+  36     }
+  37 }
+  38 
+  39 impl OrganizationAllocation {
+  40     pub fn parse(
+  41         minutes: u16,
+  42         organization_id: Option<String>,
+  43     ) -> Result<Self, ScheduleParseError> {
+  44         match (minutes, organization_id) {
+  45             (0, None) => Ok(Self::None),
+  46             (0, Some(_)) => Err(ScheduleParseError::OrganizationWithoutMinutes),
+  47             (_, Some(organization_id)) => {
+  48                 let organization_id = organization_id.trim();
+  49                 if organization_id.is_empty() {
+  50                     return Err(ScheduleParseError::EmptyOrganization);
+  51                 }
+  52                 Ok(Self::Scheduled {
+  53                     minutes: ActivityMinutes::try_from(minutes)?,
+  54                     organization_id: organization_id.to_owned(),
+  55                 })
+  56             }
+  57             (_, None) => Err(ScheduleParseError::MinutesWithoutOrganization),
+  58         }
+  59     }
+  60 

@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:320-385
+ 320     Ok(())
+ 321 }
+ 322 
+ 323 include!("npc_causal/romance_candidates.rs");
+ 324 
+ 325 fn settle_romance_decision(
+ 326     ctx: &ReducerContext,
+ 327     character_id: u64,
+ 328     policy_seed: Seed,
+ 329     minute: StrategicMinute,
+ 330 ) -> Result<(), String> {
+ 331     let day = minute.day_index();
+ 332     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Romance) {
+ 333         return Ok(());
+ 334     }
+ 335     let character = ctx
+ 336         .db
+ 337         .character()
+ 338         .id()
+ 339         .find(character_id)
+ 340         .ok_or("NPC policy character not found")?;
+ 341     let Some(actor_presence) = ctx
+ 342         .db
+ 343         .settlement_resident_presence()
+ 344         .character_id()
+ 345         .find(character_id)
+ 346         .filter(|presence| crate::settlement_population::npc_is_present(ctx, presence, minute))
+ 347     else {
+ 348         record_decision(
+ 349             ctx,
+ 350             character_id,
+ 351             day,
+ 352             NpcPolicyDecisionPhase::Romance,
+ 353             NpcPolicyDecisionOutcome::RomanceNoCandidate,
+ 354             None,
+ 355             minute,
+ 356         );
+ 357         return Ok(());
+ 358     };
+ 359     if !character.alive
+ 360         || character.age_years < ADULT_AGE_YEARS
+ 361         || character.current_settlement_id.as_deref() != Some(&actor_presence.settlement_id)
+ 362     {
+ 363         record_decision(
+ 364             ctx,
+ 365             character_id,
+ 366             day,
+ 367             NpcPolicyDecisionPhase::Romance,
+ 368             NpcPolicyDecisionOutcome::Ineligible,
+ 369             None,
+ 370             minute,
+ 371         );
+ 372         return Ok(());
+ 373     }
+ 374     let candidates =
+ 375         present_romance_candidates(ctx, &actor_presence.settlement_id, character_id, minute);
+ 376     let candidates = stable_romance_candidates(character_id, policy_seed, day, candidates)?;
+ 377     for candidate in candidates {
+ 378         let actor_sex = ctx
+ 379             .db
+ 380             .character_personality()
+ 381             .character_id()
+ 382             .find(character_id)
+ 383             .ok_or("NPC romance actor is missing personality")?
+ 384             .sex;
+ 385         let candidate_sex = ctx

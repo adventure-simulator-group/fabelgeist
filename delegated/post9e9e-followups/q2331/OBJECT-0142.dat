@@ -1,0 +1,366 @@
+{
+  "kind": "Parallel L12 ordered fullsource proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 740,
+  "proposed_original_before": 2238,
+  "proposed_original_after": 2244,
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-739.json",
+  "predecessor_proposal_sha256": "84516b2c5f4c718fdb11c3d2d98d037e29a3f623cac626df68c2d8692c7049e9",
+  "rows": [
+    {
+      "original_index": 2238,
+      "source_id": "pr-working:crates/fabelgeist-compute/Cargo.toml",
+      "source_sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/Cargo.toml",
+      "actual_EOF": 33,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-192.json",
+      "registration_sha256": "f4a2f546bb4fc8eb2f0f9c563eed113ed03b99d76716ec28fae3cea054ebbe98",
+      "assessed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          33
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Manifest full1..33"
+        ],
+        "string_inventory": [
+          "Native Cargo names/features/platform cfg metadata; no semanticStringAPI. Declared naga/wgpu29 native source feature/lock exactreconciliation pending."
+        ],
+        "trace": [
+          "Compute manifest -> native wgpu/naga +GPU/Math crates -> actual kernel/native compiler consumers."
+        ],
+        "conditional_cases": [
+          "wasm fragile-send feature29 versus desktop validation cfg legitimate target modes, not compatibility defects. No cargo/runtimeexecution."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2239,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "source_sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "actual_EOF": 175,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-193.json",
+      "registration_sha256": "a678d08f2d8d2e7c82c7f91cf78f66cab20db5d6949db4dab88f0836e50cdabc",
+      "assessed_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          175
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Full WGSL ARITHMETIC7..175: fence18/22/add26/sub30/mul34/next_float39/nearer50/div62/sqrt96/sqrt_walked115/vectorops132..158/length161/lerp166/smoothstep171"
+        ],
+        "string_inventory": [
+          "All &str is actual native WGSL program, not semanticgameplayIDs. Full native function bodies read, not textemptiness substitution."
+        ],
+        "trace": [
+          "Host scalar/vec3 values and runtime zero hook -> fenced WGSL arithmetic -> actual shader users including metal baking/readback native boundary. shared hook actual2241; concrete source callsites/driver/native math feature accuracy separate."
+        ],
+        "conditional_cases": [
+          "Div specialvalue/zero66 and sqrt specialvalue98 native semantics intentionally preserve hostspecialvalues; smoothstepclamp172 normalization valid. No numerical/correctrounding/runtimeacceptance; stated subnormal/nativeFMA limitations mustremain."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2240,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "source_sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "actual_EOF": 360,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-194.json",
+      "registration_sha256": "c941d7df3ebc2f39158212148b6cd7b79404877dcffa8562ed79d1bfc26c098b",
+      "assessed_ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          360
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "literal39/split44/double_float49/horner56/factorial84/alternating88/source93..122; full OPERATIONS127..193 and FUNCTIONS196..333; tests340..360 sourceonly"
+        ],
+        "string_inventory": [
+          "Returned String/generated WGSL identifiers/constants are actual native programcodec; seriesname literals116..119 consumed onlytemplategeneratedfunctions. Testliteral suffixparse356 nativecodec, not semanticgameplayID."
+        ],
+        "trace": [
+          "Fixedpositive termcounts9/10/14/17 -> generateddouble-floatcoefficient functions -> native OPERATIONS/FUNCTIONS -> host_float.wgsl cachedlibrary -> kernel -> native compiler/device."
+        ],
+        "conditional_cases": [
+          "horner N nonempty actualfixedpositivecounts, coefficients[0]73 present on thosefourcallers; no fictitious N0 failure. host_pow restrictedpositivebase/zero documented; negativebase nativefunctionreturns0 intentionalrestrictedcontract, no compatibilityfinding absentactualunsupportedcaller. NativeFMA/subnormal/transcendentalrounding boundedlimits unexecuted."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2241,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "source_sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/host_float/mod.rs",
+      "actual_EOF": 86,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-195.json",
+      "registration_sha256": "3c17f6ebe99b2e3c8eb42c0420f798ab87dccac8bad0ec6d1d6422c405c65971",
+      "assessed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          86
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ZERO_FIELD68/PARAMS_ZERO_HOOK72/wgsl76..79/zero_hook84..86"
+        ],
+        "string_inventory": [
+          "ZERO_FIELD literal zero native reflected uniformidentifier matches params.zero72; runtimeexpression&str84 and sourcecache OnceLockString77 are native code, no semanticStringtypefinding."
+        ],
+        "trace": [
+          "Native zero uniform supplied host -> zero_hook orPARAMS_ZERO_HOOK -> wgsl OnceLock concatenates arithmetic/doublefloat -> actual kernelcompiler -> device. Original2191 bake helpers set host_float ZERO nativekey, priorhostread compatible representation, no executionproof."
+        ],
+        "conditional_cases": [
+          "Defined host_zero function compile-required by sourcecontract; actual run-timezero and parser/driver/fence optimization verification remains unrun. Source doc54..57 explicitly FMA/subnormal/range limitations retained."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2242,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "source_sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/host_float/tests.rs",
+      "actual_EOF": 271,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-196.json",
+      "registration_sha256": "36662fda30d2d1eac5d3f2f1f3db3e6944e3b59bc9955d05d2d5cefc830993fa",
+      "assessed_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          271
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Words.next13/uniform21/normal28/run41..96/mismatches99..118/tests121/151/197/262..271"
+        ],
+        "string_inventory": [
+          "Actual test-expressionStrings/native WGSLprogram/store generation, native PassParameters keys83..91, testdisplaynames247 anddiagnostics only. No productiongameplayID."
+        ],
+        "trace": [
+          "Existing sourceonly test inputs -> generated native WGSL including ownlibrary -> GPUexecution code -> expected bit/tolerancestatements. Personallyfull271read; no test/driver/kernel/probeexecution."
+        ],
+        "conditional_cases": [
+          "TestNaNanypayloadsemantic112 andtranscendental20permillion199 statedcoverage not universalbitproof; no inheritedrunattestation or numericalacceptance."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2243,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "source_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+      "actual_EOF": 379,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+      "registration_sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "assessed_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          379
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2238\u20132243 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "UniformArena.allocate87..105/CompiledLayout.new115..160/FastPath.new165..236/prepare239..318/write_uniform325..379"
+        ],
+        "string_inventory": [
+          "Native diagnosticlabels92/130/137/144/291. entry_point119/168 and reflected binding.name252/uniform.name331 are actual open WGSL nativeidentifier namespace; no fabricated closed gameplayID. Errorprose155/253/332/369 is internalnativecause/semanticreasontransport requiringtypedowner."
+        ],
+        "trace": [
+          "Native reflected kernel/layout -> CompiledLayout native error pop154 -> formatted anyhow155 -> FastPath.new222 -> public Kernel caller/native GPUerrorconsumer pending; dispatch PassParameters -> reflected names -> prepare/write_uniform -> native uniformbytes/bindgroup."
+        ],
+        "conditional_cases": [
+          "Unsupported fastshape groupcount173/groupindex177/textures182/uniformsize202 returnOkNone intentionally selecting general native ComputePass, no compatibilitydefect. Actual uniformarena pushes beforelast.expect103, outside-test rulecase but no ordinaryempty panic.",
+          "write_uniform out-ofrange put340..346/unsigned352 silentlyskip mustcompare actual trustworthy ReflectionData bounds/type schema before supported invaliddispatchclaim. Numbers cast tofloat350 requires actualnative reflectedtype admission; no inventedfailure witness."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "new_original_roles_proposed": 6,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "new_findings": [
+    {
+      "id": "PAR-L12-COMPUTE-PIPELINE-CAUSE-ERASURE",
+      "classification": "Exact frozen internal textual error boundary; alias/native/current closure pending",
+      "first_failed_contract": "native error from validation error scope154 formatted into anyhow message155",
+      "canonical_owner": "native compute pipeline creation cause owner under canonical native compute error aggregate, retaining exact context/cause until final presentation",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/fast.rs SHA8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf ::CompiledLayout::new115..160:155"
+      ],
+      "producer_api_state_consumer_native_boundary": "Actual native validation error or reflected PassParameters predicate -> exact first textual construction155 -> Result<anyhow> -> FastPath/Kernel caller -> actual armor/solver/UI/native diagnostic boundary pending further scoped bodies",
+      "connected_repair_scope": [
+        "Preserve actual native cause or typed predicate at this exact source site",
+        "Propagate typed native compute aggregate with binding/member/operation context through KernelBatch/public callers to final presentation"
+      ],
+      "dependencies": [
+        "Actual Kernel/KernelBatch/caching/reflection/PassParameters producers and consumers; pinned Wgpu error-scope type/body/features/target/current/all20",
+        "Exact source/function/hash aliases must reconcile separately; common typed-error remedy does not merge these sites or downstream armor gpu329/metal124"
+      ],
+      "acceptance_requirements": [
+        "Exact cause/reason/context inspectable before final message formatting",
+        "Valid native namespace identifiers and intentional general ComputePass modes remain supported",
+        "No obsolete API/error-prose/downcast compatibility requirements; no repair/runtimeexecution before audit gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-COMPUTE-BUFFER-PARAMETER-REASON",
+      "classification": "Exact frozen internal textual error boundary; alias/native/current closure pending",
+      "first_failed_contract": "missing-or-wrong-buffer admission predicate252 represented as anyhow formatted prose253",
+      "canonical_owner": "native compute dispatch buffer parameter validation reason under canonical native compute error aggregate, retaining exact context/cause until final presentation",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/fast.rs SHA8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf ::FastPath::prepare239..318:253"
+      ],
+      "producer_api_state_consumer_native_boundary": "Actual native validation error or reflected PassParameters predicate -> exact first textual construction253 -> Result<anyhow> -> FastPath/Kernel caller -> actual armor/solver/UI/native diagnostic boundary pending further scoped bodies",
+      "connected_repair_scope": [
+        "Preserve actual native cause or typed predicate at this exact source site",
+        "Propagate typed native compute aggregate with binding/member/operation context through KernelBatch/public callers to final presentation"
+      ],
+      "dependencies": [
+        "Actual Kernel/KernelBatch/caching/reflection/PassParameters producers and consumers; pinned Wgpu error-scope type/body/features/target/current/all20",
+        "Exact source/function/hash aliases must reconcile separately; common typed-error remedy does not merge these sites or downstream armor gpu329/metal124"
+      ],
+      "acceptance_requirements": [
+        "Exact cause/reason/context inspectable before final message formatting",
+        "Valid native namespace identifiers and intentional general ComputePass modes remain supported",
+        "No obsolete API/error-prose/downcast compatibility requirements; no repair/runtimeexecution before audit gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-COMPUTE-MISSING-UNIFORM-REASON",
+      "classification": "Exact frozen internal textual error boundary; alias/native/current closure pending",
+      "first_failed_contract": "missing reflected member331 represented as anyhow formatted prose332",
+      "canonical_owner": "native compute uniform missing parameter validation reason under canonical native compute error aggregate, retaining exact context/cause until final presentation",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/fast.rs SHA8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf ::write_uniform325..379:332"
+      ],
+      "producer_api_state_consumer_native_boundary": "Actual native validation error or reflected PassParameters predicate -> exact first textual construction332 -> Result<anyhow> -> FastPath/Kernel caller -> actual armor/solver/UI/native diagnostic boundary pending further scoped bodies",
+      "connected_repair_scope": [
+        "Preserve actual native cause or typed predicate at this exact source site",
+        "Propagate typed native compute aggregate with binding/member/operation context through KernelBatch/public callers to final presentation"
+      ],
+      "dependencies": [
+        "Actual Kernel/KernelBatch/caching/reflection/PassParameters producers and consumers; pinned Wgpu error-scope type/body/features/target/current/all20",
+        "Exact source/function/hash aliases must reconcile separately; common typed-error remedy does not merge these sites or downstream armor gpu329/metal124"
+      ],
+      "acceptance_requirements": [
+        "Exact cause/reason/context inspectable before final message formatting",
+        "Valid native namespace identifiers and intentional general ComputePass modes remain supported",
+        "No obsolete API/error-prose/downcast compatibility requirements; no repair/runtimeexecution before audit gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-COMPUTE-UNSUPPORTED-UNIFORM-REASON",
+      "classification": "Exact frozen internal textual error boundary; alias/native/current closure pending",
+      "first_failed_contract": "unsupported PassParameter kind368 represented as anyhow formatted prose369",
+      "canonical_owner": "native compute uniform value-kind validation reason under canonical native compute error aggregate, retaining exact context/cause until final presentation",
+      "exact_function_ownership": [
+        "crates/fabelgeist-compute/src/kernel/fast.rs SHA8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf ::write_uniform325..379:369"
+      ],
+      "producer_api_state_consumer_native_boundary": "Actual native validation error or reflected PassParameters predicate -> exact first textual construction369 -> Result<anyhow> -> FastPath/Kernel caller -> actual armor/solver/UI/native diagnostic boundary pending further scoped bodies",
+      "connected_repair_scope": [
+        "Preserve actual native cause or typed predicate at this exact source site",
+        "Propagate typed native compute aggregate with binding/member/operation context through KernelBatch/public callers to final presentation"
+      ],
+      "dependencies": [
+        "Actual Kernel/KernelBatch/caching/reflection/PassParameters producers and consumers; pinned Wgpu error-scope type/body/features/target/current/all20",
+        "Exact source/function/hash aliases must reconcile separately; common typed-error remedy does not merge these sites or downstream armor gpu329/metal124"
+      ],
+      "acceptance_requirements": [
+        "Exact cause/reason/context inspectable before final message formatting",
+        "Valid native namespace identifiers and intentional general ComputePass modes remain supported",
+        "No obsolete API/error-prose/downcast compatibility requirements; no repair/runtimeexecution before audit gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "pending_connected_contracts": [
+    "Actual native Kernel/KernelBatch/reflection/PassParameters/error-scope/driver/current bodies; actual solver/UI error presentation",
+    "Hostfloat native mathematical/source-prepend/zero-hook dependencies stay qualified, no actualruntime rounding proof",
+    "All prior connected/all20/mandatory/current and honestpartial qualifications remain open"
+  ],
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "authoritative_ledger_written": false,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,23 @@
+{
+  "at_utc": "2026-11-12T18:03:52.702817+00:00",
+  "paths": [
+    "crates/adventuresim-world-schema/src/calendar.rs",
+    "crates/adventuresim-stdb-module/src/residence.rs",
+    "crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+    "crates/adventuresim-stdb-module/src/relationship/family.rs"
+  ],
+  "terms": [
+    "fn signed_birth_minute_for_age",
+    "fn age_years_since_signed_birth",
+    "MINUTES_PER_YEAR",
+    "fn settle_npc_residence",
+    "fn present_romance_candidates",
+    "age_years",
+    "fn ensure_seeded_family_households",
+    "set_seeded_character_birth_from_age",
+    "record_character_birth",
+    "settle_character_age"
+  ],
+  "cap": 30,
+  "purpose": "locate exact chronology arithmetic and native eligibility functions"
+}

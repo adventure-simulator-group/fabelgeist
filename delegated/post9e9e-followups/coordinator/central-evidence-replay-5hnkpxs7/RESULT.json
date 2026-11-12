@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "case": "q2331",
+      "exit": 0,
+      "stdout_bytes": 787,
+      "stdout_sha256": "809bde1d348944c2f13d3fe27e4bb2c9e01b05621054aad141ed8d770e9e6544",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "q2332",
+      "exit": 0,
+      "stdout_bytes": 536,
+      "stdout_sha256": "71c984bf6cf2bd44962f9b3d51a1f3c0ac375619bdc1b9df190194d4f04990ae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "q2333",
+      "exit": 0,
+      "stdout_bytes": 282,
+      "stdout_sha256": "558f12d3360c19ef01d68b143623ae93a66ccd8dec1632011c700d83beafe92a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Evidence-only same-machine replays; q2331 uses separately held key and Git/transport anchors, q2332 uses local commit trees, q2333 checks against exact private packet without repeating external anchors. No independent custody, product behavior, resolved features or full semantic audit is established."
+}

@@ -1,0 +1,32 @@
+SOURCE crates/adventuresim-world-schema/src/calendar.rs:175-205
+ 175 
+ 176     /// Inclusive absolute minutes from this instant through `end`.
+ 177     pub fn iter_through(self, end: Self) -> impl Iterator<Item = Self> {
+ 178         (self.minutes..=end.minutes).map(Self::new)
+ 179     }
+ 180 
+ 181     pub const fn saturating_add_years(self, years: u16) -> Self {
+ 182         self.saturating_add_minutes((years as u64).saturating_mul(MINUTES_PER_YEAR))
+ 183     }
+ 184 
+ 185     pub const fn whole_years_since(self, earlier: Self) -> u64 {
+ 186         self.elapsed_since(earlier) / MINUTES_PER_YEAR
+ 187     }
+ 188 
+ 189     /// Age in complete years from the signed birth coordinate used by storage.
+ 190     pub fn age_years_since_signed_birth(self, birth_minute: i64) -> u16 {
+ 191         let years =
+ 192             self.elapsed_minutes_since_signed_birth(birth_minute) / (MINUTES_PER_YEAR as u128);
+ 193         years.min(u16::MAX as u128) as u16
+ 194     }
+ 195 
+ 196     /// Signed birth coordinate for an age at this instant, capped to storage.
+ 197     pub fn signed_birth_minute_for_age(self, age_years: u16) -> i64 {
+ 198         let birth = i128::from(self.minutes)
+ 199             .saturating_sub(i128::from(age_years) * i128::from(MINUTES_PER_YEAR));
+ 200         birth.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64
+ 201     }
+ 202 
+ 203     pub fn elapsed_minutes_since_signed_birth(self, birth_minute: i64) -> u128 {
+ 204         (i128::from(self.minutes) - i128::from(birth_minute)).max(0) as u128
+ 205     }

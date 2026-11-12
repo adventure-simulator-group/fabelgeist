@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/governance.rs:1300-1360
+1300     if current_party_id == party_id {
+1301         return Err("Cannot join your own party".into());
+1302     }
+1303     if current_party.current_settlement_id.is_none()
+1304         || party.current_settlement_id.is_none()
+1305         || current_party.wilderness_canonical_anchor_minute.is_some()
+1306         || party.wilderness_canonical_anchor_minute.is_some()
+1307     {
+1308         return Err("Parties can merge only while synchronized at a settlement".into());
+1309     }
+1310     require_living_recruitment_target(ctx, &party)?;
+1311     require_open_recruitment_offer(ctx, &party)?;
+1312     if !crate::simulation::same_simulation_scope(ctx, character_id, party.leader_id) {
+1313         return Err("Simulation and ordinary parties cannot merge".into());
+1314     }
+1315     if current_party.current_settlement_id != party.current_settlement_id
+1316         || current_party.current_case_site_id != party.current_case_site_id
+1317     {
+1318         return Err("Parties must be in the same location to merge".into());
+1319     }
+1320     if role.quantity > 0 && filled_role_slots(ctx, role.id) >= role.quantity {
+1321         return Err("Recruitment role is full".into());
+1322     }
+1323     if ctx
+1324         .db
+1325         .party_join_request()
+1326         .character_id()
+1327         .filter(character_id)
+1328         .any(|request| request.recruitment_role_id == recruitment_role_id)
+1329     {
+1330         return Ok(());
+1331     }
+1332     let capabilities = crate::capability::refresh_character_capability(ctx, character_id)?;
+1333     ctx.db.party_join_request().insert(PartyJoinRequest {
+1334         id: 0,
+1335         party_id,
+1336         recruitment_role_id,
+1337         character_id,
+1338         meets_requirements: capabilities.meets(role_requirements(&role)),
+1339     });
+1340     Ok(())
+1341 }
+1342 
+1343 #[reducer]
+1344 pub fn request_general_party_join(
+1345     ctx: &ReducerContext,
+1346     character_id: u64,
+1347     target_party_id: String,
+1348 ) -> Result<(), String> {
+1349     require_strategic_character_authority(ctx, character_id)?;
+1350     let target_party = ctx
+1351         .db
+1352         .party_authority()
+1353         .id()
+1354         .find(&target_party_id)
+1355         .ok_or("Party not found")?;
+1356     require_living_recruitment_target(ctx, &target_party)?;
+1357     let role = ctx
+1358         .db
+1359         .party_recruitment_role()
+1360         .party_id()

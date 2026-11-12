@@ -1,0 +1,131 @@
+ 120     pub fixture_id: String,
+ 121     #[unique]
+ 122     pub material_lot_id: u64,
+ 123     pub available_ml: u64,
+ 124     pub revision: u64,
+ 125     pub disabled_at: Option<StrategicMinute>,
+ 126 }
+ 127 
+ 128 /// Private immutable output identity for one successful fixture draw.
+ 129 #[derive(Clone, Debug)]
+ 130 #[table(accessor = water_output_lot)]
+ 131 pub struct WaterOutputLot {
+ 132     #[primary_key]
+ 133     pub id: u64,
+ 134     #[index(btree)]
+ 135     pub container_object_id: u64,
+ 136     pub source_material_lot_id: u64,
+ 137     pub amount_ml: u64,
+ 138     pub contaminant_load_microunits: u64,
+ 139     pub concentration_anchor: f32,
+ 140     pub growth_per_hour: f32,
+ 141     pub anchor_minute: StrategicMinute,
+ 142 }
+ 143 
+ 144 /// Private exact material contributions in one physical container.
+ 145 #[derive(Clone, Debug)]
+ 146 #[table(accessor = container_water_contribution)]
+ 147 pub struct ContainerWaterContribution {
+ 148     #[primary_key]
+ 149     pub material_lot_id: u64,
+ 150     #[index(btree)]
+ 151     pub container_object_id: u64,
+ 152     pub amount_microliters: u64,
+ 153     pub contaminant_load_microunits: u64,
+ 154     pub collected_at: StrategicMinute,
+ 155 }
+ 156 
+ 157 pub(crate) fn delete_container_water_contributions(ctx: &ReducerContext, container_object_id: u64) {
+ 158     for row in ctx
+ 159         .db
+ 160         .container_water_contribution()
+ 161         .container_object_id()
+ 162         .filter(container_object_id)
+ 163         .collect::<Vec<_>>()
+ 164     {
+ 165         ctx.db
+ 166             .container_water_contribution()
+ 167             .material_lot_id()
+ 168             .delete(row.material_lot_id);
+ 169     }
+ 170 }
+ 171 
+ 172 pub(crate) fn take_container_water_contributions(
+ 173     ctx: &ReducerContext,
+ 174     container_object_id: u64,
+ 175     source_total: Microliters,
+ 176     moved_water: Microliters,
+ 177 ) -> Result<Vec<(u64, Microliters, u64)>, String> {
+ 178     if moved_water > source_total {
+ 179         return Err("Water material transfer exceeds public volume".into());
+ 180     }
+ 181     let mut rows = ctx
+ 182         .db
+ 183         .container_water_contribution()
+ 184         .container_object_id()
+ 185         .filter(container_object_id)
+ 186         .collect::<Vec<_>>();
+ 187     rows.sort_by_key(|row| row.material_lot_id);
+ 188     let mut moved = Vec::new();
+ 189     for mut row in rows {
+ 190         let amount_before = row.amount_microliters;
+ 191         let load_before = row.contaminant_load_microunits;
+ 192         let (amount, moved_load) = adventuresim_core::water_source::proportional_material_transfer(
+ 193             source_total,
+ 194             moved_water,
+ 195             Microliters::new(amount_before),
+ 196             load_before,
+ 197         )
+ 198         .ok_or("Water material transfer exceeds public volume")?;
+ 199         if amount.is_zero() {
+ 200             continue;
+ 201         }
+ 202         row.amount_microliters -= amount.get();
+ 203         row.contaminant_load_microunits -= moved_load;
+ 204         if row.amount_microliters == 0 {
+ 205             ctx.db
+ 206                 .container_water_contribution()
+ 207                 .material_lot_id()
+ 208                 .delete(row.material_lot_id);
+ 209         } else {
+ 210             ctx.db
+ 211                 .container_water_contribution()
+ 212                 .material_lot_id()
+ 213                 .update(row.clone());
+ 214         }
+ 215         moved.push((row.material_lot_id, amount, moved_load));
+ 216     }
+ 217     Ok(moved)
+ 218 }
+ 219 
+ 220 pub(crate) fn consume_container_water_contributions(
+ 221     ctx: &ReducerContext,
+ 222     container_object_id: u64,
+ 223     source_total_ml: u64,
+ 224     consumed_water_ml: u64,
+ 225     consumer_character_id: u64,
+ 226 ) -> Result<(), String> {
+ 227     let moved = take_container_water_contributions(
+ 228         ctx,
+ 229         container_object_id,
+ 230         Microliters::try_from_milliliters(Milliliters::new(source_total_ml))
+ 231             .map_err(|_| "Source water volume is invalid")?,
+ 232         Microliters::try_from_milliliters(Milliliters::new(consumed_water_ml))
+ 233             .map_err(|_| "Consumed water volume is invalid")?,
+ 234     )?;
+ 235     if !moved.is_empty() {
+ 236         expose_to_water_contributions(ctx, consumer_character_id, &moved)?;
+ 237     }
+ 238     Ok(())
+ 239 }
+ 240 
+ 241 fn expose_to_water_contributions(
+ 242     ctx: &ReducerContext,
+ 243     character_id: u64,
+ 244     moved: &[(u64, Microliters, u64)],
+ 245 ) -> Result<(), String> {
+ 246     use sha2::{Digest as _, Sha256};
+ 247     let minute = ctx
+ 248         .db
+ 249         .character_time()
+ 250         .character_id()

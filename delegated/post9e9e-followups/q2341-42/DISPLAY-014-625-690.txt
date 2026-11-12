@@ -1,0 +1,66 @@
+ 625                 zero_distance_return,
+ 626             )
+ 627         } else {
+ 628             return Err("Character is not at a known location".into());
+ 629         };
+ 630 
+ 631     let departing_case_site = crate::investigation::character_case_site_id(ctx, character_id);
+ 632     let traveler_ids: Vec<u64> = if let Some(party) = party.as_ref() {
+ 633         living_party_member_ids(ctx, &party.id)
+ 634     } else {
+ 635         vec![character_id]
+ 636     };
+ 637     if zero_distance_case_site_return {
+ 638         crate::foraging::current_strategic_place(ctx, character_id)?;
+ 639         return complete_settlement_arrival(
+ 640             ctx,
+ 641             traveler_ids,
+ 642             party.as_mut(),
+ 643             &destination,
+ 644             &settlement_id,
+ 645             departing_case_site.as_deref(),
+ 646             None,
+ 647             false,
+ 648         );
+ 649     }
+ 650     let Some(departure_minute) = crate::time::synchronize_party_departure_time(ctx, &traveler_ids)?
+ 651     else {
+ 652         return Ok(());
+ 653     };
+ 654     if let Some(route) = route.as_ref() {
+ 655         validate_route_departure_weather_interval(route, departure_minute)?;
+ 656     }
+ 657     if let Some(current_party) = party.as_ref() {
+ 658         let expected_leader_id = current_party.leader_id;
+ 659         party = Some(revalidate_party_after_departure_sync(
+ 660             ctx,
+ 661             &current_party.id,
+ 662             expected_leader_id,
+ 663             (origin_kind == "settlement").then_some(origin_id.as_str()),
+ 664             (origin_kind == "case_site").then_some(origin_id.as_str()),
+ 665             None,
+ 666             origin_kind == "case_site",
+ 667         )?);
+ 668     }
+ 669     let traveler_ids: Vec<u64> = if let Some(party) = party.as_ref() {
+ 670         living_party_member_ids(ctx, &party.id)
+ 671     } else {
+ 672         vec![character_id]
+ 673     };
+ 674     if let Some(party) = party.as_ref() {
+ 675         start_party_journey(
+ 676             ctx,
+ 677             party,
+ 678             match origin_kind {
+ 679                 "settlement" => JourneyEndpoint::Settlement(JourneySettlementEndpoint {
+ 680                     id: origin_id.clone(),
+ 681                     name: origin_name.clone(),
+ 682                 }),
+ 683                 "case_site" => JourneyEndpoint::CaseSite(JourneyCaseSiteEndpoint {
+ 684                     id: CaseSiteId::try_new(origin_id.clone())
+ 685                         .map_err(|_| "Case-site identity is malformed".to_owned())?,
+ 686                     name: origin_name.clone(),
+ 687                 }),
+ 688                 _ => return Err("Journey origin kind is invalid".into()),
+ 689             },
+ 690             JourneyEndpoint::Settlement(JourneySettlementEndpoint {

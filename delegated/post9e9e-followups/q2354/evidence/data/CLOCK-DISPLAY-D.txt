@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:125-185
+ 125 
+ 126 fn receipt_id(character_id: u64, day: u64, phase: NpcPolicyDecisionPhase) -> String {
+ 127     format!("npc-policy:{character_id}:{day}:{}", phase.stable_id())
+ 128 }
+ 129 
+ 130 fn phase_already_decided(
+ 131     ctx: &ReducerContext,
+ 132     character_id: u64,
+ 133     day: u64,
+ 134     phase: NpcPolicyDecisionPhase,
+ 135 ) -> bool {
+ 136     ctx.db
+ 137         .npc_policy_decision_receipt()
+ 138         .id()
+ 139         .find(receipt_id(character_id, day, phase))
+ 140         .is_some()
+ 141 }
+ 142 
+ 143 fn record_decision(
+ 144     ctx: &ReducerContext,
+ 145     character_id: u64,
+ 146     day: u64,
+ 147     phase: NpcPolicyDecisionPhase,
+ 148     outcome: NpcPolicyDecisionOutcome,
+ 149     target_character_id: Option<u64>,
+ 150     decided_minute: StrategicMinute,
+ 151 ) {
+ 152     let id = receipt_id(character_id, day, phase);
+ 153     if ctx
+ 154         .db
+ 155         .npc_policy_decision_receipt()
+ 156         .id()
+ 157         .find(&id)
+ 158         .is_none()
+ 159     {
+ 160         ctx.db
+ 161             .npc_policy_decision_receipt()
+ 162             .insert(NpcPolicyDecisionReceipt {
+ 163                 id,
+ 164                 character_id,
+ 165                 day,
+ 166                 phase,
+ 167                 outcome,
+ 168                 target_character_id,
+ 169                 decided_minute,
+ 170             });
+ 171     }
+ 172 }
+ 173 
+ 174 fn schedule_is_unallocated(schedule: &ScheduleAllocation) -> bool {
+ 175     schedule.allocated_minutes() == 0
+ 176         && schedule.apprenticeship_organization_id.is_none()
+ 177         && schedule.practice_organization_id.is_none()
+ 178 }
+ 179 
+ 180 fn has_initialized_schedule_decision(ctx: &ReducerContext, character_id: u64) -> bool {
+ 181     ctx.db
+ 182         .npc_policy_decision_receipt()
+ 183         .character_id()
+ 184         .filter(character_id)
+ 185         .any(|receipt| {

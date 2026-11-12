@@ -1,0 +1,288 @@
+{
+  "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+  "lens": 12,
+  "batch": 749,
+  "at": "2026-10-29T20:46:14.378767+00:00",
+  "proposal": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+  "proposal_sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+  "rows": [
+    {
+      "original_index": 2279,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "actual_EOF": 484,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "registration_sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "assessed_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          484
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ComputePass.dispatch9..35/record37..484"
+        ],
+        "string_inventory": [
+          "PassParameters.get Stringmember90/buffername220/texture252/sampler427 rematches; native diagnosticlabels20/200/460/472 only. Exact closed reasons50/68/77/224/245/256/356/395/405/415/430/444/450; retained validation text56 alreadyfirsterased atpipeline117."
+        ],
+        "trace": [
+          "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding."
+        ],
+        "conditional_cases": [
+          "Uniformdefaults/unsupportedvariant191/zero87 are actualpolicy; nativeformat sRGBcounterpart269/298/326/369..388 explicitnormalization, notcompatibilitydefect. TextureView349 legitimate. Distinct create_bind_groups earlier ignoresUnsigned/TextureView while record supportsboth: actualcaller/sharedcontract needed before rejection, no generic sameness requirement. NativeMat3 admission/size required beforeboundsclaim. NonZero235 conditionalpublicBuffer.sizezero route retainedseparately."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "actual_EOF": 187,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "registration_sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "assessed_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          187
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ComputePipeline.default24/get_or_create_pipeline37/get_or_create_pipeline_validated48..124/validate_interface126/new143/prepare152/compile164..187"
+        ],
+        "string_inventory": [
+          "Raw nativeentry_point &str40/51 -> hash64 retained HashMapu64 cache18/65; reflection.vertex_entry_point174 nativeprojection. validation_error Arc<Mutex<Option<String>>>20 nativeerror.to_string117 -> compiletext182/recordtext56. Native finalWGPUlabels96/102 separate."
+        ],
+        "trace": [
+          "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison."
+        ],
+        "conditional_cases": [
+          "blocking_validationfalse orwasmnonblocking mode intentional52/83/112; no requirementglobalalwaysblocking. Cachekeyonlyentrypointhash64; shader/bindgroups publicmutable and cache sharedclones: conditionalcachevalidity/native deviceidentity sourcegraph needed, no unconditional stalepipelineclaim. Mutexpoisonotherpolicy stillopen; passeddeviceactualidentity notknown. Nativepoll113 resultignored nativecausepolicyrequiresactualwgpu29."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2281,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "actual_EOF": 42,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "registration_sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "assessed_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          42
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "PassParameters.new11/insert17/get21/Default27/FromIndexMap33/IntoIndexMap39"
+        ],
+        "string_inventory": [
+          "ActualStringparameterproducer Into<String>17 rawmap7/from32; get&str21 rematches; exactbodyproofofprior748 identitycandidate, no automatic newfindingaliascount."
+        ],
+        "trace": [
+          "Author/nativeparametername -> insert17/key.into18 -> retainedIndexMapString7 -> get21 -> record90/bind_group35 -> nativebinding. Arbitraryauthoredshadernames legitimate; typemustnotinventclosedbuiltin grammar."
+        ],
+        "conditional_cases": [
+          "Publicmap7/from32 bypassanyfutureadmission; connectedrepairmustincludeall constructors, notjustinsert. Exactowner/nativeadmissionreflectedsourcenextpending."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2282,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "actual_EOF": 129,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-241.json",
+      "registration_sha256": "2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5",
+      "assessed_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          129
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "PassParameter11..27/Fromnativevariants29..129"
+        ],
+        "string_inventory": [
+          "No Stringpayload: typednumeric/vector/matrix/transform/texture/sampler/buffervariants, nativeencoding conversiononly."
+        ],
+        "trace": [
+          "Nativeinputs -> enumvariants -> ComputePass typedmatch -> nativeuniform/resource. i32castUnsigned127 actualbit reinterpretation/narrowpolicy notstringdefect; numericsemanticdecisionseparate."
+        ],
+        "conditional_cases": [
+          "Allvariants includingTextureView24/Unsigned13 legitimate; earlierhelper supportedsubset notautomaticallycompatibilitydefect. No tests/runtimeexecution."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2283,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "actual_EOF": 73,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "registration_sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          73
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "UniformMember4/TextureBinding11/BufferBinding19/BindGroupReflection26/ReflectionData37/detect_from_code43/parse_naga50..73"
+        ],
+        "string_inventory": [
+          "BindingnamesString5/12/20/sampler32 share prior748 source-supportedidentitypath; entrypointsString39/40 separate. detect returns nativeglsl45/wgsl47 thenStringrematch56 ratherthanretainingclosedlanguagechoice. Nativeparseerrors formatted66 ordiagnostic69\u2192anyhow70."
+        ],
+        "trace": [
+          "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread."
+        ],
+        "conditional_cases": [
+          "Heuristic #version substring44 canoccurinWGSLcomment, but explicitintendedlanguageadmissionpolicy/actualcaller required before ordinarymisclassificationfinding. Native format/language optionalGLSL/WGSLmodes legitimate; mustsupportdecidedmodes without obsoleteheuristic preservation."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "delegated_attribution_preserved": true,
+  "root_personal_rereads": [],
+  "adopted_registration_mapping": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "adopted_continuation_registration_number": 1209,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "adopted_continuation_registration_number": 1210,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "adopted_continuation_registration_number": 1211,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-241.json",
+      "sha256": "2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5",
+      "adopted_continuation_registration_number": 1212,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "adopted_continuation_registration_number": 1213,
+      "qualification": "Number assigned on root adoption of agent prospective registration; not a new personal root read or retroactive prospective registration."
+    }
+  ],
+  "future_same_lens_ordered_applications": [],
+  "connected_future_original_evidence": [],
+  "new_own_lens_native_views": [],
+  "additional_connected_body_receipts": [],
+  "new_original_roles": 5,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "new_global_source_registration_records": 0,
+  "accepted_unique_count_change": 0,
+  "new_findings": [
+    "SEGOVB-L12-GPU-PASS-PIPELINE-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-LAYOUT-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-BUFFER-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-TEXTURE-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-PASS-TEXTURE-FORMAT-REASON",
+    "SEGOVB-L12-GPU-PASS-TEXTURE-DIMENSION-REASON",
+    "SEGOVB-L12-GPU-PASS-TEXTURE-VIEW-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-SAMPLER-RESOURCE-MISSING-REASON",
+    "SEGOVB-L12-GPU-PASS-SAMPLER-PARAMETER-KIND-REASON",
+    "SEGOVB-L12-GPU-BUFFER-LOGICAL-ZERO-NONZERO-PANIC",
+    "SEGOVB-L12-GPU-PIPELINE-VALIDATION-CAUSE-ERASURE",
+    "SEGOVB-L12-GPU-PIPELINE-CACHE-LOCK-REASON",
+    "SEGOVB-L12-GPU-PIPELINE-SHADER-MODULE-MISSING-REASON",
+    "SEGOVB-L12-GPU-PIPELINE-COMPUTE-ENTRY-MISSING-REASON",
+    "SEGOVB-L12-GPU-PIPELINE-COMPILE-REFLECTION-MISSING-REASON",
+    "SEGOVB-L12-GPU-PIPELINE-VALIDATION-LOCK-REASON",
+    "SEGOVB-L12-GPU-SHADER-LANGUAGE-STRING-DISPATCH",
+    "SEGOVB-L12-GPU-SHADER-GLSL-PARSE-CAUSE-ERASURE",
+    "SEGOVB-L12-GPU-SHADER-WGSL-PARSE-CAUSE-ERASURE"
+  ],
+  "current_source_reconciled": false,
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "implementation_gate_complete": false,
+  "runtime_validation": "Not run; source audit only",
+  "pending": [
+    "Necessary compute/pipeline/reflection.rs and compute_shader.rs actualproducer/nativeadmission bodies; root checking qualifiedsameL12identity metadata",
+    "Actualwgpu29/Naga29/oneshotnative contracts, BufferDefinition/BufferLabel, nativebackend and all20/current/exactaliases remainpending",
+    "All prior connected/future/native/mandatory obligations remainopen; no originalfrontier implies closure"
+  ],
+  "connected_contract_resolutions": [],
+  "additive_corrections": []
+}

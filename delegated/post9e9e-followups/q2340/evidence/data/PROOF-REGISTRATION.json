@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-12T17:46:25.740290+00:00",
+  "purpose": "verify Git tree components for current captured source paths, frozen model separately; use previously preserved raw Git trees, report missing object OIDs without guessing",
+  "commits": {
+    "95e": "<LOCAL_PATH_0002>",
+    "6533": "<LOCAL_PATH_0003>"
+  },
+  "prior_trees": "<LOCAL_PATH_0035>",
+  "current_paths": [
+    "crates/adventuresim-stdb-module/src/character.rs",
+    "crates/adventuresim-stdb-module/src/investigation/model.rs",
+    "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+    "crates/adventuresim-stdb-module/src/outbreak.rs",
+    "crates/adventuresim-stdb-module/src/simulation.rs",
+    "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+    "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+    "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+    "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+    "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+    "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+    "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+    "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+    "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+    "crates/adventuresim-stdb-module/src/world_actor/presence.rs"
+  ],
+  "frozen_paths": [
+    "crates/adventuresim-stdb-module/src/investigation/model.rs"
+  ]
+}

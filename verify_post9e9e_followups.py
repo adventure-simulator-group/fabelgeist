@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+"""Verify qualified post-9e9e source-audit evidence, not product behavior."""
+import gzip
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+import tarfile
+from pathlib import Path, PurePosixPath
+
+if sys.flags.optimize:
+    raise RuntimeError('Evidence assertions require an unoptimized interpreter')
+R = Path(__file__).resolve().parent
+D = R / 'delegated'
+P = D / 'post9e9e-followups'
+C = P / 'coordinator'
+H = lambda b: hashlib.sha256(b).hexdigest()
+load = lambda p: json.loads(p.read_bytes())
+
+catalog_bytes = (P / 'CATALOG.json').read_bytes()
+assert H(catalog_bytes) == '67ac335b1f2c4960fdf657d5aa6b3acfa1f08fc5d695f7681083d3da0692b583'
+catalog = json.loads(catalog_bytes)
+assert catalog['source_revision'] == '95e63628f9d70b8dd6e6fede64334696c6995009'
+assert catalog['parent_checkpoint'] == '9e9e237c0c3c28278342e831da9f243fc2229e58'
+manifest_bytes = (P / 'CONTENTS-MANIFEST.json').read_bytes()
+assert H(manifest_bytes) == catalog['contents_manifest_sha256']
+rows = json.loads(manifest_bytes)['files']
+for name, info in rows.items():
+    rel = PurePosixPath(name)
+    assert not rel.is_absolute() and '..' not in rel.parts
+    p = P / rel
+    assert p.is_file() and not p.is_symlink()
+    b = p.read_bytes()
+    assert (len(b), H(b)) == (info['bytes'], info['sha256'])
+paths = list(P.rglob('*'))
+assert all(not p.is_symlink() for p in paths)
+actual = {p.relative_to(P).as_posix() for p in paths if p.is_file()}
+assert actual == set(rows) | {'CONTENTS-MANIFEST.json', 'CATALOG.json'}
+packets = {x['name']: x for x in catalog['packets']}
+assert set(packets) == {'q2331', 'q2332', 'q2333', 'q2334-35', 'q2336-37',
+                        'q2340', 'q2341-42', 'q2352-53', 'q2354'}
+for name, row in packets.items():
+    assert H((P / name / row['manifest']).read_bytes()) == row['manifest_sha256']
+
+
+def compare_archive(archive, expected):
+    found = set()
+    with tarfile.open(archive, 'r:gz') as source:
+        for member in source.getmembers():
+            path = PurePosixPath(member.name)
+            assert member.isfile() and not path.is_absolute() and '..' not in path.parts
+            name = path.as_posix()
+            assert name in expected and name not in found
+            found.add(name)
+            assert source.extractfile(member).read() == expected[name].read_bytes()
+    assert found == set(expected)
+
+
+for name in ['q2331', 'q2334-35', 'q2341-42']:
+    expected = {(Path(name) / f.relative_to(P / name)).as_posix(): f
+                for f in (P / name).rglob('*') if f.is_file()}
+    compare_archive(P / (name + '-normalized.tar.gz'), expected)
+for name in ['q2340', 'q2354']:
+    archive = next((P / (name + '-delivery')).glob('*.tar.gz'))
+    expected = {f.relative_to(P / name).as_posix(): f
+                for f in (P / name).rglob('*') if f.is_file()}
+    compare_archive(archive, expected)
+archive = next((P / 'q2333-delivery').glob('*.tar.gz'))
+delivery_bytes = (P / 'q2333-delivery/DELIVERY-MANIFEST.json').read_bytes()
+delivery = json.loads(delivery_bytes)['files']
+found = set()
+successor = set()
+with tarfile.open(archive, 'r:gz') as source:
+    for member in source.getmembers():
+        path = PurePosixPath(member.name)
+        assert member.isfile() and not path.is_absolute() and '..' not in path.parts
+        name = path.as_posix()
+        assert name not in found
+        found.add(name)
+        data = source.extractfile(member).read()
+        if name == 'DELIVERY-MANIFEST.json':
+            assert data == delivery_bytes
+        else:
+            assert name in delivery and (len(data), H(data)) == (delivery[name]['bytes'], delivery[name]['sha256'])
+            if name.startswith('successor/'):
+                rel = name.removeprefix('successor/')
+                successor.add(rel)
+                assert data == (P / 'q2333' / rel).read_bytes()
+assert found == set(delivery) | {'DELIVERY-MANIFEST.json'}
+assert successor == {f.relative_to(P / 'q2333').as_posix() for f in (P / 'q2333').rglob('*') if f.is_file()}
+
+scan = D / 'post9e9e-preimport-scan'
+assert H((scan / 'RECORD.json').read_bytes()) == catalog['preimport_scan_record_sha256']
+sr = load(scan / 'RECORD.json')
+assert sr['digest_exit'] == sr['pattern_exit'] == 0
+assert H((scan / 'digest.json').read_bytes()) == sr['digest_sha256']
+assert H((scan / 'pattern.log').read_bytes()) == sr['pattern_sha256']
+digest = load(scan / 'digest.json')
+assert not digest['forbidden_digest_total'] and not digest['other_candidate_counts'] and not digest['exceptions']
+aggregate = hashlib.sha256()
+for name in sorted(rows, key=lambda n: PurePosixPath(n).parts):
+    aggregate.update(name.encode() + b'\0' + rows[name]['sha256'].encode() + b'\n')
+assert len(rows) == sr['files'] == 1620 and aggregate.hexdigest() == sr['aggregate_names_and_sha256']
+
+recovery = P / 'checkpoint-9e9e-recovery'
+pre = P / 'checkpoint-9e9e-prepublication'
+assert H((recovery / 'RECOVERY-RECORD.json').read_bytes()) == catalog['recovery_record_sha256']
+assert H((pre / 'RESULT.json').read_bytes()) == catalog['prepublication_result_sha256']
+r = load(recovery / 'RECOVERY-RECORD.json')
+pr = load(pre / 'RESULT.json')
+log = (recovery / 'evidence.log').read_bytes()
+assert log == (pre / 'evidence.log').read_bytes()
+assert H(log) == r['transcript_sha256'] == pr['transcript_sha256'] == 'c5c58e1bc5559bc1162677e1eeae568003f220c4e271c549c85303622b105dfd'
+assert r['recovery_driver_exit'] == pr['exit'] == 0 and r['post_replay_clean']
+assert r['post_replay_head'] == catalog['parent_checkpoint'] and r['symbolic_ref_exit_after'] == 1
+assert r['prepublication_and_recovery_transcripts_byte_identical']
+assert r['assertion_preflight'] == load(recovery / 'ASSERT-PREFLIGHT.log') == {'assertions_enabled': True, 'optimization_level': 0}
+assert 'same machine' in r['qualification']
+assert H((P / 'checkpoint-9e9e-precommit/RECORD.json').read_bytes()) == catalog['precommit_record_sha256']
+pc = load(P / 'checkpoint-9e9e-precommit/RECORD.json')
+assert pc['staged_files'] == 806 and pc['scanned_capture_matches_index_and_worktree']
+assert pc['main_recheck']['observed_revision'] == catalog['source_revision']
+
+
+def case_replay(directory):
+    result = load(directory / 'RESULT.json')
+    for row in result['cases']:
+        out = (directory / (row['case'] + '.log')).read_bytes()
+        err = (directory / (row['case'] + '.err')).read_bytes()
+        assert row['exit'] == 0 and (len(out), H(out)) == (row['stdout_bytes'], row['stdout_sha256'])
+        assert (len(err), H(err)) == (row['stderr_bytes'], row['stderr_sha256']) and not err
+
+
+def single_replay(directory):
+    result = load(directory / 'RESULT.json')
+    out = (directory / 'OUTPUT.log').read_bytes()
+    err = (directory / 'STDERR.log').read_bytes()
+    assert result['exit'] == 0 and (len(out), H(out)) == (result['stdout_bytes'], result['stdout_sha256'])
+    assert (len(err), H(err)) == (result['stderr_bytes'], result['stderr_sha256']) and not err
+
+
+for name in ['central-evidence-replay-5hnkpxs7', 'q2331-and-q2336-37-replay-7q5vlrgg',
+             'pending-central-replays-4z8c8ch8', 'encrypted-originals-replay-q1883vvy']:
+    case_replay(C / name)
+for name in ['q2333-all-anchor-replay-bvximxgl', 'q2334-35-central-replay-ykb7hgcz',
+             'q2340-all-anchor-replay-oahefsv8']:
+    single_replay(C / name)
+enc = P / 'encrypted-originals'
+assert H((enc / 'MANIFEST.json').read_bytes()) == catalog['encrypted_manifest_sha256']
+assert load(C / 'encrypted-originals-replay-q1883vvy/RESULT.json')['manifest_sha256'] == catalog['encrypted_manifest_sha256']
+assert len(load(enc / 'MANIFEST.json')['objects']) == 20
+pending = load(C / 'PENDING-DELEGATES.json')
+assert {x['name'] for x in pending['packets']} == {'q2341-42', 'q2352-53', 'q2354'}
+assert all('pending' in x['central_status'] for x in pending['packets'])
+
+registration = load(C / 'REPORT-REGISTRATION.json')
+reports = {x['logical']: x for x in registration['reports']}
+index = load(P / 'q2331/INDEX.json')['files']
+q31 = (P / 'q2331' / index['REPORT.md']['object']).read_bytes()
+with tarfile.open(P / 'q2332/q2332-public.tar.gz', 'r:gz') as t:
+    q32json = t.extractfile(t.getmember('q2332/REPORT.json')).read()
+    q32md = t.extractfile(t.getmember('q2332/REPORT.md')).read()
+for logical, data in [('q2331-safe/REPORT.md', q31), ('q2332/REPORT.json', q32json),
+                      ('q2332/REPORT.md', q32md),
+                      ('q2333-safe/evidence/REPORT.md', (P / 'q2333/evidence/REPORT.md').read_bytes())]:
+    assert (len(data), H(data)) == (reports[logical]['bytes'], reports[logical]['sha256'])
+reg = load(C / 'Q2334-35-REPORT-REGISTRATION.json')
+data = (P / 'q2334-35/REPORT.md').read_bytes()
+assert (len(data), H(data)) == (reg['bytes'], reg['sha256'])
+reg = load(C / 'Q2336-37-REPORT-REGISTRATION.json')
+with tarfile.open(P / 'q2336-37/evidence.tar.gz', 'r:gz') as t:
+    for row in reg['reports']:
+        data = t.extractfile(t.getmember(row['logical'])).read()
+        assert (len(data), H(data)) == (row['bytes'], row['sha256'])
+reg = load(C / 'Q2340-REPORT-REGISTRATION.json')
+data = (P / 'q2340/evidence/data/ASSESSMENT.md').read_bytes()
+assert (len(data), H(data)) == (reg['bytes'], reg['sha256'])
+
+application = D / 'post9e9e-central-application'
+assert H((application / 'RECORD.json').read_bytes()) == '75f599021a2d1830bc77008f76392a7ce325937da3b2258f94ad46a19bed2891'
+ar = load(application / 'RECORD.json')
+assert ar['exit'] == 0 and H((application / 'apply.py.txt').read_bytes()) == ar['script_sha256']
+assert H((application / 'OUTPUT.log').read_bytes()) == ar['output_sha256']
+assert {p.name for p in application.iterdir()} == {'RECORD.json', 'apply.py.txt', 'OUTPUT.log'}
+correction = D / 'post9e9e-verifier-correction'
+for name, expected in {
+    'RECORD.json': 'e48370b1b67e2900524341053df1b1280fea9cd1040e9d5ea84e2535614a3e5f',
+    'SECOND-RECORD.json': 'cc3c226d274b9e75bfc93235a3d0ed0efbceaee45787f3052a98756117139fd6',
+    'VERIFY.py': '659cf65e9c62463cb8ae2065dce0afc1bc749928ec1f35e1dbf987fceff9958f',
+    'KEYED-REPLAY.json': 'a52bd7f56492f2442e66e82a56476be10c33d3cc73368f3b6fc200fe4e381ef6',
+}.items():
+    assert H((correction / name).read_bytes()) == expected
+for row in load(correction / 'KEYED-REPLAY.json')['cases']:
+    out = (correction / (row['case'].upper() + '.log')).read_bytes()
+    assert row['exit'] == 0 and (len(out), H(out)) == (row['stdout_bytes'], row['stdout_sha256'])
+    assert row['stderr_bytes'] == 0 and row['stderr_sha256'] == H(b'')
+assert {p.name for p in correction.iterdir()} == {
+    'RECORD.json', 'SECOND-RECORD.json', 'VERIFY.py', 'KEYED-REPLAY.json',
+    'KEYED.log', 'KEYLESS.log', 'initial-verifier.py.txt', 'second-verifier.py.txt',
+    'failure-pathsafe.log', 'second-failure-pathsafe.log',
+    'failure-original.aesgcm', 'second-failure-original.aesgcm',
+}
+treatment = D / 'post9e9e-diff-treatment'
+assert H((treatment / 'RECORD.json').read_bytes()) == 'e87a64d9ce9c516dbe08cc1b6d7dea0fade0df775096e7fbf1ac347baa6c7b03'
+tr = load(treatment / 'RECORD.json')
+compressed = (treatment / 'INITIAL-DIFF-CHECK.log.gz').read_bytes()
+assert H(compressed) == tr['compressed_stdout_sha256']
+initial = gzip.decompress(compressed)
+assert (len(initial), H(initial)) == (tr['initial_stdout_bytes'], tr['initial_stdout_sha256'])
+headers = [m.groups() for line in initial.decode().splitlines()
+           if (m := re.match(r'^(.*?):([0-9]+): (.*)$', line))]
+assert len(headers) == tr['diagnostic_count'] == 881
+assert tr['diagnostic'] == 'trailing whitespace'
+assert all(row[2] == tr['diagnostic'] + '.' for row in headers)
+names = sorted({row[0] for row in headers})
+assert names == tr['affected_paths'] and len(names) == tr['affected_file_count'] == 181
+append = ''.join(name + ' binary\n' for name in names).encode()
+attributes = (R / '.gitattributes').read_bytes()
+offset = attributes.find(append)
+assert offset >= 0 and H(attributes[:offset]) == tr['gitattributes_before_sha256']
+assert H(attributes[:offset + len(append)]) == tr['gitattributes_after_sha256']
+assert {p.name for p in treatment.iterdir()} == {'RECORD.json', 'INITIAL-DIFF-CHECK.log.gz'}
+raw = (R / 'FOLLOWUP-POST9E9E-EVIDENCE.json').read_bytes()
+assert H(raw) == '461b1ee65d12370fe1e53fc67cddf017d23739377ad426548483657f230b2374'
+snapshot = json.loads(raw)
+counts = snapshot['observed_counts']
+assert (counts['lenses'], counts['lenses_complete'], counts['queue_records'],
+        counts['queue_semantically_reconciled'], counts['current_ledger_entries_and_relationships']) == (13, 0, 3713, 0, 1072)
+report = (R / 'ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json').read_bytes()
+assert report == (C / 'CENTRAL-14D-SYNTHESIS.json').read_bytes()
+assert H(report) == snapshot['central_report_sha256']
+assert snapshot['bundle_catalog_sha256'] == H(catalog_bytes)
+assert snapshot['checkpoint_9e9e_recovery_record_sha256'] == catalog['recovery_record_sha256']
+assert snapshot['encrypted_manifest_sha256'] == catalog['encrypted_manifest_sha256']
+assert H((R / 'MAIN-RECHECK-20261112-1824.json').read_bytes()) == snapshot['main_observation_sha256']
+ledger = load(R / 'BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries']
+assert load(R / 'CONTINUATION-PROGRESS-95E.json')['new_current_ledger_candidates'] == len(ledger)
+for identifier in snapshot['added_ledger_relationship_ids']:
+    found = [x for x in ledger if x.get('id') == identifier]
+    assert len(found) == 1 and found[0]['record'] == 'ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json'
+queue = load(R / 'RECONCILIATION-059.json')['entries']
+for row in snapshot['queue_selections']:
+    assert queue[row['index']]['contract_id'] == row['contract_id']
+    assert row['current_reconciliation_at_snapshot'].startswith('partial')
+
+env = os.environ.copy()
+env.pop('PYTHONOPTIMIZE', None)
+checks = [('q2331', 'VERIFY-PACKET.py'), ('q2332', 'VERIFY-PUBLIC.py'),
+          ('q2333', 'verify-successor.py'), ('q2334-35', 'VERIFY-EVIDENCE.py'),
+          ('q2336-37', 'VERIFY-EVIDENCE.py'), ('q2340', 'verify-successor.py'),
+          ('q2341-42', 'VERIFY-EVIDENCE.py'), ('q2352-53', 'VERIFY-EVIDENCE.py'),
+          ('q2354', 'verify-successor.py'), ('encrypted-originals', 'VERIFY.py')]
+for directory, script in checks:
+    subprocess.run([sys.executable, '-B', str(P / directory / script)], cwd=R, env=env, check=True)
+subprocess.run([sys.executable, '-B', str(correction / 'VERIFY.py')], cwd=R, env=env, check=True)
+subprocess.run([sys.executable, '-B', str(P / 'q2331-digest-replay/REPLAY.py'),
+                '--packet', str(P / 'q2331')], cwd=R, env=env, check=True)
+print('Bound eight partial assessments, three pending delegated packet families, ciphertext and same-machine recovery.')
+print('Private-key, original-packet, Git and transport-dependent checks are represented by same-machine receipts; optional checks are not repeated here.')
+print('Ciphertext is opaque to content scans; no independent custody, product behavior, checkpoint3821 recovery or audit completion is asserted.')

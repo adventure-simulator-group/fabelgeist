@@ -1,0 +1,66 @@
+  75 ) -> Result<Vec<ConsumableFractionMicros>, String> {
+  76     fractions_micros
+  77         .into_iter()
+  78         .map(|value| {
+  79             ConsumableFractionMicros::try_new(value)
+  80                 .map_err(|_| "Ingredient fraction cannot exceed one whole".to_owned())
+  81         })
+  82         .collect()
+  83 }
+  84 
+  85 #[reducer]
+  86 pub fn add_fireplace_ingredients(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     fireplace_fixture_id: String,
+  90     inventory_scope: String,
+  91     inventory_item_ids: Vec<u64>,
+  92     fractions_micros: Vec<u32>,
+  93 ) -> Result<(), String> {
+  94     add_fireplace_ingredients_at(
+  95         ctx,
+  96         character_id,
+  97         fireplace_fixture_id,
+  98         inventory_scope,
+  99         inventory_item_ids,
+ 100         parse_consumable_fractions(fractions_micros)?,
+ 101         None,
+ 102     )
+ 103 }
+ 104 
+ 105 /// Starts the independent dish lane belonging to one placed vessel. Every
+ 106 /// contained cookable food lot at any nesting depth is consumed in full;
+ 107 /// non-food solids and nested containers remain in place. Container water is used by the cooking evaluator and is
+ 108 /// mandatory for pots.
+ 109 #[reducer]
+ 110 pub fn start_fireplace_container_cooking(
+ 111     ctx: &ReducerContext,
+ 112     character_id: u64,
+ 113     fireplace_fixture_id: String,
+ 114     container_object_id: u64,
+ 115 ) -> Result<(), String> {
+ 116     crate::strategic::require_strategic_gateway(ctx)?;
+ 117     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 118     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 119     let key = vessel_station_key(character_id, &fireplace_fixture_id, container_object_id);
+ 120     let station = ctx
+ 121         .db
+ 122         .fireplace_station()
+ 123         .key()
+ 124         .find(key.clone())
+ 125         .ok_or("Container is not over this fireplace")?;
+ 126     let fixture = validate_persisted_station_fixture(ctx, &station)?;
+ 127     let object = ctx
+ 128         .db
+ 129         .inventory_object()
+ 130         .id()
+ 131         .find(container_object_id)
+ 132         .ok_or("Container object is missing")?;
+ 133     crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
+ 134     if ctx.db.fireplace_dish().station_key().find(key).is_some() {
+ 135         return Err("This container is already cooking".into());
+ 136     }
+ 137     let return_custody = station
+ 138         .instrument_return_custody
+ 139         .as_ref()
+ 140         .ok_or("Container return custody is unknown")?;

@@ -1,0 +1,60 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/governance.rs:1421-1479
+1421         .id()
+1422         .find(&source_party_id)
+1423         .ok_or("Applicant party not found")?;
+1424     if source_party.leader_id != request.character_id {
+1425         return Err("Applicant is no longer their party leader".into());
+1426     }
+1427     if !crate::simulation::same_simulation_scope(ctx, request.character_id, leader_id) {
+1428         return Err("Simulation and ordinary parties cannot merge".into());
+1429     }
+1430     if source_party.active_contract_id.is_some() {
+1431         return Err("Applicant's party must abandon its current quest first".into());
+1432     }
+1433     if source_party.current_settlement_id.is_none()
+1434         || party.current_settlement_id.is_none()
+1435         || source_party.wilderness_canonical_anchor_minute.is_some()
+1436         || party.wilderness_canonical_anchor_minute.is_some()
+1437     {
+1438         return Err("Parties can merge only while synchronized at a settlement".into());
+1439     }
+1440     if source_party.current_settlement_id != party.current_settlement_id
+1441         || source_party.current_case_site_id != party.current_case_site_id
+1442     {
+1443         return Err("Parties must be in the same location to merge".into());
+1444     }
+1445 
+1446     // Preserve the source party's jointly-owned assets and each member's absolute
+1447     // stake. Combining the ledgers does not dilute either party; only future loot
+1448     // is shared among the newly combined membership.
+1449     for mut entry in ctx
+1450         .db
+1451         .party_inventory_item()
+1452         .party_id()
+1453         .filter(&source_party_id)
+1454         .collect::<Vec<_>>()
+1455     {
+1456         if item_is_durable(ctx, &entry.item_id) {
+1457             if let Some(object) = crate::inventory_container::object_for_row(
+1458                 ctx,
+1459                 adventuresim_core::physical_object::CarriedInventoryScope::Party,
+1460                 entry.id,
+1461             )? {
+1462                 let destination = adventuresim_core::physical_object::OperationalCustody::party(
+1463                     request.party_id.clone(),
+1464                 )
+1465                 .map_err(|error| error.to_string())?;
+1466                 crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
+1467             } else {
+1468                 entry.party_id = request.party_id.clone();
+1469                 ctx.db.party_inventory_item().id().update(entry);
+1470             }
+1471         } else {
+1472             add_to_party_inventory(ctx, &request.party_id, &entry.item_id, entry.quantity);
+1473             ctx.db.party_inventory_item().id().delete(entry.id);
+1474         }
+1475     }
+1476     for stake in ctx
+1477         .db
+1478         .party_stake()
+1479         .party_id()

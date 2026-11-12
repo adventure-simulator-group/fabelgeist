@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:1670-1750
+1670     crate::capability::refresh_character_capability(ctx, RELIGION_SCHOLAR_CHARACTER_ID)?;
+1671     crate::condition::refresh_character_strategic_condition(ctx, RELIGION_SCHOLAR_CHARACTER_ID)?;
+1672     Ok(())
+1673 }
+1674 
+1675 /// Seed an isolated, selectable character for exercising every bounded
+1676 /// Herbalism method, public grade, and terrain-backed foraging flow in the
+1677 /// strategic UI.
+1678 pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), String> {
+1679     const HERBALISM_DEMO_CHARACTER_ID: u64 = 9_999_999_999_999_986;
+1680     const HERBALISM_DEMO_SETTLEMENT_ID: &str = "dev-scenario-foraging";
+1681     crate::strategic::ensure_foraging_demo_settlement(ctx)?;
+1682     if ctx
+1683         .db
+1684         .character()
+1685         .id()
+1686         .find(HERBALISM_DEMO_CHARACTER_ID)
+1687         .is_none()
+1688     {
+1689         insert_new_character(
+1690             ctx,
+1691             "Herbalism and Foraging Demo".to_string(),
+1692             HERBALISM_DEMO_CHARACTER_ID,
+1693             false,
+1694         )?;
+1695     }
+1696     // Pin this durable visual fixture and its solo party to an empirically
+1697     // sampled final-pack woodland cell so the integrated Forage action is
+1698     // always demonstrable after a normal seed.
+1699     let mut character = ctx
+1700         .db
+1701         .character()
+1702         .id()
+1703         .find(HERBALISM_DEMO_CHARACTER_ID)
+1704         .ok_or_else(|| "Herbalism and foraging demo character is missing".to_string())?;
+1705     let party_id = character
+1706         .party_id
+1707         .clone()
+1708         .ok_or_else(|| "Herbalism and foraging demo has no solo party".to_string())?;
+1709     let mut party = ctx
+1710         .db
+1711         .party_authority()
+1712         .id()
+1713         .find(&party_id)
+1714         .ok_or_else(|| "Herbalism and foraging demo party is missing".to_string())?;
+1715     let members = ctx
+1716         .db
+1717         .party_member()
+1718         .party_id()
+1719         .filter(&party_id)
+1720         .collect::<Vec<_>>();
+1721     if !party.is_solo
+1722         || party.leader_id != HERBALISM_DEMO_CHARACTER_ID
+1723         || members.len() != 1
+1724         || members[0].character_id != HERBALISM_DEMO_CHARACTER_ID
+1725     {
+1726         return Err("Herbalism and foraging demo no longer has its isolated solo party".into());
+1727     }
+1728     crate::investigation::set_character_case_site(ctx, HERBALISM_DEMO_CHARACTER_ID, None)?;
+1729     character.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into());
+1730     ctx.db.character().id().update(character);
+1731     party.current_settlement_id = Some(HERBALISM_DEMO_SETTLEMENT_ID.into());
+1732     party.current_case_site_id = None;
+1733     party.camp_destination = None;
+1734     party.camp_remaining_minutes = 0;
+1735     ctx.db.party_authority().id().update(party);
+1736     crate::strategic::finish_party_journey(ctx, &party_id);
+1737     if ctx
+1738         .db
+1739         .strategic_encounter()
+1740         .party_id()
+1741         .find(&party_id)
+1742         .is_some()
+1743     {
+1744         ctx.db.strategic_encounter().party_id().delete(&party_id);
+1745     }
+1746     let mut skills = ctx
+1747         .db
+1748         .character_skills()
+1749         .character_id()
+1750         .find(HERBALISM_DEMO_CHARACTER_ID)

@@ -1,0 +1,1088 @@
+{
+      "contract_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "kind": "connected-contract",
+      "lens": 12,
+      "status": "open-source-reconciliation",
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false,
+      "granular_contract_views": [
+        {
+          "bundle": {
+            "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+            "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+            "row_pointer": "/contract_updates/0"
+          },
+          "contract_update_as_proposed": {
+            "contract_id_or_proposed_new_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+            "lens": 12,
+            "canonical_owner_or_explicit_unresolved_owner_question": "Existing shader parameter reflection/binding owner; actual typed-name vs native namespace boundary remains exact owner question",
+            "first_failed_contract_or_unresolved_question": "Actual new GpuBvh/PrefixSum caller supplies raw native parameter keys and retained native resources; connect existing own741/748/749 first retained name/consumer proof before alias/native adapter disposition. Native arbitrary shader namespace is legitimate.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+                "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+                "assessed_ranges": [
+                  [
+                    1,
+                    138
+                  ],
+                  [
+                    175,
+                    303
+                  ]
+                ],
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+                  "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+                  "batch": 865,
+                  "original_before": 2550,
+                  "original_after": 2552
+                },
+                "row_pointer": "/rows/0",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+              },
+              {
+                "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+                "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+                "assessed_ranges": [
+                  [
+                    1,
+                    205
+                  ]
+                ],
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+                  "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+                  "batch": 865,
+                  "original_before": 2550,
+                  "original_after": 2552
+                },
+                "row_pointer": "/rows/1",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read"
+              },
+              {
+                "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+                "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+                "assessed_ranges": [
+                  [
+                    1,
+                    306
+                  ]
+                ],
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+                  "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+                  "batch": 867,
+                  "original_before": 2557,
+                  "original_after": 2559
+                },
+                "row_pointer": "/rows/1",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+              }
+            ],
+            "remaining_evidence": [
+              "Qualify exact own741/748/749 receipts/prospective ranges/root adoptions, actual reflection retained map and binding adapters; traversal2660 new601 separate packet.",
+              "Current-main actual variants/all20/exact canonical finding aliases."
+            ],
+            "dependencies": [
+              "Original748 canonical source finding ownership; source-native config/tokens are not proof of private closed classifier failure."
+            ],
+            "closure_condition": "Audit closes this caller extension after exact existing owner/native boundary source qualification and current/alias disposition; later repair/runtime acceptance remains distinct and unexecuted.",
+            "existing_contract_revisit_identity_proof_if_any": "Same actual PassParameters/KernelBatch producer route and exact existing candidate primary2274; common proposed typed-name remedy alone not alias."
+          },
+          "exact_source_identities_and_assessed_ranges": [
+            {
+              "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+              "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+              "assessed_ranges": [
+                [
+                  1,
+                  138
+                ],
+                [
+                  175,
+                  303
+                ]
+              ],
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+                "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+                "batch": 865,
+                "original_before": 2550,
+                "original_after": 2552
+              },
+              "row_pointer": "/rows/0",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+            },
+            {
+              "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+              "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+              "assessed_ranges": [
+                [
+                  1,
+                  205
+                ]
+              ],
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+                "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+                "batch": 865,
+                "original_before": 2550,
+                "original_after": 2552
+              },
+              "row_pointer": "/rows/1",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read"
+            },
+            {
+              "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+              "source_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+              "assessed_ranges": [
+                [
+                  1,
+                  306
+                ]
+              ],
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+                "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+                "batch": 867,
+                "original_before": 2557,
+                "original_after": 2559
+              },
+              "row_pointer": "/rows/1",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+            }
+          ],
+          "current_reconciled": false,
+          "audit_discovery_closed": false,
+          "body_credit": 0
+        },
+        {
+          "bundle": {
+            "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+            "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+            "row_pointer": "/contract_updates/0"
+          },
+          "contract_update_as_proposed": {
+            "contract_id_or_proposed_new_id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+            "lens": 12,
+            "canonical_owner_or_explicit_unresolved_owner_question": "Existing shader reflection/binding parameter owner; native open WGSL namespace distinct from builtin grammar.",
+            "first_failed_contract_or_unresolved_question": "Exact qualified own reuse refines effective earliest retained name producer: reflection2636 variable.name75 -> BufferBinding86/sampler101/TextureBinding182; uniform member.name125 -> UniformMember retained shader2283. PassParameters String maps then both FastPath and general native binding consumers. Earlier create_bind_groups primary retained historically, no new finding or alias count.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "original_index": 2244,
+                "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+                "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+                "actual_EOF": 406,
+                "assessed_ranges": [
+                  [
+                    1,
+                    406
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+                  "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+                  "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871"
+                },
+                "row_pointer": "/rows/0",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-741.json",
+                  "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b"
+                },
+                "root_row_pointer": "/rows/0",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "Kernel.new74..125/groups_for133/groups_folded141/run149..167/KernelCache.get185..199/len201/KernelBatch.dispatch250/dispatch_folded295/dispatch_items308/copy_buffer319/after_submit349/submit355..362; contexttest384..406 sourceonly"
+                  ],
+                  "string_inventory": [
+                    "Kernel.entry_point45 is actual naga native parsed entryname90 retained to native pipeline; codeString74/nativecachekeyString177 is actual full WGSL program, not gameplayidentifier. labelled230 &str native diagnostic. Closed internal prose errors missingcompute88/zero workgroup93/copybounds321 remain exact typedreason ownership candidates."
+                  ],
+                  "trace": [
+                    "Actual shader source -> parse_naga83 -> computed entrypoint/workgroup -> ComputeShader98/ComputePipeline.prepare99 -> FastPath.new108 (same firstcause site fast155) -> KernelCache.get193 retains ArcKernel -> armor MetalGpu cache54/ArmorGpu cache192 -> downstream formatters124/329 -> public result/native material consumer. Dispatch KernelBatch264 directly calls FastPath.prepare then uniforms332/369 errors propagate to earlier armor operations."
+                  ],
+                  "conditional_cases": [
+                    "Emptydispatch groups0 returnsOk258 and foldeditems0 returnsOk301 legitimate simulation emptyconstraint mode, not compatibilitydefect. General ComputePass fallback278 is supported native binding shape; no removal demand.",
+                    "KernelCache keyed codeonly177/get186, ignoring currentcontext on cachehit. Conditional cross-device identity contract requires actual cache ownership/caller-context graph and native resource device ownership before ordinary failure; not a rawStringwrapper remedy. Lockunwrap186/195/202 outside-test rulecases, no invented poisonedlock witness."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2274,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+                "source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+                "actual_EOF": 303,
+                "assessed_ranges": [
+                  [
+                    1,
+                    303
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+                  "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+                  "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7"
+                },
+                "row_pointer": "/rows/0",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-748.json",
+                  "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1"
+                },
+                "root_row_pointer": "/rows/0",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "create_bind_groups7..303"
+                  ],
+                  "string_inventory": [
+                    "parameters IndexMap<String,PassParameter>11; pass_name &str12 useddiagnosticlabels only. reflection uniform member.name35/buffername157/texture185/sampler257 rematchparameters35/159/187/258. Fixed finalnativeWGPUlabels136/292 arepresentation, distinctshaderbindingidentity."
+                  ],
+                  "trace": [
+                    "Reflection/native shader names producerpending -> retained ReflectionData/IndexMap Stringparameters -> create_bind_groups7 actualrematches -> typed PassParameter match -> nativeUniformbytes,BindGroupEntry -> device.create_bind_group291 -> pass dispatch actualcaller nextsource."
+                  ],
+                  "conditional_cases": [
+                    "Missing uniform members35 silentlydefaultzero32; unmatched/wrong uniform variants128 silent. Optional/defaultpolicy and actual reflectedtype correctness require reflection/caller admission, no claimed unconditional defective zero defaults. Mat3 stride member.size/3 assumes actualreflectedlayout; actualnativeadmission needed beforebounds/panicclaim. Texture format None198 permits skipcomparison220 intentionallysupportsview-onlytextures; do notforceunderlying texture. Missingresources/types/formats/dimensions individuallydifferentfirstpredicates."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2279,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+                "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+                "actual_EOF": 484,
+                "assessed_ranges": [
+                  [
+                    1,
+                    484
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+                  "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                  "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+                },
+                "row_pointer": "/rows/0",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-749.json",
+                  "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+                },
+                "root_row_pointer": "/rows/0",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "ComputePass.dispatch9..35/record37..484"
+                  ],
+                  "string_inventory": [
+                    "PassParameters.get Stringmember90/buffername220/texture252/sampler427 rematches; native diagnosticlabels20/200/460/472 only. Exact closed reasons50/68/77/224/245/256/356/395/405/415/430/444/450; retained validation text56 alreadyfirsterased atpipeline117."
+                  ],
+                  "trace": [
+                    "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding."
+                  ],
+                  "conditional_cases": [
+                    "Uniformdefaults/unsupportedvariant191/zero87 are actualpolicy; nativeformat sRGBcounterpart269/298/326/369..388 explicitnormalization, notcompatibilitydefect. TextureView349 legitimate. Distinct create_bind_groups earlier ignoresUnsigned/TextureView while record supportsboth: actualcaller/sharedcontract needed before rejection, no generic sameness requirement. NativeMat3 admission/size required beforeboundsclaim. NonZero235 conditionalpublicBuffer.sizezero route retainedseparately."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2280,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+                "source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+                "actual_EOF": 187,
+                "assessed_ranges": [
+                  [
+                    1,
+                    187
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+                  "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                  "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+                },
+                "row_pointer": "/rows/1",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-749.json",
+                  "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+                },
+                "root_row_pointer": "/rows/1",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "ComputePipeline.default24/get_or_create_pipeline37/get_or_create_pipeline_validated48..124/validate_interface126/new143/prepare152/compile164..187"
+                  ],
+                  "string_inventory": [
+                    "Raw nativeentry_point &str40/51 -> hash64 retained HashMapu64 cache18/65; reflection.vertex_entry_point174 nativeprojection. validation_error Arc<Mutex<Option<String>>>20 nativeerror.to_string117 -> compiletext182/recordtext56. Native finalWGPUlabels96/102 separate."
+                  ],
+                  "trace": [
+                    "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison."
+                  ],
+                  "conditional_cases": [
+                    "blocking_validationfalse orwasmnonblocking mode intentional52/83/112; no requirementglobalalwaysblocking. Cachekeyonlyentrypointhash64; shader/bindgroups publicmutable and cache sharedclones: conditionalcachevalidity/native deviceidentity sourcegraph needed, no unconditional stalepipelineclaim. Mutexpoisonotherpolicy stillopen; passeddeviceactualidentity notknown. Nativepoll113 resultignored nativecausepolicyrequiresactualwgpu29."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2281,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+                "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+                "actual_EOF": 42,
+                "assessed_ranges": [
+                  [
+                    1,
+                    42
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+                  "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                  "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+                },
+                "row_pointer": "/rows/2",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-749.json",
+                  "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+                },
+                "root_row_pointer": "/rows/2",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "PassParameters.new11/insert17/get21/Default27/FromIndexMap33/IntoIndexMap39"
+                  ],
+                  "string_inventory": [
+                    "ActualStringparameterproducer Into<String>17 rawmap7/from32; get&str21 rematches; exactbodyproofofprior748 identitycandidate, no automatic newfindingaliascount."
+                  ],
+                  "trace": [
+                    "Author/nativeparametername -> insert17/key.into18 -> retainedIndexMapString7 -> get21 -> record90/bind_group35 -> nativebinding. Arbitraryauthoredshadernames legitimate; typemustnotinventclosedbuiltin grammar."
+                  ],
+                  "conditional_cases": [
+                    "Publicmap7/from32 bypassanyfutureadmission; connectedrepairmustincludeall constructors, notjustinsert. Exactowner/nativeadmissionreflectedsourcenextpending."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2283,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+                "source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+                "actual_EOF": 73,
+                "assessed_ranges": [
+                  [
+                    1,
+                    73
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+                  "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                  "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+                },
+                "row_pointer": "/rows/4",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-749.json",
+                  "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+                },
+                "root_row_pointer": "/rows/4",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "UniformMember4/TextureBinding11/BufferBinding19/BindGroupReflection26/ReflectionData37/detect_from_code43/parse_naga50..73"
+                  ],
+                  "string_inventory": [
+                    "BindingnamesString5/12/20/sampler32 share prior748 source-supportedidentitypath; entrypointsString39/40 separate. detect returns nativeglsl45/wgsl47 thenStringrematch56 ratherthanretainingclosedlanguagechoice. Nativeparseerrors formatted66 ordiagnostic69\u2192anyhow70."
+                  ],
+                  "trace": [
+                    "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread."
+                  ],
+                  "conditional_cases": [
+                    "Heuristic #version substring44 canoccurinWGSLcomment, but explicitintendedlanguageadmissionpolicy/actualcaller required before ordinarymisclassificationfinding. Native format/language optionalGLSL/WGSLmodes legitimate; mustsupportdecidedmodes without obsoleteheuristic preservation."
+                  ]
+                },
+                "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+              },
+              {
+                "original_index": 2635,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                "actual_EOF": 88,
+                "assessed_ranges": [
+                  [
+                    1,
+                    88
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+                  "sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                  "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5"
+                },
+                "row_pointer": "/rows/0",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+                  "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+                },
+                "root_row_pointer": "/evidence/rows/0",
+                "selected_same_lens_future_proof": {
+                  "original_index": 2635,
+                  "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                  "receipt_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+                  "row_pointer": "/rows/0",
+                  "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+                  "registration_sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+                  "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                  "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+                  "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                  "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                  "actual_EOF": 88,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      88
+                    ]
+                  ],
+                  "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                  "ordered_credit_now": 0,
+                  "future_rule": "At exact ordered role qualify all identities, source revision/hash/EOF/ranges/registration/read pointer and agent attribution; zero rereads, count original once after required remaining scope qualified."
+                },
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                "new_personal_reads": [],
+                "chronology_qualification": "Original connected receipt lacks top-level at. Registration predates root strict adoption; preserve original prospective body attestation and selected proof, do not fabricate precise body time.",
+                "windows_locator_qualification": {
+                  "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2635-WINDOWS.json",
+                  "sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688"
+                }
+              },
+              {
+                "original_index": 2636,
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                "actual_EOF": 209,
+                "assessed_ranges": [
+                  [
+                    1,
+                    209
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+                  "sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                  "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5"
+                },
+                "row_pointer": "/rows/1",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+                  "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+                },
+                "root_row_pointer": "/evidence/rows/1",
+                "selected_same_lens_future_proof": {
+                  "original_index": 2636,
+                  "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                  "receipt_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+                  "row_pointer": "/rows/1",
+                  "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+                  "registration_sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+                  "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                  "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+                  "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                  "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                  "actual_EOF": 209,
+                  "assessed_ranges": [
+                    [
+                      1,
+                      209
+                    ]
+                  ],
+                  "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                  "ordered_credit_now": 0,
+                  "future_rule": "At exact ordered role qualify all identities, source revision/hash/EOF/ranges/registration/read pointer and agent attribution; zero rereads, count original once after required remaining scope qualified."
+                },
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                "new_personal_reads": [],
+                "chronology_qualification": "Original connected receipt lacks top-level at. Registration predates root strict adoption; preserve original prospective body attestation and selected proof, do not fabricate precise body time.",
+                "windows_locator_qualification": {
+                  "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2636-WINDOWS.json",
+                  "sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f"
+                }
+              },
+              {
+                "original_index": 2243,
+                "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+                "source_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+                "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+                "actual_EOF": 379,
+                "assessed_ranges": [
+                  [
+                    1,
+                    379
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+                  "sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+                  "sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28"
+                },
+                "row_pointer": "/rows/5",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-740.json",
+                  "sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33"
+                },
+                "root_row_pointer": "/rows/5",
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "new_personal_reads": [],
+                "source_semantic_contract": {
+                  "exact_function_ownership": [
+                    "UniformArena.allocate87..105/CompiledLayout.new115..160/FastPath.new165..236/prepare239..318/write_uniform325..379"
+                  ],
+                  "string_inventory": [
+                    "Native diagnosticlabels92/130/137/144/291. entry_point119/168 and reflected binding.name252/uniform.name331 are actual open WGSL nativeidentifier namespace; no fabricated closed gameplayID. Errorprose155/253/332/369 is internalnativecause/semanticreasontransport requiringtypedowner."
+                  ],
+                  "trace": [
+                    "Native reflected kernel/layout -> CompiledLayout native error pop154 -> formatted anyhow155 -> FastPath.new222 -> public Kernel caller/native GPUerrorconsumer pending; dispatch PassParameters -> reflected names -> prepare/write_uniform -> native uniformbytes/bindgroup."
+                  ],
+                  "conditional_cases": [
+                    "Unsupported fastshape groupcount173/groupindex177/textures182/uniformsize202 returnOkNone intentionally selecting general native ComputePass, no compatibilitydefect. Actual uniformarena pushes beforelast.expect103, outside-test rulecase but no ordinaryempty panic.",
+                    "write_uniform out-ofrange put340..346/unsigned352 silentlyskip mustcompare actual trustworthy ReflectionData bounds/type schema before supported invaliddispatchclaim. Numbers cast tofloat350 requires actualnative reflectedtype admission; no inventedfailure witness."
+                  ]
+                },
+                "chronology_qualification": "Historical proposal740 lacks top-level at; preserve actual prospective personal read attestation/root selected adoption. Registration precedes adoption time; no fabricated precise read timestamp."
+              }
+            ],
+            "remaining_evidence": [
+              "Native unnamed variable/member/default-uniform/type-layout policy and actual current main/all20/exact alias owner disposition.",
+              "Native arbitrary shader identifiers are legitimate open namespace; no invented builtin closed grammar. Future2635/2636 exact fullproofs remain zero early/count once."
+            ],
+            "dependencies": [
+              {
+                "path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+                "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c"
+              },
+              {
+                "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+                "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90"
+              }
+            ],
+            "closure_condition": "Audit closure requires source producer-to-native owner/policy/current/alias disposition; later repair/runtime acceptance separate and unrun."
+          },
+          "exact_source_identities_and_assessed_ranges": [
+            {
+              "original_index": 2244,
+              "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+              "source_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+              "actual_EOF": 406,
+              "assessed_ranges": [
+                [
+                  1,
+                  406
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+                "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+                "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871"
+              },
+              "row_pointer": "/rows/0",
+              "root_adoption": {
+                "path": "segovb/READ-L12-741.json",
+                "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b"
+              },
+              "root_row_pointer": "/rows/0",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "Kernel.new74..125/groups_for133/groups_folded141/run149..167/KernelCache.get185..199/len201/KernelBatch.dispatch250/dispatch_folded295/dispatch_items308/copy_buffer319/after_submit349/submit355..362; contexttest384..406 sourceonly"
+                ],
+                "string_inventory": [
+                  "Kernel.entry_point45 is actual naga native parsed entryname90 retained to native pipeline; codeString74/nativecachekeyString177 is actual full WGSL program, not gameplayidentifier. labelled230 &str native diagnostic. Closed internal prose errors missingcompute88/zero workgroup93/copybounds321 remain exact typedreason ownership candidates."
+                ],
+                "trace": [
+                  "Actual shader source -> parse_naga83 -> computed entrypoint/workgroup -> ComputeShader98/ComputePipeline.prepare99 -> FastPath.new108 (same firstcause site fast155) -> KernelCache.get193 retains ArcKernel -> armor MetalGpu cache54/ArmorGpu cache192 -> downstream formatters124/329 -> public result/native material consumer. Dispatch KernelBatch264 directly calls FastPath.prepare then uniforms332/369 errors propagate to earlier armor operations."
+                ],
+                "conditional_cases": [
+                  "Emptydispatch groups0 returnsOk258 and foldeditems0 returnsOk301 legitimate simulation emptyconstraint mode, not compatibilitydefect. General ComputePass fallback278 is supported native binding shape; no removal demand.",
+                  "KernelCache keyed codeonly177/get186, ignoring currentcontext on cachehit. Conditional cross-device identity contract requires actual cache ownership/caller-context graph and native resource device ownership before ordinary failure; not a rawStringwrapper remedy. Lockunwrap186/195/202 outside-test rulecases, no invented poisonedlock witness."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2274,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+              "source_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+              "actual_EOF": 303,
+              "assessed_ranges": [
+                [
+                  1,
+                  303
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+                "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+                "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7"
+              },
+              "row_pointer": "/rows/0",
+              "root_adoption": {
+                "path": "segovb/READ-L12-748.json",
+                "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1"
+              },
+              "root_row_pointer": "/rows/0",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "create_bind_groups7..303"
+                ],
+                "string_inventory": [
+                  "parameters IndexMap<String,PassParameter>11; pass_name &str12 useddiagnosticlabels only. reflection uniform member.name35/buffername157/texture185/sampler257 rematchparameters35/159/187/258. Fixed finalnativeWGPUlabels136/292 arepresentation, distinctshaderbindingidentity."
+                ],
+                "trace": [
+                  "Reflection/native shader names producerpending -> retained ReflectionData/IndexMap Stringparameters -> create_bind_groups7 actualrematches -> typed PassParameter match -> nativeUniformbytes,BindGroupEntry -> device.create_bind_group291 -> pass dispatch actualcaller nextsource."
+                ],
+                "conditional_cases": [
+                  "Missing uniform members35 silentlydefaultzero32; unmatched/wrong uniform variants128 silent. Optional/defaultpolicy and actual reflectedtype correctness require reflection/caller admission, no claimed unconditional defective zero defaults. Mat3 stride member.size/3 assumes actualreflectedlayout; actualnativeadmission needed beforebounds/panicclaim. Texture format None198 permits skipcomparison220 intentionallysupportsview-onlytextures; do notforceunderlying texture. Missingresources/types/formats/dimensions individuallydifferentfirstpredicates."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2279,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+              "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+              "actual_EOF": 484,
+              "assessed_ranges": [
+                [
+                  1,
+                  484
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+                "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+              },
+              "row_pointer": "/rows/0",
+              "root_adoption": {
+                "path": "segovb/READ-L12-749.json",
+                "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+              },
+              "root_row_pointer": "/rows/0",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "ComputePass.dispatch9..35/record37..484"
+                ],
+                "string_inventory": [
+                  "PassParameters.get Stringmember90/buffername220/texture252/sampler427 rematches; native diagnosticlabels20/200/460/472 only. Exact closed reasons50/68/77/224/245/256/356/395/405/415/430/444/450; retained validation text56 alreadyfirsterased atpipeline117."
+                ],
+                "trace": [
+                  "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding."
+                ],
+                "conditional_cases": [
+                  "Uniformdefaults/unsupportedvariant191/zero87 are actualpolicy; nativeformat sRGBcounterpart269/298/326/369..388 explicitnormalization, notcompatibilitydefect. TextureView349 legitimate. Distinct create_bind_groups earlier ignoresUnsigned/TextureView while record supportsboth: actualcaller/sharedcontract needed before rejection, no generic sameness requirement. NativeMat3 admission/size required beforeboundsclaim. NonZero235 conditionalpublicBuffer.sizezero route retainedseparately."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2280,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+              "source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+              "actual_EOF": 187,
+              "assessed_ranges": [
+                [
+                  1,
+                  187
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+                "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+              },
+              "row_pointer": "/rows/1",
+              "root_adoption": {
+                "path": "segovb/READ-L12-749.json",
+                "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+              },
+              "root_row_pointer": "/rows/1",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "ComputePipeline.default24/get_or_create_pipeline37/get_or_create_pipeline_validated48..124/validate_interface126/new143/prepare152/compile164..187"
+                ],
+                "string_inventory": [
+                  "Raw nativeentry_point &str40/51 -> hash64 retained HashMapu64 cache18/65; reflection.vertex_entry_point174 nativeprojection. validation_error Arc<Mutex<Option<String>>>20 nativeerror.to_string117 -> compiletext182/recordtext56. Native finalWGPUlabels96/102 separate."
+                ],
+                "trace": [
+                  "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison."
+                ],
+                "conditional_cases": [
+                  "blocking_validationfalse orwasmnonblocking mode intentional52/83/112; no requirementglobalalwaysblocking. Cachekeyonlyentrypointhash64; shader/bindgroups publicmutable and cache sharedclones: conditionalcachevalidity/native deviceidentity sourcegraph needed, no unconditional stalepipelineclaim. Mutexpoisonotherpolicy stillopen; passeddeviceactualidentity notknown. Nativepoll113 resultignored nativecausepolicyrequiresactualwgpu29."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2281,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+              "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+              "actual_EOF": 42,
+              "assessed_ranges": [
+                [
+                  1,
+                  42
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+                "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+              },
+              "row_pointer": "/rows/2",
+              "root_adoption": {
+                "path": "segovb/READ-L12-749.json",
+                "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+              },
+              "root_row_pointer": "/rows/2",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "PassParameters.new11/insert17/get21/Default27/FromIndexMap33/IntoIndexMap39"
+                ],
+                "string_inventory": [
+                  "ActualStringparameterproducer Into<String>17 rawmap7/from32; get&str21 rematches; exactbodyproofofprior748 identitycandidate, no automatic newfindingaliascount."
+                ],
+                "trace": [
+                  "Author/nativeparametername -> insert17/key.into18 -> retainedIndexMapString7 -> get21 -> record90/bind_group35 -> nativebinding. Arbitraryauthoredshadernames legitimate; typemustnotinventclosedbuiltin grammar."
+                ],
+                "conditional_cases": [
+                  "Publicmap7/from32 bypassanyfutureadmission; connectedrepairmustincludeall constructors, notjustinsert. Exactowner/nativeadmissionreflectedsourcenextpending."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2283,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+              "source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+              "actual_EOF": 73,
+              "assessed_ranges": [
+                [
+                  1,
+                  73
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+                "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+                "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada"
+              },
+              "row_pointer": "/rows/4",
+              "root_adoption": {
+                "path": "segovb/READ-L12-749.json",
+                "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e"
+              },
+              "root_row_pointer": "/rows/4",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "UniformMember4/TextureBinding11/BufferBinding19/BindGroupReflection26/ReflectionData37/detect_from_code43/parse_naga50..73"
+                ],
+                "string_inventory": [
+                  "BindingnamesString5/12/20/sampler32 share prior748 source-supportedidentitypath; entrypointsString39/40 separate. detect returns nativeglsl45/wgsl47 thenStringrematch56 ratherthanretainingclosedlanguagechoice. Nativeparseerrors formatted66 ordiagnostic69\u2192anyhow70."
+                ],
+                "trace": [
+                  "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread."
+                ],
+                "conditional_cases": [
+                  "Heuristic #version substring44 canoccurinWGSLcomment, but explicitintendedlanguageadmissionpolicy/actualcaller required before ordinarymisclassificationfinding. Native format/language optionalGLSL/WGSLmodes legitimate; mustsupportdecidedmodes without obsoleteheuristic preservation."
+                ]
+              },
+              "chronology_qualification": "Exact historical proposal741/748/749 lacks top-level at. Registration precedes root adoption timestamp; preserve original personal prospective read attestation and already selected strict root adoption, do not invent missing body timestamp or new reread."
+            },
+            {
+              "original_index": 2635,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+              "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+              "actual_EOF": 88,
+              "assessed_ranges": [
+                [
+                  1,
+                  88
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+                "sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5"
+              },
+              "row_pointer": "/rows/0",
+              "root_adoption": {
+                "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+                "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+              },
+              "root_row_pointer": "/evidence/rows/0",
+              "selected_same_lens_future_proof": {
+                "original_index": 2635,
+                "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                "receipt_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+                "row_pointer": "/rows/0",
+                "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+                "registration_sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+                "actual_EOF": 88,
+                "assessed_ranges": [
+                  [
+                    1,
+                    88
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                "ordered_credit_now": 0,
+                "future_rule": "At exact ordered role qualify all identities, source revision/hash/EOF/ranges/registration/read pointer and agent attribution; zero rereads, count original once after required remaining scope qualified."
+              },
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+              "new_personal_reads": [],
+              "chronology_qualification": "Original connected receipt lacks top-level at. Registration predates root strict adoption; preserve original prospective body attestation and selected proof, do not fabricate precise body time.",
+              "windows_locator_qualification": {
+                "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2635-WINDOWS.json",
+                "sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688"
+              }
+            },
+            {
+              "original_index": 2636,
+              "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+              "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+              "actual_EOF": 209,
+              "assessed_ranges": [
+                [
+                  1,
+                  209
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+                "sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5"
+              },
+              "row_pointer": "/rows/1",
+              "root_adoption": {
+                "path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+                "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f"
+              },
+              "root_row_pointer": "/evidence/rows/1",
+              "selected_same_lens_future_proof": {
+                "original_index": 2636,
+                "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+                "receipt_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+                "row_pointer": "/rows/1",
+                "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+                "registration_sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+                "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                "source_sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+                "actual_EOF": 209,
+                "assessed_ranges": [
+                  [
+                    1,
+                    209
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+                "ordered_credit_now": 0,
+                "future_rule": "At exact ordered role qualify all identities, source revision/hash/EOF/ranges/registration/read pointer and agent attribution; zero rereads, count original once after required remaining scope qualified."
+              },
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated source read",
+              "new_personal_reads": [],
+              "chronology_qualification": "Original connected receipt lacks top-level at. Registration predates root strict adoption; preserve original prospective body attestation and selected proof, do not fabricate precise body time.",
+              "windows_locator_qualification": {
+                "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2636-WINDOWS.json",
+                "sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f"
+              }
+            },
+            {
+              "original_index": 2243,
+              "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+              "source_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+              "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+              "actual_EOF": 379,
+              "assessed_ranges": [
+                [
+                  1,
+                  379
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+                "sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+                "sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28"
+              },
+              "row_pointer": "/rows/5",
+              "root_adoption": {
+                "path": "segovb/READ-L12-740.json",
+                "sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33"
+              },
+              "root_row_pointer": "/rows/5",
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "new_personal_reads": [],
+              "source_semantic_contract": {
+                "exact_function_ownership": [
+                  "UniformArena.allocate87..105/CompiledLayout.new115..160/FastPath.new165..236/prepare239..318/write_uniform325..379"
+                ],
+                "string_inventory": [
+                  "Native diagnosticlabels92/130/137/144/291. entry_point119/168 and reflected binding.name252/uniform.name331 are actual open WGSL nativeidentifier namespace; no fabricated closed gameplayID. Errorprose155/253/332/369 is internalnativecause/semanticreasontransport requiringtypedowner."
+                ],
+                "trace": [
+                  "Native reflected kernel/layout -> CompiledLayout native error pop154 -> formatted anyhow155 -> FastPath.new222 -> public Kernel caller/native GPUerrorconsumer pending; dispatch PassParameters -> reflected names -> prepare/write_uniform -> native uniformbytes/bindgroup."
+                ],
+                "conditional_cases": [
+                  "Unsupported fastshape groupcount173/groupindex177/textures182/uniformsize202 returnOkNone intentionally selecting general native ComputePass, no compatibilitydefect. Actual uniformarena pushes beforelast.expect103, outside-test rulecase but no ordinaryempty panic.",
+                  "write_uniform out-ofrange put340..346/unsigned352 silentlyskip mustcompare actual trustworthy ReflectionData bounds/type schema before supported invaliddispatchclaim. Numbers cast tofloat350 requires actualnative reflectedtype admission; no inventedfailure witness."
+                ]
+              },
+              "chronology_qualification": "Historical proposal740 lacks top-level at; preserve actual prospective personal read attestation/root selected adoption. Registration precedes adoption time; no fabricated precise read timestamp."
+            }
+          ],
+          "current_reconciled": false,
+          "audit_discovery_closed": false,
+          "body_credit": 0
+        }
+      ],
+      "remaining_evidence": [
+        {
+          "remaining_exact_contract_evidence": [
+            "Qualify exact own741/748/749 receipts/prospective ranges/root adoptions, actual reflection retained map and binding adapters; traversal2660 new601 separate packet.",
+            "Current-main actual variants/all20/exact canonical finding aliases."
+          ],
+          "historical_obligations_preserved": true
+        },
+        {
+          "remaining_exact_contract_evidence": [
+            "Native unnamed variable/member/default-uniform/type-layout policy and actual current main/all20/exact alias owner disposition.",
+            "Native arbitrary shader identifiers are legitimate open namespace; no invented builtin closed grammar. Future2635/2636 exact fullproofs remain zero early/count once."
+          ],
+          "historical_obligations_preserved": true
+        }
+      ],
+      "dependencies": [
+        "Original748 canonical source finding ownership; source-native config/tokens are not proof of private closed classifier failure.",
+        {
+          "path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+          "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c"
+        },
+        {
+          "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+          "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90"
+        }
+      ],
+      "canonical_owner": "Existing shader parameter reflection/binding owner; actual typed-name vs native namespace boundary remains exact owner question",
+      "first_failed_contract_or_unresolved_question": "Actual new GpuBvh/PrefixSum caller supplies raw native parameter keys and retained native resources; connect existing own741/748/749 first retained name/consumer proof before alias/native adapter disposition. Native arbitrary shader namespace is legitimate.",
+      "closure_condition": "Audit closes this caller extension after exact existing owner/native boundary source qualification and current/alias disposition; later repair/runtime acceptance remains distinct and unexecuted."
+    }

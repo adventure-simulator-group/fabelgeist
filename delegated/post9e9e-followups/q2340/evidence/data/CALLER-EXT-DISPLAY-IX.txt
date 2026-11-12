@@ -1,0 +1,76 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/incidents.rs:120-194
+ 120 fn create_strategic_incident(
+ 121     ctx: &ReducerContext,
+ 122     party_id: &str,
+ 123     settlement: &Settlement,
+ 124     instigator_id: u64,
+ 125     current_case_site_id: Option<&str>,
+ 126     source_id: IncidentSourceId,
+ 127     spec: IncidentSpec<'_>,
+ 128 ) -> Result<Option<IncidentId>, String> {
+ 129     parse_threat(spec.enemy_type)?;
+ 130     let Some(mut party) = ctx.db.party_authority().id().find(party_id.to_string()) else {
+ 131         return Ok(None);
+ 132     };
+ 133     let at_expected_location = current_case_site_id.map_or_else(
+ 134         || party.current_settlement_id.as_deref() == Some(&settlement.id),
+ 135         |case_site_id| {
+ 136             party
+ 137                 .current_case_site_id
+ 138                 .as_ref()
+ 139                 .is_some_and(|id| id.as_str() == case_site_id)
+ 140         },
+ 141     );
+ 142     if !at_expected_location {
+ 143         return Ok(None);
+ 144     }
+ 145     if ctx
+ 146         .db
+ 147         .strategic_incident()
+ 148         .party_id()
+ 149         .filter(party_id)
+ 150         .any(|incident| incident.status == IncidentStatus::Pending)
+ 151     {
+ 152         return Ok(None);
+ 153     }
+ 154     if let Some(existing) = ctx
+ 155         .db
+ 156         .strategic_incident()
+ 157         .iter()
+ 158         .find(|incident| incident.source_id == source_id)
+ 159     {
+ 160         return Ok(Some(existing.id));
+ 161     }
+ 162     let incident_key = format!("incident:{}", source_id.value);
+ 163     let incident_id = IncidentId {
+ 164         value: incident_key.clone(),
+ 165     };
+ 166     let case_site_id = format!("case-site:{incident_key}");
+ 167     let enemy_count = living_party_member_ids(ctx, party_id).len().max(2) as i32;
+ 168     let current_site = current_case_site_id
+ 169         .and_then(|id| ctx.db.case_site_authority().id_key().find(id.to_string()));
+ 170     let settlement_coordinate = if settlement.source_node_id.is_some() {
+ 171         let coordinate = adventuresim_world_schema::coordinates::Wgs84CoordinateE7::from_longitude_latitude_degrees(
+ 172             settlement.coord_x,
+ 173             settlement.coord_y,
+ 174         )
+ 175         .ok_or("Incident settlement has invalid WGS84 coordinates")?;
+ 176         (coordinate.longitude().get(), coordinate.latitude().get())
+ 177     } else {
+ 178         let longitude = adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(settlement.coord_x)
+ 179             .ok_or("Incident settlement longitude cannot be represented as E7")?;
+ 180         let latitude = adventuresim_world_schema::coordinates::UnboundedCoordinateE7::from_coordinate_units(settlement.coord_y)
+ 181             .ok_or("Incident settlement latitude cannot be represented as E7")?;
+ 182         (longitude.raw(), latitude.raw())
+ 183     };
+ 184     let (scene_key, longitude_e7, latitude_e7, coordinates_are_geographic, distance_m) =
+ 185         current_site.map_or_else(
+ 186             || {
+ 187                 (
+ 188                     settlement.scene_key.clone(),
+ 189                     settlement_coordinate.0,
+ 190                     settlement_coordinate.1,
+ 191                     settlement.source_node_id.is_some(),
+ 192                     0,
+ 193                 )
+ 194             },

@@ -1,0 +1,140 @@
+ 236         &self,
+ 237         context: &WgpuContext,
+ 238         parameters: &PassParameters,
+ 239         uniforms: &mut UniformArena,
+ 240     ) -> Result<Prepared> {
+ 241         let slot = (self.uniform_binding.is_some() && self.uniform_size > 0)
+ 242             .then(|| uniforms.allocate(context, self.stride));
+ 243         // Built fresh every dispatch. See the note at the top of this file:
+ 244         // reusing one costs wgpu the barrier between dependent passes.
+ 245         let mut entries: Vec<wgpu::BindGroupEntry> = Vec::with_capacity(self.buffers.len() + 1);
+ 246         let mut bound: Vec<(u32, Buffer)> = Vec::with_capacity(self.buffers.len());
+ 247         for binding in &self.buffers {
+ 248             let Some(PassParameter::Buffer(buffer)) = parameters.get(&binding.name) else {
+ 249                 return Err(anyhow!(
+ 250                     "Kernel: parameter `{}` (binding {}) is missing or is not a buffer",
+ 251                     binding.name,
+ 252                     binding.binding
+ 253                 ));
+ 254             };
+ 255             bound.push((binding.binding, buffer.clone()));
+ 256         }
+ 257 
+ 258         for (binding, buffer) in &bound {
+ 259             entries.push(wgpu::BindGroupEntry {
+ 260                 binding: *binding,
+ 261                 resource: if u64::from(buffer.size) < buffer.buffer.size() {
+ 262                     wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+ 263                         buffer: &buffer.buffer,
+ 264                         offset: 0,
+ 265                         size: std::num::NonZeroU64::new(u64::from(buffer.size)),
+ 266                     })
+ 267                 } else {
+ 268                     buffer.buffer.as_entire_binding()
+ 269                 },
+ 270             });
+ 271         }
+ 272         if let (Some(binding), Some((chunk, _))) = (self.uniform_binding, &slot) {
+ 273             entries.push(wgpu::BindGroupEntry {
+ 274                 binding,
+ 275                 resource: wgpu::BindingResource::Buffer(wgpu::BufferBinding {
+ 276                     buffer: chunk,
+ 277                     offset: 0,
+ 278                     size: std::num::NonZeroU64::new(self.uniform_size),
+ 279                 }),
+ 280             });
+ 281         }
+ 282         entries.sort_by_key(|entry| entry.binding);
+ 283 
+ 284         let bind_group = context
+ 285             .device
+ 286             .create_bind_group(&wgpu::BindGroupDescriptor {
+ 287                 label: Some("Kernel Bind Group"),
+ 288                 layout: &self.layout,
+ 289                 entries: &entries,
+ 290             });
+ 291 
+ 292         let dynamic_offset = match &slot {
+ 293             None => None,
+ 294             Some((chunk, offset)) => {
+ 295                 let offset = *offset;
+ 296                 // A uniform block is a handful of words, so it is packed on
+ 297                 // the stack rather than allocated per dispatch.
+ 298                 let mut data = [0u8; MAX_UNIFORM_BYTES];
+ 299                 let size = self.uniform_size as usize;
+ 300                 let data = &mut data[..size];
+ 301                 data.fill(0);
+ 302                 write_uniform(&self.uniform_members, parameters, data)?;
+ 303                 context.queue.write_buffer(chunk, offset, data);
+ 304                 Some(offset as u32)
+ 305             }
+ 306         };
+ 307 
+ 308         Ok(Prepared {
+ 309             pipeline: self.pipeline.clone(),
+ 310             bind_group,
+ 311             dynamic_offset,
+ 312         })
+ 313     }
+ 314 }
+ 315 
+ 316 /// Pack the uniform block from named parameters, by reflected offsets.
+ 317 ///
+ 318 /// Covers the scalar, vector and matrix kinds a solver passes. Anything else
+ 319 /// is reported rather than silently skipped -- a uniform quietly left at zero
+ 320 /// is a wrong simulation, not an error, and those are the expensive ones.
+ 321 fn write_uniform(
+ 322     members: &[UniformMember],
+ 323     parameters: &PassParameters,
+ 324     out: &mut [u8],
+ 325 ) -> Result<()> {
+ 326     for member in members {
+ 327         let Some(value) = parameters.get(&member.name) else {
+ 328             return Err(anyhow!(
+ 329                 "Kernel: uniform `{}` was not supplied",
+ 330                 member.name
+ 331             ));
+ 332         };
+ 333         let offset = member.offset as usize;
+ 334 
+ 335         let mut put = |values: &[f32]| {
+ 336             let end = offset + values.len() * 4;
+ 337             if end <= out.len() {
+ 338                 for (index, value) in values.iter().enumerate() {
+ 339                     out[offset + index * 4..offset + index * 4 + 4]
+ 340                         .copy_from_slice(&value.to_le_bytes());
+ 341                 }
+ 342             }
+ 343         };
+ 344 
+ 345         match value {
+ 346             PassParameter::Number(n) => put(&[*n as f32]),
+ 347             PassParameter::Unsigned(u) => {
+ 348                 if offset + 4 <= out.len() {
+ 349                     out[offset..offset + 4].copy_from_slice(&u.to_le_bytes());
+ 350                 }
+ 351             }
+ 352             PassParameter::Vec2(v) => put(&[v.x, v.y]),
+ 353             PassParameter::Vec3(v) => put(&[v.x, v.y, v.z]),
+ 354             PassParameter::Vec4(v) => put(&[v.x, v.y, v.z, v.w]),
+ 355             PassParameter::Mat4(m) => {
+ 356                 let mut values = Vec::with_capacity(16);
+ 357                 for column in 0..4 {
+ 358                     for row in 0..4 {
+ 359                         values.push(m.columns[column][row]);
+ 360                     }
+ 361                 }
+ 362                 put(&values);
+ 363             }
+ 364             other => {
+ 365                 return Err(anyhow!(
+ 366                     "Kernel: uniform `{}` is a {:?}, which the cached dispatch path does not pack; \
+ 367                      use ComputePass::record for this kernel",
+ 368                     member.name,
+ 369                     std::mem::discriminant(other)
+ 370                 ));
+ 371             }
+ 372         }
+ 373     }
+ 374     Ok(())
+ 375 }

@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:2180-2235
+2180     let npc = options.mode.is_npc();
+2181     let newborn = options.mode.newborn();
+2182     let reserved = ctx.db.child_identity_reservation().character_id().find(id);
+2183     if reserved.is_some() && !newborn {
+2184         return Err("Character identity is reserved for a pending birth".into());
+2185     }
+2186     if newborn && reserved.is_none() {
+2187         return Err("Newborn creation requires a reserved child identity".into());
+2188     }
+2189 
+2190     let start_settlement = origin::choose_start_settlement(ctx, &options, starting)?;
+2191 
+2192     let character = ctx.db.character().insert(Character {
+2193         id,
+2194         scan_id: id,
+2195         name,
+2196         xp: 0,
+2197         level: 1,
+2198         current_settlement_id: (!options.field_actor).then(|| start_settlement.id.clone()),
+2199         party_id: None,
+2200         server: Identity::ZERO,
+2201         temporary,
+2202         age_years: starting.map_or_else(
+2203             || npc_life.map_or(25, |facts| facts.age_years),
+2204             |spec| spec.age_years,
+2205         ),
+2206         alive: true,
+2207         party_treatment_decision: crate::world_actor::ContextualDecisionState::Allowed,
+2208     });
+2209     let initial_minute = options.initial_time_minute.unwrap_or(StrategicMinute::ZERO);
+2210     crate::relationship::record_character_birth(
+2211         ctx,
+2212         character.id,
+2213         initial_minute.signed_birth_minute_for_age(character.age_years),
+2214     );
+2215     if !temporary && !newborn {
+2216         let urban = matches!(
+2217             start_settlement.category,
+2218             crate::strategic::SettlementCategory::Town
+2219                 | crate::strategic::SettlementCategory::City
+2220                 | crate::strategic::SettlementCategory::Capital
+2221         );
+2222         crate::social_roles::ensure_character_social_roles(
+2223             ctx,
+2224             character.id,
+2225             &start_settlement.id,
+2226             urban,
+2227         )?;
+2228     }
+2229     let _character_stats = ctx.db.character_stats().insert(CharacterStats {
+2230         character_id: id,
+2231         calories_used: 0.0,
+2232         focus: 1.0,
+2233     });
+2234     let generated_attributes = starting.map(|spec| &spec.attributes);
+2235     let character_attributes = CharacterAttributes::from((

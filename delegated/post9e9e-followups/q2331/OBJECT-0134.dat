@@ -1,0 +1,189 @@
+   1 use crate::data::TextureFormat;
+   2 use crate::data::gpu::shader::{ReflectionData, parse_naga};
+   3 use crate::globals::{ValidationObservation, WgpuContext};
+   4 use anyhow::{Result, anyhow};
+   5 pub use compute_shader::*;
+   6 
+   7 use std::collections::HashMap;
+   8 use std::sync::{Arc, Mutex};
+   9 
+  10 mod compute_shader;
+  11 mod reflection;
+  12 
+  13 #[derive(Clone, Debug)]
+  14 pub struct ComputePipeline {
+  15     pub shader: ComputeShader,
+  16     pub bind_group_layouts: Vec<Arc<wgpu::BindGroupLayout>>,
+  17     pub reflection: Option<Arc<ReflectionData>>,
+  18     pub pipeline_cache: Arc<Mutex<HashMap<u64, Arc<wgpu::ComputePipeline>>>>,
+  19     pub pipeline: Option<Arc<wgpu::ComputePipeline>>,
+  20     pub validation_error: Arc<Mutex<Option<String>>>,
+  21 }
+  22 
+  23 impl Default for ComputePipeline {
+  24     fn default() -> Self {
+  25         Self {
+  26             shader: ComputeShader::default(),
+  27             bind_group_layouts: Vec::new(),
+  28             reflection: None,
+  29             pipeline_cache: Arc::new(Mutex::new(HashMap::new())),
+  30             pipeline: None,
+  31             validation_error: Arc::new(Mutex::new(None)),
+  32         }
+  33     }
+  34 }
+  35 
+  36 impl ComputePipeline {
+  37     pub fn get_or_create_pipeline(
+  38         &self,
+  39         device: &wgpu::Device,
+  40         entry_point: &str,
+  41     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+  42         self.get_or_create_pipeline_validated(
+  43             device,
+  44             entry_point,
+  45             ValidationObservation::BlockingScopes,
+  46         )
+  47     }
+  48 
+  49     /// The same, with control over whether the validation error scope is read
+  50     /// back. Draining the queue to read it is only safe on a device nothing
+  51     /// else is submitting to -- see `WgpuContext::validation_observation`.
+  52     pub fn get_or_create_pipeline_validated(
+  53         &self,
+  54         device: &wgpu::Device,
+  55         entry_point: &str,
+  56         validation_observation: ValidationObservation,
+  57     ) -> anyhow::Result<Arc<wgpu::ComputePipeline>> {
+  58         #[cfg(target_arch = "wasm32")]
+  59         let _ = validation_observation;
+  60         use std::collections::hash_map::DefaultHasher;
+  61         use std::hash::{Hash, Hasher};
+  62 
+  63         // Cache key based on entry point (shader code is part of shader struct but not strictly hashed here, assuming one pipeline per shadernode usually)
+  64         // Ideally we should hash the shader code or module ID too if it changes.
+  65         // For now lets hash the entry point.
+  66         let mut s = DefaultHasher::new();
+  67         entry_point.hash(&mut s);
+  68         let cache_key = s.finish();
+  69 
+  70         let mut cache = self
+  71             .pipeline_cache
+  72             .lock()
+  73             .map_err(|_| anyhow::anyhow!("Failed to lock pipeline cache"))?;
+  74         if let Some(p) = cache.get(&cache_key) {
+  75             return Ok(p.clone());
+  76         }
+  77 
+  78         // Reset validation error
+  79         if let Ok(mut guard) = self.validation_error.lock() {
+  80             *guard = None;
+  81         }
+  82 
+  83         // Create Pipeline
+  84         #[cfg(not(target_arch = "wasm32"))]
+  85         let error_scope = validation_observation.start_scope(device);
+  86 
+  87         let module = self
+  88             .shader
+  89             .module
+  90             .as_ref()
+  91             .ok_or_else(|| anyhow::anyhow!("ComputePipeline: Shader Module missing"))?;
+  92 
+  93         let layouts: Vec<_> = self.bind_group_layouts.iter().map(|l| l.as_ref()).collect();
+  94         let sparse_layouts: Vec<Option<&wgpu::BindGroupLayout>> =
+  95             layouts.iter().map(|&l| Some(l)).collect();
+  96 
+  97         let pipeline_layout = device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+  98             label: Some("ComputePipeline Layout"),
+  99             bind_group_layouts: &sparse_layouts,
+ 100             immediate_size: 0,
+ 101         });
+ 102 
+ 103         let pipeline = device.create_compute_pipeline(&wgpu::ComputePipelineDescriptor {
+ 104             label: Some("ComputePipeline"),
+ 105             layout: Some(&pipeline_layout),
+ 106             module,
+ 107             entry_point: Some(entry_point),
+ 108             compilation_options: wgpu::PipelineCompilationOptions::default(),
+ 109             cache: None,
+ 110         });
+ 111 
+ 112         // POP ERROR SCOPE
+ 113         #[cfg(not(target_arch = "wasm32"))]
+ 114         if let Some(error_scope) = error_scope {
+ 115             let _ = device.poll(wgpu::PollType::wait_indefinitely());
+ 116             if let Some(e) = pollster::block_on(error_scope.pop())
+ 117                 && let Ok(mut guard) = self.validation_error.lock()
+ 118             {
+ 119                 *guard = Some(e.to_string());
+ 120             }
+ 121         }
+ 122 
+ 123         let p_arc = Arc::new(pipeline);
+ 124         cache.insert(cache_key, p_arc.clone());
+ 125         Ok(p_arc)
+ 126     }
+ 127 
+ 128     pub fn validate_interface(&self) -> anyhow::Result<()> {
+ 129         let naga_res = parse_naga(&self.shader.code, wgpu::naga::ShaderStage::Compute)
+ 130             .map_err(|e| anyhow::anyhow!("Compute Shader Parse Error: {}", e))?;
+ 131 
+ 132         if !naga_res
+ 133             .entry_points
+ 134             .iter()
+ 135             .any(|ep| ep.stage == wgpu::naga::ShaderStage::Compute)
+ 136         {
+ 137             return Err(anyhow::anyhow!("Compute Shader missing entry point"));
+ 138         }
+ 139 
+ 140         Ok(())
+ 141     }
+ 142 }
+ 143 
+ 144 impl ComputePipeline {
+ 145     pub fn new(context: &WgpuContext, shader: ComputeShader) -> Result<Self> {
+ 146         let mut pipeline = Self::prepare(context, shader)?;
+ 147         pipeline.compile(context)?;
+ 148         Ok(pipeline)
+ 149     }
+ 150 
+ 151     /// Reflect bindings without compiling a GPU pipeline. A caller choosing a
+ 152     /// different uniform layout can share the shader and its interface, then
+ 153     /// compile only the dispatch layout it actually uses.
+ 154     pub fn prepare(context: &WgpuContext, shader: ComputeShader) -> Result<Self> {
+ 155         let interface = reflection::ReflectedInterface::new(context, &shader.code)?;
+ 156         Ok(Self {
+ 157             shader,
+ 158             bind_group_layouts: interface.layouts,
+ 159             reflection: Some(interface.reflection),
+ 160             ..Default::default()
+ 161         })
+ 162     }
+ 163 
+ 164     /// Compile this definition's static uniform layout on first use. Clones
+ 165     /// share the entry-point cache, including definitions used by raw kernels.
+ 166     pub fn compile(&mut self, context: &WgpuContext) -> Result<()> {
+ 167         if self.pipeline.is_some() {
+ 168             return Ok(());
+ 169         }
+ 170         let reflection = self
+ 171             .reflection
+ 172             .as_ref()
+ 173             .ok_or_else(|| anyhow!("ComputePipeline: Reflection missing"))?;
+ 174         let pipeline = self.get_or_create_pipeline_validated(
+ 175             &context.device,
+ 176             &reflection.vertex_entry_point,
+ 177             context.validation_observation,
+ 178         )?;
+ 179         let validation = self
+ 180             .validation_error
+ 181             .lock()
+ 182             .map_err(|_| anyhow!("Failed to lock pipeline validation state"))?;
+ 183         if let Some(error) = validation.as_ref() {
+ 184             return Err(anyhow!("ComputePipeline Creation Error: {error}"));
+ 185         }
+ 186         self.pipeline = Some(pipeline);
+ 187         Ok(())
+ 188     }
+ 189 }

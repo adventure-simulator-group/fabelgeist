@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:385-440
+ 385         let candidate_sex = ctx
+ 386             .db
+ 387             .character_personality()
+ 388             .character_id()
+ 389             .find(candidate.character_id)
+ 390             .ok_or("NPC romance candidate is missing personality")?
+ 391             .sex;
+ 392         let (suitor_id, partner_id) = npc_courtship_roles(
+ 393             character_id,
+ 394             actor_sex,
+ 395             candidate.character_id,
+ 396             candidate_sex,
+ 397         );
+ 398         let outcome =
+ 399             crate::relationship::establish_npc_courtship_and_wedding(ctx, suitor_id, partner_id)
+ 400                 .map_err(crate::relationship::CourtshipPairError::into_reducer_error)?;
+ 401         let receipt_outcome = match outcome {
+ 402             crate::relationship::NpcCourtshipOutcome::Formal => {
+ 403                 NpcPolicyDecisionOutcome::RomanceEstablishedFormal
+ 404             }
+ 405             crate::relationship::NpcCourtshipOutcome::Informal => {
+ 406                 NpcPolicyDecisionOutcome::RomanceEstablishedInformal
+ 407             }
+ 408             crate::relationship::NpcCourtshipOutcome::Ineligible => continue,
+ 409         };
+ 410         record_decision(
+ 411             ctx,
+ 412             character_id,
+ 413             day,
+ 414             NpcPolicyDecisionPhase::Romance,
+ 415             receipt_outcome,
+ 416             Some(candidate.character_id),
+ 417             minute,
+ 418         );
+ 419         return Ok(());
+ 420     }
+ 421     record_decision(
+ 422         ctx,
+ 423         character_id,
+ 424         day,
+ 425         NpcPolicyDecisionPhase::Romance,
+ 426         NpcPolicyDecisionOutcome::RomanceNoCandidate,
+ 427         None,
+ 428         minute,
+ 429     );
+ 430     Ok(())
+ 431 }
+ 432 
+ 433 fn stable_romance_candidates(
+ 434     character_id: u64,
+ 435     policy_seed: Seed,
+ 436     day: u64,
+ 437     candidates: impl IntoIterator<Item = adventuresim_core::npc_policy::NpcCandidate>,
+ 438 ) -> Result<Vec<adventuresim_core::npc_policy::NpcCandidate>, String> {
+ 439     adventuresim_core::npc_policy::stable_candidate_order(
+ 440         character_id,

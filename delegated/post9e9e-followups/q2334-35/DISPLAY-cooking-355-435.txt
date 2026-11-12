@@ -1,0 +1,81 @@
+ 355                     party_lot(ctx, id).ok_or("Food lot metadata not found")?,
+ 356                 )
+ 357             }
+ 358         };
+ 359         if fraction > available {
+ 360             return Err("Ingredient is not available in that amount".into());
+ 361         }
+ 362         if !food::is_cookable_ingredient(&item_id) {
+ 363             return Err("A cooked meal cannot be cooked again".into());
+ 364         }
+ 365         let ratio = fraction.get() as f32 / available.get() as f32;
+ 366         if ![
+ 367             lot.mass_kg,
+ 368             lot.nutrition_kcal,
+ 369             lot.total_value,
+ 370             lot.salty_kg,
+ 371             lot.spicy_kg,
+ 372             lot.sweet_kg,
+ 373             lot.sour_kg,
+ 374             lot.savory_kg,
+ 375         ]
+ 376         .into_iter()
+ 377         .all(|v| v.is_finite() && v >= 0.0)
+ 378         {
+ 379             return Err("Ingredient lot contains invalid food values".into());
+ 380         }
+ 381         let (cont, current) = contamination(ctx, &lot, minute)?;
+ 382         let raw_safety = food::definition(&item_id).map_or(5, |d| d.cooking_minutes);
+ 383         let preparation_factor = match lot.preparation {
+ 384             FoodPreparation::Cut => food::CUT_COOKING_TIME_FACTOR,
+ 385             FoodPreparation::Ground => food::GROUND_COOKING_TIME_FACTOR,
+ 386             _ => 1.0,
+ 387         };
+ 388         safety.push(
+ 389             food::preparation_safety_minutes(raw_safety, preparation_factor)
+ 390                 .ok_or("Ingredient preparation has an invalid cooking-time factor")?,
+ 391         );
+ 392         name_parts.push(lot.display_name.clone());
+ 393         ingredient_ids.extend(lot.ingredient_item_ids.clone());
+ 394         ingredient_quantities.extend(
+ 395             lot.ingredient_quantities
+ 396                 .iter()
+ 397                 .map(|q| food::retained_component(*q, ratio)),
+ 398         );
+ 399         if herbalism_check >= 1.0 {
+ 400             for (component_id, quantity) in lot
+ 401                 .ingredient_item_ids
+ 402                 .iter()
+ 403                 .zip(&lot.ingredient_quantities)
+ 404             {
+ 405                 let profile = match component_id.as_str() {
+ 406                     "willow_bark" => Some("cooling_willow_draught"),
+ 407                     "sage" => Some("sage_infusion"),
+ 408                     // Comfrey is heat-sensitive and loses its useful topical
+ 409                     // component. Poppy requires passive alcoholic extraction.
+ 410                     "comfrey" | "poppy" => None,
+ 411                     _ => None,
+ 412                 };
+ 413                 if let Some(profile) = profile {
+ 414                     *medicinal.entry(profile.into()).or_default() +=
+ 415                         food::retained_component(*quantity, ratio)
+ 416                             * (0.5 + 0.1 * herbalism_check.clamp(1.0, 5.0));
+ 417                 }
+ 418             }
+ 419         }
+ 420         let selected_mass = lot.mass_kg * ratio;
+ 421         mass += selected_mass;
+ 422         kcal += lot.nutrition_kcal * ratio;
+ 423         value += lot.total_value * ratio;
+ 424         flavors.add_assign(
+ 425             food::FlavorProfile::new(
+ 426                 lot.salty_kg,
+ 427                 lot.spicy_kg,
+ 428                 lot.sweet_kg,
+ 429                 lot.sour_kg,
+ 430                 lot.savory_kg,
+ 431             )
+ 432             .scaled(ratio),
+ 433         );
+ 434         if lot
+ 435             .ingredient_item_ids

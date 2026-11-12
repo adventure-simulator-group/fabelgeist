@@ -1,0 +1,101 @@
+ 220     uniforms: fast::UniformArena,
+ 221     /// Run once the batch is submitted, in order.
+ 222     after_submit: Vec<Box<dyn FnOnce() + Send + 'a>>,
+ 223 }
+ 224 
+ 225 impl<'a> KernelBatch<'a> {
+ 226     pub fn new(context: &'a WgpuContext) -> Self {
+ 227         Self::labelled(context, "KernelBatch")
+ 228     }
+ 229 
+ 230     pub fn labelled(context: &'a WgpuContext, label: &str) -> Self {
+ 231         let encoder = context
+ 232             .device
+ 233             .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: Some(label) });
+ 234         Self {
+ 235             context,
+ 236             encoder,
+ 237             dispatches: 0,
+ 238             uniforms: fast::UniformArena::default(),
+ 239             after_submit: Vec::new(),
+ 240         }
+ 241     }
+ 242 
+ 243     /// The context the batch records for -- for a pass that has to upload a
+ 244     /// changed parameter before its dispatches run.
+ 245     pub fn context(&self) -> &'a WgpuContext {
+ 246         self.context
+ 247     }
+ 248 
+ 249     /// Record one dispatch of `kernel` over an explicit workgroup grid.
+ 250     pub fn dispatch(
+ 251         &mut self,
+ 252         kernel: &Kernel,
+ 253         parameters: &PassParameters,
+ 254         groups: [u32; 3],
+ 255     ) -> Result<&mut Self> {
+ 256         // A zero-sized grid is a no-op, not an error: an empty constraint
+ 257         // colour or an empty contact list is a perfectly ordinary frame.
+ 258         if groups.contains(&0) {
+ 259             return Ok(self);
+ 260         }
+ 261 
+ 262         match &kernel.fast {
+ 263             Some(fast) => {
+ 264                 let prepared = fast.prepare(self.context, parameters, &mut self.uniforms)?;
+ 265                 let mut pass = self
+ 266                     .encoder
+ 267                     .begin_compute_pass(&wgpu::ComputePassDescriptor {
+ 268                         label: Some("Kernel Pass"),
+ 269                         timestamp_writes: None,
+ 270                     });
+ 271                 pass.set_pipeline(&prepared.pipeline);
+ 272                 match prepared.dynamic_offset {
+ 273                     Some(offset) => pass.set_bind_group(0, &prepared.bind_group, &[offset]),
+ 274                     None => pass.set_bind_group(0, &prepared.bind_group, &[]),
+ 275                 }
+ 276                 pass.dispatch_workgroups(groups[0], groups[1], groups[2]);
+ 277             }
+ 278             None => ComputePass::record(
+ 279                 self.context,
+ 280                 &kernel.pipeline,
+ 281                 parameters,
+ 282                 &mut self.encoder,
+ 283                 groups[0],
+ 284                 groups[1],
+ 285                 groups[2],
+ 286             )?,
+ 287         }
+ 288 
+ 289         self.dispatches += 1;
+ 290         Ok(self)
+ 291     }
+ 292 
+ 293     /// Record one dispatch covering `items` invocations however many there
+ 294     /// are, folded as [`Kernel::groups_folded`] describes.
+ 295     pub fn dispatch_folded(
+ 296         &mut self,
+ 297         kernel: &Kernel,
+ 298         parameters: &PassParameters,
+ 299         items: u32,
+ 300     ) -> Result<&mut Self> {
+ 301         if items == 0 {
+ 302             return Ok(self);
+ 303         }
+ 304         self.dispatch(kernel, parameters, kernel.groups_folded(items))
+ 305     }
+ 306 
+ 307     /// Record one dispatch sized to cover `items` invocations along x.
+ 308     pub fn dispatch_items(
+ 309         &mut self,
+ 310         kernel: &Kernel,
+ 311         parameters: &PassParameters,
+ 312         items: u32,
+ 313     ) -> Result<&mut Self> {
+ 314         self.dispatch(kernel, parameters, kernel.groups_for(items))
+ 315     }
+ 316 
+ 317     /// Copy between buffers inside the batch, so that the copy is ordered
+ 318     /// against the dispatches around it.
+ 319     pub fn copy_buffer(&mut self, source: &Buffer, destination: &Buffer, bytes: u64) -> Result<()> {
+ 320         if bytes > u64::from(source.size) || bytes > u64::from(destination.size) {

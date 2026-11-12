@@ -1,0 +1,21 @@
+{
+  "cases": [
+    {
+      "case": "q2331-keyed-digest",
+      "exit": 0,
+      "stdout_bytes": 709,
+      "stdout_sha256": "3abd4bee83dafb6903ed0732932f2bbbc4ae0ab1dabde0fe6c55ed026edeec62",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "q2336-37",
+      "exit": 0,
+      "stdout_bytes": 415,
+      "stdout_sha256": "c5a0127138b383c706d3ac9b315cb89f9052c5ab61344260ecf958dbc9f72d5b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Same-machine evidence-only checks. The q2331 rerun checked the copied packet and two specified copied receipt directories; that selection need not equal the earlier agent receipt set. Key and source originals remain separately held."
+}

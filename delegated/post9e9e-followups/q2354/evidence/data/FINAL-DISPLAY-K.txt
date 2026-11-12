@@ -1,0 +1,26 @@
+SOURCE crates/adventuresim-core/src/courtship.rs:1-25
+   1 //! Pure rules for strategic relationships, housing, and family growth.
+   2 //!
+   3 //! Persistence deliberately lives in the strategic module.  Keeping the
+   4 //! thresholds and clock arithmetic here makes reducers deterministic and lets
+   5 //! callers advance a long interval in exactly the same way as smaller chunks.
+   6 
+   7 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+   8 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+   9 use adventuresim_world_schema::calendar::{MINUTES_PER_YEAR, StrategicMinute};
+  10 use serde::{Deserialize, Serialize};
+  11 use std::{fmt, str::FromStr};
+  12 
+  13 mod child_identity;
+  14 pub use child_identity::{
+  15     ChildIdentitySeed, ChildNameSeed, ChildSeeds, HouseholdPlacementSeed, PregnancyOrdinal,
+  16     deterministic_child_seeds,
+  17 };
+  18 
+  19 pub const ADULT_AGE_YEARS: u16 = 16;
+  20 pub const FORMAL_COURTSHIP_AFFINITY: f32 = 45.0;
+  21 pub const FORMAL_FATHER_APPROVAL_AFFINITY: f32 = 35.0;
+  22 pub const INFORMAL_COURTSHIP_AFFINITY: f32 = 75.0;
+  23 pub const AMOROUS_INFORMAL_MODIFIER: f32 = -10.0;
+  24 pub const PROPER_INFORMAL_MODIFIER: f32 = 10.0;
+  25 pub const WEDDING_NOTICE_MINUTES: u64 = MINUTES_PER_YEAR;

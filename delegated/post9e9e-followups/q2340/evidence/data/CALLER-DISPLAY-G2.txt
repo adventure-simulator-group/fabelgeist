@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/governance.rs:1480-1555
+1480         .filter(&source_party_id)
+1481         .collect::<Vec<_>>()
+1482     {
+1483         credit_party_stake(ctx, &request.party_id, stake.character_id, stake.value)?;
+1484         ctx.db.party_stake().id().delete(stake.id);
+1485     }
+1486     if let Some(state) = ctx
+1487         .db
+1488         .party_inventory_state()
+1489         .party_id()
+1490         .find(&source_party_id)
+1491     {
+1492         credit_party_reserve(ctx, &request.party_id, state.reserve_value)?;
+1493         ctx.db
+1494             .party_inventory_state()
+1495             .party_id()
+1496             .delete(&source_party_id);
+1497     }
+1498 
+1499     let source_members: Vec<_> = ctx
+1500         .db
+1501         .party_member()
+1502         .party_id()
+1503         .filter(&source_party_id)
+1504         .collect();
+1505     let source_member_ids: Vec<_> = source_members
+1506         .iter()
+1507         .map(|member| member.character_id)
+1508         .collect();
+1509     if source_member_ids.iter().any(|member_id| {
+1510         ctx.db
+1511             .character()
+1512             .id()
+1513             .find(*member_id)
+1514             .is_some_and(|character| !character.alive)
+1515     }) {
+1516         return Err("A party containing dead members cannot merge".into());
+1517     }
+1518     for member in source_members {
+1519         ctx.db.party_member().id().delete(member.id);
+1520         ctx.db.party_member().insert(PartyMember {
+1521             id: 0,
+1522             party_id: request.party_id.clone(),
+1523             character_id: member.character_id,
+1524             role: if member.character_id == request.character_id {
+1525                 Some(role.name.clone())
+1526             } else {
+1527                 member.role
+1528             },
+1529             recruitment_role_id: (member.character_id == request.character_id).then_some(role.id),
+1530         });
+1531         if let Some(mut source_character) = ctx.db.character().id().find(member.character_id) {
+1532             source_character.party_id = Some(request.party_id.clone());
+1533             source_character.current_settlement_id = party.current_settlement_id.clone();
+1534             ctx.db.character().id().update(source_character);
+1535             crate::investigation::set_character_case_site(
+1536                 ctx,
+1537                 member.character_id,
+1538                 party
+1539                     .current_case_site_id
+1540                     .clone()
+1541                     .map(CaseSiteId::into_string),
+1542             )?;
+1543             crate::social::reset_familiarity_after_join(ctx, member.character_id);
+1544         }
+1545     }
+1546 
+1547     // Incoming applications and recruitment roles belonged to the source party,
+1548     // so they cannot survive after its leader relinquishes command.
+1549     for source_role in ctx
+1550         .db
+1551         .party_recruitment_role()
+1552         .party_id()
+1553         .filter(&source_party_id)
+1554         .collect::<Vec<_>>()
+1555     {

@@ -1,0 +1,214 @@
+"""UNEXECUTED read-only exact873..880 preflight; root inspects before running.
+
+Authenticated primitives only; no filesystem writes, product execution,
+normalization defaults, or relaxation of prior source-specific checks.
+"""
+import argparse
+import datetime
+import hashlib
+import importlib.util
+import json
+import pathlib
+import subprocess
+import sys
+import tarfile
+
+sys.dont_write_bytecode = True
+R = pathlib.Path('target/726-audit-adler-20261027')
+P = R / 'parallel-l12-20261029'
+PRIMITIVE_SHA = 'd8455cd4234499fbb07e16bf91ea3506ce221e395b6d7647c9c62a586d3808ea'
+BUNDLE_SHA = '2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df'
+REGISTRY_SHA = 'd1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f'
+PROTOCOL_SHA = '8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed'
+ARCHIVE = 'f82adcabd9d89c4fa2dd7f99253a45297a0681ee'
+OLD_NATIVE = {
+    2571: ('bevy_reflect-0.19.1', 'src/reflect.rs'),
+    2572: ('bevy_reflect-0.19.1', 'src/type_registry.rs'),
+    2573: ('serde-saphyr-1.2.0', 'src/de/api.rs'),
+    2574: ('serde-saphyr-1.2.0', 'src/de/options.rs'),
+    2575: ('serde-saphyr-1.2.0', 'src/de/deserializer.rs'),
+    2576: ('serde-saphyr-1.2.0', 'src/parse_scalars.rs'),
+    2577: ('serde-saphyr-1.2.0', 'src/de/with_deserializer.rs'),
+}
+NEW_NATIVE = {
+    2588: ('serde_core-1.0.229', 'src/de/impls.rs'),
+    2589: ('serde_json-1.0.151', 'src/value/de.rs'),
+    2590: ('serde_json-1.0.151', 'src/number.rs'),
+}
+CHECKSUMS = {
+    'bevy_reflect-0.19.1': '9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b',
+    'serde-saphyr-1.2.0': '3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823',
+    'serde_core-1.0.229': '67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48',
+    'serde_json-1.0.151': 'c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14',
+}
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ledger-sha256', required=True)
+    parser.add_argument('--selector-sha256', required=True)
+    args = parser.parse_args()
+    primitive = P / 'preflight-l12-bundle-001-PROPOSAL.py'
+    assert hashlib.sha256(primitive.read_bytes()).hexdigest() == PRIMITIVE_SHA
+    spec = importlib.util.spec_from_file_location('immutable_l12_primitives', primitive)
+    old = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(old)
+    sha, obj, pointer = old.sha, old.obj, old.pointer
+    pairs, points, metadata = old.pairs, old.points, old.metadata
+    lp, sp = R / 'evidence/continuation-segovb/ledger.json', R / 'CURRENT-ADLER.json'
+    assert sha(lp) == args.ledger_sha256 and sha(sp) == args.selector_sha256
+    ledger, selector = json.loads(lp.read_text()), json.loads(sp.read_text())
+    l12 = ledger['segovb_continuation']['lens12']
+    assert (l12['next_original'], l12['next_batch'], l12['next_registration']) == (2571, 873, 1590)
+    assert selector['ledger_sha256'] == args.ledger_sha256
+    frontier = [x for x in selector['frontiers'] if x['lens'] == 12]
+    assert len(frontier) == 1 and frontier[0]['next_original'] == 2571
+    rp = R / 'evidence/audit05/original-scope-072.json'
+    assert sha(rp) == REGISTRY_SHA
+    originals = json.loads(rp.read_text())['files']
+    assert len(originals) == 2853
+    assert sha(R / 'workflow-20261030/PROPOSAL-PROTOCOL-001.json') == PROTOCOL_SHA
+    bundle = obj({'path': 'parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json', 'sha256': BUNDLE_SHA})
+    assert bundle['schema'] == '726-proposal-bundle-v1' and bundle['lens'] == 12
+    assert bundle['ordered_frontier_before'] == {'original': 2571, 'batch': 873}
+    assert bundle['ordered_frontier_after'] == {'original': 2592, 'batch': 881}
+    assert bundle['population_deltas_separate'] == {'original_roles': 21, 'overlays': 0, 'frozen_merged_paths': 0,
+        'original_shared_scopes': 0, 'registered_extensions': 0, 'global_source_identities': 0, 'accepted_unique_findings': 0}
+    assert bundle['product_execution'] is False and bundle['implementation_gate_complete'] is False
+    proposals = {}
+    for b, ref in zip(range(873, 881), bundle['immutable_proposals'], strict=True):
+        j = obj(ref)
+        assert j['lens'] == 12 and j['proposed_batch'] == ref['batch'] == b
+        assert j['accepted_unique_count_change'] == 0 and j['product_execution'] is False
+        assert j['authoritative_ledger_written'] is False and j['current_source_reconciled'] is False
+        assert j['implementation_gate_complete'] is False and j['pending_connected_contracts']
+        assert j['new_overlay_merged_shared_extension_credit'] == 0
+        assert j['new_original_roles_proposed'] == len(j['rows'])
+        assert [x['original_index'] for x in j['rows']] == list(range(j['proposed_original_before'], j['proposed_original_after']))
+        pred = obj({'path': j['predecessor_proposal'], 'sha256': j['predecessor_proposal_sha256']})
+        assert pred['proposed_batch'] == b - 1 and pred['proposed_original_after'] == j['proposed_original_before']
+        if b == 878:
+            assert len(j['new_findings']) == 1
+            f = j['new_findings'][0]
+            assert f['id'] == 'PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL'
+            assert f['primary_original_index'] == 2587 and f['primary_source_sha256'] == originals[2587]['sha256']
+            assert f['accepted_unique_count_change'] == 0 and f['current_source_reconciled'] is False
+            for k in ('first_failed_contract', 'canonical_owner', 'exact_function_ownership',
+                      'producer_api_state_consumer_native_boundary', 'connected_repair_scope', 'dependencies', 'acceptance_requirements'):
+                assert f[k]
+        else:
+            assert j['new_findings'] == []
+        proposals[b] = j
+    rows = bundle['exact_source_read_rows']
+    assert [x['original_index'] for x in rows] == list(range(2571, 2592))
+    assert len(bundle['prospective_registration_proofs']) == len(rows) == 21
+    fresh_count = 0
+    for row in rows:
+        i, eof = row['original_index'], row['actual_EOF_or_visual_contract']
+        j = proposals[row['proposal_batch']]
+        raw, original = pointer(j, row['proposal_row_pointer']), originals[i]
+        g = obj(row['registration_ref_and_sha256'])
+        assert g['lens'] == 12 and g['original_index'] == i and 'Prospective' in g['kind']
+        assert g['original_record'] == original and g['original_registry_sha256'] == REGISTRY_SHA
+        assert g['source_id'] == raw['source_id'] == row['source_id'] == original['source_id']
+        assert g['source_sha256'] == raw['source_sha256'] == row['source_sha256'] == original['sha256']
+        assert eof == raw['actual_EOF'] == g['actual_EOF'] == original['actual_line_count']
+        have = points(pairs(row['assessed_ranges'], eof))
+        assert raw['assessed_ranges'] == row['assessed_ranges'] == row['requested_ranges'] == g['ranges']
+        assert raw['fresh_personal_body_reads'] == row['fresh_personal_ranges'] == row['assessed_ranges']
+        assert row['qualified_same_lens_reuse_ranges_and_exact_proofs'] == []
+        assert row['registration_ref_and_sha256'] == {'path': raw['registration'], 'sha256': raw['registration_sha256']}
+        assert row['complete_relevant_functions_and_dependencies'] == raw['function_contract']
+        assert raw['function_contract']['exact_function_ownership']
+        assert points(pairs(row['unread_ranges'], eof)) == set(range(1, eof + 1)) - have
+        assert row['read_attribution'] == raw['attribution'] == 'Subagent /root/lens12_frontier personal prospective bounded untruncated read'
+        assert datetime.datetime.fromisoformat(g['registered_at']) < datetime.datetime.fromisoformat(j['at'])
+        assert row['body_output_truncation_status'] == 'All credited body packets untruncated; metadata-only truncations confer zero credit'
+        wanted, windows = metadata(original, eof)
+        assert points(wanted) <= have
+        q = obj(raw['identity_specific_windows_qualification'])
+        assert q['original_index'] == i and q['source_id'] == row['source_id'] and q['source_sha256'] == row['source_sha256']
+        assert q['actual_EOF'] == eof
+        if i <= 2587:
+            assert q['registry_sha256'] == REGISTRY_SHA
+            assert q['fields'] == [{'registry_json_pointer': '/files/' + str(i) + loc, 'raw_value': value} for loc, value in windows]
+            assert g['identity_specific_windows_qualification'] == raw['identity_specific_windows_qualification']
+        else:
+            assert i in {2588, 2589, 2590, 2591} and q['original_registry_sha256'] == REGISTRY_SHA
+            assert q['registration'] == row['registration_ref_and_sha256']
+            assert [(f['json_pointer'], f['raw_value']) for f in q['fields']] == windows
+        if i in OLD_NATIVE:
+            package, member = OLD_NATIVE[i]
+            assert g['native_package'] == raw['native_package'] == package
+            checksum = CHECKSUMS[package]
+            assert g['package_archive_sha256'] == raw['package_archive_sha256'] == checksum
+            assert g['archive_member'] == raw['archive_member'] == package + '/' + member
+            archive = pathlib.Path(g['package_archive'])
+            authority = obj(g['locked_source_authorities'])
+            assert g['locked_source_authorities'] == raw['locked_source_authorities']
+        elif i in NEW_NATIVE:
+            package, member = NEW_NATIVE[i]
+            checksum = CHECKSUMS[package]
+            n = g['native_archive_provenance']
+            assert n['archive_sha256'] == checksum and n['exact_member'] == package + '/' + member
+            assert n['member_sha256'] == row['source_sha256']
+            archive = pathlib.Path(n['cached_archive'])
+            authority = obj(n['lock_authority'])
+        else:
+            assert i in set(range(2578, 2588)) | {2591}
+        if i in OLD_NATIVE or i in NEW_NATIVE:
+            assert sha(archive) == checksum and [a['original_index'] for a in authority['rows']] == [39, 497]
+            for a in authority['rows']:
+                ag = obj({'path': a['registration'], 'sha256': a['registration_sha256']})
+                assert a['source_id'] == ag['source_id'] == originals[a['original_index']]['source_id']
+                assert a['source_sha256'] == ag['source_sha256'] == originals[a['original_index']]['sha256']
+                ab = subprocess.check_output(['git', 'show', a['frozen_git_revision'] + ':' + a['git_path']])
+                assert hashlib.sha256(ab).hexdigest() == a['source_sha256']
+                assert len(ab.splitlines()) == a['actual_EOF'] == ag['actual_EOF']
+                assert a['assessed_ranges'] == a['fresh_personal_body_reads'] == ag['ranges']
+                assert a['body_output_truncation_status'] == 'untruncated'
+                assert datetime.datetime.fromisoformat(ag['registered_at']) < datetime.datetime.fromisoformat(authority['at'])
+                assert checksum.encode() in b'\n'.join(ab.splitlines()[lo - 1:hi][n] for lo, hi in a['assessed_ranges'] for n in range(hi - lo + 1))
+            with tarfile.open(archive) as tf:
+                data = tf.extractfile(package + '/' + member).read()
+        if i >= 2578:
+            assert g['frozen_git_revision'] == raw['frozen_git_revision'] == ARCHIVE
+            assert g['git_path'] == raw['git_path'] == 'handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/' + row['source_sha256']
+            gb = subprocess.check_output(['git', 'show', g['frozen_git_revision'] + ':' + g['git_path']])
+            if i in NEW_NATIVE:
+                assert gb == data
+            else:
+                data = gb
+        assert hashlib.sha256(data).hexdigest() == row['source_sha256']
+        assert len(data.splitlines()) == eof and sha(R / raw['source_object']) == row['source_sha256']
+        fresh_count += len(have)
+    assert fresh_count == bundle['recovery_checkpoint']['fresh_personal_assessed_lines_counted_once'] == 2882
+    for ref in bundle['qualifications']:
+        obj(ref)
+    for ref in bundle['recovery_checkpoint']['bounded_partial_receipts']:
+        packet = obj(ref)
+        for r in packet['rows']:
+            rg = obj({'path': r['registration'], 'sha256': r['registration_sha256']})
+            assert r['source_id'] == rg['source_id'] and r['source_sha256'] == rg['source_sha256']
+            assert r['actual_EOF'] == rg['actual_EOF']
+            assert points(pairs(r['fresh_personal_body_reads'], r['actual_EOF'])) <= points(pairs(r['assessed_ranges'], r['actual_EOF'])) <= points(pairs(rg['ranges'], r['actual_EOF']))
+            assert r['body_output_truncation_status'] == 'untruncated'
+    assert len(bundle['contract_updates']) == 3 and len(bundle['current_delta_updates']) == 8
+    for update in bundle['contract_updates']:
+        assert update['lens'] == 12
+        for k in ('contract_id_or_proposed_new_id', 'canonical_owner_or_explicit_unresolved_owner_question',
+                  'first_failed_contract_or_unresolved_question', 'exact_source_identities_and_assessed_ranges',
+                  'remaining_evidence', 'dependencies', 'closure_condition'):
+            assert update[k]
+        for proof in update['exact_source_identities_and_assessed_ranges']:
+            assert proof['source_id'] and proof['source_sha256'] and proof['assessed_ranges'] and proof['attribution']
+    assert all(x['new_current_source_credit'] == 0 for x in bundle['current_delta_updates'])
+    assert sha(lp) == args.ledger_sha256 and sha(sp) == args.selector_sha256
+    print(json.dumps({'preflight': 'passed', 'mode': 'read_only', 'authority_writes': 0, 'bundle_sha256': BUNDLE_SHA,
+        'original_roles': 21, 'proposals': 8, 'fresh_personal_lines': fresh_count, 'qualified_reuse_lines': 0,
+        'new_candidate_finding_count': 1, 'accepted_count_change': 0, 'semantic_review_required': True,
+        'implementation_gate_complete': False}))
+
+
+if __name__ == '__main__':
+    main()

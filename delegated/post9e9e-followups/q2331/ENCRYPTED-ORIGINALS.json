@@ -1,0 +1,44 @@
+{
+  "schema": "q2331-authenticated-originals-v1",
+  "cipher": "AES-256-GCM",
+  "private_key_bytes": 32,
+  "originals": [
+    {
+      "logical_path": "historical-originals/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+      "ciphertext": "ENCRYPTED-00.bin",
+      "format": "AES-256-GCM; first 12 bytes nonce; associated data is UTF-8 logical_path",
+      "ciphertext_sha256": "67f1f7787bbd139205eba0bbda457661becc727408ae8756fb5c81b9ff0852dc",
+      "ciphertext_bytes": 161253,
+      "original_sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+      "original_bytes": 161225,
+      "redacted_sha256": "708483e17be97d3ce7fd6b2016cc7b4bde31ed53e6e9fcbdcaedc5eb57724260",
+      "redacted_bytes": 160447,
+      "redacted_occurrences": 10
+    },
+    {
+      "logical_path": "historical-originals/parallel-l12-20261029/PROPOSAL-L12-873.json",
+      "ciphertext": "ENCRYPTED-01.bin",
+      "format": "AES-256-GCM; first 12 bytes nonce; associated data is UTF-8 logical_path",
+      "ciphertext_sha256": "51ee70fe9ce21a28f7d1d911e60b09f3a7cf65c739cafb2f8bb66304168e3396",
+      "ciphertext_bytes": 18528,
+      "original_sha256": "b55f83388524f74abdcb09c1df974c6065bdb711c214a4c66f636162146cd363",
+      "original_bytes": 18500,
+      "redacted_sha256": "bb950cccc650b8f130407613d035be74fd93f8f1e1b9d90af09b03562be31541",
+      "redacted_bytes": 18190,
+      "redacted_occurrences": 4
+    },
+    {
+      "logical_path": "historical-originals/segovb/READ-L12-873.json",
+      "ciphertext": "ENCRYPTED-02.bin",
+      "format": "AES-256-GCM; first 12 bytes nonce; associated data is UTF-8 logical_path",
+      "ciphertext_sha256": "589a19fcce64bccc98d193c283cd3643cf461dd832a7d1db5040d2d098ab4a1d",
+      "ciphertext_bytes": 21759,
+      "original_sha256": "3e8e0d143e3f4fbe563366e2d9a958ffce9868c14f9078642754ca77dc6f8b2a",
+      "original_bytes": 21731,
+      "redacted_sha256": "8e456ab49d984d61048f14f5cf152991dc865f2040a264805b6d6a79fd153ccc",
+      "redacted_bytes": 21421,
+      "redacted_occurrences": 4
+    }
+  ],
+  "qualification": "Ciphertexts retain exact original bytes. A separate restricted key is required; same-machine temporary key storage is a recovery dependency, not independent public recoverability."
+}

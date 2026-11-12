@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs:245-299
+ 245     schedule: Schedule,
+ 246 ) {
+ 247     let (start_minute, end_minute) = match schedule {
+ 248         Schedule::Day => (360, 1200),
+ 249         Schedule::Evening => (720, 1380),
+ 250         Schedule::Early => (240, 960),
+ 251         Schedule::Provider => (0, MINUTES_PER_DAY as u16),
+ 252     };
+ 253     ctx.db
+ 254         .settlement_resident_presence()
+ 255         .insert(SettlementResidentPresence {
+ 256             character_id: draft.character_id(),
+ 257             settlement_id: settlement_id.into(),
+ 258             location_id: draft.location.clone(),
+ 259             start_minute,
+ 260             end_minute,
+ 261             is_default: draft.is_default,
+ 262             context_suppressed: false,
+ 263             health_suppressed: false,
+ 264         });
+ 265 }
+ 266 
+ 267 pub(super) fn insert_resident_draft(
+ 268     ctx: &ReducerContext,
+ 269     settlement_id: &str,
+ 270     draft: ResidentDraft,
+ 271 ) -> Result<(), String> {
+ 272     if reuse_existing(ctx, settlement_id, &draft)? {
+ 273         return Ok(());
+ 274     }
+ 275     let prepared = PreparedResident::new(&draft)?;
+ 276     insert_identity(ctx, settlement_id, &draft, &prepared)?;
+ 277     let resident = insert_profile(ctx, settlement_id, &draft, &prepared);
+ 278     ensure_roles(
+ 279         ctx,
+ 280         settlement_id,
+ 281         resident.character_id,
+ 282         &resident.profession,
+ 283     )?;
+ 284     insert_presence(ctx, settlement_id, &draft, prepared.profile.schedule);
+ 285     ensure_business_operator_row(ctx, draft.business_id.as_ref(), draft.character_id())?;
+ 286     let explanation = PersistedGenerationExplanation {
+ 287         input: prepared.input,
+ 288         profile: prepared.profile,
+ 289     };
+ 290     let relations_json = serde_json::to_string(&explanation)
+ 291         .map_err(|error| format!("Could not serialize population explanation: {error}"))?;
+ 292     ctx.db
+ 293         .settlement_resident_seed_explanation()
+ 294         .insert(SettlementResidentSeedExplanation {
+ 295             character_id: draft.character_id(),
+ 296             relations_json,
+ 297         });
+ 298     Ok(())
+ 299 }

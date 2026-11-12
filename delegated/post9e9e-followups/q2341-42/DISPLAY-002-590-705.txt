@@ -1,0 +1,116 @@
+ 590     }
+ 591     ctx.db
+ 592         .party_authority()
+ 593         .gateway_bucket()
+ 594         .filter(0u8)
+ 595         .collect()
+ 596 }
+ 597 
+ 598 #[derive(Clone, Debug, Default, PartialEq, SpacetimeType)]
+ 599 pub struct JourneyCampInterval {
+ 600     pub movement_minute: u64,
+ 601     pub elapsed_start_minute: u64,
+ 602     pub elapsed_minutes: u64,
+ 603     pub average_fatigue_start: f32,
+ 604     pub average_fatigue_end: f32,
+ 605     pub maximum_fatigue_end: f32,
+ 606 }
+ 607 
+ 608 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
+ 609 pub struct JourneySettlementEndpoint {
+ 610     pub id: String,
+ 611     pub name: String,
+ 612 }
+ 613 
+ 614 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
+ 615 pub struct JourneyCaseSiteEndpoint {
+ 616     pub id: CaseSiteId,
+ 617     pub name: String,
+ 618 }
+ 619 
+ 620 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
+ 621 pub enum JourneyEndpoint {
+ 622     Settlement(JourneySettlementEndpoint),
+ 623     CaseSite(JourneyCaseSiteEndpoint),
+ 624     Camp(String),
+ 625 }
+ 626 
+ 627 impl JourneyEndpoint {
+ 628     fn settlement_id(&self) -> Option<&str> {
+ 629         match self {
+ 630             Self::Settlement(endpoint) => Some(&endpoint.id),
+ 631             _ => None,
+ 632         }
+ 633     }
+ 634 
+ 635     fn case_site_id(&self) -> Option<&str> {
+ 636         match self {
+ 637             Self::CaseSite(endpoint) => Some(endpoint.id.as_str()),
+ 638             _ => None,
+ 639         }
+ 640     }
+ 641 }
+ 642 
+ 643 /// The durable strategic record behind the travel tracker. Party location
+ 644 /// answers where the party is right now; this record retains the journey's
+ 645 /// original endpoints, completed camp stops, and authoritative forecast.
+ 646 #[derive(Clone, Debug)]
+ 647 #[table(accessor = party_journey_authority)]
+ 648 pub struct PartyJourney {
+ 649     #[primary_key]
+ 650     pub party_id: String,
+ 651     #[index(btree)]
+ 652     pub gateway_bucket: u8,
+ 653     pub origin: JourneyEndpoint,
+ 654     pub destination: JourneyEndpoint,
+ 655     pub total_movement_minutes: u64,
+ 656     pub completed_movement_minutes: u64,
+ 657     /// Movement coordinates for camps the party has actually reached.
+ 658     pub reached_camp_movement_minutes: Vec<u64>,
+ 659     pub actual_camp_intervals: Vec<JourneyCampInterval>,
+ 660     pub forecast_camp_intervals: Vec<JourneyCampInterval>,
+ 661     /// A journey keeps the leader's chosen threshold from departure.
+ 662     pub fatigue_percent: u8,
+ 663     /// Journey-local minute at the beginning of this leg, represented on the
+ 664     /// excursion's frozen canonical day. `completed_elapsed_minutes` remains
+ 665     /// the monotonic progress coordinate for this leg.
+ 666     pub departure_minute: StrategicMinute,
+ 667     pub total_elapsed_minutes: u64,
+ 668     pub completed_elapsed_minutes: u64,
+ 669     pub walking_minutes_per_day: u16,
+ 670     pub travel_at_night: bool,
+ 671 }
+ 672 
+ 673 /// Private encounter authority. Public journey and encounter projections never
+ 674 /// reveal future-roll entropy to clients.
+ 675 #[derive(Clone, Debug)]
+ 676 #[table(accessor = party_journey_encounter_authority)]
+ 677 pub struct PartyJourneyEncounterAuthority {
+ 678     #[primary_key]
+ 679     pub party_id: String,
+ 680     pub seed: Seed,
+ 681     pub next_roll: u64,
+ 682     pub narrative_rest_elapsed_minutes: u64,
+ 683 }
+ 684 
+ 685 #[derive(Clone, Debug, PartialEq, SpacetimeType)]
+ 686 pub struct StrategicEncounterLoss {
+ 687     pub owner_kind: String,
+ 688     pub owner_id: u64,
+ 689     pub inventory_id: u64,
+ 690     pub item_id: String,
+ 691     pub quantity: u32,
+ 692     pub value_each: u32,
+ 693 }
+ 694 
+ 695 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
+ 696 pub enum StrategicEncounterStatus {
+ 697     AwaitingChoice,
+ 698     Resolved,
+ 699 }
+ 700 
+ 701 /// Durable strategic interruption only. Tactical exchanges, positions, HP,
+ 702 /// and enemies remain transient and are committed only through final outcomes.
+ 703 #[derive(Clone, Debug)]
+ 704 #[table(accessor = strategic_encounter, public)]
+ 705 pub struct StrategicEncounter {

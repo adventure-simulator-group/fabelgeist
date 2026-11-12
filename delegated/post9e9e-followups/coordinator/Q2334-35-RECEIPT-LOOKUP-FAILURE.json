@@ -1,0 +1,6 @@
+{
+  "event": "q2334-35 scan receipt metadata lookup",
+  "failure": "A read-only navigation command attempted to open RECEIPT.json, which is not present at that name. It stopped before reading content.",
+  "effect": "No files were changed; the exact failed command and traceback remain in the tool transcript.",
+  "qualification": "Identify the sealed receipt by its actual name before any later use; no verification credit is inferred from the failed lookup."
+}

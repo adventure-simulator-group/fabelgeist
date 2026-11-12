@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/relationship/mod.rs:116-175
+ 116                         ctx,
+ 117                         LifecycleEventKind::Wedding,
+ 118                         &id,
+ 119                         effective_minute,
+ 120                         now,
+ 121                         error,
+ 122                     );
+ 123                 }
+ 124             }
+ 125             DueLifecycleEvent::Birth {
+ 126                 effective_minute,
+ 127                 id,
+ 128                 mother_id,
+ 129             } => {
+ 130                 let pregnancy = ctx.db.pregnancy().id().find(&id);
+ 131                 if let Some(error) = pregnancy
+ 132                     .as_ref()
+ 133                     .and_then(|pregnancy| validate_due_birth(ctx, pregnancy).err())
+ 134                 {
+ 135                     quarantine_invalid_birth(ctx, &id, effective_minute);
+ 136                     record_lifecycle_failure(
+ 137                         ctx,
+ 138                         LifecycleEventKind::Birth,
+ 139                         &id,
+ 140                         effective_minute,
+ 141                         now,
+ 142                         error,
+ 143                     );
+ 144                 } else {
+ 145                     // Preflight precedes every write. An unexpected failure in
+ 146                     // the commit path aborts this reducer transaction instead
+ 147                     // of being caught after partial character construction.
+ 148                     settle_due_births(ctx, mother_id, effective_minute)?;
+ 149                 }
+ 150             }
+ 151         }
+ 152     }
+ 153     Ok(count)
+ 154 }
+ 155 
+ 156 #[cfg(test)]
+ 157 pub(crate) const RELATIONSHIP_SOURCE: &str = concat!(
+ 158     include_str!("model.rs"),
+ 159     include_str!("projections.rs"),
+ 160     include_str!("chronology.rs"),
+ 161     include_str!("family.rs"),
+ 162     include_str!("commitments.rs"),
+ 163     include_str!("marriage.rs"),
+ 164     include_str!("reproduction.rs"),
+ 165     include_str!("lifecycle.rs"),
+ 166     include_str!("socializing.rs"),
+ 167     include_str!("courtship_discovery.rs"),
+ 168     include_str!("courtship.rs"),
+ 169     include_str!("mod.rs"),
+ 170 );
+ 171 
+ 172 #[cfg(test)]
+ 173 mod tests {
+ 174     use super::*;
+ 175 

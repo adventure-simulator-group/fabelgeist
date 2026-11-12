@@ -1,0 +1,56 @@
+ 510             match inventory_scope {
+ 511                 CarriedInventoryScope::Personal => {
+ 512                     ctx.db
+ 513                         .inventory_item_amount()
+ 514                         .inventory_item_id()
+ 515                         .delete(id);
+ 516                     ctx.db.inventory_item().id().delete(id);
+ 517                     delete_personal_food_lot(ctx, id);
+ 518                 }
+ 519                 CarriedInventoryScope::Party => {
+ 520                     ctx.db
+ 521                         .party_item_amount()
+ 522                         .party_inventory_item_id()
+ 523                         .delete(id);
+ 524                     ctx.db.party_inventory_item().id().delete(id);
+ 525                     delete_party_food_lot(ctx, id);
+ 526                 }
+ 527             }
+ 528         } else {
+ 529             retain_lot_fraction(
+ 530                 &mut lot,
+ 531                 1.0 - fraction.get() as f32 / available.get() as f32,
+ 532             )?;
+ 533             let remaining = available
+ 534                 .checked_sub(fraction)
+ 535                 .expect("selected ingredient fraction cannot exceed availability");
+ 536             ctx.db.food_lot().id().update(lot);
+ 537             match inventory_scope {
+ 538                 CarriedInventoryScope::Personal => {
+ 539                     ctx.db.inventory_item_amount().inventory_item_id().update(
+ 540                         crate::InventoryItemAmount {
+ 541                             inventory_item_id: id,
+ 542                             remaining_fraction_micros: remaining.get(),
+ 543                         },
+ 544                     );
+ 545                 }
+ 546                 CarriedInventoryScope::Party => {
+ 547                     ctx.db.party_item_amount().party_inventory_item_id().update(
+ 548                         crate::PartyItemAmount {
+ 549                             party_inventory_item_id: id,
+ 550                             remaining_fraction_micros: remaining.get(),
+ 551                         },
+ 552                     );
+ 553                 }
+ 554             };
+ 555         }
+ 556     }
+ 557     name_parts.sort();
+ 558     name_parts.dedup();
+ 559     let raw_contamination = food::microbial_concentration(loads.iter().sum(), mass);
+ 560     let raw_growth_per_hour = if mass > 0.0 { growth_mass / mass } else { 0.0 };
+ 561     let ready_nutrition_retention =
+ 562         food::cooked_nutrition_retention(check) * food::method_nutrition_retention(method);
+ 563     ctx.db.fireplace_dish().insert(FireplaceDish {
+ 564         station_key: station.key.clone(),
+ 565         character_id,

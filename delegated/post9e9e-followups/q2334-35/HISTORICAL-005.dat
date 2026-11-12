@@ -1,0 +1,148 @@
+{
+  "lens": 13,
+  "kind": "Separatecurrentreachedsubtree/depth dependencyadoption;0originalcredit",
+  "at": "2026-10-30T03:54:15.003390+00:00",
+  "source_receipt": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+    "sha256": "82cca9fb43b38371460ee506d466af9885c055140e7df974b72016894c8f0d97"
+  },
+  "exact_source_rows": [
+    {
+      "original": null,
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/inventory_containers.rs",
+      "canonical_path": "crates/adventuresim-core/src/inventory_containers.rs",
+      "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_eof": 256,
+      "prospective_ranges": [
+        [
+          157,
+          256
+        ]
+      ],
+      "purpose": "Complete reached core insert->subtree recursion/depth/capacity dependencies beyondpriorpartial150..156, exactcurrentidentity,no priorcoverage widened",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+        "sha256": "6724b5b70f6c5965f8633d9dbb0863796461b842b400d69390f90621a389462e"
+      },
+      "registration_pointer": "/sources/0",
+      "fresh_personal_assessed_ranges": [
+        [
+          157,
+          256
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": null,
+      "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/inventory_containers.rs",
+      "canonical_path": "crates/adventuresim-core/src/inventory_containers.rs",
+      "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_eof": 256,
+      "prospective_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "purpose": "Complete actualMAX_CONTAINER_DEPTH declaration/imports reachedbycore insert/subtree before claiming full currentcontainerowner",
+      "original_credit_now": 0,
+      "original_role_credit_now": 0,
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-CURRENT-ZEROOPTION-SUBTREE-SUPPLEMENT-001.json",
+        "sha256": "d1abdc5f13686ba3882eb88d2953ec14a13da912cc89f1d09ffed109822234d7"
+      },
+      "registration_pointer": "/sources/0",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "strict_preflight": {
+    "preflight_only": true,
+    "authoritative_writes": 0,
+    "current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "selected_current_rows": 2,
+    "qualified_prior_current_source_components": 2,
+    "exact_full_core_source_union": [
+      [
+        1,
+        256
+      ]
+    ],
+    "new_authority_records_not_unique": 2,
+    "original_frontier_unchanged": 1180,
+    "original_overlay_merged_shared_unique_credit": 0,
+    "all_other_lenses_queue": {
+      "path": "parallel-l13-20261029/EXTENSION-QUEUE-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+      "sha256": "43a992597f91ffef7eb67df25647a853300a4ec9137e6a776ff5217add325f70"
+    },
+    "current_global_closed": false,
+    "product_execution": false
+  },
+  "scope_union": {
+    "source_id": "current-main@e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/inventory_containers.rs",
+    "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+    "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "actual_eof": 256,
+    "prior_personal_assessed_ranges": [
+      [
+        11,
+        78
+      ],
+      [
+        77,
+        156
+      ]
+    ],
+    "new_personal_assessed_ranges": [
+      [
+        157,
+        256
+      ],
+      [
+        1,
+        10
+      ]
+    ],
+    "cumulative_own_personal_source_ranges": [
+      [
+        1,
+        256
+      ]
+    ],
+    "newly_complete_reached_function": {
+      "subtree": [
+        [
+          150,
+          174
+        ]
+      ]
+    },
+    "MAX_CONTAINER_DEPTH_declaration": [
+      [
+        9,
+        9
+      ]
+    ],
+    "prior_source_rows_not_relabelled_as_new": true
+  },
+  "additive_qualification": {
+    "path": "parallel-l13-20261029/QUALIFICATION-PL13-CURRENT-ZEROOPTION-SUBTREE-001.json",
+    "sha256": "c10649b0b58a1f0fd31554f6d11aa64928cf56ec368f037bf25df8b31452be07"
+  },
+  "runtime_validation": "Not run",
+  "original_overlay_merged_shared_unique_credit": 0,
+  "current_global_closed": false,
+  "implementation_gate_complete": false
+}

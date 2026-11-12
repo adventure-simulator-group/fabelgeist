@@ -1,0 +1,51 @@
+SOURCE crates/adventuresim-stdb-module/src/inventory_container.rs:1116-1165
+1116     }
+1117     Ok(())
+1118 }
+1119 
+1120 pub(crate) fn consume_contained_water(
+1121     ctx: &ReducerContext,
+1122     consumer_character_id: u64,
+1123     expected_custody: &OperationalCustody,
+1124     requested_ml: u64,
+1125 ) -> Result<u64, String> {
+1126     let mut liquids = Vec::new();
+1127     for liquid in ctx
+1128         .db
+1129         .container_liquid()
+1130         .iter()
+1131         .filter(|liquid| liquid.liquid_item_id == WATER_ITEM_ID)
+1132     {
+1133         let object = ctx
+1134             .db
+1135             .inventory_object()
+1136             .id()
+1137             .find(liquid.container_object_id)
+1138             .ok_or("Contained water has no physical container object")?;
+1139         let resolved = crate::object_custody::resolve_object_custody(ctx, &object)?;
+1140         if resolved.root == *expected_custody {
+1141             liquids.push(liquid);
+1142         }
+1143     }
+1144     liquids.sort_by_key(|liquid| liquid.container_object_id);
+1145     let mut remaining = requested_ml;
+1146     for mut liquid in liquids {
+1147         let consumed = remaining.min(liquid.water_ml);
+1148         crate::outbreak::consume_container_water_contributions(
+1149             ctx,
+1150             liquid.container_object_id,
+1151             liquid.water_ml,
+1152             consumed,
+1153             consumer_character_id,
+1154         )?;
+1155         liquid.water_ml -= consumed;
+1156         remaining -= consumed;
+1157         if liquid.water_ml == 0 {
+1158             ctx.db
+1159                 .container_liquid()
+1160                 .container_object_id()
+1161                 .delete(liquid.container_object_id);
+1162             merge_empty_container(ctx, liquid.container_object_id)?;
+1163         } else {
+1164             ctx.db
+1165                 .container_liquid()

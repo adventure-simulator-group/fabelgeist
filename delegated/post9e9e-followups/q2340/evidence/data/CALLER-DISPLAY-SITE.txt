@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-stdb-module/src/investigation/sites.rs:320-400
+ 320         )
+ 321 }
+ 322 
+ 323 pub(crate) fn exact_case_site_for_observer_at(
+ 324     ctx: &ReducerContext,
+ 325     observer_character_id: u64,
+ 326     case_site_id: &str,
+ 327     minute: StrategicMinute,
+ 328 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
+ 329     let requested_place = canonical_case_site_place(case_site_id)?;
+ 330     let site = ctx
+ 331         .db
+ 332         .case_site_authority()
+ 333         .id_key()
+ 334         .find(case_site_id.to_string())?;
+ 335     if site.id.to_place() != requested_place {
+ 336         return None;
+ 337     }
+ 338     let generated_aliases = case_site_provenance_reducer(ctx, &site)?;
+ 339     ctx.db
+ 340         .investigation_lead()
+ 341         .owner_character_id()
+ 342         .filter(observer_character_id)
+ 343         .find(|lead| {
+ 344             canonical_case_site_place(&lead.exact_location_id)
+ 345                 .is_some_and(|lead_place| lead_place == requested_place)
+ 346                 && (lead.case_id == site.case_id
+ 347                     || generated_aliases
+ 348                         .as_ref()
+ 349                         .is_some_and(|aliases| lead.case_id == aliases.1.as_str()))
+ 350                 && lead.latitude_e7 == site.latitude_e7
+ 351                 && lead.longitude_e7 == site.longitude_e7
+ 352                 && lead_is_live_at(ctx, lead, minute)
+ 353                 && lead.destination_stage.is_exact()
+ 354         })
+ 355         .map(|lead| (site, lead))
+ 356 }
+ 357 
+ 358 /// Observer-safe physical occupancy at one disclosed canonical case site.
+ 359 pub(crate) fn case_site_presence_for_observer(
+ 360     ctx: &ReducerContext,
+ 361     observer_character_id: u64,
+ 362     character_id: u64,
+ 363     minute: StrategicMinute,
+ 364 ) -> Option<adventuresim_core::strategic_presence::StrategicPresence> {
+ 365     let occupancy =
+ 366         crate::investigation::character_case_site_occupancy_at(ctx, character_id, minute)?;
+ 367     let place = occupancy.case_site_id.to_place();
+ 368     let (site, _) = exact_case_site_for_observer_at(
+ 369         ctx,
+ 370         observer_character_id,
+ 371         occupancy.case_site_id.as_str(),
+ 372         minute,
+ 373     )?;
+ 374     if site.id.to_place() != place {
+ 375         return None;
+ 376     }
+ 377     adventuresim_core::strategic_presence::StrategicPresence::case_site_occupancy(
+ 378         character_id,
+ 379         place,
+ 380         adventuresim_core::strategic_presence::PresenceFrontier {
+ 381             observer_character_id,
+ 382             personal_minute: minute,
+ 383         },
+ 384         true,
+ 385         crate::relationship::character_alive_at(ctx, character_id, minute),
+ 386     )
+ 387     .ok()
+ 388 }
+ 389 
+ 390 /// Observer-safe contextual actor presence. The expected revision is supplied
+ 391 /// by the caller's live projection so stale contexts fail closed.
+ 392 pub(crate) fn case_context_presence_for_observer(
+ 393     ctx: &ReducerContext,
+ 394     observer_character_id: u64,
+ 395     membership: &crate::world_actor::CharacterContextMembership,
+ 396     expected_membership_id: &str,
+ 397     expected_revision: u32,
+ 398     minute: StrategicMinute,
+ 399 ) -> Option<adventuresim_core::strategic_presence::StrategicPresence> {
+ 400     if !matches!(

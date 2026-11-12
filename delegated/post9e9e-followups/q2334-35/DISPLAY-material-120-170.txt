@@ -1,0 +1,51 @@
+ 120 /// Exact volume measured in microliters.
+ 121 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+ 122 pub struct Microliters(u64);
+ 123 
+ 124 impl Microliters {
+ 125     pub const MICROLITERS_PER_MILLILITER: u64 = 1_000;
+ 126     pub const MICROLITERS_PER_LITER: u64 = 1_000_000;
+ 127     pub const ZERO: Self = Self(0);
+ 128 
+ 129     pub const fn new(value: u64) -> Self {
+ 130         Self(value)
+ 131     }
+ 132 
+ 133     pub fn try_from_milliliters(milliliters: Milliliters) -> Result<Self, MaterialError> {
+ 134         milliliters
+ 135             .get()
+ 136             .checked_mul(Self::MICROLITERS_PER_MILLILITER)
+ 137             .map(Self)
+ 138             .ok_or(MaterialError::Overflow)
+ 139     }
+ 140 
+ 141     pub fn try_from_nonnegative_milliliters_rounded(milliliters: f32) -> Option<Self> {
+ 142         if !milliliters.is_finite() || milliliters < 0.0 {
+ 143             return None;
+ 144         }
+ 145         let microliters = (milliliters * Self::MICROLITERS_PER_MILLILITER as f32).round();
+ 146         (microliters <= u64::MAX as f32).then_some(Self(microliters as u64))
+ 147     }
+ 148 
+ 149     pub const fn get(self) -> u64 {
+ 150         self.0
+ 151     }
+ 152 
+ 153     pub const fn is_zero(self) -> bool {
+ 154         self.0 == 0
+ 155     }
+ 156 
+ 157     pub const fn min(self, other: Self) -> Self {
+ 158         Self(if self.0 < other.0 { self.0 } else { other.0 })
+ 159     }
+ 160 
+ 161     pub const fn checked_add(self, other: Self) -> Option<Self> {
+ 162         match self.0.checked_add(other.0) {
+ 163             Some(value) => Some(Self(value)),
+ 164             None => None,
+ 165         }
+ 166     }
+ 167 
+ 168     pub const fn checked_sub(self, other: Self) -> Option<Self> {
+ 169         match self.0.checked_sub(other.0) {
+ 170             Some(value) => Some(Self(value)),

@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/encounters.rs:1370-1445
+1370     refresh_party_journey_forecast(ctx, &party.id)?;
+1371     Ok(())
+1372 }
+1373 
+1374 fn revalidate_party_after_departure_sync(
+1375     ctx: &ReducerContext,
+1376     party_id: &str,
+1377     leader_id: u64,
+1378     expected_settlement_id: Option<&str>,
+1379     expected_quest_location_id: Option<&str>,
+1380     expected_active_contract_id: Option<&str>,
+1381     allow_incapacitated_case_site_withdrawal: bool,
+1382 ) -> Result<Party, String> {
+1383     let party = ctx
+1384         .db
+1385         .party_authority()
+1386         .id()
+1387         .find(party_id.to_string())
+1388         .ok_or("Party changed during departure synchronization")?;
+1389     let party_matches = party.leader_id == leader_id
+1390         && party.camp_destination.is_none()
+1391         && party.current_settlement_id.as_deref() == expected_settlement_id
+1392         && party.current_case_site_id.as_deref() == expected_quest_location_id
+1393         && !expected_active_contract_id
+1394             .is_some_and(|id| party.active_contract_id.as_deref() != Some(id));
+1395     let pending_incident_sites: Vec<_> = ctx
+1396         .db
+1397         .strategic_incident()
+1398         .party_id()
+1399         .filter(party_id)
+1400         .filter(|incident| incident.status == IncidentStatus::Pending)
+1401         .map(|incident| incident.case_site_id.into_string())
+1402         .collect();
+1403     if !departure_snapshot_allows_travel(
+1404         party_matches,
+1405         true,
+1406         pending_incident_allows_departure(
+1407             expected_quest_location_id,
+1408             pending_incident_sites.iter().map(String::as_str),
+1409         ),
+1410     ) {
+1411         return Err("Travel was interrupted while the party synchronized its clocks".into());
+1412     }
+1413     let members = living_party_member_ids(ctx, party_id);
+1414     let members_match = !members.is_empty()
+1415         && !members.iter().any(|id| {
+1416             ctx.db.character().id().find(*id).is_none_or(|member| {
+1417                 member.current_settlement_id.as_deref() != expected_settlement_id
+1418                     || crate::investigation::character_case_site_id(ctx, member.id).as_deref()
+1419                         != expected_quest_location_id
+1420             })
+1421         });
+1422     if !departure_snapshot_allows_travel(true, members_match, true) {
+1423         return Err("A party member changed location during departure synchronization".into());
+1424     }
+1425     if departure_requires_ready_party(
+1426         expected_settlement_id,
+1427         expected_quest_location_id,
+1428         allow_incapacitated_case_site_withdrawal,
+1429     ) {
+1430         require_party_ready(ctx, party_id)?;
+1431     }
+1432     Ok(party)
+1433 }
+1434 
+1435 fn departure_requires_ready_party(
+1436     expected_settlement_id: Option<&str>,
+1437     expected_case_site_id: Option<&str>,
+1438     allow_incapacitated_case_site_withdrawal: bool,
+1439 ) -> bool {
+1440     !(allow_incapacitated_case_site_withdrawal
+1441         && expected_settlement_id.is_none()
+1442         && expected_case_site_id.is_some())
+1443 }
+1444 
+1445 fn departure_snapshot_allows_travel(

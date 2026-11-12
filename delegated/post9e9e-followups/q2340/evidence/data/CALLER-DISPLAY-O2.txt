@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/outbreak.rs:1850-1905
+1850     let exposure_to = to.min(authority.remediated_at.unwrap_or(to));
+1851     if exposure_to <= from {
+1852         return Vec::new();
+1853     }
+1854     match authority.source_kind.as_str() {
+1855         "sanitation" | "behavior" => {
+1856             ctx.db
+1857                 .character()
+1858                 .id()
+1859                 .find(character_id)
+1860                 .map_or_else(Vec::new, |character| {
+1861                     (character.current_settlement_id.as_deref()
+1862                         == Some(authority.settlement_id.as_str()))
+1863                     .then_some((problem_id.to_owned(), from, exposure_to))
+1864                     .into_iter()
+1865                     .collect()
+1866                 })
+1867         }
+1868         "environmental" | "threat_vector" => ctx
+1869             .db
+1870             .outbreak_source_presence_span()
+1871             .character_id()
+1872             .filter(character_id)
+1873             .filter(|span| {
+1874                 parse_outbreak_source_fixture(
+1875                     &authority.physical_source_fixture_id,
+1876                     &authority.case_id,
+1877                 )
+1878                 .is_some_and(|fixture| fixture.place().to_string() == span.source_place_id)
+1879             })
+1880             .filter_map(|span| {
+1881                 let low = from.max(span.started_at);
+1882                 let high = exposure_to.min(span.ended_at.unwrap_or(exposure_to));
+1883                 (low < high).then_some((span.id, low, high))
+1884             })
+1885             .collect(),
+1886         _ => Vec::new(),
+1887     }
+1888 }
+1889 
+1890 pub(crate) fn record_case_site_presence_transition(
+1891     ctx: &ReducerContext,
+1892     character_id: u64,
+1893     destination_site_id: Option<&str>,
+1894 ) {
+1895     let minute = ctx
+1896         .db
+1897         .character_time()
+1898         .character_id()
+1899         .find(character_id)
+1900         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+1901     for mut span in ctx
+1902         .db
+1903         .outbreak_source_presence_span()
+1904         .character_id()
+1905         .filter(character_id)

@@ -1,0 +1,32 @@
+SOURCE crates/adventuresim-stdb-module/src/residence.rs:680-710
+ 680         .is_some_and(|presence| presence.place() == &expected_place)
+ 681         || !occupant_presence
+ 682             .as_ref()
+ 683             .is_some_and(|presence| presence.place() == &expected_place)
+ 684         || !owner_presence
+ 685             .as_ref()
+ 686             .zip(occupant_presence.as_ref())
+ 687             .is_some_and(|(owner, occupant)| are_co_present(owner, occupant))
+ 688     {
+ 689         return Err("Residence admission requires both characters to be co-located".into());
+ 690     }
+ 691     let dependent = ctx.db.character_kinship().iter().any(|edge| {
+ 692         edge.subject_id == holding.holder_character_id
+ 693             && edge.related_id == occupant_id
+ 694             && edge.established_minute <= actor_minute
+ 695             && matches!(edge.kind, KinshipKind::Parent | KinshipKind::Child)
+ 696     });
+ 697     if occupant.age_years < ADULT_AGE_YEARS && !dependent {
+ 698         return Err("Only an adult or dependent child may occupy a residence".into());
+ 699     }
+ 700     if !admission_relationship_authorized(
+ 701         ctx,
+ 702         holding.holder_character_id,
+ 703         occupant_id,
+ 704         actor_minute,
+ 705     ) {
+ 706         return Err("Only an active household member or immediate family may be admitted".into());
+ 707     }
+ 708     if ctx
+ 709         .db
+ 710         .residence_occupant()

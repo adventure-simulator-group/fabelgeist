@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-stdb-module/src/time/mod.rs:45-95
+  45 include!("model.rs");
+  46 include!("clock.rs");
+  47 include!("advancement.rs");
+  48 include!("schedule.rs");
+  49 include!("activities.rs");
+  50 include!("settlement_rest.rs");
+  51 include!("camp_rest.rs");
+  52 include!("stationary.rs");
+  53 
+  54 /// The single lifecycle boundary for an authoritative personal-clock write.
+  55 /// Callers finish injury/disease settlement first so wedding cancellation and
+  56 /// widowhood observe the final alive state at this frontier.
+  57 pub(crate) fn settle_lifecycle_after_character_time_write(
+  58     ctx: &ReducerContext,
+  59     character_id: u64,
+  60     minute: StrategicMinute,
+  61 ) -> Result<(), String> {
+  62     crate::relationship::settle_character_age(ctx, character_id, minute);
+  63     crate::continuity::settle_continuity_for_character(ctx, character_id, minute)?;
+  64     crate::residence::settle_residence_billing(ctx, character_id)?;
+  65     crate::relationship::settle_due_weddings(ctx, character_id, minute)?;
+  66     crate::relationship::settle_due_births(ctx, character_id, minute)?;
+  67     crate::relationship::settle_secret_courtship_discovery_for_character(
+  68         ctx,
+  69         character_id,
+  70         minute,
+  71     )?;
+  72     crate::relationship::settle_marriage_lifecycle_for_character(ctx, character_id, minute);
+  73     crate::outbreak::refresh_patient_context_after_time_write(ctx, character_id, minute);
+  74     Ok(())
+  75 }
+  76 
+  77 #[cfg(test)]
+  78 pub(crate) const TIME_SOURCE: &str = concat!(
+  79     include_str!("model.rs"),
+  80     include_str!("clock.rs"),
+  81     include_str!("advancement.rs"),
+  82     include_str!("schedule.rs"),
+  83     include_str!("activities.rs"),
+  84     include_str!("settlement_rest.rs"),
+  85     include_str!("camp_rest.rs"),
+  86     include_str!("stationary.rs"),
+  87     include_str!("mod.rs"),
+  88 );
+  89 
+  90 #[cfg(test)]
+  91 mod tests {
+  92     use super::*;
+  93 
+  94     mod clock_and_advancement {
+  95         include!("tests/clock_and_advancement.rs");

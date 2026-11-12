@@ -1,0 +1,42 @@
+{
+  "schema": "q2341-42-encrypted-originals-v1",
+  "originals": [
+    {
+      "file": "HISTORICAL-008.dat",
+      "redacted_occurrences": 1,
+      "original_sha256": "e1d7e6cd9a27a2e5aa0a595e534c94417afc9fc4bd2ecd2423d4025c41328b75",
+      "original_bytes": 6677,
+      "public_sha256": "9b2b749e8eaee7dddd3990f81bb87f5e00d35f53d26d19b3b0ea907e53513302",
+      "public_bytes": 6543,
+      "ciphertext": "ENCRYPTED-00.bin",
+      "ciphertext_sha256": "83174d36abdaac26e27fa4781020157b86d6a403b5ba380c73aa25f220966425",
+      "ciphertext_bytes": 6705,
+      "algorithm": "AES-256-GCM; first 12 bytes nonce; associated data UTF-8 filename"
+    },
+    {
+      "file": "HISTORICAL-018.dat",
+      "redacted_occurrences": 1,
+      "original_sha256": "3053752c2e0b9c960f610c2b83ea659cfd39f591634cc119d877d78c995d1778",
+      "original_bytes": 3858,
+      "public_sha256": "6fc59942f12c6f07f25d5962fe703fc928e5b9a8106c0246751b2e6efa4b1552",
+      "public_bytes": 3724,
+      "ciphertext": "ENCRYPTED-01.bin",
+      "ciphertext_sha256": "65fa93530dff52f415bc336236eb4e6124b442badc2f683fd42b55e3d0faebd5",
+      "ciphertext_bytes": 3886,
+      "algorithm": "AES-256-GCM; first 12 bytes nonce; associated data UTF-8 filename"
+    },
+    {
+      "file": "PRIVACY-CLASSIFICATION.json",
+      "redacted_occurrences": 2,
+      "original_sha256": "84c42114f3976ba94fa3dd446abf478deb486c4a78cc68086977cac6271ed38d",
+      "original_bytes": 612,
+      "public_sha256": "dbdfc3261f70edfc32bbfb0e7ba0e0d6ac5534f4f724819cf9b2151bb3d231e4",
+      "public_bytes": 345,
+      "ciphertext": "ENCRYPTED-02.bin",
+      "ciphertext_sha256": "16d28d15206621d560832f67c9d4465960cead947da05ccc461193b56d4a3ad3",
+      "ciphertext_bytes": 640,
+      "algorithm": "AES-256-GCM; first 12 bytes nonce; associated data UTF-8 filename"
+    }
+  ],
+  "qualification": "The same-machine key is held separately and is a recovery dependency, not independent public recoverability; no individual redacted value digest is published."
+}

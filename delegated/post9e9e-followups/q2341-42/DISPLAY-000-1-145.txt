@@ -1,0 +1,145 @@
+   1 //! Romantic errantry quest frames and presenter-independent challenges.
+   2 //!
+   3 //! Errantry is deliberately a sibling of generated investigations: its
+   4 //! organizing principle is a chivalric purpose tested by ordered trials, not a
+   5 //! settlement case whose hidden cause must be discovered.
+   6 
+   7 use adventuresim_puzzles::*;
+   8 use adventuresim_world_schema::calendar::StrategicMinute;
+   9 use serde::{Deserialize, Serialize};
+  10 
+  11 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  12 pub enum ErrantryPurpose {
+  13     KeepVow,
+  14     SeekBoon,
+  15     Rescue,
+  16     Pilgrimage,
+  17     ProveWorth,
+  18     Reconcile,
+  19 }
+  20 
+  21 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  22 pub struct ErrantryFrame {
+  23     pub id: String,
+  24     pub purpose: ErrantryPurpose,
+  25     pub charge: String,
+  26     pub trials: Vec<TrialBinding>,
+  27 }
+  28 
+  29 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  30 pub struct TrialBinding {
+  31     pub order: u16,
+  32     pub trial_id: String,
+  33     pub challenge_id: Option<String>,
+  34     pub site_id: String,
+  35     pub kind: TrialKind,
+  36 }
+  37 
+  38 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  39 pub enum TrialKind {
+  40     Combat,
+  41     Social,
+  42     Puzzle,
+  43     Temptation,
+  44     Ordeal,
+  45 }
+  46 
+  47 /// A concrete advantage authored on the destination encounter. Preliminary
+  48 /// trials do not gate quest completion; instead they award material
+  49 /// countermeasures that suppress one of these defenses when the mission is
+  50 /// first bound.
+  51 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+  52 pub enum FinaleDefenseKind {
+  53     UnnaturalProwess,
+  54     Reinforcements,
+  55     PoisonedArms,
+  56     ConcealedTrap,
+  57     Glamour,
+  58     SupernaturalArmor,
+  59 }
+  60 
+  61 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  62 pub enum TacticalInsightKind {
+  63     MustCloseToMelee,
+  64 }
+  65 
+  66 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  67 pub struct TacticalInsight {
+  68     pub kind: TacticalInsightKind,
+  69     pub threat_id: String,
+  70     pub finding: String,
+  71     pub preparation: String,
+  72 }
+  73 
+  74 /// Knowledge awarded by a trial must describe mechanics already consumed by
+  75 /// combat. It never changes the threat profile or applies a hidden modifier.
+  76 pub fn tactical_insight_for(threat_id: crate::bestiary::ThreatId) -> Option<TacticalInsight> {
+  77     let profile = threat_id.profile();
+  78     if profile.combat.ranged {
+  79         return None;
+  80     }
+  81     let modeled = crate::bestiary::implemented_combat_lore(profile);
+  82     if !modeled
+  83         .weaknesses
+  84         .iter()
+  85         .any(|fact| fact == "Must close to melee range before attacking")
+  86     {
+  87         return None;
+  88     }
+  89     Some(TacticalInsight {
+  90         kind: TacticalInsightKind::MustCloseToMelee,
+  91         threat_id: threat_id.as_str().into(),
+  92         finding: format!(
+  93             "The {} carry no missile weapons and must close to melee range before striking.",
+  94             profile.plural_name
+  95         ),
+  96         preparation: "Bring bows and arrows; archers can strike while these enemies close.".into(),
+  97     })
+  98 }
+  99 
+ 100 /// A camp's stable identity within one journey. Elapsed time is deliberately
+ 101 /// absent: resting advances elapsed time without moving the camp.
+ 102 pub fn journey_camp_identity_matches(
+ 103     journey_departure_minute: StrategicMinute,
+ 104     completed_movement_minute: u64,
+ 105     camp_stop_minutes: &[u64],
+ 106     bound_departure_minute: StrategicMinute,
+ 107     bound_movement_minute: u64,
+ 108 ) -> bool {
+ 109     journey_departure_minute == bound_departure_minute
+ 110         && completed_movement_minute == bound_movement_minute
+ 111         && camp_stop_minutes.contains(&bound_movement_minute)
+ 112 }
+ 113 
+ 114 pub fn rested_road_trial_camp_matches(
+ 115     journey_departure_minute: StrategicMinute,
+ 116     completed_movement_minute: u64,
+ 117     completed_elapsed_minute: u64,
+ 118     camp_stop_minutes: &[u64],
+ 119     bound_departure_minute: StrategicMinute,
+ 120     bound_movement_minute: u64,
+ 121     available_at_elapsed_minute: u64,
+ 122 ) -> bool {
+ 123     journey_camp_identity_matches(
+ 124         journey_departure_minute,
+ 125         completed_movement_minute,
+ 126         camp_stop_minutes,
+ 127         bound_departure_minute,
+ 128         bound_movement_minute,
+ 129     ) && completed_elapsed_minute >= available_at_elapsed_minute
+ 130 }
+ 131 
+ 132 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+ 133 pub enum FeyPresenterCatalogId {
+ 134     LadyBeneathThornV1,
+ 135 }
+ 136 
+ 137 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 138 pub enum FeySpeechPart {
+ 139     Introduction,
+ 140     Instruction,
+ 141     Wrong,
+ 142     Correct,
+ 143 }
+ 144 
+ 145 pub const FEY_PRESENTER_NAME: &str = "The Lady Beneath the Thorn";

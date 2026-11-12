@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:1-65
+   1 //! Authoritative bounded herbal preparation.
+   2 
+   3 mod ingredient;
+   4 use ingredient::consume_tincture_ingredient;
+   5 
+   6 use adventuresim_core::{
+   7     food::FoodPreparation,
+   8     physiology::DoseMilliunits,
+   9     prelude::{PlayerSkills, Skill, apply_direct_training},
+  10 };
+  11 use adventuresim_world_schema::calendar::StrategicMinute;
+  12 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
+  13 
+  14 use crate::{
+  15     character::{character, character_attributes, character_skills},
+  16     container_liquid, inventory_containment, inventory_item, inventory_item_amount,
+  17     inventory_object,
+  18     item::item,
+  19     strategic::strategic_gateway_authority__view,
+  20     time::refresh_clock,
+  21 };
+  22 
+  23 const POPPY_PROFILE_ID: &str = "poppy_tincture";
+  24 const POPPY_PROFILE_VERSION: u16 = 1;
+  25 const TINCTURE_SETUP_MINUTES: u64 = 10;
+  26 const MIN_HERBALISM_CHECK: f32 = 0.5;
+  27 
+  28 #[derive(Clone, Debug)]
+  29 #[table(accessor = tincture_process)]
+  30 pub struct TinctureProcess {
+  31     #[primary_key]
+  32     pub container_object_id: u64,
+  33     /// Shared chronology keeps elapsed maturation invariant across custody transfers.
+  34     pub started_at_world_minute: StrategicMinute,
+  35     pub ready_at_world_minute: StrategicMinute,
+  36     /// Materialization checkpoint: `materialize_mature_tincture` installs the
+  37     /// pinned medicinal component and flips this once. Time eligibility alone
+  38     /// does not prove that the component has been installed.
+  39     pub matured: bool,
+  40     #[index(btree)]
+  41     pub preparer_character_id: u64,
+  42     pub intervention_profile_id: String,
+  43     pub profile_version: u16,
+  44     pub pinned_potency_units: f32,
+  45     pub ingredient_object_id: u64,
+  46     pub ingredient_item_id: String,
+  47     pub ingredient_mass_grams: u32,
+  48 }
+  49 
+  50 /// Redacted gateway projection: readiness is inspectable, medicinal identity and
+  51 /// exact potency remain private.
+  52 #[derive(Clone, Debug, SpacetimeType)]
+  53 pub struct BackendTinctureStatus {
+  54     pub container_object_id: u64,
+  55     pub ready_at_world_minute: StrategicMinute,
+  56     pub matured: bool,
+  57 }
+  58 
+  59 #[view(accessor = backend_tincture_statuses, public)]
+  60 pub fn backend_tincture_statuses(ctx: &ViewContext) -> Vec<BackendTinctureStatus> {
+  61     if !ctx
+  62         .db
+  63         .strategic_gateway_authority()
+  64         .id()
+  65         .find(0)

@@ -1,0 +1,489 @@
+{
+      "contract_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+      "kind": "connected-contract-question",
+      "lens": 13,
+      "canonical_owner": "Tincture native liquid and medicinal potency quantum owner",
+      "first_failed_contract_or_unresolved_question": "Native exact150ml tincture permits dose1..1000milliunits, removes potency_units*fraction but removes ceil(liquid_ml*fraction).max(1)ml, then deletes all remaining medicine when liquidzero. Repeated minimumdose1 fraction0.001 consumes1ml each while removing0.1% remainingpotency;150ordinary positive administrations couldexhaustliquid with large remainingpotency discarded. ActualsharedDoseMilliunits conversion, nativepatient relationship/living/time constraints and intended ml/minimumdose/rounding policy mustbe qualified beforefinding. MinimumNONZERO rounding explicitpolicy, notgenericcompatibilitydefect.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+          "assessed_ranges": [
+            [
+              1,
+              600
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "REDACTED-LOCAL-PATH-0018",
+            "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 personally assessed fullbody",
+          "body_receipt": {
+            "path": "REDACTED-LOCAL-PATH-0001",
+            "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-253.json",
+            "sha256": "56964e8833e5d3bb60281d04914fe3d88f34c6d1017bb9ad27023b7a2ae8e3d8"
+          },
+          "new_body_credit": 0
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+          "assessed_ranges": [
+            [
+              1,
+              21
+            ]
+          ],
+          "read_pointer": "/rows/1",
+          "registration": {
+            "path": "REDACTED-LOCAL-PATH-0018",
+            "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+          },
+          "registration_pointer": "/sources/1",
+          "read_attribution": "Own Lens13 personally assessed fullbody",
+          "body_receipt": {
+            "path": "REDACTED-LOCAL-PATH-0001",
+            "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-253.json",
+            "sha256": "56964e8833e5d3bb60281d04914fe3d88f34c6d1017bb9ad27023b7a2ae8e3d8"
+          },
+          "new_body_credit": 0
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+          "assessed_ranges": [
+            [
+              1,
+              241
+            ]
+          ],
+          "read_pointer": "/rows/2",
+          "registration": {
+            "path": "REDACTED-LOCAL-PATH-0018",
+            "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+          },
+          "registration_pointer": "/sources/2",
+          "read_attribution": "Own Lens13 personally assessed fullbody",
+          "body_receipt": {
+            "path": "REDACTED-LOCAL-PATH-0001",
+            "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-253.json",
+            "sha256": "56964e8833e5d3bb60281d04914fe3d88f34c6d1017bb9ad27023b7a2ae8e3d8"
+          },
+          "new_body_credit": 0
+        }
+      ],
+      "remaining_evidence": [
+        "Exact own sharedDoseMilliunits conversion/minimum rule and coreherbalism process, actualpatient relationship/time constraints; intended liquid-dose conservation quantum, current/exactaliases"
+      ],
+      "dependencies": [
+        "Native medicinal/material quantum policy",
+        "DoseMilliunits owner"
+      ],
+      "closure_condition": [
+        "Document actual bounded nativechain and classify finding/policy/conditional/rejection with exactaliases/current qualifications; discoveryclosure distinctfromlatercode/runtimeacceptance."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "later_repair_acceptance_requirements": [],
+      "qualified_full_contract_update_as_proposed": {
+        "contract_id_or_proposed_new_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+        "lens": 13,
+        "canonical_owner_or_explicit_unresolved_owner_question": "Tincture native liquid and medicinal potency quantum owner",
+        "first_failed_contract_or_unresolved_question": "Native exact150ml tincture permits dose1..1000milliunits, removes potency_units*fraction but removes ceil(liquid_ml*fraction).max(1)ml, then deletes all remaining medicine when liquidzero. Repeated minimumdose1 fraction0.001 consumes1ml each while removing0.1% remainingpotency;150ordinary positive administrations couldexhaustliquid with large remainingpotency discarded. ActualsharedDoseMilliunits conversion, nativepatient relationship/living/time constraints and intended ml/minimumdose/rounding policy mustbe qualified beforefinding. MinimumNONZERO rounding explicitpolicy, notgenericcompatibilitydefect.",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+            "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "source_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+            "assessed_ranges": [
+              [
+                1,
+                600
+              ]
+            ],
+            "read_pointer": "/rows/0",
+            "registration": {
+              "path": "REDACTED-LOCAL-PATH-0018",
+              "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+            },
+            "registration_pointer": "/sources/0",
+            "read_attribution": "Own Lens13 personally assessed fullbody"
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+            "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "source_sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+            "assessed_ranges": [
+              [
+                1,
+                21
+              ]
+            ],
+            "read_pointer": "/rows/1",
+            "registration": {
+              "path": "REDACTED-LOCAL-PATH-0018",
+              "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+            },
+            "registration_pointer": "/sources/1",
+            "read_attribution": "Own Lens13 personally assessed fullbody"
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+            "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "source_sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+            "assessed_ranges": [
+              [
+                1,
+                241
+              ]
+            ],
+            "read_pointer": "/rows/2",
+            "registration": {
+              "path": "REDACTED-LOCAL-PATH-0018",
+              "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+            },
+            "registration_pointer": "/sources/2",
+            "read_attribution": "Own Lens13 personally assessed fullbody"
+          }
+        ],
+        "remaining_evidence": [
+          "Exact own sharedDoseMilliunits conversion/minimum rule and coreherbalism process, actualpatient relationship/time constraints; intended liquid-dose conservation quantum, current/exactaliases"
+        ],
+        "dependencies": [
+          "Native medicinal/material quantum policy",
+          "DoseMilliunits owner"
+        ],
+        "closure_condition": [
+          "Document actual bounded nativechain and classify finding/policy/conditional/rejection with exactaliases/current qualifications; discoveryclosure distinctfromlatercode/runtimeacceptance."
+        ],
+        "existing_contract_revisit_identity_proof_if_any": null,
+        "read": {
+          "path": "REDACTED-LOCAL-PATH-0001",
+          "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+        }
+      },
+      "proposal": {
+        "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-255-262.json",
+        "sha256": "6b0e12d60d51b0e35ee07269573cfea1ab8bd39b2ee90f0b34a7d8849f28a0d5",
+        "row_pointer": "/contract_updates/0"
+      },
+      "status": "open-connected-source-current-alias-qualification",
+      "audit_discovery_closed": false,
+      "repair_or_runtime_passed": false,
+      "body_or_population_credit": 0,
+      "granular_contract_views": [
+        {
+          "lens": 13,
+          "canonical_owner": "Native tincture volume/potency common quantum policy",
+          "first_failed_contract_or_unresolved_question": "Own184 DoseMilliunits defines1000perstandard and1MINIMUM_NONZERO; as_standard_doses1=.001. Native255admitscanonical150ml,pinnedpotency[.1,1] anddose1..1000. Each minimum request removes .001 ofremainingpotency butatleast1ml; after150successfulminimumrequests liquidzero triggersdeleteallremainingmedicine. Multiplicative residual (.999)^150 >.85 beforefinaldelete by elementaryBernoulli bound, so >85%remainingpotency canbe discarded ifallsuccess. Atinitialpotency.1, used.0001standardrounds0milli thennativeMIN1; deliberatequantumrounding canadministermorethanremovedpotency. Own243 administer_intervention_component2222..2265 doesnotadvanceclock orimposeintervalcap; itvalidatesoralprofile/time, insertsadministration andcommitscurrentterminalboundary, so patientliving/relationshipremainexplicitconditions, notan invented150-callruntimepass.",
+          "exact_source_identities_and_assessed_ranges": [
+            {
+              "original": 1116,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+              "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+              "source_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+              "actual_EOF": 600,
+              "assessed_ranges": [
+                [
+                  1,
+                  600
+                ]
+              ],
+              "read": {
+                "path": "REDACTED-LOCAL-PATH-0001",
+                "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+              },
+              "read_pointer": "/rows/0",
+              "registration": {
+                "path": "REDACTED-LOCAL-PATH-0018",
+                "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+              },
+              "registration_pointer": "/sources/0",
+              "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+              "new_body_credit": 0,
+              "selected_root_adoption": {
+                "path": "segovb/READ-L13-PARALLEL-253.json",
+                "sha256": "56964e8833e5d3bb60281d04914fe3d88f34c6d1017bb9ad27023b7a2ae8e3d8"
+              }
+            },
+            {
+              "original": 964,
+              "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+              "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+              "source_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "actual_EOF": 1169,
+              "assessed_ranges": [
+                [
+                  1,
+                  1169
+                ]
+              ],
+              "read": {
+                "path": "REDACTED-LOCAL-PATH-0019",
+                "sha256": "093c885fe44d1bb2b7145b176d9c35c10f7205af3f4ea9b243bbc236c7c1ef34"
+              },
+              "read_pointer": "/rows/1",
+              "registration": {
+                "path": "REDACTED-LOCAL-PATH-0020",
+                "sha256": "8642ff0ac1b8549043f9ed342cf934d05230a7efd694020cc546016ad7c3e763"
+              },
+              "registration_pointer": "/sources/1",
+              "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+              "new_body_credit": 0,
+              "selected_root_adoption": {
+                "path": "segovb/READ-L13-PARALLEL-182.json",
+                "sha256": "b99306a93f432239f6b1dcb642e769a969f51fe7747058710fafcdd124bb5219"
+              }
+            },
+            {
+              "original": 1093,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+              "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+              "source_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+              "actual_EOF": 2950,
+              "assessed_ranges": [
+                [
+                  1,
+                  2950
+                ]
+              ],
+              "read": {
+                "path": "REDACTED-LOCAL-PATH-0021",
+                "sha256": "4695633ae1ef7f816444e96628c193b6683cd5aeffe14e5ddaf8257fa22d984e"
+              },
+              "read_pointer": "/rows/0",
+              "registration": {
+                "path": "REDACTED-LOCAL-PATH-0022",
+                "sha256": "b1ac03fb940e2e165f5a19ef779901efa8833c6903b3744aaee2b23986bfdceb"
+              },
+              "registration_pointer": "/sources/0",
+              "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+              "new_body_credit": 0,
+              "selected_root_adoption": {
+                "path": "segovb/READ-L13-PARALLEL-241.json",
+                "sha256": "99b59e5fbf8b1fc256ff6f84cb2f7d81d3a755a2fbd9c166923840735289a286"
+              }
+            }
+          ],
+          "status": "Fullydocumented sourcequantumpolicyquestion; no acceptedbug/runtimeincident",
+          "remaining_evidence": [
+            "Explicit intended liquid/potency/minimumdose loss/rounding policy andcurrentcorrespondingfunctions/aliases; allsuccessfuladministration conditionpreserved."
+          ],
+          "dependencies": [
+            "DoseMilliunits owner andmedicinephysicalquantum",
+            "Native patientrelationship/terminalboundary deliberatepolicy"
+          ],
+          "closure_condition": [
+            "Record this bounded own-source disposition and complete only named current/exactalias qualifications. A fullydocumented sourcefinding/policy/conditional/rejection may closeauditdiscovery; no implementation or runtimepass implied."
+          ],
+          "later_repair_acceptance_requirements": [
+            "Specifyconsistent supportedminimumwithdrawal anddose/liquidconservation or explicitdiscardbehavior.",
+            "No zero MaterialMeasure/doseinvariantweakening orsilentquantityinflation; ordinaryoneportion/partialdispensing intendedsemantics documented."
+          ],
+          "existing_contract_revisit_identity_proof_if_any": {
+            "same_exact_contract": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+            "basis": "Same source/function/retained owner question as adopted255\u2013262; exact own proof refinement, no commonremedyalias."
+          },
+          "qualified_full_contract_update_as_proposed": {
+            "contract_id_or_proposed_new_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+            "lens": 13,
+            "canonical_owner_or_explicit_unresolved_owner_question": "Native tincture volume/potency common quantum policy",
+            "first_failed_contract_or_unresolved_question": "Own184 DoseMilliunits defines1000perstandard and1MINIMUM_NONZERO; as_standard_doses1=.001. Native255admitscanonical150ml,pinnedpotency[.1,1] anddose1..1000. Each minimum request removes .001 ofremainingpotency butatleast1ml; after150successfulminimumrequests liquidzero triggersdeleteallremainingmedicine. Multiplicative residual (.999)^150 >.85 beforefinaldelete by elementaryBernoulli bound, so >85%remainingpotency canbe discarded ifallsuccess. Atinitialpotency.1, used.0001standardrounds0milli thennativeMIN1; deliberatequantumrounding canadministermorethanremovedpotency. Own243 administer_intervention_component2222..2265 doesnotadvanceclock orimposeintervalcap; itvalidatesoralprofile/time, insertsadministration andcommitscurrentterminalboundary, so patientliving/relationshipremainexplicitconditions, notan invented150-callruntimepass.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "original": 1116,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "source_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+                "actual_EOF": 600,
+                "assessed_ranges": [
+                  [
+                    1,
+                    600
+                  ]
+                ],
+                "read": {
+                  "path": "REDACTED-LOCAL-PATH-0001",
+                  "sha256": "b6d7ac7a410866d727da317c32ae9f8d0ca023585c528855c8b23120532c329c"
+                },
+                "read_pointer": "/rows/0",
+                "registration": {
+                  "path": "REDACTED-LOCAL-PATH-0018",
+                  "sha256": "ea873e6e7ee2ed8ea125cae22720a7e0f43bd5c7ff526beb4bb2c82a0bc5eb52"
+                },
+                "registration_pointer": "/sources/0",
+                "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+                "new_body_credit": 0
+              },
+              {
+                "original": 964,
+                "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "source_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+                "actual_EOF": 1169,
+                "assessed_ranges": [
+                  [
+                    1,
+                    1169
+                  ]
+                ],
+                "read": {
+                  "path": "REDACTED-LOCAL-PATH-0019",
+                  "sha256": "093c885fe44d1bb2b7145b176d9c35c10f7205af3f4ea9b243bbc236c7c1ef34"
+                },
+                "read_pointer": "/rows/1",
+                "registration": {
+                  "path": "REDACTED-LOCAL-PATH-0020",
+                  "sha256": "8642ff0ac1b8549043f9ed342cf934d05230a7efd694020cc546016ad7c3e763"
+                },
+                "registration_pointer": "/sources/1",
+                "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+                "new_body_credit": 0
+              },
+              {
+                "original": 1093,
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "source_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+                "actual_EOF": 2950,
+                "assessed_ranges": [
+                  [
+                    1,
+                    2950
+                  ]
+                ],
+                "read": {
+                  "path": "REDACTED-LOCAL-PATH-0021",
+                  "sha256": "4695633ae1ef7f816444e96628c193b6683cd5aeffe14e5ddaf8257fa22d984e"
+                },
+                "read_pointer": "/rows/0",
+                "registration": {
+                  "path": "REDACTED-LOCAL-PATH-0022",
+                  "sha256": "b1ac03fb940e2e165f5a19ef779901efa8833c6903b3744aaee2b23986bfdceb"
+                },
+                "registration_pointer": "/sources/0",
+                "read_attribution": "Exact prior own Lens13 qualified personal/cumulative body reused; no extra body/originalcredit fromthismetadata",
+                "new_body_credit": 0
+              }
+            ],
+            "status_proposed": "Fullydocumented sourcequantumpolicyquestion; no acceptedbug/runtimeincident",
+            "remaining_evidence": [
+              "Explicit intended liquid/potency/minimumdose loss/rounding policy andcurrentcorrespondingfunctions/aliases; allsuccessfuladministration conditionpreserved."
+            ],
+            "dependencies": [
+              "DoseMilliunits owner andmedicinephysicalquantum",
+              "Native patientrelationship/terminalboundary deliberatepolicy"
+            ],
+            "closure_condition": [
+              "Record this bounded own-source disposition and complete only named current/exactalias qualifications. A fullydocumented sourcefinding/policy/conditional/rejection may closeauditdiscovery; no implementation or runtimepass implied."
+            ],
+            "later_repair_acceptance_requirements": [
+              "Specifyconsistent supportedminimumwithdrawal anddose/liquidconservation or explicitdiscardbehavior.",
+              "No zero MaterialMeasure/doseinvariantweakening orsilentquantityinflation; ordinaryoneportion/partialdispensing intendedsemantics documented."
+            ],
+            "existing_contract_revisit_identity_proof_if_any": {
+              "same_exact_contract": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+              "basis": "Same source/function/retained owner question as adopted255\u2013262; exact own proof refinement, no commonremedyalias."
+            },
+            "audit_discovery_closed_globally": false,
+            "repair_or_runtime_passed": false,
+            "accepted_unique_count_change": 0
+          },
+          "proposal": {
+            "path": "parallel-l13-20261029/CLOSURE-REFINEMENT-PROPOSAL-PL13-255-262-001.json",
+            "sha256": "8aedc3e59c7e45d7416cc0d060ecbbf59c7f6bc50e1a3babb415a6959e65f8ff",
+            "row_pointer": "/contract_updates/3"
+          },
+          "proofs": [
+            {
+              "path": "REDACTED-LOCAL-PATH-0023",
+              "sha256": "b0d5cf3baf87a60178606256f1510f2d2eb5d8e1ec180c3bce8f36ebfeb82e2a"
+            },
+            {
+              "path": "REDACTED-LOCAL-PATH-0024",
+              "sha256": "02e52781cfd52a7bbb415913b64b6d4a5381240ea0372d71948bb38642f28be5"
+            },
+            {
+              "path": "REDACTED-LOCAL-PATH-0025",
+              "sha256": "f9ff72439f0120a45354fb69d8dff6eeca042f67788367584765aada20db9702"
+            },
+            {
+              "path": "REDACTED-LOCAL-PATH-0026",
+              "sha256": "faa2fe7be6b3f6a6d99f375b051d2726e308770c079a01859e0491141d45f399"
+            },
+            {
+              "path": "REDACTED-LOCAL-PATH-0027",
+              "sha256": "3175aca04c6b90fce1cd44339767dbc221134fb9aaefc205492fe7b3cc96623d"
+            },
+            {
+              "path": "REDACTED-LOCAL-PATH-0028",
+              "sha256": "3908aa294c02d41bb99be0216b7d3bdbc8cc988cfa6c526ee1e8fdedee0c004d"
+            }
+          ],
+          "focused_reread_qualification": {
+            "all_reads_within_exact_prior_own_prospective_and_assessed_ranges": true,
+            "new_body_credit": 0,
+            "catalogue199_attempt_full156_was_truncated": true,
+            "catalogue199_truncated_attempt_extra_credit": 0,
+            "catalogue199_replacement_actual_untruncated": [
+              1,
+              15
+            ],
+            "original199qualified_full156_preserved": true,
+            "catalogue525_actual_honest_selected_reread": [
+              143,
+              180
+            ],
+            "compile_profile_actual_selected_reread_union": [
+              502,
+              712
+            ],
+            "no_new_full_resolve_or_all_function_reread_claim": "Selectedcore173803..873startsinsideresolve/endsweatherheader; oldfull1291 remainsqualified, no freshfullfunctionclaim."
+          },
+          "audit_discovery_closed": false,
+          "repair_or_runtime_passed": false,
+          "body_or_population_credit": 0
+        }
+      ],
+      "current_own_lens_source_adoptions": [
+        {
+          "lens": 13,
+          "receipt": {
+            "path": "segovb/READ-L13-CURRENT-TEAM-002.json",
+            "sha256": "ec8f974b7349122428582e31770c20cdd3a4d60885dde854f6cf64ab802ea6b9",
+            "verification": "segovb/VERIFY-L13-CURRENT-TEAM-002.json",
+            "verification_sha256": "1be6c8995221ac2702a1aa3bf331cd94d9e2253380157af2dadf7e05832c18d3",
+            "source_receipt": {
+              "path": "REDACTED-LOCAL-PATH-0002",
+              "sha256": "284ce46dc6c4722f39f4ea5fd52d12c957dd58f22dca744842328418c4fbc50d"
+            }
+          },
+          "qualified_selected_disposition": {
+            "contract_id": "PL13-255-TINCTURE-LIQUID-DOSE-QUANTUM-POLICY-PENDING",
+            "disposition": "Own current337..480 admitted150ml/pinnedpotency.1..1 and503..581 min1milli/ceil1ml liquid quantum/deleter persists. Conditional all-success multiple request case remains sourcepolicy; no runtime sequence or fresh current disease helper read.",
+            "remaining": [
+              "Policy resolution or documented conditional disposition; own current componentadmin/profile bound if required for fullchain current reconciliation."
+            ],
+            "audit_discovery_closed": false
+          },
+          "own_source_rows_exact_in_receipt": true,
+          "global_current_closed": false,
+          "whole_chain_or_loader_admission_complete": false,
+          "body_or_population_credit_from_queue": 0
+        }
+      ]
+    }

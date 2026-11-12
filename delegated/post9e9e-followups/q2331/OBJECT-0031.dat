@@ -1,0 +1,129 @@
+{
+  "create_bind_groups(": {
+    "status": 0,
+    "matches_total": 1,
+    "retained": [
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+        "line": 7
+      }
+    ],
+    "omitted": 0
+  },
+  "ComputePass::record(": {
+    "status": 0,
+    "matches_total": 2,
+    "retained": [
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "line": 278
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/reduce/mod.rs",
+        "line": 308
+      }
+    ],
+    "omitted": 0
+  },
+  "ComputePass::dispatch(": {
+    "status": 0,
+    "matches_total": 22,
+    "retained": [
+      {
+        "path": "crates/fabelgeist-compute/src/advect/mod.rs",
+        "line": 313
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/broadcast.rs",
+        "line": 75
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/divergence/mod.rs",
+        "line": 204
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/dual_contouring/execution.rs",
+        "line": 255
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/gather/mod.rs",
+        "line": 416
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/gradient/mod.rs",
+        "line": 243
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "line": 163
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/map/mod.rs",
+        "line": 560
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/marching_cubes/mod.rs",
+        "line": 453
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/matmul.rs",
+        "line": 81
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/reshape.rs",
+        "line": 75
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "line": 191
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "line": 215
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "line": 255
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "line": 282
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scan.rs",
+        "line": 296
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/scatter.rs",
+        "line": 392
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stencil.rs",
+        "line": 996
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/stream/mod.rs",
+        "line": 349
+      },
+      {
+        "path": "crates/fabelgeist-compute/src/transpose.rs",
+        "line": 75
+      },
+      {
+        "path": "crates/fabelgeist-gpu/src/data/gpu/compute/texture_ops.rs",
+        "line": 184
+      },
+      {
+        "path": "crates/fabelgeist-mesh/src/gpu.rs",
+        "line": 239
+      }
+    ],
+    "omitted": 0
+  },
+  "Kernel::run(": {
+    "status": 1,
+    "matches_total": 0,
+    "retained": [],
+    "omitted": 0
+  }
+}

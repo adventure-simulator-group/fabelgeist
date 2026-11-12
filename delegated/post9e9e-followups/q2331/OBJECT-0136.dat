@@ -1,0 +1,146 @@
+ 161 
+ 162 /// The block totals of every level of the recursion, allocated for a
+ 163 /// capacity and reused.
+ 164 #[derive(Clone, Debug)]
+ 165 pub struct PrefixSumScratch {
+ 166     /// One buffer per level: level `k` holds the block totals of level `k - 1`.
+ 167     levels: Vec<Buffer>,
+ 168     /// Bound as `sums` where a pass writes none, because a binding cannot be
+ 169     /// left empty.
+ 170     unused: Buffer,
+ 171     capacity: ScanElementCount,
+ 172 }
+ 173 
+ 174 impl PrefixSumScratch {
+ 175     pub fn new(context: &WgpuContext, capacity: ScanElementCount) -> Result<Self> {
+ 176         let capacity = capacity.max(ScanElementCount::from_elements(1));
+ 177         let storage = BufferDefinition::storage();
+ 178         let mut levels = Vec::new();
+ 179         // Native recursion arithmetic computes the GPU scratch layout in words.
+ 180         let mut count = capacity.elements();
+ 181         while count > BLOCK {
+ 182             count = count.div_ceil(BLOCK);
+ 183             levels.push(Buffer::new(
+ 184                 context,
+ 185                 (count as u64 * 4).into(),
+ 186                 storage.clone().with_label("prefix sum block totals".into()),
+ 187             )?);
+ 188         }
+ 189         Ok(Self {
+ 190             levels,
+ 191             unused: Buffer::new(
+ 192                 context,
+ 193                 BufferByteLength::from(4_u64),
+ 194                 storage.with_label("prefix sum unused".into()),
+ 195             )?,
+ 196             capacity,
+ 197         })
+ 198     }
+ 199 
+ 200     pub fn capacity(&self) -> ScanElementCount {
+ 201         self.capacity
+ 202     }
+ 203 
+ 204     /// Reallocate if `capacity` no longer fits. Returns whether it grew.
+ 205     pub fn ensure(&mut self, context: &WgpuContext, capacity: ScanElementCount) -> Result<bool> {
+ 206         if capacity <= self.capacity {
+ 207             return Ok(false);
+ 208         }
+ 209         *self = Self::new(context, capacity)?;
+ 210         Ok(true)
+ 211     }
+ 212 }
+ 213 
+ 214 /// The two compiled passes.
+ 215 #[derive(Clone, Debug)]
+ 216 pub struct PrefixSum {
+ 217     scan_blocks: Arc<Kernel>,
+ 218     add_offsets: Arc<Kernel>,
+ 219 }
+ 220 
+ 221 impl PrefixSum {
+ 222     pub fn new(context: &WgpuContext) -> Result<Self> {
+ 223         Self::with_cache(context, &KernelCache::new())
+ 224     }
+ 225 
+ 226     pub fn with_cache(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+ 227         Ok(Self {
+ 228             scan_blocks: cache.get(context, &scan_blocks_code())?,
+ 229             add_offsets: cache.get(context, &add_offsets_code())?,
+ 230         })
+ 231     }
+ 232 
+ 233     /// Record an exclusive prefix sum of the first `count` words of `data`,
+ 234     /// in place: afterwards `data[i]` is the sum of the original
+ 235     /// `data[0..i]`.
+ 236     ///
+ 237     /// Sums wrap on overflow, as `u32` addition in WGSL does. To get the
+ 238     /// total as well, scan one element more than there are values and leave
+ 239     /// the extra one zero; it ends up holding the sum of everything before it.
+ 240     pub fn record(
+ 241         &self,
+ 242         batch: &mut KernelBatch,
+ 243         data: &Buffer,
+ 244         scratch: &PrefixSumScratch,
+ 245         count: ScanElementCount,
+ 246     ) -> Result<()> {
+ 247         if count.elements() == 0 {
+ 248             return Ok(());
+ 249         }
+ 250         if count > scratch.capacity {
+ 251             return Err(ScanError::ScratchTooSmall {
+ 252                 requested: count,
+ 253                 capacity: scratch.capacity,
+ 254             });
+ 255         }
+ 256         let required = count.byte_length();
+ 257         if data.size < required {
+ 258             return Err(ScanError::BufferTooSmall {
+ 259                 required,
+ 260                 available: data.size,
+ 261             });
+ 262         }
+ 263         self.record_level(
+ 264             batch,
+ 265             data,
+ 266             &scratch.levels,
+ 267             &scratch.unused,
+ 268             count.elements(),
+ 269         )
+ 270     }
+ 271 
+ 272     fn record_level(
+ 273         &self,
+ 274         batch: &mut KernelBatch,
+ 275         data: &Buffer,
+ 276         levels: &[Buffer],
+ 277         unused: &Buffer,
+ 278         count: u32,
+ 279     ) -> Result<()> {
+ 280         let blocks = count.div_ceil(BLOCK);
+ 281         let mut parameters = PassParameters::new();
+ 282         parameters.insert("count", count);
+ 283         parameters.insert("pad0", 0u32);
+ 284         parameters.insert("pad1", 0u32);
+ 285         parameters.insert("data", data.clone());
+ 286 
+ 287         if blocks == 1 {
+ 288             parameters.insert("write_sums", 0u32);
+ 289             parameters.insert("sums", unused.clone());
+ 290             batch.dispatch(&self.scan_blocks, &parameters, grid(1))?;
+ 291             return Ok(());
+ 292         }
+ 293 
+ 294         let (sums, deeper) = levels.split_first().ok_or(ScanError::MissingScratchLevel)?;
+ 295         parameters.insert("write_sums", 1u32);
+ 296         parameters.insert("sums", sums.clone());
+ 297         batch.dispatch(&self.scan_blocks, &parameters, grid(blocks))?;
+ 298 
+ 299         self.record_level(batch, sums, deeper, unused, blocks)?;
+ 300 
+ 301         batch.dispatch(&self.add_offsets, &parameters, grid(blocks))?;
+ 302         Ok(())
+ 303     }
+ 304 
+ 305     /// Scan on a batch of its own and submit. For a one-off; inside a frame,
+ 306     /// record into the frame's batch.

@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/outbreak.rs:1906-1960
+1906         .filter(|span| span.ended_at.is_none())
+1907         .collect::<Vec<_>>()
+1908     {
+1909         span.ended_at = Some(minute);
+1910         ctx.db.outbreak_source_presence_span().id().update(span);
+1911     }
+1912     let Some(site_id) = destination_site_id else {
+1913         return;
+1914     };
+1915     let Some(destination_place) = crate::investigation::canonical_case_site_place(site_id) else {
+1916         return;
+1917     };
+1918     if !ctx.db.outbreak_authority().iter().any(|authority| {
+1919         parse_outbreak_source_fixture(&authority.physical_source_fixture_id, &authority.case_id)
+1920             .is_some_and(|fixture| {
+1921                 fixture.place() == &destination_place && authority.remediated_at.is_none()
+1922             })
+1923     }) {
+1924         return;
+1925     }
+1926     let id = format!("outbreak-presence:{character_id}:{site_id}:{minute}");
+1927     if ctx
+1928         .db
+1929         .outbreak_source_presence_span()
+1930         .id()
+1931         .find(&id)
+1932         .is_none()
+1933     {
+1934         ctx.db
+1935             .outbreak_source_presence_span()
+1936             .insert(OutbreakSourcePresenceSpan {
+1937                 id,
+1938                 character_id,
+1939                 source_place_id: destination_place.to_string(),
+1940                 started_at: minute,
+1941                 ended_at: None,
+1942             });
+1943     }
+1944 }
+1945 
+1946 pub(crate) fn discover_case_corpses(
+1947     ctx: &ReducerContext,
+1948     case_id: &str,
+1949     character_id: u64,
+1950     discovered_at: StrategicMinute,
+1951 ) -> Result<(), String> {
+1952     if ctx
+1953         .db
+1954         .outbreak_authority()
+1955         .case_id()
+1956         .find(case_id.to_owned())
+1957         .is_none()
+1958     {
+1959         return Ok(());
+1960     }

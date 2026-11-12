@@ -1,0 +1,96 @@
+1030         if crate::object_custody::resolve_object_custody(ctx, &object)?.root == *expected_custody {
+1031             total = total
+1032                 .checked_add(liquid.water_ml)
+1033                 .ok_or("Contained water volume overflow")?;
+1034         }
+1035     }
+1036     Ok(total)
+1037 }
+1038 
+1039 fn remaining_container_capacity_ml(
+1040     ctx: &ReducerContext,
+1041     container_object_id: u64,
+1042 ) -> Result<u64, String> {
+1043     let object = ctx
+1044         .db
+1045         .inventory_object()
+1046         .id()
+1047         .find(container_object_id)
+1048         .ok_or("Container object not found")?;
+1049     let definition = ctx
+1050         .db
+1051         .item()
+1052         .id()
+1053         .find(object.item_id)
+1054         .ok_or("Container definition not found")?;
+1055     let capacity = u64::from(definition.container_capacity_ml);
+1056     let used = graph(ctx)?
+1057         .used_volume(
+1058             PhysicalObjectId::try_new(container_object_id).map_err(|error| error.to_string())?,
+1059         )
+1060         .map_err(str::to_owned)?
+1061         .checked_add(Milliliters::new(liquid_used(ctx, container_object_id)))
+1062         .ok_or("Container volume overflow")?
+1063         .get();
+1064     capacity
+1065         .checked_sub(used)
+1066         .ok_or_else(|| "Container contents exceed authored capacity".into())
+1067 }
+1068 
+1069 pub(crate) fn fill_carried_waterskins(
+1070     ctx: &ReducerContext,
+1071     custody: &OperationalCustody,
+1072 ) -> Result<(), String> {
+1073     let mut waterskins = ctx
+1074         .db
+1075         .inventory_object()
+1076         .item_id()
+1077         .filter(STANDARD_WATERSKIN_ID)
+1078         .collect::<Vec<_>>();
+1079     waterskins.sort_by_key(|object| object.id);
+1080     for object in waterskins {
+1081         if crate::object_custody::resolve_object_custody(ctx, &object)?.root != *custody {
+1082             continue;
+1083         }
+1084         require_mutable(ctx, object.id)?;
+1085         let existing = ctx
+1086             .db
+1087             .container_liquid()
+1088             .container_object_id()
+1089             .find(object.id);
+1090         if existing
+1091             .as_ref()
+1092             .is_some_and(|liquid| liquid.liquid_item_id != WATER_ITEM_ID)
+1093         {
+1094             continue;
+1095         }
+1096         let added_ml = remaining_container_capacity_ml(ctx, object.id)?;
+1097         if added_ml == 0 {
+1098             continue;
+1099         }
+1100         if let Some(mut liquid) = existing {
+1101             liquid.water_ml = liquid
+1102                 .water_ml
+1103                 .checked_add(added_ml)
+1104                 .ok_or("Water volume overflow")?;
+1105             ctx.db
+1106                 .container_liquid()
+1107                 .container_object_id()
+1108                 .update(liquid);
+1109         } else {
+1110             ctx.db.container_liquid().insert(ContainerLiquid {
+1111                 container_object_id: object.id,
+1112                 liquid_item_id: WATER_ITEM_ID.into(),
+1113                 water_ml: added_ml,
+1114             });
+1115         }
+1116     }
+1117     Ok(())
+1118 }
+1119 
+1120 pub(crate) fn consume_contained_water(
+1121     ctx: &ReducerContext,
+1122     consumer_character_id: u64,
+1123     expected_custody: &OperationalCustody,
+1124     requested_ml: u64,
+1125 ) -> Result<u64, String> {

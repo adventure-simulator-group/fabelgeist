@@ -1,0 +1,76 @@
+SOURCE crates/adventuresim-stdb-module/src/disease.rs:2035-2109
+2035         ctx,
+2036         character_id,
+2037         match cause {
+2038             TerminalFailure::Respiratory => crate::DeathCause::RespiratoryFailure,
+2039             TerminalFailure::Circulatory => crate::DeathCause::CirculatoryFailure,
+2040             TerminalFailure::Homeostatic => crate::DeathCause::HomeostaticFailure,
+2041             TerminalFailure::Neurologic => crate::DeathCause::NeurologicFailure,
+2042         },
+2043         crate::DeathSource::Disease,
+2044         Some(
+2045             match cause {
+2046                 TerminalFailure::Respiratory => "respiratory-failure",
+2047                 TerminalFailure::Circulatory => "circulatory-failure",
+2048                 TerminalFailure::Homeostatic => "homeostatic-failure",
+2049                 TerminalFailure::Neurologic => "neurologic-failure",
+2050             }
+2051             .into(),
+2052         ),
+2053     )?;
+2054     Ok(())
+2055 }
+2056 
+2057 fn private_variation(
+2058     ctx: &ReducerContext,
+2059     patient_id: u64,
+2060     administration_minute: StrategicMinute,
+2061     preparation_id: &str,
+2062 ) -> Result<(i16, u16), String> {
+2063     use sha2::{Digest, Sha256};
+2064     let key = physiology_key(ctx)?;
+2065     let mut input = Sha256::new();
+2066     input.update(b"adventuresim/physiology/administration");
+2067     input.update(administration_minute.get().to_le_bytes());
+2068     input.update(preparation_id.as_bytes());
+2069     let discriminator =
+2070         u64::from_le_bytes(input.finalize()[..8].try_into().expect("SHA-256 prefix"));
+2071     let phenotype =
+2072         physiology::phenotype_multipliers(&key.key, key.version, patient_id, discriminator);
+2073     let sensitivity = ((phenotype[0] - 1.0) * 5_000.0).round() as i16;
+2074     let adverse = ((phenotype[1] - 0.72) / 0.56 * 1_500.0)
+2075         .round()
+2076         .clamp(0.0, 1_500.0) as u16;
+2077     Ok((sensitivity.clamp(-2_500, 2_500), adverse))
+2078 }
+2079 
+2080 pub(crate) fn require_intervention_relationship(
+2081     ctx: &ReducerContext,
+2082     actor_id: u64,
+2083     patient_id: u64,
+2084 ) -> Result<(), String> {
+2085     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+2086     crate::require_living_character(ctx, actor_id)?;
+2087     crate::require_living_character(ctx, patient_id)?;
+2088     if actor_id == patient_id {
+2089         return Ok(());
+2090     }
+2091     match crate::world_actor::contextual_nonemergency_treatment_decision(ctx, actor_id, patient_id)
+2092     {
+2093         adventuresim_core::strategic_action::ContextualActionDecision::Allowed(_) => Ok(()),
+2094         adventuresim_core::strategic_action::ContextualActionDecision::Refused => {
+2095             Err("The patient refused this intervention".into())
+2096         }
+2097         adventuresim_core::strategic_action::ContextualActionDecision::Unavailable => Err(
+2098             "An intervention actor and patient must share an available treatment context".into(),
+2099         ),
+2100     }
+2101 }
+2102 
+2103 fn commit_terminal_at_boundary(
+2104     ctx: &ReducerContext,
+2105     patient_id: u64,
+2106     minute: StrategicMinute,
+2107 ) -> Result<(), String> {
+2108     let episodes = character_episodes(ctx, patient_id)?;
+2109     let immunity = ctx

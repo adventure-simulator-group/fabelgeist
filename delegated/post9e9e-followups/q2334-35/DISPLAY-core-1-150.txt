@@ -1,0 +1,150 @@
+   1 //! Framework-independent rules for physical inventory containment.
+   2 //!
+   3 //! This graph is deliberately unrelated to equipment attachment topology.
+   4 
+   5 use std::collections::{BTreeMap, BTreeSet};
+   6 
+   7 use crate::{material::Milliliters, physical_object::PhysicalObjectId};
+   8 
+   9 pub const MAX_CONTAINER_DEPTH: usize = 16;
+  10 
+  11 #[derive(Clone, Debug, PartialEq, Eq)]
+  12 pub struct Object {
+  13     pub id: PhysicalObjectId,
+  14     /// Exterior displacement when this object is an immediate child.
+  15     pub exterior_volume: Milliliters,
+  16     /// Interior capacity; `None` means this object is not a container.
+  17     pub capacity: Option<Milliliters>,
+  18     /// Measured liquid/material volume currently represented by this object.
+  19     pub measured_volume: Option<Milliliters>,
+  20 }
+  21 
+  22 #[derive(Clone, Debug, Default, PartialEq, Eq)]
+  23 pub struct ContainmentGraph {
+  24     objects: BTreeMap<PhysicalObjectId, Object>,
+  25     parent_by_child: BTreeMap<PhysicalObjectId, PhysicalObjectId>,
+  26 }
+  27 
+  28 impl ContainmentGraph {
+  29     pub fn new(objects: impl IntoIterator<Item = Object>) -> Result<Self, &'static str> {
+  30         let mut graph = Self::default();
+  31         for object in objects {
+  32             if object.exterior_volume.is_zero() {
+  33                 return Err("Every physical object must have a positive exterior volume");
+  34             }
+  35             if object
+  36                 .measured_volume
+  37                 .is_some_and(|volume| volume > object.exterior_volume)
+  38             {
+  39                 return Err("Measured volume exceeds the object's authored exterior volume");
+  40             }
+  41             if graph.objects.insert(object.id, object).is_some() {
+  42                 return Err("Duplicate inventory object identity");
+  43             }
+  44         }
+  45         Ok(graph)
+  46     }
+  47 
+  48     pub fn parent(&self, child: PhysicalObjectId) -> Option<PhysicalObjectId> {
+  49         self.parent_by_child.get(&child).copied()
+  50     }
+  51 
+  52     pub fn is_nonempty(&self, container: PhysicalObjectId) -> bool {
+  53         self.parent_by_child
+  54             .values()
+  55             .any(|parent| *parent == container)
+  56     }
+  57 
+  58     pub fn used_volume(&self, container: PhysicalObjectId) -> Result<Milliliters, &'static str> {
+  59         let mut used = Milliliters::ZERO;
+  60         for child in self
+  61             .parent_by_child
+  62             .iter()
+  63             .filter_map(|(child, parent)| (*parent == container).then_some(*child))
+  64         {
+  65             let object = self.objects.get(&child).ok_or("Unknown contained object")?;
+  66             // An immediate liquid lot consumes its current amount. A vessel or
+  67             // solid consumes its exterior displacement; grandchildren are
+  68             // already physically inside that displacement and are not added.
+  69             let volume = object.measured_volume.unwrap_or(object.exterior_volume);
+  70             used = used
+  71                 .checked_add(volume)
+  72                 .ok_or("Container volume overflow")?;
+  73         }
+  74         Ok(used)
+  75     }
+  76 
+  77     pub fn insert(
+  78         &mut self,
+  79         child: PhysicalObjectId,
+  80         parent: PhysicalObjectId,
+  81     ) -> Result<(), &'static str> {
+  82         if child == parent {
+  83             return Err("A container cannot contain itself");
+  84         }
+  85         let parent_object = self
+  86             .objects
+  87             .get(&parent)
+  88             .ok_or("Unknown destination container")?;
+  89         let Some(parent_capacity) = parent_object.capacity else {
+  90             return Err("Destination is not a container");
+  91         };
+  92         let child_object = self.objects.get(&child).ok_or("Unknown child object")?;
+  93         let child_volume = child_object
+  94             .measured_volume
+  95             .unwrap_or(child_object.exterior_volume);
+  96 
+  97         let mut ancestor = Some(parent);
+  98         let mut visited = BTreeSet::new();
+  99         let mut ancestor_depth = 0usize;
+ 100         for _ in 0..=MAX_CONTAINER_DEPTH {
+ 101             let Some(id) = ancestor else { break };
+ 102             if id == child {
+ 103                 return Err("Container nesting would create a cycle");
+ 104             }
+ 105             if !visited.insert(id) {
+ 106                 return Err("Existing containment cycle");
+ 107             }
+ 108             ancestor = self.parent(id);
+ 109             ancestor_depth += 1;
+ 110         }
+ 111         if ancestor.is_some() {
+ 112             return Err("Container nesting exceeds the maximum depth");
+ 113         }
+ 114         let mut frontier = vec![(child, 0usize)];
+ 115         let mut descendant_depth = 0usize;
+ 116         while let Some((node, depth)) = frontier.pop() {
+ 117             descendant_depth = descendant_depth.max(depth);
+ 118             if ancestor_depth
+ 119                 .checked_add(descendant_depth)
+ 120                 .is_none_or(|combined| combined > MAX_CONTAINER_DEPTH)
+ 121             {
+ 122                 return Err("Container nesting exceeds the maximum depth");
+ 123             }
+ 124             frontier.extend(self.parent_by_child.iter().filter_map(
+ 125                 |(candidate, candidate_parent)| {
+ 126                     (*candidate_parent == node).then_some((*candidate, depth + 1))
+ 127                 },
+ 128             ));
+ 129         }
+ 130 
+ 131         let old_parent = self.parent_by_child.remove(&child);
+ 132         let used = self.used_volume(parent)?;
+ 133         let fits = used
+ 134             .checked_add(child_volume)
+ 135             .is_some_and(|next| next <= parent_capacity);
+ 136         if !fits {
+ 137             if let Some(old_parent) = old_parent {
+ 138                 self.parent_by_child.insert(child, old_parent);
+ 139             }
+ 140             return Err("Container capacity exceeded");
+ 141         }
+ 142         self.parent_by_child.insert(child, parent);
+ 143         Ok(())
+ 144     }
+ 145 
+ 146     pub fn remove(&mut self, child: PhysicalObjectId) -> bool {
+ 147         self.parent_by_child.remove(&child).is_some()
+ 148     }
+ 149 
+ 150     pub fn subtree(&self, root: PhysicalObjectId) -> Result<Vec<PhysicalObjectId>, &'static str> {

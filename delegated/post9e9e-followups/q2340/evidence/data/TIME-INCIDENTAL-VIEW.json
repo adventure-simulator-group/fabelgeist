@@ -1,0 +1,3 @@
+{
+  "event": "Before registering a source display, the metadata-shape inspection inadvertently printed the first 250 characters of each Python dictionary representation. This included a short base64 prefix of each connector content. The intended locator registration did not authorize source display; treat those four encoded prefixes as incidental/unregistered, not credited personal source inspection. No source was modified."
+}

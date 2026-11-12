@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/incidents.rs:195-265
+ 195             |site| {
+ 196                 (
+ 197                     site.scene_key,
+ 198                     site.longitude_e7,
+ 199                     site.latitude_e7,
+ 200                     site.coordinates_are_geographic,
+ 201                     site.distance_m,
+ 202                 )
+ 203             },
+ 204         );
+ 205     let site = CaseSiteAuthority {
+ 206         id_key: case_site_id.clone(),
+ 207         id: CaseSiteId::from(case_site_id.clone()),
+ 208         case_id: incident_id.value.clone(),
+ 209         origin_settlement_id: settlement.id.clone(),
+ 210         name: spec.title.into(),
+ 211         description: spec.description,
+ 212         scene_key,
+ 213         longitude_e7,
+ 214         latitude_e7,
+ 215         coordinates_are_geographic,
+ 216         distance_m,
+ 217     };
+ 218     ctx.db.case_site_authority().insert(site.clone());
+ 219     let hostile_group_id = format!("hostile-group:{}", incident_id.value);
+ 220     let hostile_group = materialize_hostile_group(
+ 221         ctx,
+ 222         &hostile_group_id,
+ 223         &site,
+ 224         spec.enemy_type.into(),
+ 225         enemy_count as u32,
+ 226         spec.difficulty,
+ 227     )?;
+ 228     ctx.db.strategic_incident().insert(StrategicIncident {
+ 229         id_key: incident_id.value.clone(),
+ 230         id: incident_id.clone(),
+ 231         source_id,
+ 232         action_token: format!("{:016x}{:016x}", ctx.random::<Seed>(), ctx.random::<Seed>()),
+ 233         party_id: party_id.into(),
+ 234         settlement_id: settlement.id.clone(),
+ 235         instigator_id,
+ 236         kind: spec.kind,
+ 237         status: IncidentStatus::Pending,
+ 238         case_site_id: site.id.clone(),
+ 239         hostile_group_id: hostile_group.id,
+ 240         created_at_minute: crate::time::refresh_clock(ctx)?,
+ 241     });
+ 242 
+ 243     for member_id in living_party_member_ids(ctx, party_id) {
+ 244         if let Some(mut member) = ctx.db.character().id().find(member_id) {
+ 245             member.current_settlement_id = None;
+ 246             crate::investigation::set_character_case_site(
+ 247                 ctx,
+ 248                 member.id,
+ 249                 Some(case_site_id.clone()),
+ 250             )?;
+ 251             ctx.db.character().id().update(member);
+ 252         }
+ 253     }
+ 254     party.current_settlement_id = None;
+ 255     party.current_case_site_id = Some(CaseSiteId::from(case_site_id));
+ 256     ctx.db.party_authority().id().update(party);
+ 257     Ok(Some(incident_id))
+ 258 }
+ 259 
+ 260 fn maybe_trigger_religious_incident(
+ 261     ctx: &ReducerContext,
+ 262     party_id: &str,
+ 263     settlement: &Settlement,
+ 264 ) -> Result<Option<IncidentId>, String> {
+ 265     if ctx

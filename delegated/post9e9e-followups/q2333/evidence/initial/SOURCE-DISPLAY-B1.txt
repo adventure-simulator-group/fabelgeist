@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:155-230
+ 155         .tincture_process()
+ 156         .container_object_id()
+ 157         .update(process.clone());
+ 158     let key = format!("container|{object_id}|{}", process.intervention_profile_id);
+ 159     if ctx
+ 160         .db
+ 161         .medicinal_component()
+ 162         .key()
+ 163         .find(key.clone())
+ 164         .is_none()
+ 165     {
+ 166         ctx.db.medicinal_component().insert(MedicinalComponent {
+ 167             key,
+ 168             carrier_kind: "container".into(),
+ 169             carrier_id: object_id,
+ 170             intervention_profile_id: process.intervention_profile_id,
+ 171             profile_version: process.profile_version,
+ 172             potency_units: process.pinned_potency_units,
+ 173         });
+ 174     }
+ 175 }
+ 176 
+ 177 pub(crate) fn consume_food_medicine(
+ 178     ctx: &ReducerContext,
+ 179     patient_id: u64,
+ 180     lot_id: u64,
+ 181     fraction: f32,
+ 182 ) -> Result<(), String> {
+ 183     if !fraction.is_finite() {
+ 184         return Err("Medicinal food fraction is invalid".into());
+ 185     }
+ 186     let fraction = fraction.clamp(0.0, 1.0);
+ 187     if fraction <= 0.0 {
+ 188         return Ok(());
+ 189     }
+ 190     let mut rows = ctx
+ 191         .db
+ 192         .medicinal_component()
+ 193         .iter()
+ 194         .filter(|row| row.carrier_kind == "food_lot" && row.carrier_id == lot_id)
+ 195         .collect::<Vec<_>>();
+ 196     rows.sort_by(|a, b| a.key.cmp(&b.key));
+ 197     for row in &rows {
+ 198         adventuresim_core::physiology::intervention_profile(
+ 199             &row.intervention_profile_id,
+ 200             row.profile_version,
+ 201         )
+ 202         .ok_or("Medicinal food references an unknown profile version")?;
+ 203         if !row.potency_units.is_finite() || row.potency_units < 0.0 {
+ 204             return Err("Medicinal food potency is invalid".into());
+ 205         }
+ 206     }
+ 207     for mut row in rows {
+ 208         let used = row.potency_units * fraction;
+ 209         let dose = DoseMilliunits::try_from_standard_doses_rounded(used)
+ 210             .map_err(|_| "Medicinal food dose is outside the supported range")?;
+ 211         crate::disease::administer_intervention_component(
+ 212             ctx,
+ 213             patient_id,
+ 214             &row.intervention_profile_id,
+ 215             row.profile_version,
+ 216             dose,
+ 217         )?;
+ 218         if fraction >= 0.999_999 {
+ 219             ctx.db.medicinal_component().key().delete(row.key);
+ 220         } else {
+ 221             row.potency_units -= used;
+ 222             ctx.db.medicinal_component().key().update(row);
+ 223         }
+ 224     }
+ 225     Ok(())
+ 226 }
+ 227 
+ 228 pub(crate) fn delete_food_medicine(ctx: &ReducerContext, lot_id: u64) {
+ 229     for row in ctx
+ 230         .db

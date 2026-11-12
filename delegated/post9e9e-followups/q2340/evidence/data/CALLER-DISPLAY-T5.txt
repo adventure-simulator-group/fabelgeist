@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:905-955
+ 905     refresh_party_journey_forecast(ctx, &party_id)?;
+ 906     let proposed_leg_minutes = party.camp_remaining_minutes.min(party_next_walking_minutes(
+ 907         ctx,
+ 908         &party.id,
+ 909         party.camp_remaining_minutes,
+ 910     )?);
+ 911     if proposed_leg_minutes == 0 {
+ 912         return Err(adventuresim_core::reducer_error::coded_reducer_error(
+ 913             adventuresim_core::reducer_error::ReducerErrorCode::JourneyDaylightWindowRequired,
+ 914             "Rest until the party reaches its next daylight walking window",
+ 915         ));
+ 916     }
+ 917     let traveler_ids = living_party_member_ids(ctx, &party_id);
+ 918     let (leg_minutes, encounter, narrative, next_roll) = advance_party_movement_until_encounter(
+ 919         ctx,
+ 920         &party_id,
+ 921         &traveler_ids,
+ 922         proposed_leg_minutes,
+ 923     )?;
+ 924     party = ctx
+ 925         .db
+ 926         .party_authority()
+ 927         .id()
+ 928         .find(&party_id)
+ 929         .ok_or("Party changed during travel")?;
+ 930     let interrupted = encounter.is_some() || narrative.is_some();
+ 931     party.camp_remaining_minutes = party.camp_remaining_minutes.saturating_sub(leg_minutes);
+ 932     if interrupted || party.camp_remaining_minutes > 0 {
+ 933         ctx.db.party_authority().id().update(party);
+ 934         if interrupted {
+ 935             record_party_journey_interruption(ctx, &party_id, leg_minutes);
+ 936             commit_encounter_scan(ctx, &party_id, next_roll, encounter, narrative)?;
+ 937         } else {
+ 938             record_party_journey_camp(ctx, &party_id, leg_minutes)?;
+ 939             commit_encounter_scan(ctx, &party_id, next_roll, None, None)?;
+ 940         }
+ 941         return Ok(());
+ 942     }
+ 943     match destination {
+ 944         JourneyEndpoint::Settlement(endpoint) => {
+ 945             let destination_id = endpoint.id;
+ 946             let _destination = ctx
+ 947                 .db
+ 948                 .settlement()
+ 949                 .id()
+ 950                 .find(&destination_id)
+ 951                 .ok_or("Camp destination settlement not found")?;
+ 952             for member_id in traveler_ids.iter().copied() {
+ 953                 let mut member = ctx
+ 954                     .db
+ 955                     .character()

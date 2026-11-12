@@ -1,0 +1,81 @@
+SOURCE crates/adventuresim-stdb-module/src/time/stationary.rs:1-80
+   1 // Owns stationary catch-up and saved training-schedule mutation.
+   2 /// Advance one stationary character through their ordinary saved schedule to
+   3 /// an explicit personal frontier. This is shared by lazy player catch-up and
+   4 /// bounded autonomous NPC policy; callers choose the target, never the
+   5 /// character being observed.
+   6 pub(crate) fn advance_stationary_character_to(
+   7     ctx: &ReducerContext,
+   8     character_id: u64,
+   9     target_minutes: StrategicMinute,
+  10 ) -> Result<(), String> {
+  11     ensure_character_time(ctx, character_id)?;
+  12     let character = ctx
+  13         .db
+  14         .character()
+  15         .id()
+  16         .find(character_id)
+  17         .ok_or("Character not found")?;
+  18     if !character.alive {
+  19         // A corpse's strategic minute remains the death minute. Lazy reads must
+  20         // not train, recover, consume provisions, or advance it.
+  21         return Ok(());
+  22     }
+  23     let mut character_time = ctx
+  24         .db
+  25         .character_time()
+  26         .character_id()
+  27         .find(character_id)
+  28         .ok_or_else(|| "Character time record not found".to_string())?;
+  29     let starting_minute = character_time.minutes;
+  30     if target_minutes < starting_minute {
+  31         return Err("Character time cannot be advanced retroactively".into());
+  32     }
+  33     let requested_elapsed = target_minutes.elapsed_since(starting_minute);
+  34     if requested_elapsed == 0 {
+  35         return Ok(());
+  36     }
+  37     if let Some(boundary) = crate::relationship::next_lifecycle_boundary(
+  38         ctx,
+  39         character_id,
+  40         starting_minute,
+  41         target_minutes,
+  42     ) {
+  43         let was_npc_controlled = ctx
+  44             .db
+  45             .npc_policy()
+  46             .character_id()
+  47             .find(character_id)
+  48             .is_some();
+  49         advance_stationary_character_to(ctx, character_id, boundary)?;
+  50         let alive = ctx
+  51             .db
+  52             .character()
+  53             .id()
+  54             .find(character_id)
+  55             .is_some_and(|row| row.alive);
+  56         let npc_authority_transferred = was_npc_controlled
+  57             && ctx
+  58                 .db
+  59                 .npc_policy()
+  60                 .character_id()
+  61                 .find(character_id)
+  62                 .is_none();
+  63         if !alive || npc_authority_transferred {
+  64             return Ok(());
+  65         }
+  66         return advance_stationary_character_to(ctx, character_id, target_minutes);
+  67     }
+  68     let saved_schedule = ctx
+  69         .db
+  70         .character_training_schedule()
+  71         .character_id()
+  72         .find(character_id)
+  73         .ok_or_else(|| "Character training schedule not found".to_string())?;
+  74     let execution_location = activity_execution_location(ctx, character_id)?;
+  75     let organization_schedule =
+  76         effective_organization_schedule(ctx, character_id, &saved_schedule.downtime);
+  77     let effective_schedule = if execution_location.policy == ActivityLocation::JourneyCamp {
+  78         let camp_schedule = allowed_camp_schedule(&organization_schedule);
+  79         effective_location_schedule(&camp_schedule, execution_location.policy, fabelgeist_determinism::Seed::from_u64(character_id))
+  80     } else {

@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal.rs:501-560
+ 501     // choice.
+ 502     for time in &cohort {
+ 503         process_policy_decisions(ctx, time)?;
+ 504     }
+ 505     for time in cohort {
+ 506         let target = official_minute.min(time.minutes.saturating_add_days(1));
+ 507         crate::time::advance_stationary_character_to(ctx, time.character_id, target)?;
+ 508     }
+ 509     Ok(())
+ 510 }
+ 511 
+ 512 #[cfg(test)]
+ 513 mod tests {
+ 514     use adventuresim_world_schema::Sex;
+ 515 
+ 516     use super::npc_courtship_roles;
+ 517 
+ 518     #[test]
+ 519     fn scheduler_has_hard_bounded_batches_and_one_day_steps() {
+ 520         let source = crate::production_source(include_str!("npc_causal.rs"));
+ 521         assert!(source.contains("truncate(MAX_NPCS_PER_CAUSAL_TICK)"));
+ 522         assert!(source.contains("MAX_LIFECYCLE_EVENTS_PER_CAUSAL_TICK"));
+ 523         assert!(source.contains("time.minutes.saturating_add_days(1)"));
+ 524     }
+ 525 
+ 526     #[test]
+ 527     fn stable_policy_order_is_frontier_then_character() {
+ 528         let source = crate::production_source(include_str!("npc_causal.rs"));
+ 529         assert!(source.contains("sort_by_key(|time| (time.minutes, time.character_id))"));
+ 530         assert!(source.contains("retain(|time| time.minutes == frontier)"));
+ 531         assert!(source.contains("time.minutes"));
+ 532         assert!(source.contains("< target_minute"));
+ 533     }
+ 534 
+ 535     #[test]
+ 536     fn whole_cohort_decides_before_any_member_advances() {
+ 537         let source = crate::production_source(include_str!("npc_causal.rs"));
+ 538         let reducer = source
+ 539             .split("pub fn run_npc_causal_tick")
+ 540             .nth(1)
+ 541             .expect("scheduled reducer");
+ 542         let decisions = reducer.find("process_policy_decisions").unwrap();
+ 543         let advancement = reducer.find("advance_stationary_character_to").unwrap();
+ 544         assert!(decisions < advancement);
+ 545         assert!(reducer.contains("for time in &cohort"));
+ 546         assert!(reducer.contains("for time in cohort"));
+ 547     }
+ 548 
+ 549     #[test]
+ 550     fn schedule_and_housing_are_receipted_and_scheduler_only() {
+ 551         let source = crate::production_source(include_str!("npc_causal.rs"));
+ 552         assert!(source.contains("NpcPolicyDecisionReceipt"));
+ 553         assert!(source.contains("ScheduleInitialized"));
+ 554         assert!(source.contains("SchedulePreserved"));
+ 555         assert!(source.contains("settle_npc_residence"));
+ 556         assert!(source.contains("phase_already_decided"));
+ 557     }
+ 558 
+ 559     #[test]
+ 560     fn dependent_schedule_waits_for_authoritative_adulthood() {

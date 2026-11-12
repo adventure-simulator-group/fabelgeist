@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-12T18:00:47.632117+00:00",
+  "paths": [
+    "crates/adventuresim-stdb-module/src/npc_causal.rs",
+    "crates/adventuresim-stdb-module/src/relationship/family.rs",
+    "crates/adventuresim-stdb-module/src/time/mod.rs",
+    "crates/adventuresim-stdb-module/src/time/advancement.rs",
+    "crates/adventuresim-stdb-module/src/time/stationary.rs",
+    "crates/adventuresim-stdb-module/src/character.rs",
+    "crates/adventuresim-stdb-module/src/time/model.rs",
+    "crates/adventuresim-stdb-module/src/time/schedule.rs",
+    "crates/adventuresim-stdb-module/src/settlement_population.rs",
+    "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+    "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs"
+  ],
+  "terms": [
+    "fn initialize_character_time",
+    "fn stable_npc_cohort",
+    "fn exact_age",
+    "fn ensure_settlement",
+    "fn seed",
+    "insert_resident_draft",
+    "set_seeded_character_birth_from_age",
+    "settle_character_age",
+    "initialize_character_time"
+  ],
+  "max_hits": 30,
+  "purpose": "locate initial time and resident producer lifecycle before chronological policy decisions"
+}

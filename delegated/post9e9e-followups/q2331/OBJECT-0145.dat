@@ -1,0 +1,799 @@
+{
+  "kind": "Parallel L12 ordered reached-contract union proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 749,
+  "proposed_original_before": 2279,
+  "proposed_original_after": 2284,
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+  "predecessor_proposal_sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+  "rows": [
+    {
+      "original_index": 2279,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "actual_EOF": 484,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "registration_sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "assessed_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          484
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ComputePass.dispatch9..35/record37..484"
+        ],
+        "string_inventory": [
+          "PassParameters.get Stringmember90/buffername220/texture252/sampler427 rematches; native diagnosticlabels20/200/460/472 only. Exact closed reasons50/68/77/224/245/256/356/395/405/415/430/444/450; retained validation text56 alreadyfirsterased atpipeline117."
+        ],
+        "trace": [
+          "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding."
+        ],
+        "conditional_cases": [
+          "Uniformdefaults/unsupportedvariant191/zero87 are actualpolicy; nativeformat sRGBcounterpart269/298/326/369..388 explicitnormalization, notcompatibilitydefect. TextureView349 legitimate. Distinct create_bind_groups earlier ignoresUnsigned/TextureView while record supportsboth: actualcaller/sharedcontract needed before rejection, no generic sameness requirement. NativeMat3 admission/size required beforeboundsclaim. NonZero235 conditionalpublicBuffer.sizezero route retainedseparately."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "actual_EOF": 187,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "registration_sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "assessed_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          187
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "ComputePipeline.default24/get_or_create_pipeline37/get_or_create_pipeline_validated48..124/validate_interface126/new143/prepare152/compile164..187"
+        ],
+        "string_inventory": [
+          "Raw nativeentry_point &str40/51 -> hash64 retained HashMapu64 cache18/65; reflection.vertex_entry_point174 nativeprojection. validation_error Arc<Mutex<Option<String>>>20 nativeerror.to_string117 -> compiletext182/recordtext56. Native finalWGPUlabels96/102 separate."
+        ],
+        "trace": [
+          "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison."
+        ],
+        "conditional_cases": [
+          "blocking_validationfalse orwasmnonblocking mode intentional52/83/112; no requirementglobalalwaysblocking. Cachekeyonlyentrypointhash64; shader/bindgroups publicmutable and cache sharedclones: conditionalcachevalidity/native deviceidentity sourcegraph needed, no unconditional stalepipelineclaim. Mutexpoisonotherpolicy stillopen; passeddeviceactualidentity notknown. Nativepoll113 resultignored nativecausepolicyrequiresactualwgpu29."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2281,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "source_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "actual_EOF": 42,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "registration_sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "assessed_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          42
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "PassParameters.new11/insert17/get21/Default27/FromIndexMap33/IntoIndexMap39"
+        ],
+        "string_inventory": [
+          "ActualStringparameterproducer Into<String>17 rawmap7/from32; get&str21 rematches; exactbodyproofofprior748 identitycandidate, no automatic newfindingaliascount."
+        ],
+        "trace": [
+          "Author/nativeparametername -> insert17/key.into18 -> retainedIndexMapString7 -> get21 -> record90/bind_group35 -> nativebinding. Arbitraryauthoredshadernames legitimate; typemustnotinventclosedbuiltin grammar."
+        ],
+        "conditional_cases": [
+          "Publicmap7/from32 bypassanyfutureadmission; connectedrepairmustincludeall constructors, notjustinsert. Exactowner/nativeadmissionreflectedsourcenextpending."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2282,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "source_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "actual_EOF": 129,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-241.json",
+      "registration_sha256": "2a094d7393b5b85057955dd251745eb211c68997ed17b8b2a75ad2b622b30eb5",
+      "assessed_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          129
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "PassParameter11..27/Fromnativevariants29..129"
+        ],
+        "string_inventory": [
+          "No Stringpayload: typednumeric/vector/matrix/transform/texture/sampler/buffervariants, nativeencoding conversiononly."
+        ],
+        "trace": [
+          "Nativeinputs -> enumvariants -> ComputePass typedmatch -> nativeuniform/resource. i32castUnsigned127 actualbit reinterpretation/narrowpolicy notstringdefect; numericsemanticdecisionseparate."
+        ],
+        "conditional_cases": [
+          "Allvariants includingTextureView24/Unsigned13 legitimate; earlierhelper supportedsubset notautomaticallycompatibilitydefect. No tests/runtimeexecution."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2283,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "actual_EOF": 73,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "registration_sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          73
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2279\u20132283 range fields checked; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "UniformMember4/TextureBinding11/BufferBinding19/BindGroupReflection26/ReflectionData37/detect_from_code43/parse_naga50..73"
+        ],
+        "string_inventory": [
+          "BindingnamesString5/12/20/sampler32 share prior748 source-supportedidentitypath; entrypointsString39/40 separate. detect returns nativeglsl45/wgsl47 thenStringrematch56 ratherthanretainingclosedlanguagechoice. Nativeparseerrors formatted66 ordiagnostic69\u2192anyhow70."
+        ],
+        "trace": [
+          "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread."
+        ],
+        "conditional_cases": [
+          "Heuristic #version substring44 canoccurinWGSLcomment, but explicitintendedlanguageadmissionpolicy/actualcaller required before ordinarymisclassificationfinding. Native format/language optionalGLSL/WGSLmodes legitimate; mustsupportdecidedmodes without obsoleteheuristic preservation."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "new_original_roles_proposed": 5,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "new_findings": [
+    {
+      "id": "PAR-L12-GPU-PASS-PIPELINE-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record pipeline OptionNone emitsclosedprose at50",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-REFLECTION-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record reflection OptionNone emitsclosedprose at68",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-LAYOUT-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record bindgrouplayoutindexabsent emitsclosedprose at77",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-BUFFER-PARAMETER-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record bufferparameternameabsent emitsclosedprose at224",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-BUFFER-PARAMETER-KIND-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record parameter notBuffer emitsclosedprose at245",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-TEXTURE-PARAMETER-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record textureparameterabsent emitsclosedprose at256",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-TEXTURE-PARAMETER-KIND-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record parameter notsupportedtexture emitsclosedprose at356",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-TEXTURE-FORMAT-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record nativeformatmismatch notallowedcounterpart emitsclosedprose at395",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-TEXTURE-DIMENSION-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record nativeviewdimensionmismatch emitsclosedprose at405",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-TEXTURE-VIEW-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record texturewrapperviewNone emitsclosedprose at415",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-SAMPLER-PARAMETER-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record samplerparameterabsent emitsclosedprose at430",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-SAMPLER-RESOURCE-MISSING-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record samplernativeresourceNone emitsclosedprose at444",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PASS-SAMPLER-PARAMETER-KIND-REASON",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePass.record parameter notSampler emitsclosedprose at450",
+      "canonical_owner": "Compute pass/binding admission error with exactpredicate and typedname/resourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record37..484"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Retain exactreason/context through record/dispatch/publicResult; connect sharedhelper only on exactfirstcontract proof"
+      ],
+      "dependencies": [
+        "Exact aliases to bind_group748 similar sites require equivalentpredicate/owner/contract graph; commonremedy notalias",
+        "Nativewgpu29/all20/current actualconsumer"
+      ],
+      "acceptance_requirements": [
+        "Structuredreason represents actualfirstpredicate and nativecontext until finalpresentation",
+        "Preserve legitimate optionaluniform/view-only/sRGBnormalization modes; invalid/obsolete behavior notcompatibilitycontract"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-BUFFER-LOGICAL-ZERO-NONZERO-PANIC",
+      "primary_original_index": 2279,
+      "primary_source_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "classification": "Conditional source-proven panic from publicly constructible/mutable retainedstate; actualcurrent/caller/nativewitness pending",
+      "first_failed_contract": "Buffer has public size2276:18 admitted rawzero via BufferByteLength::from0; record231 branches iflogicalsize0<nativepositive then NonZeroU64::new(0).unwrap235 panics",
+      "canonical_owner": "Buffer retained logical extent admission plus pass resource binding; standalone zero bytequantity remainslegitimate",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs SHA80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d ::record230..239; Buffer2276 fields16..20/new23"
+      ],
+      "producer_api_state_consumer_native_boundary": "PassParameters producer2281insert17 -> record37 Stringlookup -> typedparameter/resource -> devicebindgroup458 -> set_pipeline475/bindgroup477 -> native dispatch479 -> publicResult482. This independentlysupports prior748 shaderparameteridentity candidate withoutduplicatenewfinding.",
+      "connected_repair_scope": [
+        "Admit buffer-specific logical extent and nativecapacity relationship before retainedpublicstate/dispatch; prevent uncheckedNonZero conversion",
+        "Carry admittedlogicalextent through bindingnativeprojection"
+      ],
+      "dependencies": [
+        "Conditional: actualvalidpipeline/reflection withbufferbinding, nativebufferpositive and publicsizezero; body-source proof notexecutedwitness",
+        "All-other-lens independent aggregate/admission requalification; actualnativevalidbuffer/caller/current"
+      ],
+      "acceptance_requirements": [
+        "Valid admitted Buffer state guarantees nonzero boundedlogicalbinding size or explicitdecidedemptybindingmode",
+        "MalformedretainedBuffer returns typedadmissionerror before unwrap; no forcedrejection of standalonezeroquantity or preservinginvalidbehavior"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-VALIDATION-CAUSE-ERASURE",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "Actual wgpu validation Error from error_scope.pop114 first e.to_string117 retained as Mutex<Option<String>>20; compile182/record56 later formatters",
+      "canonical_owner": "ComputePipeline native validation error owner with retained actualnativecause/context",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48..124/compile164..187"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Retain nativewgpu validation cause in validation state through compile/pass/kernel/armorconsumer; finalprojectiononlyatnativepresentation"
+      ],
+      "dependencies": [
+        "Actual wgpu29 error taxonomy/sharedthread requirements; exactaliases against generic compute/armor formatters must trace thisactualearliestcut",
+        "Intentional nonblockingvalidation mode preservesactualpolicy; nativepollcause/open state paths remainpending"
+      ],
+      "acceptance_requirements": [
+        "Native validation cause/context remainsinspectable through retainedstate and eachactualconsumer",
+        "No Boxdowncast/errorprose/obsoleteAPI compatibility requirement"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-CACHE-LOCK-REASON",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePipeline cache Mutexpoison error converted to prose emitsclosedtext at70",
+      "canonical_owner": "ComputePipeline admission/state error with exactreason and typedcontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48/validate_interface126/compile164"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Represent exactfailure reason with relevantstate/context through publicResult"
+      ],
+      "dependencies": [
+        "Actualmutex/nativeerrorrepresentationpolicy and exactalias/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Predicate structurallyinspectable until finalpresentation; poisonpolicy explicit, no invalid/obsoletebehavior preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-SHADER-MODULE-MISSING-REASON",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePipeline shader.moduleNone emitsclosedtext at89",
+      "canonical_owner": "ComputePipeline admission/state error with exactreason and typedcontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48/validate_interface126/compile164"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Represent exactfailure reason with relevantstate/context through publicResult"
+      ],
+      "dependencies": [
+        "Actualmutex/nativeerrorrepresentationpolicy and exactalias/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Predicate structurallyinspectable until finalpresentation; poisonpolicy explicit, no invalid/obsoletebehavior preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-COMPUTE-ENTRY-MISSING-REASON",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePipeline no nativecomputeentrypoint emitsclosedtext at135",
+      "canonical_owner": "ComputePipeline admission/state error with exactreason and typedcontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48/validate_interface126/compile164"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Represent exactfailure reason with relevantstate/context through publicResult"
+      ],
+      "dependencies": [
+        "Actualmutex/nativeerrorrepresentationpolicy and exactalias/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Predicate structurallyinspectable until finalpresentation; poisonpolicy explicit, no invalid/obsoletebehavior preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-COMPILE-REFLECTION-MISSING-REASON",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePipeline compile reflectionNone emitsclosedtext at171",
+      "canonical_owner": "ComputePipeline admission/state error with exactreason and typedcontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48/validate_interface126/compile164"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Represent exactfailure reason with relevantstate/context through publicResult"
+      ],
+      "dependencies": [
+        "Actualmutex/nativeerrorrepresentationpolicy and exactalias/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Predicate structurallyinspectable until finalpresentation; poisonpolicy explicit, no invalid/obsoletebehavior preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-PIPELINE-VALIDATION-LOCK-REASON",
+      "primary_original_index": 2280,
+      "primary_source_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "ComputePipeline validation Mutex poisonconverted to prose emitsclosedtext at180",
+      "canonical_owner": "ComputePipeline admission/state error with exactreason and typedcontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs SHAf795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204 ::get_or_create_pipeline_validated48/validate_interface126/compile164"
+      ],
+      "producer_api_state_consumer_native_boundary": "Shader+reflection prepare152 -> layouts/reflection -> compile164 -> get_or_create_pipeline_validated48 nativecreate101 -> nativevalidationpop114 -> FIRST stringify117 retainedstate20 -> compile182 -> earlierComputeKernel.new2244:108/FastPath222 actualchain, plus ComputePass.record56. Errors alreadyString before armorGPU formatter, exact aliases require originalretained finding firstcutcomparison.",
+      "connected_repair_scope": [
+        "Represent exactfailure reason with relevantstate/context through publicResult"
+      ],
+      "dependencies": [
+        "Actualmutex/nativeerrorrepresentationpolicy and exactalias/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Predicate structurallyinspectable until finalpresentation; poisonpolicy explicit, no invalid/obsoletebehavior preservation"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-SHADER-LANGUAGE-STRING-DISPATCH",
+      "primary_original_index": 2283,
+      "primary_source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "detect_from_code43 constructs exactly glsl45/wgsl47 Strings, parse_naga retains54/rematches56 ratherthanadmittedclosedchoice",
+      "canonical_owner": "Native shaderlanguage selection owner at source decoding",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/shader.rs SHAd43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a ::detect_from_code43..48/parse_naga50..73"
+      ],
+      "producer_api_state_consumer_native_boundary": "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread.",
+      "connected_repair_scope": [
+        "Return/retain native-language choice as closedbespoketype through frontenddispatch; rawshadercode remainslegitnativeString"
+      ],
+      "dependencies": [
+        "Actual caller/explicitlanguageinput and heuristicpolicy; exactexistingowner/current/all20"
+      ],
+      "acceptance_requirements": [
+        "DecidedGLSL/WGSL modes dispatched withoutinternalmagicStringretest",
+        "Actualauthoredcode retained and diagnosed; no obsoleteheuristic/errorprose guarantee"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-SHADER-GLSL-PARSE-CAUSE-ERASURE",
+      "primary_original_index": 2283,
+      "primary_source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "NagaGLSL frontend.parse typedcause debugformatted66",
+      "canonical_owner": "Native shaderparseaggregate retaining actualGLSL/WGSLcauses and sourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/shader.rs SHAd43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a ::parse_naga50..73"
+      ],
+      "producer_api_state_consumer_native_boundary": "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread.",
+      "connected_repair_scope": [
+        "Keep actualnativeparsecause/source context through pipeline.validate_interface128 and actualcaller; renderdiagnosticonlyatfinalpresentation"
+      ],
+      "dependencies": [
+        "ActualNaga29 cause/source/threadcontract, downstreamfirstcutexactaliascomparison/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Underlyingnativeparsefailure remainsinspectable; sourcelocation/diagnostic canberendered atfinalboundary",
+        "Languagevariant and actualnativecause notlostto earlydebugtext"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-GPU-SHADER-WGSL-PARSE-CAUSE-ERASURE",
+      "primary_original_index": 2283,
+      "primary_source_sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "classification": "Distinct source-proven exact first contract; aliases/current/nativeclosure pending",
+      "first_failed_contract": "NagaWGSL parse_str typedParseError68 projected to diagnosticString69 then onlytext70",
+      "canonical_owner": "Native shaderparseaggregate retaining actualGLSL/WGSLcauses and sourcecontext",
+      "exact_function_ownership": [
+        "crates/fabelgeist-gpu/src/data/gpu/shader.rs SHAd43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a ::parse_naga50..73"
+      ],
+      "producer_api_state_consumer_native_boundary": "Nativecode -> detectcontains#version44 -> retainedlanguageString54/rematch56 -> actualNagaGLSLparse59 orWGSL68 -> typednativecause becomesformatted66/69\u201370 -> publicanyhowResult -> pipeline.validate_interface128 secondaryformatter. ActualNagaSDKbodiesnotread.",
+      "connected_repair_scope": [
+        "Keep actualnativeparsecause/source context through pipeline.validate_interface128 and actualcaller; renderdiagnosticonlyatfinalpresentation"
+      ],
+      "dependencies": [
+        "ActualNaga29 cause/source/threadcontract, downstreamfirstcutexactaliascomparison/current/all20"
+      ],
+      "acceptance_requirements": [
+        "Underlyingnativeparsefailure remainsinspectable; sourcelocation/diagnostic canberendered atfinalboundary",
+        "Languagevariant and actualnativecause notlostto earlydebugtext"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "additive_connected_support": [
+    {
+      "finding": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+      "same_lens_personal_source_rows": [
+        0,
+        2,
+        4
+      ],
+      "qualification": "Actual rawnameproducer/retainedstate/consumer proof, no duplicatefinding count; actualnativeReflection construction stillpending"
+    }
+  ],
+  "pending_connected_contracts": [
+    "Necessary compute/pipeline/reflection.rs and compute_shader.rs actualproducer/nativeadmission bodies; root checking qualifiedsameL12identity metadata",
+    "Actualwgpu29/Naga29/oneshotnative contracts, BufferDefinition/BufferLabel, nativebackend and all20/current/exactaliases remainpending",
+    "All prior connected/future/native/mandatory obligations remainopen; no originalfrontier implies closure"
+  ],
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "authoritative_ledger_written": false,
+  "implementation_gate_complete": false
+}

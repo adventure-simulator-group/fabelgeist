@@ -1,0 +1,35 @@
+{
+  "kind": "Exact source-specific Windows locator qualification before L12 future personalread",
+  "lens": 12,
+  "original_index": 2635,
+  "registry": "evidence/audit05/original-scope-072.json",
+  "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "exact_windows_fields": [
+    {
+      "json_pointer": "/files/2635/path",
+      "raw_literal": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs"
+    },
+    {
+      "json_pointer": "/files/2635/admission03_scope_observations/0/original_record/resolved_path",
+      "raw_literal": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs"
+    },
+    {
+      "json_pointer": "/files/2635/admission03_scope_observations/0/resolved_path",
+      "raw_literal": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\compute\\pipeline\\compute_shader.rs"
+    }
+  ],
+  "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+  "source_sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+  "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "canonical_git_path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+  "actual_EOF": 88,
+  "assessed_ranges": [
+    [
+      1,
+      88
+    ]
+  ],
+  "corroboration": "Only listed exact identity/path fields corroborated by exact sourceID and frozen Gitblob SHA/EOF; no generic normalization",
+  "metadata_nested_range_shape_preflight": "All recursively nested fields checked; no flat ranges",
+  "pre_registration_locator_attempt": "Git literal Windows path probe failed before any body output/registration; zero body or ordered coverage from failed probe"
+}

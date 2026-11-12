@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism.rs:346-410
+ 346     }
+ 347     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+ 348     let object = require_tincture_vessel(ctx, object_id)?;
+ 349     let actor = ctx
+ 350         .db
+ 351         .character()
+ 352         .id()
+ 353         .find(character_id)
+ 354         .ok_or("Character not found")?;
+ 355     let custody = crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 356     if !matches!(
+ 357         custody.root,
+ 358         adventuresim_core::physical_object::OperationalCustody::Character(id)
+ 359             if id.get() == character_id
+ 360     ) {
+ 361         return Err("Tincture vessel is not in this character's personal custody".into());
+ 362     }
+ 363     if ctx
+ 364         .db
+ 365         .tincture_process()
+ 366         .container_object_id()
+ 367         .find(object_id)
+ 368         .is_some()
+ 369     {
+ 370         return Err("This vessel already has a tincture process".into());
+ 371     }
+ 372     let liquid = ctx
+ 373         .db
+ 374         .container_liquid()
+ 375         .container_object_id()
+ 376         .find(object_id)
+ 377         .ok_or("Container has no tincture spirit")?;
+ 378     if liquid.liquid_item_id != "tincture_spirit" || liquid.water_ml != 150 {
+ 379         return Err("Poppy tincture requires exactly 150 ml of tincture spirit".into());
+ 380     }
+ 381     let direct = ctx
+ 382         .db
+ 383         .inventory_containment()
+ 384         .parent_object_id()
+ 385         .filter(object_id)
+ 386         .collect::<Vec<_>>();
+ 387     if direct.len() != 1 {
+ 388         return Err("Poppy tincture requires exactly one direct ground-poppy lot".into());
+ 389     }
+ 390     let ingredient = ctx
+ 391         .db
+ 392         .inventory_object()
+ 393         .id()
+ 394         .find(direct[0].child_object_id)
+ 395         .ok_or("Tincture ingredient is missing")?;
+ 396     let ingredient_custody =
+ 397         crate::object_custody::require_actor_carried_object(ctx, &actor, &ingredient)?;
+ 398     if !matches!(
+ 399         ingredient_custody.root,
+ 400         adventuresim_core::physical_object::OperationalCustody::Character(id)
+ 401             if id.get() == character_id
+ 402     ) || ingredient.item_id != "poppy"
+ 403     {
+ 404         return Err("This tincture recipe requires carried poppy".into());
+ 405     }
+ 406     let adventuresim_core::physical_object::InventoryLocation::Personal(ingredient_location) =
+ 407         &ingredient.location
+ 408     else {
+ 409         return Err("Tincture ingredient has no personal inventory backing".into());
+ 410     };

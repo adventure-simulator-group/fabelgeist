@@ -1,0 +1,114 @@
+1135         });
+1136     Ok(())
+1137 }
+1138 
+1139 /// Bind optional preliminary trials to the first real camp reached on their
+1140 /// accepted finale journey. Issuance never predicts camp coordinates.
+1141 pub(crate) fn bind_errantry_trials_to_current_camp(
+1142     ctx: &ReducerContext,
+1143     party_id: &str,
+1144 ) -> Result<(), String> {
+1145     let party = ctx
+1146         .db
+1147         .party_authority()
+1148         .id()
+1149         .find(party_id.to_string())
+1150         .ok_or("Party not found")?;
+1151     if party.camp_destination.is_none() {
+1152         return Ok(());
+1153     }
+1154     let journey = ctx
+1155         .db
+1156         .party_journey_authority()
+1157         .party_id()
+1158         .find(party_id.to_string())
+1159         .ok_or("Camp has no journey authority")?;
+1160     let JourneyEndpoint::CaseSite(destination) = &journey.destination else {
+1161         return Ok(());
+1162     };
+1163     let Some(contract_id) = party.active_contract_id.as_deref() else {
+1164         return Ok(());
+1165     };
+1166     let Some(contract) = ctx
+1167         .db
+1168         .contract_authority()
+1169         .id()
+1170         .find(contract_id.to_string())
+1171     else {
+1172         return Ok(());
+1173     };
+1174     if contract.status != ContractStatus::Accepted
+1175         || contract.accepted_by.as_deref() != Some(party_id)
+1176     {
+1177         return Ok(());
+1178     }
+1179     let mut candidates = ctx
+1180         .db
+1181         .challenge_authority()
+1182         .party_id()
+1183         .filter(&party_id.to_string())
+1184         .filter(|challenge| {
+1185             challenge.is_open()
+1186                 && challenge.case_id == contract.case_id
+1187                 && challenge.finale_case_site_id == destination.id
+1188                 && challenge.journey_departure_minute == StrategicMinute::ZERO
+1189         })
+1190         .collect::<Vec<_>>();
+1191     candidates.sort_by(|left, right| left.id.cmp(&right.id));
+1192     let site_id = format!(
+1193         "journey-camp:{}:{}",
+1194         journey.departure_minute, journey.completed_movement_minutes
+1195     );
+1196     if let Some(mut challenge) = candidates.into_iter().next() {
+1197         let mut frame: adventuresim_core::errantry::ErrantryFrame =
+1198             serde_json::from_str(&challenge.errantry_frame_json)
+1199                 .map_err(|_| "Errantry frame authority is invalid")?;
+1200         if !frame
+1201             .trials
+1202             .iter()
+1203             .any(|trial| trial.challenge_id.as_deref() == Some(&challenge.id))
+1204         {
+1205             return Err("Challenge is not bound to its errantry frame".into());
+1206         }
+1207         for trial in &mut frame.trials {
+1208             if trial.site_id == "journey-camp:unbound" {
+1209                 trial.site_id = site_id.clone();
+1210             }
+1211         }
+1212         challenge.errantry_frame_json =
+1213             serde_json::to_string(&frame).map_err(|_| "Could not encode errantry frame")?;
+1214         challenge.journey_departure_minute = journey.departure_minute;
+1215         challenge.camp_movement_minute = journey.completed_movement_minutes;
+1216         challenge.camp_elapsed_minute = journey.completed_elapsed_minutes;
+1217         ctx.db.challenge_authority().id().update(challenge);
+1218     }
+1219     let mut road_candidates = ctx
+1220         .db
+1221         .road_challenge_authority()
+1222         .party_id()
+1223         .filter(&party_id.to_string())
+1224         .filter(|challenge| {
+1225             challenge.is_open()
+1226                 && challenge.case_id == contract.case_id
+1227                 && challenge.finale_case_site_id.as_ref() == Some(&destination.id)
+1228                 && challenge.journey_departure_minute == StrategicMinute::ZERO
+1229         })
+1230         .collect::<Vec<_>>();
+1231     road_candidates.sort_by(|left, right| left.id.cmp(&right.id));
+1232     for mut challenge in road_candidates {
+1233         challenge.journey_departure_minute = journey.departure_minute;
+1234         challenge.camp_movement_minute = journey.completed_movement_minutes;
+1235         challenge.available_at_elapsed_minute = journey
+1236             .completed_elapsed_minutes
+1237             .saturating_add(COURIER_REST_DELAY_MINUTES);
+1238         challenge.absolute_minute = journey
+1239             .departure_minute
+1240             .saturating_add_minutes(challenge.available_at_elapsed_minute);
+1241         ctx.db.road_challenge_authority().id().update(challenge);
+1242     }
+1243     Ok(())
+1244 }
+1245 
+1246 fn validate_challenge_retry(
+1247     existing: &ChallengeAttemptReceipt,
+1248     case_id: &str,

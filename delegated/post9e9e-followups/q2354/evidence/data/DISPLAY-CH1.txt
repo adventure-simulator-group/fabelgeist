@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/character.rs:1885-1955
+1885     id: u64,
+1886     temporary: bool,
+1887 ) -> Result<(), String> {
+1888     let mode = if temporary {
+1889         CharacterCreationMode::TemporaryNpc
+1890     } else {
+1891         CharacterCreationMode::Player
+1892     };
+1893     insert_character_with_origin(
+1894         ctx,
+1895         name,
+1896         id,
+1897         CharacterCreationOptions {
+1898             origin_settlement_id: None,
+1899             mode,
+1900             create_solo_party: true,
+1901             materialize_generated_carry: true,
+1902             stable_seed: fabelgeist_determinism::Seed::from_u64(id),
+1903             initial_time_minute: None,
+1904             field_actor: false,
+1905             npc_personality: None,
+1906         },
+1907         None,
+1908         None,
+1909     )
+1910 }
+1911 
+1912 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+1913 pub(crate) enum CharacterCreationMode {
+1914     Player,
+1915     PersistentNpc,
+1916     TemporaryNpc,
+1917     Newborn,
+1918 }
+1919 
+1920 impl CharacterCreationMode {
+1921     const fn is_npc(self) -> bool {
+1922         matches!(
+1923             self,
+1924             Self::PersistentNpc | Self::TemporaryNpc | Self::Newborn
+1925         )
+1926     }
+1927 
+1928     const fn temporary(self) -> bool {
+1929         matches!(self, Self::TemporaryNpc)
+1930     }
+1931 
+1932     const fn newborn(self) -> bool {
+1933         matches!(self, Self::Newborn)
+1934     }
+1935 }
+1936 
+1937 #[derive(Clone, Copy, Debug)]
+1938 pub(crate) struct CharacterCreationOptions<'a> {
+1939     pub origin_settlement_id: Option<&'a str>,
+1940     pub mode: CharacterCreationMode,
+1941     pub create_solo_party: bool,
+1942     /// Build the physical belt/holder graph for this character's generated
+1943     /// loadout. Bulk settlement residents defer this until they become active
+1944     /// actors so world seeding does not eagerly objectify thousands of items.
+1945     pub materialize_generated_carry: bool,
+1946     pub stable_seed: Seed,
+1947     pub initial_time_minute: Option<StrategicMinute>,
+1948     pub field_actor: bool,
+1949     pub npc_personality: Option<&'a crate::personality::CharacterPersonality>,
+1950 }
+1951 
+1952 #[derive(Clone, Debug, PartialEq, Eq)]
+1953 pub(crate) struct NpcLifeFacts {
+1954     pub age_years: u16,
+1955     pub organization_id: Option<String>,

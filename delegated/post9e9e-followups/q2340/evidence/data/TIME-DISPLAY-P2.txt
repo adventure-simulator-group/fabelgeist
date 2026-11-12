@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_planning.rs:190-250
+ 190     for pair in coordinates.windows(2) {
+ 191         let from = pair[0].longitude_latitude_degrees();
+ 192         let to = pair[1].longitude_latitude_degrees();
+ 193         let segment = straight_line_distance_m(from.0, from.1, to.0, to.1, true);
+ 194         if segment == 0 || segment > 100_000 {
+ 195             return Err("Terrain route points are not a bounded continuous path".into());
+ 196         }
+ 197         physical = physical
+ 198             .checked_add(segment)
+ 199             .ok_or("Terrain route distance overflow")?;
+ 200     }
+ 201     let tolerance = route.distance_m / 20 + 250;
+ 202     if physical.abs_diff(route.distance_m) > tolerance {
+ 203         return Err("Terrain route distance does not match its geometry".into());
+ 204     }
+ 205     let minimum_minutes = route
+ 206         .distance_m
+ 207         .saturating_mul(MINUTES_PER_HOUR)
+ 208         .div_ceil(7_500)
+ 209         .max(1);
+ 210     if route.minutes < minimum_minutes {
+ 211         return Err("Terrain route duration is faster than the maximum travel speed".into());
+ 212     }
+ 213     let mut cursor = 0_u64;
+ 214     for span in &route.spans {
+ 215         let weight_sum = u32::from(span.terrain.plains)
+ 216             + u32::from(span.terrain.forest)
+ 217             + u32::from(span.terrain.hills)
+ 218             + u32::from(span.terrain.wetlands)
+ 219             + u32::from(span.terrain.urban);
+ 220         if weight_sum != 1_000
+ 221             || span.terrain.urban != 0
+ 222             || span.training_multiplier_permille > 1_000
+ 223             || span.check_millirank > 5_000
+ 224         {
+ 225             return Err("Terrain route span has invalid bounded skill metadata".into());
+ 226         }
+ 227         if span.start_minute != cursor || span.duration_minutes == 0 {
+ 228             return Err("Terrain route spans are discontinuous".into());
+ 229         }
+ 230         cursor = cursor
+ 231             .checked_add(span.duration_minutes)
+ 232             .ok_or("Terrain route minutes overflow")?;
+ 233     }
+ 234     if cursor != route.minutes {
+ 235         return Err("Terrain route spans do not match aggregate minutes".into());
+ 236     }
+ 237     Ok(())
+ 238 }
+ 239 
+ 240 fn validate_route_departure_weather_interval(
+ 241     route: &JourneyRoutePlan,
+ 242     departure_minute: StrategicMinute,
+ 243 ) -> Result<(), String> {
+ 244     let expected = departure_minute
+ 245         .floor_to_interval_minutes(adventuresim_core::weather::WEATHER_INTERVAL_MINUTES)
+ 246         .expect("weather interval is positive");
+ 247     if route.weather_interval_start != expected {
+ 248         return Err("Terrain route weather snapshot is stale after clock synchronization".into());
+ 249     }
+ 250     Ok(())

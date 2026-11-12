@@ -1,0 +1,51 @@
+ 720 }
+ 721 
+ 722 pub(crate) fn record_party_camp_rest(
+ 723     ctx: &ReducerContext,
+ 724     party_id: &str,
+ 725     elapsed: u64,
+ 726     average_start: f32,
+ 727     average_end: f32,
+ 728     maximum_end: f32,
+ 729 ) -> Result<(), String> {
+ 730     advance_party_wilderness_elapsed(ctx, party_id, elapsed)?;
+ 731     let Some(mut journey) = ctx
+ 732         .db
+ 733         .party_journey_authority()
+ 734         .party_id()
+ 735         .find(party_id.to_string())
+ 736     else {
+ 737         return Ok(());
+ 738     };
+ 739     let start = journey.completed_elapsed_minutes;
+ 740     journey.completed_elapsed_minutes = journey.completed_elapsed_minutes.saturating_add(elapsed);
+ 741     if let Some(last) = journey.actual_camp_intervals.last_mut()
+ 742         && last.movement_minute == journey.completed_movement_minutes
+ 743         && last
+ 744             .elapsed_start_minute
+ 745             .saturating_add(last.elapsed_minutes)
+ 746             == start
+ 747     {
+ 748         last.elapsed_minutes = last.elapsed_minutes.saturating_add(elapsed);
+ 749         last.average_fatigue_end = average_end;
+ 750         last.maximum_fatigue_end = maximum_end;
+ 751     } else if journey.actual_camp_intervals.len() < MAX_ITINERARY_SEGMENTS {
+ 752         journey.actual_camp_intervals.push(JourneyCampInterval {
+ 753             movement_minute: journey.completed_movement_minutes,
+ 754             elapsed_start_minute: start,
+ 755             elapsed_minutes: elapsed,
+ 756             average_fatigue_start: average_start,
+ 757             average_fatigue_end: average_end,
+ 758             maximum_fatigue_end: maximum_end,
+ 759         });
+ 760     } else {
+ 761         return Err("Journey has too many camp checkpoints".into());
+ 762     }
+ 763     ctx.db.party_journey_authority().party_id().update(journey);
+ 764     Ok(())
+ 765 }
+ 766 
+ 767 pub(crate) fn finish_party_journey(ctx: &ReducerContext, party_id: &str) {
+ 768     let party_id = party_id.to_string();
+ 769     if ctx
+ 770         .db

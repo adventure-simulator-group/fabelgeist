@@ -1,0 +1,77 @@
+SOURCE crates/adventuresim-core/src/item_references.rs:1-76
+   1 //! Stable item IDs consumed by gameplay systems outside the item catalogue.
+   2 
+   3 pub const CURRENCY_IDS: [&str; 6] = [
+   4     "rhenish_gulden",
+   5     "lubeck_mark",
+   6     "hamburg_mark",
+   7     "saxon_thaler",
+   8     "brandenburg_groschen",
+   9     "danish_mark",
+  10 ];
+  11 
+  12 pub const MEDICATION_IDS: [&str; 14] = [
+  13     "oral_rehydration_draught",
+  14     "weak_willow_decoction",
+  15     "cooling_willow_draught",
+  16     "strong_willow_decoction",
+  17     "weak_comfrey_poultice",
+  18     "comfrey_poultice",
+  19     "fine_comfrey_poultice",
+  20     "weak_poppy_tincture",
+  21     "poppy_tincture",
+  22     "strong_poppy_tincture",
+  23     "weak_sage_infusion",
+  24     "sage_infusion",
+  25     "fine_sage_infusion",
+  26     "honey_wound_dressing",
+  27 ];
+  28 
+  29 /// Authored carry kit identities shared by loadout and runtime equipment admission.
+  30 pub const BELT_ID: &str = "belt";
+  31 pub const BLADE_SHEATH_ID: &str = "scabbard";
+  32 pub const HAFT_LOOP_ID: &str = "weapon_loop";
+  33 pub const WORN_PLACEMENT_ID: &str = "worn";
+  34 pub const RIGHT_HIP_PLACEMENT_ID: &str = "right";
+  35 pub const LEFT_HIP_PLACEMENT_ID: &str = "left";
+  36 pub const BLADE_ATTACHMENT_POINT_ID: &str = "blade";
+  37 pub const WEAPON_CARRY_HIP_PLACEMENTS: [&str; 2] = [RIGHT_HIP_PLACEMENT_ID, LEFT_HIP_PLACEMENT_ID];
+  38 
+  39 pub const STANDARD_TRAVEL_RATION_ID: &str = "travel_ration";
+  40 pub const STANDARD_WATERSKIN_ID: &str = "waterskin";
+  41 pub const ARROW_ID: &str = "arrow";
+  42 pub const SOFT_SOAP_ID: &str = "soft_soap";
+  43 pub const FIELD_TENT_ID: &str = "field_tent";
+  44 pub const CAPTURED_DISPATCH_ITEM_ID: &str = "captured_black_knight_dispatch";
+  45 pub const ORDER_OATH_TOKEN_ITEM_ID: &str = "order_courier_oath_token";
+  46 pub const BLESSED_SWORD_KNOT_ITEM_ID: &str = "blessed_sword_knot";
+  47 pub const SURGERY_KIT_ID: &str = "surgery_kit";
+  48 pub const TAVERN_DRINK_ITEM_ID: &str = "table_wine";
+  49 
+  50 pub const REQUIRED_GAMEPLAY_ITEM_IDS: [&str; 19] = [
+  51     "arrow",
+  52     "bandage",
+  53     "captured_black_knight_dispatch",
+  54     "blessed_sword_knot",
+  55     "cooked_meal",
+  56     "cooking_pan",
+  57     "cooking_pot",
+  58     "field_tent",
+  59     "order_courier_oath_token",
+  60     "portable_oven",
+  61     "small_beer",
+  62     "table_wine",
+  63     "aqua_vitae",
+  64     "soft_soap",
+  65     "splint",
+  66     "surgery_kit",
+  67     "torch",
+  68     "travel_ration",
+  69     "waterskin",
+  70 ];
+  71 
+  72 #[cfg(runtime_catalog)]
+  73 #[path = "item_references/gameplay.rs"]
+  74 mod gameplay;
+  75 #[cfg(runtime_catalog)]
+  76 pub use gameplay::{MissingGameplayItemReferences, validate_gameplay_references};

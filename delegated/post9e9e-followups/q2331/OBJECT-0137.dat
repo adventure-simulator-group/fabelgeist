@@ -1,0 +1,110 @@
+   1 //! Compute bindings are reflected before choosing a dispatch pipeline layout.
+   2 use super::*;
+   3 use crate::data::gpu::shader::{BindGroupReflection, BufferBinding, TextureBinding, UniformMember};
+   4 use std::collections::BTreeMap;
+   5 
+   6 pub(super) struct ReflectedInterface {
+   7     pub reflection: Arc<ReflectionData>,
+   8     pub layouts: Vec<Arc<wgpu::BindGroupLayout>>,
+   9 }
+  10 
+  11 struct GroupBuilder {
+  12     reflection: BindGroupReflection,
+  13     entries: Vec<wgpu::BindGroupLayoutEntry>,
+  14 }
+  15 
+  16 impl ReflectedInterface {
+  17     pub(super) fn new(context: &WgpuContext, code: &str) -> Result<Self> {
+  18         let module = parse_naga(code, wgpu::naga::ShaderStage::Compute)
+  19             .map_err(|e| anyhow!("Compute Shader Parse Error for Reflection: {e}"))?;
+  20         let entry = module
+  21             .entry_points
+  22             .iter()
+  23             .find(|entry| entry.stage == wgpu::naga::ShaderStage::Compute)
+  24             .ok_or_else(|| anyhow!("Compute Shader missing entry point"))?;
+  25         let mut groups = BTreeMap::new();
+  26         for (_, variable) in module.global_variables.iter() {
+  27             let Some(binding) = &variable.binding else {
+  28                 continue;
+  29             };
+  30             groups
+  31                 .entry(binding.group)
+  32                 .or_insert_with(|| GroupBuilder::new(binding.group))
+  33                 .reflect(&module, variable, binding.binding);
+  34         }
+  35         let mut layouts = Vec::new();
+  36         let mut reflected = Vec::new();
+  37         for (index, mut group) in groups {
+  38             group.entries.sort_by_key(|entry| entry.binding);
+  39             layouts.push(Arc::new(context.device.create_bind_group_layout(
+  40                 &wgpu::BindGroupLayoutDescriptor {
+  41                     label: Some(&format!("ComputePipeline Bind Layout Group {index}")),
+  42                     entries: &group.entries,
+  43                 },
+  44             )));
+  45             reflected.push(group.reflection);
+  46         }
+  47         Ok(Self {
+  48             reflection: Arc::new(ReflectionData {
+  49                 bind_groups: reflected,
+  50                 fragment_entry_point: String::new(),
+  51                 vertex_entry_point: entry.name.clone(),
+  52             }),
+  53             layouts,
+  54         })
+  55     }
+  56 }
+  57 
+  58 impl GroupBuilder {
+  59     fn new(index: u32) -> Self {
+  60         Self {
+  61             reflection: BindGroupReflection {
+  62                 index,
+  63                 ..Default::default()
+  64             },
+  65             entries: Vec::new(),
+  66         }
+  67     }
+  68 
+  69     fn reflect(
+  70         &mut self,
+  71         module: &wgpu::naga::Module,
+  72         variable: &wgpu::naga::GlobalVariable,
+  73         binding: u32,
+  74     ) {
+  75         let name = variable.name.clone().unwrap_or_default();
+  76         match variable.space {
+  77             wgpu::naga::AddressSpace::Uniform => {
+  78                 self.uniform(module, variable.ty, binding);
+  79             }
+  80             wgpu::naga::AddressSpace::Storage { access } => {
+  81                 let ty = wgpu::BufferBindingType::Storage {
+  82                     read_only: !access.contains(wgpu::naga::StorageAccess::STORE),
+  83                 };
+  84                 self.reflection
+  85                     .buffer_bindings
+  86                     .push(BufferBinding { name, binding, ty });
+  87                 self.entry(
+  88                     binding,
+  89                     wgpu::BindingType::Buffer {
+  90                         ty,
+  91                         has_dynamic_offset: false,
+  92                         min_binding_size: None,
+  93                     },
+  94                 );
+  95             }
+  96             wgpu::naga::AddressSpace::Handle => match &module.types[variable.ty].inner {
+  97                 wgpu::naga::TypeInner::Image { dim, class, .. } => {
+  98                     self.image(name, binding, *dim, class);
+  99                 }
+ 100                 wgpu::naga::TypeInner::Sampler { .. } => {
+ 101                     self.reflection.sampler_bindings.push((name, binding));
+ 102                     self.entry(
+ 103                         binding,
+ 104                         wgpu::BindingType::Sampler(wgpu::SamplerBindingType::Filtering),
+ 105                     );
+ 106                 }
+ 107                 _ => {}
+ 108             },
+ 109             _ => {}
+ 110         }

@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:591-650
+ 591 }
+ 592 
+ 593 pub(crate) fn advance_party_wilderness_elapsed(
+ 594     ctx: &ReducerContext,
+ 595     party_id: &str,
+ 596     elapsed: u64,
+ 597 ) -> Result<(), String> {
+ 598     if elapsed == 0 {
+ 599         return Ok(());
+ 600     }
+ 601     let mut party = ctx
+ 602         .db
+ 603         .party_authority()
+ 604         .id()
+ 605         .find(party_id.to_string())
+ 606         .ok_or("Party not found")?;
+ 607     if party.wilderness_canonical_anchor_minute.is_none() {
+ 608         return Err("Party wilderness clock is not initialized".into());
+ 609     }
+ 610     party.wilderness_elapsed_minutes =
+ 611         party.wilderness_elapsed_minutes.saturating_add(elapsed);
+ 612     ctx.db.party_authority().id().update(party);
+ 613     Ok(())
+ 614 }
+ 615 
+ 616 pub(crate) fn journey_local_minute(journey: &PartyJourney, elapsed: u64) -> StrategicMinute {
+ 617     journey.departure_minute.wrapping_day_offset(elapsed)
+ 618 }
+ 619 
+ 620 pub(crate) fn party_wilderness_environment_minutes(
+ 621     party: &Party,
+ 622 ) -> Option<(StrategicMinute, StrategicMinute)> {
+ 623     let anchor = party.wilderness_canonical_anchor_minute?;
+ 624     let now = anchor.with_wrapped_time_of_day(
+ 625         party.journey_start_minute_of_day,
+ 626         party.wilderness_elapsed_minutes,
+ 627     );
+ 628     Some((now, anchor))
+ 629 }
+ 630 
+ 631 fn zero_boundary_requires_settlement(actual_minutes: u64, safe_prefix: u64) -> bool {
+ 632     actual_minutes == 0 && safe_prefix == 0
+ 633 }
+ 634 
+ 635 fn set_party_journey_state(
+ 636     party: &mut Party,
+ 637     current_settlement_id: Option<String>,
+ 638     current_case_site_id: Option<CaseSiteId>,
+ 639     camp_destination: Option<JourneyEndpoint>,
+ 640     camp_remaining_minutes: u64,
+ 641 ) {
+ 642     // Deliberately touch only journey fields. In particular, leadership may
+ 643     // have changed while movement committed a terminal event.
+ 644     party.current_settlement_id = current_settlement_id;
+ 645     party.current_case_site_id = current_case_site_id;
+ 646     party.camp_destination = camp_destination;
+ 647     party.camp_remaining_minutes = camp_remaining_minutes;
+ 648     if party.current_settlement_id.is_some() {
+ 649         party.wilderness_canonical_anchor_minute = None;
+ 650         party.wilderness_elapsed_minutes = 0;

@@ -1,0 +1,51 @@
+{
+  "schema": "q2336-q2337-evidence-receipt-manifest-v1",
+  "created_at_utc": "2026-11-12T17:43:54.328988+00:00",
+  "public_manifest_sha256": "0f0350651a46e49f968efab34d93721d593cc2331d16693e4c8544f17b1b0d19",
+  "public_archive_sha256": "b4ccdff6efb0cea8b32e349f014ae6f7f499e67c67909bc16f6dc91fb9643c60",
+  "receipts": [
+    {
+      "file": "PUBLIC-PRIVACY-SCAN.json",
+      "bytes": 1175,
+      "sha256": "14a3df0a53da5d1d720c939d2c2c69391488d62bd512e6f26002eccdad123c38"
+    },
+    {
+      "file": "PUBLIC-VERIFY.json",
+      "bytes": 415,
+      "sha256": "c5a0127138b383c706d3ac9b315cb89f9052c5ab61344260ecf958dbc9f72d5b"
+    },
+    {
+      "file": "TREE-NAME-SCAN.json",
+      "bytes": 666,
+      "sha256": "40c7316e54e573fea483e56b04c94ddf1e4c758c8829ba7cb24ce90f20778aaa"
+    },
+    {
+      "file": "VALUE-DIGEST-059.json",
+      "bytes": 917,
+      "sha256": "cd989f375b7c4629acedc9576fc26312e724d5e9aa5bde318e0041e84c21417f"
+    },
+    {
+      "file": "VALUE-DIGEST-Q2332.json",
+      "bytes": 906,
+      "sha256": "548da0d4b8ec76ebdc08dca69dd0b0a762a519b53f2bd28475d284e43ec67aaf"
+    }
+  ],
+  "privacy_scope": {
+    "scanned": "Complete three-file public transport, recursive gzip/tar contents and metadata; raw Git tree entry names separately. Selected path-value and path-prefix SHA-256 corpora derived in memory from private q2332 originals and the original 059 queue, along with a separate known GPU digest corpus.",
+    "view_limit_bytes": 134217728,
+    "depth_limit": 18,
+    "main_scanner_views": 235,
+    "main_scanner_candidate_counts": {},
+    "main_scanner_forbidden_digest_count": 0,
+    "main_scanner_exceptions": [],
+    "tree_name_files": 22,
+    "tree_name_count": 850,
+    "tree_name_candidates": {},
+    "q2332_digest_occurrences": 0,
+    "q2332_digest_exceptions": [],
+    "queue059_digest_occurrences": 0,
+    "queue059_digest_exceptions": [],
+    "qualification": "No raw path values or individual path-value digests are included in these receipts. Pattern-, corpus-, encoding- and depth-limited; unknown sensitive values and unrelated prior Git history are not cleared."
+  },
+  "verification_scope": "The public verifier checked archived evidence identities, 22 per-revision path proofs, 10 exact historical records, 40 personally displayed and registered source windows, six separately preserved malformed first attempts, and optional Git commit-to-tree and selected source-record identities. It did not run product code or validate runtime behavior."
+}

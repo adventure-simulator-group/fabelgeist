@@ -1,0 +1,22 @@
+SOURCE crates/adventuresim-stdb-module/src/herbalism/ingredient.rs:1-21
+   1 //! Commit the exact measured ingredient when preparation starts.
+   2 
+   3 use super::*;
+   4 
+   5 pub(super) fn consume_tincture_ingredient(
+   6     ctx: &ReducerContext,
+   7     inventory_id: u64,
+   8     ingredient_id: u64,
+   9 ) {
+  10     crate::food::delete_personal_food_lot(ctx, inventory_id);
+  11     ctx.db
+  12         .inventory_item_amount()
+  13         .inventory_item_id()
+  14         .delete(inventory_id);
+  15     ctx.db
+  16         .inventory_containment()
+  17         .child_object_id()
+  18         .delete(ingredient_id);
+  19     ctx.db.inventory_object().id().delete(ingredient_id);
+  20     ctx.db.inventory_item().id().delete(inventory_id);
+  21 }

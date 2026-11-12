@@ -1,0 +1,150 @@
+1241             ctx,
+1242             container_object_id.get(),
+1243         )))
+1244         .ok_or("Container volume overflow")?;
+1245     if used
+1246         .checked_add(Milliliters::new(additional_ml))
+1247         .is_none_or(|next| next > Milliliters::new(u64::from(definition.container_capacity_ml)))
+1248     {
+1249         return Err(format!(
+1250             "Container capacity exceeded: {} ml used of {} ml",
+1251             used.get(),
+1252             definition.container_capacity_ml
+1253         ));
+1254     }
+1255     Ok(())
+1256 }
+1257 
+1258 #[reducer]
+1259 pub fn put_inventory_item_in_container(
+1260     ctx: &ReducerContext,
+1261     character_id: u64,
+1262     child_scope: String,
+1263     child_row_id: u64,
+1264     parent_scope: String,
+1265     parent_row_id: u64,
+1266 ) -> Result<(), String> {
+1267     crate::strategic::require_strategic_gateway(ctx)?;
+1268     crate::character::require_living_character(ctx, character_id)?;
+1269     let parent_scope = CarriedInventoryScope::try_from(parent_scope.as_str())
+1270         .map_err(|error| error.to_string())?;
+1271     let child_scope =
+1272         CarriedInventoryScope::try_from(child_scope.as_str()).map_err(|error| error.to_string())?;
+1273     let parent = require_object(ctx, character_id, parent_scope, parent_row_id)?;
+1274     let parent_definition = ctx
+1275         .db
+1276         .item()
+1277         .id()
+1278         .find(parent.item_id.clone())
+1279         .ok_or("Container definition not found")?;
+1280     if parent_definition.container_capacity_ml == 0 {
+1281         return Err("That item has no authored container capability".into());
+1282     }
+1283     let child = require_object(ctx, character_id, child_scope, child_row_id)?;
+1284     require_mutable(ctx, parent.id)?;
+1285     require_mutable(ctx, child.id)?;
+1286     if !parent.location.has_same_carried_custody(&child.location) {
+1287         return Err("Move the item to the container owner's inventory first".into());
+1288     }
+1289     if ctx
+1290         .db
+1291         .inventory_containment()
+1292         .child_object_id()
+1293         .find(child.id)
+1294         .is_some()
+1295     {
+1296         ctx.db
+1297             .inventory_containment()
+1298             .child_object_id()
+1299             .delete(child.id);
+1300     }
+1301     let mut model = graph(ctx)?;
+1302     model
+1303         .insert(
+1304             PhysicalObjectId::try_new(child.id).map_err(|error| error.to_string())?,
+1305             PhysicalObjectId::try_new(parent.id).map_err(|error| error.to_string())?,
+1306         )
+1307         .map_err(str::to_owned)?;
+1308     let definition = ctx
+1309         .db
+1310         .item()
+1311         .id()
+1312         .find(parent.item_id.clone())
+1313         .ok_or("Container definition not found")?;
+1314     let used = model
+1315         .used_volume(PhysicalObjectId::try_new(parent.id).map_err(|error| error.to_string())?)
+1316         .map_err(str::to_owned)?
+1317         .checked_add(Milliliters::new(liquid_used(ctx, parent.id)))
+1318         .ok_or("Container volume overflow")?;
+1319     if used > Milliliters::new(u64::from(definition.container_capacity_ml)) {
+1320         return Err(format!(
+1321             "Container capacity exceeded: {} ml used of {} ml",
+1322             used.get(),
+1323             definition.container_capacity_ml
+1324         ));
+1325     }
+1326     ctx.db.inventory_containment().insert(InventoryContainment {
+1327         child_object_id: child.id,
+1328         parent_object_id: parent.id,
+1329     });
+1330     Ok(())
+1331 }
+1332 
+1333 #[reducer]
+1334 pub fn remove_inventory_item_from_container(
+1335     ctx: &ReducerContext,
+1336     character_id: u64,
+1337     child_object_id: u64,
+1338 ) -> Result<(), String> {
+1339     crate::strategic::require_strategic_gateway(ctx)?;
+1340     crate::character::require_living_character(ctx, character_id)?;
+1341     let child = ctx
+1342         .db
+1343         .inventory_object()
+1344         .id()
+1345         .find(child_object_id)
+1346         .ok_or("Contained object not found")?;
+1347     let actor = ctx
+1348         .db
+1349         .character()
+1350         .id()
+1351         .find(character_id)
+1352         .ok_or("Character not found")?;
+1353     crate::object_custody::require_actor_carried_object(ctx, &actor, &child)?;
+1354     require_mutable(ctx, child_object_id)?;
+1355     let former_parent = ctx
+1356         .db
+1357         .inventory_containment()
+1358         .child_object_id()
+1359         .find(child_object_id)
+1360         .ok_or("Object is not inside a container")?
+1361         .parent_object_id;
+1362     ctx.db
+1363         .inventory_containment()
+1364         .child_object_id()
+1365         .delete(child_object_id);
+1366     merge_empty_container(ctx, child_object_id)?;
+1367     merge_empty_container(ctx, former_parent)?;
+1368     Ok(())
+1369 }
+1370 
+1371 #[reducer]
+1372 pub fn discard_container_water(
+1373     ctx: &ReducerContext,
+1374     character_id: u64,
+1375     container_object_id: u64,
+1376     requested_ml: u64,
+1377 ) -> Result<(), String> {
+1378     crate::strategic::require_strategic_gateway(ctx)?;
+1379     if requested_ml == 0 {
+1380         return Err("Water amount must be positive".into());
+1381     }
+1382     let object = ctx
+1383         .db
+1384         .inventory_object()
+1385         .id()
+1386         .find(container_object_id)
+1387         .ok_or("Container object not found")?;
+1388     let actor = ctx
+1389         .db
+1390         .character()

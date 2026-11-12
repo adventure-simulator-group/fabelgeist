@@ -1,0 +1,179 @@
+{
+  "agent": "/root/mhr_character",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original role 2660: independently registered and personally displayed complete historical/current 490-line shader source plus four bounded current-only support sources. Thirteen bounded perspectives, no whole-lens closure.",
+  "finding_5": {
+    "id": "PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+    "kind": "existing 059 connected contract, bounded current trace",
+    "trace": "TraversalConfig retains callback, buffer names and prefix as open WGSL identifiers; source generation interpolates them, while GpuBvh.bind inserts buffer parameters using the same config fields. MeshCollider generates with callback bvh_hit and default remaining fields, and binds default names. Whether custom supplied symbols and sizes compile and reflect correctly belongs to the native compiler/parameter boundary; raw String alone does not establish a closed semantic selector defect.",
+    "refs": [
+      {
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+        "lines": [
+          [
+            390,
+            430
+          ],
+          [
+            439,
+            477
+          ]
+        ]
+      },
+      {
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+        "lines": [
+          [
+            166,
+            179
+          ]
+        ]
+      },
+      {
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-physics/src/mesh.rs",
+        "lines": [
+          [
+            183,
+            195
+          ]
+        ]
+      },
+      {
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-physics/src/wgsl.rs",
+        "lines": [
+          [
+            199,
+            214
+          ],
+          [
+            284,
+            294
+          ]
+        ]
+      }
+    ],
+    "conditions": "Custom namespace or binding mismatch requires its actual caller, compiler and reflected schema evidence; arbitrary native namespaces may be legitimate.",
+    "historical_links": [
+      "059 queue 2331 PAR-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION; /root/lens12_frontier connected 867 and team adoption 020"
+    ],
+    "direction": "Resolve generated identifier and retained binding/compiled schema ownership at the actual native boundary without imposing a closed game-string enum.",
+    "dedup": "Open connected contract, no closure or new count."
+  },
+  "nonfindings": [
+    {
+      "text": "The inspected MeshCollider uses stack size 64 through default config; size-one symbolic behavior does not prove the default tree can exceed the stack. The Karras hierarchy, Morton tie breaking and supported u32/i32 limits need a complete valid-tree depth proof.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-physics/src/mesh.rs",
+          "lines": [
+            [
+              183,
+              195
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+          "lines": [
+            [
+              151,
+              178
+            ],
+            [
+              411,
+              420
+            ],
+            [
+              451,
+              480
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "GpuBvh explicitly treats zero-count build/refit as no recorded GPU work; separate generated query behavior makes an empty transition policy relevant, but no claim that every zero tree fails.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+          "lines": [
+            [
+              197,
+              212
+            ],
+            [
+              256,
+              271
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+          "lines": [
+            [
+              449,
+              455
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "CPU and WGSL Morton encoders use the same masks, 10-bit axis quantization and interleaving in source; this comparison is not executed bit-for-bit parity or proof for NaN/nonfinite inputs.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+          "lines": [
+            [
+              47,
+              60
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/morton.rs",
+          "lines": [
+            [
+              8,
+              31
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Exact same-L12 historical reuse is not a fresh ordered-row reread: earlier connected 867 personally read 391-490, batch920 read zero new lines, 1-390 remained unread there. The present full old/current reads do not rewrite that history.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+          "lines": [
+            [
+              1,
+              490
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do supported callers configure a traversal stack below the required depth, and can any valid admitted default hierarchy exceed 64?",
+    "What native compiler and validation behavior applies to zero stack size or malformed generated names?",
+    "Are extreme finite bounds accepted by any real producer, and how do WGSL floating semantics handle nonfinite intermediates?",
+    "How should empty trees, failed build recording, and public buffer replacement maintain one queryable topology state?",
+    "Which historical and current count, source-name, cache, tree lifecycle or collision records are exact repair aliases? Central decides."
+  ],
+  "historical_snapshot_qualification": "Historical pr-working snapshot had unrelated modifications; this individual source object matches 6533 and 95e. f82 is archival evidence transport, not project source revision.",
+  "no_product_validation": "No GPU, shader or product execution, simulation, test, build, fixture, probe, implementation, repair or publication edit. WGSL was inspected strictly as text."
+}

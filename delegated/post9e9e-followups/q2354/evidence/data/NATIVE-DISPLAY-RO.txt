@@ -1,0 +1,29 @@
+SOURCE crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs:1-28
+   1 /// Present NPC policy candidates at one actor-relative strategic instant.
+   2 fn present_romance_candidates(
+   3     ctx: &ReducerContext,
+   4     settlement_id: &str,
+   5     actor_id: u64,
+   6     minute: adventuresim_world_schema::calendar::StrategicMinute,
+   7 ) -> Vec<adventuresim_core::npc_policy::NpcCandidate> {
+   8     let candidates = ctx
+   9         .db
+  10         .settlement_resident_presence()
+  11         .settlement_id()
+  12         .filter(settlement_id)
+  13         .filter(|presence| {
+  14             presence.character_id != actor_id
+  15                 && crate::settlement_population::npc_is_present(ctx, presence, minute)
+  16         })
+  17         .filter_map(|presence| {
+  18             ctx.db
+  19                 .npc_policy()
+  20                 .character_id()
+  21                 .find(presence.character_id)
+  22                 .map(|policy| adventuresim_core::npc_policy::NpcCandidate {
+  23                     character_id: presence.character_id,
+  24                     policy_seed: policy.policy_seed,
+  25                 })
+  26         });
+  27     candidates.collect()
+  28 }

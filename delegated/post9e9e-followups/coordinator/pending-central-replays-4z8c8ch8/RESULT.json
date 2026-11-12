@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "case": "q2341-42",
+      "exit": 0,
+      "stdout_bytes": 881,
+      "stdout_sha256": "02a8c4c431dbce70bdc02c8eac752e0a7cf26620be85453ff028a4531a9182f0",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "q2352-53",
+      "exit": 0,
+      "stdout_bytes": 420,
+      "stdout_sha256": "e7d2df45f8bd9817db61c24371437556504085f4597c84e57ddae41c0e0a1d24",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "q2354",
+      "exit": 0,
+      "stdout_bytes": 364,
+      "stdout_sha256": "7fcef25b39eeecde88dc33475b52c10920e0928ee9d22acfd710198d99948df3",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Evidence-only same-machine replays with the separately held key, local Git/transport or exact private predecessor and anchors. These pending delegated packets have not yet received central source reconciliation; no independent custody or product behavior is established."
+}

@@ -25,6 +25,18 @@ records same-machine recovery of the preceding published checkpoint.
 `delegated/poste-b147-followups/checkpoint-b147-recovery/RECOVERY-RECORD.json`
 records same-machine recovery of the preceding published checkpoint.
 
+`delegated/post9e9e-followups/checkpoint-9e9e-recovery/RECOVERY-RECORD.json`
+records same-machine recovery of the preceding published checkpoint.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json` connects bounded shader,
+admission, water, investigation and occupancy source work to its separately
+attributed history. Other delegated packets remain pending central review.
+The relationships are not unique-defect counts or completed queue records.
+
+`delegated/post9e9e-followups/encrypted-originals/README.md` describes
+authenticated recovery of selected exact private originals and anchors. Its
+separately held same-machine key is required; ciphertext is opaque to scans.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json` connects bounded skin, hair,
 drape and inventory source reviews to separately attributed history. The
 relationships are not unique-defect counts or completed queue records.

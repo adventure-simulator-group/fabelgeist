@@ -1,0 +1,51 @@
+SOURCE crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:956-1005
+ 956                     .id()
+ 957                     .find(member_id)
+ 958                     .ok_or("Party member not found")?;
+ 959                 member.current_settlement_id = Some(destination_id.clone());
+ 960                 crate::investigation::set_character_case_site(ctx, member.id, None)?;
+ 961                 ctx.db.character().id().update(member);
+ 962                 crate::condition::replenish_needs_at_settlement(ctx, member_id)?;
+ 963                 crate::condition::refresh_character_strategic_condition(ctx, member_id)?;
+ 964                 crate::organization::reconcile_presentation(ctx, member_id)?;
+ 965                 crate::time::rest_temporary_party_member_until_healed_at_settlement(
+ 966                     ctx, member_id,
+ 967                 )?;
+ 968             }
+ 969             party.current_settlement_id = Some(destination_id);
+ 970             party.current_case_site_id = None;
+ 971         }
+ 972         JourneyEndpoint::CaseSite(endpoint) => {
+ 973             let destination_id = endpoint.id.into_string();
+ 974             let site = ctx
+ 975                 .db
+ 976                 .case_site_authority()
+ 977                 .id_key()
+ 978                 .find(&destination_id)
+ 979                 .ok_or("Camp destination case site not found")?;
+ 980             for member_id in traveler_ids.iter().copied() {
+ 981                 let mut member = ctx
+ 982                     .db
+ 983                     .character()
+ 984                     .id()
+ 985                     .find(member_id)
+ 986                     .ok_or("Party member not found")?;
+ 987                 member.current_settlement_id = None;
+ 988                 crate::investigation::set_character_case_site(
+ 989                     ctx,
+ 990                     member.id,
+ 991                     Some(destination_id.clone()),
+ 992                 )?;
+ 993                 ctx.db.character().id().update(member);
+ 994                 mark_case_site_visited(ctx, member_id, &site)?;
+ 995                 crate::condition::refresh_character_strategic_condition(ctx, member_id)?;
+ 996             }
+ 997             party.current_settlement_id = None;
+ 998             party.current_case_site_id = Some(CaseSiteId::from(destination_id));
+ 999         }
+1000         JourneyEndpoint::Camp(_) => return Err("A camp cannot be a journey destination".into()),
+1001     }
+1002     let current_settlement_id = party.current_settlement_id.clone();
+1003     let current_case_site_id = party.current_case_site_id.clone();
+1004     set_party_journey_state(
+1005         &mut party,

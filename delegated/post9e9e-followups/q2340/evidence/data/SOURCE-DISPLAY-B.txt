@@ -1,0 +1,55 @@
+SOURCE crates/adventuresim-stdb-module/src/investigation/model.rs:1057-1110
+1057 pub(crate) fn character_case_site_occupancy_at(
+1058     ctx: &ReducerContext,
+1059     character_id: u64,
+1060     minute: StrategicMinute,
+1061 ) -> Option<CharacterCaseSiteOccupancy> {
+1062     let mut rows = ctx
+1063         .db
+1064         .character_case_site_occupancy()
+1065         .character_id()
+1066         .filter(character_id)
+1067         .filter(|row| row.entered_at <= minute && row.left_at.is_none_or(|left_at| left_at > minute));
+1068     let row = rows.next()?;
+1069     rows.next().is_none().then_some(row)
+1070 }
+1071 
+1072 pub(crate) fn character_case_site_id(ctx: &ReducerContext, character_id: u64) -> Option<String> {
+1073     current_character_case_site_occupancy(ctx, character_id)
+1074         .map(|row| row.case_site_id.into_string())
+1075 }
+1076 
+1077 pub(crate) fn set_character_case_site(
+1078     ctx: &ReducerContext,
+1079     character_id: u64,
+1080     case_site_id: Option<String>,
+1081 ) -> Result<(), String> {
+1082     let case_site_id = match case_site_id {
+1083         Some(value) => {
+1084             let value = CaseSiteId::try_new(value)
+1085                 .map_err(|_| "Case-site identity is malformed".to_owned())?;
+1086             Some(value)
+1087         }
+1088         None => None,
+1089     };
+1090     let minute = ctx
+1091         .db
+1092         .character_time()
+1093         .character_id()
+1094         .find(character_id)
+1095         .map(|row| row.minutes)
+1096         .ok_or("Case-site transition requires CharacterTime authority")?;
+1097     let mut current_rows = ctx
+1098         .db
+1099         .character_case_site_occupancy()
+1100         .character_id()
+1101         .filter(character_id)
+1102         .filter(|row| row.left_at.is_none())
+1103         .collect::<Vec<_>>();
+1104     if current_rows.len() > 1 {
+1105         return Err("Character has conflicting active case-site occupancy".into());
+1106     }
+1107     let current = current_rows.pop();
+1108     let previous_site = current
+1109         .as_ref()
+1110         .map(|row| row.case_site_id.as_str().to_owned());

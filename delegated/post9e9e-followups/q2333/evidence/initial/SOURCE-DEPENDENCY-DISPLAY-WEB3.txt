@@ -1,0 +1,51 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/containers.rs:416-465
+ 416 pub(super) async fn refresh_inventory_container_tincture(
+ 417     State(state): State<AppState>,
+ 418     session: Session,
+ 419     Form(form): Form<ContainerTinctureForm>,
+ 420 ) -> Response {
+ 421     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 422         return StatusCode::UNAUTHORIZED.into_response();
+ 423     };
+ 424     match state
+ 425         .db
+ 426         .call(
+ 427             "refresh_tincture",
+ 428             &[json!(actor.id), json!(form.container_object_id)],
+ 429         )
+ 430         .await
+ 431     {
+ 432         Ok(()) => StatusCode::NO_CONTENT.into_response(),
+ 433         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+ 434     }
+ 435 }
+ 436 
+ 437 pub(super) async fn dose_inventory_container_tincture(
+ 438     State(state): State<AppState>,
+ 439     session: Session,
+ 440     Form(form): Form<ContainerTinctureDoseForm>,
+ 441 ) -> Response {
+ 442     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 443         return StatusCode::UNAUTHORIZED.into_response();
+ 444     };
+ 445     let Ok(dose) = adventuresim_core::physiology::DoseMilliunits::try_new(form.dose_milliunits)
+ 446     else {
+ 447         return (StatusCode::BAD_REQUEST, "Invalid tincture dose").into_response();
+ 448     };
+ 449     if dose.is_zero() || dose > adventuresim_core::physiology::DoseMilliunits::STANDARD {
+ 450         return (StatusCode::BAD_REQUEST, "Invalid tincture dose").into_response();
+ 451     }
+ 452     match state
+ 453         .db
+ 454         .call(
+ 455             "administer_tincture_from_container",
+ 456             &[
+ 457                 json!(actor.id),
+ 458                 json!(actor.id),
+ 459                 json!(form.container_object_id),
+ 460                 json!(dose.get()),
+ 461             ],
+ 462         )
+ 463         .await
+ 464     {
+ 465         Ok(()) => StatusCode::NO_CONTENT.into_response(),

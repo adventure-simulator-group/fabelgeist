@@ -1,0 +1,467 @@
+{
+  "kind": "Root adoption of delegated independent Lens12 ordered audit evidence",
+  "lens": 12,
+  "batch": 873,
+  "at": "2026-10-30T03:12:18.314543+00:00",
+  "proposal": "parallel-l12-20261029/PROPOSAL-L12-873.json",
+  "proposal_sha256": "b55f83388524f74abdcb09c1df974c6065bdb711c214a4c66f636162146cd363",
+  "validated_bundle": {
+    "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+    "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df"
+  },
+  "rows": [
+    {
+      "original_index": 2571,
+      "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+      "source_sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "actual_EOF": 652,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "native_package": "bevy_reflect-0.19.1",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b",
+      "archive_member": "bevy_reflect-0.19.1/src/reflect.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-621-WINDOWS-ORIGINAL2571.json",
+        "sha256": "4696a737401572d3c01dd84b47f478e157422e8e249fc704970fc8969852d324"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-621.json",
+      "registration_sha256": "9783214e0afd67a3bc7fc9f00c7092dd14e2086c8d46b3d7545236034c2f406f",
+      "requested_ranges": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          489,
+          506
+        ],
+        [
+          534,
+          560
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "PartialReflect::try_downcast_ref494..496/try_downcast_mut504..506; Reflect::downcast534..540/take547..549/downcast_ref574..576; other docs context only, extra mutable downcast584..586 separate628."
+        ],
+        "string_inventory": [
+          "Typed native runtime Any/downcast API; no application String classifier. No obsolete Box/downcast preservation obligation."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native dynamic Reflect -> actual try_as_reflect/Any downcast -> typed reference/value, remote projection actual macro880 native own623? Exact macro870/871 uses native remote field; concrete app type/caller/accepted invariant remains required."
+        ],
+        "conditional_cases": [
+          "downcast536 unwrap follows is<T>535 native type guard, no ordinary panic proven. Dynamic represented type explicitly distinct from underlying type554..558; legitimate native mode, do not conflate. Exact writable callee628 checked separately."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2572,
+      "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+      "source_sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "actual_EOF": 1123,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "native_package": "bevy_reflect-0.19.1",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b",
+      "archive_member": "bevy_reflect-0.19.1/src/type_registry.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-622-WINDOWS-ORIGINAL2572.json",
+        "sha256": "89d4f1026a5d20ef6a26bf095bb3f45aa1022d9d244839b5bf79609329c173e6"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-622.json",
+      "registration_sha256": "0df9a16979480b889646dcf77764140d42bb3e6c26a4f6a0301b2717f9ee890e",
+      "requested_ranges": [
+        [
+          881,
+          919
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          881,
+          919
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          881,
+          919
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "ReflectDeserialize881..911 full definition/deserialize895..902/FromType905..911; ReflectFromPtr docs913..919 only no pointer body."
+        ],
+        "string_inventory": [
+          "Native serde error custom901 is actual final decoder trait adapter, no private application error-prose classifier."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "TypeRegistry FromType<T> stores fn908 invoking actual T::deserialize -> erased nativeSerde -> boxed typed Reflect -> actual deserialize895 Error::custom901 native associated-error boundary; concrete T admission remains its own contract."
+        ],
+        "conditional_cases": [
+          "Does not bypass concrete T::deserialize908, so native reflection deserialize alone is not proof of bypassing existing checked Serde implementation. Actual app derives/registration/native mutable route separate. No pointer/runtime execution."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2573,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "source_sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "actual_EOF": 986,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "native_package": "serde-saphyr-1.2.0",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_member": "serde-saphyr-1.2.0/src/de/api.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-623-WINDOWS-ORIGINAL2573.json",
+        "sha256": "e61da9963cee4de1b6db5608eb55746bb06d7b4aa42acaf34ba44c4d852a0261"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-623.json",
+      "registration_sha256": "cf6c69bb46cb5515640f3801369da49ea40b3f9bc4232e5bcffde9ebe92e91b0",
+      "requested_ranges": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          84,
+          112
+        ],
+        [
+          136,
+          145
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "from_str84..89/from_str_with_options_impl92..99/from_str_with_options136..141 full; example docs100..112 and maybe_with_snippet header143..145 only."
+        ],
+        "string_inventory": [
+          "Native YAML text and final diagnostic snippets, not application semantic String identity."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native input -> defaults88/explicitOptions136 -> with_deserializer96 -> concrete T::deserialize97 -> retained T or typed native error; single-document/normalization callee2577 read separately."
+        ],
+        "conditional_cases": [
+          "Concrete T owns bespoke admission; native library allowing f32/f64 raw values is not application invariant failure without concrete derive/caller. Borrowed vs owned text modes legitimate."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    },
+    {
+      "original_index": 2574,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "source_sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "actual_EOF": 760,
+      "source_object": "parallel-l12-20261029/source-873-native-ports-20261030/d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "native_package": "serde-saphyr-1.2.0",
+      "package_archive": "<redacted-local-path>",
+      "package_archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "archive_member": "serde-saphyr-1.2.0/src/de/options.rs",
+      "locked_source_authorities": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-873-REFLECT-YAML-LOCK-AUTHORITY.json",
+        "sha256": "80b8f89b8f08d14394af00e349d57e03f358173b17c914a71dde5709e4528b41",
+        "row_pointers": [
+          "/rows/0",
+          "/rows/1"
+        ]
+      },
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-624-WINDOWS-ORIGINAL2574.json",
+        "sha256": "039b1d6d39e5dd4b7f69fd33525283a4af07d65681339b8943103d34738bc330"
+      },
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-624.json",
+      "registration_sha256": "0ee1c06a18f1c3b84ede919b33d17be70480ef0cbfd3785cb546043e28396b71",
+      "requested_ranges": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          248,
+          265
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "function_contract": {
+        "exact_function_ownership": [
+          "Options field reject_non_finite_typeless_float248..265 docs/field; Default499..527 full."
+        ],
+        "string_inventory": [
+          "Native decoder policy fields/booleans and PropertySyntax enum typed; documentation native nonfinite canonical strings explicitly optional typeless mode, no magic application discriminator."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native Options::default -> typed duplicate/merge policies505..506/aliaslimits507/explicitflags -> Cfg -> actual native YAML decoder -> concrete T consumer independent."
+        ],
+        "conditional_cases": [
+          "Defaults reject typeless nonfinite514; concrete f32/f64 special .nan/.inf remain allowed254..259. strict_booleans false509/angle false510/property_map None522 are legitimate optional native modes, no demand remove normalization or preserve obsolete behavior."
+        ]
+      },
+      "metadata_nested_range_shape_preflight": "All recursively nested raw/effective historical ranges prospectively covered; actual extra context exclusions explicit; exact listed Windows/native package qualifications, no flat/EOF exceptions."
+    }
+  ],
+  "delegated_attribution_preserved": true,
+  "root_personal_rereads": [],
+  "adopted_registration_mapping": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-621.json",
+      "sha256": "9783214e0afd67a3bc7fc9f00c7092dd14e2086c8d46b3d7545236034c2f406f",
+      "adopted_continuation_registration_number": 1590,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-622.json",
+      "sha256": "0df9a16979480b889646dcf77764140d42bb3e6c26a4f6a0301b2717f9ee890e",
+      "adopted_continuation_registration_number": 1591,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-623.json",
+      "sha256": "cf6c69bb46cb5515640f3801369da49ea40b3f9bc4232e5bcffde9ebe92e91b0",
+      "adopted_continuation_registration_number": 1592,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-624.json",
+      "sha256": "0ee1c06a18f1c3b84ede919b33d17be70480ef0cbfd3785cb546043e28396b71",
+      "adopted_continuation_registration_number": 1593,
+      "qualification": "Root adoption number only; original agent prospective chronology/body attribution preserved."
+    }
+  ],
+  "new_original_roles": 4,
+  "new_overlay_merged_shared_or_extension_credit": 0,
+  "new_global_source_registration_records": 0,
+  "accepted_unique_count_change": 0,
+  "new_findings": [],
+  "current_source_reconciled": false,
+  "inherited_disease1093_read_qualification_unchanged": true,
+  "runtime_validation": "Not run; source audit only",
+  "pending": [
+    "Concrete firstparty typed Serde/reflection/remote/native mutable consumers and actual supported inputs remain separate where required.",
+    "Native helper normalizers/live event/scope/feature branches only as actually materially needed, no comprehensive package or runtime guarantee.",
+    "Current main/all20/all13/populations/extensions/exact aliases remain independent."
+  ],
+  "scope_qualifications": [
+    "Exact native frozen registry body/member from complete cached archive matching both personally read source lock clauses; not installed/current source assumption.",
+    "Native program text/Serde grammar/modes/normalization legitimate; no source-only token or Box/prose compatibility finding.",
+    "Historical broad read context genuinely read but no unrelated native function/type role inferred; exact incomplete bodies named."
+  ],
+  "additive_qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-621-WINDOWS-ORIGINAL2571.json",
+      "sha256": "4696a737401572d3c01dd84b47f478e157422e8e249fc704970fc8969852d324"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-622-WINDOWS-ORIGINAL2572.json",
+      "sha256": "89d4f1026a5d20ef6a26bf095bb3f45aa1022d9d244839b5bf79609329c173e6"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-623-WINDOWS-ORIGINAL2573.json",
+      "sha256": "e61da9963cee4de1b6db5608eb55746bb06d7b4aa42acaf34ba44c4d852a0261"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-624-WINDOWS-ORIGINAL2574.json",
+      "sha256": "039b1d6d39e5dd4b7f69fd33525283a4af07d65681339b8943103d34738bc330"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-625-WINDOWS-ORIGINAL2575.json",
+      "sha256": "31d6e84f1cb0fab2a39af0c46ae10c14ad506a09ecf5271620e16b0b530157e5"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-626-WINDOWS-ORIGINAL2576.json",
+      "sha256": "17e59860652279ef7e102ade43609165dd69b9ed59ebfff61df73d09afeb1f30"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-627-WINDOWS-ORIGINAL2577.json",
+      "sha256": "147170bee7eb6df9c7f75fbc485577b8d0213239ee40a9ebfbf72568d9a91fc3"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-629-WINDOWS-ORIGINAL2578.json",
+      "sha256": "4c6b33fe725cdd4ee9a2a142cdeffbb7731680fcd2edb2fa2b104e7de2e14dc2"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-630-WINDOWS-ORIGINAL2579.json",
+      "sha256": "dfb02912dd6dcc3906c60e742813ad9e981fa09bee3ae0e5d79020e3b3608130"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-631-WINDOWS-ORIGINAL2580.json",
+      "sha256": "758cabb6705b15fad618f6a409639b4bbf5b8e8d7ff261f11a35b48c0fc82363"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-632-WINDOWS-ORIGINAL2581.json",
+      "sha256": "0e545f063e87d4bab48dbdffced542ee0e5ec5b0f929b1c0be5a3253d715cf2a"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-633-WINDOWS-ORIGINAL2582.json",
+      "sha256": "44628aec6a62c36ad17c68c367d68f709508494f9f0ac8f3b11b7d0cbbe973ca"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-634-WINDOWS-ORIGINAL2583.json",
+      "sha256": "6c4ed505a8f55b2620556f516a1304def273e04d75d5bef848dd240fd728e8cf"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-635-WINDOWS-ORIGINAL2584.json",
+      "sha256": "b80f669d774291e89cfafed4546a0ced6276a2d85de12629bbe2c023d2728efb"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-636-WINDOWS-ORIGINAL2585.json",
+      "sha256": "09df8852d83098907091b61bc7d0be429ce11e48a0608530b5241ea27b231cae"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-637-WINDOWS-ORIGINAL2586.json",
+      "sha256": "96d11f25f8f30483b73a88f9d7bf38196c3d7f761eabc2252389eade092aa5c0"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-638-WINDOWS-ORIGINAL2587.json",
+      "sha256": "f6a2a406916f4f9ec2fab4571f2a0ca94c1005ec125b4425617a1c614a612a17"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-650-WINDOWS-ORIGINAL2588.json",
+      "sha256": "4c432ffd0d2427cd7a9fcf9098746f4922de5ba2e6f6a6ec7ecca71fce968a72"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-651-WINDOWS-ORIGINAL2589.json",
+      "sha256": "d37af1cdad5518d83303770900110e1cb19298de259e8c9602d7d26af3c8c4dd"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-652-WINDOWS-ORIGINAL2590.json",
+      "sha256": "66d8476cb2d3fce3f66837a7d0fc89af317048109379d4403e496575277e8098"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-653-WINDOWS-ORIGINAL2591.json",
+      "sha256": "87a108ff5abeacb9af1960d318bfc07d2e02c89ed9a9ed69bbec079395942d90"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-NATIVE-MACRO-LOCATOR.json",
+      "sha256": "f150549b1605eb833f0104f5619d75f75176130c0c3e50ca30096797bfd649e8"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-876-TYPED-SCHEMA-LOCATOR.json",
+      "sha256": "74ca5e43c8f5f2eabb3ae29931e98e0d02263596965634dc32d7481374b2b683"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+      "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+      "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90"
+    }
+  ],
+  "implementation_gate_complete": false
+}

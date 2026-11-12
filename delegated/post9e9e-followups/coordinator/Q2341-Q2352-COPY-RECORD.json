@@ -1,0 +1,45 @@
+{
+  "copies": [
+    {
+      "label": "q2341-42-safe",
+      "manifest_sha256": "b77e5b6e69ac8eaf56691c8044774b6885c0e65ce50d00892a37bb699db7747a",
+      "files": 169
+    },
+    {
+      "label": "q2341-42-scan",
+      "manifest_sha256": "7c651b025b60deb6fd8f864626fb05ca03d943cf97fd7b57389aa9ec74f9c35e",
+      "files": 18
+    },
+    {
+      "label": "q2341-42-digest",
+      "manifest_sha256": "c74a26f8c5a90745481ce977a88bef435d9f4467bbc599ec360606a654d81112",
+      "files": 16
+    },
+    {
+      "label": "q2341-42-original",
+      "manifest_sha256": "130779ea01bf3fa804d9a80dffce562764c8d4943a0f3fabd2cb58c128109e28",
+      "files": 164
+    },
+    {
+      "label": "q2352-53-safe",
+      "manifest_sha256": "008f05c28bb3a9055d3531eb43754457d46d608d5c435c17f9ee58f010afae6f",
+      "files": 3
+    },
+    {
+      "label": "q2352-53-receipts",
+      "manifest_sha256": "b2cdf3f8d3c80526d7c73fba05f21a1d2234c5ebff1434284bc4e9d543fe2592",
+      "files": 6
+    },
+    {
+      "label": "q2352-53-original",
+      "manifest_sha256": null,
+      "files": 158
+    },
+    {
+      "label": "q2352-53-original-manifest",
+      "manifest_sha256": "cb52babc6f3b4b9cada8289c30bd59fde491d1ed47e9770f9c82cbc0fa4b4ca4",
+      "files": 1
+    }
+  ],
+  "qualification": "Exact same-machine sealed copies; q2341 key and both original predecessors are separately held. The q2341 predecessor manifest was added after its public successor. q2352 private inventory does not change reconstructed projections into originals."
+}

@@ -1,0 +1,129 @@
+ 175     pub fn bind(&self, parameters: &mut PassParameters, config: &TraversalConfig) {
+ 176         parameters.insert(config.nodes.clone(), self.nodes.clone());
+ 177         parameters.insert(config.right_children.clone(), self.right_children.clone());
+ 178         parameters.insert(config.indices.clone(), self.indices.clone());
+ 179     }
+ 180 
+ 181     fn params(&self, count: u32) -> PassParameters {
+ 182         let mut parameters = PassParameters::new();
+ 183         parameters.insert("count", count);
+ 184         parameters.insert("pad0", 0u32);
+ 185         parameters.insert("pad1", 0u32);
+ 186         parameters.insert("pad2", 0u32);
+ 187         parameters
+ 188     }
+ 189 
+ 190     /// Record a full rebuild: scene bounds, Morton codes, sort, hierarchy,
+ 191     /// refit.
+ 192     ///
+ 193     /// `primitive_bounds` holds two `vec4<f32>` per primitive, lower then
+ 194     /// upper. Nothing is read back, so this can sit in the middle of a frame's
+ 195     /// batch between the kernel that wrote the bounds and the one that
+ 196     /// queries them.
+ 197     pub fn record_build(
+ 198         &mut self,
+ 199         batch: &mut KernelBatch,
+ 200         primitive_bounds: &Buffer,
+ 201         count: u32,
+ 202     ) -> Result<()> {
+ 203         if count > self.capacity {
+ 204             return Err(anyhow::anyhow!(
+ 205                 "GpuBvh: built for {} primitives, asked for {count}",
+ 206                 self.capacity
+ 207             ));
+ 208         }
+ 209         self.count = count;
+ 210         if count == 0 {
+ 211             return Ok(());
+ 212         }
+ 213 
+ 214         let params = self.params(count);
+ 215 
+ 216         // Scene bounds start at the empty box, not at zero, so the clear
+ 217         // kernel writes the sentinels rather than `clear_buffer` zeroing. One
+ 218         // "node" of six words is exactly the scene-bounds layout, so the same
+ 219         // kernel does this job with a count of one.
+ 220         let mut clear_scene = self.params(1);
+ 221         clear_scene.insert("node_bounds", self.scene_bounds.clone());
+ 222         batch.dispatch(&self.kernels.clear_bounds, &clear_scene, [1, 1, 1])?;
+ 223 
+ 224         let mut bounds = params.clone();
+ 225         bounds.insert("primitive_bounds", primitive_bounds.clone());
+ 226         bounds.insert("scene_bounds", self.scene_bounds.clone());
+ 227         batch.dispatch_items(&self.kernels.bounds, &bounds, count)?;
+ 228 
+ 229         let mut codes = params.clone();
+ 230         codes.insert("primitive_bounds", primitive_bounds.clone());
+ 231         codes.insert("scene_bounds", self.scene_bounds.clone());
+ 232         codes.insert("codes", self.codes.clone());
+ 233         codes.insert("indices", self.indices.clone());
+ 234         batch.dispatch_items(&self.kernels.codes, &codes, count)?;
+ 235 
+ 236         self.kernels.sort.record(
+ 237             batch,
+ 238             &self.codes,
+ 239             &self.indices,
+ 240             &mut self.sort_scratch,
+ 241             count,
+ 242             morton::BITS,
+ 243         )?;
+ 244 
+ 245         let mut hierarchy = params.clone();
+ 246         hierarchy.insert("codes", self.codes.clone());
+ 247         hierarchy.insert("nodes", self.nodes.clone());
+ 248         hierarchy.insert("parents", self.parents.clone());
+ 249         hierarchy.insert("right_children", self.right_children.clone());
+ 250         batch.dispatch_items(&self.kernels.hierarchy, &hierarchy, count.saturating_sub(1))?;
+ 251 
+ 252         self.record_refit_passes(batch, primitive_bounds, count)?;
+ 253         Ok(())
+ 254     }
+ 255 
+ 256     /// Record a refit only: keep the ordering and the topology, recompute
+ 257     /// every box.
+ 258     ///
+ 259     /// Valid only after a [`GpuBvh::record_build`] with the same primitive
+ 260     /// count, and only while the primitives are still roughly where the
+ 261     /// Morton order put them.
+ 262     pub fn record_refit(
+ 263         &mut self,
+ 264         batch: &mut KernelBatch,
+ 265         primitive_bounds: &Buffer,
+ 266     ) -> Result<()> {
+ 267         if self.count == 0 {
+ 268             return Ok(());
+ 269         }
+ 270         let count = self.count;
+ 271         self.record_refit_passes(batch, primitive_bounds, count)
+ 272     }
+ 273 
+ 274     fn record_refit_passes(
+ 275         &mut self,
+ 276         batch: &mut KernelBatch,
+ 277         primitive_bounds: &Buffer,
+ 278         count: u32,
+ 279     ) -> Result<()> {
+ 280         let nodes = 2 * count - 1;
+ 281         let params = self.params(count);
+ 282 
+ 283         let mut clear = params.clone();
+ 284         clear.insert("node_bounds", self.node_bounds.clone());
+ 285         batch.dispatch_items(&self.kernels.clear_bounds, &clear, nodes)?;
+ 286 
+ 287         let mut refit = params.clone();
+ 288         refit.insert("primitive_bounds", primitive_bounds.clone());
+ 289         refit.insert("indices", self.indices.clone());
+ 290         refit.insert("parents", self.parents.clone());
+ 291         refit.insert("node_bounds", self.node_bounds.clone());
+ 292         batch.dispatch_items(&self.kernels.refit, &refit, count)?;
+ 293 
+ 294         let mut gather = params;
+ 295         gather.insert("node_bounds", self.node_bounds.clone());
+ 296         gather.insert("nodes", self.nodes.clone());
+ 297         batch.dispatch_items(&self.kernels.gather_bounds, &gather, nodes)?;
+ 298 
+ 299         Ok(())
+ 300     }
+ 301 
+ 302     /// Build on a batch of its own and submit. For a one-off; inside a frame,
+ 303     /// record into the frame's batch.

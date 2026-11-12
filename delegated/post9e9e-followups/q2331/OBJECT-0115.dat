@@ -1,0 +1,143 @@
+ 161                     "{}: Parameter '{}' (buffer binding {}) not found",
+ 162                     pass_name,
+ 163                     name,
+ 164                     binding
+ 165                 )
+ 166             })?;
+ 167 
+ 168             if let PassParameter::Buffer(gpu_buf) = val {
+ 169                 let wgpu_buf = &gpu_buf.buffer;
+ 170                 bind_group_entries.push(wgpu::BindGroupEntry {
+ 171                     binding,
+ 172                     resource: wgpu_buf.as_entire_binding(),
+ 173                 });
+ 174             } else {
+ 175                 return Err(anyhow!(
+ 176                     "{}: Parameter '{}' is not a Buffer",
+ 177                     pass_name,
+ 178                     name
+ 179                 ));
+ 180             }
+ 181         }
+ 182 
+ 183         // 3. Textures
+ 184         for binding_info in &bg_reflection.texture_bindings {
+ 185             let name = &binding_info.name;
+ 186             let binding = binding_info.binding;
+ 187             let val = parameters.get(name).ok_or_else(|| {
+ 188                 anyhow!(
+ 189                     "{}: Parameter '{}' (texture binding {}) not found",
+ 190                     pass_name,
+ 191                     name,
+ 192                     binding
+ 193                 )
+ 194             })?;
+ 195             let (view, actual_format, dim) = match val {
+ 196                 PassParameter::Texture2d(tex) => (
+ 197                     tex.view.as_ref(),
+ 198                     tex.texture.as_ref().map(|t| t.format()),
+ 199                     wgpu::TextureViewDimension::D2,
+ 200                 ),
+ 201                 PassParameter::Texture3d(tex) => (
+ 202                     tex.view.as_ref(),
+ 203                     tex.texture.as_ref().map(|t| t.format()),
+ 204                     wgpu::TextureViewDimension::D3,
+ 205                 ),
+ 206                 PassParameter::TextureCube(tex) => (
+ 207                     tex.view.as_ref(),
+ 208                     tex.texture.as_ref().map(|t| t.format()),
+ 209                     wgpu::TextureViewDimension::Cube,
+ 210                 ),
+ 211                 _ => {
+ 212                     return Err(anyhow!(
+ 213                         "{}: Parameter '{}' is not a Texture2d, Texture3d or TextureCube",
+ 214                         pass_name,
+ 215                         name
+ 216                     ));
+ 217                 }
+ 218             };
+ 219             if let Some(expected_format) = binding_info.format
+ 220                 && let Some(actual_fmt) = actual_format
+ 221                 && actual_fmt != expected_format
+ 222             {
+ 223                 return Err(anyhow!(
+ 224                     "{}: Texture '{}' format mismatch. Expected {:?}, got {:?}",
+ 225                     pass_name,
+ 226                     name,
+ 227                     expected_format,
+ 228                     actual_fmt
+ 229                 ));
+ 230             }
+ 231 
+ 232             if dim != binding_info.dimension {
+ 233                 return Err(anyhow!(
+ 234                     "{}: Texture '{}' dimension mismatch. Expected {:?}, got {:?}",
+ 235                     pass_name,
+ 236                     name,
+ 237                     binding_info.dimension,
+ 238                     dim
+ 239                 ));
+ 240             }
+ 241 
+ 242             if let Some(view) = view {
+ 243                 bind_group_entries.push(wgpu::BindGroupEntry {
+ 244                     binding,
+ 245                     resource: wgpu::BindingResource::TextureView(view),
+ 246                 });
+ 247             } else {
+ 248                 return Err(anyhow!(
+ 249                     "{}: Parameter '{}' is missing view",
+ 250                     pass_name,
+ 251                     name
+ 252                 ));
+ 253             }
+ 254         }
+ 255 
+ 256         // 4. Samplers
+ 257         for (name, binding) in &bg_reflection.sampler_bindings {
+ 258             let val = parameters.get(name).ok_or_else(|| {
+ 259                 anyhow!(
+ 260                     "{}: Parameter '{}' (sampler binding {}) not found",
+ 261                     pass_name,
+ 262                     name,
+ 263                     binding
+ 264                 )
+ 265             })?;
+ 266 
+ 267             if let PassParameter::Sampler(s) = val {
+ 268                 if let Some(wgpu_sampler) = &s.sampler {
+ 269                     bind_group_entries.push(wgpu::BindGroupEntry {
+ 270                         binding: *binding,
+ 271                         resource: wgpu::BindingResource::Sampler(wgpu_sampler),
+ 272                     });
+ 273                 } else {
+ 274                     return Err(anyhow!(
+ 275                         "{}: Sampler '{}' has no WGPU resource",
+ 276                         pass_name,
+ 277                         name
+ 278                     ));
+ 279                 }
+ 280             } else {
+ 281                 return Err(anyhow!(
+ 282                     "{}: Parameter '{}' is not a Sampler",
+ 283                     pass_name,
+ 284                     name
+ 285                 ));
+ 286             }
+ 287         }
+ 288 
+ 289         let bind_group = context
+ 290             .device
+ 291             .create_bind_group(&wgpu::BindGroupDescriptor {
+ 292                 label: Some(&format!(
+ 293                     "{} Group {} Bind Group",
+ 294                     pass_name, bg_reflection.index
+ 295                 )),
+ 296                 layout,
+ 297                 entries: &bind_group_entries,
+ 298             });
+ 299         bind_groups.push(bind_group);
+ 300     }
+ 301 
+ 302     Ok(bind_groups)
+ 303 }

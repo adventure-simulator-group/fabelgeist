@@ -1,0 +1,90 @@
+   1 //! Pure calculations used by the strategic clock, training, and recovery systems.
+   2 
+   3 use crate::{
+   4     provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY,
+   5     strategic_schedule::{DailySchedule, settlement_leisure_outcome},
+   6 };
+   7 #[cfg(test)]
+   8 use adventuresim_world_schema::calendar::WORLD_START_DAY_OF_YEAR;
+   9 use adventuresim_world_schema::calendar::{
+  10     MINUTES_PER_DAY, MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE,
+  11 };
+  12 
+  13 pub const HOURS_PER_DAY: u16 = 24;
+  14 pub const MINUTES_PER_HOUR: u16 = 60;
+  15 /// Longest settlement rest request accepted by the shared strategic contract.
+  16 pub const MAX_SETTLEMENT_REST_MINUTES: u64 = MINUTES_PER_YEAR;
+  17 const REAL_MICROSECONDS_PER_STRATEGIC_YEAR: u128 = 7 * 24 * 60 * 60 * 1_000_000;
+  18 const DAYLIGHT_START_MINUTE: u16 = 6 * 60;
+  19 const DAYLIGHT_END_MINUTE: u16 = 20 * 60;
+  20 pub const DEFAULT_WALKING_MINUTES_PER_DAY: u16 = 8 * 60;
+  21 /// Default journey-local departure time, at 08:00.
+  22 pub const DEFAULT_JOURNEY_START_MINUTE_OF_DAY: u16 = 8 * 60;
+  23 /// Default journey-local departure time for a night itinerary, at 20:00.
+  24 pub const DEFAULT_NIGHT_JOURNEY_START_MINUTE_OF_DAY: u16 = 20 * 60;
+  25 pub const MIN_WALKING_MINUTES_PER_DAY: u16 = 1;
+  26 pub const MAX_WALKING_MINUTES_PER_DAY: u16 = 24 * 60;
+  27 /// Baseline overland pace used when converting route distance into travel time.
+  28 pub const OVERLAND_WALKING_SPEED_KM_PER_HOUR: u64 = 5;
+  29 pub const LUNAR_CYCLE_MINUTES: u64 = 42_524;
+  30 pub const MAX_ITINERARY_SEGMENTS: usize = 512;
+  31 /// Natural recovery while taking full settlement downtime.
+  32 pub const HEALTH_RECOVERED_PER_DAY: f32 = 0.05;
+  33 
+  34 /// A normalized position within the shared strategic day.
+  35 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+  36 pub struct StrategicMinuteOfDay(u16);
+  37 
+  38 impl StrategicMinuteOfDay {
+  39     /// Construct a validated position within one strategic day.
+  40     pub const fn new(minute_of_day: u16) -> Option<Self> {
+  41         if (minute_of_day as u64) < MINUTES_PER_DAY {
+  42             Some(Self(minute_of_day))
+  43         } else {
+  44             None
+  45         }
+  46     }
+  47 
+  48     /// Construct a validated position from a clock hour and minute.
+  49     pub const fn from_hour_minute(hour: u16, minute: u16) -> Option<Self> {
+  50         if hour < HOURS_PER_DAY && minute < MINUTES_PER_HOUR {
+  51             Some(Self(hour * MINUTES_PER_HOUR + minute))
+  52         } else {
+  53             None
+  54         }
+  55     }
+  56 
+  57     /// Normalize an absolute strategic minute to its position within the day.
+  58     pub const fn from_absolute(absolute_minute: StrategicMinute) -> Self {
+  59         Self(absolute_minute.minute_of_day())
+  60     }
+  61 
+  62     pub const fn get(self) -> u16 {
+  63         self.0
+  64     }
+  65 
+  66     /// Whether this minute lies outside the shared daylight window.
+  67     pub const fn is_night(self) -> bool {
+  68         self.0 < DAYLIGHT_START_MINUTE || self.0 >= DAYLIGHT_END_MINUTE
+  69     }
+  70 
+  71     /// Minutes until night begins, or zero when it is already night.
+  72     pub const fn minutes_until_night(self) -> u16 {
+  73         if self.is_night() {
+  74             0
+  75         } else {
+  76             DAYLIGHT_END_MINUTE - self.0
+  77         }
+  78     }
+  79 }
+  80 
+  81 /// The fatigue inputs that determine one party member's available marching
+  82 /// time.  Keeping this small and data-only lets both the strategic reducer and
+  83 /// the HTML travel preview use exactly the same calculation.
+  84 #[derive(Clone, Debug, PartialEq)]
+  85 pub struct TravelFatigueInputs {
+  86     pub fatigue_capacity: f32,
+  87     pub calories_used: f32,
+  88 }
+  89 
+  90 #[derive(Clone, Copy, Debug, PartialEq)]

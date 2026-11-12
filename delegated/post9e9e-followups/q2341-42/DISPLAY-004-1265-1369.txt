@@ -1,0 +1,105 @@
+1265 
+1266 /// Submit one complete puzzle answer. Every authority coordinate is derived again:
+1267 /// selected character, party leadership, active accepted contract, case,
+1268 /// challenge, exact journey camp coordinates, pending encounter state, open
+1269 /// state, and expected revision.
+1270 #[reducer]
+1271 pub fn submit_puzzle_challenge(
+1272     ctx: &ReducerContext,
+1273     character_id: u64,
+1274     case_id: String,
+1275     challenge_id: String,
+1276     expected_revision: u32,
+1277     submission_json: String,
+1278 ) -> Result<(), String> {
+1279     require_strategic_gateway(ctx)?;
+1280     let character = crate::character::require_living_character(ctx, character_id)?;
+1281     let party_id = character.party_id.ok_or("Must be in a party")?;
+1282     let party = ctx
+1283         .db
+1284         .party_authority()
+1285         .id()
+1286         .find(&party_id)
+1287         .ok_or("Party not found")?;
+1288     if party.leader_id != character_id {
+1289         return Err("Only the party leader can answer this challenge".into());
+1290     }
+1291     let mut challenge = ctx
+1292         .db
+1293         .challenge_authority()
+1294         .id()
+1295         .find(&challenge_id)
+1296         .ok_or("Challenge not found")?;
+1297     if challenge.case_id != case_id || challenge.party_id != party_id {
+1298         return Err("Challenge authority does not match this party and case".into());
+1299     }
+1300     let submission: adventuresim_puzzles::PuzzleSubmission =
+1301         serde_json::from_str(&submission_json).map_err(|_| "Malformed puzzle answer")?;
+1302     let normalized_submission =
+1303         serde_json::to_string(&submission).map_err(|_| "Could not encode puzzle answer")?;
+1304     let receipt_id = format!(
+1305         "challenge-attempt:{}:{}:{}",
+1306         challenge.id, party_id, expected_revision
+1307     );
+1308     // Lost-response retries remain idempotent after a successful attempt has
+1309     // closed the challenge, resolved the case, paid the demo contract, and
+1310     // cleared the party's active contract. New attempts continue below and
+1311     // must satisfy every live authority check.
+1312     if let Some(existing) = ctx.db.challenge_attempt_receipt().id().find(&receipt_id) {
+1313         return validate_challenge_retry(
+1314             &existing,
+1315             &case_id,
+1316             &challenge_id,
+1317             &party_id,
+1318             character_id,
+1319             &normalized_submission,
+1320         );
+1321     }
+1322     let active_contract_id = party
+1323         .active_contract_id
+1324         .as_ref()
+1325         .ok_or("Party has no active quest")?;
+1326     let contract = ctx
+1327         .db
+1328         .contract_authority()
+1329         .id()
+1330         .find(active_contract_id)
+1331         .ok_or("Active quest not found")?;
+1332     if contract.case_id != case_id
+1333         || contract.accepted_by.as_deref() != Some(&party_id)
+1334         || contract.status != ContractStatus::Accepted
+1335     {
+1336         return Err("Challenge does not belong to the active accepted quest".into());
+1337     }
+1338     let errantry = ctx
+1339         .db
+1340         .errantry_authority()
+1341         .case_id()
+1342         .find(&case_id)
+1343         .ok_or("Case has no errantry issuance authority")?;
+1344     if errantry.contract_id != contract.id
+1345         || !errantry.preliminary_challenge_ids.contains(&challenge.id)
+1346         || errantry.finale_case_site_id != challenge.finale_case_site_id
+1347         || errantry.finale_hostile_group_id != challenge.finale_hostile_group_id
+1348         || errantry.issuer_organization_id != ERRANTRY_ISSUER_ORGANIZATION_ID
+1349     {
+1350         return Err("Errantry issuance does not match the accepted quest".into());
+1351     }
+1352     let issuer = ctx
+1353         .db
+1354         .settlement_resident_profile()
+1355         .character_id()
+1356         .find(errantry.issuer_resident_character_id)
+1357         .ok_or("Errantry issuer is no longer a live representative")?;
+1358     let issuer_organization =
+1359         adventuresim_core::organization::organization(&errantry.issuer_organization_id)
+1360             .filter(|organization| organization.errantry_issuance)
+1361             .ok_or("Issuer organization lacks errantry authority")?;
+1362     if issuer_organization.id != ERRANTRY_ISSUER_ORGANIZATION_ID
+1363         || exact_organization_representative(
+1364             ctx,
+1365             &issuer,
+1366             &errantry.issuer_settlement_id,
+1367             &errantry.issuer_location_id,
+1368         )
+1369         .as_deref()
