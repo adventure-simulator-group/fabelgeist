@@ -1,0 +1,1215 @@
+{
+  "schema": "726-delegated-grounding-admission-audit-v1",
+  "created_utc": "2026-11-12T02:59:01.323134+00:00",
+  "author": "/root/rig_identity",
+  "status": "assigned bounded role reviewed; connected producer/native and global audit remain incomplete",
+  "baseline": {
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "pr-working recorded head 6533e444fa37552927070cc8d8190907fd3b413e and four unrelated modified files; per-file 6533 match does not prove clean tree",
+    "historical_sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+    "f82_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports exact source object, not a project revision",
+    "checkpoint_3821": "not reconstructed or promoted"
+  },
+  "scope": {
+    "original_role": 2708,
+    "historical_774_effective_material": [
+      [
+        1,
+        44
+      ]
+    ],
+    "historical_774_registered": [
+      [
+        1,
+        47
+      ]
+    ],
+    "historical_774_context_only": [
+      [
+        46,
+        47
+      ]
+    ],
+    "later_059_mandatory_thirteen_lens_extension": [
+      [
+        45,
+        58
+      ]
+    ],
+    "own_historic_and_current_body_reads": [
+      [
+        1,
+        44
+      ],
+      [
+        45,
+        58
+      ]
+    ],
+    "historic_current_byte_identical": true,
+    "personal_read_receipt": "personal-read-receipt.json"
+  },
+  "historical_attribution": [
+    {
+      "record": "historical/774/rig/admission03/root-support/additional-contracts.jsonl.gz",
+      "author": "774 Rig root-support",
+      "scope": "RIG-ROOT-ADM03-ADDITIONAL-001 fresh REG139 material1–44; docs46–47 context only, solid_faces48+ excluded; qualified finite-normal example no complete mesh success."
+    },
+    {
+      "record": "historical/774/rig/admission03/source-registration-qualification-117.json.gz",
+      "author": "774 Rig",
+      "scope": "Metadata qualification confirms effective1–44 and does not add source or lens credit."
+    },
+    {
+      "record": "historical/059/adler/READ-L11-271.json",
+      "author": "059 Adler",
+      "scope": "Fresh independent historical 1–58 including prospective mandatory extension45–58, no then-ordered role credit. Finite sum closes the precise earlier centroid-sum premise; do not rewrite as all subsequent recentering safe."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-441.json",
+      "author": "059 SEGOVB",
+      "scope": "First ordered role2708 adopted Adler same-lens full58 proof; fresh_personal_body_reads empty and no current/other-lens transfer."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-569.json",
+      "author": "059 delegated adoption at e275",
+      "scope": "PL11-0317 e275 same-hash assessment reused Adler1–58; no fresh agent/root reread or inherited current verdict. This packet Git-proves e275 per-file identity but has no new e275 personal display."
+    },
+    {
+      "record": "historical/059/root-l2-extension-20261030/READ-ROOT-L2-EXT-021-033.json",
+      "author": "059 Root Lens2",
+      "scope": "Independently fresh historical 6533 1–58 under ROOT-L2-EXT-0022; its e275 current READ-ROOT-L2-CURRENT-008 reuses the exact same-lens proof, no fresh current reread."
+    },
+    {
+      "record": "historical/059/root-l3-extension-20261030/READ-ROOT-L3-EXT-020-027.json",
+      "author": "059 Root Lens3",
+      "scope": "Independently fresh historical 6533 1–58 under ROOT-L3-EXT-0021; its e275 READ-ROOT-L3-CURRENT-004 reuses this same-lens proof with no fresh current reread. Preserve q3125 contact-mode nonfailure and incomplete connected native scope."
+    },
+    {
+      "record": "historical/059/adler/READ-L11-297.json",
+      "author": "059 Adler",
+      "scope": "Separate role2699 historical helper1–56 fresh; SEGOVB READ-L11-440 later reused with no fresh reread. This packet does not claim its body as personally displayed."
+    },
+    {
+      "record": "historical/prior-726-delegate-pr-grounding-2693-2694.tar.gz",
+      "author": "/root/mhr_character",
+      "scope": "Original roles2693–2694 separately inspected; retains conditional source-area cancellation and F010 limits."
+    },
+    {
+      "record": "historical/prior-726-delegate-grounding-surface-2695-2696.tar.gz",
+      "author": "/root/rig_identity",
+      "scope": "Original2695–2696 retained with exact missing partitions and historical reviewers; existing ROOT-ADM-F010 and conditional grade underflow, including unrelated P16/P17 qualification."
+    },
+    {
+      "record": "historical/prior-726-delegate-grounding-regions-2697-2698-hair-ops.tar.gz",
+      "author": "/root/hair_ops",
+      "scope": "Separate role2697–2698 reads and source-binding, F010 and rounded-polygon questions; no author or read credit transferred."
+    }
+  ],
+  "findings_and_connected_questions": [
+    {
+      "id": "REVIEW-SUPPORT-PRISM-RECENTER-NONFINITE-95E",
+      "classification": "New source/mathematical conditional mechanism; proposed connected review, not an accepted distinct count or proven runtime defect",
+      "first_failed_contract": "An admitted finite prism passed to a native convex-mesh operation should have finite recentered vertices, or the owner should explicitly reject an unrepresentable conversion before the native handoff.",
+      "static_reasoning": "Let M=f32::MAX and use six abstract points in metres: top [(0,M,0),(1,0,0),(0,0,1)] and paired base [(0,-M,0),(1,-M,0),(0,0,1)]. Each component is finite, X/Z pairs match, all top Y are at least base Y and two heights are positive. Under the inspected lock-matched glam scalar Vec3 sum and ordinary IEEE f32 operations in the displayed source order, y accumulation is M, M, M, 0, -M, -M, so the prism sum is finite. The X/Z triangle has positive exact area. The two collider implementations divide this finite sum by six, then subtract the resulting center from every f32 point. The first y subtraction is M - (-M/6), which overflows to +infinity under ordinary rounding; the source passes the resulting vertex vector to SharedShape::convex_mesh without a new finite check. For a valid nonzero property and admitted members, from_prisms builds and validates canonical topology for this one cell and no cut faces; the scene- and gate-relative Position constructors admit individual finite values. For the boundary mesh path, matching element/binding and any enclosing wire/producer gates remain separate conditions.",
+      "limits": "This is symbolic source reasoning, not a constructed prism, evaluated f32 probe, fixture, deserialization, native mesh or product run. The locked glam scalar implementation and ordinary rounding assumptions are shown, but selected features, target/compiler FP behavior, complete supported producer range, native Parry requirements/outcomes, full boundary binding and product effects are not established. Native convex_mesh may reject or otherwise handle the input; no panic, malformed installed collider or actual bad scene is asserted.",
+      "historical_qualification": "059 Adler READ-L11-270 left centroid sum overflow open; READ-L11-271 correctly established that the admitted sum uses the same finite fold as collider centering. This case preserves that conclusion and instead identifies a later per-vertex subtraction. It is related to the existing 059 q102 volume subtraction issue, q1491/q1499 native contact questions and 774 RIG-ROOT-ADM03-150/ADDITIONAL-001 numerical normal concern, but no exact alias or distinct ledger count is assumed.",
+      "future_repair_direction": "After the audit and separate implementation authorization, determine supported geometry magnitude, native finite-input contract and actual consumers. If conversion must accept these prisms, perform recentering in a representation that remains finite and prove the narrowed native coordinates, or return a typed contextual error before handoff; preserve exact zero-area contact, winding and thin-solid policy. Coordinate with the existing finite-volume arithmetic owner rather than introducing unrelated bounds or fallback geometry.",
+      "later_acceptance": "Every supported admitted prism passed to physics has representable localized vertices, or a precise owner/contextual error; ordinary finite cells, intentional contacts and reversed/thin winding remain semantically unchanged. Product validation remains deferred.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              58
+            ]
+          ]
+        },
+        {
+          "archive": "support/position.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            [
+              62,
+              87
+            ]
+          ]
+        },
+        {
+          "archive": "support/finite.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            [
+              8,
+              17
+            ]
+          ]
+        },
+        {
+          "archive": "support/frames.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+          "lines": [
+            [
+              36,
+              42
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              84,
+              124
+            ],
+            [
+              146,
+              169
+            ],
+            [
+              176,
+              203
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundation-append.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              229,
+              243
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              24,
+              57
+            ],
+            [
+              227,
+              252
+            ]
+          ]
+        },
+        {
+          "archive": "native/glam-vec3.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec3.rs",
+          "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+          "lines": [
+            [
+              1419,
+              1428
+            ],
+            [
+              1647,
+              1656
+            ],
+            [
+              1787,
+              1797
+            ],
+            [
+              2081,
+              2088
+            ]
+          ]
+        },
+        {
+          "archive": "native/bevy-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy",
+          "native_version": "0.19.1",
+          "native_member": "bevy-0.19.1/src/lib.rs",
+          "sha256": "10075d3357dd35ffcb0b0c85a276ded49573b59d692e075ba6e8ad8b2738aa48",
+          "lines": [
+            [
+              50,
+              52
+            ]
+          ]
+        },
+        {
+          "archive": "native/bevy-internal-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_internal",
+          "native_version": "0.19.1",
+          "native_member": "bevy_internal-0.19.1/src/lib.rs",
+          "sha256": "e4d62ec28c75d725a321bacfe8c6d2ac8cc8848833d3e9ddbcba22ff5f0c8c55",
+          "lines": [
+            [
+              63,
+              65
+            ]
+          ]
+        },
+        {
+          "archive": "native/bevy-math-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_math",
+          "native_version": "0.19.1",
+          "native_member": "bevy_math-0.19.1/src/lib.rs",
+          "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+          "lines": [
+            [
+              101,
+              103
+            ]
+          ]
+        },
+        {
+          "archive": "native/bevy-math-Cargo.toml",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_math",
+          "native_version": "0.19.1",
+          "native_member": "bevy_math-0.19.1/Cargo.toml",
+          "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+          "lines": [
+            [
+              118,
+              121
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ADLER-L11-FOUNDATION-VOLUME-ARITHMETIC",
+      "classification": "Existing 059 q102, already reassessed at 95e; no new count",
+      "trace": "The same prism gate admits finite coordinates with large opposite-sign paired heights, while volume_cubic_metres subtracts those f32 heights before conversion to f64. The earlier 95e assessment contains the separate exact example and locked dependency reasoning; our current independent displayed sources confirm the admission and arithmetic operations.",
+      "conditions": "Extreme admitted values and an actual consumer requiring a finite reported volume remain unproven; no geometry or math was executed. This is distinct from per-vertex collider recentering unless central finds an exact defect/remedy alias.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              29,
+              44
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              84,
+              124
+            ],
+            [
+              206,
+              222
+            ]
+          ]
+        }
+      ],
+      "record": "historical/prior-foundation-volume.json"
+    },
+    {
+      "id": "REVIEW-BOUNDARY-WIRE-CONTACT-ONLY-001",
+      "classification": "Prior conditional 95e aggregate admission question; no new count",
+      "trace": "An individual zero-plan-area contact prism is deliberately accepted; solid_faces returns None, collider skips it, and empty compound parts become ContactOnly. Binding validation checks cell count and element membership, not a spatial coverage comparison in the displayed function. The prior assessment separately traces descriptor and wire and qualifies an all-contact hypothetical; this read confirms selected dependencies only.",
+      "conditions": "A supported all-contact boundary with valid binding/descriptor and required physical coverage is not demonstrated; generated producer and wire-trust policy remain open. Individual no-solid contact is an intentional mode.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              58
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              39,
+              57
+            ],
+            [
+              210,
+              252
+            ]
+          ]
+        },
+        {
+          "archive": "support/binding.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+          "lines": [
+            [
+              157,
+              173
+            ]
+          ]
+        },
+        {
+          "archive": "support/collision.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "98d29f729249f373eff25cbe778ec3f2d8cdb0921379130e99ebc9fb720f413c",
+          "lines": [
+            [
+              35,
+              60
+            ]
+          ]
+        }
+      ],
+      "record": "historical/prior-boundary.json"
+    },
+    {
+      "id": "RIG-ROOT-ADM03-ADDITIONAL-001",
+      "classification": "Historical 774 Rig source-qualified normal question, independently connected but no new unique count",
+      "trace": "Rig original registration 139 read material 1–44 only and qualified a 1e10 plan-edge normal example: finite cross components can have overflowing squared length; the existing native batching code normalizes, then skips only nonfinite normals. Tangent generation may reject and full mesh success was not established. Our current batching display confirms the shown operation and guard, but no native normalization outcome is newly asserted here.",
+      "conditions": "Actual admitted producer range, selected native math, complete mesh generation and rendering remain open; its cross/normal mechanism is separate from collider recentering and surface-grade underflow.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              44
+            ]
+          ]
+        },
+        {
+          "archive": "support/batching.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "847dc0610fa3630451d5a8b0ce95bf807fd422350e0155d3c953a2e780e576bb",
+          "lines": [
+            [
+              110,
+              159
+            ]
+          ]
+        }
+      ],
+      "record": "historical/774/rig/admission03/root-support/additional-contracts.jsonl.gz"
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Prism ensures the centroid sum stays finite at its own source fold; the new conditional case does not contradict Adler’s sum-specific conclusion. Exact zero planar area has no solid and negative orientation swaps face winding; positive thin area is not intentionally removed by an epsilon.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              58
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The shared SupportGeometryIssue preserves typed membership cause and collider errors contain property, members, element/cell for a native None; this does not prove nonfinite input or all native causes are preserved.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              5,
+              10
+            ]
+          ]
+        },
+        {
+          "archive": "support/collision.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "98d29f729249f373eff25cbe778ec3f2d8cdb0921379130e99ebc9fb720f413c",
+          "lines": [
+            [
+              3,
+              32
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              227,
+              245
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ROOT-ADM-F010",
+      "record": "historical/prior-726-delegate-grounding-surface-2695-2696.tar.gz",
+      "relationship": "Existing admitted mutable-backing/empty floor bearing condition, not automatically the same as native recenter arithmetic."
+    },
+    {
+      "id": "REVIEW-SUPPORT-GRADE-FINITE-NORMAL-UNDERFLOW-95E",
+      "record": "historical/prior-726-delegate-grounding-surface-2695-2696.tar.gz",
+      "relationship": "Separate finite normal small-magnitude grade operation and selected final validator gate; not the large-magnitude recentering or 774 normal normalization case."
+    },
+    {
+      "id": "GROUND-SOURCE-AREA-CANCELLATION-CANDIDATE-95E",
+      "record": "historical/prior-726-delegate-pr-grounding-2693-2694.tar.gz",
+      "relationship": "Earlier peer area-sum versus overlap/coverage conditional, first failed contract distinct from recentering; complete producer coverage unresolved."
+    },
+    {
+      "id": "OPEN-SINGLE-PROPERTY-SOURCE-BINDING-2698",
+      "record": "historical/prior-726-delegate-grounding-regions-2697-2698-hair-ops.tar.gz",
+      "relationship": "Earlier peer identity/source binding question, unrelated by default to numerical recentering; preserve separate ownership and read attribution."
+    },
+    {
+      "id": "Q-L12-ef88f4da1aba2ced6275",
+      "record": "queue-selection-reconstructed.json",
+      "relationship": "Historical q1491 requests actual prism, zero-solid and native collider chain; this packet partially supplies current source/math, not native execution, Lens12 historical read credit or full closure."
+    }
+  ],
+  "open_questions": [
+    "Does any supported direct or generated foundation/boundary producer admit full-range f32 coordinates, or are stronger proven scene limits applied before these APIs?",
+    "What does locked native convex_mesh require and return for nonfinite localized inputs on supported targets, and does the owner need pre-native typed rejection?",
+    "Which Vec3 backend, features, compilation and floating-point mode apply to the deployed target?",
+    "Can a complete valid boundary binding and wire carry the extreme cell, and are native-contact-only aggregate coverage obligations guaranteed by the producer?",
+    "Which direct geometry writers can mutate accepted floor/mesh backing after admission, and how are derived topology and cached query authorities synchronized?",
+    "Which consumers rely on finite volume; what are the exact alias/remedy relations among volume, collider recentering, grade and normal outcomes?",
+    "Does every supported 2699 generated scene use stronger source/geometry gates before the problematic numeric range, and what happens to actual retained support?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Position values become fixed cells, are re-admitted and indexed before collider or rendering handoff; public constructor and generated scene ownership must be traced separately.",
+      "citations": [
+        {
+          "archive": "support/position.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            [
+              62,
+              87
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              84,
+              124
+            ],
+            [
+              146,
+              169
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              24,
+              57
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Scene and GateRelative Position carry finite coordinate/frame roles; six-point and face-index arrays are native geometry topology, not merely interchangeable semantic numbers.",
+      "citations": [
+        {
+          "archive": "support/position.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            [
+              21,
+              28
+            ],
+            [
+              62,
+              76
+            ]
+          ]
+        },
+        {
+          "archive": "support/frames.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+          "lines": [
+            [
+              36,
+              42
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              12,
+              30
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              19,
+              29
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Prism checks finite positions and sum, exact pairs and ordered nonzero total height; collapsed plan is an explicit accepted contact mode. Broader native representability, all mutation and supported producer paths remain open.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              44
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              146,
+              169
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              39,
+              57
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Finite sum does not prove finite vertex-minus-center operation; existing volume subtraction and historical normal magnitude are separate connected arithmetic questions.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              29,
+              32
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              176,
+              188
+            ],
+            [
+              206,
+              220
+            ]
+          ]
+        },
+        {
+          "archive": "support/batching.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "847dc0610fa3630451d5a8b0ce95bf807fd422350e0155d3c953a2e780e576bb",
+          "lines": [
+            [
+              118,
+              125
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Binding checks expected cell element membership/count, while prism checks each cell. Existing boundary aggregate coverage and mutable backing are separate conditional ownership questions.",
+      "citations": [
+        {
+          "archive": "support/binding.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+          "lines": [
+            [
+              157,
+              173
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              210,
+              216
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              44
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "SupportGeometryIssue is the typed shared admission error; Membership retains a transparent source. Position frames and collision result owners are explicit.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              5,
+              22
+            ]
+          ]
+        },
+        {
+          "archive": "support/collision.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "98d29f729249f373eff25cbe778ec3f2d8cdb0921379130e99ebc9fb720f413c",
+          "lines": [
+            [
+              3,
+              32
+            ]
+          ]
+        },
+        {
+          "archive": "support/position.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            [
+              21,
+              28
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Foundation positions and indexed faces are correlated arrays with canonical topology revalidated on admission; privileged grounding-visible mutable backing remains the earlier F010 family, not a duplicate claim.",
+      "citations": [
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              68,
+              82
+            ],
+            [
+              146,
+              169
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundation-append.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              229,
+              243
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Historical and current assigned bodies are byte-identical; no product build, current behavioral validation or claim about historical snapshot cleanliness follows.",
+      "citations": [
+        {
+          "archive": "sources/2708-pr_head.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              1,
+              58
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "SupportCollision distinguishes Solid from ContactOnly. Absence of an individual solid is an intentional variant and is not automatically a failed aggregate.",
+      "citations": [
+        {
+          "archive": "support/collision.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "98d29f729249f373eff25cbe778ec3f2d8cdb0921379130e99ebc9fb720f413c",
+          "lines": [
+            [
+              35,
+              60
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              46,
+              58
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Manual physics-face winding and exact admission perform semantic work; replacing them with a derive would not preserve validation. Error display derives retain Membership as a transparent cause.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              5,
+              10
+            ],
+            [
+              25,
+              58
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Physical Scene versus GateRelative positions and membership are distinct domains. Fixed-sized six vertices/eight faces express one native prism shape without inventing a new index enum.",
+      "citations": [
+        {
+          "archive": "support/frames.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+          "lines": [
+            [
+              36,
+              42
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              12,
+              30
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              19,
+              29
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "SupportGeometryIssue error text is diagnostic metadata, not a branch discriminator. No raw private string dispatch occurs in the assigned helper.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              5,
+              22
+            ],
+            [
+              25,
+              58
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "The six/eight counts and reversed index order encode prism topology; exact area zero intentionally differs from contact-tolerance or bearing thresholds. Finite numeric magnitude and centering remain a separate contract.",
+      "citations": [
+        {
+          "archive": "sources/2708-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+          "lines": [
+            [
+              25,
+              58
+            ]
+          ]
+        },
+        {
+          "archive": "support/enclosure.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "lines": [
+            [
+              12,
+              22
+            ]
+          ]
+        },
+        {
+          "archive": "support/foundations.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "lines": [
+            [
+              19,
+              29
+            ],
+            [
+              176,
+              188
+            ]
+          ]
+        }
+      ],
+      "coverage": "only assigned role2708 and individually registered support; no whole-lens or historical reviewer transfer"
+    }
+  ],
+  "limitations": [
+    "All work is static source, evidence recovery and mathematical reasoning only. No product execution, code build, test, probe, geometry construction, renderer or physics simulation was performed.",
+    "Historical evidence, reconstructed queue/registry selections, prior current assessments, newly assessed 95e source and native package source remain distinguished. No checkpoint3821 promotion or complete all-lens clearance.",
+    "Exact selected 059 receipts match the recovered full transport manifest; independent 059 payload Git path proof was not available in the inspected project/publication object databases.",
+    "No resolved cargo feature graph, native backend response, supported extreme input, product impact or accepted unique-count change is claimed. Central owns aliases, ledger and publication."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed",
+  "accepted_unique_count_change": 0
+}

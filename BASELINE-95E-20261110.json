@@ -7201,7 +7201,10 @@
         "discovery": "partial; source algebra and authored constants establish the selected mismatch; admitted scene, actor access, exact aliases and runtime effect remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GATE-HANDEDNESS-95E.json"
+        "record": "ASSESSMENT-GATE-HANDEDNESS-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-EQUIPMENT-DESTINATION-GUARDED-UNWRAP",
@@ -19795,7 +19798,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ]
       },
       {
         "id": "CURRENT-WEAR-REGION-FRAME-OWNER-RELATION",
@@ -20039,7 +20045,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ]
       },
       {
         "id": "WINDOW-CONTROLLER-CHECKED-HINGE-ANGLE-PROPAGATION",
@@ -20062,7 +20071,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ]
       },
       {
         "id": "CURRENT-VISUAL-SEED-OWNER-RELATION",
@@ -20437,10 +20449,147 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11A-95E.json"
+      },
+      {
+        "id": "P16-WINDOW-AUTHORITATIVE-REACH-HEIGHT",
+        "lens": 8,
+        "additional_current_lenses": [
+          3,
+          5,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The authoritative window toggle uses horizontal tangent and outward projections without an independent vertical reach bound, while the ordinary client additionally selects in 3D.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "A controlled actor with valid sequence, state and an actually mappable off-floor window must reach this action. Replication, delivery, the intended reach and terrain-obstruction policy remain open; no request or product incident occurred.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish server-owned interaction volume and visibility policy while preserving inside-side, pose and stale-state checks.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "P16-SERVER-WINDOW-QUEUED-PREFIX",
+        "lens": 8,
+        "additional_current_lenses": [
+          4,
+          5,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The server compiles the window list first but queues each converted spawn before a later pose conversion or collider can fail.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "A supported late conversion or collider error and Bevy command/error/cleanup behavior must produce an applied partial prefix; none is established. The viewer and strategic paths have different callers and error boundaries.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace supported errors, deferred command application and observer cleanup before choosing atomic or explicit partial semantics.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "P16-SERVER-DOOR-EXEMPTION-LIFETIME",
+        "lens": 5,
+        "additional_current_lenses": [
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Door passage exemptions and controller exclusion filters retain native door entities while the update loop visits extant controllers.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "A door/controller must disappear while its actor and stored exclusions persist without other cleanup. Entity reuse, lifetime, actual leak and product impact are unproved.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace door and actor lifecycle, cleanup and entity generation before deciding who owns revocation.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "P16-SERVER-VISTA-DIGEST-EXPECT-RULE",
+        "lens": 8,
+        "additional_current_lenses": [
+          3,
+          4
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; source-rule mismatch",
+        "classification": "Production vista_bundle uses expect on input.digest despite the pinned crate rule forbidding expect outside tests.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "The source-rule mismatch is explicit; invalidation, failed digest, panic and startup effects are unproved.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish scene input and digest error ownership and use an explicit handled or propagated policy after authorization.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "P16-GATE-DATUM-TRANSFORM-RELATION",
+        "lens": 7,
+        "additional_current_lenses": [
+          3,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The generated boundary stores support elevation while the server observer reconstructs a gate datum from entity transform Y.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "The inspected generated spawn initializes the transform from boundary elevation. Later divergence, intended separate authority and wrong placement remain unproved.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace later mutation and serialization before selecting the single authoritative gate elevation or explicit handoff.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "PR-CHURCH-APSE-FACET-RECIPE-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A special apse roof path uses the fifth recipe and count of five sorted apse walls without a local complete ordinal or topology check.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+        ],
+        "relationship_qualification": "The inspected normal basilica producer makes the expected recipe and five facets; a supported altered producer, accepted malformed graph or rendering effect is unproved.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine recipe/facet ownership and required topology at the actual admitted resolution boundary, preserving the ordinary roof fallback.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0254.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0330.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

@@ -1,0 +1,422 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T02:57:44.958936+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2704
+    ],
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "dirty physical-p16, base HEAD a120390947c89b703dc74c4255a13c035d054c50; f82 is evidence transport, not source revision",
+    "assigned_entries": [
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "original_index": 2704,
+        "snapshot": "dirty physical-p16 archived object",
+        "revision": null,
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "source_archive": "source/2704-historical.rs",
+        "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+        "git_blob": "ad8e119399fd0256fcb212ef478a767519a451e4",
+        "bytes": 172605,
+        "actual_EOF": 4404,
+        "registered_ranges": [
+          [
+            1593,
+            1644
+          ],
+          [
+            2656,
+            3327
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1593,
+            1644
+          ],
+          [
+            2656,
+            2735
+          ],
+          [
+            2736,
+            2815
+          ],
+          [
+            2816,
+            2895
+          ],
+          [
+            2896,
+            2975
+          ],
+          [
+            2976,
+            3055
+          ],
+          [
+            3056,
+            3135
+          ],
+          [
+            3136,
+            3215
+          ],
+          [
+            3216,
+            3295
+          ],
+          [
+            3296,
+            3327
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1593,
+            1644
+          ],
+          [
+            2656,
+            3327
+          ]
+        ],
+        "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb"
+      },
+      {
+        "source_id": "current:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "original_index": 2704,
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+        "source_archive": "source/2704-current.rs",
+        "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "git_blob": "02b72d99ff5d4720f46bb5c2b3e2326bf15c6682",
+        "bytes": 173981,
+        "actual_EOF": 4477,
+        "registered_ranges": [
+          [
+            1590,
+            1655
+          ],
+          [
+            2665,
+            3395
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1590,
+            1655
+          ],
+          [
+            2665,
+            2744
+          ],
+          [
+            2745,
+            2824
+          ],
+          [
+            2825,
+            2904
+          ],
+          [
+            2905,
+            2984
+          ],
+          [
+            2985,
+            3064
+          ],
+          [
+            3065,
+            3144
+          ],
+          [
+            3145,
+            3224
+          ],
+          [
+            3225,
+            3304
+          ],
+          [
+            3305,
+            3384
+          ],
+          [
+            3385,
+            3395
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_revision": null,
+        "transport_path": null
+      }
+    ],
+    "actual_displays_and_unread_complements": "read-scope-summary.json",
+    "receipts": [
+      "registration.json",
+      "personal-read-receipt.json",
+      "support-registration.json",
+      "support-read-receipt.json"
+    ],
+    "previous_support_chronology": "registration-chronology-note.json",
+    "limited_to": "Source inspection and evidence integrity verification; no viewer, image capture, fixtures, tests, builds, product execution, runtime probes, simulation, implementation or validation."
+  },
+  "identity_and_recovery": {
+    "old_sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+    "old_blob": "ad8e119399fd0256fcb212ef478a767519a451e4",
+    "current_sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+    "current_blob": "02b72d99ff5d4720f46bb5c2b3e2326bf15c6682",
+    "historical_per_file_matches": [
+      "a120 recorded clean base",
+      "039 recorded catalog origin"
+    ],
+    "current_per_file_matches": [
+      "6533 pr-working file"
+    ],
+    "comparison": "Initial P16 1593\u20131644 is identical to 95e 1602\u20131653. Bounded loop P16 2656\u20133327 versus 95e 2665\u20133394 has formatting/line-break differences in the inspected diff; no whole-file semantic equivalence inferred. Historical 4404 and current 4477 EOF and full-file hashes differ.",
+    "proof": "git-proofs.json",
+    "bounded_diff": "bounded-source-diff.txt",
+    "dirty_p16": "159 status entries; separately recovered tracked patch matches original SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Seven untracked objects are not in tracked patch; original command and uninterrupted custody unproved. File-level equality and no status for this file do not make the full snapshot clean.",
+    "patch_record": "reference/p16-patch-recovery.json",
+    "registry": "registry-selection-reconstructed.json"
+  },
+  "findings_and_existing_relationships": [
+    {
+      "id": "ROOT-ADM-G073-F001",
+      "classification": "Recovered historical 774 source-backed terminal ordinal, independently reexamined against 95e; not a new duplicate",
+      "historical_authority": "history-774/root/admission03/map-capture-producers-073.json.gz, original 2026-10-22 root admission review, specifically finding ROOT-ADM-G073-F001. Original producer and opening scope remains historical.",
+      "condition": "On the final non-warmup screenshot callback, after same-phase/same-view guard, the source increments state.view to views.len(), sets Configure, then invokes finish_capture. The separately registered opening selector in Update only checks both resources exist before indexing state.views[state.view]. If it runs with this terminal state before application shutdown, an invalid index can be observed.",
+      "current_sources": [
+        "source/2704-current.rs:2736-2742",
+        "source/2704-current.rs:3312-3331",
+        "source/2704-current.rs:3384-3390",
+        "support/openings.rs:144-157",
+        "support/readiness.rs:14-28",
+        "support/viewer_schedule.rs:959-965"
+      ],
+      "prior_current_relationship": "Related separately attributed P16-OPENING-INDEX-AND-SELECTOR in prior-capture-review/prior-readiness/report.json and role2702\u20132703 capture review; central reconciliation should decide alias/count. Authored fixture camera index is a separate index.",
+      "limit": "No viewer or callback executed. Bevy scheduling/AppExit handling after finish is not established; no current panic or reachable post-exit frame claimed. The final view guard and state increment are static source facts, not an observed incident.",
+      "future_repair_direction": "After audit/authorization, own selected-view admissibility and explicit terminal absence consistently across producer and dependent consumers without defaulting malformed authored cameras.",
+      "unique_count_change": 0
+    },
+    {
+      "id": "SEGOVB-L12-SCENE-CAPTURE-PERSISTENCE-OUTCOME",
+      "classification": "Existing original 059 q257 and separately published 95e/Bevy reassessment; role2704 confirms the current call/advancement link only",
+      "condition": "Current final callback calls save_to_disk then proceeds to record pixels, advance view and finalize. The earlier separately attributed pinned Bevy 0.19.1 assessment reports unit-returning save handler logs conversion/format/I/O errors without a result; if a native save fails while independent gates and final writes succeed, the inspected source permits reported success without successful requested PNG persistence.",
+      "current_sources": [
+        "source/2704-current.rs:3312-3390",
+        "support/manifest.rs:250-275",
+        "support/manifest.rs:315-325",
+        "support/manifest.rs:420-430",
+        "support/manifest.rs:487-500"
+      ],
+      "native_provenance": "native-provenance.json; this reviewer did not personally display the retained native member in this role. reference/prior-scene-persistence.json preserves its prior reader and exact source scope.",
+      "limit": "No I/O, save, callback, fixture, rendering, error or success was observed; do not equate a logged failure with an observed incident or claim all manifest gates were independently traced here.",
+      "future_repair_direction": "After audit/authorization, carry a per-request view/path persistence result to completion while preserving fresh-output and independent gate policies.",
+      "unique_count_change": 0
+    },
+    {
+      "id": "SEGOVB-L12-UNDERSTORY-REVIEW-SPECIES-LABEL-AUTHORITY",
+      "classification": "Original 059 q258 semantic-label authority relationship, independently reexamined in bounded 95e body; no new duplicate",
+      "condition": "Capture view common_name selects specimens, then formatted Name prefix participates in selecting visible understory scatter, with layer and distance checks. Naming/producer collisions and all producer ownership require further proof.",
+      "current_sources": [
+        "source/2704-current.rs:2790-2810",
+        "source/2704-current.rs:2857-2871"
+      ],
+      "limit": "No dataset or rendering run, no assertion that ordinary display strings or unrelated names require replacement.",
+      "unique_count_change": 0
+    }
+  ],
+  "other_relationships": [
+    {
+      "id": "059 q563, q588, q1939 and q46",
+      "disposition": "Related capture/readback scheduler, readiness, opening target/camera index and scenario-admission concerns retained individually in queue-selection-reconstructed.json; no automatic equivalence, no merge or count change."
+    },
+    {
+      "id": "Prior 2702\u20132703 and 2519\u20132520",
+      "disposition": "Reports and previously registered reads preserved under prior-capture-review and nested prior-readiness, with manifest identities in prior-capture-index.json. This role provides fresh independent P16/current selected windows, not transferred support read credit."
+    },
+    {
+      "id": "Original 774 ROOT-ADMISSION03-REG-045 / ROOT-ADM-G073",
+      "disposition": "Original prospective ranges 1593\u20131648 and 2656\u20133328 were narrowed to material 1593\u20131644 and 2656\u20133327, excluding 1645\u20131648 and 3328. Historical G073 read is credited only at its documented scope, not whole viewer."
+    },
+    {
+      "id": "059 SEGOVB READ-L11-441",
+      "disposition": "Segovb prospectively registered and freshly personally read P16 role2704 1593\u20131644 and 2656\u20133327; original attribution retained."
+    },
+    {
+      "id": "059 PAR-L12-940 proposal",
+      "disposition": "/root/lens12_frontier independently read broader ranges 1593\u20131648 and 2656\u20133328 in five partials, including original excluded context. Proposal explicitly requires root adoption; bounded search found no corresponding READ/VERIFY/STATE among two target collections or manifest and does not establish global absence or adoption."
+    },
+    {
+      "id": "059 Adler L11 and Segovb L12 original pr-working role1699",
+      "disposition": "Each recorded independently full 6533 viewer 1\u20134477 in their own lens. File hash equals current 95e but these read receipts remain under original reviewer and revision, distinct from dirty P16 role2704 and this reviewer\u2019s bounded windows."
+    }
+  ],
+  "nonfindings_and_caveats": [
+    "The current capture routine has a direct terminal bound guard; do not misattribute opening selector\u2019s missing guard to that routine.",
+    "The current prime/warmup/screenshot callbacks check readback kind and same view. This does not prove a complete same-view request-generation lifetime protocol.",
+    "Temporal motion intentionally has zero settle frames; this alone does not prove an unintended change.",
+    "Equality of optional readback hashes can suppress a retry when both are None, but final is_some_and records false for a missing pair; do not claim this alone produces a successful invalid pair. FNV64 equality does not mathematically prove byte identity.",
+    "Prior role2702\u20132703 inspection found that the normal producer rebuilds requested view identifiers from selected non-warmup views; do not claim the default empty CLI request alone bypasses the pair gate. That read and scope are retained separately.",
+    "There is no evidence of a runtime screenshot failure, renderer result, panic, success, or product validation in this packet."
+  ],
+  "open_questions": [
+    "Does a subsequent Update-stage opening selector run after the final screenshot callback before AppExit is processed? The static sources do not decide this scheduling reachability.",
+    "Do all authorized ReviewFixture/view-spec producers enforce the fixture camera ordinal independently of state.view, including any alternative path?",
+    "What ownership and explicit error propagation should connect requested view, native save outcome and final manifest without changing warmup, readiness or output-directory policy?",
+    "Are the common-name selector and ground-scatter Name prefix globally stable and unambiguous at the actual producers? Prior q258 remains open.",
+    "What is the correct identity and generation policy for stale or duplicate same-view screenshot callbacks? No replay or execution is performed.",
+    "How should u64 hash-based stability be labeled if byte-identical is intended, and what collision policy is required?",
+    "All unread body complements, other capture producer and consumer paths, and thirteen complete-lens inventories remain open."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "bounded_assessment": "Current guard rejects in-flight and terminal ordinals before capture selection; screenshot callback carries the view through a phase guard but advances before finish, while separate opening consumer indexes the mutable ordinal. Reconcile the typed terminal-selection contract through every producer/consumer.",
+      "references": [
+        "source/2704-current.rs:2736-2742",
+        "source/2704-current.rs:3312-3390",
+        "support/openings.rs:144-157"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "bounded_assessment": "CapturePhase and CaptureReadback already classify readback modes; the raw usize ordinal remains independently retained in state and phase. Current source does not establish that an existing owner encapsulates a valid selected ordinal.",
+      "references": [
+        "support/capture_state.rs:89-132",
+        "source/2704-current.rs:3204-3233"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "bounded_assessment": "The capture routine itself checks the ordinal before indexing, but the separately scheduled opening selector only requires resources and indexes state views without a local bound check; terminal callback reaches len. Scheduling and exit remain unproved.",
+      "references": [
+        "source/2704-current.rs:2736-2742",
+        "source/2704-current.rs:3384-3390",
+        "support/openings.rs:144-157",
+        "support/readiness.rs:18-28"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "bounded_assessment": "Guarded callback increments the ordinal and clears sample state before returning to Configure; index==len is allowed in terminal state. Same-phase/view guards exist, but a request-generation identity or unusual duplicate/stale callback is not established by these reads.",
+      "references": [
+        "source/2704-current.rs:3207-3233",
+        "source/2704-current.rs:3238-3259",
+        "source/2704-current.rs:3312-3390"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "bounded_assessment": "Ordinal, views, phase, review fixture and opening-camera ordinal are separately stored. The source expresses no local aggregate bound check at the opening use; fixture camera index is a separate relationship requiring its own admission proof.",
+      "references": [
+        "source/2704-current.rs:1602-1653",
+        "support/openings.rs:144-157"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "bounded_assessment": "A capture-run/view selection and a persistence outcome need coherent ownership across native screenshot callbacks and the manifest; source does not decide the final owner. Distinguish native image bytes and paths from semantic view identity.",
+      "references": [
+        "source/2704-current.rs:3312-3390",
+        "support/manifest.rs:250-275",
+        "support/manifest.rs:487-500"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "bounded_assessment": "Display-name matching is also used as ground-scatter identity in the selected view: common species and a formatted Name prefix control visibility. Reconnect original 059 authority finding without assuming every visible name should become an ID.",
+      "references": [
+        "source/2704-current.rs:2790-2810",
+        "source/2704-current.rs:2857-2871"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "bounded_assessment": "Future repair must preserve warmup versus temporal motion and static settle behavior, original ordered view association, readiness gates and native save error semantics while establishing explicit completion. No repair or product behavior validation occurred.",
+      "references": [
+        "source/2704-current.rs:3142-3162",
+        "source/2704-current.rs:3204-3259",
+        "support/viewer_schedule.rs:959-965"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "bounded_assessment": "Existing Configure/Settling/Readback types separate phases, and readback kind/view checks gate callbacks. A Configure plus terminal ordinal is still representable; a completed variant is a repair direction, not an implemented design decision.",
+      "references": [
+        "support/capture_state.rs:89-132",
+        "source/2704-current.rs:3384-3390",
+        "support/readiness.rs:39-48"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "bounded_assessment": "Bounded source offers no justified local derive/serialization repair. Rust callbacks and external native image handling have behavioral contracts beyond boilerplate; the remaining full file was not reviewed.",
+      "references": [
+        "source/2704-current.rs:3204-3235",
+        "source/2704-current.rs:3312-3390"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "bounded_assessment": "A view ordinal, authored fixture camera index and screenshot persistence outcome have different bounds and owners; related evidence does not imply a single interchangeable index type or common alias. The hash is a compact u64 equality proxy, not proof of byte-for-byte equality.",
+      "references": [
+        "support/openings.rs:144-157",
+        "support/capture_state.rs:173-211",
+        "source/2704-current.rs:3371-3380"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "bounded_assessment": "Current species selection reconstructs a Name prefix from common_name and a profile string controls temporal behavior. Original q258 already identifies the species authority concern; no new finding count or producer ownership asserted.",
+      "references": [
+        "source/2704-current.rs:2800-2810",
+        "source/2704-current.rs:2857-2865",
+        "source/2704-current.rs:3142-3146"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "bounded_assessment": "Eight retries, first-view fourfold settling and 0.0001 squared-distance threshold have local functional roles, not proof of bad values. `None == None` can skip the retry comparison, but the final zip/is_some_and marks missing pairs false; no unsupported invalid-image success claim.",
+      "references": [
+        "source/2704-current.rs:2860-2865",
+        "source/2704-current.rs:3145-3153",
+        "source/2704-current.rs:3344-3380"
+      ],
+      "closure": "not assessed for the whole lens"
+    }
+  ],
+  "historical_qualification": "Recovered evidence and current assessment are distinct; reconstructed registry and queue selections are labeled and linked to exact original archives. No checkpoint 3821 record is recovered or inferred here. A proposal is not adoption; no whole-lens or ledger closure, repair, or product validation is claimed."
+}

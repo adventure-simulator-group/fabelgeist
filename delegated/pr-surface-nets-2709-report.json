@@ -1,0 +1,350 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T03:02:50.895656+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2709
+    ],
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "recorded pr-working HEAD 6533e444fa37552927070cc8d8190907fd3b413e with unrelated dirty changes; the assigned file individually equals that commit and the f82 transported original object",
+    "assigned_entries": [
+      {
+        "original_index": 2709,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+        "snapshot": "dirty pr-working snapshot; this individual archived file equals recorded HEAD",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+        "source_archive": "source/2709-historical.rs",
+        "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+        "git_blob": "732190849f6825dfe53d9a4f1c445dd34ca7d52c",
+        "bytes": 9619,
+        "EOF": 280,
+        "registered_ranges": [
+          [
+            1,
+            280
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            280
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            206
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0"
+      },
+      {
+        "original_index": 2709,
+        "source_id": "current:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+        "source_archive": "source/2709-current.rs",
+        "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+        "git_blob": "732190849f6825dfe53d9a4f1c445dd34ca7d52c",
+        "bytes": 9619,
+        "EOF": 280,
+        "registered_ranges": [
+          [
+            1,
+            280
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            280
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      }
+    ],
+    "actual_read_scope": "read-scope-summary.json",
+    "read_receipts": [
+      "personal-read-receipt.json",
+      "support-read-receipt.json",
+      "support2-read-receipt.json"
+    ],
+    "pre_registration_exposure": "A broad, truncated evidence search accidentally emitted embedded old-source lines 170\u2013206 and partial 169 before the registration. That exposure is not prospective credit. The old and current full bodies were independently re-displayed after registration; test source 208\u2013280 is contextual text only, not original material or executed tests.",
+    "pre_registration_record": "pre-registration-exposure.json and its preserved exact historical transcript record; exposure is not prospective credit.",
+    "limits": "Source inspection and evidence integrity only: no renderer, viewer, shader, product, test, fixture, build, probe, simulation or repair."
+  },
+  "identity": {
+    "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+    "blob": "732190849f6825dfe53d9a4f1c445dd34ca7d52c",
+    "bytes": 9619,
+    "EOF": 280,
+    "equal_individual_files": [
+      "dirty pr-working archived original",
+      "6533 recorded pr-working HEAD",
+      "990430b77a9f63548ffcb642074185f61ddb3322 historical current-canonical reconciliation",
+      "95e pinned current"
+    ],
+    "qualification": "Exact per-file equality only; pr-working snapshot is not clean. f82 is evidence transport and not project revision. Equality does not transfer historical personal reads.",
+    "proofs": "git-proofs.json"
+  },
+  "findings": [
+    {
+      "id": "ADLER-RESUMED05-F009",
+      "classification": "Existing 059 historical aggregate finding, independently reexamined against same current file; no new unique count",
+      "original_author": "Adler, audit-aggregate-states, historical contract-groups-328 (2026-10-25), personally read pr-working 1\u2013280; historical F009 finding references narrower ranges. Separately examined at 990430b on 2026-10-26, not 95e.",
+      "sources": [
+        "source/2709-current.rs:8-32",
+        "source/2709-current.rs:35-71",
+        "source/2709-current.rs:98-140",
+        "source/2709-current.rs:145-205"
+      ],
+      "condition": "Finite strictly ordered grid endpoints and checked small sample/cell products can still produce nonfinite derived span, sample position or averaged vertex; the scalar callback can return finite values at every grid sample, and positions enter ExtractedSurface without a final finite check. The preserved F009 historical record gives a 3\u00d73\u00d73 finite-endpoint and y-only-field static counterexample. No such fixture was run in this review.",
+      "source_relationship": "Lattice scalar checks do not validate the sampling coordinates or final retained positions; into_mesh forwards the arrays.",
+      "limits": "No ordinary rock/vista recipe produces the extreme endpoints shown by this historical example. No rendered, native-mesh or runtime failure was witnessed, and no external API reachability beyond the crate-scoped function was assumed.",
+      "future_repair_direction": "After audit/authorization, identify the correct grid/field/output admission owner and preserve valid geometry while rejecting unrepresentable arithmetic.",
+      "new_unique_count": 0
+    },
+    {
+      "id": "REVIEW-ROCK-RECIPE-ZERO-RADIUS-001",
+      "classification": "Existing 95e conditional current assessment and older 774 RIG-ROOT-ADM03-ADDITIONAL-003; relationship for central deduplication",
+      "condition": "If a RockRecipe whose collision_radius_cm is zero reaches on_scene_obstacle_added, zero metres gives identical signed-zero grid endpoints, extractor returns None, and procedural_rock_mesh expect panics on that path. The field is not evaluated first. Recipe public u16 fields and derived Deserialize permit representing zero; that alone does not prove an admitted network payload or a running observer.",
+      "source_refs": [
+        "support/scene_input.rs:89-102",
+        "support/scene_input.rs:139-147",
+        "support/observer.rs:10-31",
+        "support/rock.rs:88-100",
+        "source/2709-current.rs:39-48"
+      ],
+      "safeguards": "The standard producer derives radius 0.75 m and positive dimension ranges; separately the vista recipe uses 80 cm and positive dimensions. Terrain-detail influence checks PositiveLength on its own path, not a universal admission seal.",
+      "limit": "No product execution, malformed message or panic observed; no transport or exploitability claim. The zero-radius route is distinct from F009 extreme ordered bounds; exact remedy grouping is central.",
+      "future_repair_direction": "After audit/authorization, review supported recipe producers/admission and extraction failure policy while preserving server proxy/client presentation boundaries.",
+      "new_unique_count": 0
+    },
+    {
+      "id": "ROOT-L13-2709-SURFACE-NETS-NUMERIC-ADMISSION",
+      "classification": "Historical reconstructed Lens13 proposal and bounded open numeric question, not shown adopted",
+      "condition": "Generic field coordinates, off-grid normal samples, unchecked normal fallback and usize-to-u32 vertex narrowing warrant tracing actual supported fields/counts. Fixed rock 18\u00b3 sample grid has at most 17\u00b3 cells, so it does not establish u32 narrowing overflow.",
+      "references": [
+        "source/2709-current.rs:49-71",
+        "source/2709-current.rs:98-140",
+        "support/rock.rs:5-5",
+        "support/rock.rs:91-100",
+        "reference/l13-literal-proposal.json"
+      ],
+      "limits": "Recorded extraction from a successful preparation command is a reconstructed historical summary, not an original complete packet or independent review or adoption. Do not infer generic allocation feasibility, visible artifacts or normal-producer errors.",
+      "new_unique_count": 0
+    }
+  ],
+  "historical_and_related_records": [
+    {
+      "id": "RIG-ADMISSION03-REG-141 and RIG-ROOT-ADM03-ADDITIONAL-003",
+      "detail": "Original Rig prospectively registered 1\u2013207, then qualified production material 1\u2013206, with blank207 and tests208+ excluded. It independently read the kernel and connected zero-radius rock expect; preserve original author and scope."
+    },
+    {
+      "id": "SEGOVB L11-442",
+      "detail": "Original Segovb prospectively registered and freshly read role2709 1\u2013206; no transfer of attribution or other-lens credit."
+    },
+    {
+      "id": "PAR-L12-942 proposal",
+      "detail": "/root/lens12_frontier read 1\u2013195 and 196\u2013207, a separate 1\u2013207 scope including the original blank excluded from material; proposal explicitly requires root adoption, not established by two-target and 059-manifest bounded search."
+    },
+    {
+      "id": "059 ADLER-RESUMED05-GROUP-328",
+      "detail": "Adler personally read historic 1\u2013280 including test text, then recorded F009 with narrower source ranges. 990430b later comparison preserved independently; 95e per-file equality is proved here but changes no old attribution."
+    },
+    {
+      "id": "Prior 95e rock assessment and queue 1328,1329,1602",
+      "detail": "reference/rock-admission-95e.json and queue-selection-reconstructed.json preserve earlier bounds, reader scopes and zero-radius relation; no automatic aliases."
+    },
+    {
+      "id": "Terrain and fog assessment relations",
+      "detail": "reference/terrain-landform-95e.json and queue 1348,1572,1610 concern a different terrain volumetric path. reference/road-weather-95e.json concerns conditional fog/weather lifecycle. Similar terminology does not demonstrate a common owner, shared bug or alias to this client surface-nets extractor."
+    },
+    {
+      "id": "ROOT-INITIAL04-F012",
+      "detail": "Historical F009 compared hair/head.rs tiny-cell/count overflow and identified a related arithmetic family but distinct source/counterexample; no automatic duplicate or global uniqueness conclusion."
+    }
+  ],
+  "nonfindings": [
+    "Counts below two, finite/strictly ordered endpoints, sample/cell checked products and lattice output finiteness are explicit safeguards. Do not allege index overflow merely from multiplication where the corresponding checked bounds and loop limits apply.",
+    "The explicit 18\u00b3 rock sampling grid yields at most 4913 candidate cells, bounding per-cell vertex count on this call route.",
+    "An empty no-crossing surface returns Some(empty); without a consumer contract this is not intrinsically a defect.",
+    "Off-grid normal fallback to Vec3::Y is explicit handling, not proof of a current rendering incident.",
+    "Current and historical tests 208\u2013280 were read as source text only; their expectations are not validation results."
+  ],
+  "open_questions": [
+    "Which supported first-party or future callers can supply arbitrary Grid bounds, counts and fields, and is a hard resource/vertex budget required?",
+    "Can any valid recipe producer, deserializer, replication path or observer admit a zero radius or zero dimension, or are there other checked boundaries?",
+    "Should off-grid field evaluation or output positions/normals be validated and how should exact failure be reported without altering intended degeneracy policy?",
+    "How do collision proxy and visual extent remain coherent across all recipes?",
+    "What is the precise relationship among F009, 774 ADDITIONAL-003, rock admission and historical Lens13 proposal? Shared repair grouping requires central review; fog and terrain paths remain distinct.",
+    "All other source families and whole-lens closure remain open."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "bounded_assessment": "Standard recipe feeds SceneObstacle, the presentation observer and rock field/extractor; a separate vista recipe also calls the rock mesh. Other producers and boundaries remain open.",
+      "references": [
+        "support/recipe.rs:4-33",
+        "support/scene_input.rs:89-102",
+        "support/observer.rs:10-31",
+        "support/rock.rs:88-100",
+        "support/vista.rs:28-35"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "bounded_assessment": "Terrain influence separately uses PositiveLength, while RockRecipe stores raw u16 dimensions/radius and the SurfaceNetsGrid uses native counts and Vec3 bounds. Do not assume an existing terrain validation owner covers every consumer.",
+      "references": [
+        "support/scene_input.rs:89-102",
+        "support/generator.rs:35-44",
+        "source/2709-current.rs:8-13"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "bounded_assessment": "Extractor rejects counts below two, nonfinite or unordered bounds, checked product overflow and nonfinite lattice scalar outputs; these checks do not establish finite intermediate positions. Raw radius zero fails the strict grid guard before callback.",
+      "references": [
+        "source/2709-current.rs:35-69",
+        "support/rock.rs:88-100",
+        "support/scene_input.rs:96-102"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "bounded_assessment": "Derived span, sample position, interpolation, accumulation and finite difference lack a final finite-position seal; the bounded historical F009 example connects this directly. u32 vertex narrowing is separately conditional.",
+      "references": [
+        "source/2709-current.rs:49-69",
+        "source/2709-current.rs:98-140",
+        "source/2709-current.rs:145-164"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "bounded_assessment": "Finite ordered grid endpoints alone do not guarantee finite completed geometry. Exact existing ADLER-RESUMED05-F009 remains the source-level relationship, not a newly counted finding.",
+      "references": [
+        "source/2709-current.rs:8-32",
+        "source/2709-current.rs:35-71",
+        "source/2709-current.rs:98-140",
+        "source/2709-current.rs:205-206"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "bounded_assessment": "Grid validity, field-specific sampling safety, resulting mesh representation, recipe identity and extraction failure belong at their actual boundaries; no new owner chosen by this review.",
+      "references": [
+        "source/2709-current.rs:8-38",
+        "support/rock.rs:17-36",
+        "support/scene_input.rs:89-102"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "bounded_assessment": "Server radius models a sphere proxy and the client uses the same recipe radius to bound sampling; no independently inspected path proves that all visual and collision authorities are coherent.",
+      "references": [
+        "support/scene_input.rs:89-102",
+        "support/rock.rs:78-100"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "bounded_assessment": "Future decisions should preserve explicit normal Y fallback for degenerate gradients, winding orientation, empty no-crossing surfaces, sphere-bound behavior and supported geometry. Source-only tests express narrow intent and were not run.",
+      "references": [
+        "source/2709-current.rs:126-165",
+        "source/2709-current.rs:205-280",
+        "support/rock.rs:78-100"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "bounded_assessment": "RockArchetype and RockLithology are distinct explicit enums; extraction collapses its failure categories into Option before an expect. No inspected source requires a particular replacement API.",
+      "references": [
+        "support/scene_input.rs:104-120",
+        "source/2709-current.rs:35-53",
+        "support/rock.rs:88-100"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "bounded_assessment": "Grid Clone/Copy/Debug and surface Debug/Default/PartialEq are already derived; bounded body reveals no justified trait boilerplate repair.",
+      "references": [
+        "source/2709-current.rs:8-20"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "bounded_assessment": "Grid sample count, cell count and native mesh vertex u32 ordinal have different representability roles. The fixed rock grid gives at most 17\u00b3 cells, so no u32 truncation is claimed on that path; arbitrary grid capacity remains unresolved.",
+      "references": [
+        "source/2709-current.rs:39-60",
+        "source/2709-current.rs:98-140",
+        "support/rock.rs:5-5",
+        "support/rock.rs:91-99"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "bounded_assessment": "Extraction returns Option and has no domain string dispatch in inspected body; observer names and expect text are presentation/diagnostic literals, not independently established selectors.",
+      "references": [
+        "source/2709-current.rs:1-206",
+        "support/rock.rs:88-100",
+        "support/observer.rs:25-30"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "bounded_assessment": "Eight cube corners and twelve edges encode topology, and the fixed 18 samples bound rock work. Normal step 0.35, shape coefficients, and fallback are functional policies; no defect is inferred from a literal alone.",
+      "references": [
+        "source/2709-current.rs:74-100",
+        "support/rock.rs:5-5",
+        "support/rock.rs:35-85"
+      ],
+      "closure": "not assessed for the whole lens"
+    }
+  ],
+  "historical_qualification": "Exact recovered records, reconstructed prior records and new current assessment are distinct. No checkpoint3821 restoration, lens closure, implementation, runtime validation or inferred proposal adoption."
+}

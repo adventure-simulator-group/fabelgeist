@@ -1,0 +1,164 @@
+{
+  "schema": "726-delegated-checkpoint-23-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-23.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 12983,
+  "unique_redacted_original_sha_count": 8,
+  "redacted_public_member_occurrences": 12,
+  "entries": [
+    {
+      "original_sha256": "179ed17ff0923c266966743b1ac6af5dda38c4f128387d1c1c09c94abf2db81a",
+      "original_bytes": 3980,
+      "original_git_blob": "997d1e507104aabcbae687b7dc141a1391b3ad44",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-2055.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/disease-fixture-2710-evidence.tar.gz!historical/059/segovb/REGISTRATION-SEGOVB-2055.json",
+          "public_sha256": "71af2fbf9632a1d324f7f698bbbbf903ceaf3440183140d43669a5bf4a8cba98",
+          "public_bytes": 3735
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "183f25cc4bf26c34a22cd8dc2be3e7553c49d306b2bf95a8940bbb8741fe5e67",
+      "original_bytes": 1382964,
+      "original_git_blob": "84c786ae472a0fdab9a392fb33602fafa21ddc67",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-044.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/disease-fixture-2710-evidence.tar.gz!historical/059/parallel-l11-20261029/READ-044.json",
+          "public_sha256": "031b0a5712a7cc5b585365f144cd7ec1f2f1932096463dbc4a49777c720a5d27",
+          "public_bytes": 1366296
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "304b37ebc2a0bd5549d517170bc61e3aafc362ac5d204e26a574282c73232975",
+      "original_bytes": 1568382,
+      "original_git_blob": "6f27a17db899ee6e9fa7b79370e66a5d70232c32",
+      "original_transport_paths": [
+        "segovb/READ-L11-580.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/disease-fixture-2710-evidence.tar.gz!historical/059/segovb/READ-L11-580.json",
+          "public_sha256": "727a09ba6b616d1ed741fa4e2e2b63e4b741a050147e755861d47b7f5176e58f",
+          "public_bytes": 1551714
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "48ac6a4c1fe015b40a23b543c18a9fab7eca760b582c082e6ddf9c5e4667c996",
+      "original_bytes": 272358,
+      "original_git_blob": "c731c3457f48a3bc391d4382694f4c2b75e1a617",
+      "original_transport_paths": [
+        "parallel-l11-20261029/PLAN-040.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/disease-fixture-2710-evidence.tar.gz!historical/059/parallel-l11-20261029/PLAN-040.json",
+          "public_sha256": "836a0c0799f3525720f3b012d59fb9feef9df957128cefb3a6349b4ac65aea5c",
+          "public_bytes": 255690
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_bytes": 2559596,
+      "original_git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4",
+      "original_transport_paths": [
+        "evidence/audit01-delta/predecessor/source-catalog.json",
+        "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+        "evidence/audit10/catalog.json",
+        "segovb/FROZEN774-CATALOG.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-demographics-2700-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-web-rest-2705-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-encumbrance-2706-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-service-quests-2707-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/grounding-admission-2708-evidence.tar.gz!historical/prior-726-delegate-grounding-regions-2697-2698-hair-ops.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "61d9bcd1d88965e3c0e94048d3deb658eba72f1a9146fe61fa82e233e2be9d64",
+      "original_bytes": 174589,
+      "original_git_blob": "64bee23590fe82f96a41bb7a59f9d35aa038271a",
+      "original_transport_paths": [
+        "segovb/READ-L11-571.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-demographics-2700-evidence.tar.gz!historical/059/segovb/READ-L11-571.json",
+          "public_sha256": "330282f2bfda068c65bec44be6b3d64d75e57e6d0f62cfeb4b3378a53c7453a2",
+          "public_bytes": 169706
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "8384b733c086bf33110295cda6a6c05c0b0997c1e39e566678da789a4fe5d435",
+      "original_bytes": 7824,
+      "original_git_blob": "4f1ceac05beff5dc07143845b503203876382e09",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-NATIVE-L12-552-001.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-capture-lifecycle-2704-evidence.tar.gz!history-059/segovb/REGISTRATION-NATIVE-L12-552-001.json",
+          "public_sha256": "b59fffd4db3a14a48bc5fc6500e24b98b8e59b65c0598ae0a061473618a02f48",
+          "public_bytes": 7634
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "fe59032840b95ae4c8c35a3a86fd1c9b60f86fc70d90a252cd5a00bfe12ccc7b",
+      "original_bytes": 129340,
+      "original_git_blob": "91796ec93673d847d4df27e2a231e90e7895009d",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-035.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-demographics-2700-evidence.tar.gz!historical/059/parallel-l11-20261029/READ-035.json",
+          "public_sha256": "7e5021e569867d246d6bef34f3d0ce9e81af8e39011513801db775700548d9b6",
+          "public_bytes": 126707
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

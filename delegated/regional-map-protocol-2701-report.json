@@ -1,0 +1,922 @@
+{
+  "schema": "726-delegated-regional-map-protocol-audit-v1",
+  "created_utc": "2026-11-12T02:49:42.475659+00:00",
+  "author": "/root/rig_identity",
+  "status": "bounded source audit complete for assigned historical and current role bodies; connected owners and whole audit remain incomplete",
+  "baseline": {
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_per_file_commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_snapshot": "pr-working: recorded head 6533 plus four unrelated modified paths; original registry patch sha dba7a85bb2105ccdf0587c4713fdc2a33b374600457f5c05e9c5f29d087193b1",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports exact historical source object, not a product revision",
+    "no_checkpoint_3821_promotion": true
+  },
+  "scope": {
+    "original_role": 2701,
+    "historical_material": [
+      [
+        1,
+        126
+      ]
+    ],
+    "historic_and_current_each_separately_displayed": true,
+    "historic_body_sha256": "b38278c0ba58dc3340ed19e4e21d06e2fde33846e95cc58b804421f73366f024",
+    "current_body_sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+    "delta": "Only line12 import moved from strategic_scene::protocol to presentation::canvas_view. The complete per-revision source and f82/6533/95e Git membership proofs are archived.",
+    "actual_reads": "personal-read-receipt.json",
+    "support_is_not_ordered_role_credit": true
+  },
+  "historical_attribution": [
+    {
+      "record": "historical/774/root/admission03/map-capture-producers-073.json.gz",
+      "author": "774 Root",
+      "revision": "pr-working per-file 6533, registered original role2701 SHA b38278…f024",
+      "scope": "ROOT-ADM-G073 states fresh REG042 full126 and separate earlier strategic protocol full133. It recognizes the map-only decoder and raw other-route limit."
+    },
+    {
+      "record": "historical/774/rig/admission03/dependency-qualification-116.json.gz",
+      "author": "774 Rig",
+      "revision": "original pr-working records only",
+      "scope": "Personally consumes Root G073; corrects dependency-113 ViewRect shorthand to CanvasRect/StrategicView; explicitly no new Rig source registration/read credit."
+    },
+    {
+      "record": "historical/774/rig/admission03/contract-groups.jsonl.gz",
+      "author": "774 Rig",
+      "scope": "RIG-ADMISSION03-CONTRACT-756 states fresh regional-map-view.js historical 1–161 and leaves lower receiver pending in that earlier contract; later dependency-116 qualifies it."
+    },
+    {
+      "record": "historical/774/rig/admission03/root-support/contracts.jsonl.gz",
+      "author": "774 Rig root-support",
+      "scope": "RIG-ROOT-ADM03-193 states historical mod.rs 1–231 and identifies same-home pose preservation, silent stale input and result.err() lifetime; no automatic finding."
+    },
+    {
+      "record": "historical/059/adler/READ-L11-243.json",
+      "author": "059 Adler",
+      "scope": "Fresh personally read historical role2701 1–126 at REG523 in Lens11 as future-role connected read, no ordered credit at that point."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-440.json",
+      "author": "059 SEGOVB ordered receipt",
+      "scope": "Role2701 first ordered adoption of same-lens Adler proof, explicit fresh_personal_body_reads empty, no other-lens transfer."
+    },
+    {
+      "record": "historical/059/segovb/READ-L12-511.json",
+      "author": "059 SEGOVB",
+      "scope": "Separate independent Lens12 historical mod.rs 1–231 and surface.rs 1–231; no nonexistent 232–240 body credit and no direct role2701 read."
+    },
+    {
+      "record": "historical/prior-current-window.json",
+      "author": "prior central current assessment; reader name not independently established by that record",
+      "scope": "Prior bounded 95e protocol 1–126 as support, source hash f7bfc1…b543; not ordered historic role credit."
+    },
+    {
+      "record": "historical/strategic-scripts-REPORT.json",
+      "author": "/root/rig_identity earlier delegated packet",
+      "scope": "Role2421 historical and current browser-view 1–161 separately read in earlier packet. Report and manifest are reproduced here; remaining previous packet members are not duplicated or claimed as part of this packet."
+    }
+  ],
+  "findings_and_open_policy_questions": [
+    {
+      "id": "Q-L12-6693021d5a22a3fd2476",
+      "classification": "Existing 059 q1345 historical open same-source/home question with new bounded 95e evidence; no new finding or unique-count change",
+      "trace": "At 95e Open includes checked source, origin, span and rect. If source and home match, MapState::open updates only rect; the existing MapPose retains its span, yaw, origin and home_span. Reset restores the old home_span. The browser mount sends the supplied span on opening; the inspected ordinary strategic producer emits a constant 60,000m initial span. Thus a different supplied span is ignored in this branch, but a supported varying-span producer, desired reopen/reset policy, and stale city/presented transitions have not been established.",
+      "conditions": "A subsequent supported Open for the same source and home carries a different intended span or should deliberately reset prior pose. Preserving prior user interaction may instead be intended; no user-visible outcome or runtime behavior observed.",
+      "future_direction": "Specify resume versus replacement and reset semantics at the owner; if a supported new requested home span must be honored, carry it through the existing state transition while preserving intentional user pose and source-switch invalidation. Trace retained city/surface and callers before deciding.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              28,
+              39
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              71,
+              101
+            ],
+            [
+              168,
+              185
+            ]
+          ]
+        },
+        {
+          "archive": "support/camera.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+          "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+          "lines": [
+            [
+              22,
+              53
+            ]
+          ]
+        },
+        {
+          "archive": "support/browser-view.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-map-view.js",
+          "sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+          "lines": [
+            [
+              38,
+              51
+            ],
+            [
+              113,
+              134
+            ]
+          ]
+        },
+        {
+          "archive": "support/producer.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/strategic_map/producer.rs",
+          "sha256": "3c88e6a324ca00c4ea631521154a3321c669de52aee4fb6a8ccb551c1cb8c9d5",
+          "lines": [
+            [
+              19,
+              19
+            ],
+            [
+              139,
+              145
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REGIONAL-MAP-ERROR-LIFETIME-QUESTION-95E",
+      "classification": "New bounded current source policy question, not a proven product defect or accepted unique count",
+      "trace": "After each non-city command, the receiver sets state.failure to result.err(). A source-mismatched environment or source/revision-rejected overlay takes the Ok path without replacing data, so if any earlier operation returned Err and a later accepted or ignored Ok command is applied before the next Last status publication, the latter clears that error before that status serializes it. City uses a separate early dispatch. Status reads the current failure; a successful command may intentionally indicate recovery.",
+      "conditions": "An actual supported error-producing map operation and subsequent Ok command must both apply before a status snapshot. Whether a failure should survive a later command, command order and observer timing, and any actual consequence remain open. No command, scheduler, browser or status was executed.",
+      "future_direction": "Determine the intended lifetime and acknowledgment of operation errors. If a failure must be observable, retain a typed outcome or sequence until the responsible observer can see it, without treating deliberate stale-input no-ops as successful new data or changing valid recovery semantics.",
+      "citations": [
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              71,
+              82
+            ],
+            [
+              102,
+              158
+            ]
+          ]
+        },
+        {
+          "archive": "support/browser-runtime.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            [
+              220,
+              230
+            ]
+          ]
+        },
+        {
+          "archive": "support/status.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+          "sha256": "e4d41b00ab0fa12d2a25debabca551b7981b1d47f25067d788f473f125a490e2",
+          "lines": [
+            [
+              91,
+              98
+            ],
+            [
+              119,
+              125
+            ],
+            [
+              133,
+              165
+            ]
+          ]
+        },
+        {
+          "archive": "support/camera.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+          "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+          "lines": [
+            [
+              68,
+              89
+            ],
+            [
+              166,
+              188
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to, but not automatically identical to, 774 RIG-ROOT-ADM03-193, whose historical receiver read explicitly records result.err() and asks about stale-input feedback. No previous finding ID has been established as an exact alias."
+    },
+    {
+      "id": "REGIONAL-MAP-RAW-VIEWPORT-ADMISSION-QUESTION-95E",
+      "classification": "Conditional representation/admission question; actual internal bypass and supported harm unproved, no new unique count",
+      "trace": "Only the Open/Resize Serde fields call viewport(), which requires positive extent, finite nonnegative offsets, full dimensions at least extent and crop end at most full dimension plus one pixel. The enum and raw CanvasRect fields are crate-visible, while CanvasRect itself derives Deserialize and has public fields; the compiler-visible type alone therefore does not guarantee the map-specific check for every hypothetical internal construction or other shared canvas route.",
+      "conditions": "A real non-decoding MapCommand Open/Resize producer would have to construct or pass a bad rectangle, or another shared CanvasRect route must rely on the map guarantee. No such producer or malformed command was established; exact-name source search is not proof of absence. Map camera currently also uses max(1) in some denominators. The shared strategic route is separately scoped.",
+      "future_direction": "Trace all supported command constructors and distinguish checked map viewport from the intentionally raw shared canvas port; enforce the appropriate single admission owner only if the guarantee is required beyond decoder use.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              12,
+              12
+            ],
+            [
+              26,
+              39
+            ],
+            [
+              107,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              10,
+              20
+            ],
+            [
+              35,
+              52
+            ]
+          ]
+        },
+        {
+          "archive": "support/camera.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+          "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+          "lines": [
+            [
+              68,
+              80
+            ],
+            [
+              129,
+              139
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "ROOT-ADM-G073 and Rig dependency-qualification-116 explicitly distinguish MapCommand custom admission from the shared raw CanvasRect/StrategicView path. The prior strategic subpixel candidate is related by shared producer/receiver but has a distinct trigger and has not been proved an alias."
+    }
+  ],
+  "nonfindings": [
+    {
+      "result": "The inspected map decoder excludes the particular zero clipped-extent/nonfinite offset premise and rejects nonfinite pointer values; this does not establish all rectangle callers, GPU dimensions, UI rounding, or runtime behavior.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              97,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              35,
+              52
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "result": "The checked overlay revision is positive and exactly representable by a browser integer. Native installation also requires a matching source and strictly newer revision; a mismatch is a no-op. This alone establishes neither cross-document lifetime nor failure of supported stale-input behavior.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              14,
+              19
+            ],
+            [
+              59,
+              61
+            ],
+            [
+              81,
+              88
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              141,
+              153
+            ]
+          ]
+        },
+        {
+          "archive": "support/browser-view.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-map-view.js",
+          "sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+          "lines": [
+            [
+              124,
+              129
+            ],
+            [
+              135,
+              151
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001",
+      "record": "historical/prior-current-surface.json",
+      "relationship": "Existing conditional same-source/window different-content environment identity. This packet independently confirms the source-matching install gate; it does not reproduce its retained-surface trace or create a duplicate."
+    },
+    {
+      "id": "REVIEW-REGIONAL-MAP-WINDOW-FOOTPRINT-001",
+      "record": "historical/prior-current-window.json",
+      "relationship": "Existing admitted span/footprint versus single terrain-window coverage question; distinct from same-home reopening and no inferred alias."
+    },
+    {
+      "id": "REGIONAL-MAP-READINESS-COVERAGE-QUESTION-95E",
+      "record": "historical/prior-delegated-reconciliation-8.json",
+      "relationship": "Earlier /root/rig_identity role2421 browser and separate current status read: ready and coverage may have different meanings; current support here confirms predicates and does not create a second finding."
+    },
+    {
+      "id": "WEB-MAP-SELECTED-CROSS-KIND",
+      "record": "historical/prior-delegated-reconciliation-7.json",
+      "relationship": "Existing q1883 conditional cross-kind destination identity mismatch and MapOverlay duplicate selection. It is distinct from overlay revision ordering and no alias assumed."
+    },
+    {
+      "id": "REVIEW-STRATEGIC-CANVAS-SUBPIXEL-RECT-001",
+      "record": "historical/prior-browser-canvas.json",
+      "relationship": "Existing fractional producer-to-unsigned decoder candidate. Map decoder shares CanvasRect but this packet does not inspect the canvasRect producer or prove the same trigger reaches map; keep related only."
+    }
+  ],
+  "open_questions": [
+    "What are supported same-home Open, user-pose preservation and updated home_span/reset semantics?",
+    "Can supported map operations fail and be followed by another Ok or ignored command before status observation, and what error lifetime should users see?",
+    "Can any internal producer bypass the viewport field decoder, and which shared canvas routes need distinct admission?",
+    "Is environment source/window content immutable over the supported lifetime, and how do retained geometry, roads, route and browser caches invalidate?",
+    "Are overlay revisions scoped consistently across every supported map controller and renderer lifecycle, including any controller recreation?",
+    "What should ready, covered, city-detail and partial terrain mean to all consumers?",
+    "What are the actual CSS rounding, physical canvas, GPU limit, city preparation, scheduler and native projection contracts?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Browser input crosses JSON/Wasm into checked command, typed pose and status; full remaining city and native graphics producer chains remain out of scope.",
+      "citations": [
+        {
+          "archive": "support/browser-view.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-map-view.js",
+          "sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+          "lines": [
+            [
+              113,
+              153
+            ]
+          ]
+        },
+        {
+          "archive": "support/queue-boundary.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            [
+              189,
+              197
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              71,
+              101
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Reuses SourcePackageDigest, WGS84, MapSpan, MapZoomRatio, Radians and ticket at command boundary. The shared raw CanvasRect is not itself a checked map-viewport type.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              2,
+              12
+            ],
+            [
+              28,
+              61
+            ],
+            [
+              107,
+              126
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Custom Open/Resize decoder admits positive extents and bounded finite crop; pointer is finite and overlay revision is 1 through 2^53−1. Direct internal raw rectangle construction and other owner admissions remain open.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              14,
+              24
+            ],
+            [
+              81,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              10,
+              20
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "MapSpan zoom rechecks and clamps in f64; camera reset reuses home_span. Pan can propagate bounded-origin errors; actual failing admitted inputs and runtime numeric behavior remain open.",
+      "citations": [
+        {
+          "archive": "support/map-owner.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+          "lines": [
+            [
+              120,
+              153
+            ]
+          ]
+        },
+        {
+          "archive": "support/camera.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+          "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+          "lines": [
+            [
+              50,
+              89
+            ],
+            [
+              166,
+              188
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Map overlay checks marker-place/rank consistency, uniqueness and route count; source matching and revision ordering guard installation. Cross-product content identity and same-home Open policy remain separate qualified questions.",
+      "citations": [
+        {
+          "archive": "support/map-owner.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+          "lines": [
+            [
+              156,
+              202
+            ],
+            [
+              223,
+              230
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              131,
+              153
+            ],
+            [
+              168,
+              185
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Native CanvasRect is shared across strategic and regional canvas; MapOverlayRevision is private to this command port. Determine whether a checked map-specific wrapper is needed, without assuming the raw shared port is obsolete.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              12,
+              24
+            ],
+            [
+              107,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              10,
+              20
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Browser request controller retains resident key while native state retains environment and presented geometry. The prior same-key/different-content finding has further conditions and is not duplicated here.",
+      "citations": [
+        {
+          "archive": "support/browser-environment.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-environment-request.js",
+          "sha256": "f880262fe8d4e0c15172c764fa4fa672642c36b590e4ed94bb3335f7ea2cd683",
+          "lines": [
+            [
+              28,
+              39
+            ],
+            [
+              65,
+              84
+            ],
+            [
+              95,
+              105
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              29,
+              40
+            ],
+            [
+              131,
+              152
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Historical/current role body differs solely in CanvasRect import path; prior and current bounded source shows the same public pixel fields and viewport-application operations, with a visibility change on uncropped. This is source comparison, not build or behavioral validation.",
+      "citations": [
+        {
+          "archive": "sources/2701-pr_head.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "b38278c0ba58dc3340ed19e4e21d06e2fde33846e95cc58b804421f73366f024",
+          "lines": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "archive": "support/old-canvas.source",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+          "sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+          "lines": [
+            [
+              12,
+              54
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              10,
+              52
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "MapCommand is a tagged closed command enum with variant-owned payloads and rejects unknown command fields. A boolean conversion or new enum redesign is not established from this slice.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              26,
+              63
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Manual TryFrom implementations enforce numerical checks; deriving a permissive conversion would not preserve those checks. Serde/custom viewport conversion remains necessary for its explicit boundary unless an equivalent checked owner replaces it.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              17,
+              24
+            ],
+            [
+              81,
+              126
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "MapSpan, MapZoomRatio, pointer pixel displacement and overlay revision describe different units or ordering; do not merge them solely because their native representations are numbers.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              14,
+              24
+            ],
+            [
+              40,
+              47
+            ],
+            [
+              59,
+              61
+            ]
+          ]
+        },
+        {
+          "archive": "support/map-owner.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+          "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+          "lines": [
+            [
+              18,
+              25
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "document_json and browser queue JSON are explicit ingress values; city installer admission and any typed error projection are connected owners, not proven unrestricted internal dispatch. Kebab-case tags are wire discriminants.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              26,
+              27
+            ],
+            [
+              52,
+              58
+            ]
+          ]
+        },
+        {
+          "archive": "support/queue-boundary.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            [
+              189,
+              197
+            ]
+          ]
+        },
+        {
+          "archive": "support/receiver.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+          "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+          "lines": [
+            [
+              71,
+              78
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Physical canvas u32 dimensions and f32 offsets are a framework port. One-pixel crop allowance and browser exact integer bound express stated wire policy; their adequacy against producer rounding and GPU constraints remains open.",
+      "citations": [
+        {
+          "archive": "sources/2701-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "sha256": "f7bfc1bc60d26d853309fc3da5400290674ec644cea45b54fd2ef3f5dd80b543",
+          "lines": [
+            [
+              14,
+              19
+            ],
+            [
+              107,
+              120
+            ]
+          ]
+        },
+        {
+          "archive": "support/canvas.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/canvas_view.rs",
+          "sha256": "a60a60698fc8aa2bc5da2abc34a8887443180db7dff00a436901511a1fd6c474",
+          "lines": [
+            [
+              10,
+              20
+            ],
+            [
+              35,
+              50
+            ]
+          ]
+        },
+        {
+          "archive": "support/browser-view.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-map-view.js",
+          "sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+          "lines": [
+            [
+              6,
+              10
+            ],
+            [
+              124,
+              129
+            ]
+          ]
+        }
+      ],
+      "coverage": "only listed 2701 and personally displayed supporting source ranges; not whole-lens completion"
+    }
+  ],
+  "limitations": [
+    "All evidence is static source inspection and evidence verification only. No command, fixture, test, build, browser, shader, simulation, renderer or product runtime was executed.",
+    "No evidence has been promoted into checkpoint3821; reconstructed selected registry/queue rows are explicitly labeled. Historical 774, 059, prior-current and newly assessed work preserve author and revision.",
+    "The full 059 registry and transport manifest and selected exact local receipts are preserved; 059 payload commit 3378 was not locally present in the publication Git object database, so those receipt bytes are matched to the recovered original manifest, not independently Git-path-proven here.",
+    "No global thirteen-lens clearance, all-consumer identity guarantee, supported failing input, actual product failure or unique finding count is claimed. Central agent owns final deduplication, repair ledger and checkpoint publication."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed",
+  "accepted_unique_count_change": 0
+}

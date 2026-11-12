@@ -1,0 +1,1073 @@
+{
+  "schema": "726-delegated-disease-fixture-audit-v1",
+  "created_utc": "2026-11-12T03:04:31.456311+00:00",
+  "author": "/root/rig_identity",
+  "status": "assigned source role reviewed within static scope; complete thirteen-lens audit and connected owners remain open",
+  "baseline": {
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "pr-working head 6533e444fa37552927070cc8d8190907fd3b413e and four unrelated modified paths, per-file match does not prove a clean tree",
+    "historical_sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+    "f82_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports exact historical object and records, not a source revision",
+    "checkpoint_3821": "not reconstructed or promoted"
+  },
+  "scope": {
+    "original_role": 2710,
+    "original_774_material_ranges": [
+      [
+        1,
+        50
+      ]
+    ],
+    "personally_displayed_historical_ranges": [
+      [
+        1,
+        50
+      ]
+    ],
+    "personally_displayed_current_ranges": [
+      [
+        1,
+        50
+      ]
+    ],
+    "old_and_current_byte_identical": true,
+    "personal_read_receipt": "personal-read-receipt.json",
+    "fixture_boundary": "source text only; no fixture or database code constructed, parsed, validated, invoked or executed"
+  },
+  "historical_attribution": [
+    {
+      "record": "historical/774/rig/admission03/native20-support/clinical-admission-001.json.gz",
+      "author": "774 Rig native20",
+      "scope": "REG145 historical pr-working 1–50 freshly read, separate from historical disease.rs full2950; fixed-dose and raw-day qualification, no fixture seed execution. Raw table and backend view remain broader than the selected checked writers."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-442.json",
+      "author": "059 SEGOVB ordered receipt",
+      "scope": "Role2710 1–50 marked fresh_personal_body_reads; receipt does not name an additional individual. No current or other-lens credit."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-520.json",
+      "author": "059 SEGOVB shared scope receipt",
+      "scope": "Shared index158 1–50 independently marked fresh_personal_body_reads and empty same_lens_reuse; separate from ordered receipt."
+    },
+    {
+      "record": "historical/059/segovb/READ-L11-580.json",
+      "author": "059 delegated e275 adoption",
+      "scope": "PL11-0497 e275 same-hash exact L11 proof reused shared READ520; fresh_personal_body_ranges empty, no inherited current finding verdict or runtime clearance. This packet proves e275 object but did not personally reread e275."
+    },
+    {
+      "record": "historical/059/CURRENT-ADLER.json",
+      "author": "059 current handoff historical summary",
+      "scope": "Original disease1093 Lens12: inherited 1–1200 persisted roles, checkpoint attestation 1201–1800 without separately transported raw predecessor output, and new personal 1801–2950. Retain that exact limitation; our 95e support ranges do not restore old read evidence."
+    },
+    {
+      "record": "historical/059/segovb/READ-L12-235.json",
+      "author": "059 SEGOVB Lens12",
+      "scope": "Original1094 administration adapter 1–27 fresh, but disease1093 remains inherited and no new personal disease1093 read; unresolved identifier/error ownership q890 preserved."
+    },
+    {
+      "record": "historical/774/root/admission03/camera-support-extra40/findings.jsonl.gz",
+      "author": "774 Root camera extra40",
+      "scope": "F005 conditional raw backend dose and web expect, source-specific example only; no claimed real bad row or runtime."
+    },
+    {
+      "record": "historical/prior-web-medical-exact-local.tar.gz",
+      "author": "/root/rig_identity with earlier /root/hair_ops prior sources preserved",
+      "scope": "Full prior roles2376–2377 source packet, history availability and gap disclosure sources; reviewer identity and exact old/current ranges remain independent."
+    }
+  ],
+  "findings_and_connected_questions": [
+    {
+      "id": "REVIEW-MEDICATION-FUTURE-STOP-POLICY-95E",
+      "classification": "New bounded current source comparison and conditional policy/reachability question; no observed product defect or accepted unique count",
+      "trace": "For a known matching profile and route, core Administration::effect_at remains within its time window when the evaluated minute is at or after administered_at, before the explicit stopped_at and before the profile-duration end. The web active list instead requires stopped_at.is_none() even before comparing the current patient minute to the start/duration. The web route obtains patient time and passes it to sanitize, which invokes active. The backend view and the persisted-row adapter copy stopped_at from their respective raw rows without an ordering check in the displayed functions.",
+      "conditions": "If a supported authorized administration has Some(stop) later than the displayed patient minute, and the profile is known, route and nonzero-dose conditions hold and duration has not elapsed, the web excludes it while the core effect path can still apply. The normal stop reducer shown writes the patient time (or original administration time if the clock is missing); current patient time normally may be monotone, and no supported future-stop row, backward clock, fixture result, data, effect, UI or execution has been established. Administrative stopping and effect visibility may intentionally be different policies.",
+      "future_direction": "Determine supported clock chronology and whether the notebook means active clinical effect or a currently unstopped course. If they must agree, compare the correct time interval and route/profile semantics at an owning boundary; preserve observer authorization, real stopped events, intended historical reads and missing-time handling. Do not add a compatibility path.",
+      "relationship": "Related to historical observer-frontier q179, history availability q193, timeline reference q198, and prior medical-gap visibility, but different predicate and no exact alias or unique count assumed.",
+      "citations": [
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              656,
+              671
+            ],
+            [
+              673,
+              716
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology-tail.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              717,
+              720
+            ]
+          ]
+        },
+        {
+          "archive": "support/medical-active.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/strategic-web/src/medical/administrations.rs",
+          "sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        },
+        {
+          "archive": "support/medical-route.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+          "lines": [
+            [
+              728,
+              764
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ],
+            [
+              215,
+              236
+            ]
+          ]
+        },
+        {
+          "archive": "support/adapter.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+          "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease-stop.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              2266,
+              2301
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-CLINICAL-001",
+      "classification": "Existing historical 774 bounded raw-day arithmetic question, independently compared at 95e; no new count",
+      "trace": "The fixture helper accepts a raw day_minutes parameter and multiplies it by small offsets before calling StrategicMinute::saturating_sub_minutes. Its inspected caller supplies DAY=1,440; the calendar owns MINUTES_PER_DAY=24*60 and a saturating_sub_days helper. This source establishes the recorded fixed caller and that the multiplication precedes saturation, not arbitrary supported input.",
+      "conditions": "A sufficiently large alternate day_minutes would be needed for multiplication overflow; no other actual caller, fixture invocation, integer runtime outcome or bad date is established. The helper is pub(super), not a public external API. Determine whether day length is a fixed calendar fact or deliberately supplied fixture input before changing its shape.",
+      "future_direction": "If every supported call means a strategic calendar day, reuse the existing calendar owner or a checked/saturating duration operation at the appropriate boundary, preserving fixture intent and timestamp policy; otherwise define the accepted caller range. Do not change or validate fixture data within this audit.",
+      "relationship": "The older 774 clinical record and 059 READ-L11-442/520 already preserve this limitation; this is a current source reconnection, not a new historical finding.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              2396,
+              2401
+            ],
+            [
+              2619,
+              2624
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar-head.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              119,
+              145
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q-L12-930d3b253c48e556a206",
+      "classification": "Existing q915 profile/version owner question, bounded current source comparison; no new count",
+      "trace": "The fixture source repeats the same preparation ID literal in variation derivation and the persisted row, alongside profile_version 1 and Oral. At the inspected current core profile table the matching first MEDICATION_IDS entry has that identifier, version 1 and Oral; effect_at looks up the recorded identity/version. The source comment says durable courses pin a version for replay, while current_intervention_profile selects the latest for a new course.",
+      "conditions": "The currently displayed ID/version/route agree. A future profile update, intended demonstration version, catalog ownership and all other writers are unproved; do not call the explicit authored literal or version pin a present defect, migration fallback or failed fixture. No fixture is parsed or evaluated.",
+      "future_direction": "Clarify if demo administrations intentionally pin an authored version or should select the shared current profile; if a shared identity owner fits, carry one explicit source value through variation and row construction without changing durable replay semantics.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/identifiers.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_references.rs",
+          "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+          "lines": [
+            [
+              12,
+              14
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              474,
+              497
+            ],
+            [
+              656,
+              695
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOT-CAMERA-EXTRA40-ADM03-F005",
+      "classification": "Existing 774 dose-projection finding related to 059 q459, connected to bounded current source; exact alias pending and no new count",
+      "trace": "The stored and backend DTOs carry a raw u32 dose. The selected fixture source forms its doses through DoseMilliunits and stores get(); the ordinary treatment path also checks the dose before insertion. The backend view copies the raw word, and the web presentation calls try_new(...).expect. The adapter instead returns a string error for an excessive dose.",
+      "conditions": "A raw backend row above 8,000 would be needed for the web expect branch; selected writer literals and normal reducer do not establish such a row. No database, conversion, fixture, UI or runtime was run. Actual row provenance and all producers remain open; do not conflate the fixture writer with a demonstrated invalid-dose producer.",
+      "future_direction": "Trace and reconcile all row producers and trusted transport; if raw projections can exceed the admitted range, retain a fallible, observable owner-level admission rather than assuming any checked producer proves every row.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              12,
+              26
+            ],
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ],
+            [
+              215,
+              236
+            ],
+            [
+              2159,
+              2171
+            ],
+            [
+              2197,
+              2212
+            ]
+          ]
+        },
+        {
+          "archive": "support/adapter.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+          "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+          "lines": [
+            [
+              6,
+              20
+            ]
+          ]
+        },
+        {
+          "archive": "support/web-medical.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/strategic-web/src/medical.rs",
+          "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+          "lines": [
+            [
+              97,
+              116
+            ],
+            [
+              210,
+              213
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "The shown fixture writer calls typed dose constructors and uses STANDARD before extracting the persisted word. No invalid-dose producer or actual database row follows from that source form; fixture inputs and outcomes were not validated.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              12,
+              26
+            ],
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Inspected development bootstrap source checks its development capability before the direct call, and the split finalizer calls an authorization helper. This static scope does not prove every bootstrap deployment or transaction, and no operation was invoked.",
+      "citations": [
+        {
+          "archive": "support/bootstrap.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+          "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+          "lines": [
+            [
+              313,
+              328
+            ],
+            [
+              405,
+              421
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Strategic physiology administration records concern strategic clinical state; this source alone does not show persistence of transient tactical tick positions, HP or enemies.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              1,
+              10
+            ],
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+      "record": "historical/prior-web-medical-exact-local.tar.gz",
+      "relationship": "Prior /root/rig_identity and /root/hair_ops evidence reports query error becoming empty medication history. Distinct from a successfully retrieved future-stop row; no assumed alias."
+    },
+    {
+      "id": "DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E",
+      "record": "historical/prior-web-medical-exact-local.tar.gz",
+      "relationship": "Earlier peer conditional observer-gap event visibility concerns authorization semantics, not automatic identity with time-active predicate; no extra count."
+    },
+    {
+      "id": "Q-L12-d789765e2885d12c5354",
+      "record": "queue-selection-reconstructed.json",
+      "relationship": "Historical q890 retains adapter error/identifier ownership and disease1093 inherited-attestation limitation; do not treat current support as closure or new old-lens read."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-MEDICAL-BACKEND-DOSE-ADMISSION",
+      "record": "queue-selection-reconstructed.json",
+      "relationship": "Historical q459 addresses the same visible raw-dose conversion as older 774 F005; exact defect/remedy alias remains central, and selected fixture source is not an automatic invalid-row producer."
+    }
+  ],
+  "open_questions": [
+    "Can any supported producer or clock lifecycle yield a future stopped_at relative to the current patient clock, and should active mean effect window or unstopped course?",
+    "Do all actual administration row producers, import paths and gateway projections preserve dose, profile, route, time and observer authority?",
+    "Should the demo profile remain deliberately version-pinned, or select the current profile when creating new demonstration records?",
+    "Is day_minutes a fixed strategic calendar day or a bounded separate caller-provided unit?",
+    "What native transaction/error policy applies if a row or key operation fails, and what actor may access each history?",
+    "How should unavailable history and observation gaps be presented without conflating unavailable with empty or widening disclosure?",
+    "What source and scope is still needed for disease1093 historical Lens12 raw predecessor attestation and current all-lens reconciliation?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Selected fixture text creates typed DoseMilliunits then extracts u32 only at stored-row port; normal reducer similarly checks before storing. The backend copy and web adapter are separate boundaries, and other producers remain untraced.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              12,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ],
+            [
+              215,
+              236
+            ],
+            [
+              2159,
+              2171
+            ],
+            [
+              2197,
+              2212
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "DoseMilliunits and StrategicMinute are existing checked/semantic owners. The same calendar day appears as a raw helper input; actual owner fit and fixed caller are recorded with no execution.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar-head.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              132,
+              145
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Dose constructor bounds 0–8000; routine reducer separately rejects zero, while fixture writer uses typed dose construction. Raw persisted rows are wider and adapter checks ruleset and dose, not every aggregate field.",
+      "citations": [
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ],
+            [
+              2159,
+              2171
+            ]
+          ]
+        },
+        {
+          "archive": "support/adapter.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+          "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "day_minutes multiplications precede saturating minute subtraction; actual inspected caller uses 1440. The helper has no checked arbitrary-u64 guarantee, yet no overflow path from a supported caller was shown.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              2396,
+              2401
+            ],
+            [
+              2619,
+              2624
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              132,
+              145
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Preparation ID, version, route, dose and stop/start are separate row fields. Checked dose alone does not guarantee a matching profile or chronologically coherent state; policy/producer gates remain separate.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/adapter.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+          "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              656,
+              708
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Dose and strategic minute owners belong to core/world schema; retained u32/string fields are storage/transport representations. Identify whether a preparation identity owner fits before imposing one.",
+      "citations": [
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ],
+            [
+              656,
+              680
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              125,
+              140
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              29,
+              46
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "One literal preparation ID occurs in variation and storage while core has a matching catalog reference and versioned profile. Current values agree; legitimate authored version pin versus current profile is a policy question.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              29,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/identifiers.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_references.rs",
+          "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+          "lines": [
+            [
+              12,
+              14
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              474,
+              491
+            ],
+            [
+              656,
+              670
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Historical and current assigned sources are byte-identical. This per-file fact grants no whole-snapshot cleanliness, execution, fixture validation or cross-lens credit.",
+      "citations": [
+        {
+          "archive": "sources/2710-pr_head.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              1,
+              50
+            ]
+          ]
+        },
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              1,
+              50
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Oral is a closed intervention route and optional region/stop model distinct modes. Whether stop Some can be in the future and what web active means remains separately qualified.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              31,
+              46
+            ]
+          ]
+        },
+        {
+          "archive": "support/medical-active.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/strategic-web/src/medical/administrations.rs",
+          "sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              690,
+              708
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "The assigned helper has no manual trait implementations to replace; DoseMilliunits constructor enforces its bound and cannot be replaced by an unchecked derive while preserving the contract.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              1,
+              50
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "DoseMilliunits permits zero at the general owner, while the interactive preparation reducer requires a positive dose and component writes explicitly no-op at zero. Keep these policy layers distinct.",
+      "citations": [
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              2159,
+              2171
+            ],
+            [
+              2219,
+              2235
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "The preparation string is authored fixture input and stored wire identity, also fed to private variation before storage. A matching existing shared identifier is present; owner migration versus deliberate versioned fixture literal remains open.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              29,
+              37
+            ]
+          ]
+        },
+        {
+          "archive": "support/identifiers.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_references.rs",
+          "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+          "lines": [
+            [
+              12,
+              14
+            ]
+          ]
+        },
+        {
+          "archive": "support/disease.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease.rs",
+          "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+          "lines": [
+            [
+              2057,
+              2069
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Fixed sample doses, version and demo offsets are authored source values; core already owns dose bounds, standard dose and calendar day. Their local meaning does not establish a separate product defect.",
+      "citations": [
+        {
+          "archive": "sources/2710-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+          "lines": [
+            [
+              12,
+              26
+            ],
+            [
+              36,
+              45
+            ]
+          ]
+        },
+        {
+          "archive": "support/physiology.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/physiology.rs",
+          "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "lines": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "archive": "support/calendar-head.source",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              10,
+              10
+            ]
+          ]
+        }
+      ],
+      "coverage": "assigned role2710 and personally displayed support only; no whole-lens or earlier reviewer transfer"
+    }
+  ],
+  "limitations": [
+    "Only source text, recorded evidence and hashes were inspected. No fixture or database code, authored fixture data, product, test, build, browser, probe or runtime was invoked, constructed, parsed or validated.",
+    "Full historical registry, 059 queue/ledger, selected exact receipts and 774 originals remain separate from reconstructed selected rows and this current assessment. Nothing is promoted to checkpoint3821.",
+    "The exact selected 059 receipt bytes match the original recovered transport manifest; independent payload Git path proof was unavailable in the inspected publication and project object databases.",
+    "No supported future-stop case, invalid backend row, all-producer or all-authorization clearance, global alias or unique finding count is claimed; central owns ledger and publication."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed",
+  "accepted_unique_count_change": 0
+}

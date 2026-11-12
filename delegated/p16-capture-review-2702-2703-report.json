@@ -1,0 +1,381 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T02:52:18.189640+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2702,
+      2703
+    ],
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "physical-p16 dirty frozen snapshot, recorded a120390947c89b703dc74c4255a13c035d054c50 base; exact source objects transported via f82",
+    "assigned_source_objects": [
+      {
+        "original_index": 2702,
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "snapshot": "physical-p16 dirty archive, not clean base commit",
+        "revision": null,
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "source_archive": "source/2702-historical.rs",
+        "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "git_blob": "90ff1b3d2a1289742ca55bb41b91a2a85bb3b384",
+        "bytes": 12845,
+        "actual_EOF": 373,
+        "registered_ranges": [
+          [
+            1,
+            373
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            373
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            132
+          ]
+        ],
+        "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2"
+      },
+      {
+        "original_index": 2702,
+        "source_id": "current:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "source_archive": "source/2702-current.rs",
+        "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "git_blob": "90ff1b3d2a1289742ca55bb41b91a2a85bb3b384",
+        "bytes": 12845,
+        "actual_EOF": 373,
+        "registered_ranges": [
+          [
+            1,
+            373
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            373
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_revision": null,
+        "transport_path": null
+      },
+      {
+        "original_index": 2703,
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "snapshot": "physical-p16 dirty archive, not clean base commit",
+        "revision": null,
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "source_archive": "source/2703-historical.rs",
+        "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "git_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+        "bytes": 6073,
+        "actual_EOF": 186,
+        "registered_ranges": [
+          [
+            1,
+            186
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            186
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            173
+          ]
+        ],
+        "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896"
+      },
+      {
+        "original_index": 2703,
+        "source_id": "current:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "source_archive": "source/2703-current.rs",
+        "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "git_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+        "bytes": 6073,
+        "actual_EOF": 186,
+        "registered_ranges": [
+          [
+            1,
+            186
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            186
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_revision": null,
+        "transport_path": null
+      }
+    ],
+    "individual_comparisons": [
+      {
+        "original_index": 2702,
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+        "base_sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+        "base_blob": "90ff1b3d2a1289742ca55bb41b91a2a85bb3b384",
+        "base_bytes": 12845,
+        "base_EOF": 373,
+        "base_archive": "source/2702-base-unread.rs",
+        "historical_equals_base": true,
+        "current_equals_historical": true,
+        "status_porcelain": [],
+        "qualification": "Base full bytes preserved for identity comparison only, not personal base source read."
+      },
+      {
+        "original_index": 2703,
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+        "base_sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+        "base_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+        "base_bytes": 6073,
+        "base_EOF": 186,
+        "base_archive": "source/2703-base-unread.rs",
+        "historical_equals_base": true,
+        "current_equals_historical": true,
+        "status_porcelain": [],
+        "qualification": "Base full bytes preserved for identity comparison only, not personal base source read."
+      }
+    ],
+    "actual_reads": "personal-read-receipt.json and read-scope-summary.json; prior separate current re-displays qualified in registration-chronology-note.json",
+    "cross_lens_qualification": "Thirteen bounded perspectives only; no whole-lens closure, ordered credit or prior-read attribution transfer."
+  },
+  "historical_records": [
+    {
+      "source": "history-774/root/admission03/source-range-registration.jsonl.gz lines43–44 and source-qualifications-final-current.jsonl.gz lines43–44; history-774/rig/admission03/dependency-reconciliation-113.json.gz capture_view_indices; contract-groups.jsonl.gz line797",
+      "author": "Original 774 root and Rig",
+      "at": "2026-10-22T17:57:20.966331 and 17:57:20.969252+00:00 root registrations; Rig 113 at 17:42:55.223051+00:00",
+      "scope": "Root prospectively registered capture_state 1–132 and building_review 1–173. The registration/qualification alone is not a receipt of a later body display. Rig 113 explicitly left capture view and fixture camera index producers unread; its separate Rig 797 personally read openings.rs 1–217. Local exact transported files checked against f82, not a source project revision."
+    },
+    {
+      "source": "history-059/segovb/REGISTRATION-SEGOVB-1621.json, REGISTRATION-SEGOVB-1622.json, READ-L11-441.json, STATE-L11-441.json, VERIFY-L11-441.json",
+      "author": "Original Segovb Lens11",
+      "at": "2026-10-28T19:46:55.632955+00:00",
+      "scope": "Fresh P16 personal capture_state 1–132 and building_review 1–173. Tail ranges and actual current are not inherited. Earlier registration records catalog_origin 039329518e264f19206cf5b0b98d177433f40c17; per-file Git membership proves identical bytes while 039 is not the recorded P16 base."
+    },
+    {
+      "source": "history-059/adler/REGISTRATION-ADLER-539.json and READ-L11-247.json#/sources/4; history-059/segovb/REGISTRATION-SEGOVB-L12-611.json and READ-L12-545.json#/rows/2",
+      "author": "Original Adler Lens11 and Segovb Lens12 separately",
+      "scope": "Each independently read the separate pr-working original role1704 full capture_state 1–373; same bytes proven at 6533, no transfer to P16 role credit. Adler explicitly qualified FNV nonadversarial hash collision and unexecuted tests; Segovb retained native image packing and output-gate dependencies."
+    },
+    {
+      "source": "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-767/768.json, corresponding QUALIFICATION files, PARTIAL-PAR-L12-939-001/002.json, and PROPOSAL-L12-939.json",
+      "author": "Original /root/lens12_frontier",
+      "at": "2026-10-30T05:19:31 registrations, 05:22:04/31 partials",
+      "scope": "Separate prospective fresh P16 personal reads 1–132 and 1–173. f82 referenced as archived-object transport. Proposal explicitly requires root adoption, no new findings; exact 939 adoption receipt not found in bounded targets/manifest; no global absence conclusion."
+    },
+    {
+      "source": "prior-readiness-index.json and prior-readiness/BUNDLE-MANIFEST.json",
+      "author": "Earlier /root/mhr_character roles2519–2520 at 95e",
+      "scope": "Prior independent support read capture_state 1–120 and 285–305, building_review 1–150, bounded viewer windows, and separately assigned full readiness body. Original prior packet reported P16 patch unrecovered as of that earlier time; later tracked patch recovery is separate."
+    }
+  ],
+  "observations": [
+    {
+      "id": "PHASE-LIFECYCLE",
+      "source": "source/2702-current.rs 35–130,156–211; support/viewer.rs 1599–1652,2735–2743,3067–3070,3139–3162,3201–3259,3264–3275,3312–3390",
+      "detail": "Initial state has view zero, Configure, no captures or luminance; capture_views returns while readback is in flight or view is beyond the selected list. Configure moves to Settling; static views collect bounded prime readbacks until latest consecutive finite mean luminances stabilize or budget is exhausted. Warmup and screenshot callbacks require matching current phase and view. Temporal motion intentionally skips settling/convergence and marks lighting ready; exhausted static lighting remains false. The screenshot callback records metrics and returns to Configure after its guarded readback. Separate save outcome and asynchronous same-view generation identity remain open."
+    },
+    {
+      "id": "ACTUAL-SELECTED-VIEW-SET",
+      "source": "support/viewer.rs 838–859,1118–1192; support/interior.rs 137–160,163–186,192–213; support/manifest.rs 259–275,315–324,428,487–499",
+      "detail": "Although empty request selects an entire profile, run rebuilds requested_views from all selected non-warmup views. Therefore the shown normal producer includes each pair-required default interior/catalog view in the final requested-view gate. No default-empty-list escape is established for this path; alternative direct state construction remains open. Two None hash values skip a mismatch retry but are recorded nonidentical by is_some_and; no invalid-data pass is inferred."
+    },
+    {
+      "id": "READBACK-WITNESS",
+      "source": "source/2702-current.rs 173–181,190–211,320–333; support/viewer.rs 3344–3381; support/manifest.rs 315–324,487–499",
+      "detail": "FNV-1a compresses arbitrary readback bytes into u64, and equality of hashes is recorded under settled_readbacks_identical. Equal 64-bit hashes do not mathematically prove equal byte sequences; the source explicitly treats the hash as nonadversarial, and original Adler already recorded this qualification. The test source checks only its selected changed byte; tests were not run. Actual collision, supported screenshot pair, backend layout and whether bit-exact equality is a required acceptance contract are unproved."
+    },
+    {
+      "id": "REVIEW-READINESS",
+      "source": "source/2703-current.rs 66–95,108–172; support/readiness.rs 14–49,112–166,252–300; support/viewer.rs 959–965",
+      "detail": "Review requirements audit building plans and compile expected openings. Readiness allows Configure to run, then checks observed resource counts and selected mesh/material assets; it is ordered before capture_views. Its evidence file is written once each ready view index, before the screenshot callback, and is not proof of saved or visually correct output. Earlier independently retained window child readiness, repeated-pending timing and readiness-vs-completion questions remain distinct."
+    },
+    {
+      "id": "P16-RECOVERY",
+      "source": "registration.json#/physical_p16; registry-selection-reconstructed.json; reference/p16-patch-recovery.json; git-proofs.json",
+      "detail": "Each P16 archived object equals its per-file a120 base and current95e body, independently also 039 recorded catalog and 6533 per-file bodies; the overall P16 remains dirty. Later tracked patch has recorded SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, 159 status entries include seven separately recovered untracked objects, not covered by the tracked patch. Original invocation/uninterrupted custody not established."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-FIXTURE-ADMISSION-ASSERTION-95E",
+      "classification": "Current source-conditional existing historical admission question, not an observed incident or accepted new unique count.",
+      "first_contract": "If review-fixture semantic invalidity must pass through the declared setup Result/error boundary, count/slug/shop/mount mismatches need contextual rejection rather than a process panic.",
+      "trace": "building_review.rs 108–130 loads a ReviewFixture and asserts view count and slug order; 140–154 additionally asserts shop usage and specified mount. In the shop profile, selected_capture_views resolves SHOP_REVIEW_VIEWS to 19 elements including warmup (support/viewer.rs 1118–1152; support/review_views.rs 1–12), so a successfully decoded review fixture with zero views reaches assert_eq!(0,18). setup_scene calls this Result-returning setup with ? (support/viewer.rs 1309–1316); no fixture or viewer executed.",
+      "limits": "A successfully decoded input of that shape and entry into this review profile are conditions, not an observed file or invocation. Native decoder implementation, external fixture producer, caller terminal policy and legitimate hard-assertion policy remain unproved. No source test, fixture generation, runtime, rendering or capture performed.",
+      "future_repair_direction": "Trace authoring/admission and terminal reporting requirements; if invalid review artifacts are ordinary external errors, return typed context for count, slug, sign target and mount, preserving the exact valid fixture/view order, sign validation and nonreview mode. Repair and validation are future only.",
+      "relationships": "Original 059 READ-L11-441 already described assertion and left exact alias/cause boundary pending; separate ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC q46 concerns unsupported scenario selection, not automatically the same first predicate. Prior ASSESSMENT-VIEW-SPEC-FIXTURE-ASSOCIATION-95E reports matching slugs/index for inspected existing fixtures and a separate hypothetical camera-index mismatch. Central owns identity and no duplicate count is assigned."
+    }
+  ],
+  "open_questions": [
+    "Can any valid view/camera specification reach select_pose with stale or out-of-range state before the capture guard? Inspect full scheduling and fixture view producers, do not presume a panic.",
+    "Are per-view settled screenshot bytes required to be literally identical, or is a nonadversarial compact equality witness an accepted approximation? No hash collision observed.",
+    "What do save_to_disk and renderer readback APIs actually acknowledge, and can stale same-view callbacks overlap under supported execution? No native or runtime execution here.",
+    "Do review fixture authors receive typed contextual errors, and can a malformed but decodable fixture reach setup in supported workflow? Existing fixture static comparisons are distinct.",
+    "Are every expected window child assets observed before readiness, and how are ready/pending episode timeouts intended to behave? Earlier conditional readiness questions stay open.",
+    "Input image format and row packing, expected dimensions and overflow constraints need native screenshot producer evidence before arbitrary short/huge buffer claims.",
+    "Prior P16 patch initially unrecovered, later tracked patch and seven separately transported untracked objects remain separately attributed; neither reconstructs unproven uninterrupted custody."
+  ],
+  "connected_history": [
+    "059 q46 review scenario panic, q563 capture terminal/save, q588 GPU/readiness and q1939 opening view indices remain connected but not automatically the same predicates. q1399/q1940 review native asset ownership overlap previous window readiness observation without alias.",
+    "Prior `p16-review-openings-readiness` manifest 95ed71a5988513740f514a84a612af4b6f057ec22f1cac3def9524cf7be06e5a is included with selected exact report, sources and receipts; distinct child readiness, pending timeout and output-ready questions retain original author and scope.",
+    "774 Rig797 openings 1–217 and Rig113 index dependency are historical records; root REG043/044 are registrations, no later 774 actual read inferred."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "scope_assessment": "Selected views populate state and derive requested non-warmup identities before capture; phase and final record flow are independently inspected in bounded current windows."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "scope_assessment": "Closed CapturePhase and CaptureReadback own stage/kind while view usize and raw profile/slug strings carry separate identities; further producer and camera association owners remain open."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "scope_assessment": "ReviewFixture rejects unknown fields on deserialize, yet count/slug/shop/mount semantic failures use assertions. Actual external invalid input and desired terminal policy remain conditional."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "scope_assessment": "The readback enum and phase/view guards restrict transitions; exact screenshot generation identity, final save outcome and view-index bounds across independent systems remain open."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "scope_assessment": "Capture state retains views, numeric current view and phase payload; fixture cameras and view slugs are checked in count/order, but semantic camera-index association and separate scheduler systems require owning proof."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "scope_assessment": "Readback, review requirements and renderer state have distinct roles; no demonstrated owner transfer from diagnostic or native filename strings."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "scope_assessment": "Readiness-recorded views describe an earlier checkpoint than screenshot completion; the sources are related observations, not interchangeable proof. Existing prior readiness observations retain attribution."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "scope_assessment": "Preserve warmup, finite latest-pair lighting rule, bounded retries and temporal-motion exemption; nonreview profile Ok(None) is intentional, not a missing compatibility path."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "scope_assessment": "CapturePhase, CaptureReadback and LightingConvergence group closed modes and payloads. No replacement of valid optional scene values is proposed."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "scope_assessment": "No demonstrated handwritten trait boilerplate in these exact bodies; Deserialize deny_unknown_fields does not prove semantic view-count/identity invariants."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "scope_assessment": "NonnegativeLength, positions and typed camera exist; raw view indices need cross-system lifecycle proof. Prior Adler 1704 full pr-working body is separately attributed from P16 original 2702 range."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "scope_assessment": "Review profile/slug identifiers serve internal selection before native output; predecessor proposal leaves canonical owner and diagnostics open. Native paths and final labels have separate roles."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "scope_assessment": "Budget 8, thresholds and sample windows are capture policy; foreground and foliage metrics use saturation and missing-data sentinel semantics. Pixel format, size, legitimate thresholds and GPU contracts remain open."
+    }
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "gate-registration.json",
+      "view-policy-registration.json",
+      "fixture-registration.json",
+      "review-views-registration.json",
+      "pass-registration.json"
+    ],
+    "actual_read_receipts": [
+      "personal-read-receipt.json",
+      "support-read-receipt.json",
+      "gate-read-receipt.json",
+      "view-policy-read-receipt.json",
+      "fixture-read-receipt.json",
+      "review-views-read-receipt.json",
+      "pass-read-receipt.json"
+    ],
+    "scope_summary": "read-scope-summary.json",
+    "chronology_note": "registration-chronology-note.json",
+    "exact_git_tree_membership": "git-proofs.json",
+    "historical": "historical-index.json",
+    "prior_readiness": "prior-readiness-index.json",
+    "reconstructed_records": [
+      "registry-selection-reconstructed.json",
+      "queue-selection-reconstructed.json"
+    ],
+    "originals": [
+      "reference/registry.json.gz",
+      "reference/queue.json.gz",
+      "reference/original-transport-manifest.json.gz"
+    ]
+  },
+  "checkpoint3821": "Original final checkpoint 3821 ledger/queue remains unrecovered; no recovered evidence is promoted.",
+  "implementation": "not started",
+  "product_validation": "not performed"
+}
