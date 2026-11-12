@@ -1,0 +1,1263 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "source_roles": "ASSESSMENT-DELEGATED-BUILDING-P16-2504-2512.json",
+  "git_path_proofs": [
+    "CENTRAL-BUILDING-P16-2504-2512-PATH-PROOFS.json"
+  ],
+  "central_registration": "CENTRAL-10F-REGISTRATION.json",
+  "central_receipt": "CENTRAL-10F-READ-RECEIPT.json",
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-building-member-shapes-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-building-member-shapes-hair-report.json",
+      "original_finding": {
+        "id": "CURRENT-MEMBER-UV-FRAME-AND-PROPAGATION-RELATION",
+        "status": "Independent bounded 95e source support for 774 rig supplier RIG-OWNER81-F002; no new unique finding and no authorship transfer. 059 queue index 1935 Q-L12-63ce82a40701fd194206 remains broader open evidence.",
+        "observation": "The inspected furniture builder checks native centre, dimensions and quaternion before deriving checked corners, then passes native values to finish::face and member_uvs. The helper chooses its grain basis from member-local size and local normal, inverse-transforms positions relative to centre, then adds a position-dependent phase. LodMesh stores generated UVs and rotates the normal for the output face. The independent detail cuboid path likewise uses local face normals and transformed positions. RigidRotation admission rejects nonfinite values and quaternions failing its is_normalized predicate rather than normalizing; the checked rotation retains the represented native value.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                74,
+                103
+              ],
+              [
+                110,
+                126
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/finish.rs",
+            "lines": [
+              [
+                54,
+                86
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/member_uv.rs",
+            "lines": [
+              [
+                6,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/detail/cuboids.rs",
+            "lines": [
+              [
+                21,
+                26
+              ],
+              [
+                120,
+                151
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+            "lines": [
+              [
+                84,
+                101
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/lod.rs",
+            "lines": [
+              [
+                95,
+                137
+              ]
+            ]
+          }
+        ],
+        "qualification": "This supports consistent frame treatment for these inspected callers, not whole renderer validation. Native computed UV results, finite extremes, source-part vs finished frame, wear-region ownership, and all other callers still need their specific admission/recipient contracts. Original rig supplier F002 has separate source attribution and no automatic current verdict.",
+        "future_direction": "Trace canonical checked geometry and intentional local/world boundary through the actual owning API; name a face frame or ordered wear region only where source contracts justify it. Preserve ties, native inverse/dot/cross order, phase, winding and existing malformed-input semantics."
+      }
+    },
+    {
+      "bundle_id": "p16-building-member-shapes-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-building-member-shapes-hair-report.json",
+      "original_finding": {
+        "id": "CURRENT-RESOLVED-SOLID-ENVELOPE-SHAPE-RELATION",
+        "status": "Current bounded source confirms prior 059 root successor-096 / source role648 and 774 SEGOVB-INITIAL04-CONTRACT-602 distinctions; no new unique defect or automatic Q009 alias.",
+        "observation": "ResolvedSolid::new copies a checked collision cuboid envelope into stored typed fields alongside shape, role and support IDs. Deserialization sends raw envelope values through CollisionCuboid::from_metres, but passes separately decoded shape and support IDs unchanged into Self::new. Public shape payloads have raw dimensions/signs/angles and public fields can vary independently; envelope admission alone does not establish whole-shape or support-graph coherence.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+            "lines": [
+              [
+                250,
+                320
+              ],
+              [
+                344,
+                391
+              ],
+              [
+                393,
+                428
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/collision.rs",
+            "lines": [
+              [
+                31,
+                78
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+            "lines": [
+              [
+                359,
+                393
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+            "lines": [
+              [
+                11,
+                39
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+            "lines": [
+              [
+                190,
+                227
+              ]
+            ]
+          }
+        ],
+        "qualification": "The observed wall producer chooses only -1/+1 side and signed exterior depth; an inspected opening helper branches on side < 0 versus other values. Public construction/decoding allows wider i8 values in the model, but no supported external invalid document, complete final acceptance, viewer behavior or operational failure is established. The audit checks some extent/owner/ID/support properties and is not shown to cover every shape invariant.",
+        "future_direction": "Trace supported constructors, serialization formats, authored shape invariants, owner and recipient validation before deciding the checked aggregate boundary. Preserve purpose-specific zero-capable extents, identity/error provenance and deliberate difference between shape and its bounding cuboid."
+      }
+    },
+    {
+      "bundle_id": "p16-walls-windows",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-walls-windows-report.json",
+      "original_finding": {
+        "id": "P16-APSE-WALL-FRAME-NAN-PREDICATE",
+        "classification": "current source-backed conditional local audit predicate gap; unique count pending central reconciliation",
+        "first_contract": "The local wall-frame predicate reports valid for a ChurchApse wall whose raw tangent has a NaN component while outward is finite and unit. In the apse branch the cardinal-vector match is skipped; the length and dot comparisons with NaN are false. This mathematical consequence is confined to wall_frame::valid and its wall-frame check; it does not establish that the remaining whole-plan audit passes or that a generated or decoded plan supplies such a wall.",
+        "condition": "Direct construction or another admissible producer must supply a NaN-bearing apse tangent. No actual source producer, all plan checks, serialization format acceptance, runtime consequence, or ordinary incidence was established. Noncardinal finite apse frames are supported by the explicit exemption.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "ranges": [
+              [
+                3,
+                5
+              ],
+              [
+                53,
+                55
+              ],
+              [
+                119,
+                126
+              ],
+              [
+                285,
+                303
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/wall_frame.rs",
+            "ranges": [
+              [
+                1,
+                21
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+            "ranges": [
+              [
+                37,
+                50
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "ranges": [
+              [
+                153,
+                159
+              ]
+            ]
+          }
+        ],
+        "future_direction": "At the owner decide finite point/direction and orthogonal-basis admission and audit semantics for legitimate diagonal apse frames. Preserve accepted tolerances and contextual issue attribution; validate against actual producer and full audit boundaries before assigning impact.",
+        "relationships": [
+          "059 SEGOVB-L13-WALL-LOCAL-FRAME-RETENTION / PL13-061-WALL-LOCAL-FRAME-RETENTION already owns retained frame admission; this local audit predicate is connected, not automatically a new repair count.",
+          "Wall frame is not automatically the same object as OpeningAssembly.frame; reconcile other opening/door/roof consumers independently."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-walls-windows",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-walls-windows-report.json",
+      "original_finding": {
+        "id": "P16-WINDOW-OPENING-FRAME-AGGREGATE",
+        "classification": "current source-backed aggregate and input-policy question",
+        "first_contract": "WallLocalFrame and OpeningAssembly retain raw public origin, tangent and outward independently. Operable compilation normalizes each opening direction separately; the resulting individually checked directions and public WindowSpec fields do not establish orthogonality, a hinge/centre relation, or which outward vector makes the chosen sign inward. Fixed-bar compilation instead requires each input direction already normalized. A unit but non-orthogonal pair can pass those individual direction admissions; downstream policy and whether such an opening is acceptable remain unproved.",
+        "condition": "An incoherent externally constructed, decoded, or mutated opening must reach the compiler or a consumer must rely on those relations. The inspected audit validates the wall frame, not a demonstrated identity/equivalence of the separately stored opening frame. No claim ordinary authored plans, every audit check, or runtime behavior are defective.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "ranges": [
+              [
+                119,
+                126
+              ],
+              [
+                311,
+                329
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows.rs",
+            "ranges": [
+              [
+                52,
+                72
+              ],
+              [
+                103,
+                158
+              ],
+              [
+                161,
+                205
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+            "ranges": [
+              [
+                40,
+                65
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+            "ranges": [
+              [
+                18,
+                20
+              ],
+              [
+                31,
+                45
+              ],
+              [
+                75,
+                116
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+            "ranges": [
+              [
+                37,
+                50
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/wall_frame.rs",
+            "ranges": [
+              [
+                1,
+                21
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Determine the exact opening-to-host frame and accepted-plan boundary, require coherent basis and declared inward convention only where applicable, and retain legitimate apse directions, source/error identity and current native-versus-pre-normalized policy.",
+        "relationships": [
+          "059 READ-L11-415 explicitly identified operable normalization versus strict bars and left standard producer and policy open.",
+          "059 SEGOVB-L13-WALL-LOCAL-FRAME-RETENTION is connected; the opening frame/window record recipient and the prior P16-DOORSPEC-CROSS-FIELD-POLICY have different entry points. No automatic aliases."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-walls-windows",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-walls-windows-report.json",
+      "original_finding": {
+        "id": "P16-WINDOW-CLOSURE-REFERENCE-RESOLUTION",
+        "classification": "conditional aggregate-reference question",
+        "first_contract": "compile_operable_windows builds an ID-keyed BTreeMap from all solids, so a duplicate ID resolves to the last solid; it then picks the first referenced solid with LeadedGlazing or OpeningClosure role. A missing or wrong-role reference is skipped if a later candidate qualifies; an eligible opening with none yields source-aware MissingClosure. Public plan and solid IDs leave uniqueness and owner/layer relationships to other boundaries not proved here.",
+        "condition": "Duplicate, missing, or misdirected references must reach this compiler and the selected fallback must violate a policy the actual producer/consumer owns. No supported normal generated violation, receiver or incident established. A first valid optional layer may be intentional.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+            "ranges": [
+              [
+                4,
+                5
+              ],
+              [
+                17,
+                19
+              ],
+              [
+                29,
+                29
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+            "ranges": [
+              [
+                6,
+                9
+              ],
+              [
+                344,
+                355
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "ranges": [
+              [
+                311,
+                329
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows.rs",
+            "ranges": [
+              [
+                103,
+                138
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Establish unique resolved IDs and closure-layer membership/owner/order at the actual accepted-plan boundary, decide whether skipped missing or incompatible members are intentional, preserve supported roles and contextual typed errors.",
+        "relationships": [
+          "Connected to /root/mhr_character P16-DOOR-CLOSURE-SELECTION-CONTRACT (door selects first resolvable solid without same role filter) and P16-COLLISION-SELECTED-IDENTITY-LOSS (collision selector); distinct entry points and policies, no assumed alias.",
+          "059 Q-L12-5cc02ecd5125d414e1f4 and Q-L11-bd78dd3a8b1d3d580761 retain wider plan/collision questions, not proof of the window outcome."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-walls-windows",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-walls-windows-report.json",
+      "original_finding": {
+        "id": "P16-FORTIFIED-THICKNESS-INFINITY-QUESTION",
+        "classification": "historical open admission and audit-predicate question",
+        "first_contract": "FortifiedMasonry accepts every f32 >= 1.20 at the local material/profile thickness predicate, including positive infinity; other listed materials have bounded range checks. Public raw wall thickness can be independently constructed. That predicate is used to add an audit issue.",
+        "condition": "Actual admission/generator and other whole-plan checks may exclude nonfinite values; no valid generated or fully audited wall or native geometry consequence demonstrated.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "ranges": [
+              [
+                103,
+                115
+              ],
+              [
+                285,
+                303
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+            "ranges": [
+              [
+                39,
+                59
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Trace authoritative wall input and accepted-plan boundaries before deciding whether explicit finiteness belongs in the common owner or audit; preserve intended thickness classes.",
+        "relationships": [
+          "059 READ-L11-415 already recorded infinity route and expressly withheld ordinary bug acceptance; this is a scoped current confirmation, no duplicate finding."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-walls-windows",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-walls-windows-report.json",
+      "original_finding": {
+        "id": "P16-COLLISION-BAR-SOURCE-IDENTITY",
+        "classification": "earlier current finding corroborated, not a new unique count",
+        "first_contract": "The source identity packs tag, opening ID shifted by eight, and bar ordinal with bitwise OR. With equal ordinal, IDs 1 and 1+(1<<52) collapse into the same word because bit 52 shifts onto an already set tag bit 60. Bars retain opening and source separately, while the earlier independently read collision path retains source.",
+        "condition": "Mathematical condition only: admitted ID range and coexistence, actual consumers, and ordinary generated collisions remain unproved. No physical omission follows merely from equal source IDs.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+            "ranges": [
+              [
+                6,
+                19
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows.rs",
+            "ranges": [
+              [
+                52,
+                89
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+            "ranges": [
+              [
+                47,
+                54
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Trace generating namespace and source-identity consumers before deciding whether structured identity or checked packing is needed; preserve physical bar geometry.",
+        "relationships": [
+          "Exact existing finding P16-COLLISION-BAR-SOURCE-IDENTITY, authored /root/mhr_character, in preserved prior-packets/726-delegate-p16-collision.tar.gz; this independently read assigned source corroborates producer, no transfer of earlier read authorship or new count."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-WINDOW-LEAF-UNBOUNDED-WORK",
+        "kind": "same previously discovered conditional candidate, zero new unique count",
+        "first_contract": "compile_window_leaf derives board/came counts from each admitted width or height divided by 0.19, casts to usize and iterates without a work budget. CuboidDimensions and LeafDimensions permit arbitrarily large finite positive values; float division can overflow to infinity and Rust float-to-integer cast saturates to usize::MAX. The loop does not stop on the Builder’s latched first error. Both the operable cache and fixed-detail source call this function, but ordinary producer bounds were not assessed. Memory exhaustion or other limits can terminate first; no runtime occurrence or exact duration is claimed.",
+        "condition": "An oversized accepted extent reaches either consumer or the public function. The target usize width affects count. No claim that ordinary generated buildings reach the extreme or that every input is problematic.",
+        "future_direction": "Determine caller/author admission and an explicit per-leaf work budget, then preserve fixed zero-valid cuboids, positive operable leaves, first-error semantics and deterministic geometry behavior.",
+        "historical_relations": [
+          "First identified by /root/mhr_character in prior p16-doors-builder report as P16-WINDOW-LEAF-UNBOUNDED-WORK; the complete prior packet is separately archived and this is not a duplicate count.",
+          "Its own discovery grep for dimension/UV declarations was run before support registration and documented in that prior report; those lines granted no registered credit, and the relevant old supporting sources were subsequently registered and displayed. This packet has independently registered and personally displayed its own scopes.",
+          "059 successor-103 had already noted the ceil-to-usize count and left size producers unresolved, without a large-API failure claim. Q-L12-3cb18f41744872c3c239 and Q-L12-f238115d43d2e895f929 retain producer/consumer/native questions."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+            "lines": [
+              [
+                11,
+                29
+              ],
+              [
+                60,
+                83
+              ],
+              [
+                106,
+                106
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+            "lines": [
+              [
+                8,
+                23
+              ],
+              [
+                91,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+            "lines": [
+              [
+                9,
+                54
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/measurement.rs",
+            "lines": [
+              [
+                35,
+                45
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                25,
+                31
+              ],
+              [
+                74,
+                99
+              ],
+              [
+                152,
+                159
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+            "lines": [
+              [
+                49,
+                71
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/detail/solids.rs",
+            "lines": [
+              [
+                121,
+                150
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-TINY-SHUTTER-COMPILATION",
+        "kind": "bounded historical question refined, no new unique count",
+        "first_contract": "A positive, finite width below 0.002 m is admissible for LeafDimensions. For a timber shutter it gives one board, whose computed width subtracts 0.002 m; CuboidDimensions rejects that negative extent, Builder retains the first error, and compile_window_leaf returns it. The operable ClosureMeshes cache propagates that error, and the SceneWindow Add observer returns before inserting presentation components. This is a mathematical source inference, not a runtime observation.",
+        "condition": "A TimberShutter of such a width must reach this path; normal authored/generated bounds and whether this fallible API should accept or reject every positive extent have not been established. Callback error handling, retry and terminal visibility have not been traced.",
+        "future_direction": "Determine supported minimum shutter geometry and its owner; either admit that constraint at the correct boundary or define fallible presentation semantics without weakening geometry roles for fixed/degenerate glazing.",
+        "historical_relations": [
+          "059 Q-L12-03a885cbf03ba414fc2c expressly held tiny shutter width, producer and native error policy open. /root/lens12_frontier recorded the same negative derived board condition in READ-L12-852; this current source trace refines that existing question, not a newly accepted finding."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+            "lines": [
+              [
+                33,
+                44
+              ],
+              [
+                94,
+                115
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+            "lines": [
+              [
+                11,
+                11
+              ],
+              [
+                20,
+                40
+              ],
+              [
+                106,
+                106
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+            "lines": [
+              [
+                8,
+                23
+              ],
+              [
+                91,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+            "lines": [
+              [
+                20,
+                54
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                25,
+                31
+              ],
+              [
+                74,
+                99
+              ],
+              [
+                152,
+                159
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+            "lines": [
+              [
+                49,
+                71
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+            "lines": [
+              [
+                20,
+                36
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-WINDOW-CLOSURE-IDENTITY-CONTRACT",
+        "kind": "related conditional plan-reference question",
+        "first_contract": "compile_operable_windows indexes public resolved solids in a BTreeMap keyed by ID, selecting the first referenced existing solid with LeadedGlazing or OpeningClosure role. Duplicate IDs are last-wins; missing or wrong-role references are skipped, while owner equality is not checked. If a bad reference or duplicate resolves to an unrelated same-role solid, the compiled window takes its leaf type, source and geometry. The sibling door compiler has a different predicate and source result.",
+        "condition": "This requires a malformed or independently modified plan reaching the compiler, or an allowed producer relation selecting an unrelated same-role solid. The expected meaning and ordering of multiple closure layers and whole-graph validity remain open.",
+        "future_direction": "Establish reference uniqueness, owner, role, layer ordering and error semantics at the plan owner and exact consumer before deciding common repair boundaries. Preserve the intended selectable roles and optional layers.",
+        "historical_relations": [
+          "Related to prior packet P16-DOOR-CLOSURE-SELECTION-CONTRACT and prior P16-COLLISION-SELECTED-IDENTITY-LOSS, not an automatic alias or new unique count. The window-specific role filter makes its join contract different.",
+          "059 Q-L11-bd78dd3a8b1d3d580761 and Q-L12-5cc02ecd5125d414e1f4 leave whole-plan acceptance and connected collision relationships open."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows.rs",
+            "lines": [
+              [
+                103,
+                158
+              ],
+              [
+                161,
+                206
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+            "lines": [
+              [
+                4,
+                5
+              ],
+              [
+                17,
+                20
+              ],
+              [
+                29,
+                29
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+            "lines": [
+              [
+                344,
+                355
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "lines": [
+              [
+                311,
+                329
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-server/src/windows.rs",
+            "lines": [
+              [
+                66,
+                81
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-WINDOWSPEC-AGGREGATE",
+        "kind": "open admission question",
+        "first_contract": "WindowSpec has independently checked public positions, positive leaf dimensions, normalized tangent/outward, angles and bar-presence. Deserialize reconstructs each leaf and maps a geometry cause to an opening/source-associated serde diagnostic, but does not check their aggregate pose, hinge, swing or source relationship. Its source producer derives inward swing using tangent/outward and its server consumer retains and uses those fields.",
+        "condition": "A separately constructed or decoded incoherent WindowSpec must reach a consumer that assumes these relations; not all constructors, trust boundaries, physical frames or consumer policy are covered. Intentional independent bar presence and frame differences cannot be declared invalid by shape alone.",
+        "future_direction": "Identify the correct owner for any cross-field/frame relationship and validate only its intended domain; retain the distinct checked leaf and diagnostic boundaries.",
+        "historical_relations": [
+          "059 successor-103 and READ-L12-852 explicitly retained aggregate pose questions; this current consumer source adds bounded evidence without historical credit transfer."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+            "lines": [
+              [
+                11,
+                20
+              ],
+              [
+                31,
+                45
+              ],
+              [
+                75,
+                118
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows.rs",
+            "lines": [
+              [
+                161,
+                206
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-server/src/windows.rs",
+            "lines": [
+              [
+                86,
+                128
+              ],
+              [
+                131,
+                148
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-OLDER-RIG-FORWARDING",
+        "kind": "historical carried findings, zero new unique count",
+        "first_contract": "The unchanged typed CuboidDimensions is unpacked at leaf compilation and reconstructed across the Builder API before corner creation; the server source also extracts checked hinge and angle into raw controller fields before animation.",
+        "condition": "Different scaled or newly computed member dimensions need not share the exact same retention rule; the native physics/kernel extraction boundary and owner fit remain open.",
+        "future_direction": "Carry the original rig whole-function producer acceptance criteria and source identities into central reconciliation; preserve calculated coordinates and physical behavior.",
+        "historical_relations": [
+          "Original 774 rig F009 covers the unchanged glazing size; F003 covers server window controller hinge/angle; F002 separately covers Scene grab-predicate typed value extraction. Verbatim old findings retain original authors and statuses. No new acceptance or implementation is inferred."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+            "lines": [
+              [
+                20,
+                26
+              ],
+              [
+                51,
+                57
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                46,
+                55
+              ],
+              [
+                74,
+                89
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-server/src/windows.rs",
+            "lines": [
+              [
+                86,
+                96
+              ],
+              [
+                121,
+                128
+              ],
+              [
+                131,
+                147
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-window-leaf-spec",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-window-leaf-spec-report.json",
+      "original_finding": {
+        "id": "P16-WINDOW-POSITIVE-AND-DECODER-NONFINDING",
+        "kind": "qualified nonfinding",
+        "first_contract": "Positive operable LeafDimensions and nonnegative CuboidDimensions used by fixed detail serve different contracts; fixed bars remain an explicit independent presence enum. Both WindowSpec and WindowBarSpec perform checked per-field wire admission and attach source/opening context to serde error formatting.",
+        "condition": "These facts do not prove relational pose consistency, native mesh indices and UVs, rendering, dynamic physics or general decoding round trips.",
+        "future_direction": "Avoid forcing nonzero fixed glazing or replacing contextual manual admission with a derive without equivalent source/error behavior.",
+        "historical_relations": [
+          "059 READ-L12-852 preserves these distinctions and explicitly excludes spec 47–55/119–147 from that reviewer’s old read; those current/P16 ranges are fresh reads here only."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/spec.rs",
+            "lines": [
+              [
+                11,
+                20
+              ],
+              [
+                33,
+                54
+              ],
+              [
+                59,
+                73
+              ],
+              [
+                75,
+                147
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+            "lines": [
+              [
+                8,
+                23
+              ],
+              [
+                91,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+            "lines": [
+              [
+                9,
+                54
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/detail/solids.rs",
+            "lines": [
+              [
+                121,
+                150
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-building-presentation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-building-presentation-hair-report.json",
+      "original_finding": {
+        "id": "CURRENT-VISUAL-SEED-OWNER-RELATION",
+        "status": "Exact current source continuation of 774 rig supplier RIG-OWNER-REACHED-PRODUCER-F004 and RIG-OWNER81-F004; no new unique finding or automatic alias.",
+        "observation": "Door/window observers pass SceneBuildingId.0 to TacticalBuildingMaterials::for_building(u64); its helper passes the word into Seed through the named StreamId and index-based appearance selection. Furniture presentation also uses the same helper with its own instance ID, so a building-only helper would not express every actual caller. Seed and StreamId retain deterministic word, purpose and context framing in the inspected owner.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+            "lines": [
+              [
+                28,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+            "lines": [
+              [
+                20,
+                46
+              ],
+              [
+                55,
+                73
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+            "lines": [
+              [
+                1,
+                2
+              ],
+              [
+                27,
+                84
+              ],
+              [
+                219,
+                225
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+            "lines": [
+              [
+                53,
+                86
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-determinism/src/seed.rs",
+            "lines": [
+              [
+                23,
+                46
+              ],
+              [
+                49,
+                82
+              ],
+              [
+                170,
+                173
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+            "lines": [
+              [
+                4,
+                5
+              ],
+              [
+                24,
+                32
+              ]
+            ]
+          }
+        ],
+        "qualification": "Prior rig producer F004 asks to carry source identity through helpers, while rig owner F004 states the shared visual API should own Seed after deliberate conversion because furniture and building identities differ. This evidence supports that distinction without deciding an automatic alias, claiming duplicate appearance IDs, or asserting a runtime visual fault.",
+        "future_direction": "At a future connected repair gate, retain each original semantic identity until the explicit conversion to a shared deterministic Seed, then carry that owner through the sampler; preserve exact bits, stream name, context, bucket thresholds, draw count, tables and visuals. Reconcile the earlier producer and owner records centrally."
+      }
+    },
+    {
+      "bundle_id": "p16-building-presentation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-building-presentation-hair-report.json",
+      "original_finding": {
+        "id": "CURRENT-FACADE-CLOSURE-PROJECTION-TRACE",
+        "status": "Narrowed source connection for 059 q585 Q-L11-65c1ca69792ec528b64f, not a new finding or full lifecycle closure.",
+        "observation": "Exact facade predicate selects eligible programs; the plan derives facade opening IDs from retained host walls and dynamic closure solids. Compiled building levels retain that set and the building add observer installs FacadeOpenings. Door and window observers attach the building/opening pair and initial Lod0 range; the Update sync finds a building by its typed ID, looks up its opening, and updates range only on membership changes. The inspected placement validator rejects zero or duplicate IDs within the one tactical placement slice.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/lod/closures.rs",
+            "lines": [
+              [
+                6,
+                37
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+            "lines": [
+              [
+                143,
+                190
+              ],
+              [
+                290,
+                295
+              ],
+              [
+                364,
+                385
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+            "lines": [
+              [
+                5,
+                59
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+            "lines": [
+              [
+                15,
+                25
+              ],
+              [
+                28,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+            "lines": [
+              [
+                20,
+                46
+              ],
+              [
+                55,
+                73
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+            "lines": [
+              [
+                151,
+                168
+              ],
+              [
+                229,
+                248
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/demo_lifecycle.rs",
+            "lines": [
+              [
+                19,
+                70
+              ]
+            ]
+          }
+        ],
+        "qualification": "This is not proof of all ECS entity sources, cross-slice uniqueness, scheduling/deferred observer ordering, asset publication or native VisibilityRange behavior. A missing building causes sync to continue with its previous value; scene cleanup removes SceneBuilding, SceneDoor and SceneWindow in the inspected path, but other removals and linked-child lifetime are not established. No stale leaf, flicker, actual scene, or renderer run claimed.",
+        "future_direction": "Trace all entity spawn/removal and identity-lifetime relations and the documented/native range scheduling before deciding whether the cached boolean needs stronger invalidation or an explicit missing-owner state. Preserve leaf transform and intended continuous detail-to-facade behavior."
+      }
+    },
+    {
+      "bundle_id": "p16-building-presentation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-building-presentation-hair-report.json",
+      "original_finding": {
+        "id": "CURRENT-CITY-MATERIAL-RELATION",
+        "status": "Related to original ADLER-L11-CITY-SURFACE-MATERIAL-CONTRACT and earlier publication ASSESSMENT-CITY-GPU-READINESS-MATERIAL-95E; no separate new finding.",
+        "observation": "Current full materials source binds albedo and normal maps, shares ARM as metallic-roughness and occlusion maps, sets scalar roughness/metallic to 1, and computes diagonal physical UV scale. Its actual palette routes timber-infill to the appearance infill material. Earlier central assessment separately traces the city adapter and native Bevy source; that prior source inspection is preserved with its original scopes, not claimed as a personal read here.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+            "lines": [
+              [
+                147,
+                182
+              ],
+              [
+                228,
+                244
+              ],
+              [
+                343,
+                365
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+            "lines": [
+              [
+                10,
+                18
+              ]
+            ]
+          }
+        ],
+        "qualification": "Whether distant approximation intentionally omits maps and how a selected render pipeline behaves remain open. No shader, image, renderer, generated texture or product was run and no observed visual difference is asserted. Standard window glass explicitly uses a nominal scalar thickness; that is not an implicit texture-channel conversion.",
+        "future_direction": "Reconcile the original material contract and central trace, then decide the intended native/distant fidelity boundary using actual selected feature paths; preserve named texture channels, physical tile scale and deliberate nominal glass semantics."
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Window identity and frame",
+      "relationship": "The two window closure names describe one operation and one connected row; door and collision have different predicates. Opening frame and WindowSpec aggregate remain related but distinct."
+    },
+    {
+      "identity": "Historical reused evidence",
+      "relationship": "UV propagation, tiny shutter, fortified thickness, visual seed and facade projection reconnect original records without new historical counts. Window bar ID, work budget, glazing transfer, wear region and city material append evidence to existing rows."
+    },
+    {
+      "identity": "Partial source and patch recovery",
+      "relationship": "P16 role2512 old windows are partial while current body is full; roles2504/2505/2511 current displays remain partial. Dirty P16 patch-missing notes were true at freeze and later tracked-patch recovery is separately qualified."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "CURRENT-MEMBER-UV-FRAME-AND-PROPAGATION-RELATION",
+    "CURRENT-RESOLVED-SOLID-ENVELOPE-SHAPE-RELATION",
+    "P16-APSE-WALL-FRAME-NAN-PREDICATE",
+    "P16-WINDOW-OPENING-FRAME-AGGREGATE",
+    "P16-WINDOW-CLOSURE-REFERENCE-RESOLUTION",
+    "P16-FORTIFIED-THICKNESS-INFINITY-QUESTION",
+    "P16-TINY-SHUTTER-COMPILATION",
+    "P16-WINDOWSPEC-AGGREGATE",
+    "WINDOW-CONTROLLER-CHECKED-HINGE-ANGLE-PROPAGATION",
+    "CURRENT-VISUAL-SEED-OWNER-RELATION",
+    "CURRENT-FACADE-CLOSURE-PROJECTION-TRACE"
+  ],
+  "open": "Twenty-four of 27 checkpoint10 bundles have central review after 10A–10F; three checkpoint10 bundles and later delegated packets remain pending. Role2512 old unread complements and named current unread windows remain open. All thirteen lenses and 3713 semantic queue records remain open.",
+  "repair": "not started",
+  "validation": "not performed",
+  "central_current_window_git_proof": "CENTRAL-10F-CURRENT-WINDOWS-PROOF.json"
+}

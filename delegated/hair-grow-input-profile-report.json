@@ -1,0 +1,970 @@
+{
+  "schema": "726-hair-grow-input-profile-bounded-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:39:31.732580+00:00",
+  "scope": {
+    "roles": [
+      2641,
+      2642
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e, with four unrelated modifications. The two assigned historical objects individually equal their 6533 files and current 95e files; f82 is source transport, not the project revision.",
+    "personal_scope": "Assigned 2641 old/current 1\u201322 and 2642 old/current 1\u201356 independently registered and displayed. All caller, parameter and WGSL sources are separately registered support; archived bytes outside displayed ranges have no read credit.",
+    "p16": "The dirty P16 snapshot is separately based on a120, not a commit. The subsequently recovered tracked patch matches SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, but does not establish original diff invocation or uninterrupted custody; seven untracked files remain separate.",
+    "checkpoint3821": "Original checkpoint3821 ledger and queue remain missing; no prior state is promoted."
+  },
+  "observations": [
+    {
+      "id": "HAIR-INTERPOLATION-BOUNDARY-SOURCE",
+      "classification": "bounded source observation; no new finding",
+      "trace": "Interpolation::find selects the first typed Interpolate op, retaining its index and borrowed payload, or returns MissingInterpolation. Grow uses that same index for pre-interpolation and post-interpolation slices; record_ops explicitly returns RepeatedInterpolation if a later interpolation is encountered. Additional roots, allocation and prior operations can occur before the later check in source order; no actual execution, rollback outcome or completeness of all Groom consumers is claimed.",
+      "sources": [
+        {
+          "archive": "sources/2641-current-95e.rs",
+          "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            21
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            118,
+            138
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            180,
+            205
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            329,
+            330
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            642,
+            647
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HAIR-PROFILE-OPTION-ENCODING-SOURCE",
+      "classification": "bounded cross-boundary nonfinding; no whole CPU/GPU equivalence",
+      "trace": "record_profile projects Profile.relative_to into presence u32 and a separate grown value with 0 for None; the shader text uses relative!=0 and grown>0 before scaling. CPU Profile.apply likewise scales for Some(grown) only when grown>0 and otherwise uses radius. The same seed salt is used in both source callers. This narrows a raw boolean/payload suspicion but does not validate every float, random algorithm, ABI, native shader compilation or resulting output.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            26
+          ]
+        },
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            120,
+            153
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1282,
+            1315
+          ]
+        },
+        {
+          "archive": "support/rng.rs",
+          "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            143,
+            146
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HAIR-GUIDE-PACK-SETTLE-SOURCE",
+      "classification": "bounded rejected immediate stale-position suspicion",
+      "trace": "Guide operations use a position ping-pong owner; settle records a copy from scratch to own when flipped. Grow calls settle before packing the original guides.positions, and the profile operation modifies shared attributes in place. This source ordering explains the intended authority handoff; it is not an observed GPU copy, queue ordering proof or guarantee that all inputs are coherent.",
+      "sources": [
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            36,
+            62
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            65,
+            92
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            180,
+            205
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            207,
+            225
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            642,
+            645
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            15
+          ]
+        },
+        {
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            15,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HAIR-PROFILE-GUIDE-NATIVE-PARAMETERS-SOURCE",
+      "classification": "bounded native ABI trace related to q3135",
+      "trace": "The local params macro inserts literal names and typed values into PassParameters; u32 values become Unsigned while f32 values become Number. Profile and guide-pack names have corresponding shader declarations in the selected source text. A nonzero dispatch uses either an optional fast packer or ComputePass; the fast packer writes the selected scalar representations at reflected offsets, but its general width/admission limitation remains the original F058 question. These source paths do not prove actual reflection output, correct buffer contents or native behavior.",
+      "sources": [
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            23,
+            32
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            41,
+            53
+          ]
+        },
+        {
+          "archive": "support/parameters.rs",
+          "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            22
+          ]
+        },
+        {
+          "archive": "support/parameter.rs",
+          "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            10,
+            26
+          ]
+        },
+        {
+          "archive": "support/parameter.rs",
+          "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            107,
+            121
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1287,
+            1299
+          ]
+        },
+        {
+          "archive": "support/wgsl-guides.rs",
+          "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1046,
+            1065
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            842,
+            876
+          ]
+        },
+        {
+          "archive": "support/gpu.rs",
+          "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            245,
+            265
+          ]
+        },
+        {
+          "archive": "support/gpu.rs",
+          "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            282,
+            287
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            264
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            275,
+            304
+          ]
+        },
+        {
+          "archive": "support/fast.rs",
+          "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            316,
+            350
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_existing": [
+    {
+      "id": "L12-CLOSURE-HAIR-GPU-NATIVE-BINDING-PORT",
+      "queue_index_zero_based": 3135,
+      "relationship": "Original 059 connected unresolved source-only parameter owner question. The current independent support narrows exact macro, parameter and WGSL naming chain; historical original status remains open and no alias or all-lens closure is claimed.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            41,
+            53
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            23,
+            32
+          ]
+        },
+        {
+          "archive": "support/parameters.rs",
+          "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1287,
+            1299
+          ]
+        },
+        {
+          "archive": "support/wgsl-guides.rs",
+          "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1046,
+            1065
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RIG-ADMISSION03-F058",
+      "relationship": "Original rig fast uniform writer size/shape finding remains separately owned; current source shows write_uniform checks output block bounds but not member.size before writing, with Number and Unsigned paths. Whether any actual profile call satisfies the conditions is not established; no duplicate count.",
+      "sources": [
+        {
+          "archive": "support/fast.rs",
+          "sha256": "352f06a1ddfc9d7be1813161e4ac2365ae813a2f0e751614464fc8adddf9a735",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            316,
+            350
+          ]
+        },
+        {
+          "archive": "support/parameter.rs",
+          "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            107,
+            121
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "REVIEW-HAIR-GPU-COUNT-EXTENT-95E",
+        "REVIEW-HAIR-GPU-ZERO-ROOT-COUNT-95E",
+        "REVIEW-HAIR-GPU-IMAGE-DENSITY-95E",
+        "REVIEW-HAIR-GPU-PARTING-FALLBACK-95E"
+      ],
+      "relationship": "Earlier current hair-grow records concern distinct or related count, density, and interpolation behavior. Assigned input/profile helpers do not close them. Guide-pack WGSL independently forms g*points as u32 while host uses u64 allocation arithmetic; supported capacities and earlier allocation/native validation may prevent large cases, and any alias with existing count-extent finding remains open.",
+      "sources": [
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            125,
+            151
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            180,
+            181
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            207,
+            225
+          ]
+        },
+        {
+          "archive": "support/wgsl-guides.rs",
+          "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1070,
+            1086
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ADLER-L11-HAIR-READBACK-SHAPE-ADMISSION",
+      "relationship": "Previously assessed public GpuGuides/GpuGroom metadata/readback shape is a separate condition; grow receives host Strands or Hairdo and constructs guides, not an arbitrary externally supplied GpuGuides. Do not infer public mutation reaches this assigned path.",
+      "sources": [
+        {
+          "archive": "support/guides.rs",
+          "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            21,
+            45
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            154,
+            175
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What inputs and supported capacities can reach guide-pack u32 index arithmetic, considering host resampling, device buffer/binding limits, guide counts and earlier operations? No output corruption or runtime overflow is claimed.",
+    "Does a caller require graph-level preflight for repeated Interpolate before any native work, or is the existing later typed error and batch handling the intended policy? No batch, error, cancellation or side effect was observed.",
+    "What finite/range and interpretation constraints apply to Profile.radius, random and relative_to for CPU and GPU consumers? The raw serializable fields do not themselves establish invalidity or product invariants.",
+    "The selected shader parameter names line up textually, but native reflection offsets, resource device ownership, actual fast/fallback choice, error propagation and every caller require their own evidence.",
+    "Shader sources and common RNG code are read only as text; no shader, RNG, fixture, test, product or runtime behavior was executed. Prior reviewer attributions and unread portions remain separate."
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REGISTER-097",
+        "RIG-ADMISSION03-REGISTER-098",
+        "RIG-ADMISSION03-ADDITIONAL-097",
+        "RIG-ADMISSION03-ADDITIONAL-098"
+      ],
+      "qualification": "Original supplier read input 1\u201322 and profile 1\u201356 source-only; ADD097 explicitly notes first selection and later repeated-op handling, ADD098 identifies raw profile parameters and lower coherence obligations. No later-lens credit."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical-059/segovb/READ-L11-432.json",
+      "qualification": "Records fresh historical 2641 1\u201322 and 2642 1\u201356 but does not name a person; do not infer a reader identity."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipt": "historical-059/segovb/READ-L12-911.json",
+      "qualification": "/root/lens12_frontier personally read historical 2641 1\u201322 and 2642 1\u201356; root adoption has zero personal rereads. Preserve original ranges, registration/partial receipts and current_reconciled=false in their historical state."
+    },
+    {
+      "origin": "published current hair assessment",
+      "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+      "qualification": "Prior independent current input.rs support 1\u201322 belongs to its original reviewer; this packet\u2019s full old/current reads are separate and do not inherit credit."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Literal parameter keys are the exact native shader binding/field namespace; macro inserts them in PassParameters and shader text names the selected corresponding fields. This does not establish an internal closed semantic classifier.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            14,
+            23
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            23,
+            29
+          ]
+        },
+        {
+          "archive": "support/parameters.rs",
+          "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1287,
+            1299
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Seed salt 51823 is shared between host profile apply and GPU caller; padding zeros and parting tags are native ABI fields with separate semantics. No arbitrary global domain type is inferred.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            14,
+            23
+          ]
+        },
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            145,
+            153
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            842,
+            876
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Interpolation retains a borrowed typed op and its index from the same Groom; Profile owns optional relative radius until projected to native shader words.",
+      "sources": [
+        {
+          "archive": "sources/2641-current-95e.rs",
+          "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            21
+          ]
+        },
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            120,
+            132
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Profile Option<f32> is preserved in authoring state, while the shader ABI receives an explicit presence tag and value; count and buffers at dispatch are native units rather than a proposed unrelated type.",
+      "sources": [
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            120,
+            132
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "None and Some(nonpositive) are distinct inputs that intentionally share the nonrelative computation in the inspected CPU/shader source. Do not invent a positivity invariant or assert all floating-point/platform cases.",
+      "sources": [
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            145,
+            153
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1304,
+            1314
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Guide pack uses u32 guide/point addressing while host buffer sizes use u64 arithmetic; near representational bounds the earlier allocations/native limits and existing count-extent contracts must be resolved first.",
+      "sources": [
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            180,
+            181
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            207,
+            225
+          ]
+        },
+        {
+          "archive": "support/wgsl-guides.rs",
+          "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1070,
+            1086
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Repeated interpolation is only rejected when record_ops meets the later variant; whether preflight and transactional batch handling are necessary depends on caller/API policy. The first selected index and borrow originate from one immutable groom slice.",
+      "sources": [
+        {
+          "archive": "sources/2641-current-95e.rs",
+          "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            21
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            204,
+            205
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            329,
+            330
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            642,
+            647
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Missing interpolation returns a typed error, and later duplicated interpolation has a typed error in the inspected caller. Raw profile and native buffer validity require separate admitted-input and backend policy, not inferred from a Result return.",
+      "sources": [
+        {
+          "archive": "sources/2641-current-95e.rs",
+          "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            21
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            642,
+            647
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Op::Interpolate carries its actual payload and index in Interpolation. Option relative_to is intentionally decomposed only at native ABI boundary; no duplicated business authority shown here.",
+      "sources": [
+        {
+          "archive": "sources/2641-current-95e.rs",
+          "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            21
+          ]
+        },
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            127,
+            132
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Ping-pong positions are reconciled into the guide-owned buffer by settle before pack in the selected source sequence; independent public metadata and actual GPU ordering remain separate obligations.",
+      "sources": [
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            36,
+            62
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            81,
+            92
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            180,
+            205
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            207,
+            225
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Both original assigned bodies match current 95e byte-for-byte. The inspected CPU/shader positive-relative selection matches in source form, not a tested numeric equivalence across platforms or all historical code.",
+      "sources": [
+        {
+          "archive": "support/ops.rs",
+          "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            145,
+            153
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1304,
+            1314
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Profile/guide values pass through the local macro, PassParameters, dispatch and selected shader field names; no proof of macro expansion or native execution, and q3135 remains historically open.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        },
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            41,
+            53
+          ]
+        },
+        {
+          "archive": "support/grow.rs",
+          "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            23,
+            29
+          ]
+        },
+        {
+          "archive": "support/parameters.rs",
+          "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            293,
+            304
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Manual parameters and option lowering meet a native shader interface; no justified derive or boilerplate change follows from this bounded source review.",
+      "sources": [
+        {
+          "archive": "sources/2642-current-95e.rs",
+          "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        },
+        {
+          "archive": "support/wgsl-groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1287,
+            1299
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "more-registration.json",
+      "abi-registration.json",
+      "rng-registration.json",
+      "dispatch-registration.json",
+      "buffer-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "historical_attribution": "historical-attribution.json",
+    "registry_reconstruction": "registry-selection-reconstructed.json",
+    "queue_reconstruction": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "external_links": [
+      "evidence-links.json",
+      "published-prior-packet-links.json"
+    ]
+  },
+  "limits": "Source inspection and evidence verification only. No GPU, shader, simulation, fixture, test, product build, runtime probe or implementation was run."
+}

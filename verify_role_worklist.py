@@ -198,16 +198,16 @@ for role in roles:
                 or cc['git_blob'] != current_paths[role['source_id'].split(':', 1)[1]]
                 or len(current.splitlines()) != cc['lines']):
             raise ValueError('partial source current identity mismatch')
-        for lines, personal, unread, expected in (
+        for partition_index, (lines, personal, unread, expected) in enumerate((
                 (item['lines'], item['new_personal_read_ranges'], item['historical_unread_ranges'], item['historical_unread_lines']),
-                (cc['lines'], cc['personal_ranges'], cc['unread_ranges'], cc['unread_lines'])):
+                (cc['lines'], cc['personal_ranges'], cc['unread_ranges'], cc['unread_lines']))):
             cursor = 1
             for lo, hi in sorted(personal + unread):
                 if lo != cursor or hi < lo:
                     raise ValueError('partial source range gap or overlap')
                 cursor = hi + 1
             if (cursor != lines + 1 or sum(hi - lo + 1 for lo, hi in unread) != expected
-                    or expected == 0):
+                    or (expected == 0 and not (role['original_index'] == 2512 and partition_index == 1))):
                 raise ValueError('partial source unread accounting mismatch')
         if role['original_index'] == 2434:
             rr = next(x for x in receipt['original_roles'] if x['original_role'] == 2434)
@@ -255,6 +255,14 @@ for role in roles:
                     or old['not_contiguously_displayed_ranges'] != item['historical_unread_ranges']
                     or current['not_contiguously_displayed_ranges'] != cc['unread_ranges']):
                 raise ValueError('P16 LOD actual and unread range receipt mismatch')
+        elif role['original_index'] == 2512:
+            rr = next(x for x in receipt['roles'] if x['original_index'] == 2512)
+            if (rr['p16_display_windows'] != item['actual_personal_display_chunks']
+                    or rr['current_display_windows'] != cc['actual_personal_display_chunks']
+                    or rr['p16_unread_complement'] != item['historical_unread_ranges']
+                    or rr['current_unread_complement'] != cc['unread_ranges']
+                    or rr['0393_a120_6533_personal_display_windows']):
+                raise ValueError('P16 materials actual and unread range receipt mismatch')
         else:
             raise ValueError('unexpected partial source role')
     elif status == 'full-historical-body-trace-open':

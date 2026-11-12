@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0142.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0157.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -44,10 +44,13 @@ recovery verification, with the transcript limitations stated there.
 recovery check. `DELEGATED-EVIDENCE-CHECKPOINT-17.json` preserves ten
 separately attributed armor reviews pending central reconciliation.
 `CORRECTION-10C-LENS-LABELS.json` corrects two prior current-lens labels.
-`RECOVERY-VERIFICATION-B644224F.json` records the latest same-machine
+`RECOVERY-VERIFICATION-B644224F.json` records an earlier same-machine
 recovery check. `DELEGATED-EVIDENCE-CHECKPOINT-18.json` preserves six
 additional cloth, garment, GPU and pinned-native source packets pending
 central reconciliation.
+`RECOVERY-VERIFICATION-89665D62.json` records the latest same-machine
+recovery check. `DELEGATED-EVIDENCE-CHECKPOINT-19.json` preserves eight
+additional hair, shell and XPBD source packets pending central reconciliation.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes
@@ -353,6 +356,8 @@ transcript for the previous published commit, with its limits.
 evidence packets, pending central reconciliation and role credit; their
 previously published evidence references are separately hash-verified.
 `DELEGATED-CHECKPOINT-11-QUALIFICATION.json` records the 059 content matches.
+`ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json` connects window, wall
+and presentation roles while retaining their partial-read qualifications.
 `ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json` connects roof abutments,
 collision, doors and mesh boundaries with their remaining source limits.
 `ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json` connects animation, IK,

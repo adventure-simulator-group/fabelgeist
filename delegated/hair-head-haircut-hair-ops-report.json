@@ -1,0 +1,570 @@
+{
+  "schema": "726-bounded-delegate-report-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T01:39:17.000628+00:00",
+  "scope": {
+    "original_roles": [
+      2637,
+      2638
+    ],
+    "historical_snapshot": "pr-working registered source objects, recorded head 6533e444fa37552927070cc8d8190907fd3b413e with unrelated working changes",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "qualification": "Each registered source individually equals the 6533 and 95e blob. 6533 was independently proven but not separately displayed. f82 is evidence transport and per-file equality does not establish a clean whole historical snapshot."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2637,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          475
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          475
+        ]
+      ],
+      "unread_old_and_current": []
+    },
+    {
+      "role": 2638,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          409
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          409
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "receipt": "read-receipt.json",
+  "support": "Six prospectively registered current support batches; exact actual and unread windows in read-receipt.json. Rust-embedded shader source inspected only, no native or shader execution.",
+  "historical_attribution": [
+    {
+      "record": "774 rig REGISTER-093 / ADDITIONAL-093 and REGISTER-094 / ADDITIONAL-094",
+      "reviewer": "rig",
+      "revision": "pr-working",
+      "role2637_ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "role2638_ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "qualification": "Head surface_nets 284+ and haircut tests 374+ explicitly excluded. Rig notes F067 for extreme length feeding GPU path capacity/Tied loop, raw Head geometry and normal caveats. ADDITIONAL-094 references F067 but this packet does not recover the full F067 finding body; no assigned802 or later-lens credit."
+    },
+    {
+      "record": "059 Segovb READ-L11-432 / REGISTRATION-SEGOVB-1553,1554,1562",
+      "reviewer": "Segovb root Lens11",
+      "revision": "pr-working source bytes, 6533 comparison",
+      "role2637_fresh_primary": [
+        [
+          1,
+          283
+        ]
+      ],
+      "role2637_fresh_separately_registered_extension": [
+        [
+          284,
+          428
+        ]
+      ],
+      "role2638_fresh": [
+        [
+          1,
+          373
+        ]
+      ],
+      "qualification": "The extension covers production surface_nets and was separately registered; old tests 429\u2013475 and 374\u2013409 excluded. It retains public cell/resource, head geometry and finite haircut obligations as open, not checkpoint3821."
+    },
+    {
+      "record": "059 READ-L12-908/909 / REGISTRATION-PAR-L12-702/703 and partial receipts",
+      "reviewer": "/root/lens12_frontier; historical root adoption with zero personal rereads",
+      "revision": "6533",
+      "role2637_fresh": [
+        [
+          1,
+          283
+        ]
+      ],
+      "role2638_fresh": [
+        [
+          1,
+          373
+        ]
+      ],
+      "qualification": "Exact earlier delegated source scopes, not the root extension, current support or other-lens credit."
+    },
+    {
+      "record": "ASSESSMENT-HAIR-GUIDES-95E / ASSESSMENT-HAIRDO-GROOM-95E / ASSESSMENT-L01-HAIR-ADMISSION-95E",
+      "reviewer": "Prior published current assessments, individual reviewer not named in those documents",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "prior_current_head_ranges": [
+        [
+          74,
+          143
+        ]
+      ],
+      "prior_current_haircut_ranges": {
+        "guides": [
+          [
+            144,
+            174
+          ],
+          [
+            315,
+            320
+          ]
+        ],
+        "hairdo": [
+          [
+            104,
+            142
+          ],
+          [
+            144,
+            174
+          ],
+          [
+            315,
+            320
+          ],
+          [
+            333,
+            359
+          ]
+        ]
+      },
+      "qualification": "The prior finite-input guide capacity, tied-axis, q381 short-fringe producer, and HairShape NaN questions retain their own first contracts and authorship. Historical F067 is referenced by rig, not promoted into a new finding."
+    },
+    {
+      "record": "delegated/hair-operations-report.json original role2301",
+      "reviewer": "/root/hair_ops",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_ops_mod_fresh": [
+        [
+          1,
+          347
+        ]
+      ],
+      "qualification": "Earlier own full ops read remains separately attributed. This packet freshly registered/read 190\u2013205 as support; no ordered-role transfer."
+    }
+  ],
+  "observations_and_questions": [
+    {
+      "id": "REVIEW-HAIR-GUIDE-LENGTH-BOUND-95E",
+      "classification": "conditional current source candidate for central alias reconciliation, not an accepted unique count",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/haircut.rs",
+          "lines": [
+            [
+              144,
+              173
+            ],
+            [
+              316,
+              319
+            ],
+            [
+              333,
+              359
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/head.rs",
+          "lines": [
+            [
+              198,
+              206
+            ],
+            [
+              260,
+              269
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/guides.rs",
+          "lines": [
+            [
+              130,
+              145
+            ],
+            [
+              247,
+              269
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+          "lines": [
+            [
+              25,
+              33
+            ],
+            [
+              59,
+              74
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+          "lines": [
+            [
+              440,
+              453
+            ],
+            [
+              479,
+              506
+            ],
+            [
+              775,
+              800
+            ],
+            [
+              829,
+              838
+            ],
+            [
+              851,
+              858
+            ],
+            [
+              932,
+              950
+            ],
+            [
+              957,
+              965
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+          "lines": [
+            [
+              121,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "lines": [
+            [
+              280,
+              294
+            ],
+            [
+              410,
+              418
+            ]
+          ]
+        }
+      ],
+      "trace": "Host longest_guide takes the maximum of Haircut top/front/sides/back, separately includes the fringe and dome, applies variation, and derives max_path with a 301-point floor and two extra slots. It does not include clipper or a bound for overshoot of around\u2019s cosine interpolation. The packed shader receives clipper and all four base lengths; its cut_length uses clipper in the clip/strip branches and uses the same cosine series. It caps requested steps to max_path minus one before writing the path and resamples the result.",
+      "conditional_examples": [
+        "If an otherwise accepted haircut has top/front/sides/back=0.1m, clipper=0.8m, clip=0.5, fade=0, no fringe/hemline/dome, zero variation, and a sampled root with elevation at or below 0.49, the clipped length is 0.8m. The host chooses its 303-point floor, whereas a 0.002m step needs about 400 steps and the shader caps at 302.",
+        "Independently, for finite front=0.8m, side=0.8m, back=0.4m, top=0.8m, no clip/strip/fringe/hemline/dome and zero variation, the ideal cosine series at cos(azimuth)=0.5 is 0.85m. A root with elevation in [0,0.25] gets that ring value because smoothstep contributes zero, despite longest() reporting 0.8m. A gap of roughly 0.05m remains well beyond binary32 rounding at this scale; if that root and prior operations occur, requested 0.002m steps exceed the host estimate."
+      ],
+      "limits": "These are mathematical source arguments, not constructed hair, sampling, GPU allocation, native shader parsing, dispatch, rendered output or measurement. Supported custom haircut values, corresponding sampled roots, floating/native behavior, previous-stage success and effect on generated hair are unproved. A cap is present, so this trace does not assert an out-of-bounds path write. Original rig F067 and REVIEW-HAIR-GUIDE-MAX-PATH-95E cover extreme raw length/host integer overflow; the above underestimation is a different source condition within related capacity ownership, with exact global alias and remedy unresolved.",
+      "future_direction": "Establish the actual admitted haircut domain and a conservative maximum of all active cut branches and angular interpolation (or a safe variable-length/overflow policy); align host capacity, shader stopping and CPU behavior while preserving intentional clipping, fringe and dome semantics. Later acceptance requires separately authorized product validation."
+    },
+    {
+      "id": "QUESTION-HAIRCUT-LENGTH-SCALE-SPECIAL-REGIONS-95E",
+      "classification": "ordinary admitted factor / source policy and documented semantics question; no count or visual result asserted",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/hair/shape.rs",
+          "lines": [
+            [
+              15,
+              18
+            ],
+            [
+              42,
+              53
+            ],
+            [
+              89,
+              107
+            ],
+            [
+              188,
+              217
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/haircut.rs",
+          "lines": [
+            [
+              107,
+              137
+            ],
+            [
+              144,
+              173
+            ],
+            [
+              176,
+              192
+            ],
+            [
+              254,
+              274
+            ],
+            [
+              295,
+              313
+            ],
+            [
+              321,
+              358
+            ],
+            [
+              361,
+              370
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "lines": [
+            [
+              280,
+              296
+            ],
+            [
+              410,
+              418
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/look.rs",
+          "lines": [
+            [
+              303,
+              317
+            ]
+          ]
+        }
+      ],
+      "trace": "HairShape states every cut length is scaled, accepts a finite factor such as 0.5 and applies Haircut::scaled. That function multiplies top/front/sides/back and adjusts hemline/dome, but leaves clipper and fringe.drop unchanged. Under the selected BowlCut and a root satisfying Fringe::holds, the subsequent declared strand length is 0.1 + 0.048 = 0.148m before and after that scale, and its cut line uses the unchanged drop; Undercut clipper likewise stays 0.008m while the four ordinary lengths are halved. Look::random also calls scaled with 0.75\u20131.25.",
+      "limits": "Whether a length control should preserve an eyebrow-aligned fringe and close-cropped clipper setting, or scale those cut features, is a design question. A matching sampled root, actual generation or visual change was not shown. Existing F067 and q381 concern distinct extreme-length and one-point-resampling first cuts; global aliases require reconciliation.",
+      "future_direction": "Define which shape features the length scale controls, then make producer documentation and the shared CPU/native input contract consistent, while preserving explicitly intended styling modes. No implementation or validation performed."
+    },
+    {
+      "id": "Q-L11-dedc11f7b4dab040148a",
+      "classification": "historical q619 head/finite/grid resource admission reconnected, no duplicate unique count",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/head.rs",
+          "lines": [
+            [
+              29,
+              46
+            ],
+            [
+              50,
+              62
+            ],
+            [
+              72,
+              90
+            ],
+            [
+              99,
+              137
+            ],
+            [
+              145,
+              166
+            ],
+            [
+              217,
+              224
+            ],
+            [
+              281,
+              302
+            ],
+            [
+              321,
+              327
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+          "lines": [
+            [
+              16,
+              18
+            ],
+            [
+              67,
+              78
+            ],
+            [
+              128,
+              134
+            ]
+          ]
+        }
+      ],
+      "trace": "Public Head geometric fields permit different radii and capsule endpoints from the finite, nondegenerate mannequin; distance and normalization use them directly. Public mesh/surface_nets takes cell and bounds and computes ceil(extent/cell), adds one and multiplies grid dimensions. The selected creator uses fixed positive SCALP_CELL=0.004 and starts from mannequin; the historical root independently reviewed the grid extension and kept resource limits open.",
+      "limits": "Neither malformed Head nor cell/field, allocation, mesh, gradient, collider, native shader or UI ran. No unsupported zero-radius or zero-cell product path, fixed-grid exhaustion, or actual normal failure is claimed. Explicit signed heights and empty/optional modes remain legitimate."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-CURVE-RESAMPLE-INPUT-EXTENT-ADMISSION",
+      "classification": "existing q381 and current selected fringe producer retained, no duplicate",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/haircut.rs",
+          "lines": [
+            [
+              107,
+              116
+            ],
+            [
+              129,
+              132
+            ],
+            [
+              333,
+              340
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "lines": [
+            [
+              280,
+              296
+            ],
+            [
+              410,
+              418
+            ]
+          ]
+        }
+      ],
+      "trace": "A matching fringe bypasses the non-fringe minimum clamp and derives length 0.1+drop. Prior ASSESSMENT-HAIRDO-GROOM-95E traces the conditional drop=-0.1 one-point path to q381; this packet does not rerun or reattribute that source evidence.",
+      "limits": "Negative drop admission, matching root, all producer/consumer conditions and any error outcome remain unproved. q381 is distinct from the capacity and length-control questions."
+    }
+  ],
+  "nonfindings": [
+    "The clipped branch is not evidence that a cut enum must be immutable: Cut describes its starting preset while mutable details are intentional.",
+    "Fringe and dome are explicitly included in host longest_guide, so the maximum-length question must not claim they are simply ignored.",
+    "The selected studio uses a finite positive fixed 0.004m scalp cell, narrowing but not closing public grid admission concerns.",
+    "The GPU path has an explicit step cap; no unchecked path write is concluded from an underestimated length.",
+    "CPU and GPU same-group parting and their fallback conditions remain separate from haircut-length capacity and are not merged here."
+  ],
+  "open_questions": [
+    "Which Haircut producers admit finite clipper greater than base lengths or base combinations with angular overshoot, and can their guide roots satisfy the required regions?",
+    "Should the maximum bound cover pre-cut growth, final surviving strand, clipped hair, tied axes and dome using one shared conservative owner?",
+    "Does the shape length factor intentionally preserve fringe/clipper lengths or should every physical length change?",
+    "What are supported grid cell/bounds, finite head geometry and resource budgets across public and creator APIs?",
+    "What are precise relationships among original F067, q381/q619, maximum-path overflow, shader indexing and this underbound?"
+  ],
+  "recovery_qualification": "These assigned sources are pr-working, not physical-p16. Later separately linked P16 tracked-patch recovery and untracked objects preserve their identities; they do not alter source, historical authorship or checkpoint3821 status. Original 3821 ledger and queue remain unrecovered.",
+  "evidence": {
+    "registration": "registration.json",
+    "read_receipt": "read-receipt.json",
+    "support_registrations": [
+      "support-registration.json",
+      "support-registration-2.json",
+      "support-registration-3.json",
+      "support-registration-4.json",
+      "support-registration-5.json"
+    ],
+    "git_proofs": "git-proofs.json",
+    "historical_manifest": "historical-manifest.json",
+    "reconstructed_059_selection": "historical/059-selected-records-reconstructed.json"
+  },
+  "constraints": "Source inspection, mathematical reasoning and evidence verification only. No source/publication edits, rendering, repairs, builds, tests, simulations, fixtures, shader compilation or execution, runtime probes or product validation.",
+  "thirteen_lenses": {
+    "producer-propagation": "Finite creator shape and random look call scaled; haircut fields feed CPU comb and packed shader/host capacity. All external custom producers and native outputs remain open.",
+    "existing-type-owners": "Cut is original preset identity; Haircut, Fringe and Head carry distinct length, morphology and frame semantics. Existing owners should govern capacity and scaling, not a generic numeric wrapper.",
+    "admission-contracts": "Mannequin geometry is finite and nondegenerate; public mutable Head, Haircut, Serde, scaled factor and mesh cell admit broader values. Existing extreme input questions remain separate.",
+    "invariant-operations": "Scaling mutates ordinary lengths but not clipper/fringe; longest may underbound active length. Grid extent/add/multiply and normalization require their own supported input contract.",
+    "aggregate-states": "Head radius and capsule endpoint relationships, haircut length fields and shader capacity must remain coherent through construction, mutation and packing.",
+    "wrong-duplicate-owners": "CPU and shader duplicate around/cut_length; host owns capacity. Shared equations do not prove a single correct owner without matching executable contracts.",
+    "redundant-authority": "Stored preset Cut describes origin while mutable controls determine actual hair; that is intentional provenance, unlike independently computed maximum estimates that can underbound active branches.",
+    "behavior-preservation": "Preserve deliberate fringe, fade, strip, clipper, dome and hemline design choices and selected 0.004m grid while deciding the scale and capacity policy.",
+    "enum-state-shape": "Cut is a closed preset enum, while hemline/fringe optional and zero fade/strip/dome are intentional independent controls; no blanket enum conversion is inferred.",
+    "derivability": "Cut/Fringe/Haircut derive Serde/value traits; validate actual persisted policy and checked conversions rather than replacing derives mechanically.",
+    "granularity": "Lengths, signed heights, normalized elevation, angles and growth factors have different units/ranges; zero and negative values must be considered per feature.",
+    "raw-strings": "Preset names are display labels and native shader names are boundary identifiers. No closed user-authored string namespace or automatic string defect was established.",
+    "raw-primitives": "Head geometry, resolution cell, finite normals, hairline position, smoothing thresholds and hair length need dimensional and bounded-resource contracts; do not impose one universal limit."
+  }
+}

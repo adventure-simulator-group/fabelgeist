@@ -1,0 +1,484 @@
+{
+  "schema": "726-bounded-delegate-report-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T01:42:43.124562+00:00",
+  "scope": {
+    "original_roles": [
+      2643,
+      2644
+    ],
+    "historical_snapshot": "pr-working registered source objects, recorded head 6533e444fa37552927070cc8d8190907fd3b413e with unrelated working changes",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "qualification": "Each registered source individually equals the 6533 and 95e blob. 6533 was independently proven but not separately displayed. f82 is evidence transport and per-file equality does not establish a clean whole historical snapshot."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2643,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          283
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          283
+        ]
+      ],
+      "unread_old_and_current": []
+    },
+    {
+      "role": 2644,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          189
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          189
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "receipt": "read-receipt.json",
+  "support": "Two prospectively registered current support batches; exact actual and unread windows in read-receipt.json. Inline test source read only, no geometry or product execution.",
+  "historical_attribution": [
+    {
+      "record": "774 rig REGISTER-099 / ADDITIONAL-099 and REGISTER-100 / ADDITIONAL-100",
+      "reviewer": "rig",
+      "revision": "pr-working",
+      "role2643_ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          215,
+          244
+        ]
+      ],
+      "role2644_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "qualification": "Surface PLY, transformed body and tests were excluded; grid test tail excluded. Rig records stale CDF/BVH and public geometry/channel/empty concerns as F074/F054 and grid key arithmetic/k limits as F075. These are references in ADDITIONAL, not full recovered finding bodies in this packet; no assigned802 or later-lens credit."
+    },
+    {
+      "record": "059 Segovb READ-L11-432 / REGISTRATION-SEGOVB-1559,1560",
+      "reviewer": "Segovb root Lens11",
+      "revision": "pr-working source bytes, 6533 comparison",
+      "role2643_fresh": [
+        [
+          1,
+          146
+        ],
+        [
+          215,
+          244
+        ]
+      ],
+      "role2644_fresh": [
+        [
+          1,
+          156
+        ]
+      ],
+      "qualification": "Historical q618 and q642 retain finite-radius early return and k=0 policy, q619 retains surface finite/resource and CDF/BVH identity. Original scopes exclude the above tails and have no checkpoint3821 status."
+    },
+    {
+      "record": "059 READ-L12-911/912 / REGISTRATION-PAR-L12-708,709 and partial receipts",
+      "reviewer": "/root/lens12_frontier; historical root adoption with zero personal rereads",
+      "revision": "6533",
+      "role2643_fresh": [
+        [
+          1,
+          146
+        ],
+        [
+          215,
+          244
+        ]
+      ],
+      "role2644_fresh": [
+        [
+          1,
+          156
+        ]
+      ],
+      "qualification": "Final delegated read covers exactly registered material; older partial receipt stopping points do not override final coverage, and excluded PLY/transformed/test tails do not receive historical credit."
+    },
+    {
+      "record": "parallel-l11 READ-077 / Segovb READ-L11-613",
+      "reviewer": "parallel lens11_reconcile; root adopted without personal reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "grid_fresh": [
+        [
+          1,
+          189
+        ]
+      ],
+      "qualification": "Original current-e275 finite-radius proof and caller traces, not 6533 or checkpoint3821. The same grid object matches current 95e by retained per-file evidence; e275 read is not transferred to this packet."
+    },
+    {
+      "record": "delegated/hair-operations-report.json",
+      "reviewer": "/root/hair_ops",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "earlier_current_support": {
+        "surface": [
+          [
+            1,
+            283
+          ]
+        ],
+        "grid": [
+          [
+            1,
+            189
+          ]
+        ]
+      },
+      "qualification": "Earlier full body displays were registered current support for assigned roles2299\u20132301 and remain separately attributed. This packet independently registers and displays both old/current assigned bodies; no earlier ordered-role credit transfer."
+    },
+    {
+      "record": "delegated/hair-primitives-report.json role2307 and ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json",
+      "reviewer": "/root/hair_ops for role2307; prior current assessment individual not named",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "earlier_rng_role2307": [
+        [
+          1,
+          168
+        ]
+      ],
+      "qualification": "Earlier own full current Rng read and original attribution retained. Current RNG bijection reasoning published separately; this packet freshly registered only 1\u201355 and 110\u2013135 as support."
+    }
+  ],
+  "observations_and_questions": [
+    {
+      "id": "REVIEW-HAIR-SURFACE-ZERO-AREA-SHARE-95E",
+      "classification": "conditional current source candidate, exact global alias and supported surface reachability pending",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/surface.rs",
+          "lines": [
+            [
+              16,
+              24
+            ],
+            [
+              36,
+              54
+            ],
+            [
+              65,
+              89
+            ],
+            [
+              92,
+              105
+            ],
+            [
+              143,
+              191
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/rng.rs",
+          "lines": [
+            [
+              16,
+              35
+            ],
+            [
+              123,
+              125
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "lines": [
+            [
+              176,
+              198
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+          "lines": [
+            [
+              240,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/export/ply.rs",
+          "lines": [
+            [
+              219,
+              244
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+          "lines": [
+            [
+              20,
+              21
+            ],
+            [
+              47,
+              68
+            ],
+            [
+              83,
+              96
+            ],
+            [
+              394,
+              402
+            ],
+            [
+              450,
+              458
+            ]
+          ]
+        }
+      ],
+      "trace": "Surface::new accumulates each triangle area into its CDF. Suppose the first indexed triangle has zero area and the second has finite positive area A, so the CDF is [0,A]; supply valid same-length normals and UVs and assume construction succeeds. The documented sample_at share range [0,1) includes zero. For share=0, target=0 and partition_point(c < target) returns index 0, selecting the zero-area first triangle even though it has no area weight. Surface::new does not locally reject such a first face. Given successfully parsed PLY faces, from_ply checks nonempty and in-range indices but does not check triangle degeneracy. Selected Hairdo::guides and Interpolate::apply call sample_at/sample, respectively; Rng::next_f32 and unit have 0 in their documented/output range.",
+      "limits": "No surface, mesh, PLY payload, sampler, random generator, BVH, hair root or geometry was constructed or run. Exact seed/input reachability through selected product producer, support policy for zero-area faces, normal behavior and output impact remain unproved. q619 and rig F074/F054 relate to surface admission and stale retained state, while REVIEW-BVH-DEGENERATE-TRIANGLE-CLOSEST-95E addresses a different closest-query first operation; preserve those identities and do not presume global aliases. The original full F074/F054 bodies are not recovered in this packet.",
+      "future_direction": "Decide whether degenerate faces are rejected or excluded from area sampling; make CDF endpoint/zero-weight semantics explicit for all admitted shares and coherent with normals, UV and BVH policy. Preserve legitimate positive-area faces and RNG sequence as required; later acceptance only after separate product-validation authorization."
+    },
+    {
+      "id": "QUESTION-HAIR-SURFACE-BOUNDARY-STEP-FLOOR-95E",
+      "classification": "conditional public spacing documentation/policy question, no unique count or physical output claim",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/surface.rs",
+          "lines": [
+            [
+              108,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "lines": [
+            [
+              205,
+              219
+            ]
+          ]
+        }
+      ],
+      "trace": "boundary documents samples along open edges no further apart than step, but divides edge length by step.max(1e-5). For a hypothetical open edge of length about 0.001m and requested positive step 0.000001m, the actual subdivision count is about 100, so neighboring emitted points on that edge are about 0.00001m apart, larger than the requested step. This follows the loop and arithmetic without executing geometry.",
+      "limits": "The deliberate minimum may be an intended resource floor; the public contract does not state the minimum. The selected hairline caller uses 0.002m, above the floor, so this trace does not establish an ordinary caller failure. Geometry, floating evaluation, edge ordering, downstream visuals and supported tiny step remain open.",
+      "future_direction": "Choose a documented minimum or an exact requested spacing with an explicit resource bound, preserving deterministic edge ordering and supported positive resolutions."
+    },
+    {
+      "id": "SEGOVB-L11-POINT-GRID-MAX-RADIUS",
+      "classification": "historical q642 / e275 proof and own current support independently reconnected; no new count",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/grid.rs",
+          "lines": [
+            [
+              63,
+              78
+            ],
+            [
+              113,
+              154
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+          "lines": [
+            [
+              267,
+              276
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+          "lines": [
+            [
+              220,
+              258
+            ]
+          ]
+        }
+      ],
+      "trace": "nearest_k visits cell rings and returns immediately when the kth distance is no more than ring*cell, before the final distance<=max_radius retain. Historical parallel lens11_reconcile used cell=1, origin query, point distance 0.6, k=1, radius=0.5 to illustrate the excluded point returned from ring1. Current selected Interpolate edge taper maps a missing result to edge and clamps through smoothstep; GuideMap separately uses same-group search then unrestricted fallback.",
+      "limits": "The earlier e275 proof, current prior /root/hair_ops independent source support and this assigned role are separate evidence. Do not claim a different selected consumer outcome from that distance example alone; original q618/q642, CPU group q164 and GPU fallback have separate first contracts. No search or product executed."
+    },
+    {
+      "id": "DELEGATE-HAIR-INTERPOLATE-FEW-GUIDES-GRID-SEARCH",
+      "classification": "earlier /root/hair_ops current candidate reconnected, not a new count",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/grid.rs",
+          "lines": [
+            [
+              63,
+              78
+            ],
+            [
+              113,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+          "lines": [
+            [
+              290,
+              320
+            ]
+          ]
+        }
+      ],
+      "trace": "With fewer than k eligible points and infinite radius, the selected interpolation query cannot take the found.len()>=k early exit; nearest_k uses up to one million rings and visit_shell scans each cube before discarding interior offsets. Empty result is handled only after this search. Earlier packet traces the bounded caller and preserves e275 attribution.",
+      "limits": "No loop or grid ran. Inputs, support policy, computational effect and exact alias remain conditional; related k+8 overflow and k=0 admission are distinct first conditions."
+    },
+    {
+      "id": "Q-L11-dedc11f7b4dab040148a",
+      "classification": "historical q619 and rig surface aggregate references reconnected, no duplicate",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/surface.rs",
+          "lines": [
+            [
+              16,
+              24
+            ],
+            [
+              36,
+              63
+            ],
+            [
+              65,
+              105
+            ],
+            [
+              137,
+              140
+            ],
+            [
+              203,
+              225
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/grid.rs",
+          "lines": [
+            [
+              14,
+              48
+            ],
+            [
+              63,
+              73
+            ],
+            [
+              115,
+              135
+            ]
+          ]
+        }
+      ],
+      "trace": "Surface stores public positions/normals/UVs/triangles alongside private CDF and a BVH built from clones; later public mutation can leave derived state out of sync. Its constructor and sample also depend on array extents and nonempty CDF. Grid privately ties point and cell tables, yet casts coordinates/indices and calculates signed neighbors under caller-dependent bounds.",
+      "limits": "No stale surface, malformed input, panic, mutation, allocation or runtime consumer was executed. Rig references F074/F054/F075 and original q619 retain their earlier revision/scope; public empty/default modes and native consumer policies remain open."
+    }
+  ],
+  "nonfindings": [
+    "The surface loader checks for missing faces and out-of-range vertex indices before its constructor; this does not prove finite, nondegenerate, channel or normal contracts.",
+    "Surface.boundary sorts open edges explicitly, so HashMap iteration order does not determine its output order.",
+    "Public grid nearest delegates k=1; selected Interpolate clamps neighbors to at least one. That does not seal the independent public nearest_k k=0 contract.",
+    "any_within uses strict < while count_within uses <=; distinct predicate semantics require policy, not an automatic off-by-one finding.",
+    "The selected prior GuideMap same-group fallback is already q164 and is not equated to GPU fallback or the finite-radius early return."
+  ],
+  "open_questions": [
+    "Do any supported scalp producers produce an initial zero-area face, and can selected real seeds supply share zero at sampling?",
+    "Should the surface reject degenerate geometry or exclude zero-area faces only from its sampling distribution, and what normal/BVH policy is required?",
+    "Is boundary step a strict upper bound or an approximate spacing with a lower resource floor?",
+    "What updates maintain CDF and BVH with mutable Surface geometry and channel lengths?",
+    "Can grid queries stop at occupied extents and preserve group/radius semantics for fewer-than-k cases?",
+    "What are exact relationships among F054/F074/F075, q164/q618/q619/q642, zero-area sampling, degenerate closest, and current candidate IDs?"
+  ],
+  "recovery_qualification": "These assigned sources are pr-working, not physical-p16. Later separately linked P16 tracked-patch recovery and untracked objects preserve their identities; they do not alter source, historical authorship or checkpoint3821 status. Original 3821 ledger and queue remain unrecovered.",
+  "evidence": {
+    "registration": "registration.json",
+    "read_receipt": "read-receipt.json",
+    "support_registrations": [
+      "support-registration.json",
+      "support-registration-2.json"
+    ],
+    "git_proofs": "git-proofs.json",
+    "historical_manifest": "historical-manifest.json",
+    "reconstructed_059_selection": "historical/059-selected-records-reconstructed.json"
+  },
+  "constraints": "Source inspection, mathematical reasoning and evidence verification only. No source/publication edits, rendering, geometry execution, repairs, builds, tests, simulations, fixtures, runtime probes or product validation.",
+  "thirteen_lenses": {
+    "producer-propagation": "Hairdo and Interpolate pass surface samples and group-bearing roots into grid consumers; source-specific admitted meshes, sampled shares and native output remain open.",
+    "existing-type-owners": "Surface owns sampled points/area and PointGrid owns filtered nearest operations; PartingGroup is already typed and does not prove group membership validity across all mappings.",
+    "admission-contracts": "Surface accepts public channels and triangles; PLY adds nonempty/index checks but not a blanket geometry certificate. Grid counts, radius, coordinates and k require supported-domain policy.",
+    "invariant-operations": "Zero-area CDF prefix at zero share can select zero weight; boundary spacing floor and nearest early return differ from literal boundary descriptions under stated conditions.",
+    "aggregate-states": "Surface public arrays must agree with cached area, BVH and indices; grid private cells and points stay correlated through selected insert route under index capacity limits.",
+    "wrong-duplicate-owners": "Surface::closest delegates to canonical TriangleBvh; do not infer duplicate implementation from wrappers or equate mesh cache identity to BVH degenerate primitive behavior.",
+    "redundant-authority": "Mutable surface geometry and separately stored CDF/BVH can diverge after construction; invalidate or ownership policy requires actual mutation and consumer tracing.",
+    "behavior-preservation": "Preserve deterministic open-edge order, explicit same-group logic, valid empty/no-guide modes and random draw sequence when future supported policies are chosen.",
+    "enum-state-shape": "PartingGroup is typed and acceptance callback expresses filtering; no invented closed enum for open PLY property names or format diagnostics.",
+    "derivability": "Surface construction computes dependent CDF/BVH, so blindly deriving a constructor/default would not establish the aggregate invariants; parsing errors remain distinct.",
+    "granularity": "Vertex, triangle, grid-point and group indices refer to different owners; area share, barycentric weights and world-space distances require distinct semantic contracts.",
+    "raw-strings": "PLY property aliases are open format-boundary tokens. Error/label and shader strings outside the displayed support need their actual consumer, not an automatic domain enum.",
+    "raw-primitives": "CDF area, boundary metres, grid cell/radius, normalized shares, counts and u32/i32 narrowing have different units and independent numerical policies."
+  }
+}

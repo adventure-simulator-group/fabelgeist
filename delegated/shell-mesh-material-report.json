@@ -1,0 +1,1048 @@
+{
+  "schema": "726-shell-mesh-material-bounded-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:44:32.125417+00:00",
+  "scope": {
+    "roles": [
+      2646,
+      2647
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e had four unrelated modifications. Each assigned historical object individually equals its 6533 and current 95e files. f82 is source transport, not product revision.",
+    "personal_scope": "Mesh old/current 1\u2013139 and lib old/current 1\u201358 independently displayed after registration; historical original lib role was only 1\u201356, lines 57\u201358 are new support and carry no earlier role credit. All other sources are separately registered current support.",
+    "p16": "P16 is a separate dirty snapshot based on a120, not a commit. Later recovered tracked patch matches recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, not proof of its original diff invocation or uninterrupted custody; seven untracked files remain separate.",
+    "checkpoint3821": "Original checkpoint3821 ledger and queue have not been recovered by this packet; no old evidence is promoted."
+  },
+  "conditional_candidates": [
+    {
+      "id": "SHELL-MESH-DIRECT-ADJACENCY-ENDPOINT-95E",
+      "status": "source-level conditional direct-public-call admission question; central reconciliation of uniqueness/policy pending",
+      "condition": "A caller supplies a public ShellMesh whose edge or seam endpoint is at least positions.len(), then directly calls adjacency without successfully validating it. No such application caller or runtime panic was observed.",
+      "trace": "ShellMesh.adjacency concatenates its public edge and seam lists then calls SelfCollision.adjacency with the positions count; that helper allocates exactly one list per position and indexes both endpoints without a local bounds check. Rust indexing would fail for an out-of-range endpoint. The canonical Shell::new calls mesh.validate before mesh.adjacency, so this hypothetical is not admitted through the selected constructor path.",
+      "relationships": "059 q622 already leaves self-collision adjacency membership open; q3296 concerns topology input/index and density; 774 F083 concerns independently mutable retained Shell state. These are connected but not assumed identical; no duplicate count.",
+      "future_repair_direction": "Decide the public direct-call contract: admit/check endpoint membership before indexing or expose adjacency only through an already validated mesh state. Preserve valid seam and edge semantics and keep canonical Shell constructor validation.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            18
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            115
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            138
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            89
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            144
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-MATERIAL-THICKNESS-RECIPROCAL-95E",
+      "status": "conditional current-source continuation of 774/059 underflow observation; supported-scale and unique-count policy open",
+      "condition": "A caller supplies a smallest positive binary32 subnormal thickness, Shell::new succeeds through its other operations, and a self-collision record is enabled with at least two particles and within capacity. No Shell, float operation, GPU, simulation or fixture was run.",
+      "trace": "ShellMaterial.validate accepts finite thickness >0. Under IEEE binary32 round-to-nearest, half of 2^-149 rounds to zero; particle_radius therefore may become zero even though the thickness passed. SelfCollision::new stores radius and spacing=2*radius. The selected record path computes 1/spacing, producing positive infinity for zero spacing, inserts that value as inverse_spacing and requests a hash dispatch. WGSL source multiplies positions by inverse_spacing before floor and integer conversion; its actual device result and impact are not established.",
+      "relationships": "Original rig ADD103 and 059 L11-433 already noted positive-thickness halving can underflow; this independently traces current downstream reciprocal and intended native port. Existing SHELL-SELF-COLLISION-FIXED-POINT-QUANTIZATION concerns a distinct correction quantization at a less extreme scale; SHELL-GRID-RADIUS-SPACING-DIVERGENCE concerns independent mutation of radius versus spacing. Do not automatically merge or increase unique counts.",
+      "future_repair_direction": "Decide supported physical scale and zero-radius policy, then admit a usable positive finite derived radius/spacing/reciprocal before the consumer or explicitly represent disabled contact when intended. Preserve ordinary valid material and legitimate intentional zero-contact modes; validation is deferred.",
+      "sources": [
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            47
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            145
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            186
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            198,
+            206
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            102,
+            111
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            123,
+            131
+          ]
+        }
+      ]
+    }
+  ],
+  "corrected_historical_claim": [
+    {
+      "id": "SEGOVB-L12-SHELL-NO-PARTICLES-REASON",
+      "queue_index_zero_based": 437,
+      "disposition": "The historical 059 record retains the original concern and its additive 912 first-contract correction; do not count the later branch as a separate reachable finding. Current Shell::new invokes mesh.validate on an immutable mesh first, and validate rejects n==0 before the subsequent empty-position branch. The historical mesh and shell per-file identities match the corresponding 95e objects; no old support reread is claimed.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            90
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            85
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_existing": [
+    {
+      "id": "RIG-INITIAL06-F003",
+      "relationship": "Original rig ownership-migration record identifies eight shared geometry arrays duplicated by GarmentMesh and copied by Cloth::new into ShellMesh. The current support confirms the copy boundary; preserve garment-specific metadata and initial06 source attribution, and do not count it again.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            19
+          ]
+        },
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            27,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RIG-ADMISSION03-F083",
+      "relationship": "Original rig finding concerns Shell mutable triangles, particles and material diverging from retained constraints/contact state or unvalidated apply_material. Current new calls both validators, while apply_material directly updates compliance and radius. Do not assume this equals direct malformed ShellMesh.adjacency.",
+      "sources": [
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            51
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            190,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-CLOTH-MATERIAL-UPDATE-ADMISSION-95E",
+      "relationship": "Earlier current 95e cloth/shell update question uses public fabric and apply_fabric to propagate material without a fresh validator; preserve distinct existing attribution and no duplicate.",
+      "sources": [
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            12,
+            15
+          ]
+        },
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            49,
+            51
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            190,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-BENDING-SCALE-CUTOFF",
+      "relationship": "Prior /root/mhr_character conditional nondegenerate tiny hinge question: ShellMesh retains a bend only when bending_weights returns Some. Supported minimum scale remains undecided; truly degenerate and nonmanifold policies remain deliberate.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            59,
+            70
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            45,
+            50
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            167,
+            182
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            220,
+            234
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xpbd-positive-tiny-mass-pinned",
+      "relationship": "Earlier /root/rig_identity conditional tiny positive mass/prescribed response question. validate permits finite nonnegative masses, then inverse_mass maps values at or below 1e-12 kg to PINNED; zero mass and pinning are intentional. Keep the prior source, supported-scale policy and distinct identity.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            95,
+            101
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            131,
+            133
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            118,
+            126
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "L12-CLOSURE-SHELL-MESH-REASON-FACETS",
+        "L12-CLOSURE-SHELL-MATERIAL-REASON-FACETS"
+      ],
+      "queue_indices_zero_based": [
+        3136,
+        3137
+      ],
+      "relationship": "Existing 059 separately records three constructor predicates, seven mesh validation facets, material aggregate and positive-thickness facets. Current source confirms conditions, but does not alias by shared error text or claim old q closure.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            52
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            127
+          ]
+        },
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            48
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "ShellMesh::new checks density, finite positions and triangle membership before topology construction, but does not call its separate validate on the constructed result; an empty or finite-input arithmetic-derived nonfinite result may therefore be returned here and rejected later by the selected Shell::new. Do not generalize that later gate to every direct raw consumer.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            58
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            90
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Nonmanifold edges intentionally receive stretch without a single bend; bending_weights may return None for documented degeneracy, and pinned mass zero is intentional. Small positive mass cutoff and tiny nondegenerate hinges retain separate prior questions.",
+      "sources": [
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            45,
+            50
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            74,
+            84
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            161,
+            167
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            103
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774 admission03",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REGISTER-102",
+        "RIG-ADMISSION03-REGISTER-103",
+        "RIG-ADMISSION03-ADDITIONAL-102",
+        "RIG-ADMISSION03-ADDITIONAL-103",
+        "RIG-ADMISSION03-F083"
+      ],
+      "qualification": "Original historical mesh 1\u2013139, material 1\u201356 and separately scoped Shell source. ADD102 flags omitted final validate, ADD103 explicitly flags positive-thickness half-underflow. No later-lens credit."
+    },
+    {
+      "origin": "774 initial06",
+      "supplier": "rig",
+      "records": [
+        "RIG-INITIAL06-GROUP-013",
+        "RIG-INITIAL06-F003"
+      ],
+      "qualification": "Original ownership finding and source record; previous cloth-garment packet retains original raw Git proof and different current reviewer."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical-059/segovb/READ-L11-433.json",
+      "qualification": "Records fresh historical mesh 1\u2013139 and material 1\u201356, without naming an individual; no reader inferred."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipts": [
+        "historical-059/segovb/READ-L12-912.json",
+        "historical-059/segovb/READ-L12-913.json",
+        "historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-912-SHELL-FIRST-FAILED-CONTRACT.json"
+      ],
+      "qualification": "/root/lens12_frontier independently read original mesh 1\u2013139 and material 1\u201356; root adoption zero rereads. The 912 qualification additively rejects the downstream no-particles suspicion with zero new reads, preserving upstream mesh reason facets."
+    },
+    {
+      "origin": "previous current source reviews",
+      "records": [
+        "delegated/shell-solver-report.json",
+        "delegated/shell-contact-report.json",
+        "delegated/cloth-garment-report.json",
+        "ASSESSMENT-BVH-CLOTH-95E.json"
+      ],
+      "qualification": "Prior authors and exact bounded reads belong to their own evidence packets; this packet has separately registered support and no borrowed role credit."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Mesh/material validator error messages denote distinct failure sites; q3136/q3137 retain the individual cause facets. Human-facing labels and shared prose are not evidence of aliases.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            38,
+            52
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            127
+          ]
+        },
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Half-thickness, tiny mass cutoff, bending thresholds and native buffer/index units have different purposes. Radius underflow and reciprocal finite behavior require supported-scale policy.",
+      "sources": [
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            30,
+            32
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            103
+          ]
+        },
+        {
+          "archive": "support/topology.rs",
+          "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            220,
+            234
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            186
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "ShellMesh owns reusable geometry/constraints, XPBD reexports the mass roles, and historical F003 separately identifies GarmentMesh copying the same eight fields. No assumption that garment-specific metadata belongs in shell.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            19
+          ]
+        },
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            52,
+            55
+          ]
+        },
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            27,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "ParticleArealDensity, ParticleMass and ParticleInverseMass distinguish units and current validity predicates, but From<f32> alone does not certify those predicates.",
+      "sources": [
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            52,
+            55
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            79,
+            103
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            136,
+            157
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Material response settings, mesh density-derived masses and prescribed inverse mass have distinct roles; zero compliance or pinned mass need not be rejected merely for sharing a float representation.",
+      "sources": [
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            27
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            43,
+            58
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Positive finite input is not closed under all floating-point arithmetic: a subnormal thickness may halve to zero before reciprocal; finite position and density operations can also derive nonfinite geometry/masses that validate separately rejects.",
+      "sources": [
+        {
+          "archive": "sources/2647-current-95e.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            30,
+            47
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            186
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            57
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Public parallel mesh arrays need length and membership consistency; direct adjacency does not invoke the validator. Shell::new checks the aggregate, but independently mutable Shell fields have their own existing F083 state question.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            18
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            95,
+            122
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            138
+          ]
+        },
+        {
+          "archive": "support/selfcollision.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            51
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "new checks density/positions/triangle indices, while validate separately checks nonempty count, mass and constraint/edge/rest consistency; Shell::new calls validate before consumers. An Ok from new alone is not a full validated-shell certificate.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            52
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            90
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            95,
+            127
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "MassValidity and ArealDensityValidity explicitly name positive-finite versus finite-nonnegative contracts; sampled true-zero/pinned mode has distinct meaning from invalid mass.",
+      "sources": [
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            19
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            43,
+            58
+          ]
+        },
+        {
+          "archive": "support/mass.rs",
+          "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Original F003 already owns the duplicate garment/shell geometry-vector concern, and F083 owns later Shell retained-state coherence. Do not merge them or recount without central reconciliation.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            19
+          ]
+        },
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            27,
+            46
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Both assigned files are byte-identical between the recorded 6533 per-file objects and 95e. This does not prove native simulation behavior or every caller; old q437 additive correction remains historical and the current source independently confirms its first gate.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            90
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Cloth copies shared mesh fields and calls Shell::new; Shell validates before generating particles and constraint sets, then separately applies mutable material updates. Other direct helpers do not automatically inherit the gate.",
+      "sources": [
+        {
+          "archive": "support/cloth.rs",
+          "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            27,
+            51
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            98
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            190,
+            199
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            131,
+            138
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Default ShellMesh is an empty authoring state, while Shell::new rejects zero particles; that split alone is not a justified derive removal or evidence that empty state must be a runtime shell.",
+      "sources": [
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            8,
+            10
+          ]
+        },
+        {
+          "archive": "sources/2646-current-95e.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            90
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            85
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Should public ShellMesh::adjacency and SelfCollision::adjacency accept arbitrary raw arrays with recoverable error, or is prior validation a documented/enforced precondition? Which actual callers can provide invalid indices?",
+    "What minimum usable positive thickness, numerical resolution and disabled-self-contact policy are supported across CPU and GPU targets? Native handling of nonfinite grid input and any practical incident remain unobserved.",
+    "How should manually authored mesh topology, rest lengths, masses and bend weights be correlated beyond the existing length/index/finite checks? Are partial geometry representations intended?",
+    "How do related q622/q3296, F083, F003, existing tiny-mass and quantization questions map to unique ledger owners? Shared context or repair direction alone does not settle aliases.",
+    "The direct public ShellMesh constructor can return before full validate; which external consumers rely on it and what empty/large geometry policy applies?"
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "extra-registration.json",
+      "shader-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "historical_attribution": "historical-attribution.json",
+    "registry_reconstruction": "registry-selection-reconstructed.json",
+    "queue_reconstruction": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "external_links": [
+      "evidence-links.json",
+      "published-prior-packet-links.json"
+    ]
+  },
+  "limits": "Source inspection, mathematical reasoning and evidence verification only. No shell, product, shader, physics, simulation, fixture, test, build or runtime probe was executed."
+}
