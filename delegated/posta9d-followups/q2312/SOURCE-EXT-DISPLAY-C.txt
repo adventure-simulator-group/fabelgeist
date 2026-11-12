@@ -1,0 +1,14 @@
+SOURCE rawzip-0.5.2/src/archive.rs:20-32
+  20 #[cfg(feature = "std")]
+  21 pub use reader::{ZipEntries, ZipEntry, ZipReader, ZipSliceVerifier, ZipVerifier};
+  22 
+  23 pub(crate) const END_OF_CENTRAL_DIR_SIGNATURE64: u32 = 0x06064b50;
+  24 pub(crate) const END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE: u32 = 0x07064b50;
+  25 pub(crate) const CENTRAL_HEADER_SIGNATURE: u32 = 0x02014b50;
+  26 pub(crate) const DIGITAL_SIGNATURE: u32 = 0x05054b50;
+  27 pub(crate) const DIGITAL_SIGNATURE_BYTES: [u8; 4] = DIGITAL_SIGNATURE.to_le_bytes();
+  28 const MAX_DIGITAL_SIGNATURE_SIZE: usize = 6 + u16::MAX as usize;
+  29 
+  30 /// The recommended buffer size to use when reading from a zip file.
+  31 ///
+  32 /// A buffer of this size should hold an entire central directory record as the

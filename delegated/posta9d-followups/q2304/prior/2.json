@@ -1,0 +1,102 @@
+{
+  "schema": "726-q2300-current-source-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T13:18:15.553718+00:00",
+  "historical_record": "REVIEW-L11-CAPTURE-NATIVE-CLOCK-INTERVAL-ADMISSION",
+  "historical_queue_pointer": "baseline-059/queue.json#/entries/2300",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "recommended_scoped_disposition": "The 95e source supports carrying forward the historical source-qualified rejection of an unchecked native fixed-clock interval for the displayed capture path: conversion errors and a zero Duration are returned before the locked Bevy setter’s nonzero assertion. This recommendation is bounded to that first admission and does not close the queue, another lens, wider timer accuracy or runtime behavior. Individual valid sample rates can still be rejected at the separate native boundary; the claim is safe admission, not universal successful construction.",
+  "producer_and_admission": [
+    {
+      "references": [
+        "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs:7-10",
+        "crates/adventuresim-tactical-core/src/animation/sample_rate.rs:9-15",
+        "crates/adventuresim-tactical-core/src/animation/sample_rate.rs:31-42",
+        "crates/adventuresim-tactical-core/src/animation/sample_rate.rs:66-79",
+        "crates/adventuresim-core/src/elapsed.rs:24-35",
+        "crates/adventuresim-tactical-core/src/animation/measurement.rs:51-59"
+      ],
+      "trace": "The selected locomotion config stores AnimationSampleRate. Its displayed scalar TryFrom/Serde declaration routes through a finite positive frequency, then checked finite/nonnegative f32 reciprocal and a strictly positive elapsed duration; retained frequency and interval remain distinct. This is the displayed safe-constructor/deserialization path, not proof of all external ingress, macro expansion or runtime parsing."
+    },
+    {
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer_main.rs:68-100",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:10-24",
+        "bevy_time-0.19.1/src/fixed.rs:78-86",
+        "bevy_time-0.19.1/src/fixed.rs:118-135"
+      ],
+      "trace": "The viewer obtains its fixed clock from the selected locomotion sample rate. The adapter computes a separate f64 reciprocal, maps Duration conversion failure to an error, rejects zero, then calls Time::from_duration. In the lock-identified Bevy source, that constructor delegates to set_timestep, whose shown assertion rejects zero. The viewer handles a returned adapter error by exiting before installing the runtime snapshot. No product or native execution is inferred."
+    }
+  ],
+  "retained_state_and_selected_consumers": [
+    {
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer_main.rs:90-100",
+        "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs:89-100",
+        "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs:121-177",
+        "crates/adventuresim-tactical-core/src/combat_config/runtime.rs:11-20",
+        "crates/adventuresim-tactical-core/src/combat_config/runtime.rs:24-56",
+        "crates/adventuresim-tactical-core/src/animation/locomotion.rs:88-92"
+      ],
+      "trace": "In the selected startup path the fixed clock is constructed from the parsed configuration, the same configuration is validated and installed as the process snapshot, and the clock is inserted as a resource. locomotion_sample_rate later reads the cached runtime animation snapshot. Source does not establish whether later snapshot replacement is supported during capture."
+    },
+    {
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:26-43",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:190-216",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:363-436",
+        "crates/adventuresim-tactical-client/src/animation/procedural/clock.rs:7-35",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:6-10",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:35-52",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs:16-25"
+      ],
+      "trace": "The frame-zero path deliberately returns zero elapsed; subsequent frames use the runtime rate’s retained f32 interval. The driver retains AnimationElapsed in FixedAnimationStep and CaptureMotion, then passes it to the locomotion input; it projects seconds for the displayed distance arithmetic. The selected driver is registered in PreUpdate, while the native fixed clock is a separate inserted resource. No schedule, clock parity, screenshot or product execution is established."
+    }
+  ],
+  "historical_provenance": {
+    "queue": "QUEUE-2300-RECONSTRUCTED.json",
+    "exact_original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "original_status": "The 059 row itself records a named source-qualified rejection and audit-discovery closure only inside its original scope, with zero body/population credit and no repair/runtime pass. Preserve that historical status; this assessment is a separate current-source proposal, not a 3821 record.",
+    "original_reviewer": "parallel lens11_reconcile agent, e275 frame_clock.rs 1–58 and capture.rs 169–526, 799–822, 900–1021 in independently hash-verified PLAN/READ originals.",
+    "adoption": "segovb READ-L11-704/705 adopted the delegated registered views without root reread; VERIFY-L11-704/705 preserved delegated attribution and recorded no product execution. No historic reviewer identity or read credit transfers to this author.",
+    "individual_file_equality": "The historical e275 clock and capture source blobs equal their 95e counterparts; proof is per file only, not a whole-tree equivalence or additional personal e275 read.",
+    "exact_evidence": "Nine exact 059 historical records retained under history-exact/ and individually matched against their recorded hashes; source file captures, receipts and selections are distinct. The original 059 full queue is not copied because unrelated local paths are present."
+  },
+  "native_package": {
+    "name": "bevy_time",
+    "version": "0.19.1",
+    "registry_checksum": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+    "archive": "native/bevy_time-0.19.1.crate",
+    "locked_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Exact archive checksum matches the 95e lock’s selected package entry; the inspected fixed.rs member is sourced from that archive. A structural lock parse is not a full lock-body read, proof of selected features, or proof that a product was compiled or run."
+  },
+  "related_records": [
+    {
+      "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "relationship": "Previously assessed 95e scenario timestamp/rate question; named native interval admission does not resolve that separate source finding. Preserve prior author/range credit and leave aliases open."
+    },
+    {
+      "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+      "relationship": "Previously assessed selected-config question; not decided by the native interval check."
+    },
+    {
+      "id": "prior P16 sample-rate assessment",
+      "relationship": "Previously recorded conditional pose-bake resource admission is separate from this clock conversion; no automatic alias or duplicate count."
+    }
+  ],
+  "remaining_open": [
+    "Trace all supported runtime rate producers and whether a valid later install_runtime_snapshot with a changed rate can actually occur during capture. If it does, the retained fixed clock and the subsequently re-read runtime sample interval have distinct authorities; no actual caller or impact has been established.",
+    "Determine intended relation between the nanosecond-rounded f64 native interval, the retained f32 pose interval, fixed-schedule use, scenario timestamps, and report or visual consumers; equality is not assumed.",
+    "Check native target/platform behavior, error policy, scheduling and any numerical or product outcomes only after separate authorization; no execution is implied here.",
+    "Complete source coverage and global aliases remain open; do not promote 059 or any recovered evidence into missing checkpoint3821."
+  ],
+  "read_scope_and_recovery": [
+    "All personal source displays were prospectively registered with range-specific receipts; complete copied files establish identity only.",
+    "Earlier filename-only locator search for two runtime symbols preceded an explicit term registration; it printed filenames only, not source contents, and grants no body credit. A later locator was registered before line-number output.",
+    "One native-package locator output was truncated; it contained line numbers/tokens only and was not used for personal source credit. The selected native source window was subsequently prospectively registered and fully displayed.",
+    "An independently registered semantic.rs 1–180 window was mostly test text and did not establish the elapsed owner; its read remains recorded, no tests were run. The actual core elapsed owner was then separately registered and displayed.",
+    "The protected user extraction was read only; no source, publication, prior packet or extracted evidence was edited. No builds, tests, product, shader or fixture execution, runtime probes, repairs, or Cargo resolution were performed."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,41 @@
+     1	#!/usr/bin/env python3
+     2	"""Verify the qualified same-machine recovery record and exact transcript."""
+     3	import argparse, hashlib, json, subprocess
+     4	from pathlib import Path, PurePosixPath
+     5	root = Path(__file__).resolve().parent
+     6	packet = root / 'delegated/checkpoint26e-verification'
+     7	h = lambda b: hashlib.sha256(b).hexdigest()
+     8	manifest = (packet/'MANIFEST.json').read_bytes()
+     9	assert h(manifest) == '17f0866396f0259aea7e14981785662d7c411f58780de82709c9b387e6a0d3c1'
+    10	seen = set()
+    11	for row in json.loads(manifest)['files']:
+    12	    p = PurePosixPath(row['path'])
+    13	    assert not p.is_absolute() and '..' not in p.parts and p.as_posix() not in seen
+    14	    seen.add(p.as_posix())
+    15	    b = (packet/p).read_bytes()
+    16	    assert (len(b),h(b)) == (row['bytes'],row['sha256'])
+    17	assert {p.relative_to(packet).as_posix() for p in packet.rglob('*') if p.is_file()} == seen | {'MANIFEST.json'}
+    18	r = json.loads((packet/'RECOVERY-RECORD.json').read_bytes())
+    19	a = (packet/'PREPUSH-EVIDENCE.log').read_bytes()
+    20	b = (packet/'RECOVERY-EVIDENCE.log').read_bytes()
+    21	assert a == b and (len(a),len(a.splitlines()),h(a)) == (r['transcript_bytes'],r['transcript_lines'],r['prepush_and_recovery_transcript_sha256'])
+    22	before = json.loads((packet/'BEFORE.json').read_bytes())
+    23	after = json.loads((packet/'AFTER.json').read_bytes())
+    24	assert before['expected_fetch_head'] == before['observed_checkout_head'] == r['published_commit'] and before['status_porcelain_empty']
+    25	assert after['head'] == r['published_commit'] and after['status_porcelain_empty'] and after['exit'] == 0
+    26	assert (after['transcript_bytes'],after['transcript_lines'],after['transcript_sha256']) == (len(b),len(b.splitlines()),h(b))
+    27	s = json.loads((packet/'STAGED-DIGEST-SCAN.json').read_bytes())
+    28	assert s['stats']['top_files'] == 353 and s['forbidden_digest_total'] == 0 and not s['other_candidate_counts'] and not s['exceptions']
+    29	assert b'issues 0' in (packet/'STAGED-PATTERN-SCAN.log').read_bytes()
+    30	main = json.loads((packet/'MAIN-POSTCHECK.json').read_bytes())
+    31	assert main['observed_revision'] == r['source_revision']
+    32	a = argparse.ArgumentParser()
+    33	a.add_argument('--git-repo',type=Path)
+    34	args = a.parse_args()
+    35	if args.git_repo:
+    36	    got = subprocess.check_output(['git','-C',str(args.git_repo),'show','-s','--format=%H %P',r['published_commit']],text=True).strip().split()
+    37	    assert got == [r['published_commit'],r['parent_commit']]
+    38	    print('Specified local Git repository contains the recorded commit-parent relationship.')
+    39	else:
+    40	    print('Commit-parent comparison requires --git-repo.')
+    41	print('Verified byte-identical evidence transcripts and bounded scan receipts; checkout identity and independent custody remain separately qualified.')

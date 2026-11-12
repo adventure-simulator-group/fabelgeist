@@ -1,0 +1,205 @@
+{
+  "lens": 11,
+  "kind": "Strict whole-bundle delegated source adoption",
+  "batch": 709,
+  "at": "2026-10-30T01:35:55.361333+00:00",
+  "proposal": "parallel-l11-20261029/READ-173.json",
+  "proposal_sha256": "05bcf8ddeee92125aa0d937c79efab3d1be36f69f3ce375fb94a8db9ef711013",
+  "agent_verification": "parallel-l11-20261029/VERIFY-173.json",
+  "agent_verification_sha256": "67fc032ba1daaf62c3e84c3d1d7aa6d36af99cfdf3d1520bea82109ff718c0a7",
+  "bundle": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-004.json",
+    "sha256": "ced5d6919e32594bc0824d3fd507342b0b4bd36c98c5c8042be181758c9e1b05"
+  },
+  "ruleset": {
+    "path": "parallel-l11-20261029/l11_childlock_native_bundle_preflight_v1_PROPOSAL_UNEXECUTED.py",
+    "sha256": "5cb8c6544a0ee94132cc7a4f899d85e1b814c65a709d17720ad817bfe18f6722"
+  },
+  "preflight": {
+    "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-004.json",
+    "sha256": "ced5d6919e32594bc0824d3fd507342b0b4bd36c98c5c8042be181758c9e1b05",
+    "new_source_receipts": 5,
+    "new_source_views": 11,
+    "source_rows_total": 21,
+    "contracts": 8,
+    "own_child_lock": "crates/fabelgeist-numpy-storage/Cargo.lock",
+    "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "authority_mutation": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "current_ledger_sha256": "eb1f8ff4e8343d438f67acad99897f4d0fc289d5eba2f601fd174e0dc486fa0c",
+    "current_selector_sha256": "fee279333370e2ba9b12caca2effac3bba8fd9bad56c0ef76b32d335bc8e1997",
+    "new_source_rows": 11,
+    "contract_proposals": 8,
+    "source004_report_schema_adapter": {
+      "original_new_source_views": 11,
+      "original_contracts": 8,
+      "ruleset_sha256": "5cb8c6544a0ee94132cc7a4f899d85e1b814c65a709d17720ad817bfe18f6722",
+      "original_report_fields_preserved": true
+    }
+  },
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-193.json",
+      "sha256": "c2f71ed0a54c4f6c6390d27574d6330aa22a2b97923b32d2f4083ce9373f0795"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-1116",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "actual_EOF": 6257,
+      "prospective_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:native-rawzip-own-crate-lock-authority:zip64-record-continuation",
+      "purpose": "Prospective actualownstandalonecrate lock/manifest, no rootworkspace resolution/installedversion assumption or cargoexecution.",
+      "fresh_personal_body_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "OwnLens11 actualfresh prospectivelyregistered untruncated current firstparty/child-crate-locked nativebody reads. Exactrestoredarchive/member/ownlockauthority, no inheritedpersonalread/currentverdict/package/parser/runtimeexecution; rootadoptionpending."
+    },
+    {
+      "registration": "PL11-1117",
+      "lens": 11,
+      "kind": "native-exact-child-crate-lock-restored-member",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+      "local_path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+      "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "actual_EOF": 1797,
+      "prospective_ranges": [
+        [
+          766,
+          863
+        ]
+      ],
+      "source_id": "native:rawzip@0.5.2:src/archive.rs:current-child-crate-NPY-NPZ-boundary:zip64-record-parse",
+      "purpose": "ExactcalledZIP64EndOfCentralDirectoryRecord::parse/from_parts fields/size/admission dependencyofregisteredLocator411; freshboundedsourceonly no archiveparse/runtime.",
+      "archive": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2.crate",
+      "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "archive_member": "rawzip-0.5.2/src/archive.rs",
+      "locked_package_checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "current_product_lock_path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "current_product_lock_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "lock_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "lock_registration": "PL11-1116",
+      "exact_archive_member_matches_local": true,
+      "restoration_provenance": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/MATERIAL-PROVENANCE.json",
+        "sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d"
+      },
+      "fresh_personal_body_ranges": [
+        [
+          766,
+          863
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          766,
+          863
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "OwnLens11 actualfresh prospectivelyregistered untruncated current firstparty/child-crate-locked nativebody reads. Exactrestoredarchive/member/ownlockauthority, no inheritedpersonalread/currentverdict/package/parser/runtimeexecution; rootadoptionpending."
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "L11-CURRENT-RAWZIP-ZIP64-CALLED-RECORD-OWNER",
+      "disposition": "Exactnativecalled ZIP64recorddependency complete registered766..863; no blanketarchivebody/currentcounts/alias/runtimeclearance.",
+      "trace": [
+        "Zip64EndOfCentralDirectoryRecord::parse830..856 requiresfixed56bytes831 beforeallslice-decoding, retainsu64 size/counts/directorysize/offset837..845 andchecksactualsignature848..853. HeaderVersion/zip64fixedmagic widths arenativeformatports, notapplicationcountnewtypes.",
+        "Zip64EndOfCentralDirectory::from_parts775..782 retains record.num_entries780 (perdiskfield811) distinctrecord.total_entries815, offset/dirsize/diroffset. Locatorown172 validatecandidate comparesbothclassic/zip64countfields423..425 withsentinelpolicyand recordend checked417..420. No assumptionallnativeu64valuesfitusize ormultiple-diskarchivepolicyfromunusedfields.",
+        "FieldsVersionMadeBy decoding838 andle_u64 nativeprimitiveoperations fixedbyteports; fullforeignversion/platform semantics notneededforactualcount/extentclaim. Actualnativeget_entry/directoryiter stillownsbytebounds/sourcearchive, registered192remainingunread."
+      ],
+      "first_failed_contract": "None established inexactcalledZIP64fixedrecord/sourceowner contract. Classic/ZIP64selection/countsemantics remainstatednativepolicy, notautomaticallocationlimit orverifiedactualentrycount.",
+      "canonical_owner": "Native rawzip Zip64EndOfCentralDirectoryRecord plusZipLocator consistency/offset admission; applicationArchiveMemberCountdeclaration upperbound remainsdistinct.",
+      "exact_function_ownership": [
+        "Zip64EndOfCentralDirectory::from_parts775..782",
+        "Zip64EndOfCentralDirectoryRecord::parse830..856",
+        "ActualcallerLocatorparse_zip64_candidate402..432 own172"
+      ],
+      "connected_repair_scope": "CompleteexistingnativeZIP64recordsourcequalificationonly; no repair or nativefieldwrappers/castpreservation/prosecompatibility imposed.",
+      "dependencies": [
+        "PLAN192 archive selectedentry/directory/header/error/extrafield bodies stillregisteredunread; no coverageforunregistered nativewholearchive tails.",
+        "Actualsingle/split-disk feature policy ifmaterialmustremainexplicit; no supportedmulti-diskwitness asserted."
+      ],
+      "acceptance_requirements": [
+        "Nativefixedrecordbyteavailability/signature/retainedwidefields andcalledconsistencychecks precise.",
+        "Declaredcount/actualdirectoryextent/nativeallocation roles remainseparate andqualified, no test/parser/runtimeexecuted."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "registered_unread_sources_as_recorded": [],
+  "completes_prior_registered_unread": null,
+  "source004_packet_time_unread_qualification": {
+    "original_field": "registered_unread_sources_at_packet",
+    "exact_prior_completed_scopes": [],
+    "historical_snapshot_and_cumulative_completion_preserved": true
+  },
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-1116",
+      "adopted_continuation_number": 3306,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:native-rawzip-own-crate-lock-authority:zip64-record-continuation",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1117",
+      "adopted_continuation_number": 3307,
+      "source_id": "native:rawzip@0.5.2:src/archive.rs:current-child-crate-NPY-NPZ-boundary:zip64-record-parse",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

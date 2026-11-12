@@ -1,0 +1,90 @@
+SOURCE rawzip-0.5.2/src/locator.rs:1-89
+   1 use crate::errors::{Error, ErrorKind};
+   2 use crate::utils::{le_u16, le_u32, le_u64};
+   3 use crate::{
+   4     END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE, Zip64EndOfCentralDirectory,
+   5     Zip64EndOfCentralDirectoryRecord, ZipFileHeaderFixed, ZipSliceArchive,
+   6 };
+   7 use core::num::NonZeroU64;
+   8 
+   9 const END_OF_CENTRAL_DIR_SIGNATURE: u32 = 0x06054b50;
+  10 #[cfg(any(feature = "std", test))]
+  11 pub(crate) const END_OF_CENTRAL_DIR_SIGNATURE_BYTES: [u8; 4] =
+  12     END_OF_CENTRAL_DIR_SIGNATURE.to_le_bytes();
+  13 
+  14 #[cfg(feature = "std")]
+  15 mod reader;
+  16 
+  17 // https://github.com/zlib-ng/minizip-ng/blob/55db144e03027b43263e5ebcb599bf0878ba58de/mz_zip.c#L78
+  18 const END_OF_CENTRAL_DIR_MAX_OFFSET: u64 = 1 << 20;
+  19 
+  20 /// Locates the End of Central Directory (EOCD) record in a ZIP archive.
+  21 ///
+  22 /// The `ZipLocator` is responsible for finding the EOCD record, which is
+  23 /// crucial for reading the contents of a ZIP file.
+  24 ///
+  25 /// In the event, that the comment or tailing data contains the EOCD signature,
+  26 /// causing the zip locator to fail to parse. One can reparse the data starting
+  27 /// from the false EOCD offset using the reported offset
+  28 /// [`Error::eocd_offset()`]
+  29 #[derive(Debug)]
+  30 pub struct ZipLocator {
+  31     max_search_space: u64,
+  32 }
+  33 
+  34 impl Default for ZipLocator {
+  35     fn default() -> Self {
+  36         Self::new()
+  37     }
+  38 }
+  39 
+  40 impl ZipLocator {
+  41     /// Creates a new `ZipLocator` with a default maximum search space of 1 MiB
+  42     pub fn new() -> Self {
+  43         ZipLocator {
+  44             max_search_space: END_OF_CENTRAL_DIR_MAX_OFFSET,
+  45         }
+  46     }
+  47 
+  48     /// Sets the maximum number of bytes to search for the EOCD signature.
+  49     ///
+  50     /// The search is performed backwards from the end of the data source.
+  51     ///
+  52     /// ```rust
+  53     /// use rawzip::ZipLocator;
+  54     ///
+  55     /// let locator = ZipLocator::new().max_search_space(1024 * 64); // 64 KiB
+  56     /// ```
+  57     pub fn max_search_space(mut self, max_search_space: u64) -> Self {
+  58         self.max_search_space = max_search_space;
+  59         self
+  60     }
+  61 
+  62     fn locate_in_byte_slice(&self, data: &[u8]) -> Result<EndOfCentralDirectory, Error> {
+  63         let max_search_space = self.max_search_space.min(data.len() as u64) as usize;
+  64         let location = find_end_of_central_dir_signature(data, max_search_space)
+  65             .ok_or(ErrorKind::MissingEndOfCentralDirectory)?;
+  66 
+  67         let mut eocd = self
+  68             .locate_in_byte_slice_impl(data, location)
+  69             .map_err(|e| e.with_eocd_offset(location as u64))?;
+  70 
+  71         // Transparently verify that the self reported central directory points
+  72         // to a valid entry. If it is not a valid entry, we can attempt to
+  73         // correct offsets when there is undeclared prelude data by testing if
+  74         // the central directory directly precedes the end of central directory
+  75         // marker, which should hold true in the vast majority of cases. If both
+  76         // checks fail, defer returning an error until the user explicitly wants
+  77         // to iterate through the central directory.
+  78         let first_entry = data
+  79             .get(eocd.central_dir_offset as usize..)
+  80             .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+  81 
+  82         match first_entry {
+  83             None if !eocd.is_zip64() => {
+  84                 let cd_offset = eocd.eocd_offset.saturating_sub(eocd.central_dir_size);
+  85 
+  86                 let first_entry = data
+  87                     .get(cd_offset as usize..)
+  88                     .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+  89 

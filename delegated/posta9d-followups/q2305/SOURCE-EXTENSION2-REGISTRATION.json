@@ -1,0 +1,67 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:49:09.952439+00:00",
+  "purpose": "Selected definitions of raised initialization, diagnostic mapping, and scheduled observer/capture order.",
+  "existing_source_ranges": [
+    {
+      "tag": "raised",
+      "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+      "additional_ranges": [
+        [
+          160,
+          195
+        ]
+      ]
+    },
+    {
+      "tag": "state",
+      "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+      "additional_ranges": [
+        [
+          430,
+          485
+        ]
+      ]
+    }
+  ],
+  "new_entries": [
+    {
+      "tag": "presentation",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "eof": 118,
+      "planned_ranges": [
+        [
+          65,
+          118
+        ]
+      ],
+      "capture": "sources/presentation.rs",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "historical_bytes_equal": false
+    },
+    {
+      "tag": "capture_schedule",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "planned_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "capture": "sources/capture_schedule.rs",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "historical_bytes_equal": true
+    }
+  ]
+}

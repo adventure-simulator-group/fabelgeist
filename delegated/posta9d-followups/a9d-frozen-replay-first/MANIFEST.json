@@ -1,0 +1,96 @@
+{
+  "schema": "726-a9d-frozen-replay-first-v1",
+  "files": [
+    {
+      "path": "DISCOVERY-AFTER.json",
+      "bytes": 119179,
+      "sha256": "589506997d36c90e8526c1c9357816c0db47ffffb572eb4cba4d61b3921ba8c6"
+    },
+    {
+      "path": "DISCOVERY-BEFORE.json",
+      "bytes": 119179,
+      "sha256": "589506997d36c90e8526c1c9357816c0db47ffffb572eb4cba4d61b3921ba8c6"
+    },
+    {
+      "path": "ENVIRONMENT.json",
+      "bytes": 648,
+      "sha256": "1b46d62ecb21c7d8412a92d7c773562ddd1fb43cd7ba219424df4b7fa752a161"
+    },
+    {
+      "path": "INITIAL-SCAN-digest.json",
+      "bytes": 1060,
+      "sha256": "329ba979ef0400870649e9dccb0981b93ad5005d35efd6091bee9cba7b596d6c"
+    },
+    {
+      "path": "INITIAL-SCAN-pattern.log",
+      "bytes": 83,
+      "sha256": "7868d87120fca26a7c41a5d2c213803d5b428c5d6b73f2e66bde5fad310d634b"
+    },
+    {
+      "path": "REPLAY-QUALIFICATION.json",
+      "bytes": 1261,
+      "sha256": "622d7c06539d254dc24386ee5bc16be064ee6cf86911ce8d4bf2c0a4e8e5437a"
+    },
+    {
+      "path": "RESULT.json",
+      "bytes": 1179,
+      "sha256": "0c7b725d0438340993bb791c015746970a8104de7c1fe3454cf840fa00a28eb0"
+    },
+    {
+      "path": "after/INVENTORY.json",
+      "bytes": 6535189,
+      "sha256": "7657b85398598a5c96f75ab607a38b8b341d71cbc9cba49c68901acfcee18545"
+    },
+    {
+      "path": "after/REGISTRATION.json",
+      "bytes": 596,
+      "sha256": "c9f4be70c84f3ff4dbd01097c94b9130ce439aec594ad87e1655bbd3223ac158"
+    },
+    {
+      "path": "after/RESULT.json",
+      "bytes": 612,
+      "sha256": "c5f2a9d42fab4accd1866a877991f160aa9b790631622c4ff175deb636aa881f"
+    },
+    {
+      "path": "after.log",
+      "bytes": 214,
+      "sha256": "d18c365deeecc0eeeeff16454799560106d92985141553f38cee2d2f7a09f30f"
+    },
+    {
+      "path": "before/INVENTORY.json",
+      "bytes": 6535189,
+      "sha256": "7657b85398598a5c96f75ab607a38b8b341d71cbc9cba49c68901acfcee18545"
+    },
+    {
+      "path": "before/REGISTRATION.json",
+      "bytes": 596,
+      "sha256": "b3065da388f3958491988b68dc7bb6f91a61faf2042139df1c343ee7ffc11cdd"
+    },
+    {
+      "path": "before/RESULT.json",
+      "bytes": 612,
+      "sha256": "c5f2a9d42fab4accd1866a877991f160aa9b790631622c4ff175deb636aa881f"
+    },
+    {
+      "path": "before.log",
+      "bytes": 214,
+      "sha256": "d18c365deeecc0eeeeff16454799560106d92985141553f38cee2d2f7a09f30f"
+    },
+    {
+      "path": "evidence.log",
+      "bytes": 152844,
+      "sha256": "3b18ff765be79713260afed4ea0b3dd21a931bd55d97f498b289f647ca82f4da"
+    },
+    {
+      "path": "proof.py.txt",
+      "bytes": 4461,
+      "sha256": "3573f2e8949cad3675b6e316991e26cd25d2684a0b3b9d1344023249ae4e95ce"
+    },
+    {
+      "path": "verify-tree.py.txt",
+      "bytes": 5007,
+      "sha256": "278a0d230afab83665881c89c6c34a8875e135c3ba2dfb611530fc8f9682c9a5"
+    }
+  ],
+  "qualification": "Manifest excludes itself; first replay has explicit assertion-environment limitation."
+}

@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-building-generator/src/generator/orchestration.rs:1-55
+   1 fn generate_unchecked(
+   2     program: &BuildingProgram,
+   3     edits: &[BuildingEdit],
+   4 ) -> Result<BuildingPlan, GenerationError> {
+   5     let mut plan = generate_structure(program, edits)?;
+   6     crate::heating::resolve(program, &mut plan)?;
+   7     Ok(plan)
+   8 }
+   9 
+  10 pub(crate) fn generate_structure(
+  11     program: &BuildingProgram,
+  12     edits: &[BuildingEdit],
+  13 ) -> Result<BuildingPlan, GenerationError> {
+  14     program.validate_church_program()?;
+  15     program.validate_workplace_edits(edits)?;
+  16     let (storeys, straight_stair_core) = occupied_storeys::generate_storeys(program, edits)?;
+  17 
+  18     let roofs = derive_roofs(program);
+  19     let roof_dormers = derive_roof_dormers(program);
+  20     let curtain_walls = derive_curtain_walls(program);
+  21     let gatehouse_assemblies = derive_gatehouse_assemblies(program);
+  22     let towers = derive_towers(program, &gatehouse_assemblies, &curtain_walls);
+  23     let square_towers = derive_square_towers(program);
+  24     let stairs = derive_stairs(program, &storeys, &towers, straight_stair_core.as_ref());
+  25     let battlements = derive_battlements(program);
+  26     let wall_walks = derive_wall_walks(program, &battlements, &towers);
+  27     let crowns = derive_crowns(program, &battlements, &towers);
+  28     let defensive_junctions = derive_defensive_junctions(&wall_walks);
+  29     let defensive_circuits = derive_defensive_circuits(program, &wall_walks);
+  30     let tower_portals = derive_tower_portals(program, &towers, &wall_walks, &defensive_junctions);
+  31     let mut resolved_geometry =
+  32         resolve_crown_geometry(&crowns, &wall_walks, &stairs, &tower_portals)?;
+  33     let gate_defenses = derive_gate_defenses(
+  34         program,
+  35         &gatehouse_assemblies,
+  36         &towers,
+  37         &curtain_walls,
+  38         &wall_walks,
+  39     );
+  40     let bartizans = derive_bartizans(program);
+  41     let projected_defenses = resolve_projected_defenses(
+  42         program,
+  43         &storeys,
+  44         &battlements,
+  45         &bartizans,
+  46         &mut resolved_geometry,
+  47     )?;
+  48     let (wall_assemblies, opening_assemblies) = resolve_storey_wall_assemblies(
+  49         program,
+  50         &storeys,
+  51         &projected_defenses,
+  52         &mut resolved_geometry,
+  53     )?;
+  54     let plan = BuildingPlan {
+  55         archetype: program.archetype,

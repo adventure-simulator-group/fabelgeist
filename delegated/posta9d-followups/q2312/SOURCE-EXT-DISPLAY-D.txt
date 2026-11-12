@@ -1,0 +1,62 @@
+SOURCE rawzip-0.5.2/src/archive.rs:1557-1617
+1557 pub(crate) struct ZipFileHeaderFixed {
+1558     pub signature: u32,
+1559     pub version_made_by: u16,
+1560     pub version_needed: u16,
+1561     pub flags: EntryFlags,
+1562     pub compression_method: CompressionMethod,
+1563     pub last_mod_time: u16,
+1564     pub last_mod_date: u16,
+1565     pub crc32: u32,
+1566     pub compressed_size: u32,
+1567     pub uncompressed_size: u32,
+1568     pub file_name_len: u16,
+1569     pub extra_field_len: u16,
+1570     pub file_comment_len: u16,
+1571     pub disk_number_start: u16,
+1572     pub internal_file_attrs: u16,
+1573     pub external_file_attrs: u32,
+1574     pub local_header_offset: u32,
+1575 }
+1576 
+1577 impl ZipFileHeaderFixed {
+1578     #[cfg(feature = "std")]
+1579     pub fn variable_length(&self) -> usize {
+1580         self.file_name_len as usize + self.extra_field_len as usize + self.file_comment_len as usize
+1581     }
+1582 }
+1583 
+1584 type VariableFields<'a> = (
+1585     &'a [u8], // file_name
+1586     &'a [u8], // extra_field
+1587     &'a [u8], // file_comment
+1588     &'a [u8], // rest of the data
+1589 );
+1590 
+1591 impl ZipFileHeaderFixed {
+1592     pub(crate) const SIZE: usize = 46;
+1593 
+1594     #[inline]
+1595     pub fn parse(data: &[u8]) -> Result<ZipFileHeaderFixed, Error> {
+1596         if data.len() < Self::SIZE {
+1597             return Err(Error::from(ErrorKind::Eof));
+1598         }
+1599 
+1600         let result = ZipFileHeaderFixed {
+1601             signature: le_u32(&data[0..4]),
+1602             version_made_by: le_u16(&data[4..6]),
+1603             version_needed: le_u16(&data[6..8]),
+1604             flags: EntryFlags::new(le_u16(&data[8..10])),
+1605             compression_method: CompressionMethod::new(le_u16(&data[10..12])),
+1606             last_mod_time: le_u16(&data[12..14]),
+1607             last_mod_date: le_u16(&data[14..16]),
+1608             crc32: le_u32(&data[16..20]),
+1609             compressed_size: le_u32(&data[20..24]),
+1610             uncompressed_size: le_u32(&data[24..28]),
+1611             file_name_len: le_u16(&data[28..30]),
+1612             extra_field_len: le_u16(&data[30..32]),
+1613             file_comment_len: le_u16(&data[32..34]),
+1614             disk_number_start: le_u16(&data[34..36]),
+1615             internal_file_attrs: le_u16(&data[36..38]),
+1616             external_file_attrs: le_u32(&data[38..42]),
+1617             local_header_offset: le_u32(&data[42..46]),

@@ -1,0 +1,50 @@
+SOURCE rawzip-0.5.2/src/locator.rs:62-110
+  62     fn locate_in_byte_slice(&self, data: &[u8]) -> Result<EndOfCentralDirectory, Error> {
+  63         let max_search_space = self.max_search_space.min(data.len() as u64) as usize;
+  64         let location = find_end_of_central_dir_signature(data, max_search_space)
+  65             .ok_or(ErrorKind::MissingEndOfCentralDirectory)?;
+  66 
+  67         let mut eocd = self
+  68             .locate_in_byte_slice_impl(data, location)
+  69             .map_err(|e| e.with_eocd_offset(location as u64))?;
+  70 
+  71         // Transparently verify that the self reported central directory points
+  72         // to a valid entry. If it is not a valid entry, we can attempt to
+  73         // correct offsets when there is undeclared prelude data by testing if
+  74         // the central directory directly precedes the end of central directory
+  75         // marker, which should hold true in the vast majority of cases. If both
+  76         // checks fail, defer returning an error until the user explicitly wants
+  77         // to iterate through the central directory.
+  78         let first_entry = data
+  79             .get(eocd.central_dir_offset as usize..)
+  80             .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+  81 
+  82         match first_entry {
+  83             None if !eocd.is_zip64() => {
+  84                 let cd_offset = eocd.eocd_offset.saturating_sub(eocd.central_dir_size);
+  85 
+  86                 let first_entry = data
+  87                     .get(cd_offset as usize..)
+  88                     .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+  89 
+  90                 if first_entry.is_some() {
+  91                     eocd.base_offset = cd_offset.saturating_sub(eocd.central_dir_offset);
+  92                     eocd.central_dir_offset = cd_offset;
+  93                 }
+  94 
+  95                 Ok(eocd)
+  96             }
+  97             _ => Ok(eocd),
+  98         }
+  99     }
+ 100 
+ 101     fn locate_in_byte_slice_impl(
+ 102         &self,
+ 103         data: &[u8],
+ 104         location: usize,
+ 105     ) -> Result<EndOfCentralDirectory, Error> {
+ 106         let eocd = EndOfCentralDirectoryRecordFixed::parse(&data[location..])?;
+ 107 
+ 108         // Validate comment is completely present in the slice
+ 109         let comment_start = location + EndOfCentralDirectoryRecordFixed::SIZE;
+ 110         let comment_len = eocd.comment_len as usize;

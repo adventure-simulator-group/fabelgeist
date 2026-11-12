@@ -1,0 +1,82 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Four historical metric bodies and selected current support, measurement and report connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1433-1436.json",
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "relationship": "Earlier 059 finding, plus separately attributed e275 Lens11 agent connections, newly reconnected to selected 95e source; no new unique finding or transfer to checkpoint 3821.",
+      "trace": "In the raised-leg IK path the pre-propagation solver records a support observation into both LegIkMemory and RaisedFootworkState. The PostUpdate chain runs that solver before TransformSystems::Propagate; a later registered observer runs after propagation. On its initialized raised-footwork path, it computes support again from propagated ankle and terrain, updating LegIkMemory support and raised solve targets, but not RaisedFootworkState support weights. LegIkState::diagnostics exposes the memory values. Capture in Last admits those IK diagnostics, then, when raised footwork is initialized, selects the separate raised weights for general FrameSample support while retaining IK support in separate optional fields. The pinned Bevy main schedule orders PostUpdate before Last by default.",
+      "conditional_case": "If an initialized raised foot has a successful earlier support value of one and successful post-propagation observation of zero, and no other intervening writer changes either field before capture, the general support field is one and the IK support field is zero for the same captured sample. This is a conditional state relation, not a demonstrated native hierarchy, rendered frame or whole report success. If observations agree there is no discrepancy; absent active IK support can instead reject admission.",
+      "consumers": "HTML labels general left/right support as world plants. The child slip metric selects general support at least 0.9 with small body turn; planted drift uses general support at the full-plant threshold; no-support duration and guard-step liveness also use those fields. The reported-support contact gate instead reads separate IK support. Biomechanics gates only apply plant slip/drift to certain non-authored, non-attack, non-stop world-plant scenarios; authored guard locomotion and other explicit exclusions must not be treated as failures.",
+      "limits": "Observer can skip for absent terrain, owner or state, errors, authored ownership, uninitialized step or missing foot; normal agreement, actual propagation changes, selected plan activation, native scheduling modifications and other report gates remain open. Earlier e275 parallel-review attribution and partial-range qualifications do not prove current or final checkpoint closure.",
+      "connected_repair": "If policy requires final visual support, propagate the actual post-propagation observation to its general measurement owner, keeping logical step/cadence separate and preserving explicit unavailable and disabled-mode behavior. Audit all consumers and aliases before repair.",
+      "later_acceptance": "After separate implementation and validation authorization, establish a supported initialized raised state whose propagated support differs from its earlier value and check general/IK fields and applicable metrics, alongside normal agreement and excluded modes.",
+      "discovery": "partial conditional source connection",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+      "relationship": "Same earlier finding and prior 95e yaw trace; new full metric-body inspection adds no unique finding.",
+      "trace": "Both per-leg bare yaw values are folded with f32::max from zero in maximum_knee_foot_yaw_offset. The scenario metric carries the result and the biomechanics gate checks it against 22.6 degrees only when procedural-leg gates apply. The prior 95e trace records the earlier absent-observation-to-zero producer.",
+      "limits": "Required report roles, finite captured bones, selected plan, artifacts and other gates remain independent. No supported present-bone unavailable-yaw scenario or accepted report was observed.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-8833b27cadc8e525c194",
+        "Q-L12-472886d422dd7355ecc4",
+        "Q-L12-ee5757edaf9f684cfd29",
+        "Q-L12-45f44abd2a3b00263047"
+      ],
+      "trace": "The parent metric and child modules use distinct missing-observation behavior: missing catastrophic hip/foot resets the local duration; height peaks demand at least three samples and the parent keeps only cycles spanning at least 0.8 phase; support slip requires both feet for each selected pair and explicitly returns an arithmetic error for a nonfinite computed distance. The report separately requires every mapped bone for every planned frame and finite captured bone components.",
+      "limits": "These checks do not alone establish complete valid terrain clearances, finite derived body-frame arithmetic, normalized native quaternion behavior, every metric window or a full accepted report. Large body turns intentionally exempt local support slip and have separate continuity gates. Each policy remains distinct and is not automatically merged with the raised-support mismatch.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-8833b27cadc8e525c194"
+      ],
+      "trace": "The existing reported-support contact validator returns true immediately for every quickstep scenario. A later quickstep-specific toe-contact condition in the same function is therefore unreachable on that path; the earlier independent Lens12 receipt explicitly recorded this local fact. Other conditionally exempt attack/action/FK modes and independent penetration/continuity gates remain.",
+      "limits": "The early quickstep exemption could be intentional. Its dead subbranch alone establishes no false overall certificate or required gameplay behavior; resolve the intended quickstep contact policy before proposing a repair. Tests were read only.",
+      "discovery": "partial policy question",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/bevy_app-0.19.1/MANIFEST.json",
+      "members": [
+        "bevy_app-0.19.1/src/main_schedule.rs"
+      ],
+      "ranges": [
+        [
+          214,
+          235
+        ]
+      ],
+      "qualification": "Pinned default schedule source only; no running schedule or feature resolution."
+    }
+  ],
+  "remaining": "Supported native discrepancy, complete metric windows, renderer/report behavior, all consumers, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

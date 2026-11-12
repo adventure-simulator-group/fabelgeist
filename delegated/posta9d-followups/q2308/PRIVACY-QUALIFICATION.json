@@ -1,0 +1,16 @@
+{
+  "recorded_at_utc": "2026-11-12T15:12:43.987468+00:00",
+  "status": "Both bounded pre-scans exited zero with no forbidden digest or selected path/email/credential candidates and no exceptions. A final scan covers the completed packet including this receipt and manifest.",
+  "pre_scan_inputs": "Packet regular files before these pre-scan receipts and manifest, including the exact copied ledger snapshot. Full original/reconstructed queues and raw commit anchors remain separately held and excluded.",
+  "limits": "Forty restricted-evidence-derived digests, selected credential/email/path patterns, bounded traversal and supported formats only; not a general privacy guarantee.",
+  "scan_scripts": [
+    {
+      "name": "scan-private-digests.py",
+      "sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917"
+    },
+    {
+      "name": "scan-patterns.py",
+      "sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad"
+    }
+  ]
+}

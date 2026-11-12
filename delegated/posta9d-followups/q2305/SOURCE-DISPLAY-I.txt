@@ -1,0 +1,101 @@
+### raised.rs:1-100
+1: //! Raised-guard stepping, support handoff, and stationary-turn ownership.
+2: 
+3: use super::*;
+4: 
+5: // Cascadeur's final ankle bones sit about 15 mm inside analytic targets after
+6: // the complete hierarchy solve. Keep a measured planning allowance so the
+7: // rendered bones, not merely abstract targets, retain the 0.16 m contract.
+8: 
+9: /// A world-space rendering of one server-authored guard swing.
+10: #[derive(Debug, Clone, Copy, PartialEq)]
+11: pub(in crate::animation::procedural) struct GuardSwing {
+12:     pub(super) start: Vec3,
+13:     pub(super) end: Vec3,
+14:     pub(super) progress: UnitInterval,
+15: }
+16: 
+17: /// The complete contact topology for raised-guard locomotion. Unlike the old
+18: /// collection of swing flags, plants, and pivot fields, every inhabited
+19: /// variant has at least one support foot and exactly identifies the other
+20: /// foot's role.
+21: #[derive(Component, Debug, Clone, Copy)]
+22: pub(crate) struct RaisedFootworkState {
+23:     pub(super) step: GuardStepState,
+24:     pub(super) step_sequence: ContactSequence,
+25:     pub(crate) left_support_weight: UnitInterval,
+26:     pub(crate) right_support_weight: UnitInterval,
+27:     pub(crate) left_solve_target: Option<Vec3>,
+28:     pub(crate) right_solve_target: Option<Vec3>,
+29:     pub(super) left_knee_bend_world: Option<Vec3>,
+30:     pub(super) right_knee_bend_world: Option<Vec3>,
+31:     pub(super) left_end_direction: Option<Vec3>,
+32:     pub(super) right_end_direction: Option<Vec3>,
+33: }
+34: #[derive(Debug, Clone, Copy)]
+35: pub(in crate::animation::procedural) struct GuardTargetRequest {
+36:     pub(super) left: Vec3,
+37:     pub(super) right: Vec3,
+38: }
+39: 
+40: #[derive(Debug, Clone, Copy)]
+41: pub(in crate::animation::procedural) struct GuardLegGeometry {
+42:     pub(super) hip: Vec3,
+43:     pub(super) maximum_reach: ReachLimit,
+44: }
+45: 
+46: /// A finite raised-guard IK request. A temporarily unreachable airborne target
+47: /// is lifted inside the leg's reach without changing its horizontal swing
+48: /// trajectory. The support target remains immutable and each leg solves
+49: /// independently, so one exhausted leg cannot cancel the other leg's swing.
+50: #[derive(Debug, Clone, Copy)]
+51: pub(in crate::animation::procedural) struct ValidatedGuardTargets {
+52:     pub(super) targets: GuardTargetRequest,
+53:     pub(super) adjusted_for_reach: bool,
+54: }
+55: 
+56: #[derive(Debug, Clone, Copy, Default, PartialEq)]
+57: pub(in crate::animation::procedural) enum GuardStepState {
+58:     #[default]
+59:     Uninitialized,
+60:     Stationary {
+61:         left: Vec3,
+62:         right: Vec3,
+63:         next: LeadFoot,
+64:     },
+65:     LeftSwing {
+66:         right_support: Vec3,
+67:         left: GuardSwing,
+68:     },
+69:     RightSwing {
+70:         left_support: Vec3,
+71:         right: GuardSwing,
+72:     },
+73: }
+74: 
+75: impl GuardStepState {
+76:     pub(super) fn initialized(self) -> bool {
+77:         !matches!(self, Self::Uninitialized)
+78:     }
+79: 
+80:     pub(super) fn swing_foot(self) -> Option<LeadFoot> {
+81:         match self {
+82:             Self::LeftSwing { .. } => Some(LeadFoot::Left),
+83:             Self::RightSwing { .. } => Some(LeadFoot::Right),
+84:             Self::Uninitialized | Self::Stationary { .. } => None,
+85:         }
+86:     }
+87: 
+88:     pub(super) fn progress(self) -> Option<UnitInterval> {
+89:         match self {
+90:             Self::LeftSwing { left, .. } => Some(left.progress),
+91:             Self::RightSwing { right, .. } => Some(right.progress),
+92:             Self::Uninitialized | Self::Stationary { .. } => None,
+93:         }
+94:     }
+95: 
+96:     pub(super) fn visual_targets(self) -> Option<GuardTargetRequest> {
+97:         match self {
+98:             Self::Uninitialized => None,
+99:             Self::Stationary { left, right, .. } => Some(GuardTargetRequest { left, right }),
+100:             Self::LeftSwing {

@@ -1,0 +1,26 @@
+import pathlib,json,hashlib,subprocess,sys
+assert sys.flags.optimize==0
+R=pathlib.Path('.'); P=R/'delegated/posta9d-followups/coordinator'; H=lambda b:hashlib.sha256(b).hexdigest(); enc=lambda j:(json.dumps(j,indent=2,ensure_ascii=False)+'\n').encode()
+head='a9d979e4f4fd84b797da89a33263d78604fe9224'
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==head
+old=lambda name:subprocess.check_output(['git','show',head+':'+name])
+base=json.loads(old('BASELINE-95E-20261110.json')); ledger=base['newly_assessed_ledger']['entries']; additions=json.loads((P/'LEDGER-RELATIONSHIPS-SNAPSHOT.json').read_bytes())['entries']
+assert len(ledger)==1034 and len(additions)==7 and all(isinstance(x,dict) and isinstance(x.get('id'),str) for x in ledger+additions)
+assert not ({x['id'] for x in ledger}&{x['id'] for x in additions}); ledger.extend(additions)
+assert (R/'BASELINE-95E-20261110.json').read_bytes()==enc(base)
+progress=json.loads(old('CONTINUATION-PROGRESS-95E.json')); assert progress['new_current_ledger_candidates']==1034 and progress['lenses_complete']==0 and progress['queue_records_semantically_reconciled']==0
+progress['new_current_ledger_candidates']=len(ledger); progress['central_posta9d_bounded_reconciliation']='ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json'; progress['a9d_same_machine_recovery_verification']='delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json'; progress['live_state_replay_review']='LIVE-STATE-REPLAY-QUALIFICATION-14A.json'
+assert (R/'CONTINUATION-PROGRESS-95E.json').read_bytes()==enc(progress)
+queue=json.loads(old('RECONCILIATION-059.json')); assert len(queue['entries'])==3713
+for i in (2304,2305,2308,2310,2311,2312,2313,2314,2315):
+ x=queue['entries'][i]; assert x['current_reconciliation']=='unassessed'; x['current_reconciliation']='partial original '+x['contract_id']+' connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit'
+assert (R/'RECONCILIATION-059.json').read_bytes()==enc(queue)
+oldcont=old('CONTINUATION.md').decode(); needle='`ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json` connects'; assert oldcont.count(needle)==1
+insertion=('`delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json` records the\n' 'same-machine recovery of the preceding checkpoint.\n\n' '`ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json` connects bounded capture, roof\n' 'and NPZ reviews to their separately attributed historical records. Its\n' 'relationships are not unique-defect counts or completed queue records.\n\n' '`LIVE-STATE-REPLAY-QUALIFICATION-14A.json` records the independent design\n' 'review, the qualified first frozen replay and the remaining safeguards.\n\n')
+assert (R/'CONTINUATION.md').read_text()==oldcont.replace(needle,insertion+needle,1)
+for src,dst in [('CENTRAL-REPORT-SNAPSHOT.json','ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json'),('LIVE-DESIGN-SNAPSHOT.json','LIVE-STATE-REPLAY-QUALIFICATION-14A.json')]: assert (R/dst).read_bytes()==(P/src).read_bytes()
+selections=[{'index':i,'contract_id':queue['entries'][i]['contract_id'],'current_reconciliation_at_snapshot':queue['entries'][i]['current_reconciliation']} for i in (2304,2305,2307,2308,2309,2310,2311,2312,2313,2314,2315,2316)]
+snap={'schema':'726-posta9d-time-bound-followup-snapshot-v1','source_revision':'95e63628f9d70b8dd6e6fede64334696c6995009','parent_published_checkpoint':head,'observed_counts':{'lenses':progress['lens_count'],'lenses_complete':progress['lenses_complete'],'queue_records':len(queue['entries']),'queue_semantically_reconciled':progress['queue_records_semantically_reconciled'],'current_ledger_entries_and_relationships':len(ledger)},'queue_selections':selections,'added_ledger_relationship_ids':[x['id'] for x in additions],'ledger_relationships_snapshot_sha256':H((P/'LEDGER-RELATIONSHIPS-SNAPSHOT.json').read_bytes()),'central_report_sha256':H((R/'ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json').read_bytes()),'live_design_qualification_sha256':H((R/'LIVE-STATE-REPLAY-QUALIFICATION-14A.json').read_bytes()),'qualification':'Time-bound current observations, not eternal live-state assertions. Ledger counts include relationships and conditional questions, not unique defects; historical, reconstructed and current work retain separate attribution. Final checkpoint3821 queue and ledger remain missing.','repair':'not started','product_validation':'not performed'}
+with (R/'FOLLOWUP-POSTA9D-EVIDENCE.json').open('xb') as f: f.write(enc(snap))
+print('Reconstructed and verified four partial writes against parent checkpoint and exact two report copies. Created missing snapshot only.')
+print('Ledger entries and relationships:',len(ledger),'; nine partial queue connections; all lenses and semantic queue remain open.')

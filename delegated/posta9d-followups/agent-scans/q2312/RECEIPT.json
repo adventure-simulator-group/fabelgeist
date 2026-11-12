@@ -1,0 +1,45 @@
+{
+  "recorded_at_utc": "2026-11-12T14:56:41.971429+00:00",
+  "packet_manifest_sha256": "9a063398de079cbbaebbf9c1c9e495b49ef412389985b3e75994aa5d09f7f88f",
+  "results": {
+    "verify": {
+      "exit_status": 0,
+      "stdout_sha256": "fb82634530e28047a28b924f30c0506cf96163cb43add70fd4d613cdf7c0cd42",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "digest-scan": {
+      "exit_status": 0,
+      "stdout_sha256": "df3f3acc6562ab7dc020437ab6c7b5cc83e3b178f2298f0ca4a89e019ec84597",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stats": {
+        "top_files": 126,
+        "views": 126,
+        "text_views": 115,
+        "cached_views": 3,
+        "binary_views": 11
+      },
+      "counts": {},
+      "forbidden_digest_total": 0,
+      "exceptions": 0
+    },
+    "pattern-scan": {
+      "exit_status": 0,
+      "stdout_sha256": "34300e9f4753dbfbba70b54374a97c61bd44f74d0831202e0dff852578f332f0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stats": {
+        "files": 126,
+        "views": 126
+      },
+      "counts": {
+        "local_home": 0,
+        "temporary_path": 0,
+        "windows_user": 0,
+        "email": 0,
+        "credential": 0
+      },
+      "forbidden_digest_total": null,
+      "exceptions": 0
+    }
+  },
+  "qualification": "Independent receipt covers final complete packet including its manifest, not excluded raw original anchors, queues or native source archive."
+}

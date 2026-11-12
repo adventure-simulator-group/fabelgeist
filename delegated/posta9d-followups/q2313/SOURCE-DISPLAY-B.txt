@@ -1,0 +1,46 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npz.rs:66-110
+  66     pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
+  67         self.get(name)
+  68             .with_context(|| format!("archive has no member {name:?}"))?
+  69             .array()
+  70     }
+  71 }
+  72 
+  73 impl NpzMember<'_> {
+  74     pub fn name(&self) -> &ArchiveMemberName {
+  75         self.member.name()
+  76     }
+  77 
+  78     /// The directory's declared size, without payload verification.
+  79     pub fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+  80         self.member.uncompressed_size()
+  81     }
+  82 
+  83     pub fn array(&self) -> Result<NpyArray> {
+  84         let bytes = self.member.bytes()?;
+  85         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
+  86     }
+  87 }
+  88 
+  89 #[cfg(test)]
+  90 mod tests {
+  91     use super::*;
+  92     use std::io::Write;
+  93 
+  94     const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
+  95     const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
+  96     const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
+  97 
+  98     /// Builds a minimal stored-member zip so the reader can be tested without
+  99     /// depending on an external archiver.
+ 100     fn zip(members: &[(&str, Vec<u8>)]) -> Vec<u8> {
+ 101         let mut out = Vec::new();
+ 102         let mut directory = Vec::new();
+ 103         for (name, payload) in members {
+ 104             let offset = out.len() as u32;
+ 105             let crc = 0u32;
+ 106             out.extend_from_slice(&LOCAL_FILE_HEADER.to_le_bytes());
+ 107             out.extend_from_slice(&[20, 0, 0, 0, 0, 0, 0, 0, 0, 0]); // version, flags, method, time, date
+ 108             out.extend_from_slice(&crc.to_le_bytes());
+ 109             out.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 110             out.extend_from_slice(&(payload.len() as u32).to_le_bytes());

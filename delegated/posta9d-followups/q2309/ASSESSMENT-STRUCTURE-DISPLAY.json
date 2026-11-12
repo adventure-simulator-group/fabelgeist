@@ -1,0 +1,104 @@
+[
+  {
+    "file": "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
+    "top_level": {
+      "schema": {
+        "type": "str",
+        "chars": 49
+      },
+      "source_revision": {
+        "type": "str",
+        "chars": 42
+      },
+      "evidence_checkpoint": {
+        "type": "str",
+        "chars": 38
+      },
+      "source_roles": {
+        "type": "str",
+        "chars": 42
+      },
+      "partial_lock": {
+        "type": "str",
+        "chars": 40
+      },
+      "delegated_observations": {
+        "type": "list",
+        "chars": 24503
+      },
+      "central_decisions": {
+        "type": "list",
+        "chars": 2512
+      },
+      "open": {
+        "type": "str",
+        "chars": 123
+      },
+      "repair": {
+        "type": "str",
+        "chars": 13
+      },
+      "validation": {
+        "type": "str",
+        "chars": 15
+      }
+    },
+    "total": 4,
+    "matches": [
+      {
+        "pointer": "/delegated_observations/6/finding/id",
+        "chars": 46
+      },
+      {
+        "pointer": "/delegated_observations/6/finding/historical_relationship",
+        "chars": 392
+      },
+      {
+        "pointer": "/delegated_observations/6/finding/condition_and_reasoning",
+        "chars": 592
+      },
+      {
+        "pointer": "/delegated_observations/6/finding/limits",
+        "chars": 510
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "file": "ASSESSMENT-DELEGATED-SOURCE-ROLES-5.json",
+    "top_level": {
+      "schema": {
+        "type": "str",
+        "chars": 31
+      },
+      "lens": {
+        "type": "int",
+        "chars": 1
+      },
+      "historical_source_roles": {
+        "type": "list",
+        "chars": 25241
+      },
+      "qualification": {
+        "type": "str",
+        "chars": 415
+      },
+      "evidence": {
+        "type": "str",
+        "chars": 38
+      },
+      "next_project_source_role": {
+        "type": "int",
+        "chars": 4
+      }
+    },
+    "total": 1,
+    "matches": [
+      {
+        "pointer": "/historical_source_roles/3/historical_attribution_qualification",
+        "chars": 208
+      }
+    ],
+    "omitted": 0
+  }
+]

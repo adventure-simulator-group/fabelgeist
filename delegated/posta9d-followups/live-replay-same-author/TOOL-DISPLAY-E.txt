@@ -1,0 +1,62 @@
+### recovered-clone.py:7131-7151
+7131: native_bundle = l13_719_dir / "bevy-eidolon-native.bundle"
+7132: if hashlib.sha256(native_bundle.read_bytes()).hexdigest() != l13_719["native_git_bundle_sha256"]:
+7133:     raise ValueError("Lens 13 root 719 native Git bundle mismatch")
+7134: native_commit = "1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+7135: if l13_719["native_git_commit"] != native_commit or l13_719["native_git_source_originals"] != list(range(2790, 2798)):
+7136:     raise ValueError("Lens 13 root 719 native Git revision mismatch")
+7137: lock = tomllib.loads((l13_719_dir / l13_719["frozen_lock_sha256"]).read_text(encoding="utf-8"))
+7138: native_package = next(x for x in lock["package"] if x["name"] == "bevy_eidolon" and x["version"] == "0.5.0")
+7139: if not native_package["source"].endswith("#" + native_commit):
+7140:     raise ValueError("Lens 13 root 719 native Git lock pin mismatch")
+7141: with tempfile.TemporaryDirectory(prefix=".726-native-git-", dir=root) as directory:
+7142:     git_dir = Path(directory) / "source.git"
+7143:     subprocess.run(["git", "clone", "--quiet", "--bare", str(native_bundle), str(git_dir)], check=True)
+7144:     if subprocess.check_output(["git", "--git-dir", str(git_dir), "rev-parse", "refs/heads/master"], text=True).strip() != native_commit:
+7145:         raise ValueError("Lens 13 root 719 native Git bundle ref mismatch")
+7146:     for source in l13_719_reg["sources"]:
+7147:         if source["original"] in range(2790, 2798):
+7148:             path = source["source_id"].split("/", 1)[1]
+7149:             data = subprocess.check_output(["git", "--git-dir", str(git_dir), "show", native_commit + ":" + path])
+7150:             if data != (l13_719_dir / source["sha256"]).read_bytes():
+7151:                 raise ValueError("Lens 13 root 719 native Git object mismatch")
+### p17-recovery.py:1-39
+1: import gzip,hashlib,io,json,os,subprocess,tarfile,tempfile
+2: from pathlib import Path
+3: os.environ['GIT_CONFIG_NOSYSTEM']='1';os.environ['GIT_CONFIG_GLOBAL']='/dev/null';os.environ['GIT_ATTR_NOSYSTEM']='1'
+4: R=Path(__file__).resolve().parent;O=R/'recovered/p17-patch-recovery';record=json.loads((R/'RECOVERY-REPORT-P17-PATCH-20261112.json').read_text());raw=(O/'git-delta-proof.tar.gz').read_bytes();sha=lambda b:hashlib.sha256(b).hexdigest();oid=lambda k,b:hashlib.sha1(k.encode()+b' '+str(len(b)).encode()+b'\0'+b).hexdigest()
+5: with tarfile.open(fileobj=io.BytesIO(raw),mode='r:gz') as t:
+6:  files=t.getmembers();assert all(x.isfile() and not x.name.startswith('/') and '..' not in Path(x.name).parts for x in files);data={x.name:t.extractfile(x).read() for x in files};assert len(files)==len(data)
+7: assert (sha(raw),len(raw))==(record['git_tree_delta_proof']['sha256'],record['git_tree_delta_proof']['bytes'])
+8: d=json.loads(data['proof.json']);objects={}
+9: for h,x in d['objects'].items():
+10:  b=data[x['archive']];assert len(b)==x['bytes'] and sha(b)==x['sha256'] and oid(x['type'],b)==h;objects[h]=(x['type'],b)
+11: assert set(data)=={'proof.json'}|{x['archive'] for x in d['objects'].values()}
+12: for k in ('base','head'):assert objects[d[k]][1].splitlines()[0]==b'tree '+d[k+'_tree'].encode()
+13: def ents(b):
+14:  out={};i=0
+15:  while i<len(b):
+16:   z=b.index(b'\0',i);mode,name=b[i:z].split(b' ',1);out[name.decode()]=(mode.decode().lstrip('0'),b[z+1:z+21].hex());i=z+21
+17:  assert i==len(b);return out
+18: leaves=[]
+19: def walk(a,b,path):
+20:  left=ents(objects[a][1]) if a else {};right=ents(objects[b][1]) if b else {}
+21:  for name in sorted(left.keys()|right.keys()):
+22:   x=left.get(name);y=right.get(name)
+23:   if x==y:continue
+24:   p=path+name
+25:   if (x and x[0]=='40000') or (y and y[0]=='40000'):
+26:    assert not x or x[0]=='40000';assert not y or y[0]=='40000';walk(x[1] if x else None,y[1] if y else None,p+'/')
+27:   else:
+28:    for q in (x,y):
+29:     if q:assert q[0]=='100644' and objects[q[1]][0]=='blob'
+30:    leaves.append({'path':p,'base':{'mode':x[0],'blob':x[1]} if x else None,'head':{'mode':y[0],'blob':y[1]} if y else None})
+31: walk(d['base_tree'],d['head_tree'],'');assert leaves==d['changed_paths'] and len(leaves)==32
+32: with tempfile.TemporaryDirectory(prefix='726-p17-proof-') as tmp:
+33:  subprocess.run(['git','init','--bare','--quiet',tmp],check=True)
+34:  for h,(k,b) in sorted(objects.items(),key=lambda pair: {'blob':0,'tree':1,'commit':2}[pair[1][0]]):
+35:   p=subprocess.run(['git','--git-dir',tmp,'hash-object','-w','-t',k,'--stdin'],input=b,stdout=subprocess.PIPE,check=True);assert p.stdout.decode().strip()==h
+36:  out=subprocess.check_output(['git','--git-dir',tmp,'-c','core.quotePath=true','diff','--binary','--abbrev=9',d['base'],d['head']])
+37: registry=json.loads(gzip.decompress((R/record['registry']).read_bytes()));snapshot=next(x for x in registry['snapshots'] if x['id']=='report-p17');assert snapshot['base']==d['base']==record['recorded_base'] and snapshot['head']==d['head']==record['recorded_head'] and snapshot['status_porcelain']==record['recorded_status_porcelain']==[] and snapshot['changed_variants']==record['recorded_changed_variants']==len(leaves) and snapshot['meaning']==record['recorded_meaning']
+38: patch=(O/'tracked.patch').read_bytes();assert snapshot['patch_sha256']==record['recovered_patch']['sha256'] and len(patch)==record['recovered_patch']['bytes'];assert out==patch and len(patch)==268281 and sha(patch)=='3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd'
+39: print('Verified 85 Git objects, complete 32-path tree delta and exact P17 patch reproduction in a temporary object-only repository; original invocation and current cleanliness remain unknown.')

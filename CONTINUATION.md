@@ -4,7 +4,7 @@ This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
 2026-11-10 and rechecked on 2026-11-12
-(`MAIN-RECHECK-20261112-1510.json`).
+(`MAIN-RECHECK-20261112-1604.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -15,6 +15,18 @@ product validation is authorized here.
 
 `delegated/checkpointc7dc-verification/RECOVERY-RECORD.json` records the
 same-machine recovery of the preceding published checkpoint.
+
+`delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json` records the
+same-machine recovery of the preceding checkpoint.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json` connects bounded capture, roof
+and NPZ reviews to their separately attributed historical records. Its
+relationships are not unique-defect counts or completed queue records.
+
+`LIVE-STATE-REPLAY-QUALIFICATION-14A.json` records the independent design
+review, the qualified first frozen replay and the remaining safeguards.
+`delegated/a9d-assert-enabled-replay/RESULT.json` records the later
+assertion-controlled same-machine replay, with its remaining limits.
 
 `ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json` connects the separately
 attributed authored-plane, readiness, NPY, NPZ and conditional blood-timing

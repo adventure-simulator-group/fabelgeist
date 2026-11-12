@@ -1,0 +1,97 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-5.json",
+  "delegated_observation_6": {
+    "agent": "/root/rig_identity",
+    "report": "delegated/crate-metadata-report.json",
+    "finding": {
+      "id": "REVIEW-L11-NPZ-OWN-CRATE-NATIVE-LOCK-AUTHORITY",
+      "kind": "recovered 059 scoped nonfinding, newly verified exact evidence",
+      "historical_relationship": "059 queue index 2309 has disposition rejected-suspicion-source-qualified, limited to the named child lock/native scope, with all-lens closure false and repair/runtime not passed. Original Lens11 READ-172 planned e275 manifest 1\u201326, lock 2159\u20132168/3263\u20133270/4304\u20134308 and native locator 1\u2013531; segovb READ-L11-708 records historical adoption. No historical read is attributed to this delegate.",
+      "source": [
+        "crates/fabelgeist-numpy-storage/Cargo.toml:8-20",
+        "crates/fabelgeist-numpy-storage/Cargo.lock:2099-2108,4305-4308",
+        "Cargo.toml:51-60",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:1-4,86-106,160-181",
+        "historical-059/parallel-l11-20261029/READ-172.json",
+        "historical-059/parallel-l11-20261029/PLAN-192.json"
+      ],
+      "condition_and_reasoning": "The 95e child manifest declares an independent workspace and exact rawzip =0.5.2; the root workspace excludes this crate. The actual child lock records rawzip 0.5.2 checksum ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c. Its full lock SHA-256 33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89 equals the e275 lock identified by the earlier receipt. This delegate verified the copied historical rawzip archive matches that checksum and five copied source members match exact archived bytes. Current source names rawzip for ZIP framing and flate2 for decoding.",
+      "limits": "The archive checksum is verified against the project lock; no registry signature or external provenance conclusion. This delegate did not display native rawzip bodies or execute Cargo, dependency resolution, parser, fixtures or product. Earlier receipt READ-172 packet-time unread fields are preserved; later READ-173\u2013176 report further distinct reads and must not be collapsed into the earlier packet. The lock source represents recorded dependency selection, not an actual build or feature-unification proof.",
+      "future_repair_acceptance": "No repair for the rejected native-lock suspicion on this evidence; retain independent unread native/consumer and all-lens obligations. Any future dependency changes should preserve reviewed lock identity and source context, with product verification only after authorization."
+    }
+  },
+  "central_decisions": [
+    "For role2313 the new delegate personally displayed only 195/7093 historical and 198/7102 current lock lines. Exact whole bytes and metadata indexing are not a full read. Earlier 6533 Adler370 and Lens12 delegate762 full lock reads and e275 Lens11 1\u2013150 retain their own authors and revisions.",
+    "q2309 is the historical NPZ child-lock scoped rejected suspicion, not source role2309. The 95e child lock matches the e275 lock and its rawzip archive checksum and five exact members verify; this is not build, dependency-resolution, signature, native body-read or runtime evidence. The 059 provenance member is publicly path-redacted and its exact original is recoverable from pinned 059 transport.",
+    "The strategic character snapshot q179 remains a conditional interleaving question: cache readiness does not itself prove a shared snapshot with the separately queried clocks or private location; no disclosure is observed.",
+    "A treatment event between two chart observations is selected for display using only the first/last range, including a recorded observation gap. Whether that event may be revealed in the gap or at an insufficient observation band is an open policy question, not an established runtime disclosure; q193 failure-vs-empty and q459 dose admission remain distinct.",
+    "The life-only projection calls a broader character query including private case-site validation, and selected dialogue callers choose alive on any resulting error. This remains conditional on failing that unrelated read and actual chronology; relate q181/q458 without automatic alias or observed outcome.",
+    "Rig first-match documentation is correct for index_in; tactical equipment constructs a name-to-entity map with a potentially different duplicate policy. q1284 remains a distinct producer/admission question and actual duplicate reachability is unproved.",
+    "MHR README/API normal wording relates to the existing tiny-triangle-normal row, not a new automatic unique finding. Its forward comment says fixed 204 while current admission uses model-specific P; this is a conditional documentation question, not a tensor result.",
+    "MHR URI reads can select direct or nested assets independently for each file; whether same-cohort identity is required remains open. q421/q422 and upstream q311/q312 preserve their distinct erased-cause contracts and actual first-failure boundaries.",
+    "No whole lens, queue closure, product implementation, build, dependency resolution, tests, shader execution or validation is claimed."
+  ],
+  "open": "Actual accepted data, observer access policy, producer/consumer inventory, native outcome and global aliases remain open.",
+  "repair": "not started",
+  "validation": "not performed",
+  "source_role_3": {
+    "original_index": 2326,
+    "source_id": "pr-working:crates/fabelgeist-numpy-storage/Cargo.toml",
+    "snapshot": "pr-working",
+    "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "scope_kind": "frozen_requested_change",
+    "registry_pointer": "/files/2326",
+    "sha256": "8ef22429cd59cffcebbdcb08b0b646a6f5b0714736087c0787ddd4d417518599",
+    "lines": 24,
+    "prior_role_status": "unassessed",
+    "new_personal_read_ranges": [
+      [
+        1,
+        24
+      ]
+    ],
+    "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "new_personal_read_attribution": "/root/rig_identity",
+    "new_personal_read_qualification": "Both full revision bodies personally displayed after separate prospective registration. Equality does not transfer earlier reviewer, independent-lens or checkpoint3821 credit.",
+    "local_registration": {
+      "path": "REGISTRATION-DELEGATE-CRATE-METADATA.json",
+      "sha256": "237ee399eacabefbd9126ff7748a7446f5e6689d15129f49e20310323c1415a2"
+    },
+    "original_supplier_scopes": [
+      {
+        "supplier": "root",
+        "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+        "row": 20,
+        "read_ranges": [
+          [
+            1,
+            24
+          ]
+        ]
+      }
+    ],
+    "original_producer_scopes": [],
+    "current_comparison": {
+      "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+      "git_blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4",
+      "bytes": 954,
+      "lines": 31,
+      "current_personal_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "byte_identical": false,
+      "evidence_archive": "delegated/crate-metadata-evidence.tar.gz",
+      "qualification": "Both full revision bodies personally displayed after separate prospective registration. Named delegate, not a root personal read."
+    },
+    "qualification": "Named delegated full-body source evidence and revision scope retained; connected work remains open.",
+    "historical_attribution_qualification": "Historical 6533 manifest differs from current 95e. Separate 059 Lens11 reviewer\u2019s e275 manifest and child lock remain e275 evidence; the later selected own-lock native nonfinding is q2309, not role index2309."
+  },
+  "source_role_qualification": "Fifth current-session delegated source batch adopted centrally, with named reviewers and exact revisions. Web-data bodies were current-only reads of identical historical bytes. MHR lock2313 is separately partial in ASSESSMENT-DELEGATED-MHR-LOCK-95E.json, not a full body read. No root-personal read, independent-lens transfer, queue closure or checkpoint3821 credit. Registration times not independently attested."
+}

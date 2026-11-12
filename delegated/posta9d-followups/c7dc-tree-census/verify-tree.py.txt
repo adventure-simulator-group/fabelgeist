@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+"""Compare an evidence checkout's unfiltered bytes, modes and paths to Git."""
+import pathlib,subprocess,os,stat,hashlib,json,sys,datetime
+root=pathlib.Path(sys.argv[1]).resolve();out=pathlib.Path(sys.argv[2]).resolve();expected='c7dc76868c73991af5209e61cc664652b0a8d025'
+def git(*a):return subprocess.check_output(['git','-C',str(root),*a])
+head=git('rev-parse','HEAD').decode().strip();assert head==expected
+raw=git('ls-tree','-rz','--full-tree',head);entries=[];expected_dirs=set()
+for rec in raw.split(b'\0'):
+ if not rec:continue
+ meta,name=rec.split(b'\t',1);mode,typ,oid=meta.decode().split();path=os.fsdecode(name);entries.append((path,mode,typ,oid));parts=pathlib.PurePosixPath(path).parts
+ for i in range(1,len(parts)):expected_dirs.add(pathlib.PurePosixPath(*parts[:i]).as_posix())
+assert len({x[0] for x in entries})==len(entries)
+reg={'registered_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'checkpoint':head,'tree':git('rev-parse',head+'^{tree}').decode().strip(),'scope':'Compare every tracked Git tree path, mode and unfiltered blob byte with one separate same-machine checkout; list filesystem additions excluding the checkout Git administration directory. Automated byte inspection only, no source-read or semantic credit.','qualification':'Does not prove independent custody, complete dynamic dependency discovery, privacy clearance, audit correctness or product behavior.'}
+(out/'REGISTRATION.json').write_text(json.dumps(reg,indent=2)+'\n');observed=set();dirs_seen=set()
+for directory,dirs,files in os.walk(root,followlinks=False):
+ d=pathlib.Path(directory)
+ if d==root and '.git' in dirs:dirs.remove('.git')
+ for name in list(dirs):
+  f=d/name;rel=f.relative_to(root).as_posix()
+  if f.is_symlink():observed.add(rel);dirs.remove(name)
+  else:dirs_seen.add(rel)
+ for name in files:
+  if d==root and name=='.git':continue
+  observed.add((d/name).relative_to(root).as_posix())
+expected_paths={x[0] for x in entries};errors=[];rows=[];extra=sorted(observed-expected_paths);missing=sorted(expected_paths-observed);extra_dirs=sorted(dirs_seen-expected_dirs)
+proc=subprocess.Popen(['git','-C',str(root),'cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+for path,mode,typ,oid in entries:
+ if typ!='blob':errors.append({'path':path,'reason':'non-blob tree entry','mode':mode,'type':typ});continue
+ f=root/path
+ if not (f.exists() or f.is_symlink()):continue
+ st=f.lstat()
+ if mode=='120000':
+  if not stat.S_ISLNK(st.st_mode):errors.append({'path':path,'reason':'expected symlink'});continue
+  content=os.fsencode(os.readlink(f));reader=None;size=len(content)
+ elif mode in ('100644','100755'):
+  if not stat.S_ISREG(st.st_mode):errors.append({'path':path,'reason':'expected regular file'});continue
+  if bool(st.st_mode & stat.S_IXUSR)!=(mode=='100755'):errors.append({'path':path,'reason':'executable mode differs'})
+  reader=f.open('rb');content=None;size=st.st_size
+ else:errors.append({'path':path,'reason':'unknown mode','mode':mode});continue
+ proc.stdin.write((oid+'\n').encode());proc.stdin.flush();hdr=proc.stdout.readline().decode().split();assert len(hdr)==3 and hdr[0]==oid and hdr[1]=='blob';git_size=int(hdr[2]);remaining=git_size;digest=hashlib.sha256();match=(size==git_size);offset=0
+ while remaining:
+  chunk=proc.stdout.read(min(1024*1024,remaining));assert chunk;remaining-=len(chunk);digest.update(chunk)
+  if reader is not None:actual=reader.read(len(chunk))
+  else:actual=content[offset:offset+len(chunk)];offset+=len(chunk)
+  if chunk!=actual:match=False
+ assert proc.stdout.read(1)==b'\n'
+ if reader is not None:
+  if reader.read(1):match=False
+  reader.close()
+ if not match:errors.append({'path':path,'reason':'blob bytes or size differ'})
+ rows.append({'path':path,'mode':mode,'oid':oid,'bytes':git_size,'sha256':digest.hexdigest(),'byte_identical':match})
+proc.stdin.close();assert proc.wait()==0
+inventory=json.dumps({'checkpoint':head,'files':rows},separators=(',',':'),ensure_ascii=True).encode()+b'\n';(out/'INVENTORY.json').write_bytes(inventory)
+result={'checkpoint':head,'expected_tree_entries':len(entries),'compared_blob_entries':len(rows),'total_blob_bytes':sum(x['bytes'] for x in rows),'missing_paths':missing,'extra_files_or_symlinks':extra,'extra_directories':extra_dirs,'errors':errors,'inventory_sha256':hashlib.sha256(inventory).hexdigest(),'qualification':'Same-machine exact byte and tracked-mode comparison. Git administration excluded; extra directories may matter to dynamic discovery even if empty. No source text was displayed, no product ran and independent custody is not established.'};(out/'RESULT.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'entries':len(entries),'compared':len(rows),'blob_bytes':result['total_blob_bytes'],'missing':len(missing),'extra_files':len(extra),'extra_dirs':len(extra_dirs),'errors':len(errors),'inventory_sha256':result['inventory_sha256']}),flush=True);raise SystemExit(bool(missing or extra or extra_dirs or errors))

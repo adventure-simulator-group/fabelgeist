@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-building-generator/src/generator.rs:1-65
+   1 #![allow(clippy::too_many_arguments)]
+   2 
+   3 use std::collections::{BTreeMap, BTreeSet, HashSet, VecDeque};
+   4 
+   5 use bevy::math::{Vec2, Vec3};
+   6 use geo::{BooleanOps, Coord, LineString, MultiPolygon, Polygon};
+   7 use thiserror::Error;
+   8 
+   9 use crate::spatial_geometry::{CuboidDimensions, PlanDimensions, Position, Radians};
+  10 
+  11 use crate::{
+  12     AccessBrace, AccessDoor, AccessGuardSegment, AccessLanding, AccessLedger, AccessStairFlight,
+  13     Architectural, AuditIssue, BUILDING_DOCUMENT_SCHEMA_VERSION, Bartizan, BattlementKind,
+  14     BattlementRun, BuildingArchetype, BuildingDocument, BuildingEdit, BuildingPlan,
+  15     BuildingProgram, CELL_SIZE_METRES, CROWN_DRAIN_CHANNEL_WIDTH_METRES, Cell, CellDiameter,
+  16     CollisionCuboid, CrownAssembly, CrownJunction, CrownJunctionKind, CrownMaterial, CrownPath,
+  17     CrownPattern, CrownPhase, CrownProfile, CurtainWallRun, DefenderSample, DefensiveCircuit,
+  18     DefensiveJunction, DefensiveJunctionKind, Direction, DormerKind, DrainageCatchment,
+  19     DrainageRoute, FiringPosition, Footprint, GRID_UNIT_METRES, GableProfile, GateClosure,
+  20     GateClosureKind, GateDefense, GateGuardChamber, GateOperatingPosition, GatehouseAssemblySpec,
+  21     GatehouseLoadPath, GeometryOwnerId, GridLength, GridPoint, GuardChamberAccess,
+  22     GuardChamberOpening, GuardChamberSupport, GuardOpeningKind, InnerEdgeTreatment, JunctionBond,
+  23     Opening, OpeningKind, ProjectedDefenseAssembly, ProjectedDefenseDeployment,
+  24     ProjectedDefenseHostTopology, ProjectedDefenseHostWallSource, ProjectedDefenseKind,
+  25     ProjectedDefenseMaterial, ProjectedDefensePath, ProjectedDefensePhase, ProjectedDefenseRange,
+  26     ProjectedDefenseRay, ProjectedDefenseTarget, ProjectedDefenseWorkingPoint, ResolvedGeometry,
+  27     ResolvedItemId, ResolvedSolid, ResolvedSurface, ResolvedVoid, RidgeAxis, RoofAbutmentAssembly,
+  28     RoofAbutmentKind, RoofAbutmentSample, RoofAssembly, RoofAssemblyId, RoofChildAssembly,
+  29     RoofChildKind, RoofDormer, RoofDrainageDisposition, RoofDrainageNetwork,
+  30     RoofDrainageOutletStation, RoofDrainageRecipient, RoofDrainageSample, RoofEdge, RoofEdgeKind,
+  31     RoofEditError, RoofEnclosureFace, RoofFace, RoofFootprintLoop, RoofKind, RoofMaterial,
+  32     RoofPhase, RoofPiece, RoofPivotPolicy, RoofPlaneEquation, Room, RoomIndex, RoomKind,
+  33     RoomRequirement, RoundTower, SolidRole, SpatialBounds, SquareTower, Stair, StoreyIndex,
+  34     StoreyPlan, StructuralNodeId, StructuralNodeKind, SupportInterface, SurfaceRole,
+  35     TowerChordInterface, TowerPortal, TowerPortalKind, TraversalEnvelope,
+  36     VerticalConnectionRequirement, VoidRole, WallWalk,
+  37 };
+  38 
+  39 include!("generator/core.rs");
+  40 include!("generator/orchestration.rs");
+  41 include!("generator/timber_geometry.rs");
+  42 include!("generator/timber.rs");
+  43 include!("generator/roof_editing.rs");
+  44 include!("generator/layout.rs");
+  45 mod architectural_envelope;
+  46 mod artillery_route_geometry;
+  47 mod bell_hanging;
+  48 mod church_ground;
+  49 mod church_window_schedule;
+  50 mod civilian_roofs;
+  51 mod door_profile;
+  52 mod dormer_layout;
+  53 mod entrances;
+  54 mod floor_stations;
+  55 mod fortified_envelope;
+  56 mod framed_roofs;
+  57 mod gable_enclosure;
+  58 mod gable_openings;
+  59 mod heated_rooms;
+  60 mod occupied_storeys;
+  61 mod opening_jambs;
+  62 mod room_allocation;
+  63 mod room_connections;
+  64 mod stair_landing;
+  65 pub use heated_rooms::ReservationFailure;

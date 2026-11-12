@@ -1,0 +1,23 @@
+import json,pathlib,hashlib,subprocess
+r=pathlib.Path('.');P=r/'delegated/posta9d-followups/coordinator';H=lambda b:hashlib.sha256(b).hexdigest();read=lambda p:json.loads((r/p).read_bytes());write=lambda p,j:(r/p).write_text(json.dumps(j,indent=2,ensure_ascii=False)+'\n')
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()=='a9d979e4f4fd84b797da89a33263d78604fe9224'
+bfile=r/'BASELINE-95E-20261110.json';qfile=r/'RECONCILIATION-059.json';assert H(bfile.read_bytes())=='8eef6ef95b481a19f78926e9a4dee2d55f244ee2381150f142112e437a9b288c' and H(qfile.read_bytes())=='93f7a56868e4645950887c6de04cd1e7850a30acd9debf11391e8fc84e6cc1d2'
+for src,dst in [('CENTRAL-REPORT-SNAPSHOT.json','ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json'),('LIVE-DESIGN-SNAPSHOT.json','LIVE-STATE-REPLAY-QUALIFICATION-14A.json')]:
+ target=r/dst;assert not target.exists();target.write_bytes((P/src).read_bytes())
+b=read('BASELINE-95E-20261110.json');ledger=b['newly_assessed_ledger']['entries'];add=json.loads((P/'LEDGER-RELATIONSHIPS-SNAPSHOT.json').read_bytes())['entries'];assert len(ledger)==1034 and len(add)==7 and not ({x['id'] for x in ledger}&{x['id'] for x in add});ledger.extend(add);write('BASELINE-95E-20261110.json',b)
+p=read('CONTINUATION-PROGRESS-95E.json');assert p['new_current_ledger_candidates']==1034 and p['lenses_complete']==0 and p['queue_records_semantically_reconciled']==0;p['new_current_ledger_candidates']=len(ledger);p['central_posta9d_bounded_reconciliation']='ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json';p['a9d_same_machine_recovery_verification']='delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json';p['live_state_replay_review']='LIVE-STATE-REPLAY-QUALIFICATION-14A.json';write('CONTINUATION-PROGRESS-95E.json',p)
+q=read('RECONCILIATION-059.json');assert len(q['entries'])==3713
+for i in (2304,2305,2308,2310,2311,2312,2313,2314,2315):
+ x=q['entries'][i];assert x['current_reconciliation']=='unassessed';x['current_reconciliation']='partial original '+x['contract_id']+' connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit'
+write('RECONCILIATION-059.json',q)
+path=r/'CONTINUATION.md';s=path.read_text();needle='`ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json` connects';assert s.count(needle)==1;add=('`delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json` records the\n'
+ 'same-machine recovery of the preceding checkpoint.\n\n'
+ '`ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json` connects bounded capture, roof\n'
+ 'and NPZ reviews to their separately attributed historical records. Its\n'
+ 'relationships are not unique-defect counts or completed queue records.\n\n'
+ '`LIVE-STATE-REPLAY-QUALIFICATION-14A.json` records the independent design\n'
+ 'review, the qualified first frozen replay and the remaining safeguards.\n\n');path.write_text(s.replace(needle,add+needle,1))
+selections=[]
+for i in (2304,2305,2307,2308,2309,2310,2311,2312,2313,2314,2315,2316):selections.append({'index':i,'contract_id':q['entries'][i]['contract_id'],'current_reconciliation_at_snapshot':q['entries'][i]['current_reconciliation']})
+snap={'schema':'726-posta9d-time-bound-followup-snapshot-v1','source_revision':'95e63628f9d70b8dd6e6fede64334696c6995009','parent_published_checkpoint':'a9d979e4f4fd84b797da89a33263d78604fe9224','observed_counts':{'lenses':p['lens_count'],'lenses_complete':p['lenses_complete'],'queue_records':len(q['entries']),'queue_semantically_reconciled':p['queue_records_semantically_reconciled'],'current_ledger_entries_and_relationships':len(ledger)},'queue_selections':selections,'added_ledger_relationship_ids':[x['id'] for x in add],'ledger_relationships_snapshot_sha256':H((P/'LEDGER-RELATIONSHIPS-SNAPSHOT.json').read_bytes()),'central_report_sha256':H((r/'ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json').read_bytes()),'live_design_qualification_sha256':H((r/'LIVE-STATE-REPLAY-QUALIFICATION-14A.json').read_bytes()),'qualification':'Time-bound current observations, not eternal live-state assertions. Ledger counts include relationships and conditional questions, not unique defects; historical, reconstructed and current work retain separate attribution. Final checkpoint3821 queue and ledger remain missing.','repair':'not started','product_validation':'not performed'}
+assert not (r/'FOLLOWUP-POSTA9D-EVIDENCE.json').exists();write('FOLLOWUP-POSTA9D-EVIDENCE.json',snap);print('ledger entries',len(ledger),'new partial queue connections 9; all lenses and semantic queue remain open')

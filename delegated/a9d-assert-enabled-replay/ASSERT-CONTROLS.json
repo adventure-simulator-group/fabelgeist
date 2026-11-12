@@ -1,0 +1,16 @@
+{
+  "removed_environment_keys": [
+    "PYTHONOPTIMIZE",
+    "PYTHONPATH",
+    "PYTHONHOME",
+    "PYTHONSTARTUP",
+    "PYTHONINSPECT",
+    "PYTHONUSERBASE"
+  ],
+  "set_PYTHONNOUSERSITE": "1",
+  "direct_child_preflight": {
+    "assertions_enabled": true,
+    "optimization_level": 0
+  },
+  "qualification": "The driver inherits this normalized environment; direct preflight confirms default assertions in that interpreter. Indirect nested child flags and the complete dynamic dependency/environment graph are not exhaustively proven."
+}

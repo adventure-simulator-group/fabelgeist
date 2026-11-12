@@ -1,0 +1,54 @@
+SOURCE crates/adventuresim-building-generator/src/model/plan.rs:1-53
+   1 use super::*;
+   2 use fabelgeist_determinism::Seed;
+   3 
+   4 #[derive(Clone, Debug, Serialize, Deserialize)]
+   5 pub struct BuildingPlan {
+   6     pub archetype: BuildingArchetype,
+   7     pub workplace: Option<crate::WorkplacePlan>,
+   8     pub domestic_heating: Option<crate::DomesticHeatingPlan>,
+   9     pub seed: Seed,
+  10     pub footprint: Footprint,
+  11     pub storey_height_metres: f32,
+  12     pub wall_style: WallStyle,
+  13     #[serde(default)]
+  14     pub wall_style_overrides: Vec<WallStyleOverride>,
+  15     pub timber_frame_style: Option<TimberFrameStyle>,
+  16     pub upper_storey_projection_metres: f32,
+  17     pub storeys: Vec<StoreyPlan>,
+  18     pub wall_assemblies: Vec<WallAssembly>,
+  19     pub opening_assemblies: Vec<OpeningAssembly>,
+  20     pub roofs: Vec<RoofPiece>,
+  21     pub roof_dormers: Vec<RoofDormer>,
+  22     pub roof_assemblies: Vec<RoofAssembly>,
+  23     pub towers: Vec<RoundTower>,
+  24     pub square_towers: Vec<SquareTower>,
+  25     pub stairs: Vec<Stair>,
+  26     pub battlements: Vec<BattlementRun>,
+  27     pub crowns: Vec<CrownAssembly>,
+  28     pub projected_defenses: Vec<ProjectedDefenseAssembly>,
+  29     pub resolved_geometry: ResolvedGeometry,
+  30     pub wall_walks: Vec<WallWalk>,
+  31     pub defensive_junctions: Vec<DefensiveJunction>,
+  32     pub defensive_circuits: Vec<DefensiveCircuit>,
+  33     pub tower_portals: Vec<TowerPortal>,
+  34     pub curtain_walls: Vec<CurtainWallRun>,
+  35     pub gate_defenses: Vec<GateDefense>,
+  36     pub gatehouse_assemblies: Vec<GatehouseAssemblySpec>,
+  37     pub bartizans: Vec<Bartizan>,
+  38     pub church: Option<ChurchAssembly>,
+  39     pub small_church: Option<crate::SmallChurchPlan>,
+  40     pub timber_frame: Option<TimberFrameAssembly>,
+  41     pub castle_phase: Option<CastleConstructionPhase>,
+  42     pub artillery_castle: Option<ArtilleryCastleAssembly>,
+  43 }
+  44 
+  45 impl BuildingPlan {
+  46     pub fn dimensions_metres(&self) -> Vec2 {
+  47         let (width, depth) = self.footprint.dimensions();
+  48         Vec2::new(
+  49             f32::from(width) * CELL_SIZE_METRES,
+  50             f32::from(depth) * CELL_SIZE_METRES,
+  51         )
+  52     }
+  53 }

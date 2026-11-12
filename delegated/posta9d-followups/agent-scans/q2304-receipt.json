@@ -1,0 +1,56 @@
+{
+  "schema": "726-q2304-final-evidence-receipt-v1",
+  "created_utc": "2026-11-12T14:58:14.850269+00:00",
+  "archive_name": "q2304-evidence.tar.gz",
+  "archive_sha256": "a0bec3d39eac722d159d8e4dfcfaf40078843c3c052f38cc5b1ebcf67c0d9c3c",
+  "archive_bytes": 199353,
+  "archive_members": 98,
+  "manifest_sha256": "d58a8122f330423eb1cef6c3e40d4976c6e8ba7f4c30a4bf415f1dcb2e279c7d",
+  "report_sha256": "8a59119787e20e568231f73919b750b7ec16f38c337bc41da79a44cda00f0664",
+  "verifier_sha256": "7605b6b5dedb18f8094023d93c3190aa128e42decb3d2ebf79b67ecdda74362d",
+  "evidence_verification": {
+    "standalone": "passed",
+    "with_read_only_repo": "passed",
+    "manifest_files": 97,
+    "source_display_events": 21,
+    "source_tree_proofs": 18,
+    "historical_records": 9,
+    "qualification": "Byte identities, tree chains, selected reconstructions and source registrations only; not product behavior or proof of subjective attention."
+  },
+  "privacy_review": {
+    "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "receipt_sha256": "8e5ba82e6224db1ecdf64cdd02db3e4dec84e2d89c87a58f90833250f1b5cea7",
+    "scope": "Single-file directory containing the final archive, expanded gzip and tar recursively, maximum depth 8 and maximum per-view 83886080 bytes; no symlink or unknown-encoding clearance.",
+    "result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 100,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 98,
+        "cached_views": 296,
+        "text_views": 81,
+        "binary_views": 17
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "error_chronology": "The first attempt passed the archive itself to a scanner requiring a directory and failed its assertion before scanning; the recorded successful scan targeted its containing directory. The failed empty output is not a scan result."
+  },
+  "historical_and_staged_qualification": "059, e275 reviewer reads and later root adoption remain separate; 13W observed staged document is hash-bound only, not claimed committed at the captured publication HEAD. No checkpoint3821 inference.",
+  "limits": "No repair, product execution, test, build, fixture, shader, runtime probe or publication change; privacy scan is bounded and cannot establish absence of all secrets or unknown encodings."
+}

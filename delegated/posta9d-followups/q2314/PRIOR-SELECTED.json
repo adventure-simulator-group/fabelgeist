@@ -1,0 +1,115 @@
+{
+  "13y": {
+    "/": {
+      "schema": "726-central-npz-13y-v1",
+      "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "repair": "not started",
+      "product_validation": "not performed",
+      "historical_queue": "baseline-059/queue.json#/entries/2307",
+      "source_report": "delegated/npz-q2307/REPORT.json",
+      "author": "/root/wrapped_scope; coordinator reconciles the delegated report and historical scope",
+      "scoped_disposition": "The displayed selected member retains its archive and entry for both declared-size access and decoding; first matching directory entry wins. The displayed Deflate path treats unverified declared length as an initial capacity hint, with no explicit decoded-length or CRC comparison in that selected first-party path. Member-count reservation cap and total iteration bound have different roles.",
+      "history": "The original q2307 byte slice matches the public reconstructed-queue slice while the full containers differ. The eight selected e275 and 95e source blobs and src subtree match; differing Cargo.toml and crate roots preclude whole-tree or dependency equivalence. Original e275 reviewer and later root adoption remain separately attributed; no checkpoint3821 records are inferred.",
+      "relationships": "Historical q2313 concerns selected-member association; q2316 concerns declared size, CRC and allocation; q2312 concerns member count; q2315 concerns native error causes; q2306 is the related NPY boundary. These are not automatically aliases and no new unique defect count is asserted.",
+      "open": "Actual archive producers, input reachability, rawzip and decompressor behavior, CRC and decoded-length policy, resource bounds and current native dependencies remain open. Coordinator has not independently displayed the source windows."
+    }
+  },
+  "q2310": {
+    "/revisions": {
+      "pinned_product": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_first_party": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "original_queue": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2310",
+      "publication_evidence_head": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "native_package": "crates.io rawzip 0.5.2; both selected 95e child and MHR lock entries plus historic child lock specify the same archive SHA-256"
+    },
+    "/observations/0": {
+      "id": "Q2310-SELECTED-CANDIDATE",
+      "classification": "source-supported conditional selected-EOCD behavior, not an independently counted failure",
+      "references": [
+        "crates/fabelgeist-numpy-storage/src/zip.rs:28\u201329,64\u201390",
+        "rawzip-0.5.2/src/locator.rs:20\u201328,48\u201369,101\u2013113,178\u2013185,328\u2013353,434\u2013505",
+        "rawzip-0.5.2/src/errors.rs:18\u201329",
+        "crates/fabelgeist-numpy-storage/src/zip/error.rs:114\u2013132"
+      ],
+      "analysis": "ZipArchive calls rawzip with a 66,000-byte backwards window. Native rfind selects the last signature in that window and parses just that candidate. If an earlier EOCD would otherwise be acceptable but the final four input bytes form another EOCD signature, the selected candidate has fewer than the required 22 fixed-header bytes and returns Eof with its offset. The first-party adapter maps this to Archive retaining rawzip Error and makes no automatic retry. A signature can lie in a comment or trailing bytes; the example is symbolic source reasoning, not an executed or observed archive and not proof of ZIP conformance, supported asset incidence or policy violation. Native docs mention an offset-based retry option; this application does not use it on the shown path."
+    },
+    "/observations/2": {
+      "id": "Q2310-OFFSET-CORRECTION",
+      "classification": "source safeguard with deferred-validation limitation",
+      "references": [
+        "rawzip-0.5.2/src/locator.rs:71\u201398,115\u2013146,200\u2013242",
+        "rawzip-0.5.2/src/archive.rs:75\u201395,107\u2013112",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86\u2013109",
+        "crates/fabelgeist-numpy-storage/src/zip/member_count.rs:7\u201325"
+      ],
+      "analysis": "When a non-ZIP64 record\u2019s reported directory position fails the displayed first-entry parse, rawzip tries the location immediately before the selected end record and adjusts base and directory offset if that parses. If neither initial check succeeds, it still returns the candidate and defers entry parsing. The application constructs a directory slice and iterates 0..declared count. If that slice is constructible and the selected count is zero, the loop performs no next-entry parse, even when the earlier first-entry checks failed. This is related to q2312 count-versus-actual-cardinality policy; neither an invalid observed asset nor a requirement to reject such an input is established."
+    },
+    "/relationships": [
+      {
+        "record": "059 q2309 REVIEW-L11-NPZ-OWN-CRATE-NATIVE-LOCK-AUTHORITY",
+        "relationship": "Historical child-lock authority is related; current child and selected MHR lock package entries were independently displayed here. No workspace-wide resolution claim."
+      },
+      {
+        "record": "059 q2307 and committed 13Y /root/wrapped_scope",
+        "relationship": "Prior independent member-association and size/CRC review; this selected-EOCD admission trace is separately attributed, with no automatic alias."
+      },
+      {
+        "record": "059 q2311, q2312, q2313, q2314, q2315, q2316",
+        "relationship": "Separate historical ZIP64 consistency, count, member association, framing, cause ownership and CRC/resource policies. Selected native cause mapping relates to q2315 but does not close it; full native semantics and aliases remain open."
+      },
+      {
+        "record": "committed BASELINE-95E-20261110.json",
+        "relationship": "A bounded metadata-only search of ID fields for NPZ/rawzip/ZIP/EOCD terms found no matching IDs at captured publication commit. It is not a content-wide or global semantic alias search."
+      }
+    ]
+  },
+  "q2311": {
+    "/revisions": {
+      "pinned_product": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_review_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "original_queue": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2311",
+      "committed_related_13y": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "q2310_prior": "separately frozen local report, SHA-256 bound in PRIOR-REGISTRATION.json; not asserted committed",
+      "native_package": "rawzip 0.5.2 archive SHA-256 ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c, matching selected historic and current child-lock entries"
+    },
+    "/observations/2": {
+      "id": "Q2311-SELECTED-COUNT-SEMANTICS",
+      "classification": "conditional source-level distinction related to existing q2312; no new defect count",
+      "references": [
+        "rawzip-0.5.2/src/locator.rs:216\u2013242,250\u2013282,290\u2013308,402\u2013432",
+        "rawzip-0.5.2/src/archive.rs:75\u2013112,766\u2013780,802\u2013815",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86\u2013109",
+        "crates/fabelgeist-numpy-storage/src/zip/member_count.rs:7\u201325"
+      ],
+      "analysis": "The classic conversion selects the classic total-entry field; ZIP64 conversion selects its num_entries field, documented as entries on this disk, while ZIP64 total_entries is retained separately in the parsed record and not selected by from_parts. Candidate consistency compares each count with its own classic counterpart only when that classic count is not the maximum sentinel; it does not directly compare the two ZIP64 counts. Symbolically, if both classic counts are sentinels, ZIP64 per-disk count is zero and its total count positive, all other candidate gates pass, the ZIP64 offset is nonzero and the directory slice is constructible, the retained entry hint is zero and the first-party loop calls no next_entry. This is a source conditional only; whether that field combination can be supplied by supported assets, whether multi-disk is supported or the combination is valid, whether an asset is affected, and what policy should require remain open."
+    },
+    "/observations/3": {
+      "id": "Q2311-EXTRA-FIELD-PARTIAL",
+      "classification": "historical caveat and distinct policy/consumer relationship, not a new count",
+      "references": [
+        "rawzip-0.5.2/src/extra_fields.rs:67\u2013126",
+        "rawzip-0.5.2/src/archive.rs:1117\u20131203,1222\u20131256,176\u2013208,1500\u20131530",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:91\u2013106"
+      ],
+      "analysis": "Per-entry size and offset fields begin as inline values. ZIP64 extras are processed in order and a missing required suffix breaks out, returning any earlier replacements and remaining inline sentinel values; an incomplete or malformed extra-field iterator stops without yielding that field. For example, when both size fields are sentinels and a complete ZIP64 field supplies only the first 8-byte size, the uncompressed hint is replaced but the compressed hint remains its inline sentinel. These are unverified hints, not confirmed payload lengths. The selected get_entry path separately parses a local header and rejects arithmetic overflow or a compressed extent beyond available bytes; decoded-size, CRC, allocation and all remaining native behavior are separate questions."
+    },
+    "/relationships": [
+      {
+        "record": "059 q2310 and separately frozen /root/mhr_character q2310 review",
+        "relationship": "Last EOCD signature and retry policy concerns candidate selection before this ZIP64 consistency path. Original and prior author/read scopes remain separate."
+      },
+      {
+        "record": "059 q2312",
+        "relationship": "The historical declared-count upper-bound policy already recognizes zero means no entry parse; this follow-up traces the distinct conditional ZIP64 per-disk versus total selected-count source. Do not automatically alias or increment a count."
+      },
+      {
+        "record": "059 q2314 and q2316; committed 13Y /root/wrapped_scope",
+        "relationship": "Local compressed extent, unverified decoded sizes, CRC and allocation are separate historical and prior source questions; registered get_entry windows support only the stated bounds."
+      },
+      {
+        "record": "committed baseline ledger",
+        "relationship": "Metadata-only ID/pointer search for NPZ/rawzip/ZIP64/EOCD at the captured publication commit found no matching IDs. This is not a content-wide or global semantic alias inventory."
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip.rs:125-184
+ 125     ) -> Option<DeclaredUncompressedByteLength> {
+ 126         self.find(|member| member == name)
+ 127             .map(|member| member.uncompressed_size())
+ 128     }
+ 129 
+ 130     pub(crate) fn find(
+ 131         &self,
+ 132         predicate: impl Fn(&ArchiveMemberName) -> bool,
+ 133     ) -> Option<ZipMember<'_>> {
+ 134         self.entries
+ 135             .iter()
+ 136             .find(|entry| predicate(&entry.name))
+ 137             .map(|entry| ZipMember {
+ 138                 archive: self,
+ 139                 entry,
+ 140             })
+ 141     }
+ 142 
+ 143     /// Decodes one member. Stored members borrow from the archive buffer.
+ 144     pub fn bytes(&self, name: &ArchiveMemberName) -> Result<Cow<'_, [u8]>> {
+ 145         self.find(|member| member == name)
+ 146             .ok_or_else(|| ZipReadError::MissingMember { name: name.clone() })?
+ 147             .bytes()
+ 148     }
+ 149 }
+ 150 
+ 151 impl<'archive> ZipMember<'archive> {
+ 152     pub(crate) fn name(&self) -> &ArchiveMemberName {
+ 153         &self.entry.name
+ 154     }
+ 155 
+ 156     pub(crate) fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+ 157         self.entry.uncompressed_size
+ 158     }
+ 159 
+ 160     pub(crate) fn bytes(&self) -> Result<Cow<'archive, [u8]>> {
+ 161         let entry = self.entry;
+ 162         let member = self
+ 163             .archive
+ 164             .archive
+ 165             .get_entry(entry.location)
+ 166             .map_err(|source| ZipReadError::member(entry.name.clone(), source))?;
+ 167         let raw = member.data();
+ 168         match entry.compression {
+ 169             ZipCompression::Stored => Ok(Cow::Borrowed(raw)),
+ 170             ZipCompression::Deflated => {
+ 171                 let mut out =
+ 172                     Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
+ 173                 DeflateDecoder::new(raw)
+ 174                     .read_to_end(&mut out)
+ 175                     .map_err(|source| ZipReadError::Inflate {
+ 176                         name: entry.name.clone(),
+ 177                         source,
+ 178                     })?;
+ 179                 Ok(Cow::Owned(out))
+ 180             }
+ 181             ZipCompression::Unsupported(code) => Err(ZipReadError::UnsupportedCompression { code }),
+ 182         }
+ 183     }
+ 184 }

@@ -1,0 +1,21 @@
+SOURCE crates/fabelgeist-numpy-storage/Cargo.toml:1-20
+   1 [package]
+   2 name = "fabelgeist-numpy-storage"
+   3 version = "0.1.0"
+   4 edition = "2024"
+   5 repository = "https://github.com/adventure-simulator-group/fabelgeist"
+   6 license = "AGPL-3.0"
+   7 
+   8 [dependencies]
+   9 anyhow = "1"
+  10 derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+  11 burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+  12     "std",
+  13     "wgpu",
+  14 ] }
+  15 memmap2 = "0.9"
+  16 rawzip = "=0.5.2"
+  17 # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+  18 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+  19 
+  20 [workspace]

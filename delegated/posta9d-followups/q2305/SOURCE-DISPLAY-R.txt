@@ -1,0 +1,56 @@
+### support_slip.rs:1-55
+1: //! Supported-foot displacement from current captured native bone positions.
+2: 
+3: use super::*;
+4: use adventuresim_tactical_core::animation::NonnegativeLength;
+5: 
+6: pub(super) fn supported_foot_slip(
+7:     metadata: &ScenarioMetadata<'_>,
+8:     before: &FrameSample,
+9:     after: &FrameSample,
+10: ) -> AnimationValueResult<NonnegativeLength> {
+11:     let mut maximum_slip = 0.0_f32;
+12:     let body_turn = Quat::from_array(before.body_rotation_xyzw)
+13:         .angle_between(Quat::from_array(after.body_rotation_xyzw))
+14:         .to_degrees();
+15:     for (foot, support) in [
+16:         (
+17:             BoneRole::FootLeft,
+18:             before
+19:                 .left_support_weight
+20:                 .fraction()
+21:                 .min(after.left_support_weight.fraction()),
+22:         ),
+23:         (
+24:             BoneRole::FootRight,
+25:             before
+26:                 .right_support_weight
+27:                 .fraction()
+28:                 .min(after.right_support_weight.fraction()),
+29:         ),
+30:     ] {
+31:         // A body turn deliberately slides an old world plant onto
+32:         // its new anatomical side corridor. Treat that bounded
+33:         // adaptation separately from skating under a stable body.
+34:         let procedural_plant_active =
+35:             metadata.kind() == ScenarioKind::Terrain || (before.guard_action && after.guard_action);
+36:         if procedural_plant_active
+37:             && support >= 0.9
+38:             && body_turn <= 0.5
+39:             && let (Some(a), Some(b)) = (before.bones.get(foot), after.bones.get(foot))
+40:         {
+41:             let distance = (Vec3::from_array(b.position) - Vec3::from_array(a.position))
+42:                 .xz()
+43:                 .length();
+44:             if !distance.is_finite() {
+45:                 return Err(
+46:                     adventuresim_tactical_core::animation::AnimationValueError::Overflow {
+47:                         quantity: adventuresim_tactical_core::animation::AnimationQuantity::Length,
+48:                     },
+49:                 );
+50:             }
+51:             maximum_slip = maximum_slip.max(distance);
+52:         }
+53:     }
+54:     NonnegativeLength::from_arithmetic(maximum_slip)
+55: }

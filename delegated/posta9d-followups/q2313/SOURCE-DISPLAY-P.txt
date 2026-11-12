@@ -1,0 +1,42 @@
+SOURCE rawzip-0.5.2/src/archive.rs:1440-1480
+1440     }
+1441 
+1442     /// Returns the file entry's comment.
+1443     #[inline]
+1444     pub fn comment(&self) -> ZipStr<'_> {
+1445         self.file_comment
+1446     }
+1447 }
+1448 
+1449 /// Contains directions to where the Zip entry's data is located within the Zip archive.
+1450 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+1451 pub struct ZipArchiveEntryWayfinder {
+1452     uncompressed_size: u64,
+1453     compressed_size: u64,
+1454     local_header_offset: u64,
+1455     crc: u32,
+1456     has_data_descriptor: bool,
+1457     data_descriptor_uses_zip64_sizes: bool,
+1458 }
+1459 
+1460 impl ZipArchiveEntryWayfinder {
+1461     /// Equivalent to [`ZipFileHeaderRecord::compressed_size_hint`]
+1462     ///
+1463     /// This is a convenience method to avoid having to deal with lifetime
+1464     /// issues on a `ZipFileHeaderRecord`
+1465     #[inline]
+1466     pub fn uncompressed_size_hint(&self) -> u64 {
+1467         self.uncompressed_size
+1468     }
+1469 
+1470     /// Equivalent to [`ZipFileHeaderRecord::compressed_size_hint`]
+1471     ///
+1472     /// This is a convenience method to avoid having to deal with lifetime
+1473     /// issues on a `ZipFileHeaderRecord`
+1474     #[inline]
+1475     pub fn compressed_size_hint(&self) -> u64 {
+1476         self.compressed_size
+1477     }
+1478 }
+1479 
+1480 #[derive(Debug, Clone, PartialEq, Eq, Hash)]

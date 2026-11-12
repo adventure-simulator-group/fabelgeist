@@ -1,0 +1,86 @@
+### observation.rs:1-85
+1: //! Propagated-pose observation and support/contact truth reconciliation.
+2: 
+3: use super::*;
+4: use adventuresim_core::linear_speed::NonnegativeSpeed;
+5: use adventuresim_tactical_core::animation::{AnimationEventSpan, STATIONARY_ANIMATION_SPEED_LIMIT};
+6: 
+7: impl LegIkMemory {
+8:     fn observe_rendered_endpoints(
+9:         &mut self,
+10:         rig: &HumanoidRig,
+11:         globals: &Query<&GlobalTransform>,
+12:     ) -> AnimationValueResult<()> {
+13:         let left_last_rendered_world = rig
+14:             .get(&BoneRole::FootLeft)
+15:             .and_then(|foot| globals.get(*foot).ok())
+16:             .map(GlobalTransform::translation);
+17:         let right_last_rendered_world = rig
+18:             .get(&BoneRole::FootRight)
+19:             .and_then(|foot| globals.get(*foot).ok())
+20:             .map(GlobalTransform::translation);
+21:         let left_last_rendered_toe_world = rig
+22:             .get(&BoneRole::ToeLeft)
+23:             .and_then(|toe| globals.get(*toe).ok())
+24:             .map(GlobalTransform::translation);
+25:         let right_last_rendered_toe_world = rig
+26:             .get(&BoneRole::ToeRight)
+27:             .and_then(|toe| globals.get(*toe).ok())
+28:             .map(GlobalTransform::translation);
+29:         let left_last_rendered_foot_rotation_world = rig
+30:             .get(&BoneRole::FootLeft)
+31:             .and_then(|foot| globals.get(*foot).ok())
+32:             .map(GlobalTransform::rotation);
+33:         let right_last_rendered_foot_rotation_world = rig
+34:             .get(&BoneRole::FootRight)
+35:             .and_then(|foot| globals.get(*foot).ok())
+36:             .map(GlobalTransform::rotation);
+37:         if [
+38:             left_last_rendered_world,
+39:             right_last_rendered_world,
+40:             left_last_rendered_toe_world,
+41:             right_last_rendered_toe_world,
+42:         ]
+43:         .into_iter()
+44:         .flatten()
+45:         .any(|point| !point.is_finite())
+46:         {
+47:             return Err(AnimationValueError::NonFinite {
+48:                 quantity: AnimationQuantity::WorldPosition,
+49:             });
+50:         }
+51:         if [
+52:             left_last_rendered_foot_rotation_world,
+53:             right_last_rendered_foot_rotation_world,
+54:         ]
+55:         .into_iter()
+56:         .flatten()
+57:         .any(|rotation| !rotation.is_finite())
+58:         {
+59:             return Err(AnimationValueError::NonFinite {
+60:                 quantity: AnimationQuantity::BodyOrientation,
+61:             });
+62:         }
+63:         self.left_last_rendered_world = left_last_rendered_world;
+64:         self.right_last_rendered_world = right_last_rendered_world;
+65:         self.left_last_rendered_toe_world = left_last_rendered_toe_world;
+66:         self.right_last_rendered_toe_world = right_last_rendered_toe_world;
+67:         self.left_last_rendered_foot_rotation_world = left_last_rendered_foot_rotation_world;
+68:         self.right_last_rendered_foot_rotation_world = right_last_rendered_foot_rotation_world;
+69:         Ok(())
+70:     }
+71: }
+72: 
+73: pub(in crate::animation::procedural) fn retain_monotonic_contact_sequence(
+74:     current: ContactSequence,
+75:     observed: ContactSequence,
+76: ) -> ContactSequence {
+77:     // The replicated gait planner can return to its zero-valued idle plan
+78:     // while authored locomotion still owns the crossfade. That is an owner
+79:     // transition, not a landing, so retain the presentation sequence until
+80:     // stationary raised footwork takes over. Genuine cadence increments (and
+81:     // the u64 wrap) remain forward by exactly one.
+82:     if observed.wrapping_distance_from(current) <= AnimationEventSpan::ONE {
+83:         observed
+84:     } else {
+85:         current

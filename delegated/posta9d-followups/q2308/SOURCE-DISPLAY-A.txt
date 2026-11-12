@@ -1,0 +1,69 @@
+SOURCE crates/adventuresim-building-generator/src/generator/architectural_envelope.rs:1-68
+   1 //! Resolve specialist envelopes and their final timber and roof attachments.
+   2 use super::*;
+   3 
+   4 impl BuildingPlan {
+   5     pub(super) fn resolve_architectural_envelope(
+   6         mut self,
+   7         program: &BuildingProgram,
+   8         edits: &[BuildingEdit],
+   9     ) -> Result<Self, GenerationError> {
+  10         self.workplace = crate::workplace::resolve_workplace(
+  11             program,
+  12             &mut self.wall_assemblies,
+  13             &mut self.resolved_geometry,
+  14         )?;
+  15         self.small_church = small_church::resolve(
+  16             program,
+  17             &mut self.wall_assemblies,
+  18             &mut self.resolved_geometry,
+  19         )?;
+  20         self.church = urban_church::resolve(
+  21             program,
+  22             &self.square_towers,
+  23             &mut self.wall_assemblies,
+  24             &mut self.opening_assemblies,
+  25             &mut self.stairs,
+  26             &mut self.resolved_geometry,
+  27         )?;
+  28         fortified_envelope::resolve(
+  29             program,
+  30             &self.towers,
+  31             &self.crowns,
+  32             &self.projected_defenses,
+  33             &mut self.wall_assemblies,
+  34             &mut self.opening_assemblies,
+  35             &mut self.resolved_geometry,
+  36         )?;
+  37         self.artillery_castle = resolve_artillery_castle(
+  38             program,
+  39             &self.towers,
+  40             &mut self.wall_assemblies,
+  41             &mut self.opening_assemblies,
+  42             &mut self.resolved_geometry,
+  43         )?;
+  44 
+  45         let (roof_assemblies, timber_frame) = framed_roofs::resolve(
+  46             program,
+  47             edits,
+  48             &self.roofs,
+  49             &self.roof_dormers,
+  50             &self.towers,
+  51             &self.square_towers,
+  52             &mut self.stairs,
+  53             &mut self.wall_assemblies,
+  54             &mut self.opening_assemblies,
+  55             &mut self.resolved_geometry,
+  56         )?;
+  57         self.roof_assemblies = roof_assemblies;
+  58         self.timber_frame = timber_frame;
+  59         // Corner bonds must be resolved against the final timber-infill depth,
+  60         // after the semantic frame has replaced the exterior structural layer.
+  61         wall_corner_bonds::resolve(&self.wall_assemblies, &mut self.resolved_geometry)?;
+  62         if let Some(church) = &mut self.church {
+  63             church.roof_assemblies = self.roof_assemblies.iter().map(|roof| roof.id).collect();
+  64         }
+  65 
+  66         church_ground::resolve(crate::spiral_stairs::resolve(self)?)
+  67     }
+  68 }

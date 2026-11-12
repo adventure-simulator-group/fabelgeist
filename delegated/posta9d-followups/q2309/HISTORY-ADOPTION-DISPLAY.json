@@ -1,0 +1,44 @@
+{
+  "adoption": {
+    "record": "segovb/READ-L11-708.json",
+    "mapping": [
+      {
+        "registration": "PL11-1109",
+        "adopted_continuation_number": 3303,
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:native-rawzip-own-crate-lock-authority",
+        "qualification": "Delegated prospective source view adopted; no root reread"
+      },
+      {
+        "registration": "PL11-1110",
+        "adopted_continuation_number": 3304,
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.toml:native-rawzip-own-crate-lock-authority",
+        "qualification": "Delegated prospective source view adopted; no root reread"
+      },
+      {
+        "registration": "PL11-1111",
+        "adopted_continuation_number": 3305,
+        "source_id": "native:rawzip@0.5.2:src/locator.rs:current-child-crate-NPY-NPZ-boundary",
+        "qualification": "Delegated prospective source view adopted; no root reread"
+      }
+    ]
+  },
+  "verification": {
+    "record": "segovb/VERIFY-L11-708.json",
+    "selected": {
+      "delegated_attribution_preserved": true,
+      "other_lens_credit": 0,
+      "product_execution": false,
+      "implementation_gate_complete": false
+    }
+  },
+  "proposal_selected": {
+    "contract_id_or_proposed_new_id": "REVIEW-L11-NPZ-OWN-CRATE-NATIVE-LOCK-AUTHORITY",
+    "audit_discovery_disposition": "rejected-suspicion-source-qualified",
+    "remaining_evidence": [],
+    "policy_decisions_remaining": [],
+    "closure_is_not_repair_or_runtime": true,
+    "authority_mutation": false,
+    "implementation_gate_complete": false,
+    "new_body_population_unique_credit": 0
+  }
+}

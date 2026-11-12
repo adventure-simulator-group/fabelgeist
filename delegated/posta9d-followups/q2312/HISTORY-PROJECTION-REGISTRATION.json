@@ -1,0 +1,50 @@
+{
+  "registered_at_utc": "2026-11-12T14:51:07.508697+00:00",
+  "purpose": "Display exact q2312 historical reader attribution, root adoption/verification, and proposal scope fields; exclude absolute custody paths from these projections.",
+  "reader_fields": [
+    "lens",
+    "revision",
+    "path",
+    "sha256",
+    "actual_EOF",
+    "archive_sha256",
+    "archive_member",
+    "locked_package_checksum",
+    "current_product_lock_revision",
+    "fresh_personal_body_ranges",
+    "assessed_ranges",
+    "whole_file_assessed",
+    "attribution"
+  ],
+  "proposal_fields": [
+    "contract_id_or_proposed_new_id",
+    "first_failed_contract_or_unresolved_question",
+    "audit_discovery_disposition",
+    "policy_decisions_remaining",
+    "closure_is_not_repair_or_runtime",
+    "authority_mutation",
+    "implementation_gate_complete",
+    "new_body_population_unique_credit"
+  ],
+  "adoption_fields": [
+    "lens",
+    "kind",
+    "batch",
+    "source_revision",
+    "actual_current_target",
+    "new_target_reconciliation_complete",
+    "other_lens_coverage_transferred",
+    "runtime_validation",
+    "implementation_gate_complete",
+    "accepted_unique_count_change"
+  ],
+  "verification_fields": [
+    "lens",
+    "source_rows",
+    "delegated_attribution_preserved",
+    "other_lens_credit",
+    "product_execution",
+    "implementation_gate_complete"
+  ],
+  "pointers_registration": "HISTORY-METADATA-REGISTRATION.json"
+}

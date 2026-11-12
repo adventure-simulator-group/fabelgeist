@@ -1,0 +1,39 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npz.rs:50-87
+  50     /// Array keys in member order, each with one trailing `.npy` removed.
+  51     pub fn keys(&self) -> impl Iterator<Item = NpzArrayName> {
+  52         self.names().map(NpzArrayName::from)
+  53     }
+  54 
+  55     /// Selects the first full-name or single-suffix match in directory order.
+  56     pub fn get(&self, name: &NpzArrayName) -> Option<NpzMember<'_>> {
+  57         self.archive
+  58             .find(|member| name.matches(member))
+  59             .map(|member| NpzMember {
+  60                 member,
+  61                 query: name.clone(),
+  62             })
+  63     }
+  64 
+  65     /// Requires a member and decodes it, reporting absence as a lookup error.
+  66     pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
+  67         self.get(name)
+  68             .with_context(|| format!("archive has no member {name:?}"))?
+  69             .array()
+  70     }
+  71 }
+  72 
+  73 impl NpzMember<'_> {
+  74     pub fn name(&self) -> &ArchiveMemberName {
+  75         self.member.name()
+  76     }
+  77 
+  78     /// The directory's declared size, without payload verification.
+  79     pub fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+  80         self.member.uncompressed_size()
+  81     }
+  82 
+  83     pub fn array(&self) -> Result<NpyArray> {
+  84         let bytes = self.member.bytes()?;
+  85         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
+  86     }
+  87 }

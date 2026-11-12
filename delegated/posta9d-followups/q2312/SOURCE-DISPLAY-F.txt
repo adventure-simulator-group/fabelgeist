@@ -1,0 +1,62 @@
+SOURCE rawzip-0.5.2/src/archive.rs:52-112
+  52     ZipFileHeaderFixed::SIZE + 3 * u16::MAX as usize;
+  53 
+  54 /// Represents a Zip archive that operates on an in-memory data.
+  55 ///
+  56 /// A [`ZipSliceArchive`] is more efficient and easier to use than a [`ZipArchive`],
+  57 /// as there is no buffer management and memory copying involved.
+  58 ///
+  59 /// # Examples
+  60 ///
+  61 /// ```rust
+  62 /// use rawzip::{ZipArchive, ZipSliceArchive, Error};
+  63 ///
+  64 /// fn process_zip_slice(data: &[u8]) -> Result<(), Error> {
+  65 ///     let archive = ZipArchive::from_slice(data)?;
+  66 ///     println!("Found {} entries.", archive.entries_hint());
+  67 ///     for entry_result in archive.entries() {
+  68 ///         let entry = entry_result?;
+  69 ///         println!("File: {:?}", entry.file_path().as_ref());
+  70 ///     }
+  71 ///     Ok(())
+  72 /// }
+  73 /// ```
+  74 #[derive(Debug, Clone)]
+  75 pub struct ZipSliceArchive<T> {
+  76     data: T,
+  77     eocd: EndOfCentralDirectory,
+  78 }
+  79 
+  80 impl<T: AsRef<[u8]>> ZipSliceArchive<T> {
+  81     pub(crate) fn new(data: T, eocd: EndOfCentralDirectory) -> Self {
+  82         ZipSliceArchive { data, eocd }
+  83     }
+  84 
+  85     /// Returns an iterator over the entries in the central directory of the archive.
+  86     pub fn entries(&self) -> ZipSliceEntries<'_> {
+  87         let data = self.data.as_ref();
+  88         let directory_start = self.eocd.directory_offset();
+  89         let entry_data = &data[(directory_start as usize)..self.eocd.head_eocd_offset() as usize];
+  90         ZipSliceEntries {
+  91             entry_data,
+  92             base_offset: self.eocd.base_offset(),
+  93             current_offset: directory_start,
+  94         }
+  95     }
+  96 
+  97     /// Returns a reference to the underlying data.
+  98     pub fn get_ref(&self) -> &T {
+  99         &self.data
+ 100     }
+ 101 
+ 102     /// Consumes this archive and returns the underlying data.
+ 103     pub fn into_inner(self) -> T {
+ 104         self.data
+ 105     }
+ 106 
+ 107     /// Returns a hint for the total number of entries in the archive.
+ 108     ///
+ 109     /// This value is read from the End of Central Directory record.
+ 110     pub fn entries_hint(&self) -> u64 {
+ 111         self.eocd.entries()
+ 112     }

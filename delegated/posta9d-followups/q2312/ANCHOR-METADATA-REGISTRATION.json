@@ -1,0 +1,25 @@
+{
+  "registered_at_utc": "2026-11-12T14:47:17.899975+00:00",
+  "purpose": "Inspect exact prior proof metadata fields and content-addressed Git tree objects; no prior review source range is adopted as a fresh personal read. Query local Git commit/tree metadata for the recorded path failure.",
+  "prior_metadata": [
+    {
+      "path": "target/726-audit-baseline/private-originals/npz-q2307-18a0w1xu/ANCHORS.json",
+      "pointers": [
+        "/"
+      ]
+    },
+    {
+      "path": "target/726-audit-baseline/private-originals/npz-q2316-safe-packet-qknuulot/ANCHORS.json",
+      "pointers": [
+        "/"
+      ]
+    }
+  ],
+  "git_queries": [
+    "cat-file -t 95e63628f9d70b8dd6e6fede64334696c6995009",
+    "rev-parse 95e63628f9d70b8dd6e6fede64334696c6995009^{tree}",
+    "ls-tree 95e63628f9d70b8dd6e6fede64334696c6995009 -- crates"
+  ],
+  "tree_transport": "target/726-audit-baseline/private-originals/npz-q2307-18a0w1xu/git-trees/*.tree",
+  "history_extraction": "Copy q2312-referenced files by exact path and verify queue-listed hashes; body display requires subsequent registration."
+}

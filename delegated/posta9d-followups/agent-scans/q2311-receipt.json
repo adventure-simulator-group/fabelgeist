@@ -1,0 +1,75 @@
+{
+  "schema": "726-q2311-final-evidence-receipt-v1",
+  "created_utc": "2026-11-12T15:18:44.069782+00:00",
+  "public_archive": {
+    "name": "q2311-public-evidence.tar.gz",
+    "sha256": "3b822c1b7b0d4255291edf3f66f75a01bf2cf0cd813a5992ad7583eab14bac15",
+    "bytes": 191219,
+    "members": 80,
+    "manifest_sha256": "3e0a7d5518337ed60d4e3e469be956a07ce917fd9f3f575bb6c6a88a13f7a7f0",
+    "report_sha256": "fac360604f3dcb6fa9d7ab99ae8a9bcef2cbb310ecfcdb1e34f39dd4e5422d8d"
+  },
+  "restricted_archive": {
+    "name": "q2311-restricted-evidence.tar.gz",
+    "sha256": "fe8efcefaf9811eb39d4459fd8db2f58d4a67c6790e1e36de968add02d3d17c5",
+    "bytes": 262400,
+    "members": 3,
+    "manifest_sha256": "29ca8ab6456b596bf4a1c9112ef783897308b3668de19fa31ffee5fece264f19",
+    "native_package_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "provenance_sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d",
+    "qualification": "Owner-restricted exact package and original provenance; do not publish without separate review."
+  },
+  "checks": {
+    "standalone_verifier": "passed",
+    "repo_plus_private_inputs_verifier": "passed",
+    "display_events": 13,
+    "git_tree_proofs": 7,
+    "historical_records": 15,
+    "native_archive_member_bindings": 3,
+    "qualification": "Evidence identity and selected reconstructions only; no product or runtime validation."
+  },
+  "privacy": {
+    "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "public_scan_sha256": "b8037320595b8b3b3beec289927ec4b8f5d9476bb6525c846b09a9dd26a520bd",
+    "public_scan_result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 82,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 80,
+        "cached_views": 240,
+        "text_views": 72,
+        "binary_views": 8
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "bounds": "Recursive gzip/tar, depth 8 and 83886080 bytes per view; unknown encodings, unsupported archives and all credential classes are not cleared.",
+    "restricted_original_prior_scan_sha256": "62e1998c23d610899107c128021aa8cc5391b431d1eb67a6cf519202ccd90748",
+    "restricted_prior_scan_summary": {
+      "same_package_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "candidate_counts": {
+        "unix-home": 1,
+        "email": 3
+      },
+      "exception_count": 30,
+      "qualification": "Prior q2310 scan of this same checksum-matching package and exact provenance recorded one genuine local home path, metadata email candidates, and 30 nested ZIP/JAR scanner exceptions; private scan was not rerun in this task."
+    }
+  },
+  "limits": "No repairs, product/native/fixture execution, builds, tests, runtime probes, publication or ledger edits, checkpoint3821 promotion, or global count/closure."
+}

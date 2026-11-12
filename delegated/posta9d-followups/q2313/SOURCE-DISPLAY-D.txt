@@ -1,0 +1,29 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip/names.rs:1-28
+   1 //! Parsed archive filenames retain wire spelling at the decoding boundary.
+   2 
+   3 use derive_more::{Debug, Display, From};
+   4 
+   5 /// An archive member's parsed filename, without path or existence validation.
+   6 ///
+   7 /// Stored bytes use the reader's lossy UTF-8 admission. Distinct invalid byte
+   8 /// spellings can therefore identify the same parsed name. Text constructors
+   9 /// preserve accepted spelling, including case, separators, NUL and emptiness.
+  10 #[derive(Clone, Debug, Display, From, PartialEq, Eq)]
+  11 #[debug("{_0:?}")]
+  12 #[from(String, &str)]
+  13 pub struct ArchiveMemberName(String);
+  14 
+  15 impl From<&[u8]> for ArchiveMemberName {
+  16     fn from(name: &[u8]) -> Self {
+  17         Self(String::from_utf8_lossy(name).into_owned())
+  18     }
+  19 }
+  20 
+  21 impl<'a> From<&'a ArchiveMemberName> for &'a str {
+  22     fn from(name: &'a ArchiveMemberName) -> Self {
+  23         &name.0
+  24     }
+  25 }
+  26 
+  27 #[cfg(test)]
+  28 mod tests;

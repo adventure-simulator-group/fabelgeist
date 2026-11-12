@@ -1,0 +1,13 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T15:32:39.663552+00:00",
+  "checkout": "remote-restore",
+  "candidate": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "operations": [
+    "git ls-tree -r -z candidate",
+    "no-lazy-fetch git cat-file --batch-check for unique candidate tree entries",
+    "git ls-files -v -z index-flag aggregate"
+  ],
+  "display_policy": "Aggregate object types/modes, sizes, missing object counts and index tag counts only; no filenames, source content or author data.",
+  "qualification": "Object headers and traversed tree presence, not full blob rehash, working-tree byte comparison, external dependency graph, complete history, fsck or off-machine custody."
+}

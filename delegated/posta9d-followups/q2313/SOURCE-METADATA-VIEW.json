@@ -1,0 +1,258 @@
+{
+  "crates/fabelgeist-numpy-storage/src/npz.rs": {
+    "sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+    "lines": 221,
+    "blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+    "locators": {
+      "pub struct Npz": [
+        18,
+        26
+      ],
+      "pub struct NpzMember": [
+        26
+      ],
+      "pub fn get": [
+        56
+      ],
+      "fn read": [
+        153
+      ],
+      "NpzArrayName": [
+        13,
+        28,
+        51,
+        52,
+        56,
+        66,
+        182,
+        183,
+        184,
+        186,
+        197,
+        205,
+        218
+      ],
+      "ArchiveMemberName": [
+        12,
+        46,
+        74
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/npz/name.rs": {
+    "sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f",
+    "lines": 68,
+    "blob": "6623fff8b76e540ae0198222bf00ce3d62ec8f64",
+    "locators": {
+      "pub struct Npz": [
+        43
+      ],
+      "fn matches": [
+        51
+      ],
+      "fn read": [
+        27,
+        36
+      ],
+      "NpzArrayName": [
+        17,
+        19,
+        20,
+        35,
+        36,
+        43,
+        45,
+        57,
+        64,
+        65
+      ],
+      "ArchiveMemberName": [
+        5,
+        17,
+        18,
+        26,
+        27,
+        51,
+        57,
+        58
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/zip.rs": {
+    "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+    "lines": 184,
+    "blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+    "locators": {
+      "struct ZipMember": [
+        45
+      ],
+      "pub struct ZipArchive": [
+        39
+      ],
+      "fn bytes": [
+        144,
+        160
+      ],
+      "Wayfinder": [
+        12,
+        35
+      ],
+      "wayfinder": [
+        106
+      ],
+      "get_entry": [
+        165
+      ],
+      "ZipSliceArchive": [
+        12,
+        40
+      ],
+      "uncompressed_size_hint": [
+        104
+      ],
+      "file_path": [
+        101
+      ],
+      "ArchiveMemberName": [
+        20,
+        32,
+        101,
+        113,
+        117,
+        124,
+        132,
+        144,
+        152
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/zip/names.rs": {
+    "sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+    "lines": 28,
+    "blob": "c482e676ca7c30aac69e2b09d9ca55848f6b58f1",
+    "locators": {
+      "ArchiveMemberName": [
+        13,
+        15,
+        21,
+        22
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/zip/error.rs": {
+    "sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+    "lines": 142,
+    "blob": "aea71d033af691a445a0fc03e7791402e07fc791",
+    "locators": {
+      "ArchiveMemberName": [
+        4,
+        48,
+        52,
+        57,
+        62,
+        136
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/Cargo.lock": {
+    "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+    "lines": 6257,
+    "blob": "212ef57755840d5f6a506c95c7b848967b71c846"
+  },
+  "crates/fabelgeist-numpy-storage/Cargo.toml": {
+    "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+    "lines": 31,
+    "blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4"
+  },
+  "rawzip-0.5.2/src/archive.rs": {
+    "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+    "lines": 1797,
+    "locators": {
+      "pub fn get": [
+        98,
+        180
+      ],
+      "pub struct ZipArchive": [
+        476,
+        1451
+      ],
+      "fn read": [
+        754
+      ],
+      "Wayfinder": [
+        180,
+        1224,
+        1225,
+        1451,
+        1460
+      ],
+      "wayfinder": [
+        293,
+        294,
+        328,
+        382,
+        1077,
+        1224,
+        1795
+      ],
+      "get_entry": [
+        180,
+        294,
+        328,
+        1256
+      ],
+      "ZipFileHeaderRecord": [
+        131,
+        372,
+        384,
+        399,
+        426,
+        438,
+        568,
+        1077,
+        1082,
+        1108,
+        1461,
+        1464,
+        1470,
+        1473,
+        1791
+      ],
+      "ZipSliceArchive": [
+        56,
+        62,
+        75,
+        80,
+        82,
+        126,
+        158,
+        167,
+        211,
+        358,
+        489,
+        1256
+      ],
+      "fn entries": [
+        86,
+        110
+      ],
+      "uncompressed_size_hint": [
+        200,
+        616,
+        1240,
+        1466
+      ],
+      "file_path": [
+        69,
+        330,
+        350,
+        543,
+        561,
+        562,
+        1291,
+        1310,
+        1320
+      ]
+    }
+  }
+}

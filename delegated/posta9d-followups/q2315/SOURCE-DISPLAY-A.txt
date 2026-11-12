@@ -1,0 +1,71 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip/error.rs:1-70
+   1 //! ZIP application failures with concrete parser and native I/O provenance.
+   2 use std::{error::Error, fmt, io, path::PathBuf};
+   3 
+   4 use super::{ArchiveMemberName, ZipCompressionCode};
+   5 
+   6 /// Concrete result shared by ZIP archive admission and member decoding.
+   7 ///
+   8 /// ```
+   9 /// use fabelgeist_numpy_storage::{ZipArchive, zip::{Result, ZipReadError}};
+  10 /// let archive: Result<ZipArchive> = ZipArchive::from_bytes(Vec::new());
+  11 /// assert!(matches!(archive, Err(ZipReadError::MissingEndRecord)));
+  12 /// ```
+  13 /// Native I/O is a retained cause, not the owning parser error:
+  14 /// ```compile_fail
+  15 /// use fabelgeist_numpy_storage::ZipArchive;
+  16 /// let archive: std::result::Result<ZipArchive, std::io::Error> =
+  17 ///     ZipArchive::from_bytes(Vec::new());
+  18 /// ```
+  19 pub type Result<T> = std::result::Result<T, ZipReadError>;
+  20 
+  21 /// Native file operation whose original I/O failure is retained.
+  22 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+  23 pub enum ZipFileOperation {
+  24     Open,
+  25     Map,
+  26 }
+  27 
+  28 /// A ZIP admission, lookup or decoding failure.
+  29 ///
+  30 /// Member names and rejected compression codes retain their canonical owners.
+  31 /// Native paths are diagnostic provenance from a failed operating-system call;
+  32 /// they do not certify a successful file identity.
+  33 #[derive(Debug)]
+  34 pub enum ZipReadError {
+  35     MissingEndRecord,
+  36     /// Directory or end-record framing rejected by the structural parser.
+  37     Archive {
+  38         source: rawzip::Error,
+  39     },
+  40     Native {
+  41         operation: ZipFileOperation,
+  42         /// Original native OS path used by the failed open or map.
+  43         native_path: PathBuf,
+  44         source: io::Error,
+  45     },
+  46     MissingMember {
+  47         /// Exact member query, retained without changing its spelling.
+  48         name: ArchiveMemberName,
+  49     },
+  50     CorruptMember {
+  51         /// Central-directory name retained at the failed serialized read.
+  52         name: ArchiveMemberName,
+  53         source: rawzip::Error,
+  54     },
+  55     MemberPastEnd {
+  56         /// Member whose local framing or compressed payload is incomplete.
+  57         name: ArchiveMemberName,
+  58         source: rawzip::Error,
+  59     },
+  60     Inflate {
+  61         /// Central-directory name retained at the failed native decompressor.
+  62         name: ArchiveMemberName,
+  63         source: io::Error,
+  64     },
+  65     UnsupportedCompression {
+  66         /// Rejected method code, retained before successful payload decoding.
+  67         code: ZipCompressionCode,
+  68     },
+  69 }
+  70 

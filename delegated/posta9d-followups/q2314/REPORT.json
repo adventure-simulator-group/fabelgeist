@@ -1,0 +1,112 @@
+{
+  "schema": "726-q2314-bounded-native-framing-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T15:29:43.108468+00:00",
+  "scope": "Prospectively registered source reconciliation of 059 q2314 against pinned 95e, with exact lock-identified rawzip source and selected first-party consumers. Central owns ledger, aliases and closure.",
+  "revisions": {
+    "pinned_product": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_review_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "original_queue": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2314",
+    "committed_related_13y": "a9d979e4f4fd84b797da89a33263d78604fe9224",
+    "q2310_and_q2311": "Hash-linked previously frozen local reports; not asserted committed",
+    "native_package": "rawzip 0.5.2 archive SHA-256 ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c, matched to selected current and historical child locks"
+  },
+  "historical": {
+    "id": "REVIEW-L11-NPZ-NATIVE-LOCAL-CENTRAL-FRAMING",
+    "disposition": "Original 059 record says rejected-suspicion-source-qualified and discovery closed only inside its exact named historical scope, zero body/population credit, no coarse/global closure and no repair/runtime pass. This follow-up does not decide a new queue disposition.",
+    "reviewer": "Original own Lens11 agent personally read e275 zip.rs 1–184 (PLAN-191/READ-171) and lock-identified rawzip archive.rs 1–447,1080–1280,1310–1327,1438–1500 (PLAN-192/READ-175), plus 448–538 and 1501–1797 (PLAN-194/READ-176). Those are separate original scopes; full archived source bytes do not grant personal read credit.",
+    "adoption": "Proposal says root adoption pending; READ-L11-707/711/712 and VERIFY records separately record later root adoption of PL11-1103/1112/1119 without root reread. Preserve both stages and original reader.",
+    "identity": "The e275 and 95e zip.rs and child Cargo.lock match individually; the child Cargo.toml differs by a current dev-profile block. The selected native archive member matches the authenticated local package and locked checksum. Whole-tree equality, actual Cargo feature resolution and checkpoint3821 evidence are not established."
+  },
+  "observations": [
+    {
+      "id": "Q2314-SELECTED-FRAMING",
+      "classification": "source-supported safeguards, scoped to the selected entry or iterator",
+      "references": [
+        "rawzip-0.5.2/src/archive.rs:75–95,176–208,384–414,1480–1530,1591–1648",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86–109,160–181",
+        "crates/fabelgeist-numpy-storage/src/zip/error.rs:126–140"
+      ],
+      "analysis": "The central fixed parser requires 46 bytes and the central signature; the variable parser checks file name, extra and comment before each split. On an ordinary next-entry error the iterator becomes terminal, and the application propagates that error rather than returning a partially built archive. On selected payload access rawzip requires a 30-byte local header and local signature, adds its two u16 variable lengths, then checks compressed-extent addition and the available slice before returning raw bytes. The application maps native member errors with member context. These are source safeguards, not runtime results, verified CRC/decoded size or all possible input guarantees."
+    },
+    {
+      "id": "Q2314-DIGITAL-TERMINATOR",
+      "classification": "qualification of wrong-record-kind claim and connection to historical q2312, not a new count",
+      "references": [
+        "rawzip-0.5.2/src/archive.rs:23–28,384–433",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:91–109"
+      ],
+      "analysis": "Although the fixed central parser rejects other signatures, the iterator specially converts a remaining buffer beginning with the digital-signature bytes and no longer than 6 + u16::MAX bytes to Ok(None). That branch does not itself parse a signature-record length or require a six-byte minimum. If a selected directory tail has only the four signature bytes and the application asks for another entry, this branch can terminate the loop instead of propagating the preceding fixed-header error. This is symbolic source reasoning; no actual archive, archive validity, supported asset incidence or rejection policy is established. It limits a blanket wrong-record-kind claim and relates to the separately recorded declaration-upper-bound policy."
+    },
+    {
+      "id": "Q2314-CENTRAL-LOCAL-IDENTITY",
+      "classification": "conditional source behavior already related to q2313, not a newly established defect",
+      "references": [
+        "rawzip-0.5.2/src/archive.rs:176–208,227–230,384–413,1080–1149,1222–1232,1450–1476,1480–1530",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:31–47,100–106,130–147,160–181",
+        "crates/fabelgeist-numpy-storage/src/npz.rs:17–29,45–86"
+      ],
+      "analysis": "The application selects and names a central entry, stores its central compression and wayfinder, and gets bytes from the same archive using the wayfinder offset and compressed-size hint. The shown native get_entry checks local signature and extent but does not compare the local filename or compression field against central metadata; wayfinder does not carry the central name or method. If a selected central entry points to a different otherwise well-framed local record with sufficient bytes, its raw data can be returned under the selected central name, using the central method. This remains a conditional source case: no archive, supported producer, violation or consumer impact is observed. Historical q2313 explicitly says central-directory selection is authoritative and local versus central names may legitimately differ; do not recast that history as an established defect or assume an alias."
+    },
+    {
+      "id": "Q2314-DIRECTORY-AND-INTEGRITY-BOUNDARIES",
+      "classification": "qualified relationship to q2312/q2316",
+      "references": [
+        "rawzip-0.5.2/src/archive.rs:85–94,176–208,227–239",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:91–109,160–181"
+      ],
+      "analysis": "The native entries slice uses selected directory start through head EOCD; the displayed slice does not use the declared directory size as its endpoint. The application iterates at most its selected count and can stop at Ok(None). The displayed Stored/Deflate path obtains the raw member and does not itself compare decoded length or CRC; native extent availability and decoded integrity remain distinct. Count, CRC and allocation policies belong to their separately recorded histories and prior review."
+    }
+  ],
+  "relationships": [
+    {
+      "record": "059 q2312",
+      "relationship": "The original named declared-count upper-bound policy already recognizes digital-signature termination and zero/early stop. The exact terminator branch is a bounded qualification, not automatically another count."
+    },
+    {
+      "record": "059 q2313 and committed 13Y /root/wrapped_scope",
+      "relationship": "Original q2313 explicitly records central-directory selection authority and that local/central names may legitimately differ; same first-party selected entry is retained. The local-offset condition is a semantic boundary, not evidence of cross-archive or second-lookup failure."
+    },
+    {
+      "record": "059 q2316 and committed 13Y",
+      "relationship": "Decoded length, CRC and allocation policy are separate from local compressed-extent availability; no independently counted duplicate."
+    },
+    {
+      "record": "separately frozen q2310/q2311 reports /root/mhr_character",
+      "relationship": "Earlier EOCD selection, ZIP64 candidate/count and incomplete ZIP64 extra-field qualifications remain separately attributed; this task did not transfer earlier personal-read scope."
+    },
+    {
+      "record": "current baseline metadata",
+      "relationship": "Metadata-only ID/pointer search for NPZ/rawzip/ZIP64/EOCD at captured publication commit found no matching IDs. It is not a global content or alias inventory."
+    }
+  ],
+  "open_questions": [
+    "Which local-versus-central name, compression and offset differences are permitted for supported model assets; does any real asset or user-controlled producer reach the conditional case?",
+    "Must the selected directory count and digital-signature record length be validated, or is early termination intentional?",
+    "What decoded-size, CRC, compressed-method and resource policies apply beyond the displayed framing checks?",
+    "What feature/configuration or native consumers exist outside the inspected child-lock path?",
+    "How should historical q2312/q2313/q2314/q2316 and current evidence be reconciled without missing checkpoint3821?"
+  ],
+  "perspectives": {
+    "admission_contracts": "Central fixed/variable and local fixed/extent gates have explicit digital-terminator and count bounds.",
+    "aggregate_states": "Central metadata and pointed local header are separate values; shown path does not compare their name/method, and policy remains open.",
+    "behavior_preservation": "No implementation change or runtime comparison occurred.",
+    "derivability": "No repository-wide derivability finding.",
+    "enum_shapes": "Native EOF, archive/member errors and terminator success are distinct result forms.",
+    "existing_type_owners": "ZipMember binds archive and central entry; a native wayfinder carries offset and sizes.",
+    "invariant_operations": "Offset clamp, checked extent addition and bounded splits support the named narrow checks.",
+    "magic_numbers": "46-byte central header, 30-byte local header and signature size cap are native framing constants.",
+    "magic_strings": "Central names drive selected member lookup; global string audit is outside scope.",
+    "producer_propagation": "Central name, method and offset flow to member read; actual producer input and consumer outcome remain unproved.",
+    "redundant_authority": "Central/local header fields and declared/observed counts have separate roles; policy must resolve their relationship.",
+    "type_granularity": "Unverified compressed/decoded size hints are not confirmed lengths or validated CRC.",
+    "type_ownership": "Native structural framing, first-party selection and asset policy are distinct owners."
+  },
+  "privacy_and_read_qualification": {
+    "public_reconstruction": "PUBLIC-RECONSTRUCTION.json records a single path redaction; exact original provenance and source package are separately owner-restricted, with whole-file hashes and no private-value digest.",
+    "archive_omission": "The exact checksum-matching package was omitted because earlier bounded scanning found metadata email candidates and 30 nested ZIP/JAR items not inspected; registry availability was not independently checked. Public-only verification cannot prove archive membership or exact private replay without optional private inputs.",
+    "scope": "READ-RECEIPTS.json records independent current/native displays and unread complements. Full retained source bytes, historical reviewer scopes and earlier q2310/q2311 reads do not transfer personal read credit. Historical root arrays were machine-prepared but only selected rows were displayed.",
+    "locators": "All queue, selected historical, prior records and source displays were registered before output. Prior filename output contained three results and was complete; no failed or truncated source display is known in this task."
+  },
+  "limits": "No product/native parser, fixture, build, test, macro, runtime probe or repair; no publication or ledger mutation, global count, alias, lens closure or checkpoint3821 inference. Evidence verification and bounded privacy scan are not product validation."
+}

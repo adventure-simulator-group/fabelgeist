@@ -1,0 +1,37 @@
+{
+  "/rows/1": {
+    "registration": "PL11-1119",
+    "lens": 11,
+    "kind": "native-exact-child-crate-lock-restored-member",
+    "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+    "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+    "local_path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+    "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+    "actual_EOF": 1797,
+    "prospective_ranges": [
+      [
+        448,
+        538
+      ],
+      [
+        1501,
+        1797
+      ]
+    ],
+    "source_id": "native:rawzip@0.5.2:src/archive.rs:current-child-crate-NPY-NPZ-boundary:fixed-local-central-record-callees",
+    "purpose": "Actualcalled ZipLocalFileHeaderFixed.parse/variable_length andZipFileHeaderFixed.parse/parse_variable_length plusdeclaredverification helper, complete registerednativeframingdependency afterget_entry183/iterator389/394. No nativeparser/verifier/runtimeexecuted.",
+    "archive": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2.crate",
+    "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "archive_member": "rawzip-0.5.2/src/archive.rs",
+    "locked_package_checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "current_product_lock_path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+    "current_product_lock_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "lock_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+    "lock_registration": "PL11-1118",
+    "exact_archive_member_matches_local": true,
+    "restoration_provenance": {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/MATERIAL-PROVENANCE.json",
+      "sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d"
+    }
+  }
+}

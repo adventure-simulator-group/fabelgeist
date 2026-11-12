@@ -1,0 +1,48 @@
+{
+  "registered_at_utc": "2026-11-12T15:05:32.623394+00:00",
+  "purpose": "Display bounded historical 6533 reviewer attribution, original range/truncation qualifications, proposal scope, and root adoption/verification.",
+  "reader_fields": [
+    "original_index",
+    "source_id",
+    "source_sha256",
+    "frozen_git_revision",
+    "git_path",
+    "actual_EOF",
+    "requested_ranges",
+    "assessed_ranges",
+    "fresh_personal_body_reads",
+    "unread_source_ranges",
+    "attribution",
+    "body_output_truncation_status",
+    "identity_specific_windows_qualification",
+    "new_original_credit",
+    "new_ordered_population_credit",
+    "new_global_identity_credit"
+  ],
+  "proposal_fields": [
+    "contract_id_or_proposed_new_id",
+    "lens",
+    "first_failed_contract_or_unresolved_question",
+    "remaining_evidence",
+    "closure_condition"
+  ],
+  "adoption_fields": [
+    "lens",
+    "kind",
+    "accepted_unique_count_change",
+    "current_source_reconciled",
+    "runtime_validation",
+    "product_execution",
+    "implementation_gate_complete"
+  ],
+  "verification_fields": [
+    "lens",
+    "personal_assessed_lines",
+    "included_honest_prior_body_reread_lines",
+    "new_original_credit",
+    "other_lens_credit",
+    "product_execution",
+    "implementation_gate_complete"
+  ],
+  "pointers_registration": "HISTORY-METADATA-REGISTRATION.json"
+}

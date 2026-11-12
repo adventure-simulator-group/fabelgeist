@@ -1,0 +1,36 @@
+SOURCE rawzip-0.5.2/src/locator.rs:146-180
+ 146         EndOfCentralDirectory::create_zip64(eocd, zip64)
+ 147     }
+ 148 
+ 149     /// Locates the EOCD record within a byte slice.
+ 150     ///
+ 151     /// On success, returns a `ZipSliceArchive` which allows reading the archive
+ 152     /// directly from the slice. On failure, returns the original slice and an `Error`.
+ 153     ///
+ 154     /// # Examples
+ 155     ///
+ 156     /// ```rust
+ 157     /// use rawzip::ZipLocator;
+ 158     /// use std::fs;
+ 159     /// use std::io::Read;
+ 160     ///
+ 161     /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+ 162     /// let mut file = fs::File::open("assets/readme.zip")?;
+ 163     /// let mut data = Vec::new();
+ 164     /// file.read_to_end(&mut data)?;
+ 165     ///
+ 166     /// let locator = ZipLocator::new();
+ 167     /// match locator.locate_in_slice(&data) {
+ 168     ///     Ok(archive) => {
+ 169     ///         println!("Found EOCD in slice, archive has {} files.", archive.entries_hint());
+ 170     ///     }
+ 171     ///     Err((_data, e)) => {
+ 172     ///         eprintln!("Failed to locate EOCD in slice: {:?}", e);
+ 173     ///     }
+ 174     /// }
+ 175     /// # Ok(())
+ 176     /// # }
+ 177     /// ```
+ 178     pub fn locate_in_slice<T: AsRef<[u8]>>(
+ 179         &self,
+ 180         data: T,

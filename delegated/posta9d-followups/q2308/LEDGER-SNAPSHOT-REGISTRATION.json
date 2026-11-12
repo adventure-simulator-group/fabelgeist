@@ -1,0 +1,8 @@
+{
+  "registered_at_utc": "2026-11-12T15:10:44.890565+00:00",
+  "purpose": "Preserve the exact time-bound ledger metadata search input if the working ledger still has the previously observed SHA-256; otherwise record the mismatch without substituting later state. No row body display or ledger mutation.",
+  "source": "publication/BASELINE-95E-20261110.json",
+  "expected_sha256": "a5437a8df72d1c50657c75ca0b7194eeb45e4cd9883be48de9360bc963e0e722",
+  "destination": "ledger-snapshot/BASELINE-95E-20261110.json",
+  "qualification": "A preserved source snapshot is not a current authoritative new ledger assignment; user-facing packet scan decides whether full exact bytes can be included safely."
+}

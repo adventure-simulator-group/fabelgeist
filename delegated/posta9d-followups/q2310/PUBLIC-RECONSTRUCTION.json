@@ -1,0 +1,22 @@
+{
+  "schema": "726-q2310-public-reconstruction-v1",
+  "created_utc": "2026-11-12T15:05:11.690853+00:00",
+  "provenance": {
+    "original_sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d",
+    "original_bytes": 4305,
+    "public_path": "native/MATERIAL-PROVENANCE-public.json",
+    "public_sha256": "043c850dd18099ca307d5b7bfd455219119674cc567e46ba279c9f129fa7c488",
+    "public_bytes": 4211,
+    "redacted_json_pointers": [
+      "/source_archive"
+    ],
+    "qualification": "One concrete local path value replaced. Original bytes retained separately; no individual path-value digest included."
+  },
+  "native_package_archive": {
+    "original_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "original_bytes": 260248,
+    "public_included": false,
+    "qualification": "Exact archive retained privately. Omitted from public transport because nested upstream ZIP/JAR assets were not decoded by the bounded scanner, and upstream metadata contains email candidates. Original archive checksum equals both child-lock entries. Public exact source members remain included."
+  },
+  "verification": "With explicit private archive/provenance inputs, the verifier checks original archive checksum, both member bytes, and exact one-field provenance reconstruction. Without them the packet verifies stored identities only and does not prove original-to-public replay or archive membership from the checksum alone."
+}

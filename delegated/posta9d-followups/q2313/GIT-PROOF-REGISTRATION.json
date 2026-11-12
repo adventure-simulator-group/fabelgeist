@@ -1,0 +1,20 @@
+{
+  "registered_at_utc": "2026-11-12T15:14:48.063232+00:00",
+  "purpose": "Verify 95e/e275 raw commit object hashes, tree-to-blob path membership and per-file identities for the registered first-party paths. Print only OIDs and equality; raw commit author metadata remains separate.",
+  "revisions": [
+    "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "e2755a732c84e67296b5e3441a4259a84f461b2f"
+  ],
+  "paths": [
+    "crates/fabelgeist-numpy-storage/src/npz.rs",
+    "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+    "crates/fabelgeist-numpy-storage/src/zip.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+    "crates/fabelgeist-numpy-storage/Cargo.lock",
+    "crates/fabelgeist-numpy-storage/Cargo.toml"
+  ],
+  "anchor_custody": "private-originals/npy-q2306-private-anchors-6ij9wxaj",
+  "trees": "git-trees/*.tree",
+  "qualification": "File equality and tree identity are distinct; current Cargo.toml is known to differ at e275."
+}

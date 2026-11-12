@@ -1,0 +1,10 @@
+SOURCE rawzip-0.5.2/src/locator.rs:178-186
+ 178     pub fn locate_in_slice<T: AsRef<[u8]>>(
+ 179         &self,
+ 180         data: T,
+ 181     ) -> Result<ZipSliceArchive<T>, (T, Error)> {
+ 182         match self.locate_in_byte_slice(data.as_ref()) {
+ 183             Ok(eocd) => Ok(ZipSliceArchive::new(data, eocd)),
+ 184             Err(e) => Err((data, e)),
+ 185         }
+ 186     }

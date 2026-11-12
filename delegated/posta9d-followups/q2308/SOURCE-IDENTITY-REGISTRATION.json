@@ -1,0 +1,16 @@
+{
+  "registered_at_utc": "2026-11-12T14:59:44.796718+00:00",
+  "purpose": "Extract captured connector source bytes without displaying source, report source SHA-256, returned/computed Git blob IDs, encoding, lengths and exact current/historical per-file comparisons. No tree membership is assumed until proven.",
+  "connector_fields": [
+    "structuredContent.content",
+    "structuredContent.encoding",
+    "structuredContent.sha"
+  ],
+  "file_identities": "all six exact captured repeat responses in CONNECTOR-REGISTRATION.json",
+  "historical_expected_sha256": [
+    "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+    "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+    "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9"
+  ],
+  "qualification": "Hash equality is per-file, not whole-tree identity. No source body displayed in this step."
+}

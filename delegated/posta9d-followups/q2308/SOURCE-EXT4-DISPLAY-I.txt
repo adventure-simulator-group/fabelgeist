@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-building-generator/src/generator/core.rs:1-70
+   1 use fabelgeist_determinism::Seed;
+   2 
+   3 const STRAIGHT_STAIR_RUN_METRES: f32 = 3.2;
+   4 
+   5 #[derive(Clone, Debug)]
+   6 struct StraightStairCore {
+   7     lowest_storey: u16,
+   8     highest_storey: u16,
+   9     landing_room: RoomKind,
+  10     origin: Vec2,
+  11     direction: Direction,
+  12     reserved_cells: Vec<Cell>,
+  13 }
+  14 
+  15 impl StraightStairCore {
+  16     fn serves(&self, level: u16) -> bool {
+  17         (self.lowest_storey..=self.highest_storey).contains(&level)
+  18     }
+  19 }
+  20 
+  21 fn grid_point(position: Vec2) -> GridPoint {
+  22     let x = (position.x / GRID_UNIT_METRES).round() as i32;
+  23     let z = (position.y / GRID_UNIT_METRES).round() as i32;
+  24     debug_assert!((x as f32 * GRID_UNIT_METRES - position.x).abs() < 0.001);
+  25     debug_assert!((z as f32 * GRID_UNIT_METRES - position.y).abs() < 0.001);
+  26     GridPoint::new(x, z)
+  27 }
+  28 
+  29 /// Building generation operations share one construction error.
+  30 pub type GenerationResult<T> = std::result::Result<T, GenerationError>;
+  31 
+  32 #[derive(Clone, Debug, Error, Eq, PartialEq)]
+  33 pub enum GenerationError {
+  34     #[error("crown {owner:?} has invalid channel set-out: {cause}")]
+  35     CrownDrainageConstruction {
+  36         owner: GeometryOwnerId,
+  37         #[source]
+  38         cause: crate::spatial_geometry::GeometryError,
+  39     },
+  40     #[error("physical wall source {wall_source:?} is absent")]
+  41     MissingWallSource { wall_source: crate::WallSourceId },
+  42     #[error("crown {owner:?} has no physical drainage route")]
+  43     MissingCrownDrainage { owner: GeometryOwnerId },
+  44     #[error("resolved drainage void has no crown owner {owner:?}")]
+  45     MissingCrown { owner: GeometryOwnerId },
+  46     #[error("generated assembly refers to absent solid {solid:?}")]
+  47     MissingSolid { solid: ResolvedItemId },
+  48     #[error("generated assembly refers to absent support interface {interface:?}")]
+  49     MissingInterface { interface: ResolvedItemId },
+  50     #[error("generated assembly refers to absent surface {surface:?}")]
+  51     MissingSurface { surface: ResolvedItemId },
+  52     #[error("generated assembly refers to absent void {void:?}")]
+  53     MissingVoid { void: ResolvedItemId },
+  54     #[error("generated assembly refers to absent node {node:?}")]
+  55     MissingNode { node: StructuralNodeId },
+  56     #[error("storey {storey} has no {role:?} for its straight stair landing")]
+  57     MissingLandingRoom { storey: StoreyIndex, role: RoomKind },
+  58     #[error("storey {storey} refers to absent room requirement {room}")]
+  59     MissingRoomRequirement {
+  60         storey: StoreyIndex,
+  61         room: RoomIndex,
+  62     },
+  63     #[error("owner {owner:?} has no {kind:?} bearing")]
+  64     MissingBearing {
+  65         owner: GeometryOwnerId,
+  66         kind: StructuralNodeKind,
+  67     },
+  68     #[error("wall {wall:?} has no radial frame for its opening")]
+  69     MissingRadialFrame { wall: crate::WallAssemblyId },
+  70     #[error("wall source {wall_source:?} has no resolved opening")]

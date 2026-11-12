@@ -1,0 +1,37 @@
+### root-manifest.toml:35-70
+35:   "crates/fabelgeist-mesh",
+36:   "crates/fabelgeist-shell",
+37:   "crates/fabelgeist-fbx",
+38:   "crates/fabelgeist-rig",
+39:   "crates/fabelgeist-rust-quality",
+40:   "crates/fabelgeist-compute",
+41:   "crates/fabelgeist-bvh",
+42:   "crates/fabelgeist-xpbd",
+43:   "crates/fabelgeist-physics",
+44:   "crates/fabelgeist-cloth",
+45:   "crates/fabelgeist-garment-code",
+46:   "crates/fabelgeist-garment-fit",
+47:   "crates/fabelgeist-armor",
+48:   "crates/fabelgeist-spatial-hash",
+49:   "crates/fabelgeist-hair",
+50: ]
+51: exclude = [
+52:   "vendor/bevy_ahoy",
+53:   "wiki",
+54:   "utils",
+55:   "crates/adventuresim-character-creator",
+56:   # Everything that pulls burn keeps its own workspace: the git
+57:   # dependency and its cubecl toolchain do not belong in the everyday build.
+58:   "crates/fabelgeist-mhr",
+59:   "crates/fabelgeist-numpy-storage",
+60: ]
+61: 
+62: [workspace.package]
+63: version = "0.1.0"
+64: edition = "2024"
+65: repository = "https://github.com/adventure-simulator-group/fabelgeist"
+66: license = "AGPL-3.0"
+67: 
+68: [workspace.dependencies]
+69: microlp = "=0.6.0"
+70: ab_glyph = "0.2.32"

@@ -1,0 +1,71 @@
+{
+  "kind": "Prospective actual P17 captureproducer/validation/publication and P06 support hit admission leaf",
+  "lens": 11,
+  "rows": [
+    {
+      "registration": "PL11-0258",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_EOF": 1021,
+      "prospective_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
+    },
+    {
+      "registration": "PL11-0259",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "actual_EOF": 234,
+      "prospective_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs"
+    },
+    {
+      "registration": "PL11-0260",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "actual_EOF": 792,
+      "prospective_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
+    },
+    {
+      "registration": "PL11-0261",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "actual_EOF": 37,
+      "prospective_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs"
+    }
+  ],
+  "procedure_correction": "Historical capture/sample.rs absent current, metadata-only attempt failed before registration/bodyread; actual current capture_frame527..798 and jitter_frames823..899 selected from Git locator. No coverage for absent preserved branch module."
+}

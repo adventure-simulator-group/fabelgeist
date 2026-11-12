@@ -1,0 +1,57 @@
+SOURCE rawzip-0.5.2/src/archive.rs:155-210
+ 155         ZipStr::new(&data[comment_start..comment_start + comment_len])
+ 156     }
+ 157 
+ 158     /// Converts the [`ZipSliceArchive`] into a general [`ZipArchive`] by
+ 159     /// wrapping the data in a [`std::io::Cursor`].
+ 160     ///
+ 161     /// This is useful for unifying code that might handle both slice-based and
+ 162     /// reader-based archives. The data is wrapped in a [`std::io::Cursor`] to
+ 163     /// provide the [`ReaderAt`] implementation needed for [`ZipArchive`].
+ 164     ///
+ 165     /// This is only needed for `AsRef<[u8]>` types that do not themselves
+ 166     /// implement [`ReaderAt`], such as a memory-mapped file (`memmap2::Mmap`).
+ 167     /// Otherwise prefer the zero-cost [`ZipSliceArchive::into_reader_archive`].
+ 168     #[cfg(feature = "std")]
+ 169     pub fn into_cursor_archive(self) -> ZipArchive<std::io::Cursor<T>> {
+ 170         ZipArchive {
+ 171             reader: std::io::Cursor::new(self.data),
+ 172             eocd: self.eocd,
+ 173         }
+ 174     }
+ 175 
+ 176     /// Seeks to the given file entry in the zip archive.
+ 177     ///
+ 178     /// The slice API eagerly validates that the entire compressed data is
+ 179     /// present before returning a [`ZipSliceEntry`].
+ 180     pub fn get_entry(&self, entry: ZipArchiveEntryWayfinder) -> Result<ZipSliceEntry<'_>, Error> {
+ 181         let data = self.data.as_ref();
+ 182         let header = &data[entry.local_header_offset.min(data.len() as u64) as usize..];
+ 183         let file_header = ZipLocalFileHeaderFixed::parse(header)?;
+ 184         let variable_length = file_header.variable_length();
+ 185 
+ 186         let header_size = (ZipLocalFileHeaderFixed::SIZE + variable_length) as u32;
+ 187         let (total_size, o1) =
+ 188             (u64::from(header_size)).overflowing_add(entry.compressed_size_hint());
+ 189 
+ 190         if o1 || (header.len() as u64) < total_size {
+ 191             return Err(Error::from(ErrorKind::Eof));
+ 192         }
+ 193 
+ 194         let (entire_entry, descriptor) = header.split_at(total_size as usize);
+ 195 
+ 196         Ok(ZipSliceEntry {
+ 197             data: entire_entry,
+ 198             verifier: ZipVerification {
+ 199                 crc: entry.crc,
+ 200                 uncompressed_size: entry.uncompressed_size_hint(),
+ 201             },
+ 202             local_header_offset: entry.local_header_offset,
+ 203             data_start_offset: header_size,
+ 204             has_data_descriptor: entry.has_data_descriptor,
+ 205             data_descriptor_uses_zip64_sizes: entry.data_descriptor_uses_zip64_sizes,
+ 206             descriptor,
+ 207         })
+ 208     }
+ 209 }
+ 210 

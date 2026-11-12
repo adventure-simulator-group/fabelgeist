@@ -1,0 +1,82 @@
+### admission.rs:50-130
+50:         }
+51:     }
+52: 
+53:     pub(in crate::animation_viewer) fn admit_scene_position(
+54:         &mut self,
+55:         metres: Vec3,
+56:     ) -> Option<Position<Scene>> {
+57:         match Position::from_metres(metres) {
+58:             Ok(position) => Some(position),
+59:             Err(error) => {
+60:                 self.admission =
+61:                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+62:                 None
+63:             }
+64:         }
+65:     }
+66: 
+67:     /// A failed support calculation is terminal admission, not another readiness wait.
+68:     pub(super) fn admit_locomotion_support(
+69:         &mut self,
+70:         skeleton: &SkeletonState,
+71:         speed: NonnegativeSpeed,
+72:     ) -> Option<(
+73:         adventuresim_tactical_core::animation::UnitInterval,
+74:         adventuresim_tactical_core::animation::UnitInterval,
+75:     )> {
+76:         match locomotion_support_weights(skeleton, speed) {
+77:             Ok(weights) => Some(weights),
+78:             Err(error) => {
+79:                 self.admission =
+80:                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+81:                 None
+82:             }
+83:         }
+84:     }
+85: 
+86:     /// Active IK owns these observations; absent observations cannot become flight.
+87:     pub(super) fn admit_ik_support(
+88:         &mut self,
+89:         diagnostics: LegIkDiagnostics,
+90:         cadence: (UnitInterval, UnitInterval),
+91:         skeleton: &SkeletonState,
+92:         terrain_ik: TerrainIkMode,
+93:     ) -> Option<(UnitInterval, UnitInterval)> {
+94:         let ordinary_support_required =
+95:             terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
+96:         if !ordinary_support_required
+97:             && diagnostics.left_solve_target.is_none()
+98:             && diagnostics.right_solve_target.is_none()
+99:         {
+100:             return Some(cadence);
+101:         }
+102:         match diagnostics
+103:             .left_support_weight
+104:             .zip(diagnostics.right_support_weight)
+105:         {
+106:             Some(weights) => Some(weights),
+107:             None => {
+108:                 self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
+109:                     AnimationValueError::UnavailableObservation {
+110:                         quantity: AnimationQuantity::SupportObservation,
+111:                     },
+112:                 ));
+113:                 None
+114:             }
+115:         }
+116:     }
+117: 
+118:     /// Driving is permitted only before admission terminates and between captures.
+119:     pub(super) fn can_drive_frame(&self) -> bool {
+120:         self.admission.is_open()
+121:             && !self.applied
+122:             && !self.capture_in_flight
+123:             && self.index < self.plan.len()
+124:     }
+125: }
+126: 
+127: impl CaptureAdmission {
+128:     pub(super) fn is_open(&self) -> bool {
+129:         matches!(self, Self::Open)
+130:     }

@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-11-12T15:09:57.948926+00:00",
+  "safe_packet_manifest_sha256": "8a9bee80db86b3ec9a62dedff65710aa39686108d2a42cc079820fd16ac2fccd",
+  "restricted_predecessor_manifest_sha256": "558608a1302c730f1d981e9b16fa7ca23333f78b2a7c369972f5fdb5d99fbb6c",
+  "verification": {
+    "portable_log_sha256": "80320454fa3cf755d6365f956d8d57c0930ab6646e0035f209cb55d2e360d78f",
+    "portable_exit": 0,
+    "with_dependencies_log_sha256": "b0f72030ae8221265f80dcf98d7d8fb6a8ada67a1ddc38c6de4c0b681f6f94d8",
+    "with_dependencies_exit": 0
+  },
+  "safe_scans": {
+    "private_digest": {
+      "tool_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+      "result_sha256": "7ca11e8eee9b35989c8d5465de075a3c03f9da75055a9cf52478cce5f6eea0f0",
+      "exit": 0,
+      "forbidden_digest_total": 0,
+      "other_candidate_counts": {},
+      "exceptions_count": 0,
+      "corpus_count": 40
+    },
+    "supplementary_pattern": {
+      "tool_sha256": "7d33a0e78d17ad30768ac30d518a9b1f8203f1350536a16cdb9fd740c675edf9",
+      "result_sha256": "edbd48eed337ca5edbb12792d675a8eb83220f52de1999dd92267647d24522cd",
+      "exit": 0,
+      "candidate_counts": {},
+      "exceptions_count": 0
+    }
+  },
+  "predecessor_preliminary_scans": {
+    "private_result_sha256": "9805d8dd1744a6796501dc581b4d4f2061fbdd8d60dd50ababc177b07e65339f",
+    "forbidden_digest_total": 0,
+    "other_candidate_counts": {
+      "email": 3
+    },
+    "exceptions_count": 30,
+    "pattern_result_sha256": "c063d4f4fb9f27245b8f5b181385f0869dd29b5fb461edabbdbae4219ee33d79",
+    "pattern_candidate_counts": {
+      "email": 3
+    },
+    "pattern_exceptions_count": 1,
+    "qualification": "Preliminary scan preceded final predecessor manifest creation and detected archive-contained upstream email candidates and unsupported nested ZIPs. Its first printed summary was truncated; full machine outputs are retained here. Restricted predecessor and earlier published bundle are not privacy-cleared."
+  },
+  "scope_and_limits": "Final bounded scans cover only safe successor files and supported formats. Known digest corpus and regex patterns do not clear unknown secrets, excluded roots, binary object metadata, history, separately held raw package or existing publication. Evidence verification is not product validation."
+}

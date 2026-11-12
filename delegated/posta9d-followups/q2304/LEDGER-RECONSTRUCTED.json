@@ -1,0 +1,118 @@
+{
+  "/newly_assessed_ledger/entries/197": {
+    "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+    "lens": 5,
+    "severity": "unassigned; conditional source-level liveness, actual asset failure unobserved",
+    "classification": "New current-source readiness liveness candidate connected to an earlier Lens12 question; no viewer was run and global aliases remain open.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/1214 (earlier readiness/native timeout question)",
+      "historical role 1418 in ASSESSMENT-L01-HISTORICAL-1417-1421.json"
+    ],
+    "relationship_qualification": "Conditional current liveness candidate; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+    "discovery": "partial; actual asset state, timing policy and aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+    "further_current_evidence": [
+      "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+    ]
+  },
+  "/newly_assessed_ledger/entries/199": {
+    "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+    "lens": 8,
+    "severity": "unassigned; conditional selected-config divergence in source, no runtime or visual result",
+    "classification": "New 95e source-derived review-fixture configuration authority candidate; earlier quickstep source question is related, final aliases remain open.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+      "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json"
+    ],
+    "relationship_qualification": "Conditional 95e source case; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+    "discovery": "partial; selected-config semantics, runtime/native outcomes and global aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+    "further_current_evidence": [
+      "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-13T-95E.json"
+    ]
+  },
+  "/newly_assessed_ledger/entries/200": {
+    "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+    "lens": 7,
+    "severity": "unassigned; conditional sample-rate timestamp divergence in source, no report or visual result",
+    "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+      "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json",
+      "baseline-059/queue.json#/entries/1245 (earlier non-64-Hz UI/playback question, original revision)"
+    ],
+    "relationship_qualification": "Newly traced conditional current scenario timestamp case connected to an earlier fixed-64-Hz presentation question; exact alias, final checkpoint 3821 and global reconciliation remain unavailable.",
+    "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+    "further_current_evidence": [
+      "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+      "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-13T-95E.json"
+    ]
+  },
+  "/newly_assessed_ledger/entries/226": {
+    "id": "REVIEW-QUICKSTEP-RECOVERY-TRACE-001",
+    "lens": 5,
+    "severity": "unassigned; conditional diagnostic state and policy",
+    "classification": "New 95e source-supported conditional diagnostic candidate; no actual warning, supported transition incidence or gameplay defect observed.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/1289",
+      "ASSESSMENT-L01-HISTORICAL-333-338.json#/historical_source_roles/5"
+    ],
+    "relationship_qualification": "Queue1289 concerns lunge-only changes not triggering a log; bounded-recovery warning classification is a related but different conditional operation. Exact global aliases remain open.",
+    "discovery": "partial; actual state visibility, diagnostic intent, consumers and global aliases remain open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-PLAYER-QUICKSTEP-TRACE-95E.json"
+  },
+  "/newly_assessed_ledger/entries/337": {
+    "id": "ADLER-L11-QUICKSTEP-TARGET-ACCELERATION-ADMISSION",
+    "lens": 11,
+    "additional_current_lenses": [
+      1,
+      3,
+      4,
+      8,
+      13
+    ],
+    "severity": "unassigned; earlier checked helper arithmetic with runtime witness unestablished",
+    "classification": "A fallible quickstep trajectory calculation must not return a nonfinite acceleration alongside an admitted finite speed.",
+    "historical_related_candidates": [
+      "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-QUICKSTEP-TARGET-ACCELERATION-ADMISSION",
+      "baseline-059/queue.json#/entries/108",
+      "adler/READ-L11-287.json"
+    ],
+    "relationship_qualification": "Same original059 finding or qualified observation reassessed at95e; no historical unique increment and aliases remain open.",
+    "discovery": "partial; current leaf and selected runtime clock counterevidence established, other inputs and exact aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-QUICKSTEP-FORCE-95E.json"
+  },
+  "/newly_assessed_ledger/entries/915": {
+    "id": "P16-QUICKSTEP-ACTION-IDENTITY",
+    "lens": 5,
+    "additional_current_lenses": [
+      7,
+      8
+    ],
+    "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+    "severity": "unassigned; conditional source or policy question",
+    "classification": "A retained quickstep phase lacks an action-instance comparison when successive samples remain quicksteps.",
+    "historical_related_records": [
+      "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+      "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json"
+    ],
+    "relationship_qualification": "Corroborates 059 ADLER-L11-QUICKSTEP-PHASE-ACTION-IDENTITY and e275 Q-L1-9040cd454e9336709c2e; no independent unique count or established ordinary reach.",
+    "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+    "connected_repair_direction": "Trace supported action/coalescing paths and decide identity, interruption and continuity policy.",
+    "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json"
+  }
+}

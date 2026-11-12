@@ -1,0 +1,36 @@
+SOURCE rawzip-0.5.2/src/locator.rs:111-145
+ 111         if comment_start + comment_len > data.len() {
+ 112             return Err(Error::from(ErrorKind::Eof));
+ 113         }
+ 114 
+ 115         // Always probe for a zip64 EOCD locator, which can be present without sentinels
+ 116         let zip64_locator = location
+ 117             .checked_sub(Zip64EndOfCentralDirectoryLocatorRecord::SIZE)
+ 118             .and_then(|start| Zip64EndOfCentralDirectoryLocatorRecord::parse(&data[start..]).ok());
+ 119 
+ 120         let Some(zip64_locator) = zip64_locator else {
+ 121             return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+ 122                 location as u64,
+ 123                 &eocd,
+ 124             ));
+ 125         };
+ 126 
+ 127         let zip64_eocd = &data[zip64_locator.directory_offset.min(data.len() as u64) as usize..];
+ 128         let zip64_record = match parse_zip64_candidate(
+ 129             zip64_eocd,
+ 130             &eocd,
+ 131             &zip64_locator,
+ 132             location as u64 - Zip64EndOfCentralDirectoryLocatorRecord::SIZE as u64,
+ 133         ) {
+ 134             Some(record) => record,
+ 135             None => {
+ 136                 return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+ 137                     location as u64,
+ 138                     &eocd,
+ 139                 ));
+ 140             }
+ 141         };
+ 142 
+ 143         let zip64 =
+ 144             Zip64EndOfCentralDirectory::from_parts(zip64_locator.directory_offset, zip64_record);
+ 145         let eocd = EndOfCentralDirectoryRecord::from_parts(location as u64, &eocd);

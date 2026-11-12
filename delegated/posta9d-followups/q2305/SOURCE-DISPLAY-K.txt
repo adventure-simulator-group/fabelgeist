@@ -1,0 +1,67 @@
+### state.rs:140-205
+140:     }
+141: 
+142:     pub(super) fn update_targets(&mut self, left: Vec3, right: Vec3) {
+143:         *self = match self {
+144:             Self::Converging { .. } => Self::Converging { left, right },
+145:             Self::Held { .. } => Self::Held { left, right },
+146:             Self::None => Self::None,
+147:         };
+148:     }
+149: 
+150:     pub(super) fn hold(&mut self) {
+151:         if let Self::Converging { left, right } = *self {
+152:             *self = Self::Held { left, right };
+153:         }
+154:     }
+155: }
+156: 
+157: pub(in crate::animation::procedural) fn seed_quickstep_contact_handoff(
+158:     memory: &mut LegIkMemory,
+159:     frame: ObservedRigFrame,
+160:     left_world: Vec3,
+161:     right_world: Vec3,
+162: ) -> bool {
+163:     if !left_world.is_finite() || !right_world.is_finite() {
+164:         return false;
+165:     }
+166:     let (rig_origin, rig_rotation) = (frame.origin(), frame.rotation());
+167:     let inverse_rotation = rig_rotation.inverse();
+168:     let left = inverse_rotation * (left_world - rig_origin);
+169:     let right = inverse_rotation * (right_world - rig_origin);
+170:     if !left.is_finite() || !right.is_finite() {
+171:         return false;
+172:     }
+173:     memory.quickstep_handoff = QuickstepContactHandoff::Converging { left, right };
+174:     memory.owner_frame = Some(frame);
+175:     true
+176: }
+177: 
+178: #[derive(Debug, Clone, Copy, Default)]
+179: pub(in crate::animation::procedural) struct ArmIkMemory {
+180:     pub(super) left_arm: Option<Vec3>,
+181:     pub(super) right_arm: Option<Vec3>,
+182: }
+183: 
+184: pub(in crate::animation::procedural) fn repeated_fixed_tick_skips_ik(
+185:     fixed_tick: bool,
+186:     evaluation_advances: bool,
+187: ) -> bool {
+188:     fixed_tick && !evaluation_advances
+189: }
+190: 
+191: #[derive(Component, Debug, Clone, Copy, Default)]
+192: pub(crate) struct LegIkState(pub(super) LegIkMemory);
+193: 
+194: #[derive(Debug, Clone, Copy, Default, PartialEq)]
+195: pub(crate) struct LegIkDiagnostics {
+196:     pub left_authored_target: Option<Vec3>,
+197:     pub right_authored_target: Option<Vec3>,
+198:     pub left_planned_contact: Option<Vec3>,
+199:     pub right_planned_contact: Option<Vec3>,
+200:     pub settle_capture_point: Option<Vec3>,
+201:     pub left_solve_target: Option<Vec3>,
+202:     pub right_solve_target: Option<Vec3>,
+203:     pub left_support_weight: Option<UnitInterval>,
+204:     pub right_support_weight: Option<UnitInterval>,
+205:     pub left_release_active: bool,

@@ -1,0 +1,14 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T15:29:36.070940+00:00",
+  "candidate": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "checkout": "remote-restore",
+  "selectors": [
+    "root verify_*.py names as driver glob",
+    "native-evidence/*/verify.py names as driver glob",
+    "root DELEGATED-EVIDENCE-CHECKPOINT*.json names as qualified verifier glob",
+    "ignored-file count and ignored paths matching these selectors"
+  ],
+  "comparison": "Candidate Git tree names and modes versus existing recovery filesystem glob names at its observed HEAD; output counts, set differences and SHA-256 of sorted relative names only. No file bodies, writes, runtime or replay.",
+  "qualification": "Candidate tree listing and checkout glob results are point-in-time namespace observations, not exact content/mode verification, exhaustive data-driven dependencies, or proof a historic replay passes."
+}

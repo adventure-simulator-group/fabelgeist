@@ -1,0 +1,46 @@
+### delegated-links.py:1-45
+1: #!/usr/bin/env python3
+2: """Resolve this checkpoint's source packet links without transferring read credit."""
+3: import sys as _cw_sys
+4: _cw_sys.dont_write_bytecode = True
+5: from pathlib import Path as _CW_Path
+6: _CW_DIR = _CW_Path(__file__).resolve().parents[2] / 'qualified-059-successors' / 'successors'
+7: _cw_sys.path.insert(0, str(_CW_DIR))
+8: from qualified_crosswalk import configure as _cw_configure
+9: _CW = _cw_configure(_CW_DIR / 'CROSSWALK-059.json')
+10: import glob
+11: import hashlib
+12: import json
+13: import tarfile
+14: from pathlib import Path
+15: 
+16: root = _CW.root
+17: load = lambda n: json.loads((root / n).read_text())
+18: sha = lambda b: hashlib.sha256(b).hexdigest()
+19: checkpoints = []
+20: for p in sorted(root.glob('DELEGATED-EVIDENCE-CHECKPOINT*.json')):
+21:     d = json.loads(p.read_text())
+22:     if isinstance(d.get('bundles'), list):
+23:         checkpoints.append(d)
+24: manifest_to_bundle = {}
+25: for cp in checkpoints:
+26:     for b in cp['bundles']:
+27:         for m in b['members']:
+28:             if m['path'] in ('MANIFEST.json', 'BUNDLE-MANIFEST.json', 'packet-manifest.json', 'manifest.json'):
+29:                 manifest_to_bundle[m['original_sha256']] = b
+30: current = load('DELEGATED-EVIDENCE-CHECKPOINT-13.json')
+31: counts = {'prior_packet_links': 0, 'copied_original_identities': 0,
+32:           'prior_member_links': 0, 'published_file_links': 0}
+33: for b in current['bundles']:
+34:     members = {m['path']: m for m in b['members']}
+35:     with tarfile.open(root / b['archive'], 'r:gz') as t:
+36:         names = set(t.getnames())
+37:         if 'published-references.json' in names:
+38:             d = json.load(t.extractfile('published-references.json'))
+39:             for entry in d['entries']:
+40:                 if 'preserved_bytes' in entry:
+41:                     m = members[entry['preserved_bytes']]
+42:                     assert m['original_sha256'] == entry['sha256']
+43:                     assert m['original_bytes'] == entry['bytes']
+44:                     counts['copied_original_identities'] += 1
+45:                     continue

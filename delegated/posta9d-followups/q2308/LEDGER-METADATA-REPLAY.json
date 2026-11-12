@@ -1,0 +1,142 @@
+{
+  "sha256": "a5437a8df72d1c50657c75ca0b7194eeb45e4cd9883be48de9360bc963e0e722",
+  "top_level_keys": [
+    "schema",
+    "status",
+    "source_revision",
+    "previous_source_revision",
+    "main_observation",
+    "transition_evidence",
+    "predecessor",
+    "authority_rule",
+    "lens_names",
+    "lens_status",
+    "predecessor_delta_paths",
+    "predecessor_delta_reconciliation",
+    "additional_source_delta",
+    "historical_roles",
+    "historical_queue_records_indexed",
+    "historical_queue_records_semantically_reconciled",
+    "predecessor_ledger",
+    "recovery_qualification",
+    "validation",
+    "next_step",
+    "newly_assessed_ledger",
+    "latest_main_recheck",
+    "physical_p16_patch_recovery",
+    "report_p17_patch_recovery"
+  ],
+  "top_level_shapes": {
+    "schema": {
+      "type": "str",
+      "length": 52
+    },
+    "status": {
+      "type": "str",
+      "length": 70
+    },
+    "source_revision": {
+      "type": "str",
+      "length": 40
+    },
+    "previous_source_revision": {
+      "type": "str",
+      "length": 40
+    },
+    "main_observation": {
+      "type": "str",
+      "length": 116
+    },
+    "transition_evidence": {
+      "type": "str",
+      "length": 21
+    },
+    "predecessor": {
+      "type": "dict",
+      "length": 5
+    },
+    "authority_rule": {
+      "type": "str",
+      "length": 327
+    },
+    "lens_names": {
+      "type": "list",
+      "length": 13
+    },
+    "lens_status": {
+      "type": "list",
+      "length": 13
+    },
+    "predecessor_delta_paths": {
+      "type": "int",
+      "length": null
+    },
+    "predecessor_delta_reconciliation": {
+      "type": "str",
+      "length": 217
+    },
+    "additional_source_delta": {
+      "type": "list",
+      "length": 1
+    },
+    "historical_roles": {
+      "type": "dict",
+      "length": 6
+    },
+    "historical_queue_records_indexed": {
+      "type": "int",
+      "length": null
+    },
+    "historical_queue_records_semantically_reconciled": {
+      "type": "int",
+      "length": null
+    },
+    "predecessor_ledger": {
+      "type": "dict",
+      "length": 3
+    },
+    "recovery_qualification": {
+      "type": "str",
+      "length": 313
+    },
+    "validation": {
+      "type": "str",
+      "length": 127
+    },
+    "next_step": {
+      "type": "str",
+      "length": 226
+    },
+    "newly_assessed_ledger": {
+      "type": "dict",
+      "length": 2
+    },
+    "latest_main_recheck": {
+      "type": "str",
+      "length": 31
+    },
+    "physical_p16_patch_recovery": {
+      "type": "str",
+      "length": 223
+    },
+    "report_p17_patch_recovery": {
+      "type": "str",
+      "length": 39
+    }
+  },
+  "newly_assessed_ledger_keys": [
+    "qualification",
+    "entries"
+  ],
+  "newly_assessed_ledger_shapes": {
+    "qualification": {
+      "type": "str",
+      "length": 182
+    },
+    "entries": {
+      "type": "list",
+      "length": 1034
+    }
+  },
+  "qualification": "Reconstructed from same current ledger bytes because initial top-level metadata output was not separately captured to a file. No row body was displayed."
+}

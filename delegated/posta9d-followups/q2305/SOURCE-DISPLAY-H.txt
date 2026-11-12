@@ -1,0 +1,36 @@
+### observation.rs:251-285
+251:         nominal_support
+252:     };
+253:     Some(if supported {
+254:         UnitInterval::ONE
+255:     } else {
+256:         UnitInterval::ZERO
+257:     })
+258: }
+259: 
+260: pub(in crate::animation::procedural) fn raised_footwork_posture_is_valid(
+261:     skeleton: &SkeletonState,
+262: ) -> bool {
+263:     skeleton.is_grounded() && skeleton.posture() == Posture::Upright
+264: }
+265: 
+266: pub(in crate::animation::procedural) fn terrain_ik_posture_is_valid(
+267:     skeleton: &SkeletonState,
+268: ) -> bool {
+269:     skeleton.is_grounded()
+270:         && !skeleton.is_posture_transitioning()
+271:         && skeleton.posture() == Posture::Upright
+272:         && matches!(
+273:             skeleton.action_kind(),
+274:             SkeletonAction::None | SkeletonAction::Attack
+275:         )
+276: }
+277: 
+278: pub(in crate::animation::procedural) fn terrain_leg_has_support(weight: UnitInterval) -> bool {
+279:     weight.fraction() > 0.05
+280: }
+281: 
+282: pub(in crate::animation::procedural) fn update_contact_orientation_blend(
+283:     active: bool,
+284:     previous_support: Option<UnitInterval>,
+285:     reported_support: UnitInterval,

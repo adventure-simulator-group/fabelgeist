@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-building-generator/src/model/resolved_networks.rs:360-415
+ 360     pub roof_bearing_node: Option<StructuralNodeId>,
+ 361 }
+ 362 
+ 363 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
+ 364 pub struct ResolvedGeometry {
+ 365     pub schema_version: u16,
+ 366     pub solids: Vec<ResolvedSolid>,
+ 367     pub surfaces: Vec<ResolvedSurface>,
+ 368     pub voids: Vec<ResolvedVoid>,
+ 369     pub structural_nodes: Vec<StructuralNode>,
+ 370     pub support_interfaces: Vec<SupportInterface>,
+ 371     pub drainage_routes: Vec<DrainageRoute>,
+ 372     pub drainage_catchments: Vec<DrainageCatchment>,
+ 373     pub roof_drainage_networks: Vec<RoofDrainageNetwork>,
+ 374     pub roof_drainage_outlets: Vec<RoofDrainageOutletStation>,
+ 375     pub defender_samples: Vec<DefenderSample>,
+ 376     pub junction_bonds: Vec<JunctionBond>,
+ 377     pub projected_defense_rays: Vec<ProjectedDefenseRay>,
+ 378     pub projected_defense_working_points: Vec<ProjectedDefenseWorkingPoint>,
+ 379 }
+ 380 
+ 381 impl ResolvedGeometry {
+ 382     pub fn solid_mut(
+ 383         &mut self,
+ 384         id: ResolvedItemId,
+ 385     ) -> Result<&mut ResolvedSolid, crate::GenerationError> {
+ 386         self.solids
+ 387             .iter_mut()
+ 388             .find(|solid| solid.id == id)
+ 389             .ok_or(crate::GenerationError::MissingSolid { solid: id })
+ 390     }
+ 391 }
+ 392 
+ 393 impl ResolvedGeometry {
+ 394     pub fn solid(&self, id: ResolvedItemId) -> Result<&ResolvedSolid, crate::GenerationError> {
+ 395         self.solids
+ 396             .iter()
+ 397             .find(|item| item.id == id)
+ 398             .ok_or(crate::GenerationError::MissingSolid { solid: id })
+ 399     }
+ 400     pub fn surface(&self, id: ResolvedItemId) -> Result<&ResolvedSurface, crate::GenerationError> {
+ 401         self.surfaces
+ 402             .iter()
+ 403             .find(|item| item.id == id)
+ 404             .ok_or(crate::GenerationError::MissingSurface { surface: id })
+ 405     }
+ 406     pub fn surface_mut(
+ 407         &mut self,
+ 408         id: ResolvedItemId,
+ 409     ) -> Result<&mut ResolvedSurface, crate::GenerationError> {
+ 410         self.surfaces
+ 411             .iter_mut()
+ 412             .find(|item| item.id == id)
+ 413             .ok_or(crate::GenerationError::MissingSurface { surface: id })
+ 414     }
+ 415     pub fn void(&self, id: ResolvedItemId) -> Result<&ResolvedVoid, crate::GenerationError> {

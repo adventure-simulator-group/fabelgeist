@@ -1,0 +1,135 @@
+{
+  "schema": "726-bounded-q2304-controller-action-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T14:56:19.478786+00:00",
+  "scope": "Prospectively registered static-source follow-up of historical 059 q2304 against pinned 95e; central owns queue, lens and alias decisions. No product or fixture execution.",
+  "revisions": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_reviewer_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "queue_transport": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2304",
+    "related_ledger_publication_commit": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+    "related_13w": "staged working evidence observed at separately recorded SHA; not in captured publication commit"
+  },
+  "historical_attribution": {
+    "id": "REVIEW-L11-CAPTURE-CONTROLLER-TIME-AND-FIXTURE-ACTION-POLICY",
+    "recorded_status": "documented-conditional-policy-question; the original queue records audit discovery closed only in its exact named historical scope with zero body/population unique credit. This is not global or current closure and carries no repair/runtime pass.",
+    "reviewer": "parallel lens11_reconcile personally read e275 subject_motion.rs 1–126 and frame_clock.rs 1–58 (PLAN-190/READ-169 rows 3 and 0), and capture.rs 169–526, 799–822, 900–1021 (PLAN-189/READ-168 row 0).",
+    "adoption": "Proposal states root adoption pending; separate READ-L11-704/705 and VERIFY-L11-704/705 record later root adoption of PL11-1092/1093/1096 without root reread. Preserve chronology and delegated attribution.",
+    "identity": "Those three named individual files have identical e275 and 95e Git blobs and SHA-256 values. This does not prove whole-tree equality, transfer reader credit, or supply checkpoint3821. Exact records are retained, selected queue value reconstructed; whole original queue not included because it contains unrelated private paths."
+  },
+  "source_assessment": [
+    {
+      "id": "Q2304-TIME-AND-ACTION-TRACE",
+      "classification": "source trace and safeguards, no runtime claim",
+      "references": [
+        "animation_viewer/capture/frame_clock.rs:10–43",
+        "animation_viewer/capture/subject_motion.rs:6–63",
+        "animation_viewer/capture.rs:356–417",
+        "animation/sample_tick.rs:47–79"
+      ],
+      "analysis": "Frame zero yields AnimationElapsed::ZERO and other frames use the configured locomotion sample interval. The capture sequence advances a typed sample tick with a defined wrap operation, passes elapsed and tick through checked controller input and projection, and sets its procedural clock; separate native fixed-clock admission was assessed in q2300. Errors from facing and controller projection are converted into rejected capture admission; the action expect calls occur earlier. This source trace does not establish runtime scheduling, numeric parity, successful rendering, or all sample-rate ingress."
+    },
+    {
+      "id": "Q2304-DIRECTION-AND-PLAN",
+      "classification": "bounded producer safeguard with broader admitted-constructor question",
+      "references": [
+        "animation_viewer/capture.rs:68–105, 240–245, 402–417",
+        "animation_viewer/scenarios.rs:22–34, 428–490",
+        "animation_viewer/scenarios/quickstep.rs:9–29",
+        "animation/state.rs:570–607",
+        "animation/review_scenarios/authored_policy.rs:5–38"
+      ],
+      "analysis": "CaptureSequence::new constructs a plan through selected built-in paths or capture_plan and starts its tick at zero. Authored quickstep plan calls shown use Vec2::X and Vec2::NEG_X; QuickstepDirection::new requires a finite normalizable vector before DodgeSpec::quickstep succeeds. The quickstep_scenario helper itself accepts a raw Vec2 within animation_viewer, and PlannedFrame is visible to its parent module; if an actually supported caller supplied a zero/nonfinite direction to a frame classified quickstep, the direction expect would fail. No such supported caller or product failure is shown. A selected unknown scenario that yields an empty plan reaches an assertion, but supported scenario policy and actual input ingress are not resolved."
+    },
+    {
+      "id": "Q2304-ACTION-ADMISSION-RETRY",
+      "classification": "conditional source-level contract question; not a witnessed defect or new count",
+      "references": [
+        "animation_viewer/capture/subject_motion.rs:65–121",
+        "animation/state.rs:1804–1833, 1835–1861, 1930–1971",
+        "animation_viewer/capture.rs:213–245, 402–463",
+        "animation_viewer/capture/readiness.rs:6–30",
+        "animation_viewer/capture/admission.rs:118–130"
+      ],
+      "analysis": "At quickstep scenario frame zero begin_capture_action attempts a dodge regardless of current action kind; begin_dodge rejects a downed body, active posture transition, or already-Dodge action. If the same quickstep frame were driven again before applied while its skeleton remained in Dodge, the second begin_dodge would return ActionBusy and the expect would panic. The source does not establish a supported state or retry with those conditions, an intervening action update, or an actual panic. On scenario change the shown driver resets the first encountered subject skeleton; relevant subject cardinality and schedules remain open."
+    },
+    {
+      "id": "Q2304-RETRY-SAFEGUARD",
+      "classification": "counterevidence to an unqualified ordinary-retry claim",
+      "references": [
+        "animation_viewer/scenarios.rs:484–490",
+        "animation/review_scenarios/authored_policy.rs:5–38, 85–206",
+        "animation/review_scenarios.rs:105–145, 212–229, 232–277",
+        "animation_viewer/capture.rs:240–280, 450–463",
+        "animation_viewer/capture/readiness.rs:6–30"
+      ],
+      "analysis": "The two authored quickstep identities supply Quickstep without the Dive, posture-transition or RaisedTapStop properties and have no required motion. Their shown scenario-change path does not assign warmup for those features. When warmup is zero and prior operations succeed, ready_for_frame therefore passes on that shown frame; no repeated drive is established merely from q2303 readiness. Retained warmup from other state, alternate internal frame producers, subject multiplicity and actual event scheduling have not been exhaustively excluded."
+    },
+    {
+      "id": "Q2304-TICK-SATURATION",
+      "classification": "conditional operation observation, no distinct count or runtime reachability",
+      "references": [
+        "animation/sample_tick.rs:47–75",
+        "animation/state/action_timeline.rs:19–46, 55–78",
+        "animation/state.rs:1816–1833, 1835–1849, 1957–1971",
+        "animation_viewer/capture/subject_motion.rs:79–116"
+      ],
+      "analysis": "Tick advance wraps, while action deadlines saturate. An action started at MAX receives a saturated contact; ActionTimeline clamps the resulting zero preparation to one and, if the timeline is subsequently sampled at MAX, returns Complete because its end saturates to MAX. The shown begin methods do not reject solely because contact equals start; therefore tick saturation alone does not support the proposed transition-expect panic. Whether this astronomical state is reachable, the timeline is sampled there, or this boundary has an observable impact is unproved."
+    }
+  ],
+  "relationships": [
+    {
+      "record": "059 q2300 and committed 13T",
+      "distinction": "Native fixed-clock nonzero Duration admission is narrower than fixture-action state and tick policy; its author retains source credit."
+    },
+    {
+      "record": "059 q2303 and staged 13W",
+      "distinction": "Readiness gates applied after earlier updates; named-motion readiness is not universal and does not itself show an authored quickstep retry. Earlier author and staged status retained."
+    },
+    {
+      "record": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+      "distinction": "Existing conditional pre-applied liveness candidate, not a demonstration of repeated-action panic."
+    },
+    {
+      "record": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001 and REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "distinction": "Existing configuration and timestamp authority questions; no automatic alias."
+    },
+    {
+      "record": "P16-QUICKSTEP-ACTION-IDENTITY, REVIEW-QUICKSTEP-RECOVERY-TRACE-001 and ADLER-L11-QUICKSTEP-TARGET-ACCELERATION-ADMISSION",
+      "distinction": "Related action identity, diagnostic and scalar admission questions respectively; distinct conditions and prior attributions, aliases remain for central review."
+    }
+  ],
+  "open_questions": [
+    "Which actual supported internal callers or inputs can create arbitrary PlannedFrame directions, action combinations, unknown scenarios or non-default skeleton states?",
+    "Can a supported viewer execution retain warmup or otherwise retry an authored quickstep frame after starting a Dodge, with the action still active and the gate still open? What subject count and scheduler ordering are guaranteed?",
+    "Does any supported capture reach or sample an action near the terminal tick, and what end-of-clock policy is intended?",
+    "What is the intended relationship among configured sample interval, fixed clock, fixture action duration and report time, and which existing records should ultimately share an owner or repair?",
+    "Final checkpoint3821 queue and ledger remain unavailable; no missing record or later attribution is inferred."
+  ],
+  "perspectives": {
+    "admission_contracts": "Finite normalized quickstep direction and action state checked, while actual internal caller reach remains open.",
+    "aggregate_states": "Frame action, scenario features, direction, skeleton state and readiness are separate values; full admissible combinations remain unproved.",
+    "behavior_preservation": "No product run or change; expected capture and edge-case behavior are policy questions.",
+    "derivability": "No repository-wide derivability conclusion.",
+    "enum_shapes": "Action variants select different trigger logic; no full enum migration assessment.",
+    "existing_type_owners": "Typed AnimationElapsed and AnimationSampleTick are used on selected path; no wider reuse claim.",
+    "invariant_operations": "Wrap and saturation are distinct; timeline MAX consequence is conditional and source-only.",
+    "magic_numbers": "19/64 action spans and quickstep configuration are visible fixture policy; no automatic gameplay-tuning defect.",
+    "magic_strings": "No repository-wide string audit; unknown plan assertion policy remains conditional.",
+    "producer_propagation": "Selected authored plan passes direction and typed clock into driver; alternative supported producers remain open.",
+    "redundant_authority": "Selected native fixed clock, runtime sample interval and fixture defaults have separate prior questions.",
+    "type_granularity": "Absolute sample ticks and nonnegative spans are distinct types; saturation/wrap do not by themselves prove action continuity.",
+    "type_ownership": "Capture driver and core animation state own distinct stages; no global ownership or alias decision."
+  },
+  "read_and_error_qualifications": [
+    "READ-RECEIPTS.json contains the exact registered current windows and per-registration unread complements. Source files stored in full prove identity, not full personal review.",
+    "Nine 059 exact records are separately hash-checked; historical selected-field reads do not transfer old source-body credit.",
+    "The first combined support display was output-truncated and all its registered windows were re-displayed completely.",
+    "A later fixed-string locator accidentally displayed a partial capture.rs line 841 outside this task’s registered window; no credit or conclusion relies on that view.",
+    "A first locator against the wrong local Git repository failed with return code 128; the same prospectively registered metadata-only search was repeated successfully against the evidence repository.",
+    "Initial assumption that 13W was committed at the captured publication HEAD produced a failed Git show; metadata then established 13W and its report only as observed staged working evidence.",
+    "Filename and line-number locators are not source-body reads; intentionally limited locator console previews retain full result metadata. A generic directory listing was truncated and was not used as evidence.",
+    "Tests visible as source text were not executed. No edits were made to publication or protected extracted evidence."
+  ],
+  "limits": "No product execution, test, fixture, shader, viewer, build, runtime probe, implementation or repair. No 13-lens closure, global defect count, queue decision or checkpoint3821 reconstruction. Evidence checks verify bytes and bounded reconstructions, not personally perceived text, product behavior, privacy in every encoding or later user authorization."
+}

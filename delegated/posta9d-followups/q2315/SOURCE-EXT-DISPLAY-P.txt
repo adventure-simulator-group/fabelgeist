@@ -1,0 +1,13 @@
+SOURCE rawzip-0.5.2/Cargo.toml:43-54
+  43 license = "MIT"
+  44 repository = "https://github.com/nickbabcock/rawzip"
+  45 
+  46 [features]
+  47 alloc = []
+  48 default = ["std"]
+  49 std = ["alloc"]
+  50 
+  51 [lib]
+  52 name = "rawzip"
+  53 path = "src/lib.rs"
+  54 

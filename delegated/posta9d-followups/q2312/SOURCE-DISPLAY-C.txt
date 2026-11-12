@@ -1,0 +1,34 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip/error.rs:110-142
+ 110         }
+ 111         Ok(())
+ 112     }
+ 113 }
+ 114 impl Error for ZipReadError {
+ 115     fn source(&self) -> Option<&(dyn Error + 'static)> {
+ 116         match self {
+ 117             Self::Native { source, .. } | Self::Inflate { source, .. } => Some(source),
+ 118             Self::Archive { source }
+ 119             | Self::CorruptMember { source, .. }
+ 120             | Self::MemberPastEnd { source, .. } => Some(source),
+ 121             _ => None,
+ 122         }
+ 123     }
+ 124 }
+ 125 
+ 126 impl From<rawzip::Error> for ZipReadError {
+ 127     fn from(source: rawzip::Error) -> Self {
+ 128         match source.kind() {
+ 129             rawzip::ErrorKind::MissingEndOfCentralDirectory => Self::MissingEndRecord,
+ 130             _ => Self::Archive { source },
+ 131         }
+ 132     }
+ 133 }
+ 134 
+ 135 impl ZipReadError {
+ 136     pub(super) fn member(name: ArchiveMemberName, source: rawzip::Error) -> Self {
+ 137         match source.kind() {
+ 138             rawzip::ErrorKind::Eof => Self::MemberPastEnd { name, source },
+ 139             _ => Self::CorruptMember { name, source },
+ 140         }
+ 141     }
+ 142 }

@@ -1,0 +1,46 @@
+### state.rs:206-250
+206:     pub right_release_active: bool,
+207:     pub left_release_target: Option<Vec3>,
+208:     pub right_release_target: Option<Vec3>,
+209:     pub settle_progress: Option<SettleProgress>,
+210:     pub left_knee_foot_yaw_offset_degrees: AngularMagnitudeDegrees,
+211:     pub right_knee_foot_yaw_offset_degrees: AngularMagnitudeDegrees,
+212: }
+213: 
+214: impl LegIkMemory {
+215:     /// A zero interval holds history. Otherwise admit the observed frame and
+216:     /// displacement measurement before writing history or retiring contacts.
+217:     pub(super) fn observe_owner_frame(
+218:         &mut self,
+219:         frame: ObservedRigFrame,
+220:         elapsed: AnimationElapsed,
+221:         evaluation_advances: bool,
+222:     ) -> AnimationValueResult<()> {
+223:         if elapsed.is_zero() {
+224:             return Ok(());
+225:         }
+226:         let origin = frame.origin();
+227:         let rotation = frame.rotation();
+228:         let previous_origin = self.owner_frame.map(ObservedRigFrame::origin);
+229:         let owner_discontinuous = previous_origin.is_some_and(|previous| {
+230:             previous.distance(origin)
+231:                 > ik_tuning()
+232:                     .maximum_owner_translation_per_tick_metres
+233:                     .metres()
+234:         }) || self
+235:             .owner_frame
+236:             .map(ObservedRigFrame::rotation)
+237:             .is_some_and(|previous| {
+238:                 previous.angle_between(rotation).to_degrees()
+239:                     > ik_tuning()
+240:                         .maximum_owner_rotation_per_tick_degrees
+241:                         .degrees()
+242:             });
+243:         self.measured_owner_planar_speed = update_measured_owner_planar_speed(
+244:             self.measured_owner_planar_speed,
+245:             previous_origin,
+246:             origin,
+247:             elapsed,
+248:             evaluation_advances,
+249:             owner_discontinuous,
+250:         )?;

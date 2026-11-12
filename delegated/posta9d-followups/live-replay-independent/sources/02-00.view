@@ -1,0 +1,18 @@
+     1	# Bounded live-state successor design
+     2	
+     3	REPORT-v2.md contains the corrected, proposed design. REPORT.md and
+     4	REPORT-CORRECTION.json preserve the earlier wording and correction. The
+     5	proposal is source inspection and does not implement or approve a new verifier.
+     6	
+     7	REGISTRATION.json and the extension registrations identify the time-bound
+     8	source and record windows. READ-RECEIPT.json preserves an initially truncated
+     9	output and a prior general-scope privacy registration, including the later
+    10	exact registered rereads. NAVIGATION-RESULTS.json and TREE-INVENTORY.json are
+    11	bounded metadata, not complete dynamic-dependency or source-body credit.
+    12	
+    13	`verify-packet.py --git-repo <publication-repository>` compares selected
+    14	source bytes and the full tree listing to the specified commit without running
+    15	product code or any historical evidence driver. The recorded run used local
+    16	Git objects. The full historical snapshot and all referenced input objects are
+    17	not copied into this packet; the listing and Git identity support recovery
+    18	only while those objects remain available.

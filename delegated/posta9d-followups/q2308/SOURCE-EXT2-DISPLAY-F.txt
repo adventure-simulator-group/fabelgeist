@@ -1,0 +1,27 @@
+SOURCE crates/adventuresim-building-generator/src/lib.rs:45-70
+  45     WorkplaceSurface,
+  46 };
+  47 
+  48 pub use audit::{AuditIssue, MeshAuditReport, audit_plan, audit_triangle_mesh};
+  49 pub use collision::{
+  50     BuildingCollision, CollisionCuboid, CollisionError, CollisionResult, CuboidCorners,
+  51     GroundContact, GroundFloorFootprint, compile_building_collision,
+  52 };
+  53 pub use detail::{
+  54     BUILDING_DETAIL_UV_METRES_PER_UNIT, BuildingDetail, BuildingKit, TimberComponent,
+  55     TimberInstance, compile_building_detail, compile_solid_detail, compile_static_building_detail,
+  56 };
+  57 pub use doors::{DoorError, DoorErrorCause, DoorSpec, compile_operable_doors};
+  58 pub use generator::small_church::{SmallChurchKind, SmallChurchPlan};
+  59 pub use generator::{
+  60     AllocationFailure, GenerationError, GenerationResult, ReservationFailure, edit_document,
+  61     generate, generate_document, set_roof_pitch,
+  62 };
+  63 pub use heating::{
+  64     DomesticHeatingPlan, DomesticHeatingProgramme, HeatingConstructionError,
+  65     HeatingFloorPenetration, HeatingPart, HeatingPartKind, HeatingPassage, HeatingPassageKind,
+  66     HeatingRoofPenetration, HeatingRoom,
+  67 };
+  68 pub use lod::{
+  69     BuildingLod, BuildingLodLevel, BuildingLodMaterial, FacadeRun, FacadeRunPath, LodMesh,
+  70     LodVertex, compile_building_lod, compile_program_shell, compile_static_building_lod,

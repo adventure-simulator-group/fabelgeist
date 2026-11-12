@@ -1,0 +1,85 @@
+### observation.rs:86-169
+86:     }
+87: }
+88: 
+89: pub(in crate::animation::procedural) fn release_raised_state_for_authored_locomotion(
+90:     memory: &mut LegIkMemory,
+91: ) {
+92:     memory.quickstep_handoff = QuickstepContactHandoff::None;
+93:     // The pose-buffer transition captures the visible raised pelvis offset.
+94:     // Keeping the same correction dormant here would apply it a second time
+95:     // when stationary procedural footwork takes ownership again.
+96:     memory.raised_pelvis_shift = SignedLength::ZERO;
+97:     // Authored FK/contact weights own this interval. Do not expose the prior
+98:     // procedural plant as a current terrain-contact claim while retaining the
+99:     // propagated endpoints needed for the stop handoff.
+100:     memory.left_support_weight = None;
+101:     memory.right_support_weight = None;
+102: }
+103: 
+104: /// Refresh contact diagnostics from propagated globals. The IK pass runs
+105: /// before transform propagation, while viewer/gameplay consumers observe the
+106: /// propagated hierarchy; twist bones and acquisition blending can make those
+107: /// positions differ materially from the analytic endpoint.
+108: pub(in crate::animation) fn refresh_raised_support_after_propagation(
+109:     terrain: Query<&SceneTerrain>,
+110:     owners: Query<&PresentedSkeleton>,
+111:     rigs: Query<(Entity, &HumanoidRig)>,
+112:     globals: Query<&GlobalTransform>,
+113:     mut ik_states: Query<&mut LegIkState>,
+114:     mut raised_states: Query<&mut RaisedFootworkState>,
+115: ) {
+116:     let Some(terrain) = terrain.single().ok() else {
+117:         return;
+118:     };
+119:     for (owner, rig) in &rigs {
+120:         let Ok(skeleton) = owners.get(owner) else {
+121:             continue;
+122:         };
+123:         let Ok(mut state) = ik_states.get_mut(owner) else {
+124:             continue;
+125:         };
+126:         let propagated_owner_frame = match rig
+127:             .rig_scene()
+128:             .and_then(|scene| globals.get(scene).ok())
+129:             .map(ObservedRigFrame::from_global)
+130:             .transpose()
+131:         {
+132:             Ok(frame) => frame,
+133:             Err(error) => {
+134:                 warn!(%error, ?owner, "Rejected propagated rig frame");
+135:                 continue;
+136:             }
+137:         };
+138:         // Snapshot propagated endpoints before any diagnostic filtering. These
+139:         // are deliberately independent of analytic solve targets: a target can
+140:         // be unreachable, while this position is the pose actually rendered.
+141:         if let Err(error) = state.0.observe_rendered_endpoints(rig, &globals) {
+142:             warn!(%error, ?owner, "Rejected propagated leg endpoints");
+143:             continue;
+144:         }
+145:         // IK deliberately does not modify the authored quickstep poses. It
+146:         // still observes their propagated endpoints so the first post-action
+147:         // solve begins from the last pose the player actually saw.
+148: 
+149:         let left_rendered_world = state.0.left_last_rendered_world;
+150:         let right_rendered_world = state.0.right_last_rendered_world;
+151:         if skeleton.is_quickstep()
+152:             && let (Some(frame), Some(left), Some(right)) = (
+153:                 propagated_owner_frame,
+154:                 left_rendered_world,
+155:                 right_rendered_world,
+156:             )
+157:         {
+158:             seed_quickstep_contact_handoff(&mut state.0, frame, left, right);
+159:         }
+160:         let owner_frame = propagated_owner_frame.or(state.0.owner_frame);
+161:         state.0.left_last_rendered_owner = owner_frame.and_then(|frame| {
+162:             left_rendered_world
+163:                 .map(|world| frame.rotation().inverse() * (world - frame.origin()))
+164:                 .filter(|owner| owner.is_finite())
+165:         });
+166:         state.0.right_last_rendered_owner = owner_frame.and_then(|frame| {
+167:             right_rendered_world
+168:                 .map(|world| frame.rotation().inverse() * (world - frame.origin()))
+169:                 .filter(|owner| owner.is_finite())

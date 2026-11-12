@@ -1,0 +1,64 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip.rs:1-63
+   1 //! Read-only ZIP storage with application-owned member selection and decoding.
+   2 //!
+   3 //! `rawzip` owns directory, ZIP64 and member framing. Stored members borrow the
+   4 //! mapped or owned archive bytes; `flate2` decodes Deflate members into owned data.
+   5 
+   6 use std::borrow::Cow;
+   7 use std::io::Read;
+   8 use std::path::Path;
+   9 
+  10 use flate2::read::DeflateDecoder;
+  11 use memmap2::Mmap;
+  12 use rawzip::{ZipArchiveEntryWayfinder, ZipLocator, ZipSliceArchive};
+  13 
+  14 pub use compression::ZipCompressionCode;
+  15 pub use error::{Result, ZipFileOperation, ZipReadError};
+  16 pub use extent::DeclaredUncompressedByteLength;
+  17 
+  18 use compression::ZipCompression;
+  19 use member_count::ArchiveMemberCount;
+  20 pub use names::ArchiveMemberName;
+  21 
+  22 mod compression;
+  23 mod error;
+  24 mod extent;
+  25 mod member_count;
+  26 mod names;
+  27 
+  28 // Application selection policy, measured in archive bytes from the end.
+  29 const END_DIRECTORY_SEARCH_WINDOW_BYTES: u64 = 66_000;
+  30 
+  31 struct Entry {
+  32     name: ArchiveMemberName,
+  33     compression: ZipCompression,
+  34     uncompressed_size: DeclaredUncompressedByteLength,
+  35     location: ZipArchiveEntryWayfinder,
+  36 }
+  37 
+  38 /// A ZIP archive backed by a read-only mapping or an owned byte buffer.
+  39 pub struct ZipArchive {
+  40     archive: ZipSliceArchive<ArchiveData>,
+  41     entries: Vec<Entry>,
+  42 }
+  43 
+  44 /// A member selected from, and inseparable from, its owning archive.
+  45 pub(crate) struct ZipMember<'archive> {
+  46     archive: &'archive ZipArchive,
+  47     entry: &'archive Entry,
+  48 }
+  49 
+  50 enum ArchiveData {
+  51     Mapped(Mmap),
+  52     Owned(Vec<u8>),
+  53 }
+  54 
+  55 impl AsRef<[u8]> for ArchiveData {
+  56     fn as_ref(&self) -> &[u8] {
+  57         match self {
+  58             Self::Mapped(data) => data,
+  59             Self::Owned(data) => data,
+  60         }
+  61     }
+  62 }
+  63 

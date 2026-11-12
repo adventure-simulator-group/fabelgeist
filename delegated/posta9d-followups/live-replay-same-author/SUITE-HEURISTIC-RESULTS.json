@@ -1,0 +1,96 @@
+{
+  "unique_selected_script_paths": 763,
+  "patterns": [
+    {
+      "pattern": "--git-repo",
+      "matching_selected_scripts": 9,
+      "sample_paths": [
+        "verify_adapter_coordinator_review.py",
+        "verify_checkpoint26e_recovery.py",
+        "verify_checkpoint64f_recovery.py",
+        "verify_checkpoint8608_recovery.py",
+        "verify_checkpointa9b_recovery.py"
+      ]
+    },
+    {
+      "pattern": "--private-root",
+      "matching_selected_scripts": 6,
+      "sample_paths": [
+        "verify_checkpoint_privacy_prescan.py",
+        "verify_cloth_placeholder_scope.py",
+        "verify_followup_44_physics.py",
+        "verify_followup_additive_reviews.py",
+        "verify_followups_private_retention.py"
+      ]
+    },
+    {
+      "pattern": "--private-capture",
+      "matching_selected_scripts": 1,
+      "sample_paths": [
+        "verify_capture_terrain_q2301.py"
+      ]
+    },
+    {
+      "pattern": "tempfile",
+      "matching_selected_scripts": 4,
+      "sample_paths": [
+        "verify_p16_label_qualification.py",
+        "verify_p17_patch_recovery.py",
+        "verify_post26e_followups.py",
+        "verify_recovered_public_redacted_plus2.py"
+      ]
+    },
+    {
+      "pattern": "subprocess",
+      "matching_selected_scripts": 37,
+      "sample_paths": [
+        "verify_adapter_coordinator_review.py",
+        "verify_audit_followup_packets.py",
+        "verify_capture_terrain_q2301.py",
+        "verify_central_collider_13q_95e.py",
+        "verify_central_fbx_13r_95e.py"
+      ]
+    },
+    {
+      "pattern": "rglob(",
+      "matching_selected_scripts": 19,
+      "sample_paths": [
+        "verify_audit_followup_packets.py",
+        "verify_capture_terrain_q2301.py",
+        "verify_central_collider_13q_95e.py",
+        "verify_central_fbx_13r_95e.py",
+        "verify_central_incidence_13p_95e.py"
+      ]
+    },
+    {
+      "pattern": "glob(",
+      "matching_selected_scripts": 20,
+      "sample_paths": [
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py",
+        "verify_audit_followup_packets.py",
+        "verify_capture_terrain_q2301.py",
+        "verify_central_collider_13q_95e.py",
+        "verify_central_fbx_13r_95e.py"
+      ]
+    },
+    {
+      "pattern": "os.environ",
+      "matching_selected_scripts": 1,
+      "sample_paths": [
+        "verify_p17_patch_recovery.py"
+      ]
+    },
+    {
+      "pattern": "sys.path",
+      "matching_selected_scripts": 5,
+      "sample_paths": [
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_11_059_public.py",
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_12_059_public.py",
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py",
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_14_059_public.py",
+        "delegated/qualified-059-early-links/successors/verify_delegated_links_15_059_public.py"
+      ]
+    }
+  ],
+  "qualification": "Lexical indicator only; comments/aliases/indirect imports can yield false positives or negatives. Not a complete dependency or effect analysis."
+}

@@ -1,0 +1,158 @@
+     1	"""Verify an observed main advance and its frozen predecessor offline.
+     2	
+     3	This checks Git object identities and lockfile JSON only. It does not execute
+     4	product code, fetch the release, verify its archive, or credit a lens.
+     5	"""
+     6	import gzip
+     7	import hashlib
+     8	import json
+     9	from pathlib import Path
+    10	
+    11	root = Path(__file__).resolve().parent
+    12	record = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())
+    13	baseline = json.loads((root / 'BASELINE-95E-20261110.json').read_text())
+    14	progress = json.loads((root / 'CONTINUATION-PROGRESS-95E.json').read_text())
+    15	old = 'c100638b720a7281a5fc96f6a3c5c23d5dda85da'
+    16	new = '95e63628f9d70b8dd6e6fede64334696c6995009'
+    17	assert record['previous_revision'] == old and record['current_revision'] == new
+    18	assert baseline['source_revision'] == progress['source_revision'] == new
+    19	assert baseline['previous_source_revision'] == progress['predecessor_revision'] == old
+    20	assert baseline['transition_evidence'] == 'MAIN-ADVANCE-95E.json'
+    21	
+    22	
+    23	def checked(item):
+    24	    path = (root / item['path']).resolve()
+    25	    if not path.is_relative_to(root):
+    26	        raise ValueError('evidence path escapes branch')
+    27	    raw = path.read_bytes()
+    28	    if len(raw) != item['bytes'] or hashlib.sha256(raw).hexdigest() != item['sha256']:
+    29	        raise ValueError('evidence file mismatch: ' + item['path'])
+    30	    return raw
+    31	
+    32	
+    33	def object_sha(kind, content):
+    34	    return hashlib.sha1(kind.encode() + b' ' + str(len(content)).encode() + b'\0' + content).hexdigest()
+    35	
+    36	
+    37	def tree_entries(raw, expected):
+    38	    nested = {}
+    39	    entries = {}
+    40	    for line in raw.decode().splitlines():
+    41	        header, name = line.split('\t', 1)
+    42	        mode, kind, oid = header.split()
+    43	        parts = name.split('/')
+    44	        if name.startswith('"') or kind not in ('blob', 'commit') or name in entries or any(p in ('', '.', '..') for p in parts):
+    45	            raise ValueError('invalid tree entry')
+    46	        entries[name] = [mode, kind, oid]
+    47	        node = nested
+    48	        for part in parts[:-1]:
+    49	            node = node.setdefault(part, {})
+    50	            if not isinstance(node, dict):
+    51	                raise ValueError('tree collision')
+    52	        if parts[-1] in node:
+    53	            raise ValueError('duplicate tree node')
+    54	        node[parts[-1]] = (mode, oid)
+    55	    def digest(node):
+    56	        content = bytearray()
+    57	        def order(item):
+    58	            name, value = item
+    59	            return name.encode() + (b'/' if isinstance(value, dict) else b'\0')
+    60	        for name, value in sorted(node.items(), key=order):
+    61	            mode, oid = ('40000', digest(value)) if isinstance(value, dict) else value
+    62	            content.extend(mode.encode() + b' ' + name.encode() + b'\0' + bytes.fromhex(oid))
+    63	        return object_sha('tree', content)
+    64	    if digest(nested) != expected:
+    65	        raise ValueError('tree object mismatch')
+    66	    return entries
+    67	
+    68	
+    69	trees = {}
+    70	locks = {}
+    71	for label, revision in [('previous', old), ('current', new)]:
+    72	    commit_item = record['commits'][label]
+    73	    tree_item = record['trees'][label]
+    74	    if commit_item['content_encoding'] != 'gzip':
+    75	        raise ValueError('unknown commit encoding')
+    76	    commit = gzip.decompress(checked(commit_item))
+    77	    if (len(commit) != commit_item['uncompressed_bytes'] or
+    78	            hashlib.sha256(commit).hexdigest() != commit_item['uncompressed_sha256']):
+    79	        raise ValueError('commit bytes mismatch')
+    80	    if commit_item['git_commit'] != revision or object_sha('commit', commit) != revision:
+    81	        raise ValueError('commit identity mismatch')
+    82	    headers = commit.split(b'\n\n', 1)[0].splitlines()
+    83	    if b'tree ' + tree_item['git_tree'].encode() not in headers:
+    84	        raise ValueError('commit tree binding mismatch')
+    85	    if label == 'current' and [h for h in headers if h.startswith(b'parent ')] != [b'parent ' + old.encode()]:
+    86	        raise ValueError('not a direct child')
+    87	    tree_raw = checked(tree_item)
+    88	    trees[label] = tree_entries(tree_raw, tree_item['git_tree'])
+    89	    lock_item = record['lockfiles'][label]
+    90	    lock_raw = checked(lock_item)
+    91	    if (object_sha('blob', lock_raw) != lock_item['git_blob'] or
+    92	            trees[label].get('world-runtime-release.lock.json') != ['100644', 'blob', lock_item['git_blob']]):
+    93	        raise ValueError('lockfile blob mismatch')
+    94	    locks[label] = json.loads(lock_raw)
+    95	if checked(record['trees']['previous']) != (root / 'CURRENT-TREE.tsv').read_bytes():
+    96	    raise ValueError('predecessor tree differs from published inventory')
+    97	changes = []
+    98	for path in sorted(set(trees['previous']) | set(trees['current'])):
+    99	    before, after = trees['previous'].get(path), trees['current'].get(path)
+   100	    if before != after:
+   101	        changes.append({'path': path, 'previous': before, 'current': after})
+   102	if changes != record['tree_changes'] or len(changes) != 1 or changes[0]['path'] != 'world-runtime-release.lock.json':
+   103	    raise ValueError('main-advance source delta mismatch')
+   104	unchanged = sum(trees['previous'].get(p) == trees['current'].get(p)
+   105	                for p in set(trees['previous']) | set(trees['current']))
+   106	if unchanged != record['unchanged_tree_entries']:
+   107	    raise ValueError('unchanged entry count mismatch')
+   108	
+   109	before, after = locks['previous'], locks['current']
+   110	a = {x['path']: x for x in before['files']}
+   111	b = {x['path']: x for x in after['files']}
+   112	if len(a) != len(before['files']) or len(b) != len(after['files']):
+   113	    raise ValueError('duplicate lock member')
+   114	summary = {
+   115	    'old_schema': before['schema'], 'new_schema': after['schema'],
+   116	    'old_release': before['release'], 'new_release': after['release'],
+   117	    'old_archive_sha256': before['archive_sha256'], 'new_archive_sha256': after['archive_sha256'],
+   118	    'old_archive_size': before['archive_size'], 'new_archive_size': after['archive_size'],
+   119	    'added_paths': sorted(b.keys() - a.keys()), 'removed_paths': sorted(a.keys() - b.keys()),
+   120	    'changed_existing_paths': sorted(p for p in a.keys() & b.keys() if a[p] != b[p]),
+   121	    'unchanged_existing_paths': sorted(p for p in a.keys() & b.keys() if a[p] == b[p]),
+   122	}
+   123	if summary != record['lockfile_mechanical_summary']:
+   124	    raise ValueError('lock comparison mismatch')
+   125	
+   126	snapshots = {}
+   127	for label, item in record['predecessor_snapshots'].items():
+   128	    raw = gzip.decompress(checked(item))
+   129	    if len(raw) != item['uncompressed_bytes'] or hashlib.sha256(raw).hexdigest() != item['uncompressed_sha256']:
+   130	        raise ValueError('frozen predecessor mismatch: ' + label)
+   131	    snapshots[label] = json.loads(raw)
+   132	predecessor = snapshots['predecessor-baseline']
+   133	old_progress = snapshots['predecessor-progress']
+   134	old_roles = snapshots['predecessor-role-worklist']
+   135	if any(doc['source_revision'] != old for doc in (predecessor, old_progress, old_roles)):
+   136	    raise ValueError('frozen revision mismatch')
+   137	for item in predecessor['source_delta']:
+   138	    path = item['path']
+   139	    if trees['previous'].get(path) != trees['current'].get(path):
+   140	        raise ValueError('predecessor delta also changed: ' + path)
+   141	if (baseline['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+   142	        progress['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+   143	        baseline['predecessor_ledger']['entries'] != len(predecessor['repair_ledger']['entries']) or
+   144	        progress['predecessor_ledger_entries'] != len(predecessor['repair_ledger']['entries'])):
+   145	    raise ValueError('predecessor obligation count mismatch')
+   146	if (len(baseline['lens_names']) != 13 or baseline['lens_status'] != ['incomplete'] * 13 or
+   147	        progress['lenses_complete'] != 0 or progress['new_transition_lens_cells_assessed'] != 0):
+   148	    raise ValueError('unsupported completion credit')
+   149	additional = baseline['additional_source_delta']
+   150	if (len(additional) != 1 or additional[0]['path'] != changes[0]['path'] or
+   151	        not additional[0]['lens_status'][0].startswith('partial bounded') or
+   152	        additional[0]['lens_status'][1:] != ['unassessed'] * 12 or
+   153	        progress['new_transition_lens_cells_partial'] != 1):
+   154	    raise ValueError('new transition coverage is not correctly qualified')
+   155	if (baseline['historical_queue_records_indexed'] != old_progress['historical_queue_records_indexed'] or
+   156	        baseline['historical_queue_records_semantically_reconciled'] != old_progress['current_queue_records_semantically_reconciled']):
+   157	    raise ValueError('historical queue count mismatch')
+   158	print('verified main commit ancestry, both trees and lock blobs, frozen predecessor, and open coverage')

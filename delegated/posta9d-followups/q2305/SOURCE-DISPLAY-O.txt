@@ -1,0 +1,55 @@
+### presentation.rs:65-118
+65:             // the solver integrates in `FixedPostUpdate`.
+66:             .add_systems(
+67:                 FixedUpdate,
+68:                 (ragdoll::apply_muscles, ragdoll::damp_joints).chain(),
+69:             )
+70:             .add_systems(
+71:                 PostUpdate,
+72:                 (
+73:                     ragdoll::drive_ragdoll_pose_buffers,
+74:                     procedural::restore_procedural_look_base,
+75:                     pose_buffer::apply_pose_buffers,
+76:                     restore_authored_bind_pose,
+77:                     procedural::apply_pose_mirroring,
+78:                     procedural::apply_procedural_dive_lower_body,
+79:                     procedural::apply_locomotion_height,
+80:                     procedural::orient_guarded_run_lower_body,
+81:                     procedural::apply_landing_leg_compression,
+82:                     procedural::apply_locomotion_body_response,
+83:                     procedural::apply_jump_anticipation,
+84:                     procedural::apply_head_and_torso_look,
+85:                     bouncy_bones::kick_bones,
+86:                     bouncy_bones::apply_bouncy_bones,
+87:                     procedural::apply_terrain_leg_ik,
+88:                     procedural::enforce_anatomical_knee_yaw,
+89:                     procedural::apply_arm_and_weapon_constraints,
+90:                     ragdoll::apply_ragdoll_poses,
+91:                     procedural::stabilize_repeated_fixed_tick_pose,
+92:                 )
+93:                     .chain()
+94:                     .before(TransformSystems::Propagate)
+95:                     // Every pass in this chain refines a presented character's
+96:                     // pose. The browser client boots into the strategic scene
+97:                     // with no characters at all, where these otherwise run in
+98:                     // full each frame to iterate empty queries.
+99:                     .run_if(
+100:                         bevy::ecs::schedule::common_conditions::any_with_component::<
+101:                             PresentedSkeleton,
+102:                         >,
+103:                     ),
+104:             )
+105:             .add_systems(
+106:                 PostUpdate,
+107:                 (
+108:                     procedural::refresh_raised_support_after_propagation,
+109:                     // Diagnostics must observe the final global transforms
+110:                     // that the renderer receives, including procedural IK.
+111:                     log_animation_diagnostics,
+112:                 )
+113:                     .chain()
+114:                     .after(TransformSystems::Propagate),
+115:             )
+116:             .add_systems(Update, super::super::diagnostics::report_system_spikes);
+117:     }
+118: }

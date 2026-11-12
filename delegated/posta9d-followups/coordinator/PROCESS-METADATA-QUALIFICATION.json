@@ -1,0 +1,6 @@
+{
+  "event": "A cross-command attempt to identify the ongoing frozen-replay process by its command line returned two ambiguous process-namespace matches and stopped before reading either environment.",
+  "consequence": "It provides no evidence about the ongoing process environment. A separate interpreter sample reported optimization disabled, but is not an in-process reading of that replay.",
+  "future": "Any later controlled replay must explicitly clear optimization and preflight that assertions are enabled; the ongoing replay remains qualified on this point.",
+  "qualification": "The failed metadata attempt involved no product source or historical read and made no checkout changes."
+}

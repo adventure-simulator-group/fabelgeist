@@ -1,0 +1,26 @@
+### raised.rs:101-125
+101:                 right_support,
+102:                 left,
+103:             } => Some(GuardTargetRequest {
+104:                 left: guard_swing_target(left),
+105:                 right: right_support,
+106:             }),
+107:             Self::RightSwing {
+108:                 left_support,
+109:                 right,
+110:             } => Some(GuardTargetRequest {
+111:                 left: left_support,
+112:                 right: guard_swing_target(right),
+113:             }),
+114:         }
+115:     }
+116: 
+117:     pub(super) fn retained_targets(self) -> Option<(Vec3, Vec3)> {
+118:         match self {
+119:             Self::Uninitialized => None,
+120:             Self::Stationary { left, right, .. } => Some((left, right)),
+121:             Self::LeftSwing {
+122:                 right_support,
+123:                 left,
+124:             } => Some((left.start, right_support)),
+125:             Self::RightSwing {

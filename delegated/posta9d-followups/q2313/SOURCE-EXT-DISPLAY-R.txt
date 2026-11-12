@@ -1,0 +1,36 @@
+SOURCE rawzip-0.5.2/src/archive.rs:211-245
+ 211 /// Represents a single entry (file or directory) within a `ZipSliceArchive`.
+ 212 ///
+ 213 /// It provides access to the raw compressed data of the entry.
+ 214 #[derive(Debug, Clone)]
+ 215 pub struct ZipSliceEntry<'a> {
+ 216     // From local header offset to end of compressed data
+ 217     data: &'a [u8],
+ 218     verifier: ZipVerification,
+ 219     local_header_offset: u64,
+ 220     // self.data[self.data_start_offset] is the start of compressed data
+ 221     data_start_offset: u32,
+ 222     has_data_descriptor: bool,
+ 223     data_descriptor_uses_zip64_sizes: bool,
+ 224     descriptor: &'a [u8],
+ 225 }
+ 226 
+ 227 impl<'a> ZipSliceEntry<'a> {
+ 228     /// Returns the raw, compressed data of the entry as a byte slice.
+ 229     pub fn data(&self) -> &'a [u8] {
+ 230         &self.data[self.data_start_offset as usize..]
+ 231     }
+ 232 
+ 233     /// Returns the expected CRC and uncompressed size of the inflated data.
+ 234     ///
+ 235     /// Rawzip considers the central directory to be authoritative, so this
+ 236     /// returns the CRC and uncompressed size from the central directory. If you
+ 237     /// want to check the data descriptor instead, use
+ 238     /// [`ZipSliceEntry::data_descriptor`] to read it.
+ 239     pub fn claim_verifier(&self) -> ZipVerification {
+ 240         self.verifier
+ 241     }
+ 242 
+ 243     /// Reads the trailing [`ZipDataDescriptor`] for this entry, if present.
+ 244     pub fn data_descriptor(&self) -> Result<Option<ZipDataDescriptor>, Error> {
+ 245         if !self.has_data_descriptor {

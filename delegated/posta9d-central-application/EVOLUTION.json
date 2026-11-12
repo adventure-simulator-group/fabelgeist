@@ -1,0 +1,17 @@
+{
+  "schema": "726-posta9d-central-application-evolution-v1",
+  "parent_published_checkpoint": "a9d979e4f4fd84b797da89a33263d78604fe9224",
+  "initial_failure": "TypeError at snapshot construction: the list variable add was rebound to the continuation insertion string. Earlier writes had already completed.",
+  "initial_exact_script_sha256": "f226bfc8bed58dd40701fd294ba9d98e04e469ef593182fa0cd34724778760c9",
+  "initial_unredacted_log_sha256": "63848dbf7e140ea0283504eb56ae53ddd1d80500b7d703d041ae374f1e20a37a",
+  "initial_public_redacted_log_sha256": "eb9183fef39b607a1dabb5681fa8c8e498e63094df097e1f7d44bb1cfba9630a",
+  "redaction": "Replaced the absolute scratch script path in traceback with <LOCAL-SCRATCH>/apply.py; all other bytes retained. Exact unredacted log remains separately held.",
+  "partial_effects": "Two report copies and four existing evidence files were written before the failure; the expected snapshot was not created. No product files were touched.",
+  "successor": "Reconstructed all four affected files byte-for-byte from the parent Git checkpoint and intended transformations, verified both report copies against their snapshots, and exclusively created the missing snapshot. No previous evidence file was overwritten by the successor.",
+  "successor_script_sha256": "8525873cf02dfada517a64d5665c6ca954d7ed3c1b6e8b97bed16df554e502bb",
+  "successor_log_sha256": "e82576f180392a4f91894dba63b772b20fa1df0dbae5c7e0f0a3f2e3c49cd88b",
+  "successor_exit": 0,
+  "interpretation": "Evidence bookkeeping only. The failed attempt and corrected successor do not close any lens or semantic queue record.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

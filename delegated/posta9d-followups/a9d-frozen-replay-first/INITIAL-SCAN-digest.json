@@ -1,0 +1,23 @@
+{
+  "schema": "726-private-input-recursive-digest-scan-v1",
+  "corpus_counts": {
+    "original_map_fields": 45,
+    "original_map_values": 47,
+    "public_map_fields": 2,
+    "public_map_values": 2,
+    "scan_prefix_fields": 60,
+    "distinct_sensitive_digests": 40
+  },
+  "stats": {
+    "top_files": 15,
+    "views": 15,
+    "text_views": 15,
+    "cached_views": 4
+  },
+  "forbidden_digest_total": 0,
+  "forbidden_digest_locations": [],
+  "other_candidate_counts": {},
+  "other_candidate_locations": [],
+  "exceptions": [],
+  "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+}

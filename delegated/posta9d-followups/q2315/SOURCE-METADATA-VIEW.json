@@ -1,0 +1,266 @@
+{
+  "crates/fabelgeist-numpy-storage/src/zip/error.rs": {
+    "sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+    "blob": "aea71d033af691a445a0fc03e7791402e07fc791",
+    "lines": 142,
+    "locators": {
+      "ErrorKind": [
+        129,
+        138
+      ],
+      "fn source": [
+        115
+      ],
+      "ZipReadError": [
+        9,
+        11,
+        19,
+        34,
+        71,
+        114,
+        126,
+        135
+      ],
+      "ZipFileOperation": [
+        23,
+        41,
+        83,
+        84
+      ],
+      "MissingEndRecord": [
+        11,
+        35,
+        74,
+        129
+      ],
+      "MissingEndOfCentralDirectory": [
+        129
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/zip.rs": {
+    "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+    "blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+    "lines": 184,
+    "locators": {
+      "ZipReadError": [
+        15,
+        67,
+        74,
+        90,
+        97,
+        146,
+        166,
+        175,
+        181
+      ],
+      "ZipFileOperation": [
+        15,
+        68,
+        75
+      ],
+      "map_err": [
+        67,
+        74,
+        90,
+        97,
+        166,
+        175
+      ],
+      "locate_in_slice": [
+        89
+      ],
+      "next_entry": [
+        97
+      ],
+      "get_entry": [
+        165
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/npz.rs": {
+    "sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+    "blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+    "lines": 221,
+    "locators": {
+      "with_context": [
+        68,
+        85
+      ]
+    }
+  },
+  "crates/fabelgeist-numpy-storage/src/lib.rs": {
+    "sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+    "blob": "7a4709d77e4d1cd8b748281df5039256c50249ce",
+    "lines": 29,
+    "locators": {}
+  },
+  "crates/fabelgeist-numpy-storage/Cargo.toml": {
+    "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+    "blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4",
+    "lines": 31
+  },
+  "crates/fabelgeist-numpy-storage/Cargo.lock": {
+    "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+    "blob": "212ef57755840d5f6a506c95c7b848967b71c846",
+    "lines": 6257
+  },
+  "rawzip-0.5.2/src/errors.rs": {
+    "sha256": "073f7132ea371edee17e2820b504c32bff7242b31e58aa6ef8ed571fc6c49a72",
+    "lines": 215,
+    "locators": {
+      "ErrorKind": [
+        36,
+        41,
+        46,
+        50,
+        55,
+        62,
+        69,
+        112,
+        114,
+        127,
+        131,
+        132,
+        135,
+        138,
+        141,
+        147,
+        153,
+        157,
+        161,
+        164,
+        171,
+        172,
+        189,
+        212
+      ],
+      "eocd_offset": [
+        22,
+        23,
+        27,
+        28,
+        63,
+        175
+      ],
+      "with_eocd_offset": [
+        27
+      ],
+      "fn source": [
+        109,
+        199,
+        211
+      ],
+      "MissingEndOfCentralDirectory": [
+        71,
+        132
+      ]
+    }
+  },
+  "rawzip-0.5.2/src/locator.rs": {
+    "sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+    "lines": 531,
+    "locators": {
+      "ErrorKind": [
+        1,
+        65,
+        112,
+        238,
+        332,
+        347,
+        381,
+        392
+      ],
+      "eocd_offset": [
+        28,
+        69,
+        84,
+        191,
+        192,
+        203,
+        204,
+        221,
+        222,
+        237,
+        246,
+        257,
+        259,
+        260,
+        262,
+        269,
+        270
+      ],
+      "with_eocd_offset": [
+        69
+      ],
+      "map_err": [
+        69
+      ],
+      "MissingEndOfCentralDirectory": [
+        65
+      ],
+      "locate_in_byte_slice": [
+        62,
+        68,
+        101,
+        182
+      ],
+      "locate_in_slice": [
+        167,
+        178
+      ]
+    }
+  },
+  "rawzip-0.5.2/src/archive.rs": {
+    "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+    "lines": 1797,
+    "locators": {
+      "ErrorKind": [
+        3,
+        39,
+        48,
+        191,
+        396,
+        410,
+        512,
+        519,
+        717,
+        832,
+        849,
+        1502,
+        1520,
+        1597,
+        1621
+      ],
+      "eocd_offset": [
+        89,
+        119,
+        120,
+        144,
+        153
+      ],
+      "map_err": [
+        490
+      ],
+      "locate_in_slice": [
+        490
+      ],
+      "next_entry": [
+        327,
+        372,
+        391,
+        423,
+        442,
+        1289,
+        1309,
+        1722
+      ],
+      "get_entry": [
+        180,
+        294,
+        328,
+        1256
+      ]
+    }
+  }
+}

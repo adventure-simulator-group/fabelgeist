@@ -1,0 +1,50 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npz.rs:1-49
+   1 //! `.npz` archive reading (a zip of `.npy` members).
+   2 //!
+   3 //! `np.savez` writes stored members and `np.savez_compressed` writes deflated
+   4 //! ones; both are handled, as is zip64, which NumPy emits for large arrays. The
+   5 //! archive plumbing itself lives in [`crate::zip`].
+   6 
+   7 use std::path::Path;
+   8 
+   9 use anyhow::{Context, Result};
+  10 
+  11 use crate::npy::NpyArray;
+  12 use crate::zip::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive, ZipMember};
+  13 pub use name::NpzArrayName;
+  14 
+  15 mod name;
+  16 
+  17 /// An `.npz` archive backed by a read-only mapping or owned bytes.
+  18 pub struct Npz {
+  19     archive: ZipArchive,
+  20 }
+  21 
+  22 /// A selected NPZ member tied to the archive that owns its bytes.
+  23 ///
+  24 /// Metadata and decoding use this exact first match. The original query is
+  25 /// retained for parsing diagnostics; a present member may still fail to decode.
+  26 pub struct NpzMember<'a> {
+  27     member: ZipMember<'a>,
+  28     query: NpzArrayName,
+  29 }
+  30 
+  31 impl Npz {
+  32     pub fn open(path: impl AsRef<Path>) -> Result<Self> {
+  33         Ok(Self {
+  34             archive: ZipArchive::open(path)?,
+  35         })
+  36     }
+  37 
+  38     /// Opens an archive already loaded in memory, for browser and streamed assets.
+  39     pub fn from_bytes(bytes: Vec<u8>) -> Result<Self> {
+  40         Ok(Self {
+  41             archive: ZipArchive::from_bytes(bytes)?,
+  42         })
+  43     }
+  44 
+  45     /// Parsed member names in central-directory order, retaining their suffix.
+  46     pub fn names(&self) -> impl Iterator<Item = &ArchiveMemberName> {
+  47         self.archive.names()
+  48     }
+  49 

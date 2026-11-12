@@ -1,0 +1,14 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:49:28.209251+00:00",
+  "tag": "state",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+  "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+  "eof": 479,
+  "corrected_range": [
+    430,
+    479
+  ],
+  "qualification": "Earlier SOURCE-EXTENSION2 registered 430-485 despite actual EOF 479. SOURCE-DISPLAY-M used that overlong header and displayed only 430-479; it is preserved as an error and not credited for state. This exact valid range is registered before a corrected redisplay. Raised-file lines in the same display were valid."
+}

@@ -1,0 +1,88 @@
+### raised.rs:160-195
+160:             } => [Some(right_support), Some(left.start), Some(left.end)],
+161:             GuardStepState::RightSwing {
+162:                 left_support,
+163:                 right,
+164:             } => [Some(left_support), Some(right.start), Some(right.end)],
+165:         };
+166:         if step
+167:             .into_iter()
+168:             .chain([self.left_solve_target, self.right_solve_target])
+169:             .flatten()
+170:             .any(|target| !target.is_finite())
+171:         {
+172:             return Err(AnimationValueError::Overflow {
+173:                 quantity: AnimationQuantity::WorldPosition,
+174:             });
+175:         }
+176:         Ok(())
+177:     }
+178: 
+179:     pub(crate) fn initialized(&self) -> bool {
+180:         self.step.initialized()
+181:     }
+182: 
+183:     pub(crate) fn step_sequence(&self) -> ContactSequence {
+184:         self.step_sequence
+185:     }
+186: 
+187:     pub(crate) fn contact_foot(&self) -> Option<LeadFoot> {
+188:         match self.step {
+189:             GuardStepState::Uninitialized => None,
+190:             GuardStepState::Stationary { next, .. } => Some(opposite_guard_foot(next)),
+191:             GuardStepState::LeftSwing { .. } => Some(LeadFoot::Right),
+192:             GuardStepState::RightSwing { .. } => Some(LeadFoot::Left),
+193:         }
+194:     }
+195: }
+### state.rs:430-485
+430:         clear_slope_rotation_cache(self);
+431:         self.left_release_active = false;
+432:         self.right_release_active = false;
+433:         self.left_release_target = None;
+434:         self.right_release_target = None;
+435:         self.pelvis_shift = SignedLength::ZERO;
+436:         self.measured_owner_planar_speed = None;
+437:         reset_terminal_settle_reach(self);
+438:         self.recent_movement_velocity = Vec3::ZERO;
+439:         self.settle = None;
+440:     }
+441: }
+442: 
+443: impl LegIkState {
+444:     pub(crate) fn diagnostics(&self) -> LegIkDiagnostics {
+445:         let settle = self.0.settle;
+446: 
+447:         LegIkDiagnostics {
+448:             left_authored_target: self.0.left_authored_world_target,
+449:             right_authored_target: self.0.right_authored_world_target,
+450:             left_planned_contact: settle
+451:                 .filter(|state| state.support_foot == LeadFoot::Right)
+452:                 .map(|state| state.landing_target)
+453:                 .or(self.0.left_planned_contact),
+454:             right_planned_contact: settle
+455:                 .filter(|state| state.support_foot == LeadFoot::Left)
+456:                 .map(|state| state.landing_target)
+457:                 .or(self.0.right_planned_contact),
+458:             settle_capture_point: settle.map(|state| state.capture_point),
+459:             left_solve_target: self.0.left_foot_world_target,
+460:             right_solve_target: self.0.right_foot_world_target,
+461:             left_support_weight: self.0.left_support_weight,
+462:             right_support_weight: self.0.right_support_weight,
+463:             left_release_active: self.0.left_release_active,
+464:             right_release_active: self.0.right_release_active,
+465:             left_release_target: self.0.left_release_target.and_then(|target| {
+466:                 Some(self.0.owner_frame?.origin() + self.0.owner_frame?.rotation() * target)
+467:             }),
+468:             right_release_target: self.0.right_release_target.and_then(|target| {
+469:                 Some(self.0.owner_frame?.origin() + self.0.owner_frame?.rotation() * target)
+470:             }),
+471:             settle_progress: settle.map(|state| state.progress),
+472:             left_knee_foot_yaw_offset_degrees: self.0.left_knee_foot_yaw_offset_degrees,
+473:             right_knee_foot_yaw_offset_degrees: self.0.right_knee_foot_yaw_offset_degrees,
+474:         }
+475:     }
+476: }
+477: 
+478: #[derive(Component, Debug, Clone, Copy, Default)]
+479: pub(crate) struct ArmIkState(pub(super) ArmIkMemory);

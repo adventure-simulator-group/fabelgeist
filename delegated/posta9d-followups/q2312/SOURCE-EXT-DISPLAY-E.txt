@@ -1,0 +1,69 @@
+SOURCE rawzip-0.5.2/src/archive.rs:1618-1685
+1618         };
+1619 
+1620         if result.signature != CENTRAL_HEADER_SIGNATURE {
+1621             return Err(Error::from(ErrorKind::InvalidSignature {
+1622                 expected: CENTRAL_HEADER_SIGNATURE,
+1623                 actual: result.signature,
+1624             }));
+1625         }
+1626 
+1627         Ok(result)
+1628     }
+1629 
+1630     #[inline]
+1631     fn parse_variable_length<'a>(&self, data: &'a [u8]) -> Option<VariableFields<'a>> {
+1632         if data.len() < self.file_name_len as usize {
+1633             return None;
+1634         }
+1635         let (file_name, rest) = data.split_at(self.file_name_len as usize);
+1636 
+1637         if rest.len() < self.extra_field_len as usize {
+1638             return None;
+1639         }
+1640         let (extra_field, rest) = rest.split_at(self.extra_field_len as usize);
+1641 
+1642         if rest.len() < self.file_comment_len as usize {
+1643             return None;
+1644         }
+1645         let (file_comment, rest) = rest.split_at(self.file_comment_len as usize);
+1646 
+1647         Some((file_name, extra_field, file_comment, rest))
+1648     }
+1649 
+1650     #[cfg(feature = "std")]
+1651     pub fn write<W>(&self, mut writer: W) -> Result<(), Error>
+1652     where
+1653         W: Write,
+1654     {
+1655         // Batch writes with a fixed size buffer. Improved throughput 25%
+1656         let mut buffer = [0u8; Self::SIZE];
+1657         buffer[0..4].copy_from_slice(&self.signature.to_le_bytes());
+1658         buffer[4..6].copy_from_slice(&self.version_made_by.to_le_bytes());
+1659         buffer[6..8].copy_from_slice(&self.version_needed.to_le_bytes());
+1660         buffer[8..10].copy_from_slice(&self.flags.bits().to_le_bytes());
+1661         buffer[10..12].copy_from_slice(&self.compression_method.0.to_le_bytes());
+1662         buffer[12..14].copy_from_slice(&self.last_mod_time.to_le_bytes());
+1663         buffer[14..16].copy_from_slice(&self.last_mod_date.to_le_bytes());
+1664         buffer[16..20].copy_from_slice(&self.crc32.to_le_bytes());
+1665         buffer[20..24].copy_from_slice(&self.compressed_size.to_le_bytes());
+1666         buffer[24..28].copy_from_slice(&self.uncompressed_size.to_le_bytes());
+1667         buffer[28..30].copy_from_slice(&self.file_name_len.to_le_bytes());
+1668         buffer[30..32].copy_from_slice(&self.extra_field_len.to_le_bytes());
+1669         buffer[32..34].copy_from_slice(&self.file_comment_len.to_le_bytes());
+1670         buffer[34..36].copy_from_slice(&self.disk_number_start.to_le_bytes());
+1671         buffer[36..38].copy_from_slice(&self.internal_file_attrs.to_le_bytes());
+1672         buffer[38..42].copy_from_slice(&self.external_file_attrs.to_le_bytes());
+1673         buffer[42..46].copy_from_slice(&self.local_header_offset.to_le_bytes());
+1674         writer.write_all(&buffer)?;
+1675         Ok(())
+1676     }
+1677 }
+1678 
+1679 #[cfg(test)]
+1680 mod tests {
+1681     use super::*;
+1682 
+1683     #[test]
+1684     fn compression_method_display() {
+1685         assert_eq!(CompressionMethod::DEFLATE.to_string(), "8 (DEFLATE)");

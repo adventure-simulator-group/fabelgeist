@@ -1,0 +1,49 @@
+SOURCE crates/adventuresim-building-generator/src/model/resolved_networks.rs:416-463
+ 416         self.voids
+ 417             .iter()
+ 418             .find(|item| item.id == id)
+ 419             .ok_or(crate::GenerationError::MissingVoid { void: id })
+ 420     }
+ 421     pub fn void_mut(
+ 422         &mut self,
+ 423         id: ResolvedItemId,
+ 424     ) -> Result<&mut ResolvedVoid, crate::GenerationError> {
+ 425         self.voids
+ 426             .iter_mut()
+ 427             .find(|item| item.id == id)
+ 428             .ok_or(crate::GenerationError::MissingVoid { void: id })
+ 429     }
+ 430     pub fn node(&self, id: StructuralNodeId) -> Result<&StructuralNode, crate::GenerationError> {
+ 431         self.structural_nodes
+ 432             .iter()
+ 433             .find(|item| item.id == id)
+ 434             .ok_or(crate::GenerationError::MissingNode { node: id })
+ 435     }
+ 436     pub fn node_mut(
+ 437         &mut self,
+ 438         id: StructuralNodeId,
+ 439     ) -> Result<&mut StructuralNode, crate::GenerationError> {
+ 440         self.structural_nodes
+ 441             .iter_mut()
+ 442             .find(|item| item.id == id)
+ 443             .ok_or(crate::GenerationError::MissingNode { node: id })
+ 444     }
+ 445     pub fn interface(
+ 446         &self,
+ 447         id: ResolvedItemId,
+ 448     ) -> Result<&SupportInterface, crate::GenerationError> {
+ 449         self.support_interfaces
+ 450             .iter()
+ 451             .find(|item| item.id == id)
+ 452             .ok_or(crate::GenerationError::MissingInterface { interface: id })
+ 453     }
+ 454     pub fn interface_mut(
+ 455         &mut self,
+ 456         id: ResolvedItemId,
+ 457     ) -> Result<&mut SupportInterface, crate::GenerationError> {
+ 458         self.support_interfaces
+ 459             .iter_mut()
+ 460             .find(|item| item.id == id)
+ 461             .ok_or(crate::GenerationError::MissingInterface { interface: id })
+ 462     }
+ 463 }

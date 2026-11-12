@@ -1,0 +1,18 @@
+{
+  "registered_at_utc": "2026-11-12T15:17:48.084771+00:00",
+  "purpose": "Extract exact original 059 entries q2307, q2312 and q2316; compare selected bytes with each prior packet and include prior manifests. Display only named summary fields.",
+  "queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "prior_packets": {
+    "2307": "npz-q2307-18a0w1xu",
+    "2312": "npz-q2312-safe-packet-pr80q6y1",
+    "2316": "npz-q2316-safe-packet-qknuulot"
+  },
+  "allowed_fields": [
+    "contract_id",
+    "first_failed_contract_or_unresolved_question",
+    "disposition",
+    "policy_decisions_remaining",
+    "all_lenses_or_coarse_parent_closed"
+  ],
+  "qualification": "Related source-family records retain their own e275 reviewer and prior current review attribution. Connections do not imply exact alias or unique-defect counts."
+}

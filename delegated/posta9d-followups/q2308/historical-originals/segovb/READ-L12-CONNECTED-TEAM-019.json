@@ -1,0 +1,1167 @@
+{
+  "lens": 12,
+  "kind": "Sole-root adoption of connected roof contracts; original frontier unchanged",
+  "at": "2026-10-30T01:16:44.269557+00:00",
+  "bundle": {
+    "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-CONNECTED-TEAM019.json",
+    "sha256": "5cf81591db57492a6de31fc9e1a830f9483a9092febc23fe7ad7f4e12304e80f"
+  },
+  "ruleset": {
+    "path": "parallel-l12-20261029/preflight-l12-connected-bundle-001-v2-PROPOSAL.py",
+    "sha256": "f7c348d927cb187dcb902b3ca5783ae73db933d93397c494882b9ff389711401"
+  },
+  "strict_preflight": {
+    "authority_writes": 0,
+    "fresh_assessed_lines": 1773,
+    "future2752_ordered_credit": 0,
+    "implementation_gate_complete": false,
+    "ledger_sha256": "0b7083f96985f25cc0f3f2fe31e460863a5a4836d58e4a08e15b89084e2e0c13",
+    "mode": "read_only",
+    "original_credit": 0,
+    "preflight": "passed",
+    "registration_records": 11,
+    "selector_sha256": "56da150f235168e3d57b606fc7d55ff777c57169447548d770f32c87e5c58aac",
+    "semantic_review_required": true
+  },
+  "immutable_delegated_receipts": [
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-CALLER-REVISIT.json",
+      "sha256": "d434a4c5e451438ea026a52ac70c84014a6ce5fce2e9e4413af1df22e1856411"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+      "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-ADMISSION-PLAN.json",
+      "sha256": "35047b685e1c2a79bf5479efa41af6fa275088f58b7bea1bf6b6f8241631bbbd"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+      "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+      "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PARENT-POLICY.json",
+      "sha256": "58c76a6dc12f5227604c8557dbd2e7a19fee244094ae71315efa139a983ff917"
+    }
+  ],
+  "exact_source_rows": [
+    {
+      "isolated_registration_number": 581,
+      "original_index": 2494,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-CALLER-REVISIT.json",
+        "sha256": "d434a4c5e451438ea026a52ac70c84014a6ce5fce2e9e4413af1df22e1856411",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "source_sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 277,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-581.json",
+        "sha256": "240c547477a8022743f8a01ec232cf4f899d3a34576543bf0f8506acc2801aab"
+      },
+      "requested_ranges": [
+        [
+          1,
+          37
+        ],
+        [
+          120,
+          133
+        ],
+        [
+          262,
+          277
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          37
+        ],
+        [
+          120,
+          133
+        ],
+        [
+          262,
+          277
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          37
+        ],
+        [
+          120,
+          133
+        ],
+        [
+          262,
+          277
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated reinspection;67actualrereadlines, no neworiginalcredit",
+      "unread_ranges": [
+        [
+          38,
+          119
+        ],
+        [
+          134,
+          261
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "resolve_roof_assemblies signature1..11/primarysource13..37/dormercall127/finalizersequence262..275; restalreadyownfull277qualified at847, no freshclaim"
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actualroofslicefromcaller -> primaryIDindex+1/owner60000+index -> assemblies.pushresolve_one_roof24 -> unconditionaldormersappend127 -> primaryedgejunctionbind262 -> drainage263 -> split_eaves264 -> stations265 -> contours273/refit274/bonds275 -> returnedassemblies276; geometryborrowedmutable10."
+        ],
+        "conditional_cases": [
+          "Actualsame-functioncallorder establishesjunctionflashing andlatergutter can coexist bycaller order, butactualsupportedcoincidentedge/face indices plusnativeIDuniqueness stillneededbeforecollisionfinding. ExistingRoofFlashing isnotremovedbyfinalize_roof_drainage retainRoofGutterrole2539:15.",
+          "No entryguardbeforeprimaryroofloop12..37; afterotheroptionalattachedsourcepaths priorfull847 anddirectdormercall127, actualsupportedemptyroof+nonemptydormer admission/highercaller stillrequired. Do not infer validinputwitnessfromsignature alone."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 582,
+      "original_index": 2752,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+        "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "source_sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 46,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-582.json",
+        "sha256": "57c3cc5c1ab9522b46d0f895f94799e49fc37236cbb642a2da0a710e3bfacfd0"
+      },
+      "requested_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "framed_roofs::resolve3..46 full46"
+        ],
+        "string_inventory": [
+          "NoString; typedBuildingProgram/BuildingEdit/RoofPiece/RoofDormer/typedResult ownactualinternalAPI."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "BorrowedBuildingPlanfields fromarchitectural_envelope45 -> actualresolve_roof_assemblies15 fallible -> childfrontopenings26 -> timber34 -> typedRoofAssemblies+OptionTimber45 -> ownedBuildingPlan API returnsSelf onlyifallcomplete."
+        ],
+        "conditional_cases": [
+          "Thiswrapperdoesnotitselfvalidateemptyroofs+nonemptydormers orreturnrawgeometryonErr; actualhigherownedselfcaller583 qualified. Historicalprematureotheragentfull46display inoriginalregistry remainsnoncredit; thisactualfreshread followed582prospectivequalification."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 583,
+      "original_index": null,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+        "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a",
+        "row_pointer": "/rows/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+      "source_sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 68,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-583.json",
+        "sha256": "5ade88ae8702283c93e1b82fe4cd5d5d8a686cf6a1dd1b5b9abfe80511e4320c"
+      },
+      "requested_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "BuildingPlan::resolve_architectural_envelope5..67 full68"
+        ],
+        "string_inventory": [
+          "NoString; ownSelf receiver6 andtypedResult<Self,GenerationError>9 preserveactualfailurecontract. Nativefutures/commands/assetports absentonthisfunction."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "OwnedBuildingPlan self6 +immutableProgram/Edits -> specialistmutations10..43 -> actualframed_roofs45 withborrowedownfields48..55 -> successassign57/58 -> finalwall/church/spiralresolve61..66 -> returnswholeSelf orErr -> nativebuildingconsumer outerpipeline."
+        ],
+        "conditional_cases": [
+          "WholeSelf consumedbefore falliblemodifications; noacceptedpartlymutatedBuildingPlan returnsfromthisfunctiononErr. Actualroofhelperborrowedgeometryscope roots inownedselffield55. Rejectpartialacceptedgeometryfindingforcallsstrictlythroughthisroute, withactualscope; sourcefunctions/testdirectcallers/future/mainvariants stayindependent.",
+          "Thisownedtransactiondoesnotestablishroofs/dormers admission orIDuniqueness. Publicnativefield/reference/sharingownership definition andouterpipeline admission stillneededifanyconcreteescapingstateclaimraised; noescapingstateseensofar."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 584,
+      "original_index": 604,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-ADMISSION-PLAN.json",
+        "sha256": "35047b685e1c2a79bf5479efa41af6fa275088f58b7bea1bf6b6f8241631bbbd",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+      "source_sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/orchestration.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 196,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-584.json",
+        "sha256": "7ce249ae400386092b9bac29ab1da36836b5e3dfed13054a496b74dc70c32f7b"
+      },
+      "requested_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "generate_unchecked1..8/generate_structure10..93/apply_opening_edits95..196 full196"
+        ],
+        "string_inventory": [
+          "TypedBuildingEdit/OpeningKind categoriesremainowned; actualEditTargetNotFound118/185/UnsupportedEdit136/168/EditConflict141 stringpayloadsformat context/reasons thenretainedGenerationError. Existinginherited604rawerror/contextcandidate preserved; actualerrorconsumer/nativepolicy neededbeforeuniquealias/retentionfailure conclusion. No obsoleteerrorprose preservation."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "BuildingProgram.validate_church/workplace14/15 -> derive_roofs18/derive_roof_dormers19 -> ownedtypedBuildingPlan54..91 -> consumed resolve_architectural_envelope92 -> nativegeometryconstructors-> returnedwholePlan orGenerationError. Actualprivateapply_opening_edits typedselector104 ->wallmatching116 -> structuredoutererrorvariantwithStringcontext118/136/141/168/185 -> callerResult/nativeUI consumer remainsunqualified."
+        ],
+        "conditional_cases": [
+          "Actualroof/dormerarrays generatedfromprogram18/19, notmutatedbyapply_opening_edits whichselectsonlyopeningedits104 andignoreswallstyleedits107. Exactderive_roofs/derive_roof_dormers producer bodies neededtoresolveemptyparent case; rawpublicPlanfieldsnotproofprivateentryacceptsarbitraryplan.",
+          "Freshplan/geometrylocal generation31/54 andconsumedself92 supportscopedrejectionofpartialacceptedgeometryatownederrorboundary; no externalcallerreceiveslocalplanonErr. Nativecommands/globalmutation notobservedonthisroute. TypeandEditselector/nativehelperadmissionothercontracts remainseparate."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 585,
+      "original_index": 647,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-ADMISSION-PLAN.json",
+        "sha256": "35047b685e1c2a79bf5479efa41af6fa275088f58b7bea1bf6b6f8241631bbbd",
+        "row_pointer": "/rows/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/plan.rs",
+      "source_sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/model/plan.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 53,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-585.json",
+        "sha256": "1fee502cef4232bd62565b4a55730600c573688a0d5a1a9e072b7a6dd1209ee5"
+      },
+      "requested_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "BuildingPlan5..43/dimensions_metres46..52 full53"
+        ],
+        "string_inventory": [
+          "NoStringAPI; canonicaltypedBuildingArchetype/Seed/Footprint/WallStyle/nativeSerde plusownedtypedVecs retaincategories; emptyoptionalarchitecturalmodeslegitimate."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualgeneratorownedVecs -> BuildingPlanownedfields17..42 +ResolvedGeometry29 -> architectural_envelope consumedSelf -> nativebuildingpresentation/physicsconsumer; dimensions48 convertsFootprintcellcount tofinalnativeVec2 scaledCELL_SIZE_METRES."
+        ],
+        "conditional_cases": [
+          "Ownedroofs20/roof_dormers21/resolved_geometry29 arevaluefields, not externalborrowedmutablestate. Clone+publicDeserialize admitindependentPlanstates butactualresolve_architectural_envelope ispub(super) andonlyknowncaller freshgenerate_structure92; cannotinferpublicinvalidPlanentersprivategenerator. Canonicalfootprint/dimensionnumericadmission/nativeSerde remainsindependent."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 586,
+      "original_index": null,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+        "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+      "source_sha256": "8a17959fdbea754e94742f7740c05f8d1eb42fb4d01f1abd81246fe7325ad041",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 265,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-586.json",
+        "sha256": "06732d44350f3d8f98c1bcaaf28daa08a42fc29774f56cd07670aa58e7f7ef29"
+      },
+      "requested_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "derive_roofs1..97/derive_roof_dormers99..207/urban_basilica_roofs209..265 full265"
+        ],
+        "string_inventory": [
+          "NoString; typedBuildingArchetype/Footprint/RoofKind/DormerKind andRidgeAxis remainsemanticowners; derive_roofsCathedralunreachable14 requiresactualchurchprogramadmissionproof, notnativeproseowner."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualProgram -> church2/workplace/smallchurch3 overrides orarchetype/footprintprimaryshape10..95 -> VecRoofPiece -> freshPlan.roofs/orchestration18 -> primaryassemblies; actualprogramdormer gates100/101 -> exhaustivearchetype match122..205 -> Vec0..3Dormer -> RoofAssemblyID1000+index at2538:22 -> IDbitpacking/nativegeometry -> auditidentityconsumer587."
+        ],
+        "conditional_cases": [
+          "Actualdormercountmaximum3 provenbycompleteexplicitmatch; ordinaryparentroofsnonemptyforallnonemptydormerarchetypesexceptCourtyardCastle requiresFootprintCourtyard28 vsrawRectanglefallback95. ChurchSome100 andGabledemonstrator101 suppressdormers; Workplace/smallchurch primaryoverride3 definitionsstillunread/neededifactualProgram permitsincoherentarchetypecombos.",
+          "Scopedrejectsplit-eaveIDaliasforactualfreshgenerateddormers: childID1000..1002and3slots; maskingchild8bits/OR0x6800 preservesdistincttheseactualthreevalues. PublicarbitraryRoofAssembly valuesnotbythemselvesreachprivatefreshgenerator. OtherindependentchildIDproducers/currentvariants remainseparate.",
+          "ParentemptycaseconditionalonProgramdomain: CourtyardCastle+Rectangle yields0primaryroofs95 but2dormers191..204; actualpublicAPI admission/core validation/validProgram contract requiredbeforeunsupportedinputpanicfinding. Do not imposepreservationofinvalidcombination. Nativefixedgeometryfinite/pitch/poly/shapegates remainactualcontracts."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 587,
+      "original_index": 532,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+        "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e",
+        "row_pointer": "/rows/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "source_sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 514,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-587.json",
+        "sha256": "3cf63789f96d0625cd250610a813a215e042060c3c9de98fc018b7815106ca52"
+      },
+      "requested_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "audit_resolved_geometry1..514 full514, fourboundedbodypackets1..110/111..290/291..470/471..514"
+        ],
+        "string_inventory": [
+          "ActualfiniteAuditIssue code literals7/35/44/55/365/381/484/505 -> issuehelper -> retainedVec<AuditIssue>. ExistinginheritedAuditIssuecodefamilyneedsactualcanonicalowner/helper/consumer beforeexactalias/newfinding. Humanformat36/45/56/367/382/485/506 arediagnosticswithIDs/typedroles; no obsoleteprosepreservation. No audit/scanner execution."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "GeneratedPlan.resolved_geometry -> item_idsHashSet23 -> solidsIDsinsert27/surface42/void53 -> duplicateclassificationinvalid_resolved_geometry35or duplicate_resolved_item_id44/55 -> retainedAuditIssueVec3 -> actualaudit_plan/reportnativeJSON/HTML caller stillneededforfirstStringowner/nativefailure policy. Thisisactualsourceintendeduniquenesscontract, notinferredfromIDtypename.",
+          "Actualtypedsolids/owners/supportnodes +nativeBoundsIndex61 -> overlapbonds/contactmodes116..361 -> retainedissue365; actualvoidsubtractions389 -> declaredroleallowedcontacts/typedbounds477 -> issue484; typedDrainageRoute lowerownedvoid495..502 -> issue505. Nativegeometry/index/helperbodies remainindependent."
+        ],
+        "conditional_cases": [
+          "Shareditem_idsSet23spanssolids/surfaces/voids, so0x6000junction-vs-gutterIDcoexistencewouldviolateactualconsumerifactualmatchingindicesoccur. SupportInterfaces/bondIDsnotinsertedhere; do not inventglobaltableuniquenessforsameinterfaceIDorcrosskindjustfromthisSet.",
+          "Contactmodewhitelists/archetype/stair/roof/nativeoverlaptolerances areexplicitallowedmodes, notgenericcompatibilityexceptions; sourcechecksnotruntimeevidenceorsufficientallgeometryadmission. Actualaudithelperissue/nativeconsumer/acceptedprogramdomain remainopen forcanonicalerrorcategory/conditionalnamespace closure."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 588,
+      "original_index": 597,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+      "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/core.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 311,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-588.json",
+        "sha256": "ac3caaa6cc560148dfa9b21e1f0921713e89055115d1adacf5482ff585058bc2"
+      },
+      "requested_ranges": [
+        [
+          1,
+          311
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          311
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          311
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "GenerationError33..182/GenerationResult30/layout_seed188..196/generate202..204/generate_document207..287/edit_document291..299/validate_generated_plan301..311; full311alsoStairCore6..19/grid_point21..27 sourceonly"
+        ],
+        "string_inventory": [
+          "GenerationError typedGeometry/Collision/Door/Window/Entrance causeports134..142 retaincanonicalowners; StructuralContract170 retainsVec<AuditIssue> pluscount, no stringify/downcast. ActualStringcontextvariantsUnsatisfiedVertical168/EditTarget177/EditConflict179/UnsupportedEdit181 needexactproducer/consumerclassification, oldfamilyconditionalnotuniqueproof. Nativeerrordisplaystringsfinalboundarynotrequiredcompatible."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actualpublicgenerate202 -> generate_unchecked203 -> freshPlan/orchestration -> actualroofassembly -> ownedselferrorboundary -> returnedGenerationResult. ActualeditorDocumenttypededits207..260 -> generate_unchecked261 -> typedwallmaterialoverrideapplication262 -> nativeaudit_plan302 -> issuesis_empty303 acceptedPlan orStructuralContract306 keepingissues vector308 -> nativecaller/report/HTTPclient pendingexactsource. edit_document clonescandidate295 andreturnsonlysuccess298; no partialeditpublication."
+        ],
+        "conditional_cases": [
+          "generate docs198 promisesrejectunsupportedinputs butexhaustiveauditexplicit200; generate203 intentionallydoesnotrun audit. generate_document validatesdocumentschema208 thenauditonlyaftergeneration261/302, so cannotbyitselfguardpre-auditparentpanic. Parentcaseaccepted/unsupportedinputpolicy stillquestion, no invalidbehaviorbackcompatpreservation.",
+          "Actualschema_version2nativeprotocolcontext withunsupportedversionerror174 iscurrentnativeboundary, notrequesttomigrateorretainobsolete schema/API. layout_seed CastleGatehouse seedtag201..203\u219242 purposefulacceptedstudy normalization184..196, notbehaviorpreservationdefectbymoduloalone.",
+          "StructuralContract issues_count duplicatedfromissues.len307 statecorrelation forotherindependentlenses; sourceconstructionconsistenthere, no automaticwrongcount/runtimefailure. Callingstructural auditinproductsourceisnotus runningaudit."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 589,
+      "original_index": 611,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0",
+        "row_pointer": "/rows/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "source_sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/small_church.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 154,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-589.json",
+        "sha256": "fe83b324d757ea6d87367ae745f8c935ec0ab28ac19d405f1757ea674eb371af"
+      },
+      "requested_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          70,
+          154
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "SmallChurchKind20/from_use39..45/SmallChurchPlan26..36/occupied_storey48..54/wall_height56..65/roofs67..69;70..154unread"
+        ],
+        "string_inventory": [
+          "TypedBuildingUse\u2192SmallChurchKind Chapel/Parish finitecategoryadapter, noString. NativeNoneelse44 legitimateoptnonsmallchurchmode."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "BuildingUse -> SmallChurchKind::from_use -> actualDimensions::from_program outsideassessedrange -> optionalprivateSmallChurchroofprojection68 -> derive_roofs override -> primaryroofassembly/nativegeometry."
+        ],
+        "conditional_cases": [
+          "NeedactualDimensions::from_program guard/body94..154 toclosewhichprogramsenterSome; no inferencefrommodulename/None. Sourcecall `.roofs` nativeproducerimplementationnotreadhere; fulloriginal154 notclaimed."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 590,
+      "original_index": null,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0",
+        "row_pointer": "/rows/2"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/programme.rs",
+      "source_sha256": "90c8c58e67db25a5a69867225f789144098b2c59469c719f68f0bee98fee0438",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/workplace/programme.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 123,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-590.json",
+        "sha256": "6a5728dbf3959c0e72e3e9682bfd23d1da8dc7ed564ba25b839637951a0f26bc"
+      },
+      "requested_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "WorkplaceKind::yard_width5..12/BuildingProgram::validate_workplace_edits16..32/workplace_roofs34..71/configure_workplace_size73..122 full123"
+        ],
+        "string_inventory": [
+          "Purpose-ownedStreamId::new literal99 before canonicalrng/index5 call, no rawprivateStringkind. UnsupportedEdit26 retainsclosedstructuralprogramreason humantext; actualprivatecaller/nativeerrorconsumer neededbeforeStringfailure oralias. TypedWorkplaceKind/RoomKind/RoofKind/RidgeAxis/WallStyle retaincategories."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualProgram.workplace_kind36 -> nativefootprintdimensions37 -> nonemptyroofVec39 -> optionaltypedservice_roofs50/62/65/68 -> Some(roofs)70 -> derive_roofs override -> typedassemblies. ActualServiceBuildingSize.extra_bays95 -> typedprogrammutations77..108 -> retainedProgram -> nativegeneratorAPI."
+        ],
+        "conditional_cases": [
+          "Everyworkplace_roofsSome containsinitialroof39 regardlessoptionalextrahelpers; emptyparent cannotcome fromthisactualoverride. MissingWorkplaceKind orServiceSize onWorkplacearchetype returnsInvalidWorkplaceProgram23 beforederive viaorchestration15; editsrejected26 modelegitimateunsupportedAPI notbackcompatdefect.",
+          "Uncheckedwidth*depth103/u16extraBaymath95/RNGfeature/finitepitch andProgramsettingsemanticconsistency needotheractualnumeric/admissioncontracts, noStringfinding. No build/probe/randomexecution."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    },
+    {
+      "isolated_registration_number": 591,
+      "original_index": 611,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PARENT-POLICY.json",
+        "sha256": "58c76a6dc12f5227604c8557dbd2e7a19fee244094ae71315efa139a983ff917",
+        "row_pointer": "/rows/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "source_sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "revision_or_explicit_transport_qualification": {
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/generator/small_church.rs",
+        "qualification": "Exact PR6533 source view, notdirtyphysicalorcurrentmain substitution"
+      },
+      "actual_EOF_or_visual_contract": 154,
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-591.json",
+        "sha256": "610bc2e8f0e22a3ed518e5f6f721a9a5b8c8ece34e3a580de68667bb5e346dd3"
+      },
+      "requested_ranges": [
+        [
+          94,
+          154
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          94,
+          154
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          94,
+          154
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "Dimensions94..102/from_program105..137/nativewidth/depth/bellhelper139..153; actual94..154fresh; own5891..69separate,70..93stillunread"
+        ],
+        "string_inventory": [
+          "NoString; actualBuildingArchetype::ParishChurch andSmallChurchKind/ServiceBuildingSize retainclosedoptionalgeometrydomain."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Programarchetype/optionalChurch -> onlyParishChurchwithoutchurch_program106 -> usageSmallChurchKind110/servicesize111 -> retainedDimensions117..136 -> actualroofs67..69otherpacket -> derive_roofs earlyoverride. CourtyardCastle alwaysreturnsNone108 onthisactualguard."
+        ],
+        "conditional_cases": [
+          "Forparent-nonemptyinvariant, allProgramswithSmallChurchoverridehaveParishChurcharchetype106 andderive_roof_dormers returns0at586:205; no additionalroofs-methodbodyneededtoprove nonemptydormerscannotcome fromthisoverride. Separateactualchurchroofgeometrymethod/unread70..93 notclosedbythislogicalbranchproof.",
+          "Nativefixtureliteralwidth/nave/chancelcounts areauthoredSmall/Medium/Large modes, notuniversalvaluevalidation orbackcompatpromises; numerical/world-scale quality otheractualcontracts."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only searches/failed preflights confer zero credit",
+      "source_scope_qualification": "Unread is complement of this individual read row; per-source aggregate shown separately when multiple rows share identity. Original/historical scope not reclosed by this connected partial role."
+    }
+  ],
+  "root_registration_adoption_mapping": [
+    {
+      "isolated_registration": 581,
+      "continuation_registration": 1552,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 582,
+      "continuation_registration": 1553,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 583,
+      "continuation_registration": 1554,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 584,
+      "continuation_registration": 1555,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 585,
+      "continuation_registration": 1556,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/plan.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 586,
+      "continuation_registration": 1557,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 587,
+      "continuation_registration": 1558,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 588,
+      "continuation_registration": 1559,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 589,
+      "continuation_registration": 1560,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 590,
+      "continuation_registration": 1561,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/workplace/programme.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    },
+    {
+      "isolated_registration": 591,
+      "continuation_registration": 1562,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "qualification": "Adoption view only, not source identity novelty or root reread"
+    }
+  ],
+  "semantic_contract_dispositions": [
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "BuildingPlan::resolve_architectural_envelope ownedSelf errorboundary",
+      "first_failed_contract_or_unresolved_question": "Priorgenericpartialacceptedroofgeometrysuspicion rejectedforthisactualownedselfpath; intermediatesmutatedbutwholePlanconsumedandonlysuccessSelfreturned",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "source_sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+          "ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "row_pointer": "/rows/1"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+          "source_sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ],
+          "row_pointer": "/rows/0"
+        }
+      ],
+      "remaining_evidence": [
+        "No runtime/repair neededforthisexactdocumentedrejection; otheractualindependentAPI/caller/currentvariant scopesretainownrequirements",
+        "For any broader all-field ownership claim, qualify exact ResolvedGeometry retained aggregate definition (future original2715) before inference; this bundle establishes actual consumed-Self/owned Plan field path and source-level scoped rejection, no unseen type-body credit."
+      ],
+      "dependencies": [
+        "Qualifiedpriorown847callerchain, new581actualsequence, immutabletypedlocalownership; no allcallerclaim"
+      ],
+      "closure_condition": "Eligible scopedrejection asownedPlanerrorboundary; rootpreserveconditionalhistoricalnotesadditively andanyrealindependentescapingcallerquestion separately",
+      "existing_contract_revisit_identity_proof_if_any": "Prior846/847/861/862/863falliblegeometrymutations route throughactualresolve_roof_assemblies->framed_roofs->thisownedSelfentry; no same-remedyfindingalias",
+      "source_update_receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+        "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a"
+      },
+      "source_update_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "PublicPrograminputadmission policy (core::generate202/doc198); derive_roofs/derive_roof_dormers producerdomain; privateappend21 ispotentialfirstuncheckedindex",
+      "first_failed_contract_or_unresolved_question": "Fullydocumentedconditional/policycase: CourtyardCastle+Rectangle+nochurch+noWorkplaceoverride gives0primaryroofsand2dormers; ifprecedingtypedstorey/constructionadmissionaccepts, privateappend21indexesabsentparentbeforeeditoraudit. Which coherentProgramdomainmustpublicAPIsaccept/rejectwithtypedError?",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+          "source_sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+          "ranges": [
+            [
+              94,
+              154
+            ]
+          ],
+          "row_pointer": "/rows/0"
+        },
+        {
+          "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+          "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e",
+          "row_pointer": "/rows/0",
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "source_sha256": "8a17959fdbea754e94742f7740c05f8d1eb42fb4d01f1abd81246fe7325ad041",
+          "ranges": [
+            [
+              1,
+              265
+            ]
+          ]
+        },
+        {
+          "receipt": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+          "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0",
+          "row_pointer": "/rows/0",
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+          "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+          "ranges": [
+            [
+              1,
+              311
+            ]
+          ]
+        }
+      ],
+      "remaining_evidence": [
+        "No supported-inputpanicwitness claimed: precedingstorey/constructionadmissionwasnotexecutedorfullyprovedforthisconditionalinput. A retainedsupported-inputfailurewouldrequirethatexactwitness/sourceproof; thisentrycaninsteadcloseasfullydocumentedinputpolicy/conditionalcase.",
+        "Current-mainidentity/rangeassessmentandcanonicalfirst-contractdedup stillrequiredseparately."
+      ],
+      "dependencies": [
+        "Actualsourcechain861append->581caller->582framed->583ownedPlan->584generator->586derivation->588publicAPI->590WorkplaceSome>=1->591SmallChurchguard",
+        "AnyrepairmustchoosecleansupportedProgramschema/API, notpreserveinvalidprogrambehaviororobsoleteAPI."
+      ],
+      "closure_condition": "EligibleAUDITconditional/policy disposition afterrootadoptsstrictsourceproofs: ordinarynondormer/parentmodesandactualoverrideguarddomainsfullydocumented, conditionalunknownspreservedexactly. Policycanremainafinalrepair-ledgerdecision; noruntime/scanner/buildneededforauditdiscoveryclosure.",
+      "existing_contract_revisit_identity_proof_if_any": "Exactstableparentoperation861/rows/0:21; nofailureintroducedfromHash/search/otherlensverdict",
+      "proposed_disposition": "fully_documented_conditional_policy_question",
+      "later_repair_runtime_acceptance": "Ifpolicyrequirescheckedunsupportedinput rejection, enforce chosenProgramaggregateatcanonicaladmissionbeforeprivateparentindexandverifytypedErrforunsupportedcombo plusvalidemptyroof/no-dormermodes; no backwardscompatibilityshim or preservationofpanic/errorprose. Runtimevalidationnotperformedunderthisgoal.",
+      "source_update_receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PARENT-POLICY.json",
+        "sha256": "58c76a6dc12f5227604c8557dbd2e7a19fee244094ae71315efa139a983ff917"
+      },
+      "source_update_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "derive_roof_dormers controlledproducer -> roof_dormers::append -> split-eaveIDs",
+      "first_failed_contract_or_unresolved_question": "Actualgenerateddormermax3 andIDs1000..1002 prove nochildmaskaliasamongthisfreshgenerateddomain; conditionalarbitraryinputcase unsupportedonknownprivatecallgraph",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+          "source_sha256": "8a17959fdbea754e94742f7740c05f8d1eb42fb4d01f1abd81246fe7325ad041",
+          "ranges": [
+            [
+              1,
+              265
+            ]
+          ],
+          "row_pointer": "/rows/0"
+        }
+      ],
+      "remaining_evidence": [
+        "No runtime/repair requiredforexactscopedrejection; qualifyanyactualindependentcaller/currentvariantseparately"
+      ],
+      "dependencies": [
+        "Own861parentchildIDproducer22/full305; own864split68/full223; actualhigherownedfreshgeneration584"
+      ],
+      "closure_condition": "Eligible exactfrozenprivatefreshgenerator rejection basedboundedactualproducerdomain; preservehistoricalconditionalnotesadditively andotherIDoperationsseparate",
+      "existing_contract_revisit_identity_proof_if_any": "ExactstableL12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN sourceoperation864/rows/1:68; noaliasbycommonremedy",
+      "source_update_receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+        "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e"
+      },
+      "source_update_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Nativeaudituniquenessconsumer andeditorpublicStructuralContract boundary",
+      "first_failed_contract_or_unresolved_question": "ActualduplicatesbecomeAuditIssueVector; editorAPIrejectsnonemptyviaStructuralContract306 preservingactualissues, generateAPIexplicitnoaudit; aliases/acceptedindexshape remainopen",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+          "source_sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+          "ranges": [
+            [
+              1,
+              311
+            ]
+          ],
+          "row_pointer": "/rows/0"
+        }
+      ],
+      "remaining_evidence": [
+        "Supportedcoincidentedge/faceindexnamespacecase orqualifiedconditionaldomain",
+        "CanonicalAuditIssuecodeowner/helper/reportnativeboundaryqualificationifnecessaryforretainedStringfamily"
+      ],
+      "dependencies": [
+        "587actualitem_idsSet/nativesourceproof andknowncallerorder581"
+      ],
+      "closure_condition": "Recordpreciseproducers/actualnativeaudit/APIboundary andconditional/policy/failure/rejection honestly; no needrun audit/scanner",
+      "existing_contract_revisit_identity_proof_if_any": "Exact862namespacefirstoperations,587consumer1..59 andcoreStructuralContract170/301..311 actualboundary",
+      "source_update_receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0"
+      },
+      "source_update_pointer": "/contract_updates/1"
+    }
+  ],
+  "contract_update_history": [
+    {
+      "contract_id": "L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-CALLER-REVISIT.json",
+        "sha256": "d434a4c5e451438ea026a52ac70c84014a6ce5fce2e9e4413af1df22e1856411"
+      },
+      "json_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-CALLER-REVISIT.json",
+        "sha256": "d434a4c5e451438ea026a52ac70c84014a6ce5fce2e9e4413af1df22e1856411"
+      },
+      "json_pointer": "/contract_updates/1"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+        "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a"
+      },
+      "json_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-ADMISSION-PLAN.json",
+        "sha256": "35047b685e1c2a79bf5479efa41af6fa275088f58b7bea1bf6b6f8241631bbbd"
+      },
+      "json_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+        "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e"
+      },
+      "json_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PRODUCER-ID-CONSUMER.json",
+        "sha256": "b798c7fbc1ca0a431c227fbcfa690e74fa87f6c1551139af59d3f8fab7864b5e"
+      },
+      "json_pointer": "/contract_updates/1"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0"
+      },
+      "json_pointer": "/contract_updates/0"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PUBLIC-API.json",
+        "sha256": "6f43406a7dd722ed5a3d54101aa0e504b74f04efef19a6515e15e43a12731da0"
+      },
+      "json_pointer": "/contract_updates/1"
+    },
+    {
+      "contract_id": "L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION",
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-PARENT-POLICY.json",
+        "sha256": "58c76a6dc12f5227604c8557dbd2e7a19fee244094ae71315efa139a983ff917"
+      },
+      "json_pointer": "/contract_updates/0"
+    }
+  ],
+  "qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-582-WINDOWS-ORIGINAL2752.json",
+      "sha256": "1d2bba0a54e3e0ceef35e1aac0d8f23707833267dbf90a046a6b891dcfc71770"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-589-WINDOWS-ORIGINAL611.json",
+      "sha256": "7aa8db1ae6b99486ceaa34dfd3cb95527d135b28ddd2633090f56053f1239976"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-SMALL-CHURCH-UNREAD-AGGREGATE.json",
+      "sha256": "ce71a669459143f4717e749c199af098f2648a7912380c4f32357e80cab7d93d"
+    }
+  ],
+  "recovery": {
+    "ordered_original": 2550,
+    "ordered_batch": 865,
+    "next_isolated_registration": 592,
+    "root_authority_updated": false,
+    "fresh_personal_assessed_lines_counted_once": 1773,
+    "fresh_body_ranges_are_individual_read_scopes": true,
+    "bounded_partial_receipts": [
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-ADMISSION-001.json",
+        "sha256": "c930bca50feb296ea9334d0a271d6368a69e47abfc8961a76229d1c1ddc2157d"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-PRODUCER-001.json",
+        "sha256": "ffa22bd37b65b27a5dcc1344f20aeb5d184ea47be659de2d5347480a6a78085c"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-PRODUCER-002.json",
+        "sha256": "ada3c854d50fa544741a35c602c637b3cd42954b5791783ae08586db8a00371c"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-PRODUCER-003.json",
+        "sha256": "6cdebfc47daac0c03c1f1bccf2c5c215e9b6c288ff7f1a0e3d51e21b143db3f3"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-PRODUCER-004.json",
+        "sha256": "8755aae914d200207fd78499443b0c68862df5cbf9f3192d8329250ffdd42bd9"
+      },
+      {
+        "path": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-865-API-001.json",
+        "sha256": "a226daddc0928a057c557bda3cca65d122aa297a53b9bec6c8dda3e81f66e1c7"
+      }
+    ],
+    "registered_unread_sources": [],
+    "known_same_source_unread": {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "source_sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "aggregate_assessed_ranges": [
+        [
+          1,
+          69
+        ],
+        [
+          94,
+          154
+        ]
+      ],
+      "aggregate_unread_ranges": [
+        [
+          70,
+          93
+        ]
+      ],
+      "qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-865-SMALL-CHURCH-UNREAD-AGGREGATE.json",
+        "sha256": "ce71a669459143f4717e749c199af098f2648a7912380c4f32357e80cab7d93d"
+      },
+      "scope": "Actual parentguard proof complete; unrelated independentlyreachedresolve/geometrybody remainsowncontract ifrequired."
+    },
+    "preservation": "Allreceipt/registration/helper/partialrawbytesimmutable; no product/stash changes. Qualifiersadditive; noproductexecution."
+  },
+  "future_same_lens_original_proofs": [
+    {
+      "original_index": 2752,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "source_sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "actual_EOF": 46,
+      "assessed_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registration": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-582.json",
+        "sha256": "57c3cc5c1ab9522b46d0f895f94799e49fc37236cbb642a2da0a710e3bfacfd0"
+      },
+      "row_pointer": "/rows/0",
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "new_ordered_credit": 0,
+      "ordered_count_once_pending": true,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY.json",
+        "sha256": "9f77195be54bb8047e81c5c5294f2b7c820f3e75b625080d2e29595e23faa84a"
+      }
+    }
+  ],
+  "new_original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run",
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

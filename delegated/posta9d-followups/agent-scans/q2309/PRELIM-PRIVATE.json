@@ -1,0 +1,167 @@
+{
+  "schema": "726-private-input-recursive-digest-scan-v1",
+  "corpus_counts": {
+    "original_map_fields": 45,
+    "original_map_values": 47,
+    "public_map_fields": 2,
+    "public_map_values": 2,
+    "scan_prefix_fields": 60,
+    "distinct_sensitive_digests": 40
+  },
+  "stats": {
+    "top_files": 48,
+    "views": 136,
+    "text_views": 98,
+    "cached_views": 262,
+    "gzip_views": 1,
+    "gzip_members": 1,
+    "tar_views": 1,
+    "tar_members": 87,
+    "binary_views": 36
+  },
+  "forbidden_digest_total": 0,
+  "forbidden_digest_locations": [],
+  "other_candidate_counts": {
+    "email": 3
+  },
+  "other_candidate_locations": [
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/.git/logs/refs/heads/docs",
+      "kind": "email",
+      "count": 1
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/Cargo.toml",
+      "kind": "email",
+      "count": 1
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/Cargo.toml.orig",
+      "kind": "email",
+      "count": 1
+    }
+  ],
+  "exceptions": [
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/aes128.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/aes192.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/aes256-ae1.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/aes256.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/crc32-not-streamed.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/eocd-undercount.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/filename_mismatch_test.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/go-with-datadesc-sig.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/missing-zip64-sentinels.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/readme.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/symlink.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/test-badbase.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/test-baddirsz.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/test-trailing-junk.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/test.jar",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/test.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-7zip.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-go.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-infozip.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-osx.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-win7.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-winrar.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/time-winzip.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/unix.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/winxp.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/zip64-2.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/zip64-cd-size-sentinel.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/zip64.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/zipcrypto-no-data-descriptor.zip",
+      "reason": "unsupported-archive-signature"
+    },
+    {
+      "location": "native/rawzip-0.5.2.crate!gzip!rawzip-0.5.2/assets/zipcrypto.zip",
+      "reason": "unsupported-archive-signature"
+    }
+  ],
+  "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+}

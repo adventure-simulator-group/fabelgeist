@@ -1,0 +1,18 @@
+{
+  "schema": "726-live-state-independent-review-seal-v1",
+  "sealed_at_utc": "2026-11-12T15:46:11.130238+00:00",
+  "reviewer": "/root/mhr_character",
+  "manifest_sha256": "491c9158f94764f33925861c9f1dd869b80cd17e7fecb8c6babbc1598bf542a6",
+  "report_sha256": "a123c86603e014a584dea273cdf45c686eab6df6d7848feedcdc52486f587d4a",
+  "assessment_sha256": "e83b6379ea58341518d402af8c8d9a4c0c372b408dd1c86b6c9c21a0bdf8a5f9",
+  "archive_sha256": "251bec1b47c8288221c69a65534881dd638ecf7646ba16a61c84a808a72fa308",
+  "archive_bytes": 391428,
+  "archive_members": 80,
+  "packet_scan_sha256": "e97396c8234410ac9d00a2bf1e8ba4935e6ffda453680f0577675b5655240004",
+  "archive_scan_sha256": "35576c573a90459a483689239a1252958579b1be6a8dadf013c31ef389b19180",
+  "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+  "scan_scope": "Working packet and deterministic archive, recursively including gzip/tar within depth 8 and 80 MiB per view; private-input digest corpus and selected path/credential patterns. No exceptions or matches reported.",
+  "scan_limits": "Private-input corpus and scanner are separately retained on this machine; unknown roots, encodings, credentials, excluded symlinks, Git administration and history are not cleared. Raw commit objects are omitted. A scan is not proof of global privacy.",
+  "integrity_verification": "VERIFY-EVIDENCE.py checked 79 files, 31 Git tree proofs, 22 personal display views; all 80 archive members including manifest were separately compared byte-for-byte.",
+  "source_execution": "No product, historical driver, tests or runtime probes executed."
+}

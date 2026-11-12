@@ -1,0 +1,19 @@
+{
+  "registered_at_utc": "2026-11-12T14:47:38.590237+00:00",
+  "purpose": "Verify Git commit-to-tree-to-blob path membership without executing product; raw commit anchors remain separate due author/committer metadata.",
+  "anchor_files": [
+    "e2755a732c84e67296b5e3441a4259a84f461b2f.commit",
+    "95e63628f9d70b8dd6e6fede64334696c6995009.commit"
+  ],
+  "anchor_custody": "separate private-originals/npy-q2306-private-anchors-6ij9wxaj",
+  "tree_custody": "prior q2307 packet git-trees",
+  "cargo_sources": "prior q2316 packet first-party",
+  "compare_first_party_paths": [
+    "crates/fabelgeist-numpy-storage/src/zip.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+    "crates/fabelgeist-numpy-storage/Cargo.toml",
+    "crates/fabelgeist-numpy-storage/Cargo.lock"
+  ],
+  "allow_display": "Only object IDs, SHA-256, byte counts, revision/tree path membership; no raw commit metadata."
+}

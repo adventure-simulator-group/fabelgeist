@@ -1,0 +1,82 @@
+### observation.rs:170-250
+170:         });
+171:         if let Some(frame) = propagated_owner_frame {
+172:             // Keep discontinuity detection in the same owner frame as these
+173:             // freshly observed endpoints. Otherwise a long authored segment
+174:             // compares its terminal root against the stale quickstep origin
+175:             // and discards the continuity snapshot during handoff.
+176:             state.0.owner_frame = Some(frame);
+177:         }
+178:         // Authored locomotion owns the leg pose, but its final propagated feet
+179:         // are still the continuity boundary for the stationary follower that
+180:         // may take ownership on the next tick.
+181:         if locomotion::owns(skeleton) {
+182:             continue;
+183:         }
+184:         let speed = match skeleton.animation_speed() {
+185:             Ok(speed) => speed,
+186:             Err(error) => {
+187:                 warn!(%error, ?owner, "Rejected propagated support animation speed");
+188:                 continue;
+189:             }
+190:         };
+191:         if let Err(error) =
+192:             refresh_run_support(skeleton, speed, rig, terrain, &globals, &mut state.0)
+193:         {
+194:             warn!(%error, ?owner, "Rejected propagated locomotion support");
+195:             continue;
+196:         }
+197:         let Ok(mut raised) = raised_states.get_mut(owner) else {
+198:             continue;
+199:         };
+200:         if !raised.step.initialized() {
+201:             continue;
+202:         }
+203:         let swing_foot = raised.step.swing_foot();
+204:         for (role, left, nominal_support) in [
+205:             (BoneRole::FootLeft, true, swing_foot != Some(LeadFoot::Left)),
+206:             (
+207:                 BoneRole::FootRight,
+208:                 false,
+209:                 swing_foot != Some(LeadFoot::Right),
+210:             ),
+211:         ] {
+212:             let Some(&foot) = rig.get(&role) else {
+213:                 continue;
+214:             };
+215:             let Ok(global) = globals.get(foot) else {
+216:                 continue;
+217:             };
+218:             let ankle = global.translation();
+219:             let support = observed_support_weight(
+220:                 nominal_support,
+221:                 Some(ankle),
+222:                 Some(terrain),
+223:                 crate::animation::TerrainIkMode::Enabled,
+224:             );
+225:             if left {
+226:                 raised.left_solve_target = Some(ankle);
+227:                 state.0.left_foot_world_target = Some(ankle);
+228:                 state.0.left_support_weight = support;
+229:             } else {
+230:                 raised.right_solve_target = Some(ankle);
+231:                 state.0.right_foot_world_target = Some(ankle);
+232:                 state.0.right_support_weight = support;
+233:             }
+234:         }
+235:     }
+236: }
+237: /// Terrain-enabled confidence requires an actual ankle and surface sample.
+238: /// Disabled terrain IK instead owns the flat semantic cadence observation.
+239: pub(super) fn observed_support_weight(
+240:     nominal_support: bool,
+241:     ankle: Option<Vec3>,
+242:     terrain: Option<&SceneTerrain>,
+243:     mode: crate::animation::TerrainIkMode,
+244: ) -> Option<UnitInterval> {
+245:     let supported = if mode.is_enabled() {
+246:         let ankle = ankle?;
+247:         let point = ScenePlanPoint::from_metres(ankle.xz())?;
+248:         let height = terrain?.height_at(point)?;
+249:         raised_support_is_actual(nominal_support, ankle.y, height)
+250:     } else {

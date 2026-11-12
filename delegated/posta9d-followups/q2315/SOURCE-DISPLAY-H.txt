@@ -1,0 +1,76 @@
+SOURCE rawzip-0.5.2/src/errors.rs:141-215
+ 141             ErrorKind::InvalidSignature { expected, actual } => {
+ 142                 write!(
+ 143                     f,
+ 144                     "Invalid signature: expected 0x{expected:08x}, got 0x{actual:08x}"
+ 145                 )
+ 146             }
+ 147             ErrorKind::InvalidChecksum { expected, actual } => {
+ 148                 write!(
+ 149                     f,
+ 150                     "Invalid checksum: expected 0x{expected:08x}, got 0x{actual:08x}"
+ 151                 )
+ 152             }
+ 153             ErrorKind::InvalidSize { expected, actual } => {
+ 154                 write!(f, "Invalid size: expected {expected}, got {actual}")
+ 155             }
+ 156             #[cfg(feature = "alloc")]
+ 157             ErrorKind::InvalidUtf8(ref err) => {
+ 158                 write!(f, "Invalid UTF-8: {err}")
+ 159             }
+ 160             #[cfg(feature = "alloc")]
+ 161             ErrorKind::InvalidInput { ref msg } => {
+ 162                 write!(f, "Invalid input: {msg}")
+ 163             }
+ 164             ErrorKind::InvalidEndOfCentralDirectory => {
+ 165                 write!(f, "Invalid end of central directory")
+ 166             }
+ 167         }
+ 168     }
+ 169 }
+ 170 
+ 171 impl From<ErrorKind> for Error {
+ 172     fn from(kind: ErrorKind) -> Error {
+ 173         let inner = ErrorInner {
+ 174             kind,
+ 175             eocd_offset: None,
+ 176         };
+ 177         Error {
+ 178             #[cfg(feature = "alloc")]
+ 179             inner: Box::new(inner),
+ 180             #[cfg(not(feature = "alloc"))]
+ 181             inner,
+ 182         }
+ 183     }
+ 184 }
+ 185 
+ 186 #[cfg(feature = "std")]
+ 187 impl From<std::io::Error> for Error {
+ 188     fn from(err: std::io::Error) -> Error {
+ 189         Error::from(ErrorKind::IO(err))
+ 190     }
+ 191 }
+ 192 
+ 193 #[cfg(all(test, feature = "std"))]
+ 194 mod tests {
+ 195     use super::*;
+ 196     use std::error::Error as _;
+ 197 
+ 198     #[test]
+ 199     fn source_exposes_wrapped_errors() {
+ 200         let io = Error::io(std::io::Error::other("boom"));
+ 201         let io_source = io.source().expect("IO error should expose a source");
+ 202         assert!(io_source.is::<std::io::Error>());
+ 203 
+ 204         let invalid = vec![0xff_u8];
+ 205         let utf8 = Error::utf8(std::str::from_utf8(&invalid).unwrap_err());
+ 206         let utf8_source = utf8.source().expect("UTF-8 error should expose a source");
+ 207         assert!(utf8_source.is::<std::str::Utf8Error>());
+ 208     }
+ 209 
+ 210     #[test]
+ 211     fn source_is_none_for_non_wrapping_errors() {
+ 212         let eof = Error::from(ErrorKind::Eof);
+ 213         assert!(eof.source().is_none());
+ 214     }
+ 215 }

@@ -1,0 +1,15 @@
+{
+  "registered_at_utc": "2026-11-12T15:02:19.470772+00:00",
+  "purpose": "Extract current owner module connector responses, check returned Git blob identities against proven src-tree entries, and report only exact locator terms and line numbers. No source body snippets.",
+  "paths_and_expected_blobs": {
+    "crates/adventuresim-building-generator/src/generator.rs": "3fa40e979af64a9ec6c9db9e52f92786b5b3e428",
+    "crates/adventuresim-building-generator/src/model.rs": "fd643960adbae75d12f87a7aeb898a2db3fbf3f0"
+  },
+  "locator_terms": [
+    "struct BuildingPlan",
+    "resolve_architectural_envelope",
+    "resolved_geometry",
+    "BuildingPlan {",
+    "impl BuildingPlan"
+  ]
+}

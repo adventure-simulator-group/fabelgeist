@@ -1,0 +1,67 @@
+SOURCE rawzip-0.5.2/src/archive.rs:1200-1265
+1200             break;
+1201         }
+1202 
+1203         result
+1204     }
+1205 
+1206     /// Describes if the file is a directory.
+1207     ///
+1208     /// See [`ZipFilePath::is_dir`] for more information.
+1209     #[inline]
+1210     pub fn is_dir(&self) -> bool {
+1211         self.file_name.is_dir()
+1212     }
+1213 
+1214     /// Returns the general purpose bit flags for this entry.
+1215     ///
+1216     /// See [`EntryFlags`] for the individual flag accessors.
+1217     #[inline]
+1218     pub fn flags(&self) -> EntryFlags {
+1219         self.flags
+1220     }
+1221 
+1222     /// Describes where the file's data is located within the archive.
+1223     #[inline]
+1224     pub fn wayfinder(&self) -> ZipArchiveEntryWayfinder {
+1225         ZipArchiveEntryWayfinder {
+1226             uncompressed_size: self.uncompressed_size,
+1227             compressed_size: self.compressed_size,
+1228             local_header_offset: self.local_header_offset,
+1229             has_data_descriptor: self.flags().has_data_descriptor(),
+1230             crc: self.crc32,
+1231             data_descriptor_uses_zip64_sizes: self.data_descriptor_uses_zip64_sizes,
+1232         }
+1233     }
+1234 
+1235     /// The purported number of bytes of the uncompressed data.
+1236     ///
+1237     /// **WARNING**: this number has not yet been validated, so don't trust it
+1238     /// to make allocation decisions.
+1239     #[inline]
+1240     pub fn uncompressed_size_hint(&self) -> u64 {
+1241         self.uncompressed_size
+1242     }
+1243 
+1244     /// The purported number of bytes of the compressed data.
+1245     ///
+1246     /// **WARNING**: this number has not yet been validated, so don't trust it
+1247     /// to make allocation decisions.
+1248     #[inline]
+1249     pub fn compressed_size_hint(&self) -> u64 {
+1250         self.compressed_size
+1251     }
+1252 
+1253     /// The declared offset to the local file header within the Zip archive.
+1254     ///
+1255     /// To verify the validity of this offset, call
+1256     /// [`ZipSliceArchive::get_entry`].
+1257     ///
+1258     /// The minimum of all local header offsets (or `directory_offset()` when a
+1259     /// zip is empty), will be the length of prelude data in a zip archive (data
+1260     /// that is unrelated to the zip archive).
+1261     ///
+1262     #[inline]
+1263     pub fn local_header_offset(&self) -> u64 {
+1264         self.local_header_offset
+1265     }

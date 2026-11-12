@@ -1,0 +1,316 @@
+{
+  "lens": 11,
+  "kind": "Strict whole-bundle delegated source adoption",
+  "batch": 708,
+  "at": "2026-10-30T01:35:55.273530+00:00",
+  "proposal": "parallel-l11-20261029/READ-172.json",
+  "proposal_sha256": "db276e2f05b52ed5743d4d10003425a12db3961ca2848d2ffbd1817806e096b3",
+  "agent_verification": "parallel-l11-20261029/VERIFY-172.json",
+  "agent_verification_sha256": "772520ce479a391541e3dd6ce9ff50407abaa34c4190665ca93a6f27570d90d0",
+  "bundle": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-004.json",
+    "sha256": "ced5d6919e32594bc0824d3fd507342b0b4bd36c98c5c8042be181758c9e1b05"
+  },
+  "ruleset": {
+    "path": "parallel-l11-20261029/l11_childlock_native_bundle_preflight_v1_PROPOSAL_UNEXECUTED.py",
+    "sha256": "5cb8c6544a0ee94132cc7a4f899d85e1b814c65a709d17720ad817bfe18f6722"
+  },
+  "preflight": {
+    "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-004.json",
+    "sha256": "ced5d6919e32594bc0824d3fd507342b0b4bd36c98c5c8042be181758c9e1b05",
+    "new_source_receipts": 5,
+    "new_source_views": 11,
+    "source_rows_total": 21,
+    "contracts": 8,
+    "own_child_lock": "crates/fabelgeist-numpy-storage/Cargo.lock",
+    "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "authority_mutation": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "current_ledger_sha256": "eb1f8ff4e8343d438f67acad99897f4d0fc289d5eba2f601fd174e0dc486fa0c",
+    "current_selector_sha256": "fee279333370e2ba9b12caca2effac3bba8fd9bad56c0ef76b32d335bc8e1997",
+    "new_source_rows": 11,
+    "contract_proposals": 8,
+    "source004_report_schema_adapter": {
+      "original_new_source_views": 11,
+      "original_contracts": 8,
+      "ruleset_sha256": "5cb8c6544a0ee94132cc7a4f899d85e1b814c65a709d17720ad817bfe18f6722",
+      "original_report_fields_preserved": true
+    }
+  },
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-192.json",
+      "sha256": "7403fb94a95705179bc0c790ea76fce67a228a27c60b67bfb2aa03fb2fdb1799"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-1109",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "actual_EOF": 6257,
+      "prospective_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:native-rawzip-own-crate-lock-authority",
+      "purpose": "Prospective actualownstandalonecrate lock/manifest, no rootworkspace resolution/installedversion assumption or cargoexecution.",
+      "fresh_personal_body_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4308
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "OwnLens11 actualfresh prospectivelyregistered untruncated current firstparty/child-crate-locked nativebody reads. Exactrestoredarchive/member/ownlockauthority, no inheritedpersonalread/currentverdict/package/parser/runtimeexecution; rootadoptionpending."
+    },
+    {
+      "registration": "PL11-1110",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "sha256": "ce2e0dc6c3223dbcb146cc2d34f40374f5f0c3903350e244d588a9afc7e9a56a",
+      "actual_EOF": 26,
+      "prospective_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.toml:native-rawzip-own-crate-lock-authority",
+      "purpose": "Prospective actualownstandalonecrate lock/manifest, no rootworkspace resolution/installedversion assumption or cargoexecution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "OwnLens11 actualfresh prospectivelyregistered untruncated current firstparty/child-crate-locked nativebody reads. Exactrestoredarchive/member/ownlockauthority, no inheritedpersonalread/currentverdict/package/parser/runtimeexecution; rootadoptionpending."
+    },
+    {
+      "registration": "PL11-1111",
+      "lens": 11,
+      "kind": "native-exact-child-crate-lock-restored-member",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/locator.rs",
+      "local_path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/locator.rs",
+      "sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+      "actual_EOF": 531,
+      "prospective_ranges": [
+        [
+          1,
+          531
+        ]
+      ],
+      "source_id": "native:rawzip@0.5.2:src/locator.rs:current-child-crate-NPY-NPZ-boundary",
+      "purpose": "Complete relevant ZipLocator/selectedcentraldirectory/nativeWayfinder/localmemberbounds/ZIP64 extras/error taxonomy actualsource. Freshboundedbodyonly; restoredmember/sourcehash grantsnobodycredit byitself. No archive/fixtureparser/nativeAPI/runtimeexecution.",
+      "archive": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2.crate",
+      "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "archive_member": "rawzip-0.5.2/src/locator.rs",
+      "locked_package_checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "current_product_lock_path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "current_product_lock_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "lock_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "lock_registration": "PL11-1109",
+      "exact_archive_member_matches_local": true,
+      "restoration_provenance": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/MATERIAL-PROVENANCE.json",
+        "sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d"
+      },
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          531
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          531
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "OwnLens11 actualfresh prospectivelyregistered untruncated current firstparty/child-crate-locked nativebody reads. Exactrestoredarchive/member/ownlockauthority, no inheritedpersonalread/currentverdict/package/parser/runtimeexecution; rootadoptionpending."
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "L11-CURRENT-RAWZIP-OWN-LOCK-EOCD-SELECTION-AND-ZIP64-ADMISSION",
+      "disposition": "ActualselectednativeZipLocator exact childlockscope complete; no assumptionrootCargo/nativecache. Scope-specificEOCD/ZIP64 consistency and nativepolicyqualified, archiveiterator/member dependencies stillregisteredunread.",
+      "trace": [
+        "CurrentstandaloneCargo16 pinsrawzip=0.5.2, workspace20 intentionallyowncrate, flate2rust_backend18, mmap0.9. Exactchildlock selectedrawzip4305..4308 checksumac999903...48c authenticatespreservedarchive andrestoredmembers. NormalrootCargoabsence/localcacheabsence notabsenceproof orneedproductresolution.",
+        "ZipLocator::locate_in_byte_slice62..99 selectsLASTEOCDsignature inmin(searchspace,data.len)63..65, actualapp66000 searchport own171. Parsesselectedcandidate106 withcommentfullypresent109..113; invalidnearestcandidate givesErrorwithEOCDoffset69 ratherthansearchingothercandidates. This isnativeownedselectionpolicy, notobligatorycompatibilityfallback.",
+        "Nativezip64probe115..146 attempts20bytelocatorimmediatelybeforeclassicEOCD, evenwithoutclassic sentinels. parse_zip64_candidate402..432 requiresrecordminimumsize413 andchecked recordend417..420 exactlylocatoroffset422; non-sentinel classiccounts/sizes/offsets mustmatch423..429, sentinelpermitswidevalue. Invalidzip64candidate fallsbackclassic136..139, so do notassumemissinglocatoralwayserror.",
+        "EndOfCentralDirectory::validate234..242 checksdirectory_offset<=head_eocd beforepublication; classicfieldsu16/u32 lifted205..208, zip64u64fields223..225 retained. Directorynativebyteextent/exactactualmembercount notcertifiedfromthisminimalvalidation; sourceiteratornextregistrationownsselectedspan.",
+        "locate62..99 testsfirstentryheader atdeclaredoffset78..80 andnonzip64onlyfallbackdirectlyprecedingEOCD84..93 tocorrectundeclaredprelude. Nativecorrectionofarchiveoffsetislegitimateformatmode, notapplicationbackwardscompatshim. Failedfirstentrydoesnotnecessarilyrejectuntil actualiteration76..77; applicationdeclarationupperbound0 intentionallymayneveriterate, policydoesnotprovevalidatedallrecords.",
+        "find_end_signature434..440 saturatingsearchstart\u2192rfind449..506 checkedmin4 andsafe8bytechunks; lastfoundsignature exactnativeconstant. Existing531-tailtests source-readonly, no quickcheck/parser/testexecution. Zip64EndOfCentralDirectoryRecord::parse imported411 notbodycreditedbythissource; precisefuturearchive766..863 scope needed."
+      ],
+      "first_failed_contract": "No new failednativeEOCDselection/cast contract established here. Declaredcounts/directoryactualrecords/resourcepolicy remainhonestnativeadmissionquestions; cannotclaimentireZIPverifiedfromlocate orinstalldependency.",
+      "canonical_owner": "Native rawzip ZipLocator/EndOfCentralDirectory ownEOCD/ZIP64/offset selection; applicationArchiveMemberCount owns upperbound iteration/reservation, ZipArchive/ZipMember retainactualselectedarchive/entry.",
+      "exact_function_ownership": [
+        "ZipLocator::locate_in_byte_slice62..99/locate_in_byte_slice_impl101..147/locate_in_slice178..186",
+        "EndOfCentralDirectory::create201..214/create_zip64216..232/validate234..242",
+        "EndOfCentralDirectoryRecordFixed::parse330..354/Zip64locatorparse379..399/parse_zip64_candidate402..432",
+        "find_end_of_central_dir_signature434..440/rfind449..506"
+      ],
+      "connected_repair_scope": "QualifycurrentNPZ/ZIPfirstparty boundary withactualnativeEOCD/ZIP64selection. No reimplementation/nativepatch/APIprosecompatibility ornewrepair inferredfromsupportedoffsetcorrection/selection modes.",
+      "dependencies": [
+        "PLAN192 archive.rs selectedranges/headers/errors/extra_fields allstillregisteredunreadat172; exactremainingobligations preserved.",
+        "NativeZip64EndOfCentralDirectoryRecord::parse required766..863 prospectiveextensionnext; directreadnotyetclaimed.",
+        "ActualnativeWayfinder/member/localbounds/declaredsize+CRC/Deflate/MMAP contracts beforebroadercurrentsource/rejectedcasesclosure."
+      ],
+      "acceptance_requirements": [
+        "Childcratelockexactsource/archive/member authority remainsseparatefromrootworkspaceandhistoricalevidence.",
+        "Nativeoffset/ZIP64/countsemantics explicit, no count/hash/search/bodycoverageorallZIPvalidity conflation.",
+        "Fullydocumentpolicy/conditionals honestlywithoutnativeparser/runtimeinvocation."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "registered_unread_sources_as_recorded": [
+    {
+      "registration": "PL11-1112",
+      "source_id": "native:rawzip@0.5.2:src/archive.rs:current-child-crate-NPY-NPZ-boundary",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+      "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "actual_EOF": 1797,
+      "registered_unread_ranges": [
+        [
+          1,
+          447
+        ],
+        [
+          1080,
+          1280
+        ],
+        [
+          1310,
+          1327
+        ],
+        [
+          1438,
+          1500
+        ]
+      ]
+    },
+    {
+      "registration": "PL11-1113",
+      "source_id": "native:rawzip@0.5.2:src/headers.rs:current-child-crate-NPY-NPZ-boundary",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/headers.rs",
+      "sha256": "e07bb8283b1e472869fd1f0550d3b7742ec7b4d8915948d69911db4a2fca5898",
+      "actual_EOF": 188,
+      "registered_unread_ranges": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "registration": "PL11-1114",
+      "source_id": "native:rawzip@0.5.2:src/errors.rs:current-child-crate-NPY-NPZ-boundary",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/errors.rs",
+      "sha256": "073f7132ea371edee17e2820b504c32bff7242b31e58aa6ef8ed571fc6c49a72",
+      "actual_EOF": 215,
+      "registered_unread_ranges": [
+        [
+          1,
+          215
+        ]
+      ]
+    },
+    {
+      "registration": "PL11-1115",
+      "source_id": "native:rawzip@0.5.2:src/extra_fields.rs:current-child-crate-NPY-NPZ-boundary",
+      "revision": "crates.io rawzip0.5.2 pinned current e275 fabelgeist-numpy-storage/Cargo.lock",
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/extra_fields.rs",
+      "sha256": "062e6d801094ede25fdd9dbbb50c6119546350e71d2bafb2dd76072034eaa419",
+      "actual_EOF": 428,
+      "registered_unread_ranges": [
+        [
+          1,
+          428
+        ]
+      ]
+    }
+  ],
+  "completes_prior_registered_unread": null,
+  "source004_packet_time_unread_qualification": {
+    "original_field": "registered_unread_sources_at_packet",
+    "exact_prior_completed_scopes": [],
+    "historical_snapshot_and_cumulative_completion_preserved": true
+  },
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-1109",
+      "adopted_continuation_number": 3303,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock:native-rawzip-own-crate-lock-authority",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1110",
+      "adopted_continuation_number": 3304,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.toml:native-rawzip-own-crate-lock-authority",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1111",
+      "adopted_continuation_number": 3305,
+      "source_id": "native:rawzip@0.5.2:src/locator.rs:current-child-crate-NPY-NPZ-boundary",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,147 @@
+{
+  "lens": 11,
+  "kind": "Root adoption of delegated current-snapshot scoped source evidence",
+  "batch": 551,
+  "at": "2026-10-29T19:32:41.309333+00:00",
+  "proposal": "parallel-l11-20261029/READ-015.json",
+  "proposal_sha256": "8465a1e8c2e78fbaa0e8b6f96557baa9bc547f6095420413e1b36a30680ff167",
+  "agent_verification": "parallel-l11-20261029/VERIFY-015.json",
+  "agent_verification_sha256": "abfc89036758f757f533e4ee34d1ca6d0eea6883d7407533eb7c6479cb66d94a",
+  "plans": [
+    {
+      "path": "parallel-l11-20261029/PLAN-025.json",
+      "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5"
+    },
+    {
+      "path": "parallel-l11-20261029/PLAN-026.json",
+      "sha256": "3a020694df3cb6ff6c75f030738afcb2eb945badcc35fbe75e7b38e27d48bd01"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-0248",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "actual_EOF": 453,
+      "prospective_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending; root adopts without claiming personal reread",
+      "git_blob_verified_on_root_adoption": "b3af5cd661525d4bb2f0e882efa0ff3b325e2f94",
+      "registered_unread_ranges": []
+    },
+    {
+      "registration": "PL11-0257",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "actual_EOF": 553,
+      "prospective_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/scene.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending; root adopts without claiming personal reread",
+      "git_blob_verified_on_root_adoption": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "registered_unread_ranges": []
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "P06-L11-CURRENT-PROPAGATED-SUPPORT-OBSERVATION",
+      "family": "P06",
+      "disposition": "Additive actual propagated endpoint/support optionality source proof; remaining fullIKfacade/native/context scope open",
+      "trace": [
+        "SceneTerrain42..54 private sampledheightmap/width/scale/coarsestride/geometry aggregate; native serialization admission via TerrainWire41. Registered declaration scope ends110 within from_heightmap; no completeconstructor/admission proof claimed.",
+        "observe_rendered_endpoints8..70 collects actual foot/toe positions/rotations into local Optionvalues; rejects nonfinite before replacing retained memory63..68. Endpoint absence retained None, no fabricated positions.",
+        "refresh_raised_support_after_propagation108..236 snapshots real propagated endpoints BEFORE filtering, preserves ownerframe/tick sequencing and observes real completed pose independently of analytictarget. Optional scene/rig/global missing skips are explicit; no alwaysrequiredobservation claim.",
+        "observed_support_weight239..258 enabledmode requires ankle/point/actual typed terrain.height_at returning SupportElevation248; absent staysNone, actual unsupported is measuredUnitIntervalZERO. Disabledterrain mode deliberately owns flat semantic cadence, legitimateoptional mode.",
+        "refresh_run_support390..453 keeps terrain_height OptionSupportElevation from actualquery428 through sole_is_at_contact435; publishes supportOnlyankle.zip(height).map436, absentNone distinct measuredunsupportedZERO. No P06 raw supportf32 forwarding on this actualroute."
+      ],
+      "first_failed_contract": null,
+      "canonical_owner": "Actual propagated support observer and SupportElevation/ScenePlanPoint/OptionUnitInterval owners.",
+      "exact_function_ownership": [
+        "LegIkMemory::observe_rendered_endpoints8..70",
+        "refresh_raised_support_after_propagation108..236",
+        "observed_support_weight239..258",
+        "refresh_run_support390..453"
+      ],
+      "connected_repair_scope": "Preserve honest current absence semantics when reconciling reportflattening and broader typed physical frame/point contracts; no blanket claim all missing support becomes zero.",
+      "dependencies": [
+        "IKfacade761..2973 still registeredunread; exact sole_is_at_contact/raised_support_is_actual consuming numerical implementations and state diagnostic publication remain separate source contracts.",
+        "TerrainWire actual admission/owned surface/collider/render native implementations not read here.",
+        "No runtime/visual/physics validation."
+      ],
+      "acceptance_requirements": [
+        "Enabledterrain unavailable ankle/support remainsNone; real unsupported may beZERO; disabledmode semanticcadence deliberate.",
+        "Observe actual propagated pose with finite checks before endpoint state publication."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "additive_correction": null,
+  "additive_scope_qualifications": [],
+  "proposal_metadata_corrections": [],
+  "proposal_additive_qualification_resolution": null,
+  "prospective_error": null,
+  "rejected_metadata_record": null,
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-0248",
+      "adopted_continuation_number": 2416,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "qualification": "Agent prospective registration adopted; no retroactive root read"
+    },
+    {
+      "registration": "PL11-0257",
+      "adopted_continuation_number": 2417,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/scene.rs",
+      "qualification": "Agent prospective registration adopted; no retroactive root read"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "new_global_source_registration_authorities": "Only previously unadopted prospective plan files added; counts records not unique source identities",
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "all_registered_unread_ranges_remain_open": true,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

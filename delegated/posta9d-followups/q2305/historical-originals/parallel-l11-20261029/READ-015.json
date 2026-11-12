@@ -1,0 +1,119 @@
+{
+  "kind": "Lens11 current P06 propagated support observer source proposal",
+  "lens": 11,
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+      "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-026.json",
+      "sha256": "3a020694df3cb6ff6c75f030738afcb2eb945badcc35fbe75e7b38e27d48bd01"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-0248",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "actual_EOF": 453,
+      "prospective_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0257",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "actual_EOF": 553,
+      "prospective_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/scene.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "findings": [
+    {
+      "id": "P06-L11-CURRENT-PROPAGATED-SUPPORT-OBSERVATION",
+      "family": "P06",
+      "disposition": "Additive actual propagated endpoint/support optionality source proof; remaining fullIKfacade/native/context scope open",
+      "trace": [
+        "SceneTerrain42..54 private sampledheightmap/width/scale/coarsestride/geometry aggregate; native serialization admission via TerrainWire41. Registered declaration scope ends110 within from_heightmap; no completeconstructor/admission proof claimed.",
+        "observe_rendered_endpoints8..70 collects actual foot/toe positions/rotations into local Optionvalues; rejects nonfinite before replacing retained memory63..68. Endpoint absence retained None, no fabricated positions.",
+        "refresh_raised_support_after_propagation108..236 snapshots real propagated endpoints BEFORE filtering, preserves ownerframe/tick sequencing and observes real completed pose independently of analytictarget. Optional scene/rig/global missing skips are explicit; no alwaysrequiredobservation claim.",
+        "observed_support_weight239..258 enabledmode requires ankle/point/actual typed terrain.height_at returning SupportElevation248; absent staysNone, actual unsupported is measuredUnitIntervalZERO. Disabledterrain mode deliberately owns flat semantic cadence, legitimateoptional mode.",
+        "refresh_run_support390..453 keeps terrain_height OptionSupportElevation from actualquery428 through sole_is_at_contact435; publishes supportOnlyankle.zip(height).map436, absentNone distinct measuredunsupportedZERO. No P06 raw supportf32 forwarding on this actualroute."
+      ],
+      "first_failed_contract": null,
+      "canonical_owner": "Actual propagated support observer and SupportElevation/ScenePlanPoint/OptionUnitInterval owners.",
+      "exact_function_ownership": [
+        "LegIkMemory::observe_rendered_endpoints8..70",
+        "refresh_raised_support_after_propagation108..236",
+        "observed_support_weight239..258",
+        "refresh_run_support390..453"
+      ],
+      "connected_repair_scope": "Preserve honest current absence semantics when reconciling reportflattening and broader typed physical frame/point contracts; no blanket claim all missing support becomes zero.",
+      "dependencies": [
+        "IKfacade761..2973 still registeredunread; exact sole_is_at_contact/raised_support_is_actual consuming numerical implementations and state diagnostic publication remain separate source contracts.",
+        "TerrainWire actual admission/owned surface/collider/render native implementations not read here.",
+        "No runtime/visual/physics validation."
+      ],
+      "acceptance_requirements": [
+        "Enabledterrain unavailable ankle/support remainsNone; real unsupported may beZERO; disabledmode semanticcadence deliberate.",
+        "Observe actual propagated pose with finite checks before endpoint state publication."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "population_credit": {
+    "original": 0,
+    "overlay": 0,
+    "merged": 0,
+    "shared": 0,
+    "extensions": 0,
+    "authoritative_registrations": 0
+  },
+  "implementation_gate_complete": false,
+  "native_runtime_validation": "not run",
+  "authority": "Root sole authoritative writer; adoption proposal only"
+}

@@ -1,0 +1,14 @@
+     1	#!/usr/bin/env python3
+     2	"""Bind a qualified earlier evidence-only replay transcript."""
+     3	import hashlib,json
+     4	from pathlib import Path
+     5	root=Path(__file__).resolve().parent
+     6	p=root/'delegated/post26e-optional-followup-check'
+     7	h=lambda b:hashlib.sha256(b).hexdigest()
+     8	r=json.loads((p/'RECORD.json').read_bytes())
+     9	b=(p/r['transcript']).read_bytes()
+    10	assert r['exit']==0 and (len(b),h(b))==(r['transcript_bytes'],r['transcript_sha256'])
+    11	assert h((root/r['verifier']).read_bytes())==r['verifier_sha256']
+    12	s=json.loads((p/'SCAN.json').read_bytes())
+    13	assert s['forbidden_digest_total']==0 and not s['other_candidate_counts'] and not s['exceptions']
+    14	print('Verified qualified optional evidence replay transcript; input identities and independent custody remain separate.')

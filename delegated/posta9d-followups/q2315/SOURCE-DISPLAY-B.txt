@@ -1,0 +1,73 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip/error.rs:71-142
+  71 impl fmt::Display for ZipReadError {
+  72     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  73         match self {
+  74             Self::MissingEndRecord => {
+  75                 formatter.write_str("not a zip archive: no end-of-central-directory record")
+  76             }
+  77             Self::Archive { source } => write!(formatter, "invalid zip archive: {source}"),
+  78             Self::Native {
+  79                 operation,
+  80                 native_path,
+  81                 ..
+  82             } => match operation {
+  83                 ZipFileOperation::Open => write!(formatter, "opening {}", native_path.display()),
+  84                 ZipFileOperation::Map => {
+  85                     write!(formatter, "memory-mapping {}", native_path.display())
+  86                 }
+  87             },
+  88             Self::MissingMember { name } => {
+  89                 write!(formatter, "archive has no member {name:?}")
+  90             }
+  91             Self::CorruptMember { name, .. } => {
+  92                 write!(formatter, "corrupt zip entry {name}")
+  93             }
+  94             Self::MemberPastEnd { name, .. } => write!(
+  95                 formatter,
+  96                 "zip entry {name} runs past the end of the archive"
+  97             ),
+  98             Self::Inflate { name, .. } => {
+  99                 write!(formatter, "inflating zip entry {name}")
+ 100             }
+ 101             Self::UnsupportedCompression { code } => {
+ 102                 write!(formatter, "unsupported zip compression method {code}")
+ 103             }
+ 104         }?;
+ 105         if formatter.alternate()
+ 106             && matches!(self, Self::Native { .. } | Self::Inflate { .. })
+ 107             && let Some(source) = self.source()
+ 108         {
+ 109             write!(formatter, ": {source}")?;
+ 110         }
+ 111         Ok(())
+ 112     }
+ 113 }
+ 114 impl Error for ZipReadError {
+ 115     fn source(&self) -> Option<&(dyn Error + 'static)> {
+ 116         match self {
+ 117             Self::Native { source, .. } | Self::Inflate { source, .. } => Some(source),
+ 118             Self::Archive { source }
+ 119             | Self::CorruptMember { source, .. }
+ 120             | Self::MemberPastEnd { source, .. } => Some(source),
+ 121             _ => None,
+ 122         }
+ 123     }
+ 124 }
+ 125 
+ 126 impl From<rawzip::Error> for ZipReadError {
+ 127     fn from(source: rawzip::Error) -> Self {
+ 128         match source.kind() {
+ 129             rawzip::ErrorKind::MissingEndOfCentralDirectory => Self::MissingEndRecord,
+ 130             _ => Self::Archive { source },
+ 131         }
+ 132     }
+ 133 }
+ 134 
+ 135 impl ZipReadError {
+ 136     pub(super) fn member(name: ArchiveMemberName, source: rawzip::Error) -> Self {
+ 137         match source.kind() {
+ 138             rawzip::ErrorKind::Eof => Self::MemberPastEnd { name, source },
+ 139             _ => Self::CorruptMember { name, source },
+ 140         }
+ 141     }
+ 142 }

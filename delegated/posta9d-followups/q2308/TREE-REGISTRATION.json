@@ -1,0 +1,12 @@
+{
+  "registered_at_utc": "2026-11-12T15:00:33.448510+00:00",
+  "purpose": "Verify current 95e root commit, reuse content-addressed Git tree bodies from the q2312 packet, and inspect only exact path-component tree entries to find child tree IDs. Missing bodies require separately registered connector restoration.",
+  "anchor": "separate private raw 95e commit identified by existing q2312 ANCHORS.json",
+  "tree_custody": "private-originals/npz-q2312-safe-packet-pr80q6y1/git-trees",
+  "query_paths": [
+    "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+    "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+    "crates/adventuresim-building-generator/src/model/resolved_networks.rs"
+  ],
+  "output": "object IDs and missing tree IDs for these paths only; never display commit metadata"
+}

@@ -1,0 +1,72 @@
+### capture.rs:620-690
+620:     let frame = sequence.plan[sequence.index].clone();
+621:     let view = VIEWS[sequence.view_index];
+622:     let file_name = view.screenshot_name(&frame);
+623:     let path = sequence.output.join(&file_name);
+624:     let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
+625:         return;
+626:     };
+627:     let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+628:     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
+629:     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+630:     if sequence.view_index == 0 {
+631:         sequence.global_bone_frames.push(GlobalBoneFrame::capture(
+632:             &frame,
+633:             skeleton,
+634:             subject_global,
+635:             subject,
+636:             &animation_bones,
+637:         ));
+638:         let Some(cadence_support) =
+639:             sequence.admit_locomotion_support(skeleton, semantic_route.inputs.speed)
+640:         else {
+641:             return;
+642:         };
+643:         let root_distance_metres = sequence.scenario_distance;
+644:         let (desired_left_foot_target, desired_right_foot_target) = raised_footwork
+645:             .map(|state| (state.left_solve_target, state.right_solve_target))
+646:             .unwrap_or_default();
+647:         let leg_ik = evaluation_leg_ik;
+648:         let Some(ik_support) =
+649:             sequence.admit_ik_support(leg_ik, cadence_support, skeleton, *terrain_ik)
+650:         else {
+651:             return;
+652:         };
+653:         let (left_support_weight, right_support_weight) = raised_footwork
+654:             .filter(|state| state.initialized())
+655:             .map(|state| (state.left_support_weight, state.right_support_weight))
+656:             .unwrap_or(ik_support);
+657:         sequence.samples.push(FrameSample {
+658:             scenario: frame.scenario.clone(),
+659:             scenario_frame: frame.scenario_frame,
+660:             time_seconds: frame.time_seconds,
+661:             speed_metres_per_second: frame.speed,
+662:             gait_phase: skeleton.gait_phase,
+663:             locomotion_sample_tick: skeleton.locomotion_sample_tick,
+664:             body_acceleration: (subject_global.rotation().inverse() * skeleton.world_acceleration)
+665:                 .to_array(),
+666:             world_acceleration: skeleton.world_acceleration.to_array(),
+667:             bouncy_active_springs: bouncy_bones_telemetry.active_springs,
+668:             bouncy_maximum_deflection_radians: bouncy_bones_telemetry.maximum_deflection_radians,
+669:             // Raised guard owns its visual contacts locally. Segment its
+670:             // diagnostics by the sequence that actually changed the rendered
+671:             // support foot, not by the replicated locomotion cadence.
+672:             // RaisedFootworkState retains the presentation-owned contact
+673:             // counter even while its actual step is deliberately
+674:             // uninitialized across an authored/no-IK handoff. Falling back to
+675:             // the replicated idle counter here invents a 1 -> 0 reset that
+676:             // neither the rendered feet nor the local stepper performed.
+677:             contact_sequence: raised_footwork.map_or(
+678:                 skeleton.contact_sequence,
+679:                 RaisedFootworkState::step_sequence,
+680:             ),
+681:             contact_foot: raised_footwork
+682:                 .and_then(RaisedFootworkState::contact_foot)
+683:                 .unwrap_or(skeleton.contact_foot),
+684:             landing_sequence: skeleton.landing_sequence,
+685:             landing_impact_speed: skeleton.landing_impact_speed,
+686:             body_lean_pitch_degrees: body_response
+687:                 .map_or(BodyAngle::ZERO, |state| state.pitch_radians),
+688:             body_lean_roll_degrees: body_response
+689:                 .map_or(BodyAngle::ZERO, |state| state.roll_radians),
+690:             landing_compression_metres: height_state

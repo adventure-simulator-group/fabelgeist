@@ -1,0 +1,71 @@
+SOURCE rawzip-0.5.2/src/errors.rs:1-70
+   1 #[cfg(feature = "alloc")]
+   2 use alloc::{boxed::Box, string::String};
+   3 
+   4 /// An error that occurred while reading or writing a zip file
+   5 #[derive(Debug)]
+   6 pub struct Error {
+   7     // When an allocator is available the inner payload is boxed to keep `Error`
+   8     // pointer-sized, which measurably speeds up the common success path of
+   9     // iterating entries (the boxed form was ~18-20% faster over 200k entries).
+  10     // Without an allocator the payload is stored inline (40 bytes), which the
+  11     // core-only tier accepts since it cannot box.
+  12     #[cfg(feature = "alloc")]
+  13     inner: Box<ErrorInner>,
+  14     #[cfg(not(feature = "alloc"))]
+  15     inner: ErrorInner,
+  16 }
+  17 
+  18 impl Error {
+  19     /// Returns the offset of the end of central directory (EOCD) signature
+  20     ///
+  21     /// Useful for reparsing input that contains a false EOCD signature.
+  22     pub fn eocd_offset(&self) -> Option<u64> {
+  23         self.inner.eocd_offset
+  24     }
+  25 
+  26     /// Sets the false signature offset on this error
+  27     pub(crate) fn with_eocd_offset(mut self, offset: u64) -> Self {
+  28         self.inner.eocd_offset = Some(offset);
+  29         self
+  30     }
+  31 }
+  32 
+  33 impl Error {
+  34     #[cfg(feature = "std")]
+  35     pub(crate) fn io(err: std::io::Error) -> Error {
+  36         Error::from(ErrorKind::IO(err))
+  37     }
+  38 
+  39     #[cfg(feature = "alloc")]
+  40     pub(crate) fn utf8(err: core::str::Utf8Error) -> Error {
+  41         Error::from(ErrorKind::InvalidUtf8(err))
+  42     }
+  43 
+  44     #[cfg(feature = "std")]
+  45     pub(crate) fn is_eof(&self) -> bool {
+  46         matches!(self.inner.kind, ErrorKind::Eof)
+  47     }
+  48 
+  49     /// The kind of error that occurred
+  50     pub fn kind(&self) -> &ErrorKind {
+  51         &self.inner.kind
+  52     }
+  53 
+  54     /// The kind of error that occurred
+  55     pub fn into_kind(self) -> ErrorKind {
+  56         self.inner.kind
+  57     }
+  58 }
+  59 
+  60 #[derive(Debug)]
+  61 struct ErrorInner {
+  62     kind: ErrorKind,
+  63     eocd_offset: Option<u64>,
+  64 }
+  65 
+  66 /// The kind of error that occurred
+  67 #[derive(Debug)]
+  68 #[non_exhaustive]
+  69 pub enum ErrorKind {
+  70     /// Missing end of central directory

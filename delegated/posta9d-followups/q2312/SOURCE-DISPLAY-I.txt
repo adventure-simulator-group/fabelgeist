@@ -1,0 +1,31 @@
+SOURCE rawzip-0.5.2/src/archive.rs:411-440
+ 411         self.current_offset += (self.entry_data.len() - entry_data.len()) as u64;
+ 412         self.entry_data = entry_data;
+ 413         Ok(Some(entry))
+ 414     }
+ 415 
+ 416     /// Handle a record that does not start with the central directory file
+ 417     /// header signature.
+ 418     ///
+ 419     /// A digital signature record cleanly terminates iteration; anything else
+ 420     /// is a genuine parse error.
+ 421     #[cold]
+ 422     #[inline(never)]
+ 423     fn next_entry_terminator(
+ 424         &mut self,
+ 425         err: Error,
+ 426     ) -> Result<Option<ZipFileHeaderRecord<'data>>, Error> {
+ 427         if self.entry_data.len() <= MAX_DIGITAL_SIGNATURE_SIZE
+ 428             && self.entry_data.starts_with(&DIGITAL_SIGNATURE_BYTES)
+ 429         {
+ 430             self.entry_data = &[];
+ 431             return Ok(None);
+ 432         }
+ 433         Err(err)
+ 434     }
+ 435 }
+ 436 
+ 437 impl<'data> Iterator for ZipSliceEntries<'data> {
+ 438     type Item = Result<ZipFileHeaderRecord<'data>, Error>;
+ 439 
+ 440     #[inline]

@@ -1,0 +1,16 @@
+{
+  "registered_at_utc": "2026-11-12T14:58:32.672613+00:00",
+  "purpose": "Restore exact connector file responses without displaying source text, then identify bytes by Git blob/tree proof. Any displayed source ranges require later source registration.",
+  "repository": "adventure-simulator-group/fabelgeist",
+  "refs": [
+    "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "6533e444fa37552927070cc8d8190907fd3b413e"
+  ],
+  "paths": [
+    "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+    "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+    "crates/adventuresim-building-generator/src/model/resolved_networks.rs"
+  ],
+  "transport": "GitHub fetch_file exact ref, full file; capture response before interpreting.",
+  "metadata_display": "Only success/error, response top-level keys and text byte counts; no body snippets. Preserve any failures."
+}

@@ -1,0 +1,59 @@
+{
+  "reader": "/root/mhr_character",
+  "created_utc": "2026-11-12T14:51:07.790955+00:00",
+  "rows": [
+    {
+      "id": "scenario-plan",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "git_blob": "de410818c1c18988147532374e4261306b2efbf9",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "bytes": 52949,
+      "eof": 1409,
+      "planned_ranges": [
+        [
+          415,
+          535
+        ]
+      ],
+      "capture": "support/scenario-plan.rs"
+    },
+    {
+      "id": "dodge-admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "eof": 2067,
+      "planned_ranges": [
+        [
+          570,
+          640
+        ],
+        [
+          1889,
+          1929
+        ]
+      ],
+      "capture": "support/dodge-admission.rs"
+    },
+    {
+      "id": "timeline",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "git_blob": "186e8554d29703a50a6048604c25c22e2f1c9b80",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "bytes": 3262,
+      "eof": 89,
+      "planned_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "capture": "support/timeline.rs"
+    }
+  ],
+  "purpose": "planned frame caller, direction admission and timeline"
+}

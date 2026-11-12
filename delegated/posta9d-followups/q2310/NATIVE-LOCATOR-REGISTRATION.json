@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-11-12T15:01:02.066781+00:00",
+  "reader": "/root/mhr_character",
+  "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+  "archive_bytes": 260248,
+  "provenance_sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d",
+  "members": [
+    {
+      "member": "rawzip-0.5.2/src/locator.rs",
+      "sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+      "bytes": 17883,
+      "eof": 531,
+      "matches_original_restored_member": true
+    },
+    {
+      "member": "rawzip-0.5.2/src/errors.rs",
+      "sha256": "073f7132ea371edee17e2820b504c32bff7242b31e58aa6ef8ed571fc6c49a72",
+      "bytes": 6485,
+      "eof": 215,
+      "matches_original_restored_member": true
+    }
+  ],
+  "planned_token_locator": [
+    "locate",
+    "eocd",
+    "EOCD",
+    "prelude",
+    "central_directory",
+    "comment",
+    "offset",
+    "find",
+    "from_error"
+  ],
+  "qualification": "Archive/member provenance and line-number lookup only; native source body requires range registration. No archive parser code is run."
+}

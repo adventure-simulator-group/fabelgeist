@@ -1,0 +1,71 @@
+SOURCE rawzip-0.5.2/src/errors.rs:71-140
+  71     MissingEndOfCentralDirectory,
+  72 
+  73     /// Buffer size too small for the required capacity
+  74     ///
+  75     /// [`crate::RECOMMENDED_BUFFER_SIZE`] is suitable for normal archive
+  76     /// reading. A buffer sized to [`crate::MAX_CENTRAL_DIRECTORY_RECORD_SIZE`]
+  77     /// will never yield this error.
+  78     BufferTooSmall { required: usize },
+  79 
+  80     /// Invalid end of central directory signature
+  81     InvalidSignature { expected: u32, actual: u32 },
+  82 
+  83     /// Invalid inflated file crc checksum
+  84     InvalidChecksum { expected: u32, actual: u32 },
+  85 
+  86     /// An unexpected inflated file size
+  87     InvalidSize { expected: u64, actual: u64 },
+  88 
+  89     /// Invalid UTF-8 sequence
+  90     #[cfg(feature = "alloc")]
+  91     InvalidUtf8(core::str::Utf8Error),
+  92 
+  93     /// An invalid input error with associated message
+  94     #[cfg(feature = "alloc")]
+  95     InvalidInput { msg: String },
+  96 
+  97     /// Could not construct an archive with the given end of central directory
+  98     InvalidEndOfCentralDirectory,
+  99 
+ 100     /// An IO error
+ 101     #[cfg(feature = "std")]
+ 102     IO(std::io::Error),
+ 103 
+ 104     /// An unexpected end of file
+ 105     Eof,
+ 106 }
+ 107 
+ 108 impl core::error::Error for Error {
+ 109     fn source(&self) -> Option<&(dyn core::error::Error + 'static)> {
+ 110         match &self.inner.kind {
+ 111             #[cfg(feature = "std")]
+ 112             ErrorKind::IO(e) => Some(e),
+ 113             #[cfg(feature = "alloc")]
+ 114             ErrorKind::InvalidUtf8(e) => Some(e),
+ 115             _ => None,
+ 116         }
+ 117     }
+ 118 }
+ 119 
+ 120 impl core::fmt::Display for Error {
+ 121     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+ 122         write!(f, "{}", self.inner.kind)?;
+ 123         Ok(())
+ 124     }
+ 125 }
+ 126 
+ 127 impl core::fmt::Display for ErrorKind {
+ 128     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+ 129         match *self {
+ 130             #[cfg(feature = "std")]
+ 131             ErrorKind::IO(ref err) => err.fmt(f),
+ 132             ErrorKind::MissingEndOfCentralDirectory => {
+ 133                 write!(f, "Missing end of central directory")
+ 134             }
+ 135             ErrorKind::BufferTooSmall { required } => {
+ 136                 write!(f, "Buffer size too small: required {required} bytes")
+ 137             }
+ 138             ErrorKind::Eof => {
+ 139                 write!(f, "Unexpected end of file")
+ 140             }

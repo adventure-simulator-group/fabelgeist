@@ -1,0 +1,99 @@
+### capture.rs:715-750
+715:             body_rotation_xyzw: subject_global.rotation().to_array(),
+716:             weapon_guard: frame.weapon_guard,
+717:             lead_foot: skeleton.lead_foot,
+718:             action: skeleton.action_kind(),
+719:             action_phase: skeleton.action_phase(),
+720:             attack_animation: skeleton.attack_animation(),
+721:             strike_family: skeleton.strike_family(),
+722:             guard_action: frame.weapon_guard == WeaponGuardState::Raised
+723:                 || matches!(
+724:                     frame.action,
+725:                     SkeletonAction::Dodge | SkeletonAction::Attack | SkeletonAction::Block
+726:                 ),
+727:             left_support_weight,
+728:             right_support_weight,
+729:             desired_left_foot_target: desired_left_foot_target.map(|value| value.to_array()),
+730:             desired_right_foot_target: desired_right_foot_target.map(|value| value.to_array()),
+731:             ik_left_authored_target: leg_ik.left_authored_target.map(|value| value.to_array()),
+732:             ik_right_authored_target: leg_ik.right_authored_target.map(|value| value.to_array()),
+733:             ik_left_planned_contact: leg_ik.left_planned_contact.map(|value| value.to_array()),
+734:             ik_right_planned_contact: leg_ik.right_planned_contact.map(|value| value.to_array()),
+735:             ik_settle_capture_point: leg_ik.settle_capture_point.map(|value| value.to_array()),
+736:             ik_left_solve_target: leg_ik.left_solve_target.map(|value| value.to_array()),
+737:             ik_right_solve_target: leg_ik.right_solve_target.map(|value| value.to_array()),
+738:             ik_left_support_weight: leg_ik.left_support_weight,
+739:             ik_right_support_weight: leg_ik.right_support_weight,
+740:             ik_left_release_active: leg_ik.left_release_active,
+741:             ik_right_release_active: leg_ik.right_release_active,
+742:             ik_left_release_target: leg_ik.left_release_target.map(|value| value.to_array()),
+743:             ik_right_release_target: leg_ik.right_release_target.map(|value| value.to_array()),
+744:             ik_settle_progress: leg_ik.settle_progress.map(|progress| progress.fraction()),
+745:             ik_left_knee_foot_yaw_offset_degrees: leg_ik
+746:                 .left_knee_foot_yaw_offset_degrees
+747:                 .degrees(),
+748:             ik_right_knee_foot_yaw_offset_degrees: leg_ik
+749:                 .right_knee_foot_yaw_offset_degrees
+750:                 .degrees(),
+### report_model.rs:200-260
+200:     pub(in crate::animation_viewer) body_lean_pitch_degrees: BodyAngle,
+201:     #[serde(serialize_with = "serialize_body_degrees")]
+202:     pub(in crate::animation_viewer) body_lean_roll_degrees: BodyAngle,
+203:     pub(in crate::animation_viewer) landing_compression_metres: HeightDistance,
+204:     pub(in crate::animation_viewer) root_distance_metres: f32,
+205:     pub(in crate::animation_viewer) root_position_metres: [f32; 3],
+206:     pub(in crate::animation_viewer) world_travel_direction: [f32; 3],
+207:     pub(in crate::animation_viewer) desired_body_forward_direction: [f32; 3],
+208:     pub(in crate::animation_viewer) body_forward_direction: [f32; 3],
+209:     pub(in crate::animation_viewer) body_rotation_xyzw: [f32; 4],
+210:     pub(in crate::animation_viewer) weapon_guard: WeaponGuardState,
+211:     pub(in crate::animation_viewer) lead_foot: LeadFoot,
+212:     pub(in crate::animation_viewer) action: SkeletonAction,
+213:     pub(in crate::animation_viewer) action_phase:
+214:         adventuresim_tactical_core::animation::UnitInterval,
+215:     pub(in crate::animation_viewer) attack_animation: Option<AttackAnimation>,
+216:     pub(in crate::animation_viewer) strike_family: StrikeFamily,
+217:     pub(in crate::animation_viewer) guard_action: bool,
+218:     pub(in crate::animation_viewer) left_support_weight: UnitInterval,
+219:     pub(in crate::animation_viewer) right_support_weight: UnitInterval,
+220:     pub(in crate::animation_viewer) desired_left_foot_target: Option<[f32; 3]>,
+221:     pub(in crate::animation_viewer) desired_right_foot_target: Option<[f32; 3]>,
+222:     pub(in crate::animation_viewer) ik_left_authored_target: Option<[f32; 3]>,
+223:     pub(in crate::animation_viewer) ik_right_authored_target: Option<[f32; 3]>,
+224:     pub(in crate::animation_viewer) ik_left_planned_contact: Option<[f32; 3]>,
+225:     pub(in crate::animation_viewer) ik_right_planned_contact: Option<[f32; 3]>,
+226:     pub(in crate::animation_viewer) ik_settle_capture_point: Option<[f32; 3]>,
+227:     pub(in crate::animation_viewer) ik_left_solve_target: Option<[f32; 3]>,
+228:     pub(in crate::animation_viewer) ik_right_solve_target: Option<[f32; 3]>,
+229:     pub(in crate::animation_viewer) ik_left_support_weight: Option<UnitInterval>,
+230:     pub(in crate::animation_viewer) ik_right_support_weight: Option<UnitInterval>,
+231:     pub(in crate::animation_viewer) ik_left_release_active: bool,
+232:     pub(in crate::animation_viewer) ik_right_release_active: bool,
+233:     pub(in crate::animation_viewer) ik_left_release_target: Option<[f32; 3]>,
+234:     pub(in crate::animation_viewer) ik_right_release_target: Option<[f32; 3]>,
+235:     pub(in crate::animation_viewer) ik_settle_progress: Option<f32>,
+236:     pub(in crate::animation_viewer) ik_left_knee_foot_yaw_offset_degrees: f32,
+237:     pub(in crate::animation_viewer) ik_right_knee_foot_yaw_offset_degrees: f32,
+238:     pub(in crate::animation_viewer) semantic_route_requested_path: SemanticRoutePath,
+239:     pub(in crate::animation_viewer) semantic_route_selected_path: SemanticRoutePath,
+240:     pub(in crate::animation_viewer) semantic_route_runtime_evaluated: bool,
+241:     pub(in crate::animation_viewer) screenshots: BTreeMap<String, String>,
+242:     pub(in crate::animation_viewer) bones: CapturedBones,
+243: }
+244: 
+245: impl FrameSample {
+246:     /// Required procedural-support readers distinguish absence from measured zero.
+247:     pub(super) fn required_ik_support(&self) -> AnimationValueResult<(UnitInterval, UnitInterval)> {
+248:         self.ik_left_support_weight
+249:             .zip(self.ik_right_support_weight)
+250:             .ok_or(AnimationValueError::UnavailableObservation {
+251:                 quantity: AnimationQuantity::SupportObservation,
+252:             })
+253:     }
+254: }
+255: 
+256: #[derive(Debug, Clone, Copy, Serialize)]
+257: pub(in crate::animation_viewer) struct BoneSample {
+258:     pub(in crate::animation_viewer) position: [f32; 3],
+259:     pub(in crate::animation_viewer) rotation_xyzw: [f32; 4],
+260:     pub(in crate::animation_viewer) terrain_clearance_metres: Option<f32>,

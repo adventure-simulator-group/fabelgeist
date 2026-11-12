@@ -1,0 +1,34 @@
+{
+  "PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json": {
+    "schema": "726-path-digest-correction-proposal-status-v1",
+    "proposal": "delegated/path-digest-correction-proposal",
+    "proposal_manifest_sha256": "a3b2acb186938355f76d32f5ea7b83b9d91b9163bf013183b55dfb0c6bbe48f7",
+    "proposal_archive": "delegated/path-digest-correction-proposal.tar.gz",
+    "proposal_archive_sha256": "21f8531d0c393551c8581d5e36f4dec4dee7811c8ec0b8bc80cc0e80d0c9bf0e",
+    "safety_receipt_manifest_sha256": "cc9f773fbf773465e8d3f3003561f2113207f9e8b2f736e2d2dc7d3350b44baf",
+    "restricted_original_manifest_sha256": "663062120b469d32c7634d20fc1dd2b97f76a4221085c363a79340fde24641bf",
+    "restricted_supplemental_manifest_sha256": "f5cb858be4a637091fe4e8bd94523c5ff651f7802086a72039216f3363f3bbef",
+    "status": "Unapplied. Fifteen earlier published files remain unchanged in this checkpoint. The proposal reconstructs 795 identified digest fields; 522 match the separately recorded corpus and 273 more were selected by field semantics. The two counts have distinct evidentiary bases.",
+    "verification": "The public-only reconstruction check passes and binds the historical whole-file identities, successor bytes, markers and pointers. Restricted replay and safety scans are separately attributed and same-machine. Public checking alone cannot reproduce private substitutions or establish complete privacy.",
+    "external_check_observation": "The coordinator invoked the proposal verifier with the optional current publication checkout. Its captured CONTINUATION-PROGRESS-95E.json dependency was 115330 bytes with SHA-256 e567eeb18cc0df520bb3affebf97c1b160c81575a878ac08dbdd73255e4f4c00; the later observed working file was 116611 bytes with SHA-256 354c35937e2b99690cfbc4afa9de501d5e47408194235b65c0458229473a1471. The optional check failed at that first mismatch, after earlier checks, because the working progress was edited after the capture. This is not an assertion of current bytes or a successful full external comparison.",
+    "remaining": "Independently review and integrate separately named verifier adaptations that preserve all unaffected legacy assertions before overlaying the proposed files. Earlier Git history and the separately recorded unread archive members remain outside this proposal."
+  },
+  "EVIDENCE-VERIFIER-EVOLUTION-QUALIFICATION.json": {
+    "schema": "726-evidence-verifier-evolution-qualification-v1",
+    "observed_checkpoint_commit": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+    "inventory": "delegated/evidence-verifier-evolution/SOURCE-INVENTORY.json",
+    "inventory_manifest_sha256": "a190cfe1a540960f70e08fd776ba17644c981383cac44dd1d84d918ad59953da",
+    "scope": "Static inspection of 694 root verify_*.py files, exact Git-blob matched to the recorded evidence commit. Four one-line regular expressions identify selected progress and partial-state assertion patterns; they do not establish all equivalent patterns, executable paths or the number of unique affected scripts.",
+    "heuristic_counts": {
+      "lenses_zero": 249,
+      "queue_zero": 312,
+      "partial_status": 256,
+      "candidate_count": 241
+    },
+    "concrete_example": "verify_delegated_reconciliation_4_95e.py asserts that the live q1859 current_reconciliation starts with partial and that live lenses_complete and queue_records_semantically_reconciled equal zero. Those facts describe the observed checkpoint, but treating them as permanent live-state invariants would reject a later justified closure.",
+    "candidate_count_qualification": "The candidate-count pattern compares a live count to the live ledger length and is not by itself evidence of a frozen zero-state constraint.",
+    "consequence": "Before recording any actual completed lens or semantically reconciled queue row that conflicts with a historical check, establish a reviewed evidence-verification method that preserves the earlier assertion against its exact time-bound state while separately validating the new live state. Do not remove or silently weaken historical assertions. No such adaptation is implemented or independently approved here.",
+    "limits": "No audit lens or queue row is closed by this inspection; no original historical record is overwritten. The reported checkpoint was published and its same-machine recovery check was still ongoing when this inventory was made.",
+    "product_validation": "not performed"
+  }
+}

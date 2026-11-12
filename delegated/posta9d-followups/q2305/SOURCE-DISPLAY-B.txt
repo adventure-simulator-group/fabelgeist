@@ -1,0 +1,46 @@
+### ik.rs:991-1035
+991:             ] {
+992:                 let Some(rendered) = snapshot(foot, &parents, &transforms.p0()) else {
+993:                     continue;
+994:                 };
+995:                 let ankle = rendered.global.translation();
+996:                 let support_observation =
+997:                     observed_support_weight(nominal_support, Some(ankle), terrain, *enabled);
+998:                 if left {
+999:                     footwork.left_solve_target = Some(ankle);
+1000:                     if let Some(observed) = support_observation {
+1001:                         footwork.left_support_weight = observed;
+1002:                     }
+1003:                     memory.left_foot_world_target = Some(ankle);
+1004:                     memory.left_support_weight = support_observation;
+1005:                 } else {
+1006:                     footwork.right_solve_target = Some(ankle);
+1007:                     if let Some(observed) = support_observation {
+1008:                         footwork.right_support_weight = observed;
+1009:                     }
+1010:                     memory.right_foot_world_target = Some(ankle);
+1011:                     memory.right_support_weight = support_observation;
+1012:                 }
+1013:             }
+1014:             if let Err(error) = footwork.validate_targets() {
+1015:                 warn!(%error, "Raised footwork rejected before publication");
+1016:                 continue;
+1017:             }
+1018:             if let Err(error) = memory.publish(owner, &mut ik_states, &mut commands) {
+1019:                 warn!(%error, "IK targets rejected before publication");
+1020:                 continue;
+1021:             }
+1022:             if let Ok(mut state) = raised_states.get_mut(owner) {
+1023:                 *state = footwork;
+1024:             } else {
+1025:                 commands.entity(owner).insert(footwork);
+1026:             }
+1027:             continue;
+1028:         }
+1029: 
+1030:         if !enabled.is_enabled()
+1031:             && terrain_blend.fraction() <= 0.001
+1032:             && memory.settle.is_none()
+1033:             && !memory.left_release_active
+1034:             && !memory.right_release_active
+1035:         {

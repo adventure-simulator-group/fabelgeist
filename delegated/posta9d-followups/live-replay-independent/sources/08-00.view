@@ -1,0 +1,20 @@
+     1	#!/usr/bin/env python3
+     2	"""Verify same-machine checkpoint receipts without asserting remote custody."""
+     3	import argparse,hashlib,json,subprocess
+     4	from pathlib import Path,PurePosixPath
+     5	root=Path(__file__).resolve().parent;packet=root/'delegated/checkpointa9b-verification';sha=lambda b:hashlib.sha256(b).hexdigest()
+     6	manifest=(packet/'MANIFEST.json').read_bytes();assert sha(manifest)=='a449a6a4fd10eec9fcdaa99bc87be4ae2506c19c14f9c6d70a53202225bf2f72';rows=json.loads(manifest)['files']
+     7	assert {p.name for p in packet.iterdir() if p.is_file()}=={'MANIFEST.json'}|{x['path'] for x in rows}
+     8	for row in rows:
+     9	 path=PurePosixPath(row['path']);assert not path.is_absolute() and '..' not in path.parts;data=(packet/path).read_bytes();assert (len(data),sha(data))==(row['bytes'],row['sha256'])
+    10	pre=json.loads((packet/'PREPUBLISH-RECORD.json').read_bytes());recovery=json.loads((packet/'RECOVERY-RECORD.json').read_bytes());a=(packet/'PREPUBLISH-EVIDENCE.log').read_bytes();b=(packet/'RECOVERY-EVIDENCE.log').read_bytes()
+    11	assert a==b and (len(a),a.count(b'\n'),sha(a))==(144215,1686,pre['evidence_log_sha256']) and sha(b)==recovery['transcript_sha256']
+    12	assert b'Published evidence checks passed for the qualified public reconstructions' in b
+    13	assert pre['commit']==recovery['commit']=='a9b8331ae347542b1ea707b1b04eb8092735d1bd' and pre['parent']==recovery['parent']=='8608c88ad0cd75ca188ce03908c7662c1aa436e8'
+    14	scan=json.loads((packet/'FINAL-DIGEST-SCAN.json').read_bytes());assert scan['stats']['top_files']==289 and scan['stats']['views']==649 and scan['forbidden_digest_total']==0 and not scan['exceptions'] and not scan['other_candidate_counts']
+    15	assert b'issues 0' in (packet/'FINAL-PATTERN-SCAN.txt').read_bytes();main=json.loads((packet/'MAIN-POSTCHECK.json').read_bytes());assert main['observed_revision']=='95e63628f9d70b8dd6e6fede64334696c6995009'
+    16	a=argparse.ArgumentParser();a.add_argument('--git-repo',type=Path);args=a.parse_args()
+    17	if args.git_repo:
+    18	 line=subprocess.check_output(['git','-C',str(args.git_repo),'rev-list','--parents','-n','1',pre['commit']],text=True).strip();assert line.split()==[pre['commit'],pre['parent']];print('Specified local Git repository contains the recorded commit-parent relationship.')
+    19	else:print('No Git repository supplied; the commit-parent relationship was not rechecked here.')
+    20	print('Byte-identical evidence transcripts and bounded scan receipts verified; checkout identity and remote custody remain separately qualified.')

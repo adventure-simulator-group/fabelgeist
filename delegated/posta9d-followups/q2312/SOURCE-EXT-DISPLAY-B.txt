@@ -1,0 +1,30 @@
+SOURCE rawzip-0.5.2/src/locator.rs:181-209
+ 181     ) -> Result<ZipSliceArchive<T>, (T, Error)> {
+ 182         match self.locate_in_byte_slice(data.as_ref()) {
+ 183             Ok(eocd) => Ok(ZipSliceArchive::new(data, eocd)),
+ 184             Err(e) => Err((data, e)),
+ 185         }
+ 186     }
+ 187 }
+ 188 
+ 189 #[derive(Debug, Clone)]
+ 190 pub(crate) struct EndOfCentralDirectory {
+ 191     eocd_offset: u64,
+ 192     zip64_eocd_offset: Option<NonZeroU64>,
+ 193     central_dir_size: u64,
+ 194     central_dir_offset: u64,
+ 195     num_entries: u64,
+ 196     comment_len: u16,
+ 197     base_offset: u64,
+ 198 }
+ 199 
+ 200 impl EndOfCentralDirectory {
+ 201     pub(crate) fn create(eocd: EndOfCentralDirectoryRecord) -> Result<Self, Error> {
+ 202         let result = EndOfCentralDirectory {
+ 203             eocd_offset: eocd.offset,
+ 204             zip64_eocd_offset: None,
+ 205             central_dir_size: u64::from(eocd.central_dir_size),
+ 206             central_dir_offset: u64::from(eocd.central_dir_offset),
+ 207             num_entries: u64::from(eocd.num_entries),
+ 208             comment_len: eocd.comment_len,
+ 209             base_offset: 0,

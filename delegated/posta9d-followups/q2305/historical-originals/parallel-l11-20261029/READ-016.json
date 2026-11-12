@@ -1,0 +1,302 @@
+{
+  "kind": "Lens11 current full IKfacade remainder and canonical support/native orientation findings",
+  "lens": 11,
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+      "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-030.json",
+      "sha256": "2e2bc8ad3c62a23edf34d19044de8ceaf4ed22261d5b550c974973726cfd9989"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-0247",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "actual_EOF": 2973,
+      "prospective_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "fresh_personal_body_ranges": [
+        [
+          761,
+          2973
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          761,
+          2973
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "cumulative_whole_file_assessed": true,
+      "prior_proof": {
+        "receipt": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-012.json",
+        "sha256": "7c3f0a48fa5efca5fc4340175c572b4b5c2423f07c92c0fe7fd454c9e0d489d8",
+        "ranges": [
+          [
+            1,
+            760
+          ]
+        ]
+      }
+    },
+    {
+      "registration": "PL11-0264",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "actual_EOF": 109,
+      "prospective_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0265",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "actual_EOF": 57,
+      "prospective_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0266",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "sha256": "b6746424e6fc5ccd0bdf97a25b61b2643ab2b19661ffd5e8f0fccc936b822d4e",
+      "actual_EOF": 107,
+      "prospective_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0267",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+      "actual_EOF": 530,
+      "prospective_ranges": [
+        [
+          319,
+          500
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "fresh_personal_body_ranges": [
+        [
+          319,
+          500
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          319,
+          500
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0268",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+      "actual_EOF": 564,
+      "prospective_ranges": [
+        [
+          301,
+          360
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "fresh_personal_body_ranges": [
+        [
+          301,
+          360
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          301,
+          360
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "family": "P06/P17/P19",
+      "disposition": "Existing canonical conditional source mismatch independently persists at exact current producer/order/state/consumer",
+      "trace": [
+        "Actual apply_terrain_leg_ik computes support from pre-propagation native snapshots909..959, final localrotation seam969..1013 updates same raisedcache and LegIkMemory, then publish1018..1025 retains both. New finitechecked memorypublish validates targets but does not bind raisedweight to later observation.",
+        "Actual plugin applies IK before TransformSystems::Propagate87..94; actual refresh_raised_support_after_propagation registered after propagation99..105; CapturePlugin runs capture_frame in Last40..50. This is current schedulebody proof, not frozen schedule inference.",
+        "Actual READ015 observer219..233 recomputes support from final propagated ankle and typed supportquery and updates memory.left/right_support_weight; also raises solve targets, but never raised.left/right_support_weight.",
+        "Actual READ012 capture_frame648..656 firstadmits current LegIkDiagnostics support then initializedraisedstate overrides general FrameSample left/right supportweights. ik_left/right_support738..739 retains distinct current observations. Conditional state raisedONE/freshmemoryZERO produces inconsistent two finalreportfields even though actual native discrepancy scenario remains unexecuted.",
+        "Current READ013 metrics maximum_no_support_seconds798..812/generalweights and maximum_planted_foot_drift1185..1219/fullplant, guardliveness281..390 use generalweights; required_ik_support/ reported_support_contacts1063..1119 use separate IKweights. Actual current JSONwriter serializes manifest. Current HTMLlabel and narrower scenario activation not read; no universal raisedvalidator falseclear claim."
+      ],
+      "first_failed_contract": "A final visual support capture selects earlier raisedcache after admitting fresh propagated observation, losing one final observation authority.",
+      "canonical_owner": "Post-propagation perfoot actualsupport observation; logicalstep/cadence topology separate.",
+      "exact_function_ownership": [
+        "apply_terrain_leg_ik909..1025",
+        "TacticalAnimationPlugin::build87..105/CapturePlugin::build39..51",
+        "refresh_raised_support_after_propagation219..233",
+        "capture_frame648..656/738..739",
+        "maximum_no_support_seconds798..812/maximum_planted_foot_drift1185..1219"
+      ],
+      "connected_repair_scope": "Unify actual finalsupport observation through raisedcache/memory/capture/general+IKreport consumers; preserve logicalcadence and existing absent/disabledmode policies.",
+      "dependencies": [
+        "Actual native hierarchy scenario changing contact during propagation and runtime capture not executed.",
+        "Current HTMLpresentation, remaining supportslip/validation source scopes and every affected alternate capturemode still required.",
+        "No alias with general P17missingmeasurement/defaultzero or footorientation writewitness based on shared enumremedy."
+      ],
+      "acceptance_requirements": [
+        "General finalvisual support and IKsupport agree with actual propagated contact when initializedraisedstate isactive.",
+        "Logicalstep/cadence may retain own authority; unavailable observation not cachedsuccess."
+      ],
+      "accepted_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-FOOT-ORIENTATION-REQUEST-AS-COMMITTED",
+      "family": "P06/P17/P19",
+      "disposition": "Existing canonical conditional native write/retained orientation mismatch persists current; ordinary owner reachability remains unresolved",
+      "trace": [
+        "finalize_leg_rotation_chains379..391 applies resolved cached/current chain, then desired_world395..401 is computed pure. Only airborne/contactblend branch419..426 obtains localandattempts nativefootwrite. Else429 desired_world becomes retainedfinal_world without writing desiredroll; finalactualorientation cache440..443 then stores it.",
+        "Boundedbranch427 retains bounded_world even if local_rotation_for_world returnsNone or Queryget_mut fails. localconversion467..477 returnsOption; actual transformassignment422..424 no successwitness propagated tofinal_world; resolved.foot425 can also update despite failed get_mut.",
+        "Actual apply_two_bone_solution301..356 returnsunit, with multiple earlyreturns and optionalwrites before/afteruppermutation. A returned call alone does not prove nativeapplication. Complete native snapshot/aim invariants still unassessed; no ordinaryreachablepartialpose failure claim.",
+        "Current IKfacade131..160 excludes authored locomotion owner beforefinalizer, while raised and ordinary remaining paths call finalizer969/2921. Nonzero runroll/config and attainableairborne/contactflags on actual nonauthoredroute remain required; do not claim normalrunvisualrollmissing from hypotheticalbranch."
+      ],
+      "first_failed_contract": "Retained actual finalfoot orientation must identify applied nativepose or explicitly remain requested; computed desiredorientation alone not application witness.",
+      "canonical_owner": "Final legrotation conversion/application and retained orientationcache authority.",
+      "exact_function_ownership": [
+        "finalize_leg_rotation_chains319..453/local_rotation_for_world467..477",
+        "apply_two_bone_solution301..356",
+        "apply_terrain_leg_ik131..160/969..983/2921..2936"
+      ],
+      "connected_repair_scope": "Own applied nativeorientation successwitness through finalizer/cache/propagated observation or distinguish requested orientation; preserve repeat-tick cache and boundedrotation semantics.",
+      "dependencies": [
+        "Actual nonzero runroll pureproducer/config and normalowner reachability need current sourceproof.",
+        "Native snapshot/aim/parentconversion/invalidquat admissibility and propagatedcapture need source/runtime qualification.",
+        "No blanket transactional pose requirement inferred from optional nativewrite APIs."
+      ],
+      "acceptance_requirements": [
+        "For applicable nonzero desiredroll retainedactualorientation equals nativeapplied orientation afterpropagation.",
+        "Failed conversion/write cannot publish desiredorientation as committedactual; legitimate cachedrepeat/boundedairborne behavior retained."
+      ],
+      "accepted_unique_count_change": 0
+    },
+    {
+      "id": "P06-L11-CURRENT-FULL-IK-FACADE-SCOPE",
+      "family": "P06/P17/P19",
+      "disposition": "Complete registered current IKfacade source body assessed; broader connected modules/native/family not cleared",
+      "trace": [
+        "Fullfacade1..2973 now ownbodyassessed. Actual supportquery callback remains SupportElevation through guard/retainedplant/runplanning/contact/terminal branches until actual Vec3 y numericalkernel; typed FootClearanceFloor surface1970..1974 retains support owner through clearancepolicy.",
+        "Runrelease records explicit requested footprint and optional resolved_end2093..2177; boundedunplanned release commits resolvedend onlySome and preserves plannedmetadata. Ordinary retain_solve_request2753 is explicitly named logicalrequest owner; publication70documents logical versus independent contacts. Do not relabel logicalrequest retention by itself as successful nativepose claim.",
+        "Actual support reported only when solution/contactgeometry2830..2846 and later postpropagatedobserver; finishsettle explicitterminalcontact fallback2950..2958 has separate contactconsumer. Safe-settle fallback elapsed is explicit policy, not backwardcompat defect.",
+        "Source carries CyclePhase/CycleDelta/UnitInterval/NonnegativeSpeed/SignedLength/NonnegativeLength/LeadFoot/ObservedRigFrame until native kernels, meaningful independent dimensions. Localboolbranch flags and genuine vector math not automatically typegranularity defects."
+      ],
+      "first_failed_contract": null,
+      "canonical_owner": "Shared IK logicalplan/contact observation/native pose boundaries and canonical typed quantity/frame owners.",
+      "exact_function_ownership": [
+        "apply_terrain_leg_ik105..2966",
+        "LegIkMemory::retain_solve_request30..68/validate_targets71..106"
+      ],
+      "connected_repair_scope": "No blanket supportscalarforwarding gap on reviewed fullfacade; retain actual canonical findings/conditionalcases above and complete allconnectedleaf/native/currentbody contracts.",
+      "dependencies": [
+        "All helperchildmodules not fullyread; bodyread ofcaller does not cover callees.",
+        "Full current all20 originalsource/frontier/extension closure stillopen; no runtime or visual validation."
+      ],
+      "acceptance_requirements": [
+        "Logicalrequest, analyticalresult, appliednativepose and propagatedobservation remain distinct; actual typed quantities retained through owning APIs."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "population_credit": {
+    "original": 0,
+    "overlay": 0,
+    "merged": 0,
+    "shared": 0,
+    "extensions": 0,
+    "authoritative_registrations": 0
+  },
+  "implementation_gate_complete": false,
+  "native_runtime_validation": "not run",
+  "authority": "Root sole authoritative writer; adoption proposal only"
+}

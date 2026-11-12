@@ -1,0 +1,116 @@
+     1	"""Read-only, path-specific original/public 059 identity crosswalk.
+     2	
+     3	A historical SHA/length describes the original transport object. Public SHA,
+     4	length and Git blob describe separately reconstructed bytes. Public checks do
+     5	not reconstruct private original paths or certify a byte-exact transformation.
+     6	"""
+     7	import argparse
+     8	import gzip
+     9	import hashlib
+    10	import json
+    11	import os
+    12	import stat
+    13	from pathlib import Path
+    14	
+    15	sha = lambda b: hashlib.sha256(b).hexdigest()
+    16	def git_blob(b):
+    17	    return hashlib.sha1(b'blob ' + str(len(b)).encode() + b'\0' + b).hexdigest()
+    18	
+    19	def _absolute(path):
+    20	    return Path(os.path.abspath(os.fspath(path)))
+    21	
+    22	def _assert_components_not_symlinks(path):
+    23	    p = _absolute(path)
+    24	    current = Path(p.anchor)
+    25	    for part in p.parts[1:]:
+    26	        current = current / part
+    27	        mode = os.lstat(current).st_mode
+    28	        if stat.S_ISLNK(mode):
+    29	            raise ValueError('symlink component is not permitted')
+    30	    return p
+    31	
+    32	def _reject_tree_symlinks(root, *, skip_git):
+    33	    # Do not recurse through symlinks; fail instead of following one.
+    34	    for here, dirs, files in os.walk(root, topdown=True, followlinks=False):
+    35	        if skip_git:
+    36	            dirs[:] = [name for name in dirs if name != '.git']
+    37	        for name in dirs + files:
+    38	            if stat.S_ISLNK(os.lstat(Path(here) / name).st_mode):
+    39	                raise ValueError('symlink in evidence tree is not permitted')
+    40	
+    41	class Crosswalk:
+    42	    def __init__(self, root, public_dir, config):
+    43	        self.root = _assert_components_not_symlinks(root)
+    44	        _reject_tree_symlinks(self.root, skip_git=True)
+    45	        self.public_dir = _assert_components_not_symlinks(public_dir)
+    46	        _reject_tree_symlinks(self.public_dir, skip_git=False)
+    47	        config_path = _assert_components_not_symlinks(config)
+    48	        config_bytes = config_path.read_bytes()
+    49	        assert sha(config_bytes) == 'c6d9ccf4bcfa84ad0eef68e51a5b5a49824b4a1253560b6a0ba22281c485f33d'
+    50	        data = json.loads(config_bytes)
+    51	        assert data['schema'] == '726-059-qualified-crosswalk-v1'
+    52	        rows = data['records']; assert len(rows) == 2
+    53	        self.rows = {x['public_path']:x for x in rows}
+    54	        assert set(self.rows) == {'baseline-059/queue.json','baseline-059/ledger.json'}
+    55	        t = data['transport']; assert t['path'] == 'recovered/original-transport-manifest.json.gz'
+    56	        packed = (self.root / t['path']).read_bytes()
+    57	        assert sha(packed) == t['stored_sha256']
+    58	        raw = gzip.decompress(packed); assert sha(raw) == t['uncompressed_sha256']
+    59	        entries = json.loads(raw)['entries']
+    60	        self.public = {}
+    61	        for name,row in self.rows.items():
+    62	            matches = [x for x in entries if x['path'] == row['historical_transport_path']]
+    63	            assert len(matches) == 1
+    64	            original = matches[0]
+    65	            assert (original['sha256'],original['bytes'],original['git_blob']) == (row['original_sha256'],row['original_bytes'],row['original_git_blob'])
+    66	            b = (self.public_dir / Path(name).name).read_bytes()
+    67	            assert (sha(b),len(b),git_blob(b)) == (row['public_sha256'],row['public_bytes'],row['public_git_blob'])
+    68	            assert row['original_sha256'] != row['public_sha256']
+    69	            self.public[name] = b
+    70	            print('QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK',name,'original_sha256='+row['original_sha256'],'public_sha256='+row['public_sha256'],'not_direct_original_public_byte_match', flush=True)
+    71	        self.crosswalk_links_checked = 0
+    72	
+    73	    def read(self, path):
+    74	        if path in self.rows:
+    75	            return self.public[path]
+    76	        return (self.root / path).read_bytes()
+    77	
+    78	    def matches(self, path, actual, expected_sha, expected_bytes=None):
+    79	        if path not in self.rows:
+    80	            return sha(actual) == expected_sha and (expected_bytes is None or len(actual) == expected_bytes)
+    81	        row = self.rows[path]
+    82	        if expected_sha != row['original_sha256']:
+    83	            return False
+    84	        if expected_bytes is not None and expected_bytes != row['original_bytes']:
+    85	            return False
+    86	        if actual != self.public[path]:
+    87	            return False
+    88	        self.crosswalk_links_checked += 1
+    89	        return True
+    90	
+    91	    def known(self, paths):
+    92	        result = {}
+    93	        for p in paths:
+    94	            raw = self.read(p)
+    95	            if p in self.rows:
+    96	                row = self.rows[p]
+    97	                assert self.matches(p,raw,row['original_sha256'],row['original_bytes'])
+    98	                h,n = row['original_sha256'],row['original_bytes']
+    99	            else:
+   100	                h,n = sha(raw),len(raw)
+   101	            if h in result:
+   102	                assert result[h] == n
+   103	            result[h] = n
+   104	        return result
+   105	
+   106	    def finish(self):
+   107	        print('QUALIFIED_059_CROSSWALK_RESULT','qualified_path_checks='+str(self.crosswalk_links_checked),'original_sha_and_public_sha_are_distinct','original_byte_transformation_not_proved_by_public_check',flush=True)
+   108	
+   109	def configure(config_path):
+   110	    p = argparse.ArgumentParser(description='Read-only evidence check with qualified 059 crosswalk')
+   111	    p.add_argument('--publication', type=Path, required=True)
+   112	    p.add_argument('--baseline-dir', type=Path, help='Directory containing proposed public queue.json and ledger.json; defaults to publication/baseline-059')
+   113	    args = p.parse_args()
+   114	    root = _absolute(args.publication)
+   115	    public = _absolute(args.baseline_dir) if args.baseline_dir else root / 'baseline-059'
+   116	    return Crosswalk(root, public, config_path)

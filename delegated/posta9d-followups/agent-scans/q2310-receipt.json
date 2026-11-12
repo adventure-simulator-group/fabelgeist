@@ -1,0 +1,76 @@
+{
+  "schema": "726-q2310-final-evidence-receipt-v1",
+  "created_utc": "2026-11-12T15:10:54.822377+00:00",
+  "public_archive": {
+    "name": "q2310-public-evidence.tar.gz",
+    "sha256": "30c68880acf8413be144b0722a5a092f82f6be1895d4bbd2dd657fa9c551706a",
+    "bytes": 258487,
+    "members": 100,
+    "manifest_sha256": "824ceabba2f7d2a24c35a0d0f8e3b26daf9d1daae292c343c573571029f0c0ee",
+    "report_sha256": "14ec31fee8c915ae24fd17dfdb8f555c990f6db60b87018787fbf8c423d6e290"
+  },
+  "restricted_archive": {
+    "name": "q2310-restricted-evidence.tar.gz",
+    "sha256": "83afcfe6724bc3e8a07fc7a58de73ce8764e8e2e9e749abc6958de42f47a4608",
+    "bytes": 263591,
+    "members": 4,
+    "manifest_sha256": "99764d9384132a1e6d618061c56e2e7ce2ee60aced624923754480ba3a793867",
+    "native_package_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "provenance_sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d",
+    "qualification": "Owner-restricted original package and provenance; never copy into public output without separate privacy review."
+  },
+  "checks": {
+    "standalone_verifier": "passed",
+    "repo_plus_private_originals_verifier": "passed",
+    "display_events": 19,
+    "git_tree_proofs": 15,
+    "exact_historical_records": 12,
+    "native_archive_member_bindings": 3,
+    "provenance_reconstruction": "Private check confirmed exactly one occurrence of the redacted JSON value and byte-for-byte equality after its literal replacement; no value or individual value digest is published.",
+    "qualification": "These are evidence-only checks, not product, parser, fixture or semantic validation."
+  },
+  "privacy": {
+    "public_scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "public_scan_receipt_sha256": "8dc5587d568dc737423430b112f829ad276a46e8c2a0d79089539dee05f99636",
+    "public_scan_result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 102,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 100,
+        "cached_views": 300,
+        "text_views": 89,
+        "binary_views": 11
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "public_scan_bounds": "Recursive gzip/tar, depth 8 and 83886080 bytes per view; unknown encodings, unsupported archive types and all credentials are not cleared.",
+    "restricted_original_scan": {
+      "forbidden_digest_total": 0,
+      "candidate_counts": {
+        "unix-home": 1,
+        "email": 3
+      },
+      "exception_count": 30,
+      "qualification": "The restricted provenance contains a genuine local home path. The checksum-matching recovered native archive contains three email candidates in package metadata and 30 nested ZIP/JAR members not decoded by this scanner; public registry distribution was not independently checked."
+    },
+    "manual_example": "One anonymous drive-qualified example remains in tracked product source; its relation to an actual local path is unknown and the selected scanner did not flag this form."
+  },
+  "limits": "No publication or ledger mutation, repair, product/dependency/fixture execution, build, test, runtime probe, checkpoint3821 promotion or global alias/closure decision."
+}

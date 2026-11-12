@@ -1,0 +1,19 @@
+{
+  "schema": "q2309-private-archive-boundary-v1",
+  "restricted_predecessor_manifest_sha256": "558608a1302c730f1d981e9b16fa7ca23333f78b2a7c369972f5fdb5d99fbb6c",
+  "restricted_predecessor_file_count": 59,
+  "excluded_from_safe_packet": {
+    "path": "native/rawzip-0.5.2.crate",
+    "sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "bytes": 260248,
+    "reason": "Preliminary bounded scans detected three upstream email candidates and could not inspect 30 nested ZIP assets; exact unmodified archive remains in owner-restricted predecessor."
+  },
+  "recovery_dependency": {
+    "existing_publication_path": "delegated/crate-metadata-evidence.tar.gz",
+    "existing_publication_sha256": "28caec6f316245f2ee8b11a78e98de5a02666bd30cbf724aba7894be93b7c9ea",
+    "member_path": "historical-059/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2.crate",
+    "member_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "alternative": "Supply exact independently retained raw archive by checksum."
+  },
+  "qualification": "Existing outer archive and upstream package are separately retained and not privacy-cleared by scanning this successor. The retained locator.rs and prior comparison bind to the same bytes. No private contact values are copied into this boundary record; no source execution or remote-origin proof."
+}

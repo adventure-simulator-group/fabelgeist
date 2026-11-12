@@ -1,0 +1,1128 @@
+Reconstructed source displays from exact retained bytes; not independent proof of personal attention.
+
+=== SOURCE-REGISTRATION.json 95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-numpy-storage/src/zip.rs ===
+--- 64-110 ---
+   64 impl ZipArchive {
+   65     pub fn open(path: impl AsRef<Path>) -> Result<Self> {
+   66         let path = path.as_ref();
+   67         let file = std::fs::File::open(path).map_err(|source| ZipReadError::Native {
+   68             operation: ZipFileOperation::Open,
+   69             native_path: path.to_path_buf(),
+   70             source,
+   71         })?;
+   72         // SAFETY: model assets are read-only inputs; concurrent truncation by
+   73         // another process is out of scope, as elsewhere in this workspace.
+   74         let data = unsafe { Mmap::map(&file) }.map_err(|source| ZipReadError::Native {
+   75             operation: ZipFileOperation::Map,
+   76             native_path: path.to_path_buf(),
+   77             source,
+   78         })?;
+   79         Self::from_data(ArchiveData::Mapped(data))
+   80     }
+   81 
+   82     pub fn from_bytes(data: Vec<u8>) -> Result<Self> {
+   83         Self::from_data(ArchiveData::Owned(data))
+   84     }
+   85 
+   86     fn from_data(data: ArchiveData) -> Result<Self> {
+   87         let archive = ZipLocator::new()
+   88             .max_search_space(END_DIRECTORY_SEARCH_WINDOW_BYTES)
+   89             .locate_in_slice(data)
+   90             .map_err(|(_, source)| ZipReadError::from(source))?;
+   91         let member_count = ArchiveMemberCount::from(archive.entries_hint());
+   92         let mut entries = Vec::with_capacity(member_count.initial_capacity());
+   93         let mut directory = archive.entries();
+   94         // The declaration remains our upper bound; rawzip bounds each record
+   95         // by the selected directory span. No partial archive is published on error.
+   96         for _ in member_count.native_iteration_range() {
+   97             let Some(header) = directory.next_entry().map_err(ZipReadError::from)? else {
+   98                 break;
+   99             };
+  100             entries.push(Entry {
+  101                 name: ArchiveMemberName::from(header.file_path().as_ref()),
+  102                 compression: ZipCompression::from(header.compression_method()),
+  103                 uncompressed_size: DeclaredUncompressedByteLength::from_bytes(
+  104                     header.uncompressed_size_hint(),
+  105                 ),
+  106                 location: header.wayfinder(),
+  107             });
+  108         }
+  109         Ok(Self { archive, entries })
+  110     }
+
+=== SOURCE-REGISTRATION.json 95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-numpy-storage/Cargo.toml ===
+--- 1-31 ---
+    1 [package]
+    2 name = "fabelgeist-numpy-storage"
+    3 version = "0.1.0"
+    4 edition = "2024"
+    5 repository = "https://github.com/adventure-simulator-group/fabelgeist"
+    6 license = "AGPL-3.0"
+    7 
+    8 [dependencies]
+    9 anyhow = "1"
+   10 derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+   11 burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+   12     "std",
+   13     "wgpu",
+   14 ] }
+   15 memmap2 = "0.9"
+   16 rawzip = "=0.5.2"
+   17 # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+   18 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+   19 
+   20 [workspace]
+   21 
+   22 [profile.dev]
+   23 debug = "none"
+   24 incremental = false
+   25 strip = "debuginfo"
+   26 
+   27 [patch.crates-io]
+   28 pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+   29 
+   30 [lints.clippy]
+   31 all = { level = "warn", priority = -1 }
+
+=== SOURCE-REGISTRATION.json e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.toml ===
+--- 1-26 ---
+    1 [package]
+    2 name = "fabelgeist-numpy-storage"
+    3 version = "0.1.0"
+    4 edition = "2024"
+    5 repository = "https://github.com/adventure-simulator-group/fabelgeist"
+    6 license = "AGPL-3.0"
+    7 
+    8 [dependencies]
+    9 anyhow = "1"
+   10 derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+   11 burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+   12     "std",
+   13     "wgpu",
+   14 ] }
+   15 memmap2 = "0.9"
+   16 rawzip = "=0.5.2"
+   17 # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+   18 flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+   19 
+   20 [workspace]
+   21 
+   22 [patch.crates-io]
+   23 pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+   24 
+   25 [lints.clippy]
+   26 all = { level = "warn", priority = -1 }
+
+=== SOURCE-REGISTRATION.json 95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-numpy-storage/Cargo.lock ===
+--- 2098-2108 ---
+ 2098 [[package]]
+ 2099 name = "fabelgeist-numpy-storage"
+ 2100 version = "0.1.0"
+ 2101 dependencies = [
+ 2102  "anyhow",
+ 2103  "burn",
+ 2104  "derive_more",
+ 2105  "flate2",
+ 2106  "memmap2",
+ 2107  "rawzip",
+ 2108 ]
+--- 4304-4309 ---
+ 4304 [[package]]
+ 4305 name = "rawzip"
+ 4306 version = "0.5.2"
+ 4307 source = "registry+https://github.com/rust-lang/crates.io-index"
+ 4308 checksum = "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+ 4309 
+
+=== SOURCE-REGISTRATION.json e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/Cargo.lock ===
+--- 2098-2108 ---
+ 2098 [[package]]
+ 2099 name = "fabelgeist-numpy-storage"
+ 2100 version = "0.1.0"
+ 2101 dependencies = [
+ 2102  "anyhow",
+ 2103  "burn",
+ 2104  "derive_more",
+ 2105  "flate2",
+ 2106  "memmap2",
+ 2107  "rawzip",
+ 2108 ]
+--- 4304-4309 ---
+ 4304 [[package]]
+ 4305 name = "rawzip"
+ 4306 version = "0.5.2"
+ 4307 source = "registry+https://github.com/rust-lang/crates.io-index"
+ 4308 checksum = "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+ 4309 
+
+=== NATIVE-SOURCE-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/locator.rs ===
+--- 62-147 ---
+   62     fn locate_in_byte_slice(&self, data: &[u8]) -> Result<EndOfCentralDirectory, Error> {
+   63         let max_search_space = self.max_search_space.min(data.len() as u64) as usize;
+   64         let location = find_end_of_central_dir_signature(data, max_search_space)
+   65             .ok_or(ErrorKind::MissingEndOfCentralDirectory)?;
+   66 
+   67         let mut eocd = self
+   68             .locate_in_byte_slice_impl(data, location)
+   69             .map_err(|e| e.with_eocd_offset(location as u64))?;
+   70 
+   71         // Transparently verify that the self reported central directory points
+   72         // to a valid entry. If it is not a valid entry, we can attempt to
+   73         // correct offsets when there is undeclared prelude data by testing if
+   74         // the central directory directly precedes the end of central directory
+   75         // marker, which should hold true in the vast majority of cases. If both
+   76         // checks fail, defer returning an error until the user explicitly wants
+   77         // to iterate through the central directory.
+   78         let first_entry = data
+   79             .get(eocd.central_dir_offset as usize..)
+   80             .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+   81 
+   82         match first_entry {
+   83             None if !eocd.is_zip64() => {
+   84                 let cd_offset = eocd.eocd_offset.saturating_sub(eocd.central_dir_size);
+   85 
+   86                 let first_entry = data
+   87                     .get(cd_offset as usize..)
+   88                     .filter(|d| ZipFileHeaderFixed::parse(d).is_ok());
+   89 
+   90                 if first_entry.is_some() {
+   91                     eocd.base_offset = cd_offset.saturating_sub(eocd.central_dir_offset);
+   92                     eocd.central_dir_offset = cd_offset;
+   93                 }
+   94 
+   95                 Ok(eocd)
+   96             }
+   97             _ => Ok(eocd),
+   98         }
+   99     }
+  100 
+  101     fn locate_in_byte_slice_impl(
+  102         &self,
+  103         data: &[u8],
+  104         location: usize,
+  105     ) -> Result<EndOfCentralDirectory, Error> {
+  106         let eocd = EndOfCentralDirectoryRecordFixed::parse(&data[location..])?;
+  107 
+  108         // Validate comment is completely present in the slice
+  109         let comment_start = location + EndOfCentralDirectoryRecordFixed::SIZE;
+  110         let comment_len = eocd.comment_len as usize;
+  111         if comment_start + comment_len > data.len() {
+  112             return Err(Error::from(ErrorKind::Eof));
+  113         }
+  114 
+  115         // Always probe for a zip64 EOCD locator, which can be present without sentinels
+  116         let zip64_locator = location
+  117             .checked_sub(Zip64EndOfCentralDirectoryLocatorRecord::SIZE)
+  118             .and_then(|start| Zip64EndOfCentralDirectoryLocatorRecord::parse(&data[start..]).ok());
+  119 
+  120         let Some(zip64_locator) = zip64_locator else {
+  121             return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+  122                 location as u64,
+  123                 &eocd,
+  124             ));
+  125         };
+  126 
+  127         let zip64_eocd = &data[zip64_locator.directory_offset.min(data.len() as u64) as usize..];
+  128         let zip64_record = match parse_zip64_candidate(
+  129             zip64_eocd,
+  130             &eocd,
+  131             &zip64_locator,
+  132             location as u64 - Zip64EndOfCentralDirectoryLocatorRecord::SIZE as u64,
+  133         ) {
+  134             Some(record) => record,
+  135             None => {
+  136                 return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+  137                     location as u64,
+  138                     &eocd,
+  139                 ));
+  140             }
+  141         };
+  142 
+  143         let zip64 =
+  144             Zip64EndOfCentralDirectory::from_parts(zip64_locator.directory_offset, zip64_record);
+  145         let eocd = EndOfCentralDirectoryRecord::from_parts(location as u64, &eocd);
+  146         EndOfCentralDirectory::create_zip64(eocd, zip64)
+  147     }
+--- 189-242 ---
+  189 #[derive(Debug, Clone)]
+  190 pub(crate) struct EndOfCentralDirectory {
+  191     eocd_offset: u64,
+  192     zip64_eocd_offset: Option<NonZeroU64>,
+  193     central_dir_size: u64,
+  194     central_dir_offset: u64,
+  195     num_entries: u64,
+  196     comment_len: u16,
+  197     base_offset: u64,
+  198 }
+  199 
+  200 impl EndOfCentralDirectory {
+  201     pub(crate) fn create(eocd: EndOfCentralDirectoryRecord) -> Result<Self, Error> {
+  202         let result = EndOfCentralDirectory {
+  203             eocd_offset: eocd.offset,
+  204             zip64_eocd_offset: None,
+  205             central_dir_size: u64::from(eocd.central_dir_size),
+  206             central_dir_offset: u64::from(eocd.central_dir_offset),
+  207             num_entries: u64::from(eocd.num_entries),
+  208             comment_len: eocd.comment_len,
+  209             base_offset: 0,
+  210         };
+  211 
+  212         result.validate()?;
+  213         Ok(result)
+  214     }
+  215 
+  216     pub(crate) fn create_zip64(
+  217         eocd: EndOfCentralDirectoryRecord,
+  218         zip64: Zip64EndOfCentralDirectory,
+  219     ) -> Result<Self, Error> {
+  220         let result = EndOfCentralDirectory {
+  221             eocd_offset: eocd.offset,
+  222             zip64_eocd_offset: NonZeroU64::new(zip64.offset),
+  223             central_dir_size: zip64.central_dir_size,
+  224             central_dir_offset: zip64.central_dir_offset,
+  225             num_entries: zip64.num_entries,
+  226             comment_len: eocd.comment_len,
+  227             base_offset: 0,
+  228         };
+  229 
+  230         result.validate()?;
+  231         Ok(result)
+  232     }
+  233 
+  234     fn validate(&self) -> Result<(), Error> {
+  235         // It doesn't make sense if the start of the central directory is after
+  236         // the end.
+  237         if self.directory_offset() > self.head_eocd_offset() {
+  238             return Err(Error::from(ErrorKind::InvalidEndOfCentralDirectory));
+  239         }
+  240 
+  241         Ok(())
+  242     }
+--- 314-432 ---
+  314 pub(crate) struct EndOfCentralDirectoryRecordFixed {
+  315     pub(crate) signature: u32,
+  316     #[allow(dead_code)]
+  317     pub(crate) disk_number: u16,
+  318     #[allow(dead_code)]
+  319     pub(crate) eocd_disk: u16,
+  320     #[allow(dead_code)]
+  321     pub(crate) num_entries: u16,
+  322     pub(crate) total_entries: u16,
+  323     pub(crate) central_dir_size: u32,
+  324     pub(crate) central_dir_offset: u32,
+  325     pub(crate) comment_len: u16,
+  326 }
+  327 
+  328 impl EndOfCentralDirectoryRecordFixed {
+  329     pub(crate) const SIZE: usize = 22;
+  330     pub fn parse(data: &[u8]) -> Result<EndOfCentralDirectoryRecordFixed, Error> {
+  331         if data.len() < Self::SIZE {
+  332             return Err(Error::from(ErrorKind::Eof));
+  333         }
+  334 
+  335         let result = EndOfCentralDirectoryRecordFixed {
+  336             signature: le_u32(&data[0..4]),
+  337             disk_number: le_u16(&data[4..6]),
+  338             eocd_disk: le_u16(&data[6..8]),
+  339             num_entries: le_u16(&data[8..10]),
+  340             total_entries: le_u16(&data[10..12]),
+  341             central_dir_size: le_u32(&data[12..16]),
+  342             central_dir_offset: le_u32(&data[16..20]),
+  343             comment_len: le_u16(&data[20..22]),
+  344         };
+  345 
+  346         if result.signature != END_OF_CENTRAL_DIR_SIGNATURE {
+  347             return Err(Error::from(ErrorKind::InvalidSignature {
+  348                 expected: END_OF_CENTRAL_DIR_SIGNATURE,
+  349                 actual: result.signature,
+  350             }));
+  351         }
+  352 
+  353         Ok(result)
+  354     }
+  355 }
+  356 
+  357 ///
+  358 ///
+  359 /// 4.3.15
+  360 #[derive(Debug)]
+  361 #[allow(dead_code)]
+  362 struct Zip64EndOfCentralDirectoryLocatorRecord {
+  363     /// zip64 end of central dir locator signature
+  364     pub signature: u32,
+  365 
+  366     /// number of the disk with the start of the zip64 end of central directory
+  367     pub eocd_disk: u32,
+  368 
+  369     /// relative offset of the zip64 end of central directory record
+  370     pub directory_offset: u64,
+  371 
+  372     /// total number of disks
+  373     pub total_disks: u32,
+  374 }
+  375 
+  376 impl Zip64EndOfCentralDirectoryLocatorRecord {
+  377     const SIZE: usize = 20;
+  378 
+  379     pub fn parse(data: &[u8]) -> Result<Zip64EndOfCentralDirectoryLocatorRecord, Error> {
+  380         if data.len() < Self::SIZE {
+  381             return Err(Error::from(ErrorKind::Eof));
+  382         }
+  383 
+  384         let result = Zip64EndOfCentralDirectoryLocatorRecord {
+  385             signature: le_u32(&data[0..4]),
+  386             eocd_disk: le_u32(&data[4..8]),
+  387             directory_offset: le_u64(&data[8..16]),
+  388             total_disks: le_u32(&data[16..20]),
+  389         };
+  390 
+  391         if result.signature != END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE {
+  392             return Err(Error::from(ErrorKind::InvalidSignature {
+  393                 expected: END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE,
+  394                 actual: result.signature,
+  395             }));
+  396         }
+  397 
+  398         Ok(result)
+  399     }
+  400 }
+  401 
+  402 fn parse_zip64_candidate(
+  403     data: &[u8],
+  404     classic: &EndOfCentralDirectoryRecordFixed,
+  405     locator: &Zip64EndOfCentralDirectoryLocatorRecord,
+  406     locator_offset: u64,
+  407 ) -> Option<Zip64EndOfCentralDirectoryRecord> {
+  408     const ZIP64_SIZE_PREFIX: u64 = 12;
+  409     const ZIP64_MIN_SIZE: u64 = Zip64EndOfCentralDirectoryRecord::SIZE as u64 - ZIP64_SIZE_PREFIX;
+  410 
+  411     let zip64 = Zip64EndOfCentralDirectoryRecord::parse(data).ok()?;
+  412 
+  413     if zip64.size < ZIP64_MIN_SIZE {
+  414         return None;
+  415     }
+  416 
+  417     let record_end = locator
+  418         .directory_offset
+  419         .checked_add(ZIP64_SIZE_PREFIX)?
+  420         .checked_add(zip64.size)?;
+  421 
+  422     let consistent = record_end == locator_offset
+  423         && (classic.num_entries == u16::MAX || u64::from(classic.num_entries) == zip64.num_entries)
+  424         && (classic.total_entries == u16::MAX
+  425             || u64::from(classic.total_entries) == zip64.total_entries)
+  426         && (classic.central_dir_size == u32::MAX
+  427             || u64::from(classic.central_dir_size) == zip64.central_dir_size)
+  428         && (classic.central_dir_offset == u32::MAX
+  429             || u64::from(classic.central_dir_offset) == zip64.central_dir_offset);
+  430 
+  431     consistent.then_some(zip64)
+  432 }
+
+=== NATIVE-SOURCE-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/archive.rs ===
+--- 766-863 ---
+  766 pub(crate) struct Zip64EndOfCentralDirectory {
+  767     pub offset: u64,
+  768     pub central_dir_offset: u64,
+  769     pub central_dir_size: u64,
+  770     pub num_entries: u64,
+  771 }
+  772 
+  773 impl Zip64EndOfCentralDirectory {
+  774     #[inline]
+  775     pub fn from_parts(offset: u64, record: Zip64EndOfCentralDirectoryRecord) -> Self {
+  776         Self {
+  777             offset,
+  778             central_dir_offset: record.central_dir_offset,
+  779             central_dir_size: record.central_dir_size,
+  780             num_entries: record.num_entries,
+  781         }
+  782     }
+  783 }
+  784 
+  785 #[derive(Debug, Clone)]
+  786 pub(crate) struct Zip64EndOfCentralDirectoryRecord {
+  787     /// zip64 end of central dir signature
+  788     pub signature: u32,
+  789 
+  790     /// size of zip64 end of central directory record
+  791     #[allow(dead_code)]
+  792     pub size: u64,
+  793 
+  794     /// version made by
+  795     #[allow(dead_code)]
+  796     pub version_made_by: VersionMadeBy,
+  797 
+  798     /// version needed to extract
+  799     #[allow(dead_code)]
+  800     pub version_needed: u16,
+  801 
+  802     /// number of this disk
+  803     #[allow(dead_code)]
+  804     pub disk_number: u32,
+  805 
+  806     /// number of the disk with the start of the central directory
+  807     #[allow(dead_code)]
+  808     pub cd_disk: u32,
+  809 
+  810     /// total number of entries in the central directory on this disk
+  811     pub num_entries: u64,
+  812 
+  813     /// total number of entries in the central directory
+  814     #[allow(dead_code)]
+  815     pub total_entries: u64,
+  816 
+  817     /// size of the central directory
+  818     pub central_dir_size: u64,
+  819 
+  820     /// offset of start of central directory with respect to the starting disk number
+  821     pub central_dir_offset: u64,
+  822     // zip64 extensible data sector
+  823     // pub extensible_data: Vec<u8>,
+  824 }
+  825 
+  826 impl Zip64EndOfCentralDirectoryRecord {
+  827     pub(crate) const SIZE: usize = 56;
+  828 
+  829     #[inline]
+  830     pub fn parse(data: &[u8]) -> Result<Zip64EndOfCentralDirectoryRecord, Error> {
+  831         if data.len() < Self::SIZE {
+  832             return Err(Error::from(ErrorKind::Eof));
+  833         }
+  834 
+  835         let result = Zip64EndOfCentralDirectoryRecord {
+  836             signature: le_u32(&data[0..4]),
+  837             size: le_u64(&data[4..12]),
+  838             version_made_by: VersionMadeBy::from_raw(le_u16(&data[12..14])),
+  839             version_needed: le_u16(&data[14..16]),
+  840             disk_number: le_u32(&data[16..20]),
+  841             cd_disk: le_u32(&data[20..24]),
+  842             num_entries: le_u64(&data[24..32]),
+  843             total_entries: le_u64(&data[32..40]),
+  844             central_dir_size: le_u64(&data[40..48]),
+  845             central_dir_offset: le_u64(&data[48..56]),
+  846         };
+  847 
+  848         if result.signature != END_OF_CENTRAL_DIR_SIGNATURE64 {
+  849             return Err(Error::from(ErrorKind::InvalidSignature {
+  850                 expected: END_OF_CENTRAL_DIR_SIGNATURE64,
+  851                 actual: result.signature,
+  852             }));
+  853         }
+  854 
+  855         Ok(result)
+  856     }
+  857 }
+  858 
+  859 /// The compression method used on an individual Zip archive entry.
+  860 ///
+  861 /// Contains associated consts for compression methods mentioned in the spec (§
+  862 /// 4.4.5).
+  863 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
+--- 1080-1210 ---
+ 1080 #[derive(Debug, Clone)]
+ 1081 #[allow(dead_code)]
+ 1082 pub struct ZipFileHeaderRecord<'a> {
+ 1083     signature: u32,
+ 1084     version_made_by: u16,
+ 1085     version_needed: u16,
+ 1086     flags: EntryFlags,
+ 1087     compression_method: CompressionMethod,
+ 1088     last_mod_time: u16,
+ 1089     last_mod_date: u16,
+ 1090     crc32: u32,
+ 1091     compressed_size: u64,
+ 1092     uncompressed_size: u64,
+ 1093     file_name_len: u16,
+ 1094     extra_field_len: u16,
+ 1095     file_comment_len: u16,
+ 1096     disk_number_start: u32,
+ 1097     internal_file_attrs: u16,
+ 1098     external_file_attrs: u32,
+ 1099     local_header_offset: u64,
+ 1100     central_directory_offset: u64,
+ 1101     file_name: ZipFilePath<RawPath<'a>>,
+ 1102     extra_field: &'a [u8],
+ 1103     file_comment: ZipStr<'a>,
+ 1104     is_zip64: bool,
+ 1105     data_descriptor_uses_zip64_sizes: bool,
+ 1106 }
+ 1107 
+ 1108 impl<'a> ZipFileHeaderRecord<'a> {
+ 1109     #[inline]
+ 1110     fn from_parts(
+ 1111         header: ZipFileHeaderFixed,
+ 1112         file_name: &'a [u8],
+ 1113         extra_field: &'a [u8],
+ 1114         file_comment: &'a [u8],
+ 1115         central_directory_offset: u64,
+ 1116     ) -> Self {
+ 1117         let zip64_sizes =
+ 1118             header.uncompressed_size == u32::MAX || header.compressed_size == u32::MAX;
+ 1119 
+ 1120         // Resolve descriptor size width from the raw inline size sentinels to
+ 1121         // match libziparchive's approach:
+ 1122         //
+ 1123         // https://android.googlesource.com/platform/system/libziparchive/+/refs/tags/android-17.0.0_r1/zip_archive.cc#764
+ 1124         let data_descriptor_uses_zip64_sizes = zip64_sizes;
+ 1125 
+ 1126         let mut result = Self {
+ 1127             signature: header.signature,
+ 1128             version_made_by: header.version_made_by,
+ 1129             version_needed: header.version_needed,
+ 1130             flags: header.flags,
+ 1131             compression_method: header.compression_method,
+ 1132             last_mod_time: header.last_mod_time,
+ 1133             last_mod_date: header.last_mod_date,
+ 1134             crc32: header.crc32,
+ 1135             compressed_size: u64::from(header.compressed_size),
+ 1136             uncompressed_size: u64::from(header.uncompressed_size),
+ 1137             file_name_len: header.file_name_len,
+ 1138             extra_field_len: header.extra_field_len,
+ 1139             file_comment_len: header.file_comment_len,
+ 1140             disk_number_start: u32::from(header.disk_number_start),
+ 1141             internal_file_attrs: header.internal_file_attrs,
+ 1142             external_file_attrs: header.external_file_attrs,
+ 1143             local_header_offset: u64::from(header.local_header_offset),
+ 1144             central_directory_offset,
+ 1145             file_name: ZipFilePath::from_bytes(file_name),
+ 1146             extra_field,
+ 1147             file_comment: ZipStr::new(file_comment),
+ 1148             is_zip64: false,
+ 1149             data_descriptor_uses_zip64_sizes,
+ 1150         };
+ 1151 
+ 1152         if !zip64_sizes
+ 1153             && result.local_header_offset != u64::from(u32::MAX)
+ 1154             && result.disk_number_start != u32::from(u16::MAX)
+ 1155         {
+ 1156             return result;
+ 1157         }
+ 1158 
+ 1159         let extra_fields = ExtraFields::new(extra_field);
+ 1160         for (field_id, field_data) in extra_fields {
+ 1161             if field_id != ExtraFieldId::ZIP64 {
+ 1162                 continue;
+ 1163             }
+ 1164 
+ 1165             let mut field = field_data;
+ 1166 
+ 1167             result.is_zip64 = true;
+ 1168 
+ 1169             if header.uncompressed_size == u32::MAX {
+ 1170                 let Some(uncompressed_size) = field.get(..8).map(le_u64) else {
+ 1171                     break;
+ 1172                 };
+ 1173                 result.uncompressed_size = uncompressed_size;
+ 1174                 field = &field[8..];
+ 1175             }
+ 1176 
+ 1177             if header.compressed_size == u32::MAX {
+ 1178                 let Some(compressed_size) = field.get(..8).map(le_u64) else {
+ 1179                     break;
+ 1180                 };
+ 1181                 result.compressed_size = compressed_size;
+ 1182                 field = &field[8..];
+ 1183             }
+ 1184 
+ 1185             if header.local_header_offset == u32::MAX {
+ 1186                 let Some(local_header_offset) = field.get(..8).map(le_u64) else {
+ 1187                     break;
+ 1188                 };
+ 1189                 result.local_header_offset = local_header_offset;
+ 1190                 field = &field[8..];
+ 1191             }
+ 1192 
+ 1193             if header.disk_number_start == u16::MAX {
+ 1194                 let Some(disk_number_start) = field.get(..4).map(le_u32) else {
+ 1195                     break;
+ 1196                 };
+ 1197                 result.disk_number_start = disk_number_start;
+ 1198             }
+ 1199 
+ 1200             break;
+ 1201         }
+ 1202 
+ 1203         result
+ 1204     }
+ 1205 
+ 1206     /// Describes if the file is a directory.
+ 1207     ///
+ 1208     /// See [`ZipFilePath::is_dir`] for more information.
+ 1209     #[inline]
+ 1210     pub fn is_dir(&self) -> bool {
+
+=== NATIVE-SOURCE-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/extra_fields.rs ===
+--- 1-180 ---
+    1 use crate::utils::le_u16;
+    2 #[cfg(feature = "std")]
+    3 use crate::{Error, ErrorKind, Header};
+    4 #[cfg(feature = "std")]
+    5 use std::io::Write;
+    6 
+    7 /// A numeric identifier for an extra field in a Zip archive.
+    8 ///
+    9 /// Constants defined here correspond to the IDs defined in the Zip specification.
+   10 ///
+   11 /// See sections 4.5 and 4.6 of the Zip spec.
+   12 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+   13 pub struct ExtraFieldId(u16);
+   14 
+   15 impl ExtraFieldId {
+   16     pub const ZIP64: Self = Self(0x0001);
+   17     pub const AV_INFO: Self = Self(0x0007);
+   18     pub const EXTENDED_LANGUAGE_ENCODING: Self = Self(0x0008);
+   19     pub const OS2: Self = Self(0x0009);
+   20     pub const NTFS: Self = Self(0x000a);
+   21     pub const OPENVMS: Self = Self(0x000c);
+   22     pub const UNIX: Self = Self(0x000d);
+   23     pub const FILE_STREAM_AND_FORK_DESCRIPTORS: Self = Self(0x000e);
+   24     pub const PATCH_DESCRIPTOR: Self = Self(0x000f);
+   25     pub const PKCS7_STORE: Self = Self(0x0014);
+   26     pub const X509_CERT_ID_AND_SIG: Self = Self(0x0015);
+   27     pub const X509_CERT_ID_CENTRAL_DIR: Self = Self(0x0016);
+   28     pub const STRONG_ENCRYPTION_HEADER: Self = Self(0x0017);
+   29     pub const RECORD_MANAGEMENT_CONTROLS: Self = Self(0x0018);
+   30     pub const PKCS7_ENCRYPTION_RECIPIENT_CERT_LIST: Self = Self(0x0019);
+   31     pub const TIMESTAMP_RECORD: Self = Self(0x0020);
+   32     pub const POLICY_DECRYPTION_KEY_RECORD: Self = Self(0x0021);
+   33     pub const SMARTCRYPT_KEY_PROVIDER: Self = Self(0x0022);
+   34     pub const SMARTCRYPT_POLICY_KEY_DATA: Self = Self(0x0023);
+   35     pub const IBM_S390_AS400_UNCOMPRESSED: Self = Self(0x0065);
+   36     pub const IBM_S390_AS400_COMPRESSED: Self = Self(0x0066);
+   37     pub const POSZIP_4690: Self = Self(0x4690);
+   38     pub const EXTENDED_TIMESTAMP: Self = Self(0x5455);
+   39     pub const INFO_ZIP_UNIX_ORIGINAL: Self = Self(0x5855);
+   40     pub const INFO_ZIP_UNIX: Self = Self(0x7855);
+   41     pub const INFO_ZIP_UNIX_UID_GID: Self = Self(0x7875);
+   42     pub const AES: Self = Self(0x9901);
+   43     pub const JAVA_JAR: Self = Self(0xCAFE);
+   44     pub const ANDROID_ZIP_ALIGNMENT: Self = Self(0xD935);
+   45     pub const MACINTOSH: Self = Self(0x07c8);
+   46     pub const ACORN_SPARKFS: Self = Self(0x4341);
+   47     pub const WINDOWS_NT_SECURITY_DESCRIPTOR: Self = Self(0x4653);
+   48     pub const AOS_VS_ACL: Self = Self(0x5356);
+   49     pub const INFO_ZIP_UNICODE_COMMENT: Self = Self(0x6375);
+   50     pub const INFO_ZIP_UNICODE_PATH: Self = Self(0x7075);
+   51     pub const DATA_STREAM_ALIGNMENT: Self = Self(0xa11e);
+   52     pub const MICROSOFT_OPEN_PACKAGING_GROWTH_HINT: Self = Self(0xa220);
+   53 
+   54     /// Returns the raw `u16` value of the extra field ID.
+   55     #[inline]
+   56     pub const fn new(id: u16) -> Self {
+   57         Self(id)
+   58     }
+   59 
+   60     /// Returns the raw `u16` value of the extra field ID.
+   61     #[inline]
+   62     pub const fn as_u16(self) -> u16 {
+   63         self.0
+   64     }
+   65 }
+   66 
+   67 /// An iterator over extra field entries in a Zip archive.
+   68 ///
+   69 /// This follows zip spec section 4.5 defines extensible data fields:
+   70 ///
+   71 /// - Header ID - 2 bytes
+   72 /// - Data Size - 2 bytes
+   73 /// - Data - variable length
+   74 ///
+   75 /// If the iterator encounters malformed or truncated data, it will stop
+   76 /// yielding entries. You can check [`ExtraFields::remaining_bytes()`] after
+   77 /// iteration to detect if any data was left unparsed.
+   78 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+   79 pub struct ExtraFields<'a> {
+   80     data: &'a [u8],
+   81 }
+   82 
+   83 impl<'a> ExtraFields<'a> {
+   84     /// Creates a new iterator over the extra fields in the provided data slice.
+   85     #[inline]
+   86     pub fn new(data: &'a [u8]) -> Self {
+   87         Self { data }
+   88     }
+   89 
+   90     /// Returns the remaining unparsed bytes in the extra field data.
+   91     #[inline]
+   92     pub fn remaining_bytes(&self) -> &'a [u8] {
+   93         self.data
+   94     }
+   95 
+   96     #[inline]
+   97     fn next_data(&mut self) -> Option<&'a [u8]> {
+   98         let scratch = self.data;
+   99         if scratch.len() < 4 {
+  100             return None;
+  101         }
+  102 
+  103         let size = le_u16(&scratch[2..4]) as usize;
+  104         let total_field_len = size + 4;
+  105         if scratch.len() < total_field_len {
+  106             return None;
+  107         }
+  108 
+  109         let (body, rest) = scratch.split_at(total_field_len);
+  110 
+  111         // Only advance once we have the entire entry
+  112         self.data = rest;
+  113         Some(body)
+  114     }
+  115 }
+  116 
+  117 impl<'a> Iterator for ExtraFields<'a> {
+  118     type Item = (ExtraFieldId, &'a [u8]);
+  119 
+  120     #[inline]
+  121     fn next(&mut self) -> Option<Self::Item> {
+  122         let next_chunk = self.next_data()?;
+  123         let kind = le_u16(&next_chunk[0..2]);
+  124         let body = &next_chunk[4..];
+  125         Some((ExtraFieldId(kind), body))
+  126     }
+  127 }
+  128 
+  129 /// Container for extra fields with a shared data buffer and cached sizes.
+  130 #[cfg(feature = "std")]
+  131 #[derive(Debug, Clone)]
+  132 pub(crate) struct ExtraFieldsContainer {
+  133     entries: StackVec<Header, 5>,
+  134     data_buffer: StackVec<u8, 15>,
+  135     pub(crate) local_size: u16,
+  136     pub(crate) central_size: u16,
+  137 }
+  138 
+  139 #[cfg(feature = "std")]
+  140 impl ExtraFieldsContainer {
+  141     pub fn new() -> Self {
+  142         Self {
+  143             entries: StackVec::new(Header::new(0)),
+  144             data_buffer: StackVec::new(0u8),
+  145             local_size: 0,
+  146             central_size: 0,
+  147         }
+  148     }
+  149 
+  150     pub fn add_field(
+  151         &mut self,
+  152         id: ExtraFieldId,
+  153         data: &[u8],
+  154         location: Header,
+  155     ) -> Result<(), Error> {
+  156         let size_delta = 4 + data.len();
+  157         let mut current_size = 0;
+  158         if location.includes_local() {
+  159             current_size = self.local_size;
+  160         }
+  161         if location.includes_central() {
+  162             current_size = std::cmp::max(self.central_size, current_size);
+  163         }
+  164 
+  165         if size_delta + (current_size as usize) > u16::MAX as usize {
+  166             return Err(Error::from(ErrorKind::InvalidInput {
+  167                 msg: "extra field data too large".to_string(),
+  168             }));
+  169         }
+  170 
+  171         let mut buffer = [0u8; 4];
+  172         buffer[0..2].copy_from_slice(&id.as_u16().to_le_bytes());
+  173         buffer[2..4].copy_from_slice(&(data.len() as u16).to_le_bytes());
+  174         self.data_buffer.extend_from_slice(&buffer);
+  175         self.data_buffer.extend_from_slice(data);
+  176         if location.includes_local() {
+  177             self.local_size += size_delta as u16;
+  178         }
+  179         if location.includes_central() {
+  180             self.central_size += size_delta as u16;
+
+=== NATIVE-SUPPORT-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/archive.rs ===
+--- 75-112 ---
+   75 pub struct ZipSliceArchive<T> {
+   76     data: T,
+   77     eocd: EndOfCentralDirectory,
+   78 }
+   79 
+   80 impl<T: AsRef<[u8]>> ZipSliceArchive<T> {
+   81     pub(crate) fn new(data: T, eocd: EndOfCentralDirectory) -> Self {
+   82         ZipSliceArchive { data, eocd }
+   83     }
+   84 
+   85     /// Returns an iterator over the entries in the central directory of the archive.
+   86     pub fn entries(&self) -> ZipSliceEntries<'_> {
+   87         let data = self.data.as_ref();
+   88         let directory_start = self.eocd.directory_offset();
+   89         let entry_data = &data[(directory_start as usize)..self.eocd.head_eocd_offset() as usize];
+   90         ZipSliceEntries {
+   91             entry_data,
+   92             base_offset: self.eocd.base_offset(),
+   93             current_offset: directory_start,
+   94         }
+   95     }
+   96 
+   97     /// Returns a reference to the underlying data.
+   98     pub fn get_ref(&self) -> &T {
+   99         &self.data
+  100     }
+  101 
+  102     /// Consumes this archive and returns the underlying data.
+  103     pub fn into_inner(self) -> T {
+  104         self.data
+  105     }
+  106 
+  107     /// Returns a hint for the total number of entries in the archive.
+  108     ///
+  109     /// This value is read from the End of Central Directory record.
+  110     pub fn entries_hint(&self) -> u64 {
+  111         self.eocd.entries()
+  112     }
+
+=== NATIVE-SUPPORT-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/locator.rs ===
+--- 250-282 ---
+  250         self.base_offset
+  251     }
+  252 
+  253     /// The first end of the central directory signature offsets.
+  254     ///
+  255     /// This is offset where no new central directory records are expected.
+  256     ///
+  257     /// Will be equivalent to [`Self::tail_eocd_offset`] eocd for non-zip64 files
+  258     #[inline]
+  259     pub(crate) fn head_eocd_offset(&self) -> u64 {
+  260         self.zip64_eocd_offset
+  261             .map(core::num::NonZero::get)
+  262             .unwrap_or(self.eocd_offset)
+  263     }
+  264 
+  265     /// The last end of the central directory signature offsets.
+  266     ///
+  267     /// This will always be the byte offset of 0x06054b50
+  268     #[inline]
+  269     pub(crate) fn tail_eocd_offset(&self) -> u64 {
+  270         self.eocd_offset
+  271     }
+  272 
+  273     /// offset of the start of the central directory
+  274     #[inline]
+  275     pub(crate) fn directory_offset(&self) -> u64 {
+  276         self.central_dir_offset
+  277     }
+  278 
+  279     #[inline]
+  280     pub(crate) fn entries(&self) -> u64 {
+  281         self.num_entries
+  282     }
+
+=== COUNT-SOURCE-REGISTRATION.json 95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-numpy-storage/src/zip/member_count.rs ===
+--- 1-27 ---
+    1 //! Application count bound and capped native directory reservation.
+    2 
+    3 use std::ops::Range;
+    4 
+    5 use derive_more::From;
+    6 
+    7 /// The count selected by rawzip, retained without native-width narrowing.
+    8 #[derive(Debug, Clone, Copy, From, PartialEq, Eq)]
+    9 #[from(u16, u64)]
+   10 pub(super) struct ArchiveMemberCount(u64);
+   11 
+   12 impl ArchiveMemberCount {
+   13     // The inherited allocation cap is not a directory cardinality limit.
+   14     const INITIAL_CAPACITY_LIMIT: Self = Self(4096);
+   15 
+   16     /// Projects only the capped count into native `Vec` allocation capacity.
+   17     pub(super) fn initial_capacity(self) -> usize {
+   18         self.0.min(Self::INITIAL_CAPACITY_LIMIT.0) as usize
+   19     }
+   20 
+   21     /// Projects into the original native u64 range; callers ignore its ordinal.
+   22     ///
+   23     /// The count is never narrowed to usize for directory iteration.
+   24     pub(super) fn native_iteration_range(self) -> Range<u64> {
+   25         0..self.0
+   26     }
+   27 }
+
+=== NATIVE-EDGE-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/archive.rs ===
+--- 150-215 ---
+  150     pub fn comment(&self) -> ZipStr<'_> {
+  151         let data = self.data.as_ref();
+  152         let comment_start =
+  153             self.eocd.tail_eocd_offset() as usize + EndOfCentralDirectoryRecordFixed::SIZE;
+  154         let comment_len = self.eocd.comment_len();
+  155         ZipStr::new(&data[comment_start..comment_start + comment_len])
+  156     }
+  157 
+  158     /// Converts the [`ZipSliceArchive`] into a general [`ZipArchive`] by
+  159     /// wrapping the data in a [`std::io::Cursor`].
+  160     ///
+  161     /// This is useful for unifying code that might handle both slice-based and
+  162     /// reader-based archives. The data is wrapped in a [`std::io::Cursor`] to
+  163     /// provide the [`ReaderAt`] implementation needed for [`ZipArchive`].
+  164     ///
+  165     /// This is only needed for `AsRef<[u8]>` types that do not themselves
+  166     /// implement [`ReaderAt`], such as a memory-mapped file (`memmap2::Mmap`).
+  167     /// Otherwise prefer the zero-cost [`ZipSliceArchive::into_reader_archive`].
+  168     #[cfg(feature = "std")]
+  169     pub fn into_cursor_archive(self) -> ZipArchive<std::io::Cursor<T>> {
+  170         ZipArchive {
+  171             reader: std::io::Cursor::new(self.data),
+  172             eocd: self.eocd,
+  173         }
+  174     }
+  175 
+  176     /// Seeks to the given file entry in the zip archive.
+  177     ///
+  178     /// The slice API eagerly validates that the entire compressed data is
+  179     /// present before returning a [`ZipSliceEntry`].
+  180     pub fn get_entry(&self, entry: ZipArchiveEntryWayfinder) -> Result<ZipSliceEntry<'_>, Error> {
+  181         let data = self.data.as_ref();
+  182         let header = &data[entry.local_header_offset.min(data.len() as u64) as usize..];
+  183         let file_header = ZipLocalFileHeaderFixed::parse(header)?;
+  184         let variable_length = file_header.variable_length();
+  185 
+  186         let header_size = (ZipLocalFileHeaderFixed::SIZE + variable_length) as u32;
+  187         let (total_size, o1) =
+  188             (u64::from(header_size)).overflowing_add(entry.compressed_size_hint());
+  189 
+  190         if o1 || (header.len() as u64) < total_size {
+  191             return Err(Error::from(ErrorKind::Eof));
+  192         }
+  193 
+  194         let (entire_entry, descriptor) = header.split_at(total_size as usize);
+  195 
+  196         Ok(ZipSliceEntry {
+  197             data: entire_entry,
+  198             verifier: ZipVerification {
+  199                 crc: entry.crc,
+  200                 uncompressed_size: entry.uncompressed_size_hint(),
+  201             },
+  202             local_header_offset: entry.local_header_offset,
+  203             data_start_offset: header_size,
+  204             has_data_descriptor: entry.has_data_descriptor,
+  205             data_descriptor_uses_zip64_sizes: entry.data_descriptor_uses_zip64_sizes,
+  206             descriptor,
+  207         })
+  208     }
+  209 }
+  210 
+  211 /// Represents a single entry (file or directory) within a `ZipSliceArchive`.
+  212 ///
+  213 /// It provides access to the raw compressed data of the entry.
+  214 #[derive(Debug, Clone)]
+  215 pub struct ZipSliceEntry<'a> {
+--- 1220-1270 ---
+ 1220     }
+ 1221 
+ 1222     /// Describes where the file's data is located within the archive.
+ 1223     #[inline]
+ 1224     pub fn wayfinder(&self) -> ZipArchiveEntryWayfinder {
+ 1225         ZipArchiveEntryWayfinder {
+ 1226             uncompressed_size: self.uncompressed_size,
+ 1227             compressed_size: self.compressed_size,
+ 1228             local_header_offset: self.local_header_offset,
+ 1229             has_data_descriptor: self.flags().has_data_descriptor(),
+ 1230             crc: self.crc32,
+ 1231             data_descriptor_uses_zip64_sizes: self.data_descriptor_uses_zip64_sizes,
+ 1232         }
+ 1233     }
+ 1234 
+ 1235     /// The purported number of bytes of the uncompressed data.
+ 1236     ///
+ 1237     /// **WARNING**: this number has not yet been validated, so don't trust it
+ 1238     /// to make allocation decisions.
+ 1239     #[inline]
+ 1240     pub fn uncompressed_size_hint(&self) -> u64 {
+ 1241         self.uncompressed_size
+ 1242     }
+ 1243 
+ 1244     /// The purported number of bytes of the compressed data.
+ 1245     ///
+ 1246     /// **WARNING**: this number has not yet been validated, so don't trust it
+ 1247     /// to make allocation decisions.
+ 1248     #[inline]
+ 1249     pub fn compressed_size_hint(&self) -> u64 {
+ 1250         self.compressed_size
+ 1251     }
+ 1252 
+ 1253     /// The declared offset to the local file header within the Zip archive.
+ 1254     ///
+ 1255     /// To verify the validity of this offset, call
+ 1256     /// [`ZipSliceArchive::get_entry`].
+ 1257     ///
+ 1258     /// The minimum of all local header offsets (or `directory_offset()` when a
+ 1259     /// zip is empty), will be the length of prelude data in a zip archive (data
+ 1260     /// that is unrelated to the zip archive).
+ 1261     ///
+ 1262     #[inline]
+ 1263     pub fn local_header_offset(&self) -> u64 {
+ 1264         self.local_header_offset
+ 1265     }
+ 1266 
+ 1267     /// The compression method used to compress the data
+ 1268     #[inline]
+ 1269     pub fn compression_method(&self) -> CompressionMethod {
+ 1270         self.compression_method
+--- 1500-1535 ---
+ 1500     pub fn parse(data: &[u8]) -> Result<ZipLocalFileHeaderFixed, Error> {
+ 1501         if data.len() < Self::SIZE {
+ 1502             return Err(Error::from(ErrorKind::Eof));
+ 1503         }
+ 1504 
+ 1505         let result = ZipLocalFileHeaderFixed {
+ 1506             signature: le_u32(&data[0..4]),
+ 1507             version_needed: le_u16(&data[4..6]),
+ 1508             flags: EntryFlags::new(le_u16(&data[6..8])),
+ 1509             compression_method: CompressionMethod::new(le_u16(&data[8..10])),
+ 1510             last_mod_time: le_u16(&data[10..12]),
+ 1511             last_mod_date: le_u16(&data[12..14]),
+ 1512             crc32: le_u32(&data[14..18]),
+ 1513             compressed_size: le_u32(&data[18..22]),
+ 1514             uncompressed_size: le_u32(&data[22..26]),
+ 1515             file_name_len: le_u16(&data[26..28]),
+ 1516             extra_field_len: le_u16(&data[28..30]),
+ 1517         };
+ 1518 
+ 1519         if result.signature != Self::SIGNATURE {
+ 1520             return Err(Error::from(ErrorKind::InvalidSignature {
+ 1521                 expected: Self::SIGNATURE,
+ 1522                 actual: result.signature,
+ 1523             }));
+ 1524         }
+ 1525 
+ 1526         Ok(result)
+ 1527     }
+ 1528 
+ 1529     pub fn variable_length(&self) -> usize {
+ 1530         self.file_name_len as usize + self.extra_field_len as usize
+ 1531     }
+ 1532 
+ 1533     #[cfg(feature = "std")]
+ 1534     pub fn write<W>(&self, mut writer: W) -> Result<(), Error>
+ 1535     where
+
+=== CLASSIC-COUNT-REGISTRATION.json crates.io rawzip 0.5.2, lock-identified:rawzip-0.5.2/src/locator.rs ===
+--- 290-313 ---
+  290 /// A non-zip64 end of central directory
+  291 #[derive(Debug, Clone)]
+  292 pub(crate) struct EndOfCentralDirectoryRecord {
+  293     pub(crate) offset: u64,
+  294     pub(crate) central_dir_size: u32,
+  295     pub(crate) central_dir_offset: u32,
+  296     pub(crate) num_entries: u16,
+  297     pub(crate) comment_len: u16,
+  298 }
+  299 
+  300 impl EndOfCentralDirectoryRecord {
+  301     #[inline]
+  302     pub fn from_parts(offset: u64, eocd: &EndOfCentralDirectoryRecordFixed) -> Self {
+  303         Self {
+  304             offset,
+  305             central_dir_size: eocd.central_dir_size,
+  306             central_dir_offset: eocd.central_dir_offset,
+  307             num_entries: eocd.total_entries,
+  308             comment_len: eocd.comment_len,
+  309         }
+  310     }
+  311 }
+  312 
+  313 #[derive(Debug, Clone)]

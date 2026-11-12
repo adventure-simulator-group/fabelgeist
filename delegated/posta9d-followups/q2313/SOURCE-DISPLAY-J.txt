@@ -1,0 +1,22 @@
+SOURCE rawzip-0.5.2/src/archive.rs:75-95
+  75 pub struct ZipSliceArchive<T> {
+  76     data: T,
+  77     eocd: EndOfCentralDirectory,
+  78 }
+  79 
+  80 impl<T: AsRef<[u8]>> ZipSliceArchive<T> {
+  81     pub(crate) fn new(data: T, eocd: EndOfCentralDirectory) -> Self {
+  82         ZipSliceArchive { data, eocd }
+  83     }
+  84 
+  85     /// Returns an iterator over the entries in the central directory of the archive.
+  86     pub fn entries(&self) -> ZipSliceEntries<'_> {
+  87         let data = self.data.as_ref();
+  88         let directory_start = self.eocd.directory_offset();
+  89         let entry_data = &data[(directory_start as usize)..self.eocd.head_eocd_offset() as usize];
+  90         ZipSliceEntries {
+  91             entry_data,
+  92             base_offset: self.eocd.base_offset(),
+  93             current_offset: directory_start,
+  94         }
+  95     }

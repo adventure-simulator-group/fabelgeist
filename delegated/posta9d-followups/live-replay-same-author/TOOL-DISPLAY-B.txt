@@ -1,0 +1,71 @@
+### main-advance.py:130-158
+130:         raise ValueError('frozen predecessor mismatch: ' + label)
+131:     snapshots[label] = json.loads(raw)
+132: predecessor = snapshots['predecessor-baseline']
+133: old_progress = snapshots['predecessor-progress']
+134: old_roles = snapshots['predecessor-role-worklist']
+135: if any(doc['source_revision'] != old for doc in (predecessor, old_progress, old_roles)):
+136:     raise ValueError('frozen revision mismatch')
+137: for item in predecessor['source_delta']:
+138:     path = item['path']
+139:     if trees['previous'].get(path) != trees['current'].get(path):
+140:         raise ValueError('predecessor delta also changed: ' + path)
+141: if (baseline['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+142:         progress['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+143:         baseline['predecessor_ledger']['entries'] != len(predecessor['repair_ledger']['entries']) or
+144:         progress['predecessor_ledger_entries'] != len(predecessor['repair_ledger']['entries'])):
+145:     raise ValueError('predecessor obligation count mismatch')
+146: if (len(baseline['lens_names']) != 13 or baseline['lens_status'] != ['incomplete'] * 13 or
+147:         progress['lenses_complete'] != 0 or progress['new_transition_lens_cells_assessed'] != 0):
+148:     raise ValueError('unsupported completion credit')
+149: additional = baseline['additional_source_delta']
+150: if (len(additional) != 1 or additional[0]['path'] != changes[0]['path'] or
+151:         not additional[0]['lens_status'][0].startswith('partial bounded') or
+152:         additional[0]['lens_status'][1:] != ['unassessed'] * 12 or
+153:         progress['new_transition_lens_cells_partial'] != 1):
+154:     raise ValueError('new transition coverage is not correctly qualified')
+155: if (baseline['historical_queue_records_indexed'] != old_progress['historical_queue_records_indexed'] or
+156:         baseline['historical_queue_records_semantically_reconciled'] != old_progress['current_queue_records_semantically_reconciled']):
+157:     raise ValueError('historical queue count mismatch')
+158: print('verified main commit ancestry, both trees and lock blobs, frozen predecessor, and open coverage')
+### privacy-proposal.py:1-40
+1: #!/usr/bin/env python3
+2: """Verify the unapplied evidence reconstruction proposal, not legacy adapters."""
+3: import argparse
+4: import hashlib
+5: import json
+6: import subprocess
+7: import sys
+8: import tarfile
+9: from pathlib import Path, PurePosixPath
+10: 
+11: root = Path(__file__).resolve().parent
+12: q = json.loads((root / "PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json").read_bytes())
+13: stage = root / q["proposal"]
+14: archive = root / q["proposal_archive"]
+15: sha = lambda data: hashlib.sha256(data).hexdigest()
+16: assert sha((stage / "MANIFEST.json").read_bytes()) == q["proposal_manifest_sha256"]
+17: assert sha(archive.read_bytes()) == q["proposal_archive_sha256"]
+18: files = {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()}
+19: with tarfile.open(archive, "r:gz") as tar:
+20:     members = tar.getmembers()
+21:     assert len(members) == len(files) == 21 and {m.name for m in members} == files
+22:     for member in members:
+23:         path = PurePosixPath(member.name)
+24:         assert member.isfile() and not path.is_absolute() and ".." not in path.parts
+25:         assert tar.extractfile(member).read() == (stage / path).read_bytes()
+26: safety = root / "delegated/path-digest-correction-proposal-safety"
+27: assert sha((safety / "MANIFEST.json").read_bytes()) == q["safety_receipt_manifest_sha256"]
+28: subprocess.run([sys.executable, "-B", str(stage / "verify-reconstruction-only.py")], cwd=root, check=True)
+29: subprocess.run([sys.executable, "-B", str(safety / "verify-safety-receipts.py")], cwd=root, check=True)
+30: parser = argparse.ArgumentParser()
+31: parser.add_argument("--private-root", type=Path)
+32: args = parser.parse_args()
+33: if args.private_root:
+34:     private = args.private_root / "path-digest-correction-proposal"
+35:     assert sha((private / "PRIVATE-ORIGINAL-MANIFEST.json").read_bytes()) == q["restricted_original_manifest_sha256"]
+36:     assert sha((private / "PRIVATE-SUPPLEMENTAL-MANIFEST.json").read_bytes()) == q["restricted_supplemental_manifest_sha256"]
+37:     print("Selected private manifest identities checked, without repeating private substitution replay.")
+38: else:
+39:     print("Private inputs were not supplied and were not checked.")
+40: print("The proposal is unapplied; legacy verifier adaptations and old public history remain separate.")

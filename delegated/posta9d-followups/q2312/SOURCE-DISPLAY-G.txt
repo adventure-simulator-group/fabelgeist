@@ -1,0 +1,29 @@
+SOURCE rawzip-0.5.2/src/archive.rs:113-140
+ 113 
+ 114     /// Returns the offset of the End of Central Directory (EOCD) signature.
+ 115     ///
+ 116     /// This is the byte position where the EOCD signature (`0x06054b50`) was
+ 117     /// found. It is useful for recovery scenarios when dealing with false EOCD
+ 118     /// signatures or when restarting archive searches from a known position.
+ 119     pub fn eocd_offset(&self) -> u64 {
+ 120         self.eocd.tail_eocd_offset()
+ 121     }
+ 122 
+ 123     /// The declared offset of the start of the central directory.
+ 124     ///
+ 125     /// To verify the validity of this offset, start iterating through the
+ 126     /// central directory via [`ZipSliceArchive::entries`]. Ensure no errors are
+ 127     /// returned on the first entry.
+ 128     ///
+ 129     /// This value is useful when calculating the amount of prelude data in the
+ 130     /// input, as it serves as the upper bound until each file's
+ 131     /// [`ZipFileHeaderRecord::local_header_offset`] can be examined.
+ 132     pub fn directory_offset(&self) -> u64 {
+ 133         self.eocd.directory_offset()
+ 134     }
+ 135 
+ 136     /// Returns the offset where the ZIP archive ends.
+ 137     ///
+ 138     /// This returns the position immediately after the last byte of the ZIP
+ 139     /// archive, including the End of Central Directory record and any comment.
+ 140     /// This is useful for extracting trailing data.

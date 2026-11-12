@@ -1,0 +1,36 @@
+     1	verify_recovered_public_redacted_plus2.py:7131: native_bundle = l13_719_dir / "bevy-eidolon-native.bundle"
+     2	verify_recovered_public_redacted_plus2.py:7132: if hashlib.sha256(native_bundle.read_bytes()).hexdigest() != l13_719["native_git_bundle_sha256"]:
+     3	verify_recovered_public_redacted_plus2.py:7133:     raise ValueError("Lens 13 root 719 native Git bundle mismatch")
+     4	verify_recovered_public_redacted_plus2.py:7134: native_commit = "1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+     5	verify_recovered_public_redacted_plus2.py:7135: if l13_719["native_git_commit"] != native_commit or l13_719["native_git_source_originals"] != list(range(2790, 2798)):
+     6	verify_recovered_public_redacted_plus2.py:7136:     raise ValueError("Lens 13 root 719 native Git revision mismatch")
+     7	verify_recovered_public_redacted_plus2.py:7137: lock = tomllib.loads((l13_719_dir / l13_719["frozen_lock_sha256"]).read_text(encoding="utf-8"))
+     8	verify_recovered_public_redacted_plus2.py:7138: native_package = next(x for x in lock["package"] if x["name"] == "bevy_eidolon" and x["version"] == "0.5.0")
+     9	verify_recovered_public_redacted_plus2.py:7139: if not native_package["source"].endswith("#" + native_commit):
+    10	verify_recovered_public_redacted_plus2.py:7140:     raise ValueError("Lens 13 root 719 native Git lock pin mismatch")
+    11	verify_recovered_public_redacted_plus2.py:7141: with tempfile.TemporaryDirectory(prefix=".726-native-git-", dir=root) as directory:
+    12	verify_recovered_public_redacted_plus2.py:7142:     git_dir = Path(directory) / "source.git"
+    13	verify_recovered_public_redacted_plus2.py:7143:     subprocess.run(["git", "clone", "--quiet", "--bare", str(native_bundle), str(git_dir)], check=True)
+    14	verify_recovered_public_redacted_plus2.py:7144:     if subprocess.check_output(["git", "--git-dir", str(git_dir), "rev-parse", "refs/heads/master"], text=True).strip() != native_commit:
+    15	verify_recovered_public_redacted_plus2.py:7145:         raise ValueError("Lens 13 root 719 native Git bundle ref mismatch")
+    16	verify_recovered_public_redacted_plus2.py:7146:     for source in l13_719_reg["sources"]:
+    17	verify_recovered_public_redacted_plus2.py:7147:         if source["original"] in range(2790, 2798):
+    18	verify_recovered_public_redacted_plus2.py:7148:             path = source["source_id"].split("/", 1)[1]
+    19	verify_recovered_public_redacted_plus2.py:7149:             data = subprocess.check_output(["git", "--git-dir", str(git_dir), "show", native_commit + ":" + path])
+    20	verify_recovered_public_redacted_plus2.py:7150:             if data != (l13_719_dir / source["sha256"]).read_bytes():
+    21	verify_recovered_public_redacted_plus2.py:7151:                 raise ValueError("Lens 13 root 719 native Git object mismatch")
+    22	verify_p17_patch_recovery.py:0025:   if (x and x[0]=='40000') or (y and y[0]=='40000'):
+    23	verify_p17_patch_recovery.py:0026:    assert not x or x[0]=='40000';assert not y or y[0]=='40000';walk(x[1] if x else None,y[1] if y else None,p+'/')
+    24	verify_p17_patch_recovery.py:0027:   else:
+    25	verify_p17_patch_recovery.py:0028:    for q in (x,y):
+    26	verify_p17_patch_recovery.py:0029:     if q:assert q[0]=='100644' and objects[q[1]][0]=='blob'
+    27	verify_p17_patch_recovery.py:0030:    leaves.append({'path':p,'base':{'mode':x[0],'blob':x[1]} if x else None,'head':{'mode':y[0],'blob':y[1]} if y else None})
+    28	verify_p17_patch_recovery.py:0031: walk(d['base_tree'],d['head_tree'],'');assert leaves==d['changed_paths'] and len(leaves)==32
+    29	verify_p17_patch_recovery.py:0032: with tempfile.TemporaryDirectory(prefix='726-p17-proof-') as tmp:
+    30	verify_p17_patch_recovery.py:0033:  subprocess.run(['git','init','--bare','--quiet',tmp],check=True)
+    31	verify_p17_patch_recovery.py:0034:  for h,(k,b) in sorted(objects.items(),key=lambda pair: {'blob':0,'tree':1,'commit':2}[pair[1][0]]):
+    32	verify_p17_patch_recovery.py:0035:   p=subprocess.run(['git','--git-dir',tmp,'hash-object','-w','-t',k,'--stdin'],input=b,stdout=subprocess.PIPE,check=True);assert p.stdout.decode().strip()==h
+    33	verify_p17_patch_recovery.py:0036:  out=subprocess.check_output(['git','--git-dir',tmp,'-c','core.quotePath=true','diff','--binary','--abbrev=9',d['base'],d['head']])
+    34	verify_p17_patch_recovery.py:0037: registry=json.loads(gzip.decompress((R/record['registry']).read_bytes()));snapshot=next(x for x in registry['snapshots'] if x['id']=='report-p17');assert snapshot['base']==d['base']==record['recorded_base'] and snapshot['head']==d['head']==record['recorded_head'] and snapshot['status_porcelain']==record['recorded_status_porcelain']==[] and snapshot['changed_variants']==record['recorded_changed_variants']==len(leaves) and snapshot['meaning']==record['recorded_meaning']
+    35	verify_p17_patch_recovery.py:0038: patch=(O/'tracked.patch').read_bytes();assert snapshot['patch_sha256']==record['recovered_patch']['sha256'] and len(patch)==record['recovered_patch']['bytes'];assert out==patch and len(patch)==268281 and sha(patch)=='3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd'
+    36	verify_p17_patch_recovery.py:0039: print('Verified 85 Git objects, complete 32-path tree delta and exact P17 patch reproduction in a temporary object-only repository; original invocation and current cleanliness remain unknown.')

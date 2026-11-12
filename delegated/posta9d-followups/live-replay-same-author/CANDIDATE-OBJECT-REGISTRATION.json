@@ -1,0 +1,14 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T15:27:40.608396+00:00",
+  "checkout_names": [
+    "publication",
+    "remote-restore"
+  ],
+  "candidate": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "operations": [
+    "git cat-file -e candidate^{commit}",
+    "git cat-file -e candidate^{tree}"
+  ],
+  "qualification": "Point-in-time local object presence only; not full tree/blob closure, recoverability, ancestry proof or standalone custody. Git lazy fetch disabled."
+}

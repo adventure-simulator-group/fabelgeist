@@ -1,0 +1,15 @@
+{
+  "reader": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T14:53:59.312451+00:00",
+  "events": [
+    {
+      "kind": "failed metadata-only identity comparison",
+      "description": "The initial Git comparison used a relative publication path while the command working directory was /tmp. Git failed before reading a source body; the returned exception output was tool-truncated and its full text was not retained. No source or historical body credit is claimed. The comparison is being repeated with an absolute repository location."
+    },
+    {
+      "kind": "over-EOF source display",
+      "description": "SOURCE-EXTENSION2 registered state.rs 430-485 although actual EOF is 479; SOURCE-DISPLAY-M retains the overlong header and actual 430-479 bytes. This state section is not credited there; SOURCE-CORRECTION-REGISTRATION and SOURCE-DISPLAY-N register and redisplay exact 430-479. The separately displayed raised section in M was in range."
+    }
+  ],
+  "qualification": "These records preserve the failure and correct subsequent chronology; no checkpoint3821 or runtime claim follows."
+}

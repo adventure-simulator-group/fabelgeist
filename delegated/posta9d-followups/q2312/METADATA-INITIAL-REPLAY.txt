@@ -1,0 +1,33 @@
+COPIED crates/fabelgeist-numpy-storage/src/zip.rs 103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57 184
+COPIED crates/fabelgeist-numpy-storage/src/zip/member_count.rs f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867 92
+COPIED crates/fabelgeist-numpy-storage/src/zip/error.rs 5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260 142
+ABSENT-FROM-PRIOR-PACKET crates/fabelgeist-numpy-storage/Cargo.toml
+ABSENT-FROM-PRIOR-PACKET crates/fabelgeist-numpy-storage/Cargo.lock
+ARCHIVE-SHA256 ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c
+COPIED rawzip-0.5.2/src/archive.rs fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df 1797
+COPIED rawzip-0.5.2/src/locator.rs 334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed 531
+LOCATOR crates/fabelgeist-numpy-storage/src/zip/error.rs 'ZipReadError' [9, 11, 19, 34, 71, 114, 126, 135]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip/member_count.rs 'ArchiveMemberCount' [10, 12, 71, 79, 86, 88]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip/member_count.rs 'native_iteration_range' [24, 80, 87, 89]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip/member_count.rs 'initial_capacity' [17, 72, 84, 90]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'entries_hint' [91]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'ArchiveMemberCount' [19, 91]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'native_iteration_range' [96]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'initial_capacity' [92]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'with_capacity' [92, 172]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'max_search_space' [88]
+LOCATOR crates/fabelgeist-numpy-storage/src/zip.rs 'ZipReadError' [15, 67, 74, 90, 97, 146, 166, 175, 181]
+LOCATOR rawzip-0.5.2/src/archive.rs 'entries_hint' [66, 110]
+LOCATOR rawzip-0.5.2/src/archive.rs 'fn entries(' [86]
+LOCATOR rawzip-0.5.2/src/archive.rs 'fn next_entry(' [372]
+LOCATOR rawzip-0.5.2/src/archive.rs 'struct ZipSliceArchive' [75]
+LOCATOR rawzip-0.5.2/src/archive.rs 'struct ZipSliceEntries' [360]
+LOCATOR rawzip-0.5.2/src/archive.rs 'fn next_file_entry(' [384]
+LOCATOR rawzip-0.5.2/src/archive.rs 'directory_offset' [88, 132, 133, 1100, 1115, 1144, 1258, 1397, 1398]
+LOCATOR rawzip-0.5.2/src/archive.rs 'total_entries' [815, 843]
+LOCATOR rawzip-0.5.2/src/archive.rs 'max_search_space' [484, 485]
+LOCATOR rawzip-0.5.2/src/locator.rs 'entries_hint' [169]
+LOCATOR rawzip-0.5.2/src/locator.rs 'fn entries(' [280]
+LOCATOR rawzip-0.5.2/src/locator.rs 'directory_offset' [127, 144, 237, 275, 370, 387, 418]
+LOCATOR rawzip-0.5.2/src/locator.rs 'total_entries' [307, 322, 340, 424, 425]
+LOCATOR rawzip-0.5.2/src/locator.rs 'max_search_space' [31, 44, 55, 57, 58, 63, 64, 436, 438]

@@ -1,0 +1,104 @@
+{
+  "created_utc": "2026-11-12T14:49:01.636595+00:00",
+  "purpose": "q2304 historical source review and adoption; selectors might be missing and will be recorded",
+  "prior_restricted_capture": "q2301 restricted capture; exact bytes hash-bound, origin 059 e275 reviewer",
+  "records": [
+    {
+      "record": "parallel-l11-20261029/PLAN-190.json",
+      "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+      "bytes": 3350,
+      "prospective_selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0",
+        "/rows/3"
+      ]
+    },
+    {
+      "record": "parallel-l11-20261029/READ-169.json",
+      "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85",
+      "bytes": 10728,
+      "prospective_selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0",
+        "/rows/3",
+        "/native_runtime_validation",
+        "/authority"
+      ]
+    },
+    {
+      "record": "parallel-l11-20261029/PLAN-189.json",
+      "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6",
+      "bytes": 1096,
+      "prospective_selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0"
+      ]
+    },
+    {
+      "record": "parallel-l11-20261029/READ-168.json",
+      "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e",
+      "bytes": 7158,
+      "prospective_selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0"
+      ]
+    },
+    {
+      "record": "segovb/READ-L11-705.json",
+      "sha256": "a3ba6dd475995ae008da3e50a16c5cf25d0f513d859c5aade286010f1cb0b525",
+      "bytes": 13761,
+      "prospective_selectors": [
+        "/kind",
+        "/rows/0",
+        "/rows/3",
+        "/adopted_registration_mapping",
+        "/source_revision",
+        "/runtime_validation"
+      ]
+    },
+    {
+      "record": "segovb/VERIFY-L11-705.json",
+      "sha256": "7459849d92fed125a4f12352e1963764f87f1f13f6706c02c788bf8cb127d46a",
+      "bytes": 1027,
+      "prospective_selectors": [
+        "/"
+      ]
+    },
+    {
+      "record": "segovb/READ-L11-704.json",
+      "sha256": "6a8a57138b4eed0865dd9a0938a5ed02aecfcfd23f6c55240f67bc35cb04ae7c",
+      "bytes": 9047,
+      "prospective_selectors": [
+        "/kind",
+        "/rows/0",
+        "/adopted_registration_mapping",
+        "/source_revision",
+        "/runtime_validation"
+      ]
+    },
+    {
+      "record": "segovb/VERIFY-L11-704.json",
+      "sha256": "184366f4c3904d36f058c8b49e0b28bc211305f8976b0bb4cd83bbfadad83860",
+      "bytes": 1027,
+      "prospective_selectors": [
+        "/"
+      ]
+    },
+    {
+      "record": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+      "bytes": 192315,
+      "prospective_selectors": [
+        "/contract_updates/4"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T15:31:50.672464+00:00",
+  "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "source_selection": "Unique selected_script paths in DRIVER-SUITE-INVENTORY.json; exact blobs only, no script body output",
+  "literal_patterns": [
+    "--git-repo",
+    "--private-root",
+    "--private-capture",
+    "tempfile",
+    "subprocess",
+    "rglob(",
+    "glob(",
+    "os.environ",
+    "sys.path"
+  ],
+  "display_policy": "Per-pattern count of distinct matching scripts and at most five relative paths, plus counts; no body snippets.",
+  "qualification": "Lexical indicator only; comments/aliases/indirect imports can yield false positives or negatives. Not a complete dependency or effect analysis."
+}

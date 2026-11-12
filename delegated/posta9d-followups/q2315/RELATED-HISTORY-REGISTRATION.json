@@ -1,0 +1,18 @@
+{
+  "registered_at_utc": "2026-11-12T15:28:32.641497+00:00",
+  "purpose": "Extract exact original q2307, q2313 and q2316 queue entries, compare with prior packet entries and manifests, and display only selected disposition fields.",
+  "queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "prior_packets": {
+    "2307": "npz-q2307-18a0w1xu",
+    "2313": "q2313-safe-packet-h24d7iqp",
+    "2316": "npz-q2316-safe-packet-qknuulot"
+  },
+  "allowed_fields": [
+    "contract_id",
+    "first_failed_contract_or_unresolved_question",
+    "disposition",
+    "policy_decisions_remaining",
+    "all_lenses_or_coarse_parent_closed"
+  ],
+  "qualification": "Relations preserve prior source/reviewer attribution; no exact alias or unique-defect count inferred."
+}

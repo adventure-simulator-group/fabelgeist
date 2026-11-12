@@ -1,0 +1,490 @@
+{
+  "95e63628f9d70b8dd6e6fede64334696c6995009": {
+    "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "commit_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+    "paths": {
+      "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs": {
+        "blob": "75a815f9f4c0da06e9bdd71725b8a1c80e651047",
+        "sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "architectural_envelope.rs",
+            "mode": "100644",
+            "oid": "75a815f9f4c0da06e9bdd71725b8a1c80e651047"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/framed_roofs.rs": {
+        "blob": "6da3f76053dfe983dffb2363f7877c009015faf2",
+        "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "framed_roofs.rs",
+            "mode": "100644",
+            "oid": "6da3f76053dfe983dffb2363f7877c009015faf2"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/model/resolved_networks.rs": {
+        "blob": "fa0aa60212e269f00048b528a09ed56469b65ae8",
+        "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "model",
+            "mode": "40000",
+            "oid": "610cfcae5c0e0c3fe7d51296fd02caf2d06b0cd1"
+          },
+          {
+            "component": "resolved_networks.rs",
+            "mode": "100644",
+            "oid": "fa0aa60212e269f00048b528a09ed56469b65ae8"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/model/plan.rs": {
+        "blob": "2793c7d9326b25fd017a413a7631507f9e4e4f46",
+        "sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "model",
+            "mode": "40000",
+            "oid": "610cfcae5c0e0c3fe7d51296fd02caf2d06b0cd1"
+          },
+          {
+            "component": "plan.rs",
+            "mode": "100644",
+            "oid": "2793c7d9326b25fd017a413a7631507f9e4e4f46"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator.rs": {
+        "blob": "3fa40e979af64a9ec6c9db9e52f92786b5b3e428",
+        "sha256": "ee32e08bcb89ab05f78431b7ce484c3ca71d2b9d7f7516f7ee38835cd0372aee",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator.rs",
+            "mode": "100644",
+            "oid": "3fa40e979af64a9ec6c9db9e52f92786b5b3e428"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/lib.rs": {
+        "blob": "62ab56a0c960efd034b9a714faa09d7e327d2621",
+        "sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "lib.rs",
+            "mode": "100644",
+            "oid": "62ab56a0c960efd034b9a714faa09d7e327d2621"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/core.rs": {
+        "blob": "9cd2460c7042f6715f0b40bc78e314bad8bb8ab2",
+        "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "core.rs",
+            "mode": "100644",
+            "oid": "9cd2460c7042f6715f0b40bc78e314bad8bb8ab2"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/orchestration.rs": {
+        "blob": "4c95a48e9623e719f3cecc8a525cd61c89573bfc",
+        "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "orchestration.rs",
+            "mode": "100644",
+            "oid": "4c95a48e9623e719f3cecc8a525cd61c89573bfc"
+          }
+        ]
+      }
+    }
+  },
+  "6533e444fa37552927070cc8d8190907fd3b413e": {
+    "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+    "commit_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+    "paths": {
+      "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs": {
+        "blob": "75a815f9f4c0da06e9bdd71725b8a1c80e651047",
+        "sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "architectural_envelope.rs",
+            "mode": "100644",
+            "oid": "75a815f9f4c0da06e9bdd71725b8a1c80e651047"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/framed_roofs.rs": {
+        "blob": "6da3f76053dfe983dffb2363f7877c009015faf2",
+        "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "framed_roofs.rs",
+            "mode": "100644",
+            "oid": "6da3f76053dfe983dffb2363f7877c009015faf2"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/model/resolved_networks.rs": {
+        "blob": "fa0aa60212e269f00048b528a09ed56469b65ae8",
+        "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "model",
+            "mode": "40000",
+            "oid": "610cfcae5c0e0c3fe7d51296fd02caf2d06b0cd1"
+          },
+          {
+            "component": "resolved_networks.rs",
+            "mode": "100644",
+            "oid": "fa0aa60212e269f00048b528a09ed56469b65ae8"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/model/plan.rs": {
+        "blob": "2793c7d9326b25fd017a413a7631507f9e4e4f46",
+        "sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "model",
+            "mode": "40000",
+            "oid": "610cfcae5c0e0c3fe7d51296fd02caf2d06b0cd1"
+          },
+          {
+            "component": "plan.rs",
+            "mode": "100644",
+            "oid": "2793c7d9326b25fd017a413a7631507f9e4e4f46"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator.rs": {
+        "blob": "3fa40e979af64a9ec6c9db9e52f92786b5b3e428",
+        "sha256": "ee32e08bcb89ab05f78431b7ce484c3ca71d2b9d7f7516f7ee38835cd0372aee",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator.rs",
+            "mode": "100644",
+            "oid": "3fa40e979af64a9ec6c9db9e52f92786b5b3e428"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/lib.rs": {
+        "blob": "62ab56a0c960efd034b9a714faa09d7e327d2621",
+        "sha256": "ef8b3008250e9d2647e6d465f9b3c8bd2a2eb9642e61cb89a9e26590db1f70ac",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "lib.rs",
+            "mode": "100644",
+            "oid": "62ab56a0c960efd034b9a714faa09d7e327d2621"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/core.rs": {
+        "blob": "9cd2460c7042f6715f0b40bc78e314bad8bb8ab2",
+        "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "core.rs",
+            "mode": "100644",
+            "oid": "9cd2460c7042f6715f0b40bc78e314bad8bb8ab2"
+          }
+        ]
+      },
+      "crates/adventuresim-building-generator/src/generator/orchestration.rs": {
+        "blob": "4c95a48e9623e719f3cecc8a525cd61c89573bfc",
+        "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+        "chain": [
+          {
+            "component": "crates",
+            "mode": "40000",
+            "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+          },
+          {
+            "component": "adventuresim-building-generator",
+            "mode": "40000",
+            "oid": "6b3a8309ed98a1e8f473e74176dccd632d531c1b"
+          },
+          {
+            "component": "src",
+            "mode": "40000",
+            "oid": "1e468afac269d216f84fde18480ebfc27c4df706"
+          },
+          {
+            "component": "generator",
+            "mode": "40000",
+            "oid": "8598dc2e2c0550411617bc64ebec9ff963f99e9d"
+          },
+          {
+            "component": "orchestration.rs",
+            "mode": "100644",
+            "oid": "4c95a48e9623e719f3cecc8a525cd61c89573bfc"
+          }
+        ]
+      }
+    }
+  }
+}

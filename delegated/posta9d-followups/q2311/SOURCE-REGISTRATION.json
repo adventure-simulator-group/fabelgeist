@@ -1,0 +1,95 @@
+{
+  "created_utc": "2026-11-12T15:12:46.895774+00:00",
+  "reader": "/root/mhr_character",
+  "rows": [
+    {
+      "id": "zip-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "git_blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+      "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+      "bytes": 6286,
+      "eof": 184,
+      "planned_ranges": [
+        [
+          64,
+          110
+        ]
+      ],
+      "capture": "sources/zip-current"
+    },
+    {
+      "id": "manifest-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "git_blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4",
+      "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+      "bytes": 954,
+      "eof": 31,
+      "planned_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "capture": "sources/manifest-current"
+    },
+    {
+      "id": "manifest-historical",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "git_blob": "b507ce91f202abdf227f674bfdd85e94e909312f",
+      "sha256": "ce2e0dc6c3223dbcb146cc2d34f40374f5f0c3903350e244d588a9afc7e9a56a",
+      "bytes": 884,
+      "eof": 26,
+      "planned_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "capture": "sources/manifest-historical"
+    },
+    {
+      "id": "lock-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "git_blob": "212ef57755840d5f6a506c95c7b848967b71c846",
+      "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "bytes": 151865,
+      "eof": 6257,
+      "planned_ranges": [
+        [
+          2098,
+          2108
+        ],
+        [
+          4304,
+          4309
+        ]
+      ],
+      "capture": "sources/lock-current"
+    },
+    {
+      "id": "lock-historical",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "git_blob": "212ef57755840d5f6a506c95c7b848967b71c846",
+      "sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+      "bytes": 151865,
+      "eof": 6257,
+      "planned_ranges": [
+        [
+          2098,
+          2108
+        ],
+        [
+          4304,
+          4309
+        ]
+      ],
+      "capture": "sources/lock-historical"
+    }
+  ],
+  "qualification": "Independent bounded current and historical project/lock displays, full captured locks do not imply complete reads."
+}

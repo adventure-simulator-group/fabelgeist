@@ -1,0 +1,210 @@
+{
+  "reader": "/root/verifier_scope",
+  "written_utc": "2026-11-12T15:06:56.517633+00:00",
+  "chunks": [
+    {
+      "display": "SOURCE-DISPLAY-A.txt",
+      "sha256": "c06269c04923b207bafe6d67112c384a9219153c2bdca0ab0442588a632caf56",
+      "saved_utc": "2026-11-12T15:00:21.175852+00:00",
+      "sections": [
+        {
+          "file": "manifest-historical.toml",
+          "start": 1,
+          "end": 26,
+          "registration": "SOURCE-REGISTRATION.json"
+        },
+        {
+          "file": "manifest-current.toml",
+          "start": 1,
+          "end": 31,
+          "registration": "SOURCE-REGISTRATION.json"
+        }
+      ]
+    },
+    {
+      "display": "SOURCE-DISPLAY-B.txt",
+      "sha256": "8fe30347b255f92e3afc07a57c95d11aa7568e913fc20f57b3b0a8b604b03eac",
+      "saved_utc": "2026-11-12T15:00:25.736921+00:00",
+      "sections": [
+        {
+          "file": "lock-current.lock",
+          "start": 2159,
+          "end": 2168,
+          "registration": "SOURCE-REGISTRATION.json"
+        },
+        {
+          "file": "lock-current.lock",
+          "start": 3263,
+          "end": 3270,
+          "registration": "SOURCE-REGISTRATION.json"
+        },
+        {
+          "file": "lock-current.lock",
+          "start": 4304,
+          "end": 4310,
+          "registration": "SOURCE-REGISTRATION.json"
+        }
+      ]
+    },
+    {
+      "display": "SOURCE-DISPLAY-C.txt",
+      "sha256": "ac88f0443272fd9208f8d7099253bf857bff9f7b4b68be4b03a95e1c018382b5",
+      "saved_utc": "2026-11-12T15:03:57.273833+00:00",
+      "sections": [
+        {
+          "file": "root-manifest.toml",
+          "start": 35,
+          "end": 70,
+          "registration": "SOURCE-EXTENSION-REGISTRATION.json"
+        }
+      ]
+    },
+    {
+      "display": "SOURCE-DISPLAY-D.txt",
+      "sha256": "f04524bdaa803c568a80ecbebf2234038d7109e185b15e0f5332a4db2e4e12b9",
+      "saved_utc": "2026-11-12T15:04:01.732942+00:00",
+      "sections": [
+        {
+          "file": "zip-consumer.rs",
+          "start": 1,
+          "end": 40,
+          "registration": "SOURCE-EXTENSION-REGISTRATION.json"
+        },
+        {
+          "file": "zip-consumer.rs",
+          "start": 70,
+          "end": 120,
+          "registration": "SOURCE-EXTENSION-REGISTRATION.json"
+        }
+      ]
+    },
+    {
+      "display": "SOURCE-DISPLAY-E.txt",
+      "sha256": "60a0e3497a836e65afc78ff75a4c33d1ec889eb7327e653935b8bb1ffa9a8081",
+      "saved_utc": "2026-11-12T15:04:05.788707+00:00",
+      "sections": [
+        {
+          "file": "zip-consumer.rs",
+          "start": 150,
+          "end": 184,
+          "registration": "SOURCE-EXTENSION-REGISTRATION.json"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "file": "manifest-current.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 31,
+      "actual_credited": [
+        [
+          1,
+          31
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "manifest-historical.toml",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "eof": 26,
+      "actual_credited": [
+        [
+          1,
+          26
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "lock-current.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 6257,
+      "actual_credited": [
+        [
+          2159,
+          2168
+        ],
+        [
+          3263,
+          3270
+        ],
+        [
+          4304,
+          4310
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          2158
+        ],
+        [
+          2169,
+          3262
+        ],
+        [
+          3271,
+          4303
+        ],
+        [
+          4311,
+          6257
+        ]
+      ]
+    },
+    {
+      "file": "root-manifest.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 211,
+      "actual_credited": [
+        [
+          35,
+          70
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          34
+        ],
+        [
+          71,
+          211
+        ]
+      ]
+    },
+    {
+      "file": "zip-consumer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 184,
+      "actual_credited": [
+        [
+          1,
+          40
+        ],
+        [
+          70,
+          120
+        ],
+        [
+          150,
+          184
+        ]
+      ],
+      "unread": [
+        [
+          41,
+          69
+        ],
+        [
+          121,
+          149
+        ]
+      ]
+    }
+  ],
+  "total_unique_source_lines_credited": 244,
+  "qualification": "Personal displayed source is limited to these ranges and separately parsed lock package selections. Hashing, capturing or archive verification is not native-source personal-read credit; native member and package were never executed."
+}

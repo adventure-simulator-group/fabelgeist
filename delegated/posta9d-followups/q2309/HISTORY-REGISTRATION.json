@@ -1,0 +1,37 @@
+{
+  "schema": "independent-q2309-history-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:58:47.642351+00:00",
+  "scope": "Prospective original and public reconstructed 059 q2309 selected body before display; full streams hashed for identity only. No checkpoint3821 inference.",
+  "streams": [
+    {
+      "role": "original",
+      "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "path": "baseline-059/queue.json",
+      "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "stream_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "stream_bytes": 21632843,
+      "selector": "/entries/2309",
+      "entry_start_byte": 10363444,
+      "entry_end_byte_exclusive": 10371772,
+      "entry_sha256": "2228c79f1101b238cf00a04981d8b0b914ae9b1caa02a7adfa7940c3a6ff4958",
+      "entry_bytes": 8328
+    },
+    {
+      "role": "public_reconstruction",
+      "revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+      "path": "baseline-059/queue.json",
+      "git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5",
+      "stream_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "stream_bytes": 21631815,
+      "selector": "/entries/2309",
+      "entry_start_byte": 10362416,
+      "entry_end_byte_exclusive": 10370744,
+      "entry_sha256": "2228c79f1101b238cf00a04981d8b0b914ae9b1caa02a7adfa7940c3a6ff4958",
+      "entry_bytes": 8328
+    }
+  ],
+  "original_and_public_entry_equal": true,
+  "original_and_public_bytes_equal": true,
+  "qualification": "The original and public streams are separate records. Whole-stream hashing or storage does not confer historical reading credit."
+}

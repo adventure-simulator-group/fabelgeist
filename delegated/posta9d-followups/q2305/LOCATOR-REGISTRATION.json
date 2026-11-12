@@ -1,0 +1,15 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:47:41.042053+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree_scope": "crates/adventuresim-tactical-client/src",
+  "fixed_literal_patterns": [
+    "struct RaisedFootworkState",
+    "struct LegIkDiagnostics",
+    "observe_propagated",
+    "refresh_run_support",
+    "observed_support_weight"
+  ],
+  "display_policy": "Only paths, one-based line numbers, per-pattern counts; no source-body text and no read credit. If output is bounded/truncated, record counts and list bounds.",
+  "purpose": "Locate support state definitions and propagation scheduling before prospective source-range registration."
+}

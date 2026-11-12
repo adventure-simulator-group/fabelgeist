@@ -1,0 +1,101 @@
+{
+  "schema": "726-a9d-assert-enabled-replay-manifest-v1",
+  "files": [
+    {
+      "path": "ASSERT-CONTROLS.json",
+      "bytes": 535,
+      "sha256": "0a449bf8927ae8cb91e18eddbc403e6351eb1b1d3557831eb44535feb5cc5cb3"
+    },
+    {
+      "path": "ASSERT-PREFLIGHT.log",
+      "bytes": 54,
+      "sha256": "2d0db3967d42125c89a2ed60b385fef874181757a4158f504b779967a22f2f52"
+    },
+    {
+      "path": "DISCOVERY-AFTER.json",
+      "bytes": 119179,
+      "sha256": "589506997d36c90e8526c1c9357816c0db47ffffb572eb4cba4d61b3921ba8c6"
+    },
+    {
+      "path": "DISCOVERY-BEFORE.json",
+      "bytes": 119179,
+      "sha256": "589506997d36c90e8526c1c9357816c0db47ffffb572eb4cba4d61b3921ba8c6"
+    },
+    {
+      "path": "ENVIRONMENT.json",
+      "bytes": 648,
+      "sha256": "1b46d62ecb21c7d8412a92d7c773562ddd1fb43cd7ba219424df4b7fa752a161"
+    },
+    {
+      "path": "EVOLUTION.json",
+      "bytes": 626,
+      "sha256": "4a953c407526e035e71a2add34a242c0a79563a171a9b8a9020fb9d128456894"
+    },
+    {
+      "path": "PACKAGING.json",
+      "bytes": 1156,
+      "sha256": "c666bd703add20d5834a714cc4d0301edf932a5b41f11d91f89a3308601448d0"
+    },
+    {
+      "path": "RESULT.json",
+      "bytes": 1179,
+      "sha256": "0c7b725d0438340993bb791c015746970a8104de7c1fe3454cf840fa00a28eb0"
+    },
+    {
+      "path": "after/INVENTORY.json",
+      "bytes": 6535189,
+      "sha256": "7657b85398598a5c96f75ab607a38b8b341d71cbc9cba49c68901acfcee18545"
+    },
+    {
+      "path": "after/REGISTRATION.json",
+      "bytes": 596,
+      "sha256": "45f99c86eaacb1719bce38319812c13e0f8aa496ba71f5ae2af8a626970261c4"
+    },
+    {
+      "path": "after/RESULT.json",
+      "bytes": 612,
+      "sha256": "c5f2a9d42fab4accd1866a877991f160aa9b790631622c4ff175deb636aa881f"
+    },
+    {
+      "path": "after.log",
+      "bytes": 214,
+      "sha256": "d18c365deeecc0eeeeff16454799560106d92985141553f38cee2d2f7a09f30f"
+    },
+    {
+      "path": "before/INVENTORY.json",
+      "bytes": 6535189,
+      "sha256": "7657b85398598a5c96f75ab607a38b8b341d71cbc9cba49c68901acfcee18545"
+    },
+    {
+      "path": "before/REGISTRATION.json",
+      "bytes": 596,
+      "sha256": "126545e15c34abd6cc8a067c8f62f4d41b9467a71f9505f7fb40689180d39db2"
+    },
+    {
+      "path": "before/RESULT.json",
+      "bytes": 612,
+      "sha256": "c5f2a9d42fab4accd1866a877991f160aa9b790631622c4ff175deb636aa881f"
+    },
+    {
+      "path": "before.log",
+      "bytes": 214,
+      "sha256": "d18c365deeecc0eeeeff16454799560106d92985141553f38cee2d2f7a09f30f"
+    },
+    {
+      "path": "evidence.log",
+      "bytes": 152844,
+      "sha256": "3b18ff765be79713260afed4ea0b3dd21a931bd55d97f498b289f647ca82f4da"
+    },
+    {
+      "path": "proof.py.txt",
+      "bytes": 5702,
+      "sha256": "f911a0e256dba97577fe71c885b06fb43ddb6df8d7f8c50cb6f0a21286bdb607"
+    },
+    {
+      "path": "verify-tree.py.txt",
+      "bytes": 5007,
+      "sha256": "278a0d230afab83665881c89c6c34a8875e135c3ba2dfb611530fc8f9682c9a5"
+    }
+  ],
+  "qualification": "Exact files except the separately identified inert filename; manifest excludes itself. Same-machine and environment controls are bounded as recorded."
+}

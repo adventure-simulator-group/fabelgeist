@@ -1,0 +1,45 @@
+{
+  "recorded_at_utc": "2026-11-12T15:13:00.363540+00:00",
+  "packet_manifest_sha256": "5be8c674c360485e73a0df9a8fac6306fd148ae1205d3c0fa0f67390991f4445",
+  "results": {
+    "verify": {
+      "exit_status": 0,
+      "stdout_sha256": "0b4e9c17bfdd080e25487fbb8a5784445d407b861f6d973548ec5a2ce3d55261",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "digest-scan": {
+      "exit_status": 0,
+      "stdout_sha256": "1f64d8ade0f62a9b6b022f7a26bba8cee943b6137ea6cb1db0989ed469eb675e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stats": {
+        "top_files": 182,
+        "views": 182,
+        "text_views": 156,
+        "cached_views": 4,
+        "binary_views": 26
+      },
+      "counts": {},
+      "forbidden_digest_total": 0,
+      "exceptions": 0
+    },
+    "pattern-scan": {
+      "exit_status": 0,
+      "stdout_sha256": "d6f273014b11ff9052eb154c599753e2d1cb8fb54713fad2389515d475fd6086",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stats": {
+        "files": 182,
+        "views": 182
+      },
+      "counts": {
+        "local_home": 0,
+        "temporary_path": 0,
+        "windows_user": 0,
+        "email": 0,
+        "credential": 0
+      },
+      "forbidden_digest_total": null,
+      "exceptions": 0
+    }
+  },
+  "qualification": "Final complete packet including manifest scanned; excluded raw commit anchors and full queue inputs are separate."
+}

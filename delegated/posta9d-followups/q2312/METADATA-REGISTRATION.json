@@ -1,0 +1,64 @@
+{
+  "registered_at_utc": "2026-11-12T14:45:44.840400+00:00",
+  "purpose": "Name-and-line-number metadata only; no source text. Exact body ranges require separate prior registration.",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "source_inputs": {
+    "first_party": [
+      "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+      "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "crates/fabelgeist-numpy-storage/Cargo.lock"
+    ],
+    "rawzip_archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "rawzip_members": [
+      "rawzip-0.5.2/src/archive.rs",
+      "rawzip-0.5.2/src/locator.rs"
+    ]
+  },
+  "locator_terms": [
+    "entries_hint",
+    "fn entries(",
+    "fn next_entry(",
+    "struct ZipSliceArchive",
+    "struct ZipSliceEntries",
+    "fn next_file_entry(",
+    "directory_size",
+    "directory_offset",
+    "directory_entries",
+    "total_entries",
+    "entries_on_disk",
+    "ArchiveMemberCount",
+    "native_iteration_range",
+    "initial_capacity",
+    "with_capacity",
+    "max_search_space",
+    "ZipReadError"
+  ],
+  "history_name_discovery": {
+    "roots": [
+      "<protected-28ba-evidence-root>",
+      "target/726-audit-baseline"
+    ],
+    "basenames": [
+      "READ-171.json",
+      "READ-172.json",
+      "READ-175.json",
+      "READ-176.json",
+      "PLAN-191.json",
+      "PLAN-192.json",
+      "PLAN-194.json",
+      "READ-L11-707.json",
+      "VERIFY-L11-707.json",
+      "READ-L11-708.json",
+      "VERIFY-L11-708.json",
+      "READ-L11-711.json",
+      "VERIFY-L11-711.json",
+      "READ-L11-712.json",
+      "VERIFY-L11-712.json",
+      "PROPOSAL-BUNDLE-L11-SOURCE-004.json"
+    ]
+  },
+  "limits": "Do not enumerate or read nested rawzip ZIP/JAR assets; no product execution."
+}

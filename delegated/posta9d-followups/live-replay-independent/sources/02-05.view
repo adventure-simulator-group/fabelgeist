@@ -1,0 +1,87 @@
+     1	#!/usr/bin/env python3
+     2	"""Resolve this checkpoint's source packet links without transferring read credit."""
+     3	import sys as _cw_sys
+     4	_cw_sys.dont_write_bytecode = True
+     5	from pathlib import Path as _CW_Path
+     6	_CW_DIR = _CW_Path(__file__).resolve().parents[2] / 'qualified-059-successors' / 'successors'
+     7	_cw_sys.path.insert(0, str(_CW_DIR))
+     8	from qualified_crosswalk import configure as _cw_configure
+     9	_CW = _cw_configure(_CW_DIR / 'CROSSWALK-059.json')
+    10	import glob
+    11	import hashlib
+    12	import json
+    13	import tarfile
+    14	from pathlib import Path
+    15	
+    16	root = _CW.root
+    17	load = lambda n: json.loads((root / n).read_text())
+    18	sha = lambda b: hashlib.sha256(b).hexdigest()
+    19	checkpoints = []
+    20	for p in sorted(root.glob('DELEGATED-EVIDENCE-CHECKPOINT*.json')):
+    21	    d = json.loads(p.read_text())
+    22	    if isinstance(d.get('bundles'), list):
+    23	        checkpoints.append(d)
+    24	manifest_to_bundle = {}
+    25	for cp in checkpoints:
+    26	    for b in cp['bundles']:
+    27	        for m in b['members']:
+    28	            if m['path'] in ('MANIFEST.json', 'BUNDLE-MANIFEST.json', 'packet-manifest.json', 'manifest.json'):
+    29	                manifest_to_bundle[m['original_sha256']] = b
+    30	current = load('DELEGATED-EVIDENCE-CHECKPOINT-13.json')
+    31	counts = {'prior_packet_links': 0, 'copied_original_identities': 0,
+    32	          'prior_member_links': 0, 'published_file_links': 0}
+    33	for b in current['bundles']:
+    34	    members = {m['path']: m for m in b['members']}
+    35	    with tarfile.open(root / b['archive'], 'r:gz') as t:
+    36	        names = set(t.getnames())
+    37	        if 'published-references.json' in names:
+    38	            d = json.load(t.extractfile('published-references.json'))
+    39	            for entry in d['entries']:
+    40	                if 'preserved_bytes' in entry:
+    41	                    m = members[entry['preserved_bytes']]
+    42	                    assert m['original_sha256'] == entry['sha256']
+    43	                    assert m['original_bytes'] == entry['bytes']
+    44	                    counts['copied_original_identities'] += 1
+    45	                    continue
+    46	                p = (root / entry.get('repository_relative_path', entry.get('path'))).resolve()
+    47	                assert p.is_relative_to(root.resolve()) and p.is_file()
+    48	                link_path = entry.get('repository_relative_path', entry.get('path'))
+    49	                raw = _CW.read(link_path)
+    50	                assert _CW.matches(link_path, raw, entry['sha256'], entry['bytes'])
+    51	                counts['published_file_links'] += 1
+    52	        if 'prior-references.json' in names:
+    53	            d = json.load(t.extractfile('prior-references.json'))
+    54	            if 'manifest_sha256' in d:
+    55	                h = d['manifest_sha256']
+    56	                assert h in manifest_to_bundle
+    57	                assert members[d['manifest_copy']]['original_sha256'] == h
+    58	                prior = {m['path']: m for m in manifest_to_bundle[h]['members']}
+    59	                for ref in d['references']:
+    60	                    m = prior[ref['prior_manifest_path']]
+    61	                    assert m['original_sha256'] == ref['sha256'] and m['original_bytes'] == ref['bytes']
+    62	                    counts['prior_member_links'] += 1
+    63	                counts['prior_packet_links'] += 1
+    64	            else:
+    65	                for ref in d['references']:
+    66	                    h = ref['manifest_sha256']
+    67	                    assert h in manifest_to_bundle
+    68	                    manifest = ref.get('copied_manifest', ref.get('manifest'))
+    69	                    report = ref.get('copied_report', ref.get('report'))
+    70	                    assert members[manifest]['original_sha256'] == h
+    71	                    assert members[report]['original_sha256'] == ref['report_sha256']
+    72	                    counts['prior_packet_links'] += 1
+    73	                    counts['copied_original_identities'] += 2
+    74	        if 'later-hair-ops-reference.json' in names:
+    75	            d = json.load(t.extractfile('later-hair-ops-reference.json'))
+    76	            recovery = load('RECOVERY-PHYSICAL-P16-PATCH-20261111.json')
+    77	            expected = {recovery['later_agent_inventory']['original_sha256'],
+    78	                        recovery['live_comparison']['original_report_sha256']}
+    79	            assert {f['sha256'] for f in d['files']} == expected
+    80	            counts['copied_original_identities'] += len(expected)
+    81	assert counts == {'prior_packet_links': 7, 'copied_original_identities': 25,
+    82	                  'prior_member_links': 8, 'published_file_links': 21}, counts
+    83	print('Verified qualified cross-packet and previously published file links:', counts,
+    84	      '; original hashes do not imply unredacted published bytes or read credit.')
+    85	
+    86	assert _CW.crosswalk_links_checked == 6
+    87	_CW.finish()

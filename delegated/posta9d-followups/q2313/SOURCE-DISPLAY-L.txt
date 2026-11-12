@@ -1,0 +1,52 @@
+SOURCE rawzip-0.5.2/src/archive.rs:280-330
+ 280     /// This method is useful for detecting overlapping entries, which are often
+ 281     /// used in zip bombs. By comparing the ranges returned by this method
+ 282     /// across multiple entries, you can identify when entries share compressed
+ 283     /// data:
+ 284     ///
+ 285     /// ```rust
+ 286     /// # use rawzip::{ZipArchive, Error};
+ 287     /// # fn example(data: &[u8]) -> Result<(), Error> {
+ 288     /// let archive = ZipArchive::from_slice(data)?;
+ 289     /// let mut ranges = Vec::new();
+ 290     ///
+ 291     /// for entry_result in archive.entries() {
+ 292     ///     let entry = entry_result?;
+ 293     ///     let wayfinder = entry.wayfinder();
+ 294     ///     if let Ok(zip_entry) = archive.get_entry(wayfinder) {
+ 295     ///         ranges.push(zip_entry.compressed_data_range());
+ 296     ///     }
+ 297     /// }
+ 298     ///
+ 299     /// // Check for overlapping ranges
+ 300     /// ranges.sort_by_key(|&(start, _)| start);
+ 301     /// for window in ranges.windows(2) {
+ 302     ///     let (_, end1) = window[0];
+ 303     ///     let (start2, _) = window[1];
+ 304     ///     if end1 > start2 {
+ 305     ///         panic!("Warning: Overlapping entries detected!");
+ 306     ///     }
+ 307     /// }
+ 308     /// # Ok(())
+ 309     /// # }
+ 310     /// ```
+ 311     pub fn compressed_data_range(&self) -> (u64, u64) {
+ 312         let compressed_data_start = self.local_header_offset + self.data_start_offset as u64;
+ 313         let compressed_data_end =
+ 314             compressed_data_start + (self.data.len() - self.data_start_offset as usize) as u64;
+ 315         (compressed_data_start, compressed_data_end)
+ 316     }
+ 317 
+ 318     /// Returns the local file header information.
+ 319     ///
+ 320     /// This is the single entry point for the entry's file path, extra fields,
+ 321     /// and flags from the local header.
+ 322     ///
+ 323     /// ```rust
+ 324     /// # use rawzip::{ZipArchive, Error};
+ 325     /// # fn example(data: &[u8]) -> Result<(), Error> {
+ 326     /// let archive = ZipArchive::from_slice(data)?;
+ 327     /// let entry_header = archive.entries().next_entry()?.unwrap();
+ 328     /// let entry = archive.get_entry(entry_header.wayfinder())?;
+ 329     /// let header = entry.local_header();
+ 330     /// let _path = header.file_path();

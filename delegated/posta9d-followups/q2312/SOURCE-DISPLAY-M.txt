@@ -1,0 +1,76 @@
+SOURCE rawzip-0.5.2/src/locator.rs:271-345
+ 271     }
+ 272 
+ 273     /// offset of the start of the central directory
+ 274     #[inline]
+ 275     pub(crate) fn directory_offset(&self) -> u64 {
+ 276         self.central_dir_offset
+ 277     }
+ 278 
+ 279     #[inline]
+ 280     pub(crate) fn entries(&self) -> u64 {
+ 281         self.num_entries
+ 282     }
+ 283 
+ 284     #[inline]
+ 285     pub(crate) fn comment_len(&self) -> usize {
+ 286         self.comment_len as usize
+ 287     }
+ 288 }
+ 289 
+ 290 /// A non-zip64 end of central directory
+ 291 #[derive(Debug, Clone)]
+ 292 pub(crate) struct EndOfCentralDirectoryRecord {
+ 293     pub(crate) offset: u64,
+ 294     pub(crate) central_dir_size: u32,
+ 295     pub(crate) central_dir_offset: u32,
+ 296     pub(crate) num_entries: u16,
+ 297     pub(crate) comment_len: u16,
+ 298 }
+ 299 
+ 300 impl EndOfCentralDirectoryRecord {
+ 301     #[inline]
+ 302     pub fn from_parts(offset: u64, eocd: &EndOfCentralDirectoryRecordFixed) -> Self {
+ 303         Self {
+ 304             offset,
+ 305             central_dir_size: eocd.central_dir_size,
+ 306             central_dir_offset: eocd.central_dir_offset,
+ 307             num_entries: eocd.total_entries,
+ 308             comment_len: eocd.comment_len,
+ 309         }
+ 310     }
+ 311 }
+ 312 
+ 313 #[derive(Debug, Clone)]
+ 314 pub(crate) struct EndOfCentralDirectoryRecordFixed {
+ 315     pub(crate) signature: u32,
+ 316     #[allow(dead_code)]
+ 317     pub(crate) disk_number: u16,
+ 318     #[allow(dead_code)]
+ 319     pub(crate) eocd_disk: u16,
+ 320     #[allow(dead_code)]
+ 321     pub(crate) num_entries: u16,
+ 322     pub(crate) total_entries: u16,
+ 323     pub(crate) central_dir_size: u32,
+ 324     pub(crate) central_dir_offset: u32,
+ 325     pub(crate) comment_len: u16,
+ 326 }
+ 327 
+ 328 impl EndOfCentralDirectoryRecordFixed {
+ 329     pub(crate) const SIZE: usize = 22;
+ 330     pub fn parse(data: &[u8]) -> Result<EndOfCentralDirectoryRecordFixed, Error> {
+ 331         if data.len() < Self::SIZE {
+ 332             return Err(Error::from(ErrorKind::Eof));
+ 333         }
+ 334 
+ 335         let result = EndOfCentralDirectoryRecordFixed {
+ 336             signature: le_u32(&data[0..4]),
+ 337             disk_number: le_u16(&data[4..6]),
+ 338             eocd_disk: le_u16(&data[6..8]),
+ 339             num_entries: le_u16(&data[8..10]),
+ 340             total_entries: le_u16(&data[10..12]),
+ 341             central_dir_size: le_u32(&data[12..16]),
+ 342             central_dir_offset: le_u32(&data[16..20]),
+ 343             comment_len: le_u16(&data[20..22]),
+ 344         };
+ 345 

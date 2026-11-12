@@ -1,0 +1,58 @@
+### capture_schedule.rs:1-57
+1: //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
+2: 
+3: use super::overlay::draw_skeleton_overlay;
+4: use super::{
+5:     CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
+6:     drive_sequence, freeze_capture_look, reject_capture,
+7: };
+8: use crate::animation_viewer::{
+9:     harness, inspection, setup::setup_viewer, view::position_capture_camera,
+10: };
+11: use crate::camera::TacticalCameraSet;
+12: use bevy::prelude::*;
+13: 
+14: pub(in crate::animation_viewer) struct CapturePlugin;
+15: 
+16: impl Plugin for CapturePlugin {
+17:     fn build(&self, app: &mut App) {
+18:         app.add_systems(Startup, setup_viewer)
+19:             .add_systems(
+20:                 PreUpdate,
+21:                 (
+22:                     drive_sequence.run_if(admission_is_open),
+23:                     freeze_capture_look,
+24:                 )
+25:                     .chain(),
+26:             )
+27:             .add_systems(
+28:                 PostUpdate,
+29:                 position_capture_camera
+30:                     .after(TacticalCameraSet::Offset)
+31:                     .before(TransformSystems::Propagate),
+32:             )
+33:             .add_systems(
+34:                 PostUpdate,
+35:                 (draw_flat_ground_grid, draw_skeleton_overlay)
+36:                     .chain()
+37:                     .after(TransformSystems::Propagate),
+38:             )
+39:             .add_systems(
+40:                 Last,
+41:                 (
+42:                     inspection::inspect_materials,
+43:                     harness::update_readiness,
+44:                     collect_locomotion_presentation_events,
+45:                     reject_capture,
+46:                     capture_frame
+47:                         .run_if(harness::ready)
+48:                         .run_if(admission_is_open),
+49:                 )
+50:                     .chain(),
+51:             );
+52:     }
+53: }
+54: 
+55: fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
+56:     sequence.admission.is_open()
+57: }

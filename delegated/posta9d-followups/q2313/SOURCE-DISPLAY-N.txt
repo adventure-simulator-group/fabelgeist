@@ -1,0 +1,57 @@
+SOURCE rawzip-0.5.2/src/archive.rs:1070-1125
+1070     }
+1071 }
+1072 
+1073 /// Represents a record from the Zip archive's central directory for a single
+1074 /// file
+1075 ///
+1076 /// This contains metadata about the file. If interested in navigating to the
+1077 /// file contents, use `[ZipFileHeaderRecord::wayfinder]`.
+1078 ///
+1079 /// Reference 4.3.12 in the zip specification
+1080 #[derive(Debug, Clone)]
+1081 #[allow(dead_code)]
+1082 pub struct ZipFileHeaderRecord<'a> {
+1083     signature: u32,
+1084     version_made_by: u16,
+1085     version_needed: u16,
+1086     flags: EntryFlags,
+1087     compression_method: CompressionMethod,
+1088     last_mod_time: u16,
+1089     last_mod_date: u16,
+1090     crc32: u32,
+1091     compressed_size: u64,
+1092     uncompressed_size: u64,
+1093     file_name_len: u16,
+1094     extra_field_len: u16,
+1095     file_comment_len: u16,
+1096     disk_number_start: u32,
+1097     internal_file_attrs: u16,
+1098     external_file_attrs: u32,
+1099     local_header_offset: u64,
+1100     central_directory_offset: u64,
+1101     file_name: ZipFilePath<RawPath<'a>>,
+1102     extra_field: &'a [u8],
+1103     file_comment: ZipStr<'a>,
+1104     is_zip64: bool,
+1105     data_descriptor_uses_zip64_sizes: bool,
+1106 }
+1107 
+1108 impl<'a> ZipFileHeaderRecord<'a> {
+1109     #[inline]
+1110     fn from_parts(
+1111         header: ZipFileHeaderFixed,
+1112         file_name: &'a [u8],
+1113         extra_field: &'a [u8],
+1114         file_comment: &'a [u8],
+1115         central_directory_offset: u64,
+1116     ) -> Self {
+1117         let zip64_sizes =
+1118             header.uncompressed_size == u32::MAX || header.compressed_size == u32::MAX;
+1119 
+1120         // Resolve descriptor size width from the raw inline size sentinels to
+1121         // match libziparchive's approach:
+1122         //
+1123         // https://android.googlesource.com/platform/system/libziparchive/+/refs/tags/android-17.0.0_r1/zip_archive.cc#764
+1124         let data_descriptor_uses_zip64_sizes = zip64_sizes;
+1125 

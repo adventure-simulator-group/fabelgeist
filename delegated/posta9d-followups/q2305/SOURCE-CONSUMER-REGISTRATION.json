@@ -1,0 +1,57 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:51:48.630566+00:00",
+  "purpose": "Prospectively inspect general and IK capture fields and one downstream slip-metric consumer.",
+  "existing_source_ranges": [
+    {
+      "tag": "capture",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "additional_ranges": [
+        [
+          715,
+          750
+        ]
+      ]
+    }
+  ],
+  "new_entries": [
+    {
+      "tag": "support_slip",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "git_blob": "0e5757691b97d9dd1b5ff88a7831e6c213451460",
+      "sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+      "bytes": 2059,
+      "eof": 55,
+      "planned_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "capture": "sources/support_slip.rs",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+      "historical_bytes_equal": true
+    },
+    {
+      "tag": "report_model",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "git_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "bytes": 17947,
+      "eof": 352,
+      "planned_ranges": [
+        [
+          200,
+          260
+        ]
+      ],
+      "capture": "sources/report_model.rs",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "historical_bytes_equal": true
+    }
+  ]
+}

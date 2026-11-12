@@ -1,0 +1,843 @@
+{
+  "lens": 12,
+  "kind": "Root connected BVH/owned geometry/lighting/native package adoption; original frontier unchanged",
+  "at": "2026-10-30T02:09:17.971042+00:00",
+  "bundle": {
+    "path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-CONNECTED-TEAM020.json",
+    "sha256": "22f2998ead55d0b696fa445efcd8b3352e3449950d166f957ed2b8c237684404"
+  },
+  "ruleset": {
+    "path": "parallel-l12-20261029/preflight-l12-connected-bundle-002-v2-PROPOSAL.py",
+    "sha256": "1f12484b2693d7f2aa618d923f761b54ef7fc831153f9303ca4884f0a5c04e2b"
+  },
+  "strict_preflight": {
+    "preflight": "passed",
+    "mode": "read_only",
+    "authority_writes": 0,
+    "registration_views": 7,
+    "fresh_assessed_lines": 563,
+    "original_credit": 0,
+    "future2660_early_credit": 0,
+    "partial2715_early_credit": 0,
+    "semantic_review_required": true,
+    "implementation_gate_complete": false
+  },
+  "immutable_delegated_receipts": [
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+      "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-866-INTERIOR-FIELD-CONTRACT.json",
+      "sha256": "4d892b8d00dfa9628b5aabde91beb0e0120d727e6f60fb073d369f5bc36913c0"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-867-TRAVERSAL-NATIVE-NAMES.json",
+      "sha256": "ec4935b7d930909e9b8135fe9229163b65e94b58baa3c016bc91546c0c679489"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+      "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846"
+    },
+    {
+      "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-870-REFLECTION-DISPATCH-CLOSING.json",
+      "sha256": "a834cdace6d8af1dbdeaae4a1569ef295bf03437bbc2236d2116a39584c0cff4"
+    }
+  ],
+  "exact_source_rows": [
+    {
+      "isolated_registration_number": 593,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+        "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937",
+        "row_pointer": "/rows/0"
+      },
+      "original_index": 2550,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "source_sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "actual_EOF_or_visual_contract": 376,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-bvh/src/gpu/mod.rs"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-593.json",
+        "sha256": "623c431a048a475057819c29e3378792cf266263f72aa38a7c9ad1d9aa98deda"
+      },
+      "requested_ranges": [
+        [
+          139,
+          174
+        ],
+        [
+          304,
+          376
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          139,
+          174
+        ],
+        [
+          304,
+          376
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          139,
+          174
+        ],
+        [
+          304,
+          376
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "GpuBvh.capacity139/count144/node_count149/ensure_capacity158/parameters168/build304/read_nodes318/read_indices337/read_right_children342/HostNode359/pack_bounds366; exactnew139..174/304..376, original592other267linesseparate"
+        ],
+        "string_inventory": [
+          "NativeKernelBatch::labelled literal310 actualdiagnosticlabel, no privateStringcategory. parameters168 delegatesTraversalConfigdefault toactualnativeGPUbindingadapter; generatednames/body pendingownsource."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "GpuBvh retainedcapacity/count -> publicquery139..155 -> actualnativebuffers/treebinding175; ensure_capacitynewSelf162 onlyreplacesafterallocationResultsuccess; oneoffbuildlocalbatch310 -> record_build311 -> nativesubmit312; read_nodes319nativeFloat32layout -> typedHostNode/Aabb andbitcast child/count330/331; pack_bounds366 nativepadding/layout finalport."
+        ],
+        "conditional_cases": [
+          "Emptycountnode_count150returns0; hostread_indices zero-countslicesaferange339 conditionalbuffersconsistent; noautomaticemptytreefailurefromstaleallocatedbuffers alone. PublicmutableBufferfieldsandclientcount/layoutadmission nativeactualgraphs remainindependent.",
+          "record_buildupdatescountbeforefallibledispatches209; actuallateerror/callerbatchsubmission/retainedGPUstatecontractneededbeforestatefailurefinding. Docsdefinecountaslastrecordedbuild143, notcompletedGPUexecution. No product/nativebufferreadexecuted.",
+          "Node2*count-1u32arithmetic153/280 mayoverflowconditionalactualadmitteddevicebuffercapacity; exactnativebufferlimit/inputdomain needed, no numericverdicttransfertoL12."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 594,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+        "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937",
+        "row_pointer": "/rows/1"
+      },
+      "original_index": 2715,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "source_sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "actual_EOF_or_visual_contract": 463,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-594.json",
+        "sha256": "79316433fdaf282bf43d7da9863725f39a947eb207a3da025dd7a9c3e80234da"
+      },
+      "requested_ranges": [
+        [
+          360,
+          463
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          360,
+          463
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          360,
+          463
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "ResolvedGeometryderive363/ownedfields364..379/solid_mut382..390/solid394/surface400/surface_mut406/void415/void_mut421/node430/node_mut436/interface445/interface_mut454..462; fresh360..463includesprevioustypeclosetail360..361only, no1..359bodycredit"
+        ],
+        "string_inventory": [
+          "NoStringAPI; typedResolvedItemId/StructuralNodeId -> singletypedrecordreference orGenerationError::Missing* actualcanonicaltypedcauses, no privateproseclassification. NativeSerde/Default sourceonly, notcompiled/deserialized."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualownedBuildingPlan.resolved_geometry29 -> actualResolvedGeometryownedVecfields366..378 -> privatehelperpush/retain updates -> wholePlanownederrorboundary orsuccess -> nativeaudititem_ids/code/report/API -> clientgeometry/physics; actualIDlookupssolid_mut388/solid397/surface403/void418/interface451 choosefirsttypedIDmatch -> returnedcanonicalrecord -> downstreamnativeconsumer."
+        ],
+        "conditional_cases": [
+          "Exact2715retainedaggregatebody confirmsplainownedVeccontainers, soexplicitTEAM019owned-fieldlimitation canresolveforassessedroofmutationsafterrootadoption. NoArc/sharedborrowedgeometrycontainer inactualfields366..378; no runtimepass/currentvariantinference.",
+          "ActualfirstmatchlookupshowsIDmeaningisretainedrecordselector, notjustdisplayname. DuplicateSolidIDsviolatenativeauditSet andcanambiguatethissingle-recordAPI; supportedjunction/gutterindexshape stillconditional. SupportInterface duplicateIDpolicy musttraceactualproducer/caller; genericall-tableuniquenessnotprovenbynativeauditSet.",
+          "DerivedDefaultschema_version365 defaults0 whileauditexpects2; actualincompletebuilder/defaultinitializationandcanonicalfinaladmissionpolicyneededbeforeinvalidDefaultfinding. No obligationtopreserveobsoleteversion/API. Futureoriginal2715requiredotherrolesremainunread."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 600,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-866-INTERIOR-FIELD-CONTRACT.json",
+        "sha256": "4d892b8d00dfa9628b5aabde91beb0e0120d727e6f60fb073d369f5bc36913c0",
+        "row_pointer": "/rows/0"
+      },
+      "original_index": 2556,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "source_sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "actual_EOF_or_visual_contract": 206,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-600.json",
+        "sha256": "71533cfbf6959ac67e92ec225cb62184706be2429c2dca5c9eb9cae65ed33bbd"
+      },
+      "requested_ranges": [
+        [
+          1,
+          129
+        ],
+        [
+          143,
+          206
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          129
+        ],
+        [
+          143,
+          206
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          1,
+          129
+        ],
+        [
+          143,
+          206
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "LightSample13/InteriorField19/daylight_at31/sourceonlycfgtest/directional_daylight_at37/from_plan48..142 fullfunctionvia599tail130..142/sample144..154/opening_light158..206; current600193freshgaps+59913disjoint =206 actualsourcebody"
+        ],
+        "string_inventory": [
+          "NoStringAPI. CanonicalOpeningAssemblyId typedBTreeMap67..70 andShutterLightkey134 carriedintoretainedfield; rawroomencodingpositive.w115 isactualnativeShaderTypeGPUscalarportnotStringclassification. NativeShaderType derive12 issourceonlynotgeneratorrun."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "ActualBuildingPlanstoreys/rooms/cells -> dimension/min/max55..65 -> samplesallocation66 -> fieldfrom_plan sampleindex80/109 -> opening_light95 typedopaqueOpeningAssemblyIdfromactualgeometricassemblymatch173..184 -> shutters.entrytypedkey97 preserving(index,LightSample) -> basesamplesclone129+samples130 andShutterLight134 -> actualphysicalshutterupdate2515field.samples/base/contributions -> nativeGPUlighting/imageconsumer stillownsourceifnecessary."
+        ],
+        "conditional_cases": [
+          "Actualfactorycoupling: basesamplesclone129 sameinitiallength; contributionindex80 identicalsampleindex109 beforeinsertion112; constructors mapindexvaluesunchangedtoShutterLight134. Thusgenericout-of-boundscontributionmismatchnotestablishedforthisimmutablefactorydomain. Actualotherfieldwrites/nativeupload/finite/worldcoords/overallaggregate admission remainindependent.",
+          "opening_light reconstructsopaqueopeningfromframeorigin/sillelevationtolerance173..183; allIDsaretypedbutactualproducer/owner/allotherlens identityassessment mayneedcanonicalStoreyOpening\u2192OpeningAssembly sourceID ratherthangeometricsearch. NoL12Stringfinding andno wrongshutterwitnessjustfromfuzzymatching.",
+          "OpaqueDoorsdontcontributelight90; glasstransmissionvsopaqueclosedshutter192 explicitmode, no compatibilitydefect. Emptyroomsfallback dimensions1 from55..64 yieldsunlitfield, legitimateoptionalemptygeometryuntilactualcallerrequiresotherwise.",
+          "Indexshape/u32width*depth*levels66, wallordinalindex86/169, rawsampleVec3finite/heightdivisor146 androomnativeencoding115 areconcreteindependentnumeric/admission/nativecontracts; sourcebodyisnot runtime/renderer/physicsvalidation."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 601,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-867-TRAVERSAL-NATIVE-NAMES.json",
+        "sha256": "ec4935b7d930909e9b8135fe9229163b65e94b58baa3c016bc91546c0c679489",
+        "row_pointer": "/rows/0"
+      },
+      "original_index": 2660,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "source_sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "actual_EOF_or_visual_contract": 490,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "crates/fabelgeist-bvh/src/gpu/shaders.rs"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-601.json",
+        "sha256": "072c83ef6a6f8d11227eb50af7cd64498cf064406aceefbc42d9f7f7648ba023"
+      },
+      "requested_ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "TraversalConfig396..420/with_callback425..430/traversal_source439..490"
+        ],
+        "string_inventory": [
+          "TraversalConfig callback/nodes/right_children/indices/prefix retain authored native WGSL identifiers as String399..405; defaults414..418, with_callback425 owns open native callback namespace; traversal_source439 destructures then format449 native WGSL code. No closed enum of defaults required."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual Bvh.bind2550 supplies PassParameters native buffers keyed by same TraversalConfig nodes/right_children/indices; this config emits WGSL identifiers466..477 and callback473 through traversal_source449; actual Kernel/PassParameters/native reflection consumer qualified separately from own prior741/748/749 proofs."
+        ],
+        "conditional_cases": [
+          "stack_size0 emits array0 then stack[0]454; native validity/actual supported config producer policy not established. Full-stack branch475 explicitly drops candidates (documented456..458); no supported-size witness or numerical completeness conclusion.",
+          "WGSL format source has legitimate open native namespace; no private closed-name defect inferred merely from String. Actual typed parameter propagation owner and first failing operation require exact previous family proof, no alias from common remedy.",
+          "Source1..390 unread. Future2660 original required391..490 fully personally read here, zero early ordered credit; requalify exact prospective/receipt/hash/range/attribution and root adoption for count-once later."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 606,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+        "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846",
+        "row_pointer": "/rows/0"
+      },
+      "original_index": 39,
+      "source_id": "physical-p16:Cargo.lock",
+      "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "actual_EOF_or_visual_contract": 13103,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+        "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-606.json",
+        "sha256": "4426218899258ea496a2b470ad51cf3aeea1d11c433297f904a9364e8914964d"
+      },
+      "requested_ranges": [
+        [
+          2690,
+          2703
+        ],
+        [
+          10243,
+          10256
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          2690,
+          2703
+        ],
+        [
+          10243,
+          10256
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          2690,
+          2703
+        ],
+        [
+          10243,
+          10256
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          2689
+        ],
+        [
+          2704,
+          10242
+        ],
+        [
+          10257,
+          13103
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "Cargo.lock package clauses only, native metadata no functions"
+        ],
+        "string_inventory": [
+          "Native Cargo package name/version/source/checksum grammar; not application magic String."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual frozen PR/dirtyphysical lock -> exact2.6.1/0.19.1 crate checksums -> complete cached archive verification -> exact native macro member bytes -> body read later."
+        ],
+        "conditional_cases": [
+          "Does not establish feature activation or concrete macro namespace/caller dispatch. No whole lock/source/current main credit."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 607,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+        "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846",
+        "row_pointer": "/rows/1"
+      },
+      "original_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "actual_EOF_or_visual_contract": 13102,
+      "revision_or_transport_qualification": {
+        "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "git_path": "Cargo.lock"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-607.json",
+        "sha256": "0dff0a4713e14466ea287a1424d4e4834c268eca75344acfbdf87483d0bb7d2d"
+      },
+      "requested_ranges": [
+        [
+          2689,
+          2702
+        ],
+        [
+          10242,
+          10255
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          2689,
+          2702
+        ],
+        [
+          10242,
+          10255
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          2689,
+          2702
+        ],
+        [
+          10242,
+          10255
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          2688
+        ],
+        [
+          2703,
+          10241
+        ],
+        [
+          10256,
+          13102
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "Cargo.lock package clauses only, native metadata no functions"
+        ],
+        "string_inventory": [
+          "Native Cargo package name/version/source/checksum grammar; not application magic String."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Actual frozen PR/dirtyphysical lock -> exact2.6.1/0.19.1 crate checksums -> complete cached archive verification -> exact native macro member bytes -> body read later."
+        ],
+        "conditional_cases": [
+          "Does not establish feature activation or concrete macro namespace/caller dispatch. No whole lock/source/current main credit."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    },
+    {
+      "isolated_registration_number": 614,
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-870-REFLECTION-DISPATCH-CLOSING.json",
+        "sha256": "a834cdace6d8af1dbdeaae4a1569ef295bf03437bbc2236d2116a39584c0cff4",
+        "row_pointer": "/rows/0"
+      },
+      "original_index": 2563,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+      "source_sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+      "actual_EOF_or_visual_contract": 907,
+      "revision_or_transport_qualification": {
+        "native_package": "bevy_reflect_derive-0.19.1",
+        "package_archive_sha256": "5fc5f820ee52afeca6d3bb83f15c1bf61ea6196c840a761a21a8bc266a3b166e",
+        "archive_member": "bevy_reflect_derive-0.19.1/src/lib.rs"
+      },
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-614.json",
+        "sha256": "e3223a8a0c275bccf1b5bc032e433d58e03b077de8087a8db8acd37b5a8e0394"
+      },
+      "requested_ranges": [
+        [
+          118,
+          118
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          118,
+          118
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "assessed_ranges": [
+        [
+          118,
+          118
+        ]
+      ],
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "unread_ranges": [
+        [
+          1,
+          117
+        ],
+        [
+          119,
+          907
+        ]
+      ],
+      "complete_relevant_functions_and_dependencies": {
+        "exact_function_ownership": [
+          "Actual match_reflect_impls closing118 only; new6141 + original61058 covers60..118 full59 lines."
+        ],
+        "string_inventory": [
+          "No String on closing line; body comments/dispatch analysis exact original870 row0."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Closing delimiter for actual native dispatch already personally read60..117."
+        ],
+        "conditional_cases": [
+          "No extra original role/global identity/current/native runtime credit."
+        ]
+      },
+      "body_output_truncation_status": "All credited body packets untruncated; metadata-only truncations confer zero credit"
+    }
+  ],
+  "root_registration_adoption_mapping": [
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-593.json",
+      "sha256": "623c431a048a475057819c29e3378792cf266263f72aa38a7c9ad1d9aa98deda",
+      "adopted_continuation_registration_number": 1583,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-594.json",
+      "sha256": "79316433fdaf282bf43d7da9863725f39a947eb207a3da025dd7a9c3e80234da",
+      "adopted_continuation_registration_number": 1584,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-600.json",
+      "sha256": "71533cfbf6959ac67e92ec225cb62184706be2429c2dca5c9eb9cae65ed33bbd",
+      "adopted_continuation_registration_number": 1585,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-601.json",
+      "sha256": "072c83ef6a6f8d11227eb50af7cd64498cf064406aceefbc42d9f7f7648ba023",
+      "adopted_continuation_registration_number": 1586,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-606.json",
+      "sha256": "4426218899258ea496a2b470ad51cf3aeea1d11c433297f904a9364e8914964d",
+      "adopted_continuation_registration_number": 1587,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-607.json",
+      "sha256": "0dff0a4713e14466ea287a1424d4e4834c268eca75344acfbdf87483d0bb7d2d",
+      "adopted_continuation_registration_number": 1588,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    },
+    {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-614.json",
+      "sha256": "e3223a8a0c275bccf1b5bc032e433d58e03b077de8087a8db8acd37b5a8e0394",
+      "adopted_continuation_registration_number": 1589,
+      "qualification": "Root connected adoption number only; actual agent prospective chronology/body attribution preserved; source novelty not inferred."
+    }
+  ],
+  "semantic_contract_dispositions": [
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "OwnedBuildingPlan::resolve_architectural_envelope +actualResolvedGeometryVecstateowner",
+      "first_failed_contract_or_unresolved_question": "ExplicitTEAM0192715aggregate-limitation nowbodyresolved: actualretainedgeometryfields366..378plainownedVec; wholePlanconsumed/onlysuccessreturned, scopedpartialacceptedmutationcaseeligibleREJECTED",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "source_sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+          "ranges": [
+            [
+              360,
+              463
+            ]
+          ],
+          "row_pointer": "/rows/1"
+        }
+      ],
+      "remaining_evidence": [
+        "No runtime/repair neededforexactfrozenowned-roofroute; otherindependentAPI/currentvariant/nativegeometrypolicyseparate"
+      ],
+      "dependencies": [
+        "RootTEAM019exactownedPlantransactionchain andnew594typebodyadoption"
+      ],
+      "closure_condition": "Rootmayrecordscopedrejectionafterstrictsourceadoption; currentdelta andotherregisteredcontracts remainindependent",
+      "existing_contract_revisit_identity_proof_if_any": "ExactTEAM019coalescedowned-plan update appendedlimitation references2715; actualsamePRsource typebody594closesonlythatspecificlimitation"
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-SCENE-WINDOW-NATIVE-PROJECTION-LIGHTING",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "InteriorField::from_plan ownsbase/contributions samplecoupling; ShutterLight typedOpeningAssemblyId owner",
+      "first_failed_contract_or_unresolved_question": "Actualfullfieldsourcebodyconfirms typedopeningkeysandfactorysame-index/base-lengthrelationship; no privateStringloss orsupportedfactorycontributionmismatch. NativeGPU/fieldmutation/identitygeometrypolicy otherindependentcontracts remainopen",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+          "source_sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+          "ranges": [
+            [
+              1,
+              129
+            ],
+            [
+              143,
+              206
+            ]
+          ],
+          "row_pointer": "/rows/0"
+        }
+      ],
+      "remaining_evidence": [
+        "ActualnativeGPUports/mutation/frameidentitycontracts onlyasrequiredbyappropriateactualsource/lens questions; no inheritedverdict/bytecredit",
+        "Current-mainvariant androotcanonicalqueue scopequalification"
+      ],
+      "dependencies": [
+        "Oldown854physicalshutters full1..79 andordered866/599fieldtail actual13lines; new600193complement completesactual206body"
+      ],
+      "closure_condition": "Rootmayrecordsource-scopedL12typedidentity/noStringandfactorycouplingdispositionafterstrictadoption; doNOTcloseotherlenses/nativequality/mutation/current contractsfromthisbodycount",
+      "existing_contract_revisit_identity_proof_if_any": "Exactsameoldqueue SceneWindow/physicalInteriorField typedshutterproducer role; directcanonicalsourceID/hashnotanotherlensverdict"
+    },
+    {
+      "contract_id_or_proposed_new_id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "lens": 12,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Native locked package provenance at exact frozen source locks; concrete app derive/admission owner remains explicit question",
+      "first_failed_contract_or_unresolved_question": "Both frozen PR and physical locks select identical exact macro/reflection package checksum/version; cached full crate/member matches registry body. Package provenance resolved for these frozen routes, feature/application namespace/current-main not inferred.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "physical-p16:Cargo.lock",
+          "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "assessed_ranges": [
+            [
+              2690,
+              2703
+            ],
+            [
+              10243,
+              10256
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+            "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846",
+            "row_pointer": "/rows/0"
+          },
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "pr-working:Cargo.lock",
+          "source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+          "assessed_ranges": [
+            [
+              2689,
+              2702
+            ],
+            [
+              10242,
+              10255
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-869-MACRO-LOCK-AUTHORITY.json",
+            "sha256": "b452e12a2d968df8946945eb1973a5f1a256f88281c640949b6bd00d23434846",
+            "row_pointer": "/rows/1"
+          },
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        },
+        {
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+          "source_sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+          "assessed_ranges": [
+            [
+              118,
+              118
+            ]
+          ],
+          "receipt": {
+            "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-870-REFLECTION-DISPATCH-CLOSING.json",
+            "sha256": "a834cdace6d8af1dbdeaae4a1569ef295bf03437bbc2236d2116a39584c0cff4",
+            "row_pointer": "/rows/0"
+          },
+          "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read"
+        }
+      ],
+      "remaining_evidence": [
+        "Concrete app derive/reexport/feature/native mutation inputs and current-main source/lock scopes as separately queued."
+      ],
+      "dependencies": [
+        "Ordinary869..872 native bodies use these exact package authority proofs."
+      ],
+      "closure_condition": "After strict adoption root may close exact frozen package provenance gap; no whole native SDK/current-main/runtime or application invariant closure.",
+      "existing_contract_revisit_identity_proof_if_any": "Same exact package checksums and original source identities native2561..2570; no another-lens transfer/newfinding alias."
+    }
+  ],
+  "qualifications": [
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-594-WINDOWS-ORIGINAL2715.json",
+      "sha256": "819fccc555e2d1e8662091c0b5baf2cf88ed146bcdb784e165682621607d3b41"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-601-WINDOWS-ORIGINAL2660.json",
+      "sha256": "f0febe884f1db477522718af4965ea600827433ab3c5f3dacb6af477470f0182"
+    },
+    {
+      "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-610-WINDOWS-ORIGINAL2563.json",
+      "sha256": "0ed4932bc21d0f642d8fb7a5537ffaef50e51ceb3662d8e719f1f5090ef9dc9d"
+    }
+  ],
+  "recovery": {
+    "next_original": 2550,
+    "next_batch": 865,
+    "next_isolated_registration": 619,
+    "root_authority_updated": false,
+    "fresh_personal_assessed_lines_counted_once": 563,
+    "bounded_partial_receipts": [],
+    "registered_unread_sources": [],
+    "pending_owned_contracts": [
+      "Existing GPU parameter family owner/first contract/current source; lighting native upload/mutations and actual current source; concrete app native macro/remote wrappers."
+    ],
+    "preservation": "Root sole authority writer; all immutable raw receipts additive, no original/source novelty/body transfer."
+  },
+  "future_same_lens_original_proofs": [
+    {
+      "original_index": 2660,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "source_sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-601.json",
+        "sha256": "072c83ef6a6f8d11227eb50af7cd64498cf064406aceefbc42d9f7f7648ba023"
+      },
+      "assessed_ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-867-TRAVERSAL-NATIVE-NAMES.json",
+        "sha256": "ec4935b7d930909e9b8135fe9229163b65e94b58baa3c016bc91546c0c679489",
+        "row_pointer": "/rows/0"
+      },
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "actual_EOF": 490,
+      "new_ordered_credit": 0,
+      "ordered_count_once_pending": true,
+      "unread_source_ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "coverage_kind": "Exact required original2660 material scope391..490 complete; source1..390 unread"
+    }
+  ],
+  "future_same_lens_partial_proofs": [
+    {
+      "original_index": 2715,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "source_sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "registration_ref_and_sha256": {
+        "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-594.json",
+        "sha256": "79316433fdaf282bf43d7da9863725f39a947eb207a3da025dd7a9c3e80234da"
+      },
+      "assessed_ranges": [
+        [
+          360,
+          463
+        ]
+      ],
+      "receipt": {
+        "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-865-BVH-GAPS-RESOLVED-STATE.json",
+        "sha256": "ead2a377bf6fadccb31fe33c7681742cc36fcd53a9be1ca0827c01f037ee8937",
+        "row_pointer": "/rows/1"
+      },
+      "read_attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "actual_EOF": 463,
+      "new_ordered_credit": 0,
+      "ordered_count_once_pending": true,
+      "unread_source_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "coverage_kind": "Only partial original2715 support360..463; source1..359 unread, no full source or ordered role proof"
+    }
+  ],
+  "proposal_saved_frontier": {
+    "original": 2550,
+    "batch": 865
+  },
+  "actual_authority_frontier_unchanged": {
+    "original": 2571,
+    "batch": 873
+  },
+  "new_original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "root_personal_rereads": [],
+  "runtime_validation": "Not run",
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

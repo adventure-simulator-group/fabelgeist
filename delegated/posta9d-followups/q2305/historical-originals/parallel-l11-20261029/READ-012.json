@@ -1,0 +1,557 @@
+{
+  "kind": "Lens11 current P06 support query/IK and actual P17 capture/report partial source proposal",
+  "lens": 11,
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+      "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-026.json",
+      "sha256": "3a020694df3cb6ff6c75f030738afcb2eb945badcc35fbe75e7b38e27d48bd01"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-027.json",
+      "sha256": "017649e35507c3e946974f3ea151996189220fd87bb5ef91982c2908f7422afb"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-029.json",
+      "sha256": "1651b7f61acef65d1dd027a5e2123aae2263da20cc61f08537c7a5e561e0d466"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-0247",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "actual_EOF": 2973,
+      "prospective_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          760
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          760
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0249",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "actual_EOF": 564,
+      "prospective_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0250",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "sha256": "51077dd4848c32f8c559637ff794ba44f8b071f92ed20fd7103ab1773aac8b9d",
+      "actual_EOF": 121,
+      "prospective_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0251",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "actual_EOF": 407,
+      "prospective_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0252",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "actual_EOF": 214,
+      "prospective_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0253",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "actual_EOF": 352,
+      "prospective_ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0254",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "actual_EOF": 2050,
+      "prospective_ranges": [
+        [
+          1,
+          2050
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          570
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          570
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0255",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+      "sha256": "ad414c150521528e44dbcc6acc18f8631e8d868339839a74e49be89c99b04865",
+      "actual_EOF": 65,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0256",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "actual_EOF": 170,
+      "prospective_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0258",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_EOF": 1021,
+      "prospective_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "fresh_personal_body_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0259",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "actual_EOF": 234,
+      "prospective_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0260",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "actual_EOF": 792,
+      "prospective_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0261",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "actual_EOF": 37,
+      "prospective_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-0263",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+      "actual_EOF": 498,
+      "prospective_ranges": [
+        [
+          480,
+          498
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "corrects_invalid_prospective_registration": "PL11-0262",
+      "correction_reason": "Metadata-only original registration had end530 beyond actualEOF; bounded display raised IndexError before any source body printed. No body coverage, no nonexistent tail, no retroactive whole-range clearance.",
+      "fresh_personal_body_ranges": [
+        [
+          480,
+          498
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          480,
+          498
+        ]
+      ],
+      "whole_file_assessed": false,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "findings": [
+    {
+      "id": "P06-L11-CURRENT-SUPPORT-TO-GUARD-IK",
+      "family": "P06",
+      "disposition": "Narrow actual support producer/query/guard numerical receiver type-retention supported; all broader P06 registered and connected scope remains open",
+      "trace": [
+        "SupportElevation finite signed architectural elevation73..109; zero/negative valid. SceneTerrain::surface_at_stride106..166 queries exact owned surface or actual triangle numeric kernel, then SurfaceHit::from_geometry17..22 admits finiteelevation+Dir3 before typed hitpublication. height_at86..89 returns actual SupportElevation from hit; required_height_at62..68 gives owned typed missingcause.",
+        "Actual IK facade contact_world575..590 converts native target xz into ScenePlanPoint once then terrain.height_at returns OptionSupportElevation unchanged through terrain_conformed_guard_target argument584. Actual consuming function490..498 unwraps height only inside native Vec3 y target computation with canonical measured soleoffset; no application helper f32 handoff.",
+        "GuardStepState retained requested targets is native vector actualsolverstate, not a second support heightauthority. Exact SupportElevation/SurfaceHit distinguishes floorframe/elevation from unitlessscalar; normal alreadyDir3. Native mathkernel unwrap legitimate; no unnecessary supportwrappercollapse justified.",
+        "Current READ001+007 own exact footclearance body demonstrates other typed SupportElevation\u2192FootClearanceFloor until checkednativepoint kernel; fresh terrain_contacts supports typed floorcallback62..87. Perfootweight/clock/length distinctions preserved in reviewed functions."
+      ],
+      "first_failed_contract": null,
+      "canonical_owner": "SceneTerrain/SurfaceHit/SupportElevation shared physicalsupport observation; actual guard conformance numerical boundary.",
+      "exact_function_ownership": [
+        "SupportElevation::from_metres81..83/translated90..101",
+        "SurfaceHit::from_geometry17..22",
+        "SceneTerrain::height_at86..89/surface_at_stride106..166",
+        "apply_terrain_leg_ik contact_world575..590",
+        "terrain_conformed_guard_target490..498"
+      ],
+      "connected_repair_scope": "No raw-height application forwarding gap demonstrated on exact guard route. Broader P06 source, allotherIK branches, retained frame/absence/error policies remain mandatory.",
+      "dependencies": [
+        "IK facade761..2973, observationfull453, retained SceneTerrain declaration1..110 registered unread; root/rig historical geometry/source claims remain unclosed.",
+        "OwnedSurface highest_surface_at implementation and native collider/render correspondence not read here.",
+        "No runtime analytic solve/terrain generation/visual acceptance."
+      ],
+      "acceptance_requirements": [
+        "Typed scene support/point survives application query\u2192IK helper; native vector unwrap only actual numerical solve.",
+        "Preserve absent optional terrain versus required support error and legitimate signed elevation."
+      ],
+      "accepted_unique_count_change": 0
+    },
+    {
+      "id": "P17-L11-CURRENT-REPEATED-TICK-OMISSION",
+      "family": "P17",
+      "disposition": "Historical NATIVE-PP-012 family gap independently demonstrated in actual current; root exact canonical alias comparison pending",
+      "trace": [
+        "capture_frame657..663 retains actual skeleton.locomotion_sample_tick in FrameSample, which declares AnimationSampleTick190. Before samplepublication capture_frame629 passes actual skeleton into record_repeated_evaluation.",
+        "RepeatedEvaluationSnapshot5..13 stores scenario/frame/bones/contact/landing/eventcount/IK only. baseline25..33 omits actualtick; matches53..59 omits tick comparison. Clock-only mutation with unchanged comparedfields cannot affect result. Capturedtick is realproducer evidence, not hypothetical timestamp invented for this audit.",
+        "Actual boolean AND retained repeated_evaluation_valid37 reaches CompletedCapture and build_completed_report16; writer accepts validation only89..99. Later complete validation tail/current reportassembly remains unread; no full false-success runtime claim."
+      ],
+      "first_failed_contract": "Repeated logical-tick comparison omits authoritative sample tick although actual producer has and retains it.",
+      "canonical_owner": "RepeatedEvaluationSnapshot same-tick observation contract; canonical AnimationSampleTick owner.",
+      "exact_function_ownership": [
+        "capture_frame627..629/657..663",
+        "record_repeated_evaluation16..39/RepeatedEvaluationSnapshot::matches43..88",
+        "FrameSample190",
+        "build_completed_report16/write_completed_capture89..99"
+      ],
+      "connected_repair_scope": "Retain actual tick in snapshot and equality using canonical type; preserve source bone/contact/IK checks and existing publication/error chain. Reconcile exact earlier NATIVE-PP-012 claim, no newunique inference.",
+      "dependencies": [
+        "Current fullvalidation/publication tail required toclose downstream contract, historical90a source not currentclearance.",
+        "No runtime/probe; API/source reasoning only."
+      ],
+      "acceptance_requirements": [
+        "Clock-only sameframe mutation is distinguishable at actual repeated comparison; legitimate same tick identicalviews accepted."
+      ],
+      "accepted_unique_count_change": 0
+    },
+    {
+      "id": "P17-L11-CURRENT-REPORT-OBSERVATION-GAP",
+      "family": "P17",
+      "disposition": "Actual current P17 exit remains incomplete; precise subcontracts/earlier canonical aliases must remain separate",
+      "trace": [
+        "Current capture_frame686..691 substitutes BodyAngleZERO/HeightDistanceZERO when optional body/height component absent; actual applicability/requiredness not retained in FrameSample. Other Optional IKsupport correctly remains OptionUnitInterval and required_ik_support247..253 fails absent; do not erase this existing safeguard or claim all missing support passes.",
+        "Actual diagnosticSettleProgress converted to rawfraction744 and SignedAngleDegrees into raw degrees745..750 before retained FrameSample235..237. scenario_metrics193 projects typed supported_foot_slip result to f32 then retains ScenarioMetrics257; substantial raw physical report state reused by validationbefore final serialization. This is applicationstate transition, not only nativeformatter.",
+        "Current metrics signedfoottrack421..435/interfoot437..448/kneeflexion450..478 use infinity for missing/empty observations. minimumkneehemisphere480..511 uses infinity for missing/degenerateaxis, -1 for degeneratebend. Distinct unavailable/invalid states require honest applicability policy; not automatically measured extreme.",
+        "Actual catastrophic_foot_displacement27..31 missing bodylocal returns is_some_and false; both_feet_behind_hips98..103 missingbone returns false. Independent capture_scenarios_complete107..109 and finitebonegate22 can reject missingbones globally, so no whole capture successful missingrequired evidence claimed. Required metric contract must preserve observations independently of later defenses.",
+        "Repeated_bone_mismatch95..101 returns structuralmissingkey as (BoneRole,INFINITY,INFINITY), same scalar tuple as measured numeric mismatch, then matches warning consumes it61..71. This is a distinct structural-versus-measurement contract from omitted sampletick, not exactalias by common observationenum remedy.",
+        "Actual current tree has no historical report/observation.rs or capture/sample.rs. Preserved90a source improvements cannot be called current integration. Existing typed clock/speed/phase/sequence/optional support source improvements remain intact, no blanket rawreport claim."
+      ],
+      "first_failed_contract": "Actual applicable/unavailable/invalid observation states and checked quantities are flattened into zeros/rawfloat/sentinel report state before later metric consumers/native publication.",
+      "canonical_owner": "P17 report observation/applicability owners with canonical geometry/angle/progress/time leaves; distinct repeated structural mismatch and numeric measurement contracts.",
+      "exact_function_ownership": [
+        "capture_frame686..691/744..750",
+        "FrameSample235..237/required_ik_support247..253/ScenarioMetrics125..172",
+        "scenario_metrics119..269/guard_step_liveness_metrics281..390",
+        "minimum_signed_foot_track421..435/minimum_knee_flexion450..478/minimum_knee_hemisphere480..511",
+        "catastrophic_foot_displacement9..42/repeated_bone_mismatch91..129"
+      ],
+      "connected_repair_scope": "Reconcile preservedP17 explicit observation states and full originalproducer/receiver/native report queue; retain each first failure separately within connected report scope, actual validzero/negative and optional modes honest. No single blanket finitewrapper remedy.",
+      "dependencies": [
+        "metrics571..2050 and validation221..792 plus HTML/bodyresponse/height/support/native serialization receivers remain mandatory.",
+        "Applicabilitypolicy for optionalcomponents and missingdata must be traced actual scenarios and admission, no ordinarysuccessful falseclear claim.",
+        "Exact aliases with existing canonical findings/historical NATIVE-PP001/003/007/008/011/012/013 need root ledger reconciliation; common remedy not enough.",
+        "No product execution/runtime/visual validation."
+      ],
+      "acceptance_requirements": [
+        "Distinct NotApplicable/Unavailable/Invalid/Measured states retain actualvalidzero/negative observations through required validators and final JSON/HTML.",
+        "Typed source quantities retained until genuine numerical/serialization port; required missing observations cannot impersonate measured extrema or drift.",
+        "Structural mismatch carries structural role instead of invented infinity distance; current global completeness defense preserved."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "prospective_error": {
+    "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-028.json",
+    "sha256": "5c0178304ece59069fc7148f50c02f4e005cfe22da941886538cf3b178aad645",
+    "registration": "PL11-0262",
+    "disposition": "Rejected metadata-only invalid range480..530 beyondEOF498. No body printed by failed IndexError display, no body/nontailcoverage. Corrected prospectively byPLAN029/PL11-0263 before successful body read."
+  },
+  "population_credit": {
+    "original": 0,
+    "overlay": 0,
+    "merged": 0,
+    "shared": 0,
+    "extensions": 0,
+    "authoritative_registrations": 0
+  },
+  "implementation_gate_complete": false,
+  "native_runtime_validation": "not run",
+  "authority": "Root sole authoritative writer; adoption proposal only"
+}

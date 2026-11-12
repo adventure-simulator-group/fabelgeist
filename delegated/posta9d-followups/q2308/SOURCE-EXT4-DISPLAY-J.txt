@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-building-generator/src/generator/core.rs:71-140
+  71     MissingSourceOpening { wall_source: crate::WallSourceId },
+  72     #[error("roof face {face:?} has no polygon vertices")]
+  73     EmptyRoofFace { face: ResolvedItemId },
+  74     #[error("roof face {face:?} needs at least three vertices, found {vertices}")]
+  75     InvalidRoofFace {
+  76         face: ResolvedItemId,
+  77         vertices: usize,
+  78     },
+  79     #[error("roof face {face:?} has invalid geometry: {cause}")]
+  80     RoofFaceConstruction {
+  81         face: ResolvedItemId,
+  82         #[source]
+  83         cause: crate::spatial_geometry::GeometryError,
+  84     },
+  85     #[error("roof face catchment {catchment:?} has no outlet route")]
+  86     MissingRoofOutlet { catchment: ResolvedItemId },
+  87     #[error("jetty storey frame {storey:?} has no lower bearing")]
+  88     MissingJettyBearing { storey: crate::TimberStoreyFrameId },
+  89     #[error("projected defense owner {owner:?} has no occupied source wall")]
+  90     MissingDefenseHost { owner: GeometryOwnerId },
+  91     #[error("artillery curtain {curtain:?} is absent")]
+  92     MissingArtilleryCurtain { curtain: crate::ArtilleryCurtainId },
+  93     #[error("{archetype:?} has no spiral flight for its occupied keep reservation")]
+  94     MissingKeepFlight { archetype: BuildingArchetype },
+  95     #[error("artillery owner {owner:?} requires a positive grid length, found {units} units")]
+  96     InvalidArtilleryGridLength { owner: GeometryOwnerId, units: i32 },
+  97     #[error("artillery rondel {rondel:?} has no return {return_index}")]
+  98     MissingRondelReturn {
+  99         rondel: crate::ArtilleryRondelId,
+ 100         return_index: usize,
+ 101     },
+ 102     #[error("artillery rondel {rondel:?} has no shell solid")]
+ 103     MissingRondelShell { rondel: crate::ArtilleryRondelId },
+ 104     #[error("physical opening {opening:?} is absent")]
+ 105     MissingOpening { opening: crate::OpeningAssemblyId },
+ 106     #[error("artillery defense target {target:?} is absent")]
+ 107     MissingArtilleryTarget { target: crate::ArtilleryTargetId },
+ 108     #[error("artillery route node {node:?} is absent")]
+ 109     MissingArtilleryRouteNode { node: crate::ArtilleryRouteNodeId },
+ 110     #[error("artillery curtains {curtains:?} have no joining rondel")]
+ 111     MissingCurtainRondel {
+ 112         curtains: [crate::ArtilleryCurtainId; 2],
+ 113     },
+ 114     #[error(transparent)]
+ 115     StructuralNode(#[from] crate::StructuralNodeError),
+ 116     #[error(transparent)]
+ 117     Ordinal(#[from] crate::OrdinalError),
+ 118     #[error("heating reservation on storey {storey}, room {room} at {cell:?}: {reason:?}")]
+ 119     HeatingReservation {
+ 120         storey: StoreyIndex,
+ 121         room: RoomIndex,
+ 122         cell: Cell,
+ 123         reason: ReservationFailure,
+ 124     },
+ 125     #[error("heating rear offset must be a positive cell count, found {cells}")]
+ 126     HeatingAnchor { cells: i16 },
+ 127     #[error("room allocation failed: {0:?}")]
+ 128     RoomAllocation(AllocationFailure),
+ 129     #[error(transparent)]
+ 130     Workplace(#[from] crate::workplace::WorkplaceConstructionError),
+ 131     #[error(transparent)]
+ 132     HeatingConstruction(#[from] crate::HeatingConstructionError),
+ 133     #[error(transparent)]
+ 134     Geometry(#[from] crate::spatial_geometry::GeometryError),
+ 135     #[error(transparent)]
+ 136     Collision(#[from] crate::CollisionError),
+ 137     #[error(transparent)]
+ 138     Door(#[from] crate::DoorError),
+ 139     #[error(transparent)]
+ 140     Window(#[from] crate::WindowError),

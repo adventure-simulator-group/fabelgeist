@@ -1,0 +1,62 @@
+### ik.rs:930-990
+930:                     if evaluation_advances && let Some(observed) = support_observation {
+931:                         memory.left_contact_orientation_blend_active =
+932:                             update_contact_orientation_blend(
+933:                                 memory.left_contact_orientation_blend_active,
+934:                                 memory.left_support_weight,
+935:                                 observed,
+936:                             );
+937:                     }
+938:                     let visible_target = rendered_ankle.unwrap_or(target);
+939:                     footwork.left_solve_target = Some(visible_target);
+940:                     memory.left_foot_world_target = Some(visible_target);
+941:                     memory.left_support_weight = support_observation;
+942:                     if let Some(observed) = support_observation {
+943:                         footwork.left_support_weight = observed;
+944:                     }
+945:                 } else {
+946:                     if evaluation_advances && let Some(observed) = support_observation {
+947:                         memory.right_contact_orientation_blend_active =
+948:                             update_contact_orientation_blend(
+949:                                 memory.right_contact_orientation_blend_active,
+950:                                 memory.right_support_weight,
+951:                                 observed,
+952:                             );
+953:                     }
+954:                     let visible_target = rendered_ankle.unwrap_or(target);
+955:                     footwork.right_solve_target = Some(visible_target);
+956:                     memory.right_foot_world_target = Some(visible_target);
+957:                     memory.right_support_weight = support_observation;
+958:                     if let Some(observed) = support_observation {
+959:                         footwork.right_support_weight = observed;
+960:                     }
+961:                 }
+962:             }
+963:             let raised_orientation_handoff = [
+964:                 memory.left_foot_orientation_world.is_none()
+965:                     && memory.left_last_rendered_foot_rotation_world.is_some(),
+966:                 memory.right_foot_orientation_world.is_none()
+967:                     && memory.right_last_rendered_foot_rotation_world.is_some(),
+968:             ];
+969:             if let Err(error) = finalize_leg_rotation_chains(
+970:                 rig,
+971:                 skeleton,
+972:                 speed,
+973:                 rig_rotation,
+974:                 &mut memory,
+975:                 evaluation_advances,
+976:                 state_delta_seconds,
+977:                 airborne_orientation_owned,
+978:                 raised_orientation_handoff,
+979:                 &parents,
+980:                 &mut transforms,
+981:             ) {
+982:                 warn!(%error, ?owner, "Rejected final leg rotation");
+983:                 continue;
+984:             }
+985:             // Classify support and retain handoff targets only after the final
+986:             // cached-chain/orientation seam. This is the same local-transform
+987:             // state that transform propagation exposes to viewer telemetry.
+988:             for (foot, left, nominal_support) in [
+989:                 (left_foot, true, left_nominal_support),
+990:                 (right_foot, false, right_nominal_support),

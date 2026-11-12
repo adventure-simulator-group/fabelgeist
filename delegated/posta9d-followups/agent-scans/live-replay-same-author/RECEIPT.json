@@ -1,0 +1,30 @@
+{
+  "created_utc": "2026-11-12T15:37:13.970799+00:00",
+  "packet_manifest_sha256": "4366614a547f24bdf9c86d6bd91cf4d4d5ea23ee37218ded35efd5cee4dde8a2",
+  "review_attribution": "Same author as original proposal; not an independent-author review.",
+  "verification": {
+    "portable_log_sha256": "ba4697bf46fa65137e48f9c9fce9daa77b0d9f4589d31a80ffd52822e511df41",
+    "portable_exit": 0,
+    "with_dependencies_log_sha256": "caeed6b448c7dac1bc6172cb2bcb7d8e33b4be82eaa514e4b0f435f37f61875d",
+    "with_dependencies_exit": 0
+  },
+  "scans": {
+    "private_digest": {
+      "tool_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+      "result_sha256": "09666c3389be3f1e05764ed4970babc5f4fc2a63c2c985d0513aa967ecdd2b61",
+      "exit": 0,
+      "forbidden_digest_total": 0,
+      "other_candidate_counts": {},
+      "exceptions_count": 0,
+      "corpus_count": 40
+    },
+    "supplementary_pattern": {
+      "tool_sha256": "7d33a0e78d17ad30768ac30d518a9b1f8203f1350536a16cdb9fd740c675edf9",
+      "result_sha256": "2d22efa67e7370f17e011c6cb440f6d6ef9124740c1b503355d0365c35a7f83d",
+      "exit": 0,
+      "candidate_counts": {},
+      "exceptions_count": 0
+    }
+  },
+  "scope_and_limits": "Bounded scans of this review packet and supported formats only. Known digests and patterns do not clear unknown secrets, encodings, excluded roots, historic Git objects, full frozen checkpoint, existing public histories, or separate private originals. Scans do not prove semantics or reviewer independence."
+}

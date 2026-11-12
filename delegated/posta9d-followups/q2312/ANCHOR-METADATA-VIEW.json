@@ -1,0 +1,57 @@
+{
+  "prior_anchors_0": {
+    "schema": "726-npy-q2306-git-anchor-identities-v1",
+    "commits": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": {
+        "raw_sha256": "1c7c102cb3239b6429e14439280284d96df7cb7a445e80c0c48fba604b45b9d4",
+        "bytes": 3233,
+        "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+      },
+      "95e63628f9d70b8dd6e6fede64334696c6995009": {
+        "raw_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+        "bytes": 1078,
+        "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+      }
+    },
+    "locations_in_existing_publication": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": "recovered/e275-investigation-model-git/e2755a732c84e67296b5e3441a4259a84f461b2f.commit.gz",
+      "95e63628f9d70b8dd6e6fede64334696c6995009": "delegated/checkpoint39-stage/bundles/2625/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit"
+    },
+    "qualification": "Exact raw commit anchors contain public author/committer email metadata; they are retained separately under restricted same-machine custody and already exist in previously published evidence at the named paths. They are not included in the privacy-scanned packet. A verifier needs either these two raw commit bytes or the existing publication. Tree bodies and source files are included in this packet; copying the packet alone without anchors cannot independently verify commit-to-root identity."
+  },
+  "prior_anchors_1": {
+    "schema": "726-npy-q2306-git-anchor-identities-v1",
+    "commits": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": {
+        "raw_sha256": "1c7c102cb3239b6429e14439280284d96df7cb7a445e80c0c48fba604b45b9d4",
+        "bytes": 3233,
+        "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+      },
+      "95e63628f9d70b8dd6e6fede64334696c6995009": {
+        "raw_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+        "bytes": 1078,
+        "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+      }
+    },
+    "locations_in_existing_publication": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": "recovered/e275-investigation-model-git/e2755a732c84e67296b5e3441a4259a84f461b2f.commit.gz",
+      "95e63628f9d70b8dd6e6fede64334696c6995009": "delegated/checkpoint39-stage/bundles/2625/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit"
+    },
+    "qualification": "Exact raw commit anchors contain public author/committer email metadata; they are retained separately under restricted same-machine custody and already exist in previously published evidence at the named paths. They are not included in the privacy-scanned packet. A verifier needs either these two raw commit bytes or the existing publication. Tree bodies and source files are included in this packet; copying the packet alone without anchors cannot independently verify commit-to-root identity."
+  },
+  "local_git_type": {
+    "exit": 128,
+    "stdout": "",
+    "stderr": "fatal: git cat-file: could not get object info\n"
+  },
+  "local_git_root": {
+    "exit": 128,
+    "stdout": "95e63628f9d70b8dd6e6fede64334696c6995009^{tree}\n",
+    "stderr": "fatal: ambiguous argument '95e63628f9d70b8dd6e6fede64334696c6995009^{tree}': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]'\n"
+  },
+  "local_git_crates": {
+    "exit": 128,
+    "stdout": "",
+    "stderr": "fatal: not a tree object\n"
+  }
+}

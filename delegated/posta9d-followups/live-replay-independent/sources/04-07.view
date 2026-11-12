@@ -1,0 +1,33 @@
+     1	{
+     2	  "schema": "726-059-qualified-crosswalk-v1",
+     3	  "records": [
+     4	    {
+     5	      "name": "queue",
+     6	      "historical_transport_path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+     7	      "original_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+     8	      "original_bytes": 21632843,
+     9	      "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    10	      "public_path": "baseline-059/queue.json",
+    11	      "public_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    12	      "public_bytes": 21631815,
+    13	      "public_git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5"
+    14	    },
+    15	    {
+    16	      "name": "ledger",
+    17	      "historical_transport_path": "evidence/continuation-segovb/ledger.json",
+    18	      "original_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+    19	      "original_bytes": 9417609,
+    20	      "original_git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+    21	      "public_path": "baseline-059/ledger.json",
+    22	      "public_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+    23	      "public_bytes": 9416271,
+    24	      "public_git_blob": "14d29425d43070ddef914fd434f1c6ad22dfede7"
+    25	    }
+    26	  ],
+    27	  "transport": {
+    28	    "path": "recovered/original-transport-manifest.json.gz",
+    29	    "stored_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+    30	    "uncompressed_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858"
+    31	  },
+    32	  "qualification": "Original 059 identity and redacted public identity are different; validate separately and report only a qualified historical-to-public crosswalk. A public-only check cannot recover original private paths or independently prove the redaction transformation."
+    33	}

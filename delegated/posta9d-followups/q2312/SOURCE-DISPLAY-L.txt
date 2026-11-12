@@ -1,0 +1,62 @@
+SOURCE rawzip-0.5.2/src/locator.rs:210-270
+ 210         };
+ 211 
+ 212         result.validate()?;
+ 213         Ok(result)
+ 214     }
+ 215 
+ 216     pub(crate) fn create_zip64(
+ 217         eocd: EndOfCentralDirectoryRecord,
+ 218         zip64: Zip64EndOfCentralDirectory,
+ 219     ) -> Result<Self, Error> {
+ 220         let result = EndOfCentralDirectory {
+ 221             eocd_offset: eocd.offset,
+ 222             zip64_eocd_offset: NonZeroU64::new(zip64.offset),
+ 223             central_dir_size: zip64.central_dir_size,
+ 224             central_dir_offset: zip64.central_dir_offset,
+ 225             num_entries: zip64.num_entries,
+ 226             comment_len: eocd.comment_len,
+ 227             base_offset: 0,
+ 228         };
+ 229 
+ 230         result.validate()?;
+ 231         Ok(result)
+ 232     }
+ 233 
+ 234     fn validate(&self) -> Result<(), Error> {
+ 235         // It doesn't make sense if the start of the central directory is after
+ 236         // the end.
+ 237         if self.directory_offset() > self.head_eocd_offset() {
+ 238             return Err(Error::from(ErrorKind::InvalidEndOfCentralDirectory));
+ 239         }
+ 240 
+ 241         Ok(())
+ 242     }
+ 243 
+ 244     #[inline]
+ 245     pub(crate) fn is_zip64(&self) -> bool {
+ 246         self.zip64_eocd_offset.is_some()
+ 247     }
+ 248 
+ 249     pub(crate) fn base_offset(&self) -> u64 {
+ 250         self.base_offset
+ 251     }
+ 252 
+ 253     /// The first end of the central directory signature offsets.
+ 254     ///
+ 255     /// This is offset where no new central directory records are expected.
+ 256     ///
+ 257     /// Will be equivalent to [`Self::tail_eocd_offset`] eocd for non-zip64 files
+ 258     #[inline]
+ 259     pub(crate) fn head_eocd_offset(&self) -> u64 {
+ 260         self.zip64_eocd_offset
+ 261             .map(core::num::NonZero::get)
+ 262             .unwrap_or(self.eocd_offset)
+ 263     }
+ 264 
+ 265     /// The last end of the central directory signature offsets.
+ 266     ///
+ 267     /// This will always be the byte offset of 0x06054b50
+ 268     #[inline]
+ 269     pub(crate) fn tail_eocd_offset(&self) -> u64 {
+ 270         self.eocd_offset

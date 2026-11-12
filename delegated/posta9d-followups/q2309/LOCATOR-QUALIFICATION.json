@@ -1,0 +1,11 @@
+{
+  "reader": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T15:03:29.121807+00:00",
+  "events": [
+    {
+      "kind": "failed source extent preparation",
+      "description": "The attempted bounded root-manifest/zip-consumer registration asserted an overly large end line and aborted before writing the registration, copying source or displaying source bodies. The exception was not truncated. No body-read credit is claimed; register line-count metadata and then valid ranges before redisplay."
+    }
+  ],
+  "qualification": "Preserves the failed source preparation; no execution or product validation occurred."
+}

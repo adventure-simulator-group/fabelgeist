@@ -1,0 +1,209 @@
+[
+  {
+    "file": "ASSESSMENT-REPORT-METRIC-SUPPORT-95E.json",
+    "top_level_fields": {
+      "schema": {
+        "type": "str",
+        "chars": 37
+      },
+      "lenses": {
+        "type": "list",
+        "chars": 30
+      },
+      "source_revision": {
+        "type": "str",
+        "chars": 42
+      },
+      "scope": {
+        "type": "str",
+        "chars": 97
+      },
+      "historical_reads": {
+        "type": "str",
+        "chars": 42
+      },
+      "current_supporting_sources": {
+        "type": "list",
+        "chars": 6714
+      },
+      "conditional_findings": {
+        "type": "list",
+        "chars": 2
+      },
+      "existing_finding_connections": {
+        "type": "list",
+        "chars": 5915
+      },
+      "native_evidence": {
+        "type": "list",
+        "chars": 240
+      },
+      "historical_records": {
+        "type": "list",
+        "chars": 591
+      },
+      "recovered_historical_records": {
+        "type": "list",
+        "chars": 24660
+      },
+      "missing_record_qualification": {
+        "type": "str",
+        "chars": 375
+      },
+      "remaining": {
+        "type": "str",
+        "chars": 211
+      },
+      "repair": {
+        "type": "str",
+        "chars": 13
+      },
+      "validation": {
+        "type": "str",
+        "chars": 15
+      },
+      "targeted_local_evidence_search": {
+        "type": "dict",
+        "chars": 1070
+      }
+    },
+    "match_count": 2,
+    "matches": [
+      {
+        "pointer": "/existing_finding_connections/0/id",
+        "characters": 45
+      },
+      {
+        "pointer": "/existing_finding_connections/0/trace",
+        "characters": 792
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "file": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+    "top_level_fields": {
+      "schema": {
+        "type": "str",
+        "chars": 49
+      },
+      "source_revision": {
+        "type": "str",
+        "chars": 42
+      },
+      "evidence_checkpoint": {
+        "type": "str",
+        "chars": 38
+      },
+      "source_roles": {
+        "type": "str",
+        "chars": 42
+      },
+      "partial_source_roles": {
+        "type": "str",
+        "chars": 37
+      },
+      "p17_git_path_proofs": {
+        "type": "str",
+        "chars": 30
+      },
+      "delegated_observations": {
+        "type": "list",
+        "chars": 137945
+      },
+      "central_decisions": {
+        "type": "list",
+        "chars": 1629
+      },
+      "new_qualified_ledger_rows": {
+        "type": "list",
+        "chars": 922
+      },
+      "open": {
+        "type": "str",
+        "chars": 222
+      },
+      "repair": {
+        "type": "str",
+        "chars": 13
+      },
+      "validation": {
+        "type": "str",
+        "chars": 15
+      }
+    },
+    "match_count": 1,
+    "matches": [
+      {
+        "pointer": "/delegated_observations/14/original_finding/id",
+        "characters": 45
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "file": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+    "top_level_fields": {
+      "schema": {
+        "type": "str",
+        "chars": 49
+      },
+      "source_revision": {
+        "type": "str",
+        "chars": 42
+      },
+      "evidence_checkpoint": {
+        "type": "str",
+        "chars": 39
+      },
+      "source_roles": {
+        "type": "str",
+        "chars": 41
+      },
+      "p17_git_path_proofs": {
+        "type": "str",
+        "chars": 40
+      },
+      "delegated_observations": {
+        "type": "list",
+        "chars": 54016
+      },
+      "central_decisions": {
+        "type": "list",
+        "chars": 903
+      },
+      "new_qualified_ledger_rows": {
+        "type": "list",
+        "chars": 192
+      },
+      "open": {
+        "type": "str",
+        "chars": 183
+      },
+      "repair": {
+        "type": "str",
+        "chars": 13
+      },
+      "validation": {
+        "type": "str",
+        "chars": 15
+      }
+    },
+    "match_count": 3,
+    "matches": [
+      {
+        "pointer": "/delegated_observations/3/original_finding/first_failed_contract",
+        "characters": 160
+      },
+      {
+        "pointer": "/delegated_observations/3/original_finding/evidence/3/path",
+        "characters": 82
+      },
+      {
+        "pointer": "/delegated_observations/3/original_finding/evidence/4/path",
+        "characters": 82
+      }
+    ],
+    "omitted": 0
+  }
+]

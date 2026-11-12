@@ -1,0 +1,16 @@
+{
+  "recorded_at_utc": "2026-11-12T14:56:23.325601+00:00",
+  "status": "Both bounded pre-scans exited 0; forbidden digest matches and candidate pattern counts were zero, with no exceptions. Final scans include these files and the manifest, and their independent receipts are held beside this packet.",
+  "pre_scan_inputs": "Only packet regular files existing before these pre-scan receipts and the manifest; raw commit anchors, full queues, native source archive and unredacted original registration are excluded.",
+  "limits": "Forty restricted-evidence-derived digests and selected path, email, credential patterns; bounded traversal and supported formats only, not a general privacy guarantee. The excluded rawzip source archive had an earlier separate 13 email candidate count and 30 nested ZIP/JAR signature exceptions, whose contents were not traversed.",
+  "scan_scripts": [
+    {
+      "name": "scan-private-digests.py",
+      "sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917"
+    },
+    {
+      "name": "scan-patterns.py",
+      "sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad"
+    }
+  ]
+}

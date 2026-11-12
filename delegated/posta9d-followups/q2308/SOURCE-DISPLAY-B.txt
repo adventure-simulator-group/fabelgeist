@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-building-generator/src/generator/framed_roofs.rs:1-46
+   1 //! Roof windows and timber framing resolve against the same roof assembly.
+   2 use super::*;
+   3 pub(super) fn resolve(
+   4     program: &BuildingProgram,
+   5     edits: &[BuildingEdit],
+   6     roofs: &[RoofPiece],
+   7     roof_dormers: &[RoofDormer],
+   8     towers: &[RoundTower],
+   9     square_towers: &[SquareTower],
+  10     stairs: &mut [Stair],
+  11     wall_assemblies: &mut Vec<crate::WallAssembly>,
+  12     opening_assemblies: &mut Vec<crate::OpeningAssembly>,
+  13     resolved_geometry: &mut ResolvedGeometry,
+  14 ) -> Result<(Vec<RoofAssembly>, Option<crate::TimberFrameAssembly>), GenerationError> {
+  15     let mut roof_assemblies = resolve_roof_assemblies(
+  16         program,
+  17         roofs,
+  18         roof_dormers,
+  19         towers,
+  20         square_towers,
+  21         stairs,
+  22         wall_assemblies,
+  23         opening_assemblies,
+  24         resolved_geometry,
+  25     )?;
+  26     resolve_roof_child_front_openings(
+  27         program,
+  28         roof_dormers,
+  29         &mut roof_assemblies,
+  30         wall_assemblies,
+  31         opening_assemblies,
+  32         resolved_geometry,
+  33     )?;
+  34     let timber_frame = resolve_timber_frame_assembly(
+  35         program,
+  36         edits,
+  37         wall_assemblies,
+  38         opening_assemblies,
+  39         roofs,
+  40         roof_dormers,
+  41         stairs,
+  42         &mut roof_assemblies,
+  43         resolved_geometry,
+  44     )?;
+  45     Ok((roof_assemblies, timber_frame))
+  46 }

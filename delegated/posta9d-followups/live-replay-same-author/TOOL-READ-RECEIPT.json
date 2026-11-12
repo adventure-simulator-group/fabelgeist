@@ -1,0 +1,224 @@
+{
+  "reader": "/root/verifier_scope",
+  "written_utc": "2026-11-12T15:35:11.692694+00:00",
+  "chunks": [
+    {
+      "display": "TOOL-DISPLAY-A.txt",
+      "sha256": "e29b08a221ba24e399f16b927c79ad25395166a16182c14a41a963a51ee3c9b1",
+      "saved_utc": "2026-11-12T15:28:30.826107+00:00",
+      "sections": [
+        {
+          "file": "driver.py",
+          "start": 1,
+          "end": 38
+        },
+        {
+          "file": "evolution.py",
+          "start": 1,
+          "end": 20
+        }
+      ]
+    },
+    {
+      "display": "TOOL-DISPLAY-B.txt",
+      "sha256": "5edb135da14cfdd5822914342dd08c5c9b355fe759b0e8c3348ade5ca4f76522",
+      "saved_utc": "2026-11-12T15:28:37.072944+00:00",
+      "sections": [
+        {
+          "file": "main-advance.py",
+          "start": 130,
+          "end": 158
+        },
+        {
+          "file": "privacy-proposal.py",
+          "start": 1,
+          "end": 40
+        }
+      ]
+    },
+    {
+      "display": "TOOL-DISPLAY-C.txt",
+      "sha256": "7177ad23ca22705d325c70fd2c1161a8376ce98667f92a22fff315bf7ad01f2d",
+      "saved_utc": "2026-11-12T15:28:42.805433+00:00",
+      "sections": [
+        {
+          "file": "delegated-links.py",
+          "start": 1,
+          "end": 45
+        }
+      ]
+    },
+    {
+      "display": "TOOL-DISPLAY-D.txt",
+      "sha256": "11d4ae67ae34eace54a585df06c9197deb0ccb218fcb9f534ecb8b0372e958f6",
+      "saved_utc": "2026-11-12T15:28:46.971173+00:00",
+      "sections": [
+        {
+          "file": "delegated-links.py",
+          "start": 46,
+          "end": 87
+        }
+      ]
+    },
+    {
+      "display": "TOOL-DISPLAY-E.txt",
+      "sha256": "362c254c920223f2aa613198ba1193478120d7212d63d2e5fd5ba8a6d9f29e94",
+      "saved_utc": "2026-11-12T15:28:52.193037+00:00",
+      "sections": [
+        {
+          "file": "recovered-clone.py",
+          "start": 7131,
+          "end": 7151
+        },
+        {
+          "file": "p17-recovery.py",
+          "start": 1,
+          "end": 39
+        }
+      ]
+    },
+    {
+      "display": "TOOL-DISPLAY-F.txt",
+      "sha256": "3c4d62c513f4c8aaad52354cc205e985c6d6bb9c4e6e3923ac69f418210702b7",
+      "saved_utc": "2026-11-12T15:29:03.900599+00:00",
+      "sections": [
+        {
+          "file": "checkpoint-c629.py",
+          "start": 1,
+          "end": 36
+        },
+        {
+          "file": "checkpoint-8608.py",
+          "start": 1,
+          "end": 20
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "file": "driver.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 38,
+      "actual_credited": [
+        [
+          1,
+          38
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "evolution.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 20,
+      "actual_credited": [
+        [
+          1,
+          20
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "main-advance.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 158,
+      "actual_credited": [
+        [
+          130,
+          158
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          129
+        ]
+      ]
+    },
+    {
+      "file": "delegated-links.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 87,
+      "actual_credited": [
+        [
+          1,
+          87
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "recovered-clone.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 8303,
+      "actual_credited": [
+        [
+          7131,
+          7151
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          7130
+        ],
+        [
+          7152,
+          8303
+        ]
+      ]
+    },
+    {
+      "file": "p17-recovery.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 39,
+      "actual_credited": [
+        [
+          1,
+          39
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "checkpoint-c629.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 36,
+      "actual_credited": [
+        [
+          1,
+          36
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "checkpoint-8608.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 20,
+      "actual_credited": [
+        [
+          1,
+          20
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "privacy-proposal.py",
+      "revision": "c7dc76868c73991af5209e61cc664652b0a8d025",
+      "eof": 40,
+      "actual_credited": [
+        [
+          1,
+          40
+        ]
+      ],
+      "unread": []
+    }
+  ],
+  "total_unique_source_lines_credited": 330,
+  "qualification": "Same-author fresh display only. Full captures and Git hashing do not establish extra personal read or independent-author credit. No evidence tool source was executed."
+}

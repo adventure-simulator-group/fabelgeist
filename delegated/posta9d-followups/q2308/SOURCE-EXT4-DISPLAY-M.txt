@@ -1,0 +1,49 @@
+SOURCE crates/adventuresim-building-generator/src/generator/orchestration.rs:56-103
+  56         workplace: None,
+  57         domestic_heating: None,
+  58         seed: program.seed,
+  59         footprint: program.footprint,
+  60         storey_height_metres: program.storey_height_metres,
+  61         wall_style: program.wall_style,
+  62         wall_style_overrides: Vec::new(),
+  63         timber_frame_style: program.timber_frame_style,
+  64         upper_storey_projection_metres: program.upper_storey_projection_metres,
+  65         storeys,
+  66         wall_assemblies,
+  67         opening_assemblies,
+  68         roofs,
+  69         roof_dormers,
+  70         roof_assemblies: Vec::new(),
+  71         towers,
+  72         square_towers,
+  73         stairs,
+  74         battlements,
+  75         crowns,
+  76         projected_defenses,
+  77         resolved_geometry,
+  78         wall_walks,
+  79         defensive_junctions,
+  80         defensive_circuits,
+  81         tower_portals,
+  82         curtain_walls,
+  83         gate_defenses,
+  84         gatehouse_assemblies,
+  85         bartizans,
+  86         church: None,
+  87         small_church: None,
+  88         timber_frame: None,
+  89         castle_phase: crate::CastleConstructionPhase::for_archetype(program.archetype),
+  90         artillery_castle: None,
+  91     };
+  92     plan.resolve_architectural_envelope(program, edits)
+  93 }
+  94 
+  95 fn apply_opening_edits(
+  96     _storey_program: &crate::StoreyProgram,
+  97     level: u16,
+  98     walls: &[crate::WallSegment],
+  99     openings: &mut Vec<Opening>,
+ 100     edits: &[BuildingEdit],
+ 101 ) -> Result<(), GenerationError> {
+ 102     for edit in edits {
+ 103         let selector = match edit {

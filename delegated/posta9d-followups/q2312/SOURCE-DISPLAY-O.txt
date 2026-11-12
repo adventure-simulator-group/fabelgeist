@@ -1,0 +1,35 @@
+SOURCE rawzip-0.5.2/src/locator.rs:402-435
+ 402 fn parse_zip64_candidate(
+ 403     data: &[u8],
+ 404     classic: &EndOfCentralDirectoryRecordFixed,
+ 405     locator: &Zip64EndOfCentralDirectoryLocatorRecord,
+ 406     locator_offset: u64,
+ 407 ) -> Option<Zip64EndOfCentralDirectoryRecord> {
+ 408     const ZIP64_SIZE_PREFIX: u64 = 12;
+ 409     const ZIP64_MIN_SIZE: u64 = Zip64EndOfCentralDirectoryRecord::SIZE as u64 - ZIP64_SIZE_PREFIX;
+ 410 
+ 411     let zip64 = Zip64EndOfCentralDirectoryRecord::parse(data).ok()?;
+ 412 
+ 413     if zip64.size < ZIP64_MIN_SIZE {
+ 414         return None;
+ 415     }
+ 416 
+ 417     let record_end = locator
+ 418         .directory_offset
+ 419         .checked_add(ZIP64_SIZE_PREFIX)?
+ 420         .checked_add(zip64.size)?;
+ 421 
+ 422     let consistent = record_end == locator_offset
+ 423         && (classic.num_entries == u16::MAX || u64::from(classic.num_entries) == zip64.num_entries)
+ 424         && (classic.total_entries == u16::MAX
+ 425             || u64::from(classic.total_entries) == zip64.total_entries)
+ 426         && (classic.central_dir_size == u32::MAX
+ 427             || u64::from(classic.central_dir_size) == zip64.central_dir_size)
+ 428         && (classic.central_dir_offset == u32::MAX
+ 429             || u64::from(classic.central_dir_offset) == zip64.central_dir_offset);
+ 430 
+ 431     consistent.then_some(zip64)
+ 432 }
+ 433 
+ 434 pub(crate) fn find_end_of_central_dir_signature(
+ 435     data: &[u8],

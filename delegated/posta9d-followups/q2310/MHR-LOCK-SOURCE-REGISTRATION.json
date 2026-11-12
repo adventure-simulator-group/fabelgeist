@@ -1,0 +1,45 @@
+{
+  "created_utc": "2026-11-12T15:05:37.347020+00:00",
+  "reader": "/root/mhr_character",
+  "rows": [
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "present": true,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "bytes": 170907,
+      "eof": 7102,
+      "sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c",
+      "git_blob": "cc02815fb3e3bea312c2ebdd8e75c44d3c6adeff",
+      "id": "mhr-lock",
+      "planned_ranges": [
+        [
+          2378,
+          2402
+        ],
+        [
+          4833,
+          4843
+        ]
+      ],
+      "capture": "sources/mhr-lock"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "present": true,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "bytes": 932,
+      "eof": 31,
+      "sha256": "7ac1a547fd9fbe280e15a57c5fa465a28452d70d52496a967233ed7b273c2c46",
+      "git_blob": "7a5e96330ff4f702bdae4a790387f67a654ebfd5",
+      "id": "mhr-manifest",
+      "planned_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "capture": "sources/mhr-manifest"
+    }
+  ],
+  "qualification": "Selected current lock and manifest windows only; no Cargo resolution, feature or full lock body claim."
+}

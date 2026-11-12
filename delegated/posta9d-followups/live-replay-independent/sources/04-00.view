@@ -1,0 +1,38 @@
+     1	"""Run current evidence checks with explicitly qualified privacy successors.
+     2	
+     3	The earlier driver and its original-byte verifiers remain unchanged as
+     4	historical evidence. This driver uses separately preserved successor scripts
+     5	for the redacted current tree; a public crosswalk is not an original-byte match.
+     6	No product build, test, shader, macro, fixture or runtime probe is invoked.
+     7	"""
+     8	import json,subprocess,sys
+     9	from pathlib import Path
+    10	root=Path(__file__).resolve().parent
+    11	stage=root/'delegated/qualified-059-successors'
+    12	plan=json.loads((stage/'DRIVER-INTEGRATION.json').read_text())
+    13	replacements={x['original']:stage/x['successor'] for x in plan['exact_replacements']}
+    14	assert len(replacements)==15 and set(replacements)=={'verify_reconciliation_proposal_links_15.py'}|{f'verify_delegated_links_{i}.py' for i in range(16,30)}
+    15	early=root/'delegated/qualified-059-early-links'
+    16	early_plan=json.loads((early/'INVENTORY.json').read_text())
+    17	assert {x['original'] for x in early_plan['rows']}=={f'verify_delegated_links_{i}.py' for i in range(11,16)}
+    18	replacements.update({x['original']:early/x['successor'] for x in early_plan['rows']})
+    19	assert len(replacements)==20
+    20	city='verify_city_streaming_readiness_95e.py'
+    21	first=['verify_recovered.py','verify_selected_states.py','verify_lock_inventory.py','verify_delta_sources.py','verify_role_worklist.py']
+    22	optional={'verify_local_checkpoint_059.py','verify_recovered_public_redacted_plus2.py'}
+    23	remaining=sorted(p.name for p in root.glob('verify_*.py') if p.name not in first and p.name not in optional)
+    24	native=sorted(p.relative_to(root).as_posix() for p in (root/'native-evidence').glob('*/verify.py'))
+    25	for name in first+remaining+native:
+    26	 args=[];script=root/name
+    27	 if name=='verify_recovered.py':
+    28	  script=root/'verify_recovered_public_redacted_plus2.py'
+    29	  print('CHECK',name,'-> qualified five-object public successor; original-byte verifier retained separately',flush=True)
+    30	 elif name in replacements:
+    31	  script=replacements[name];args=['--publication',str(root)]
+    32	  print('CHECK',name,'-> qualified 059 original-to-public identity successor; not a direct byte match',flush=True)
+    33	 elif name==city:
+    34	  script=root/'delegated/city-streaming-privacy-proposal/candidate/verify_city_streaming_readiness_redacted_95e.py';args=['--publication',str(root)]
+    35	  print('CHECK',name,'-> qualified city registration reconstruction successor',flush=True)
+    36	 else:print('CHECK',name,flush=True)
+    37	 subprocess.run([sys.executable,str(script),*args],cwd=root,check=True)
+    38	print('Published evidence checks passed for the qualified public reconstructions; retained private originals and previous Git history are separate. No product build, test or probe ran.')

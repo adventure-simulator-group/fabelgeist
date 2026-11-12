@@ -1,0 +1,57 @@
+SOURCE rawzip-0.5.2/src/locator.rs:90-145
+  90                 if first_entry.is_some() {
+  91                     eocd.base_offset = cd_offset.saturating_sub(eocd.central_dir_offset);
+  92                     eocd.central_dir_offset = cd_offset;
+  93                 }
+  94 
+  95                 Ok(eocd)
+  96             }
+  97             _ => Ok(eocd),
+  98         }
+  99     }
+ 100 
+ 101     fn locate_in_byte_slice_impl(
+ 102         &self,
+ 103         data: &[u8],
+ 104         location: usize,
+ 105     ) -> Result<EndOfCentralDirectory, Error> {
+ 106         let eocd = EndOfCentralDirectoryRecordFixed::parse(&data[location..])?;
+ 107 
+ 108         // Validate comment is completely present in the slice
+ 109         let comment_start = location + EndOfCentralDirectoryRecordFixed::SIZE;
+ 110         let comment_len = eocd.comment_len as usize;
+ 111         if comment_start + comment_len > data.len() {
+ 112             return Err(Error::from(ErrorKind::Eof));
+ 113         }
+ 114 
+ 115         // Always probe for a zip64 EOCD locator, which can be present without sentinels
+ 116         let zip64_locator = location
+ 117             .checked_sub(Zip64EndOfCentralDirectoryLocatorRecord::SIZE)
+ 118             .and_then(|start| Zip64EndOfCentralDirectoryLocatorRecord::parse(&data[start..]).ok());
+ 119 
+ 120         let Some(zip64_locator) = zip64_locator else {
+ 121             return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+ 122                 location as u64,
+ 123                 &eocd,
+ 124             ));
+ 125         };
+ 126 
+ 127         let zip64_eocd = &data[zip64_locator.directory_offset.min(data.len() as u64) as usize..];
+ 128         let zip64_record = match parse_zip64_candidate(
+ 129             zip64_eocd,
+ 130             &eocd,
+ 131             &zip64_locator,
+ 132             location as u64 - Zip64EndOfCentralDirectoryLocatorRecord::SIZE as u64,
+ 133         ) {
+ 134             Some(record) => record,
+ 135             None => {
+ 136                 return EndOfCentralDirectory::create(EndOfCentralDirectoryRecord::from_parts(
+ 137                     location as u64,
+ 138                     &eocd,
+ 139                 ));
+ 140             }
+ 141         };
+ 142 
+ 143         let zip64 =
+ 144             Zip64EndOfCentralDirectory::from_parts(zip64_locator.directory_offset, zip64_record);
+ 145         let eocd = EndOfCentralDirectoryRecord::from_parts(location as u64, &eocd);

@@ -1,0 +1,112 @@
+     1	# Advancing live audit state while preserving historical checks
+     2	
+     3	A separate live-state namespace is a viable design to investigate. It is not
+     4	an established equivalent verifier, an implementation, an approval, or a
+     5	claim that a lens or queue item is complete. Preserve a completed published
+     6	checkpoint C as the historical input, run its unchanged checker against an
+     7	exact C checkout, and verify evolving state and evidence separately. Choose C
+     8	after the in-flight checkpoint is published; this inspection is of committed
+     9	publication revision a9b8331ae347542b1ea707b1b04eb8092735d1bd, not staged work.
+    10	
+    11	At a9b the pinned source authority is 95e63628f9d70b8dd6e6fede64334696c6995009.
+    12	All 13 current lenses remain incomplete, and none of the 3,713 indexed 059
+    13	queue records is counted as semantically reconciled at 95e. Their historical
+    14	named-scope dispositions remain intact. The 1,031 ledger entries are entries
+    15	and relationships, not independent defect counts. The original 3821 queue and ledger remain missing. The 059 records,
+    16	reconstructions, historical summaries and current-source work keep their
+    17	separate revisions and attribution.
+    18	
+    19	## Why four frozen files are not enough
+    20	
+    21	- The a9b driver selects 698 tracked root verifier names and 54 native evidence
+    22	  verifiers when no extra matching files exist. It discovers root `verify_*.py`
+    23	  and `native-evidence/*/verify.py`, and substitutes qualified privacy
+    24	  successors. New matching files silently change what that old driver runs.
+    25	- Its qualified `verify_delegated_links_13_059_public.py:20–29` scans root
+    26	  `DELEGATED-EVIDENCE-CHECKPOINT*.json` and builds a map whose later matching
+    27	  keys overwrite earlier values. A new root checkpoint can alter historical
+    28	  matching even if the four state files are unchanged. Several other checks
+    29	  compare exact `rglob` or `iterdir` file sets in old packet directories.
+    30	- `verify_main_advance_evidence.py:141–156` requires the frozen 13 lens states,
+    31	  transition-cell statuses and predecessor queue counts, so even justified
+    32	  intermediate transition coverage can conflict. Particle, cloth and action
+    33	  verifiers bind particular old partial queue rows, role states, assessments,
+    34	  old ledger records and zero counters. Data-directed paths reach registries,
+    35	  tree inventories, archives, source proofs and additional verifiers.
+    36	- At a9b literal searches find 375 root verifiers naming the 95e baseline, 413
+    37	  progress, 273 059 reconciliation, and 448 role coverage. At least 249 match
+    38	  one zero-lens pattern and 312 one zero-queue pattern; these regex counts can
+    39	  miss chained or indirect assertions and must not be treated as exhaustive.
+    40	
+    41	A9b has 23,314 tracked entries and 3,071,869,772 summed blob bytes across
+    42	paths, not a measurement of disk usage or an independent copy. The retained
+    43	NUL-delimited Git tree listing identifies paths, modes, objects and sizes; it
+    44	is not a full content rehash or a complete dynamic dependency map. Public
+    45	recovery and local object availability need explicit verification.
+    46	
+    47	## Concrete candidate design
+    48	
+    49	1. Identify C, its full tree and qualified historical driver, source records,
+    50	   privacy successors and discovery set. Preserve the entire old tree and all
+    51	   data-driven dependencies, not merely baseline, progress, reconciliation and
+    52	   coverage JSON. Reproduce C in a separate writable scratch checkout, compare
+    53	   expected paths, modes and unfiltered blob bytes before and after the old
+    54	   evidence-only driver, and record actual inputs, results and optional checks.
+    55	   The recovered verifier creates a temporary native Git clone under its own
+    56	   root; P17 verification creates a separate temporary object-only repository.
+    57	   A read-only mount alone therefore will not replay the unchanged driver.
+    58	2. Keep C's baseline, queue reconciliation, role coverage and progress bytes as
+    59	   historical observations. Put the new authority and all new evidence under a
+    60	   disjoint namespace such as `live/`: a baseline/revision record, per-row
+    61	   reconciliation and source/lens coverage, connected repair ledger, append-only
+    62	   dated changes or corrections, source receipts and a separate verifier. The
+    63	   exact schema is undecided. Never let a new root `verify_*.py`, native verifier,
+    64	   historical checkpoint glob, or old packet directory silently join the old
+    65	   checker's discovery set. Treat corrections and reopenings as explicit events,
+    66	   not as an assumption that every field changes monotonically.
+    67	3. Derive live counters from individually identified rows and evidence, rather
+    68	   than accepting hand-edited totals. Bind each original 059 source pointer and
+    69	   identity to its recorded revision; bind status changes to named evidence,
+    70	   outstanding scope and reviewer attribution. Preserve every old ledger
+    71	   relationship and its origin, while explicitly recording new, amended,
+    72	   reclassified or superseded work. A complete lens requires source inventory,
+    73	   role/queue coverage, source delta, cross-lens relationships and unresolved
+    74	   questions to be reconciled under an independently reviewed closure rule.
+    75	4. Independently compare the whole live tree against C: classify and bind every
+    76	   added, changed, removed and mode-changed path, including any landing page or
+    77	   privacy reconstruction, and bind every inherited evidence reference to the
+    78	   exact C blob or a separately identified qualified successor. Check new live
+    79	   assessments, registered displays, source proof chains, manifest members and
+    80	   report/ledger links against actual live bytes. Do not accept a scratch overlay
+    81	   check as proof that the live target files match it.
+    82	5. Give readers a clearly authoritative live landing and retain the old
+    83	   landing as a time-bound observation. At a9b `CONTINUATION.md:3–14` calls the
+    84	   old files the current authority; leaving that prose unqualified after a real
+    85	   closure would mislead. A filename search found six indirect text references.
+    86	   The selected prescan verifier only checks its prior receipt, but other
+    87	   dynamic/archive uses were not exhausted. Any changed root landing must be a
+    88	   bound successor while old checks replay the C version.
+    89	6. Carry a fresh, dated main observation in live state without relabeling 95e
+    90	   or silently adopting a newer revision. If authority advances, reconcile the
+    91	   full source delta and distinguish its new assessment from earlier evidence.
+    92	   Publish the historical identity, live manifest, verification outcomes and
+    93	   recoverable references at every checkpoint; record same-machine custody and
+    94	   optional private/Git checks honestly.
+    95	
+    96	## Privacy and open questions
+    97	
+    98	At a9b the 15-file path-digest reconstruction proposal remains unapplied;
+    99	522 observed corpus matches and 273 additional semantically selected fields
+   100	have distinct evidentiary bases. Its public verifier does not prove live
+   101	integration, private replay or complete privacy. If the tip is corrected,
+   102	retain original and reconstructed identities with a reviewed crosswalk and
+   103	replay the old exact C checkout separately. A forward change does not erase old
+   104	Git history or prior copies. Freezing all old files in the new tip would also
+   105	freeze those known values, so privacy correction and immutable history need
+   106	separate treatment; neither can be silently traded away.
+   107	
+   108	An independently reviewed live schema and closure rule, a complete dynamic
+   109	input and discovery audit, byte-exact historical replay, live-target binding,
+   110	privacy review and recovery verification remain open. This packet implements
+   111	none of them. It does not establish whole-goal completion, product behavior or
+   112	independent-machine custody.

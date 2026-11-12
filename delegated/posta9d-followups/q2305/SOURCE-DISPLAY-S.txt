@@ -1,0 +1,51 @@
+### ik.rs:830-879
+830:                 let previous_end_direction = if left {
+831:                     footwork.left_end_direction
+832:                 } else {
+833:                     footwork.right_end_direction
+834:                 };
+835:                 let canonical_pole = canonical_knee_pole(side);
+836:                 let canonical_world = pole_to_world(rig_rotation, canonical_pole);
+837:                 let foot_facing = rendered_foot_facing(
+838:                     rig,
+839:                     foot_side,
+840:                     foot_snapshot.global.translation(),
+841:                     &parents,
+842:                     &transforms.p0(),
+843:                 );
+844:                 let pole = stabilized_knee_pole(
+845:                     remembered,
+846:                     previous_end_direction,
+847:                     upper_snapshot.global.translation(),
+848:                     lower_snapshot.global.translation(),
+849:                     target,
+850:                     canonical_world,
+851:                     foot_facing,
+852:                 )
+853:                 .unwrap_or(canonical_world);
+854:                 let pole = constrain_rendered_leg_pole(
+855:                     rig,
+856:                     foot_side,
+857:                     upper_snapshot.global.translation(),
+858:                     foot_snapshot.global.translation(),
+859:                     target,
+860:                     pole,
+861:                     &parents,
+862:                     &transforms.p0(),
+863:                 );
+864:                 if let Some(solution) = solve_two_bone_with_reach(
+865:                     TwoBoneChain::new(
+866:                         upper_snapshot.global.translation(),
+867:                         lower_snapshot.global.translation(),
+868:                         foot_snapshot.global.translation(),
+869:                         upper_length,
+870:                         lower_length,
+871:                         pole,
+872:                     ),
+873:                     target,
+874:                     if support {
+875:                         ReachLimit::Extended {
+876:                             upper: upper_length,
+877:                             lower: lower_length,
+878:                         }
+879:                     } else {

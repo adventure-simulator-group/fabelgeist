@@ -1,0 +1,12 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T15:01:48.442609+00:00",
+  "historical_receipt": "parallel-l11-20261029/READ-172.json#/rows/2",
+  "archive_expected_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+  "locked_package_checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+  "archive_member": "rawzip-0.5.2/src/locator.rs",
+  "member_expected_sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+  "independent_check": "Read exact recorded local archive and recorded restored member; hash archive, compare locked checksum, read exact tar member without extracting into user extraction, hash/compare retained member bytes; save exact archive and member only in fresh private scratch.",
+  "display_scope": "identity results, counts, file sizes, digest values only; no native source body displayed or read credit.",
+  "qualification": "Matches lock identity, not proof of remote origin or actual dependency resolution/runtime; old e275 reviewer remains sole historical reader."
+}

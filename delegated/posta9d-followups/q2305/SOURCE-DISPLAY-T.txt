@@ -1,0 +1,51 @@
+### ik.rs:880-929
+880:                         maximum_reach(upper_length, lower_length)
+881:                     },
+882:                 ) {
+883:                     apply_two_bone_solution(
+884:                         upper,
+885:                         lower,
+886:                         foot,
+887:                         solution,
+888:                         &parents,
+889:                         &mut transforms,
+890:                     );
+891:                     let bend = (solution.knee - upper_snapshot.global.translation())
+892:                         .reject_from_normalized(solution.end_direction);
+893:                     if !state_delta_seconds.is_zero()
+894:                         && let Some(valid) = bend.try_normalize()
+895:                     {
+896:                         if left {
+897:                             memory.left_leg = Some(pole_to_owner(rig_rotation, valid));
+898:                             footwork.left_knee_bend_world = Some(valid);
+899:                             footwork.left_end_direction = Some(solution.end_direction);
+900:                         } else {
+901:                             memory.right_leg = Some(pole_to_owner(rig_rotation, valid));
+902:                             footwork.right_knee_bend_world = Some(valid);
+903:                             footwork.right_end_direction = Some(solution.end_direction);
+904:                         }
+905:                     }
+906:                 }
+907:                 let rendered_ankle = snapshot(foot, &parents, &transforms.p0())
+908:                     .map(|rendered| rendered.global.translation());
+909:                 let support_observation =
+910:                     observed_support_weight(support, rendered_ankle, terrain, *enabled);
+911:                 let reported_support = support_observation.is_some_and(terrain_leg_has_support);
+912:                 airborne_orientation_owned[leg_index] = !reported_support;
+913:                 if enabled.is_enabled()
+914:                     && reported_support
+915:                     && let Some(terrain) = terrain
+916:                     && let Some(normal) = ScenePlanPoint::from_metres(target.xz())
+917:                         .and_then(|point| terrain.normal_at(point))
+918:                     && let Some(sole_axis) = rig.sole_axis(foot_side)
+919:                 {
+920:                     let cached_chain = if left {
+921:                         memory.left_rotation_chain
+922:                     } else {
+923:                         memory.right_rotation_chain
+924:                     };
+925:                     if evaluation_advances || cached_chain.is_none() {
+926:                         align_foot_to_slope(foot, sole_axis, normal, &parents, &mut transforms);
+927:                     }
+928:                 }
+929:                 if left {

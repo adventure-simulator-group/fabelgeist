@@ -1,0 +1,53 @@
+SOURCE rawzip-0.5.2/src/locator.rs:350-401
+ 350             }));
+ 351         }
+ 352 
+ 353         Ok(result)
+ 354     }
+ 355 }
+ 356 
+ 357 ///
+ 358 ///
+ 359 /// 4.3.15
+ 360 #[derive(Debug)]
+ 361 #[allow(dead_code)]
+ 362 struct Zip64EndOfCentralDirectoryLocatorRecord {
+ 363     /// zip64 end of central dir locator signature
+ 364     pub signature: u32,
+ 365 
+ 366     /// number of the disk with the start of the zip64 end of central directory
+ 367     pub eocd_disk: u32,
+ 368 
+ 369     /// relative offset of the zip64 end of central directory record
+ 370     pub directory_offset: u64,
+ 371 
+ 372     /// total number of disks
+ 373     pub total_disks: u32,
+ 374 }
+ 375 
+ 376 impl Zip64EndOfCentralDirectoryLocatorRecord {
+ 377     const SIZE: usize = 20;
+ 378 
+ 379     pub fn parse(data: &[u8]) -> Result<Zip64EndOfCentralDirectoryLocatorRecord, Error> {
+ 380         if data.len() < Self::SIZE {
+ 381             return Err(Error::from(ErrorKind::Eof));
+ 382         }
+ 383 
+ 384         let result = Zip64EndOfCentralDirectoryLocatorRecord {
+ 385             signature: le_u32(&data[0..4]),
+ 386             eocd_disk: le_u32(&data[4..8]),
+ 387             directory_offset: le_u64(&data[8..16]),
+ 388             total_disks: le_u32(&data[16..20]),
+ 389         };
+ 390 
+ 391         if result.signature != END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE {
+ 392             return Err(Error::from(ErrorKind::InvalidSignature {
+ 393                 expected: END_OF_CENTRAL_DIR_LOCATOR_SIGNATURE,
+ 394                 actual: result.signature,
+ 395             }));
+ 396         }
+ 397 
+ 398         Ok(result)
+ 399     }
+ 400 }
+ 401 
