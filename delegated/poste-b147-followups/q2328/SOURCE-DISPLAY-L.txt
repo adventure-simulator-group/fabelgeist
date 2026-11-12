@@ -1,0 +1,65 @@
+SOURCE crates/adventuresim-character-creator/src/drape_preview.rs:81-144
+  81         let textures = maps.textures();
+  82         let mut load = |bytes: &[u8], srgb| {
+  83             images.add(
+  84                 Image::from_buffer(
+  85                     bytes,
+  86                     ImageType::Extension("png"),
+  87                     CompressedImageFormats::NONE,
+  88                     srgb,
+  89                     ImageSampler::Descriptor(ImageSamplerDescriptor {
+  90                         address_mode_u: ImageAddressMode::Repeat,
+  91                         address_mode_v: ImageAddressMode::Repeat,
+  92                         ..default()
+  93                     }),
+  94                     RenderAssetUsages::default(),
+  95                 )
+  96                 .expect("generated weave is a valid PNG"),
+  97             )
+  98         };
+  99         let (color, metallic, roughness) = weave.pbr();
+ 100         let [across, up] = weave.repeat_m();
+ 101         let material = StandardMaterial {
+ 102             base_color: Color::srgba(color[0], color[1], color[2], color[3]),
+ 103             base_color_texture: textures
+ 104                 .base_color_png
+ 105                 .as_deref()
+ 106                 .map(|bytes| load(bytes, true)),
+ 107             normal_map_texture: Some(load(&textures.normal_png, false)),
+ 108             occlusion_texture: textures
+ 109                 .occlusion_png
+ 110                 .as_deref()
+ 111                 .map(|bytes| load(bytes, false)),
+ 112             // Draped UVs are pattern metres; one texture repeat is one ring tile.
+ 113             uv_transform: bevy::math::Affine2::from_scale(Vec2::new(1.0 / across, 1.0 / up)),
+ 114             metallic,
+ 115             perceptual_roughness: roughness,
+ 116             alpha_mode: AlphaMode::Mask(0.5),
+ 117             cull_mode: None,
+ 118             double_sided: true,
+ 119             ..default()
+ 120         };
+ 121         if self.recent.len() == MAIL_MATERIAL_CACHE {
+ 122             self.recent.remove(0);
+ 123         }
+ 124         self.recent.push((weave, material.clone()));
+ 125         material
+ 126     }
+ 127 }
+ 128 
+ 129 fn cloth_material() -> StandardMaterial {
+ 130     let (color, metallic, roughness) = CLOTH_PBR;
+ 131     StandardMaterial {
+ 132         base_color: Color::srgba(color[0], color[1], color[2], color[3]),
+ 133         metallic,
+ 134         perceptual_roughness: roughness,
+ 135         cull_mode: None,
+ 136         double_sided: true,
+ 137         ..default()
+ 138     }
+ 139 }
+ 140 
+ 141 pub fn input(
+ 142     model: &BodyModel,
+ 143     generated: &GeneratedCharacter,
+ 144     selection: adventuresim_character_creator::garment::GarmentSelection,

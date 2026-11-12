@@ -1,0 +1,25 @@
+ 461         .filter(|(_, w)| *w > 0.0)
+ 462         .fold(Vec3::ZERO, |sum, (joint, weight)| {
+ 463             sum + matrices[joint].transform_point3(point) * weight
+ 464         })
+ 465 }
+ 466 
+ 467 #[cfg(test)]
+ 468 mod deformation_tests {
+ 469     use super::*;
+ 470 
+ 471     #[test]
+ 472     fn cloth_preserves_opposite_leg_motion_in_last_four_influences() {
+ 473         let matrices = (0..8)
+ 474             .map(|i| Mat4::from_translation(Vec3::Z * if i < 4 { 1.0 } else { -1.0 }))
+ 475             .collect::<fabelgeist_rig::RigJointTable<_>>();
+ 476         let point = Vec3::new(0.0, 0.5, 0.0);
+ 477         let centre = blend_point(
+ 478             point,
+ 479             [0usize, 1, 2, 3, 4, 5, 6, 7].map(fabelgeist_rig::RigJointOrdinal::from),
+ 480             [0.125; 8],
+ 481             &matrices,
+ 482         );
+ 483         assert!((centre - point).length() < 1e-6);
+ 484         let left = blend_point(
+ 485             point,

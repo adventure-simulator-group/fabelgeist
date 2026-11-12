@@ -1,0 +1,72 @@
+[
+  {
+    "pattern": {
+      "all": [
+        "inventory.rs",
+        "invalid"
+      ]
+    },
+    "matches_total": 4,
+    "retained": [
+      {
+        "index": 2298,
+        "contract_id": "PL13-246-FOOD-LOT-AMOUNT-CONSERVATION-NATIVE-PENDING"
+      },
+      {
+        "index": 2321,
+        "contract_id": "PL13-252-PREPARATION-VIEW-MATERIAL-QUANTUM-PENDING"
+      },
+      {
+        "index": 2329,
+        "contract_id": "REVIEW-L11-CREATOR-INVENTORY-TERMINAL-ERROR-BOUNDARIES"
+      },
+      {
+        "index": 2330,
+        "contract_id": "REVIEW-L11-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION"
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "pattern": {
+      "all": [
+        "catalogconflict"
+      ]
+    },
+    "matches_total": 1,
+    "retained": [
+      {
+        "index": 2329,
+        "contract_id": "REVIEW-L11-CREATOR-INVENTORY-TERMINAL-ERROR-BOUNDARIES"
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "pattern": {
+      "all": [
+        "review_export.rs"
+      ]
+    },
+    "matches_total": 1,
+    "retained": [
+      {
+        "index": 2329,
+        "contract_id": "REVIEW-L11-CREATOR-INVENTORY-TERMINAL-ERROR-BOUNDARIES"
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "pattern": {
+      "all": [
+        "inventory.rs",
+        "wear",
+        "culprit"
+      ]
+    },
+    "matches_total": 0,
+    "retained": [],
+    "omitted": 0
+  }
+]

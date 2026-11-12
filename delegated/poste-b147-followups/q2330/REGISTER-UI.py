@@ -1,0 +1,5 @@
+import argparse,datetime,hashlib,json,pathlib,subprocess
+p=pathlib.Path(__file__).resolve().parent;a=argparse.ArgumentParser();a.add_argument('--repo',required=True);repo=a.parse_args().repo;rev='95e63628f9d70b8dd6e6fede64334696c6995009';path='crates/adventuresim-character-creator/src/studio_ui.rs';data=subprocess.check_output(['git','-C',repo,'show',rev+':'+path]);entry=subprocess.check_output(['git','-C',repo,'ls-tree',rev,'--',path]).decode().rstrip();dest='sources/support-ui.rs';
+if (p/dest).exists():raise ValueError('would overwrite capture')
+with (p/dest).open('xb') as f:f.write(data)
+x={'registered_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'reader':'/root/mhr_character','items':[{'revision':rev,'path':path,'git_entry':entry,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'lines':len(data.splitlines()),'file':dest,'display_ranges':[[205,240]]}],'qualification':'Narrow source of loaded-recipe ownership, independent of q2329 error-boundary work.'};(p/'SUPPORT-UI-REGISTRATION.json').write_text(json.dumps(x,indent=2)+'\n');print(json.dumps({'bytes':len(data),'lines':len(data.splitlines()),'sha256':x['items'][0]['sha256']}))

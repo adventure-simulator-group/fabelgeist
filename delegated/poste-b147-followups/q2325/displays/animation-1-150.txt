@@ -1,0 +1,150 @@
+   1 use super::*;
+   2 use bevy::{
+   3     animation::{AnimatedBy, AnimationTargetId},
+   4     gltf::Gltf,
+   5     mesh::{
+   6         VertexAttributeValues,
+   7         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
+   8     },
+   9 };
+  10 pub use binding::{ClothBinding, skin, skin_mesh};
+  11 use cloth_motion::ClothMotion;
+  12 #[cfg(test)]
+  13 use cloth_motion::simulate;
+  14 pub use colliders::ArmorSkin;
+  15 
+  16 mod binding;
+  17 mod cloth_motion;
+  18 mod cloth_render;
+  19 mod colliders;
+  20 
+  21 #[derive(Resource, Default)]
+  22 pub struct WalkPreview {
+  23     requested: Handle<Gltf>,
+  24     graph: Option<Handle<AnimationGraph>>,
+  25     node: Option<AnimationNodeIndex>,
+  26     pub player: Option<Entity>,
+  27     skeleton: Option<Entity>,
+  28     pub joints: fabelgeist_rig::RigJointTable<Entity>,
+  29     pub inverse_bindposes: Handle<SkinnedMeshInverseBindposes>,
+  30     pub playing: bool,
+  31     pub physics: bool,
+  32     pub ignore_cloth_weights: bool,
+  33     pub simulation: SimulationSettings,
+  34 }
+  35 
+  36 #[derive(Clone, Debug)]
+  37 pub struct SimulationSettings {
+  38     pub self_collision: bool,
+  39     pub cloth_thickness: f32,
+  40     pub contact_iterations: u32,
+  41     pub gravity: f32,
+  42     pub damping: f32,
+  43     pub stretch_stiffness: f32,
+  44     pub follow_strength: f32,
+  45     pub collision_margin: f32,
+  46     pub collision_distance: f32,
+  47     pub substeps: u32,
+  48     pub iterations: u32,
+  49 }
+  50 
+  51 #[derive(Component)]
+  52 struct PreviewSkeleton;
+  53 
+  54 // Preserve all eight exported influences. Reducing each vertex independently
+  55 // to four can discard the opposite leg precisely at the centre transition.
+  56 #[derive(Component)]
+  57 pub struct BodySkin {
+  58     pub positions: Vec<[f32; 3]>,
+  59     pub faces: Vec<[u32; 3]>,
+  60     pub indices: fabelgeist_rig::PackedRigSkin<8>,
+  61     pub weights: Vec<[f32; 8]>,
+  62 }
+  63 
+  64 #[derive(Component)]
+  65 pub struct ClothSkin {
+  66     render_vertices: Option<Vec<usize>>,
+  67     form: GarmentForm,
+  68     positions: Vec<[f32; 3]>,
+  69     faces: Vec<[u32; 3]>,
+  70     edges: Vec<[u32; 2]>,
+  71     binding: ClothBinding,
+  72     current: Vec<Vec3>,
+  73     previous: Vec<Vec3>,
+  74     motion: ClothMotion,
+  75 }
+  76 
+  77 #[derive(Default)]
+  78 pub struct BodyMotion {
+  79     rig: Option<Entity>,
+  80     positions: Vec<Vec3>,
+  81 }
+  82 
+  83 impl Default for SimulationSettings {
+  84     fn default() -> Self {
+  85         Self {
+  86             self_collision: true,
+  87             cloth_thickness: 0.004,
+  88             contact_iterations: 3,
+  89             gravity: 9.81,
+  90             damping: 0.015,
+  91             stretch_stiffness: 0.96,
+  92             follow_strength: 1.0,
+  93             collision_margin: 0.006,
+  94             collision_distance: 0.08,
+  95             substeps: 2,
+  96             iterations: 3,
+  97         }
+  98     }
+  99 }
+ 100 
+ 101 impl WalkPreview {
+ 102     pub fn ready(&self) -> bool {
+ 103         self.player.is_some() && self.graph.is_some() && self.node.is_some()
+ 104     }
+ 105 
+ 106     pub fn start_or_resume(&self, player: &mut AnimationPlayer) {
+ 107         if player.playing_animations().next().is_none() {
+ 108             player
+ 109                 .play(self.node.expect("ready walk preview has a graph node"))
+ 110                 .repeat();
+ 111         } else {
+ 112             player.resume_all();
+ 113         }
+ 114     }
+ 115 }
+ 116 
+ 117 impl ClothSkin {
+ 118     pub fn new(
+ 119         form: GarmentForm,
+ 120         positions: Vec<[f32; 3]>,
+ 121         _normals: Vec<[f32; 3]>,
+ 122         faces: Vec<[u32; 3]>,
+ 123         binding: ClothBinding,
+ 124     ) -> Result<Self> {
+ 125         if let ClothBinding::Weighted { indices, weights } = &binding {
+ 126             anyhow::ensure!(
+ 127                 indices.len() == positions.len() && weights.len() == positions.len(),
+ 128                 "cloth skin rows and positions have different vertex counts"
+ 129             );
+ 130         }
+ 131         let mut edges = std::collections::BTreeSet::new();
+ 132         for face in &faces {
+ 133             for [a, b] in [[face[0], face[1]], [face[1], face[2]], [face[2], face[0]]] {
+ 134                 edges.insert(if a < b { [a, b] } else { [b, a] });
+ 135             }
+ 136         }
+ 137         let current: Vec<Vec3> = positions.iter().copied().map(Vec3::from_array).collect();
+ 138         Ok(Self {
+ 139             render_vertices: None,
+ 140             form,
+ 141             positions,
+ 142             faces,
+ 143             edges: edges.into_iter().collect(),
+ 144             binding,
+ 145             previous: current.clone(),
+ 146             current,
+ 147             motion: ClothMotion::Skinned,
+ 148         })
+ 149     }
+ 150 }

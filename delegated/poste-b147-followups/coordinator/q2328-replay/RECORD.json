@@ -1,0 +1,17 @@
+{
+  "cases": [
+    {
+      "case": "original",
+      "exit": 0,
+      "bytes": 249,
+      "sha256": "f17bb469437ec6ac1637971603fd8466bca8f20c233e02f2454bc4fee03b9d10"
+    },
+    {
+      "case": "public-successor",
+      "exit": 0,
+      "bytes": 390,
+      "sha256": "e81b810dcbe5183ab5e8684f6d3d0b16cf87f724f28a3436506d289de8a50b67"
+    }
+  ],
+  "qualification": "Same-machine evidence-only verification of original and qualified path-safe successor with exact Git objects, original/reconstructed queues and separately held ledger. The successor runs the original verifier with manifest checking intentionally skipped and separately verifies its own manifest and unchanged original members; this is not original-byte identity for the five transformed files or independent custody."
+}

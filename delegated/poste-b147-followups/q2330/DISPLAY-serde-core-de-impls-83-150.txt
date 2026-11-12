@@ -1,0 +1,68 @@
+    83	        impl_deserialize_num!($primitive, $deserialize $($method!($($val : $visit)*);)*);
+    84	
+    85	        impl<'de> Deserialize<'de> for num::$nonzero {
+    86	            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    87	            where
+    88	                D: Deserializer<'de>,
+    89	            {
+    90	                struct NonZeroVisitor;
+    91	
+    92	                impl<'de> Visitor<'de> for NonZeroVisitor {
+    93	                    type Value = num::$nonzero;
+    94	
+    95	                    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+    96	                        formatter.write_str(concat!("a nonzero ", stringify!($primitive)))
+    97	                    }
+    98	
+    99	                    $($($method!(nonzero $primitive $val : $visit);)*)*
+   100	                }
+   101	
+   102	                deserializer.$deserialize(NonZeroVisitor)
+   103	            }
+   104	        }
+   105	
+   106	        #[cfg(not(no_core_num_saturating))]
+   107	        impl<'de> Deserialize<'de> for Saturating<$primitive> {
+   108	            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+   109	            where
+   110	                D: Deserializer<'de>,
+   111	            {
+   112	                struct SaturatingVisitor;
+   113	
+   114	                impl<'de> Visitor<'de> for SaturatingVisitor {
+   115	                    type Value = Saturating<$primitive>;
+   116	
+   117	                    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+   118	                        formatter.write_str("integer with support for saturating semantics")
+   119	                    }
+   120	
+   121	                    $($($method!(saturating $primitive $val : $visit);)*)*
+   122	                }
+   123	
+   124	                deserializer.$deserialize(SaturatingVisitor)
+   125	            }
+   126	        }
+   127	    };
+   128	
+   129	    ($primitive:ident, $deserialize:ident $($method:ident!($($val:ident : $visit:ident)*);)*) => {
+   130	        impl<'de> Deserialize<'de> for $primitive {
+   131	            #[inline]
+   132	            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+   133	            where
+   134	                D: Deserializer<'de>,
+   135	            {
+   136	                struct PrimitiveVisitor;
+   137	
+   138	                impl<'de> Visitor<'de> for PrimitiveVisitor {
+   139	                    type Value = $primitive;
+   140	
+   141	                    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+   142	                        formatter.write_str(stringify!($primitive))
+   143	                    }
+   144	
+   145	                    $($($method!($val : $visit);)*)*
+   146	                }
+   147	
+   148	                deserializer.$deserialize(PrimitiveVisitor)
+   149	            }
+   150	        }

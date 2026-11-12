@@ -1,0 +1,25 @@
+ 381                 location_label(*location),
+ 382                 channel_label(*channel).to_lowercase()
+ 383             ),
+ 384             Self::Unsupported { channel, location } => format!(
+ 385                 "needs a worn {} garment to attach to{}",
+ 386                 channel_label(*channel).to_lowercase(),
+ 387                 location.map_or(String::new(), |location| format!(
+ 388                     " on the {}",
+ 389                     location_label(location)
+ 390                 ))
+ 391             ),
+ 392             Self::Invalid(reason) => reason.clone(),
+ 393         }
+ 394     }
+ 395 }
+ 396 
+ 397 pub fn channel_label(channel: EquipmentChannel) -> &'static str {
+ 398     match channel {
+ 399         EquipmentChannel::Held => "Held",
+ 400         EquipmentChannel::BaseClothing => "Clothing",
+ 401         EquipmentChannel::Padding => "Padding",
+ 402         EquipmentChannel::FlexibleArmor => "Mail",
+ 403         EquipmentChannel::RigidArmor => "Plate",
+ 404         EquipmentChannel::Outerwear => "Outerwear",
+ 405         EquipmentChannel::Accessory => "Accessories",

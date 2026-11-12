@@ -1,0 +1,49 @@
+   1 use super::*;
+   2 
+   3 /// Refit an existing garment without changing its trim or vertex correspondence.
+   4 impl ClothingShell {
+   5     pub fn refit(
+   6         &self,
+   7         positions: &[[f32; 3]],
+   8         normals: &[[f32; 3]],
+   9     ) -> Result<Self, ClothingError> {
+  10         if positions.len() != self.positions.len() || normals.len() != positions.len() {
+  11             return Err(ClothingError::MorphCorrespondenceChanged);
+  12         }
+  13         let (positions, normals) = fitted_surface(
+  14             positions,
+  15             normals,
+  16             &self.faces,
+  17             self.specification.normal_offset_metres,
+  18         );
+  19         let faces = validated_placeholder_faces(&self.specification.name, &self.faces, &positions)?;
+  20         if faces != self.faces {
+  21             return Err(ClothingError::MorphTrianglesInvalidated);
+  22         }
+  23         Ok(Self {
+  24             specification: self.specification.clone(),
+  25             positions,
+  26             normals,
+  27             faces,
+  28         })
+  29     }
+  30 }
+  31 
+  32 pub(super) fn fitted_surface(
+  33     positions: &[[f32; 3]],
+  34     normals: &[[f32; 3]],
+  35     faces: &[[u32; 3]],
+  36     offset_metres: SignedLength,
+  37 ) -> (Vec<[f32; 3]>, Vec<[f32; 3]>) {
+  38     let relaxed = relax_concavities(positions, normals, faces);
+  39     let shell_normals = surface_normals(&relaxed, normals, faces);
+  40     let mut shell_positions = relaxed
+  41         .iter()
+  42         .zip(&shell_normals)
+  43         .map(|(position, normal)| {
+  44             std::array::from_fn(|axis| position[axis] + normal[axis] * offset_metres.metres())
+  45         })
+  46         .collect::<Vec<_>>();
+  47     weld_split_vertex_positions(positions, &mut shell_positions);
+  48     (shell_positions, shell_normals)
+  49 }

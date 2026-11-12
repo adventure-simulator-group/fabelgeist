@@ -1,0 +1,140 @@
+   1 use super::{CatalogDiagnostics, reject_unknown};
+   2 use serde_json::Value;
+   3 use std::collections::BTreeSet;
+   4 
+   5 pub(super) const PLACEMENT_FIELDS: &[&str] = &[
+   6     "id",
+   7     "occupancy",
+   8     "parents",
+   9     "layers_over",
+  10     "protection",
+  11     "surface",
+  12 ];
+  13 
+  14 pub(super) fn validate_dependencies(
+  15     parents: &[Value],
+  16     placement: &serde_json::Map<String, Value>,
+  17     placement_path: &str,
+  18     errors: &mut CatalogDiagnostics<'_>,
+  19 ) {
+  20     for (index, parent) in parents.iter().enumerate() {
+  21         if let Err(error) =
+  22             serde_json::from_value::<crate::item_catalog_schema::ParentRequirement>(parent.clone())
+  23         {
+  24             errors.push(
+  25                 format!("{placement_path}.parents.{index}"),
+  26                 error.to_string(),
+  27             );
+  28         }
+  29     }
+  30     validate_layer_precedence(placement.get("layers_over"), placement_path, errors);
+  31 }
+  32 
+  33 pub(super) fn validate_layer_precedence(
+  34     layers_over: Option<&Value>,
+  35     placement_path: &str,
+  36     errors: &mut CatalogDiagnostics<'_>,
+  37 ) {
+  38     let Some(layers_over) = layers_over else {
+  39         return;
+  40     };
+  41     let Some(layers_over) = layers_over.as_array() else {
+  42         errors.push(format!("{placement_path}.layers_over"), "must be an array");
+  43         return;
+  44     };
+  45     for (index, precedence) in layers_over.iter().enumerate() {
+  46         if let Err(error) = serde_json::from_value::<
+  47             crate::item_catalog_schema::EquipmentLayerPrecedence,
+  48         >(precedence.clone())
+  49         {
+  50             errors.push(
+  51                 format!("{placement_path}.layers_over.{index}"),
+  52                 error.to_string(),
+  53             );
+  54         }
+  55     }
+  56 }
+  57 
+  58 pub(super) fn validate_occupancy(
+  59     occupancy: &[Value],
+  60     placement_path: &str,
+  61     valid_locations: &BTreeSet<&str>,
+  62     valid_channels: &BTreeSet<&str>,
+  63     errors: &mut CatalogDiagnostics<'_>,
+  64 ) {
+  65     let mut occupied: Vec<crate::item_catalog_schema::OccupancyRequirement> = Vec::new();
+  66     for (occupancy_index, requirement) in occupancy.iter().enumerate() {
+  67         let Some(requirement) = requirement.as_object() else {
+  68             errors.push(
+  69                 format!("{placement_path}.occupancy.{occupancy_index}"),
+  70                 "must be an object",
+  71             );
+  72             continue;
+  73         };
+  74         reject_unknown(
+  75             requirement,
+  76             &["location", "channel", "order", "fit_zone"],
+  77             &format!("{placement_path}.occupancy.{occupancy_index}"),
+  78             errors,
+  79         );
+  80         let location = requirement
+  81             .get("location")
+  82             .and_then(Value::as_str)
+  83             .unwrap_or("");
+  84         let channel = requirement
+  85             .get("channel")
+  86             .and_then(Value::as_str)
+  87             .unwrap_or("");
+  88         if !valid_locations.contains(location) {
+  89             errors.push(
+  90                 format!("{placement_path}.occupancy.{occupancy_index}.location"),
+  91                 "invalid location",
+  92             );
+  93         }
+  94         if !valid_channels.contains(channel) {
+  95             errors.push(
+  96                 format!("{placement_path}.occupancy.{occupancy_index}.channel"),
+  97                 "invalid channel",
+  98             );
+  99         }
+ 100         let typed = serde_json::from_value::<crate::item_catalog_schema::OccupancyRequirement>(
+ 101             Value::Object(requirement.clone()),
+ 102         )
+ 103         .ok();
+ 104         if typed.is_some_and(|typed| {
+ 105             typed
+ 106                 .fit_zone
+ 107                 .is_some_and(|zone| !zone.fits_location(typed.location))
+ 108         }) {
+ 109             errors.push(
+ 110                 format!("{placement_path}.occupancy.{occupancy_index}.fit_zone"),
+ 111                 "fit zone does not belong to the occupied location",
+ 112             );
+ 113         }
+ 114         let order = requirement
+ 115             .get("order")
+ 116             .and_then(Value::as_u64)
+ 117             .unwrap_or(0);
+ 118         if typed.is_some_and(|requirement| requirement.channel.singleton_per_location())
+ 119             && order != 0
+ 120         {
+ 121             errors.push(
+ 122                 format!("{placement_path}.occupancy.{occupancy_index}.order"),
+ 123                 "singleton channel requires order 0",
+ 124             );
+ 125         }
+ 126         if order > u16::MAX.into()
+ 127             || typed.is_some_and(|requirement| {
+ 128                 let conflict = occupied
+ 129                     .iter()
+ 130                     .any(|other| requirement.conflicts_with(*other));
+ 131                 occupied.push(requirement);
+ 132                 conflict
+ 133             })
+ 134         {
+ 135             errors.push(
+ 136                 format!("{placement_path}.occupancy.{occupancy_index}"),
+ 137                 "duplicate or invalid ordered occupancy",
+ 138             );
+ 139         }
+ 140     }

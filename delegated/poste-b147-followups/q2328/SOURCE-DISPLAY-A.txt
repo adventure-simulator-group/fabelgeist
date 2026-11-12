@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-character-creator/src/drape_worker.rs:1-70
+   1 //! A background thread draping one outfit at a time, so draping never blocks
+   2 //! the studio. A new request cancels the running drape.
+   3 use adventuresim_character_creator::garment::{
+   4     DrapeCheckpoints, DrapeInput, DrapedGarment, OutfitOutcome, drape_outfit,
+   5 };
+   6 use std::sync::{
+   7     Arc, Mutex,
+   8     atomic::{AtomicBool, Ordering},
+   9 };
+  10 
+  11 /// Drapes garments, each tagged with what it belongs to.
+  12 pub(super) struct DrapeWorker<T> {
+  13     handle: Option<std::thread::JoinHandle<OutfitOutcome>>,
+  14     pending: Option<Vec<(T, DrapeInput)>>,
+  15     /// The tag of each garment the running drape produces.
+  16     draping: Vec<T>,
+  17     cancel: Arc<AtomicBool>,
+  18     latest: Arc<Mutex<Option<Vec<DrapedGarment>>>>,
+  19     /// Completed stages of the most recent drape, reused by the next request.
+  20     checkpoints: Vec<DrapeCheckpoints>,
+  21 }
+  22 
+  23 impl<T> Default for DrapeWorker<T> {
+  24     fn default() -> Self {
+  25         Self {
+  26             handle: None,
+  27             pending: None,
+  28             draping: Vec::new(),
+  29             cancel: Arc::default(),
+  30             latest: Arc::default(),
+  31             checkpoints: Vec::new(),
+  32         }
+  33     }
+  34 }
+  35 
+  36 impl<T> Drop for DrapeWorker<T> {
+  37     fn drop(&mut self) {
+  38         self.cancel.store(true, Ordering::Relaxed);
+  39     }
+  40 }
+  41 
+  42 /// What changed since the worker was last polled.
+  43 #[derive(Default)]
+  44 pub(super) struct DrapeProgress {
+  45     /// A drape began; its garments are tagged by [`DrapeWorker::draping`].
+  46     pub started: bool,
+  47     /// Garments to show now, in drape order.
+  48     pub preview: Option<Vec<DrapedGarment>>,
+  49     /// The drape's result, once it finished without being cancelled.
+  50     pub finished: Option<OutfitOutcome>,
+  51 }
+  52 
+  53 impl<T: Send + 'static> DrapeWorker<T> {
+  54     /// Drape garments, innermost first, cancelling any drape in progress.
+  55     pub fn request(&mut self, input: Vec<(T, DrapeInput)>) {
+  56         self.cancel.store(true, Ordering::Relaxed);
+  57         self.pending = (!input.is_empty()).then_some(input);
+  58         *self.latest.lock().unwrap() = None;
+  59     }
+  60 
+  61     /// Make the next request simulate every stage again.
+  62     pub fn restart_from_placement(&mut self) {
+  63         self.checkpoints.clear();
+  64     }
+  65 
+  66     /// Whether a drape is queued or running.
+  67     pub fn running(&self) -> bool {
+  68         self.handle.is_some() || self.pending.is_some()
+  69     }
+  70 

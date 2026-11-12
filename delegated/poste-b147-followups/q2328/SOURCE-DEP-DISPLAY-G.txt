@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-character-creator/src/wardrobe_tab.rs:55-125
+  55 pub(super) struct WardrobeGarment;
+  56 
+  57 /// One drape of the garment being designed.
+  58 struct Drape {
+  59     /// The settings it was draped from.
+  60     selection: GarmentSelection,
+  61     /// Its latest preview, or its result once finished.
+  62     garment: Option<DrapedGarment>,
+  63     finished: bool,
+  64     /// Problems of the finished drape; the garment is still shown.
+  65     problems: Option<String>,
+  66 }
+  67 
+  68 #[derive(Resource)]
+  69 pub(super) struct WardrobeTab {
+  70     /// The body garments are draped on and fitted to.
+  71     body: Option<BareBody>,
+  72     /// The garment being designed.
+  73     pub garment: GarmentSelection,
+  74     pub showing: Showing,
+  75     worker: DrapeWorker<()>,
+  76     drape: Option<Drape>,
+  77     /// Problems fitting the shown saved garment; it is still shown.
+  78     fit_problems: Option<String>,
+  79     /// Drape the designed garment again, from its first changed stage.
+  80     pub redrape: bool,
+  81     /// Show `showing` again, as the body or the saved garment changed.
+  82     refresh: bool,
+  83 }
+  84 
+  85 impl Default for WardrobeTab {
+  86     fn default() -> Self {
+  87         Self {
+  88             body: None,
+  89             garment: GarmentSelection::default(),
+  90             showing: Showing::Design,
+  91             worker: DrapeWorker::default(),
+  92             drape: None,
+  93             fit_problems: None,
+  94             redrape: true,
+  95             refresh: true,
+  96         }
+  97     }
+  98 }
+  99 
+ 100 impl WardrobeTab {
+ 101     pub fn ready(&self) -> bool {
+ 102         self.body.is_some()
+ 103     }
+ 104 
+ 105     pub fn draping(&self) -> bool {
+ 106         self.worker.running()
+ 107     }
+ 108 
+ 109     /// How far the designed garment's drape has come.
+ 110     pub fn stage(&self) -> Option<DrapeStage> {
+ 111         Some(self.drape.as_ref()?.garment.as_ref()?.stage)
+ 112     }
+ 113 
+ 114     /// The designed garment, fully settled as it is designed now: ready to save.
+ 115     pub fn settled(&self) -> Option<&DrapedGarment> {
+ 116         let drape = self.drape.as_ref()?;
+ 117         let garment = drape.garment.as_ref()?;
+ 118         let complete = matches!(garment.stage, DrapeStage::Settling { step, of } if step == of);
+ 119         (drape.finished && complete && drape.selection.same_simulation(&self.garment))
+ 120             .then_some(garment)
+ 121     }
+ 122 
+ 123     /// Problems of what is shown, which is shown anyway.
+ 124     pub fn problems(&self) -> Option<&str> {
+ 125         match self.showing {

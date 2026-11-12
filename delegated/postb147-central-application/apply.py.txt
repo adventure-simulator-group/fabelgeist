@@ -1,0 +1,38 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,sys,tempfile
+if sys.flags.optimize:raise RuntimeError('assertions must remain enabled')
+R=Path('.');P=R/'delegated/poste-b147-followups';C=P/'coordinator';S=Path(sys.argv[1]);head='b147e0caaf982e0adc765f188353152db994b184'
+h=lambda b:hashlib.sha256(b).hexdigest();enc=lambda x:(json.dumps(x,indent=2,ensure_ascii=False)+'\n').encode()
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==head
+names=['BASELINE-95E-20261110.json','CONTINUATION-PROGRESS-95E.json','RECONCILIATION-059.json','CONTINUATION.md'];original={}
+for name in names:
+ b=(R/name).read_bytes();assert b==subprocess.check_output(['git','show',head+':'+name]);original[name]=b
+ with (S/(name+'.before')).open('xb') as f:f.write(b)
+raw=(C/'CENTRAL-14C-SYNTHESIS.json').read_bytes();report=json.loads(raw);assert report['parent_published_checkpoint']==head
+assert h((P/'CATALOG.json').read_bytes())=='c18a2aa5ce8c14405208bf27e9a8e5d668e6a1efeafe4efa48a8792c43cc7d4d'
+base=json.loads(original[names[0]]);ledger=base['newly_assessed_ledger']['entries'];added=report['ledger_relationships']
+assert len(ledger)==1051 and len(added)==9 and len({x['id'] for x in added})==9 and not {x['id'] for x in ledger}&{x['id'] for x in added};ledger.extend(added)
+base['latest_main_recheck']='MAIN-RECHECK-20261112-1720.json'
+progress=json.loads(original[names[1]]);assert (progress['new_current_ledger_candidates'],progress['lens_count'],progress['lenses_complete'],progress['queue_records_semantically_reconciled'])==(1051,13,0,0)
+progress['new_current_ledger_candidates']=len(ledger);progress['central_postb147_bounded_reconciliation']='ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json';progress['b147_same_machine_recovery_verification']='delegated/poste-b147-followups/checkpoint-b147-recovery/RECOVERY-RECORD.json';progress['main_recheck_20261112_1720']='MAIN-RECHECK-20261112-1720.json'
+queue=json.loads(original[names[2]]);assert len(queue['entries'])==3713
+assert [x['queue_index'] for x in report['assessments']]==[2325,2326,2328,2329,2330]
+for assessment in report['assessments']:
+ x=queue['entries'][assessment['queue_index']];assert x['contract_id']==assessment['historical_contract_id'] and x['current_reconciliation']=='unassessed'
+ x['current_reconciliation']='partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json; historical disposition retains original revision, reader and named scope; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit'
+text=original[names[3]].decode();needle='`ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json` connects';assert text.count(needle)==1
+insertion=('`delegated/poste-b147-followups/checkpoint-b147-recovery/RECOVERY-RECORD.json`\n' 'records same-machine recovery of the preceding published checkpoint.\n\n' '`ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json` connects bounded skin, hair,\n' 'drape and inventory source reviews to separately attributed history. The\n' 'relationships are not unique-defect counts or completed queue records.\n\n');text=text.replace(needle,insertion+needle,1)
+selections=[{'index':i,'contract_id':queue['entries'][i]['contract_id'],'current_reconciliation_at_snapshot':queue['entries'][i]['current_reconciliation']} for i in [2325,2326,2327,2328,2329,2330]]
+snapshot={'schema':'726-postb147-time-bound-followup-snapshot-v1','source_revision':report['source_revision'],'parent_published_checkpoint':head,'observed_counts':{'lenses':progress['lens_count'],'lenses_complete':progress['lenses_complete'],'queue_records':len(queue['entries']),'queue_semantically_reconciled':progress['queue_records_semantically_reconciled'],'current_ledger_entries_and_relationships':len(ledger)},'queue_selections':selections,'added_ledger_relationship_ids':[x['id'] for x in added],'central_report_sha256':h(raw),'bundle_catalog_sha256':h((P/'CATALOG.json').read_bytes()),'b147_recovery_manifest_sha256':h((P/'checkpoint-b147-recovery/MANIFEST.json').read_bytes()),'main_observation_sha256':h((R/'MAIN-RECHECK-20261112-1720.json').read_bytes()),'qualification':'Time-bound counts include relationships and conditional candidates, not independent defects. Historical, reconstructed and current work retain original attribution. Final checkpoint3821 queue and ledger remain missing.','repair':'not started','product_validation':'not performed'}
+out={names[0]:enc(base),names[1]:enc(progress),names[2]:enc(queue),names[3]:text.encode(),'ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json':raw,'FOLLOWUP-POSTB147-EVIDENCE.json':enc(snapshot)}
+assert all(not (R/n).exists() for n in ['ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json','FOLLOWUP-POSTB147-EVIDENCE.json'])
+for name,b in out.items():
+ with (S/(name+'.after')).open('xb') as f:f.write(b)
+for name,b in original.items():assert (R/name).read_bytes()==b
+for name in names:
+ with tempfile.NamedTemporaryFile(dir=R,prefix='.postb147-update-',delete=False) as f:f.write(out[name]);tmp=f.name
+ os.replace(tmp,R/name)
+for name in ['ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json','FOLLOWUP-POSTB147-EVIDENCE.json']:
+ with (R/name).open('xb') as f:f.write(out[name])
+for name,b in out.items():assert (R/name).read_bytes()==b
+print('Applied five bounded queue connections and nine relationships; ledger entries/relationships 1060. All lenses and semantic queue records remain open.')

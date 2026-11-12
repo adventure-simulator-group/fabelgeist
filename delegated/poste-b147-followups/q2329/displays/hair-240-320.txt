@@ -1,0 +1,81 @@
+ 240 pub(super) struct StrandsDrawn {
+ 241     pub(super) drawn: usize,
+ 242     pub(super) all: usize,
+ 243 }
+ 244 
+ 245 /// Keep the shown hair in step with the recipe and the Hair page: grow and
+ 246 /// place a new style, place it again on every body the studio regenerates
+ 247 /// (which despawns it with the rest of the character), and redraw it when
+ 248 /// its colour or level of detail changes.
+ 249 #[expect(
+ 250     clippy::too_many_arguments,
+ 251     reason = "Bevy injects the studio, body caches, the shown meshes and their assets"
+ 252 )]
+ 253 pub(super) fn refresh(
+ 254     mut commands: Commands,
+ 255     mut preview: ResMut<HairPreview>,
+ 256     mut studio: ResMut<Studio>,
+ 257     mut cache: ResMut<studio_cache::StudioCache>,
+ 258     model: Res<BodyModel>,
+ 259     walk: Res<WalkPreview>,
+ 260     shown: Query<(Entity, &HairMesh)>,
+ 261     mut assets: HairAssets,
+ 262     mut contexts: EguiContexts,
+ 263 ) {
+ 264     let uploads = assets.uploads.clone();
+ 265     if let Err(error) = preview.collect(&mut assets.images, &uploads) {
+ 266         studio.status = format!("Hair could not be placed: {error:#}");
+ 267     }
+ 268     let wanted = studio.recipe.hair.map(|design| (design, studio.hair_form));
+ 269     for (entity, mesh) in &shown {
+ 270         if Some((mesh.design, mesh.form)) != wanted {
+ 271             commands.entity(entity).despawn();
+ 272         }
+ 273     }
+ 274     let Some((design, form)) = wanted else {
+ 275         return;
+ 276     };
+ 277     // A level of detail is drawn once its slider is let go.
+ 278     if studio.dirty || walk.joints.is_empty() || studio_generation::dragging(&mut contexts) {
+ 279         return;
+ 280     }
+ 281     let recipe = studio.recipe.clone();
+ 282     let body = match cache.body(&model, &recipe) {
+ 283         Ok(body) => body,
+ 284         Err(error) => {
+ 285             studio.status = format!("{error:#}");
+ 286             return;
+ 287         }
+ 288     };
+ 289     let Some(placed) = preview.placed(design.groom(), &body) else {
+ 290         if preview.request(design.groom(), &body, BodyHead::new(&model, &body)) {
+ 291             studio.status = format!(
+ 292                 "Growing {} hair",
+ 293                 variant_label(design.preset).to_lowercase()
+ 294             );
+ 295         }
+ 296         return;
+ 297     };
+ 298     if shown
+ 299         .iter()
+ 300         .any(|(_, mesh)| (mesh.design, mesh.form) == (design, form))
+ 301     {
+ 302         return;
+ 303     }
+ 304     let Some(skin) = animation_preview::skin(&walk) else {
+ 305         return;
+ 306     };
+ 307     let drawn = assets.hair(placed, design, form).and_then(|hair| {
+ 308         let cap = assets.scalp_cap(placed, design)?;
+ 309         Ok((hair, cap))
+ 310     });
+ 311     let (hair, (cap, cap_material)) = match drawn {
+ 312         Ok(drawn) => drawn,
+ 313         Err(error) => {
+ 314             studio.status = format!("Hair could not be drawn: {error:#}");
+ 315             return;
+ 316         }
+ 317     };
+ 318     let shown = studio.hair_layers;
+ 319     if let Some((mesh, material)) = hair {
+ 320         // Its mesh holds no positions to bound it by: they lie on the GPU.

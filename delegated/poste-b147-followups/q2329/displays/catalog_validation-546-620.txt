@@ -1,0 +1,75 @@
+ 546 fn validate_weapon_carry(
+ 547     item: &Map<String, Value>,
+ 548     path: &str,
+ 549     errors: &mut CatalogDiagnostics<'_>,
+ 550 ) {
+ 551     let carry = item.get("carry").and_then(Value::as_str).unwrap_or("");
+ 552     if !matches!(carry, "sheathable" | "hand_only") {
+ 553         errors.push(
+ 554             format!("{path}.carry"),
+ 555             "weapon requires sheathable or hand_only",
+ 556         );
+ 557         return;
+ 558     }
+ 559     let Some(equipment) = item.get("equipment").and_then(Value::as_object) else {
+ 560         errors.push(
+ 561             format!("{path}.equipment"),
+ 562             "weapon requires explicit hand placements",
+ 563         );
+ 564         return;
+ 565     };
+ 566     let placements = equipment
+ 567         .get("placements")
+ 568         .and_then(Value::as_array)
+ 569         .map(Vec::as_slice)
+ 570         .unwrap_or_default();
+ 571     let has_parent_placement = placements.iter().any(|placement| {
+ 572         placement
+ 573             .get("parents")
+ 574             .and_then(Value::as_array)
+ 575             .is_some_and(|parents| !parents.is_empty())
+ 576     });
+ 577     let has_sheath_placement = placements.iter().any(|placement| {
+ 578         placement
+ 579             .get("parents")
+ 580             .and_then(Value::as_array)
+ 581             .is_some_and(|parents| {
+ 582                 parents.len() == 1
+ 583                     && parents[0].get("channel").and_then(Value::as_str) == Some("containment")
+ 584                     && match parents[0].get("order") {
+ 585                         None => true,
+ 586                         Some(order) => order.as_u64() == Some(0),
+ 587                     }
+ 588             })
+ 589     });
+ 590     let hand_only_placements_are_held_roots = placements.iter().all(|placement| {
+ 591         let parents_are_empty = match placement.get("parents") {
+ 592             None => true,
+ 593             Some(parents) => parents.as_array().is_some_and(Vec::is_empty),
+ 594         };
+ 595         let Some(occupancy) = placement.get("occupancy").and_then(Value::as_array) else {
+ 596             return false;
+ 597         };
+ 598         parents_are_empty
+ 599             && occupancy.len() == 1
+ 600             && occupancy[0]
+ 601                 .get("location")
+ 602                 .and_then(Value::as_str)
+ 603                 .is_some_and(|location| matches!(location, "left_hand" | "right_hand"))
+ 604             && occupancy[0].get("channel").and_then(Value::as_str) == Some("held")
+ 605             && match occupancy[0].get("order") {
+ 606                 None => true,
+ 607                 Some(order) => order.as_u64() == Some(0),
+ 608             }
+ 609     });
+ 610     let has_sheathable_tag = equipment
+ 611         .get("attachment_tags")
+ 612         .and_then(Value::as_array)
+ 613         .into_iter()
+ 614         .flatten()
+ 615         .any(|tag| tag.as_str() == Some("sheathable_weapon"));
+ 616     match carry {
+ 617         "sheathable" => {
+ 618             if !has_sheath_placement || !has_sheathable_tag {
+ 619                 errors.push(
+ 620                     path,

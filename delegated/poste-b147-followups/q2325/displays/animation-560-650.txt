@@ -1,0 +1,91 @@
+ 560         use bevy::ecs::system::RunSystemOnce;
+ 561         let mut world = World::new();
+ 562         world.insert_resource(Time::<()>::default());
+ 563         world.insert_resource(Assets::<Mesh>::default());
+ 564         let mut binds = Assets::<SkinnedMeshInverseBindposes>::default();
+ 565         let inverse_bindposes = binds.add(SkinnedMeshInverseBindposes::from(vec![Mat4::IDENTITY]));
+ 566         world.insert_resource(binds);
+ 567         let joint = world.spawn(GlobalTransform::IDENTITY).id();
+ 568         world.insert_resource(WalkPreview {
+ 569             playing: true,
+ 570             physics: true,
+ 571             ignore_cloth_weights: true,
+ 572             joints: vec![joint].into(),
+ 573             inverse_bindposes,
+ 574             simulation: SimulationSettings {
+ 575                 gravity: 0.0,
+ 576                 ..Default::default()
+ 577             },
+ 578             ..Default::default()
+ 579         });
+ 580         let mut entities = Vec::new();
+ 581         for height in [-0.001, 0.001] {
+ 582             let positions = vec![
+ 583                 [-1.0, height, -1.0],
+ 584                 [0.0, height, 1.0],
+ 585                 [1.0, height, -1.0],
+ 586             ];
+ 587             let mesh = Mesh::new(
+ 588                 PrimitiveTopology::TriangleList,
+ 589                 RenderAssetUsages::default(),
+ 590             );
+ 591             let handle = world.resource_mut::<Assets<Mesh>>().add(mesh);
+ 592             let skin = ClothSkin::new(
+ 593                 GarmentForm::Skirted,
+ 594                 positions,
+ 595                 vec![],
+ 596                 vec![[0, 1, 2]],
+ 597                 ClothBinding::Weighted {
+ 598                     indices: fabelgeist_rig::PackedRigSkin::from_native(
+ 599                         vec![[0; 8]; 3],
+ 600                         fabelgeist_rig::RigJointCount::from_native_joint_count(1),
+ 601                     )
+ 602                     .unwrap(),
+ 603                     weights: vec![[0.0; 8]; 3],
+ 604                 },
+ 605             )
+ 606             .unwrap();
+ 607             entities.push(world.spawn((Mesh3d(handle), skin)).id());
+ 608         }
+ 609         world.run_system_once(deform_cloth).unwrap();
+ 610         let a = world.get::<ClothSkin>(entities[0]).unwrap();
+ 611         let b = world.get::<ClothSkin>(entities[1]).unwrap();
+ 612         let gap = (b.current.iter().map(|p| p.y).sum::<f32>()
+ 613             - a.current.iter().map(|p| p.y).sum::<f32>())
+ 614             / 3.0;
+ 615         assert!(gap > 0.0035, "garments stayed only {gap} m apart");
+ 616         for skin in [a, b] {
+ 617             for (p, previous) in skin.current.iter().zip(&skin.previous) {
+ 618                 assert!(
+ 619                     (*p - *previous).length() < 1e-5,
+ 620                     "contact injected velocity"
+ 621                 );
+ 622             }
+ 623         }
+ 624     }
+ 625 
+ 626     #[test]
+ 627     fn animated_body_ccd_retains_pose_history_across_frames() {
+ 628         let mut world = World::new();
+ 629         world.insert_resource(Time::<()>::default());
+ 630         world.insert_resource(Assets::<Mesh>::default());
+ 631         let mut binds = Assets::<SkinnedMeshInverseBindposes>::default();
+ 632         let inverse_bindposes = binds.add(SkinnedMeshInverseBindposes::from(vec![Mat4::IDENTITY]));
+ 633         world.insert_resource(binds);
+ 634         let joint = world.spawn(GlobalTransform::IDENTITY).id();
+ 635         world.insert_resource(WalkPreview {
+ 636             playing: true,
+ 637             physics: true,
+ 638             ignore_cloth_weights: true,
+ 639             joints: vec![joint].into(),
+ 640             inverse_bindposes,
+ 641             simulation: SimulationSettings {
+ 642                 gravity: 0.0,
+ 643                 ..Default::default()
+ 644             },
+ 645             ..Default::default()
+ 646         });
+ 647         world.spawn(BodySkin {
+ 648             positions: vec![[-10.0, -10.0, -1.0], [10.0, -10.0, -1.0], [0.0, 10.0, -1.0]],
+ 649             faces: vec![[0, 1, 2]],
+ 650             indices: fabelgeist_rig::PackedRigSkin::from_native(

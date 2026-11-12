@@ -1,0 +1,62 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Creator inventory fresh-ID overflow and same-article attachment reservation against selected current ingress/consumer paths.",
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/current_connected_dispositions/276",
+      "id": "L11-CURRENT-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f"
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_findings_pending_primary_provenance_and_alias/12",
+      "id": "PL13-116-INVENTORY-ID-SUCCESSOR"
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_findings_pending_primary_provenance_and_alias/14",
+      "id": "PL13-124-SAME-ARTICLE-ATTACHMENT-CAPACITY"
+    }
+  ],
+  "source_reasoning": "Static source and integer reasoning only. No inventory, JSON, catalog, graph, UI, product build, test or runtime probe ran.",
+  "candidates": [
+    {
+      "id": "REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001",
+      "severity": "P3 conditional high-ID public input; real loaded recipe and player impact unestablished",
+      "classification": "bounded 95e source trace of already reported creator inventory successor exhaustion; not a new unique historical finding",
+      "detail": "InventoryItemId publicly wraps u64, Inventory::get_mut exposes each item and its public id, and Inventory::validate checks duplicate IDs and article validity without excluding u64::MAX. Inventory::add adds one to every existing ID before selecting the maximum. A valid inventory containing an otherwise valid article with ID u64::MAX therefore reaches an unrepresentable addition; overflow-checked builds panic, while unchecked arithmetic wraps. For example, with existing distinct IDs u64::MAX and u64::MAX-1, unchecked wrapping makes the latter successor u64::MAX and can publish a duplicate of the first. This is source and unsigned arithmetic reasoning only: no inventory, recipe, JSON, UI or product ran.",
+      "consumer_and_safeguards": "The current recipe validation calls Inventory::validate and the studio acquisition function adds an article before selecting and wearing its returned ID. The current loader parses then validates a recipe, but this trace does not execute or assert a particular loaded external file, actual overflow profile, user incident or ordinary creation of 2^64 articles. Existing duplicate detection remains meaningful but runs only when called; it is not part of add.",
+      "connected_scope": "Creator InventoryItemId admission, recipe load/validate, fresh allocation and exhaustion, UI acquisition, identity lookups, worn graph and drape tags.",
+      "proposed_repair": "After exhaustive discovery and separate implementation authorization, define fresh-ID allocation and exhaustion at the inventory owner, preserving existing inventory and selected/worn identities on failure. Propagate a typed outcome through actual acquisition and other callers, and preserve collision-free ordinary allocation.",
+      "later_acceptance": "When product validation is authorized, cover maximum and adjacent IDs, both allocation and explicit exhaustion policy, duplicate rejection, and stable UI/graph identities.",
+      "historical_related_candidates": [
+        "L11-CURRENT-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION",
+        "PL13-116-INVENTORY-ID-SUCCESSOR"
+      ],
+      "relationship_qualification": "Recovered 059 includes an e275 Lens 11 disposition and a separately delegated frozen-source Lens 13 finding with no accepted unique increment. This 95e trace links the current body and selected caller without promoting either historical record to checkpoint 3821 or resolving all aliases.",
+      "discovery": "partial; all add callers, external admission, allocation policy, graph and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-CREATOR-ATTACHMENT-PROSPECTIVE-CAPACITY-001",
+      "severity": "P3 conditional custom catalog input; authored roster occurrence and player impact unestablished",
+      "classification": "bounded 95e source trace of already reported same-article attachment reservation concern; not a new unique historical finding",
+      "detail": "WornGraph::support checks a matching point against children already in its graph. While attaching one candidate, WornGraph::attach calls support separately for each parent requirement, then adds the number of this same candidate's earlier edges on the point to the returned slot index without rechecking capacity. With one matching capacity-1 point, zero graph children and two matching requirements on the candidate, the source yields prospective slot indices 0 and 1. EquipmentGraph::equip checks edge uniqueness, existing edge conflicts, parent presence and cycles, but receives no catalog capacity; distinct slots 0 and 1 do not trigger those checks. The first failing contract is prospective capacity reservation, not duplicate slot detection. This is source and integer reasoning only; no catalog, graph or product ran.",
+      "consumer_and_safeguards": "Inventory::fit resolves catalog placements and builds this WornGraph; successful fit is used by wear and loadout. EquipmentPlacement stores a vector of parent requirements, the selected dependency validator parses them independently, and attachment point validation allows capacity 1. The creator ItemCatalog::new checks armor recipes rather than establishing this prospective graph invariant. This bounded case assumes matching parent and child definitions with otherwise admissible fields, a placed support, and no unrelated body or graph conflicts; complete schema admission, authored roster occurrence, alternate points and actual player impact remain unproved.",
+      "connected_scope": "Catalog parent requirements and point capacity; same-candidate and existing-child reservation; EquipmentGraph edge admission; creator wear/loadout and actual catalog producers.",
+      "proposed_repair": "After exhaustive discovery and separate implementation authorization, reserve and validate each proposed edge against the point capacity including earlier edges of the same candidate, and choose or reject alternate supports according to explicit policy. Preserve distinct slots, valid multi-capacity support and graph conflict/cycle protections.",
+      "later_acceptance": "When product validation is authorized, cover two requirements against one capacity-1 point, capacity-2 and multiple eligible points, already occupied slots, and supported catalog ingress.",
+      "historical_related_candidates": [
+        "PL13-124-SAME-ARTICLE-ATTACHMENT-CAPACITY"
+      ],
+      "relationship_qualification": "The recovered 059 delegated finding identifies the same exact frozen occupancy body and symbolic slot case, with zero accepted unique increment and pending authored-roster/current/alias work. Current 95e body and core graph boundary are independently Git-bound here; no checkpoint 3821 state or global alias closure is inferred.",
+      "discovery": "partial; complete catalog policy, authored roster, alternate allocation, shared graph consumers and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+   160	            },
+   161	            tab: studio_ui::StudioTab::Character,
+   162	            inventory: inventory_ui::InventoryView::default(),
+   163	            hair_form: fabelgeist_hair::lod::Form::Cards { level: 0 },
+   164	            hair_layers: hair_preview::ShownLayers::default(),
+   165	        }
+   166	    }
+   167	}
+   168	
+   169	#[derive(Component, Clone)]
+   170	struct CharacterMesh;
+   171	
+   172	struct GeneratedCharacter {
+   173	    joint_proportions: fabelgeist_rig::RigJointTable<
+   174	        adventuresim_core::character_proportions::JointProportionBasis,
+   175	    >,
+   176	    positions: Vec<[f32; 3]>,
+   177	    normals: Vec<[f32; 3]>,
+   178	    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+   179	    /// This body on the armor device, once a piece has uploaded it.
+   180	    device: adventuresim_character_creator::device_body::DeviceBody,
+   181	}
+   182	
+   183	fn main() -> Result<()> {
+   184	    let args = Args::parse();
+   185	    profiling::enable(args.profile);
+   186	    anyhow::ensure!(
+   187	        !args.armor_bake_source,
+   188	        "dense bake-source armor is not yet generated on the device"
+   189	    );
+   190	    let device = Device::default();
+   191	    let model = load_body_model(&args.assets, args.lod, false, &device)
+   192	        .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
+   193	    let designs = CatalogDesigns::load(
+   194	        args.armor_designs.as_deref(),
+   195	        args.bracer_design.as_deref(),
+   196	        args.breastplate_design.as_deref(),
+   197	    )?;
+   198	    let catalog = EquipmentCatalog(ItemCatalog::load(&args.catalog, designs)?);
+   199	    if let Some(path) = &args.write_armor_designs {

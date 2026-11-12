@@ -1,0 +1,106 @@
+  40     pub fn includes(&self, item: CatalogItem<'_>) -> bool {
+  41         self.ids.is_empty() || self.ids.contains(&item.id.as_str())
+  42     }
+  43 }
+  44 
+  45 impl ItemCatalog {
+  46     pub fn new(items: Vec<ItemDefinition>, designs: CatalogDesigns) -> Result<Self> {
+  47         validate_armor_recipes(&items)?;
+  48         Ok(Self { items, designs })
+  49     }
+  50 
+  51     /// Every `.yaml` item document in `directory`, in file name order.
+  52     pub fn load(directory: &std::path::Path, designs: CatalogDesigns) -> Result<Self> {
+  53         let mut files = std::fs::read_dir(directory)
+  54             .with_context(|| format!("reading item catalog directory {}", directory.display()))?
+  55             .map(|entry| entry.map(|entry| entry.path()))
+  56             .collect::<std::io::Result<Vec<_>>>()?;
+  57         files.retain(|path| {
+  58             path.extension()
+  59                 .is_some_and(|extension| extension == "yaml")
+  60         });
+  61         files.sort();
+  62         let mut items = Vec::new();
+  63         for path in files {
+  64             let document: ItemCatalogDocument = serde_json::from_slice(&std::fs::read(&path)?)
+  65                 .with_context(|| format!("parsing item catalog {}", path.display()))?;
+  66             items.extend(document.items);
+  67         }
+  68         anyhow::ensure!(!items.is_empty(), "item catalog contains no definitions");
+  69         Self::new(items, designs)
+  70     }
+  71 
+  72     pub fn item(&self, id: &str) -> Option<CatalogItem<'_>> {
+  73         CatalogItem::find(&self.items, id)
+  74     }
+  75 
+  76     pub fn placement(&self, item_id: &str, placement_id: &str) -> Option<CatalogPlacement<'_>> {
+  77         self.item(item_id)?.placement(placement_id)
+  78     }
+  79 
+  80     /// The catalog default design for a parametric item.
+  81     pub fn design(&self, item: CatalogItem<'_>) -> Option<ItemDesign> {
+  82         self.designs.default_for(item)
+  83     }
+  84 
+  85     /// The catalog design for a parametric item worn in `placement`.
+  86     pub fn placed_design(&self, placement: CatalogPlacement<'_>) -> Option<ItemDesign> {
+  87         self.designs.default_at(placement)
+  88     }
+  89 
+  90     /// Items with a procedural material and body surface, which the creator can generate.
+  91     pub fn wearable(&self) -> impl Iterator<Item = CatalogItem<'_>> {
+  92         CatalogItem::all(&self.items).filter(|item| is_wearable(item.definition()))
+  93     }
+  94 }
+  95 
+  96 pub fn material(item: CatalogItem<'_>) -> Result<EquipmentMaterial> {
+  97     item.equipment
+  98         .as_ref()
+  99         .and_then(|equipment| equipment.material)
+ 100         .with_context(|| format!("equipment {} has no material", item.id))
+ 101 }
+ 102 
+ 103 pub fn is_wearable(item: &ItemDefinition) -> bool {
+ 104     item.equipment.as_ref().is_some_and(|equipment| {
+ 105         equipment.material.is_some()
+ 106             && equipment
+ 107                 .placements
+ 108                 .iter()
+ 109                 .any(|placement| !placement.surface.is_empty())
+ 110     })
+ 111 }
+ 112 
+ 113 fn validate_armor_recipes(items: &[ItemDefinition]) -> Result<()> {
+ 114     for item in CatalogItem::all(items) {
+ 115         anyhow::ensure!(
+ 116             !matches!(item.kind, ItemKind::Armor { .. }) || armor_recipes::is_parametric(item),
+ 117             "armor {} has no authored parametric recipe",
+ 118             item.id
+ 119         );
+ 120     }
+ 121     Ok(())
+ 122 }
+ 123 
+ 124 #[cfg(test)]
+ 125 pub(crate) fn authored() -> ItemCatalog {
+ 126     let document: ItemCatalogDocument =
+ 127         serde_json::from_str(include_str!("../../../content/items/catalog.yaml")).unwrap();
+ 128     ItemCatalog::new(document.items, CatalogDesigns::authored()).unwrap()
+ 129 }
+ 130 
+ 131 #[cfg(test)]
+ 132 mod tests {
+ 133     use super::*;
+ 134 
+ 135     #[test]
+ 136     fn catalog_cannot_route_new_armor_through_clothing_topology() {
+ 137         let mut items = authored().items;
+ 138         validate_armor_recipes(&items).unwrap();
+ 139         let armor = items
+ 140             .iter_mut()
+ 141             .find(|item| matches!(item.kind, ItemKind::Armor { .. }))
+ 142             .unwrap();
+ 143         armor.id = "unimplemented_armor".into();
+ 144         assert!(ItemCatalog::new(items, CatalogDesigns::authored()).is_err());
+ 145     }

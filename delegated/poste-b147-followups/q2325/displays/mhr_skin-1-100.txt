@@ -1,0 +1,100 @@
+   1 //! Resolve FBX cluster identities into the admitted rig's packed influences.
+   2 
+   3 use super::{MAX_SKIN_JOINTS, MeshVertexCount, MeshVertexIndex, MeshVertexTable};
+   4 use crate::math::{Mat4, affine_inverse, mat4_from_column_major};
+   5 use anyhow::{Result, bail};
+   6 use fabelgeist_fbx::{Object, Scene};
+   7 use fabelgeist_rig::{PackedRigSkin, RigInfluences, RigJointOrdinal, RigJointTable};
+   8 use std::collections::HashMap;
+   9 
+  10 /// Fixed-width sparse skinning, eight influences per vertex.
+  11 #[derive(Debug, Default, Clone)]
+  12 pub struct SkinWeights {
+  13     index: PackedRigSkin<MAX_SKIN_JOINTS>,
+  14     weight: MeshVertexTable<[f32; MAX_SKIN_JOINTS]>,
+  15 }
+  16 
+  17 #[derive(Clone, Copy)]
+  18 struct SkinInfluence {
+  19     joint: RigJointOrdinal,
+  20     weight: f64,
+  21 }
+  22 
+  23 impl SkinWeights {
+  24     pub fn indices(&self) -> &PackedRigSkin<MAX_SKIN_JOINTS> {
+  25         &self.index
+  26     }
+  27 
+  28     pub fn weights(&self) -> &MeshVertexTable<[f32; MAX_SKIN_JOINTS]> {
+  29         &self.weight
+  30     }
+  31 
+  32     /// Checked selection from the actual paired vertex rows. The native ordinal
+  33     /// is used only to decode the shared packed skin's word storage.
+  34     pub fn vertex(&self, vertex: MeshVertexIndex) -> Option<RigInfluences<MAX_SKIN_JOINTS>> {
+  35         let weights = *self.weight.get(vertex)?;
+  36         let joints = self.index.get_vertex(vertex.native_vertex_index())?;
+  37         Some(RigInfluences { joints, weights })
+  38     }
+  39 
+  40     pub fn indexed(
+  41         &self,
+  42     ) -> impl Iterator<Item = (MeshVertexIndex, RigInfluences<MAX_SKIN_JOINTS>)> {
+  43         self.weight
+  44             .indexed()
+  45             .zip(self.index.iter())
+  46             .map(|((vertex, weights), joints)| {
+  47                 (
+  48                     vertex,
+  49                     RigInfluences {
+  50                         joints,
+  51                         weights: *weights,
+  52                     },
+  53                 )
+  54             })
+  55     }
+  56 }
+  57 
+  58 pub(super) fn parse_skin(
+  59     scene: &Scene,
+  60     geometry: &Object,
+  61     joint_of_object: &HashMap<i64, RigJointOrdinal>,
+  62     num_vertices: MeshVertexCount,
+  63     inverse_bind_pose: &mut RigJointTable<Mat4>,
+  64 ) -> Result<SkinWeights> {
+  65     let mut per_vertex = MeshVertexTable::filled(num_vertices, Vec::<SkinInfluence>::new());
+  66 
+  67     let Some(skin) = scene
+  68         .children(geometry.id)
+  69         .find(|o| o.kind == "Deformer" && o.class == "Skin")
+  70     else {
+  71         bail!("geometry '{}' has no skin deformer", geometry.name);
+  72     };
+  73 
+  74     for cluster in scene
+  75         .children(skin.id)
+  76         .filter(|o| o.kind == "Deformer" && o.class == "Cluster")
+  77         .collect::<Vec<_>>()
+  78     {
+  79         let Some(bone) = scene
+  80             .children(cluster.id)
+  81             .find(|o| joint_of_object.contains_key(&o.id))
+  82         else {
+  83             bail!("cluster '{}' references an unknown bone", cluster.name);
+  84         };
+  85         let joint = joint_of_object[&bone.id];
+  86 
+  87         // The cluster's bind transform overrides the joint's own rest pose.
+  88         if let Some(link) = cluster
+  89             .node
+  90             .child("TransformLink")
+  91             .and_then(|n| n.f64_array())
+  92             && link.len() == 16
+  93         {
+  94             inverse_bind_pose[joint] = affine_inverse(&mat4_from_column_major(&link));
+  95         }
+  96 
+  97         let (Some(indices), Some(weights)) = (
+  98             cluster.node.child("Indexes").and_then(|n| n.i64_array()),
+  99             cluster.node.child("Weights").and_then(|n| n.f64_array()),
+ 100         ) else {

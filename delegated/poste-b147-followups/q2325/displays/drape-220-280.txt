@@ -1,0 +1,61 @@
+ 220             (CharacterMesh, DrapeMesh(id)),
+ 221         ) {
+ 222             studio.status = format!("{error:#}");
+ 223         }
+ 224     }
+ 225 }
+ 226 
+ 227 /// Show a draped garment, skinned for the animation preview when it can be.
+ 228 pub fn spawn_garment(
+ 229     commands: &mut Commands,
+ 230     meshes: &mut Assets<Mesh>,
+ 231     materials: &mut Assets<StandardMaterial>,
+ 232     garment: DrapedGarment,
+ 233     material: StandardMaterial,
+ 234     marker: impl Bundle,
+ 235 ) -> Result<()> {
+ 236     let cloth_faces = garment.faces.clone();
+ 237     let has_skin = garment.indices.len() == garment.positions.len()
+ 238         && garment.weights.len() == garment.positions.len();
+ 239     let mut mesh = Mesh::new(
+ 240         PrimitiveTopology::TriangleList,
+ 241         RenderAssetUsages::default(),
+ 242     )
+ 243     .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, garment.positions.clone())
+ 244     .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, garment.normals.clone())
+ 245     .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, garment.texcoords.clone())
+ 246     .with_inserted_indices(Indices::U32(garment.faces.into_iter().flatten().collect()));
+ 247     mesh.generate_tangents()
+ 248         .context("generating tangents for draped panels")?;
+ 249     let skin = if has_skin {
+ 250         Some(
+ 251             animation_preview::ClothSkin::new(
+ 252                 garment.form,
+ 253                 garment.positions,
+ 254                 garment.normals,
+ 255                 cloth_faces,
+ 256                 animation_preview::ClothBinding::Weighted {
+ 257                     indices: garment.indices,
+ 258                     weights: garment.weights,
+ 259                 },
+ 260             )?
+ 261             .weld_seams()?,
+ 262         )
+ 263     } else {
+ 264         None
+ 265     };
+ 266     let entity = commands
+ 267         .spawn((
+ 268             marker,
+ 269             Name::new(garment.name),
+ 270             Mesh3d(meshes.add(mesh)),
+ 271             MeshMaterial3d(materials.add(material)),
+ 272         ))
+ 273         .id();
+ 274     if let Some(skin) = skin {
+ 275         commands.entity(entity).insert(skin);
+ 276     }
+ 277     Ok(())
+ 278 }
+ 279 
+ 280 /// Apply edited chainmail appearance to the shown garments without draping.

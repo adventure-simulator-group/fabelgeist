@@ -1,0 +1,31 @@
+{
+  "registered_utc": "2026-11-12T16:24:10.987480+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_scopes": [
+    "crates/adventuresim-character-creator/src",
+    "crates/fabelgeist-rig/src"
+  ],
+  "source_patterns": [
+    "struct ClothingShell",
+    "fn generate_clothing_shells",
+    "fn skinned_positions",
+    "fn posed_colliders",
+    "strongest_four",
+    "ClothSkin::new"
+  ],
+  "evidence_revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "evidence_scopes": [
+    "."
+  ],
+  "evidence_patterns": [
+    "duplicate joints",
+    "duplicate joint",
+    "duplicate influences",
+    "duplicate influence",
+    "strongest_four",
+    "four strongest",
+    "four-influence",
+    "four influence"
+  ],
+  "purpose": "Locate clothing producer, preview consumers, and prior repeated-influence assessment; path and line only, first 100 retained, print first 20."
+}

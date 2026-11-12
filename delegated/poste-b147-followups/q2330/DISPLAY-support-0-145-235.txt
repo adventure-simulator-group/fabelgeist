@@ -1,0 +1,91 @@
+   145	mod waist_support_plan;
+   146	pub mod wardrobe;
+   147	
+   148	pub const EXPRESSION_COUNT: usize = 72;
+   149	
+   150	/// Character recipes use this schema version; older recipes are not read.
+   151	pub const RECIPE_VERSION: u8 = 14;
+   152	
+   153	#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+   154	#[serde(deny_unknown_fields)]
+   155	pub struct CharacterRecipe {
+   156	    pub version: u8,
+   157	    pub name: String,
+   158	    pub proportions: adventuresim_core::character_proportions::CharacterProportions,
+   159	    pub identity: Vec<f32>,
+   160	    pub expression: Vec<f32>,
+   161	    /// The hairstyle grown on the head; `None` is bald.
+   162	    pub hair: Option<hair::HairDesign>,
+   163	    pub inventory: inventory::Inventory,
+   164	}
+   165	
+   166	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+   167	pub enum IdentityGroup {
+   168	    Body,
+   169	    Head,
+   170	    Hands,
+   171	}
+   172	
+   173	impl Default for CharacterRecipe {
+   174	    fn default() -> Self {
+   175	        use inventory::{Article, CatalogArticle};
+   176	        let mut inventory = inventory::Inventory::default();
+   177	        for (item, placement) in [
+   178	            ("linen_tunic", "worn"),
+   179	            ("linen_breeches", "worn"),
+   180	            ("leather_boot", "left"),
+   181	            ("leather_boot", "right"),
+   182	        ] {
+   183	            let id = inventory.add(Article::Catalog(CatalogArticle::new(item, placement)));
+   184	            inventory.get_mut(id).expect("just added").worn = true;
+   185	        }
+   186	        Self {
+   187	            version: RECIPE_VERSION,
+   188	            proportions: Default::default(),
+   189	            name: "New adventurer".into(),
+   190	            identity: vec![0.0; IDENTITY_MORPH_COUNT],
+   191	            expression: vec![0.0; EXPRESSION_COUNT],
+   192	            hair: None,
+   193	            inventory,
+   194	        }
+   195	    }
+   196	}
+   197	
+   198	impl CharacterRecipe {
+   199	    pub fn validate(&self) -> Result<(), String> {
+   200	        if self.version != RECIPE_VERSION {
+   201	            return Err(format!(
+   202	                "unsupported character recipe version {}",
+   203	                self.version
+   204	            ));
+   205	        }
+   206	        if self.identity.len() != IDENTITY_MORPH_COUNT || self.expression.len() != EXPRESSION_COUNT
+   207	        {
+   208	            return Err("recipe has the wrong MHR coefficient counts".into());
+   209	        }
+   210	        if self.name.trim().is_empty() {
+   211	            return Err("character name cannot be empty".into());
+   212	        }
+   213	        if self
+   214	            .identity
+   215	            .iter()
+   216	            .chain(&self.expression)
+   217	            .any(|value| !value.is_finite())
+   218	        {
+   219	            return Err("recipe contains a non-finite coefficient".into());
+   220	        }
+   221	        self.inventory.validate()
+   222	    }
+   223	
+   224	    pub fn reset_body(&mut self) {
+   225	        self.identity.fill(0.0);
+   226	        self.proportions = Default::default();
+   227	    }
+   228	    pub fn reset_face(&mut self) {
+   229	        self.expression.fill(0.0);
+   230	    }
+   231	}
+   232	
+   233	impl IdentityGroup {
+   234	    pub const ALL: [Self; 3] = [Self::Body, Self::Head, Self::Hands];
+   235	    pub fn label(self) -> &'static str {

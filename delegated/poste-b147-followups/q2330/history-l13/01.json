@@ -1,0 +1,396 @@
+{
+  "lens": 13,
+  "status": "Immutable exact source validation115..117 no authoritative mutation",
+  "frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "frozen_is_not_current_main": true,
+  "batches": [
+    {
+      "batch": 115,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-115.json",
+        "sha256": "988625691d746b04ca4f537eed71f23f280a8b2b47805d1abe9150f5395e30d5"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-115.json",
+        "sha256": "ad30b868ddda9bb32f3261cd20c935f71d1fe67181b1f88df84b65163e2b17b8"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-115-PROPOSAL.json",
+        "sha256": "6397c95c9ef966d3b94d82f92cd45113d3a690182f8315d55559a3c11e0c9726"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-114-PROPOSAL.json",
+        "sha256": "d0e05608cf7d5de59cd739f296170a15beb4fa1d93deaa6e8a14ffc871a0b470"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-115.json",
+          "sha256": "62555cab5881e11a91c51cb31cc81ae0713043b921850213af69d61c0eb872f0"
+        }
+      ],
+      "proposed_next_original": 819
+    },
+    {
+      "batch": 116,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-116.json",
+        "sha256": "e9fdd9da460d3629f423d0b4adf3d4b8b4923ce950857408db6460ad3a9efc41"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-116-PROPOSAL.json",
+        "sha256": "bac4cad89e270bc4a56d35f38887c621e91aef4822b3cf730b210810c9a8de94"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-115-PROPOSAL.json",
+        "sha256": "6397c95c9ef966d3b94d82f92cd45113d3a690182f8315d55559a3c11e0c9726"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-116.json",
+          "sha256": "07342cbaabb33cbd35d6ce21bb3a51d6dff309a247fc68569bdaabd94699bc9b"
+        }
+      ],
+      "proposed_next_original": 822
+    },
+    {
+      "batch": 117,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-117.json",
+        "sha256": "77e75ce9e978c2c4d6b559389e43d74cfbb1847d6ae84e5fa1d76f1fa897614a"
+      },
+      "verification": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-117.json",
+        "sha256": "5f7fe7123ae601412eec838b8572d9b93077594ba792971b44bd45cff445026b"
+      },
+      "state": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-117-PROPOSAL.json",
+        "sha256": "83c153cade83960bbf0eb208f9d91ba2b2799099e2ac7418d9ebdab9d6cbbe47"
+      },
+      "predecessor": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/STATE-PL13-116-PROPOSAL.json",
+        "sha256": "bac4cad89e270bc4a56d35f38887c621e91aef4822b3cf730b210810c9a8de94"
+      },
+      "registrations": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-117.json",
+          "sha256": "6c79b7f74dacacaaf5496f37f0e5ce4dd48b413666bc73fad72af46829f530ac"
+        }
+      ],
+      "proposed_next_original": 825
+    }
+  ],
+  "source_records": [
+    {
+      "original": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 232,
+      "assessed_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-115.json",
+        "sha256": "988625691d746b04ca4f537eed71f23f280a8b2b47805d1abe9150f5395e30d5"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-115.json",
+        "sha256": "62555cab5881e11a91c51cb31cc81ae0713043b921850213af69d61c0eb872f0"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 816,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 238,
+      "assessed_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-115.json",
+        "sha256": "988625691d746b04ca4f537eed71f23f280a8b2b47805d1abe9150f5395e30d5"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-115.json",
+        "sha256": "62555cab5881e11a91c51cb31cc81ae0713043b921850213af69d61c0eb872f0"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 817,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 52,
+      "assessed_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-115.json",
+        "sha256": "988625691d746b04ca4f537eed71f23f280a8b2b47805d1abe9150f5395e30d5"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-115.json",
+        "sha256": "62555cab5881e11a91c51cb31cc81ae0713043b921850213af69d61c0eb872f0"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 818,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 39,
+      "assessed_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-115.json",
+        "sha256": "988625691d746b04ca4f537eed71f23f280a8b2b47805d1abe9150f5395e30d5"
+      },
+      "read_pointer": "/rows/3",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-115.json",
+        "sha256": "62555cab5881e11a91c51cb31cc81ae0713043b921850213af69d61c0eb872f0"
+      },
+      "registration_pointer": "/sources/3",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 667,
+      "assessed_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-116.json",
+        "sha256": "07342cbaabb33cbd35d6ce21bb3a51d6dff309a247fc68569bdaabd94699bc9b"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 820,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs",
+      "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 40,
+      "assessed_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-116.json",
+        "sha256": "07342cbaabb33cbd35d6ce21bb3a51d6dff309a247fc68569bdaabd94699bc9b"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 821,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 104,
+      "assessed_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-116.json",
+        "sha256": "07342cbaabb33cbd35d6ce21bb3a51d6dff309a247fc68569bdaabd94699bc9b"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 822,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 478,
+      "assessed_ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-117.json",
+        "sha256": "77e75ce9e978c2c4d6b559389e43d74cfbb1847d6ae84e5fa1d76f1fa897614a"
+      },
+      "read_pointer": "/rows/0",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-117.json",
+        "sha256": "6c79b7f74dacacaaf5496f37f0e5ce4dd48b413666bc73fad72af46829f530ac"
+      },
+      "registration_pointer": "/sources/0",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 823,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 193,
+      "assessed_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-117.json",
+        "sha256": "77e75ce9e978c2c4d6b559389e43d74cfbb1847d6ae84e5fa1d76f1fa897614a"
+      },
+      "read_pointer": "/rows/1",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-117.json",
+        "sha256": "6c79b7f74dacacaaf5496f37f0e5ce4dd48b413666bc73fad72af46829f530ac"
+      },
+      "registration_pointer": "/sources/1",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    },
+    {
+      "original": 824,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/proportions.rs",
+      "sha256": "aa675179f3ddceae5646814bfc455eb8f45c96da71051a95324bd2e381ac92af",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 73,
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-117.json",
+        "sha256": "77e75ce9e978c2c4d6b559389e43d74cfbb1847d6ae84e5fa1d76f1fa897614a"
+      },
+      "read_pointer": "/rows/2",
+      "registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-117.json",
+        "sha256": "6c79b7f74dacacaaf5496f37f0e5ce4dd48b413666bc73fad72af46829f530ac"
+      },
+      "registration_pointer": "/sources/2",
+      "git_hash_eof_range_check": true,
+      "registered_before_read_attestation": true,
+      "chronology_basis": "Direct personal execution: exact registration persisted before all credited untruncated body displays. Source fixture assertions were read but never executed."
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "proposed_next_original": 825,
+  "original_delta_proposed": 10,
+  "overlays_delta": 0,
+  "merged_delta": 0,
+  "shared_delta": 0,
+  "new_source_identity_delta_inferred": 0,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "product_execution": false,
+  "proposed_finding_provenance": [
+    {
+      "proposed_id": "PL13-116-INVENTORY-ID-SUCCESSOR",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "pointer": "/proposed_findings/0",
+      "primary_original": 809,
+      "primary_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-113.json",
+        "sha256": "f50c2fc3abe971baf26566fec81883541e0db6a650dec50bbee0a58bd537b483"
+      },
+      "primary_pointer": "/rows/0",
+      "primary_source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "primary_sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "primary_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "first_failure_ranges": [
+        [
+          225,
+          239
+        ]
+      ],
+      "primary_registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-113.json",
+        "sha256": "a1a5cddaedde816ca0a7b91e6c2b33df9bd4e80491f6741952844223cbe7aa50"
+      },
+      "primary_registration_pointer": "/sources/0"
+    }
+  ],
+  "qualifications": [
+    "Source-backed Inventory::add unchecked successor finding tracedactual JSONrecipe validation ->retainedID->UI acquisition->graph/nativeidentityboundary; exactprimary809priorREAD113,notdiscovery819. No buildprofile/runtimeincidentclaim, current/exactaliasesrootpending.",
+    "821actualUnderPlateproducerpositivestandoff/radiusaccumulationnowtraced; canonicalphysicalownercomparisonstillpending.",
+    "819/822 ignorednativefixtureLOD1doesnotpassactualCharacterLod4..6gate; no runtimetestsrun. Allpriorqualificationsevidenceunchanged."
+  ]
+}

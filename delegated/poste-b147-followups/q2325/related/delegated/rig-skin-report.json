@@ -1,0 +1,514 @@
+{
+  "schema": "726-delegated-rig-skin-audit-v1",
+  "created_utc": "2026-11-11 19:08:41 UTC",
+  "agent": "current-session delegate /root/rig_identity, second bounded scope",
+  "current_authoritative_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "baseline_qualification": "This delegated contribution is bounded to original roles2336–2338 and selected registered support. The authoritative working baseline remains incomplete; original checkpoint3821 ledger and queue are missing. The 059 selected records and earlier 774 records remain distinct historical evidence, not replacements or 3821 evidence.",
+  "registrations": {
+    "ordered": {
+      "path": "registration.json",
+      "sha256": "4da87edcae7f7f7163f5000ff9d47b17d944080621af0b329d04e6d2f265175c",
+      "created_utc": "2026-11-11 19:02:28 UTC"
+    },
+    "support": {
+      "path": "support-registration.json",
+      "sha256": "5e1567eeeeb5e657fc0917d30e0f4708a0837fa3771ff1c579386bed8d1340e6",
+      "created_utc": "2026-11-11 19:04:10 UTC"
+    },
+    "historical_support": {
+      "path": "historical-support-registration.json",
+      "sha256": "3f2f2306793d2462148f671744f23b1711ac91925f0104d264de42f3b50ea787",
+      "created_utc": "2026-11-11 19:05:16 UTC"
+    }
+  },
+  "unplanned_diff_view": {
+    "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+    "description": "A Git diff against the historical support path displayed a second small test-source hunk outside the 1–225 ranges registered for both revisions. Historical lines263–268 and current lines267–273 were visible as diff context and the added textile field. This is an unplanned non-credited view; do not treat it as prospective registration, source-body coverage or test execution. The attachment/fill source views used for conclusions were within registered ranges.",
+    "revision_scope": [
+      "6533e444fa37552927070cc8d8190907fd3b413e",
+      "95e63628f9d70b8dd6e6fede64334696c6995009"
+    ]
+  },
+  "original_roles": [
+    {
+      "original_index": 2336,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "historical_git_blob": "a920b97c5d5dd76f32be3e3d2c799c28479d0645",
+      "historical_bytes": 7326,
+      "historical_displayed_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "historical_source": "sources/6533/crates/fabelgeist-rig/src/skin.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+      "current_git_blob": "164ba310ec9f23be5f6bea385a88ee647c2460b8",
+      "current_bytes": 7932,
+      "current_displayed_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "current_source": "sources/95e6/crates/fabelgeist-rig/src/skin.rs",
+      "byte_identical": false,
+      "qualification": "Both revision bodies personally displayed after this delegate prospective registration. This current session body read does not transfer historical, cross-lens or ordered credit automatically."
+    },
+    {
+      "original_index": 2337,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "historical_git_blob": "875d6b9183c5c9e683488c771f332347bfbe8a80",
+      "historical_bytes": 3011,
+      "historical_displayed_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "historical_source": "sources/6533/crates/fabelgeist-rig/src/table.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511",
+      "current_git_blob": "bd35c56639297a571e2d3defe4027c8ff8f80b6d",
+      "current_bytes": 2998,
+      "current_displayed_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "current_source": "sources/95e6/crates/fabelgeist-rig/src/table.rs",
+      "byte_identical": false,
+      "qualification": "Both revision bodies personally displayed after this delegate prospective registration. This current session body read does not transfer historical, cross-lens or ordered credit automatically."
+    },
+    {
+      "original_index": 2338,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/tests.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+      "historical_git_blob": "7cd454c735f2f9189e263d19373bde5aa40287b2",
+      "historical_bytes": 3343,
+      "historical_displayed_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "historical_source": "sources/6533/crates/fabelgeist-rig/src/tests.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+      "current_git_blob": "7cd454c735f2f9189e263d19373bde5aa40287b2",
+      "current_bytes": 3343,
+      "current_displayed_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "current_source": "sources/95e6/crates/fabelgeist-rig/src/tests.rs",
+      "byte_identical": true,
+      "qualification": "Both revision bodies personally displayed after this delegate prospective registration. This current session body read does not transfer historical, cross-lens or ordered credit automatically."
+    }
+  ],
+  "supporting_reads": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "git_blob": "711237c82078c4612f9c01266e19254b47b7308a",
+      "bytes": 4369,
+      "lines": 155,
+      "planned_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-rig/src/lib.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/README.md",
+      "sha256": "6c65e76c80820396e8f2be0f4660188eb1b7f473f46454d6d0697b9a479b8bbb",
+      "git_blob": "1913bdf536cdfc941db39e122b54076950cdc8ad",
+      "bytes": 2527,
+      "lines": 43,
+      "planned_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-rig/README.md"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "git_blob": "75c0a250abd9e5fc35f81acaafea283d06393658",
+      "bytes": 6116,
+      "lines": 183,
+      "planned_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-armor/src/design.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+      "git_blob": "46040bb76821f2eff3762aeb837d3603da4a40e2",
+      "bytes": 4327,
+      "lines": 128,
+      "planned_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-armor/src/components.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+      "git_blob": "85db2762cce5bffb05c2323d2cabd32db4aa0de6",
+      "bytes": 8313,
+      "lines": 299,
+      "planned_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/lib.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+      "git_blob": "9a9076fc436f2db100e1bb47fdf91a0daf9a6336",
+      "bytes": 17394,
+      "lines": 480,
+      "planned_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/skin_rules.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+      "sha256": "62b86b89435aeeffe4fe8ad5f034ce5ab5736dfb15b66e4f08afc21337e41697",
+      "git_blob": "67202a4105bf82648f5d97110676058e7d9e35ac",
+      "bytes": 5212,
+      "lines": 152,
+      "planned_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-mhr/src/character/skin.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "git_blob": "13cc5db4fbc7eb312f030639d19c27e66115b25a",
+      "bytes": 6310,
+      "lines": 185,
+      "planned_ranges": [
+        [
+          100,
+          168
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          100,
+          168
+        ]
+      ],
+      "preserved_bytes": "support/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "git_blob": "faa5b2fa34227e958a49d3cd64d22b41f2904154",
+      "bytes": 5949,
+      "lines": 164,
+      "planned_ranges": [
+        [
+          1,
+          50
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          50
+        ],
+        [
+          99,
+          132
+        ]
+      ],
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export/validation.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export/skinning.rs",
+      "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "git_blob": "456b221075a5d9841f06ed1c595d5428da7ac52c",
+      "bytes": 1997,
+      "lines": 63,
+      "planned_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export/skinning.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+      "sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426",
+      "git_blob": "79475d95571329477c0b685c1b7b592919b206eb",
+      "bytes": 7600,
+      "lines": 221,
+      "planned_ranges": [
+        [
+          110,
+          155
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          110,
+          155
+        ]
+      ],
+      "preserved_bytes": "support/crates/fabelgeist-mhr/src/model/upload.rs"
+    }
+  ],
+  "historical_supporting_reads": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e",
+      "git_blob": "5d5533f2327916c0831c2b4d568311cd8dac00a0",
+      "bytes": 17186,
+      "lines": 475,
+      "planned_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "actual_displayed_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "preserved_bytes": "historical-support/crates/adventuresim-character-creator/src/skin_rules.rs"
+    }
+  ],
+  "evidence_files": {
+    "git_path_membership": "git-proofs.json",
+    "historical_records": "history-manifest.json",
+    "exact_059_transport_manifest": "original-transport-manifest.json.gz",
+    "exact_registry": "original-registry.json.gz",
+    "registry_selection": "registry-selection-reconstructed.json",
+    "related_reports": "related-reports/",
+    "qualification": "Raw Git commits and binary tree objects bind preserved bytes to exact source and 774 handoff paths; registry selection is explicitly reconstructed from the exact preserved registry. Exact 059 records verified against original transport SHA-256, length and Git blob."
+  },
+  "historical_attribution": [
+    {
+      "evidence": "historical-774/audit-producer-propagation/rig/sources.json",
+      "source_scope": "Old rig producer cells172–174 report historical skin1–226, table1–108 and tests1–108 as source_read_complete, while coverage remains source-read-trace-incomplete. Do not erase the latter qualification or import into another lens."
+    },
+    {
+      "evidence": "historical-774/audit-existing-type-owners/rig/coverage.jsonl",
+      "source_scope": "Old rig owner supplier physical JSONL lines7–9 report those three full source ranges, with findings and no validation or lens clearance."
+    },
+    {
+      "evidence": "historical-774/audit-existing-type-owners/root/additional-sources.jsonl",
+      "source_scope": "Old root owner supplier physical JSONL line57 table1–108 full; line58 skin1–190 carries read_status actual_relevant_owner_methods_only. Do not upgrade the latter to a full-file read."
+    },
+    {
+      "evidence": "historical-774/audit-producer-propagation/root/unchanged-paths.jsonl",
+      "source_scope": "Old root producer physical JSONL line35 records table1–108 with discovery_status incomplete_receivers_pending."
+    },
+    {
+      "evidence": "historical-774-variant/audit-existing-type-owners/root/additional-sources.jsonl",
+      "source_scope": "Separate f82 historical-family-execution file has SHA-256 30d543afb44204e2eaa8cabc57ae08106d30d9fa1157cb4fb02968757a512e88; old local original and f82 adler-original file has SHA-256 0815fbe2a8c17b8741b24cc4fb47924129b718ddaa162793f013a5ab5253b540. The selected rows are byte-identical, but the files differ and are preserved separately without invented equivalence."
+    },
+    {
+      "evidence": "historical-059/adler/READ-L11-374.json and READ-L11-375.json",
+      "source_scope": "Adler independently registered and records fresh historical skin1–226, table1–108 and tests1–108; zero accepted unique count change and no other-lens credit. Historical test bodies were not executed."
+    },
+    {
+      "evidence": "historical-059/segovb/READ-L12-771.json",
+      "source_scope": "Historical /root/lens12_frontier delegate personally registered/read full skin, table, and test source. Root adoption recorded root_personal_rereads empty, accepted unique count zero and current reconciliation false. Original delegate anticipated unchecked vertex access, all-zero normalization and instance distinctions."
+    },
+    {
+      "evidence": "historical-059/segovb/READ-L13-PARALLEL-117.json and historical-059/parallel-l13-20261029/READ-PL13-119.json",
+      "source_scope": "Historical delegated Lens13 worker PL13-119 personally read frozen skin_rules1–475 at historical hash79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e; root adoption has no personal rereads and zero unique change. The worker already noted fill could mutate before failure for invalid caller data and that generated-geometry/range producers remained open. No 95e or other-lens read credit transferred."
+    },
+    {
+      "evidence": "related-reports/rig-identity.json and related-reports/mhr-character.json",
+      "source_scope": "Current earlier rig-identity delegate and separate /root/mhr_character delegate independently registered/read their own source scopes. Their findings remain separately attributed; both report hashes matched their original bundle manifests. Current report independently re-read its bounded support after new registration."
+    }
+  ],
+  "source_differences": [
+    "skin.rs historical226 lines, current239: RigJointCount obtains Display and ordinals plus native_joint_count; OutsideRig payload changes from usize to RigJointCount; get_vertex checked lookup added. PackedRigSkin word admission and strongest_four arithmetic remain source-equivalent at the inspected bodies, with line shifts.",
+    "table.rs historical/current108 lines: ordinals moves from 0..self.len() to joint_count().ordinals(); both source paths denote the same ascending ordinal range for the same length. This is a source-level comparison only; no execution or global behavior preservation is claimed.",
+    "tests.rs historical/current108 lines and exact bytes identical. It addresses exact-name JSON, duplicate lookup, fragment queries, case and profile; source contains no packed-skin normalization or malformed-aggregate acceptance. None was executed."
+  ],
+  "findings_and_open_questions": [
+    {
+      "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+      "historical_queue_indices": [
+        175,
+        167,
+        436,
+        572
+      ],
+      "status": "historical finding family; current source and connected consumers independently read; alias reconciliation open",
+      "source_refs": [
+        "95e crates/fabelgeist-rig/src/skin.rs:19-25,79-99",
+        "6533 crates/fabelgeist-rig/src/skin.rs:19-25,70-90",
+        "95e crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs:120-132,158-165",
+        "95e crates/adventuresim-character-creator/src/export/validation.rs:13-18,45-49,120-130",
+        "95e crates/adventuresim-character-creator/src/export/skinning.rs:4-30",
+        "95e crates/fabelgeist-mhr/src/character/skin.rs:97-122,125-151",
+        "95e crates/fabelgeist-mhr/src/model/upload.rs:126-146"
+      ],
+      "trace": "RigInfluences public f32 weights are not checked by PackedRigSkin word admission. strongest_four merges duplicate joints, sorts by descending total with ascending ordinal ties, takes four, sums and divides. A nonempty all-zero row yields retained entries with a zero denominator and NaN output; WIDTH=0 has no retained iteration and does not divide. Separately, two finite f32::MAX values on the same joint overflow their merged f32 sum to infinity, and infinity/infinity is NaN. These are IEEE/source reasoning scenarios, not values or operations executed here.",
+      "consumer_qualification": "Runtime equipment mesh calls the reducer and inserts its output; no local input check is shown in the inspected lines, while upstream reachability remains open. The inspected GLB input validator rejects zero or nonfinite total before export reduction and checks array lengths; do not assert an all-zero row passes that exporter. Total-only validation does not itself prove each component is nonnegative. An illustrative [2,-1,0,0,0,0,0,0] row sums to1, but whether negative weights should be allowed remains an explicit policy question.",
+      "historical_relationship": "Original q175 and q436 cover broad normalization and zero-sum respectively; q167 is MHR import admission and q572 is shared numerical revisit. They are connected and preserved, without declaring their formal exact-alias status. The mhr-character delegate independently traced a conditional NaN import and upload cutoff; its report and attribution are separate.",
+      "future_repair": "Define finite, nonnegative, zero/unweighted and computed-total admission policy at the actual source and reduction boundaries; preserve valid duplicate merging, exact ordering, equal-weight ties and zero padding. Reconcile MHR importer and export/runtime consumers before any repair.",
+      "remaining": "Actual producer reachability, native consumer semantics, exact aliases, full range/weight handling and acceptance policy; no product validation."
+    },
+    {
+      "id": "DELEGATE-RIG-ARMOR-SKIN-ROW-AGGREGATE",
+      "status": "new source-level conditional public-input counterexample related to historical warnings; not assigned an independent unique finding",
+      "source_refs": [
+        "95e crates/fabelgeist-armor/src/design.rs:133-155",
+        "95e crates/adventuresim-character-creator/src/lib.rs:130",
+        "95e crates/adventuresim-character-creator/src/skin_rules.rs:23-35,56-64,211-224",
+        "95e crates/fabelgeist-rig/src/skin.rs:112-124,194-201,226-237",
+        "6533 crates/adventuresim-character-creator/src/skin_rules.rs:23-35,52-59,207-220",
+        "6533 crates/fabelgeist-rig/src/skin.rs:103-117,181-188,213-224"
+      ],
+      "counterexample": "Public GeneratedArmor may contain two positions, one packed skin row and two weight rows, while the packed rig bound and name-table count both equal two. With names [ROOT,C_HEAD], an initially valid packed row of joint0, and a rigid helmet, attach obtains head ordinal1 and calls fill over 0..2. The first set_vertex encodes valid joint1 and writes row0; the second encodes successfully but directly indexes absent row1, so an index panic occurs before joint_weights are filled. If unwinding is caught, row0 can remain changed while weights retain their previous values. This construction and operation were not executed; ordinary producer guarantees and actual caller misuse are not established.",
+      "historical_relationship": "The original Lens12 delegate already identified set_vertex validating joint encoding but indexing vertex unchecked, with associated geometry/caller proof pending. The old Lens13 delegated PL13-119 analysis had already noted potential fill partial mutation for invalid caller data. This static example reconnects their concerns to exact current and historical public source; panic after a successful prior update differs from a returned Result error. Exact alias/unique count remains central.",
+      "future_repair": "At the public armor/skin aggregate boundary establish positions, packed rows, weights and applicable component ranges consistently before any write; use checked lookup or typed error for unproven vertex indices and avoid committing only part of a logical update. Preserve normal rigid one-hot skinning and existing valid rig-bound checks.",
+      "remaining": "Trace all normal armor producers and failure consumers; determine supported caller obligations and cross-family aliases. No assertion that normal fitted armor violates row alignment."
+    },
+    {
+      "id": "DELEGATE-RIG-COLUMN-AND-INSTANCE-RELATIONSHIP",
+      "status": "reconnection to earlier delegated findings; formal exact alias decisions remain central",
+      "source_refs": [
+        "95e crates/fabelgeist-rig/src/table.rs:8-14,37-55,66-71,94-107",
+        "95e crates/fabelgeist-rig/src/skin.rs:6-7,39-55,112-124,214-223"
+      ],
+      "trace": "RigJointCount is a bound, not an instance identity. Generic RigJointTable explicitly delegates shared rig order to its creator; get/get_mut handle unproven ordinals and Index requires established membership. PackedRigSkin append rejects differing nonempty bounds, but equal bounds do not prove equal rig order. An empty destination deliberately adopts the incoming skin/bound; empty incoming skin is not evidence of conflicting content.",
+      "historical_relationship": "Related to earlier rig-identity report DELEGATE-RIG-SKELETON-PARALLEL-COLUMNS and DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION, and /root/mhr_character report character-public-skeleton-aggregate plus historical q433 and q434. These preserve distinct failure modes: independently short columns, cyclic/out-of-range parent topology, and equal-sized cross-rig order; common ownership does not establish an exact alias.",
+      "future_repair": "Enforce each actual aggregate’s promised shared count/order/topology, not unsupported universal rig-instance branding; make caller policy explicit and preserve ordinary builder order and empty assembly behavior.",
+      "remaining": "Actual public caller support and owning admission contracts; all unregistered full-family paths remain open."
+    }
+  ],
+  "nonfindings": [
+    "PackedRigSkin::from_native checks every native word, including zero-weight slots, against the supplied count; encode checks both u32 representability and bound. That guarantees an ordinal bound only for the supplied count, not the matching rig instance or weight validity.",
+    "RigInfluences::whole_joint assigns weight1 to the selected slot, so an all-zero row cannot be inferred merely from this constructor; it also does not independently prove the ordinal belongs to a receiving rig.",
+    "Current SkinWeights stores packed index and typed weight rows privately. Its ordinary parser creates both rows in the same loop, Default produces both empty, and vertex uses checked access to both. indexed uses zip, but no ordinary parsed mismatch was proved.",
+    "An empty PackedRigSkin and WIDTH0 are representable; zero-width, empty-vertex, zero-total and zero-weight padding are separate policies. Do not discard zero-weight words as a shortcut around actual rig bounds.",
+    "The current typed OutsideRig bound and checked get_vertex are source changes, not proof every connected caller validates row correspondence. No claim is made that the prior schema or removed len() must remain compatible.",
+    "tests.rs is source evidence of identity policy only; no body, doctest, fixture or product process was run."
+  ],
+  "thirteen_lens_dispositions": {
+    "producer_propagation": "Partial: native packed ordinal, typed RigInfluences and actual MHR/runtime/export paths traced; other producers open.",
+    "existing_type_owners": "Partial: RigJointOrdinal, RigJointCount and MeshVertexIndex have distinct roles; do not merge vertex and joint indices.",
+    "admission_contracts": "Partial: every packed word and current paired SkinWeights path traced; individual weights, rig instance and public GeneratedArmor aggregate remain open.",
+    "invariant_operations": "Partial: duplicate accumulation, zero/infinite normalization, checked encoding and unchecked vertex mutation traced conditionally.",
+    "aggregate_states": "Partial: word/weight/position rows, same-rig columns and public mutation require qualified application ownership; no normal-builder failure assumed.",
+    "type_ownership": "Partial: current shared rig owner and MHR vertex owner compared; no whole-repository duplicate owner verdict.",
+    "redundant_authority": "Partial: count equality is not rig identity; stored bound and current rows are related but no cache-level clearance.",
+    "behavior_preservation": "Partial: 6533/current source differences recorded; valid sequence/order and exact 6533 tests source intent preserved without execution.",
+    "enum_shapes": "Partial: RigSkinError variants are typed semantic failures; no boolean/payload conversion established as a defect.",
+    "derivability": "Partial: explicit generic Default/FromIterator/Index may have exact bounds or semantics; no derive replacement asserted without inspecting macro semantics.",
+    "type_granularity": "Partial: count, ordinal, vertex, native word and rig instance differ; typed count must not imply instance membership.",
+    "magic_strings": "Partial: RigSkinError Display text is diagnostic, not shown driving control flow; no arbitrary closed-label restriction.",
+    "magic_numbers": "Partial: 8 and 4 match packed/native influence widths; weights and admission/normalization roles remain open, no whole-catalog proof."
+  },
+  "constraints_observed": "Only source and evidence inspection, raw Git/hash verification and static mathematical reasoning. No product repair, implementation, build, test, runtime probe, generated fixture, shader or renderer ran.",
+  "status": "Bounded delegate assessment ready for central review. It closes no whole lens or original059 queue record; overall discovery and the repair ledger remain incomplete."
+}

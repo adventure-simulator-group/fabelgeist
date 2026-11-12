@@ -1,0 +1,31 @@
+SOURCE crates/adventuresim-character-creator/src/wardrobe_tab.rs:126-155
+ 126             Showing::Design => self.drape.as_ref()?.problems.as_deref(),
+ 127             Showing::Saved(_) => self.fit_problems.as_deref(),
+ 128         }
+ 129     }
+ 130 
+ 131     pub fn show(&mut self, showing: Showing) {
+ 132         self.showing = showing;
+ 133         self.refresh = true;
+ 134     }
+ 135 
+ 136     /// Design from a saved garment's settings, draping it again.
+ 137     pub fn edit(&mut self, garment: &SettledGarment) {
+ 138         self.garment = garment.selection.clone();
+ 139         self.redrape = true;
+ 140         self.show(Showing::Design);
+ 141     }
+ 142 
+ 143     /// Drape the designed garment again from its placed panels.
+ 144     pub fn restart(&mut self) {
+ 145         self.worker.restart_from_placement();
+ 146         self.redrape = true;
+ 147     }
+ 148 
+ 149     /// Save the settled garment to the library under its name.
+ 150     pub fn save(&self, model: &BodyModel, library: &mut WardrobeLibrary) -> Result<LibraryName> {
+ 151         let body = self.body.as_ref().context("the wardrobe has no body yet")?;
+ 152         let settled = self
+ 153             .settled()
+ 154             .context("the garment has not settled as designed")?;
+ 155         let input = drape_preview::input(model, &body.generated, self.garment.clone());

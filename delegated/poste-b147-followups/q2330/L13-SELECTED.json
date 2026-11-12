@@ -1,0 +1,196 @@
+{
+  "history-l13/00.json": {
+    "/lens": 13,
+    "/namespace": "PL13-116",
+    "/status": "Fresh personal main recipe ingress/native model dispatch and outfit standoff producer assessment",
+    "/registration": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-116.json",
+      "sha256": "07342cbaabb33cbd35d6ce21bb3a51d6dff309a247fc68569bdaabd94699bc9b"
+    },
+    "/registered_before_read_attestation": true,
+    "/rows": [
+      {
+        "original": 819,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+        "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+        "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+        "actual_eof": 667,
+        "prospective_ranges": [
+          [
+            1,
+            667
+          ]
+        ],
+        "scope_kind": "frozen_requested_change",
+        "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+        "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+        "fresh_personal_assessed_ranges": [
+          [
+            1,
+            667
+          ]
+        ],
+        "untruncated_body_outputs": true
+      },
+      {
+        "original": 820,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs",
+        "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+        "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+        "actual_eof": 40,
+        "prospective_ranges": [
+          [
+            1,
+            40
+          ]
+        ],
+        "scope_kind": "affected_unchanged_reached_contract",
+        "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+        "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+        "fresh_personal_assessed_ranges": [
+          [
+            1,
+            40
+          ]
+        ],
+        "untruncated_body_outputs": true
+      },
+      {
+        "original": 821,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+        "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+        "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+        "actual_eof": 104,
+        "prospective_ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "scope_kind": "frozen_requested_change",
+        "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+        "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+        "fresh_personal_assessed_ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "untruncated_body_outputs": true
+      }
+    ],
+    "/proposed_findings/0": {
+      "proposed_id": "PL13-116-INVENTORY-ID-SUCCESSOR",
+      "status": "Retained source-backed allocator contract finding; current-main and exact aliases pending root",
+      "primary_original": 809,
+      "primary_source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "primary_sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "primary_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "primary_function": "Inventory::add",
+      "primary_ranges": [
+        [
+          225,
+          239
+        ]
+      ],
+      "primary_registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-113.json",
+        "sha256": "a1a5cddaedde816ca0a7b91e6c2b33df9bd4e80491f6741952844223cbe7aa50"
+      },
+      "primary_registration_pointer": "/sources/0",
+      "primary_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-113.json",
+        "sha256": "f50c2fc3abe971baf26566fec81883541e0db6a650dec50bbee0a58bd537b483"
+      },
+      "primary_read_pointer": "/rows/0",
+      "producer": "819 main219..223/load_recipe375..378 parse JSON CharacterRecipe then validate. 816 CharacterRecipe::validate138..160 calls809Inventory::validate353..360; transparent InventoryItemId(u64) Serde admits unique u64MAX with otherwise valid article.",
+      "internal_api": "Parsed Inventory retained in Studio.recipe;813 inventory_acquire::acquire128..137 calls Inventory::add(article) without an allocation result/exhaustion contract.",
+      "retained_state": "Inventory.items stores typed InventoryItemId(u64); validate rejects duplicates but neither excludes successor overflow nor establishes a fresh-ID strategy safe across the admitted numeric population.",
+      "consumer": "Inventory::add maps every item.id.0+1 and takesmax/default1, then pushesnewitem. Returned ID feeds Studio.inventory.selected, inventory.wear/loadout and typed graph supports.",
+      "native_boundary": "JSON u64 admission is actual external boundary.811WornGraph::place250..255 unwraps typedid.0 into core EquipmentGraph::equip nativeu64 key and811support220..224 retains parentID rawu64; exact core graph body remains additional connected scope.",
+      "first_failed_contract": "Inventory::add230 performs unchecked raw u64+1 on every retained valid ID without establishing successor representability. Inventory.validate353..360 and recipe loader admit a unique ID=u64MAX; even one such item violates the addition precondition before the new ID can be selected.",
+      "canonical_owner": "Inventory owns fresh stable article-ID allocation across all admitted InventoryItemId values; InventoryItemId/Inventory admission and allocator exhaustion strategy must agree.",
+      "function_ownership": {
+        "external_admission": "main/load_recipe -> CharacterRecipe::validate -> Inventory::validate",
+        "allocation": "Inventory::add",
+        "UI_consumer": "inventory_acquire::acquire",
+        "graph_consumer": "WornGraph::place / support"
+      },
+      "connected_repair_scope": [
+        "InventoryItemId serialized/numeric admission and stable unique allocation",
+        "Recipe load/save/default inventory construction",
+        "UI acquisition/selection/wear and graph key/parent identity propagation",
+        "Exact existing finding aliases/current-main reconciliation"
+      ],
+      "dependencies": [
+        "Choose clean allocator exhaustion/admission policy without preserving invalid arithmetic behavior",
+        "Exact root current-source and finding alias reconciliation",
+        "Core EquipmentGraph keys/parent ID admission exact source remains required scope"
+      ],
+      "acceptance_requirements": [
+        "Loading a valid unique high-ID inventory followed by acquiring an article returns a fresh collision-free ID or an explicit supported exhaustion/admission error, without unchecked successor overflow",
+        "Do not require MAX-1 reservation policy if a different clean collision-free allocation strategy owns the same supported contract",
+        "All ordinary add/remove/selected/wear/loadout/parent references retain stable exact semantic IDs",
+        "Duplicate IDs remain rejected at actual ingress; no backward API/error prose or invalid wrap behavior preservation"
+      ],
+      "source_case": "A supported-version JSON recipe can retain one otherwise valid unworn default draped article with id18446744073709551615. JSON supports thatu64 value, Inventory.validate only checks duplicates/article, then UI New cloth callsadd whose id+1 is unrepresentable. Pure source reasoning; no serialized artifact, runtime probe, build-profile outcome or production incident claimed.",
+      "runtime_probe_run": false,
+      "generated_production_incident_claimed": false,
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false,
+      "aliases": "Pending exact first-failure/owner comparison; not aliased to native graphcapacity/counter or unrelated successor findings by shared checked-add remedy."
+    },
+    "/accepted_unique_count_change": 0,
+    "/current_reconciled": false,
+    "/global_clearance": false,
+    "/product_execution": false,
+    "/qualifications": [
+      "Fresh personal8191..170/171..340/341..505/506..667,820full40,821full104 untruncated after116 prospective registration. Primary ID finding is exact own prior809READ113, not discovery819.",
+      "Source-only highID mathematical addition violation is established through actual JSON/recipe/UI path. Runtime overflow behavior/build profile is not claimed. No execution/current-main pass or accepted count. UnderPlate owner propagation and nativeMHR/coverage denominator scopes remain open; all prior qualifications persist."
+    ]
+  },
+  "history-l13/01.json": {
+    "/lens": 13,
+    "/status": "Immutable exact source validation115..117 no authoritative mutation",
+    "/frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "/frozen_is_not_current_main": true,
+    "/proposed_finding_provenance/0": {
+      "proposed_id": "PL13-116-INVENTORY-ID-SUCCESSOR",
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-116.json",
+        "sha256": "da43dff5481b3b616a853e5a4d00aed3e98d793938f62523eaa7e577911ff4d1"
+      },
+      "pointer": "/proposed_findings/0",
+      "primary_original": 809,
+      "primary_read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-113.json",
+        "sha256": "f50c2fc3abe971baf26566fec81883541e0db6a650dec50bbee0a58bd537b483"
+      },
+      "primary_pointer": "/rows/0",
+      "primary_source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "primary_sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "primary_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "first_failure_ranges": [
+        [
+          225,
+          239
+        ]
+      ],
+      "primary_registration": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-113.json",
+        "sha256": "a1a5cddaedde816ca0a7b91e6c2b33df9bd4e80491f6741952844223cbe7aa50"
+      },
+      "primary_registration_pointer": "/sources/0"
+    },
+    "/authoritative_counts_changed": false,
+    "/accepted_unique_count_change": 0,
+    "/current_reconciled": false,
+    "/global_clearance": false,
+    "/product_execution": false,
+    "/qualifications": [
+      "Source-backed Inventory::add unchecked successor finding tracedactual JSONrecipe validation ->retainedID->UI acquisition->graph/nativeidentityboundary; exactprimary809priorREAD113,notdiscovery819. No buildprofile/runtimeincidentclaim, current/exactaliasesrootpending.",
+      "821actualUnderPlateproducerpositivestandoff/radiusaccumulationnowtraced; canonicalphysicalownercomparisonstillpending.",
+      "819/822 ignorednativefixtureLOD1doesnotpassactualCharacterLod4..6gate; no runtimetestsrun. Allpriorqualificationsevidenceunchanged."
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+ 280                     .filter(|vertex| cross_section_covered[**vertex as usize])
+ 281                     .count()
+ 282                     >= 2;
+ 283             }
+ 284         }
+ 285         let selected_shell_faces = faces
+ 286             .iter()
+ 287             .copied()
+ 288             .zip(&selected_faces)
+ 289             .filter_map(|(face, selected)| selected.then_some(face))
+ 290             .collect::<Vec<_>>();
+ 291         if selected_shell_faces.is_empty() {
+ 292             return Err(ClothingError::NoSelectedTriangles {
+ 293                 garment: specification.name.clone(),
+ 294             });
+ 295         }
+ 296         if specification.occludes_body {
+ 297             occluded_faces.extend(
+ 298                 selected_faces
+ 299                     .iter()
+ 300                     .enumerate()
+ 301                     .filter_map(|(index, selected)| selected.then_some(index)),
+ 302             );
+ 303         }
+ 304         let (shell_positions, shell_normals) = fitted_surface(
+ 305             positions,
+ 306             normals,
+ 307             &selected_shell_faces,
+ 308             specification.normal_offset_metres,
+ 309         );
+ 310         let shell_faces = validated_placeholder_faces(
+ 311             &specification.name,
+ 312             &selected_shell_faces,
+ 313             &shell_positions,
+ 314         )?;
+ 315         shells.push(ClothingShell {
+ 316             specification: specification.clone(),
+ 317             positions: shell_positions,
+ 318             normals: shell_normals,
+ 319             faces: shell_faces,
+ 320         });
+ 321     }
+ 322     Ok(ClothedMesh {
+ 323         visible_body_faces: faces
+ 324             .iter()
+ 325             .copied()
+ 326             .enumerate()
+ 327             .filter_map(|(index, face)| (!occluded_faces.contains(&index)).then_some(face))
+ 328             .collect(),
+ 329         shells,
+ 330     })
+ 331 }
+ 332 
+ 333 fn squared_distance(a: [f32; 3], b: [f32; 3]) -> f32 {
+ 334     (a[0] - b[0]).powi(2) + (a[1] - b[1]).powi(2) + (a[2] - b[2]).powi(2)
+ 335 }
+ 336 
+ 337 fn subtract(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
+ 338     [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+ 339 }
+ 340 

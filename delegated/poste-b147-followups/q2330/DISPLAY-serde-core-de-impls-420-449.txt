@@ -1,0 +1,30 @@
+   420	impl_deserialize_num! {
+   421	    u16, NonZeroU16, deserialize_u16
+   422	    num_self!(u16:visit_u16);
+   423	    num_as_self!(u8:visit_u8);
+   424	    int_to_uint!(i8:visit_i8 i16:visit_i16 i32:visit_i32 i64:visit_i64);
+   425	    uint_to_self!(u32:visit_u32 u64:visit_u64);
+   426	}
+   427	
+   428	impl_deserialize_num! {
+   429	    u32, NonZeroU32, deserialize_u32
+   430	    num_self!(u32:visit_u32);
+   431	    num_as_self!(u8:visit_u8 u16:visit_u16);
+   432	    int_to_uint!(i8:visit_i8 i16:visit_i16 i32:visit_i32 i64:visit_i64);
+   433	    uint_to_self!(u64:visit_u64);
+   434	}
+   435	
+   436	impl_deserialize_num! {
+   437	    u64, NonZeroU64, deserialize_u64
+   438	    num_self!(u64:visit_u64);
+   439	    num_as_self!(u8:visit_u8 u16:visit_u16 u32:visit_u32);
+   440	    int_to_uint!(i8:visit_i8 i16:visit_i16 i32:visit_i32 i64:visit_i64);
+   441	}
+   442	
+   443	impl_deserialize_num! {
+   444	    usize, NonZeroUsize, deserialize_u64
+   445	    num_as_self!(u8:visit_u8 u16:visit_u16);
+   446	    int_to_uint!(i8:visit_i8 i16:visit_i16 i32:visit_i32 i64:visit_i64);
+   447	    uint_to_self!(u32:visit_u32 u64:visit_u64);
+   448	}
+   449	

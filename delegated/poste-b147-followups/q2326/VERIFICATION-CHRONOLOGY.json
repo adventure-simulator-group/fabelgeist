@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-11-12T16:35:15.456740+00:00",
+  "events": [
+    {
+      "order": 1,
+      "event": "Evidence-only verification passed with the pinned Git source and historical queue, before a correction to the prose count in READ-LIMITS.json.",
+      "result": "95 packet files, 12 tree proofs and 12 source views."
+    },
+    {
+      "order": 2,
+      "event": "An attempted retry used a mistyped local repository argument and failed before source verification. The checkout was later confirmed present.",
+      "result": "exit 1; Git could not change into the mistyped path; no product execution.",
+      "exact_output_custody": "Initial tool stderr was not redirected. A manual transcription of the visible result, with traceback underline reconstructed from a separate exact-input replay, is retained in an owner-restricted private capture. The replay exactly matches that transcription but cannot independently prove byte-for-byte identity to the initial stream.",
+      "transcribed_stderr_whole_file_sha256": "2c7e52298c59ea797534dd5c7c954979a407b11a0aa339008b22122c368b4e6d",
+      "private_capture_manifest_sha256": "3986d8dc9315d537669af5eccd4c5d67d33189255e771eb9c375440397dc6bd2"
+    },
+    {
+      "order": 3,
+      "event": "A separate read-only retry is recorded in the external seal receipt, after verifying the intended Git checkout exists."
+    }
+  ],
+  "qualification": "Whole-file hashes, not digests of individual local path values; private capture paths and local account details are not published."
+}

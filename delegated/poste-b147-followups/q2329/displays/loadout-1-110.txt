@@ -1,0 +1,110 @@
+   1 //! The worn articles, grouped by the generator that builds each on the body.
+   2 
+   3 use super::{Article, EquipConflict, Inventory, InventoryItemId};
+   4 use crate::{
+   5     equipment_catalog::{CatalogPlacement, ItemCatalog, is_wearable},
+   6     garment::{GarmentSelection, SettledDrape},
+   7     item_design::ItemDesign,
+   8 };
+   9 
+  10 /// Everything worn, validated to fit together.
+  11 #[derive(Debug, Default)]
+  12 pub struct Loadout<'a> {
+  13     /// Catalog clothing shells offset from the body surface.
+  14     pub clothing: Vec<CatalogPiece<'a>>,
+  15     /// Catalog items built from a parametric design.
+  16     pub fitted: Vec<FittedPiece<'a>>,
+  17     /// Cloth, from the innermost layer out, in draping order.
+  18     pub draped: Vec<DrapedPiece<'a>>,
+  19 }
+  20 
+  21 #[derive(Clone, Copy, Debug)]
+  22 pub struct CatalogPiece<'a> {
+  23     pub id: InventoryItemId,
+  24     pub selection: CatalogPlacement<'a>,
+  25 }
+  26 
+  27 #[derive(Clone, Debug)]
+  28 pub struct FittedPiece<'a> {
+  29     pub piece: CatalogPiece<'a>,
+  30     pub design: ItemDesign,
+  31     /// Its engraving and trim, applied when its material is plate steel.
+  32     pub decoration: crate::decoration::Decoration,
+  33     /// How it is built, when its material is plate steel.
+  34     pub construction: fabelgeist_armor::Construction,
+  35 }
+  36 
+  37 #[derive(Clone, Copy, Debug)]
+  38 pub struct DrapedPiece<'a> {
+  39     pub id: InventoryItemId,
+  40     pub selection: &'a GarmentSelection,
+  41     /// The saved drape fitted instead of simulating, for settled cloth.
+  42     pub drape: Option<&'a SettledDrape>,
+  43 }
+  44 
+  45 impl Inventory {
+  46     /// The worn articles, or the first reason they cannot be worn together.
+  47     pub fn loadout<'a>(
+  48         &'a self,
+  49         catalog: &'a ItemCatalog,
+  50     ) -> Result<Loadout<'a>, (InventoryItemId, EquipConflict)> {
+  51         self.fit(catalog)?;
+  52         let mut loadout = Loadout::default();
+  53         let mut draped = Vec::new();
+  54         for item in self.worn() {
+  55             let fail = |conflict| (item.id, conflict);
+  56             match &item.article {
+  57                 Article::Catalog(article) => {
+  58                     let selection = article.resolve(catalog).map_err(fail)?;
+  59                     if !is_wearable(selection.item().definition()) || selection.surface.is_empty() {
+  60                         return Err(fail(EquipConflict::Invalid(format!(
+  61                             "{} has no generated body surface",
+  62                             selection.item().display_name
+  63                         ))));
+  64                     }
+  65                     let piece = CatalogPiece {
+  66                         id: item.id,
+  67                         selection,
+  68                     };
+  69                     match article
+  70                         .design_for(&catalog.designs, selection)
+  71                         .map_err(fail)?
+  72                     {
+  73                         Some(design) => loadout.fitted.push(FittedPiece {
+  74                             piece,
+  75                             design,
+  76                             decoration: article.decoration.clone(),
+  77                             construction: article.construction.clone(),
+  78                         }),
+  79                         None => loadout.clothing.push(piece),
+  80                     }
+  81                 }
+  82                 Article::Draped(selection) => {
+  83                     let layer = item.article.occupancy(catalog).map_err(fail)?.layer();
+  84                     draped.push((
+  85                         layer.order(),
+  86                         DrapedPiece {
+  87                             id: item.id,
+  88                             selection,
+  89                             drape: None,
+  90                         },
+  91                     ));
+  92                 }
+  93                 Article::Settled(garment) => {
+  94                     let layer = item.article.occupancy(catalog).map_err(fail)?.layer();
+  95                     draped.push((
+  96                         layer.order(),
+  97                         DrapedPiece {
+  98                             id: item.id,
+  99                             selection: &garment.selection,
+ 100                             drape: Some(&garment.drape),
+ 101                         },
+ 102                     ));
+ 103                 }
+ 104             }
+ 105         }
+ 106         draped.sort_by_key(|(layer, _)| *layer);
+ 107         loadout.draped = draped.into_iter().map(|(_, piece)| piece).collect();
+ 108         Ok(loadout)
+ 109     }
+ 110 }

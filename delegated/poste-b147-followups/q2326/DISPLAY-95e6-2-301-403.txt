@@ -1,0 +1,103 @@
+   301	        return;
+   302	    }
+   303	    for (delta, (vertex, weights)) in deltas.iter_mut().zip(weights) {
+   304	        let skin = indices
+   305	            .weighted_vertex(vertex.native_vertex_index(), weights)
+   306	            .strongest_four();
+   307	        for (joint, weight) in skin.joints.into_iter().zip(skin.weights) {
+   308	            if weight == 0.0 {
+   309	                continue;
+   310	            }
+   311	            for (axis, value) in delta.iter_mut().enumerate() {
+   312	                *value -=
+   313	                    weight * (sample.global_joint_states[joint][axis] - reference[joint][axis]);
+   314	            }
+   315	        }
+   316	    }
+   317	}
+   318	
+   319	#[cfg(test)]
+   320	mod tests {
+   321	    use super::*;
+   322	
+   323	    #[test]
+   324	    fn skeletal_fit_corrects_surface_without_counting_bone_translation_twice() {
+   325	        let sample = ForearmMorphSample {
+   326	            name: SkeletalFitMorph::LongSpine.name().into(),
+   327	            positions: vec![],
+   328	            normals: vec![],
+   329	            global_joint_states: vec![[0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0]].into(),
+   330	            device: Default::default(),
+   331	        };
+   332	        let mut deltas = [[0.0, 0.12, 0.0]];
+   333	        remove_skeletal_translation(
+   334	            &mut deltas,
+   335	            &sample,
+   336	            &vec![[0.0; 8]].into(),
+   337	            &fabelgeist_rig::PackedRigSkin::from_native(
+   338	                vec![[0; 8]],
+   339	                sample.global_joint_states.joint_count(),
+   340	            )
+   341	            .unwrap(),
+   342	            [(
+   343	                MeshVertexIndex::from_native_vertex_index(0),
+   344	                [1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+   345	            )],
+   346	        );
+   347	        assert!((deltas[0][1] - 0.02).abs() < 1e-6);
+   348	        assert!((deltas[0][1] + 0.1 - 0.12).abs() < 1e-6);
+   349	    }
+   350	
+   351	    #[test]
+   352	    fn flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences() {
+   353	        let indices = [0, 1, 2, 3, 4, 5, 6, 7];
+   354	        let weights = [0.04, 0.21, 0.12, 0.06, 0.27, 0.14, 0.10, 0.06];
+   355	        let reference: fabelgeist_rig::RigJointTable<_> =
+   356	            (0..8).map(|joint| [joint as f32 * 0.02; 8]).collect();
+   357	        let states: fabelgeist_rig::RigJointTable<_> = reference
+   358	            .iter()
+   359	            .enumerate()
+   360	            .map(|(joint, state)| {
+   361	                let mut state = *state;
+   362	                state[0] += joint as f32 * 0.03;
+   363	                state[1] -= (joint as f32 * 0.7).sin() * 0.05;
+   364	                state
+   365	            })
+   366	            .collect();
+   367	        let direct = [0.07, -0.12, 0.02];
+   368	        let mut residual = [direct];
+   369	        let sample = ForearmMorphSample {
+   370	            name: SkeletalFitMorph::ShortLowerLeg.name().into(),
+   371	            positions: vec![],
+   372	            normals: vec![],
+   373	            global_joint_states: states.clone(),
+   374	            device: Default::default(),
+   375	        };
+   376	        remove_skeletal_translation(
+   377	            &mut residual,
+   378	            &sample,
+   379	            &reference,
+   380	            &fabelgeist_rig::PackedRigSkin::from_native(vec![indices], reference.joint_count())
+   381	                .unwrap(),
+   382	            [(MeshVertexIndex::from_native_vertex_index(0), weights)],
+   383	        );
+   384	        let exported = fabelgeist_rig::RigInfluences {
+   385	            joints: indices.map(fabelgeist_rig::RigJointOrdinal::from),
+   386	            weights,
+   387	        }
+   388	        .strongest_four();
+   389	        let exported_indices = exported.joints;
+   390	        let exported_weights = exported.weights;
+   391	        for axis in 0..3 {
+   392	            let runtime = residual[0][axis]
+   393	                + exported_indices
+   394	                    .iter()
+   395	                    .zip(exported_weights)
+   396	                    .map(|(joint, weight)| {
+   397	                        weight * (states[*joint][axis] - reference[*joint][axis])
+   398	                    })
+   399	                    .sum::<f32>();
+   400	            assert!((runtime - direct[axis]).abs() < 1e-6);
+   401	        }
+   402	    }
+   403	}

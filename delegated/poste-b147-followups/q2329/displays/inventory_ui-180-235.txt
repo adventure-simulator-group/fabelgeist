@@ -1,0 +1,56 @@
+ 180                 }
+ 181             });
+ 182         });
+ 183     });
+ 184 }
+ 185 
+ 186 /// Wear an article, reporting whatever it replaced.
+ 187 pub(super) fn wear(studio: &mut Studio, catalog: &EquipmentCatalog, id: InventoryItemId) {
+ 188     let inventory = &mut studio.recipe.inventory;
+ 189     let name = |inventory: &adventuresim_character_creator::inventory::Inventory, id| {
+ 190         inventory
+ 191             .get(id)
+ 192             .map_or_else(String::new, |item: &InventoryItem| {
+ 193                 item.article.name(catalog)
+ 194             })
+ 195     };
+ 196     studio.status = match inventory.wear(id, catalog) {
+ 197         Ok(displaced) => {
+ 198             studio.dirty = true;
+ 199             if displaced.is_empty() {
+ 200                 format!("Wearing {}", name(inventory, id))
+ 201             } else {
+ 202                 format!(
+ 203                     "Wearing {}; took off {}",
+ 204                     name(inventory, id),
+ 205                     displaced
+ 206                         .iter()
+ 207                         .map(|id| name(inventory, *id))
+ 208                         .collect::<Vec<_>>()
+ 209                         .join(", ")
+ 210                 )
+ 211             }
+ 212         }
+ 213         Err(conflict) => inventory.explain(catalog, &(id, conflict)),
+ 214     };
+ 215 }
+ 216 
+ 217 fn take_off(studio: &mut Studio, catalog: &EquipmentCatalog, id: InventoryItemId) {
+ 218     let removed = studio.recipe.inventory.take_off(id, catalog);
+ 219     studio.dirty |= !removed.is_empty();
+ 220     studio.status = format!(
+ 221         "Took off {}",
+ 222         names(&studio.recipe.inventory, catalog, &removed)
+ 223     );
+ 224 }
+ 225 
+ 226 fn discard(studio: &mut Studio, catalog: &EquipmentCatalog, id: InventoryItemId) {
+ 227     let name = names(&studio.recipe.inventory, catalog, &[id]);
+ 228     let removed = studio.recipe.inventory.remove(id, catalog);
+ 229     studio.dirty |= !removed.is_empty();
+ 230     if studio.inventory.selected == Some(id) {
+ 231         studio.inventory.selected = None;
+ 232     }
+ 233     studio.status = format!("Discarded {name}");
+ 234 }
+ 235 

@@ -1,0 +1,175 @@
+     1	//! The hair on the previewed character.
+     2	//!
+     3	//! A worker thread grows a hairstyle on the hair crate's bust (once per
+     4	//! style) and places it on the generated body (once per body): the strands
+     5	//! are carried onto the character's head and every level of detail is
+     6	//! prepared there, kept outside the character's own skin. The studio then
+     7	//! draws the level the Hair page picks, skinned wholly to the head joint so
+     8	//! it follows the walk preview, and paints the scalp under it.
+     9	use super::*;
+    10	use adventuresim_character_creator::hair::{
+    11	    BodySurface, Groom, GroomedHair, HairDesign, HairGpu, HeadPlacement, HeadSkin, PlacedHair,
+    12	    variant_label,
+    13	};
+    14	use bevy::camera::visibility::NoFrustumCulling;
+    15	use fabelgeist_hair::lod::Form;
+    16	use fabelgeist_rig::RigJointName;
+    17	use std::sync::Arc;
+    18	use std::thread::JoinHandle;
+    19	
+    20	mod assets;
+    21	mod gpu;
+    22	mod layers;
+    23	#[cfg(test)]
+    24	mod render_test;
+    25	mod scalp_shade;
+    26	mod scalp_upload;
+    27	mod strand_shading;
+    28	
+    29	use assets::HairAssets;
+    30	pub(super) use gpu::HairGpuPlugin;
+    31	use layers::HairLayer;
+    32	pub(super) use layers::{ShownLayers, show as show_layers};
+    33	pub(super) use strand_shading::HairShadingPlugin;
+    34	
+    35	/// The hair mesh shown on the character: the design and the form it draws.
+    36	#[derive(Component)]
+    37	pub(super) struct HairMesh {
+    38	    design: HairDesign,
+    39	    form: Form,
+    40	}
+    41	
+    42	/// The grown and placed hair, and the worker preparing the next.
+    43	#[derive(Resource, Default)]
+    44	pub(super) struct HairPreview {
+    45	    grown: Option<Arc<GroomedHair>>,
+    46	    placed: Option<PlacedStyle>,
+    47	    worker: Option<Worker>,
+    48	    /// The studio's render device, for growing hair on; there once the
+    49	    /// renderer has started.
+    50	    gpu: Option<gpu::StudioHairGpu>,
+    51	}
+    52	
+    53	/// Hair placed on one generated body.
+    54	pub(super) struct PlacedStyle {
+    55	    pub(super) hair: PlacedHair,
+    56	    /// The device the hair lies on, where its levels of detail are built.
+    57	    pub(super) gpu: gpu::StudioHairGpu,
+    58	    body: Arc<GeneratedCharacter>,
+    59	    atlas: Handle<Image>,
+    60	    /// The scalp's baked textures.
+    61	    scalp: scalp_shade::ScalpImages,
+    62	}
+    63	
+    64	struct Worker {
+    65	    groom: Groom,
+    66	    body: Arc<GeneratedCharacter>,
+    67	    handle: JoinHandle<Result<Prepared>>,
+    68	}
+    69	
+    70	/// What a worker hands back.
+    71	struct Prepared {
+    72	    grown: Arc<GroomedHair>,
+    73	    placed: PlacedHair,
+    74	    gpu: gpu::StudioHairGpu,
+    75	}
+    76	
+    77	/// A body's copy of what placing hair on it reads, for the worker to own.
+    78	pub(super) struct BodyHead {
+    79	    positions: Vec<[f32; 3]>,
+    80	    faces: Vec<[u32; 3]>,
+    81	    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
+    82	    joint_weights: fabelgeist_mhr::character::MeshVertexTable<[f32; 8]>,
+    83	    joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
+    84	    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+    85	}
+    86	
+    87	impl BodyHead {
+    88	    pub(super) fn new(model: &BodyModel, generated: &GeneratedCharacter) -> Self {
+    89	        let character = &model.mhr.character;
+    90	        Self {
+    91	            positions: generated.positions.clone(),
+    92	            faces: character.mesh.faces.clone(),
+    93	            joint_indices: character.skin_weights.indices().clone(),
+    94	            joint_weights: character.skin_weights.weights().clone(),
+    95	            joint_names: character.skeleton.names.clone(),
+    96	            global_joint_states: generated.global_joint_states.clone(),
+    97	        }
+    98	    }
+    99	
+   100	    /// Where the bust's head lies on this body.
+   101	    pub(super) fn placement(&self, hair: &GroomedHair) -> Result<HeadPlacement> {
+   102	        let skin = HeadSkin {
+   103	            positions: &self.positions,
+   104	            joint_indices: &self.joint_indices,
+   105	            joint_weights: self.joint_weights.as_native_slice(),
+   106	            joint_names: &self.joint_names,
+   107	            global_joint_states: &self.global_joint_states,
+   108	        };
+   109	        Ok(HeadPlacement::fit(&skin, hair.head())?)
+   110	    }
+   111	
+   112	    /// `hair` placed on this body on `gpu`, kept outside its skin.
+   113	    pub(super) fn place(&self, gpu: &HairGpu, hair: &GroomedHair) -> Result<PlacedHair> {
+   114	        let placement = self.placement(hair)?;
+   115	        let body = BodySurface {
+   116	            positions: &self.positions,
+   117	            faces: &self.faces,
+   118	        };
+   119	        hair.place(gpu, &placement, &body)
+   120	    }
+   121	}
+   122	
+   123	impl HairPreview {
+   124	    /// The placed hair, if it is `groom` on `body`.
+   125	    fn placed(&self, groom: Groom, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
+   126	        self.placed
+   127	            .as_ref()
+   128	            .filter(|placed| placed.hair.groom == groom && Arc::ptr_eq(&placed.body, body))
+   129	    }
+   130	
+   131	    /// Start preparing `groom` on `body` unless that is placed or under way
+   132	    /// already; true when a worker started. A worker on another style or
+   133	    /// body is left to finish and its hair dropped.
+   134	    fn request(&mut self, groom: Groom, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
+   135	        let under_way = self
+   136	            .worker
+   137	            .as_ref()
+   138	            .is_some_and(|worker| worker.groom == groom && Arc::ptr_eq(&worker.body, body));
+   139	        if self.placed(groom, body).is_some() || under_way {
+   140	            return false;
+   141	        }
+   142	        let grown = self.grown.clone().filter(|grown| grown.groom == groom);
+   143	        let gpu = self.gpu.clone();
+   144	        let handle = std::thread::spawn(move || {
+   145	            let gpu = gpu.context("the renderer has no device to grow hair on")?;
+   146	            let kernels = gpu.kernels()?;
+   147	            let grown = match grown {
+   148	                Some(grown) => grown,
+   149	                None => Arc::new(GroomedHair::grow(groom, kernels)?),
+   150	            };
+   151	            let placed = head.place(kernels, &grown)?;
+   152	            Ok(Prepared { grown, placed, gpu })
+   153	        });
+   154	        self.worker = Some(Worker {
+   155	            groom,
+   156	            body: body.clone(),
+   157	            handle,
+   158	        });
+   159	        true
+   160	    }
+   161	
+   162	    /// Take the worker's hair once it has finished.
+   163	    fn collect(
+   164	        &mut self,
+   165	        images: &mut Assets<Image>,
+   166	        uploads: &scalp_upload::ScalpUploads,
+   167	    ) -> Result<()> {
+   168	        if !self
+   169	            .worker
+   170	            .as_ref()
+   171	            .is_some_and(|worker| worker.handle.is_finished())
+   172	        {
+   173	            return Ok(());
+   174	        }
+   175	        let Some(worker) = self.worker.take() else {

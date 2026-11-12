@@ -1,0 +1,63 @@
+   1 //! Bevy consumes one VEC4 skin set; discarded influences must not lose mass.
+   2 use super::*;
+   3 
+   4 pub(super) fn append(
+   5     buffer: &mut BufferBuilder,
+   6     joints: &fabelgeist_rig::PackedRigSkin<8>,
+   7     weights: &[[f32; 8]],
+   8 ) -> Result<(usize, usize)> {
+   9     let skin = joints
+  10         .iter()
+  11         .zip(weights)
+  12         .map(|(joints, weights)| {
+  13             fabelgeist_rig::RigInfluences {
+  14                 joints,
+  15                 weights: *weights,
+  16             }
+  17             .strongest_four()
+  18         })
+  19         .collect::<Vec<_>>();
+  20     let native_joints = skin
+  21         .iter()
+  22         .map(|skin| skin.native_u16())
+  23         .collect::<std::result::Result<Vec<_>, _>>()?;
+  24     let joints = buffer.push(
+  25         &u16_bytes(native_joints.into_iter().flatten()),
+  26         Some(34_962),
+  27     );
+  28     let weights = buffer.push(
+  29         &f32_bytes(skin.iter().flat_map(|skin| skin.weights)),
+  30         Some(34_962),
+  31     );
+  32     Ok((joints, weights))
+  33 }
+  34 
+  35 #[cfg(test)]
+  36 mod tests {
+  37     use super::*;
+  38 
+  39     #[test]
+  40     fn dropping_minor_influences_preserves_world_translation() {
+  41         let skin = fabelgeist_rig::RigInfluences {
+  42             joints: [0usize, 1, 2, 3, 4, 5, 6, 7].map(RigJointOrdinal::from),
+  43             weights: [0.05, 0.2, 0.1, 0.05, 0.3, 0.15, 0.1, 0.05],
+  44         }
+  45         .strongest_four();
+  46         let joints = skin.native_u16().unwrap();
+  47         let weights = skin.weights;
+  48         assert_eq!(joints, [4, 1, 5, 2]);
+  49         // The runtime uses the weighted xyz directly. A common translation
+  50         // must move the vertex by that whole distance, even far from origin.
+  51         let position = [0.2, 1.3, -0.1];
+  52         let translation = [20., -8., 50.];
+  53         let actual: [f32; 3] = std::array::from_fn(|axis| {
+  54             weights
+  55                 .iter()
+  56                 .map(|w| w * (position[axis] + translation[axis]))
+  57                 .sum()
+  58         });
+  59         for axis in 0..3 {
+  60             assert!((actual[axis] - position[axis] - translation[axis]).abs() < 1e-5);
+  61         }
+  62     }
+  63 }

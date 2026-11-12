@@ -1,0 +1,55 @@
+   145	                }
+   146	                Ok(selection) => selection.item().display_name.clone(),
+   147	                Err(_) => format!("Unknown {}", article.item_id),
+   148	            },
+   149	            Self::Draped(selection) => selection.name.clone(),
+   150	            Self::Settled(garment) => garment.selection.name.clone(),
+   151	        }
+   152	    }
+   153	
+   154	    /// Catalog weight; generated garments have no authored weight.
+   155	    pub fn weight_kg(&self, catalog: &ItemCatalog) -> Option<f32> {
+   156	        match self {
+   157	            Self::Catalog(article) => article
+   158	                .resolve(catalog)
+   159	                .ok()
+   160	                .map(|selection| selection.item().weight_kg),
+   161	            Self::Draped(_) | Self::Settled(_) => None,
+   162	        }
+   163	    }
+   164	
+   165	    /// The cloth's construction, fabric and layer, if this article is cloth.
+   166	    pub fn garment(&self) -> Option<&GarmentSelection> {
+   167	        match self {
+   168	            Self::Draped(selection) => Some(selection),
+   169	            Self::Settled(garment) => Some(&garment.selection),
+   170	            Self::Catalog(_) => None,
+   171	        }
+   172	    }
+   173	
+   174	    fn validate(&self) -> Result<(), String> {
+   175	        match self {
+   176	            Self::Catalog(article) => {
+   177	                if article.item_id.is_empty() || article.placement_id.is_empty() {
+   178	                    return Err("catalog articles require item and placement IDs".into());
+   179	                }
+   180	                article
+   181	                    .design
+   182	                    .as_ref()
+   183	                    .map_or(Ok(()), ItemDesign::validate)
+   184	                    .map_err(|error| format!("{}: {error:#}", article.item_id))?;
+   185	                article
+   186	                    .decoration
+   187	                    .validate()
+   188	                    .map_err(|error| format!("{}: {error}", article.item_id))?;
+   189	                article
+   190	                    .construction
+   191	                    .validate()
+   192	                    .map_err(|error| format!("{}: {error}", article.item_id))
+   193	            }
+   194	            Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
+   195	            Self::Settled(garment) => garment
+   196	                .validate()
+   197	                .map_err(|error| format!("{}: {error:#}", garment.selection.name)),
+   198	        }
+   199	    }

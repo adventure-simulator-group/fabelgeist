@@ -1,0 +1,72 @@
+{
+  "schema": "726-q2326-bounded-source-reconciliation-v1",
+  "reviewer": "/root/mhr_character",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "historical_queue": {
+    "pointer": "/entries/2326",
+    "contract_id": "REVIEW-L11-CREATOR-HAIR-BODY-INSTANCE-IDENTITY",
+    "disposition": "rejected-suspicion-source-qualified",
+    "scope": "simple equal-count stale-body suspicion only; historical named scope, not 3821 or global closure",
+    "evidence": "QUEUE-2326-RAW.json and HISTORY-SELECTED-A/B/C.json"
+  },
+  "current_conclusions": [
+    {
+      "kind": "scoped safeguard",
+      "source": "crates/adventuresim-character-creator/src/hair_preview.rs:123-159,163-193,271-295",
+      "finding": "Placed/in-progress hair matches groom and body Arc identity; worker result is paired with the retained Arc. A different Arc with equal counts does not pass the match.",
+      "limit": "Does not establish that the Arc corresponds to the current model, runtime success, or global closure."
+    },
+    {
+      "kind": "existing upstream policy relationship",
+      "sources": [
+        "crates/adventuresim-character-creator/src/studio_cache.rs:33-55",
+        "crates/adventuresim-character-creator/src/studio_generation.rs:32-61",
+        "crates/adventuresim-character-creator/src/main.rs:327-335,430-454",
+        "crates/adventuresim-character-creator/src/model_controls.rs:25-37",
+        "crates/adventuresim-character-creator/src/hair_preview.rs:78-101,123-159,271-295"
+      ],
+      "finding": "On a successful same-LOD corrective model reload with equal body cache key, the old Arc can be reused and hence hair matching that Arc can be reused or an old worker accepted.",
+      "limit": "Output difference, actual redraw, data/asset reach and product consequence are not proved; old hair can remain consistent with cached body. Existing q2327 and ledger 47; no new count or automatic alias."
+    },
+    {
+      "kind": "conditional resource/ownership question",
+      "source": "crates/adventuresim-character-creator/src/hair_preview.rs:131-159,163-193,277-290",
+      "finding": "A new distinct request replaces the prior worker handle; an unfinished older thread is detached and its result cannot be installed through that discarded handle. Several can coexist only if successive earlier workers have not finished.",
+      "limit": "No runtime, scheduling, supported frequency, resource harm, intended limit or independent accepted finding established."
+    },
+    {
+      "kind": "conditional repeated construction question",
+      "source": "crates/adventuresim-character-creator/src/hair_preview.rs:88-99,134-139,289-290",
+      "finding": "BodyHead is constructed before request checks if the equal worker is already in progress.",
+      "limit": "Effect or performance significance not measured; no extra count."
+    }
+  ],
+  "related_records": [
+    {
+      "source": "historical 059 /entries/2327",
+      "id": "REVIEW-L11-CREATOR-CORRECTIVE-MODEL-CACHE-DEPENDENCY-POLICY",
+      "projection": "RELATION-Q2327-PROJECTION.json"
+    },
+    {
+      "source": "e709 baseline /newly_assessed_ledger/entries/47",
+      "id": "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+      "projection": "RELATION-LEDGER-47-PROJECTION.json"
+    },
+    {
+      "source": "independent q2323",
+      "identity": "PRIOR-ATTRIBUTION.json"
+    }
+  ],
+  "open_questions": [
+    "Is an explicit current model/corrective dependency required or is generated neutral-body invariance guaranteed for supported assets?",
+    "Can owner-supported UI events overlap more hair workers than desired, and is detachment acceptable?",
+    "Do any supported changes materially alter body/head placement, and under what scheduler conditions is shown hair refreshed?",
+    "How does q2325 skin-layout assessment relate without transferring its attribution or assuming identity?"
+  ],
+  "coverage": "READ-LIMITS.json",
+  "evidence_verifier": "VERIFY-EVIDENCE.py",
+  "execution": "Source and evidence inspection only; no product, test, asset, renderer, fixture, probe, build or repair.",
+  "global_closure": false,
+  "new_unique_defect_count_assigned": false
+}

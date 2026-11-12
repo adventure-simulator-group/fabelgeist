@@ -1,0 +1,221 @@
+     1	{
+     2	  "contract_id": "REVIEW-L11-CREATOR-HAIR-BODY-INSTANCE-IDENTITY",
+     3	  "kind": "qualified-scoped-review-disposition",
+     4	  "lens": 11,
+     5	  "parent_canonical_id": null,
+     6	  "canonical_owner": "HairPreview::placed/request/Worker/PlacedStyle exact Arc body instance plus groom owner",
+     7	  "first_failed_contract_or_unresolved_question": "Equal counts do not drive hair placement cache reuse: actual Arc::ptr_eq body identity and groom equality exclude simple stalebody cache suspicion.",
+     8	  "exact_source_identities_and_assessed_ranges": [
+     9	    {
+    10	      "source_row_key": "R178-2",
+    11	      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/hair_preview.rs:P09-P12-current-delta-creator-preview-consumer",
+    12	      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    13	      "source_sha256": "baa0d6dc589215679602b941a4f94e99d1c375bdb20c7daa582455b4dc41cc2e",
+    14	      "assessed_ranges": [
+    15	        [
+    16	          1,
+    17	          343
+    18	        ]
+    19	      ],
+    20	      "receipt_pointer": "/rows/2",
+    21	      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+    22	      "contract_relevant_ranges": [
+    23	        [
+    24	          1,
+    25	          343
+    26	        ]
+    27	      ],
+    28	      "body_receipt": {
+    29	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-178.json",
+    30	        "sha256": "f2e31edd15790098b415676db66fe536497b2c8d073218179e34409097b31925"
+    31	      },
+    32	      "registration_ref_and_sha256": {
+    33	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-196.json",
+    34	        "sha256": "2ec5fba1f39da1a687dc8f9c5fa7d4f340d14d9c3965279ad2b9b362c44b5e4a",
+    35	        "json_pointer": "/rows/2"
+    36	      },
+    37	      "root_adoption": {
+    38	        "path": "segovb/READ-L11-714.json",
+    39	        "sha256": "1d8400fa3eef4327483a2d3f572145310891c417bbd94e40bee012473864e335",
+    40	        "verification": "segovb/VERIFY-L11-714.json",
+    41	        "verification_sha256": "f68f9e32205cd576b823136cb51f5ad069731e16e7307ed9137c769511f883b9"
+    42	      },
+    43	      "body_credit_from_queue": 0
+    44	    },
+    45	    {
+    46	      "source_row_key": "R178-3",
+    47	      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/character_morphs/hair.rs:P09-P12-current-delta-creator-preview-consumer",
+    48	      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    49	      "source_sha256": "c46f692b569b04811a05fe3773d533e16a5a667fe309dd3ac71514ff80700dd3",
+    50	      "assessed_ranges": [
+    51	        [
+    52	          1,
+    53	          61
+    54	        ]
+    55	      ],
+    56	      "receipt_pointer": "/rows/3",
+    57	      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+    58	      "contract_relevant_ranges": [
+    59	        [
+    60	          1,
+    61	          61
+    62	        ]
+    63	      ],
+    64	      "body_receipt": {
+    65	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-178.json",
+    66	        "sha256": "f2e31edd15790098b415676db66fe536497b2c8d073218179e34409097b31925"
+    67	      },
+    68	      "registration_ref_and_sha256": {
+    69	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-196.json",
+    70	        "sha256": "2ec5fba1f39da1a687dc8f9c5fa7d4f340d14d9c3965279ad2b9b362c44b5e4a",
+    71	        "json_pointer": "/rows/3"
+    72	      },
+    73	      "root_adoption": {
+    74	        "path": "segovb/READ-L11-714.json",
+    75	        "sha256": "1d8400fa3eef4327483a2d3f572145310891c417bbd94e40bee012473864e335",
+    76	        "verification": "segovb/VERIFY-L11-714.json",
+    77	        "verification_sha256": "f68f9e32205cd576b823136cb51f5ad069731e16e7307ed9137c769511f883b9"
+    78	      },
+    79	      "body_credit_from_queue": 0
+    80	    },
+    81	    {
+    82	      "source_row_key": "R011-5",
+    83	      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/character_morphs.rs",
+    84	      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    85	      "source_sha256": "e39e073fb460cbb76f96bd84b9893defc7bd69af854460c710d5e031a2c302e8",
+    86	      "assessed_ranges": [
+    87	        [
+    88	          1,
+    89	          403
+    90	        ]
+    91	      ],
+    92	      "receipt_pointer": "/rows/5",
+    93	      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+    94	      "contract_relevant_ranges": [
+    95	        [
+    96	          1,
+    97	          403
+    98	        ]
+    99	      ],
+   100	      "body_receipt": {
+   101	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+   102	        "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+   103	      },
+   104	      "registration_ref_and_sha256": {
+   105	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+   106	        "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+   107	        "json_pointer": "/rows/8"
+   108	      },
+   109	      "root_adoption": {
+   110	        "path": "segovb/READ-L11-547.json",
+   111	        "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+   112	        "verification": "segovb/VERIFY-L11-547.json",
+   113	        "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+   114	      },
+   115	      "body_credit_from_queue": 0
+   116	    },
+   117	    {
+   118	      "source_row_key": "R179-0",
+   119	      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_cache.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+   120	      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+   121	      "source_sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+   122	      "assessed_ranges": [
+   123	        [
+   124	          1,
+   125	          192
+   126	        ]
+   127	      ],
+   128	      "receipt_pointer": "/rows/0",
+   129	      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+   130	      "contract_relevant_ranges": [
+   131	        [
+   132	          1,
+   133	          192
+   134	        ]
+   135	      ],
+   136	      "body_receipt": {
+   137	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+   138	        "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+   139	      },
+   140	      "registration_ref_and_sha256": {
+   141	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+   142	        "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+   143	        "json_pointer": "/rows/0"
+   144	      },
+   145	      "root_adoption": {
+   146	        "path": "segovb/READ-L11-715.json",
+   147	        "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+   148	        "verification": "segovb/VERIFY-L11-715.json",
+   149	        "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+   150	      },
+   151	      "body_credit_from_queue": 0
+   152	    },
+   153	    {
+   154	      "source_row_key": "R179-1",
+   155	      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_generation.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+   156	      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+   157	      "source_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+   158	      "assessed_ranges": [
+   159	        [
+   160	          1,
+   161	          189
+   162	        ]
+   163	      ],
+   164	      "receipt_pointer": "/rows/1",
+   165	      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+   166	      "contract_relevant_ranges": [
+   167	        [
+   168	          1,
+   169	          189
+   170	        ]
+   171	      ],
+   172	      "body_receipt": {
+   173	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+   174	        "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+   175	      },
+   176	      "registration_ref_and_sha256": {
+   177	        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+   178	        "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+   179	        "json_pointer": "/rows/1"
+   180	      },
+   181	      "root_adoption": {
+   182	        "path": "segovb/READ-L11-715.json",
+   183	        "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+   184	        "verification": "segovb/VERIFY-L11-715.json",
+   185	        "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+   186	      },
+   187	      "body_credit_from_queue": 0
+   188	    }
+   189	  ],
+   190	  "producer_api_retained_state_consumer_native_trace": [
+   191	    "BodyHead copies currentmodel skin/name/faces plus generated positions/joints. HairPreview::placed125..129 and request134..158 compareactualArcidentity+groom; sharedGroomedHair reuse is styleowner, placementalwaysrecomputed on changedbody. Worker retains Arcbody then collect163..193 stores sameworkerbody with preparedhair/GPU.",
+   192	    "refresh253..343 obtainscurrentcachebody aftergeneration, requestsifnotexactplaced, then retaineddesign/Form/nativeSkin drivesdrawnmesh/scalp; finalstatus formatserrors at actualStudio UI leaf. CharacterMorphs::hair11..60 uses sampled HeadPlacement and typedwhole_joint count, not bodycount substitution."
+   193	  ],
+   194	  "remaining_evidence": [],
+   195	  "dependencies": [
+   196	    "Exact currentcreator/MHR/rig source scopes only; public library admissions and separate native/fixture/doc contracts retain exact prior qualifications.",
+   197	    "No product/native/test/fixture/runtime execution; later repair acceptance separate."
+   198	  ],
+   199	  "closure_condition": [
+   200	    "Root verifies immutable wholebundle/source/plan/own prior root proofs before ordered177..180 source adoption.",
+   201	    "Record namedretained/rejected/conditional/policydisposition only; no coarseall20/all13/currentdelta closure or accepteduniqueassignment."
+   202	  ],
+   203	  "disposition": "rejected-suspicion-source-qualified",
+   204	  "policy_decisions_remaining": [],
+   205	  "later_repair_acceptance_requirements": [
+   206	    "Availabletypednativecauses andactualsemanticroles preserved untilpresentation.",
+   207	    "Any policychosenrepair/native-runtimevalidation remainsseparateafterauditledgercomplete, no obsoleteAPI/errorprose/invalidbehavior preservation."
+   208	  ],
+   209	  "named_disposition_recorded": true,
+   210	  "audit_discovery_closed_within_exact_named_scope": true,
+   211	  "all_lenses_or_coarse_parent_closed": false,
+   212	  "global_exact_alias_inventory_complete": false,
+   213	  "repair_runtime_passed": false,
+   214	  "proposal": {
+   215	    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+   216	    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+   217	    "row_pointer": "/contract_updates/3"
+   218	  },
+   219	  "body_or_population_credit": 0,
+   220	  "implementation_gate_complete": false
+   221	}

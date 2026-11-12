@@ -1,0 +1,110 @@
+ 111     /// The shape this article is built from, if its item is parametric.
+ 112     pub fn design(&self, catalog: &ItemCatalog) -> Result<Option<ItemDesign>, EquipConflict> {
+ 113         let selection = self.resolve(catalog)?;
+ 114         self.design_for(&catalog.designs, selection)
+ 115     }
+ 116 
+ 117     pub fn design_for(
+ 118         &self,
+ 119         designs: &CatalogDesigns,
+ 120         selection: CatalogPlacement<'_>,
+ 121     ) -> Result<Option<ItemDesign>, EquipConflict> {
+ 122         if selection.item().id != self.item_id || selection.id != self.placement_id {
+ 123             return Err(EquipConflict::Invalid(
+ 124                 "catalog article selection has another identity".into(),
+ 125             ));
+ 126         }
+ 127         let default = designs.default_at(selection);
+ 128         match (&self.design, default) {
+ 129             (None, default) => Ok(default),
+ 130             (Some(own), Some(default)) if default.same_family(own) => Ok(Some(own.clone())),
+ 131             (Some(_), _) => Err(EquipConflict::Invalid(format!(
+ 132                 "{} has a design of another construction",
+ 133                 self.item_id
+ 134             ))),
+ 135         }
+ 136     }
+ 137 }
+ 138 
+ 139 impl Article {
+ 140     pub fn name(&self, catalog: &ItemCatalog) -> String {
+ 141         match self {
+ 142             Self::Catalog(article) => match article.resolve(catalog) {
+ 143                 Ok(selection) if placement_count(selection.item().definition()) > 1 => {
+ 144                     format!("{} ({})", selection.item().display_name, selection.id)
+ 145                 }
+ 146                 Ok(selection) => selection.item().display_name.clone(),
+ 147                 Err(_) => format!("Unknown {}", article.item_id),
+ 148             },
+ 149             Self::Draped(selection) => selection.name.clone(),
+ 150             Self::Settled(garment) => garment.selection.name.clone(),
+ 151         }
+ 152     }
+ 153 
+ 154     /// Catalog weight; generated garments have no authored weight.
+ 155     pub fn weight_kg(&self, catalog: &ItemCatalog) -> Option<f32> {
+ 156         match self {
+ 157             Self::Catalog(article) => article
+ 158                 .resolve(catalog)
+ 159                 .ok()
+ 160                 .map(|selection| selection.item().weight_kg),
+ 161             Self::Draped(_) | Self::Settled(_) => None,
+ 162         }
+ 163     }
+ 164 
+ 165     /// The cloth's construction, fabric and layer, if this article is cloth.
+ 166     pub fn garment(&self) -> Option<&GarmentSelection> {
+ 167         match self {
+ 168             Self::Draped(selection) => Some(selection),
+ 169             Self::Settled(garment) => Some(&garment.selection),
+ 170             Self::Catalog(_) => None,
+ 171         }
+ 172     }
+ 173 
+ 174     fn validate(&self) -> Result<(), String> {
+ 175         match self {
+ 176             Self::Catalog(article) => {
+ 177                 if article.item_id.is_empty() || article.placement_id.is_empty() {
+ 178                     return Err("catalog articles require item and placement IDs".into());
+ 179                 }
+ 180                 article
+ 181                     .design
+ 182                     .as_ref()
+ 183                     .map_or(Ok(()), ItemDesign::validate)
+ 184                     .map_err(|error| format!("{}: {error:#}", article.item_id))?;
+ 185                 article
+ 186                     .decoration
+ 187                     .validate()
+ 188                     .map_err(|error| format!("{}: {error}", article.item_id))?;
+ 189                 article
+ 190                     .construction
+ 191                     .validate()
+ 192                     .map_err(|error| format!("{}: {error}", article.item_id))
+ 193             }
+ 194             Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
+ 195             Self::Settled(garment) => garment
+ 196                 .validate()
+ 197                 .map_err(|error| format!("{}: {error:#}", garment.selection.name)),
+ 198         }
+ 199     }
+ 200 }
+ 201 
+ 202 fn placement_count(item: &ItemDefinition) -> usize {
+ 203     item.equipment
+ 204         .as_ref()
+ 205         .map_or(0, |equipment| equipment.placements.len())
+ 206 }
+ 207 
+ 208 impl Inventory {
+ 209     pub fn items(&self) -> &[InventoryItem] {
+ 210         &self.items
+ 211     }
+ 212 
+ 213     pub fn get(&self, id: InventoryItemId) -> Option<&InventoryItem> {
+ 214         self.items.iter().find(|item| item.id == id)
+ 215     }
+ 216 
+ 217     pub fn get_mut(&mut self, id: InventoryItemId) -> Option<&mut InventoryItem> {
+ 218         self.items.iter_mut().find(|item| item.id == id)
+ 219     }
+ 220 

@@ -1,0 +1,39 @@
+   100	    let article = |placement: &str| Article::Catalog(CatalogArticle::new(&item.id, placement));
+   101	    ui.horizontal(|ui| {
+   102	        ui.label(&item.display_name)
+   103	            .on_hover_text(format!("{:.2} kg · {}", item.weight_kg, item.id));
+   104	        ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+   105	            if placements.len() > 1 && ui.small_button("both").clicked() {
+   106	                acquire(
+   107	                    studio,
+   108	                    catalog,
+   109	                    placements.iter().map(|p| article(&p.id)).collect(),
+   110	                );
+   111	            }
+   112	            for placement in placements.iter().rev() {
+   113	                let label = if placements.len() == 1 {
+   114	                    "add"
+   115	                } else {
+   116	                    &placement.id
+   117	                };
+   118	                if ui.small_button(label).clicked() {
+   119	                    acquire(studio, catalog, vec![article(&placement.id)]);
+   120	                }
+   121	            }
+   122	        });
+   123	    });
+   124	}
+   125	
+   126	/// Carry the new articles, wear them, and select the last.
+   127	/// Add articles to the inventory and wear each, selecting the last.
+   128	pub(in super::super) fn acquire(
+   129	    studio: &mut Studio,
+   130	    catalog: &EquipmentCatalog,
+   131	    articles: Vec<Article>,
+   132	) {
+   133	    for article in articles {
+   134	        let id = studio.recipe.inventory.add(article);
+   135	        studio.inventory.selected = Some(id);
+   136	        super::wear(studio, catalog, id);
+   137	    }
+   138	}

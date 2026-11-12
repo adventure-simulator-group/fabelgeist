@@ -1,0 +1,17 @@
+{
+  "schema": "726-q2330-source-evidence-seal-v1",
+  "created_at_utc": "2026-11-12T16:58:34.773233+00:00",
+  "reviewer": "/root/mhr_character",
+  "packet_manifest_sha256": "394a49319a6cae5e57e20b755511a73256fd323ebd90fe42a10b52888066c87b",
+  "report_sha256": "cc8b828d1a5d31b40005a4d63c96b54e8a0e1f05ab6c0c94d7aedf9e865ae41d",
+  "assessment_sha256": "46c4b6b3539c1a0c39483d324936b829f81ebc1d5781e0dc8e1d82587884d0d6",
+  "archive_sha256": "e2f914435235640b008ac64f438c2e2dff20314b7df494eebcbb4476491a1772",
+  "archive_bytes": 497130,
+  "archive_members": 172,
+  "archive_check": "Every regular member was byte-compared to the source packet; member set was verified.",
+  "evidence_verification": "Read-only packet verifier passed with a local Git repo: 171 manifest files, 8 source tree chains, 25 prospectively registered source displays, two native archives matching lock checksums and member bytes. It does not validate product behavior.",
+  "privacy_scan_sha256": "8390f8caa179bb6c93e89ac1e974047e79e6aa630eb23dde43eebfb053ea9df0",
+  "privacy": "Bounded scan of 172 packet files with depth <=8 and per-view <=80 MiB found zero known forbidden digests or local-path/credential candidates, no exceptions, and nine email-pattern occurrences in exact upstream registry package author/contact metadata. UPSTREAM-EMAIL-REVIEW.json records their redacted contexts; these public upstream archives remain unchanged to match locked checksums. Binary objects, unknown encodings, unsupported formats, other secret corpora and Git history are not globally cleared.",
+  "incident": "PUBLICATION-WRITE-INCIDENT.json preserves accidental untracked helper write, identity-preserving removal and pre-existence uncertainty; no subsequent publication writes were made. The initial failed Git locator and its independently captured replay are separately qualified.",
+  "execution": "Evidence inspection and verification only; no product, parser, macro, asset, fixture, renderer, build, test, probe or repair."
+}

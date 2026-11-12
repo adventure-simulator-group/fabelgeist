@@ -1,0 +1,60 @@
+ 111 
+ 112 impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
+ 113     /// Decode glTF, FBX, GPU readback, or fixture words once at their source.
+ 114     pub fn from_native(
+ 115         words: Vec<[u32; WIDTH]>,
+ 116         joints: RigJointCount,
+ 117     ) -> Result<Self, RigSkinError> {
+ 118         for &joint in words.iter().flatten() {
+ 119             if usize::try_from(joint).map_or(true, |joint| joint >= joints.0) {
+ 120                 return Err(RigSkinError::OutsideRig { joint, joints });
+ 121             }
+ 122         }
+ 123         Ok(Self { words, joints })
+ 124     }
+ 125 
+ 126     pub fn empty(joints: RigJointCount) -> Self {
+ 127         Self {
+ 128             words: Vec::new(),
+ 129             joints,
+ 130         }
+ 131     }
+ 132 
+ 133     pub fn repeated(
+ 134         influences: [RigJointOrdinal; WIDTH],
+ 135         vertices: usize,
+ 136         joints: RigJointCount,
+ 137     ) -> Result<Self, RigSkinError> {
+ 138         let mut skin = Self::empty(joints);
+ 139         let words = skin.encode(influences)?;
+ 140         skin.words = vec![words; vertices];
+ 141         Ok(skin)
+ 142     }
+ 143 
+ 144     pub fn len(&self) -> usize {
+ 145         self.words.len()
+ 146     }
+ 147 
+ 148     pub fn is_empty(&self) -> bool {
+ 149         self.words.is_empty()
+ 150     }
+ 151 
+ 152     pub fn clear(&mut self) {
+ 153         self.words.clear();
+ 154     }
+ 155 
+ 156     pub fn joint_count(&self) -> RigJointCount {
+ 157         self.joints
+ 158     }
+ 159 
+ 160     pub fn iter(&self) -> impl ExactSizeIterator<Item = [RigJointOrdinal; WIDTH]> + '_ {
+ 161         self.words.iter().map(|row| row.map(RigJointOrdinal::from))
+ 162     }
+ 163 
+ 164     /// Checked access to a native vertex-buffer ordinal.
+ 165     pub fn get_vertex(&self, vertex: usize) -> Option<[RigJointOrdinal; WIDTH]> {
+ 166         self.words
+ 167             .get(vertex)
+ 168             .map(|row| row.map(RigJointOrdinal::from))
+ 169     }
+ 170 

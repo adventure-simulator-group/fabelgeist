@@ -1,0 +1,50 @@
+ 411         ),
+ 412         scale: Vec3::splat(value.scale as f32),
+ 413     }
+ 414 }
+ 415 
+ 416 fn collision_vector(p: Vec3) -> fabelgeist_math::Vec3 {
+ 417     fabelgeist_math::Vec3::new(p.x, p.y, p.z)
+ 418 }
+ 419 
+ 420 fn skinned_positions(
+ 421     positions: &[[f32; 3]],
+ 422     indices: &fabelgeist_rig::PackedRigSkin<8>,
+ 423     weights: &[[f32; 8]],
+ 424     matrices: &fabelgeist_rig::RigJointTable<Mat4>,
+ 425 ) -> Vec<Vec3> {
+ 426     positions
+ 427         .iter()
+ 428         .enumerate()
+ 429         .map(|(v, p)| {
+ 430             blend_point(
+ 431                 Vec3::from_array(*p),
+ 432                 indices.vertex(v),
+ 433                 weights[v],
+ 434                 matrices,
+ 435             )
+ 436         })
+ 437         .collect()
+ 438 }
+ 439 
+ 440 fn surface_normals(positions: &[Vec3], faces: &[[u32; 3]]) -> Vec<Vec3> {
+ 441     let mut normals = vec![Vec3::ZERO; positions.len()];
+ 442     for face in faces {
+ 443         let [a, b, c] = face.map(|v| v as usize);
+ 444         let normal = (positions[b] - positions[a]).cross(positions[c] - positions[a]);
+ 445         normals[a] += normal;
+ 446         normals[b] += normal;
+ 447         normals[c] += normal;
+ 448     }
+ 449     normals.into_iter().map(|n| n.normalize_or_zero()).collect()
+ 450 }
+ 451 
+ 452 fn blend_point(
+ 453     point: Vec3,
+ 454     indices: [fabelgeist_rig::RigJointOrdinal; 8],
+ 455     weights: [f32; 8],
+ 456     matrices: &fabelgeist_rig::RigJointTable<Mat4>,
+ 457 ) -> Vec3 {
+ 458     indices
+ 459         .into_iter()
+ 460         .zip(weights)

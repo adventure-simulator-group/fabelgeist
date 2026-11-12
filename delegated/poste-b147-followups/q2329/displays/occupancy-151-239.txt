@@ -1,0 +1,89 @@
+ 151             if deferred.len() == before {
+ 152                 let candidate = deferred[0];
+ 153                 let requirement = candidate
+ 154                     .occupancy
+ 155                     .parents
+ 156                     .iter()
+ 157                     .find(|requirement| worn.support(candidate, requirement, &placed).is_none())
+ 158                     .expect("a deferred candidate has an unsupported attachment");
+ 159                 return Err((
+ 160                     candidate.id,
+ 161                     EquipConflict::Unsupported {
+ 162                         channel: requirement.channel,
+ 163                         location: requirement.location,
+ 164                     },
+ 165                 ));
+ 166             }
+ 167             pending = deferred;
+ 168         }
+ 169         Ok(worn)
+ 170     }
+ 171 
+ 172     fn attach(
+ 173         &self,
+ 174         candidate: &Candidate<'_>,
+ 175         placed: &[&Candidate<'_>],
+ 176     ) -> Option<Vec<EquipmentGraphEdge>> {
+ 177         let mut edges: Vec<EquipmentGraphEdge> = Vec::new();
+ 178         for requirement in &candidate.occupancy.parents {
+ 179             let mut edge = self.support(candidate, requirement, placed)?;
+ 180             // Two requirements on one point use successive capacity.
+ 181             edge.capacity_index += edges
+ 182                 .iter()
+ 183                 .filter(|other| {
+ 184                     other.parent_inventory_item_id == edge.parent_inventory_item_id
+ 185                         && other.attachment_point_id == edge.attachment_point_id
+ 186                 })
+ 187                 .count() as u16;
+ 188             edges.push(edge);
+ 189         }
+ 190         Some(edges)
+ 191     }
+ 192 
+ 193     /// The first worn article with a free attachment point that accepts `candidate`.
+ 194     fn support(
+ 195         &self,
+ 196         candidate: &Candidate<'_>,
+ 197         requirement: &ParentRequirement,
+ 198         placed: &[&Candidate<'_>],
+ 199     ) -> Option<EquipmentGraphEdge> {
+ 200         placed.iter().find_map(|parent| {
+ 201             if requirement
+ 202                 .location
+ 203                 .is_some_and(|location| !parent.occupancy.locations().any(|l| l == location))
+ 204             {
+ 205                 return None;
+ 206             }
+ 207             parent
+ 208                 .equipment?
+ 209                 .attachment_points
+ 210                 .iter()
+ 211                 .find_map(|point| {
+ 212                     let accepts = point.channel == requirement.channel
+ 213                         && point.order == requirement.order
+ 214                         && (point.accepts_tags.is_empty()
+ 215                             || point
+ 216                                 .accepts_tags
+ 217                                 .iter()
+ 218                                 .any(|tag| candidate.attachment_tags.contains(tag)));
+ 219                     let used = self.children_on(parent.id, &point.id);
+ 220                     (accepts && used < point.capacity).then(|| EquipmentGraphEdge {
+ 221                         parent_inventory_item_id: parent.id.0,
+ 222                         attachment_point_id: point.id.clone(),
+ 223                         capacity_index: used,
+ 224                     })
+ 225                 })
+ 226         })
+ 227     }
+ 228 
+ 229     fn children_on(&self, parent: InventoryItemId, point: &str) -> u16 {
+ 230         self.graph
+ 231             .nodes
+ 232             .values()
+ 233             .flat_map(|node| &node.parents)
+ 234             .filter(|edge| {
+ 235                 edge.parent_inventory_item_id == parent.0 && edge.attachment_point_id == point
+ 236             })
+ 237             .count() as u16
+ 238     }
+ 239 

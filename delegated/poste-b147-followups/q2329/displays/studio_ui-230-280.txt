@@ -1,0 +1,51 @@
+ 230                     Err(error) => studio.status = format!("Load failed: {error:#}"),
+ 231                 }
+ 232             }
+ 233         });
+ 234     });
+ 235 
+ 236     // A drape with problems still finishes; only a running one holds these back.
+ 237     let generated = !studio.dirty && !drape_job.running();
+ 238     studio_theme::card(ui, "Animation", |ui| {
+ 239         animation(ui, walk, animation_players, generated && walk.ready());
+ 240     });
+ 241 
+ 242     studio_theme::card(ui, "Rigged export", |ui| {
+ 243         ui.add(
+ 244             egui::TextEdit::singleline(&mut studio.glb_path)
+ 245                 .hint_text("assets_src/biped/unarmed/base.glb")
+ 246                 .desired_width(f32::INFINITY),
+ 247         );
+ 248         if ui
+ 249             .add_enabled(generated, egui::Button::new("Export rigged GLB"))
+ 250             .on_disabled_hover_text("Wait for generation and draping to finish.")
+ 251             .clicked()
+ 252         {
+ 253             studio.status = match export_character(
+ 254                 std::path::Path::new(&studio.glb_path),
+ 255                 model,
+ 256                 &studio.recipe,
+ 257                 catalog,
+ 258                 drape_job.ready.as_deref(),
+ 259             ) {
+ 260                 Ok(warnings) if warnings.is_empty() => format!("Exported {}", studio.glb_path),
+ 261                 Ok(warnings) => format!(
+ 262                     "Exported {} with problems: {}",
+ 263                     studio.glb_path,
+ 264                     warnings.join("; ")
+ 265                 ),
+ 266                 Err(error) => format!("Export failed: {error:#}"),
+ 267             };
+ 268         }
+ 269     });
+ 270 
+ 271     studio_theme::card(ui, "Catalog designs", |ui| {
+ 272         ui.small(
+ 273             "Defaults for newly acquired armor and for equipment asset generation. \
+ 274              Use “Make catalog default” on an inventory item to change them.",
+ 275         );
+ 276         let paths = &mut studio.design_paths;
+ 277         egui::Grid::new("design_paths")
+ 278             .num_columns(2)
+ 279             .show(ui, |ui| {
+ 280                 for (label, path) in [

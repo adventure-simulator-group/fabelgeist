@@ -1,0 +1,32 @@
+{
+  "registered_at_utc": "2026-11-12T16:32:55.970241+00:00",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "paths": {
+    "crates/adventuresim-character-creator/src/garment/outfit.rs": [
+      "struct OutfitOutcome",
+      "fn drape_outfit",
+      "cancel",
+      "garments.push",
+      "preview",
+      "checkpoints",
+      "for "
+    ],
+    "crates/adventuresim-character-creator/src/garment.rs": [
+      "struct DrapeInput",
+      "DrapeCheckpoints",
+      "cancel",
+      "mod outfit"
+    ],
+    "crates/adventuresim-character-creator/src/wardrobe_tab.rs": [
+      "DrapeWorker",
+      "worker.request",
+      "worker.poll",
+      "draping",
+      "preview",
+      "finished",
+      "cancel"
+    ]
+  },
+  "purpose": "capture native output ordering, cancellation and second worker consumer; display source only after separate registration",
+  "qualification": "source-only, no fixture/renderer execution; unpinned discovery is navigation only"
+}

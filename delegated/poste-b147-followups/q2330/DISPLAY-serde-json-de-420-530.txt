@@ -1,0 +1,111 @@
+   420	            b'0' => {
+   421	                buf.push('0');
+   422	                // There can be only one leading '0'.
+   423	                match tri!(self.peek_or_null()) {
+   424	                    b'0'..=b'9' => Err(self.peek_error(ErrorCode::InvalidNumber)),
+   425	                    _ => Ok(()),
+   426	                }
+   427	            }
+   428	            c @ b'1'..=b'9' => {
+   429	                buf.push(c as char);
+   430	                while let c @ b'0'..=b'9' = tri!(self.peek_or_null()) {
+   431	                    self.eat_char();
+   432	                    buf.push(c as char);
+   433	                }
+   434	                Ok(())
+   435	            }
+   436	            _ => Err(self.error(ErrorCode::InvalidNumber)),
+   437	        }
+   438	    }
+   439	
+   440	    #[cold]
+   441	    fn fix_position(&self, err: Error) -> Error {
+   442	        err.fix_position(move |code| self.error(code))
+   443	    }
+   444	
+   445	    fn parse_ident(&mut self, ident: &[u8]) -> Result<()> {
+   446	        for expected in ident {
+   447	            match tri!(self.next_char()) {
+   448	                None => {
+   449	                    return Err(self.error(ErrorCode::EofWhileParsingValue));
+   450	                }
+   451	                Some(next) => {
+   452	                    if next != *expected {
+   453	                        return Err(self.error(ErrorCode::ExpectedSomeIdent));
+   454	                    }
+   455	                }
+   456	            }
+   457	        }
+   458	
+   459	        Ok(())
+   460	    }
+   461	
+   462	    fn parse_integer(&mut self, positive: bool) -> Result<ParserNumber> {
+   463	        let next = match tri!(self.next_char()) {
+   464	            Some(b) => b,
+   465	            None => {
+   466	                return Err(self.error(ErrorCode::EofWhileParsingValue));
+   467	            }
+   468	        };
+   469	
+   470	        match next {
+   471	            b'0' => {
+   472	                // There can be only one leading '0'.
+   473	                match tri!(self.peek_or_null()) {
+   474	                    b'0'..=b'9' => Err(self.peek_error(ErrorCode::InvalidNumber)),
+   475	                    _ => self.parse_number(positive, 0),
+   476	                }
+   477	            }
+   478	            c @ b'1'..=b'9' => {
+   479	                let mut significand = (c - b'0') as u64;
+   480	
+   481	                loop {
+   482	                    match tri!(self.peek_or_null()) {
+   483	                        c @ b'0'..=b'9' => {
+   484	                            let digit = (c - b'0') as u64;
+   485	
+   486	                            // We need to be careful with overflow. If we can,
+   487	                            // try to keep the number as a `u64` until we grow
+   488	                            // too large. At that point, switch to parsing the
+   489	                            // value as a `f64`.
+   490	                            if overflow!(significand * 10 + digit, u64::MAX) {
+   491	                                return Ok(ParserNumber::F64(tri!(
+   492	                                    self.parse_long_integer(positive, significand),
+   493	                                )));
+   494	                            }
+   495	
+   496	                            self.eat_char();
+   497	                            significand = significand * 10 + digit;
+   498	                        }
+   499	                        _ => {
+   500	                            return self.parse_number(positive, significand);
+   501	                        }
+   502	                    }
+   503	                }
+   504	            }
+   505	            _ => Err(self.error(ErrorCode::InvalidNumber)),
+   506	        }
+   507	    }
+   508	
+   509	    fn parse_number(&mut self, positive: bool, significand: u64) -> Result<ParserNumber> {
+   510	        Ok(match tri!(self.peek_or_null()) {
+   511	            b'.' => ParserNumber::F64(tri!(self.parse_decimal(positive, significand, 0))),
+   512	            b'e' | b'E' => ParserNumber::F64(tri!(self.parse_exponent(positive, significand, 0))),
+   513	            _ => {
+   514	                if positive {
+   515	                    ParserNumber::U64(significand)
+   516	                } else {
+   517	                    let neg = (significand as i64).wrapping_neg();
+   518	
+   519	                    // Convert into a float if we underflow, or on `-0`.
+   520	                    if neg >= 0 {
+   521	                        ParserNumber::F64(-(significand as f64))
+   522	                    } else {
+   523	                        ParserNumber::I64(neg)
+   524	                    }
+   525	                }
+   526	            }
+   527	        })
+   528	    }
+   529	
+   530	    fn parse_decimal(

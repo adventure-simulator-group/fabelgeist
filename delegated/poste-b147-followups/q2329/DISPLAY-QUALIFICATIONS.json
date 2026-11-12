@@ -1,0 +1,14 @@
+{
+  "source_body_output_truncations": 0,
+  "unregistered_navigation_truncation": "An initial read of the publication README was unregistered and the tool output was truncated. It is navigation only, not credited or relied upon for source coverage, absence, audit closure or checkpoint recovery. The exact partial tool output is not embedded in this packet.",
+  "historical_navigation_truncation": "The original delegated e275 plans for main.rs and inventory.rs explicitly record earlier broad git-grep navigation as truncated and credit it with zero body/absence coverage. Preserve that original qualification separately from this review.",
+  "eof_handling": "Registered ranges sometimes exceed the file EOF, but this review displayed only explicit ranges at or below verified EOF; no displayed chunk was silently clamped.",
+  "displayed_test_source_not_execution": [
+    "main.rs:457-470",
+    "equipment_catalog.rs:124-145",
+    "item_catalog.rs:204-220"
+  ],
+  "execution": "No product code, test, build, fixture, graphics or runtime probe executed.",
+  "locators": "Fixed-string path/line locator results retain at most 100, print first 20 unless subsequently narrowed, and grant no body coverage or global absence. Historical field locators specify their entry fields or whole-record scope and are limited to the original 059 stream.",
+  "identity": "File hashes, printed ranges, chronology and bounded privacy scans establish evidence consistency, not supported-input reachability, semantic truth, runtime behavior or independent custody."
+}

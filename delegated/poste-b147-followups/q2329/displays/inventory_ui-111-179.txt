@@ -1,0 +1,69 @@
+ 111         .iter()
+ 112         .filter(|item| !item.worn)
+ 113         .map(|item| item.id)
+ 114         .collect();
+ 115     if carried.is_empty() {
+ 116         ui.weak("Nothing carried.");
+ 117     }
+ 118     for id in carried {
+ 119         row(ui, studio, catalog, id);
+ 120     }
+ 121 }
+ 122 
+ 123 fn layer(item: &InventoryItem, catalog: &EquipmentCatalog) -> EquipmentChannel {
+ 124     item.article
+ 125         .occupancy(catalog)
+ 126         .map_or(EquipmentChannel::Accessory, |occupancy| occupancy.layer())
+ 127 }
+ 128 
+ 129 /// One article: wear toggle, name, where it sits, and ordering and discard buttons.
+ 130 fn row(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog, id: InventoryItemId) {
+ 131     let Some(item) = studio.recipe.inventory.get(id) else {
+ 132         return;
+ 133     };
+ 134     let name = item.article.name(catalog);
+ 135     let worn = item.worn;
+ 136     let locations = item.article.occupancy(catalog).map_or_else(
+ 137         |_| String::new(),
+ 138         |occupancy| {
+ 139             let mut labels: Vec<_> = occupancy.locations().map(location_label).collect();
+ 140             labels.dedup();
+ 141             labels.join(", ")
+ 142         },
+ 143     );
+ 144     ui.push_id(id, |ui| {
+ 145         ui.horizontal(|ui| {
+ 146             let mut wear = worn;
+ 147             if ui
+ 148                 .checkbox(&mut wear, "")
+ 149                 .on_hover_text(if worn { "Take off" } else { "Wear" })
+ 150                 .changed()
+ 151             {
+ 152                 if wear {
+ 153                     self::wear(studio, catalog, id);
+ 154                 } else {
+ 155                     take_off(studio, catalog, id);
+ 156                 }
+ 157             }
+ 158             let selected = studio.inventory.selected == Some(id);
+ 159             let text = if worn {
+ 160                 egui::RichText::new(&name).color(WORN_COLOR)
+ 161             } else {
+ 162                 egui::RichText::new(&name)
+ 163             };
+ 164             if ui
+ 165                 .selectable_label(selected, text)
+ 166                 .on_hover_text(&locations)
+ 167                 .clicked()
+ 168             {
+ 169                 studio.inventory.selected = (!selected).then_some(id);
+ 170             }
+ 171             ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+ 172                 if ui.small_button("✕").on_hover_text("Discard").clicked() {
+ 173                     discard(studio, catalog, id);
+ 174                 }
+ 175                 if ui.small_button("⏷").on_hover_text("Move later").clicked() {
+ 176                     shift(studio, id, true);
+ 177                 }
+ 178                 if ui.small_button("⏶").on_hover_text("Move earlier").clicked() {
+ 179                     shift(studio, id, false);

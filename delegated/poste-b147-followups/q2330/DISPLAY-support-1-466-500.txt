@@ -1,0 +1,35 @@
+   466	        );
+   467	        assert_eq!(
+   468	            belt_mount_outward(EquipmentLocation::RightBelt),
+   469	            Some([-1.0, 0.0, 0.0])
+   470	        );
+   471	    }
+   472	}
+   473	
+   474	#[cfg(test)]
+   475	mod garment_integration_tests {
+   476	    use super::*;
+   477	    use adventuresim_character_creator::{
+   478	        garment::{DrapeSettings, DrapeStage, drape},
+   479	        inventory::Article,
+   480	    };
+   481	    #[test]
+   482	    #[ignore = "requires MHR_ASSETS and a compute-capable GPU"]
+   483	    fn measured_mhr_garment_drapes_and_exports() -> Result<()> {
+   484	        let assets = std::env::var_os("MHR_ASSETS").context("set MHR_ASSETS")?;
+   485	        let model = load_body_model(std::path::Path::new(&assets), 1, false, &Device::default())?;
+   486	        let mut recipe = CharacterRecipe {
+   487	            inventory: Default::default(),
+   488	            ..CharacterRecipe::default()
+   489	        };
+   490	        let catalog = EquipmentCatalog(ItemCatalog::new(vec![], CatalogDesigns::authored())?);
+   491	        let generated = generate_character(&model, &recipe)?;
+   492	        // Every named shape, in mail unless GARMENT_TEST_FABRIC names another
+   493	        // fabric, and the fitted coif.
+   494	        let fabric = match std::env::var("GARMENT_TEST_FABRIC") {
+   495	            Ok(name) => *FabricPreset::ALL
+   496	                .iter()
+   497	                .find(|preset| preset.label() == name)
+   498	                .context("unknown GARMENT_TEST_FABRIC")?,
+   499	            Err(_) => FabricPreset::Chainmail,
+   500	        };

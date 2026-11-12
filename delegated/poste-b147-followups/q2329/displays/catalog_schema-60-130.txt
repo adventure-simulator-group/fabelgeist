@@ -1,0 +1,71 @@
+  60     #[serde(default)]
+  61     pub attachment_tags: Vec<String>,
+  62     pub placements: Vec<EquipmentPlacement>,
+  63     /// Shared projection stats for non-armor equipment such as protective
+  64     /// clothing. Armor may continue to source these physical values from its
+  65     /// kind payload; placement protection targets are always explicit.
+  66     #[serde(default)]
+  67     pub protection: Option<EquipmentProtection>,
+  68     #[serde(default)]
+  69     pub attachment_points: Vec<AttachmentPointDefinition>,
+  70 }
+  71 
+  72 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+  73 #[serde(deny_unknown_fields)]
+  74 pub struct EquipmentPhysical {
+  75     /// Full box dimensions in metres: local X width, local Y length, local Z thickness.
+  76     pub dimensions_m: [f32; 3],
+  77     /// Distance from a weapon socket/grip to the gameplay tip along local +Y.
+  78     /// Non-weapons author zero.
+  79     #[serde(default)]
+  80     pub grip_to_tip_m: f32,
+  81     /// Local attachment anchor relative to the ordinary box-centre origin.
+  82     /// Weapons attach this point to a hand socket; worn equipment attaches it
+  83     /// to the bone selected by its primary occupancy location.
+  84     #[serde(default)]
+  85     pub anchor_offset_m: [f32; 3],
+  86 }
+  87 
+  88 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  89 #[serde(deny_unknown_fields)]
+  90 pub struct EquipmentPlacement {
+  91     /// Stable within the item definition; persisted instead of an array index.
+  92     pub id: String,
+  93     /// A placement may combine physical character anchors with any number of
+  94     /// required item attachment points. The selected targets are runtime
+  95     /// graph edges and are not inferred from item kind.
+  96     #[serde(default)]
+  97     pub occupancy: Vec<OccupancyRequirement>,
+  98     #[serde(default)]
+  99     pub parents: Vec<ParentRequirement>,
+ 100     /// Local geometric layering exceptions. The ordinary inner-to-outer order
+ 101     /// follows equipment channels; these entries express constructions such as
+ 102     /// a boot enclosing padded hose even though footwear is base clothing.
+ 103     #[serde(default)]
+ 104     pub layers_over: Vec<EquipmentLayerPrecedence>,
+ 105     /// Explicit many-to-many combat projection. Locations never imply
+ 106     /// protection.
+ 107     #[serde(default)]
+ 108     pub protection: Vec<EquipmentBodyPart>,
+ 109     /// Fundamental visible surface coverage used to generate fitted MHR
+ 110     /// geometry. Each span is measured along its ordered anatomical regions.
+ 111     #[serde(default)]
+ 112     pub surface: Vec<EquipmentSurfaceSpan>,
+ 113 }
+ 114 
+ 115 impl EquipmentPlacement {
+ 116     /// Physical layer order also applies to garments carried by attachment points.
+ 117     pub fn outermost_channel(&self) -> Option<EquipmentChannel> {
+ 118         self.occupancy
+ 119             .iter()
+ 120             .map(|entry| entry.channel)
+ 121             .chain(self.parents.iter().map(|entry| entry.channel))
+ 122             .max_by_key(|channel| channel.order())
+ 123     }
+ 124 }
+ 125 
+ 126 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+ 127 #[serde(rename_all = "snake_case")]
+ 128 pub enum EquipmentMaterial {
+ 129     PolishedSteel,
+ 130     RoughSteel,

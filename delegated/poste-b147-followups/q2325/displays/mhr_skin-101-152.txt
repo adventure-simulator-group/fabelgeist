@@ -1,0 +1,52 @@
+ 101             continue;
+ 102         };
+ 103         if indices.len() != weights.len() {
+ 104             bail!(
+ 105                 "cluster '{}' has mismatched indices and weights",
+ 106                 cluster.name
+ 107             );
+ 108         }
+ 109 
+ 110         for (vertex, weight) in indices.iter().zip(&weights) {
+ 111             let vertex = MeshVertexIndex::from_native_vertex_index(*vertex as usize);
+ 112             let Some(influences) = per_vertex.get_mut(vertex) else {
+ 113                 bail!("cluster '{}' references vertex {vertex}", cluster.name);
+ 114             };
+ 115             if *weight <= 0.0 {
+ 116                 continue;
+ 117             }
+ 118             influences.push(SkinInfluence {
+ 119                 joint,
+ 120                 weight: weight.clamp(0.0, 1.0),
+ 121             });
+ 122         }
+ 123     }
+ 124 
+ 125     let mut indices = Vec::new();
+ 126     let mut weights = Vec::new();
+ 127     for (vertex, influences) in per_vertex.indexed_mut() {
+ 128         if influences.is_empty() {
+ 129             bail!("no skinning weights for vertex {vertex}");
+ 130         }
+ 131         // Keep the strongest influences, then renormalize what survived.
+ 132         influences.sort_by(|a, b| b.weight.total_cmp(&a.weight));
+ 133         influences.truncate(MAX_SKIN_JOINTS);
+ 134         let total: f64 = influences.iter().map(|influence| influence.weight).sum();
+ 135         if total <= 0.0 {
+ 136             bail!("empty weight sum for vertex {vertex}");
+ 137         }
+ 138         let mut joint_row = [0; MAX_SKIN_JOINTS];
+ 139         let mut weight_row = [0.0; MAX_SKIN_JOINTS];
+ 140         for (slot, influence) in influences.iter().enumerate() {
+ 141             joint_row[slot] = u32::try_from(influence.joint)?;
+ 142             weight_row[slot] = (influence.weight / total) as f32;
+ 143         }
+ 144         indices.push(joint_row);
+ 145         weights.push(weight_row);
+ 146     }
+ 147 
+ 148     Ok(SkinWeights {
+ 149         index: PackedRigSkin::from_native(indices, inverse_bind_pose.joint_count())?,
+ 150         weight: weights.into(),
+ 151     })
+ 152 }

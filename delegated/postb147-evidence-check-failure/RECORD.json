@@ -1,0 +1,15 @@
+{
+  "schema": "726-postb147-evidence-check-failure-v1",
+  "exit": 1,
+  "original_transcript_sha256": "765f38f094520792954b246429d1d3808a8dd5fcbb05eef09b20925168f388b5",
+  "original_transcript_bytes": 2798,
+  "public_transcript_sha256": "d4a3d721982dc29dd805f1542a68cbd5f6e0cd26433a2037a65f3a1ef6894ed8",
+  "public_transcript_bytes": 2570,
+  "publication_checkout_path_substitutions": 3,
+  "first_failure": "verify_action_state_95e.py read the new main-observation receipt through latest_main_recheck and expected observed_revision; the earlier receipt used main_revision, raising KeyError.",
+  "correction": "A new separately bracketed 17:30 connector observation uses the expected complete main-observation schema; the earlier 17:20 receipt remains unchanged.",
+  "result_sha256": "21bc2e95d6deda18c1d79e274e6b0f22d1963bda313e5620dab06c4d1b2621ee",
+  "preflight_sha256": "2d0db3967d42125c89a2ed60b385fef874181757a4158f504b779967a22f2f52",
+  "started_sha256": "81e105974229766de35de31d669547d7e3001f7db9ac865904722510016d6078",
+  "qualification": "This public transcript reconstructs the exact earlier failure except for checkout-path substitutions. The original transcript remains separately held on the same machine; no independent custody, product behavior or full-check success follows from this failure record."
+}

@@ -1,0 +1,71 @@
+ 180     device: adventuresim_character_creator::device_body::DeviceBody,
+ 181 }
+ 182 
+ 183 fn main() -> Result<()> {
+ 184     let args = Args::parse();
+ 185     profiling::enable(args.profile);
+ 186     anyhow::ensure!(
+ 187         !args.armor_bake_source,
+ 188         "dense bake-source armor is not yet generated on the device"
+ 189     );
+ 190     let device = Device::default();
+ 191     let model = load_body_model(&args.assets, args.lod, false, &device)
+ 192         .with_context(|| format!("loading MHR assets from {}", args.assets.display()))?;
+ 193     let designs = CatalogDesigns::load(
+ 194         args.armor_designs.as_deref(),
+ 195         args.bracer_design.as_deref(),
+ 196         args.breastplate_design.as_deref(),
+ 197     )?;
+ 198     let catalog = EquipmentCatalog(ItemCatalog::load(&args.catalog, designs)?);
+ 199     if let Some(path) = &args.write_armor_designs {
+ 200         let defaults = catalog
+ 201             .items
+ 202             .iter()
+ 203             .filter_map(|item| {
+ 204                 let design = catalog.design(catalog.item(&item.id)?)?;
+ 205                 Some((item.id.clone(), design.recipe()?.clone()))
+ 206             })
+ 207             .collect();
+ 208         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+ 209             defaults,
+ 210             placements: catalog.designs.overrides.placements.clone(),
+ 211         };
+ 212         std::fs::write(
+ 213             path,
+ 214             adventuresim_character_creator::armor_design_input::encode(&designs)?,
+ 215         )?;
+ 216         return Ok(());
+ 217     }
+ 218 
+ 219     let recipe: CharacterRecipe = serde_json::from_slice(
+ 220         &std::fs::read(&args.recipe)
+ 221             .with_context(|| format!("reading character recipe {}", args.recipe.display()))?,
+ 222     )?;
+ 223     recipe.validate().map_err(anyhow::Error::msg)?;
+ 224 
+ 225     if let Some(output) = &args.armor_review_dir {
+ 226         return review_export::export(
+ 227             output,
+ 228             &model,
+ 229             &recipe,
+ 230             &catalog,
+ 231             args.armor_review_selection,
+ 232         );
+ 233     }
+ 234 
+ 235     if args.generate_equipment {
+ 236         let selection = EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
+ 237         generate_equipment_assets(
+ 238             &args.equipment_output,
+ 239             &model,
+ 240             &recipe,
+ 241             &catalog,
+ 242             &selection,
+ 243         )?;
+ 244         println!(
+ 245             "Generated equipment under {}",
+ 246             args.equipment_output.display()
+ 247         );
+ 248         return Ok(());
+ 249     }
+ 250     if args.export_only {

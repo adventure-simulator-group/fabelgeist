@@ -1,0 +1,41 @@
+   360	}
+   361	
+   362	fn save_recipe(studio: &Studio) -> Result<String> {
+   363	    studio.recipe.validate().map_err(anyhow::Error::msg)?;
+   364	    let path = std::path::Path::new(&studio.recipe_path);
+   365	    if let Some(parent) = path
+   366	        .parent()
+   367	        .filter(|parent| !parent.as_os_str().is_empty())
+   368	    {
+   369	        std::fs::create_dir_all(parent)?;
+   370	    }
+   371	    std::fs::write(path, serde_json::to_vec_pretty(&studio.recipe)?)?;
+   372	    Ok(format!("Saved {}", studio.recipe_path))
+   373	}
+   374	
+   375	fn load_recipe(path: &str) -> Result<CharacterRecipe> {
+   376	    let recipe: CharacterRecipe = serde_json::from_slice(&std::fs::read(path)?)?;
+   377	    recipe.validate().map_err(anyhow::Error::msg)?;
+   378	    Ok(recipe)
+   379	}
+   380	
+   381	fn placement_coverage(
+   382	    placement: &adventuresim_character_creator::item_catalog_schema::EquipmentPlacement,
+   383	) -> f32 {
+   384	    let region_count = placement
+   385	        .surface
+   386	        .iter()
+   387	        .map(|span| span.regions.len())
+   388	        .sum::<usize>();
+   389	    placement
+   390	        .surface
+   391	        .iter()
+   392	        .map(|span| span.coverage * span.regions.len() as f32)
+   393	        .sum::<f32>()
+   394	        / region_count as f32
+   395	}
+   396	
+   397	fn belt_mount_outward(location: EquipmentLocation) -> Option<[f64; 3]> {
+   398	    Some(match location {
+   399	        // MHR uses positive model-space X for the character's anatomical left.
+   400	        EquipmentLocation::LeftBelt => [1.0, 0.0, 0.0],

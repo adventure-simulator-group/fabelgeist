@@ -1,0 +1,20 @@
+   151	    };
+   152	}
+   153	
+   154	macro_rules! num_self {
+   155	    ($ty:ident : $visit:ident) => {
+   156	        #[inline]
+   157	        fn $visit<E>(self, v: $ty) -> Result<Self::Value, E>
+   158	        where
+   159	            E: Error,
+   160	        {
+   161	            Ok(v)
+   162	        }
+   163	    };
+   164	
+   165	    (nonzero $primitive:ident $ty:ident : $visit:ident) => {
+   166	        fn $visit<E>(self, v: $ty) -> Result<Self::Value, E>
+   167	        where
+   168	            E: Error,
+   169	        {
+   170	            if let Some(nonzero) = Self::Value::new(v) {

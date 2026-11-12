@@ -1,0 +1,110 @@
+   1 //! The inventory tab: what the character wears, what it carries, and what it can acquire.
+   2 use super::*;
+   3 use adventuresim_character_creator::{
+   4     inventory::{Article, InventoryItem, InventoryItemId, channel_label, location_label},
+   5     item_catalog_schema::EquipmentChannel,
+   6 };
+   7 
+   8 #[path = "inventory_acquire.rs"]
+   9 mod acquire;
+  10 pub(super) use acquire::acquire;
+  11 #[path = "inventory_article_editor.rs"]
+  12 mod article_editor;
+  13 
+  14 const WORN_COLOR: egui::Color32 = egui::Color32::from_rgb(140, 200, 150);
+  15 
+  16 /// Per-session inventory panel state; not part of the recipe.
+  17 #[derive(Default)]
+  18 pub(super) struct InventoryView {
+  19     pub selected: Option<InventoryItemId>,
+  20     pub search: String,
+  21 }
+  22 
+  23 pub(super) fn show(
+  24     ui: &mut egui::Ui,
+  25     studio: &mut Studio,
+  26     catalog: &mut EquipmentCatalog,
+  27     drape_job: &mut DrapeJob,
+  28 ) {
+  29     summary(ui, studio, catalog, drape_job);
+  30     ui.separator();
+  31 
+  32     egui::CollapsingHeader::new("Worn")
+  33         .default_open(true)
+  34         .show(ui, |ui| worn(ui, studio, catalog));
+  35     egui::CollapsingHeader::new("Carried")
+  36         .default_open(true)
+  37         .show(ui, |ui| carried(ui, studio, catalog));
+  38     egui::CollapsingHeader::new("Acquire")
+  39         .default_open(studio.recipe.inventory.items().is_empty())
+  40         .show(ui, |ui| acquire::show(ui, studio, catalog));
+  41     ui.separator();
+  42 
+  43     article_editor::show(ui, studio, catalog, drape_job);
+  44 }
+  45 
+  46 fn summary(
+  47     ui: &mut egui::Ui,
+  48     studio: &mut Studio,
+  49     catalog: &EquipmentCatalog,
+  50     drape_job: &mut DrapeJob,
+  51 ) {
+  52     let inventory = &studio.recipe.inventory;
+  53     let worn = inventory.worn().count();
+  54     let carried = inventory.items().len() - worn;
+  55     let weight = |items: &mut dyn Iterator<Item = &InventoryItem>| {
+  56         items
+  57             .filter_map(|item| item.article.weight_kg(catalog))
+  58             // Folding from positive zero, as an empty `sum` prints "-0.0".
+  59             .fold(0.0, |total, kg| total + kg)
+  60     };
+  61     ui.label(format!(
+  62         "{worn} worn · {carried} carried · {:.1} kg worn of {:.1} kg",
+  63         weight(&mut inventory.worn()),
+  64         weight(&mut inventory.items().iter()),
+  65     ));
+  66     ui.small("Weights count catalog items; generated cloth and plate have no authored weight.");
+  67     if let Err(error) = inventory.fit(catalog) {
+  68         ui.colored_label(egui::Color32::LIGHT_RED, inventory.explain(catalog, &error));
+  69     }
+  70     if wears_draped(&studio.recipe) && ui.button("Drape again").clicked() {
+  71         drape_job.restart_from_placement();
+  72         studio.dirty = true;
+  73     }
+  74 }
+  75 
+  76 /// Whether any worn article is draped cloth, which export must wait for.
+  77 pub(super) fn wears_draped(recipe: &CharacterRecipe) -> bool {
+  78     recipe
+  79         .inventory
+  80         .worn()
+  81         .any(|item| item.article.garment().is_some())
+  82 }
+  83 
+  84 fn worn(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog) {
+  85     let mut layers: Vec<(EquipmentChannel, InventoryItemId)> = studio
+  86         .recipe
+  87         .inventory
+  88         .worn()
+  89         .map(|item| (layer(item, catalog), item.id))
+  90         .collect();
+  91     if layers.is_empty() {
+  92         ui.weak("Nothing worn.");
+  93         return;
+  94     }
+  95     layers.sort_by_key(|(layer, _)| layer.order());
+  96     let mut current = None;
+  97     for (layer, id) in layers {
+  98         if current != Some(layer) {
+  99             ui.small(channel_label(layer));
+ 100             current = Some(layer);
+ 101         }
+ 102         row(ui, studio, catalog, id);
+ 103     }
+ 104 }
+ 105 
+ 106 fn carried(ui: &mut egui::Ui, studio: &mut Studio, catalog: &EquipmentCatalog) {
+ 107     let carried: Vec<_> = studio
+ 108         .recipe
+ 109         .inventory
+ 110         .items()

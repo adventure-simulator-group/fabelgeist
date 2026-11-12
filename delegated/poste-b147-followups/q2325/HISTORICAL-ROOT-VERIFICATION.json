@@ -1,0 +1,109 @@
+[
+  {
+    "record": "READ-L11-544.json",
+    "root_fields": {
+      "lens": 11,
+      "kind": "Root adoption of delegated current-snapshot scoped source evidence",
+      "at": "2026-10-29T19:12:18.233164+00:00",
+      "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "new_target_reconciliation_complete": false,
+      "other_lens_coverage_transferred": false,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false,
+      "accepted_unique_count_change": 0
+    },
+    "verification_record": "VERIFY-L11-544.json",
+    "verification": {
+      "lens": 11,
+      "receipt_sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+      "state_sha256": "d663f32d413e7691fe3dc530531437f006eec2505990b3087b000b76a920ec95",
+      "source_rows": 12,
+      "exact_plan_source_hash_Git_blob_EOF_ranges_native_lock_checksum_verified": true,
+      "agent_attribution_preserved": true,
+      "other_lens_credit": 0,
+      "product_execution": false,
+      "gate": false
+    }
+  },
+  {
+    "record": "READ-L11-714.json",
+    "root_fields": {
+      "lens": 11,
+      "kind": "Strict whole-bundle delegated source adoption",
+      "at": "2026-10-30T01:53:26.870865+00:00",
+      "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "new_target_reconciliation_complete": false,
+      "other_lens_coverage_transferred": false,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false,
+      "accepted_unique_count_change": 0
+    },
+    "verification_record": "VERIFY-L11-714.json",
+    "verification": {
+      "lens": 11,
+      "receipt_sha256": "1d8400fa3eef4327483a2d3f572145310891c417bbd94e40bee012473864e335",
+      "state_sha256": "cd3d12010a639e8c4e50e9150f39440393635eb813a6e3d4de54d0920019ed8b",
+      "source_rows": 5,
+      "strict_preflight": {
+        "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+        "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+        "new_source_receipts": 4,
+        "new_source_rows": 18,
+        "validated_source_rows_total": 29,
+        "contract_proposals": 8,
+        "current_delta_maps": 11,
+        "authority_mutation": false,
+        "product_execution": false,
+        "implementation_gate_complete": false,
+        "current_ledger_sha256": "a20ffef9f930f148f34b75fb43822a665ded3d95ea314c6dec8b45e6c1b2688d",
+        "current_selector_sha256": "5fccf83f44b688e119f5d16e609ca87b1b68fcc0e02db75254a52a6551ce215f"
+      },
+      "delegated_attribution_preserved": true,
+      "other_lens_credit": 0,
+      "product_execution": false,
+      "implementation_gate_complete": false
+    }
+  },
+  {
+    "record": "READ-L11-715.json",
+    "root_fields": {
+      "lens": 11,
+      "kind": "Strict whole-bundle delegated source adoption",
+      "at": "2026-10-30T01:53:26.965913+00:00",
+      "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "new_target_reconciliation_complete": false,
+      "other_lens_coverage_transferred": false,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false,
+      "accepted_unique_count_change": 0
+    },
+    "verification_record": "VERIFY-L11-715.json",
+    "verification": {
+      "lens": 11,
+      "receipt_sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+      "state_sha256": "73e31a4e12d1f27b996f4f23b159f07df84048c364b66ee3b04cae0acd8ecbfc",
+      "source_rows": 5,
+      "strict_preflight": {
+        "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+        "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+        "new_source_receipts": 4,
+        "new_source_rows": 18,
+        "validated_source_rows_total": 29,
+        "contract_proposals": 8,
+        "current_delta_maps": 11,
+        "authority_mutation": false,
+        "product_execution": false,
+        "implementation_gate_complete": false,
+        "current_ledger_sha256": "a20ffef9f930f148f34b75fb43822a665ded3d95ea314c6dec8b45e6c1b2688d",
+        "current_selector_sha256": "5fccf83f44b688e119f5d16e609ca87b1b68fcc0e02db75254a52a6551ce215f"
+      },
+      "delegated_attribution_preserved": true,
+      "other_lens_credit": 0,
+      "product_execution": false,
+      "implementation_gate_complete": false
+    }
+  }
+]

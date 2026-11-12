@@ -1,0 +1,80 @@
+ 101             metallic,
+ 102             roughness,
+ 103             occludes_body: true,
+ 104         })
+ 105     }
+ 106 }
+ 107 
+ 108 #[allow(clippy::too_many_arguments)]
+ 109 pub fn generate_clothing_shells(
+ 110     garments: &[GarmentSpecification],
+ 111     positions: &[[f32; 3]],
+ 112     normals: &[[f32; 3]],
+ 113     faces: &[[u32; 3]],
+ 114     joint_indices: &fabelgeist_rig::PackedRigSkin<8>,
+ 115     joint_weights: &[[f32; 8]],
+ 116     joint_names: &fabelgeist_rig::RigJointTable<RigJointName>,
+ 117     global_joint_states: &fabelgeist_rig::RigJointTable<[f32; 8]>,
+ 118 ) -> Result<ClothedMesh, ClothingError> {
+ 119     let vertices = positions.len();
+ 120     if normals.len() != vertices
+ 121         || joint_indices.len() != vertices
+ 122         || joint_weights.len() != vertices
+ 123         || global_joint_states.len() != joint_names.len()
+ 124         || joint_indices.joint_count() != joint_names.joint_count()
+ 125     {
+ 126         return Err(ClothingError::InconsistentBodyInputs);
+ 127     }
+ 128     if faces
+ 129         .iter()
+ 130         .flatten()
+ 131         .any(|vertex| *vertex as usize >= vertices)
+ 132     {
+ 133         return Err(ClothingError::MissingBodyVertex);
+ 134     }
+ 135     let mut rig = ClothingRig::new(joint_names);
+ 136 
+ 137     let mut shells = Vec::with_capacity(garments.len());
+ 138     let mut occluded_faces = HashSet::new();
+ 139     for specification in garments {
+ 140         let mut span_masks = Vec::new();
+ 141         for span in &specification.placement.surface {
+ 142             let binding = rig.span(&span.regions)?;
+ 143             let selected_joints = binding.selected_joints;
+ 144             // Joint slots project only at the existing rest-frame XYZ kernel.
+ 145             let segments = binding
+ 146                 .segments
+ 147                 .iter()
+ 148                 .map(|segment| {
+ 149                     let proximal = global_joint_states[segment.proximal];
+ 150                     let distal = global_joint_states[segment.distal];
+ 151                     (
+ 152                         [proximal[0], proximal[1], proximal[2]],
+ 153                         [distal[0], distal[1], distal[2]],
+ 154                     )
+ 155                 })
+ 156                 .collect::<Vec<_>>();
+ 157             let coordinate_bounds = positions
+ 158                 .iter()
+ 159                 .enumerate()
+ 160                 .filter_map(|(vertex, position)| {
+ 161                     let weight = joint_indices
+ 162                         .vertex(vertex)
+ 163                         .iter()
+ 164                         .zip(&joint_weights[vertex])
+ 165                         .filter(|(joint, _)| selected_joints.contains(*joint))
+ 166                         .map(|(_, weight)| *weight)
+ 167                         .sum::<f32>();
+ 168                     (weight >= specification.weight_threshold)
+ 169                         .then(|| chain_coordinate(*position, &segments))
+ 170                         .flatten()
+ 171                 })
+ 172                 .fold(None::<(f32, f32)>, |bounds, coordinate| {
+ 173                     Some(
+ 174                         bounds.map_or((coordinate, coordinate), |(minimum, maximum)| {
+ 175                             (minimum.min(coordinate), maximum.max(coordinate))
+ 176                         }),
+ 177                     )
+ 178                 })
+ 179                 .ok_or_else(|| ClothingError::NoWeightedVertices {
+ 180                     garment: specification.name.clone(),

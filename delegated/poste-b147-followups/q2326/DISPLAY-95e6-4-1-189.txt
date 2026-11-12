@@ -1,0 +1,189 @@
+     1	use super::*;
+     2	use bevy::ecs::system::SystemParam;
+     3	
+     4	/// The scene and asset stores the character preview spawns into.
+     5	#[derive(SystemParam)]
+     6	pub(super) struct PreviewScene<'w, 's> {
+     7	    pub commands: Commands<'w, 's>,
+     8	    pub meshes: ResMut<'w, Assets<Mesh>>,
+     9	    pub materials: ResMut<'w, Assets<StandardMaterial>>,
+    10	    pub images: ResMut<'w, Assets<Image>>,
+    11	    pub equipment_maps: ResMut<'w, underlayer_preview::EquipmentMaps>,
+    12	    /// Where the character stands, for the camera's shots.
+    13	    pub bounds: ResMut<'w, studio_scene::CharacterBounds>,
+    14	    inverse_bindposes: ResMut<'w, Assets<SkinnedMeshInverseBindposes>>,
+    15	}
+    16	
+    17	#[expect(
+    18	    clippy::too_many_arguments,
+    19	    reason = "Bevy injects the scene, caches and drape job this system rebuilds from"
+    20	)]
+    21	pub(super) fn regenerate_mesh(
+    22	    mut scene: PreviewScene,
+    23	    model: Res<BodyModel>,
+    24	    catalog: Res<EquipmentCatalog>,
+    25	    mut studio: ResMut<Studio>,
+    26	    mut cache: ResMut<studio_cache::StudioCache>,
+    27	    old: Query<(Entity, Has<drape_preview::DrapeMesh>), With<CharacterMesh>>,
+    28	    mut drape_job: ResMut<drape_preview::DrapeJob>,
+    29	    mut walk: ResMut<WalkPreview>,
+    30	    mut contexts: EguiContexts,
+    31	) {
+    32	    if !studio.dirty || dragging(&mut contexts) {
+    33	        return;
+    34	    }
+    35	    studio.dirty = false;
+    36	    let started = std::time::Instant::now();
+    37	    let recipe = studio.recipe.clone();
+    38	    let prepared = outfit::loadout(&recipe, &catalog).and_then(|loadout| {
+    39	        let generated = cache.body(&model, &recipe)?;
+    40	        let clothed =
+    41	            outfit::clothing(&model, &loadout, &generated).context("Clothing generation failed")?;
+    42	        let armor = cache
+    43	            .armor(&model, &generated, &loadout)
+    44	            .context("Parametric armor generation failed")?;
+    45	        let lining = cache.lining(&loadout)?;
+    46	        if drape_job.take_again() {
+    47	            cache.forget_drape();
+    48	        }
+    49	        let drape = cache
+    50	            .drape_changed(&loadout)?
+    51	            .then(|| outfit::drape_inputs(&model, &generated, &loadout, lining.as_ref()));
+    52	        Ok((generated, clothed, armor, drape))
+    53	    });
+    54	    let (generated, clothed, armor, drape) = match prepared {
+    55	        Ok(prepared) => prepared,
+    56	        Err(error) => {
+    57	            studio.status = format!("{error:#}");
+    58	            return;
+    59	        }
+    60	    };
+    61	    animation_preview::rebuild(
+    62	        &mut walk,
+    63	        &mut scene.commands,
+    64	        &mut scene.inverse_bindposes,
+    65	        &model,
+    66	        &generated,
+    67	    );
+    68	    // Draped cloth stays shown while nothing it lies on changed.
+    69	    let redrape = drape.is_some();
+    70	    if let Some(inputs) = drape {
+    71	        drape_job.request(inputs);
+    72	    }
+    73	    let clothing_shell_count = clothed.shells.len();
+    74	    scene.bounds.0 = studio_scene::CharacterBounds::of(&generated.positions);
+    75	    for (entity, draped) in &old {
+    76	        if redrape || !draped {
+    77	            scene.commands.entity(entity).despawn();
+    78	        }
+    79	    }
+    80	    let PreviewScene {
+    81	        commands,
+    82	        meshes,
+    83	        materials,
+    84	        ..
+    85	    } = &mut scene;
+    86	    let mesh = visible_body_mesh(&generated, &clothed.visible_body_faces);
+    87	    if let Err(error) = preview::spawn_body(
+    88	        commands, meshes, materials, &walk, &model, &generated, mesh,
+    89	    )
+    90	    .and_then(|()| {
+    91	        preview::spawn_clothing(commands, meshes, materials, &walk, &model, clothed.shells)
+    92	    }) {
+    93	        studio.status = format!("{error:#}");
+    94	        return;
+    95	    }
+    96	    let spawned = scene.spawn_equipment(&armor);
+    97	    studio.status = match spawned {
+    98	        Ok(()) => format!(
+    99	            "Generated {} body vertices · {} clothing shells · {} armor pieces in {:.2} s",
+   100	            model.mhr.num_vertices(),
+   101	            clothing_shell_count,
+   102	            armor.len(),
+   103	            started.elapsed().as_secs_f32(),
+   104	        ),
+   105	        Err(error) => format!("{error:#}"),
+   106	    };
+   107	}
+   108	
+   109	/// Whether a control is being dragged: an edit then rebuilds once, when it is
+   110	/// let go, rather than at every value it passes through.
+   111	pub(super) fn dragging(contexts: &mut EguiContexts) -> bool {
+   112	    contexts
+   113	        .ctx_mut()
+   114	        .is_ok_and(|ctx| ctx.egui_is_using_pointer())
+   115	}
+   116	
+   117	impl PreviewScene<'_, '_> {
+   118	    fn spawn_equipment(&mut self, armor: &[parametric_equipment::SelectedArmor<'_>]) -> Result<()> {
+   119	        self.equipment_maps.begin_generation();
+   120	        for piece in armor {
+   121	            let material = equipment_catalog::material(piece.piece.piece.selection.item())?;
+   122	            let material = self
+   123	                .equipment_maps
+   124	                .material(
+   125	                    &mut self.images,
+   126	                    material,
+   127	                    piece.piece.design.recipe(),
+   128	                    piece.piece.decoration.engraving.as_ref(),
+   129	                )
+   130	                .map_err(anyhow::Error::msg)
+   131	                .with_context(|| format!("{} material failed", piece.name))?;
+   132	            let trim = piece
+   133	                .trim
+   134	                .as_ref()
+   135	                .map(|trim| {
+   136	                    Ok::<_, anyhow::Error>(preview::TrimPreview {
+   137	                        texcoords: &trim.texcoords,
+   138	                        material: self
+   139	                            .equipment_maps
+   140	                            .metal(&mut self.images, &trim.metal, 1.0)
+   141	                            .map_err(anyhow::Error::msg)
+   142	                            .with_context(|| format!("{} trim material failed", piece.name))?,
+   143	                    })
+   144	                })
+   145	                .transpose()?;
+   146	            preview::spawn_armor(
+   147	                &mut self.commands,
+   148	                &mut self.meshes,
+   149	                &mut self.materials,
+   150	                &mut self.images,
+   151	                &piece.generated,
+   152	                piece.name.clone(),
+   153	                preview::ArmorShading {
+   154	                    plate: material,
+   155	                    trim,
+   156	                },
+   157	                CharacterMesh,
+   158	            )
+   159	            .context("Armor preview failed")?;
+   160	            if let Some(lacing) = &piece.lacing {
+   161	                preview::spawn_armor(
+   162	                    &mut self.commands,
+   163	                    &mut self.meshes,
+   164	                    &mut self.materials,
+   165	                    &mut self.images,
+   166	                    &lacing.generated,
+   167	                    lacing.name.clone(),
+   168	                    preview::ArmorShading {
+   169	                        plate: preview::lacing_material(&lacing.cord),
+   170	                        trim: None,
+   171	                    },
+   172	                    CharacterMesh,
+   173	                )
+   174	                .context("Lacing preview failed")?;
+   175	            }
+   176	        }
+   177	        Ok(())
+   178	    }
+   179	}
+   180	
+   181	pub(super) fn visible_body_mesh(generated: &GeneratedCharacter, faces: &[[u32; 3]]) -> Mesh {
+   182	    Mesh::new(
+   183	        PrimitiveTopology::TriangleList,
+   184	        RenderAssetUsages::default(),
+   185	    )
+   186	    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, generated.positions.clone())
+   187	    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, generated.normals.clone())
+   188	    .with_inserted_indices(Indices::U32(faces.iter().flatten().copied().collect()))
+   189	}

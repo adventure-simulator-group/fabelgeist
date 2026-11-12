@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-character-creator/src/drape_worker.rs:71-131
+  71     /// The tags of the garments the latest drape produces.
+  72     pub fn draping(&self) -> &[T] {
+  73         &self.draping
+  74     }
+  75 
+  76     /// Collect the running drape's progress, and start a queued one.
+  77     pub fn poll(&mut self) -> DrapeProgress {
+  78         let mut progress = DrapeProgress {
+  79             preview: if self.cancel.load(Ordering::Relaxed) {
+  80                 None
+  81             } else {
+  82                 self.latest.lock().unwrap().take()
+  83             },
+  84             ..DrapeProgress::default()
+  85         };
+  86         if self
+  87             .handle
+  88             .as_ref()
+  89             .is_some_and(std::thread::JoinHandle::is_finished)
+  90         {
+  91             let mut outcome = self
+  92                 .handle
+  93                 .take()
+  94                 .expect("checked above")
+  95                 .join()
+  96                 .unwrap_or_else(|_| OutfitOutcome {
+  97                     garments: Vec::new(),
+  98                     warnings: Vec::new(),
+  99                     error: Some(anyhow::anyhow!("Drape worker failed")),
+ 100                     checkpoints: Vec::new(),
+ 101                 });
+ 102             // Keep completed stages even from a failed or cancelled drape.
+ 103             self.checkpoints = std::mem::take(&mut outcome.checkpoints);
+ 104             if !self.cancel.load(Ordering::Relaxed) {
+ 105                 // Whatever draped is shown and usable, even when some of it failed.
+ 106                 progress.preview = Some(outcome.garments.clone());
+ 107                 progress.finished = Some(outcome);
+ 108             }
+ 109         }
+ 110         if self.handle.is_none()
+ 111             && let Some(pending) = self.pending.take()
+ 112         {
+ 113             let (tags, input): (Vec<_>, Vec<_>) = pending.into_iter().unzip();
+ 114             self.draping = tags;
+ 115             let cancel = Arc::new(AtomicBool::new(false));
+ 116             self.cancel = cancel.clone();
+ 117             let latest = Arc::new(Mutex::new(None));
+ 118             self.latest = latest.clone();
+ 119             let previous = std::mem::take(&mut self.checkpoints);
+ 120             self.handle = Some(std::thread::spawn(move || {
+ 121                 drape_outfit(input, previous, &cancel, |garments| {
+ 122                     if !cancel.load(Ordering::Relaxed) {
+ 123                         *latest.lock().unwrap() = Some(garments);
+ 124                     }
+ 125                 })
+ 126             }));
+ 127             progress.started = true;
+ 128         }
+ 129         progress
+ 130     }
+ 131 }

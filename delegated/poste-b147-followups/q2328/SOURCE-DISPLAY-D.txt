@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-character-creator/src/drape_preview.rs:145-225
+ 145 ) -> DrapeInput {
+ 146     let character = &model.mhr.character;
+ 147     DrapeInput {
+ 148         under_plate: None,
+ 149         selection,
+ 150         settled: None,
+ 151         obstacles: vec![],
+ 152         positions: generated.positions.clone(),
+ 153         faces: character.mesh.faces.clone(),
+ 154         names: character.skeleton.names.clone(),
+ 155         joints: generated.global_joint_states.clone(),
+ 156         indices: character.skin_weights.indices().clone(),
+ 157         weights: character.skin_weights.weights().as_native_slice().to_vec(),
+ 158     }
+ 159 }
+ 160 
+ 161 #[expect(
+ 162     clippy::too_many_arguments,
+ 163     reason = "Bevy injects the drape job, scene and asset resources into this system"
+ 164 )]
+ 165 pub fn poll(
+ 166     mut job: ResMut<DrapeJob>,
+ 167     mut studio: ResMut<Studio>,
+ 168     mut commands: Commands,
+ 169     old: Query<Entity, With<DrapeMesh>>,
+ 170     mut meshes: ResMut<Assets<Mesh>>,
+ 171     mut materials: ResMut<Assets<StandardMaterial>>,
+ 172     mut images: ResMut<Assets<Image>>,
+ 173     mut mail: ResMut<MailMaterials>,
+ 174 ) {
+ 175     let progress = job.worker.poll();
+ 176     if let Some(outcome) = progress.finished {
+ 177         let vertices = outcome
+ 178             .garments
+ 179             .iter()
+ 180             .map(|g| g.positions.len())
+ 181             .sum::<usize>();
+ 182         studio.status = match outcome.problems() {
+ 183             None => format!("Draped {vertices} vertices; ready to export"),
+ 184             Some(problems) => format!(
+ 185                 "Draped {} of {} garments with problems: {problems}. Press Drape again to retry.",
+ 186                 outcome.garments.len(),
+ 187                 job.worker.draping().len()
+ 188             ),
+ 189         };
+ 190         job.ready = Some(outcome.garments);
+ 191     }
+ 192     if progress.started {
+ 193         studio.status = "Measuring body and preparing cloth...".into();
+ 194     }
+ 195     let Some(garments) = progress.preview else {
+ 196         return;
+ 197     };
+ 198     for entity in &old {
+ 199         commands.entity(entity).despawn();
+ 200     }
+ 201     for (&id, garment) in job.worker.draping().iter().zip(garments) {
+ 202         if job.ready.is_none() {
+ 203             studio.status = format!("Draping: {}", garment.stage);
+ 204         }
+ 205         let material = match studio
+ 206             .recipe
+ 207             .inventory
+ 208             .get(id)
+ 209             .and_then(|item| item.article.garment())
+ 210         {
+ 211             Some(selection) => mail.material_for(&mut images, selection),
+ 212             None => cloth_material(),
+ 213         };
+ 214         if let Err(error) = spawn_garment(
+ 215             &mut commands,
+ 216             &mut meshes,
+ 217             &mut materials,
+ 218             garment,
+ 219             material,
+ 220             (CharacterMesh, DrapeMesh(id)),
+ 221         ) {
+ 222             studio.status = format!("{error:#}");
+ 223         }
+ 224     }
+ 225 }

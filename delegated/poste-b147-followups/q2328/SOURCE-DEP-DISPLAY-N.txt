@@ -1,0 +1,42 @@
+SOURCE crates/adventuresim-character-creator/src/garment.rs:125-165
+ 125     };
+ 126     let vertices: Vec<_> = input
+ 127         .positions
+ 128         .iter()
+ 129         .map(|p| p.map(|v| v * 100.0))
+ 130         .collect();
+ 131     measure(
+ 132         BodyMesh {
+ 133             vertices: &vertices,
+ 134             faces: &input.faces,
+ 135         },
+ 136         &marks,
+ 137     )
+ 138 }
+ 139 
+ 140 mod drape;
+ 141 mod outfit;
+ 142 pub use drape::drape;
+ 143 pub use outfit::{OutfitOutcome, drape_outfit};
+ 144 
+ 145 /// One garment's drape result, and the stages it completed either way.
+ 146 pub struct DrapeOutcome {
+ 147     pub result: Result<DrapedGarment>,
+ 148     /// Fit problems in a draped garment. The garment is still usable.
+ 149     pub warnings: Vec<String>,
+ 150     pub checkpoints: DrapeCheckpoints,
+ 151 }
+ 152 
+ 153 fn clear_panels(
+ 154     positions: &mut [Vec3],
+ 155     mesh: &fabelgeist_cloth::GarmentMesh,
+ 156     body: &fabelgeist_bvh::TriangleBvh,
+ 157     margin: f32,
+ 158 ) {
+ 159     let reach = body.bvh.bounds().extent().length() + 1.0;
+ 160     for panel in 0..mesh.panel_count() {
+ 161         let range = mesh.panel_range(panel);
+ 162         let Some(face) = mesh
+ 163             .triangles
+ 164             .iter()
+ 165             .find(|face| range.contains(&(face[0] as usize)))

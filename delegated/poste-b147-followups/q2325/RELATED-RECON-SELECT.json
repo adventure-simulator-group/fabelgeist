@@ -1,0 +1,32 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "delegated_observation_20": {
+    "agent": "/root/rig_identity",
+    "report": "delegated/rig-identity-report.json",
+    "finding": {
+      "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION / SEGOVB-L12-CONNECTED-RIG-STRONGEST-FOUR-ZERO-SUM-POLICY",
+      "historical_queue_indices": [
+        175,
+        436,
+        167,
+        572
+      ],
+      "classification": "historical numeric policy family reconnected to current support, exact alias status remains open",
+      "source_trace": [
+        "crates/fabelgeist-rig/src/skin.rs:19-25 publicly admits unconstrained individual weights",
+        "crates/fabelgeist-rig/src/skin.rs:79-99 merges equal ordinals, sorts, truncates and divides by the retained sum",
+        "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs:120-126,158-165 sends strongest_four results to native Mesh attributes",
+        "crates/adventuresim-character-creator/src/export.rs:587-597,621-622 calls validate before export reduction",
+        "crates/adventuresim-character-creator/src/export/validation.rs:13-18,45-49,120-130 checks mesh and shell array lengths and finite near-one sums",
+        "crates/adventuresim-character-creator/src/export/skinning.rs:4-19,28-30 writes reduced results"
+      ],
+      "counterexample": "For nonempty WIDTH and all zero weights, combined entries exist, retained sum is zero and division is 0/0, yielding NaN under IEEE arithmetic; WIDTH=0 has no entries and no such division. Public fields permit this shape, but no product value or arithmetic was executed. The inspected GLB exporter rejects a zero-total row before reduction, so do not call zero an ordinary validated GLB export failure. The separately inspected runtime mesh path has no local equivalent check; upstream guarantees and ordinary zero-weight reachability remain untraced.",
+      "additional_numeric_policy": "A row over eight distinct ordinals with weights [2,-1,0,0,0,0,0,0] has a finite total of one and meets the shown total-only check; source sorting drops the negative contribution and normalizes the retained two to one. Whether such negative values should be admissible is an explicit unresolved policy, not an asserted supported production input.",
+      "relationship_qualification": "The 6533 historical skin receipt covered 226 lines with SHA c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206. The current 95e support is 239 lines with SHA 511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e; prior bodies were not silently promoted. q175, q436, q167 and q572 are retained distinctly pending exact alias and policy reconciliation.",
+      "repair_direction": "Before future reduction define individual weight validity and zero/unweighted policy; preserve valid duplicate merging, descending weight, ordinal tie order and zero padding, and verify at every actual producer boundary.",
+      "remaining": "Complete production armor/source weight admission, native Bevy policy, all producers/consumers, exact aliases and historical statuses before closure."
+    }
+  },
+  "repair": "not started",
+  "validation": "not performed"
+}

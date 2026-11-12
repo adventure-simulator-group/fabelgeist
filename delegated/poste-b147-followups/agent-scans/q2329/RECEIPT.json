@@ -1,0 +1,26 @@
+{
+  "schema": "independent-q2329-scan-receipt-v1",
+  "packet_manifest_sha256": "d4325aebca5b3c9e7e5879693bdfe24c66c48b8b4d0b211df18172c1f8e566a2",
+  "scanner_sha256": {
+    "PRIVATE-SCANNER.py": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "PATTERN-SCAN.py": "7d33a0e78d17ad30768ac30d518a9b1f8203f1350536a16cdb9fd740c675edf9"
+  },
+  "results_sha256": {
+    "FINAL-PRIVATE.json": "a60cca28d72ce7a7c9746b97b56942997c0d22b03d40be046e80e1bb9801a630",
+    "FINAL-PATTERN.json": "282f7c30440ddc299c9607d4542fa2f52ebdc6b309a838645da0cf4d7ad15127",
+    "FULL-VERIFY.txt": "1a92593eb8bbb8009b0a54316e3b328704f9336cbda2db20255d8a59c87bfc7b",
+    "STANDALONE-VERIFY.txt": "7e3c021add5f3d0a66f15f814984b9578c7d7d2ca48f30614d6dd3b01e96030c"
+  },
+  "results": {
+    "private_exit": 0,
+    "private_forbidden_digest_matches": 0,
+    "private_other_candidates": 0,
+    "private_exceptions": 0,
+    "pattern_exit": 0,
+    "pattern_candidates": 0,
+    "pattern_exceptions": 0,
+    "standalone_verifier_exit": 0,
+    "full_verifier_exit": 0
+  },
+  "limits": "Bounded scans cover packet working-tree views and specified patterns/private digest corpus; they do not clear hidden originals, Git history, unknown secrets, binary metadata or unsupported formats, prove source semantics, runtime, comprehension or independent custody."
+}

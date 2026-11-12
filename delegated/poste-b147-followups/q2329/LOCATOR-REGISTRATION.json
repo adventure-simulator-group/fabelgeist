@@ -1,0 +1,19 @@
+{
+  "registered_utc": "2026-11-12T16:48:03.165555+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scopes": [
+    "crates/adventuresim-character-creator/src"
+  ],
+  "patterns": [
+    "fn loadout",
+    "fn validate",
+    "struct CharacterRecipe",
+    "impl CharacterRecipe",
+    ".explain(",
+    ".wear(",
+    "EquipConflict::Invalid",
+    "WornGraph::build",
+    "review_export::export"
+  ],
+  "purpose": "Locate inventory admission, graph builder, terminal consumers, and validated review path; output only filenames and line numbers, first 100 retained and first 20 printed."
+}

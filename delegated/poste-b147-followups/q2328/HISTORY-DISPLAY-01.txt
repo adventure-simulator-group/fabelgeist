@@ -1,0 +1,60 @@
+   1 {
+   2       "contract_id": "REVIEW-L11-CREATOR-DRAPE-CANCEL-REQUEST-TAG-ASSOCIATION",
+   3       "kind": "qualified-scoped-review-disposition",
+   4       "lens": 11,
+   5       "parent_canonical_id": null,
+   6       "canonical_owner": "DrapeWorker one activehandle/pendingtags/input/cancel/latest relation; DrapeJob outcome UI owner",
+   7       "first_failed_contract_or_unresolved_question": "Source rejects oldcancelled preview/result before pendingtags/input replacement; no current stale-job tag mix established in dispatcher.",
+   8       "exact_source_identities_and_assessed_ranges": [
+   9         {
+  10           "source_row_key": "R179-3",
+  11           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_preview.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+  12           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  13           "source_sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd",
+  14           "assessed_ranges": [
+  15             [
+  16               1,
+  17               312
+  18             ]
+  19           ],
+  20           "receipt_pointer": "/rows/3",
+  21           "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+  22           "contract_relevant_ranges": [
+  23             [
+  24               1,
+  25               312
+  26             ]
+  27           ],
+  28           "body_receipt": {
+  29             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+  30             "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+  31           },
+  32           "registration_ref_and_sha256": {
+  33             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+  34             "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+  35             "json_pointer": "/rows/3"
+  36           },
+  37           "root_adoption": {
+  38             "path": "segovb/READ-L11-715.json",
+  39             "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+  40             "verification": "segovb/VERIFY-L11-715.json",
+  41             "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+  42           },
+  43           "body_credit_from_queue": 0
+  44         },
+  45         {
+  46           "source_row_key": "R180-1",
+  47           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_worker.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+  48           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  49           "source_sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+  50           "assessed_ranges": [
+  51             [
+  52               1,
+  53               131
+  54             ]
+  55           ],
+  56           "receipt_pointer": "/rows/1",
+  57           "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+  58           "contract_relevant_ranges": [
+  59             [
+  60               1,

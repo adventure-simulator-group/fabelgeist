@@ -1,0 +1,34 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "delegated_observation_20": {
+    "agent": "/root/rig_identity",
+    "report": "delegated/rig-skin-report.json",
+    "finding": {
+      "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+      "historical_queue_indices": [
+        175,
+        167,
+        436,
+        572
+      ],
+      "status": "historical finding family; current source and connected consumers independently read; alias reconciliation open",
+      "source_refs": [
+        "95e crates/fabelgeist-rig/src/skin.rs:19-25,79-99",
+        "6533 crates/fabelgeist-rig/src/skin.rs:19-25,70-90",
+        "95e crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs:120-132,158-165",
+        "95e crates/adventuresim-character-creator/src/export/validation.rs:13-18,45-49,120-130",
+        "95e crates/adventuresim-character-creator/src/export/skinning.rs:4-30",
+        "95e crates/fabelgeist-mhr/src/character/skin.rs:97-122,125-151",
+        "95e crates/fabelgeist-mhr/src/model/upload.rs:126-146"
+      ],
+      "trace": "RigInfluences public f32 weights are not checked by PackedRigSkin word admission. strongest_four merges duplicate joints, sorts by descending total with ascending ordinal ties, takes four, sums and divides. A nonempty all-zero row yields retained entries with a zero denominator and NaN output; WIDTH=0 has no retained iteration and does not divide. Separately, two finite f32::MAX values on the same joint overflow their merged f32 sum to infinity, and infinity/infinity is NaN. These are IEEE/source reasoning scenarios, not values or operations executed here.",
+      "consumer_qualification": "Runtime equipment mesh calls the reducer and inserts its output; no local input check is shown in the inspected lines, while upstream reachability remains open. The inspected GLB input validator rejects zero or nonfinite total before export reduction and checks array lengths; do not assert an all-zero row passes that exporter. Total-only validation does not itself prove each component is nonnegative. An illustrative [2,-1,0,0,0,0,0,0] row sums to1, but whether negative weights should be allowed remains an explicit policy question.",
+      "historical_relationship": "Original q175 and q436 cover broad normalization and zero-sum respectively; q167 is MHR import admission and q572 is shared numerical revisit. They are connected and preserved, without declaring their formal exact-alias status. The mhr-character delegate independently traced a conditional NaN import and upload cutoff; its report and attribution are separate.",
+      "future_repair": "Define finite, nonnegative, zero/unweighted and computed-total admission policy at the actual source and reduction boundaries; preserve valid duplicate merging, exact ordering, equal-weight ties and zero padding. Reconcile MHR importer and export/runtime consumers before any repair.",
+      "remaining": "Actual producer reachability, native consumer semantics, exact aliases, full range/weight handling and acceptance policy; no product validation."
+    }
+  },
+  "open": "Reconcile full consumers, supported scale and target policies, numerical effects, exact aliases and all mandatory independent-lens populations.",
+  "repair": "not started",
+  "validation": "not performed"
+}

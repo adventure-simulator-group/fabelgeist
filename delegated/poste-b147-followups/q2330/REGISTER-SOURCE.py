@@ -1,0 +1,9 @@
+import argparse,datetime,hashlib,json,pathlib,subprocess
+p=pathlib.Path(__file__).resolve().parent;a=argparse.ArgumentParser();a.add_argument('--repo',required=True);repo=a.parse_args().repo
+path='crates/adventuresim-character-creator/src/inventory.rs'; revs=['e2755a732c84e67296b5e3441a4259a84f461b2f','95e63628f9d70b8dd6e6fede64334696c6995009'];(p/'sources').mkdir(exist_ok=True)
+items=[]
+for rev in revs:
+ data=subprocess.check_output(['git','-C',repo,'show',rev+':'+path]);entry=subprocess.check_output(['git','-C',repo,'ls-tree',rev,'--',path]).decode().rstrip();n=rev[:4];target=f'sources/{n}-inventory.rs';(p/target).write_bytes(data);items.append({'revision':rev,'path':path,'git_entry':entry,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'lines':len(data.splitlines()),'file':target,'display_ranges':[[1,90],[190,260],[340,380]] if n=='95e6' else [],'display_qualification':'Exact bytes retained; only explicitly displayed current ranges count as my read. Historical old source reader remains separate.'})
+if items[0]['sha256']!='0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18':raise ValueError('historical source mismatch')
+if items[1]['lines']<380:raise ValueError('current EOF before planned range; adjust registration before view')
+x={'registered_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'reader':'/root/mhr_character','scope':'prospective bounded current displays after saved exact historical and current source objects','items':items,'qualification':'File identity comparison is not whole-tree identity, runtime behavior or transfer of historical read credit.'};(p/'SOURCE-REGISTRATION.json').write_text(json.dumps(x,indent=2)+'\n'); print(json.dumps([{'revision':i['revision'],'sha256':i['sha256'],'lines':i['lines']} for i in items]))

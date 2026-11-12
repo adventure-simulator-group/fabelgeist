@@ -1,0 +1,36 @@
+   205	    catalog: &EquipmentCatalog,
+   206	    model: &BodyModel,
+   207	    drape_job: &DrapeJob,
+   208	    walk: &mut WalkPreview,
+   209	    animation_players: &mut Query<&mut AnimationPlayer>,
+   210	) {
+   211	    studio_theme::card(ui, "Recipe", |ui| {
+   212	        ui.add(
+   213	            egui::TextEdit::singleline(&mut studio.recipe_path)
+   214	                .hint_text("character.json")
+   215	                .desired_width(f32::INFINITY),
+   216	        );
+   217	        ui.horizontal(|ui| {
+   218	            if ui.button("Save recipe").clicked() {
+   219	                studio.status =
+   220	                    save_recipe(studio).unwrap_or_else(|error| format!("Save failed: {error:#}"));
+   221	            }
+   222	            if ui.button("Load recipe").clicked() {
+   223	                match load_recipe(&studio.recipe_path) {
+   224	                    Ok(recipe) => {
+   225	                        studio.recipe = recipe;
+   226	                        studio.inventory = default();
+   227	                        studio.dirty = true;
+   228	                        studio.status = "Recipe loaded".into();
+   229	                    }
+   230	                    Err(error) => studio.status = format!("Load failed: {error:#}"),
+   231	                }
+   232	            }
+   233	        });
+   234	    });
+   235	
+   236	    // A drape with problems still finishes; only a running one holds these back.
+   237	    let generated = !studio.dirty && !drape_job.running();
+   238	    studio_theme::card(ui, "Animation", |ui| {
+   239	        animation(ui, walk, animation_players, generated && walk.ready());
+   240	    });

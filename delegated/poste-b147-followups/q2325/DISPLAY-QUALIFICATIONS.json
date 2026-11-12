@@ -1,0 +1,46 @@
+{
+  "body_output_truncations": 0,
+  "eof_clamps": [
+    {
+      "source": "crates/adventuresim-character-creator/src/export/skinning.rs",
+      "requested": [
+        1,
+        105
+      ],
+      "displayed": [
+        1,
+        63
+      ]
+    },
+    {
+      "source": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "requested": [
+        1,
+        110
+      ],
+      "displayed": [
+        1,
+        49
+      ]
+    },
+    {
+      "source": "crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "requested": [
+        1,
+        110
+      ],
+      "displayed": [
+        1,
+        26
+      ]
+    }
+  ],
+  "test_source_only": [
+    "export/skinning.rs:35-63",
+    "animation_preview.rs:461-485,560-650"
+  ],
+  "test_execution": "None. Displaying test source grants no execution or behavioral evidence.",
+  "locator_limits": "First 100 path/line matches retained and at most first 20 printed; two strongest_four searches each omitted 45 of 145 matches. Locator searches are bounded to their registered scopes and confer no body-read credit.",
+  "narrow_search_correction": "LOCATOR-HELPER searched only the clothing child directory and found no matches. LOCATOR-HELPER2 subsequently widened to the parent creator source directory and located three helpers; the first negative is not a repository-wide absence claim.",
+  "timestamps_and_hashes": "Process chronology and content identity only; neither proves semantic comprehension, supported-input reachability, product behavior or independent custody."
+}

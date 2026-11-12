@@ -1,0 +1,60 @@
+{
+  "agent_scans_manifest_sha256": "a64a9c4a0e5bc4716365627760b5f1b3692cfefbbf2cd52efdfeecf77971fc2f",
+  "coordinator_manifest_sha256": "496353b1736e7837e90e28cfc06d8da43b4b6fdc477f9d5067e94f5984d57d78",
+  "packets": [
+    {
+      "archive": "q2325-normalized.tar.gz",
+      "archive_sha256": "5a8a7292c010283f202c0e8f9c40e0d5f4c3534b3b0ef102ab40b8dd4651d575",
+      "archive_type": "normalized tar of public packet, not original archive",
+      "manifest_sha256": "09233b353842403408921d1a6bdfbfba49ab999c392abdeb1fc9fb5d2d2022f3",
+      "members": 120,
+      "name": "q2325",
+      "scope": "agent packet"
+    },
+    {
+      "archive": "q2326-original-archive.tar.gz",
+      "archive_sha256": "eec94f898e0e2ac305aff80a666167a51ab2b844557fa418f1bd442423ab1c09",
+      "archive_type": "agent exact original archive",
+      "manifest_sha256": "879e5ecca813e3ce1d56e99cbdf61369ab325f2949650beab37a6d82ef8ca33d",
+      "members": 97,
+      "name": "q2326",
+      "scope": "agent packet"
+    },
+    {
+      "archive": "q2328-normalized.tar.gz",
+      "archive_sha256": "b74ef310e41f8016cadc41d2044309500c54c199c93c4100413fbbe61e5f4284",
+      "archive_type": "normalized tar of public packet, not original archive",
+      "manifest_sha256": "fabb2678668adab0a9269a0ad10a2f2d2f6749adaa68ffcafa26cef24a79aea3",
+      "members": 153,
+      "name": "q2328",
+      "scope": "public reconstructed successor; original packet separately held"
+    },
+    {
+      "archive": "q2329-normalized.tar.gz",
+      "archive_sha256": "83fe3101d03f540e110e314a1e857ec867091b67cf71e35dccfa461e7c638c9b",
+      "archive_type": "normalized tar of public packet, not original archive",
+      "manifest_sha256": "d4325aebca5b3c9e7e5879693bdfe24c66c48b8b4d0b211df18172c1f8e566a2",
+      "members": 151,
+      "name": "q2329",
+      "scope": "agent packet"
+    },
+    {
+      "archive": "q2330-normalized.tar.gz",
+      "archive_sha256": "19f28988e9a546afed2ec698a8ccccc07fd4639fde1e22e5e561e9ec9274f70d",
+      "archive_type": "normalized tar of public packet, not original archive",
+      "manifest_sha256": "d14ff28dc7a2e4cb0359dbc891d5e354122019155cd47be552d3203730ef4716",
+      "members": 173,
+      "name": "q2330",
+      "scope": "public reconstructed successor; original packet separately held"
+    }
+  ],
+  "parent_checkpoint": "b147e0caaf982e0adc765f188353152db994b184",
+  "preimport_scan_record_sha256": "299620f6bff85218060798c4b2b882d40c747d80415810def4263952a8506cc6",
+  "prepublication_manifest_sha256": "998a47fc23f92bedd785cd234a22c06137ea6987caa09fa9cb282bdcce98feb8",
+  "qualification": "Exact and reconstructed evidence are distinct. Restricted original q2328/q2330 packets and all prior qualifications remain separately held; recorded rich verifier replays are same-machine only. The b147 restoration is same-machine and does not recover missing checkpoint3821 queue or ledger. No product execution.",
+  "recovery_manifest_sha256": "19c7c2ebdec1008f5594fef5dba544ca41f6b884aa4a0d3b7547d5184fa0a85e",
+  "schema": "726-postb147-followup-catalog-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "temporary_incident_projection_sha256": "5a3f2604463e62d92e904ed501a336847ac3626941954bfed6d01dd811844f29",
+  "temporary_incident_scan_record_sha256": "dcb82fa59d8e9198d7e85fb5a889ecf28d7f9281156e006d18e15df4dccb3b82"
+}

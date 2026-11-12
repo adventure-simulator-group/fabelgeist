@@ -1,0 +1,743 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-2.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-2.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-059-HAIR-SEED",
+        "classification": "partial reconnection q161 and q377; two preserved historical identities, no formal alias decision",
+        "trace": "HairSeed::from_word accepts every i32, casting through u32 to canonical Seed, and word returns the same signed word. Look::groom takes word() and unconditionally forms seed + 9 for Orient; i32::MAX is admitted, so overflow-checked arithmetic fails and wrapping configurations use a wrapped value. Parent already proved source-only mathematical existence of a Look.random generator state yielding i32::MAX; no seed witness or generator execution. Look::guides separately casts signed word to u64, which sign-extends negative values as a distinct deterministic representation, not evidence of a defect by itself.",
+        "sources": [
+          "crates/fabelgeist-hair/src/parameters.rs:21-25,75-94",
+          "crates/fabelgeist-determinism/src/seed.rs:49-79",
+          "crates/fabelgeist-hair/src/look/groom.rs:26-27,69-75",
+          "crates/fabelgeist-hair/src/look.rs:303-309,449-457",
+          "crates/fabelgeist-hair/src/rng.rs:143-147"
+        ],
+        "history": "Adler READ366 discovered q161 broad family; /root/lens12_frontier q377 records exact unconditional +9. Central ASSESSMENT-HAIR-LOOK-95E and ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E already preserve both; do not count new duplicate or collapse identities."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-059-STRANDS-DEFAULT",
+        "classification": "partial reconnection q378, with pinned native source",
+        "trace": "Strands derives Default with points=0 although its documented and new() invariant is at least2. Frizz::apply reads points and invokes positions.par_chunks_mut(points). Cargo.lock pins Rayon 1.12.0; its exact checksum-verified source asserts chunk_size != 0 immediately, even on an empty slice. Direct applying Frizz to default strands therefore reaches the assertion. Empty sets are legitimate when constructed as Strands::new(2). Groom::grow_while resamples at max(points,2), so do not claim this direct-default failure on that normalizing route.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:28-59",
+          "crates/fabelgeist-hair/src/ops/displace.rs:126-135",
+          "crates/fabelgeist-hair/src/groom.rs:57-64",
+          "Cargo.lock:8756-8763",
+          "rayon-1.12.0/src/slice/mod.rs:279-291"
+        ],
+        "native_evidence": {
+          "archive": "rayon-1.12.0.crate",
+          "sha256": "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d",
+          "lock_checksum_matches": true,
+          "registered_member": "source/rayon-slice-mod.rs",
+          "member_sha256": "59a08f86184d01c276e921996943114d35eeacde68950e84ccadfd1957dae713"
+        },
+        "repair_direction": "Define a default or explicit empty state that respects declared resolution before operation and GPU boundary; keep zero strands possible.",
+        "history": "q378 SEGOVB-L12-CONNECTED-HAIR-STRANDS-DEFAULT-POINTS-ADMISSION belongs to original Lens12 delegate760. No product call, Rayon code or test executed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-059-STRANDS-ARRAYS",
+        "classification": "partial reconnection q379, with related q160 GPU boundary kept separate",
+        "trace": "Strands::len depends on root_uv while position, id, root_normal, group, radius and guide_map are separately public. A directly formed state with one root_uv and no other attributes is accepted as fields but attachment(0) indexes absent root_normal. GpuGroomer.upload calls attachment and root based on len and independently narrows n/points to u32; successful GPU operation not asserted. Strands::new plus push does enforce points>=2 and appends all arrays together. push and extend clear the guide map, select builds a new map-free set, and resampled preserves it when identities/order remain stable. Public independent GuideMap indices add related membership checks, not a claim that normal reuse itself is stale.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:28-50,53-103,106-152",
+          "crates/fabelgeist-hair/src/gpu/mod.rs:127-134,464-503",
+          "crates/fabelgeist-hair/src/ops/mod.rs:212-217,264-285"
+        ],
+        "repair_direction": "Coordinate resolution, strand-major position count, attribute counts and membership across controlled construction, supported mutation and the native boundary; decide empty geometry explicitly.",
+        "history": "q379 SEGOVB-L12-CONNECTED-HAIR-STRANDS-PARALLEL-ARRAY-ADMISSION remains distinct from q160 ADLER-L11-HAIR-READBACK-SHAPE-ADMISSION; both are previously partially reconnected. Exact alias/repair overlap stays open."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-059-CURVE-SAMPLER",
+        "classification": "partial reconnection q380; additional correlated-state and mutation evidence",
+        "trace": "CurveSampler derives Default, so at_length on its empty state computes n-1 and/or eventually indexes nonexistent data according to overflow behavior. new(empty) also admits an empty sampler; set(one-point) instead replaces positions and lengths, clears tangents, and reaches tangents strand[1] before normals are refreshed. If an unwind is caught, the prior sampler has already been partly overwritten. Its public positions, lengths, tangents and normals can also be independently changed after a valid construction: clearing normals while leaving a two-point curve intact makes at_length access normals[0] without rechecking the vectors. These are source-representable cases, not observed runtime failures.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:189-200,206-220,240-250,300-307,325-374"
+        ],
+        "repair_direction": "Admit or represent queryable curve segments and their correlated cached arrays together; perform fallible replacement before committing state; decide intentional empty/unavailable mode.",
+        "history": "Original delegate760 q380 already identified default/empty and one-point tangent failure. The vector-mismatch and partial replacement traces deepen the same aggregate assessment; preserve q380 and do not assert independent bug count or an alias to q379 without central review."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-059-CURVE-RESAMPLE",
+        "classification": "partial reconnection q381 with actual conditional producer",
+        "trace": "arc_lengths of an empty slice yields a single zero; a one-point slice also has only one length. resample_into with a nonempty output reads lengths[1], so these source lengths cannot support it. An empty output skips the loop and should not be described as failing. Haircut::length returns 0.1+fringe.drop before the non-fringe minimum; with admitted drop=-0.1, a matching root, dome=0 and variation=0, Hairdo::comb initializes a root-only path and has zero steps; Hairdo::guides attempts nonempty resampling on that path. Whether such authored fringe input/root production is allowed remains open; no scene, hair generator or runtime path executed.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:189-199,279-298",
+          "crates/fabelgeist-hair/src/haircut.rs:107-142,328-358",
+          "crates/fabelgeist-hair/src/hairdo.rs:179-250,269-310,402-418,430-431,527-534"
+        ],
+        "history": "Original delegate760 q381 identifies public short source. Central ASSESSMENT-HAIRDO-GROOM-95E previously connected the negative fringe conditional producer; preserve that existing result and no unique duplicate."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-PRIOR-RNG-EMPTY-INDEX",
+        "classification": "new direct consumer evidence for existing REVIEW-HAIR-RNG-EMPTY-INDEX-95E; no new helper defect",
+        "trace": "Rng.index(0) consumes a draw and returns 0 although 0..0 is empty. Public dataset::Sample::draw accepts presets:&[Preset], calls rng.index(presets.len()), and immediately indexes the slice: an empty input reaches presets[0]. The module and method are public. No caller was executed. Look.random uses fixed nonempty arrays and index(100), so those specific ordinary calls do not establish empty selection.",
+        "sources": [
+          "crates/fabelgeist-hair/src/rng.rs:55-58",
+          "crates/fabelgeist-hair/src/dataset.rs:91-107",
+          "crates/fabelgeist-hair/src/lib.rs:144-146,167-172",
+          "crates/fabelgeist-hair/src/look.rs:322-335,352-359",
+          "crates/fabelgeist-hair/src/look/random.rs:5-21"
+        ],
+        "repair_direction": "Determine explicit nonempty preset admission or structured empty-dataset outcome and an index(0) policy together; preserve valid deterministic draws and draw consumption as decided.",
+        "history": "Earlier central ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E explicitly left an empty-list caller unproven; this new 95e support trace supplies one. No exact-term match was found in the bounded local 059 extraction search; global aliases remain open."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "RECONNECT-PRIOR-RNG-RANGE",
+        "classification": "fresh source reconnection of existing REVIEW-HAIR-RNG-RANGE-HALF-OPEN-95E",
+        "trace": "The central earlier current assessment proved low=0.5, high=1, next_f32=1-2^-24 rounds to high under round-to-nearest ties-to-even. SplitMix state transition and finalizer are permutations on 64-bit words, so some initial seed can produce that first fraction. The current full body and exact 95e source support agree; Look.random uses this range conditionally, but reachability through its prior draws/branch remains unproved.",
+        "sources": [
+          "crates/fabelgeist-hair/src/rng.rs:16-47",
+          "crates/fabelgeist-hair/src/look.rs:363-377,400-405"
+        ],
+        "history": "No duplicate finding: append current body proof and retain earlier source-only proof, no specific seed, draw, product runtime or empirical distribution."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "DELEGATE-HAIR-SMALL-NONZERO-SEGMENT",
+        "classification": "newly assessed source-level correctness/policy candidate; central alias search open",
+        "trace": "For a two-point strand [origin,(1e-13,0,0)] metres, the squared length is about 1e-26, a nonzero normal f32 value. Vec3.length is positive and smaller than 1e-12. resample_into with output length3 treats the positive span as zero and selects t=0 for every output, collapsing the tip to the root. CurveSampler.at_factor(1) likewise treats the positive span as zero and returns its root, despite its documented sampling-at-factor behavior. Separately ops::parameters divides the positive total by max(total,1e-12), so its tip factor is below1. These are exact control-flow and magnitude arguments with no fixture or algorithm run; no ordinary generated-hair witness or physical minimum policy is claimed.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:189-199,279-298,325-374",
+          "crates/fabelgeist-math/src/vector/vec3.rs:61-98",
+          "crates/fabelgeist-hair/src/ops/mod.rs:312-319",
+          "crates/AGENTS.md numerical comparison and tolerance rules"
+        ],
+        "repair_direction": "Use checked handling of genuinely zero segments or a specifically justified, unit-aware error budget at each operation; preserve endpoint, zero-length and ordinary interpolation semantics.",
+        "history": "Adler READ368 and delegate760 inspected bodies/threshold-related policy but did not establish this small nonzero endpoint example. Bounded term search of the local extraction did not identify this exact case; no global novelty or historical3821 claim."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "DELEGATE-HAIR-SMALL-NONZERO-TANGENT",
+        "classification": "separate newly assessed source-level direction policy candidate; alias to segment threshold family open",
+        "trace": "For the same finite nonzero +X segment of length about 1e-13 metres, tangents computes its direction and safe_normalize compares its positive representable norm with 1e-12. It returns fallback Vec3::up, changing the tangent from +X to +Y. The squared input magnitude is normal in f32; this is not necessary merely to avoid squared-length underflow. In restore_lengths, the same absolute threshold selects reference direction rather than current direction for a small nonzero segment. The applicable crate rule calls for exact positivity for presence, checked vector normalization and owned tolerances with units/error budgets.",
+        "sources": [
+          "crates/fabelgeist-hair/src/strands.rs:206-220,270-276",
+          "crates/fabelgeist-math/src/vector/vec3.rs:61-92",
+          "crates/fabelgeist-hair/src/ops/mod.rs:289-308",
+          "crates/AGENTS.md numerical comparison and tolerance rules"
+        ],
+        "repair_direction": "Establish scale-aware mathematical domain and admissible zero/finite policy; use a validated direction operation or explicit physically justified threshold rather than silently replacing a representable direction. Preserve genuine-zero fallback behavior.",
+        "history": "Adler READ368 and original delegate760 recorded safe_normalize and its fallback without this witness. Related q380/q381 and the span threshold candidate remain separate until exact repair/alias review."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/hair-primitives-report.json",
+      "finding": {
+        "id": "DELEGATE-HAIR-RNG-LARGE-INDEX-REACHABILITY",
+        "classification": "open sampling contract for unusually large public choices, not a claimed runtime regression",
+        "trace": "For n=16,777,217, n as f32 rounds to 16,777,216 under IEEE nearest-even. next_f32 has 24 binary fraction bits and a maximum of 1-2^-24, so the product is at most 16,777,215. Thus index 16,777,216 cannot be selected, although it is a valid index. Sample::draw accepts a preset slice of arbitrary length, but no such allocation or ordinary caller is demonstrated. index documents only a valid index, so whether each option must remain reachable is a sampling-policy question, separate from n=0 and ordinary small-array deterministic mapping.",
+        "sources": [
+          "crates/fabelgeist-hair/src/rng.rs:33-35,55-58",
+          "crates/fabelgeist-hair/src/dataset.rs:102-107"
+        ],
+        "repair_direction": "Decide bounded-cardinality or complete-selection policy, balancing unbiased/integer choice against preserving seeded mapping and draw counts.",
+        "history": "Earlier central assessment observes 2^24 fractions and modulo-100 bias; Adler369 left numeric index/bound policy open. No new counted bug or execution claim."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-limits-grammar-and-values",
+        "classification": "Existing admission/operations finding persists in current source; two original L12 records describe distinct first contracts.",
+        "relationships": [
+          "059 q168 ADLER-L11-MHR-LIMIT-ADMISSION",
+          "059 q429 SEGOVB-L12-CONNECTED-MHR-LIMIT-DELIMITER-ORDER-ADMISSION",
+          "059 q430 SEGOVB-L12-CONNECTED-MHR-LIMIT-BOUNDS-ADMISSION"
+        ],
+        "trace": "For a recognized existing model parameter, a limit line with a closing bracket before an opening bracket satisfies both find() calls; the string range open+1..close is formed without ordering validation. A limit with two parsed values [2,1] or an NaN bound is retained and later supplied to f32::clamp on any corresponding parameter slot; invalid clamp bounds violate its precondition.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def.rs",
+            "lines": [
+              [
+                33,
+                42
+              ],
+              [
+                137,
+                143
+              ],
+              [
+                396,
+                424
+              ]
+            ]
+          }
+        ],
+        "limits": "Static reasoning, contingent on an admitted recognized parameter and a matching input slot. No model definition, clamp, panic or runtime executed. Valid optional weight semantics, unsupported limit kinds and malformed grammar policy require explicit resolution.",
+        "future_repair": "Admit complete delimiter order, bound conversion, finite ordered interval, and structured source context before publishing limits; preserve intended valid inclusivity and handling of optional weight."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-affine-expression-constants",
+        "classification": "Existing historical expression finding persists in current parser.",
+        "relationships": [
+          "059 q169 ADLER-L11-MHR-EXPRESSION-OFFSETS"
+        ],
+        "trace": "A one-factor numeric term assigns its offset instead of adding it, so two constants keep the latter. A scaled reference to an earlier joint-channel row copies only prior coefficient contributions; its stored constant offset is not included. ParameterMatrix adds contributions and upload retains offsets separately, so a missing expression constant is not restored later.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def.rs",
+            "lines": [
+              [
+                147,
+                170
+              ],
+              [
+                263,
+                337
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+            "lines": [
+              [
+                84,
+                100
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "lines": [
+              [
+                49,
+                65
+              ]
+            ]
+          }
+        ],
+        "limits": "Supported expression grammar and real authored assets remain to be verified. Examples are symbolic code paths, not execution or evidence that a particular asset contains them; duplicate-row policy remains distinct.",
+        "future_repair": "Represent or compute a complete affine expression with ordered constant and coefficient accumulation, preserve explicit valid token precedence and ordinary numeric order, and return appropriate structured grammar errors."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-parameter-nonfinite-coefficients",
+        "classification": "Previously noted by Adler372, freshly source traced; candidate with policy and alias work open.",
+        "relationships": [
+          "Adler READ-L11-372 source2322 disposition noted numeric weights and limits lack finite admission",
+          "059 q168 covers limit bounds; q169 covers affine offsets and is related but not automatically an exact alias"
+        ],
+        "trace": "A coefficient parsed as f32 from model text is stored in Contribution without a finite check; NaN compares unequal to zero and is added to ParameterMatrix. The admitted matrix is transposed and becomes the retained transform used in the model tensor product.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def.rs",
+            "lines": [
+              [
+                263,
+                294
+              ],
+              [
+                309,
+                334
+              ],
+              [
+                155,
+                161
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+            "lines": [
+              [
+                84,
+                100
+              ],
+              [
+                124,
+                142
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "lines": [
+              [
+                49,
+                52
+              ],
+              [
+                84,
+                96
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                339,
+                355
+              ]
+            ]
+          }
+        ],
+        "limits": "This is a conditional malformed or unsupported input question. No particular model file, tensor operation or numeric output was observed. Whether nonfinite or exceptionally large coefficients are supported must be decided by the owning domain.",
+        "future_repair": "Define and admit supported coefficient and offset values before dense publication with useful source context; preserve valid coefficient accumulation, sign, units and ordering."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-retained-host-snapshot-shape",
+        "classification": "Existing historical lifetime finding remains, previously also traced in delegated character family.",
+        "relationships": [
+          "059 q170 ADLER-L11-MHR-MODEL-SHAPE-LIFETIME"
+        ],
+        "trace": "Mhr exposes mutable public character and parameter_transform, while constructor uploads transforms, bases, face corners and skin rows into independent private tensors. num_joints, num_vertices and face count are subsequently taken from the live character. A same-count face edit can leave public topology different from the retained corners; a changed vertex or face count can disagree with reshape dimensions derived from cached data.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                66,
+                103
+              ],
+              [
+                246,
+                252
+              ],
+              [
+                291,
+                300
+              ],
+              [
+                339,
+                364
+              ],
+              [
+                396,
+                408
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "lines": [
+              [
+                49,
+                84
+              ],
+              [
+                84,
+                122
+              ]
+            ]
+          }
+        ],
+        "limits": "No actual mutation, forward evaluation, backend behavior, user call site or rendering was observed. Parameter_transform mutation effects need its actual permitted public operations; no general bad-caller claim.",
+        "future_repair": "Provide immutable correlated model state or one validated atomic rebuild of all dependent tensors and metadata, retaining read-only lookup and valid graph behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-loader-error-cause",
+        "classification": "Existing historical loader ownership finding persists on the URI route.",
+        "relationships": [
+          "059 q173 ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP",
+          "059 q421 SEGOVB-L12-MHR-ASSET-FALLBACK-CAUSES-ERASURE",
+          "059 q422 SEGOVB-L12-MHR-DEFINITION-UTF8-CAUSE-ERASURE"
+        ],
+        "trace": "from_uri tries the direct and nested supported asset locations; on two failures it formats both errors into one anyhow message, and maps UTF-8 conversion failure into another formatted message. In contrast from_files uses with_context on filesystem operations, retaining their source error.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                123,
+                145
+              ],
+              [
+                158,
+                176
+              ]
+            ]
+          }
+        ],
+        "limits": "Underlying shared filesystem types and every caller remain uninspected in this packet. The two supported asset layouts are deliberate lookup policy, not automatically a legacy fallback. No I/O occurred.",
+        "future_repair": "Retain typed direct/nested failure causes and UTF-8 cause with asset identity until presentation; preserve both supported location attempts and meaningful errors."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-bind-matrix-admission",
+        "classification": "Existing bind transform issue; math body is exactly identical at historical and current revisions.",
+        "relationships": [
+          "059 q171 ADLER-L11-MHR-BIND-TRANSFORM-ADMISSION",
+          "previous delegated character-family report character-bind-transform-admission"
+        ],
+        "trace": "affine_inverse silently chooses zero inverse determinant for abs(det) <= 1e-20; from_matrix assumes uniform scale/no shear and uses an absolute scale threshold. Transform fields and inverse are not checked here for zero or nonfinite scale.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/math.rs",
+            "lines": [
+              [
+                138,
+                205
+              ],
+              [
+                224,
+                253
+              ]
+            ]
+          }
+        ],
+        "limits": "Actual cluster ingress and ownership were traced in previous separate character bundle. General public-module visibility, desired treatment of singular/near-singular/scaled matrices, and numerical conditioning remain open; no native math operation ran.",
+        "future_repair": "Admit supported finite invertible bind transforms at actual format boundary, define scale-appropriate numeric policy and retain valid transforms and error context."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-corrective-index-narrowing-32bit",
+        "classification": "Conditional current source admission issue; distinct from claims of a demonstrated runtime failure.",
+        "relationships": [
+          "059 q401 SEGOVB-L12-MHR-CORRECTIVE-SPARSE-INDEX-REASON is related to coordinate bounds but originated as structured-error finding",
+          "059 q2411 REVIEW-L11-MHR-CORRECTIVE-GOLDEN-OWNER explicitly qualified that platform-native cast behavior did not prove every wide value rejected on every target; preserve that prior qualification",
+          "Exact aliases across all families remain open"
+        ],
+        "trace": "Npy supports i64 payload words and preserves each i64 in NpyIntegerValues. CorrectiveHiddenIndex and CorrectiveFeatureIndex then cast i64 to usize before membership. On a 32-bit target, a value of -4294967296 or +4294967296 narrows to 0; a nonempty admitted hidden/feature extent then accepts coordinate 0. For three joints, checked layout sizes are 24 hidden and 6 features, so zero is in bounds. The borrowed layout prevents ordinary out-of-bounds after this conversion but cannot recover discarded high bits.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+            "lines": [
+              [
+                40,
+                64
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+            "lines": [
+              [
+                76,
+                94
+              ],
+              [
+                118,
+                125
+              ],
+              [
+                129,
+                137
+              ],
+              [
+                160,
+                165
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+            "lines": [
+              [
+                133,
+                151
+              ],
+              [
+                218,
+                229
+              ],
+              [
+                243,
+                270
+              ],
+              [
+                307,
+                321
+              ]
+            ]
+          }
+        ],
+        "limits": "Only language-level integer reasoning: no NPY file/archive/fixture, wasm execution, native buffer, or tensor operation created or run. This is a 32-bit target condition; on a 64-bit target these two values do not become zero. Float-to-integer policy and historical cast diagnostics are separate decisions.",
+        "future_repair": "Check signedness and representability before conversion to the target-native coordinate and validate against the actual layout, preserving meaningful typed coordinate errors; assess whether external format permits any float-to-integer conversion."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-tiny-triangle-normal",
+        "classification": "New current source candidate, subject to cross-family exact alias and numeric-policy review.",
+        "relationships": [
+          "Adler READ-L11-372 noted intentional zero normals for unreferenced vertices, not this nonzero tiny-normal example",
+          "Global exact alias inventory remains open"
+        ],
+        "trace": "MhrOutput documents unit normals. vertex_normals computes an area-weighted cross-product sum then floors its length to 1e-12 before division. For one nondegenerate right triangle whose exactly representable f32 centimetre edges have length 2^-30, cross magnitude is 2^-60 and its square 2^-120 is representable; source formula yields a normal of magnitude about 8.67e-7 rather than 1.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "lines": [
+              [
+                52,
+                61
+              ],
+              [
+                396,
+                452
+              ]
+            ]
+          }
+        ],
+        "limits": "Symbolic floating-point calculation only, no geometry, asset, product output, GPU or backend was executed. It requires extremely small admitted geometry and a nonzero accumulated normal; genuinely unreferenced or degenerate zero normals are a distinct intentional case. Backend numeric modes are not certified.",
+        "future_repair": "Use a defined scale-aware normalization that preserves valid nonzero directions and intentional zero for truly absent/degenerate geometry; document/justify numerical limits without imposing arbitrary minimum physical size."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-corrective-extent-current-qualified",
+        "classification": "Positive current source recheck of historical risk; not a global q closure.",
+        "relationships": [
+          "059 q172 ADLER-L11-MHR-CORRECTIVE-EXTENT-ADMISSION",
+          "059 q402 SEGOVB-L12-CONNECTED-MHR-CORRECTIVE-JOINT-COUNT-ADMISSION",
+          "059 q397-401 individual historical reason identities"
+        ],
+        "trace": "The historical correctives.rs subtracts two from raw joint count and multiplies extents unchecked. Current CorrectiveLayout checks subtraction, each scaled extent, basis/activation tensor layouts and sparse cardinality/coordinate bounds; typed CorrectiveImportError carries named cases. Current CorrectiveInput checks exact joint count and 7 channels before tensor narrows.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/correctives.rs",
+            "lines": [
+              [
+                76,
+                92
+              ],
+              [
+                99,
+                111
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+            "lines": [
+              [
+                107,
+                177
+              ],
+              [
+                218,
+                229
+              ],
+              [
+                243,
+                270
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/correctives/import/error.rs",
+            "lines": [
+              [
+                24,
+                56
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+            "lines": [
+              [
+                35,
+                69
+              ],
+              [
+                75,
+                90
+              ]
+            ]
+          }
+        ],
+        "limits": "Only reached current bodies were read, no allocation, tensor or test ran. Native Npy layout internals, allocator failure, equal-count different-rig identity and 32-bit precheck narrowing remain separate; absence of basis remains explicitly optional.",
+        "future_repair": "Preserve the present checked subtraction, extent/layout/cardinality and forward shape contracts; reconcile remaining exact aliases and numeric/native boundaries before choosing further repair."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/mhr-model-report.json",
+      "finding": {
+        "id": "model-parameter-matrix-prefix-current-qualified",
+        "classification": "Positive current source recheck of specific historical API failure modes; no general closure.",
+        "relationships": [
+          "059 q431 SEGOVB-L12-CONNECTED-MHR-MATRIX-SHRINK-EXTENT-ADMISSION",
+          "059 q432 SEGOVB-L12-CONNECTED-MHR-MATRIX-TRANSPOSE-EXTENT-ADMISSION"
+        ],
+        "trace": "Current ParameterMatrix is pub(crate) and append_columns rejects a shrinking width before copying. tensor_transpose rejects a selected prefix wider than the available columns. Construction first checks joint-row multiplication, tensor-layout arithmetic and allocation layout.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+            "lines": [
+              [
+                11,
+                17
+              ],
+              [
+                40,
+                54
+              ],
+              [
+                103,
+                130
+              ]
+            ]
+          }
+        ],
+        "limits": "No allocation, API call or native tensor operation was run. These source guards address the named original overlarge/shrink paths only; parser/other callers and full queue reconciliation remain open.",
+        "future_repair": "Retain these explicit checked admission paths and propagate typed errors; assess unrelated matrix numeric and instance-association contracts separately."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/rig-skin-report.json",
+      "finding": {
+        "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "historical_queue_indices": [
+          175,
+          167,
+          436,
+          572
+        ],
+        "status": "historical finding family; current source and connected consumers independently read; alias reconciliation open",
+        "source_refs": [
+          "95e crates/fabelgeist-rig/src/skin.rs:19-25,79-99",
+          "6533 crates/fabelgeist-rig/src/skin.rs:19-25,70-90",
+          "95e crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs:120-132,158-165",
+          "95e crates/adventuresim-character-creator/src/export/validation.rs:13-18,45-49,120-130",
+          "95e crates/adventuresim-character-creator/src/export/skinning.rs:4-30",
+          "95e crates/fabelgeist-mhr/src/character/skin.rs:97-122,125-151",
+          "95e crates/fabelgeist-mhr/src/model/upload.rs:126-146"
+        ],
+        "trace": "RigInfluences public f32 weights are not checked by PackedRigSkin word admission. strongest_four merges duplicate joints, sorts by descending total with ascending ordinal ties, takes four, sums and divides. A nonempty all-zero row yields retained entries with a zero denominator and NaN output; WIDTH=0 has no retained iteration and does not divide. Separately, two finite f32::MAX values on the same joint overflow their merged f32 sum to infinity, and infinity/infinity is NaN. These are IEEE/source reasoning scenarios, not values or operations executed here.",
+        "consumer_qualification": "Runtime equipment mesh calls the reducer and inserts its output; no local input check is shown in the inspected lines, while upstream reachability remains open. The inspected GLB input validator rejects zero or nonfinite total before export reduction and checks array lengths; do not assert an all-zero row passes that exporter. Total-only validation does not itself prove each component is nonnegative. An illustrative [2,-1,0,0,0,0,0,0] row sums to1, but whether negative weights should be allowed remains an explicit policy question.",
+        "historical_relationship": "Original q175 and q436 cover broad normalization and zero-sum respectively; q167 is MHR import admission and q572 is shared numerical revisit. They are connected and preserved, without declaring their formal exact-alias status. The mhr-character delegate independently traced a conditional NaN import and upload cutoff; its report and attribution are separate.",
+        "future_repair": "Define finite, nonnegative, zero/unweighted and computed-total admission policy at the actual source and reduction boundaries; preserve valid duplicate merging, exact ordering, equal-weight ties and zero padding. Reconcile MHR importer and export/runtime consumers before any repair.",
+        "remaining": "Actual producer reachability, native consumer semantics, exact aliases, full range/weight handling and acceptance policy; no product validation."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/rig-skin-report.json",
+      "finding": {
+        "id": "DELEGATE-RIG-ARMOR-SKIN-ROW-AGGREGATE",
+        "status": "new source-level conditional public-input counterexample related to historical warnings; not assigned an independent unique finding",
+        "source_refs": [
+          "95e crates/fabelgeist-armor/src/design.rs:133-155",
+          "95e crates/adventuresim-character-creator/src/lib.rs:130",
+          "95e crates/adventuresim-character-creator/src/skin_rules.rs:23-35,56-64,211-224",
+          "95e crates/fabelgeist-rig/src/skin.rs:112-124,194-201,226-237",
+          "6533 crates/adventuresim-character-creator/src/skin_rules.rs:23-35,52-59,207-220",
+          "6533 crates/fabelgeist-rig/src/skin.rs:103-117,181-188,213-224"
+        ],
+        "counterexample": "Public GeneratedArmor may contain two positions, one packed skin row and two weight rows, while the packed rig bound and name-table count both equal two. With names [ROOT,C_HEAD], an initially valid packed row of joint0, and a rigid helmet, attach obtains head ordinal1 and calls fill over 0..2. The first set_vertex encodes valid joint1 and writes row0; the second encodes successfully but directly indexes absent row1, so an index panic occurs before joint_weights are filled. If unwinding is caught, row0 can remain changed while weights retain their previous values. This construction and operation were not executed; ordinary producer guarantees and actual caller misuse are not established.",
+        "historical_relationship": "The original Lens12 delegate already identified set_vertex validating joint encoding but indexing vertex unchecked, with associated geometry/caller proof pending. The old Lens13 delegated PL13-119 analysis had already noted potential fill partial mutation for invalid caller data. This static example reconnects their concerns to exact current and historical public source; panic after a successful prior update differs from a returned Result error. Exact alias/unique count remains central.",
+        "future_repair": "At the public armor/skin aggregate boundary establish positions, packed rows, weights and applicable component ranges consistently before any write; use checked lookup or typed error for unproven vertex indices and avoid committing only part of a logical update. Preserve normal rigid one-hot skinning and existing valid rig-bound checks.",
+        "remaining": "Trace all normal armor producers and failure consumers; determine supported caller obligations and cross-family aliases. No assertion that normal fitted armor violates row alignment."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/rig-skin-report.json",
+      "finding": {
+        "id": "DELEGATE-RIG-COLUMN-AND-INSTANCE-RELATIONSHIP",
+        "status": "reconnection to earlier delegated findings; formal exact alias decisions remain central",
+        "source_refs": [
+          "95e crates/fabelgeist-rig/src/table.rs:8-14,37-55,66-71,94-107",
+          "95e crates/fabelgeist-rig/src/skin.rs:6-7,39-55,112-124,214-223"
+        ],
+        "trace": "RigJointCount is a bound, not an instance identity. Generic RigJointTable explicitly delegates shared rig order to its creator; get/get_mut handle unproven ordinals and Index requires established membership. PackedRigSkin append rejects differing nonempty bounds, but equal bounds do not prove equal rig order. An empty destination deliberately adopts the incoming skin/bound; empty incoming skin is not evidence of conflicting content.",
+        "historical_relationship": "Related to earlier rig-identity report DELEGATE-RIG-SKELETON-PARALLEL-COLUMNS and DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION, and /root/mhr_character report character-public-skeleton-aggregate plus historical q433 and q434. These preserve distinct failure modes: independently short columns, cyclic/out-of-range parent topology, and equal-sized cross-rig order; common ownership does not establish an exact alias.",
+        "future_repair": "Enforce each actual aggregate’s promised shared count/order/topology, not unsupported universal rig-instance branding; make caller policy explicit and preserve ordinary builder order and empty assembly behavior.",
+        "remaining": "Actual public caller support and owning admission contracts; all unregistered full-family paths remain open."
+      }
+    }
+  ],
+  "central_decisions": [
+    "The prior q378 default-zero-strand finding is now connected to exact Cargo.lock-pinned Rayon 1.12.0 source; direct empty-default operation and Groom normalizing path remain different.",
+    "The earlier RNG empty-index row gains the public empty preset slice consumer; the half-open range row remains the same source-level finding.",
+    "Earlier q172/q402 unchecked corrective subtraction and q431/q432 old public matrix failures are not asserted for current source: checked layout/extent paths and private matrix now narrow those exact hypotheses. Other callers, policy and aliases remain open.",
+    "q168/q429/q430 are related model-limit grammar and bounds contracts with distinct historical identities; q173/q421/q422 retain broad and specific error-cause identities without implying separate bugs.",
+    "The reported armor short-skin-row/partial mutation is connected to existing REVIEW-RIGID-SKIN-ROW-CORRESPONDENCE-001; cross-rig identity, joint columns and weight-zero policy retain their separate first contracts.",
+    "Hair small-segment interpolation and tangent threshold questions share possible scale policy but are not declared exact aliases; large-index RNG choice coverage is a policy question, not a validity failure.",
+    "Rig skin/table and MHR selected bodies differ between 6533 and95e where recorded; the delegate unplanned skin_rules diff hunk is preserved explicitly as uncredited.",
+    "No whole lens, final queue reconciliation, new historical unique count, implementation or product validation is claimed."
+  ],
+  "open": "Reconcile full consumers, supported scale and target policies, numerical effects, exact aliases and all mandatory independent-lens populations.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,11 @@
+{
+  "registered_utc": "2026-11-12T16:22:48.563193+00:00",
+  "purpose": "Read selected q2325 plan and delegated read rows by recorded pointers, separately matching root adoption mappings and verification status; proposal contract update 2 only. Preserve reviewer and revision.",
+  "selectors": [
+    "q2325 exact receipt_pointer",
+    "q2325 plan.json_pointer",
+    "matching root registration mapping",
+    "verification attribution and scope status",
+    "/contract_updates/2"
+  ]
+}

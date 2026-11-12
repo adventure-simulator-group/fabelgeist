@@ -1,0 +1,60 @@
+ 411 
+ 412 fn surface_normals(
+ 413     positions: &[[f32; 3]],
+ 414     source_normals: &[[f32; 3]],
+ 415     faces: &[[u32; 3]],
+ 416 ) -> Vec<[f32; 3]> {
+ 417     let mut accumulated = vec![[0.0; 3]; positions.len()];
+ 418     for face in faces {
+ 419         let [a, b, c] = face.map(|vertex| positions[vertex as usize]);
+ 420         let face_normal = cross(subtract(b, a), subtract(c, a));
+ 421         for vertex in face {
+ 422             for axis in 0..3 {
+ 423                 accumulated[*vertex as usize][axis] += face_normal[axis];
+ 424             }
+ 425         }
+ 426     }
+ 427     accumulated
+ 428         .into_iter()
+ 429         .zip(source_normals)
+ 430         .map(|(normal, fallback)| {
+ 431             normalized(normal)
+ 432                 .map(|normal| {
+ 433                     if dot(normal, *fallback) < 0.0 {
+ 434                         [-normal[0], -normal[1], -normal[2]]
+ 435                     } else {
+ 436                         normal
+ 437                     }
+ 438                 })
+ 439                 .unwrap_or(*fallback)
+ 440         })
+ 441         .collect()
+ 442 }
+ 443 
+ 444 fn weld_split_vertex_positions(source: &[[f32; 3]], shell: &mut [[f32; 3]]) {
+ 445     let mut groups = HashMap::<[i64; 3], Vec<usize>>::new();
+ 446     for (index, position) in source.iter().enumerate() {
+ 447         let key = position.map(|component| (component as f64 * 1_000_000.0).round() as i64);
+ 448         groups.entry(key).or_default().push(index);
+ 449     }
+ 450     for group in groups.values().filter(|group| group.len() > 1) {
+ 451         let sum = group.iter().fold([0.0_f64; 3], |mut sum, vertex| {
+ 452             for axis in 0..3 {
+ 453                 sum[axis] += shell[*vertex][axis] as f64;
+ 454             }
+ 455             sum
+ 456         });
+ 457         let average = sum.map(|component| (component / group.len() as f64) as f32);
+ 458         for vertex in group {
+ 459             shell[*vertex] = average;
+ 460         }
+ 461     }
+ 462 }
+ 463 
+ 464 fn chain_coordinate(point: [f32; 3], segments: &[([f32; 3], [f32; 3])]) -> Option<f32> {
+ 465     let lengths = segments
+ 466         .iter()
+ 467         .map(|(start, end)| squared_distance(*start, *end).sqrt())
+ 468         .collect::<Vec<_>>();
+ 469     let total = lengths.iter().sum::<f32>();
+ 470     // Only a genuinely collapsed chain has no projection coordinate.

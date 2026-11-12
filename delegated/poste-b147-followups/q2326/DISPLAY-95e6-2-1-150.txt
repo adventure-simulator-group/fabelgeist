@@ -1,0 +1,150 @@
+     1	//! Sample MHR identity and refit clothing with fixed vertex correspondence.
+     2	
+     3	use super::*;
+     4	use adventuresim_character_creator::clothing::ClothingShell;
+     5	use adventuresim_core::character_morph::{IDENTITY_MORPH_STEP, IdentityMorph};
+     6	use adventuresim_core::skeletal_fit::SkeletalFitMorph;
+     7	use fabelgeist_mhr::character::{MeshVertexIndex, MeshVertexTable};
+     8	
+     9	mod draped;
+    10	mod hair;
+    11	
+    12	pub(super) struct MorphDelta {
+    13	    name: String,
+    14	    positions: Vec<[f32; 3]>,
+    15	    normals: Vec<[f32; 3]>,
+    16	}
+    17	
+    18	pub(super) struct CharacterMorphs {
+    19	    pub samples: Vec<ForearmMorphSample>,
+    20	    pub body: Vec<MorphDelta>,
+    21	    reference_joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
+    22	    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
+    23	    joint_weights: MeshVertexTable<[f32; 8]>,
+    24	}
+    25	
+    26	/// A piece's shells: its plates, and the bands along their edges.
+    27	pub(super) struct RiggedArmor<'a> {
+    28	    pub plate: Vec<RiggedShell<'a>>,
+    29	    pub trim: Vec<RiggedShell<'a>>,
+    30	}
+    31	
+    32	impl MorphDelta {
+    33	    fn between(
+    34	        name: String,
+    35	        base_positions: &[[f32; 3]],
+    36	        base_normals: &[[f32; 3]],
+    37	        positions: &[[f32; 3]],
+    38	        normals: &[[f32; 3]],
+    39	    ) -> Result<Self> {
+    40	        anyhow::ensure!(
+    41	            base_positions.len() == positions.len() && base_normals.len() == normals.len(),
+    42	            "morph sample changed vertex correspondence"
+    43	        );
+    44	        let subtract = |base: &[[f32; 3]], sample: &[[f32; 3]]| {
+    45	            base.iter()
+    46	                .zip(sample)
+    47	                .map(|(base, sample)| std::array::from_fn(|axis| sample[axis] - base[axis]))
+    48	                .collect()
+    49	        };
+    50	        Ok(Self {
+    51	            name,
+    52	            positions: subtract(base_positions, positions),
+    53	            normals: subtract(base_normals, normals),
+    54	        })
+    55	    }
+    56	
+    57	    pub(super) fn rigged(&self) -> RiggedMorphTarget<'_> {
+    58	        RiggedMorphTarget {
+    59	            name: &self.name,
+    60	            position_deltas: &self.positions,
+    61	            normal_deltas: &self.normals,
+    62	        }
+    63	    }
+    64	}
+    65	
+    66	impl CharacterMorphs {
+    67	    pub(super) fn generate(
+    68	        model: &BodyModel,
+    69	        recipe: &CharacterRecipe,
+    70	        base: &GeneratedCharacter,
+    71	    ) -> Result<Self> {
+    72	        let mut samples = Vec::new();
+    73	        let mut body = Vec::new();
+    74	        for target in IdentityMorph::all() {
+    75	            let mut sample_recipe = recipe.clone();
+    76	            sample_recipe.identity[target.index()] += IDENTITY_MORPH_STEP;
+    77	            let sample = generate_character(model, &sample_recipe)?;
+    78	            body.push(MorphDelta::between(
+    79	                target.name(),
+    80	                &base.positions,
+    81	                &base.normals,
+    82	                &sample.positions,
+    83	                &sample.normals,
+    84	            )?);
+    85	            samples.push(ForearmMorphSample {
+    86	                name: target.name(),
+    87	                positions: sample.positions,
+    88	                normals: sample.normals,
+    89	                global_joint_states: sample.global_joint_states,
+    90	                device: Default::default(),
+    91	            });
+    92	        }
+    93	        for target in SkeletalFitMorph::ALL {
+    94	            let mut sample_recipe = recipe.clone();
+    95	            sample_recipe
+    96	                .proportions
+    97	                .set(target.proportion(), target.endpoint())
+    98	                .map_err(anyhow::Error::msg)?;
+    99	            let sample = generate_character(model, &sample_recipe)?;
+   100	            body.push(MorphDelta {
+   101	                name: target.name().into(),
+   102	                positions: vec![[0.0; 3]; base.positions.len()],
+   103	                normals: vec![[0.0; 3]; base.normals.len()],
+   104	            });
+   105	            samples.push(ForearmMorphSample {
+   106	                name: target.name().into(),
+   107	                positions: sample.positions,
+   108	                normals: sample.normals,
+   109	                global_joint_states: sample.global_joint_states,
+   110	                device: Default::default(),
+   111	            });
+   112	        }
+   113	        Ok(Self {
+   114	            samples,
+   115	            body,
+   116	            reference_joints: base.global_joint_states.clone(),
+   117	            joint_indices: model.mhr.character.skin_weights.indices().clone(),
+   118	            joint_weights: model.mhr.character.skin_weights.weights().clone(),
+   119	        })
+   120	    }
+   121	
+   122	    pub(super) fn clothing(&self, shells: &[ClothingShell]) -> Result<Vec<Vec<MorphDelta>>> {
+   123	        shells
+   124	            .iter()
+   125	            .map(|base| {
+   126	                self.samples
+   127	                    .iter()
+   128	                    .map(|sample| {
+   129	                        let fitted = base
+   130	                            .refit(&sample.positions, &sample.normals)
+   131	                            .map_err(anyhow::Error::from)?;
+   132	                        let mut delta = MorphDelta::between(
+   133	                            sample.name.clone(),
+   134	                            &base.positions,
+   135	                            &base.normals,
+   136	                            &fitted.positions,
+   137	                            &fitted.normals,
+   138	                        )?;
+   139	                        remove_skeletal_translation(
+   140	                            &mut delta.positions,
+   141	                            sample,
+   142	                            &self.reference_joints,
+   143	                            &self.joint_indices,
+   144	                            self.joint_weights
+   145	                                .indexed()
+   146	                                .map(|(vertex, weights)| (vertex, *weights)),
+   147	                        );
+   148	                        Ok(delta)
+   149	                    })
+   150	                    .collect()

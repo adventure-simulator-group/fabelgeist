@@ -1,0 +1,71 @@
+  1450	                match (ret, self.end_map()) {
+  1451	                    (Ok(ret), Ok(())) => Ok(ret),
+  1452	                    (Err(err), _) | (_, Err(err)) => Err(err),
+  1453	                }
+  1454	            }
+  1455	            _ => Err(self.peek_error(ErrorCode::ExpectedSomeValue)),
+  1456	        };
+  1457	
+  1458	        match value {
+  1459	            Ok(value) => Ok(value),
+  1460	            // The de::Error impl creates errors with unknown line and column.
+  1461	            // Fill in the position here by looking at the current index in the
+  1462	            // input. There is no way to tell whether this should call `error`
+  1463	            // or `peek_error` so pick the one that seems correct more often.
+  1464	            // Worst case, the position is off by one character.
+  1465	            Err(err) => Err(self.fix_position(err)),
+  1466	        }
+  1467	    }
+  1468	
+  1469	    fn deserialize_bool<V>(self, visitor: V) -> Result<V::Value>
+  1470	    where
+  1471	        V: de::Visitor<'de>,
+  1472	    {
+  1473	        let peek = match tri!(self.parse_whitespace()) {
+  1474	            Some(b) => b,
+  1475	            None => {
+  1476	                return Err(self.peek_error(ErrorCode::EofWhileParsingValue));
+  1477	            }
+  1478	        };
+  1479	
+  1480	        let value = match peek {
+  1481	            b't' => {
+  1482	                self.eat_char();
+  1483	                tri!(self.parse_ident(b"rue"));
+  1484	                visitor.visit_bool(true)
+  1485	            }
+  1486	            b'f' => {
+  1487	                self.eat_char();
+  1488	                tri!(self.parse_ident(b"alse"));
+  1489	                visitor.visit_bool(false)
+  1490	            }
+  1491	            _ => Err(self.peek_invalid_type(&visitor)),
+  1492	        };
+  1493	
+  1494	        match value {
+  1495	            Ok(value) => Ok(value),
+  1496	            Err(err) => Err(self.fix_position(err)),
+  1497	        }
+  1498	    }
+  1499	
+  1500	    deserialize_number!(deserialize_i8);
+  1501	    deserialize_number!(deserialize_i16);
+  1502	    deserialize_number!(deserialize_i32);
+  1503	    deserialize_number!(deserialize_i64);
+  1504	    deserialize_number!(deserialize_u8);
+  1505	    deserialize_number!(deserialize_u16);
+  1506	    deserialize_number!(deserialize_u32);
+  1507	    deserialize_number!(deserialize_u64);
+  1508	    #[cfg(not(feature = "float_roundtrip"))]
+  1509	    deserialize_number!(deserialize_f32);
+  1510	    deserialize_number!(deserialize_f64);
+  1511	
+  1512	    #[cfg(feature = "float_roundtrip")]
+  1513	    deserialize_number!(deserialize_f32, do_deserialize_f32);
+  1514	    deserialize_number!(deserialize_i128, do_deserialize_i128);
+  1515	    deserialize_number!(deserialize_u128, do_deserialize_u128);
+  1516	
+  1517	    fn deserialize_char<V>(self, visitor: V) -> Result<V::Value>
+  1518	    where
+  1519	        V: de::Visitor<'de>,
+  1520	    {

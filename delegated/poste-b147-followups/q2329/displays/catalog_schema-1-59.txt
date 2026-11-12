@@ -1,0 +1,59 @@
+   1 //! Exact typed authoring schema shared by the build compiler and runtime.
+   2 
+   3 use crate::combat_style::MeleeAttackStyle;
+   4 use serde::{Deserialize, Serialize};
+   5 
+   6 #[path = "item_catalog_fit.rs"]
+   7 mod fit;
+   8 pub use fit::EquipmentFitZone;
+   9 #[path = "item_catalog_surface.rs"]
+  10 mod surface;
+  11 pub use surface::{
+  12     EquipmentAnatomicalRegion, EquipmentSurfaceSpan, MAX_EQUIPMENT_SURFACE_SEGMENTS, SurfaceAnchor,
+  13 };
+  14 
+  15 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  16 #[serde(deny_unknown_fields)]
+  17 pub struct ItemCatalogDocument {
+  18     pub schema_version: u32,
+  19     pub items: Vec<ItemDefinition>,
+  20 }
+  21 
+  22 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  23 pub struct ItemDefinition {
+  24     pub id: String,
+  25     pub display_name: String,
+  26     pub weight_kg: f32,
+  27     /// Exterior displacement used when this object is placed in a container.
+  28     pub exterior_volume_ml: u32,
+  29     pub base_value: u32,
+  30     #[serde(default)]
+  31     pub tags: Vec<String>,
+  32     pub presentation: Presentation,
+  33     /// Content-authored equipment topology. This is independent of item kind:
+  34     /// armor, weapons, containers, and simple accessories may all participate.
+  35     #[serde(default)]
+  36     pub equipment: Option<EquipmentDefinition>,
+  37     #[serde(flatten)]
+  38     pub kind: ItemKind,
+  39     #[serde(default)]
+  40     pub capabilities: Capabilities,
+  41 }
+  42 
+  43 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  44 #[serde(deny_unknown_fields)]
+  45 pub struct EquipmentDefinition {
+  46     /// Authored tactical placeholder geometry. Exterior container volume is
+  47     /// deliberately not used to guess a shape.
+  48     pub physical: EquipmentPhysical,
+  49     /// Semantic surface material used by procedural placeholder rendering.
+  50     /// Detailed authored assets may later override this with textures.
+  51     #[serde(default)]
+  52     pub material: Option<EquipmentMaterial>,
+  53     /// Material at the damaging contact point. Weapons must author this
+  54     /// separately because shafts, stocks, and grips need not match a blade,
+  55     /// head, projectile, or shot.
+  56     #[serde(default)]
+  57     pub striking_material: Option<EquipmentMaterial>,
+  58     /// Tags used by parent attachment points to accept this item. An empty
+  59     /// list is never inferred from ItemKind.

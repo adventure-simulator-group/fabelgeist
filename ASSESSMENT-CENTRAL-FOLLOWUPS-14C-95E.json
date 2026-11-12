@@ -1,0 +1,263 @@
+{
+  "schema": "726-central-followup-14c-synthesis-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "b147e0caaf982e0adc765f188353152db994b184",
+  "assessments": [
+    {
+      "queue_index": 2325,
+      "historical_contract_id": "REVIEW-L11-CREATOR-NATIVE-PREVIEW-SKIN-LAYOUT",
+      "reviewer": "/root/verifier_scope",
+      "scope": "Preview influence reduction and earlier collider ordering",
+      "assessment": "The preview chooses four individual influence slots; the shared rig/export reducer combines equal joint ordinals before choosing four. A symbolic positive duplicate-ordinal row can select different four-slot representations. Separately, collider deformation precedes the weighted cloth target joint-count check. A supported duplicate or mismatched asset, required equivalence, panic or rendered effect has not been established.",
+      "source_refs": [
+        "crates/adventuresim-character-creator/src/animation_preview/binding.rs:22-58",
+        "crates/fabelgeist-rig/src/skin.rs:79-99",
+        "crates/adventuresim-character-creator/src/export/skinning.rs:4-32",
+        "crates/adventuresim-character-creator/src/animation_preview.rs:311-340"
+      ],
+      "history": "The e275 059 named preview-layout suspicion was source-qualified and rejected only in its stated scope. All 13 cited original records were recovered; eight named e275/current source files match individually. Their bytes do not establish whole-tree equality or transfer reader credit. q167, q175, q436 and q572 remain separately attributed related contracts."
+    },
+    {
+      "queue_index": 2326,
+      "historical_contract_id": "REVIEW-L11-CREATOR-HAIR-BODY-INSTANCE-IDENTITY",
+      "reviewer": "/root/mhr_character",
+      "scope": "Hair/body Arc identity, cached model dependency and worker lifecycle",
+      "assessment": "The hair match compares groom and body Arc identity, so a different equal-count Arc does not match. A same-LOD corrective reload may instead reuse the same earlier body Arc through a cache key that omits model/corrective identity; this is connected to the already recorded cache policy, with actual model output and assets open. Replacing an unfinished worker handle leaves the old worker to finish and does not install its result through that discarded handle. Reconstructed BodyHead work can also precede an in-progress match; timing, resource cost and intended policy are unproved.",
+      "source_refs": [
+        "crates/adventuresim-character-creator/src/hair_preview.rs:123-159,163-193",
+        "crates/adventuresim-character-creator/src/studio_cache.rs:33-55",
+        "crates/adventuresim-character-creator/src/studio_generation.rs:32-61"
+      ],
+      "history": "The e275 historical record rejected a simple equal-count stale-body suspicion only in its named scope. The q2327 cache disposition and q2323 fit/model relationship are separate historical/current records; retain their reviewers, original revision and open policy."
+    },
+    {
+      "queue_index": 2328,
+      "historical_contract_id": "REVIEW-L11-CREATOR-DRAPE-CANCEL-REQUEST-TAG-ASSOCIATION",
+      "reviewer": "/root/wrapped_scope",
+      "scope": "Cancelled drape jobs, request/tag pairing and restart checkpoints",
+      "assessment": "The active request holds tag/input pairs together, suppresses cancelled progress, and creates fresh cancellation/preview objects for replacement work, supporting only the historical named-scope stale-tag rejection. Separately, a fresh restart clears stored checkpoints before polling can take checkpoints from an active cancelled outcome and pass them to a pending request. An eligible reusable old stage, supported sequence, impact and intended restart policy remain unproved.",
+      "source_refs": [
+        "crates/adventuresim-character-creator/src/drape_worker.rs:53-64,77-127",
+        "crates/adventuresim-character-creator/src/outfit.rs:44-72",
+        "crates/adventuresim-character-creator/src/garment/outfit.rs:26-81"
+      ],
+      "history": "The e275 059 rejection remains source-qualified only for its named tag-association scope, not its parent or a global closure. The original packet contains local paths and is separately held; its publicly scanned successor reconstructs five path-containing files and preserves the other original members byte-for-byte."
+    },
+    {
+      "queue_index": 2329,
+      "historical_contract_id": "REVIEW-L11-CREATOR-INVENTORY-TERMINAL-ERROR-BOUNDARIES",
+      "reviewer": "/root/verifier_scope",
+      "scope": "Inventory diagnostics, graph error precedence and review output",
+      "assessment": "Three conditional first operations are distinct: wear drops the fit culprit ID and the UI explains using the requested ID; the creator graph adapter can prefer a recomputed occupied reason over a core reason; and recipe review writes body.json before resolving all worn items. A different invalid worn item, a fully specified accepted conflicting catalog/recipe, actual partial output, severity and desired diagnostic/atomicity policies remain open. The separately inspected core catalog occupancy validator rejects its conflicting example when actually applied; the shown creator loader does not invoke that separate validator.",
+      "source_refs": [
+        "crates/adventuresim-character-creator/src/inventory.rs:264-285,308-334",
+        "crates/adventuresim-character-creator/src/inventory_ui.rs:186-214",
+        "crates/adventuresim-character-creator/src/inventory/occupancy.rs:254-274",
+        "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs:58-139",
+        "crates/adventuresim-character-creator/src/equipment_catalog.rs:45-69,113-121",
+        "crates/adventuresim-character-creator/src/review_export.rs:22-45,75-90"
+      ],
+      "history": "The 059 e275 error-boundary record is a documented conditional policy question with discovery closed only within its named historical scope. Seventeen cited originals matched and six named files match e275/95e individually. q2330 successor arithmetic and broad catalog/equipment records are related but distinct."
+    },
+    {
+      "queue_index": 2330,
+      "historical_contract_id": "REVIEW-L11-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION",
+      "reviewer": "/root/mhr_character",
+      "scope": "Inventory ID successor arithmetic and selected native deserialization source",
+      "assessment": "Inventory::add computes each existing ID plus one before taking the maximum. For distinct symbolic IDs u64::MAX-1 and u64::MAX, checked arithmetic would panic before insertion; wrapping arithmetic could select the already occupied maximum. Structural recipe checks do not bound IDs and selected locked serde source supports parsing the maximum u64 without parser execution. An actual accepted recipe, effective overflow profile, initialization and effect remain unobserved. This is additional evidence for existing REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001, not a new unique count.",
+      "source_refs": [
+        "crates/adventuresim-character-creator/src/inventory.rs:23-41,225-239,353-360"
+      ],
+      "history": "The e275 059 record retained a source finding with canonical alias and root acceptance pending. The frozen 6533, e275 and 95e inventory objects match individually; the dirty frozen working tree is not established clean. PL13-113, PL13-116 and the e275 reader/adoption keep distinct attribution. The public successor omits two exact upstream archives containing author/contact patterns; locked selected source files and identity crosswalk are retained, while the full original packet remains separately held."
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-preview-positive-duplicate-influence-reduction-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Preview and export choose four influences with different treatment of duplicate positive joint slots.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2325"
+      ],
+      "current_related_records": [
+        "ADLER-L11-MHR-SKIN-WEIGHT-ADMISSION",
+        "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "SEGOVB-L12-CONNECTED-RIG-STRONGEST-FOUR-ZERO-SUM-POLICY"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Establish supported producer invariants and intended preview/export equivalence before selecting a common reduction policy."
+    },
+    {
+      "id": "relationship-preview-collider-before-cloth-target-gate-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Body/armor collider work precedes the weighted cloth target joint-count gate.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2325"
+      ],
+      "current_related_records": [
+        "REVIEW-RIGID-SKIN-ROW-CORRESPONDENCE-001",
+        "REVIEW-RIG-EQUAL-BOUND-INSTANCE-QUESTION-95E"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Trace all row and joint producers to the earliest applicable admission boundary; assess mismatch reachability and intended error behavior."
+    },
+    {
+      "id": "relationship-hair-cache-body-model-identity-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Hair Arc identity guards are conditional on upstream cache identity and same-LOD model reuse.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2326"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+        "relationship-creator-fit-cached-model-pairing-95e"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Resolve the existing cache/model dependency and ownership question together with hair refresh; do not count this as a new cache defect."
+    },
+    {
+      "id": "relationship-hair-worker-replacement-ownership-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "An unfinished hair worker may outlive replacement of its handle; the discarded handle does not install its result.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2326"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Trace supported replacement patterns and define cancellation/resource ownership separately from cache identity."
+    },
+    {
+      "id": "relationship-drape-cancelled-checkpoint-restart-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A cancelled drape outcome may repopulate checkpoints after a fresh restart clears them, before pending work receives them.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2328"
+      ],
+      "current_related_records": [
+        "REVIEW-SAVED-DRAPE-DIRECT-WEAR-UNVALIDATED-BINDING-001",
+        "relationship-creator-fit-cached-model-pairing-95e"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Determine which checkpoint stages remain eligible and define restart ownership together with, but distinct from, saved-drape admission."
+    },
+    {
+      "id": "relationship-inventory-wear-culprit-identity-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The wear adapter can lose the earlier invalid worn item identity before the UI explains its conflict.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2329"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Trace supported invalid-inventory producers and decide whether structured culprit identity should survive to presentation."
+    },
+    {
+      "id": "relationship-creator-graph-error-precedence-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The creator adapter can prefer a recomputed occupancy cause to the core graph reason under conditional simultaneous failures.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2329"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Resolve catalog-validator applicability and error precedence before choosing a structured diagnostic boundary."
+    },
+    {
+      "id": "relationship-review-output-before-item-resolution-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Recipe review output begins before all worn catalog items are resolved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2329"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Decide the expected partial-output and destination policy after tracing all review export admissions and writes."
+    },
+    {
+      "id": "relationship-inventory-successor-additional-source-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The symbolic high-ID successor case and selected serde source support the already recorded inventory successor question.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2330"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-INVENTORY-ID-SUCCESSOR-001"
+      ],
+      "relationship_qualification": "Earlier records retain their original revision, reader, disposition and scope. This relationship is not an established global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source trace only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json",
+      "connected_repair_direction": "Trace supported recipe admission and callers, allocation exhaustion policy and effective overflow mode; retain the existing finding identity."
+    }
+  ],
+  "evidence_classes": {
+    "recovered_evidence": "Exact 059 record slices and selected historical sources remain at their original evidence revisions and readers; available full originals are separately retained when public reconstruction is necessary.",
+    "reconstructed_records": "The 059 public queue and q2328/q2330 safe successors are qualified reconstructions or omissions, not original complete checkpoint3821 records.",
+    "historical_summaries": "Historical named-scope rejection, conditional disposition and prior proposals retain their original scope and attribution.",
+    "newly_assessed_work": "Five bounded agent source assessments at 95e and centrally recorded relationships; report review does not transfer source or historical personal-read credit."
+  },
+  "recovery_qualification": "Final checkpoint3821 queue and ledger remain missing. No earlier record is promoted into checkpoint3821. Same-machine replays do not establish independent custody.",
+  "counts": "Nine relationships or conditional candidates, not accepted unique defect counts. All thirteen lenses and 3,713 semantic queue records remain open at this snapshot.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Source-only symbolic reasoning and connected planning; all named policy, support, reachability, effect, current alias and broader lens obligations remain open."
+}

@@ -1,0 +1,270 @@
+{
+  "lens": 11,
+  "kind": "Strict whole-bundle delegated source adoption",
+  "batch": 715,
+  "at": "2026-10-30T01:53:26.965913+00:00",
+  "proposal": "parallel-l11-20261029/READ-179.json",
+  "proposal_sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6",
+  "agent_verification": "parallel-l11-20261029/VERIFY-179.json",
+  "agent_verification_sha256": "86de947ce9000f1329ed5b7a0dc0f329aa96fe74e78e9b9aa0f93cdb8af63d88",
+  "bundle": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020"
+  },
+  "ruleset": {
+    "path": "parallel-l11-20261029/l11_firstparty_completed_bundle005_preflight_PROPOSAL_UNEXECUTED.py",
+    "sha256": "2bba8f31edcbc933b951ee43b7843b80aa5861a1dfc74ff345574292e3eb55fd"
+  },
+  "preflight": {
+    "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+    "new_source_receipts": 4,
+    "new_source_rows": 18,
+    "validated_source_rows_total": 29,
+    "contract_proposals": 8,
+    "current_delta_maps": 11,
+    "authority_mutation": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "current_ledger_sha256": "a20ffef9f930f148f34b75fb43822a665ded3d95ea314c6dec8b45e6c1b2688d",
+    "current_selector_sha256": "5fccf83f44b688e119f5d16e609ca87b1b68fcc0e02db75254a52a6551ce215f"
+  },
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+      "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-1130",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "actual_EOF": 192,
+      "prospective_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_cache.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "purpose": "Actual private creator current generation/cache and binding, changed drape/review consumers; finish precise retained model/body/native identity and internal error versus terminal UI contract. Full prospective body; no product/native execution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1131",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+      "actual_EOF": 189,
+      "prospective_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_generation.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "purpose": "Actual private creator current generation/cache and binding, changed drape/review consumers; finish precise retained model/body/native identity and internal error versus terminal UI contract. Full prospective body; no product/native execution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1132",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "80cd2b04543c35e3ad7d0cae1d5fd89eb5a92e78d68204e990a93a4672d84d65",
+      "actual_EOF": 65,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/animation_preview/binding.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "purpose": "Actual private creator current generation/cache and binding, changed drape/review consumers; finish precise retained model/body/native identity and internal error versus terminal UI contract. Full prospective body; no product/native execution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1133",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd",
+      "actual_EOF": 312,
+      "prospective_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_preview.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "purpose": "Actual private creator current generation/cache and binding, changed drape/review consumers; finish precise retained model/body/native identity and internal error versus terminal UI contract. Full prospective body; no product/native execution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1134",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "8b5599f2c025ffb581ea32dda9ccb466436ae39df2b149ebcdca38a3912d3ee5",
+      "actual_EOF": 125,
+      "prospective_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/review_export.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "purpose": "Actual private creator current generation/cache and binding, changed drape/review consumers; finish precise retained model/body/native identity and internal error versus terminal UI contract. Full prospective body; no product/native execution.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "L11-CURRENT-CREATOR-CACHE-GENERATION-BINDING-DRAPE-AND-REVIEW",
+      "disposition": "Actual current private generation/cache/native adapter and changed source reconciliation; bounded identity and error questions remain explicit, no accepted unique count",
+      "trace": [
+        "StudioCache::body33..56 serializes model.lod plus recipe.proportions/identity/expression38..43 as key; on newkey it generates once then clears fits/finishes/lining/drape50..53. An equal LOD is not a model-instance identity certificate, but a supported same-LOD BodyModel replacement must be established from actual private resource lifecycle before a stale-model finding. Actual generate_character current own008 is separate source proof, not new reread.",
+        "StudioCache::armor60..103 computes LayerPlan and ordered fit keys152..182, each support finish_key168..173 included in outer fit key, finishes own construction/decoration186..191. Same body change clears all caches; leftover nonworn fit/finish entries are dropped by replacement97..98. Lining107..125 tracks fitted rigid piece keys. drape_changed129..143 incorporates cached body key, lining keys and draped item ID/selection/drape; this is source-owned dependency propagation, not bodycount equality.",
+        "studio_generation::regenerate_mesh21..107 obtains one cache.body currentmodel39, then passes SAME generated to clothing41/armor43/drape_inputs51 and animation rebuild61..67/spawn_body87..91. This supports private ordinary pairing; arbitrary public consumers remain separate. It defers while pointerdragging, keeps old scene if preparationfails56..59, and queues new drape onlywhen inputs changed68..72. Status errors57/93/105 are terminal UI text; not every string at this boundary is an internal cause-erasure defect.",
+        "animation_preview::binding::skin_mesh22..58 is the actual Bevy native four-influence adapter: iterates paired index/weight rows29, ranks8weights35, checked u16 conversion38, renormalizes selected4 values42..45, zero-totalassigns1 to first46..47; this is intentional GPU layout/normalization boundary, not forbidden backward compatibility. Native totals/rows and ordinary admitted valid skin depend on source MHR owner/current private callers; mismatch cannot be inferred simply from zip alone. skin60..65 retains same inverse-bind handle and joint Entity sequence if nonempty.",
+        "DrapeJob::request24..27 delegatesworker and clearsready, restart30..33 explicitly invalidatesnextdrape, running42..43 onlyblockswhilepending; a finished partial/problemoutcome doesnotblockvalidexport policy40..41. poll165..225 retains typed worker outcome garments, status-problems text at final UI, ready garments190 and preview spawning; real worker ID/order/stale-request association requires actual DrapeWorker body, not local zip201 alone.",
+        "drape_preview::input141..159 builds input from current model mesh/skin/names and GeneratedCharacter positions/joints. spawn_garment228..277 detectsoptional valid weightedbindingbyrows237..238, otherwise keeps unskinned nativegeometry; calls actualnative generate_tangents247, weighted ClothSkin::new then weld_seams251..261. Legitimate unsupported/unweighted mode cannot be relabeled compatibilitydefect from has_skin alone; malformedordinaryproducer stillneeds actualworker/admission proof.",
+        "MailMaterials caches4 actual MailWeave keys72..125; native PNG from generated MailMaps assumedvalidated80/96, same ringrepeat passednativeUVscale113. It is not a raw untrustedimage admission and no nonfinite/zero repeat witness without actual MailWeave producer. Refresh_mail281..312 maps actual inventoryitem IDs and selectedchainmail; no generalized per-mesh correctness claim.",
+        "review_export::export22..60 freshlygenerates body30, exports native JSON exact model mesh plusgenerated joints/positions and raw typed-index projection38. Bodyonly exits43; Catalog/Recipe explicitdifferentmodes44..45. review_record100..125 fitsactual selecteditem/model/body and records source frame. worn_pieces76..96 debugformats resolve/design_for typedconflict87/90 into anyhow beforeinternalResult propagation: possible earlier internal cause-erasure distinctfrom finalstderr/CLIleaf; exact typedsource/native terminal callers and existing inventory canonical comparison required before finalclassification."
+      ],
+      "first_failed_contract": "No supported stale-model/current ordinary skin mismatch proven by these scoped bodies. Exact model resource lifecycle is needed for cache key identity; drape worker freshness/ID pairing is next explicit source; review worn_pieces cause conversion87/90 requires exact owner/caller/alias classification.",
+      "canonical_owner": "StudioCache owns serialized input dependency invalidation, regenerate_mesh owns same current generated-body pairing, binding owns native four-influence/u16 layout, DrapeWorker owns job/order/freshness, review worn selection owns CatalogConflict propagation before final CLI boundary.",
+      "exact_function_ownership": [
+        "StudioCache::body33..56/armor60..103/lining107..125/drape_changed129..143; fit_keys152..182/finish_key186..191",
+        "studio_generation::regenerate_mesh21..107/PreviewScene::spawn_equipment118..178/visible_body_mesh181..189",
+        "binding::skin_mesh22..58/skin60..65",
+        "DrapeJob::request24..27/restart_from_placement30..33/running42..43; drape_preview::poll165..225/spawn_garment228..277",
+        "review_export::export22..60/worn_pieces76..96/review_record100..125"
+      ],
+      "connected_repair_scope": "If retained source findings survive actual producer/caller/native and exact alias assessment, repair owning cache/model/job/selection contract with connected consumers. Preserve normalized native four-influence representation, explicit partial/problem drape policy, terminal human-readable status and independent catalog-vs-recipe modes; no hypothetical compatibility repair.",
+      "dependencies": [
+        "Actual private BodyModel resource load/replacement and StudioCache lifecycle; ordinary immutable MHR/skin count and model identity source association.",
+        "Actual DrapeWorker requested IDs/input/progress freshness; optional drape binding/weld/native mesh assumptions, generated MailWeave admission where necessary.",
+        "Exact current CatalogConflict inventory owner plus CLI review export caller and existing canonical first conversions; material maps error ownership remains earlier own-L11 separate scoped finding."
+      ],
+      "acceptance_requirements": [
+        "Same generated body/model pairing preserved through rig rebuild, clothing/armor/drape and native preview; new actual model invalidates relevantbody/fit/finish/lining/drape caches.",
+        "Native index range/u16 conversion and four selected influence normalization are explicit layout boundary; current source skin row/cardinality guarantees retained before native insertion.",
+        "Drape progress/ready outcome belongs to current requested inventory IDs/body; finishedproblem policy stays explicit rather than claiming success/no failures.",
+        "Internal inventory selection errors retain available structuredcause until genuine terminal text boundary if accepted; exact aliases compare first conversion site/owner, not generic anyhow remedy."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "registered_unread_sources_as_recorded": [],
+  "completes_prior_registered_unread": null,
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-1130",
+      "adopted_continuation_number": 3324,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_cache.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1131",
+      "adopted_continuation_number": 3325,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_generation.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1132",
+      "adopted_continuation_number": 3326,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/animation_preview/binding.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1133",
+      "adopted_continuation_number": 3327,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_preview.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1134",
+      "adopted_continuation_number": 3328,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/review_export.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,150 @@
+   1 //! Where each article sits on the body, and whether a set of worn articles fits together.
+   2 
+   3 use super::{Article, EquipConflict, InventoryItemId};
+   4 use crate::{
+   5     equipment_catalog::{CatalogPlacement, ItemCatalog},
+   6     garment::{Construction, GarmentSelection, SettledGarment},
+   7     item_catalog_schema::{
+   8         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
+   9         ParentRequirement,
+  10     },
+  11 };
+  12 use adventuresim_core::equipment::{EquipmentGraph, EquipmentGraphEdge, EquipmentGraphPlacement};
+  13 use std::collections::BTreeMap;
+  14 
+  15 /// The body cells an article fills and the attachment points it hangs from.
+  16 #[derive(Clone, Debug, PartialEq)]
+  17 pub struct Occupancy {
+  18     pub body: Vec<OccupancyRequirement>,
+  19     pub parents: Vec<ParentRequirement>,
+  20 }
+  21 
+  22 impl Occupancy {
+  23     pub(crate) fn from_catalog(selection: CatalogPlacement<'_>) -> Self {
+  24         Self {
+  25             body: selection.occupancy.clone(),
+  26             parents: selection.parents.clone(),
+  27         }
+  28     }
+  29 
+  30     fn on_body(channel: EquipmentChannel, locations: &[EquipmentLocation]) -> Self {
+  31         Self {
+  32             body: locations
+  33                 .iter()
+  34                 .map(|&location| OccupancyRequirement {
+  35                     location,
+  36                     channel,
+  37                     fit_zone: None,
+  38                     order: 0,
+  39                 })
+  40                 .collect(),
+  41             parents: Vec::new(),
+  42         }
+  43     }
+  44 
+  45     /// The outermost layer the article reaches.
+  46     pub fn layer(&self) -> EquipmentChannel {
+  47         self.body
+  48             .iter()
+  49             .map(|requirement| requirement.channel)
+  50             .chain(self.parents.iter().map(|requirement| requirement.channel))
+  51             .max_by_key(|channel| channel.order())
+  52             .unwrap_or(EquipmentChannel::Accessory)
+  53     }
+  54 
+  55     pub fn locations(&self) -> impl Iterator<Item = EquipmentLocation> + '_ {
+  56         self.body
+  57             .iter()
+  58             .map(|requirement| requirement.location)
+  59             .chain(
+  60                 self.parents
+  61                     .iter()
+  62                     .filter_map(|requirement| requirement.location),
+  63             )
+  64     }
+  65 }
+  66 
+  67 impl Article {
+  68     pub fn occupancy(&self, catalog: &ItemCatalog) -> Result<Occupancy, EquipConflict> {
+  69         match self {
+  70             Self::Catalog(article) => {
+  71                 let placement = article.resolve(catalog)?;
+  72                 Ok(Occupancy::from_catalog(placement))
+  73             }
+  74             Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
+  75                 Occupancy::on_body(selection.channel(), &garment_locations(selection)),
+  76             ),
+  77         }
+  78     }
+  79 }
+  80 
+  81 /// The body cells a garment covers: the torso for an upper, the arms for its
+  82 /// sleeves and the legs for a lower garment.
+  83 fn garment_locations(selection: &GarmentSelection) -> Vec<EquipmentLocation> {
+  84     use EquipmentLocation::*;
+  85     let pattern = match &selection.construction {
+  86         Construction::Coif(_) => return vec![Head, Neck],
+  87         Construction::Sewn(pattern) => pattern,
+  88     };
+  89     let mut locations = Vec::new();
+  90     if pattern.upper.is_some() {
+  91         locations.extend([Chest, Stomach]);
+  92     }
+  93     if pattern.sleeves.is_some() {
+  94         locations.extend([LeftArm, RightArm]);
+  95     }
+  96     if pattern.lower.is_some() {
+  97         locations.extend([LeftLeg, RightLeg]);
+  98     }
+  99     locations
+ 100 }
+ 101 
+ 102 /// One worn article, ready to be fitted into the equipment graph.
+ 103 pub(super) struct Candidate<'a> {
+ 104     pub id: InventoryItemId,
+ 105     pub occupancy: Occupancy,
+ 106     pub equipment: Option<&'a EquipmentDefinition>,
+ 107     pub attachment_tags: &'a [String],
+ 108 }
+ 109 
+ 110 impl<'a> Candidate<'a> {
+ 111     pub(super) fn from_catalog(id: InventoryItemId, selection: CatalogPlacement<'a>) -> Self {
+ 112         let equipment = selection.item().definition().equipment.as_ref();
+ 113         Self {
+ 114             id,
+ 115             occupancy: Occupancy::from_catalog(selection),
+ 116             equipment,
+ 117             attachment_tags: equipment
+ 118                 .map_or(&[], |equipment| equipment.attachment_tags.as_slice()),
+ 119         }
+ 120     }
+ 121 }
+ 122 
+ 123 /// Worn articles joined into one conflict-free equipment graph.
+ 124 #[derive(Debug, Default)]
+ 125 pub struct WornGraph {
+ 126     graph: EquipmentGraph,
+ 127     /// The articles each worn article hangs from.
+ 128     pub supports: BTreeMap<InventoryItemId, Vec<InventoryItemId>>,
+ 129 }
+ 130 
+ 131 impl WornGraph {
+ 132     /// Fit candidates in order, deferring attachments until their support is worn.
+ 133     pub(super) fn build(
+ 134         candidates: Vec<Candidate<'_>>,
+ 135     ) -> Result<Self, (InventoryItemId, EquipConflict)> {
+ 136         let mut worn = Self::default();
+ 137         let mut placed: Vec<&Candidate<'_>> = Vec::new();
+ 138         let mut pending: Vec<&Candidate<'_>> = candidates.iter().collect();
+ 139         while !pending.is_empty() {
+ 140             let before = pending.len();
+ 141             let mut deferred = Vec::new();
+ 142             for candidate in pending {
+ 143                 match worn.attach(candidate, &placed) {
+ 144                     Some(edges) => {
+ 145                         worn.place(candidate, edges, &placed)?;
+ 146                         placed.push(candidate);
+ 147                     }
+ 148                     None => deferred.push(candidate),
+ 149                 }
+ 150             }

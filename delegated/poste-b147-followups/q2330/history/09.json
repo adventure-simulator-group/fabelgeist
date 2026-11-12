@@ -1,0 +1,273 @@
+{
+  "at": "2026-10-30T02:01:02.600104+00:00",
+  "kind": "Exact historical alias and qualified current source connections; concrete later acceptance",
+  "historical_alias": {
+    "alias": "CAM-PROP-F013",
+    "canonical": "ADLER-L11-CAMERA-FIXTURE-ASSERT-RESULT",
+    "identity_basis": "Identical source SHA, assert_clear function and assert output followed by unwrap at113; independent of a proposed remedy.",
+    "git_metadata_locator": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl",
+    "metadata_file_sha256": "58e5b8342b0b47c1921f8f8a169f69d2164d14fa963956b5301b327543d24ed6",
+    "jsonl_row_0based": 12,
+    "historical_finding": {
+      "finding_id": "CAM-PROP-F013",
+      "lens": "audit-producer-propagation",
+      "disposition": "defect (incidental source error in migrated fixture)",
+      "status": "source-backed current PR regression; no compiler/test run; repair frozen",
+      "snapshots": [
+        "pr-working"
+      ],
+      "source_locations": [
+        {
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+          "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+          "lines": [
+            108,
+            113
+          ],
+          "function": "assert_clear"
+        }
+      ],
+      "earliest_unfinished_producer": "Existing fixture adaptation appended .unwrap to an assert! output after migrating camera placement Result",
+      "scenario": "Full existing296line camera collision fixture read. assert_clear108\u2013112 invokes builtin assert!, then113 calls unwrap on its unit result. Plain source Git diff against pinned main3a shows original assertion ended `);` and PR added `.unwrap()`. The assertion itself is unchanged; this is a misplaced result adaptation, no native result exists there.",
+      "governing_rule": "Adapt only real checked-result consumers, preserving existing fixture inputs/count/order/assertions; source complete migration cannot call Result methods on unit.",
+      "smallest_connected_repair": "Remove erroneous result unwrap on this assertion when post13lens repair begins, leaving original assertion and real contact_query/CameraVolume checked result admissions unchanged.",
+      "shared_functions_owners": [
+        "camera whole camera/collision fixture contract"
+      ],
+      "dependencies": [
+        "all13 initial discovery freeze; no repair now"
+      ],
+      "acceptance_criterion": "Existing assertion executes unchanged and camera fixture source has no Result method on unit; eventual authorized hosted validation required.",
+      "trace_ids": [
+        "CAM-PROP-CAMERA-001"
+      ],
+      "coverage_limit": "Initial camera producer-propagation inventory exhausted for all assigned variants and materially affected actual receiver paths, exact source/hash/range proof in coverage/related/shared/reconciliation shards. This is not repair/source/family acceptance or any other lens coverage. Parent audit/execution ledgers remain sole authority.",
+      "initial_coverage_limit_history": "Direct source proof and pinned base textual diff, not compiler validation.",
+      "discovery_status": "source-backed initial inventory accounted; actionable repair unresolved",
+      "repair_status": "frozen until all13 initial discovery and parent dependency reconciliation",
+      "validation_status": "not run; no source/project/CI/runtime PASS"
+    },
+    "qualification": "Historical compiler/macro claim remains qualified. Metadata inspection is not a new frozen-body read, another lens body transfer or runtime validation."
+  },
+  "current_fixture_disposition": {
+    "canonical": "ADLER-L11-CAMERA-FIXTURE-ASSERT-RESULT",
+    "own_lens1_proof": {
+      "receipt": {
+        "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-089.json",
+        "sha256": "8bd0671b20e57e66a1e3dcbf199493940c5ccbbbb8335cfdc0e7eebaf3f849e7"
+      },
+      "row_pointer": "/rows/3",
+      "row": {
+        "registration": "ROOT-L1-CURRENT-280",
+        "lens": 1,
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "git_blob": "ff058c6ae1869eb397070bd963499c22b86d1a9a",
+        "sha256": "92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+        "actual_EOF": 295,
+        "source_object": "target/726-audit-adler-20261027/root-l1-current-e275-20261029/objects/92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+        "prospective_ranges": [
+          [
+            1,
+            295
+          ]
+        ],
+        "complete_relevant_function_scope": "Complete existing camera source-only fixture and assert_clear helper, no execution; current/source alias reconciliation",
+        "contract_id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+        "body_coverage_before_read": 0,
+        "new_body_credit_from_staging": 0,
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            295
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            295
+          ]
+        ],
+        "untruncated_body_outputs": true,
+        "attribution": "Root personal actual post-registration bounded displays; cumulative union, no companion reread",
+        "registered_unread_ranges": [],
+        "whole_file_assessed": true,
+        "body_output_truncated": false
+      },
+      "new_body_credit": 0,
+      "lens_attribution_preserved": 1
+    },
+    "disposition": "Earlier trailing unwrap is absent in current e275 source: contact_query Result is unwrapped at107, assertion108..112 ends directly; exact source anomaly removed. Source-only, no compile/test/physics pass or all-lens closure."
+  },
+  "current_segment_connection": {
+    "canonical": "ADLER-L11-CAMERA-SEGMENT-ADMISSION",
+    "own_lens1_proofs": [
+      {
+        "receipt": {
+          "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-088.json",
+          "sha256": "4468e33793b878f3633d7f21461b3b7b530d44abd4f1c92ef25d1a74749abb97"
+        },
+        "row_pointer": "/rows/4",
+        "row": {
+          "registration": "ROOT-L1-CURRENT-275",
+          "lens": 1,
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+          "git_blob": "38c9d27b5c7e87598570d9a58166493c8e2aad00",
+          "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+          "actual_EOF": 170,
+          "source_object": "target/726-audit-adler-20261027/root-l1-current-e275-20261029/objects/a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+          "prospective_ranges": [
+            [
+              1,
+              170
+            ]
+          ],
+          "complete_relevant_function_scope": "Complete camera physical state/config/admission/rig preparation/history module production owners; camera.rs tests162..184 excluded, other files full",
+          "contract_id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+          "body_coverage_before_read": 0,
+          "new_body_credit_from_staging": 0,
+          "fresh_personal_body_ranges": [
+            [
+              1,
+              170
+            ]
+          ],
+          "assessed_ranges": [
+            [
+              1,
+              170
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "attribution": "Root personal actual post-registration bounded displays; cumulative union, no companion reread",
+          "registered_unread_ranges": [],
+          "whole_file_assessed": true,
+          "body_output_truncated": false
+        },
+        "new_body_credit": 0,
+        "lens_attribution_preserved": 1
+      },
+      {
+        "receipt": {
+          "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-089.json",
+          "sha256": "8bd0671b20e57e66a1e3dcbf199493940c5ccbbbb8335cfdc0e7eebaf3f849e7"
+        },
+        "row_pointer": "/rows/1",
+        "row": {
+          "registration": "ROOT-L1-CURRENT-278",
+          "lens": 1,
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/camera/aim.rs",
+          "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path": "crates/adventuresim-tactical-client/src/camera/aim.rs",
+          "path": "crates/adventuresim-tactical-client/src/camera/aim.rs",
+          "git_blob": "4b8587bf7ab0aa3e9adc42b7a68c3e0109778db6",
+          "sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+          "actual_EOF": 94,
+          "source_object": "target/726-audit-adler-20261027/root-l1-current-e275-20261029/objects/cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+          "prospective_ranges": [
+            [
+              1,
+              94
+            ]
+          ],
+          "complete_relevant_function_scope": "Complete aim camera/muzzle native rayquery and retained checked result",
+          "contract_id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+          "body_coverage_before_read": 0,
+          "new_body_credit_from_staging": 0,
+          "fresh_personal_body_ranges": [
+            [
+              1,
+              94
+            ]
+          ],
+          "assessed_ranges": [
+            [
+              1,
+              94
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "attribution": "Root personal actual post-registration bounded displays; cumulative union, no companion reread",
+          "registered_unread_ranges": [],
+          "whole_file_assessed": true,
+          "body_output_truncated": false
+        },
+        "new_body_credit": 0,
+        "lens_attribution_preserved": 1
+      },
+      {
+        "receipt": {
+          "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-089.json",
+          "sha256": "8bd0671b20e57e66a1e3dcbf199493940c5ccbbbb8335cfdc0e7eebaf3f849e7"
+        },
+        "row_pointer": "/rows/2",
+        "row": {
+          "registration": "ROOT-L1-CURRENT-279",
+          "lens": 1,
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+          "git_blob": "bf2eadcb0c887647c4c186f6020df785207f0a9a",
+          "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+          "actual_EOF": 339,
+          "source_object": "target/726-audit-adler-20261027/root-l1-current-e275-20261029/objects/e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+          "prospective_ranges": [
+            [
+              1,
+              337
+            ]
+          ],
+          "complete_relevant_function_scope": "Complete CameraVolume/frame/close-profile/boom-recovery/sweep/nativecollider admission; testmodule338 onward excluded",
+          "contract_id": "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+          "body_coverage_before_read": 0,
+          "new_body_credit_from_staging": 0,
+          "fresh_personal_body_ranges": [
+            [
+              1,
+              337
+            ]
+          ],
+          "assessed_ranges": [
+            [
+              1,
+              337
+            ]
+          ],
+          "untruncated_body_outputs": true,
+          "attribution": "Root personal actual post-registration bounded displays; cumulative union, no companion reread",
+          "registered_unread_ranges": [],
+          "whole_file_assessed": false,
+          "body_output_truncated": false
+        },
+        "new_body_credit": 0,
+        "lens_attribution_preserved": 1
+      }
+    ],
+    "identity_basis": "Same CameraVolume::sweep direction error-to-clear branch and pre-admission aim/soft-occlusion derived segment native calls; functions and first operations match the existing canonical.",
+    "disposition": "Exact current source maintains scoped admission question. Zero geometry, final sweep, checked output and staged state are preserved. Ordinary bounds/native feature/domain questions remain explicit."
+  },
+  "inventory_acceptance": {
+    "contract": "REVIEW-L11-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION",
+    "source_proposal": {
+      "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+      "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+      "row_pointer": "/contract_updates/7"
+    },
+    "requirements": [
+      "For an admitted inventory with distinct existing IDs MAX-1 and MAX, add must neither panic nor wrap into an occupied identity; the existing per-item successor/max algorithm can select the already occupied MAX under wrapping arithmetic.",
+      "Choose and document explicit exhaustion, allocation of a fresh available identity, or an admission limit enforced before mutation. Preserve uniqueness and the invariant on failure.",
+      "Ordinary admitted inventories continue to allocate distinct IDs; get/get_mut, equipment fit and drape tags consume the same allocated identity.",
+      "This is a source-supported public admission boundary case, not an assertion of ordinary UI growth to 2^64 items, compiler profile behavior or an executed fixture. No obsolete API or invalid behavior preservation."
+    ]
+  },
+  "new_body_original_overlay_merged_shared_extension_current_or_unique_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

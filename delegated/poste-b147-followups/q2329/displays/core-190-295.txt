@@ -1,0 +1,106 @@
+ 190         keyboard_row: 3,
+ 191         keyboard_column: 5,
+ 192         locations: &[EquipmentLocation::RightLeg],
+ 193         channel_order: OUTSIDE_TO_INSIDE,
+ 194     },
+ 195 ];
+ 196 
+ 197 #[derive(Clone, Debug, Default, PartialEq, Eq)]
+ 198 pub struct EquipmentGraph {
+ 199     pub nodes: BTreeMap<u64, EquipmentGraphPlacement>,
+ 200 }
+ 201 
+ 202 #[derive(Clone, Debug, Default, PartialEq, Eq)]
+ 203 pub struct EquipmentGraphPlacement {
+ 204     pub body: Vec<OccupancyRequirement>,
+ 205     pub parents: Vec<EquipmentGraphEdge>,
+ 206 }
+ 207 
+ 208 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
+ 209 pub struct EquipmentGraphEdge {
+ 210     pub parent_inventory_item_id: u64,
+ 211     pub attachment_point_id: String,
+ 212     pub capacity_index: u16,
+ 213 }
+ 214 
+ 215 impl EquipmentGraph {
+ 216     pub fn equip(
+ 217         &mut self,
+ 218         inventory_item_id: u64,
+ 219         mut placement: EquipmentGraphPlacement,
+ 220     ) -> Result<(), &'static str> {
+ 221         if self.has_children(inventory_item_id) {
+ 222             return Err("item has equipped children");
+ 223         }
+ 224         for requirement in &mut placement.body {
+ 225             if requirement.channel.singleton_per_location() {
+ 226                 requirement.order = 0;
+ 227             }
+ 228         }
+ 229         if placement
+ 230             .body
+ 231             .iter()
+ 232             .enumerate()
+ 233             .any(|(index, requirement)| {
+ 234                 placement.body[..index]
+ 235                     .iter()
+ 236                     .any(|other| requirement.conflicts_with(*other))
+ 237             })
+ 238         {
+ 239             return Err("duplicate body occupancy");
+ 240         }
+ 241         let edge_keys = placement.parents.iter().cloned().collect::<BTreeSet<_>>();
+ 242         if edge_keys.len() != placement.parents.len() {
+ 243             return Err("duplicate attachment capacity");
+ 244         }
+ 245         for (other_id, other) in &self.nodes {
+ 246             if *other_id == inventory_item_id {
+ 247                 continue;
+ 248             }
+ 249             if other.body.iter().any(|cell| {
+ 250                 placement
+ 251                     .body
+ 252                     .iter()
+ 253                     .any(|requirement| requirement.conflicts_with(*cell))
+ 254             }) {
+ 255                 return Err("body occupancy conflict");
+ 256             }
+ 257             if other.parents.iter().any(|edge| edge_keys.contains(edge)) {
+ 258                 return Err("attachment capacity conflict");
+ 259             }
+ 260         }
+ 261         if placement
+ 262             .parents
+ 263             .iter()
+ 264             .any(|edge| !self.nodes.contains_key(&edge.parent_inventory_item_id))
+ 265         {
+ 266             return Err("parent is not equipped");
+ 267         }
+ 268         if self.would_cycle(
+ 269             inventory_item_id,
+ 270             placement
+ 271                 .parents
+ 272                 .iter()
+ 273                 .map(|edge| edge.parent_inventory_item_id),
+ 274         ) {
+ 275             return Err("attachment cycle");
+ 276         }
+ 277         self.nodes.insert(inventory_item_id, placement);
+ 278         Ok(())
+ 279     }
+ 280 
+ 281     pub fn unequip(&mut self, inventory_item_id: u64) -> Result<(), &'static str> {
+ 282         if self.has_children(inventory_item_id) {
+ 283             return Err("item has equipped children");
+ 284         }
+ 285         self.nodes.remove(&inventory_item_id);
+ 286         Ok(())
+ 287     }
+ 288 
+ 289     pub fn has_children(&self, inventory_item_id: u64) -> bool {
+ 290         self.nodes.values().any(|placement| {
+ 291             placement
+ 292                 .parents
+ 293                 .iter()
+ 294                 .any(|edge| edge.parent_inventory_item_id == inventory_item_id)
+ 295         })

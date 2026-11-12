@@ -1,0 +1,26 @@
+   1 use super::*;
+   2 
+   3 #[derive(Component)]
+   4 pub struct ArmorSkin(pub BodySkin);
+   5 
+   6 pub(super) fn posed_colliders(
+   7     body: &BodySkin,
+   8     armor: &Query<&ArmorSkin>,
+   9     matrices: &fabelgeist_rig::RigJointTable<Mat4>,
+  10 ) -> (Vec<Vec3>, Vec<Vec3>, Vec<[u32; 3]>) {
+  11     let mut rest = Vec::new();
+  12     let mut end = Vec::new();
+  13     let mut faces = Vec::new();
+  14     for collider in std::iter::once(body).chain(armor.iter().map(|part| &part.0)) {
+  15         let offset = rest.len() as u32;
+  16         rest.extend(collider.positions.iter().copied().map(Vec3::from_array));
+  17         end.extend(skinned_positions(
+  18             &collider.positions,
+  19             &collider.indices,
+  20             &collider.weights,
+  21             matrices,
+  22         ));
+  23         faces.extend(collider.faces.iter().map(|face| face.map(|i| i + offset)));
+  24     }
+  25     (rest, end, faces)
+  26 }

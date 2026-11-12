@@ -1,0 +1,60 @@
+{
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Seven original equipment mesh, morph, rig, fixture, socket and skin bodies and bounded current influence, clothing, partition and native-boundary connections.",
+  "observation_0": {
+    "contract": "Shared influence normalization and actual mesh consumer",
+    "trace": "RigInfluences exposes raw weights; strongest_four combines equal joints, sorts by descending weight and ascending ordinal, retains four and divides each retained weight by their sum without checking scalar domain or positive finite total. A nonempty public row with only zero weights has retained sum zero; source-level reasoning gives 0/0 for each retained slot. PackedRigSkin admits joint bounds but weighted_vertex accepts an independent raw weight row; native_u16 checks ordinal width, not weight normalization. At 95e runtime_equipment_mesh visits referenced vertices, invokes that reduction and publishes resulting weights to Bevy mesh attributes.",
+    "remaining": "No weight row, mesh, glTF asset, renderer or runtime was constructed or executed. Real malformed asset admission and survival of the clothing generator are not established. The historical 409 exporter scope checks nonzero/finite totals first; do not claim a zero row reaches that entry. Prior FBX scalar admission is a separate first failure, not automatically an alias."
+  },
+  "conditional_finding_0": {
+    "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+    "first_failed_contract": "A skin influence reduction must establish finite admissible retained weights and a valid normalization total before dividing.",
+    "classification": "Previously recorded 059 finding independently re-assessed at 95e; actual malformed producer and native behavior remain conditional.",
+    "canonical_owner": "Shared RigInfluences normalization in fabelgeist-rig; connect source weight admission and the runtime mesh consumer without merging distinct FBX input or export validation failures.",
+    "current_source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "source_trace": "RigInfluences public fields and strongest_four; PackedRigSkin::weighted_vertex; RuntimeBody::validate and RuntimeClothing::generate; generate_clothing_shells and validated_placeholder_faces; runtime_equipment_mesh. See observations and preserved exact source bodies/ranges.",
+    "dependencies": [
+      "Trace actual glTF/body weight admission and every relevant producer, selected-face reachability, native render/export requirements and global aliases.",
+      "Preserve historic exporter zero/nonfinite-total guard and the separate FBX input first failure; no unsupported claim of ordinary asset corruption.",
+      "Review all zero/nonfinite/negative/overflowed totals and explicit invalid/empty policy, retaining valid duplicate combination, tie order and ordinal-width/membership contracts."
+    ],
+    "acceptance_requirements": [
+      "No undefined normalization publishes nonfinite weights for an admitted input; any invalid or empty policy is explicit and propagated through actual consumers.",
+      "Supported nonzero normalized rows preserve duplicate merging, tie order and joint identity; retain native width and producer-specific safeguards."
+    ],
+    "historical_related_records": [
+      "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+      "baseline-059/queue.json#/entries/175"
+    ],
+    "accepted_historical_unique_count_change": 0,
+    "discovery": "partial; actual malformed producer admission, all consumers, native behavior and exact global aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "Q-L12-0d5a8e6d9d7ad863aacc",
+        "Q-L12-155f5090a3120510ae69",
+        "Q-L12-2c82e856b141c0404e5b"
+      ],
+      "qualification": "Old normalization is re-assessed once, not a new historical unique issue; all queue obligations remain partial. Prior export/FBX first failures are separate until exact aliases are established."
+    }
+  ],
+  "remaining": "Actual body assets and glTF loader, alternate producers, native renderer, fit lifecycle, all aliases, overlays/merged/shared populations and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

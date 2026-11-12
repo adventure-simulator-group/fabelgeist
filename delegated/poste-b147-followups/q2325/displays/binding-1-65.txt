@@ -1,0 +1,65 @@
+   1 //! Optional cloth ownership and native Bevy skin layouts.
+   2 
+   3 use super::*;
+   4 
+   5 /// Unweighted cloth owns geometry and dynamics without any skin payload.
+   6 /// A retained weighted binding may be ignored while physics is unweighted.
+   7 pub enum ClothBinding {
+   8     #[cfg_attr(
+   9         not(test),
+  10         expect(
+  11             dead_code,
+  12             reason = "unweighted simulation is covered by tests; the current preview supplies weighted cloth"
+  13         )
+  14     )]
+  15     Unweighted,
+  16     Weighted {
+  17         indices: fabelgeist_rig::PackedRigSkin<8>,
+  18         weights: Vec<[f32; 8]>,
+  19     },
+  20 }
+  21 
+  22 pub fn skin_mesh(
+  23     mesh: &mut Mesh,
+  24     indices: &fabelgeist_rig::PackedRigSkin<8>,
+  25     weights: &[[f32; 8]],
+  26 ) -> Result<()> {
+  27     let mut joint_indices = Vec::with_capacity(indices.len());
+  28     let mut joint_weights = Vec::with_capacity(weights.len());
+  29     for (indices, weights) in indices.iter().zip(weights) {
+  30         let mut influences: Vec<_> = indices
+  31             .iter()
+  32             .copied()
+  33             .zip(weights.iter().copied())
+  34             .collect();
+  35         influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
+  36         let mut ids = [0u16; 4];
+  37         for (word, influence) in ids.iter_mut().zip(&influences) {
+  38             *word = u16::try_from(usize::from(influence.0))?;
+  39         }
+  40         let mut values = std::array::from_fn::<_, 4, _>(|i| influences[i].1);
+  41         let total: f32 = values.iter().sum();
+  42         if total > 0.0 {
+  43             for weight in &mut values {
+  44                 *weight /= total;
+  45             }
+  46         } else {
+  47             values[0] = 1.0;
+  48         }
+  49         joint_indices.push(ids);
+  50         joint_weights.push(values);
+  51     }
+  52     mesh.insert_attribute(
+  53         Mesh::ATTRIBUTE_JOINT_INDEX,
+  54         VertexAttributeValues::Uint16x4(joint_indices),
+  55     );
+  56     mesh.insert_attribute(Mesh::ATTRIBUTE_JOINT_WEIGHT, joint_weights);
+  57     Ok(())
+  58 }
+  59 
+  60 pub fn skin(preview: &WalkPreview) -> Option<SkinnedMesh> {
+  61     (!preview.joints.is_empty()).then(|| SkinnedMesh {
+  62         inverse_bindposes: preview.inverse_bindposes.clone(),
+  63         joints: preview.joints.as_native_slice().to_vec(),
+  64     })
+  65 }

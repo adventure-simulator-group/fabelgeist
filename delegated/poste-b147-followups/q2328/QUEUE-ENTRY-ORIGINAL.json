@@ -1,0 +1,187 @@
+{
+      "contract_id": "REVIEW-L11-CREATOR-DRAPE-CANCEL-REQUEST-TAG-ASSOCIATION",
+      "kind": "qualified-scoped-review-disposition",
+      "lens": 11,
+      "parent_canonical_id": null,
+      "canonical_owner": "DrapeWorker one activehandle/pendingtags/input/cancel/latest relation; DrapeJob outcome UI owner",
+      "first_failed_contract_or_unresolved_question": "Source rejects oldcancelled preview/result before pendingtags/input replacement; no current stale-job tag mix established in dispatcher.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R179-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_preview.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd",
+          "assessed_ranges": [
+            [
+              1,
+              312
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              312
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+            "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+            "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+            "json_pointer": "/rows/3"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-715.json",
+            "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+            "verification": "segovb/VERIFY-L11-715.json",
+            "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R180-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_worker.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+          "assessed_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-180.json",
+            "sha256": "aecb69bc22f3f8cd8745f1cf039f2bd56da21bea4bd6e1b0c27fb226463a77cd"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-198.json",
+            "sha256": "116fcd14a91f020587bdbb229905f75da8cd53a3de6b555eeb5f87205554693f",
+            "json_pointer": "/rows/1"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-716.json",
+            "sha256": "21a52e797712f42a6296032d93cb2735f034922d5543da74834017e83ff2cb1d",
+            "verification": "segovb/VERIFY-L11-716.json",
+            "verification_sha256": "eb39dc3d83ec3e2972a9f501ad0dbbe6edfbcc8d3446850f716838d1104aa1bb"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R179-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_generation.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+          "assessed_ranges": [
+            [
+              1,
+              189
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              189
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+            "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+            "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+            "json_pointer": "/rows/1"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-715.json",
+            "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+            "verification": "segovb/VERIFY-L11-715.json",
+            "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R177-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/outfit.rs:P09-P12-P14-current-delta-creator-fitting-consumer",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "346e63287ddc10e6ec0d3a781c1400f8236bf6c153668930cd70a92563ef3857",
+          "assessed_ranges": [
+            [
+              1,
+              104
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              104
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-177.json",
+            "sha256": "390a83f6d34abcea253f45cc11b5a1db44a34ddb27e5be23e1a63f7e160e90c2"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-195.json",
+            "sha256": "fdf555885e72d02d089b6e82a15621f7f0358e02a0b862703e86efa22a7dc7f6",
+            "json_pointer": "/rows/3"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-713.json",
+            "sha256": "18269b2d65c2f82e8a5ab4b7c70532a770c0343dcbdfa8fd34f350ce6116e723",
+            "verification": "segovb/VERIFY-L11-713.json",
+            "verification_sha256": "204e2bc78dcb39a5802a21a8e04a12fceeb32313c44faccfcd8a74abd303500a"
+          },
+          "body_credit_from_queue": 0
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "DrapeWorker.request55..59 marksoldcanceltrue/replacespending/clearslatest. poll79..83/104..108 gateoldpreview/result oncancel; afteroldjoin onlythen pendingunzip113 produces SAMEorderedtags/input, freshcancel/latest115..118 andworker121.",
+        "DrapeJob readyclearedonrequest24..27 and actualpoll165..225 propagatesfinishedpartialproblemsstatusandusablegarments; no finalall-successunavailable merge claimed. Finished/cancelled checkpoints102..103 intentionallypassedtodrape_outfit121 whose exactsignatureowner remainsseparate, not impliedvalidbydispatcher."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Exact currentcreator/MHR/rig source scopes only; public library admissions and separate native/fixture/doc contracts retain exact prior qualifications.",
+        "No product/native/test/fixture/runtime execution; later repair acceptance separate."
+      ],
+      "closure_condition": [
+        "Root verifies immutable wholebundle/source/plan/own prior root proofs before ordered177..180 source adoption.",
+        "Record namedretained/rejected/conditional/policydisposition only; no coarseall20/all13/currentdelta closure or accepteduniqueassignment."
+      ],
+      "disposition": "rejected-suspicion-source-qualified",
+      "policy_decisions_remaining": [
+        "Finishedpartial/problemoutfits are deliberatelyusable/exportable with status; global allgarments success is not the recordedcontract. Checkpointinput reuse remains a distinct existing connected owner question."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Availabletypednativecauses andactualsemanticroles preserved untilpresentation.",
+        "Any policychosenrepair/native-runtimevalidation remainsseparateafterauditledgercomplete, no obsoleteAPI/errorprose/invalidbehavior preservation."
+      ],
+      "named_disposition_recorded": true,
+      "audit_discovery_closed_within_exact_named_scope": true,
+      "all_lenses_or_coarse_parent_closed": false,
+      "global_exact_alias_inventory_complete": false,
+      "repair_runtime_passed": false,
+      "proposal": {
+        "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+        "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+        "row_pointer": "/contract_updates/5"
+      },
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false
+    }

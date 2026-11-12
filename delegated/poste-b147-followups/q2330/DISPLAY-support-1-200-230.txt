@@ -1,0 +1,31 @@
+   200	        let defaults = catalog
+   201	            .items
+   202	            .iter()
+   203	            .filter_map(|item| {
+   204	                let design = catalog.design(catalog.item(&item.id)?)?;
+   205	                Some((item.id.clone(), design.recipe()?.clone()))
+   206	            })
+   207	            .collect();
+   208	        let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+   209	            defaults,
+   210	            placements: catalog.designs.overrides.placements.clone(),
+   211	        };
+   212	        std::fs::write(
+   213	            path,
+   214	            adventuresim_character_creator::armor_design_input::encode(&designs)?,
+   215	        )?;
+   216	        return Ok(());
+   217	    }
+   218	
+   219	    let recipe: CharacterRecipe = serde_json::from_slice(
+   220	        &std::fs::read(&args.recipe)
+   221	            .with_context(|| format!("reading character recipe {}", args.recipe.display()))?,
+   222	    )?;
+   223	    recipe.validate().map_err(anyhow::Error::msg)?;
+   224	
+   225	    if let Some(output) = &args.armor_review_dir {
+   226	        return review_export::export(
+   227	            output,
+   228	            &model,
+   229	            &recipe,
+   230	            &catalog,

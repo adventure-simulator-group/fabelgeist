@@ -1,0 +1,41 @@
+ 105                     base_color: Color::srgba(r, g, b, a),
+ 106                     metallic: surface.metallic,
+ 107                     perceptual_roughness: surface.roughness,
+ 108                     ..default()
+ 109                 }
+ 110             });
+ 111         if let Some(textile) = surface
+ 112             .component
+ 113             .and_then(|index| armor.components[index].textile.as_ref())
+ 114         {
+ 115             own = Some(adventuresim_character_creator::textile_surface::material(
+ 116                 textile, images,
+ 117             )?);
+ 118         }
+ 119         let mut parts = vec![(
+ 120             part_name.clone(),
+ 121             surface.plate,
+ 122             armor.texcoords.as_slice(),
+ 123             own.as_ref().unwrap_or(&material),
+ 124         )];
+ 125         if let Some(trim) = trim.as_ref().filter(|_| !surface.trim.is_empty()) {
+ 126             parts.push((
+ 127                 format!("{part_name}.trim"),
+ 128                 surface.trim,
+ 129                 trim.texcoords,
+ 130                 &trim.material,
+ 131             ));
+ 132         }
+ 133         for (part_name, indices, texcoords, material) in parts {
+ 134             let mut mesh = Mesh::new(
+ 135                 PrimitiveTopology::TriangleList,
+ 136                 RenderAssetUsages::default(),
+ 137             )
+ 138             .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, armor.positions.clone())
+ 139             .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, armor.normals.clone())
+ 140             .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, texcoords.to_vec())
+ 141             .with_inserted_indices(Indices::U32(armor.indices[indices].to_vec()));
+ 142             if material.normal_map_texture.is_some() {
+ 143                 mesh.generate_tangents()
+ 144                     .context("generating tangents for textured armor preview")?;
+ 145             }

@@ -1,0 +1,100 @@
+ 311     let rig = preview.joints.first().copied();
+ 312     let body = bodies.iter().next().map(|body| {
+ 313         let (rest, end, faces) = colliders::posed_colliders(body, &armor, &matrices);
+ 314         let start = if body_motion.rig == rig && body_motion.positions.len() == end.len() {
+ 315             body_motion.positions.clone()
+ 316         } else {
+ 317             rest
+ 318         };
+ 319         (start, end, faces)
+ 320     });
+ 321     let targets = cloth
+ 322         .iter()
+ 323         .map(|(_, skin)| {
+ 324             if preview.physics && preview.ignore_cloth_weights {
+ 325                 return Some(None);
+ 326             }
+ 327             let ClothBinding::Weighted { indices, weights } = &skin.binding else {
+ 328                 return None;
+ 329             };
+ 330             if indices.joint_count() != matrices.joint_count() {
+ 331                 return None;
+ 332             }
+ 333             Some(Some(skinned_positions(
+ 334                 &skin.positions,
+ 335                 indices,
+ 336                 weights,
+ 337                 &matrices,
+ 338             )))
+ 339         })
+ 340         .collect::<Option<Vec<_>>>();
+ 341     let Some(targets) = targets else {
+ 342         // Weighted playback cannot evaluate unbound cloth. Keep its last
+ 343         // geometry until a binding or unweighted physics is selected.
+ 344         return;
+ 345     };
+ 346 
+ 347     if preview.physics {
+ 348         cloth_motion::simulate_outfit(
+ 349             &mut cloth,
+ 350             &body,
+ 351             &targets,
+ 352             time.delta_secs(),
+ 353             &preview.simulation,
+ 354         );
+ 355     } else {
+ 356         for (index, (_, mut skin)) in cloth.iter_mut().enumerate() {
+ 357             let Some(target) = targets[index].as_ref() else {
+ 358                 return;
+ 359             };
+ 360             skin.current.clone_from(target);
+ 361             skin.previous.clone_from(target);
+ 362             skin.motion = ClothMotion::Skinned;
+ 363         }
+ 364     }
+ 365     if let Some((_, end, _)) = body {
+ 366         body_motion.rig = rig;
+ 367         body_motion.positions = end;
+ 368     } else {
+ 369         body_motion.positions.clear();
+ 370         body_motion.rig = None;
+ 371     }
+ 372     for (handle, skin) in &cloth {
+ 373         if let Some(mut mesh) = meshes.get_mut(handle) {
+ 374             skin.update_render_mesh(&mut mesh);
+ 375         }
+ 376     }
+ 377 }
+ 378 
+ 379 /// Native Bevy naming boundary. A `From` implementation here is forbidden by
+ 380 /// orphan rules: both `Name` and `RigJointName` belong to other crates. Keeping
+ 381 /// this adapter here also keeps the shared rig owner independent of Bevy.
+ 382 fn bevy_joint_name(name: &fabelgeist_rig::RigJointName) -> Name {
+ 383     Name::new(std::borrow::Cow::from(name.clone()))
+ 384 }
+ 385 
+ 386 fn mhr_state(value: [f32; 8]) -> fabelgeist_mhr::math::Transform {
+ 387     fabelgeist_mhr::math::Transform {
+ 388         translation: [value[0] as f64, value[1] as f64, value[2] as f64],
+ 389         rotation: [
+ 390             value[3] as f64,
+ 391             value[4] as f64,
+ 392             value[5] as f64,
+ 393             value[6] as f64,
+ 394         ],
+ 395         scale: value[7] as f64,
+ 396     }
+ 397 }
+ 398 
+ 399 fn bevy_transform(value: fabelgeist_mhr::math::Transform) -> Transform {
+ 400     Transform {
+ 401         translation: Vec3::new(
+ 402             value.translation[0] as f32,
+ 403             value.translation[1] as f32,
+ 404             value.translation[2] as f32,
+ 405         ),
+ 406         rotation: Quat::from_xyzw(
+ 407             value.rotation[0] as f32,
+ 408             value.rotation[1] as f32,
+ 409             value.rotation[2] as f32,
+ 410             value.rotation[3] as f32,

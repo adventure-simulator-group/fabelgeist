@@ -1,0 +1,56 @@
+ 165 pub fn source_for_item(id: &str) -> Option<&'static ItemSourceRef> {
+ 166     let sources = SOURCE_MAP.get_or_init(|| {
+ 167         let mut sources: Vec<ItemSourceRef> = serde_json::from_str(ITEM_CATALOG_SOURCE_MAP_JSON)
+ 168             .expect("validated embedded item source map");
+ 169         sources.sort_by(|a, b| a.id.cmp(&b.id));
+ 170         sources
+ 171     });
+ 172     sources
+ 173         .binary_search_by_key(&id, |source| source.id.as_str())
+ 174         .ok()
+ 175         .map(|index| &sources[index])
+ 176 }
+ 177 
+ 178 pub const fn revision() -> &'static str {
+ 179     ITEM_CATALOG_DIGEST
+ 180 }
+ 181 
+ 182 pub fn weapon_skills(id: &str) -> Option<WeaponSkills> {
+ 183     match &definition(id)?.kind {
+ 184         ItemKind::Weapon { skills, .. } => Some(*skills),
+ 185         _ => None,
+ 186     }
+ 187 }
+ 188 
+ 189 pub fn validate_references<'a>(
+ 190     references: impl IntoIterator<Item = &'a str>,
+ 191 ) -> Result<(), Vec<String>> {
+ 192     let missing: Vec<_> = references
+ 193         .into_iter()
+ 194         .filter(|id| definition(id).is_none())
+ 195         .map(str::to_owned)
+ 196         .collect();
+ 197     if missing.is_empty() {
+ 198         Ok(())
+ 199     } else {
+ 200         Err(missing)
+ 201     }
+ 202 }
+ 203 
+ 204 #[cfg(test)]
+ 205 mod tests {
+ 206     use super::*;
+ 207     use sha2::{Digest, Sha256};
+ 208 
+ 209     #[test]
+ 210     fn embedded_catalog_is_sorted_unique_complete_and_revisioned() {
+ 211         // The source catalog expands each availability epoch into a compiled
+ 212         // definition; the generated weapon loop adds four epoch rows.
+ 213         assert_eq!(catalog().len(), 180);
+ 214         assert!(revision().len() == 64 && revision().bytes().all(|b| b.is_ascii_hexdigit()));
+ 215         assert!(
+ 216             catalog()
+ 217                 .windows(2)
+ 218                 .all(|pair| pair[0].id.as_str() < pair[1].id.as_str())
+ 219         );
+ 220         assert_eq!(

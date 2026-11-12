@@ -1,0 +1,11 @@
+{
+  "event": "separate replay of prior mistyped-repository-path evidence verification; not the initial failed tool invocation",
+  "private_capture_sha256": "3986d8dc9315d537669af5eccd4c5d67d33189255e771eb9c375440397dc6bd2",
+  "qualification": "The command and traceback contain local paths and remain separately held. A mistyped account component caused the failure. This projection is not the original stderr; the initial stderr was not independently saved at the time.",
+  "replay_stderr_sha256": "2c7e52298c59ea797534dd5c7c954979a407b11a0aa339008b22122c368b4e6d",
+  "returncode": 1,
+  "transcribed_stderr_sha256": "2c7e52298c59ea797534dd5c7c954979a407b11a0aa339008b22122c368b4e6d",
+  "transcription_matches_replay": true,
+  "transcription_qualification": "Manually transcribed from the first tool result, with traceback underline reconstructed from a separate repeated invocation; initial stderr was not directly captured to file. Identical replay is not independent byte-level proof of the initial stream.",
+  "utc": "2026-11-12T16:34:13.189403+00:00"
+}

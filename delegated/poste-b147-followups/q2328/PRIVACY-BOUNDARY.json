@@ -1,0 +1,37 @@
+{
+  "schema": "726-q2328-public-successor-v1",
+  "original_manifest_sha256": "19677acafdb748be98de5bcebc5666c192505e6c25443bab236a08eb92e00676",
+  "changes": [
+    {
+      "file": "ACCIDENTAL-WRITE-RECORD.json",
+      "original_file_sha256": "d5a6c4bbda8164a541747e5d62c8c5a88d99d8493305752571431318f996cafb",
+      "public_file_sha256": "6a32b93ae30ea6ffa8d4485b0f4a2d91c3da371f168e531fdb15aef26575a5c6"
+    },
+    {
+      "file": "LEDGER-SELECT-VIEW.json",
+      "original_file_sha256": "d500bdc9db826d277cc67641eaf54c0dfafa9e9bd8d37f3a8b4d14ed984036fd",
+      "public_file_sha256": "0ec683333a368686053b279d4292bbd5e0388607dd06c6fffb2bdec1bcd36077"
+    },
+    {
+      "file": "RELATED-PACKET-FILES-REGISTRATION.json",
+      "original_file_sha256": "dac4ddf478560fb9573c91c48eab60c1f7d3ef1e4fc8d821bf1032ea01711185",
+      "public_file_sha256": "74aaa4818971d1f04c71b9b7e2369e87df637a798b98e62d499febb105d0d5db"
+    },
+    {
+      "file": "RELATED-PACKET-FILES-VIEW.json",
+      "original_file_sha256": "4522661d3544eed450acc0ae8612487735cd091682550277423aea19ad701adc",
+      "public_file_sha256": "11559e84b3331aefe78375c2ac8232eb552b43573b4653b8524818905dbe08d6"
+    },
+    {
+      "file": "RELATED-PACKET-NAV-VIEW.json",
+      "original_file_sha256": "e2eae7c10194f97b3b683ebaa46290a2be93b3b04476e7796182afd278276b8a",
+      "public_file_sha256": "117fdd5abcc28ff86d14171a67633f2b0db1f24c0cf6106eb89b87624f76c340"
+    }
+  ],
+  "temporary_path_labels": 10,
+  "redacted_string_counts": {
+    "strings_modified": 12,
+    "key_strings_modified": 2
+  },
+  "qualification": "Five local-path-bearing original files are replaced by path-safe reconstructions. No original path values or path-value digests are published. All other original manifest members remain byte-identical. Exact original packet and original verification are separately held; the accidental target itself was not captured before removal."
+}

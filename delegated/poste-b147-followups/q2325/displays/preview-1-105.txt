@@ -1,0 +1,105 @@
+   1 //! Spawn generated clothing and armor into the studio preview.
+   2 
+   3 use super::*;
+   4 use adventuresim_character_creator::clothing::ClothingShell;
+   5 
+   6 /// How a piece is shaded: its plate, and the band along its edges.
+   7 pub(super) struct ArmorShading<'a> {
+   8     pub plate: StandardMaterial,
+   9     pub trim: Option<TrimPreview<'a>>,
+  10 }
+  11 
+  12 /// The band along a piece's edges, as the preview shades it.
+  13 pub(super) struct TrimPreview<'a> {
+  14     pub texcoords: &'a [[f32; 2]],
+  15     pub material: StandardMaterial,
+  16 }
+  17 
+  18 pub(super) fn spawn_clothing(
+  19     commands: &mut Commands,
+  20     meshes: &mut Assets<Mesh>,
+  21     materials: &mut Assets<StandardMaterial>,
+  22     walk: &WalkPreview,
+  23     model: &BodyModel,
+  24     shells: Vec<ClothingShell>,
+  25 ) -> Result<()> {
+  26     for shell in shells {
+  27         let specification = shell.specification;
+  28         let indices = shell
+  29             .faces
+  30             .iter()
+  31             .flat_map(|face| face.iter().copied())
+  32             .collect::<Vec<_>>();
+  33         let mut mesh = Mesh::new(
+  34             PrimitiveTopology::TriangleList,
+  35             RenderAssetUsages::default(),
+  36         )
+  37         .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, shell.positions)
+  38         .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, shell.normals)
+  39         .with_inserted_indices(Indices::U32(indices));
+  40         animation_preview::skin_mesh(
+  41             &mut mesh,
+  42             model.mhr.character.skin_weights.indices(),
+  43             model.mhr.character.skin_weights.weights().as_native_slice(),
+  44         )?;
+  45         let [red, green, blue, alpha] = specification.base_color;
+  46         commands.spawn((
+  47             CharacterMesh,
+  48             animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
+  49             Name::new(specification.name.as_ref().to_owned()),
+  50             Mesh3d(meshes.add(mesh)),
+  51             MeshMaterial3d(materials.add(StandardMaterial {
+  52                 base_color: Color::srgba(red, green, blue, alpha),
+  53                 metallic: specification.metallic,
+  54                 perceptual_roughness: specification.roughness,
+  55                 ..default()
+  56             })),
+  57         ));
+  58     }
+  59     Ok(())
+  60 }
+  61 
+  62 /// The cord lacing a piece's small plates, as the preview shades it.
+  63 pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMaterial {
+  64     let [red, green, blue] = cord.color;
+  65     StandardMaterial {
+  66         base_color: Color::srgb(red, green, blue),
+  67         metallic: 0.0,
+  68         perceptual_roughness: cord.roughness,
+  69         ..default()
+  70     }
+  71 }
+  72 
+  73 /// Spawn each surface of a piece, and its trim band when it has one.
+  74 #[expect(
+  75     clippy::too_many_arguments,
+  76     reason = "Bevy asset stores and spawn context are borrowed independently"
+  77 )]
+  78 pub(super) fn spawn_armor(
+  79     commands: &mut Commands,
+  80     meshes: &mut Assets<Mesh>,
+  81     materials: &mut Assets<StandardMaterial>,
+  82     images: &mut Assets<Image>,
+  83     armor: &GeneratedArmor,
+  84     name: String,
+  85     shading: ArmorShading<'_>,
+  86     marker: impl Bundle + Clone,
+  87 ) -> Result<()> {
+  88     let ArmorShading {
+  89         plate: material,
+  90         trim,
+  91     } = shading;
+  92     for surface in armor.surfaces() {
+  93         let part_name = match surface.component {
+  94             Some(index) => format!("{name}.{}", armor.components[index].role.name()),
+  95             None => name.clone(),
+  96         };
+  97         // A component with its own material, such as leather straps, is not
+  98         // shaded as the piece's plate.
+  99         let mut own = surface
+ 100             .component
+ 101             .and_then(|index| armor.components[index].material)
+ 102             .map(|surface| {
+ 103                 let [r, g, b, a] = surface.base_color;
+ 104                 StandardMaterial {
+ 105                     base_color: Color::srgba(r, g, b, a),

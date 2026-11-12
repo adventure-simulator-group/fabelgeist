@@ -1,0 +1,76 @@
+ 750         "left_pocket",
+ 751         "right_pocket",
+ 752         "back_left_pocket",
+ 753         "back_right_pocket",
+ 754     ]
+ 755     .into_iter()
+ 756     .collect();
+ 757     let valid_channels: BTreeSet<_> = [
+ 758         "held",
+ 759         "base_clothing",
+ 760         "padding",
+ 761         "flexible_armor",
+ 762         "rigid_armor",
+ 763         "outerwear",
+ 764         "accessory",
+ 765         "mount",
+ 766         "containment",
+ 767     ]
+ 768     .into_iter()
+ 769     .collect();
+ 770     match equipment.get("placements").and_then(Value::as_array) {
+ 771         Some(placements) if !placements.is_empty() => {
+ 772             let mut placement_ids = BTreeSet::new();
+ 773             for (index, placement) in placements.iter().enumerate() {
+ 774                 let Some(placement) = placement.as_object() else {
+ 775                     errors.push(format!("{path}.placements.{index}"), "must be an object");
+ 776                     continue;
+ 777                 };
+ 778                 let placement_path = format!("{path}.placements.{index}");
+ 779                 reject_unknown(
+ 780                     placement,
+ 781                     occupancy::PLACEMENT_FIELDS,
+ 782                     &placement_path,
+ 783                     errors,
+ 784                 );
+ 785                 let id = placement.get("id").and_then(Value::as_str).unwrap_or("");
+ 786                 if !valid_id(id) || !placement_ids.insert(id) {
+ 787                     errors.push(format!("{placement_path}.id"), "must be a unique stable ID");
+ 788                 }
+ 789                 let parents = placement
+ 790                     .get("parents")
+ 791                     .and_then(Value::as_array)
+ 792                     .cloned()
+ 793                     .unwrap_or_default();
+ 794                 let occupancy = placement
+ 795                     .get("occupancy")
+ 796                     .and_then(Value::as_array)
+ 797                     .cloned()
+ 798                     .unwrap_or_default();
+ 799                 if occupancy.is_empty() && parents.is_empty() {
+ 800                     errors.push(
+ 801                         &placement_path,
+ 802                         "must have at least one physical occupancy or parent requirement",
+ 803                     );
+ 804                 }
+ 805                 occupancy::validate_occupancy(
+ 806                     &occupancy,
+ 807                     &placement_path,
+ 808                     &valid_locations,
+ 809                     &valid_channels,
+ 810                     errors,
+ 811                 );
+ 812                 occupancy::validate_dependencies(&parents, placement, &placement_path, errors);
+ 813                 let mut protected = BTreeSet::new();
+ 814                 for body_part in placement
+ 815                     .get("protection")
+ 816                     .and_then(Value::as_array)
+ 817                     .into_iter()
+ 818                     .flatten()
+ 819                 {
+ 820                     match body_part.as_str() {
+ 821                         Some(part)
+ 822                             if matches!(
+ 823                                 part,
+ 824                                 "left_arm"
+ 825                                     | "right_arm"

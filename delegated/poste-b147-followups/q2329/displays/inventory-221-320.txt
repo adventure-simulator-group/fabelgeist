@@ -1,0 +1,100 @@
+ 221     pub fn worn(&self) -> impl Iterator<Item = &InventoryItem> {
+ 222         self.items.iter().filter(|item| item.worn)
+ 223     }
+ 224 
+ 225     /// Carry a new article without wearing it.
+ 226     pub fn add(&mut self, article: Article) -> InventoryItemId {
+ 227         let id = InventoryItemId(
+ 228             self.items
+ 229                 .iter()
+ 230                 .map(|item| item.id.0 + 1)
+ 231                 .max()
+ 232                 .unwrap_or(1),
+ 233         );
+ 234         self.items.push(InventoryItem {
+ 235             id,
+ 236             worn: false,
+ 237             article,
+ 238         });
+ 239         id
+ 240     }
+ 241 
+ 242     /// Discard an article, taking off whatever hangs from it.
+ 243     pub fn remove(&mut self, id: InventoryItemId, catalog: &ItemCatalog) -> Vec<InventoryItemId> {
+ 244         let taken_off = self.take_off(id, catalog);
+ 245         self.items.retain(|item| item.id != id);
+ 246         taken_off
+ 247     }
+ 248 
+ 249     /// Move an article earlier or later; draped garments of one layer drape in this order.
+ 250     pub fn shift(&mut self, id: InventoryItemId, later: bool) {
+ 251         let Some(index) = self.items.iter().position(|item| item.id == id) else {
+ 252             return;
+ 253         };
+ 254         let target = if later {
+ 255             index + 1
+ 256         } else {
+ 257             index.wrapping_sub(1)
+ 258         };
+ 259         if target < self.items.len() {
+ 260             self.items.swap(index, target);
+ 261         }
+ 262     }
+ 263 
+ 264     /// Wear an article, taking off whatever occupies its place. Returns what was taken off.
+ 265     pub fn wear(
+ 266         &mut self,
+ 267         id: InventoryItemId,
+ 268         catalog: &ItemCatalog,
+ 269     ) -> Result<Vec<InventoryItemId>, EquipConflict> {
+ 270         let before = self.items.clone();
+ 271         self.set_worn(id, true);
+ 272         let mut displaced = Vec::new();
+ 273         loop {
+ 274             match self.fit(catalog) {
+ 275                 Ok(_) => return Ok(displaced),
+ 276                 Err((culprit, EquipConflict::Occupied { by, .. })) if culprit == id || by == id => {
+ 277                     let other = if culprit == id { by } else { culprit };
+ 278                     displaced.extend(self.take_off(other, catalog));
+ 279                 }
+ 280                 Err((_, conflict)) => {
+ 281                     self.items = before;
+ 282                     return Err(conflict);
+ 283                 }
+ 284             }
+ 285         }
+ 286     }
+ 287 
+ 288     /// Stop wearing an article and whatever hangs from it. Returns everything taken off.
+ 289     pub fn take_off(&mut self, id: InventoryItemId, catalog: &ItemCatalog) -> Vec<InventoryItemId> {
+ 290         if !self.get(id).is_some_and(|item| item.worn) {
+ 291             return Vec::new();
+ 292         }
+ 293         self.set_worn(id, false);
+ 294         let mut taken_off = vec![id];
+ 295         while let Err((culprit, EquipConflict::Unsupported { .. })) = self.fit(catalog) {
+ 296             self.set_worn(culprit, false);
+ 297             taken_off.push(culprit);
+ 298         }
+ 299         taken_off
+ 300     }
+ 301 
+ 302     fn set_worn(&mut self, id: InventoryItemId, worn: bool) {
+ 303         if let Some(item) = self.get_mut(id) {
+ 304             item.worn = worn;
+ 305         }
+ 306     }
+ 307 
+ 308     /// Join every worn article into one equipment graph.
+ 309     pub fn fit(
+ 310         &self,
+ 311         catalog: &ItemCatalog,
+ 312     ) -> Result<WornGraph, (InventoryItemId, EquipConflict)> {
+ 313         let candidates = self
+ 314             .worn()
+ 315             .map(|item| match &item.article {
+ 316                 Article::Catalog(article) => {
+ 317                     let selection = article
+ 318                         .resolve(catalog)
+ 319                         .map_err(|conflict| (item.id, conflict))?;
+ 320                     Ok(occupancy::Candidate::from_catalog(item.id, selection))

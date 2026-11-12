@@ -1,0 +1,106 @@
+{
+  "captured_at_utc": "2026-11-12T16:47:37.868457+00:00",
+  "items": [
+    {
+      "relative_path": "parallel-l11-20261029/READ-180.json",
+      "expected_sha256": "aecb69bc22f3f8cd8745f1cf039f2bd56da21bea4bd6e1b0c27fb226463a77cd",
+      "potential_scope": "/rows/2,/rows/1",
+      "capture": "history/00.json",
+      "found": true,
+      "actual_sha256": "aecb69bc22f3f8cd8745f1cf039f2bd56da21bea4bd6e1b0c27fb226463a77cd",
+      "bytes": 14071,
+      "matched": true
+    },
+    {
+      "relative_path": "parallel-l11-20261029/PLAN-198.json",
+      "expected_sha256": "116fcd14a91f020587bdbb229905f75da8cd53a3de6b555eeb5f87205554693f",
+      "potential_scope": "/rows/2,/rows/1",
+      "capture": "history/01.json",
+      "found": true,
+      "actual_sha256": "116fcd14a91f020587bdbb229905f75da8cd53a3de6b555eeb5f87205554693f",
+      "bytes": 2857,
+      "matched": true
+    },
+    {
+      "relative_path": "segovb/READ-L11-716.json",
+      "expected_sha256": "21a52e797712f42a6296032d93cb2735f034922d5543da74834017e83ff2cb1d",
+      "potential_scope": "matching row(s) and root metadata",
+      "capture": "history/02.json",
+      "found": true,
+      "actual_sha256": "21a52e797712f42a6296032d93cb2735f034922d5543da74834017e83ff2cb1d",
+      "bytes": 16716,
+      "matched": true
+    },
+    {
+      "relative_path": "segovb/VERIFY-L11-716.json",
+      "expected_sha256": "eb39dc3d83ec3e2972a9f501ad0dbbe6edfbcc8d3446850f716838d1104aa1bb",
+      "potential_scope": "verification metadata",
+      "capture": "history/03.json",
+      "found": true,
+      "actual_sha256": "eb39dc3d83ec3e2972a9f501ad0dbbe6edfbcc8d3446850f716838d1104aa1bb",
+      "bytes": 1027,
+      "matched": true
+    },
+    {
+      "relative_path": "parallel-l11-20261029/READ-179.json",
+      "expected_sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6",
+      "potential_scope": "/rows/3",
+      "capture": "history/04.json",
+      "found": true,
+      "actual_sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6",
+      "bytes": 14125,
+      "matched": true
+    },
+    {
+      "relative_path": "parallel-l11-20261029/PLAN-197.json",
+      "expected_sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+      "potential_scope": "/rows/3",
+      "capture": "history/05.json",
+      "found": true,
+      "actual_sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+      "bytes": 4472,
+      "matched": true
+    },
+    {
+      "relative_path": "segovb/READ-L11-715.json",
+      "expected_sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+      "potential_scope": "matching row and root metadata",
+      "capture": "history/06.json",
+      "found": true,
+      "actual_sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+      "bytes": 17504,
+      "matched": true
+    },
+    {
+      "relative_path": "segovb/VERIFY-L11-715.json",
+      "expected_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053",
+      "potential_scope": "verification metadata",
+      "capture": "history/07.json",
+      "found": true,
+      "actual_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053",
+      "bytes": 1027,
+      "matched": true
+    },
+    {
+      "relative_path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+      "expected_sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+      "potential_scope": "/contract_updates/7",
+      "capture": "history/08.json",
+      "found": true,
+      "actual_sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+      "bytes": 230324,
+      "matched": true
+    },
+    {
+      "relative_path": "segovb/QUALIFICATION-ROOT-EXACT-CAMERA-ALIAS-INVENTORY-001.json",
+      "expected_sha256": "2a295af3aa13782199c15a20dce3c9f39f002cb9b1ec3e80bd7b2ecb2d5d0fcd",
+      "potential_scope": "qualification metadata only",
+      "capture": "history/09.json",
+      "found": true,
+      "actual_sha256": "2a295af3aa13782199c15a20dce3c9f39f002cb9b1ec3e80bd7b2ecb2d5d0fcd",
+      "bytes": 14205,
+      "matched": true
+    }
+  ],
+  "qualification": "Only records found at user-provided extraction; missing elsewhere not globally absent. Capture does not imply full personal display."
+}

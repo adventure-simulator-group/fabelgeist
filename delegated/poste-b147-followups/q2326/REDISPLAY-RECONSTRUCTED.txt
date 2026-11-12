@@ -1,0 +1,190 @@
+        let body = BodySurface {
+            positions: &self.positions,
+            faces: &self.faces,
+        };
+        hair.place(gpu, &placement, &body)
+    }
+}
+
+impl HairPreview {
+    /// The placed hair, if it is `groom` on `body`.
+    fn placed(&self, groom: Groom, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
+        self.placed
+            .as_ref()
+            .filter(|placed| placed.hair.groom == groom && Arc::ptr_eq(&placed.body, body))
+    }
+
+    /// Start preparing `groom` on `body` unless that is placed or under way
+    /// already; true when a worker started. A worker on another style or
+    /// body is left to finish and its hair dropped.
+    fn request(&mut self, groom: Groom, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
+        let under_way = self
+            .worker
+            .as_ref()
+            .is_some_and(|worker| worker.groom == groom && Arc::ptr_eq(&worker.body, body));
+        if self.placed(groom, body).is_some() || under_way {
+            return false;
+        }
+        let grown = self.grown.clone().filter(|grown| grown.groom == groom);
+        let gpu = self.gpu.clone();
+        let handle = std::thread::spawn(move || {
+            let gpu = gpu.context("the renderer has no device to grow hair on")?;
+            let kernels = gpu.kernels()?;
+            let grown = match grown {
+                Some(grown) => grown,
+                None => Arc::new(GroomedHair::grow(groom, kernels)?),
+            };
+            let placed = head.place(kernels, &grown)?;
+            Ok(Prepared { grown, placed, gpu })
+        });
+        self.worker = Some(Worker {
+            groom,
+            body: body.clone(),
+            handle,
+        });
+        true
+    }
+
+    /// Take the worker's hair once it has finished.
+    fn collect(
+        &mut self,
+        images: &mut Assets<Image>,
+        uploads: &scalp_upload::ScalpUploads,
+    ) -> Result<()> {
+        if !self
+            .worker
+            .as_ref()
+            .is_some_and(|worker| worker.handle.is_finished())
+        {
+            return Ok(());
+        }
+        let Some(worker) = self.worker.take() else {
+            return Ok(());
+        };
+        let prepared = worker
+            .handle
+            .join()
+            .map_err(|_| anyhow::anyhow!("the hair worker panicked"))??;
+        let atlas = images.add(assets::atlas_image(&prepared.placed));
+        let scalp = assets::scalp_images(&prepared.placed, images, uploads);
+        self.grown = Some(prepared.grown);
+        self.placed = Some(PlacedStyle {
+            hair: prepared.placed,
+            gpu: prepared.gpu,
+            body: worker.body,
+            atlas,
+            scalp,
+        });
+        Ok(())
+    }
+}
+
+/// A level of detail the Hair page offers, and its name there.
+pub(super) struct FormChoice {
+    pub(super) form: Form,
+    pub(super) label: String,
+}
+
+impl HairPreview {
+    /// The levels of detail of the placed hair, finest first; none until
+    /// it is placed.
+    pub(super) fn form_choices(&self) -> Vec<FormChoice> {
+/// Keep the shown hair in step with the recipe and the Hair page: grow and
+/// place a new style, place it again on every body the studio regenerates
+/// (which despawns it with the rest of the character), and redraw it when
+/// its colour or level of detail changes.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects the studio, body caches, the shown meshes and their assets"
+)]
+pub(super) fn refresh(
+    mut commands: Commands,
+    mut preview: ResMut<HairPreview>,
+    mut studio: ResMut<Studio>,
+    mut cache: ResMut<studio_cache::StudioCache>,
+    model: Res<BodyModel>,
+    walk: Res<WalkPreview>,
+    shown: Query<(Entity, &HairMesh)>,
+    mut assets: HairAssets,
+    mut contexts: EguiContexts,
+) {
+    let uploads = assets.uploads.clone();
+    if let Err(error) = preview.collect(&mut assets.images, &uploads) {
+        studio.status = format!("Hair could not be placed: {error:#}");
+    }
+    let wanted = studio.recipe.hair.map(|design| (design, studio.hair_form));
+    for (entity, mesh) in &shown {
+        if Some((mesh.design, mesh.form)) != wanted {
+            commands.entity(entity).despawn();
+        }
+    }
+    let Some((design, form)) = wanted else {
+        return;
+    };
+    // A level of detail is drawn once its slider is let go.
+    if studio.dirty || walk.joints.is_empty() || studio_generation::dragging(&mut contexts) {
+        return;
+    }
+    let recipe = studio.recipe.clone();
+    let body = match cache.body(&model, &recipe) {
+        Ok(body) => body,
+        Err(error) => {
+            studio.status = format!("{error:#}");
+            return;
+        }
+    };
+    let Some(placed) = preview.placed(design.groom(), &body) else {
+        if preview.request(design.groom(), &body, BodyHead::new(&model, &body)) {
+            studio.status = format!(
+                "Growing {} hair",
+                variant_label(design.preset).to_lowercase()
+            );
+        }
+        return;
+    };
+    if shown
+        .iter()
+        .any(|(_, mesh)| (mesh.design, mesh.form) == (design, form))
+    {
+        return;
+    }
+    let Some(skin) = animation_preview::skin(&walk) else {
+        return;
+    };
+    let drawn = assets.hair(placed, design, form).and_then(|hair| {
+        let cap = assets.scalp_cap(placed, design)?;
+        Ok((hair, cap))
+    });
+    let (hair, (cap, cap_material)) = match drawn {
+        Ok(drawn) => drawn,
+        Err(error) => {
+            studio.status = format!("Hair could not be drawn: {error:#}");
+            return;
+        }
+    };
+    let shown = studio.hair_layers;
+    if let Some((mesh, material)) = hair {
+        // Its mesh holds no positions to bound it by: they lie on the GPU.
+        commands.spawn((
+            CharacterMesh,
+            HairMesh { design, form },
+            HairLayer::Hair,
+            shown.visibility(HairLayer::Hair),
+            Name::new("Hair"),
+            skin.clone(),
+            Mesh3d(mesh),
+            MeshMaterial3d(material),
+            NoFrustumCulling,
+        ));
+    }
+    commands.spawn((
+        CharacterMesh,
+        HairMesh { design, form },
+        HairLayer::Scalp,
+        shown.visibility(HairLayer::Scalp),
+        Name::new("Scalp"),
+        skin,
+        Mesh3d(cap),
+        MeshMaterial3d(cap_material),
+    ));
+}

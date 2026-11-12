@@ -1,0 +1,31 @@
+    85	
+    86	impl CatalogArticle {
+    87	    pub fn new(item_id: impl Into<String>, placement_id: impl Into<String>) -> Self {
+    88	        Self {
+    89	            item_id: item_id.into(),
+    90	            placement_id: placement_id.into(),
+    91	            design: None,
+    92	            decoration: Decoration::default(),
+    93	            construction: Construction::Solid,
+    94	        }
+    95	    }
+    96	
+    97	    pub fn resolve<'a>(
+    98	        &self,
+    99	        catalog: &'a ItemCatalog,
+   100	    ) -> Result<CatalogPlacement<'a>, EquipConflict> {
+   101	        catalog
+   102	            .placement(&self.item_id, &self.placement_id)
+   103	            .ok_or_else(|| {
+   104	                EquipConflict::Invalid(format!(
+   105	                    "the catalog has no {} placement {}",
+   106	                    self.item_id, self.placement_id
+   107	                ))
+   108	            })
+   109	    }
+   110	
+   111	    /// The shape this article is built from, if its item is parametric.
+   112	    pub fn design(&self, catalog: &ItemCatalog) -> Result<Option<ItemDesign>, EquipConflict> {
+   113	        let selection = self.resolve(catalog)?;
+   114	        self.design_for(&catalog.designs, selection)
+   115	    }

@@ -1,0 +1,83 @@
+SOURCE crates/adventuresim-character-creator/src/garment/outfit.rs:1-82
+   1 //! Draping a whole outfit, innermost garment first, each over the ones beneath.
+   2 use super::*;
+   3 
+   4 /// An outfit's drape result, with checkpoints for every garment attempted.
+   5 pub struct OutfitOutcome {
+   6     /// Draped garments in input order, up to the first that could not be draped.
+   7     pub garments: Vec<DrapedGarment>,
+   8     /// Fit problems in the draped garments, each naming its garment.
+   9     pub warnings: Vec<String>,
+  10     /// Why draping stopped before the last garment, if it did.
+  11     pub error: Option<anyhow::Error>,
+  12     pub checkpoints: Vec<DrapeCheckpoints>,
+  13 }
+  14 
+  15 impl OutfitOutcome {
+  16     /// Every problem on one line, or `None` when all garments draped cleanly.
+  17     pub fn problems(&self) -> Option<String> {
+  18         let mut problems = self.warnings.clone();
+  19         if let Some(error) = &self.error {
+  20             problems.insert(0, format!("draping stopped: {error:#}"));
+  21         }
+  22         (!problems.is_empty()).then(|| problems.join("; "))
+  23     }
+  24 }
+  25 
+  26 /// Drape garments inside to outside. `previous` holds the last outfit drape's
+  27 /// checkpoints, so each garment re-runs only from its first changed stage.
+  28 pub fn drape_outfit(
+  29     inputs: Vec<DrapeInput>,
+  30     previous: Vec<DrapeCheckpoints>,
+  31     cancel: &AtomicBool,
+  32     mut preview: impl FnMut(Vec<DrapedGarment>),
+  33 ) -> OutfitOutcome {
+  34     let mut finished = Vec::new();
+  35     let mut warnings = Vec::new();
+  36     let mut checkpoints = Vec::new();
+  37     for (index, mut input) in inputs.into_iter().enumerate() {
+  38         input.obstacles = finished.clone();
+  39         let outcome = match input.settled.clone() {
+  40             Some(saved) => {
+  41                 let outcome = saved.wear(&input);
+  42                 if let Ok(garment) = &outcome.result {
+  43                     let mut snapshot = finished.clone();
+  44                     snapshot.push(garment.clone());
+  45                     preview(snapshot);
+  46                 }
+  47                 outcome
+  48             }
+  49             None => drape(input, previous.get(index), cancel, |current| {
+  50                 let mut snapshot = finished.clone();
+  51                 snapshot.push(current);
+  52                 preview(snapshot);
+  53             }),
+  54         };
+  55         checkpoints.push(outcome.checkpoints);
+  56         match outcome.result {
+  57             Ok(garment) => {
+  58                 warnings.extend(
+  59                     outcome
+  60                         .warnings
+  61                         .into_iter()
+  62                         .map(|warning| format!("{}: {warning}", garment.name)),
+  63                 );
+  64                 finished.push(garment);
+  65             }
+  66             Err(error) => {
+  67                 return OutfitOutcome {
+  68                     garments: finished,
+  69                     warnings,
+  70                     error: Some(error),
+  71                     checkpoints,
+  72                 };
+  73             }
+  74         }
+  75     }
+  76     OutfitOutcome {
+  77         garments: finished,
+  78         warnings,
+  79         error: None,
+  80         checkpoints,
+  81     }
+  82 }

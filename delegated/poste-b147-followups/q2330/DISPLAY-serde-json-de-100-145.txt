@@ -1,0 +1,46 @@
+   100	
+   101	macro_rules! overflow {
+   102	    ($a:ident * 10 + $b:ident, $c:expr) => {
+   103	        match $c {
+   104	            c => $a >= c / 10 && ($a > c / 10 || $b > c % 10),
+   105	        }
+   106	    };
+   107	}
+   108	
+   109	pub(crate) enum ParserNumber {
+   110	    F64(f64),
+   111	    U64(u64),
+   112	    I64(i64),
+   113	    #[cfg(feature = "arbitrary_precision")]
+   114	    String(String),
+   115	}
+   116	
+   117	impl ParserNumber {
+   118	    fn visit<'de, V>(self, visitor: V) -> Result<V::Value>
+   119	    where
+   120	        V: de::Visitor<'de>,
+   121	    {
+   122	        match self {
+   123	            ParserNumber::F64(x) => visitor.visit_f64(x),
+   124	            ParserNumber::U64(x) => visitor.visit_u64(x),
+   125	            ParserNumber::I64(x) => visitor.visit_i64(x),
+   126	            #[cfg(feature = "arbitrary_precision")]
+   127	            ParserNumber::String(x) => visitor.visit_map(NumberDeserializer { number: x.into() }),
+   128	        }
+   129	    }
+   130	
+   131	    fn invalid_type(self, exp: &dyn Expected) -> Error {
+   132	        match self {
+   133	            ParserNumber::F64(x) => de::Error::invalid_type(Unexpected::Float(x), exp),
+   134	            ParserNumber::U64(x) => de::Error::invalid_type(Unexpected::Unsigned(x), exp),
+   135	            ParserNumber::I64(x) => de::Error::invalid_type(Unexpected::Signed(x), exp),
+   136	            #[cfg(feature = "arbitrary_precision")]
+   137	            ParserNumber::String(_) => de::Error::invalid_type(Unexpected::Other("number"), exp),
+   138	        }
+   139	    }
+   140	}
+   141	
+   142	impl<'de, R: Read<'de>> Deserializer<R> {
+   143	    /// The `Deserializer::end` method should be called after a value has been fully deserialized.
+   144	    /// This allows the `Deserializer` to validate that the input stream is at the end or that it
+   145	    /// only has trailing whitespace.

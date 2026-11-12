@@ -1,0 +1,17 @@
+{
+  "schema": "726-q2326-source-evidence-seal-v1",
+  "created_utc": "2026-11-12T16:36:00.417687+00:00",
+  "reviewer": "/root/mhr_character",
+  "packet_manifest_sha256": "879e5ecca813e3ce1d56e99cbdf61369ab325f2949650beab37a6d82ef8ca33d",
+  "report_sha256": "bcc2d12da76798d49c8a8e53fafb7113ade1d16c371855c05f4c49aaef579dc4",
+  "assessment_sha256": "a8f7e58cea4f92a3b0d987102a3b6f0b0d85107d03d5da97a246ec9870851118",
+  "archive_sha256": "eec94f898e0e2ac305aff80a666167a51ab2b844557fa418f1bd442423ab1c09",
+  "archive_bytes": 131931,
+  "archive_members": 97,
+  "archive_check": "Every regular member was compared byte for byte with the frozen source packet and member set verified.",
+  "evidence_verification": "After confirming the intended Git checkout exists, the new packet read-only verifier passed: 96 manifest files, 12 source tree chains, 12 registered source displays; historical q2326 slice and q2327/ledger projections verified against named Git revisions.",
+  "privacy_scan_sha256": "adb328dd2732dfcee654f1382038b37b6add23de118845cf783b27597f0f4b20",
+  "privacy": "Bounded private-input scan of 97 packet files, depth <=8 and per-view <=80 MiB: zero known forbidden digests, zero path/credential candidates, no recorded exceptions. Binary tree objects, unknown encodings, unsupported archive formats, omitted Git metadata/history and unknown sensitive corpora are not globally cleared. No raw commit author metadata deliberately captured.",
+  "private_failed_invocation": "An owner-restricted separate capture retains the mistyped-path failure transcription and exact-input replay; initial stderr was not independently redirected. See packet VERIFICATION-CHRONOLOGY.json for whole-file hash and qualification.",
+  "execution": "Evidence inspection and verification only; no product, builds, tests, assets, renderer, fixtures, probes, or repairs."
+}

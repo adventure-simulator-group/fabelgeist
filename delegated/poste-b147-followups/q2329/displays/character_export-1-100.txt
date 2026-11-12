@@ -1,0 +1,100 @@
+   1 use super::character_morphs::{
+   2     CharacterMorphs, MorphDelta, armor_targets, rigged_armor, rigged_clothing,
+   3 };
+   4 use super::*;
+   5 mod draped;
+   6 mod hair;
+   7 
+   8 pub(super) fn export_character(
+   9     path: &std::path::Path,
+  10     model: &BodyModel,
+  11     recipe: &CharacterRecipe,
+  12     catalog: &EquipmentCatalog,
+  13     fitted: Option<&[adventuresim_character_creator::garment::DrapedGarment]>,
+  14 ) -> Result<Vec<String>> {
+  15     let loadout = outfit::loadout(recipe, catalog)?;
+  16     let generated = generate_character(model, recipe)?;
+  17     let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
+  18     let armor = parametric_equipment::selected(model, &generated, &loadout, &morphs.samples)?;
+  19     let lining = outfit::lining(armor.iter().map(|piece| (&piece.piece, &piece.generated)));
+  20     let (fitted, mut warnings) =
+  21         draped::prepare(model, &loadout, &generated, fitted, lining.as_ref());
+  22     warnings.extend(draped::validate(model, &generated, &fitted));
+  23     let body_targets = morphs
+  24         .body
+  25         .iter()
+  26         .map(MorphDelta::rigged)
+  27         .collect::<Vec<_>>();
+  28     let character = &model.mhr.character;
+  29     let clothed = outfit::clothing(model, &loadout, &generated)?;
+  30     let clothing_morphs = morphs.clothing(&clothed.shells)?;
+  31     let clothing_targets = clothing_morphs
+  32         .iter()
+  33         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
+  34         .collect::<Vec<_>>();
+  35     let (plate_faces, plate_targets) = piece_geometry(&armor, |piece| Some(&piece.generated));
+  36     let (lacing_faces, lacing_targets) =
+  37         piece_geometry(&armor, |piece| piece.lacing.as_ref().map(|l| &l.generated));
+  38     let mut shells = clothed
+  39         .shells
+  40         .iter()
+  41         .zip(&clothing_targets)
+  42         .map(|(shell, targets)| rigged_clothing(shell, targets))
+  43         .collect::<Vec<_>>();
+  44     let metals = catalog_metals(&armor)?;
+  45     shells.extend(catalog_shells(
+  46         &armor,
+  47         CatalogGeometry {
+  48             faces: &plate_faces,
+  49             targets: &plate_targets,
+  50         },
+  51         CatalogGeometry {
+  52             faces: &lacing_faces,
+  53             targets: &lacing_targets,
+  54         },
+  55         &metals,
+  56     )?);
+  57     let draped_morphs = morphs.draped(&generated, &character.mesh.faces, &fitted)?;
+  58     let draped_targets: Vec<_> = draped_morphs
+  59         .iter()
+  60         .map(|targets| targets.iter().map(MorphDelta::rigged).collect::<Vec<_>>())
+  61         .collect();
+  62     let mail_surfaces = mail_surfaces(&loadout, &fitted)?;
+  63     for ((garment, targets), mail) in fitted.iter().zip(&draped_targets).zip(&mail_surfaces) {
+  64         shells.push(garment.rigged(targets, mail.as_ref()));
+  65     }
+  66     let hair = recipe
+  67         .hair
+  68         .map(|design| hair::ExportedHair::grow(model, &generated, &morphs, design))
+  69         .transpose()?;
+  70     let hair_targets = hair
+  71         .as_ref()
+  72         .map(hair::ExportedHair::targets)
+  73         .unwrap_or_default();
+  74     shells.extend(hair.as_ref().map(|hair| hair.shell(&hair_targets)));
+  75     export_rigged_glb(
+  76         GlbOutput::Standalone(path),
+  77         &recipe.name,
+  78         recipe.version,
+  79         model.lod,
+  80         &RiggedMesh {
+  81             joint_proportions: &generated.joint_proportions,
+  82             morph_targets: &body_targets,
+  83             positions: &generated.positions,
+  84             normals: &generated.normals,
+  85             faces: &clothed.visible_body_faces,
+  86             export_body: true,
+  87             joint_indices: character.skin_weights.indices(),
+  88             joint_weights: character.skin_weights.weights().as_native_slice(),
+  89             joint_names: &character.skeleton.names,
+  90             joint_parents: &character.skeleton.parents,
+  91             global_joint_states: &generated.global_joint_states,
+  92         },
+  93         &shells,
+  94         &[],
+  95     )?;
+  96     Ok(warnings)
+  97 }
+  98 
+  99 type CatalogMetals = Vec<(
+ 100     fabelgeist_armor::material::Metal,

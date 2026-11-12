@@ -1,0 +1,6 @@
+{
+  "operation": "first evidence-only verifier invocation --skip-manifest with registered queue, commit and ledger anchors",
+  "exit": 1,
+  "failure": "KeyError: parallel-l11-20261029/PLAN-195.json at comparison of receipt path against historical inventory; source inventory includes prefix target/726-audit-adler-20261027/ for six rows, receipts strip it as HISTORY-FILES-REGISTRATION specifies",
+  "correction": "Normalize that exact prefix before comparing; rerun complete verifier."
+}

@@ -1,0 +1,40 @@
+     1	//! Model detail and pose-corrective selection in the character studio.
+     2	use super::*;
+     3	
+     4	pub(super) fn show(ui: &mut egui::Ui, studio: &mut Studio) {
+     5	    let lod_changed = ui
+     6	        .add(
+     7	            egui::Slider::new(
+     8	                &mut studio.selected_lod,
+     9	                MIN_CHARACTER_LOD..=MAX_CHARACTER_LOD,
+    10	            )
+    11	            .text("Mesh LOD")
+    12	            .custom_formatter(|value, _| {
+    13	                let lod = value.round() as u8;
+    14	                let vertices = CharacterLod::try_from(lod)
+    15	                    .expect("slider bounds")
+    16	                    .vertices();
+    17	                format!("{lod} · {vertices} vertices")
+    18	            }),
+    19	        )
+    20	        .changed();
+    21	    if lod_changed {
+    22	        studio.status = format!("Loading MHR LOD {}…", studio.selected_lod);
+    23	    }
+    24	    ui.small("LOD 4 is highest fidelity; LOD 6 is lowest.");
+    25	    if ui
+    26	        .checkbox(&mut studio.selected_correctives, "Pose-corrective model")
+    27	        .changed()
+    28	    {
+    29	        studio.status = format!(
+    30	            "Loading MHR LOD {} with correctives {}…",
+    31	            studio.selected_lod,
+    32	            if studio.selected_correctives {
+    33	                "enabled"
+    34	            } else {
+    35	                "disabled"
+    36	            }
+    37	        );
+    38	    }
+    39	    ui.small("Correctives improve posed deformation but require substantially more memory.");
+    40	}

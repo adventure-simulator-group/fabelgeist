@@ -1,0 +1,60 @@
+ 321                 }
+ 322                 Article::Draped(_) | Article::Settled(_) => Ok(occupancy::Candidate {
+ 323                     id: item.id,
+ 324                     occupancy: item
+ 325                         .article
+ 326                         .occupancy(catalog)
+ 327                         .map_err(|conflict| (item.id, conflict))?,
+ 328                     equipment: None,
+ 329                     attachment_tags: &[],
+ 330                 }),
+ 331             })
+ 332             .collect::<Result<Vec<_>, _>>()?;
+ 333         WornGraph::build(candidates)
+ 334     }
+ 335 
+ 336     /// Presentation text for why `item` cannot be worn.
+ 337     pub fn explain(
+ 338         &self,
+ 339         catalog: &ItemCatalog,
+ 340         (item, conflict): &(InventoryItemId, EquipConflict),
+ 341     ) -> String {
+ 342         let name = |id: InventoryItemId| {
+ 343             self.get(id)
+ 344                 .map_or_else(|| id.to_string(), |item| item.article.name(catalog))
+ 345         };
+ 346         format!(
+ 347             "{} cannot be worn: {}",
+ 348             name(*item),
+ 349             conflict.describe(name)
+ 350         )
+ 351     }
+ 352 
+ 353     pub fn validate(&self) -> Result<(), String> {
+ 354         for (index, item) in self.items.iter().enumerate() {
+ 355             if self.items[..index].iter().any(|other| other.id == item.id) {
+ 356                 return Err(format!("inventory repeats item {}", item.id.0));
+ 357             }
+ 358             item.article.validate()?;
+ 359         }
+ 360         Ok(())
+ 361     }
+ 362 }
+ 363 
+ 364 impl std::fmt::Display for InventoryItemId {
+ 365     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+ 366         write!(f, "#{}", self.0)
+ 367     }
+ 368 }
+ 369 
+ 370 impl EquipConflict {
+ 371     /// Presentation text, naming other articles through `name`.
+ 372     pub fn describe(&self, name: impl Fn(InventoryItemId) -> String) -> String {
+ 373         match self {
+ 374             Self::Occupied {
+ 375                 location,
+ 376                 channel,
+ 377                 by,
+ 378             } => format!(
+ 379                 "{} already fills the {} {} layer",
+ 380                 name(*by),

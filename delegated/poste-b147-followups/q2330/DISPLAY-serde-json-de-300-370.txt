@@ -1,0 +1,71 @@
+   300	                Ok(n) => n.invalid_type(exp),
+   301	                Err(err) => return err,
+   302	            },
+   303	            b'"' => {
+   304	                self.eat_char();
+   305	                self.scratch.clear();
+   306	                match self.read.parse_str(&mut self.scratch) {
+   307	                    Ok(s) => de::Error::invalid_type(Unexpected::Str(&s), exp),
+   308	                    Err(err) => return err,
+   309	                }
+   310	            }
+   311	            b'[' => de::Error::invalid_type(Unexpected::Seq, exp),
+   312	            b'{' => de::Error::invalid_type(Unexpected::Map, exp),
+   313	            _ => self.peek_error(ErrorCode::ExpectedSomeValue),
+   314	        };
+   315	
+   316	        self.fix_position(err)
+   317	    }
+   318	
+   319	    pub(crate) fn deserialize_number<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+   320	    where
+   321	        V: de::Visitor<'any>,
+   322	    {
+   323	        let peek = match tri!(self.parse_whitespace()) {
+   324	            Some(b) => b,
+   325	            None => {
+   326	                return Err(self.peek_error(ErrorCode::EofWhileParsingValue));
+   327	            }
+   328	        };
+   329	
+   330	        let value = match peek {
+   331	            b'-' => {
+   332	                self.eat_char();
+   333	                tri!(self.parse_integer(false)).visit(visitor)
+   334	            }
+   335	            b'0'..=b'9' => tri!(self.parse_integer(true)).visit(visitor),
+   336	            _ => Err(self.peek_invalid_type(&visitor)),
+   337	        };
+   338	
+   339	        match value {
+   340	            Ok(value) => Ok(value),
+   341	            Err(err) => Err(self.fix_position(err)),
+   342	        }
+   343	    }
+   344	
+   345	    #[cfg(feature = "float_roundtrip")]
+   346	    pub(crate) fn do_deserialize_f32<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+   347	    where
+   348	        V: de::Visitor<'any>,
+   349	    {
+   350	        self.single_precision = true;
+   351	        let val = self.deserialize_number(visitor);
+   352	        self.single_precision = false;
+   353	        val
+   354	    }
+   355	
+   356	    pub(crate) fn do_deserialize_i128<'any, V>(&mut self, visitor: V) -> Result<V::Value>
+   357	    where
+   358	        V: de::Visitor<'any>,
+   359	    {
+   360	        let mut buf = String::new();
+   361	
+   362	        match tri!(self.parse_whitespace()) {
+   363	            Some(b'-') => {
+   364	                self.eat_char();
+   365	                buf.push('-');
+   366	            }
+   367	            Some(_) => {}
+   368	            None => {
+   369	                return Err(self.peek_error(ErrorCode::EofWhileParsingValue));
+   370	            }

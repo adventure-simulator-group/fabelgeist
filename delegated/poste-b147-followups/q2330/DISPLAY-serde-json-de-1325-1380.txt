@@ -1,0 +1,56 @@
+  1325	    1e170, 1e171, 1e172, 1e173, 1e174, 1e175, 1e176, 1e177, 1e178, 1e179, //
+  1326	    1e180, 1e181, 1e182, 1e183, 1e184, 1e185, 1e186, 1e187, 1e188, 1e189, //
+  1327	    1e190, 1e191, 1e192, 1e193, 1e194, 1e195, 1e196, 1e197, 1e198, 1e199, //
+  1328	    1e200, 1e201, 1e202, 1e203, 1e204, 1e205, 1e206, 1e207, 1e208, 1e209, //
+  1329	    1e210, 1e211, 1e212, 1e213, 1e214, 1e215, 1e216, 1e217, 1e218, 1e219, //
+  1330	    1e220, 1e221, 1e222, 1e223, 1e224, 1e225, 1e226, 1e227, 1e228, 1e229, //
+  1331	    1e230, 1e231, 1e232, 1e233, 1e234, 1e235, 1e236, 1e237, 1e238, 1e239, //
+  1332	    1e240, 1e241, 1e242, 1e243, 1e244, 1e245, 1e246, 1e247, 1e248, 1e249, //
+  1333	    1e250, 1e251, 1e252, 1e253, 1e254, 1e255, 1e256, 1e257, 1e258, 1e259, //
+  1334	    1e260, 1e261, 1e262, 1e263, 1e264, 1e265, 1e266, 1e267, 1e268, 1e269, //
+  1335	    1e270, 1e271, 1e272, 1e273, 1e274, 1e275, 1e276, 1e277, 1e278, 1e279, //
+  1336	    1e280, 1e281, 1e282, 1e283, 1e284, 1e285, 1e286, 1e287, 1e288, 1e289, //
+  1337	    1e290, 1e291, 1e292, 1e293, 1e294, 1e295, 1e296, 1e297, 1e298, 1e299, //
+  1338	    1e300, 1e301, 1e302, 1e303, 1e304, 1e305, 1e306, 1e307, 1e308,
+  1339	];
+  1340	
+  1341	macro_rules! deserialize_number {
+  1342	    ($method:ident) => {
+  1343	        deserialize_number!($method, deserialize_number);
+  1344	    };
+  1345	
+  1346	    ($method:ident, $using:ident) => {
+  1347	        fn $method<V>(self, visitor: V) -> Result<V::Value>
+  1348	        where
+  1349	            V: de::Visitor<'de>,
+  1350	        {
+  1351	            self.$using(visitor)
+  1352	        }
+  1353	    };
+  1354	}
+  1355	
+  1356	#[cfg(not(feature = "unbounded_depth"))]
+  1357	macro_rules! if_checking_recursion_limit {
+  1358	    ($($body:tt)*) => {
+  1359	        $($body)*
+  1360	    };
+  1361	}
+  1362	
+  1363	#[cfg(feature = "unbounded_depth")]
+  1364	macro_rules! if_checking_recursion_limit {
+  1365	    ($this:ident $($body:tt)*) => {
+  1366	        if !$this.disable_recursion_limit {
+  1367	            $this $($body)*
+  1368	        }
+  1369	    };
+  1370	}
+  1371	
+  1372	macro_rules! check_recursion {
+  1373	    ($this:ident $($body:tt)*) => {
+  1374	        if_checking_recursion_limit! {
+  1375	            $this.remaining_depth -= 1;
+  1376	            if $this.remaining_depth == 0 {
+  1377	                return Err($this.peek_error(ErrorCode::RecursionLimitExceeded));
+  1378	            }
+  1379	        }
+  1380	

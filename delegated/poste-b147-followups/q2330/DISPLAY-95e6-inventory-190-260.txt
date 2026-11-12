@@ -1,0 +1,71 @@
+   190	                    .construction
+   191	                    .validate()
+   192	                    .map_err(|error| format!("{}: {error}", article.item_id))
+   193	            }
+   194	            Self::Draped(selection) => selection.validate().map_err(|error| error.to_string()),
+   195	            Self::Settled(garment) => garment
+   196	                .validate()
+   197	                .map_err(|error| format!("{}: {error:#}", garment.selection.name)),
+   198	        }
+   199	    }
+   200	}
+   201	
+   202	fn placement_count(item: &ItemDefinition) -> usize {
+   203	    item.equipment
+   204	        .as_ref()
+   205	        .map_or(0, |equipment| equipment.placements.len())
+   206	}
+   207	
+   208	impl Inventory {
+   209	    pub fn items(&self) -> &[InventoryItem] {
+   210	        &self.items
+   211	    }
+   212	
+   213	    pub fn get(&self, id: InventoryItemId) -> Option<&InventoryItem> {
+   214	        self.items.iter().find(|item| item.id == id)
+   215	    }
+   216	
+   217	    pub fn get_mut(&mut self, id: InventoryItemId) -> Option<&mut InventoryItem> {
+   218	        self.items.iter_mut().find(|item| item.id == id)
+   219	    }
+   220	
+   221	    pub fn worn(&self) -> impl Iterator<Item = &InventoryItem> {
+   222	        self.items.iter().filter(|item| item.worn)
+   223	    }
+   224	
+   225	    /// Carry a new article without wearing it.
+   226	    pub fn add(&mut self, article: Article) -> InventoryItemId {
+   227	        let id = InventoryItemId(
+   228	            self.items
+   229	                .iter()
+   230	                .map(|item| item.id.0 + 1)
+   231	                .max()
+   232	                .unwrap_or(1),
+   233	        );
+   234	        self.items.push(InventoryItem {
+   235	            id,
+   236	            worn: false,
+   237	            article,
+   238	        });
+   239	        id
+   240	    }
+   241	
+   242	    /// Discard an article, taking off whatever hangs from it.
+   243	    pub fn remove(&mut self, id: InventoryItemId, catalog: &ItemCatalog) -> Vec<InventoryItemId> {
+   244	        let taken_off = self.take_off(id, catalog);
+   245	        self.items.retain(|item| item.id != id);
+   246	        taken_off
+   247	    }
+   248	
+   249	    /// Move an article earlier or later; draped garments of one layer drape in this order.
+   250	    pub fn shift(&mut self, id: InventoryItemId, later: bool) {
+   251	        let Some(index) = self.items.iter().position(|item| item.id == id) else {
+   252	            return;
+   253	        };
+   254	        let target = if later {
+   255	            index + 1
+   256	        } else {
+   257	            index.wrapping_sub(1)
+   258	        };
+   259	        if target < self.items.len() {
+   260	            self.items.swap(index, target);

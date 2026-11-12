@@ -1,0 +1,26 @@
+CHECK verify_recovered.py -> qualified five-object public successor; original-byte verifier retained separately
+Verified 8 draft trees, 528 changes and 602 source blobs
+Verified 12 frontier observations and 755 displayed lines without Git
+Qualified redaction: three reconstructed public objects and their original manifest identities checked; original private bytes were not verified.
+Qualified redaction: reconstructed historical writer output and previously redacted portability record checked; their earlier bytes were not verified.
+Verified 223 evidence files, 81 hash-matched dependencies, 4 recursive dependencies, 17 printed-hash registrations, 43 printed-hash audit records, 130 printed-reference JSON bodies, 10 linked JSON bodies, 6 linked literal objects, 19 printed-filename JSON bodies, 1 printed-filename text objects, 3146 contract values, 538 audit documents, 117 ledger fragments, 1699 ledger outputs, 4080 queue outputs, 6571 source records, 57 late source records, 155 Markdown writes, 2363 helper candidates, 23 redacted helpers, 310 Python writes, 89 other candidates, 54 other writes, 37 unresolved patches, 287 draft changes, 509 draft validation records, 8 redacted documents, 70 late commands, 359 late history records and 5623 audit commands; claims remain qualified
+CHECK verify_selected_states.py
+verified 13 historical states and 13 selector comparisons
+CHECK verify_lock_inventory.py
+verified four lockfile inputs and 3 mechanical comparisons
+CHECK verify_delta_sources.py
+verified manifest, workflow and client guide source pairs and qualified delta counts
+CHECK verify_role_worklist.py
+verified Git tree, 2853 distinct role identities and 2220 referenced source objects; coverage remains qualified
+CHECK verify_action_state_95e.py
+Traceback (most recent call last):
+  File "<PUBLICATION-CHECKOUT>/verify_action_state_95e.py", line 169, in <module>
+    assert load(load('BASELINE-95E-20261110.json')['latest_main_recheck'])['observed_revision'] == rev
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'observed_revision'
+Traceback (most recent call last):
+  File "<PUBLICATION-CHECKOUT>/check_published_evidence_privacy.py", line 37, in <module>
+    subprocess.run([sys.executable,str(script),*args],cwd=root,check=True)
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '<PUBLICATION-CHECKOUT>/verify_action_state_95e.py']' returned non-zero exit status 1.

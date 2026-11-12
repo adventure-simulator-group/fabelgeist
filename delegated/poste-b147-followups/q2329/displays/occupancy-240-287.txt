@@ -1,0 +1,48 @@
+ 240     fn place(
+ 241         &mut self,
+ 242         candidate: &Candidate<'_>,
+ 243         edges: Vec<EquipmentGraphEdge>,
+ 244         placed: &[&Candidate<'_>],
+ 245     ) -> Result<(), (InventoryItemId, EquipConflict)> {
+ 246         let supports = edges
+ 247             .iter()
+ 248             .map(|edge| InventoryItemId(edge.parent_inventory_item_id))
+ 249             .collect();
+ 250         let placement = EquipmentGraphPlacement {
+ 251             body: candidate.occupancy.body.clone(),
+ 252             parents: edges,
+ 253         };
+ 254         self.graph
+ 255             .equip(candidate.id.0, placement)
+ 256             .map_err(|reason| {
+ 257                 let occupied = placed.iter().find_map(|other| {
+ 258                     candidate.occupancy.body.iter().find_map(|requirement| {
+ 259                         other
+ 260                             .occupancy
+ 261                             .body
+ 262                             .iter()
+ 263                             .any(|cell| requirement.conflicts_with(*cell))
+ 264                             .then_some(EquipConflict::Occupied {
+ 265                                 location: requirement.location,
+ 266                                 channel: requirement.channel,
+ 267                                 by: other.id,
+ 268                             })
+ 269                     })
+ 270                 });
+ 271                 (
+ 272                     candidate.id,
+ 273                     occupied.unwrap_or_else(|| EquipConflict::Invalid(reason.into())),
+ 274                 )
+ 275             })?;
+ 276         self.supports.insert(candidate.id, supports);
+ 277         Ok(())
+ 278     }
+ 279 
+ 280     /// Worn articles that hang from `id`.
+ 281     pub fn dependents(&self, id: InventoryItemId) -> impl Iterator<Item = InventoryItemId> + '_ {
+ 282         self.supports
+ 283             .iter()
+ 284             .filter(move |(_, supports)| supports.contains(&id))
+ 285             .map(|(child, _)| *child)
+ 286     }
+ 287 }

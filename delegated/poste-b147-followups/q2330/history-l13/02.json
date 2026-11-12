@@ -1,0 +1,143 @@
+{
+  "lens": 13,
+  "namespace": "PL13-113",
+  "status": "Fresh personal inventory identity, loadout and occupancy counter assessment",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-113.json",
+    "sha256": "a1a5cddaedde816ca0a7b91e6c2b33df9bd4e80491f6741952844223cbe7aa50"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 809,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "actual_eof": 442,
+      "prospective_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 810,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "actual_eof": 110,
+      "prospective_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "actual_eof": 287,
+      "prospective_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered Lens13 raw numeric inventory and actual producer/API/retained/native contracts for exact registered source.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "numeric_role_inventory": [
+    "809 InventoryItemId is existing transparent public u64 owner; Inventory owns private vector but derives Deserialize, exposes mutable items via get_mut; validate checks duplicate IDs and article.validate, no ID upper-bound reservation. add maps every existingid.0+1 thenmax/default1. A serialized otherwise valid item idu64MAX would overflow allocation even with onlyone item; actual recipe/native ingress and acquisition consumers pending before retaining canonical finding. Do not presume practical inventory cardinality prevents a directly admitted high ID.",
+    "809 wear clones state and sets worn, repeats fitting while displacing a conflict involvingrequestedid; otherconflictsrestorebeforestate. take_off cascades unsupported attachments; graph must remainprogressingbyactualiduniqueness. shift uses explicit wrapping_sub1 atfirst and boundscheck, intentional boundarymode. No demand to preserveinvalid ID/duplicate or conflict behavior, error prose or obsoleteAPI.",
+    "809 Article::validate validates actual designs/decoration/construction and bothdraped/settled contract; catalog identity resolution and design_for explicitlycheckitem+placementidentity/family. Catalog weight returnsoptional rawf32kg; authoredvalidation/physicalowner pending inactualcatalogsource, garmentnoauthoredweight intentionalNone, notcompatibilitydefect.",
+    "810 loadout firstself.fit, resolvesworncatalog, rejectsnonwearable/emptysurface, categorizesfitteddesignvsclothing and retains InventoryItemId. Draped/Settled entries retain ID, selection and exact saved drapeoption and stable sort_by_key layerorder, preserving inputvectororderwithinlayer. This proves actual loadout population/order; independent700exportmail_surfaces partialoutput mapping stillneedschainreconciliation withqualifiedown700and786prefixproof.",
+    "811 Occupancy usessemantic EquipmentLocation/EquipmentChannel enums and inferredgarmentpresence; order0 ison-bodyattachmentlayer policy, coifHead/Neckmodelegit. WornGraph defersunsupported candidates andfailswholenoprogress, soinitialpendingnonemptyguarantees deferred0 whenlenunchanged. Parent/tag/capacity semantics require actualsharedschema/graphowners.",
+    "811 support picks firstmatchingfreeattachment by currentgraph children_on countasu16; attach adds samepoint edgescountasu16 to capacity_index, but doesnotrecheckpoint.capacity afterprospectivereservationswithinthiscandidate. ActualParentRequirement duplicate/multiplicityadmission and EquipmentGraph::equip capacitypolicy are necessary before classify. children_on narrowing andaddition boundedness also need actualsupportededgecapacity/requirementcounts, not blanketlargeallocationclaim.",
+    "811 nativecoreGraphBoundary EquipmentGraphPlacement gets clonedbodyoccupancy and actualedges, graph.equip keyedcandidate.id.0. Supportsretains exact InventoryItemId parentedge identities and dependents comparessemantictypedidentity. AllsharedgraphnativeSDKbodiesremainunreadunlessalreadyqualifiedownproof; imports and callnamesnogrant."
+  ],
+  "connected_contracts": [
+    {
+      "contract": "Inventory ID successor admission and exhaustion",
+      "status": "Source arithmetic failure case located; canonical deserialize/validate/acquire consumer graph pending",
+      "dependencies": [
+        "Actual CharacterRecipe deserialize/validate and inventory ingress policy",
+        "Actual acquire/add caller and core equipment graph ID native boundary",
+        "Exact existing findingaliases/current-main"
+      ],
+      "acceptance_requirements": [
+        "Every supported admitted ID has defined collision-free allocation or explicit exhaustion handling",
+        "Admitting a high serialized ID must not bypass allocator range contract",
+        "Keep IDs semantic through UI/cache/loadout/coregraph; no invalid behavior preservation"
+      ]
+    },
+    {
+      "contract": "Attachment capacity reservations and count narrowing",
+      "status": "Conditional schema/graph contract pending actual requirement/capacity admission",
+      "dependencies": [
+        "Actual ParentRequirement/attachmentpoint capacity bounds and duplicate requirement validation",
+        "Actual EquipmentGraph::equip edge capacity/duplicate policy",
+        "Actual catalog supportedmultiattachment cases"
+      ],
+      "acceptance_requirements": [
+        "Every required parent reservation must fit actual point capacity including multiple samecandidate reservations",
+        "Counts/slots must fit nativeu16 without silent narrowing or overflow for supportedinputs",
+        "Do not inventinvalidcanonicalcatalogcases or transfer otherlensverdicts"
+      ]
+    },
+    {
+      "contract": "Loadout draped identity and partial output mapping",
+      "status": "Actual typed loadout membership/order proved; reconcile existing own700 and786 output prefix evidence",
+      "dependencies": [
+        "700 mail_surfaces mapping/exact qualifiedownbody",
+        "786 drape_outfit prefix behavior/consumer lookup"
+      ],
+      "acceptance_requirements": [
+        "Partial garment outputs map to their actual InventoryItemIds and sorted selections",
+        "No common remedy establishesalias across independentworker/exportidentitypaths"
+      ]
+    }
+  ],
+  "original_delta_proposed": 3,
+  "proposed_next_original": 812,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "Fresh personal8091..150/151..300/301..442,810full110,8111..145/146..287 untruncated after113 exact prospective registration.",
+    "Arithmetic allocation/capacity questions require actual serialized/canonical producer and consumer admission proof; no runtime, ordinary oversized inventory or current-main claim. Other lens verdicts do not grant coverage. All previous qualifications persist."
+  ]
+}

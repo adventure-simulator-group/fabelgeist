@@ -1,0 +1,1190 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Seven original equipment mesh, morph, rig, fixture, socket and skin bodies and bounded current influence, clothing, partition and native-boundary connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1488-1494.json",
+  "git_membership_evidence": "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "164ba310ec9f23be5f6bea385a88ee647c2460b8",
+      "sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+      "bytes": 7932,
+      "lines": 239,
+      "ranges": [
+        [
+          19,
+          25
+        ],
+        [
+          79,
+          123
+        ],
+        [
+          164,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "229b5652fa1598c4e8c3e858d2fd296f5c0122d9",
+      "sha256": "017eab8f2758a277d6638fde30e9cbcad9ea025d1eff17e92ade4d3bf0bbe960",
+      "bytes": 11478,
+      "lines": 341,
+      "ranges": [
+        [
+          44,
+          60
+        ],
+        [
+          84,
+          100
+        ],
+        [
+          123,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "06f571a64711d71903a1444ef54a822c66cd3db8",
+      "sha256": "72974a2d1ab294dcd4b04a06a153d9781a559e9478b7f429ff32909fd6a03f8e",
+      "bytes": 2445,
+      "lines": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+      "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+      "bytes": 25075,
+      "lines": 699,
+      "ranges": [
+        [
+          109,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9384f659b7ddf359bbd158a2f353f6d981349f88",
+      "sha256": "2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+      "bytes": 1932,
+      "lines": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/textile_seams.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8f633e791654e64b629e87f9ec228f57ad2e392",
+      "sha256": "3882e3a17758fc8e0ec7ee8c6559353c07b0902f93bd84b70734484950ddc128",
+      "bytes": 6241,
+      "lines": 155,
+      "ranges": [
+        [
+          11,
+          114
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_textile_materials.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8dd94ae956a7ef3284e9a0c3f79751382a535737",
+      "sha256": "5d457ed74d03a8130d204d48803cb881c977c580d8e36a25ff94971dd2288f37",
+      "bytes": 4009,
+      "lines": 105,
+      "ranges": [
+        [
+          9,
+          46
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/mesh-rig-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code or fixture executed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Shared influence normalization and actual mesh consumer",
+      "trace": "RigInfluences exposes raw weights; strongest_four combines equal joints, sorts by descending weight and ascending ordinal, retains four and divides each retained weight by their sum without checking scalar domain or positive finite total. A nonempty public row with only zero weights has retained sum zero; source-level reasoning gives 0/0 for each retained slot. PackedRigSkin admits joint bounds but weighted_vertex accepts an independent raw weight row; native_u16 checks ordinal width, not weight normalization. At 95e runtime_equipment_mesh visits referenced vertices, invokes that reduction and publishes resulting weights to Bevy mesh attributes.",
+      "remaining": "No weight row, mesh, glTF asset, renderer or runtime was constructed or executed. Real malformed asset admission and survival of the clothing generator are not established. The historical 409 exporter scope checks nonzero/finite totals first; do not claim a zero row reaches that entry. Prior FBX scalar admission is a separate first failure, not automatically an alias."
+    },
+    {
+      "contract": "Conditional clothing route",
+      "trace": "RuntimeBody::validate checks nonempty vertices, matching per-vertex counts, joint counts and face counts, but does not check weight finiteness, nonnegativity or sum. RuntimeClothing clones body joint weights and ordinals into GeneratedArmor; garment selection chooses a face with at least two covered vertices, can expand neighboring faces and retains original face ordinals. Validated placeholder faces checks fitted positions and face bounds. A zero-weight third corner would not itself be covered, but could be referenced by a selected face when the other corners satisfy selection; generation would still have to succeed and all other constraints hold.",
+      "remaining": "This is a conditional source relationship, not a constructed valid fixture or proof that a native loader admits such a row, a real asset has it, selection succeeds, or any output was rendered. Other generators, geometry, face selection and weights require independent audit."
+    },
+    {
+      "contract": "Material partition and seam guards",
+      "trace": "Current equipment_parts chooses the first component containing a triangle and groups by both optional material and textile; earlier 6533 source used find_map and skipped a matching component without a material. The choices differ if component ranges overlap and the first match has no material. When textile is present, split_textile_seams validates contiguous component vertex and index ranges, per-vertex counts, triangle alignment and component-local index membership before rewriting; its material caller invokes that seam operation.",
+      "remaining": "No valid production overlap, rendered difference or defect is asserted. The textile-specific guard does not prove global disjointness across every nontextile producer or post-generation mutation."
+    },
+    {
+      "contract": "Rig, socket and skin safeguards",
+      "trace": "FittingRig admission rejects multiple parents and nonfinite or inconsistent joint bases; global ancestor traversal is bounded by the node count and reports a cycle. The fitting path resolves each selected joint global transform before its later ancestor traversal. Earlier current socket tracing connects belt-only garment sockets in the root frame with the belt parent mapping. Skin sync resolves all typed joint names before installing a SkinnedMesh and compares joint lists.",
+      "remaining": "These source safeguards do not establish that every graph node, asset or native inverse bindpose is valid. Skin synchronization does not separately compare the inverse-bindpose handle; normal fit installation replaces parts, while any supported in-place writer or duplicate owner/joint identity remains unproven. No stale-skin finding is asserted."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+      "first_failed_contract": "A skin influence reduction must establish finite admissible retained weights and a valid normalization total before dividing.",
+      "classification": "Previously recorded 059 finding independently re-assessed at 95e; actual malformed producer and native behavior remain conditional.",
+      "canonical_owner": "Shared RigInfluences normalization in fabelgeist-rig; connect source weight admission and the runtime mesh consumer without merging distinct FBX input or export validation failures.",
+      "current_source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_trace": "RigInfluences public fields and strongest_four; PackedRigSkin::weighted_vertex; RuntimeBody::validate and RuntimeClothing::generate; generate_clothing_shells and validated_placeholder_faces; runtime_equipment_mesh. See observations and preserved exact source bodies/ranges.",
+      "dependencies": [
+        "Trace actual glTF/body weight admission and every relevant producer, selected-face reachability, native render/export requirements and global aliases.",
+        "Preserve historic exporter zero/nonfinite-total guard and the separate FBX input first failure; no unsupported claim of ordinary asset corruption.",
+        "Review all zero/nonfinite/negative/overflowed totals and explicit invalid/empty policy, retaining valid duplicate combination, tie order and ordinal-width/membership contracts."
+      ],
+      "acceptance_requirements": [
+        "No undefined normalization publishes nonfinite weights for an admitted input; any invalid or empty policy is explicit and propagated through actual consumers.",
+        "Supported nonzero normalized rows preserve duplicate merging, tie order and joint identity; retain native width and producer-specific safeguards."
+      ],
+      "historical_related_records": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "baseline-059/queue.json#/entries/175"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; actual malformed producer admission, all consumers, native behavior and exact global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "ADLER-L11-RIG-INFLUENCE-NORMALIZATION",
+        "Q-L12-0d5a8e6d9d7ad863aacc",
+        "Q-L12-155f5090a3120510ae69",
+        "Q-L12-2c82e856b141c0404e5b"
+      ],
+      "qualification": "Old normalization is re-assessed once, not a new historical unique issue; all queue obligations remain partial. Prior export/FBX first failures are separate until exact aliases are established."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-EQUIPMENT-PREVIEW-READINESS-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Earlier adler batch 210 recorded out-of-order role1493/1495 reads; reviewer and then-current frontier retained."
+    },
+    {
+      "file": "ASSESSMENT-RUNTIME-EQUIPMENT-FIT-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Earlier adler batch 211 records no fresh reads for role1493/1495; reviewer and earlier chronology retained."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-RIG-INFLUENCE-NORMALIZATION"
+      ],
+      "qualification": "Original 059 finding and earlier 409, 540, 544 and 547 qualifications remain attributed to their actual revisions; 059 is not checkpoint 3821."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-374.json",
+      "sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+      "bytes": 12621,
+      "git_blob": "4fcf38ae302e8968719f1e38a105da9c274f2121",
+      "preserved_bytes": "recovered/mesh-rig-059/c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c.gz",
+      "published_sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+      "published_bytes": 12621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1195.json",
+      "sha256": "ecb7cb9e3628c519a6502cbd3547cad7214ffc19fb1e92daf6286d59c57c0b04",
+      "bytes": 654,
+      "git_blob": "8721dc492165bc8c5725c7f343052b4c49bf79f4",
+      "preserved_bytes": "recovered/mesh-rig-059/ecb7cb9e3628c519a6502cbd3547cad7214ffc19fb1e92daf6286d59c57c0b04.gz",
+      "published_sha256": "ecb7cb9e3628c519a6502cbd3547cad7214ffc19fb1e92daf6286d59c57c0b04",
+      "published_bytes": 654,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1196.json",
+      "sha256": "e6d3c86a949acd45ee58db88e0466057cfddc0c55f36e88216a87aa1d35beed3",
+      "bytes": 653,
+      "git_blob": "d80c3e2356fff3595d43e7792f2f4f77ee3af7a6",
+      "preserved_bytes": "recovered/mesh-rig-059/e6d3c86a949acd45ee58db88e0466057cfddc0c55f36e88216a87aa1d35beed3.gz",
+      "published_sha256": "e6d3c86a949acd45ee58db88e0466057cfddc0c55f36e88216a87aa1d35beed3",
+      "published_bytes": 653,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1197.json",
+      "sha256": "1955036af07f95632ab63730bbb586918fe12ce9588f9e15af238da528070e15",
+      "bytes": 657,
+      "git_blob": "309f32de0b1eb3a03c46dc2493e6b254d2d6ea53",
+      "preserved_bytes": "recovered/mesh-rig-059/1955036af07f95632ab63730bbb586918fe12ce9588f9e15af238da528070e15.gz",
+      "published_sha256": "1955036af07f95632ab63730bbb586918fe12ce9588f9e15af238da528070e15",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1198.json",
+      "sha256": "417d180f4ffee42dc364ae3c76eae792b560b68d86ddeb20f80ad9f9d615fb46",
+      "bytes": 654,
+      "git_blob": "79d0d6ca95e73baa55ca62ac9578122a46075a9e",
+      "preserved_bytes": "recovered/mesh-rig-059/417d180f4ffee42dc364ae3c76eae792b560b68d86ddeb20f80ad9f9d615fb46.gz",
+      "published_sha256": "417d180f4ffee42dc364ae3c76eae792b560b68d86ddeb20f80ad9f9d615fb46",
+      "published_bytes": 654,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1199.json",
+      "sha256": "14a8f6665f8377562b48140ee71b2fe2c9b3c882000d5bd6f97c09815b09b9e1",
+      "bytes": 658,
+      "git_blob": "814625bdc28d6f0051c2e1b7104b0fe8aeceed4b",
+      "preserved_bytes": "recovered/mesh-rig-059/14a8f6665f8377562b48140ee71b2fe2c9b3c882000d5bd6f97c09815b09b9e1.gz",
+      "published_sha256": "14a8f6665f8377562b48140ee71b2fe2c9b3c882000d5bd6f97c09815b09b9e1",
+      "published_bytes": 658,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1200.json",
+      "sha256": "ef0f993ebf8e8800ae3ed135775f61aac9a8a11f492b0ceaf3e0bbc252af459a",
+      "bytes": 658,
+      "git_blob": "8cb1b9ac4c7fc6dfe426136c94d4a96d5a364ea4",
+      "preserved_bytes": "recovered/mesh-rig-059/ef0f993ebf8e8800ae3ed135775f61aac9a8a11f492b0ceaf3e0bbc252af459a.gz",
+      "published_sha256": "ef0f993ebf8e8800ae3ed135775f61aac9a8a11f492b0ceaf3e0bbc252af459a",
+      "published_bytes": 658,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1201.json",
+      "sha256": "9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b",
+      "bytes": 658,
+      "git_blob": "c1d38d60c1108bd36aa9ac87bc5dd40206845f89",
+      "preserved_bytes": "recovered/mesh-rig-059/9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b.gz",
+      "published_sha256": "9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b",
+      "published_bytes": 658,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1202.json",
+      "sha256": "cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679",
+      "bytes": 659,
+      "git_blob": "1b78fcf1269a3f4b597dfe959e7ab7576bd66356",
+      "preserved_bytes": "recovered/mesh-rig-059/cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679.gz",
+      "published_sha256": "cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679",
+      "published_bytes": 659,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-374.json",
+      "sha256": "33e935e667849c68a4dd840a8f611857d1355b6b806bc290397dd2a51eeb0979",
+      "bytes": 690,
+      "git_blob": "c82e66ddd8138e3d91dee6fd64d471553684775c",
+      "preserved_bytes": "recovered/mesh-rig-059/33e935e667849c68a4dd840a8f611857d1355b6b806bc290397dd2a51eeb0979.gz",
+      "published_sha256": "33e935e667849c68a4dd840a8f611857d1355b6b806bc290397dd2a51eeb0979",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-374.json",
+      "sha256": "c4c097012535202ac81d53d0d12ac9ecf1f966bbd0be956c327a948b45ce0c8c",
+      "bytes": 39205,
+      "git_blob": "e918f90c25ce0700fd6875fe91603a92e4f81c68",
+      "preserved_bytes": "recovered/mesh-rig-059/c4c097012535202ac81d53d0d12ac9ecf1f966bbd0be956c327a948b45ce0c8c.gz",
+      "published_sha256": "c4c097012535202ac81d53d0d12ac9ecf1f966bbd0be956c327a948b45ce0c8c",
+      "published_bytes": 39205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-010.json",
+      "sha256": "a7b2ebb741c61f5d362196fd55f55f402fd427bb889ed182f51ddb0c2b68d8c9",
+      "bytes": 4612,
+      "git_blob": "f49d5a343031cb5bca9e90c0492f24f63f8633c4",
+      "preserved_bytes": "recovered/mesh-rig-059/a7b2ebb741c61f5d362196fd55f55f402fd427bb889ed182f51ddb0c2b68d8c9.gz",
+      "published_sha256": "a7b2ebb741c61f5d362196fd55f55f402fd427bb889ed182f51ddb0c2b68d8c9",
+      "published_bytes": 4612,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-011.json",
+      "sha256": "ff181dac9ae0c5154548a0597e143167b20069eb69b9bfb03c68a8066307085d",
+      "bytes": 4316,
+      "git_blob": "a2a823f09c8c31668a62eadcfa5e7723072f1669",
+      "preserved_bytes": "recovered/mesh-rig-059/ff181dac9ae0c5154548a0597e143167b20069eb69b9bfb03c68a8066307085d.gz",
+      "published_sha256": "ff181dac9ae0c5154548a0597e143167b20069eb69b9bfb03c68a8066307085d",
+      "published_bytes": 4316,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-012.json",
+      "sha256": "5a246c01114b4822ab7d6957788c56e7d345ae743c9b61bda0c5c8b69b00b3a1",
+      "bytes": 1625,
+      "git_blob": "502ba37d2e1ad53ebc16863536bb1d733734a7ea",
+      "preserved_bytes": "recovered/mesh-rig-059/5a246c01114b4822ab7d6957788c56e7d345ae743c9b61bda0c5c8b69b00b3a1.gz",
+      "published_sha256": "5a246c01114b4822ab7d6957788c56e7d345ae743c9b61bda0c5c8b69b00b3a1",
+      "published_bytes": 1625,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-021.json",
+      "sha256": "ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535",
+      "bytes": 153154,
+      "git_blob": "dc04603180c75a8ea301250b6c2acb6f0f8f7750",
+      "preserved_bytes": "recovered/mesh-rig-059/ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535.gz",
+      "published_sha256": "ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535",
+      "published_bytes": 153154,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-022.json",
+      "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+      "bytes": 5816,
+      "git_blob": "0f501b00b5335f062adf6bb1ce75a1aea627e200",
+      "preserved_bytes": "recovered/mesh-rig-059/a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515.gz",
+      "published_sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+      "published_bytes": 5816,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained",
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-024.json",
+      "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+      "bytes": 1697,
+      "git_blob": "e58173118e4c4e3e2428fb794d439871736105a4",
+      "preserved_bytes": "recovered/mesh-rig-059/cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6.gz",
+      "published_sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+      "published_bytes": 1697,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-004.json",
+      "sha256": "95b1ef30c4c1c81b84f77dceacfb78e817a5c7318a5d04de979bc29fadffa3ea",
+      "bytes": 38932,
+      "git_blob": "eaccc5711d5051b2612f491a439871d7c7619647",
+      "preserved_bytes": "recovered/mesh-rig-059/95b1ef30c4c1c81b84f77dceacfb78e817a5c7318a5d04de979bc29fadffa3ea.gz",
+      "published_sha256": "95b1ef30c4c1c81b84f77dceacfb78e817a5c7318a5d04de979bc29fadffa3ea",
+      "published_bytes": 38932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-008.json",
+      "sha256": "2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843",
+      "bytes": 29452,
+      "git_blob": "dfc8fe0a97e916214cf681e1fe73bebf77a51bb2",
+      "preserved_bytes": "recovered/mesh-rig-059/2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843.gz",
+      "published_sha256": "2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843",
+      "published_bytes": 29452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-011.json",
+      "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be",
+      "bytes": 18448,
+      "git_blob": "c8c9032aeb03b329f719328ba51363692b5a6aa6",
+      "preserved_bytes": "recovered/mesh-rig-059/82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be.gz",
+      "published_sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be",
+      "published_bytes": 18448,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-004.json",
+      "sha256": "3a38e8ecf44ddc9031d017df1fe31903f42bd50d5caf9d4c7259d22f75552282",
+      "bytes": 354,
+      "git_blob": "8ba296b7fb7a67ea8de9cbb2080ad4df09519d05",
+      "preserved_bytes": "recovered/mesh-rig-059/3a38e8ecf44ddc9031d017df1fe31903f42bd50d5caf9d4c7259d22f75552282.gz",
+      "published_sha256": "3a38e8ecf44ddc9031d017df1fe31903f42bd50d5caf9d4c7259d22f75552282",
+      "published_bytes": 354,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-008.json",
+      "sha256": "b3ba786f73e8dad0081ad15d9561941481d40d500f05b6c4f39641a27b2475b4",
+      "bytes": 354,
+      "git_blob": "0ea2461264216731f3583ea6e8a8d0528e44bab6",
+      "preserved_bytes": "recovered/mesh-rig-059/b3ba786f73e8dad0081ad15d9561941481d40d500f05b6c4f39641a27b2475b4.gz",
+      "published_sha256": "b3ba786f73e8dad0081ad15d9561941481d40d500f05b6c4f39641a27b2475b4",
+      "published_bytes": 354,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-011.json",
+      "sha256": "b514788fd0d4353964a6922d62c359e9c74a867cc5d476536feeb8658e77fa3e",
+      "bytes": 354,
+      "git_blob": "ccf963af0e31d6cf7ccbd3a7c4847f6abf27f068",
+      "preserved_bytes": "recovered/mesh-rig-059/b514788fd0d4353964a6922d62c359e9c74a867cc5d476536feeb8658e77fa3e.gz",
+      "published_sha256": "b514788fd0d4353964a6922d62c359e9c74a867cc5d476536feeb8658e77fa3e",
+      "published_bytes": 354,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-448.json",
+      "sha256": "8e73d612198abd07ad884db0f80d7378eaa527e2ff8379597bd42eb5d752a022",
+      "bytes": 1747,
+      "git_blob": "d136f1997c8269bc75bb5319bc4ff04e62a30051",
+      "preserved_bytes": "recovered/mesh-rig-059/8e73d612198abd07ad884db0f80d7378eaa527e2ff8379597bd42eb5d752a022.gz",
+      "published_sha256": "8e73d612198abd07ad884db0f80d7378eaa527e2ff8379597bd42eb5d752a022",
+      "published_bytes": 1747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-449.json",
+      "sha256": "99ffa70154620c94e8a0a6306c24676fb5e42eefd0821a56a0d42835e0fde369",
+      "bytes": 1744,
+      "git_blob": "8e7c2cd07164a152eadb7c24512c076609cca1d1",
+      "preserved_bytes": "recovered/mesh-rig-059/99ffa70154620c94e8a0a6306c24676fb5e42eefd0821a56a0d42835e0fde369.gz",
+      "published_sha256": "99ffa70154620c94e8a0a6306c24676fb5e42eefd0821a56a0d42835e0fde369",
+      "published_bytes": 1744,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-450.json",
+      "sha256": "f3e321e414aa0443c04bf86c4c615d0e5aaef5934bd2a3631f706779ad10065d",
+      "bytes": 1211,
+      "git_blob": "b7fa6f68624585dc6ae7b8e1dd2e4d55cfdcda3c",
+      "preserved_bytes": "recovered/mesh-rig-059/f3e321e414aa0443c04bf86c4c615d0e5aaef5934bd2a3631f706779ad10065d.gz",
+      "published_sha256": "f3e321e414aa0443c04bf86c4c615d0e5aaef5934bd2a3631f706779ad10065d",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-409.json",
+      "sha256": "7cea0f8e65dc105c0ae1ce9413af319c80afc7c2fb50bebf3b65b925cab599fe",
+      "bytes": 13126,
+      "git_blob": "468fccbefd501413d521a6fa5fdde726f1069eee",
+      "preserved_bytes": "recovered/mesh-rig-059/7cea0f8e65dc105c0ae1ce9413af319c80afc7c2fb50bebf3b65b925cab599fe.gz",
+      "published_sha256": "7cea0f8e65dc105c0ae1ce9413af319c80afc7c2fb50bebf3b65b925cab599fe",
+      "published_bytes": 13126,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-540.json",
+      "sha256": "07999ee136d7c583e46b42246c533778bb1e8d9efe6572923bd0191e3c19edbd",
+      "bytes": 49558,
+      "git_blob": "e06806d3ef55048a21ca707bba9ff841152d5708",
+      "preserved_bytes": "recovered/mesh-rig-059/07999ee136d7c583e46b42246c533778bb1e8d9efe6572923bd0191e3c19edbd.gz",
+      "published_sha256": "07999ee136d7c583e46b42246c533778bb1e8d9efe6572923bd0191e3c19edbd",
+      "published_bytes": 49558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-544.json",
+      "sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+      "bytes": 35500,
+      "git_blob": "2119efd43c0d7deaae215da0cefcb4b937a3b52b",
+      "preserved_bytes": "recovered/mesh-rig-059/aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911.gz",
+      "published_sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+      "published_bytes": 35500,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-547.json",
+      "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+      "bytes": 23147,
+      "git_blob": "64ffbd174a63fa9947aaa117ecc4c357e12f4160",
+      "preserved_bytes": "recovered/mesh-rig-059/25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c.gz",
+      "published_sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+      "published_bytes": 23147,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-448.json",
+      "sha256": "900a567896fcad1126efc10787790d2003181ea2ca05112c021d5657fa6b7349",
+      "bytes": 11887,
+      "git_blob": "16032d00ac87dc1592f7eb01a10b4b88e95b7a1c",
+      "preserved_bytes": "recovered/mesh-rig-059/900a567896fcad1126efc10787790d2003181ea2ca05112c021d5657fa6b7349.gz",
+      "published_sha256": "900a567896fcad1126efc10787790d2003181ea2ca05112c021d5657fa6b7349",
+      "published_bytes": 11887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-449.json",
+      "sha256": "87600930cd8dfc92d05adafc645c984b3bf661734999a80ad67eca1b074215a4",
+      "bytes": 12518,
+      "git_blob": "ce1bd99dadd322ff291571de9c5e85ceb4ea53e3",
+      "preserved_bytes": "recovered/mesh-rig-059/87600930cd8dfc92d05adafc645c984b3bf661734999a80ad67eca1b074215a4.gz",
+      "published_sha256": "87600930cd8dfc92d05adafc645c984b3bf661734999a80ad67eca1b074215a4",
+      "published_bytes": 12518,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-450.json",
+      "sha256": "2ed1479694905c574fa66fa843e6a21d28a0f18a75833554f5f9b46258080527",
+      "bytes": 8586,
+      "git_blob": "4df5eeb1417791698a5549fa39987d95ce23da08",
+      "preserved_bytes": "recovered/mesh-rig-059/2ed1479694905c574fa66fa843e6a21d28a0f18a75833554f5f9b46258080527.gz",
+      "published_sha256": "2ed1479694905c574fa66fa843e6a21d28a0f18a75833554f5f9b46258080527",
+      "published_bytes": 8586,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1363.json",
+      "sha256": "fdabc396c27a751db900faf435003c7103cd3d32758c626d9ea1d33ec687e6dc",
+      "bytes": 740,
+      "git_blob": "0107c4ad86b4d7c33f111a9d7a3fa8e561f013d0",
+      "preserved_bytes": "recovered/mesh-rig-059/fdabc396c27a751db900faf435003c7103cd3d32758c626d9ea1d33ec687e6dc.gz",
+      "published_sha256": "fdabc396c27a751db900faf435003c7103cd3d32758c626d9ea1d33ec687e6dc",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1364.json",
+      "sha256": "bc4cde78083999e4aad8890c429be9c1646dca30a143a552504c3f66686f64f7",
+      "bytes": 749,
+      "git_blob": "889d54056ab2b6f8c84a4f99a826a065fca7d34d",
+      "preserved_bytes": "recovered/mesh-rig-059/bc4cde78083999e4aad8890c429be9c1646dca30a143a552504c3f66686f64f7.gz",
+      "published_sha256": "bc4cde78083999e4aad8890c429be9c1646dca30a143a552504c3f66686f64f7",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1365.json",
+      "sha256": "1523e04dd86852961114238c17218578dbba11477526ce2247635324d8dc42ed",
+      "bytes": 740,
+      "git_blob": "3dc10a91e8fbe681e136e52268abf673a3757e13",
+      "preserved_bytes": "recovered/mesh-rig-059/1523e04dd86852961114238c17218578dbba11477526ce2247635324d8dc42ed.gz",
+      "published_sha256": "1523e04dd86852961114238c17218578dbba11477526ce2247635324d8dc42ed",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1366.json",
+      "sha256": "08dcd9a16bb6f58bac2f05c67425d50aec7652631ee84934057cf26fb23c2d46",
+      "bytes": 744,
+      "git_blob": "739e963d8284713a2e15c0427ddc74d692528137",
+      "preserved_bytes": "recovered/mesh-rig-059/08dcd9a16bb6f58bac2f05c67425d50aec7652631ee84934057cf26fb23c2d46.gz",
+      "published_sha256": "08dcd9a16bb6f58bac2f05c67425d50aec7652631ee84934057cf26fb23c2d46",
+      "published_bytes": 744,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1367.json",
+      "sha256": "71d6cfb811657154c49b33223a3c970a7ee5c1fddff7447d7658d16fa9a12d74",
+      "bytes": 829,
+      "git_blob": "cecdae7514f8b3d21cbf1c69f91cfd9c4bfc4146",
+      "preserved_bytes": "recovered/mesh-rig-059/71d6cfb811657154c49b33223a3c970a7ee5c1fddff7447d7658d16fa9a12d74.gz",
+      "published_sha256": "71d6cfb811657154c49b33223a3c970a7ee5c1fddff7447d7658d16fa9a12d74",
+      "published_bytes": 829,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1368.json",
+      "sha256": "1d4e4ff5d927935c08f393642c35b6a3f62ae7aaaf8ca941c7c37a71284a4066",
+      "bytes": 839,
+      "git_blob": "3bdf47fc55d03e85fea14341c8133fcfabee4d5c",
+      "preserved_bytes": "recovered/mesh-rig-059/1d4e4ff5d927935c08f393642c35b6a3f62ae7aaaf8ca941c7c37a71284a4066.gz",
+      "published_sha256": "1d4e4ff5d927935c08f393642c35b6a3f62ae7aaaf8ca941c7c37a71284a4066",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1369.json",
+      "sha256": "32f9cde2dc3d8d80e2c116e52504ef936de9997a9cc81a1af9222e9d1e7deb57",
+      "bytes": 833,
+      "git_blob": "01bd9ea049f960ce07936748e255e3ecb9b749b6",
+      "preserved_bytes": "recovered/mesh-rig-059/32f9cde2dc3d8d80e2c116e52504ef936de9997a9cc81a1af9222e9d1e7deb57.gz",
+      "published_sha256": "32f9cde2dc3d8d80e2c116e52504ef936de9997a9cc81a1af9222e9d1e7deb57",
+      "published_bytes": 833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-1370.json",
+      "sha256": "d2ef571ca41d6587ef3b7a64a295c52c65311dc78fb01be0259a40423f95abf5",
+      "bytes": 833,
+      "git_blob": "75fea3408cf10f752bd50866b2703b70d4e2201b",
+      "preserved_bytes": "recovered/mesh-rig-059/d2ef571ca41d6587ef3b7a64a295c52c65311dc78fb01be0259a40423f95abf5.gz",
+      "published_sha256": "d2ef571ca41d6587ef3b7a64a295c52c65311dc78fb01be0259a40423f95abf5",
+      "published_bytes": 833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-395.json",
+      "sha256": "ddcf9c58170161e86658cb2fccc31e6732c4db10e8ff1f11aa630d1f0996539f",
+      "bytes": 1209,
+      "git_blob": "96bdacb2fa2c1ca0ed01299cdecf4d0020e5fbdb",
+      "preserved_bytes": "recovered/mesh-rig-059/ddcf9c58170161e86658cb2fccc31e6732c4db10e8ff1f11aa630d1f0996539f.gz",
+      "published_sha256": "ddcf9c58170161e86658cb2fccc31e6732c4db10e8ff1f11aa630d1f0996539f",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-396.json",
+      "sha256": "35ab73550f5a61cb806f4e090538fe4401a96686fca5756d2168aca0b896fa3d",
+      "bytes": 1201,
+      "git_blob": "f561dab9f4fb05a0fb5b7f6560c2d3c807a5dd05",
+      "preserved_bytes": "recovered/mesh-rig-059/35ab73550f5a61cb806f4e090538fe4401a96686fca5756d2168aca0b896fa3d.gz",
+      "published_sha256": "35ab73550f5a61cb806f4e090538fe4401a96686fca5756d2168aca0b896fa3d",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-397.json",
+      "sha256": "5d90b6a9d0b91e99d87817503a553e69edddf84ada0645243704e17fe89a56e5",
+      "bytes": 1199,
+      "git_blob": "39c59d561d7e04277718169dce9d205535476e33",
+      "preserved_bytes": "recovered/mesh-rig-059/5d90b6a9d0b91e99d87817503a553e69edddf84ada0645243704e17fe89a56e5.gz",
+      "published_sha256": "5d90b6a9d0b91e99d87817503a553e69edddf84ada0645243704e17fe89a56e5",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-398.json",
+      "sha256": "92022e5df97c4fd49942edd5aa078f5db544651a678015f5418f253a1f22411f",
+      "bytes": 1221,
+      "git_blob": "7aeeb00f20ff71c16c056e7cf71f2510834524c5",
+      "preserved_bytes": "recovered/mesh-rig-059/92022e5df97c4fd49942edd5aa078f5db544651a678015f5418f253a1f22411f.gz",
+      "published_sha256": "92022e5df97c4fd49942edd5aa078f5db544651a678015f5418f253a1f22411f",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-399.json",
+      "sha256": "8d16f83f1c9cece6bc5ed6e879375022196e9fbdcea922da8b77995c7225babc",
+      "bytes": 1233,
+      "git_blob": "83ef2427f76d8f2c0f115282303ce21a267c49a6",
+      "preserved_bytes": "recovered/mesh-rig-059/8d16f83f1c9cece6bc5ed6e879375022196e9fbdcea922da8b77995c7225babc.gz",
+      "published_sha256": "8d16f83f1c9cece6bc5ed6e879375022196e9fbdcea922da8b77995c7225babc",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-400.json",
+      "sha256": "2fb1ba3da33bb3509d076b719130bb39126e0f96e22d08a12cb77bff91dd6b04",
+      "bytes": 1227,
+      "git_blob": "a06b27d0c053876ba9bca5c65e245e4873f10cb7",
+      "preserved_bytes": "recovered/mesh-rig-059/2fb1ba3da33bb3509d076b719130bb39126e0f96e22d08a12cb77bff91dd6b04.gz",
+      "published_sha256": "2fb1ba3da33bb3509d076b719130bb39126e0f96e22d08a12cb77bff91dd6b04",
+      "published_bytes": 1227,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-401.json",
+      "sha256": "63cbc0af6f33848dcdb8945e3d57ed05f7896a6ee9795139fc2d08ef5f7b74e8",
+      "bytes": 1157,
+      "git_blob": "9765c41fcac4f65ebdfce62e88f0c1c92ed5b8b4",
+      "preserved_bytes": "recovered/mesh-rig-059/63cbc0af6f33848dcdb8945e3d57ed05f7896a6ee9795139fc2d08ef5f7b74e8.gz",
+      "published_sha256": "63cbc0af6f33848dcdb8945e3d57ed05f7896a6ee9795139fc2d08ef5f7b74e8",
+      "published_bytes": 1157,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-402.json",
+      "sha256": "3163a613d25a6e7e5f7cddedbbe5d338707d1bdaf70abc57f42b4adf0f2495ff",
+      "bytes": 1177,
+      "git_blob": "70de1f6a7fd1cc10b1f76b1eea7d31906b7f6977",
+      "preserved_bytes": "recovered/mesh-rig-059/3163a613d25a6e7e5f7cddedbbe5d338707d1bdaf70abc57f42b4adf0f2495ff.gz",
+      "published_sha256": "3163a613d25a6e7e5f7cddedbbe5d338707d1bdaf70abc57f42b4adf0f2495ff",
+      "published_bytes": 1177,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-409.json",
+      "sha256": "ae190ef3ad8330959ef2539242cb3e441326c0aeb4a77edabd2479e0bb6f1060",
+      "bytes": 623,
+      "git_blob": "a199bb15448b463766f7845de5301265b156e65e",
+      "preserved_bytes": "recovered/mesh-rig-059/ae190ef3ad8330959ef2539242cb3e441326c0aeb4a77edabd2479e0bb6f1060.gz",
+      "published_sha256": "ae190ef3ad8330959ef2539242cb3e441326c0aeb4a77edabd2479e0bb6f1060",
+      "published_bytes": 623,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-540.json",
+      "sha256": "408be79b471f5b1c2da5cbd6aa13c6dc59bec9ea0b63587da9beebba00b7d7ed",
+      "bytes": 668,
+      "git_blob": "b3082ea616e39db27aad41cfb7417fa1bb9d79eb",
+      "preserved_bytes": "recovered/mesh-rig-059/408be79b471f5b1c2da5cbd6aa13c6dc59bec9ea0b63587da9beebba00b7d7ed.gz",
+      "published_sha256": "408be79b471f5b1c2da5cbd6aa13c6dc59bec9ea0b63587da9beebba00b7d7ed",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-544.json",
+      "sha256": "d663f32d413e7691fe3dc530531437f006eec2505990b3087b000b76a920ec95",
+      "bytes": 668,
+      "git_blob": "bc9dd4b89e939cb0ceabf939de8ccafae21380c6",
+      "preserved_bytes": "recovered/mesh-rig-059/d663f32d413e7691fe3dc530531437f006eec2505990b3087b000b76a920ec95.gz",
+      "published_sha256": "d663f32d413e7691fe3dc530531437f006eec2505990b3087b000b76a920ec95",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-547.json",
+      "sha256": "538d54f9f789b518844bc92fcfa690165bca805b474e0843d054f3bc71681e5f",
+      "bytes": 668,
+      "git_blob": "b2b1612e63301a31241fd8e3fa6b5513776b1f7c",
+      "preserved_bytes": "recovered/mesh-rig-059/538d54f9f789b518844bc92fcfa690165bca805b474e0843d054f3bc71681e5f.gz",
+      "published_sha256": "538d54f9f789b518844bc92fcfa690165bca805b474e0843d054f3bc71681e5f",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-448.json",
+      "sha256": "badc45845b408b217820d7204451a673b6e1e4284ae4e149bb318e0674f820b5",
+      "bytes": 840,
+      "git_blob": "4d6192c8352ccd024969a9ab41059cd307f5a16c",
+      "preserved_bytes": "recovered/mesh-rig-059/badc45845b408b217820d7204451a673b6e1e4284ae4e149bb318e0674f820b5.gz",
+      "published_sha256": "badc45845b408b217820d7204451a673b6e1e4284ae4e149bb318e0674f820b5",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-449.json",
+      "sha256": "bfd8d58fd5048789e037212ba1f73ca7b3ec6d0b92e5818f8098a225f6599e03",
+      "bytes": 840,
+      "git_blob": "09190b84e1ae1631a35623e34af339c82999b3ba",
+      "preserved_bytes": "recovered/mesh-rig-059/bfd8d58fd5048789e037212ba1f73ca7b3ec6d0b92e5818f8098a225f6599e03.gz",
+      "published_sha256": "bfd8d58fd5048789e037212ba1f73ca7b3ec6d0b92e5818f8098a225f6599e03",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-450.json",
+      "sha256": "15dfc26ac9961150c1fcde068957173238e5e186e82b221f01f4240496cc9bf3",
+      "bytes": 840,
+      "git_blob": "2157d60e80fe943995d35c2d62851fe619c5106d",
+      "preserved_bytes": "recovered/mesh-rig-059/15dfc26ac9961150c1fcde068957173238e5e186e82b221f01f4240496cc9bf3.gz",
+      "published_sha256": "15dfc26ac9961150c1fcde068957173238e5e186e82b221f01f4240496cc9bf3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-409.json",
+      "sha256": "efe943a604732fabe35a53748ae522625eaf13602efec9ef0a14361a87e61a3f",
+      "bytes": 389,
+      "git_blob": "c95e6f1101ee94955f0e5aa44a92ca394445257c",
+      "preserved_bytes": "recovered/mesh-rig-059/efe943a604732fabe35a53748ae522625eaf13602efec9ef0a14361a87e61a3f.gz",
+      "published_sha256": "efe943a604732fabe35a53748ae522625eaf13602efec9ef0a14361a87e61a3f",
+      "published_bytes": 389,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-540.json",
+      "sha256": "7401e9c01aabde65bda2a59d5cea2249648aeacd569f8c60cf8af98e918204e6",
+      "bytes": 408,
+      "git_blob": "647953a627353bad09edf0a2dcaf9ddfd85a7786",
+      "preserved_bytes": "recovered/mesh-rig-059/7401e9c01aabde65bda2a59d5cea2249648aeacd569f8c60cf8af98e918204e6.gz",
+      "published_sha256": "7401e9c01aabde65bda2a59d5cea2249648aeacd569f8c60cf8af98e918204e6",
+      "published_bytes": 408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-544.json",
+      "sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25",
+      "bytes": 408,
+      "git_blob": "f0c08af0e824c8d55aa48aa4737226043ebd8d55",
+      "preserved_bytes": "recovered/mesh-rig-059/fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25.gz",
+      "published_sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25",
+      "published_bytes": 408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-547.json",
+      "sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5",
+      "bytes": 407,
+      "git_blob": "ef5600932da3bb88185a5b4c206605b20a6b6b72",
+      "preserved_bytes": "recovered/mesh-rig-059/d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5.gz",
+      "published_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-448.json",
+      "sha256": "641edfbad25b50565b371d10f7c277972f3cc1b59beccb9940e8c4c6cf2a29b0",
+      "bytes": 558,
+      "git_blob": "d436b7c4110ae6adada933226c02c6139e31de51",
+      "preserved_bytes": "recovered/mesh-rig-059/641edfbad25b50565b371d10f7c277972f3cc1b59beccb9940e8c4c6cf2a29b0.gz",
+      "published_sha256": "641edfbad25b50565b371d10f7c277972f3cc1b59beccb9940e8c4c6cf2a29b0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-449.json",
+      "sha256": "10fbf8393fb4a69da189130a797392ece9e0bb52880de8b97dc1e15ec5db4776",
+      "bytes": 558,
+      "git_blob": "eb3c52b68d1dd678566905a86f4fa61854e72026",
+      "preserved_bytes": "recovered/mesh-rig-059/10fbf8393fb4a69da189130a797392ece9e0bb52880de8b97dc1e15ec5db4776.gz",
+      "published_sha256": "10fbf8393fb4a69da189130a797392ece9e0bb52880de8b97dc1e15ec5db4776",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-450.json",
+      "sha256": "0f59734ac08665b644a6c79008b8bdfe4cc60da9313039b0c34aefbc02c03e2c",
+      "bytes": 558,
+      "git_blob": "2c63651db1bd8b226a6453c1e4e0baf34ed0ae57",
+      "preserved_bytes": "recovered/mesh-rig-059/0f59734ac08665b644a6c79008b8bdfe4cc60da9313039b0c34aefbc02c03e2c.gz",
+      "published_sha256": "0f59734ac08665b644a6c79008b8bdfe4cc60da9313039b0c34aefbc02c03e2c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual body assets and glTF loader, alternate producers, native renderer, fit lifecycle, all aliases, overlays/merged/shared populations and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "726-q2333-temp-write-incident-path-safe-v1",
+  "original_incident_sha256": "b43bd94a11ae5608d11a0f3811a149e84991cee2e9b79bab0911d1a860199c26",
+  "recorded_at_utc": "2026-11-12T17:05:54.793383+00:00",
+  "location": "temporary directory outside working trees and publication checkout",
+  "write_operation": "Path.write_bytes using wb create-or-truncate",
+  "pre_write_existence_check": "none",
+  "source_and_current_anchor_sha256": "3f5536d5292fae75f78d0844c990b97b90db243300635e3ef5c4e1fa922b8a6e",
+  "source_and_current_anchor_bytes": 1429260,
+  "move_operation": "shutil.move to ledger.json in a newly created temporary directory",
+  "move_details": "shutil.move returned without error and source absent on later observation. Its implementation may rename on the same filesystem or fall back to copy-and-remove; the actual system call was not independently traced. The destination directory was newly created by tempfile.mkdtemp, no prior occupant was checked or expected.",
+  "original_now_exists": false,
+  "prior_content_qualification": "No pre-write existence or metadata check and no backup of earlier contents. If the source path existed before the write, its earlier contents could have been truncated; this evidence cannot establish or recover them.",
+  "qualification": "Path-safe reconstruction omits exact local source and destination paths. Original incident remains separately held; actual move system call was not traced. No prior contents can be established from the retained evidence."
+}

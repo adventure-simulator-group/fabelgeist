@@ -1,0 +1,16 @@
+   450	                "Could not load LOD {requested} with correctives {}: {error:#}",
+   451	                if requested_correctives { "on" } else { "off" }
+   452	            );
+   453	        }
+   454	    }
+   455	}
+   456	
+   457	#[cfg(test)]
+   458	mod belt_mount_tests {
+   459	    use super::*;
+   460	
+   461	    #[test]
+   462	    fn belt_sides_follow_mhr_anatomical_x() {
+   463	        assert_eq!(
+   464	            belt_mount_outward(EquipmentLocation::LeftBelt),
+   465	            Some([1.0, 0.0, 0.0])

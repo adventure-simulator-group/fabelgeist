@@ -1,0 +1,9 @@
+{
+  "recorded_at_utc": "2026-11-12T16:45:14.468035+00:00",
+  "event": "Prospective support capture failed because planned inventory_acquire.rs window 100\u2013150 exceeds EOF 138. The initial helper wrote exact source bytes for support files 0 and 1 before the check, but did not register or personally display source content.",
+  "failed_helper": "REGISTER-SUPPORT.py",
+  "failed_helper_sha256": "ddfb1547c87fe764388a417c78dcfc60632d210aeee96b0e248e5888b58e322a",
+  "error": "ValueError: planned window exceeds EOF",
+  "correction": "Separately named corrected helper registers window 100\u2013138 and checks any existing captured source bytes for equality rather than overwriting. Source views follow its successful registration.",
+  "qualification": "Initial traceback was in tool output and not redirected; no read credit for failed attempt."
+}

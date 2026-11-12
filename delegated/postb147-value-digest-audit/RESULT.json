@@ -1,0 +1,26 @@
+{
+  "schema": "726-q2328-private-value-digest-check-v1",
+  "source_files": 5,
+  "private_candidate_values_and_prefixes": 22,
+  "algorithms": [
+    "sha256",
+    "sha1",
+    "md5"
+  ],
+  "encodings": [
+    "raw",
+    "lowercase hex",
+    "uppercase hex",
+    "base64"
+  ],
+  "stats": {
+    "top_files": 796,
+    "views": 1495,
+    "gzip_members": 5,
+    "tar_members": 694,
+    "zip_members": 0
+  },
+  "match_locations": [],
+  "exceptions": [],
+  "qualification": "Corpus derived privately from path-bearing strings and prefixes in five separately held original files; neither original values nor their digests are printed. Bounded recursive check; other transformations, encodings, secrets, inputs and independent custody remain outside scope."
+}

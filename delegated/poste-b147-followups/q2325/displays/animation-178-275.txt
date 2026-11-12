@@ -1,0 +1,98 @@
+ 178 pub fn rebuild(
+ 179     preview: &mut WalkPreview,
+ 180     commands: &mut Commands,
+ 181     inverse_bindposes: &mut Assets<SkinnedMeshInverseBindposes>,
+ 182     model: &BodyModel,
+ 183     generated: &GeneratedCharacter,
+ 184 ) {
+ 185     if let Some(root) = preview.skeleton.take() {
+ 186         commands.entity(root).despawn();
+ 187     }
+ 188     if let Some(player) = preview.player.take() {
+ 189         commands.entity(player).despawn();
+ 190     }
+ 191     preview.playing = false;
+ 192 
+ 193     let player = commands
+ 194         .spawn((
+ 195             Name::new("Character walk player"),
+ 196             AnimationPlayer::default(),
+ 197         ))
+ 198         .id();
+ 199     if let Some(graph) = preview.graph.clone() {
+ 200         commands.entity(player).insert(AnimationGraphHandle(graph));
+ 201     }
+ 202     let skeleton_name = Name::new("Skeleton");
+ 203     let skeleton = commands
+ 204         .spawn((
+ 205             PreviewSkeleton,
+ 206             skeleton_name.clone(),
+ 207             Transform::default(),
+ 208             AnimationTargetId::from_names([&skeleton_name].into_iter()),
+ 209             AnimatedBy(player),
+ 210             Visibility::Hidden,
+ 211         ))
+ 212         .id();
+ 213 
+ 214     let character = &model.mhr.character;
+ 215     let globals: fabelgeist_rig::RigJointTable<_> = generated
+ 216         .global_joint_states
+ 217         .iter()
+ 218         .copied()
+ 219         .map(mhr_state)
+ 220         .collect();
+ 221     let mut joints = fabelgeist_rig::RigJointTable::default();
+ 222     for (index, name) in character.skeleton.names.indexed() {
+ 223         let parent = character.skeleton.parents[index];
+ 224         let local = match parent {
+ 225             None => globals[index],
+ 226             Some(parent) => globals[parent].inverse().compose(&globals[index]),
+ 227         };
+ 228         let mut path = vec![skeleton_name.clone()];
+ 229         let mut lineage = vec![index];
+ 230         let mut ancestor = parent;
+ 231         while let Some(joint) = ancestor {
+ 232             lineage.push(joint);
+ 233             ancestor = character.skeleton.parents[joint];
+ 234         }
+ 235         for joint in lineage.into_iter().rev() {
+ 236             path.push(bevy_joint_name(&character.skeleton.names[joint]));
+ 237         }
+ 238         let entity = commands
+ 239             .spawn((
+ 240                 bevy_joint_name(name),
+ 241                 bevy_transform(local),
+ 242                 AnimationTargetId::from_names(path.iter()),
+ 243                 AnimatedBy(player),
+ 244             ))
+ 245             .id();
+ 246         let parent_entity = parent.map_or(skeleton, |parent| joints[parent]);
+ 247         commands.entity(parent_entity).add_child(entity);
+ 248         joints.push(entity);
+ 249     }
+ 250     let matrices = globals
+ 251         .into_iter()
+ 252         .map(|state| {
+ 253             let inverse = state.inverse();
+ 254             Mat4::from_scale_rotation_translation(
+ 255                 Vec3::splat(inverse.scale as f32),
+ 256                 Quat::from_xyzw(
+ 257                     inverse.rotation[0] as f32,
+ 258                     inverse.rotation[1] as f32,
+ 259                     inverse.rotation[2] as f32,
+ 260                     inverse.rotation[3] as f32,
+ 261                 ),
+ 262                 Vec3::new(
+ 263                     inverse.translation[0] as f32,
+ 264                     inverse.translation[1] as f32,
+ 265                     inverse.translation[2] as f32,
+ 266                 ),
+ 267             )
+ 268         })
+ 269         .collect::<Vec<_>>();
+ 270     preview.inverse_bindposes = inverse_bindposes.add(SkinnedMeshInverseBindposes::from(matrices));
+ 271     preview.player = Some(player);
+ 272     preview.skeleton = Some(skeleton);
+ 273     preview.joints = joints;
+ 274 }
+ 275 

@@ -1,0 +1,61 @@
+ 350     ]
+ 351 }
+ 352 
+ 353 fn normalized(value: [f32; 3]) -> Option<[f32; 3]> {
+ 354     let unit = bevy::math::Vec3::from_array(value).try_normalize()?;
+ 355     Some(unit.to_array())
+ 356 }
+ 357 
+ 358 /// Raises local valleys without shrinking the garment shell into the body.
+ 359 fn relax_concavities(
+ 360     positions: &[[f32; 3]],
+ 361     source_normals: &[[f32; 3]],
+ 362     faces: &[[u32; 3]],
+ 363 ) -> Vec<[f32; 3]> {
+ 364     let mut neighbors = vec![Vec::new(); positions.len()];
+ 365     let mut edge_counts = HashMap::<(u32, u32), usize>::new();
+ 366     for face in faces {
+ 367         for (a, b) in [(face[0], face[1]), (face[1], face[2]), (face[2], face[0])] {
+ 368             neighbors[a as usize].push(b as usize);
+ 369             neighbors[b as usize].push(a as usize);
+ 370             *edge_counts.entry((a.min(b), a.max(b))).or_default() += 1;
+ 371         }
+ 372     }
+ 373     let boundary_vertices = edge_counts
+ 374         .into_iter()
+ 375         .filter(|(_, count)| *count == 1)
+ 376         .flat_map(|((a, b), _)| [a as usize, b as usize])
+ 377         .collect::<HashSet<_>>();
+ 378     for adjacent in &mut neighbors {
+ 379         adjacent.sort_unstable();
+ 380         adjacent.dedup();
+ 381     }
+ 382 
+ 383     let mut relaxed = positions.to_vec();
+ 384     for _ in 0..CONCAVITY_RELAXATION_PASSES {
+ 385         let previous = relaxed.clone();
+ 386         for (vertex, adjacent) in neighbors.iter().enumerate() {
+ 387             if adjacent.is_empty() || boundary_vertices.contains(&vertex) {
+ 388                 continue;
+ 389             }
+ 390             let Some(normal) = normalized(source_normals[vertex]) else {
+ 391                 continue;
+ 392             };
+ 393             let inverse_count = 1.0 / adjacent.len() as f32;
+ 394             let average = adjacent.iter().fold([0.0; 3], |mut average, neighbor| {
+ 395                 for (sum, component) in average.iter_mut().zip(previous[*neighbor]) {
+ 396                     *sum += component * inverse_count;
+ 397                 }
+ 398                 average
+ 399             });
+ 400             let outward_lift = dot(subtract(average, previous[vertex]), normal).max(0.0)
+ 401                 * CONCAVITY_RELAXATION_STRENGTH;
+ 402             for ((output, previous_component), normal_component) in
+ 403                 relaxed[vertex].iter_mut().zip(previous[vertex]).zip(normal)
+ 404             {
+ 405                 *output = previous_component + normal_component * outward_lift;
+ 406             }
+ 407         }
+ 408     }
+ 409     relaxed
+ 410 }

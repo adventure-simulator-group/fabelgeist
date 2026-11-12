@@ -1,0 +1,81 @@
+SOURCE crates/adventuresim-character-creator/src/drape_preview.rs:1-80
+   1 use super::*;
+   2 use adventuresim_character_creator::{
+   3     garment::{DrapeInput, DrapedGarment},
+   4     garment_material::{CLOTH_PBR, MailMaps, MailWeave},
+   5     inventory::InventoryItemId,
+   6 };
+   7 use drape_worker::DrapeWorker;
+   8 
+   9 /// Recent weaves keep their materials while a chainmail slider is dragged.
+  10 const MAIL_MATERIAL_CACHE: usize = 4;
+  11 
+  12 /// Drapes the worn cloth on the character.
+  13 #[derive(Resource, Default)]
+  14 pub struct DrapeJob {
+  15     worker: DrapeWorker<InventoryItemId>,
+  16     pub ready: Option<Vec<DrapedGarment>>,
+  17     /// Drape again at the next regeneration, even if nothing it lies on
+  18     /// changed.
+  19     again: bool,
+  20 }
+  21 
+  22 impl DrapeJob {
+  23     /// Drape worn garments, innermost first.
+  24     pub fn request(&mut self, input: Vec<(InventoryItemId, DrapeInput)>) {
+  25         self.worker.request(input);
+  26         self.ready = None;
+  27     }
+  28 
+  29     /// Make the next request simulate every stage again, and make one.
+  30     pub fn restart_from_placement(&mut self) {
+  31         self.worker.restart_from_placement();
+  32         self.again = true;
+  33     }
+  34 
+  35     /// Whether a drape was asked for again since the last request.
+  36     pub fn take_again(&mut self) -> bool {
+  37         std::mem::take(&mut self.again)
+  38     }
+  39 
+  40     /// Whether a drape is queued or running. Only this holds back animation and
+  41     /// export; a finished drape with problems does not.
+  42     pub fn running(&self) -> bool {
+  43         self.worker.running()
+  44     }
+  45 }
+  46 
+  47 /// A draped garment's preview mesh, by its inventory article.
+  48 #[derive(Component)]
+  49 pub struct DrapeMesh(InventoryItemId);
+  50 
+  51 /// Preview materials for recently shown chainmail weaves.
+  52 #[derive(Resource, Default)]
+  53 pub struct MailMaterials {
+  54     recent: Vec<(MailWeave, StandardMaterial)>,
+  55 }
+  56 
+  57 impl MailMaterials {
+  58     /// The same generated maps, ring repeat and factors the GLB export writes.
+  59     /// The material a garment of `selection` is shown in.
+  60     pub fn material_for(
+  61         &mut self,
+  62         images: &mut Assets<Image>,
+  63         selection: &adventuresim_character_creator::garment::GarmentSelection,
+  64     ) -> StandardMaterial {
+  65         if selection.fabric == FabricPreset::Chainmail {
+  66             self.material(images, selection.mail)
+  67         } else {
+  68             cloth_material()
+  69         }
+  70     }
+  71 
+  72     fn material(&mut self, images: &mut Assets<Image>, weave: MailWeave) -> StandardMaterial {
+  73         use bevy::image::{
+  74             CompressedImageFormats, ImageAddressMode, ImageSampler, ImageSamplerDescriptor,
+  75             ImageType,
+  76         };
+  77         if let Some((_, material)) = self.recent.iter().find(|(cached, _)| *cached == weave) {
+  78             return material.clone();
+  79         }
+  80         let maps = MailMaps::new(&weave).expect("the recipe validated the weave");

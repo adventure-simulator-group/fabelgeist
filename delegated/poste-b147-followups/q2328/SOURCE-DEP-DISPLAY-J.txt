@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-character-creator/src/garment.rs:1-65
+   1 //! Made-to-measure garments on the creator's metre-based MHR mesh.
+   2 use anyhow::{Context, Result, bail};
+   3 use fabelgeist_cloth::Fabric;
+   4 use fabelgeist_garment_code::{
+   5     Body, Design, assets,
+   6     design::Value,
+   7     measure::{BodyMesh, Landmarks, measure},
+   8     programs::MetaGarment,
+   9 };
+  10 use fabelgeist_garment_fit::{Fit, FitSettings, build_garment};
+  11 use fabelgeist_math::Vec3;
+  12 use fabelgeist_rig::RigJointName;
+  13 use serde::{Deserialize, Serialize};
+  14 use std::sync::atomic::{AtomicBool, Ordering};
+  15 
+  16 mod conform;
+  17 mod dressing;
+  18 #[cfg(feature = "offline-creator")]
+  19 mod export;
+  20 mod fitted;
+  21 mod lining;
+  22 pub mod pattern;
+  23 mod placement;
+  24 mod selection;
+  25 mod settled;
+  26 mod shading;
+  27 mod stages;
+  28 mod symmetrize;
+  29 mod validation;
+  30 pub use lining::{PlateLining, UnderPlate};
+  31 pub use selection::{ClothLayer, Construction, FabricPreset, GarmentForm, GarmentSelection};
+  32 pub use settled::{BodyTopology, SettledDrape, SettledGarment};
+  33 pub use stages::{DrapeCheckpoints, DrapeSettings, StageSettings};
+  34 pub(crate) use validation::validate_surface;
+  35 
+  36 #[derive(Clone)]
+  37 pub struct DrapeInput {
+  38     pub selection: GarmentSelection,
+  39     /// The worn plate the garment lies under, when it is worn under plate.
+  40     pub under_plate: Option<UnderPlate>,
+  41     /// A drape saved once settled, fitted to this wearer instead of simulated.
+  42     pub settled: Option<std::sync::Arc<SettledDrape>>,
+  43     pub obstacles: Vec<DrapedGarment>,
+  44     pub positions: Vec<[f32; 3]>,
+  45     pub faces: Vec<[u32; 3]>,
+  46     pub names: fabelgeist_rig::RigJointTable<RigJointName>,
+  47     pub joints: fabelgeist_rig::RigJointTable<[f32; 8]>,
+  48     pub indices: fabelgeist_rig::PackedRigSkin<8>,
+  49     pub weights: Vec<[f32; 8]>,
+  50 }
+  51 #[derive(Clone)]
+  52 pub struct DrapedGarment {
+  53     pub form: GarmentForm,
+  54     pub name: String,
+  55     pub fabric: FabricPreset,
+  56     pub texcoords: Vec<[f32; 2]>,
+  57     pub positions: Vec<[f32; 3]>,
+  58     pub normals: Vec<[f32; 3]>,
+  59     pub faces: Vec<[u32; 3]>,
+  60     pub indices: fabelgeist_rig::PackedRigSkin<8>,
+  61     pub weights: Vec<[f32; 8]>,
+  62     pub stage: DrapeStage,
+  63 }
+  64 
+  65 /// How far a garment has progressed through draping.

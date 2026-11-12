@@ -1,0 +1,32 @@
+{
+  "registered_utc": "2026-11-12T16:49:11.114937+00:00",
+  "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "path": "baseline-059/queue.json",
+  "scope": "entry contract_id, canonical_owner and first_failed_contract_or_unresolved_question fields only",
+  "patterns": [
+    {
+      "all": [
+        "equipconflict"
+      ]
+    },
+    {
+      "all": [
+        "inventory",
+        "error"
+      ]
+    },
+    {
+      "all": [
+        "inventory",
+        "culprit"
+      ]
+    },
+    {
+      "all": [
+        "review",
+        "partial"
+      ]
+    }
+  ],
+  "purpose": "Locate historical diagnostic and output-boundary relationship candidates; display only index and contract ID, first 100 retained, first 20 printed."
+}

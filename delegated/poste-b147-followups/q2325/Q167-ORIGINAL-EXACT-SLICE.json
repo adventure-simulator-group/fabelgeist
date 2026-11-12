@@ -1,0 +1,151 @@
+{
+      "contract_id": "ADLER-L11-MHR-SKIN-WEIGHT-ADMISSION",
+      "kind": "retained-finding-or-question",
+      "lens": 11,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "MHR skin influence numeric admission and shared rig weight owner.",
+      "first_failed_contract_or_unresolved_question": "Authored skin weights must satisfy a finite normalization contract before sorted truncation and publication.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.toml",
+          "source_sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              25
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/0",
+          "receipt": {
+            "path": "adler/READ-L11-371.json",
+            "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-mhr/README.md",
+          "source_sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              154
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/1",
+          "receipt": {
+            "path": "adler/READ-L11-371.json",
+            "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-mhr/src/character.rs",
+          "source_sha256": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              315
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/2",
+          "receipt": {
+            "path": "adler/READ-L11-371.json",
+            "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skeleton.rs",
+          "source_sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              136
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/3",
+          "receipt": {
+            "path": "adler/READ-L11-371.json",
+            "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+          "source_sha256": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              113
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/4",
+          "receipt": {
+            "path": "adler/READ-L11-371.json",
+            "sha256": "eca8734bb5f3ba20dab718022ddd3fb8d9a62bd04ab3f285aacb3d83c86c8d5e"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2318,
+              "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2318"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68:62-110",
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../adler/READ-L11-371.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-MHR-SKIN-WEIGHT-ADMISSION",
+      "remaining_evidence": [
+        "NativeFBXfloatingarrayadmission/PackedRigSkinactualowner",
+        "ActualMHRweightconsumerandcurrent/all20numericweightfamily",
+        "ConnectedNaN/zero/sparse/strongest8normalizationacceptance"
+      ],
+      "dependencies": [
+        "NativeFBXfloatingarrayadmission/PackedRigSkinactualowner",
+        "ActualMHRweightconsumerandcurrent/all20numericweightfamily",
+        "ConnectedNaN/zero/sparse/strongest8normalizationacceptance"
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Nonfiniteweightsrejectbeforevalidrowpublication",
+        "Admittedrowfiniteandnormalizedwithvalidjoints",
+        "Strongest8selectionpreservessupportedassetbehavior",
+        "Errorretainssourceclusterandvertexidentity"
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    }

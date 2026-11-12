@@ -1,0 +1,41 @@
+ 180     }
+ 181 }
+ 182 
+ 183 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+ 184 #[cfg_attr(
+ 185     all(feature = "spacetimedb", runtime_catalog),
+ 186     derive(spacetimedb::SpacetimeType)
+ 187 )]
+ 188 #[serde(deny_unknown_fields)]
+ 189 pub struct OccupancyRequirement {
+ 190     pub location: EquipmentLocation,
+ 191     pub channel: EquipmentChannel,
+ 192     /// Reserved anatomical fit zone. Omission reserves the entire location;
+ 193     /// neighboring articulated plates may overlap visibly without sharing a fit zone.
+ 194     #[serde(default)]
+ 195     pub fit_zone: Option<EquipmentFitZone>,
+ 196     /// Ordering within a channel supports repeated deeper selection without
+ 197     /// making occupancy compatibility depend on enum declaration order.
+ 198     #[serde(default)]
+ 199     pub order: u16,
+ 200 }
+ 201 
+ 202 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+ 203 #[cfg_attr(
+ 204     all(feature = "spacetimedb", runtime_catalog),
+ 205     derive(spacetimedb::SpacetimeType)
+ 206 )]
+ 207 #[serde(deny_unknown_fields)]
+ 208 pub struct ParentRequirement {
+ 209     pub channel: EquipmentChannel,
+ 210     #[serde(default)]
+ 211     pub order: u16,
+ 212     /// Required body location reached through the supporting parent's graph.
+ 213     /// A sided attachment must not bind to the opposite limb's garment.
+ 214     #[serde(default)]
+ 215     pub location: Option<EquipmentLocation>,
+ 216 }
+ 217 
+ 218 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+ 219 #[serde(deny_unknown_fields)]
+ 220 pub struct EquipmentLayerPrecedence {

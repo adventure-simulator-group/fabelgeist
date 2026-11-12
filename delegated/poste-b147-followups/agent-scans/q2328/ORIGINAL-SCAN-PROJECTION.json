@@ -1,0 +1,29 @@
+{
+  "digest_corpus_count": 40,
+  "digest_exceptions_count": 0,
+  "digest_forbidden_total": 0,
+  "digest_stats": {
+    "binary_views": 8,
+    "cached_views": 6,
+    "text_views": 142,
+    "top_files": 150,
+    "views": 150
+  },
+  "kind": "path-safe projection of separately held original agent scan receipt",
+  "original_manifest_sha256": "19677acafdb748be98de5bcebc5666c192505e6c25443bab236a08eb92e00676",
+  "original_receipt_sha256": "6d4ec2d05d598bfad69acbb093de6de0b58dff51df12e44c2566b71789d36582",
+  "other_candidate_counts": {
+    "unix-home": 3,
+    "unix-temp": 14
+  },
+  "pattern_counts": {
+    "credential": 0,
+    "email": 0,
+    "local_home": 3,
+    "temporary_path": 14,
+    "windows_user": 0
+  },
+  "projection_qualification": "The original receipt contains a local packet path and remains separately held. No individual path-value digests are reproduced. Counts refer to the original packet, not this transformed successor.",
+  "qualification": "Path hits retained; inspect or redact before public release. Scans do not clear unknown inputs, unsupported encodings/formats, symlinks, Git history, or external commit/queue/ledger anchors. The external receipt itself is outside packet scan.",
+  "recorded_at_utc": "2026-11-12T16:46:46.057451+00:00"
+}

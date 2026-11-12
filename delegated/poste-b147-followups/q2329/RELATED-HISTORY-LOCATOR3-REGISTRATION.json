@@ -1,0 +1,33 @@
+{
+  "registered_utc": "2026-11-12T16:53:35.531910+00:00",
+  "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "path": "baseline-059/queue.json",
+  "scope": "contract_id, canonical_owner, first_failed_contract_or_unresolved_question only",
+  "patterns": [
+    {
+      "all": [
+        "creator",
+        "inventory"
+      ]
+    },
+    {
+      "all": [
+        "catalog",
+        "predicate"
+      ]
+    },
+    {
+      "all": [
+        "catalog",
+        "conflict"
+      ]
+    },
+    {
+      "all": [
+        "equipment",
+        "predicate"
+      ]
+    }
+  ],
+  "purpose": "Bound creator catalog predicate ownership relationships; output index/ID only, first 100 retained and first 20 printed."
+}

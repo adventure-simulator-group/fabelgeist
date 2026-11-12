@@ -1,0 +1,19 @@
+{
+  "registered_at_utc": "2026-11-12T16:41:22.939764+00:00",
+  "reader": "/root/mhr_character",
+  "operation": "Recover, verify and personally display selected original 059 queue entry 2330 and compare its counterpart in later reconstructed public queue",
+  "source": {
+    "publication_commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "path": "baseline-059/queue.json",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "bytes": 21632843,
+    "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "pointer": "/entries/2330"
+  },
+  "comparison": {
+    "publication_commit": "e709f11f0aa6bf736bd20819a628e4790cd03999",
+    "path": "baseline-059/queue.json",
+    "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173"
+  },
+  "qualification": "Selection only: no other entry or full queue body read credit; historic record is not checkpoint3821. Serialization projection differs from exact source bytes."
+}

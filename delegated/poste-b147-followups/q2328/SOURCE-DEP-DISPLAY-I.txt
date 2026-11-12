@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-character-creator/src/wardrobe_tab.rs:200-280
+ 200                 studio.status = format!("Wardrobe body failed: {error:#}");
+ 201                 return;
+ 202             }
+ 203         }
+ 204     }
+ 205     if std::mem::take(&mut wardrobe.redrape) {
+ 206         request(wardrobe, &model, &mut studio);
+ 207     }
+ 208     if !std::mem::take(&mut wardrobe.refresh) {
+ 209         return;
+ 210     }
+ 211     let shown = match wardrobe.showing.clone() {
+ 212         // The design's own appearance, so chainmail edits show without draping.
+ 213         Showing::Design => wardrobe
+ 214             .drape
+ 215             .as_ref()
+ 216             .and_then(|drape| Some((wardrobe.garment.clone(), drape.garment.clone()?))),
+ 217         Showing::Saved(name) => fit_saved(wardrobe, &model, &studio, &name),
+ 218     };
+ 219     for entity in &garments {
+ 220         scene.commands.entity(entity).despawn();
+ 221     }
+ 222     if let Some((selection, garment)) = shown
+ 223         && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
+ 224     {
+ 225         wardrobe.fit_problems = Some(format!("{error:#}"));
+ 226     }
+ 227 }
+ 228 
+ 229 /// Take the running drape's progress, and show it when the design is shown.
+ 230 fn collect(wardrobe: &mut WardrobeTab, studio: &mut Studio) {
+ 231     let progress = wardrobe.worker.poll();
+ 232     let Some(drape) = wardrobe.drape.as_mut() else {
+ 233         return;
+ 234     };
+ 235     if let Some(garment) = progress
+ 236         .preview
+ 237         .and_then(|garments| garments.into_iter().next())
+ 238     {
+ 239         drape.garment = Some(garment);
+ 240         wardrobe.refresh |= wardrobe.showing == Showing::Design;
+ 241     }
+ 242     if let Some(outcome) = progress.finished {
+ 243         drape.finished = true;
+ 244         drape.problems = outcome.problems();
+ 245         studio.status = match &drape.problems {
+ 246             None => format!(
+ 247                 "{} settled; ready to save to the wardrobe",
+ 248                 drape.selection.name
+ 249             ),
+ 250             Some(problems) => format!("{} draped with problems: {problems}", drape.selection.name),
+ 251         };
+ 252     }
+ 253 }
+ 254 
+ 255 /// Drape the designed garment on the wardrobe's body.
+ 256 fn request(wardrobe: &mut WardrobeTab, model: &BodyModel, studio: &mut Studio) {
+ 257     let Some(input) = wardrobe.input(model, wardrobe.garment.clone()) else {
+ 258         return;
+ 259     };
+ 260     wardrobe.drape = Some(Drape {
+ 261         selection: wardrobe.garment.clone(),
+ 262         garment: None,
+ 263         finished: false,
+ 264         problems: None,
+ 265     });
+ 266     wardrobe.worker.request(vec![((), input)]);
+ 267     studio.status = format!("Draping {} in the wardrobe…", wardrobe.garment.name);
+ 268 }
+ 269 
+ 270 /// Fit a saved garment to the wardrobe's body from its saved drape.
+ 271 fn fit_saved(
+ 272     wardrobe: &mut WardrobeTab,
+ 273     model: &BodyModel,
+ 274     studio: &Studio,
+ 275     name: &LibraryName,
+ 276 ) -> Option<(GarmentSelection, DrapedGarment)> {
+ 277     let saved = studio.wardrobe.library.get(name)?;
+ 278     let input = wardrobe.input(model, saved.selection.clone())?;
+ 279     let outcome = saved.drape.wear(&input);
+ 280     let mut problems = outcome.warnings;

@@ -1,0 +1,36 @@
+ 275 
+ 276 #[expect(
+ 277     clippy::too_many_arguments,
+ 278     reason = "Bevy injects these system parameters independently"
+ 279 )]
+ 280 pub fn deform_cloth(
+ 281     preview: Res<WalkPreview>,
+ 282     time: Res<Time>,
+ 283     binds: Res<Assets<SkinnedMeshInverseBindposes>>,
+ 284     joints: Query<&GlobalTransform>,
+ 285     bodies: Query<&BodySkin>,
+ 286     armor: Query<&ArmorSkin>,
+ 287     mut cloth: Query<(&Mesh3d, &mut ClothSkin)>,
+ 288     mut meshes: ResMut<Assets<Mesh>>,
+ 289     mut body_motion: Local<BodyMotion>,
+ 290 ) {
+ 291     if !preview.playing {
+ 292         return;
+ 293     }
+ 294     let Some(bind) = binds.get(&preview.inverse_bindposes) else {
+ 295         return;
+ 296     };
+ 297     let Some(matrices) = preview
+ 298         .joints
+ 299         .iter()
+ 300         .zip(bind.iter())
+ 301         .map(|(entity, inverse)| {
+ 302             joints
+ 303                 .get(*entity)
+ 304                 .ok()
+ 305                 .map(|global| global.to_matrix() * *inverse)
+ 306         })
+ 307         .collect::<Option<fabelgeist_rig::RigJointTable<_>>>()
+ 308     else {
+ 309         return;
+ 310     };

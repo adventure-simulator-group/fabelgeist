@@ -1,0 +1,61 @@
+     1	//! Hair placed again on every sampled head, for the body's morph channels.
+     2	use super::*;
+     3	use adventuresim_character_creator::hair::{GroomedHair, HairGeometry, HeadPlacement, HeadSkin};
+     4	use fabelgeist_mhr::character::MeshVertexIndex;
+     5	
+     6	impl CharacterMorphs {
+     7	    /// One target per body channel: `base`, the hair as `placement` puts it
+     8	    /// on the recipe's own head, carried to where the same placement puts it
+     9	    /// on the sampled head. Like clothing, a fit target keeps only what the
+    10	    /// head joint does not carry.
+    11	    pub(crate) fn hair(
+    12	        &self,
+    13	        model: &BodyModel,
+    14	        hair: &GroomedHair,
+    15	        base: &HairGeometry,
+    16	        placement: &HeadPlacement,
+    17	    ) -> Result<Vec<MorphDelta>> {
+    18	        let character = &model.mhr.character;
+    19	        self.samples
+    20	            .iter()
+    21	            .map(|sample| {
+    22	                let skin = HeadSkin {
+    23	                    positions: &sample.positions,
+    24	                    joint_indices: character.skin_weights.indices(),
+    25	                    joint_weights: character.skin_weights.weights().as_native_slice(),
+    26	                    joint_names: &character.skeleton.names,
+    27	                    global_joint_states: &sample.global_joint_states,
+    28	                };
+    29	                let sampled = HeadPlacement::fit(&skin, hair.head())?;
+    30	                let placed = base.carried(placement, &sampled);
+    31	                let mut delta = MorphDelta::between(
+    32	                    sample.name.clone(),
+    33	                    &base.positions,
+    34	                    &base.normals,
+    35	                    &placed.positions,
+    36	                    &placed.normals,
+    37	                )?;
+    38	                let count = base.positions.len();
+    39	                let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
+    40	                let joints = fabelgeist_rig::PackedRigSkin::repeated(
+    41	                    skin.joints,
+    42	                    count,
+    43	                    self.reference_joints.joint_count(),
+    44	                )?;
+    45	                remove_skeletal_translation(
+    46	                    &mut delta.positions,
+    47	                    sample,
+    48	                    &self.reference_joints,
+    49	                    &joints,
+    50	                    (0..count).map(|vertex| {
+    51	                        (
+    52	                            MeshVertexIndex::from_native_vertex_index(vertex),
+    53	                            skin.weights,
+    54	                        )
+    55	                    }),
+    56	                );
+    57	                Ok(delta)
+    58	            })
+    59	            .collect()
+    60	    }
+    61	}

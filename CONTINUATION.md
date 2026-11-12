@@ -22,6 +22,18 @@ same-machine recovery of the preceding checkpoint.
 `delegated/poste709-followups/checkpoint-e709-recovery/RECOVERY-RECORD.json`
 records same-machine recovery of the preceding published checkpoint.
 
+`delegated/poste-b147-followups/checkpoint-b147-recovery/RECOVERY-RECORD.json`
+records same-machine recovery of the preceding published checkpoint.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-14C-95E.json` connects bounded skin, hair,
+drape and inventory source reviews to separately attributed history. The
+relationships are not unique-defect counts or completed queue records.
+
+`delegated/postb147-evidence-check-failure/RECORD.json` preserves a stopped
+evidence check caused by an incomplete main-observation metadata schema. A
+new, separately bracketed observation supplies the expected fields; the
+earlier observation remains intact.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json` connects bounded cooking,
 preparation, foraging and creator source reviews to separately attributed
 history. The relationships are not unique-defect counts or completed

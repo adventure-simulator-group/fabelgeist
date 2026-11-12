@@ -1,0 +1,110 @@
+   1 //! A character's belongings: every article carried, and which of them are worn.
+   2 //!
+   3 //! Catalog items and draped garments are all articles. Whether
+   4 //! worn articles fit together follows the catalog's body occupancy and
+   5 //! attachment rules, through the same equipment graph the game uses.
+   6 
+   7 mod loadout;
+   8 mod occupancy;
+   9 
+  10 pub use loadout::{CatalogPiece, DrapedPiece, FittedPiece, Loadout};
+  11 pub use occupancy::{Occupancy, WornGraph};
+  12 
+  13 use crate::{
+  14     decoration::Decoration,
+  15     equipment_catalog::{CatalogPlacement, ItemCatalog},
+  16     garment::{GarmentSelection, SettledGarment},
+  17     item_catalog_schema::{EquipmentChannel, EquipmentLocation, ItemDefinition},
+  18     item_design::{CatalogDesigns, ItemDesign},
+  19 };
+  20 use fabelgeist_armor::Construction;
+  21 use serde::{Deserialize, Serialize};
+  22 
+  23 /// Stable identity of one article within a character's inventory.
+  24 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+  25 #[serde(transparent)]
+  26 pub struct InventoryItemId(pub u64);
+  27 
+  28 #[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
+  29 #[serde(transparent)]
+  30 pub struct Inventory {
+  31     items: Vec<InventoryItem>,
+  32 }
+  33 
+  34 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  35 #[serde(deny_unknown_fields)]
+  36 pub struct InventoryItem {
+  37     pub id: InventoryItemId,
+  38     /// Worn articles are generated on the body; the rest are only carried.
+  39     pub worn: bool,
+  40     pub article: Article,
+  41 }
+  42 
+  43 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  44 #[serde(rename_all = "snake_case")]
+  45 pub enum Article {
+  46     Catalog(CatalogArticle),
+  47     /// Cloth sewn from a pattern, or fitted as a surface, and draped by simulation.
+  48     Draped(GarmentSelection),
+  49     /// Cloth saved from the wardrobe once settled, fitted to the wearer
+  50     /// without simulating. The article holds its own copy of the drape.
+  51     Settled(SettledGarment),
+  52 }
+  53 
+  54 /// One catalog item in one of its authored placements.
+  55 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  56 #[serde(deny_unknown_fields)]
+  57 pub struct CatalogArticle {
+  58     pub item_id: String,
+  59     pub placement_id: String,
+  60     /// This article's own shape; `None` builds the catalog default.
+  61     pub design: Option<ItemDesign>,
+  62     /// The engraving and trim of a plate-steel article.
+  63     pub decoration: Decoration,
+  64     /// How a plate-steel article is built: one solid plate, or lamellar lames
+  65     /// or scales laced over its surface.
+  66     pub construction: Construction,
+  67 }
+  68 
+  69 /// Why an article cannot be worn with the rest of the outfit.
+  70 #[derive(Clone, Debug, PartialEq)]
+  71 pub enum EquipConflict {
+  72     /// Another worn article already fills this body cell.
+  73     Occupied {
+  74         location: EquipmentLocation,
+  75         channel: EquipmentChannel,
+  76         by: InventoryItemId,
+  77     },
+  78     /// No worn article offers the attachment point this article hangs from.
+  79     Unsupported {
+  80         channel: EquipmentChannel,
+  81         location: Option<EquipmentLocation>,
+  82     },
+  83     Invalid(String),
+  84 }
+  85 
+  86 impl CatalogArticle {
+  87     pub fn new(item_id: impl Into<String>, placement_id: impl Into<String>) -> Self {
+  88         Self {
+  89             item_id: item_id.into(),
+  90             placement_id: placement_id.into(),
+  91             design: None,
+  92             decoration: Decoration::default(),
+  93             construction: Construction::Solid,
+  94         }
+  95     }
+  96 
+  97     pub fn resolve<'a>(
+  98         &self,
+  99         catalog: &'a ItemCatalog,
+ 100     ) -> Result<CatalogPlacement<'a>, EquipConflict> {
+ 101         catalog
+ 102             .placement(&self.item_id, &self.placement_id)
+ 103             .ok_or_else(|| {
+ 104                 EquipConflict::Invalid(format!(
+ 105                     "the catalog has no {} placement {}",
+ 106                     self.item_id, self.placement_id
+ 107                 ))
+ 108             })
+ 109     }
+ 110 

@@ -1,0 +1,104 @@
+   1 //! Generator inputs for the worn outfit.
+   2 
+   3 use super::*;
+   4 use adventuresim_character_creator::{
+   5     garment::{DrapeInput, PlateLining, UnderPlate},
+   6     inventory::{FittedPiece, InventoryItemId, Loadout},
+   7 };
+   8 use std::sync::Arc;
+   9 
+  10 /// Room between worn plate and the outermost cloth pressed under it, metres.
+  11 const LINING_CLEARANCE_M: f32 = 0.001;
+  12 
+  13 /// The worn outfit, or why it cannot be worn together.
+  14 pub(super) fn loadout<'a>(
+  15     recipe: &'a CharacterRecipe,
+  16     catalog: &'a EquipmentCatalog,
+  17 ) -> Result<Loadout<'a>> {
+  18     recipe
+  19         .inventory
+  20         .loadout(catalog)
+  21         .map_err(|error| anyhow::anyhow!(recipe.inventory.explain(catalog, &error)))
+  22 }
+  23 
+  24 /// Worn catalog clothing as shells offset from the body, and the body faces left visible.
+  25 pub(super) fn clothing(
+  26     model: &BodyModel,
+  27     loadout: &Loadout<'_>,
+  28     generated: &GeneratedCharacter,
+  29 ) -> Result<adventuresim_character_creator::clothing::ClothedMesh> {
+  30     let character = &model.mhr.character;
+  31     generate_clothing_shells(
+  32         &clothing_specifications(loadout)?,
+  33         &generated.positions,
+  34         &generated.normals,
+  35         &character.mesh.faces,
+  36         character.skin_weights.indices(),
+  37         character.skin_weights.weights().as_native_slice(),
+  38         &character.skeleton.names,
+  39         &generated.global_joint_states,
+  40     )
+  41     .map_err(anyhow::Error::from)
+  42 }
+  43 
+  44 /// Drape inputs for worn cloth, innermost first. Cloth worn under plate
+  45 /// lies under `lining`, each garment far enough in for those pressed over it.
+  46 pub(super) fn drape_inputs(
+  47     model: &BodyModel,
+  48     generated: &GeneratedCharacter,
+  49     loadout: &Loadout<'_>,
+  50     lining: Option<&Arc<PlateLining>>,
+  51 ) -> Vec<(InventoryItemId, DrapeInput)> {
+  52     let mut over = LINING_CLEARANCE_M;
+  53     let mut inputs = loadout
+  54         .draped
+  55         .iter()
+  56         .rev()
+  57         .map(|piece| {
+  58             let mut input = drape_preview::input(model, generated, piece.selection.clone());
+  59             input.settled = piece.drape.cloned().map(Arc::new);
+  60             if let Some(lining) = lining.filter(|_| UnderPlate::covers(piece.selection.channel())) {
+  61                 let half = piece.selection.fabric.fabric().particle_radius();
+  62                 input.under_plate = Some(UnderPlate {
+  63                     lining: lining.clone(),
+  64                     standoff: over + half,
+  65                 });
+  66                 over += 2.0 * half;
+  67             }
+  68             (piece.id, input)
+  69         })
+  70         .collect::<Vec<_>>();
+  71     inputs.reverse();
+  72     inputs
+  73 }
+  74 
+  75 /// The lining of the worn rigid plate among `pieces`.
+  76 pub(super) fn lining<'a>(
+  77     pieces: impl IntoIterator<Item = (&'a FittedPiece<'a>, &'a GeneratedArmor)>,
+  78 ) -> Option<Arc<PlateLining>> {
+  79     PlateLining::new(
+  80         pieces
+  81             .into_iter()
+  82             .filter(|(piece, _)| parametric_equipment::is_rigid(piece))
+  83             .map(|(_, armor)| armor),
+  84     )
+  85     .map(Arc::new)
+  86 }
+  87 
+  88 fn clothing_specifications(loadout: &Loadout<'_>) -> Result<Vec<GarmentSpecification>> {
+  89     loadout
+  90         .clothing
+  91         .iter()
+  92         .map(|piece| {
+  93             Ok(GarmentSpecification::from_catalog(
+  94                 format!(
+  95                     "{} · {}",
+  96                     piece.selection.item().display_name,
+  97                     piece.selection.id
+  98                 )
+  99                 .into(),
+ 100                 piece.selection,
+ 101             )?)
+ 102         })
+ 103         .collect()
+ 104 }

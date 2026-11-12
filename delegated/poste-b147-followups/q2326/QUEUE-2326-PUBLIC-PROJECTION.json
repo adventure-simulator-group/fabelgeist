@@ -1,0 +1,221 @@
+{
+  "contract_id": "REVIEW-L11-CREATOR-HAIR-BODY-INSTANCE-IDENTITY",
+  "kind": "qualified-scoped-review-disposition",
+  "lens": 11,
+  "parent_canonical_id": null,
+  "canonical_owner": "HairPreview::placed/request/Worker/PlacedStyle exact Arc body instance plus groom owner",
+  "first_failed_contract_or_unresolved_question": "Equal counts do not drive hair placement cache reuse: actual Arc::ptr_eq body identity and groom equality exclude simple stalebody cache suspicion.",
+  "exact_source_identities_and_assessed_ranges": [
+    {
+      "source_row_key": "R178-2",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/hair_preview.rs:P09-P12-current-delta-creator-preview-consumer",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "baa0d6dc589215679602b941a4f94e99d1c375bdb20c7daa582455b4dc41cc2e",
+      "assessed_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "receipt_pointer": "/rows/2",
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "contract_relevant_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-178.json",
+        "sha256": "f2e31edd15790098b415676db66fe536497b2c8d073218179e34409097b31925"
+      },
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-196.json",
+        "sha256": "2ec5fba1f39da1a687dc8f9c5fa7d4f340d14d9c3965279ad2b9b362c44b5e4a",
+        "json_pointer": "/rows/2"
+      },
+      "root_adoption": {
+        "path": "segovb/READ-L11-714.json",
+        "sha256": "1d8400fa3eef4327483a2d3f572145310891c417bbd94e40bee012473864e335",
+        "verification": "segovb/VERIFY-L11-714.json",
+        "verification_sha256": "f68f9e32205cd576b823136cb51f5ad069731e16e7307ed9137c769511f883b9"
+      },
+      "body_credit_from_queue": 0
+    },
+    {
+      "source_row_key": "R178-3",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/character_morphs/hair.rs:P09-P12-current-delta-creator-preview-consumer",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "c46f692b569b04811a05fe3773d533e16a5a667fe309dd3ac71514ff80700dd3",
+      "assessed_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "receipt_pointer": "/rows/3",
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "contract_relevant_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-178.json",
+        "sha256": "f2e31edd15790098b415676db66fe536497b2c8d073218179e34409097b31925"
+      },
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-196.json",
+        "sha256": "2ec5fba1f39da1a687dc8f9c5fa7d4f340d14d9c3965279ad2b9b362c44b5e4a",
+        "json_pointer": "/rows/3"
+      },
+      "root_adoption": {
+        "path": "segovb/READ-L11-714.json",
+        "sha256": "1d8400fa3eef4327483a2d3f572145310891c417bbd94e40bee012473864e335",
+        "verification": "segovb/VERIFY-L11-714.json",
+        "verification_sha256": "f68f9e32205cd576b823136cb51f5ad069731e16e7307ed9137c769511f883b9"
+      },
+      "body_credit_from_queue": 0
+    },
+    {
+      "source_row_key": "R011-5",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/character_morphs.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "e39e073fb460cbb76f96bd84b9893defc7bd69af854460c710d5e031a2c302e8",
+      "assessed_ranges": [
+        [
+          1,
+          403
+        ]
+      ],
+      "receipt_pointer": "/rows/5",
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "contract_relevant_ranges": [
+        [
+          1,
+          403
+        ]
+      ],
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+        "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+      },
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+        "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+        "json_pointer": "/rows/8"
+      },
+      "root_adoption": {
+        "path": "segovb/READ-L11-547.json",
+        "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+        "verification": "segovb/VERIFY-L11-547.json",
+        "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+      },
+      "body_credit_from_queue": 0
+    },
+    {
+      "source_row_key": "R179-0",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_cache.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "assessed_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "receipt_pointer": "/rows/0",
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "contract_relevant_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+        "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+      },
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+        "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+        "json_pointer": "/rows/0"
+      },
+      "root_adoption": {
+        "path": "segovb/READ-L11-715.json",
+        "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+        "verification": "segovb/VERIFY-L11-715.json",
+        "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+      },
+      "body_credit_from_queue": 0
+    },
+    {
+      "source_row_key": "R179-1",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_generation.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "622d3df75d402403449d5c22883da9645900fa0e142be0892776bfc1fdaefc17",
+      "assessed_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "receipt_pointer": "/rows/1",
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "contract_relevant_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+        "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+      },
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+        "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+        "json_pointer": "/rows/1"
+      },
+      "root_adoption": {
+        "path": "segovb/READ-L11-715.json",
+        "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+        "verification": "segovb/VERIFY-L11-715.json",
+        "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+      },
+      "body_credit_from_queue": 0
+    }
+  ],
+  "producer_api_retained_state_consumer_native_trace": [
+    "BodyHead copies currentmodel skin/name/faces plus generated positions/joints. HairPreview::placed125..129 and request134..158 compareactualArcidentity+groom; sharedGroomedHair reuse is styleowner, placementalwaysrecomputed on changedbody. Worker retains Arcbody then collect163..193 stores sameworkerbody with preparedhair/GPU.",
+    "refresh253..343 obtainscurrentcachebody aftergeneration, requestsifnotexactplaced, then retaineddesign/Form/nativeSkin drivesdrawnmesh/scalp; finalstatus formatserrors at actualStudio UI leaf. CharacterMorphs::hair11..60 uses sampled HeadPlacement and typedwhole_joint count, not bodycount substitution."
+  ],
+  "remaining_evidence": [],
+  "dependencies": [
+    "Exact currentcreator/MHR/rig source scopes only; public library admissions and separate native/fixture/doc contracts retain exact prior qualifications.",
+    "No product/native/test/fixture/runtime execution; later repair acceptance separate."
+  ],
+  "closure_condition": [
+    "Root verifies immutable wholebundle/source/plan/own prior root proofs before ordered177..180 source adoption.",
+    "Record namedretained/rejected/conditional/policydisposition only; no coarseall20/all13/currentdelta closure or accepteduniqueassignment."
+  ],
+  "disposition": "rejected-suspicion-source-qualified",
+  "policy_decisions_remaining": [],
+  "later_repair_acceptance_requirements": [
+    "Availabletypednativecauses andactualsemanticroles preserved untilpresentation.",
+    "Any policychosenrepair/native-runtimevalidation remainsseparateafterauditledgercomplete, no obsoleteAPI/errorprose/invalidbehavior preservation."
+  ],
+  "named_disposition_recorded": true,
+  "audit_discovery_closed_within_exact_named_scope": true,
+  "all_lenses_or_coarse_parent_closed": false,
+  "global_exact_alias_inventory_complete": false,
+  "repair_runtime_passed": false,
+  "proposal": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+    "row_pointer": "/contract_updates/3"
+  },
+  "body_or_population_credit": 0,
+  "implementation_gate_complete": false
+}

@@ -1,0 +1,68 @@
+ 145             }
+ 146             commands.spawn((
+ 147                 marker.clone(),
+ 148                 Name::new(part_name),
+ 149                 Mesh3d(meshes.add(mesh)),
+ 150                 MeshMaterial3d(materials.add(material.clone())),
+ 151             ));
+ 152         }
+ 153     }
+ 154     Ok(())
+ 155 }
+ 156 
+ 157 /// The previewed body's skin colour, sRGB.
+ 158 pub(super) const SKIN_COLOR: Color = Color::srgb(0.64, 0.39, 0.30);
+ 159 
+ 160 pub(super) fn spawn_body(
+ 161     commands: &mut Commands,
+ 162     meshes: &mut Assets<Mesh>,
+ 163     materials: &mut Assets<StandardMaterial>,
+ 164     walk: &WalkPreview,
+ 165     model: &BodyModel,
+ 166     generated: &GeneratedCharacter,
+ 167     mut mesh: Mesh,
+ 168 ) -> Result<()> {
+ 169     animation_preview::skin_mesh(
+ 170         &mut mesh,
+ 171         model.mhr.character.skin_weights.indices(),
+ 172         model.mhr.character.skin_weights.weights().as_native_slice(),
+ 173     )?;
+ 174     commands.spawn((
+ 175         CharacterMesh,
+ 176         animation_preview::BodySkin {
+ 177             positions: generated.positions.clone(),
+ 178             faces: model.mhr.character.mesh.faces.clone(),
+ 179             indices: model.mhr.character.skin_weights.indices().clone(),
+ 180             weights: model
+ 181                 .mhr
+ 182                 .character
+ 183                 .skin_weights
+ 184                 .weights()
+ 185                 .as_native_slice()
+ 186                 .to_vec(),
+ 187         },
+ 188         animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
+ 189         Mesh3d(meshes.add(mesh)),
+ 190         MeshMaterial3d(materials.add(skin_material())),
+ 191     ));
+ 192     Ok(())
+ 193 }
+ 194 
+ 195 /// The previewed skin: of the body, and of the scalp cap under hair.
+ 196 pub(super) fn skin_material() -> StandardMaterial {
+ 197     StandardMaterial {
+ 198         // Skin is a rough dielectric with a small amount of diffuse
+ 199         // transmission. This keeps thin features such as the nose, ears,
+ 200         // and fingers warm instead of crushing them to black.
+ 201         base_color: SKIN_COLOR,
+ 202         metallic: 0.0,
+ 203         perceptual_roughness: 0.52,
+ 204         reflectance: 0.46,
+ 205         specular_tint: Color::srgb(1.0, 0.93, 0.89),
+ 206         // A small back-diffuse lobe is Bevy's inexpensive approximation
+ 207         // of the short scattering distance seen in skin. Kept subtle so
+ 208         // the body remains opaque and shadowed rather than wax-like.
+ 209         diffuse_transmission: 0.045,
+ 210         ..default()
+ 211     }
+ 212 }
