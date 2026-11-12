@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0554.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0621.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -168,8 +168,8 @@ reconstructions with exact changed top-level originals kept locally.
 shutter, and pose-sampling relationships. They finish bounded coordinator
 reconciliation of the eleven checkpoint 12 packets only; their connected
 scopes, other packets, all thirteen lenses, and the 3,713-record historical
-semantic queue remain open. The ledger has 1,015 entries and relationships,
-not a count of unique defects.
+semantic queue remain open. At that checkpoint the ledger had 1,015 entries
+and relationships, not a count of unique defects.
 `RECOVERY-VERIFICATION-25A585A6.json` records the latest same-machine
 fetch, checkout, and evidence-only check, with its transcript limitations.
 `DELEGATED-EVIDENCE-CHECKPOINT-29.json` preserves twelve additional
@@ -190,6 +190,22 @@ reconstructions; changed top-level originals remain local only.
 `DELEGATED-EVIDENCE-CHECKPOINT-31.json` preserves three more additive
 source-family reconciliation packets pending central review. One incidental
 unregistered five-line source display is recorded without audit credit.
+`RECOVERY-VERIFICATION-488DB27D.json` records the latest same-machine
+fetch, checkout, and evidence-only check, with its transcript limitations.
+`ASSESSMENT-DELEGATED-RECONCILIATION-13A-95E.json`,
+`ASSESSMENT-DELEGATED-RECONCILIATION-13B-95E.json`, and
+`ASSESSMENT-DELEGATED-RECONCILIATION-13C-95E.json` add bounded
+coordinator source reviews of building admission, endpoint arithmetic, look
+propagation, and fixed-tick cache readiness. Their supported inputs, connected
+consumers, aliases, and remaining checkpoint 13 packet scopes are open.
+The working ledger now contains 1,021 entries and relationships, including
+reconnected historical records and conditional questions; it is not a count
+of unique defects.
+`DELEGATED-EVIDENCE-CHECKPOINT-32.json` preserves three further attributed
+source-family packets pending central reconciliation. Their earlier original
+and redacted Bevy registration hashes differ, and the original mixed P16 role
+labels remain as recorded. Changed top-level originals of path-redacted public
+reconstructions remain local only.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

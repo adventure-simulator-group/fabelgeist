@@ -1,0 +1,185 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+  "source_role": 2560,
+  "central_display_evidence": {
+    "prior_model_registration": "CENTRAL-13A-REGISTRATION.json",
+    "prior_model_receipt": "CENTRAL-13A-READ-RECEIPT.json",
+    "prior_model_proof": "CENTRAL-13A-WINDOWS-PROOF.json",
+    "registration": "CENTRAL-13B-REGISTRATION.json",
+    "receipt": "CENTRAL-13B-READ-RECEIPT.json",
+    "support_registrations": [
+      "CENTRAL-13B-SUPPORT-REGISTRATION.json",
+      "CENTRAL-13B-SUPPORT2-REGISTRATION.json"
+    ],
+    "support_receipts": [
+      "CENTRAL-13B-SUPPORT-READ-RECEIPT.json",
+      "CENTRAL-13B-SUPPORT2-READ-RECEIPT.json"
+    ],
+    "git_path_proof": "CENTRAL-13B-WINDOWS-PROOF.json"
+  },
+  "scope": "Coordinator bounded review of the two endpoint observations in building-model-hair-ops; its other scopes, original 2560 wider relationships, connected source populations and all lenses remain open.",
+  "central_observations": [
+    {
+      "id": "SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001",
+      "classification": "Cell::neighbour adds a signed direction offset in i16. A public wall edit can retain a north-facing Cell at z=i16::MAX; if the resulting document reaches the inspected freeform-wall scene path, freeform_wall_faces requests that neighbour before checking floor membership.",
+      "qualification": "The same first arithmetic operation was recorded at historical 774 by segovb as an endpoint candidate, with ordinary generated footprint margins and the player-build caller then untraced. The coordinator now connects a source-derived public-edit-to-scene conditional case, without proving ordinary UI reachability, supported extreme inputs, any actual rebuild, or runtime effect. Overflow behavior depends on the arithmetic-check configuration."
+    },
+    {
+      "id": "CANDIDATE-PLAYER-WALL-ENDPOINT-COORDINATE-OWNER-NARROWING",
+      "classification": "GridPoint represents a fine lattice of 30 units per cell, yet the selected DrawWall body uses GridPoint integer values as cell indices, casts them to i16 and subtracts one from an i32 coordinate. The inspected viewer constructs these arguments from snapped metres divided by cell size.",
+      "qualification": "Source-derived public-input cases show that separate one-cell horizontal edits at x=0 and x=65536 narrow to the same i16 selector, while subtraction of one from i32::MIN is unchecked. The earlier rig comparison distinguished fine GridPoint and Cell but did not inspect this consumer body; the neighbour candidate concerns the later i16 addition. These are connected first operations, not assumed duplicates or proof that an ordinary UI reaches extreme points. A bounded search for the documented endpoint terms in 059 queue and current ledger found no exact term hit and is not proof of global uniqueness."
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+      "lines": [
+        [
+          45,
+          68
+        ],
+        [
+          103,
+          140
+        ],
+        [
+          196,
+          258
+        ],
+        [
+          261,
+          265
+        ],
+        [
+          349,
+          350
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/editor.rs",
+      "lines": [
+        [
+          67,
+          97
+        ],
+        [
+          124,
+          139
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "lines": [
+        [
+          18,
+          25
+        ],
+        [
+          41,
+          55
+        ],
+        [
+          235,
+          266
+        ],
+        [
+          401,
+          413
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/viewer/editor_input.rs",
+      "lines": [
+        [
+          90,
+          98
+        ],
+        [
+          101,
+          127
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/viewer/editor_updates.rs",
+      "lines": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+      "lines": [
+        [
+          2,
+          13
+        ],
+        [
+          180,
+          195
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+      "lines": [
+        [
+          141,
+          150
+        ],
+        [
+          258,
+          261
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+      "lines": [
+        [
+          266,
+          275
+        ]
+      ]
+    }
+  ],
+  "historical_attribution": "The 774 segovb operation record and rig ownership record remain separate historical bodies with their original author, revision, range and conclusions. Agent /root/hair_ops independently proposed the current link. Coordinator displays are separately registered; neither byte equality nor source summaries transfer an earlier personal read or checkpoint3821 status.",
+  "symbolic_cases": [
+    "From an empty document, a horizontal wall from (0,32768) to (1,32768) has a nonempty axis-aligned span and stores Cell(0,32767), North. If that result reaches the inspected scene rebuild, the first neighbour adds one to the maximum i16 z.",
+    "On separate empty documents, walls from (0,0) to (1,0) and from (65536,0) to (65537,0) produce the same narrowed Cell(0,-1), North selector; this is source reasoning, not an executed edit.",
+    "An i32 minimum in the coordinate decremented by DrawWall reaches an unchecked subtract before i16 narrowing; whether such an input is supported is unresolved."
+  ],
+  "nonfindings": [
+    "Normal generated rectangle footprint guards width and depth at i16::MAX and generates 0..dimension, leaving one neighbour step at the supported margin.",
+    "The viewer only reaches the scene rebuild when its pending flag is set and a player-build document is present; no particular input or runtime path was exercised."
+  ],
+  "new_qualified_ledger_rows": [
+    "SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001",
+    "CANDIDATE-PLAYER-WALL-ENDPOINT-COORDINATE-OWNER-NARROWING"
+  ],
+  "further_evidence_for_existing_rows": [
+    "REVIEW-EDITOR-LEGACY-PARTS-COMPATIBILITY-001"
+  ],
+  "open": [
+    "Other checkpoint13 packet and role2560 findings and current/source aliases.",
+    "Actual editor interactions, supported extreme ranges, native failure behavior and geometry policies.",
+    "All thirteen lenses and historical queue population."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

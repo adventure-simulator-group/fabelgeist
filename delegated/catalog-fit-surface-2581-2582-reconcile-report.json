@@ -1,0 +1,389 @@
+{
+  "schema": "726-checkpoint14-source-followup-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T06:06:56.956179+00:00",
+  "scope": {
+    "original_roles": [
+      2581,
+      2582
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "current_source_registration": "registration.json",
+    "caller_registration": "caller-registration.json",
+    "personal_read_receipt": "read-receipt.json",
+    "current_sources": [
+      {
+        "tag": "fit",
+        "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+        "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+        "personally_displayed_union": [
+          [
+            1,
+            46
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "surface",
+        "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+        "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+        "personally_displayed_union": [
+          [
+            1,
+            47
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "schema",
+        "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+        "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+        "personally_displayed_union": [
+          [
+            6,
+            20
+          ],
+          [
+            88,
+            112
+          ],
+          [
+            141,
+            200
+          ],
+          [
+            303,
+            336
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            5
+          ],
+          [
+            21,
+            87
+          ],
+          [
+            113,
+            140
+          ],
+          [
+            201,
+            302
+          ],
+          [
+            337,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "occupancy",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+        "sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+        "personally_displayed_union": [
+          [
+            58,
+            141
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            57
+          ],
+          [
+            142,
+            183
+          ]
+        ]
+      },
+      {
+        "tag": "surface-validation",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+        "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+        "personally_displayed_union": [
+          [
+            8,
+            158
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            7
+          ],
+          [
+            159,
+            219
+          ]
+        ]
+      },
+      {
+        "tag": "numeric",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+        "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+        "personally_displayed_union": [
+          [
+            27,
+            49
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      {
+        "tag": "validation",
+        "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+        "personally_displayed_union": [
+          [
+            24,
+            24
+          ],
+          [
+            205,
+            216
+          ],
+          [
+            249,
+            273
+          ],
+          [
+            301,
+            310
+          ],
+          [
+            313,
+            330
+          ],
+          [
+            510,
+            535
+          ],
+          [
+            546,
+            546
+          ],
+          [
+            630,
+            650
+          ],
+          [
+            770,
+            864
+          ],
+          [
+            1839,
+            1839
+          ],
+          [
+            1886,
+            1886
+          ],
+          [
+            1911,
+            1911
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            23
+          ],
+          [
+            25,
+            204
+          ],
+          [
+            217,
+            248
+          ],
+          [
+            274,
+            300
+          ],
+          [
+            311,
+            312
+          ],
+          [
+            331,
+            509
+          ],
+          [
+            536,
+            545
+          ],
+          [
+            547,
+            629
+          ],
+          [
+            651,
+            769
+          ],
+          [
+            865,
+            1838
+          ],
+          [
+            1840,
+            1885
+          ],
+          [
+            1887,
+            1910
+          ],
+          [
+            1912,
+            2059
+          ]
+        ]
+      },
+      {
+        "tag": "build",
+        "path": "crates/adventuresim-core/build.rs",
+        "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "personally_displayed_union": [
+          [
+            225,
+            262
+          ],
+          [
+            274,
+            280
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            224
+          ],
+          [
+            263,
+            273
+          ],
+          [
+            281,
+            511
+          ]
+        ]
+      }
+    ],
+    "current_navigation": "navigation-registration.json, caller-registration.json, boundary-navigation-registration.json and cap-navigation-registration.json record singleton search exposures individually; later test-source singleton matches are text only, not executed.",
+    "historical_source_identity": "Original registry snapshot labels both physical-p16; P16 source/role objects a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3 (2581) and 9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd (2582) match same individual 95e, a120 and 6533 Git paths. P16 dirty state is not a clean a120 snapshot; unrelated pr-working changes also exist. f82 is historical evidence transport, not product revision. Historical copies archived for identity, not newly personally read in this follow-up.",
+    "historical_objects": "source/p16-2581.rs and source/p16-2582.rs; registry-selection-reconstructed.json and git-proofs.json; 22 exact path proofs include current, base, pr-working and f82 objects."
+  },
+  "related_history": {
+    "queue_selection": [
+      {
+        "index": 1557,
+        "contract_id": "Q-L12-c0a30e85c03b346de769",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/lens12/pending_connected_contracts/667"
+        ],
+        "source_identity_receipt_count": 0,
+        "source_receipt_context_count": 0,
+        "relationship": "Related canonical catalog/placement ID and fit-zone propagation; no exact alias established."
+      },
+      {
+        "index": 1749,
+        "contract_id": "Q-L12-8ece8ae977efd724e6cf",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/lens12/pending_connected_contracts/860"
+        ],
+        "source_identity_receipt_count": 0,
+        "source_receipt_context_count": 0,
+        "relationship": "Related attachment selection, allocation, capacity, cycle and fit-zone None question; no general failure established."
+      }
+    ],
+    "queue_journal": "059-selection-reconstructed.json holds exact entries plus /segovb_continuation/lens12/pending_connected_contracts/667 and /860, selected from whole earlier queue and ledger; no source identity proof or automatic alias follows from the journal links.",
+    "rig_774": "Historical rig prospective RIG-ADMISSION03-REGISTER-014 and -015 read P16 1\u201346/1\u201347; RIG-ADMISSION03-CONTRACT-042 and -043 record pr-working source identities and explicit PR/P16 comparison, with raw authoring DTO distinct from validated content. Contracts 044, 046, 047 and catalogue-helper-admission-002 describe numeric, occupancy and surface checks with their own historical scope; prior PR test-source reads are separate and P16 test tails were excluded. historical-774/rig/admission03/contract-groups.jsonl.gz and rig witness preserve originals.",
+    "rig_registration_pin": {
+      "root046_rig_registration_expected": "9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe",
+      "later_first35_sha256": "cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859",
+      "later_full_registration_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "registration_prefix_matches": false,
+      "root046_qualification_expected": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "later_first31_qualification_sha256": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "qualification_prefix_matches": true,
+      "bounded_search": "20 exact-filename registration files under ae46/target and 28ba extracted target checked both whole and first35; none match the pin; no global absence claim.",
+      "qualification": "Original roles, rig witness and 046 embedded rows retain independent attribution; later registration bytes are not silently substituted."
+    },
+    "059_readers": "Original READ-L11-424 records /root/segovb personally reading role2581 1\u201346 through SEGOVB-1492 and role2582 1\u201347 through SEGOVB-1493. READ-L12-876 records /root/lens12_frontier personally reading 1\u201346 and 1\u201347 under PAR-L12-632/633; root personal rereads empty. Original receipts and hashes are retained in history-059, with their own authorship.",
+    "prior_delegated": "/root/mhr_character earlier independent packet BUNDLE-MANIFEST SHA a8a39868a29f7682acc9fc130a265eabd7317dcb5cc20a4a26e0b9c25ee4855c; prior/read-receipt.json attributes independent full P16 and 95e reads 1\u201346 and 1\u201347 to that earlier packet. Its separate registered support reads are preserved in prior/support-read-receipt.json. This follow-up registered current support separately and does not transfer credit.",
+    "later_p16_patch": "reference/RECOVERY-PHYSICAL-P16-PATCH-20261111.json and tracked.patch preserve later independently reproduced/saved tracked patch matching historical SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. /root/hair_ops observed it, and central later independently saved the matching stream; neither establishes historical invocation. Tracked patch excludes seven separately checked untracked paths; original 159-status evidence and dirty base remain qualified.",
+    "publication_redactions": "reference/DELEGATED-CHECKPOINT-14-QUALIFICATION.json and reference/DELEGATED-EVIDENCE-CHECKPOINT-14.json distinguish public redacted prior members from selected byte-identical original local records. Original 059 records here match transport manifest and may contain local paths; publication needs equivalent qualification. In particular prior/report.json original SHA 35f7d56708ba356e18657ac3141e57751155bf23bcf0326bb237c9aae0ce41e2 differs from reference/published-prior-report.json reconstructed SHA 2d4943876efa35919f19cf8e55a4e8eb9d72f9e534bb09e139ee6e20247dbc5c.",
+    "checkpoint3821": "No recovered historical or newly assessed material is treated as recovered checkpoint3821.",
+    "rig_pin_detail": "Root046 embedded original qualification records including prospective/effective ranges; it does not reproduce the complete earlier rig registration file. Original registry independently embeds applicable role observations. First 35 later rows do not match earlier registration pin; later first 31 qualification rows do match. A bounded prior 20-file search is not global absence."
+  },
+  "assessments": [
+    {
+      "title": "Explicit serialized catalog boundary and raw DTO distinction",
+      "classification": "Independent bounded current corroboration of earlier rig contracts 042/043/046/047 and prior delegate assessment; no new count",
+      "evidence": [
+        "95e fit.rs:20\u201332 restricts arm/leg zone matching, 35\u201345 checks same location/channel and singleton-or-order then omitted-or-equal zone. schema.rs:183\u2013199 exposes independently typed public location/channel/order/optional fit zone.",
+        "95e surface.rs:5\u201319 exposes public vector, anchor, f32 coverage and separate 16-segment constant; neither public literals nor a derived Deserialize alone enforce the whole surface aggregate.",
+        "95e build.rs:225\u2013262 parses source documents and calls validate_documents_with_sources; 274\u2013280 serializes output after that call. validation.rs:249\u2013273 calls validate_item and final typed document decode; 313\u2013330, 526\u2013527, 637\u2013650 and 770\u2013864 connect to placement occupancy and surface helpers; 301\u2013310 and navigation line24 describe diagnostic error result with nonzero cap.",
+        "occupancy.rs:100\u2013133 uses typed conversion when it succeeds for zone/location and collision predicates, while final typed document decode records malformed object types; surface-validation.rs:8\u201353,55\u2013158 checks required armor/clothing spans, material, total segments, valid contiguous chain, selected protection and anchor; numeric.rs:27\u201349 checks stored f32 finite and positive and source f64 at most max."
+      ],
+      "conditions": "This is static source evidence only for the shown compiler path, not proof all other constructors, deserializers, retained equipment states or downstream consumers use it. No actual malformed source, build, fixture, parser or product ran. The exact stored f32 value versus source f64 upper bound is preserved; optional nonarmor missing/empty surface remains permitted by this helper.",
+      "future_direction": "Trace actual alternative producer\u2192admission\u2192retained-state\u2192consumer routes and choose a checked owner or explicit validated boundary while preserving supported optional cases; central reconciliation decides ledger identity."
+    },
+    {
+      "title": "Occupancy conflict semantics preserve omission and layering",
+      "classification": "Bounded source nonfinding, related to Q1749 but not resolution",
+      "evidence": [
+        "fit.rs:35\u201345 compares location and channel, then singleton channel or equal order, then omitted fit_zone or equal explicit zones. schema.rs:160\u2013180 defines singleton channels, 183\u2013199 makes omitted zone a default. occupancy.rs:104\u2013112 checks zone fits location when the individual entry can decode."
+      ],
+      "conditions": "An absent zone reserves the whole location only after location/channel and singleton/order predicates match. Disjoint explicit zones need not conflict. Helper does not prove allocation choices, parent graph correctness, all ingress paths or policy adequacy.",
+      "future_direction": "Examine actual parent selection, persisted identity and allocator consumers before assigning an overlap defect."
+    },
+    {
+      "title": "Typed decode is a necessary second safeguard",
+      "classification": "Historical rig CONTRACT-046 corroborated in newly read 95e source, no duplicate count",
+      "evidence": [
+        "occupancy.rs:100\u2013103 converts to typed requirement with .ok(); fit checks at 104\u2013108 and conflict checks at 118\u2013133 depend on conversion success, while order fallback at 114\u2013117 is separate. validation.rs:269\u2013273 records final typed ItemCatalogDocument mismatch."
+      ],
+      "conditions": "Only the shown diagnostic-checked compiler route is established. The raw DTO can exist independently; no actual invalid value or runtime bypass has been demonstrated."
+    }
+  ],
+  "nonfindings": [
+    "Omitted fit zone and nonarmor absent or empty surface are explicit allowed modes in the shown checks and must not be globally recast as malformed.",
+    "The source helper rejects coverage whose f32 conversion becomes zero or nonfinite, without running the code.",
+    "A public or deserializable DTO is a route to investigate, not proof of an actual unsafe reachable product consumer."
+  ],
+  "open_questions": [
+    "Which actual alternative deserializers, direct constructors, mutation paths and retained consumers can reach equipment without the checked catalog compiler?",
+    "How do parent selection, allocation, persisted identifiers and native/mesh consumers interpret whole-location fit zone omission?",
+    "Are all authored/source region spellings, closed enum variants and protection mappings synchronized across uninspected producers and runtime consumers?",
+    "What is the intended owner and lifecycle for each catalog/placement identity? Q1557 and Q1749 remain open beyond this bounded trace."
+  ],
+  "lens_perspectives": {
+    "magic_strings": "Region and anchor catalog spellings are decoded and checked in the shown path; other inputs unreviewed.",
+    "magic_numbers": "16 segment budget and coverage upper bound 1 are explicit catalog policies, with target-f32 conversion checked.",
+    "existing_type_owners": "Existing EquipmentFitZone, EquipmentLocation, SurfaceAnchor and regions express closed leaves but not every aggregate relationship.",
+    "type_ownership": "The catalog validation path owns the shown checks; alternate admitted owners and consumers remain open.",
+    "type_granularity": "Positive coverage is not interchangeable with a generic zero-inclusive fraction; distinct whole-location and explicit-zone states matter.",
+    "enum_shapes": "Zone and anchor are closed enumerations; this scope does not settle attachment representation.",
+    "admission_contracts": "Raw literals and derived deserialization are distinct from the inspected compiler gate; actual alternate ingress is unproved.",
+    "aggregate_states": "Fit-zone/location compatibility, region topology and material/protection links require aggregate checks.",
+    "invariant_operations": "conflicts_with applies singleton-or-order and zone overlap predicates; coverage conversion has separate bounds.",
+    "producer_propagation": "Source documents trace through compiler validation and typed decode; retained and native consumers remain unresolved.",
+    "redundant_authority": "Validator spelling lists, schema enums and runtime policy may overlap; full synchronization and owner decisions remain unreviewed.",
+    "behavior_preservation": "Retain supported no-zone, channel-layering and optional nonarmor surface cases in any future repair.",
+    "derivability": "Derived serde supplies wire conversion, not cross-field policy; no boilerplate removal established."
+  },
+  "limits": "No repairs, product edits, builds, tests, fixture execution, parser, runtime execution or probes. This packet does not close a lens, infer aliases or count duplicates. Actual personally displayed ranges and singleton navigation are explicit; historical reviewer credit is separate."
+}

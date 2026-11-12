@@ -1,0 +1,145 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "evidence_checkpoints": [
+    "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+    "DELEGATED-EVIDENCE-CHECKPOINT-31.json"
+  ],
+  "central_display_evidence": {
+    "registration": "CENTRAL-13A-REGISTRATION.json",
+    "receipt": "CENTRAL-13A-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-13A-WINDOWS-PROOF.json"
+  },
+  "scope": "Bounded coordinator assessment of three 059 semantic-queue records related to original role 2560; this does not complete either checkpoint packet or a lens. The separately displayed historical 6533 object matches the dirty pr-working role per file; no clean snapshot or custody claim.",
+  "central_observations": [
+    {
+      "queue_index": 404,
+      "historical_id": "SEGOVB-L13-RETAINED-ROOM-ORDINALS",
+      "classification": "Corroborates existing central 12D row, no new ledger entry.",
+      "current_source": "RoomIndex::from_ordinal checks usize conversion, from_serialized accepts u16, collect_rooms extracts a u16 to Room.id and derive_walls extracts ordinals to WallSegment; missing assignments are rejected. Typed representability does not establish storey population membership.",
+      "qualification": "Does not establish an invalid lookup or complete the population and alias trace."
+    },
+    {
+      "queue_index": 406,
+      "historical_id": "SEGOVB-L13-ROUND-TOWER-WALL-DIMENSIONS",
+      "classification": "Historical 059 finding reconnected to selected current source; source and policy question remain partial.",
+      "qualification": "Reconnected source observation for the original 059 lens-13 q406 record, not a new historical discovery or a demonstrated runtime failure. Positive CellDiameter admission and anchor parity are real safeguards. The selected geometry call may reject later and does not prove acceptance of invalid geometry; supported solid or annular modes, nonfinite inputs, zero values, and other producer/consumer paths remain open."
+    },
+    {
+      "queue_index": 408,
+      "historical_id": "SEGOVB-L13-OPENING-DIMENSION-PROPAGATION",
+      "classification": "Historical 059 finding reconnected to selected current declaration; downstream and alias trace remains open.",
+      "qualification": "Reconnected first-retention source observation for 059 lens-13 q408, not proof of supported malformed input or of downstream geometry behavior. OpeningKind remains an enum; this selected declaration does not establish all ingress, downstream guards, section profiles, or identity with any church-aperture or other opening record."
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model.rs",
+      "lines": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model.rs",
+      "lines": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+      "lines": [
+        [
+          3,
+          16
+        ],
+        [
+          39,
+          62
+        ],
+        [
+          293,
+          327
+        ],
+        [
+          362,
+          402
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/model/room_index.rs",
+      "lines": [
+        [
+          20,
+          39
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "lines": [
+        [
+          156,
+          174
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+      "lines": [
+        [
+          4,
+          39
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "lines": [
+        [
+          23,
+          40
+        ],
+        [
+          54,
+          64
+        ]
+      ]
+    }
+  ],
+  "historical_attribution": "The original q404/406/408 and PL13-named receipt/registration scopes remain at their 059 revision; the recovered receipts examined by the delegate supply a namespace rather than a named individual. The current assessment is separately attributed to /root, and earlier 12D to its own named reader. Reconstructed queue selections are not final checkpoint3821 records.",
+  "related_not_aliased": [
+    "059 q404 room ordinal and q405 storey ordinal are distinct despite a connected relationship.",
+    "q406 wall scalar and shell policy is not resolved by CellDiameter or anchor parity alone.",
+    "q408 first retained dimensions and other church-aperture or profile records remain related questions, not assumed aliases.",
+    "Cell::neighbour endpoint arithmetic and other player-build paths require separate coordinator review."
+  ],
+  "new_qualified_ledger_rows": [
+    "SEGOVB-L13-ROUND-TOWER-WALL-DIMENSIONS",
+    "SEGOVB-L13-OPENING-DIMENSION-PROPAGATION"
+  ],
+  "further_evidence_for_existing_rows": [
+    "SEGOVB-L13-RETAINED-ROOM-ORDINALS"
+  ],
+  "open": [
+    "Remaining original role 2560 and checkpoint 13 packet findings and connected scopes.",
+    "Historical aliases, supported states, ingress, public mutation and native geometry consumers.",
+    "All thirteen lenses and the complete 3,713-record historical queue."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

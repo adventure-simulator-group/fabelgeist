@@ -1,0 +1,175 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_source": "physical-p16 recovered dirty snapshot object via f82 transport; matching material windows do not equate whole files or establish clean custody",
+  "evidence_checkpoints": [
+    "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+    "DELEGATED-EVIDENCE-CHECKPOINT-31.json"
+  ],
+  "source_role": 2559,
+  "central_display_evidence": {
+    "registration": "CENTRAL-13C-REGISTRATION.json",
+    "receipt": "CENTRAL-13C-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-13C-WINDOWS-PROOF.json"
+  },
+  "scope": "Bounded coordinator review of the look source and selected producer/cache support; landing and other unread source bodies, whole role, historical aliases and all lenses remain open.",
+  "central_observations": [
+    {
+      "id": "CONT-CAMERA-OWNERDEF-PP-F001",
+      "classification": "The look pass derives a yaw/pitch pair, divides by the checked LookDistribution, clamps it to the authored joint limit and retains it as Vec2 through the guard helper and owner map before native quaternion construction.",
+      "qualification": "Reconnects the separately attributed 774 camera F001 raw-producer strengthening, not a newly discovered historical defect or an erased previously checked angle. The positive finite divisor and divide-then-clamp sequence remain intact. The admitted native look and quaternion policies and a compatible owner for the derived pair remain unresolved; no bad runtime input or product failure is established. The 059 q1151 broader role/rig/cache scope is related but not automatically identical."
+    },
+    {
+      "id": "CURRENT-FIXED-TICK-POSE-CACHE-READINESS",
+      "classification": "FixedTickPoseCache stores a fixed tick and entity-keyed transforms. It clears when the fixed step is absent, captures queried bones when the tick changes, and restores only matching cached entities on repeated evaluations of the same tick.",
+      "qualification": "A readiness concern requires a supported same-tick repeated evaluation after a required bone becomes available or changes identity without another invalidating clock state. The inspected source explicitly clears the no-step path and refreshes on a changed tick. Actual asset, rig, clock and deferred-command lifecycles are unproved, and final support-observation q45/q2131 are related capture questions, not established aliases. No effect or defect is demonstrated."
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "lines": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "lines": [
+        [
+          81,
+          85
+        ],
+        [
+          107,
+          148
+        ],
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "lines": [
+        [
+          29,
+          32
+        ],
+        [
+          126,
+          139
+        ],
+        [
+          170,
+          174
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "lines": [
+        [
+          96,
+          107
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "lines": [
+        [
+          8,
+          13
+        ],
+        [
+          80,
+          92
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "lines": [
+        [
+          14,
+          18
+        ],
+        [
+          53,
+          64
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "lines": [
+        [
+          70,
+          94
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "lines": [
+        [
+          1373,
+          1408
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-server/src/bot.rs",
+      "lines": [
+        [
+          266,
+          307
+        ],
+        [
+          332,
+          343
+        ]
+      ]
+    }
+  ],
+  "nonfindings": [
+    "LookDistribution uses finite nonnegative admission and rejects zero while allowing fractional divisors; the authored joint magnitude uses checked nonnegative admission.",
+    "Look is gated by raised guard and no posture transition; distributed native yaw and pitch are clamped before Euler adaptation. The source restores a saved base rotation before the look pass in the shown PostUpdate chain.",
+    "The shown player input validation rejects nonfinite look, normalizes yaw and clamps pitch; it is one route, not proof of every writer. The separately scheduled bot body assigns yaw from a horizontal transform offset; its transform and lifecycle admission are not established.",
+    "The pose cache explicitly clears if no fixed step exists and refreshes on a changed tick."
+  ],
+  "historical_attribution": "The exact 774 F001 record retains its original camera attribution and P16 source identity. 059 q1151 refers to distinct pr-working role1356 and earlier receipts remain separate; no historical or later-checkpoint reader credit transfers. Original 059 queue and any reconstructed fragments retain their recorded status and are not checkpoint3821.",
+  "new_qualified_ledger_rows": [
+    "CONT-CAMERA-OWNERDEF-PP-F001",
+    "CURRENT-FIXED-TICK-POSE-CACHE-READINESS"
+  ],
+  "further_evidence_for_existing_rows": [],
+  "open": [
+    "All additional original role2559 findings and source ranges, local and other CharacterLook writers, transform admission and exact aliases.",
+    "Capture readiness, deferred commands and final support-observation relationships.",
+    "All thirteen lenses and the complete 3,713-record historical queue."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,153 @@
+{
+  "schema": "726-central-personal-source-display-receipt-v1",
+  "recorded_utc": "2026-11-12T06:17:44.825932+00:00",
+  "reader": "/root",
+  "registration_sha256": "d1089b7ec09f607d76accff88f96b8ba12e89eaebff47f0cc4576ba012dadc99",
+  "reads": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "git_blob": "a46e3c5ca231808a854402057cb1abcb918a9ca9",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "actual_display_ranges": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "git_blob": "96ba096e60314683c71611623bda86c6e9e67711",
+      "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "actual_display_ranges": [
+        [
+          81,
+          85
+        ],
+        [
+          107,
+          148
+        ],
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "git_blob": "c44f5525698a86c627c327b19f39fe82d8bbf3d7",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_display_ranges": [
+        [
+          29,
+          32
+        ],
+        [
+          126,
+          139
+        ],
+        [
+          170,
+          174
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "actual_display_ranges": [
+        [
+          96,
+          107
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "git_blob": "39f840b52dcdbf0d4224cdfe87906e784f1de832",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "actual_display_ranges": [
+        [
+          8,
+          13
+        ],
+        [
+          80,
+          92
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "git_blob": "7d549460870d2e41d86f1ef10932d2b099a58084",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "actual_display_ranges": [
+        [
+          14,
+          18
+        ],
+        [
+          53,
+          64
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "actual_display_ranges": [
+        [
+          70,
+          94
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "actual_display_ranges": [
+        [
+          1373,
+          1408
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-server/src/bot.rs",
+      "git_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+      "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "actual_display_ranges": [
+        [
+          266,
+          307
+        ],
+        [
+          332,
+          343
+        ]
+      ]
+    }
+  ],
+  "qualification": "Coordinator independently displayed all nine prospective source views; first is recovered dirty P16 object via f82 transport and is not a project f82 source revision. Remaining views are pinned 95e. Source text only, no product, test, viewer or probe ran, and no prior reviewer or checkpoint3821 credit transfers."
+}
