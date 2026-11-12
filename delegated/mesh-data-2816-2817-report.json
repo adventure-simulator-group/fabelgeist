@@ -1,0 +1,390 @@
+{
+  "schema": "726-bounded-mesh-data-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:22:41.868084+00:00",
+  "status": "bounded thirteen perspectives; discovery incomplete outside assigned sources",
+  "scope": {
+    "roles": [
+      2816,
+      2817
+    ],
+    "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "identity": "The two assigned files are identical at old and current revisions and separately personally displayed. Each historical file matches the f82 archived object. Individual file equality does not establish cleanliness of the overall pr-working snapshot, which records four unrelated changes.",
+    "original_material": {
+      "2816": [
+        [
+          1,
+          22
+        ]
+      ],
+      "2817": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ]
+    },
+    "personal_reads": "Both revision bodies were fully displayed independently after prospective registration; prior original role2817 scope remains restricted, and new displays outside it are new personal support. Separate gpu.rs support registrations cover 1\u2013200 and 201\u2013300, with complements explicitly preserved in each receipt.",
+    "restrictions": "Static text only, including WGSL/test source. No implementation, builds, tests, fixtures, shader compilation/execution, product execution, runtime probes, rendering, or publication edits."
+  },
+  "conditional_findings": [
+    {
+      "id": "DELEGATE-MESH-DISPLACEMENT-UV-PRECONDITION",
+      "classification": "Current conditional source/API contract candidate; supported caller, GPU behavior, owner policy and unique count unproved.",
+      "first_contract": "MeshData permits absent UVs but GpuMesh::displacement indexes UV scalars for each position without a corresponding explicit input check.",
+      "trace": [
+        "validate explicitly accepts empty tex_coords for a nonempty mesh; upload allocates a 16-byte backing buffer for an empty attribute and marks logical size zero.",
+        "Displacement binds the source tex_coords and guards shader work using only the position buffer length; source WGSL reads uv[2*index] and uv[2*index+1], while bind-group source binds the whole physical buffer.",
+        "Symbolically, a valid three-position triangle-list with no UV attribute has four physical f32 words in the placeholder but the third shader vertex addresses words four and five, beyond that buffer. This is mathematical source reasoning, not a built fixture, shader execution or observed GPU event."
+      ],
+      "conditions": [
+        "The GPU feature and a valid caller/context/depth/projection must make this path reachable; shader compilation, reflection, binding validation and device out-of-bounds behavior are not established. The shader also reads a normal into an unused value, so no normal-related visible effect is asserted.",
+        "The public MeshData contract intentionally permits position-only meshes; whether displacement must reject absent UVs or obtain UVs from another supported source is an owner-policy question."
+      ],
+      "sources": [
+        {
+          "id": "2816-current",
+          "archive": "sources/2816-current.rs",
+          "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/lib.rs",
+          "lines": [
+            [
+              1,
+              22
+            ]
+          ]
+        },
+        {
+          "id": "manifest",
+          "archive": "support/manifest.rs",
+          "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/Cargo.toml",
+          "lines": [
+            [
+              8,
+              22
+            ]
+          ]
+        },
+        {
+          "id": "2817-current",
+          "archive": "sources/2817-current.rs",
+          "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/data.rs",
+          "lines": [
+            [
+              13,
+              38
+            ],
+            [
+              41,
+              68
+            ],
+            [
+              70,
+              123
+            ],
+            [
+              126,
+              156
+            ],
+            [
+              159,
+              200
+            ],
+            [
+              203,
+              235
+            ]
+          ]
+        },
+        {
+          "id": "gpu-mesh",
+          "archive": "support/gpu-mesh.rs",
+          "sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/gpu.rs",
+          "lines": [
+            [
+              12,
+              23
+            ],
+            [
+              131,
+              152
+            ],
+            [
+              163,
+              182
+            ]
+          ]
+        },
+        {
+          "id": "gpu-displacement-tail",
+          "archive": "support/gpu-mesh-tail.rs",
+          "sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/gpu.rs",
+          "lines": [
+            [
+              201,
+              258
+            ]
+          ]
+        },
+        {
+          "id": "buffer",
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              15,
+              37
+            ],
+            [
+              153,
+              165
+            ]
+          ]
+        },
+        {
+          "id": "bind-group",
+          "archive": "support/bind-group.rs",
+          "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+          "lines": [
+            [
+              155,
+              180
+            ]
+          ]
+        }
+      ],
+      "future_direction": "At the displacement owner, require a validated per-vertex UV source or return a contextual error before the native dispatch; preserve valid position-only meshes for consumers that do not need UVs.",
+      "acceptance": "Every supported displacement reads only UV values that belong to its admitted vertices or rejects the input before submission. Native handling and tests remain future work.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "DELEGATE-MESH-DISPLACEMENT-BYTE-NARROWING",
+      "classification": "Current conditional numerical source/API candidate; device limits, actual callers and unique count unresolved.",
+      "first_contract": "The byte length of an admitted position buffer is narrowed to u32 before converting bytes to the vertex/workgroup count.",
+      "trace": [
+        "MeshData admits up to u32::MAX positions and validates list count; nonempty upload takes exact [f32;3] element bytes and retains byte length in Buffer.size.",
+        "Displacement computes workgroups from (u64::from(pos_core.size) as u32 / 12).div_ceil(64). Its shader declares a 64-thread workgroup and uses three f32 position words per vertex.",
+        "Symbolically, 357,913,944 valid finite positions in a triangle list produce 4,294,967,328 position bytes = 2^32+32; narrowing gives 32, integer division gives two and the code dispatches one group. Covering the population requires 5,592,406 groups before accounting for the actual device grid limit. No large vector, buffer or dispatch was created."
+      ],
+      "conditions": [
+        "A target must support the memory/buffer size and other attribute/binding requirements, use this API and successfully reach dispatch. GPU device limits may reject such a request earlier; no deployed product failure is claimed.",
+        "A correct large-population policy must also account for device workgroup limits, so an unchecked wider count alone is not sufficient."
+      ],
+      "sources": [
+        {
+          "id": "2817-current",
+          "archive": "sources/2817-current.rs",
+          "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/data.rs",
+          "lines": [
+            [
+              13,
+              38
+            ],
+            [
+              41,
+              68
+            ],
+            [
+              70,
+              123
+            ],
+            [
+              126,
+              156
+            ],
+            [
+              159,
+              200
+            ],
+            [
+              203,
+              235
+            ]
+          ]
+        },
+        {
+          "id": "upload",
+          "archive": "support/upload.rs",
+          "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+          "lines": [
+            [
+              20,
+              32
+            ]
+          ]
+        },
+        {
+          "id": "buffer",
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              15,
+              37
+            ],
+            [
+              153,
+              165
+            ]
+          ]
+        },
+        {
+          "id": "gpu-mesh",
+          "archive": "support/gpu-mesh.rs",
+          "sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/gpu.rs",
+          "lines": [
+            [
+              12,
+              23
+            ],
+            [
+              131,
+              152
+            ],
+            [
+              163,
+              182
+            ]
+          ]
+        },
+        {
+          "id": "gpu-displacement-tail",
+          "archive": "support/gpu-mesh-tail.rs",
+          "sha256": "88d33d81fa39f02c493f388b5d7217b991dcc2b6d66e6e26ecd1ec666dd2a508",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/gpu.rs",
+          "lines": [
+            [
+              201,
+              258
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related in general to 774 ROOT-INITIAL04-F053 native float-ceil launch count and earlier compute-capacity concerns, but this is a different owner, integer byte-narrowing operation, and conditional path. No exact alias or new accepted count assumed.",
+      "future_direction": "Carry checked logical vertex count or checked wide byte-to-element conversion into a supported grid owner, splitting or rejecting sizes beyond native limits with explicit context.",
+      "acceptance": "Each supported successful dispatch covers its admitted vertex population exactly within target device limits; unsupported sizes fail explicitly before submission.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "nonfindings": [
+    "MeshData intentionally allows absent normals/UV and unindexed meshes; the narrower displacement concern must not turn optional formats into invalid general meshes.",
+    "MeshData.validate pairs joint and weight presence, checks their lengths and finite nonnegative weight components. It does not establish normalization, mesh-to-rig joint bounds or a complete skinning contract; those require actual consumer and policy.",
+    "Triangle strips alternate triangle winding by index parity and skip repeated-index degenerates; FrontFace and topology remain explicit native rendering metadata. No global forced Ccw or topology conclusion follows from this conversion alone.",
+    "PlantMesh carries linear RGBA colors and always emits its own triangle-list Bevy mesh, while generic MeshData has optional skin, UV, topology and winding but no color channel. 774 RIG-INITIAL06-GROUP-122 rejected blind owner consolidation; retain this prior attribution.",
+    "ShellMesh::from_mesh invokes triangles and checks its own density, finite positions and indices; Shell::new calls ShellMesh.validate. These bounded paths do not prove every raw public producer safe or establish product execution.",
+    "The selected GPU and WGPU feature declarations specify defaults, not actual resolved features/target/device capabilities."
+  ],
+  "open_questions": [
+    "Does any supported current caller use GpuMesh::displacement, and with what UV/normal format, context and device limits? A bounded literal name search found no exact direct call in tracked crates, but aliases, other call forms and external callers remain open.",
+    "Do supported WGPU and reflection paths compile/bind this shader and how do they handle out-of-range reads? No shader or device was probed.",
+    "Can a supported target allocate more than 4 GiB of position data and dispatch/split the population within native workgroup constraints?",
+    "What are the skin influence normalization, joint-owner and empty mesh contracts across actual rig and render consumers?",
+    "How should these candidates map to existing native capacity, GPU reflection and shell findings without conflating first failures or counting duplicates?"
+  ],
+  "historical_relationships": {
+    "original_registry": "registry-selection-reconstructed.json",
+    "prior_records": "historical-attribution.json",
+    "prior_059": "Segovb READ-L11-458 personally read role2816 1\u201322 and role2817 1\u201311/41\u201368; READ-L12-912 separately records shell error-source work. Neither constitutes current personal credit.",
+    "prior_774": "RIG-INITIAL06-REG-034/035 and GROUP-122/123; QUAL036 records 1\u201369 displayed but only 1\u201311/41\u201368 credited, with 12\u201340/69 excluded as context. The initial rig reviewer did not analyze upload or GPU methods from that display. Original per-file registration SHA differs from f82 transport whole-file SHA, though selected rows match; original variant/cause remain unknown.",
+    "prior_packet_links": "Earlier GPU reflection and shell mesh report/manifests retained with original authorship; complete earlier packets remain at their recorded directories/publication. No cross-reviewer or cross-lens read credit transfer."
+  },
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Traced explicit MeshData upload\u2192GpuMesh displacement and shell adapter paths; actual producers/feature usage remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "MeshData, PlantMesh and ShellMesh carry different complete capabilities; do not consolidate by matching arrays alone."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "General position-only meshes are admitted intentionally; displacement has a narrower UV requirement not locally enforced."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Narrowing bytes before element/workgroup conversion can lose coverage at large size; targets and reach are open."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "Attribute lengths, optional skins and per-operation vertex dependencies are separate correlated relationships; no blanket skin policy inferred."
+    },
+    {
+      "lens": 6,
+      "name": "Wrong/duplicate owners",
+      "disposition": "Prior colored plant owner versus general/skinned mesh relationship remains distinct; common color leaf question retains earlier F005."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Logical byte size, physical padding and vertex count are distinct authorities; exact buffer consumer binding determines the valid relationship."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Old/current assigned files are byte-identical and independently read; selected feature/target or runtime behavior cannot be inferred."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Explicit topology and front-face enums preserve native format variants; absent attributes remain intentional variants."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Manual default selects TriangleList while PrimitiveTopology default selects TriangleStrip, so deriving MeshData default naively would change behavior."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Byte lengths, element counts, index topology, winding and physical capacities have distinct semantics; inspect actual external ports before proposing wrappers."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Validation error descriptions and shader binding labels occupy error/native binding boundaries; no semantic prose branching established."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "The 12-byte position stride and 64-thread workgroup tie dispatch to native layout; preserve units and checked device grid bounds."
+    }
+  ],
+  "deduplication": "No accepted unique finding count changed; central agent owns aliases, connected repair ledger and publication.",
+  "verification": "Evidence identity and receipts only; not product validation."
+}

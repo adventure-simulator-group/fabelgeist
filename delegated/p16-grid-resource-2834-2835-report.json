@@ -1,0 +1,134 @@
+{
+  "schema": "726-bounded-source-evidence-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T04:35:00.905472+00:00",
+  "scope": {
+    "assigned_original_roles": [
+      2834,
+      2835
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Exact original physical-p16 dirty snapshot objects at f82; clean base a120390947c89b703dc74c4255a13c035d054c50, recovered matching tracked patch and separately archived untracked paths. Both files individually match a120, 6533 and 95e. P16 is not a clean tree.",
+    "personal_ranges": "read-scope-summary.json",
+    "unread": "Independent historical and current role2834 383\u2013407 and role2835 359\u2013373 unread. Full archive bytes prove identity only. No ordered-role credit claimed for hair_ops 2828\u20132833, former 1061/1064 pr-working roles, or independently attributed previous packet."
+  },
+  "observations": [
+    {
+      "id": "GRID-PUBLIC-EAGER-ENUMERATION-CANDIDATE",
+      "classification": "Conditional current public helper/analysis precondition question linked to F045 and q2700; potential distinct resource-work operation, no unique count or automatic alias",
+      "source_references": [
+        "source/2834-current.rs:9\u201314,16\u201347,95\u2013102,119\u2013137,184\u2013203,241\u2013270,353\u2013369",
+        "support/analysis-entry.rs:47\u201349",
+        "support/analysis.rs:210\u2013230",
+        "support/puzzle-lab.rs:223\u2013224,239\u2013265,303\u2013309,338\u2013347",
+        "prior/p16-support/support/strategic-challenges.rs:394\u2013408",
+        "prior/p16-support/support/puzzle-authority.rs:233\u2013256"
+      ],
+      "reasoning": "grid_solutions(size,clues,limit) first invokes all_grid_solutions(size), which allocates capacity for and loops over the Cartesian product of every two permutations, and only then filters and takes limit. 8! = 40,320 and 8!\u00b2 = 1,625,702,400: size8 attempts capacity for that many solution vectors even with limit0, subject to allocator failure before materialization. This follows source and arithmetic only, no fixture or execution. Public PuzzleAuthority::analysis matches without visible validate, and its LogicGrid arm calls these helpers with public puzzle.spec.size; a caller must supply or mutate a broader raw authority to exercise the condition. No supported external ingress, actual call, memory consumption or crash is proven.",
+      "mitigation": "LogicGridSpec::validate requires size3\u20134 and generate_with_spec invokes it, so the admitted 4!\u00b2 maximum is 576 combinations before filtering; LogicGridPuzzle::validate does the same before solution searches. Earlier separately attributed current strategic backend view validates before projection. Inspected puzzle-lab analysis paths use generation requests; Replay explicitly validates decoded authority first. Complete generic dispatch and all callers remain open.",
+      "future_direction": "Decide whether raw public helpers and analysis accept arbitrary sizes; if not, retain validated size through entry points, or make invalid inputs explicit. If limit is a work bound, generate lazily and stop at limit while preserving order and exact legal 3/4 behavior. Do not implement before central reconciliation.",
+      "history": "Existing native F045 concerns public aggregate size and clue-coordinate coherence, while 059 q2700 covers unchecked projection/text vs normal admitted paths. This eager work operation has the same wider-size admission family but a separate immediate consumer; central must assess alias and count."
+    },
+    {
+      "id": "GRID-PROJECTION-AND-CLUE-F045",
+      "classification": "Existing 774 NATIVE-INITIAL05-F045 / 059 REVIEW-L3-LOGIC-GRID-PROJECTION-AND-ANSWER-ADMISSION q2700, separately corroborated; no new count",
+      "source_references": [
+        "source/2834-current.rs:9\u201314,57\u201385,95\u2013110,184\u2013215,235\u2013238,319\u2013351,372\u2013382",
+        "history-774/native/initial05-aggregate-states/findings.jsonl.gz",
+        "queue-selection-reconstructed.json#/entries/2700"
+      ],
+      "reasoning": "Public spec and derived deserialization can be wider than fixed four labels. A previously generated authority whose public size is later changed to 5 would attempt an out-of-range slice in projection; standalone clue text also indexes fixed label arrays from raw u8. The generator and validate reject size outside3\u20134 and out-of-range clues, and check validates answer permutations. Validated gateway projection and normal submission qualification come from prior attributed evidence; no mutated or decoded malformed normal product instance is shown.",
+      "future_direction": "Record the intended admitted aggregate/projection authority and preserve dimension, clue, solution and presentation correlations across raw decoding and mutation; no automatic restriction on every diagnostic helper."
+    },
+    {
+      "id": "RESOURCE-MASK-BOUND-F046",
+      "classification": "Existing 774 NATIVE-INITIAL05-F046, independently corroborated on P16/current assigned roles; no new count",
+      "source_references": [
+        "source/2835-current.rs:43\u201363,131\u2013143,189\u2013205,250\u2013263,300\u2013323,326\u2013353",
+        "history-774/native/initial05-aggregate-states/findings.jsonl.gz",
+        "support/analysis.rs:244\u2013275"
+      ],
+      "reasoning": "Public allocation_legal_packs accepts a raw provision slice and forms 1_u16 << len before enumeration. A slice with 16 repeated but individually valid ProvisionId values crosses mask width; overflow behavior depends on build/target, not observed. Normal generator and validation require 4\u20137 sorted unique provisions, so at most 128 masks; analysis on a broader raw aggregate remains a public precondition question. Correct legal empty/no-optimum and equal-quality tie semantics must be preserved.",
+      "future_direction": "Own a bounded unique provision set at an admitted boundary, or explicitly reject raw oversized/duplicate lists before bit operations, preserving current legal set/score rules. No implementation performed."
+    }
+  ],
+  "nonfindings": [
+    "For grid_clue_holds a missing row yields false as the positive relation, so a negative clue can hold; historical native group201 describes this as a raw predicate, not proof of invalid accepted puzzle.",
+    "Valid size4 generation bounds complete candidates to 576; take(limit) not being a computational limit does not by itself imply normal generation is unbounded.",
+    "Single enum values are valid even if a raw collection duplicates them; the collection invariant is separate.",
+    "No actual corrupted authority, malformed network submission, failed product, fixture or test result was observed."
+  ],
+  "open_questions": [
+    "Are publicly constructed, mutable or decoded puzzle authorities supported inputs to analysis and raw helper APIs without prior validation?",
+    "Should grid_solutions limit imply bounded work, or only bound returned results?",
+    "Do earlier findings elsewhere own factorial eager work, and is this operation a distinct repair or a linked facet of F045? Central decides aliases/count.",
+    "Read remaining assigned bodies, all support complements and neighboring ordered roles under their own registrations before claiming coverage; role2834 383\u2013407 and role2835 359\u2013373 remain unread here."
+  ],
+  "historical_attribution": {
+    "774_native": "NATIVE-INITIAL05-REG044 initially registered grid1\u2013383; QUAL070 effective1\u2013382 with blank383 context; REG045/QUAL071 resource1\u2013358. Native GROUP208 personally compared P16 production after registration, preserving excluded fixtures. Native GROUP201 separately read full pr-working grid1\u2013407/resource1\u2013373 including test source text, and owns F045/F046; do not transfer PR or test credit.",
+    "774_root": "ROOT-ADM03-PARALLEL-206 independently compared grid1\u2013382/resource1\u2013358 after native registrations; root scope reconciliation207 and inherited physiology qualification200 are retained. No other lens transfer.",
+    "059_l11": "Original Segovb READ-L11-460 with REG1755/1756 independently reads P16 1\u2013382 and 1\u2013358 respectively, current_reconciled false and accepted count change0.",
+    "059_l3": "Original root independent Lens3 READ-ROOT-L3-EXT-016-017 and registration reads pr-working 6533 grid1\u2013383; blank383 and tests384+ qualification retained, q2700. This does not transfer P16 or current credit.",
+    "registration_hash": "Original registry recorded native JSONL hash a6c0f7bfa676308987f9264ecee4251329ecedf4d41b8829124d46e60626571e; f82 transported file hash 0bb2e7a6198efc2e3db19800dd507c9a5ec91dc47c9fa388e612162d133f5bed. Rows44/45 match exactly; no tested simple LF/CRLF prefix matches historical whole-file hash. Cause unknown and no earlier whole-file recovery claimed."
+  },
+  "qualifications": [
+    "Recovered tracked P16 patch matches historical recorded SHA but excludes seven untracked files; no patch applied. Source objects individually prove equality to Git paths only, not clean P16 or pr-working trees.",
+    "Prior P16 packet strategic backend and puzzle authority excerpts and their original registration/receipt are included as separately attributed support, never new assigned role credit.",
+    "No source/product edits, implementation, builds, tests, fixtures, runtime probes, simulations or validation. Static source and evidence verification only."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Logic grid size propagates from public spec into raw helper and analysis; accepted normal generation and validate check 3\u20134. Resource helper receives provision slices, while normal factory and validate constrain unique 4\u20137 members."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "MAX_GRID_SIZE already owns fixed vocabulary bound and ProvisionId::ALL owns seven distinct IDs. Raw helpers accept a broader u8 or slice and no selected validation policy is assumed."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Public mutable/Serde puzzle and clue values and standalone raw helpers permit broader construction than validated aggregate. Ordinary generator and observed backend/replay validation are mitigating paths, not proof of universal admission."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Grid slice and label indexing need admitted dimensions/coordinates; u16 subset bound shift requires representable collection length; factorial eager materialization precedes any limit. Existing F045/F046 remain attributed."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Grid validation links size, ordered permutation, clue positions/polarity, unique solution and irredundancy; resource validation links dimensions, distinct IDs, unique optimum and optional policies."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "A validated grid size/coordinates and bounded unique provision collection need a canonical owner or explicit public helper precondition, with semantic differences preserved."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "ProvisionProfile derives weight, readiness and protections from ID for normal projection; public independently deserialized profile fields need separate supported ingress evidence before alleging drift."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Two historical P16 source objects equal a120, 6533 and 95e individually; snapshot dirtiness and changed connected code preclude a whole-runtime-equivalence claim."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "GridRelation and typed provision/hazard enums own distinct roles. Clue matches boolean and resource policy booleans are paired with authored semantics; replacing them without policy analysis is not established."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Serialization derives expose raw public fields and private fields through deserialization; no blanket derive defect or manual-implementation replacement inferred."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Grid coordinate, traveler/token/road indices, candidate permutation, count, mask length, hazard and provision identity are distinct semantic domains; avoid a single generic bounded integer owner without review."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Grid traveler/token/road text and provision labels are authored presentation values, while puzzle errors are static diagnostics; no current text mismatch or unsafe prose-based logic demonstrated."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Grid dimensions 3\u20134, 4\u00d74 fixed labels and subset u16 mask width are operationally meaningful; resource cap and 512 generation attempts are authored policies, not indiscriminate literals."
+    }
+  ],
+  "central_ownership": "Root owns publication, reconciliation and all unique counts; no full lens or global closure claimed."
+}

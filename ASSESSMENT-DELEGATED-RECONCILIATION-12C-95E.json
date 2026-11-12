@@ -1,0 +1,321 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+  "source_roles": "ASSESSMENT-DELEGATED-BVH-MESH-2550-2551.json",
+  "historical_git_path_proof": "CENTRAL-PR-2550-2551-PATH-PROOFS.json",
+  "central_current_display_evidence": {
+    "registration": "CENTRAL-12C-REGISTRATION.json",
+    "receipt": "CENTRAL-12C-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-12C-CURRENT-WINDOWS-PROOF.json"
+  },
+  "delegated_observations": [
+    {
+      "bundle_id": "pr-bvh-physics-mesh",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-bvh-physics-mesh-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-GPU-BVH-EMPTY-REBUILD-STALE-TRAVERSAL",
+        "status": "New conditional source-level lifecycle finding; standalone public API case, actual application use and intended empty-query contract unresolved",
+        "condition": "A GpuBvh first completes/submits a valid nonempty build, then record_build or build is called with count zero without replacing the buffers, and a later generated traversal is invoked without an external count-zero guard. The query box intersects a previously stored primitive path and no other writer changes those buffers.",
+        "observation": "record_build assigns self.count = 0 and returns before recording any clearing/build dispatch, so existing node, index and child buffers are not changed by that call. bind exports only the buffers, not count. The generated query initializes the stack with root node zero and traverses encoded nodes with no empty-count check, so under the stated condition it can invoke the callback for an old primitive despite the host count being zero. A fresh never-built zero tree is a separate case; its device buffer contents and outcome are not asserted. MeshCollider::new rejects empty triangles, so ordinary constructor use does not establish this empty transition.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+            "ranges": [
+              [
+                62,
+                86
+              ],
+              [
+                139,
+                155
+              ],
+              [
+                166,
+                179
+              ],
+              [
+                197,
+                212
+              ],
+              [
+                302,
+                313
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+            "ranges": [
+              [
+                390,
+                420
+              ],
+              [
+                433,
+                480
+              ],
+              [
+                481,
+                487
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/mesh.rs",
+            "ranges": [
+              [
+                53,
+                71
+              ],
+              [
+                94,
+                107
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+            "ranges": [
+              [
+                249,
+                260
+              ],
+              [
+                353,
+                360
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 /root/lens12_frontier READ-L12-CONNECTED-TEAM-020 explicitly warned that zero host count and retained allocated buffers alone do not prove a query failure; this current separately registered traversal body supplies the missing unconditional root read and callback path. 774 rig RIG-OWNER-REACHED-PRODUCER-TRACE-005 scoped zero build/refit but excluded BVH algorithms, and RIG-PPS-F003 concerns lower byte/error propagation. Related, not automatic aliases to CPU ray-box empty or endpoint contracts.",
+        "future_direction": "Define empty BVH representation and generated-query behavior at the shared BVH owner. If zero builds are admitted, carry an explicit active-count/empty state to traversal or produce a safe empty root, while preserving nonempty build/refit order and public callers. No implementation is authorized."
+      }
+    },
+    {
+      "bundle_id": "pr-bvh-physics-mesh",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-bvh-physics-mesh-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-MESH-NEGATIVE-SHELL-INVERTS-BOUNDS",
+        "status": "New conditional source-level admission/aggregate observation; supported negative thickness and device outcome unresolved",
+        "condition": "A finite negative MeshSurface.thickness is passed or assigned and record_bounds is reached. For some triangle axis, the actual f32 operations min_axis − thickness and max_axis + thickness produce lower > upper; e.g. mathematically any axis extent strictly less than twice the magnitude with sufficient representable margin has this relation.",
+        "observation": "The public surface is accepted without a local finite/nonnegative check. record_bounds passes thickness as the margin; the triangle-bounds shader text computes min(vertices) − margin and max(vertices) + margin, then sends those raw boxes to BVH build/refit. For the stated input the generated interval is inverted, so it cannot represent an ordinary lower/upper enclosure on that axis. The later contact search binds thickness plus particle radius. No GPU compilation, execution, input witness, or observed missed collision is claimed.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/mesh.rs",
+            "ranges": [
+              [
+                17,
+                25
+              ],
+              [
+                36,
+                49
+              ],
+              [
+                53,
+                71
+              ],
+              [
+                135,
+                157
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "ranges": [
+              [
+                386,
+                413
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "ranges": [
+              [
+                151,
+                168
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+            "ranges": [
+              [
+                190,
+                212
+              ],
+              [
+                224,
+                252
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 Adler READ-L11-373 left finite surface parameter policy pending; /root/lens12_frontier READ-L12-865 and 774 rig TRACE-005 documented raw surface and margin roles without asserting a negative-margin or finite policy. Existing physics-contact resource-coherence/swept-contact findings concern different operations. Central must reconcile exact identity and decide supported input policy.",
+        "future_direction": "Establish allowed shell/friction values and the owning constructor/mutation boundary. If thickness must be nonnegative and finite, admit it there and keep triangle-bound and response semantics synchronized; preserve legitimate zero and native error behavior."
+      }
+    },
+    {
+      "bundle_id": "pr-bvh-physics-mesh",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-bvh-physics-mesh-report.json",
+      "original_finding": {
+        "id": "MESH-POSITION-UPDATE-LENGTH-TRUNCATION-RELATION",
+        "status": "Current source continuation of historical conditional count question, not an additional unique accepted finding",
+        "condition": "On a host with usize wider than u32, a replacement positions slice differs from the original vertex length by a multiple of 2^32 yet casts to the same u32. Packing/allocation and the native queue submission must also be feasible to reach the indicated operation.",
+        "observation": "MeshCollider::new narrows positions.len() and write_positions compares only the replacement length narrowed to u32, so those different lengths pass this local equality check. The called Buffer::write directly forwards bytes to queue.write_buffer and returns Ok without the size check found in write_at. Native backend validation and any actual huge input or failure remain unproved.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/mesh.rs",
+            "ranges": [
+              [
+                64,
+                77
+              ],
+              [
+                99,
+                103
+              ],
+              [
+                118,
+                132
+              ],
+              [
+                199,
+                205
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+            "ranges": [
+              [
+                127,
+                150
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+            "ranges": [
+              [
+                25,
+                32
+              ],
+              [
+                50,
+                57
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 /root/lens12_frontier READ-L12-865 already records a length difference of 2^32; SEGOVB-L12-PHYSICS-MESH-VERTEX-UPDATE-COUNT-REASON concerns error-reason ownership and is related but not automatically identical to this admission contract. Preserve the separate analytic ColliderCount capacity finding and exact first operation.",
+        "future_direction": "Trace supported host/GPU limits and cardinality owners; if oversized inputs are possible, validate before narrowing and preserve actual upload extent and diagnostic cause."
+      }
+    },
+    {
+      "bundle_id": "pr-bvh-physics-mesh",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-bvh-physics-mesh-report.json",
+      "original_finding": {
+        "id": "GPU-BVH-BUILD-ERROR-STATE-RELATION",
+        "status": "Existing historical conditional question narrowed by current bounded KernelBatch source; no new unique finding",
+        "condition": "A nonzero record_build passes capacity, updates count, and a later recording operation returns Err; for the one-off build wrapper, the error occurs before batch.submit and caller retains the GpuBvh.",
+        "observation": "The host count is changed before fallible dispatch and sort recording; the one-off build propagates an error before submitting its local batch. KernelBatch::dispatch has fallible prepare/record paths, and submission is a later explicit operation. A concrete failing dispatch for a supported normal tree has not been shown, nor is retained caller policy established.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-bvh/src/gpu/mod.rs",
+            "ranges": [
+              [
+                197,
+                212
+              ],
+              [
+                220,
+                252
+              ],
+              [
+                302,
+                313
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+            "ranges": [
+              [
+                249,
+                290
+              ],
+              [
+                353,
+                360
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+            "ranges": [
+              [
+                234,
+                256
+              ],
+              [
+                292,
+                308
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 READ-L11-421 and /root/lens12_frontier connected 020 already distinguish last recorded count, error and submission; this exact current support does not retroactively prove an error witness. Distinct from a successful zero build followed by unguarded traversal.",
+        "future_direction": "Specify whether the public lifecycle commits count at recording, submission or completion, and how failed recording affects caller-visible tree validity."
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Zero build and generated traversal",
+      "relationship": "The host count is set to zero before return without recording buffer clearing. The generated traversal source starts at node zero and contains no count check in the displayed body. Historical 059 connected review explicitly warned that retained buffers alone do not establish query failure; this adds the separately read traversal text. A previously successful nonempty build, intersection and unguarded later query remain conditions, with application callers and device effects unproved."
+    },
+    {
+      "identity": "Mesh surface and buffer ownership",
+      "relationship": "A negative thickness is representable in the shown local surface field and is passed to the triangle-bound shader source. Supported policy and execution remain open. It is related to, but not automatically identical to, REVIEW-PHYSICS-MESH-RESOURCE-COHERENCE-95E, which concerns replacement of retained resources."
+    },
+    {
+      "identity": "Position lengths and error lifecycle",
+      "relationship": "A 2^32 length difference is already recorded by 059 READ-L12-865; separate buffer-write and native size behavior remains unproved. The build-error relation preserves 059 READ-L11-421 and connected 020; no concrete failing dispatch or retained caller witness is shown."
+    },
+    {
+      "identity": "Historical identity and source reading",
+      "relationship": "Roles2550 and2551 were separately displayed by the named delegate from recovered pr-working objects and from pinned current source; role2550 extra text is distinct from original material. Pinned 6533 per-file matches do not establish a clean historical snapshot. Coordinator displayed bounded current source and WGSL text only."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "CANDIDATE-GPU-BVH-EMPTY-REBUILD-STALE-TRAVERSAL",
+    "CANDIDATE-MESH-NEGATIVE-SHELL-INVERTS-BOUNDS",
+    "MESH-POSITION-UPDATE-LENGTH-TRUNCATION-RELATION",
+    "GPU-BVH-BUILD-ERROR-STATE-RELATION"
+  ],
+  "open": "Six of eleven checkpoint12 bundles have bounded central reconciliation. Remaining packets, source scopes, unique aliases, all thirteen lenses and all 3713 historical semantic queue records remain open. These rows are relationships, not a unique defect count.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,157 @@
+{
+  "schema": "726-bounded-source-evidence-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T04:27:55.955407+00:00",
+  "baseline": {
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "recorded_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_transport_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "qualification": "All four exact archived objects match same-path 6533 and 95e blobs individually. The recorded pr-working snapshot had other dirty modifications, not a clean tree. f82 is evidence transport, not the source revision. Neither these records nor subsequent reconstructed selections establish checkpoint 3821."
+  },
+  "assigned_roles": [
+    2810,
+    2811,
+    2812,
+    2813
+  ],
+  "read_scopes": "read-scope-summary.json",
+  "unread": "Both historical and current 2813 lines80\u2013205 are unread by this reviewer despite full bytes preserved. Earlier 059 root Segovb independently read historical 1\u2013205 and may not transfer source credit. Future P16 role2818 remains distinct despite identical bytes and is not claimed. All support ranges are explicitly bounded.",
+  "findings": [
+    {
+      "id": "DELEGATE-ARMOR-SAMPLE-COVERAGE-RECONCILIATION",
+      "status": "conditional current source advancement of historical q2224; unique count and alias decision centrally owned",
+      "evidence": [
+        "source/2811-current.rs:3\u201350,85\u2013103",
+        "support/core-armor.rs:52\u201394",
+        "support/strategic-capability.rs:381\u2013410",
+        "support/strategic-continuation.rs:410\u2013416,479\u2013499",
+        "support/autoresolve-model.rs:347\u2013359",
+        "source/2813-current.rs:12\u201346",
+        "support/tactical-inventory.rs:578\u2013586",
+        "support/coverage-owner.rs:25\u201328,67\u2013110,144\u2013173",
+        "support/damage-target.rs:187\u2013200",
+        "support/melee-resolution.rs:60\u201381",
+        "support/combat-armor.rs:35\u201367",
+        "support/strategic-combatant.rs:43\u201347,56\u201377",
+        "support/catalog.yaml:2984\u20133050,3612\u20133661",
+        "support/catalog-detail.yaml:3048\u20133052,3687\u20133690",
+        "support/occupancy-contract.rs:35\u201345",
+        "support/equipment-admission.rs:2889\u20132928,2950\u20132978",
+        "support/tactical-producer.rs:448\u2013485",
+        "support/catalog-coverage.rs:64\u2013102",
+        "support/item-coverage.rs:151\u2013180,205\u2013219",
+        "support/projection-equipment.rs:94\u2013137"
+      ],
+      "first_contract": "Strategic preselects the outermost equipped item by channel/order for geometry and ID while independently aggregating all per-part protection into one snapshot. Its armor_surface checks only that outer geometry; tactical searches geometries in descending layer order and exposes the first intersecting individual surface.",
+      "conditional_witness": "Authored linen_breeches and left mail_chausses occupy base_clothing versus flexible_armor channels. Occupancy conflict requires equal channels, although actor, custody, attachment and legal constraints still apply. The two proximal ordered thigh/lower-leg surfaces have retained coverages 0.94 and 0.65 respectively; the checked projection maps their lower-leg intervals to approximately [0.5,0.94) and [0.5,0.65). By static arithmetic alone sample 0.8 is covered by linen and not mail. If both are equipped for one eligible actor and the ordinary catalog, effective-item and tactical projection paths preserve these data, strategic returns no outer geometry surface at that point while tactical selects linen. At an overlapping sample, strategic pairs summed layer resistance/padding with mail identity/material whereas tactical returns mail-only surface values. Authored linen protection 2/3 and mail 70/30 show nonzero distinct values before condition effects; actual actor, sampling and resulting impacts not observed.",
+      "future_direction": "Determine intended per-contact protection and wear authority, including whether one selected layer or a composed intersecting chain owns values; then connect strategic and tactical consumers to that explicitly chosen model. This is a repair direction only, no implementation or policy decision.",
+      "history": "059 queue index2224 PL13-236-LAYERED-ARMOR-METADATA-CONSUMER-PENDING requested this producer/catalog/fold/contact trace; original L13 agent receipt and partial-union qualification included. Related 059 q1556 concerns separate ID/selected/intersected transport and does not establish alias. Existing protective contact omission is related but separate; central decides identity/count."
+    },
+    {
+      "id": "DELEGATE-STACK-MASS-RECONCILIATION",
+      "status": "independent bounded corroboration of previously published REVIEW-TACTICAL-STACK-MASS-AGGREGATION-001, no new count",
+      "evidence": [
+        "source/2810-current.rs:3\u201340",
+        "support/tactical-inventory.rs:273\u2013280,528\u2013529",
+        "support/catalog.yaml:690\u2013697",
+        "reference/stack-mass-95e.json"
+      ],
+      "first_contract": "Strategic dry mass accounts for quantity, fractional stock or food lot mass; tactical inventory query contains quantity but its sum adds each item weight once. Prior assessment gives conditional authored 28 arrows at 0.05kg each: strategic 1.40kg versus tactical 0.05kg. Runtime actor, propagation, custody and fractional/food cases remain open.",
+      "history": "Related weapon capability mass candidate REVIEW-FORGED-WEAPON-HEAVY-CAPABILITY-MASS-001 has a different weapon-geometry cause; do not merge automatically."
+    },
+    {
+      "id": "DELEGATE-ARMOR-GEOMETRY-RELATIONSHIP",
+      "status": "historical 774 GROUP-114 existing F004/F011 conditional support, no new count",
+      "evidence": [
+        "support/tactical-armor.rs:5\u201320",
+        "source/2813-current.rs:12\u201332,53\u201377",
+        "support/tactical-producer.rs:448\u2013485",
+        "support/projection-equipment.rs:94\u2013137",
+        "history-774/native/initial05-aggregate-states/contract-groups-114.json.gz"
+      ],
+      "first_contract": "A public ArmorItem can encode a positive covered part with missing optional geometry, but armor_layer_chain expects geometry, conditional on an incoherent state reaching it. The inspected ordinary tactical producer derives protected parts from the selected placement, and the projection builds geometry for that placement; this is material mitigating evidence, not proof that every admission and constructor maintains coherence. Fold accepts raw scalars; nonfinite/overflow concerns remain associated with F011 without proving a normal shipped instance or runtime fault."
+    }
+  ],
+  "nonfindings": [
+    "query.rs first matching optional ID or optional slot alone does not establish an invalid normal inventory or duplicate occupancy",
+    "ArmorSlot side Option and durable inventory ID Option can represent legitimate abstract, innate or bilateral cases; no blanket missing-value defect is asserted",
+    "Canonical producer uses a shared selected placement to derive protected parts and geometry in inspected path",
+    "Item occupancy predicates allow independent channels, but no specific world state or actual equip transaction was observed"
+  ],
+  "open_questions": [
+    "Which strategic and tactical per-sample combat law is intended and where should selected item and values be owned?",
+    "Are all producer/admission paths, legal rules, condition states and projection configurations coherent for these layers?",
+    "What sample distribution and downstream wear/impact behavior occur in actual game flows? No runtime, test, build, fixture or product execution was performed.",
+    "Are historical q1556, q2224, F004/F011 and prior current candidates separate or related at the precise first operation? Central decides aliases and counts.",
+    "Role2813 current and historical lines80\u2013205, other callers, and every unregistered/unread source complement remain open. Role2818 is not assessed here."
+  ],
+  "historical_attribution": {
+    "root_774": "ROOT-INITIAL04-REG016/017; 103 prematurely displayed before prospective registration and permanently excluded from semantic/global credit by root qualification170; writer saved prior packet but StopIteration occurred before authority update. Raw103 retained, no re-credit; fresh root ADM03-171 after registration, reconciled172.",
+    "native_774": "NATIVE-INITIAL05-REG025/026; GROUP-114 material role2813 actual 1\u201378 and line79 blank; registry planned 1\u201379. GROUP-117 independently covers 2810/2811; preserve original reviewer and no transfer.",
+    "root_059": "READ/STATE/VERIFY-L11-457 and REGISTRATION-SEGOVB-1731\u20131734: 2810 1\u201341, 2811 1\u2013103, 2812 1\u201321, 2813 1\u201379; accepted unique change0 and current_reconciled false. Root Segovb out-of-order ROOT-L12-694-ARMOR historical 2813 full1\u2013205 is separately attributed with no ordered/new lens credit; two failed locator preflight attempts before correct chr(92) registration yield no coverage.",
+    "lens13_059": "PL13-236 historical receipt records 1\u2013460 then fresh461\u2013694 union of role1076 with no transferred read; original registration, partial, complete, proposal and verification preserved; q2224 remains open in source queue.",
+    "p16": "2818 is a separate P16 role with same historical source object; existing CAMERA-INITIAL07-REG032 planned1\u201379 but material1\u201378 blank79, later root03 fresh177; no 2818 credit here. P16 snapshot is dirty; evidence transport/base remain distinct."
+  },
+  "qualifications": [
+    "Original 059 files are copied read-only after matching recovered transport manifest, 774 files copied via f82 with raw tree proofs. Registry and queue selections are reconstructed and explicitly labeled.",
+    "support2 coverage-model intentionally registered/displayed core combat.rs 590\u2013715 believing it was coverage owner; it is test source text only, never run. Actual owner independently registered later as support3.",
+    "support6 initial registration attempt failed on out-of-bounds requested 1\u201385 of a 46-line source before any source display; corrected prospective registration is recorded.",
+    "The registry-recorded historical registration whole-file hashes differ from the later f82-transported JSONLs, though each embedded row matches exactly. No LF/CRLF simple prefix matches the earlier hash; this bounded result does not recover or explain the recorded file versions. See registration-version-qualification.json.",
+    "Archived complete source bytes, Git equivalence, prior reviewer findings and test text are not own unread-range coverage or evidence of product correctness. No source/product edits, repair, build, test, runtime, fixture, generation or simulation occurred."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Strategic armor aggregate and outermost geometry travel through separate arrays into CombatArmor, while projected tactical armor retains each piece. See q2224 refinement; further engine and outcome propagation remain open."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Inventory query uses optional durable IDs, optional slots and raw catalog ID; do not infer missing required identities where innate or abstract items intentionally omit durable identity. Compare actual consumers before type remediation."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Equipment occupancy conflicts require same location and channel; public ArmorItem still permits covered part without geometry; canonical projection derives protected parts and geometry from the selected placement. Actual malformed input admission and all ingestion paths remain open."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Strategic mass multiplies unit mass by quantity/fraction and honors food mass; tactical inventory sums weight per item. Nonfinite aggregate arithmetic relates existing F011 under its original conditions; no runtime validation."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "ArmorItem covered_parts and optional per-part geometry are independent public fields consumed by expects. Existing native GROUP-114/F004 conditional; no claim that canonical projection produces invalid state."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "The actual owner for per-sample contact and inventory mass semantics must be resolved across strategic and tactical paths, not assigned from field spelling. No duplicate count."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Outer selected item and separately aggregated protection are joined in one strategic surface; a sample can expose differing source and value authority. Connected 059 q2224, with exact authored conditional example."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "95e matches archived per-file bytes at 6533 for all four assigned roles; connected support is current only and full historical behavior or execution is not inferred."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Optional durable item IDs, slots and bilateral armor sides can encode real absent or shared modes; the inspected slices do not prove every None invalid. Full construction/admission scope remains open."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No unnecessary manual trait/serialization implementation demonstrated in the assessed role slices; no blanket claim for unread 2813 lines80\u2013205 or surrounding types."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Coarse BodyPart plus per-item authored subregion geometry have distinct purposes. A single scalar per-part aggregate cannot by itself own sample-dependent contact identity; repair shape remains a future design question."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Role2812 item_at_slot returns optional IDs; historical q1556 concerns ArmorLayerContact String/Option/flags. Trace canonical catalog vs durable identities and native consumers before selecting an owner."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Per-item coverage, resistance and padding are raw numeric fields; range and arithmetic guarantees require admission and operations. The 0.8 sample is mathematical source reasoning, not a fixture run."
+    }
+  ],
+  "repair_or_validation": "Not started; future directions are audit ledger input only. Central agent owns reconciliation, publication, count and all implementation decisions."
+}

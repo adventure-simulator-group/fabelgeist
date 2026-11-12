@@ -1,0 +1,293 @@
+{
+  "schema": "726-native-eidolon-cull-node-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:32:41.791627+00:00",
+  "status": "bounded role and thirteen perspectives; no full lens or native package clearance",
+  "scope": {
+    "role": 2827,
+    "native_identity": "bevy_eidolon 0.5.0 at Git commit 1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "native_source_sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+    "historical_project_commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_project_commit": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_commit": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "identity_qualification": "Native Git is not project Git. The historical project pr-working snapshot had unrelated modifications; 6533 file identities do not imply a clean snapshot. Pinned 95e does not select this package in the four enumerated tracked lockfiles, a structural inventory that does not prove feature resolution or arbitrary external/untracked builds.",
+    "read_qualification": "Personally displayed exact native role1\u2013119 after registration; separate bounded Rust support receipts carry their own revision and attribution. This assignment did not inspect WGSL bodies, execute shaders, use GPU or run product/build/tests/fixtures/probes.",
+    "dependency_proof": "Copied exact prior author lock registration/inventory and 8 lockfiles under locks/. The 6533 root lock selects bevy_eidolon 0.5.0 git+https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d4809287e5f5713fb4cf72181b2285fff; four enumerated 95e lockfiles have no matching package. Old grass per-view adapter path is absent from committed 95e tree. Native source and Git identity are independently proved; prior bundle is hash-linked. No report or source is promoted to missing checkpoint 3821."
+  },
+  "finding_and_reconciled_evidence": {
+    "id": "ROOT-INITIAL04-F053",
+    "classification": "Existing 774 historical native source finding, independently re-assessed; no new accepted unique count.",
+    "first_contract": "A dispatch built from an admitted integer instance capacity must cover the supported capacity after float conversion, ceiling and grid folding.",
+    "trace": [
+      "The native generic node reads public page.compute_capacity, converts it to f32, divides by 64 and rounds up; above 65535 groups it folds into x=65535 and y=ceil(groups/65535), also using f32.",
+      "The already recorded ROOT-INITIAL04-F053 symbolic witness is 20,971,201 = 64*(65535*5)+1. Under nearest-even f32 conversion it rounds to 20,971,200, so the node computes 327,675 groups and the folded grid is 65535 by 5: 20,971,200 invocations, one short of the input population. No numerical program, buffer, input, test or dispatch was constructed or executed.",
+      "The default backend selects PagedAllocator with nominal page_size 1,000,000, while page_size and public page.compute_capacity can be changed or a custom backend supplied. If the offset allocator preserves its advertised page bound and normal ownership, the default page does not reach this witness; the offset allocator implementation and all producers were not inspected in this assignment."
+    ],
+    "conditions": [
+      "The source-level numeric witness requires a supported accepted capacity at that magnitude, ready pipeline/bind groups, suitable memory/device limits, actual node execution and a consumer requiring one invocation per instance; none was demonstrated. Exact shader indexing and any visible/runtime effect are uninspected.",
+      "Under old 6533 source, the generic native plugin is registered for shrub bark and leaf materials, and their generated understory entities carry GpuCullCompute. This establishes direct historical first-party wiring, not that the large witness is reached or the pipeline runs.",
+      "Tactical grass uses a separately registered per-view Rust culling function with its own reset followed by select and integer div_ceil scheduling. Therefore generic node absence of a reset is not itself evidence that the old grass per-view reset is missing. Current 95e grass and dependencies differ."
+    ],
+    "sources": [
+      {
+        "id": "2827-native",
+        "archive": "sources/2827-native.rs",
+        "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/cull/node.rs",
+        "lines": [
+          [
+            16,
+            59
+          ],
+          [
+            61,
+            109
+          ]
+        ]
+      },
+      {
+        "id": "native-resource",
+        "archive": "support/native-resource.rs",
+        "sha256": "27170c66f375325cae411ea34e591c86aabb86e9d13a3d18da7144037b5ecd9c",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/allocator/resources.rs",
+        "lines": [
+          [
+            32,
+            47
+          ],
+          [
+            112,
+            122
+          ],
+          [
+            167,
+            182
+          ]
+        ]
+      },
+      {
+        "id": "native-runner",
+        "archive": "support/native-runner.rs",
+        "sha256": "b40981bbae360e987668adfd785a7a553b89baf39823ed53d173263bdf849be4",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/render/prepare/page_prepare_runner.rs",
+        "lines": [
+          [
+            108,
+            118
+          ]
+        ]
+      },
+      {
+        "id": "native-paged",
+        "archive": "support/native-paged.rs",
+        "sha256": "60da2629cd205e6cd1c9f5a243ef7f3f0769eb48e609a09afb9f9e23ed2d282d",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/allocator/paged_allocator.rs",
+        "lines": [
+          [
+            7,
+            34
+          ],
+          [
+            107,
+            125
+          ]
+        ]
+      },
+      {
+        "id": "native-backend",
+        "archive": "support/native-backend.rs",
+        "sha256": "d07d73f0a2aee9d87f042e265415251b7d444373b0e486c391f6f7fc95def5b5",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/allocator/backend.rs",
+        "lines": [
+          [
+            7,
+            25
+          ]
+        ]
+      },
+      {
+        "id": "native-plugin",
+        "archive": "support/native-plugin.rs",
+        "sha256": "83d85ef08d4b18e1bad58551895060bfe0144458653f3f0754b102ca68d4f153",
+        "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+        "path": "src/cull/plugin.rs",
+        "lines": [
+          [
+            19,
+            29
+          ],
+          [
+            32,
+            60
+          ]
+        ]
+      },
+      {
+        "id": "old-grass",
+        "archive": "support/old-grass.rs",
+        "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+        "lines": [
+          [
+            135,
+            145
+          ]
+        ]
+      },
+      {
+        "id": "old-understory",
+        "archive": "support/old-understory.rs",
+        "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+        "lines": [
+          [
+            46,
+            64
+          ],
+          [
+            117,
+            125
+          ],
+          [
+            220,
+            297
+          ]
+        ]
+      },
+      {
+        "id": "old-view",
+        "archive": "support/old-view.rs",
+        "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+        "lines": [
+          [
+            119,
+            165
+          ]
+        ]
+      }
+    ],
+    "related_prior": "774 ROOT-INITIAL04-F053 supplies the same first failed numerical contract; 774 CAMERA-INITIAL07-CONTRACT-219/QUAL169 and 059 READ-L11-459 role2827 retain separate historical native-source personal reads. 059 q1313\u20131315 and separate 2790\u20132797 allocator reports remain related scope, not automatic aliases or closed queues.",
+    "future_direction": "If a supported remaining owner can reach the numeric range, preserve the authoritative integer capacity through checked exact workgroup-grid construction, handle per-axis device limits and native indexing, and reconcile generic versus per-view owners. Do not prescribe editing an unused historical dependency.",
+    "acceptance": "Every supported successful dispatch covers the admitted population under actual indexing and target limits, or rejects unsupported capacity before submission. Per-view reset and legitimate asynchronous readiness retain explicit contracts.",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "related_allocator_records": [
+    {
+      "id": "DELEGATE-EIDOLON-EMPTY-PAGE-STALE-SOURCE",
+      "author": "/root/rig_identity",
+      "relationship": "Conditional page-reuse/retained source invalidation from 2790\u20132793. Distinct first failure from dispatch rounding; supported page/offset reuse and downstream outcome unresolved."
+    },
+    {
+      "id": "DELEGATE-EIDOLON-PAGED-RESET-ACTIVE-COUNTS",
+      "author": "/root/rig_identity",
+      "relationship": "Conditional trait-reset accounting from 2790\u20132793, with actual caller and reuse unresolved. Different from public instance capacity numerical conversion."
+    },
+    {
+      "id": "DELEGATE-EIDOLON-INSTANCE-COUNT-NARROWING-1A5",
+      "author": "/root/mhr_character",
+      "relationship": "Conditional usize-to-u32 allocation/upload bridge from 2794\u20132797; upstream large input preconditions and unique count remain open."
+    }
+  ],
+  "nonfindings": [
+    "The node returns before launching when pipeline, cache, allocator or global cull buffer is unavailable and skips zero-capacity/missing bind-group pages. Whether this temporary absence is acceptable to any actual capture/readiness policy remains open.",
+    "The node calls set_pipeline and binds the retained page groups; these source statements do not prove buffer initialization, shader behavior, per-view camera semantics or device execution.",
+    "The native plugin schedules the generic node before camera_driver; that is not a proof that it runs once per camera or that its retained buffers are reset by some other system.",
+    "The separately shown old grass adapter requests a per-view camera and orders reset before select; this fact does not establish generic shrub reset, all camera graph behavior or render output.",
+    "The 1,000,000 default page size is a relevant narrowing condition, not a universal bound on public fields, custom backends or externally manipulated state."
+  ],
+  "open_questions": [
+    "Do any supported historical shrub/generic applications configure an accepted page at the F053 size, and what are actual allocation and device constraints?",
+    "Does the generic native producer use appropriate view-specific state, reset and scheduling for each supported camera and shadow mode? No WGSL or native runtime semantics were newly inspected.",
+    "Which remaining 95e owner replaces historical grass/shrub behavior, and does it have an analogous integer capacity/grid obligation?",
+    "Do pipeline readiness or missing resources lead to an intentional unavailable visual frame or require retained error/status?",
+    "How do F053, upstream count narrowing, page reuse/clears and native binding lifetimes relate without merging distinct first failures or duplicate counts?"
+  ],
+  "historical_relationships": {
+    "registry": "registry-selection-reconstructed.json",
+    "records": "historical-attribution.json",
+    "queue": "queue-selection-reconstructed.json",
+    "prior_059": "Segovb READ-L11-459 freshly read native1\u2013119 under REG1748, no current-project or other lens credit.",
+    "prior_774": "Camera REG040 and CONTRACT219 actual native1\u2013119; QUAL169 records scope. Root F053 is separately attributed historical arithmetic finding. The selected camera registration row equals the embedded registry row while its complete f82 registration file hash differs from registry recorded digest; original variant/cause unknown.",
+    "prior_delegates": "2790\u20132793 /root/rig_identity and 2794\u20132797 /root/mhr_character report/manifests are separately retained and hash-linked. The peer\u2019s additive prior-read correction clarifies that my native-prepare 1\u2013105/227\u2013340 and native-inputs 106\u2013226 are separate personal support receipts; their union is 1\u2013340, with no ordered-role transfer.",
+    "transport": "f82 transports original records/objects only; historical status is not current 95e or missing final3821."
+  },
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Allocator watermark\u2192page capacity\u2192generic node and historical shrub registration are traced only through bounded Rust; material/native outputs remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Page capacity, per-view adapter and generic node have different purposes; use a canonical checked grid owner after policy is established."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Nominal default allocator page bound narrows the prior large witness, but public fields/custom backends and all creators remain open."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Existing F053 is an exact float-rounding and folded grid source case, with device/run reach conditional."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "Pipeline readiness, capacity and matching bind groups govern whether a page is submitted; they do not alone prove data or view coherence."
+    },
+    {
+      "lens": 6,
+      "name": "Wrong/duplicate owners",
+      "disposition": "Generic shrub and per-view grass culling are distinct native/project owners; do not unify by similar names or assume current equivalence."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Capacity, GPU backing and retained camera/indirect state carry different facts; generation and synchronization obligations remain open."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Native package is selected in 6533 historical root lock but absent in four enumerated current locks; old per-view adapter absent at 95e. Runtime equivalence not inferred."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Missing optional pipeline/resources and zero pages explicitly skip; successful partial availability is a policy question, not automatically a boolean replacement."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "No manual serialization/default implementation in the bounded node is shown to admit a behavior-preserving derive."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Instance population, workgroups, grid axes and per-page identities have distinct semantic roles and target limitations."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Compute pass label and optional trace diagnostics are native/diagnostic boundaries; no semantic branch on human text established."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Width64 and axis65535 encode native dispatch layout/limits; retain checked integer units and actual device constraints rather than arbitrary limits."
+    }
+  ],
+  "deduplication": "No accepted unique finding count changed. Central owns connected ledger, reconciliation and publication.",
+  "verification": "Evidence and source identity checks only; no product validation."
+}

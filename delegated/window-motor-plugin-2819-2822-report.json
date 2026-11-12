@@ -1,0 +1,464 @@
+{
+  "schema": "726-bounded-window-motor-plugin-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:27:01.233309+00:00",
+  "status": "bounded thirteen perspectives; discovery incomplete outside assigned source scopes",
+  "scope": {
+    "roles": [
+      2819,
+      2820,
+      2821,
+      2822
+    ],
+    "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "p16_recorded_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "identity": "P16 controller and plugin bodies equal their individual a120 base-file objects; the P16 dirty snapshot is not a120 commit or an entirely clean tree. Historical P16 and pr-working plugin bodies are equal but separately registered, displayed and attributed. Current 95e plugin differs from both (174 versus 88 lines); current controller and window bodies are identical to their respective historical objects.",
+    "personal_reads": "Each of the eight historical/current role bodies was independently displayed after registration, including source-only tests. Role2819 original material 1\u201375 stays distinct from new historical support 76\u2013129. No identity, read or lens credit transfers between 2821 and 2822.",
+    "recovery_qualification": "The 524542-byte P16 tracked patch was later reproduced exactly to the registry SHA; this does not establish the original command or uninterrupted custody and does not contain seven untracked files. Separate archived source objects and recorded snapshot status retain original history. Redacted live comparison has different original and public hashes. No history promoted to missing checkpoint 3821.",
+    "restriction": "Static source text and evidence verification only; no repair, build, test, fixture, simulation, native physics, shader, product execution or runtime probe."
+  },
+  "findings_and_related_questions": [
+    {
+      "id": "P16-WINDOW-OPENING-FRAME-AGGREGATE",
+      "classification": "Existing conditional window frame/aggregate question, independently connected to current SceneWindow decoder; no new accepted count.",
+      "trace": "SceneWindow decoder re-admits size, centre, tangent and outward separately; SpatialDirection checks each vector independently for normalized direction. The component decoder does not separately check the pair for perpendicularity or relation to an opening/hinge. A symbolic wire with two individually normalized parallel directions illustrates the local missing relationship, but no wire was constructed or decoded. Normal server spawn derives both from one SceneWindowPose built from the selected compiled opening and datum.",
+      "conditions": "A supported decoder or other public construction must admit a mismatched frame, and the chosen opening policy must require that relationship. The actual server private controller/pose route, plan membership, consumers and any resulting interaction error remain separate. The existing previous P16 walls/windows record traces earlier OpeningAssembly and WindowSpec; same exact defect/repair alias must be reconciled centrally.",
+      "sources": [
+        {
+          "id": "2819-current",
+          "archive": "sources/2819-current.rs",
+          "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "lines": [
+            [
+              15,
+              75
+            ]
+          ]
+        },
+        {
+          "id": "direction",
+          "archive": "support/direction.rs",
+          "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "lines": [
+            [
+              110,
+              142
+            ]
+          ]
+        },
+        {
+          "id": "window-pose",
+          "archive": "support/window-pose.rs",
+          "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+          "lines": [
+            [
+              11,
+              59
+            ]
+          ]
+        },
+        {
+          "id": "server-window",
+          "archive": "support/server-window.rs",
+          "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              30,
+              62
+            ],
+            [
+              66,
+              128
+            ]
+          ]
+        },
+        {
+          "id": "grab",
+          "archive": "support/grab.rs",
+          "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              14
+            ],
+            [
+              16,
+              44
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "774 NATIVE-INITIAL05-GROUP-124 and CAMERA-INITIAL07-CONTRACT-248 already distinguish checked leaves from aggregate correctness; 059 READ-L11-458 preserves role2819 1\u201375 only. Earlier P16-WINDOW-OPENING-FRAME-AGGREGATE first describes the opening producer; this is a bounded current receiver connection, not a distinct duplicate count.",
+      "future_direction": "If supported boundaries rely on an orthogonal frame, preserve source owner/hinge/pose and validate the whole relationship at the earliest applicable admission, preserving legitimate window leaf, bar and frame semantics.",
+      "acceptance": "Every supported accepted frame used for opening/interaction matches the authoritative window pose or fails with contextual information.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "P16-WINDOW-TOGGLE-THREE-D-REACH",
+      "classification": "Previously recorded conditional current window interaction finding, corroborating source support only; no new count.",
+      "trace": "The server WindowGrabber calls the shared predicate with actor translation, closed window centre, tangent, outward and half width; the predicate uses two dot products to evaluate inside depth and lateral distance. The separately attributed earlier assessment records the client three-dimensional target/ray gate and network/action prerequisites.",
+      "conditions": "The earlier report requires an authorized actor, mapped window and actual request path; spatial target reach, scene replication and obstruction policy are not established here. Symbolic vertical separation is not a runtime or player incident.",
+      "sources": [
+        {
+          "id": "2819-current",
+          "archive": "sources/2819-current.rs",
+          "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "lines": [
+            [
+              15,
+              75
+            ]
+          ]
+        },
+        {
+          "id": "server-window",
+          "archive": "support/server-window.rs",
+          "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-server/src/windows.rs",
+          "lines": [
+            [
+              30,
+              62
+            ],
+            [
+              66,
+              128
+            ]
+          ]
+        },
+        {
+          "id": "grab",
+          "archive": "support/grab.rs",
+          "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/doors.rs",
+          "lines": [
+            [
+              9,
+              14
+            ],
+            [
+              16,
+              44
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Prior p16-window-apse report and central reconciliation retain their own wider client/server source receipts. This assigned-source review does not transfer or reproduce their client/network evidence.",
+      "future_direction": "Resolve authoritative interaction distance and obstruction policy at the server boundary and compare actor/window pose consistently.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-1d38d69a4d3f33d858ec",
+      "classification": "Existing historical motor/config/native scheduling evidence question, partially supplied by current source; no new accepted count.",
+      "trace": "Current controller adapter clears Ahoy acceleration, air/water acceleration, friction and stop speed, then maps gravity, maximum step and cosine of walkable slope from one TacticalCombatConfig motor record. The current movement system calls the adapter in its per-controller loop. Config validation checks these fields finite and positive, limits step to at most 1 m and slope below 90 degrees; compiled default is validated before canonical use and the runtime snapshot installer validates before replacement.",
+      "conditions": "Public configuration fields and independently populated Bevy resources mean these displayed entry paths do not prove every caller/resource was admitted; native Ahoy behavior, order across all producers and target configuration are uninspected. The disabling of native acceleration/friction is explicitly paired with tactical motor force policy, not itself a duplicated fatigue penalty.",
+      "sources": [
+        {
+          "id": "2820-current",
+          "archive": "sources/2820-current.rs",
+          "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": "physical-p16",
+          "path": "crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+          "lines": [
+            [
+              1,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "motor",
+          "archive": "support/motor.rs",
+          "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/physics.rs",
+          "lines": [
+            [
+              332,
+              391
+            ]
+          ]
+        },
+        {
+          "id": "config",
+          "archive": "support/config.rs",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "lines": [
+            [
+              229,
+              239
+            ],
+            [
+              290,
+              295
+            ],
+            [
+              449,
+              503
+            ]
+          ]
+        },
+        {
+          "id": "config-context",
+          "archive": "support/config-context.rs",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "lines": [
+            [
+              52,
+              67
+            ],
+            [
+              417,
+              422
+            ],
+            [
+              725,
+              728
+            ]
+          ]
+        },
+        {
+          "id": "config-runtime",
+          "archive": "support/config-runtime.rs",
+          "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+          "lines": [
+            [
+              11,
+              20
+            ]
+          ]
+        },
+        {
+          "id": "config-defaults",
+          "archive": "support/config-defaults.rs",
+          "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+          "lines": [
+            [
+              6,
+              25
+            ]
+          ]
+        },
+        {
+          "id": "2821-current",
+          "archive": "sources/2821-current.rs",
+          "sha256": "f5ad8a6a7302dc252a71454bc8be3571b0845e81a92ebfd5861462cdfb78a7a9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": "physical-p16",
+          "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "lines": [
+            [
+              11,
+              29
+            ],
+            [
+              32,
+              83
+            ],
+            [
+              105,
+              109
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "774 CAMERA-INITIAL07-CONTRACT-181/191 and QUAL159 record the separate P16/pr-working source and actual bounded recovery qualification; 059 q1560 retains other quickstep, config and native dependencies. No native runtime/caller closure follows.",
+      "future_direction": "Trace exact authorized configuration admission and all motor/native owners; retain a single supported horizontal integration authority without introducing hidden combat penalties.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "DELEGATE-PHYSICS-PRESENTATION-SOLVER-SCHEDULING",
+      "classification": "Current 95e source transition and unresolved native scheduling/behavior question; not asserted defect or unique count.",
+      "trace": "Historical P16 and PR plugin source choose full simulation, presentation-only simulation or read-only collider mode; full simulation takes precedence when both booleans are true. Current presentation mode adds synchronous collider-tree optimization and runs Solver and Sleeping sets only if the query finds a non-static RigidBody without RigidBodyDisabled. The query includes all enabled non-static bodies, not specifically awake ragdolls. Read-only mode separately retains collider-tree finalization and required disabled components.",
+      "conditions": "Whether required-component insertion, system-set nesting, collision tree updates, sleeping/waking and Bevy/Avian ordering satisfy every supported mode depends on exact native package semantics and real plugin installers. The current source tests express intended enabled/disabled ball behavior but were read only, not executed. No actual motion, missed query, performance effect or scheduler defect is claimed.",
+      "sources": [
+        {
+          "id": "2821-historical",
+          "archive": "sources/2821-historical.rs",
+          "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+          "revision": null,
+          "snapshot": "physical-p16",
+          "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "lines": [
+            [
+              1,
+              88
+            ]
+          ]
+        },
+        {
+          "id": "2822-historical",
+          "archive": "sources/2822-historical.rs",
+          "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "snapshot": "pr-working",
+          "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "lines": [
+            [
+              1,
+              88
+            ]
+          ]
+        },
+        {
+          "id": "2821-current",
+          "archive": "sources/2821-current.rs",
+          "sha256": "f5ad8a6a7302dc252a71454bc8be3571b0845e81a92ebfd5861462cdfb78a7a9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": "physical-p16",
+          "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "lines": [
+            [
+              11,
+              29
+            ],
+            [
+              32,
+              83
+            ],
+            [
+              105,
+              109
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "059 READ-L11-459 and 774 CAMERA-INITIAL07-CONTRACT-181/191 cover the separate old roles at the old bytes; the changed 95e branch is a fresh source observation, not transferred historical coverage. Preserve explicit full-simulation precedence and no false duplicate.",
+      "future_direction": "If the policy requires complete assurance, trace native sets and component insertion plus all plugin mode installers, then validate supported motion and query behavior only after separate authorization.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "nonfindings": [
+    "SceneWindow uses a manual decoder to attach building/opening context to geometry errors; typed leaf validation does not establish complete descriptor/controller/plan correlation, but the decoder is not a mere redundant alias.",
+    "Two plugin flags yield three branches with explicit full-simulation precedence; the existence of both true is not alone an invalid behavior or compatibility shim.",
+    "The display of source tests is not their execution. Old native reviewers gave window PR role2819 1\u201375 only; separately attributed native P16 role366 full129 is distinct and does not enlarge that PR role.",
+    "Validated default and snapshot installer narrow ordinary configuration uncertainty; separate in-memory or externally inserted resource and native callers remain open.",
+    "Old/pr plugin source equality, a120 base-file equality, and same controller bytes are object facts only, not equal whole historical snapshots or resolved runtime behavior."
+  ],
+  "open_questions": [
+    "Can a supported decoder/source producer supply individually valid but nonorthogonal SceneWindow directions, and does an accepted interaction or render consumer require a stronger frame relation?",
+    "Do all admitted current tactical configuration resources pass validation before the motor adapter, including replacement/mutation and all plugins?",
+    "What are actual installed Bevy/Avian/Ahoy feature selections and scheduling, required-component insertion, wake-up and collider-tree guarantees for each of the three plugin modes?",
+    "Can a supported mapped window and actor reach the previously identified vertical-distance case, and is line of sight part of authoritative policy?",
+    "How should historical F002/F003 window/controller, frame aggregate, quickstep retention and current presentation scheduling map to distinct owners and duplicate counts?"
+  ],
+  "history": {
+    "attribution": "historical-attribution.json",
+    "registry": "registry-selection-reconstructed.json",
+    "queue": "queue-selection-reconstructed.json",
+    "prior_059": "Segovb READ-L11-458 freshly read 2819 1\u201375; READ-L11-459 freshly read each of 2820 1\u201318 and 2821/2822 1\u201388 under distinct P16/pr-working identities.",
+    "prior_774": "Native REG033 and GROUP-124, camera REG033/034/035, CONTRACT-181/191 and QUAL159 preserve their exact author and snapshot. QUAL159 says bounded quickstep recovery after Dodge can be intentional; no alleged warning or runtime is inferred. Selected native/camera registration rows match embedded records but whole-file hashes differ; cause and missing variants remain unknown.",
+    "prior_current": "Prior current window-apse, walls-windows, shutters and central reconciliation are preserved with original authorship and source scopes; they are not this author\u2019s new read credit."
+  },
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Trace motor config to controller mapping and scene pose to window admission; all other publishers/native endpoints remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Use existing framed direction, dimensions, configuration and opening IDs; pair-level relation remains a distinct owner contract."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Window leaves and supported compiled defaults are individually admitted; aggregate frame and all resource insertion routes remain conditional."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Slope degrees convert to native cosine once, window predicate computes depth/lateral; native behavior and cross-field semantics require independent proof."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "Controller/native parameters, window frame/pose and plugin mode/state combinations are correlated facts, not automatically invalid from public fields."
+    },
+    {
+      "lens": 6,
+      "name": "Wrong/duplicate owners",
+      "disposition": "Normal configuration, native motor and scene pose have related but different owners; preserve existing window aggregate records."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Validated process snapshot and Bevy resource have distinct pathways; unchanged imports do not prove every runtime producer synchronized."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "95e plugin changes presentation scheduling relative to two separately recorded old identities; no native execution or equivalence inferred."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Three explicitly prioritized plugin branches exist. Two Boolean options are not a defect without a supported invalid mode or policy."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Manual SceneWindow decode supplies contextual errors and validates typed leaves; derivation would need equivalent wire and error semantics."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Degrees, cosine, physical units, scene-frame vectors and IDs have different semantics; do not force one generic primitive owner."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "SceneWindowError and warning prose are presentation boundaries, not demonstrated domain status keys."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Zero native velocity shapers express intended one-motor ownership, while grab tolerances and time/slope values require their own units and policies."
+    }
+  ],
+  "deduplication": "No accepted unique finding count changed; central owner reconciles, maintains the ledger and publishes.",
+  "verification": "Evidence identity, receipts and matching historical patch digest only; not product validation."
+}

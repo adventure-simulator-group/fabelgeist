@@ -1,0 +1,481 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+  "source_roles": "ASSESSMENT-DELEGATED-FURNITURE-P16-2552-2553.json",
+  "historical_git_path_proof": "CENTRAL-P16-2552-2553-PATH-PROOFS.json",
+  "central_current_display_evidence": {
+    "registration": "CENTRAL-12D-REGISTRATION.json",
+    "receipt": "CENTRAL-12D-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-12D-CURRENT-WINDOWS-PROOF.json"
+  },
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-furniture-room-index",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-furniture-room-index-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L13-RETAINED-ROOM-ORDINALS",
+        "kind": "existing historical finding, current bounded continuation; no additional count",
+        "first_contract": "RoomIndex owns a checked u16 room ordinal. Current collect_rooms converts the typed room index to raw u16 before storing Room.id; derive_walls likewise extracts raw inside/outside ordinals before WallSegment retention, and wall assembly copies them into WallLocalFrame Option<u16>. Interior construction and validation reconstruct RoomIndex from those raw retained IDs. These fields are retained semantic references rather than only final native array boundaries.",
+        "condition": "This is an ownership/producer-propagation observation, not proof of invalid room membership or runtime behavior. All u16 values, including zero, are admitted by RoomIndex; a typed ordinal alone must not be mistaken for proof that a room exists in a particular storey.",
+        "future_direction": "Use the existing room ordinal owner consistently through actual retained room, segment and frame APIs and convert only at real numeric/serialization boundaries; separately specify storey-scoped population membership and absence semantics. Preserve zero and exact existing error sources unless a deliberate new admission policy is adopted.",
+        "relationships": [
+          "Exact same first operations and owner as 059 SEGOVB-L13-RETAINED-ROOM-ORDINALS Q404, originally supported by PL13-049/051/060 at 6533. RIG-OWNER81-F003 is separately attributed 774 rig supplier evidence for the WallLocalFrame candidate; no automatic count or reviewer transfer."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/room_index.rs",
+            "lines": [
+              [
+                20,
+                39
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+            "lines": [
+              [
+                156,
+                171
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+            "lines": [
+              [
+                4,
+                36
+              ],
+              [
+                120,
+                124
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                3,
+                16
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "lines": [
+              [
+                119,
+                125
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+            "lines": [
+              [
+                1088,
+                1099
+              ],
+              [
+                1155,
+                1167
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/placement.rs",
+            "lines": [
+              [
+                18,
+                24
+              ],
+              [
+                56,
+                60
+              ],
+              [
+                141,
+                146
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/footprints.rs",
+            "lines": [
+              [
+                31,
+                50
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-furniture-room-index",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-furniture-room-index-report.json",
+      "original_finding": {
+        "id": "P16-ROOM-IDENTITY-POPULATION-AMBIGUITY",
+        "kind": "conditional aggregate validation question",
+        "first_contract": "BuildingPlan, StoreyPlan and Room have public deserializable collections and u16 IDs. Interior placement carries a storey and RoomIndex, then the footprint validator finds the first matching storey and first matching room by ID. Navigation independently creates a room node collection for each room and checks connectivity, not duplicate ID uniqueness in the displayed functions. If two retained rooms on the same storey share an ID, this lookup cannot name the second independently and can validate against the wrong room or reject an otherwise intended placement.",
+        "condition": "Requires an admitted plan containing duplicate storey-scoped room IDs, a route to this validator, and absence of an upstream uniqueness gate; generated room allocation assigns enumerated IDs in the inspected path. No malformed plan, fixture or product has been executed. If duplicates are outside the supported plan contract, a rejection at the owning boundary is an alternative disposition.",
+        "future_direction": "Specify and enforce one storey-scoped room membership and uniqueness contract at the actual plan admission boundary before relying on the pair for lookups; preserve distinct room and storey ordinal authorities.",
+        "relationships": [
+          "Connected to Q404’s stated remaining room-population membership dependency but an independently stated aggregate/lookup question; central decides exact identity without aliasing solely by repair."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+            "lines": [
+              [
+                4,
+                18
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                3,
+                16
+              ],
+              [
+                57,
+                63
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior.rs",
+            "lines": [
+              [
+                36,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/navigation.rs",
+            "lines": [
+              [
+                39,
+                69
+              ],
+              [
+                143,
+                157
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/placement.rs",
+            "lines": [
+              [
+                76,
+                88
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/footprints.rs",
+            "lines": [
+              [
+                31,
+                50
+              ],
+              [
+                66,
+                77
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+            "lines": [
+              [
+                156,
+                171
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-furniture-room-index",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-furniture-room-index-report.json",
+      "original_finding": {
+        "id": "RIG-OWNER81-F002",
+        "kind": "existing historical supplier finding and current frame/propagation refinement; no additional count",
+        "first_contract": "FurnitureLocal is described as a finished, ground-centred object frame. The builder constructs checked cuboid corners, unpacks points to raw vectors for mesh/support production, records support points as Vec<Vec3> with an explicit 0.001-metre deduplication tolerance, then recentres X/Z and re-admits points at finished recipe output. Its separate into_meshes path deliberately preserves the source local origin.",
+        "condition": "The source part origin used by shared Builder callers is not automatically the finished ground-centred furniture frame. Translation of support points is a new calculation that can legitimately require re-admission; the earlier loss concerns unchanged checked inputs/points and frame truth, not a blanket claim all conversions are defective.",
+        "future_direction": "Reconcile the canonical source-part and finished-frame owners and carry admitted points/dimensions through the actual shared Builder API until numerical mesh operations; keep existing tolerance, recentering, exact error and first-failure order.",
+        "relationships": [
+          "Original 774 rig RIG-OWNER81-F002 and /root/rig_identity p16-finish-lod independently record this source-part versus finished-frame issue; prior /root/mhr_character p16-doors-builder preserves related checked glazing forwarding and error finalization. No new defect count or source-read transfer."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture.rs",
+            "lines": [
+              [
+                9,
+                12
+              ],
+              [
+                333,
+                345
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                7,
+                16
+              ],
+              [
+                25,
+                31
+              ],
+              [
+                74,
+                102
+              ],
+              [
+                130,
+                153
+              ],
+              [
+                208,
+                216
+              ],
+              [
+                242,
+                299
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/placement.rs",
+            "lines": [
+              [
+                9,
+                35
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-furniture-room-index",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-furniture-room-index-report.json",
+      "original_finding": {
+        "id": "P16-FURNITURE-GROUND-SUPPORT-CONTRACT",
+        "kind": "conditional aggregate policy question",
+        "first_contract": "Builder.finish validates bounds obtained from visual vertices and recentres X/Z but does not itself require bounds.min.y == 0 or a nonempty support list. It emits whatever checked support points were accumulated. Thus its success alone is not a proof of the FurnitureRecipe ground/support documentation for an arbitrary reachable recipe assembly.",
+        "condition": "A reachable authored recipe that succeeds while having floating geometry or no qualifying supports would be required to establish an actual inconsistent recipe. Individual example assemblers add ground-oriented members/support, but this bounded review did not exhaust all recipe branches and did not compile one. The valid representation and tolerance for a supported recipe remain owner policy.",
+        "future_direction": "Document and enforce the accepted ground/support relationship where a completed furniture recipe becomes authoritative if callers cannot prove it, with explicit treatment of empty/decorative/non-grounded source parts.",
+        "relationships": [
+          "Related to 774 RIG-OWNER81-F002 and the previously frozen Builder source-part frame evidence; not automatically the same first contract or a demonstrated runtime failure."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture.rs",
+            "lines": [
+              [
+                9,
+                12
+              ],
+              [
+                303,
+                317
+              ],
+              [
+                333,
+                345
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                125,
+                135
+              ],
+              [
+                208,
+                216
+              ],
+              [
+                242,
+                299
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/worship.rs",
+            "lines": [
+              [
+                24,
+                71
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-furniture-room-index",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-furniture-room-index-report.json",
+      "original_finding": {
+        "id": "P16-FURNITURE-RESERVATION-VISUAL-BOUNDARY",
+        "kind": "conditional aggregate geometry question",
+        "first_contract": "Builder.finish computes recipe.bounds from visible mesh vertices, not from colliders, while the tactical outdoor-group reservation unions those visual bounds and clearances. Physics compounds the separate recipe colliders. An authored collider extending outside both visual bounds and clearance bounds would therefore be outside the reserved group footprint. Interior placement instead uses the authored specification envelope.",
+        "condition": "No such authored collider or admitted placement was established by the bounded reads. Some physical shapes intentionally approximate the visible mesh; owner policy must decide whether physics must fit the reservation and whether the role applies to the same route.",
+        "future_direction": "Trace all actual collider producers and group/native placement consumers; if reservations must enclose physics, derive or verify the union at the shared recipe owner with clear role-specific access envelopes.",
+        "relationships": [
+          "Related to but not automatically identical with 059 Q1935/Q2249 LodMesh attribute/index questions and /root/rig_identity p16-finish-lod mesh report. Prior P16 Builder finalization records first-error behavior and does not prove collider/mesh envelope equality."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+            "lines": [
+              [
+                218,
+                229
+              ],
+              [
+                242,
+                259
+              ],
+              [
+                289,
+                300
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture.rs",
+            "lines": [
+              [
+                327,
+                342
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+            "lines": [
+              [
+                74,
+                95
+              ],
+              [
+                112,
+                142
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+            "lines": [
+              [
+                5,
+                28
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/furniture/spec.rs",
+            "lines": [
+              [
+                13,
+                18
+              ],
+              [
+                53,
+                64
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/geometry.rs",
+            "lines": [
+              [
+                141,
+                153
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Room ordinals and population",
+      "relationship": "Exact 059 Q404 follows checked room ordinals converted to raw retained fields; typed identity alone does not establish membership. A separate conditional duplicate-ID lookup question requires a supported admitted duplicate and is related to, not automatically identical with, Q404."
+    },
+    {
+      "identity": "Furniture frames and support",
+      "relationship": "774 RIG-OWNER81-F002 concerns source-part versus finished grounded frame. Builder.into_meshes preserves source origin while finish recentres X/Z and readmits support positions. The ground/support claim remains conditional on a reachable authored recipe; no blanket conversion defect or actual unsupported recipe is claimed."
+    },
+    {
+      "identity": "Reservation and colliders",
+      "relationship": "The inspected outdoor reservation uses visual bounds and clearances, while physics uses recipe colliders; interior placement uses a specification envelope. Whether any authored collider exceeds reservation and whether the policy requires inclusion are open. Different consumer envelopes are not by themselves a defect."
+    },
+    {
+      "identity": "Historical identity and source reading",
+      "relationship": "Roles2552–2553 are separate full displays of recovered dirty P16 and current bodies by the named delegate. Base per-file equality is not whole-snapshot cleanliness, uninterrupted custody or original invocation. Original material ranges and later displays remain distinct."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "SEGOVB-L13-RETAINED-ROOM-ORDINALS",
+    "P16-ROOM-IDENTITY-POPULATION-AMBIGUITY",
+    "RIG-OWNER81-F002",
+    "P16-FURNITURE-GROUND-SUPPORT-CONTRACT",
+    "P16-FURNITURE-RESERVATION-VISUAL-BOUNDARY"
+  ],
+  "open": "Seven of eleven checkpoint12 bundles have bounded central reconciliation. Remaining packets, source scopes, unique aliases, all thirteen lenses and all 3713 historical semantic queue records remain open. These rows are relationships, not a unique defect count.",
+  "repair": "not started",
+  "validation": "not performed"
+}

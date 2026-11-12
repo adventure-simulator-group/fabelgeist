@@ -21331,10 +21331,223 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "CANDIDATE-GPU-BVH-EMPTY-REBUILD-STALE-TRAVERSAL",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "record_build assigns self.count = 0 and returns before recording any clearing/build dispatch, so existing node, index and child buffers are not changed by that call. bind exports only the buffers, not count. The generated query initializes the stack with root node zero and traverses encoded nodes with no empty-count check, so under the stated condition it can invoke the callback for an old primitive despite the host count being zero. A fresh never-built zero tree is a separate case; its device buffer contents and outcome are not asserted. MeshCollider::new rejects empty triangles, so ordinary constructor use does not establish this empty transition.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+        ],
+        "relationship_qualification": "A GpuBvh first completes/submits a valid nonempty build, then record_build or build is called with count zero without replacing the buffers, and a later generated traversal is invoked without an external count-zero guard. The query box intersects a previously stored primitive path and no other writer changes those buffers. Historical relation: 059 /root/lens12_frontier READ-L12-CONNECTED-TEAM-020 explicitly warned that zero host count and retained allocated buffers alone do not prove a query failure; this current separately registered traversal body supplies the missing unconditional root read and callback path. 774 rig RIG-OWNER-REACHED-PRODUCER-TRACE-005 scoped zero build/refit but excluded BVH algorithms, and RIG-PPS-F003 concerns lower byte/error propagation. Related, not automatic aliases to CPU ray-box empty or endpoint contracts.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Define empty BVH representation and generated-query behavior at the shared BVH owner. If zero builds are admitted, carry an explicit active-count/empty state to traversal or produce a safe empty root, while preserving nonempty build/refit order and public callers. No implementation is authorized.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+      },
+      {
+        "id": "CANDIDATE-MESH-NEGATIVE-SHELL-INVERTS-BOUNDS",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The public surface is accepted without a local finite/nonnegative check. record_bounds passes thickness as the margin; the triangle-bounds shader text computes min(vertices) − margin and max(vertices) + margin, then sends those raw boxes to BVH build/refit. For the stated input the generated interval is inverted, so it cannot represent an ordinary lower/upper enclosure on that axis. The later contact search binds thickness plus particle radius. No GPU compilation, execution, input witness, or observed missed collision is claimed.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+        ],
+        "relationship_qualification": "A finite negative MeshSurface.thickness is passed or assigned and record_bounds is reached. For some triangle axis, the actual f32 operations min_axis − thickness and max_axis + thickness produce lower > upper; e.g. mathematically any axis extent strictly less than twice the magnitude with sufficient representable margin has this relation. Historical relation: 059 Adler READ-L11-373 left finite surface parameter policy pending; /root/lens12_frontier READ-L12-865 and 774 rig TRACE-005 documented raw surface and margin roles without asserting a negative-margin or finite policy. Existing physics-contact resource-coherence/swept-contact findings concern different operations. Central must reconcile exact identity and decide supported input policy.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish allowed shell/friction values and the owning constructor/mutation boundary. If thickness must be nonnegative and finite, admit it there and keep triangle-bound and response semantics synchronized; preserve legitimate zero and native error behavior.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+      },
+      {
+        "id": "MESH-POSITION-UPDATE-LENGTH-TRUNCATION-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "MeshCollider::new narrows positions.len() and write_positions compares only the replacement length narrowed to u32, so those different lengths pass this local equality check. The called Buffer::write directly forwards bytes to queue.write_buffer and returns Ok without the size check found in write_at. Native backend validation and any actual huge input or failure remain unproved.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+        ],
+        "relationship_qualification": "On a host with usize wider than u32, a replacement positions slice differs from the original vertex length by a multiple of 2^32 yet casts to the same u32. Packing/allocation and the native queue submission must also be feasible to reach the indicated operation. Historical relation: 059 /root/lens12_frontier READ-L12-865 already records a length difference of 2^32; SEGOVB-L12-PHYSICS-MESH-VERTEX-UPDATE-COUNT-REASON concerns error-reason ownership and is related but not automatically identical to this admission contract. Preserve the separate analytic ColliderCount capacity finding and exact first operation.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace supported host/GPU limits and cardinality owners; if oversized inputs are possible, validate before narrowing and preserve actual upload extent and diagnostic cause.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+      },
+      {
+        "id": "GPU-BVH-BUILD-ERROR-STATE-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The host count is changed before fallible dispatch and sort recording; the one-off build propagates an error before submitting its local batch. KernelBatch::dispatch has fallible prepare/record paths, and submission is a later explicit operation. A concrete failing dispatch for a supported normal tree has not been shown, nor is retained caller policy established.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+        ],
+        "relationship_qualification": "A nonzero record_build passes capacity, updates count, and a later recording operation returns Err; for the one-off build wrapper, the error occurs before batch.submit and caller retains the GpuBvh. Historical relation: 059 READ-L11-421 and /root/lens12_frontier connected 020 already distinguish last recorded count, error and submission; this exact current support does not retroactively prove an error witness. Distinct from a successful zero build followed by unguarded traversal.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Specify whether the public lifecycle commits count at recording, submission or completion, and how failed recording affects caller-visible tree validity.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json"
+      },
+      {
+        "id": "SEGOVB-L13-RETAINED-ROOM-ORDINALS",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "RoomIndex owns a checked u16 room ordinal. Current collect_rooms converts the typed room index to raw u16 before storing Room.id; derive_walls likewise extracts raw inside/outside ordinals before WallSegment retention, and wall assembly copies them into WallLocalFrame Option<u16>. Interior construction and validation reconstruct RoomIndex from those raw retained IDs. These fields are retained semantic references rather than only final native array boundaries.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+        ],
+        "relationship_qualification": "This is an ownership/producer-propagation observation, not proof of invalid room membership or runtime behavior. All u16 values, including zero, are admitted by RoomIndex; a typed ordinal alone must not be mistaken for proof that a room exists in a particular storey. Historical relation: Exact same first operations and owner as 059 SEGOVB-L13-RETAINED-ROOM-ORDINALS Q404, originally supported by PL13-049/051/060 at 6533. RIG-OWNER81-F003 is separately attributed 774 rig supplier evidence for the WallLocalFrame candidate; no automatic count or reviewer transfer.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Use the existing room ordinal owner consistently through actual retained room, segment and frame APIs and convert only at real numeric/serialization boundaries; separately specify storey-scoped population membership and absence semantics. Preserve zero and exact existing error sources unless a deliberate new admission policy is adopted.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+      },
+      {
+        "id": "P16-ROOM-IDENTITY-POPULATION-AMBIGUITY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "BuildingPlan, StoreyPlan and Room have public deserializable collections and u16 IDs. Interior placement carries a storey and RoomIndex, then the footprint validator finds the first matching storey and first matching room by ID. Navigation independently creates a room node collection for each room and checks connectivity, not duplicate ID uniqueness in the displayed functions. If two retained rooms on the same storey share an ID, this lookup cannot name the second independently and can validate against the wrong room or reject an otherwise intended placement.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+        ],
+        "relationship_qualification": "Requires an admitted plan containing duplicate storey-scoped room IDs, a route to this validator, and absence of an upstream uniqueness gate; generated room allocation assigns enumerated IDs in the inspected path. No malformed plan, fixture or product has been executed. If duplicates are outside the supported plan contract, a rejection at the owning boundary is an alternative disposition. Historical relation: Connected to Q404’s stated remaining room-population membership dependency but an independently stated aggregate/lookup question; central decides exact identity without aliasing solely by repair.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Specify and enforce one storey-scoped room membership and uniqueness contract at the actual plan admission boundary before relying on the pair for lookups; preserve distinct room and storey ordinal authorities.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+      },
+      {
+        "id": "RIG-OWNER81-F002",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "FurnitureLocal is described as a finished, ground-centred object frame. The builder constructs checked cuboid corners, unpacks points to raw vectors for mesh/support production, records support points as Vec<Vec3> with an explicit 0.001-metre deduplication tolerance, then recentres X/Z and re-admits points at finished recipe output. Its separate into_meshes path deliberately preserves the source local origin.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+        ],
+        "relationship_qualification": "The source part origin used by shared Builder callers is not automatically the finished ground-centred furniture frame. Translation of support points is a new calculation that can legitimately require re-admission; the earlier loss concerns unchanged checked inputs/points and frame truth, not a blanket claim all conversions are defective. Historical relation: Original 774 rig RIG-OWNER81-F002 and /root/rig_identity p16-finish-lod independently record this source-part versus finished-frame issue; prior /root/mhr_character p16-doors-builder preserves related checked glazing forwarding and error finalization. No new defect count or source-read transfer.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Reconcile the canonical source-part and finished-frame owners and carry admitted points/dimensions through the actual shared Builder API until numerical mesh operations; keep existing tolerance, recentering, exact error and first-failure order.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+      },
+      {
+        "id": "P16-FURNITURE-GROUND-SUPPORT-CONTRACT",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Builder.finish validates bounds obtained from visual vertices and recentres X/Z but does not itself require bounds.min.y == 0 or a nonempty support list. It emits whatever checked support points were accumulated. Thus its success alone is not a proof of the FurnitureRecipe ground/support documentation for an arbitrary reachable recipe assembly.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+        ],
+        "relationship_qualification": "A reachable authored recipe that succeeds while having floating geometry or no qualifying supports would be required to establish an actual inconsistent recipe. Individual example assemblers add ground-oriented members/support, but this bounded review did not exhaust all recipe branches and did not compile one. The valid representation and tolerance for a supported recipe remain owner policy. Historical relation: Related to 774 RIG-OWNER81-F002 and the previously frozen Builder source-part frame evidence; not automatically the same first contract or a demonstrated runtime failure.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Document and enforce the accepted ground/support relationship where a completed furniture recipe becomes authoritative if callers cannot prove it, with explicit treatment of empty/decorative/non-grounded source parts.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+      },
+      {
+        "id": "P16-FURNITURE-RESERVATION-VISUAL-BOUNDARY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Builder.finish computes recipe.bounds from visible mesh vertices, not from colliders, while the tactical outdoor-group reservation unions those visual bounds and clearances. Physics compounds the separate recipe colliders. An authored collider extending outside both visual bounds and clearance bounds would therefore be outside the reserved group footprint. Interior placement instead uses the authored specification envelope.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
+        ],
+        "relationship_qualification": "No such authored collider or admitted placement was established by the bounded reads. Some physical shapes intentionally approximate the visible mesh; owner policy must decide whether physics must fit the reservation and whether the role applies to the same route. Historical relation: Related to but not automatically identical with 059 Q1935/Q2249 LodMesh attribute/index questions and /root/rig_identity p16-finish-lod mesh report. Prior P16 Builder finalization records first-error behavior and does not prove collider/mesh envelope equality.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace all actual collider producers and group/native placement consumers; if reservations must enclose physics, derive or verify the union at the shared recipe owner with clear role-specific access envelopes.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0428.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0451.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

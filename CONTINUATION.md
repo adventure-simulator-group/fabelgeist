@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0428.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0451.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -115,8 +115,8 @@ changed top-level originals remain local only.
 `ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json` adds bounded
 reconciliation of two more checkpoint 12 packets. It preserves the earlier
 scoped split-eave rejection, the named recovered-object readers and
-conditional source relationships. Six packets and all connected scopes
-remain open. The ledger contains 999 relationships and entries; this is
+conditional source relationships. Four packets and all connected scopes
+remain open. The ledger contains 1008 relationships and entries; this is
 not a count of unique defects.
 `RECOVERY-VERIFICATION-D832ADAE.json` records the latest same-machine
 fetch, checkout and evidence check, with its transcript limitations.
@@ -131,6 +131,21 @@ selected matching historical rows with different whole-file hashes.
 Those versions are not byte-identical, and their cause remains unknown.
 Path-redacted public copies are reconstructed; exact changed top-level
 originals remain local only.
+`ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json` and
+`ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json` connect one BVH/mesh
+and one furniture packet. Empty-tree traversal, room membership and
+visual versus physical reservation policies remain conditional; source
+and shader text was inspected without execution.
+`RECOVERY-VERIFICATION-1AD135C3.json` records the latest same-machine
+fetch, checkout and evidence check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-27.json` preserves thirteen attributed
+packets for roles 2810–2842 and 2849–2851, pending central reconciliation.
+The bestiary support completion is separate from an earlier concurrently
+recorded receipt; the spiral support range beyond EOF is not a read.
+`QUALIFICATION-REGISTRATION-HASH-MISMATCHES-27.json` compares 36
+matching selected rows with distinct historical whole-file hashes;
+whole-file identity and the cause of mismatch remain unproved. The exact
+changed originals of reconstructed public copies remain local only.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

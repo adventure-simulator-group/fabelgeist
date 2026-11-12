@@ -1,0 +1,458 @@
+{
+  "schema": "726-bestiary-report-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:41:46.053419+00:00",
+  "scope": "Original pr-working roles 2836 report_quality and 2837 catalog_tests; personally and separately displayed historical 6533 and pinned current 95e. Current related source is bounded support only. Neither a whole lens nor all bestiary/catalog code is audited.",
+  "historical_identity": "Original registry records the pr-working snapshot with unrelated modified paths; f82 is recovery transport, not source revision. The two individual recovered objects match 6533 and 95e exactly; this does not establish a clean historical tree, original invocation, or later checkpoint 3821 state.",
+  "qualification": "Exact 059 source records plus original registry and extraction manifest retained with hash verification. Original 774 registration whole-file recorded hash differs from f82 transport file, while both selected JSON rows agree exactly; cause unestablished. Native reviewer is a historical first-party-source reviewer, not a native package. Current test functions and referenced fixture code were read as text only, never run, built, instantiated, or validated. Historical groups, source attribution, and personal current/support scopes are distinct.",
+  "personally_displayed_role_sources": [
+    {
+      "id": "2836-historical",
+      "archive": "sources/2836-historical.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "lines": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "2836-current",
+      "archive": "sources/2836-current.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "lines": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "id": "2837-historical",
+      "archive": "sources/2837-historical.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+      "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+      "lines": [
+        [
+          1,
+          33
+        ]
+      ]
+    },
+    {
+      "id": "2837-current",
+      "archive": "sources/2837-current.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+      "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+      "lines": [
+        [
+          1,
+          33
+        ]
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "NATIVE-INITIAL05-GROUP-231",
+      "source": "history/774/native/initial05-aggregate-states/contract-groups-231.json.gz",
+      "original_author": "native 774 Lens5",
+      "qualification": "Original independent full bestiary parent read. Explicitly identified order-sensitive clue-slice comparison while canonical order remained pending; independently recognized saturated normalization but had not established immutable no-evidence producer bounds. Do not transfer role or lens credit."
+    },
+    {
+      "id": "NATIVE-INITIAL05-GROUP-233",
+      "source": "history/774/native/initial05-aggregate-states/contract-groups-233.json.gz",
+      "original_author": "native 774 Lens5",
+      "qualification": "Own full historical quality/test bodies 1\u201339 and 1\u201333 after registration REG046/047; notes report gate relation to F055 and no actual authored huge weights or execution. Zero new unique findings."
+    },
+    {
+      "id": "NATIVE-INITIAL05-F055",
+      "source": "history/774/native/initial05-aggregate-states/findings.jsonl.gz",
+      "original_author": "native 774 Lens5",
+      "qualification": "Historical diagnose_scores API single-max-score overflow counterexample; related report-quality pre-division saturation is specifically mentioned, but exact alias versus separate owner/repair remains central reconciliation."
+    },
+    {
+      "id": "READ-L11-461",
+      "source": "history/059/segovb/READ-L11-461.json",
+      "original_author": "segovb 059 Lens11",
+      "qualification": "Fresh historical role ranges 2836:1\u201339, 2837:1\u201333; 9500 threshold is quality policy separate from basis-point admission, NorthernGermany1544 is contextual; compile_profile test source does not mutate cache or prove execution. Zero unique count delta, all original pending obligations retained."
+    },
+    {
+      "id": "NEW-THREAT-ID-ADMISSION-001",
+      "source": "history/prior-threat-id-95e.json",
+      "original_author": "central prior 95e assessment and prior c100 history",
+      "qualification": "Previously recorded syntax-only ThreatId versus catalog-backed profile precondition; report/evidence wrappers remain intentionally open. Revisited here only as context, no duplicate count."
+    },
+    {
+      "id": "SUGGEST-REPORT-DESCRIPTION-SERIALIZE-DERIVE-001",
+      "source": "history/prior-report-serialize-95e.json",
+      "original_author": "central prior 95e assessment",
+      "qualification": "Separate serialization-maintainability suggestion; report Deserialize must preserve its open identity semantics. No independent serialization claim or duplicate count."
+    },
+    {
+      "id": "059-queue-228-241-3130",
+      "source": "queue-selection-reconstructed.json",
+      "qualification": "Historical retained hostile/generated threat readmission and BestiaryHours admission questions connect nearby ownership only. Do not assume identical first failure or count."
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-BESTIARY-ORDERED-CLUE-SET-95E",
+      "classification": "Conditional current source-level quality contract question, not a proven authored incident or independently counted defect.",
+      "condition": "For two positively supported candidate threats whose distinguishing clue lists contain the same two distinct evidence IDs in opposite orders, and if the intended requirement is distinct clue membership rather than authorial order, the gate counts two lists despite identical membership. This does not assert that all other evidence or ranking properties are identical. Whole-catalog validity, actual authored permutations, policy and acceptance path are not established.",
+      "trace": "The authoring structure keeps Vec<String>; selected validator checks each identifier and nonemptiness, without normalizing sequence in the inspected blocks. compile_profile passes the authored sequence through leak_evidence in order. distinguishing_clue_set_count uses slice equality, whereas ranking uses membership. The report helper tests that count against 2. 774 GROUP-231 had already identified order-sensitive comparison and left canonical ordering pending; this is additional bounded current support, not a newly discovered historical record.",
+      "references": [
+        {
+          "id": "2836-current",
+          "archive": "sources/2836-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+          "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+          "lines": [
+            [
+              10,
+              36
+            ]
+          ]
+        },
+        {
+          "id": "quest-catalog",
+          "archive": "support/quest-catalog.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog.rs",
+          "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+          "lines": [
+            [
+              152,
+              165
+            ]
+          ]
+        },
+        {
+          "id": "quest-validation",
+          "archive": "support/quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            [
+              281,
+              296
+            ],
+            [
+              678,
+              701
+            ]
+          ]
+        },
+        {
+          "id": "bestiary-additional",
+          "archive": "support/bestiary-additional.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              688,
+              689
+            ],
+            [
+              730,
+              740
+            ]
+          ]
+        },
+        {
+          "id": "bestiary",
+          "archive": "support/bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              939,
+              963
+            ],
+            [
+              985,
+              1003
+            ],
+            [
+              1109,
+              1128
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After audit gate, resolve whether the semantic contract is a set, ordered sequence, or some stronger discriminating partition; if set semantics are intended, canonicalize/compare on the owner boundary and align ranking and reporting without changing distinct evidence namespaces. Check actual whole catalog and all consumers before selecting a repair."
+    },
+    {
+      "id": "OBS-BESTIARY-CURATED-NORMALIZATION-95E",
+      "classification": "Conditional mathematical extension of historical NATIVE-INITIAL05-F055/GROUP-233; exact ledger alias unresolved.",
+      "condition": "For exactly two positively supported candidates with no evidence and Dim/Medium/Ordinary observation, first candidate base/prior/curation weights 65535 each, second weights 1 each, both description plausibilities 1 and investigability 0: selected scalar checks allow those individual values. This is a hypothetical source-level analysis, not an admitted full catalog, generated fixture or observation. Other catalog constraints, link validity, current authored data and whether validate_catalog runs at startup remain open.",
+      "trace": "With the inspected score formula and clarity 60, observation is 50. Scores before curation are 65535\u00b2\u00d75000 and 5000. The first curated weight is 65535\u00b3\u00d75000 (about 1.407\u00d710^18); total adds 5000 and stays below u64::MAX. Exact division would yield 9999 basis points for the dominant candidate; the implemented pre-division saturated product yields 13, and the second floors to 0, so a >9500 check finds no over-dominant candidate. This is pure algebra from source, no data construction, product execution or simulation. 774 F055 concerns diagnose_scores and already flagged related distribution arithmetic, so do not silently convert the two mechanisms into separate or identical ledger entries.",
+      "references": [
+        {
+          "id": "2836-current",
+          "archive": "sources/2836-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+          "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+          "lines": [
+            [
+              10,
+              29
+            ]
+          ]
+        },
+        {
+          "id": "quest-catalog",
+          "archive": "support/quest-catalog.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog.rs",
+          "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+          "lines": [
+            [
+              90,
+              107
+            ]
+          ]
+        },
+        {
+          "id": "quest-validation",
+          "archive": "support/quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            [
+              489,
+              491
+            ],
+            [
+              1218,
+              1226
+            ]
+          ]
+        },
+        {
+          "id": "quest-validation-bounds",
+          "archive": "support/quest-validation-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            [
+              719,
+              726
+            ],
+            [
+              1283,
+              1297
+            ]
+          ]
+        },
+        {
+          "id": "bestiary",
+          "archive": "support/bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              838,
+              896
+            ],
+            [
+              922,
+              969
+            ],
+            [
+              1013,
+              1055
+            ]
+          ]
+        },
+        {
+          "id": "basis-points",
+          "archive": "support/basis-points.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-world-schema/src/basis_points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "bestiary-diagnostic",
+          "archive": "support/bestiary-diagnostic.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              1181,
+              1201
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After audit gate, evaluate a sufficiently wide exact normalization and totals across both diagnostic APIs, separating intentional score saturation/ranking policy from fractional normalization and retaining real candidate and curation ownership. Confirm numeric bounds and exact alias first."
+    }
+  ],
+  "bounded_nonfindings": [
+    {
+      "description": "The helper explicitly admits exactly 9500 bp and rejects only values greater than 9500. The literal threshold is a local curated quality gate, not evidence of an invalid generic basis-point type or universal region policy. Empty supplied reports return no diagnostics; actual completeness of description enumeration is a separate admission question.",
+      "references": [
+        {
+          "id": "2836-current",
+          "archive": "sources/2836-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary/report_quality.rs",
+          "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+          "lines": [
+            [
+              10,
+              36
+            ]
+          ]
+        },
+        {
+          "id": "bestiary",
+          "archive": "support/bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              1157,
+              1162
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "description": "The original tests express membership/profile assertions. The added-ID source calls private compile_profile on a cloned record and does not insert into the embedded immutable catalog or cached profile map; no claimed pass, catalog mutation, runtime behavior or lack of extensibility follows from source alone.",
+      "references": [
+        {
+          "id": "2837-current",
+          "archive": "sources/2837-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+          "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+          "lines": [
+            [
+              4,
+              33
+            ]
+          ]
+        },
+        {
+          "id": "bestiary",
+          "archive": "support/bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            [
+              483,
+              503
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does actual authored catalog contain equal clue memberships in different orders or otherwise canonicalize evidence IDs in an uninspected admission phase? Is ordering meant to matter despite the membership-based rank operation?",
+    "Can a complete catalog with the stated large scalar values satisfy all cross-link and construction constraints, and is there a supported authoring or startup path that consumes validate_catalog results? No fixture or build was performed.",
+    "Is distribution_summary saturation a distinct first failed contract from F055 or a related repair manifestation? Preserve historical linkage without deduplication by assertion.",
+    "Are description coverage, ranking/tie policy, rounding and curation intent specified elsewhere? What maximum values are actually authored?",
+    "Do other public constructors, parsers, serializers or consumers constrain or retain ThreatId, ReportDescription and EvidenceKind differently? Maintain the separate existing threat admission and serialization entries.",
+    "All unread source ranges, historical qualifications, full thirteen lens coverage, existing aliases and later missing checkpoint records remain for central reconciliation."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Authored descriptions, relation candidates and profile compilation feed the gate; exhaustive call sites and validation consumption are unproved."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "ReportDescription, EvidenceKind, ThreatId and authored catalog/curation each own different roles; do not tighten shared syntax as a stand-in for catalog membership."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Selected catalog validator checks positive scalar bounds, evidence syntax and nonempty clues; complete cross-record validity and alternate admission paths remain open."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Pre-division u64 saturation can lose normalization scale for scalar-admitted choices; F055 is a related earlier separate API record."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "The quality gate composes ambiguity, curated dominance and distinct-clue checks; ordered-slice versus clue membership and large-score coupling are conditional concerns."
+    },
+    {
+      "lens": 6,
+      "name": "Wrong or duplicate owners",
+      "disposition": "The locally explicit NorthernGermany quality context, open report IDs and catalog threat membership are not interchangeable owners; policy and all consumers remain open."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Ranking/curated totals derive from immutable catalog projections and no second mutable cache is established; possible sequence-versus-membership semantics need reconciliation."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Both individual assigned files match 6533 and 95e, separately displayed, without proof of runtime equivalence or whole dirty snapshot identity."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Typed regional context represents an explicit mode, while emitted diagnostic strings have no inspected semantic branching; no enum replacement is asserted."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "The separate prior report serialization suggestion retains its own source and Deserialize constraint; no new derivability claim from these two files."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Open report/evidence identities differ from catalog-qualified threat identity; prior NEW-THREAT-ID-ADMISSION-001 remains separately tracked."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Diagnostic prose and authored ID strings are boundary roles in inspected code; text-to-enum conversion or closed string findings require other callers."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "9500 is a named contextual policy threshold; 10000 is separately confirmed unit scale. u16 source weights and u32 plausibility remain distinct from u64 arithmetic capacity."
+    }
+  ],
+  "status": {
+    "discovery": "bounded partial, no whole-lens clearance",
+    "repair": "not started",
+    "product_validation": "not performed",
+    "tests_fixtures_build_product_runtime_probes": "not run"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema": "726-delegated-checkpoint-27-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-27.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 12774,
+  "unique_redacted_original_sha_count": 2,
+  "redacted_public_member_occurrences": 6,
+  "entries": [
+    {
+      "original_sha256": "32d3ff7e4cf68ce9c3d43d72da1bcde289a64352ddca3ac6f21e76105923430f",
+      "original_bytes": 768,
+      "original_git_blob": "252a7ff7eab4b8bd9b0c41e334bce8b08f36fb2b",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-1748.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/eidolon-cull-node-2827-evidence.tar.gz!history/059/segovb/REGISTRATION-SEGOVB-1748.json",
+          "public_sha256": "43e780dace21069f93c17f4fad179d1d66e5568d50b0888595876ce38070c6b5",
+          "public_bytes": 688
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_bytes": 2559596,
+      "original_git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4",
+      "original_transport_paths": [
+        "evidence/audit01-delta/predecessor/source-catalog.json",
+        "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+        "evidence/audit10/catalog.json",
+        "segovb/FROZEN774-CATALOG.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/mission-enrollment-receipt-2814-2815-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-melee-iteration-world-import-2823-2825-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-puzzles-2828-2833-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/spiral-landing-floors-2838-2839-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/spiral-core-bearings-tests-2840-2842-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

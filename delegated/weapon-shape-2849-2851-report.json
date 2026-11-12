@@ -1,0 +1,133 @@
+{
+  "schema": "726-bounded-source-evidence-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T04:42:58.426539+00:00",
+  "scope": {
+    "original_roles": [
+      2849,
+      2850,
+      2851
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Exact original pr-working objects via f82; each matches same-path 6533 and 95e independently. Historical pr-working snapshot contains unrelated changes, not a clean tree. f82 is evidence transport. No checkpoint3821 claim.",
+    "personal_ranges": "read-scope-summary.json",
+    "unread": "For both old/current role2849 1\u201318,151\u2013166; role2850 19\u201330,60\u201366; role2851 80\u2013132,229\u2013293 unread. Raw registered context includes non-material blank/docs as in historic qualifiers. Bounded support is separate and cannot credit excluded role ranges."
+  },
+  "observations": [
+    {
+      "id": "FRAME-OWNER-Q127-CORROBORATION",
+      "classification": "Existing 059 ADLER-L11-ATTACHMENT-FRAME-OWNER q127 and earlier 95e ASSESSMENT-WEAPON-FRAMES, independently corroborated; no new count",
+      "source_references": [
+        "source/2851-current.rs:133\u2013162,173\u2013225",
+        "support/placement.rs:49\u201369,92\u201395,109\u2013124,137\u2013152",
+        "support/anchors.rs:31\u201365,70\u201389,124\u2013135",
+        "reference/weapon-frames-95e.json",
+        "history-059/adler/READ-L11-335.json"
+      ],
+      "reasoning": "Placement records aliases as transformed frame points, while rotations are keyed by actual component id. attached splits target string into owner/name and obtains rotation by owner, defaulting to zero if missing. attachment_contact independently finds parent by owner text or implicit shaft and returns success if neither exists. A Grip-role component whose actual id differs from grip can publish grip.top while no grip-keyed rotation or matching parent exists. Earlier current assessment supplies a symbolic 90-degree rotated handle and child-overlap example with distinct coordinates; retaining it as earlier reviewer evidence, not a new fixture or runtime observation. Actual admission and normal authoring reachability remain open.",
+      "future_direction": "Bind frame owner, transformed point and orientation as one coherent authority across alias lookup, placement and contact checks, while retaining intentional root anchoring and legitimate optional implicit shaft modes. No repair or validation."
+    },
+    {
+      "id": "LOFTED-TRANSVERSE-BOUND-QUESTION",
+      "classification": "Conditional source advancement of ROOT-ADM03-240/243/247 pending construction question; no accepted weapon or unique count",
+      "source_references": [
+        "source/2849-current.rs:43\u201350,53\u201377,143\u2013147",
+        "source/2850-current.rs:31\u201357",
+        "support/quantities.rs:5\u201321,36\u201340",
+        "support/recipe-validation.rs:13\u201319,65\u201385",
+        "support/recipe-validation-dispatch.rs:112\u2013127,150\u2013167,170\u2013203",
+        "support/dimensions.rs:11\u201319",
+        "support/dimensions-union.rs:42\u201354",
+        "support/melee-validation.rs:5\u201310",
+        "support/blade-profile.rs:19\u201335,56\u201371",
+        "support/blade-profile-tail.rs:119\u2013136",
+        "support/blade-reduction.rs:7\u201310",
+        "support/loft-model.rs:3\u20138",
+        "support/blade-section-production.rs:10\u201345",
+        "support/blade-sections.rs:175\u2013184,214\u2013225",
+        "support/model-root-production.rs:65\u201394"
+      ],
+      "reasoning": "Ratio constructor admits any finite f64; lofted dimension check enforces positive length/width/thickness, bounded curvature, taper>0, belly>\u22121, ricasso range and sampling budget, with no upper belly limit. For Straight, nominal width0.01, taper1, y at half length and ricasso0, belly10000, the inspected formula gives half-width 25.6275625 in source arithmetic, whereas Shape::range stays [0,length]. This is a conditional mathematical expression, not a constructed input, verified float run or full recipe acceptance. Recipe validation dispatches other graph/ranged/shield checks; the constructor bounds named frame points before building, not shown here as a bound on transverse solids. No fuller/point path uses baseline loft stations, and envelope_floor returns0 with no fuller; elsewhere face rejects nonfinite vertices and feature refinement has depth/budget errors. Actual solid triangulation, physical integration, forge/codec admissions, nominal-overlarge policy and all other guards remain unproved.",
+      "future_direction": "Decide if generated geometry and physical outputs require a supported bounded extent; if so, validate the correct computed quantity at the owning construction boundary, preserving valid degenerate attachment ranges and legitimate shape parameters. Trace downstream geometry/forge and error behavior before selecting changes."
+    }
+  ],
+  "nonfindings": [
+    "Shape::range is an axial attachment-seat interval rather than a 3D geometry bound; [0,0] for mount-only heads is not by itself invalid.",
+    "socket_fit intentionally applies only to spears with sockets, and attachment_contact returning early at an intentional weapon root is not automatically an invalid mount.",
+    "No fuller and no point are legitimate options; Recessed/fullered association and point proportion guards are distinct from optionality.",
+    "Sample source tests are text-only; no model, geometry, renderer, recipe, build, test, fixture or product execution occurred."
+  ],
+  "open_questions": [
+    "Can an ordinarily authored and fully validated finite large-belly recipe complete all construction, triangulation, physical and forge paths? What scale and error policy is intended?",
+    "Which normal authored aliases and attachment targets can trigger frame-owner mismatch, and how does it propagate to contact checks and downstream rendering/physics?",
+    "What do excluded range helpers, socket/mating/assembly/bounds and all native geometry/callee implementations require?",
+    "Whether this is a new or existing ledger facet and every complete thirteen-lens/consumer scope remains the central owner\u2019s decision."
+  ],
+  "historical_attribution": {
+    "774_root": "ROOT-INITIAL04-REG021\u2013023 with fresh independent ROOT-ADM03-240/243/247; exact raw ranges preserved. Root240 material20\u201351/53\u2013149, contextual19/52/150. ROOT242 role2850 material1\u201318/31\u201357, contextual58\u201359. ROOT246 role2851 material1\u20132/4\u201379/133\u2013225, contextual3/226\u2013228. Inherited ROOT233/237 retain unrelated building-source premature display exclusions; those are not premature reads of these weapons.",
+    "059": "READ-L11-463/REG1770\u20131772: 2850 fresh Segovb exact ranges, whereas 2849 and2851 are exact same-lens prior Adler READ-L11-335/REG1004 and1005, separately attributed, zero extra ordered credit when first read and no fresh Segovb body. READ463 current_reconciled false and unique count change0.",
+    "current_prior": "Earlier ASSESSMENT-WEAPON-FRAMES-95E frame-owner symbolic analysis, CONSTRUCTION-95E grip/error and IDENTITY-95E distinct optional identity each retain previous authors/scope and no source coverage transfer.",
+    "registration_versions": "Original whole-JSONL registry-recorded hashes differ from later f82 transported file; rows21\u201323 match exactly and no simple LF/CRLF prefix matches earlier hashes. Cause unknown; preserve both hashes."
+  },
+  "qualifications": [
+    "Historical source bodies and full prior records preserve original attribution and revisions; reconstructed selected registry and queue are explicitly marked, not recovered original standalone documents.",
+    "Initial support blade-validation1\u2013120 and blade-model140\u2013225 were different blade families, not lofted validator/constructor; model-root170\u2013235 was test source, never executed. Correct current supporting slices were subsequently prospectively registered.",
+    "Support6 initial desired validation range110\u2013210 exceeded actual EOF207 and failed before any body display; corrected prospective registration precedes personal display.",
+    "Complete source archives, earlier source receipt, computed symbolic arithmetic and test source are not validation or proof of unread-body coverage. No product/source edits or implementation."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Named frame points and rotations are retained independently, then alias text is parsed to find owner rotation and contact; actual per-component origin and parent context need to propagate together."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Metres and Ratio preserve finite physical/dimensionless values, Count owns u16 representation, while shape/product-specific admissibility and computed geometry still need appropriate owners."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Recipe/component validation enforces one parent, numeric and sampling constraints, but finite Ratio and lower belly bound alone do not ensure a bounded generated transverse extent. Direct construction and decoder policy remain open."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Derived width multiplies width, taper/plan and finite belly; operations can escape nominal input or frame bounds. Face and sampling paths reject some invalid values/budgets, but no blanket accepted-output conclusion follows."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Attachment frame location, originating component and complete orientation need coherent association; independent keyed maps and alias owner can lose that relationship in the already recorded q127 scenario."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Existing attachment frame and blade profile concepts have distinct ownership from axial range, a transverse bound, recipe identity and model output. No one wrapper is presumed to solve all."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Global grip alias point and owner-ID rotation are independently retained; owner lookup from alias text can disagree with actual component. Historical frame finding already owns this, not a new count."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Three historical source objects individually equal 6533 and 95e. Dirty pr-working snapshot and uninspected connected code preclude a whole-tree or runtime equivalence assertion."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "BladePlan and BladeCrossSection are closed separate enums; optional fuller and point express absent modes but their combination is checked by the profile validator. No missing-field or blanket optionality defect inferred."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "LoftedBladeParameters derive serialization with explicit deny-unknown and custom present-option adapter; serializer and adapter bodies were not inspected, so no trait simplification or null behavior claimed."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Signed axial range may intentionally be [0,0] for mount-only shapes; it is a seat coordinate interval and cannot serve as a complete solid bounding box. Material ratio versus physical lengths are separate."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Owner and frame strings encode distinct identity and namespace semantics in observed code; q127 addresses reconstructing owner from alias, not a demand to remove human labels or arbitrary strings."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Mount alignment tolerances and conservative polygon apothem encode physical fit; nominal world-scale, sampling, ratio and final geometry bounds are distinct contracts. No arbitrary new clamp is prescribed."
+    }
+  ],
+  "central_ownership": "Central owns baseline, evidence publication, alias/count and repair ledger; no completed lens or implementation/validation claimed."
+}
