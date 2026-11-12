@@ -1,0 +1,604 @@
+{
+  "schema": "726-delegated-static-source-review-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:02:13.521096+00:00",
+  "scope": "Original pr-working roles 2370 and 2371 materially reached ranges, independently displayed at recorded 6533 and pinned 95e, with bounded current owner and consumer support. This is not a full-body or whole-lens assessment.",
+  "source_only": "Source and evidence integrity inspection only; no browser, product, reducer, fixture, test, build, simulation, runtime probe or repair. Source tests were read as text.",
+  "identity": {
+    "original_snapshot": "pr-working recorded 6533e444fa37552927070cc8d8190907fd3b413e plus unrelated working modifications; per-file equality does not make the snapshot clean",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports recovered original objects; it is not a product revision",
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "comparisons": [
+      {
+        "original_index": 2370,
+        "historical_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+        "6533_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+        "95e_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+        "all_equal_per_file": true,
+        "qualification": "Recorded pr-working snapshot has unrelated working modifications. Per-file equality does not establish snapshot cleanliness or transfer read credit."
+      },
+      {
+        "original_index": 2371,
+        "historical_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "6533_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "95e_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "all_equal_per_file": true,
+        "qualification": "Recorded pr-working snapshot has unrelated working modifications. Per-file equality does not establish snapshot cleanliness or transfer read credit."
+      }
+    ],
+    "related_distinct_original_roles": "physical-p16 roles 458 and 459 have the same individual recorded source hashes; registry-related-reconstructed.json preserves their original identities independently. P16 is a different dirty snapshot; no reviewer, lens or checkpoint credit transfers."
+  },
+  "personal_read_scope": [
+    {
+      "registration": "registration.json",
+      "registration_sha256": "5b83b221341fa267c0c6304bde64db0c22e2d0366674a0010cd3980c259de0a3",
+      "receipt": "personal-read-receipt.json",
+      "receipt_sha256": "5c9597b65491af21639d802965cbb149065763018fb346ca6702d75bfc295e71",
+      "entries": [
+        {
+          "source": "source/2370-historical.rs",
+          "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "displayed_chunks": [
+            [
+              516,
+              600
+            ],
+            [
+              601,
+              680
+            ],
+            [
+              681,
+              760
+            ],
+            [
+              761,
+              840
+            ],
+            [
+              841,
+              903
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              515
+            ],
+            [
+              904,
+              930
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "source/2370-current.rs",
+          "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              516,
+              600
+            ],
+            [
+              601,
+              680
+            ],
+            [
+              681,
+              760
+            ],
+            [
+              761,
+              840
+            ],
+            [
+              841,
+              903
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              515
+            ],
+            [
+              904,
+              930
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "source/2371-historical.rs",
+          "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "displayed_chunks": [
+            [
+              710,
+              770
+            ],
+            [
+              771,
+              822
+            ],
+            [
+              902,
+              970
+            ],
+            [
+              971,
+              1040
+            ],
+            [
+              1041,
+              1110
+            ],
+            [
+              1111,
+              1180
+            ],
+            [
+              1181,
+              1250
+            ],
+            [
+              1251,
+              1320
+            ],
+            [
+              1321,
+              1390
+            ],
+            [
+              1391,
+              1411
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              709
+            ],
+            [
+              823,
+              901
+            ],
+            [
+              1412,
+              2102
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "source/2371-current.rs",
+          "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              710,
+              770
+            ],
+            [
+              771,
+              822
+            ],
+            [
+              902,
+              970
+            ],
+            [
+              971,
+              1040
+            ],
+            [
+              1041,
+              1110
+            ],
+            [
+              1111,
+              1180
+            ],
+            [
+              1181,
+              1250
+            ],
+            [
+              1251,
+              1320
+            ],
+            [
+              1321,
+              1390
+            ],
+            [
+              1391,
+              1411
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              709
+            ],
+            [
+              823,
+              901
+            ],
+            [
+              1412,
+              2102
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        }
+      ]
+    },
+    {
+      "registration": "support-registration.json",
+      "registration_sha256": "812efcc1f5ab2ba49d1b9c962461149e20bd5154e801176f1ad860b4abd50a5a",
+      "receipt": "support-read-receipt.json",
+      "receipt_sha256": "dcbd597f65d1d8f7c0cf08c6cc50c7dee12bd1b9468b23a8935d0acf72f6194d",
+      "entries": [
+        {
+          "source": "source/2370-current.rs",
+          "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              180,
+              240
+            ],
+            [
+              241,
+              300
+            ],
+            [
+              301,
+              350
+            ],
+            [
+              904,
+              930
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              179
+            ],
+            [
+              351,
+              903
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "source/2371-current.rs",
+          "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              823,
+              901
+            ],
+            [
+              1412,
+              1505
+            ],
+            [
+              1550,
+              1604
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              822
+            ],
+            [
+              902,
+              1411
+            ],
+            [
+              1506,
+              1549
+            ],
+            [
+              1605,
+              2102
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        }
+      ]
+    },
+    {
+      "registration": "support2-registration.json",
+      "registration_sha256": "d2370db67fbc85bbd4484fcf6f61bf5f65616d476ebfc58809ff5d829b4bfbcd",
+      "receipt": "support2-read-receipt.json",
+      "receipt_sha256": "c60681327a868ce94c3a211421d40fe9dbca7050687378feb41a8c94198938bf",
+      "entries": [
+        {
+          "source": "support/quests.rs",
+          "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              550,
+              640
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              549
+            ],
+            [
+              641,
+              2102
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "support/template.rs",
+          "sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              45,
+              110
+            ],
+            [
+              235,
+              260
+            ],
+            [
+              410,
+              455
+            ],
+            [
+              500,
+              525
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              44
+            ],
+            [
+              111,
+              234
+            ],
+            [
+              261,
+              409
+            ],
+            [
+              456,
+              499
+            ],
+            [
+              526,
+              1067
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        }
+      ]
+    },
+    {
+      "registration": "support3-registration.json",
+      "registration_sha256": "fdd1fe0d4557f73cdd86747433a88b4c29a2e49ca0cba11d1e80afdf995cbf9e",
+      "receipt": "support3-read-receipt.json",
+      "receipt_sha256": "32fe4829cafa7c139319238cda4f99730cc1b9cd1e4ae97fd54033c72a303d56",
+      "entries": [
+        {
+          "source": "support/site-context.rs",
+          "sha256": "2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              40
+            ]
+          ],
+          "unread_complement": [],
+          "registered_nonexistent_ranges": [
+            [
+              41,
+              80
+            ]
+          ]
+        },
+        {
+          "source": "support/sites.rs",
+          "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              70
+            ],
+            [
+              71,
+              135
+            ]
+          ],
+          "unread_complement": [
+            [
+              136,
+              617
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        },
+        {
+          "source": "support/authority-model.rs",
+          "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1085,
+              1135
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              1084
+            ],
+            [
+              1136,
+              1586
+            ]
+          ],
+          "registered_nonexistent_ranges": []
+        }
+      ]
+    }
+  ],
+  "coverage_qualification": "My own assigned reads: role2370 516–903 at each revision, role2371 710–822 and 902–1411 at each revision. Current-only support ranges and exact unread complements are in receipts. Source files are archived whole to support reproducibility, not a claim of full personal body coverage. Prior symbol navigation returned filenames and line numbers only. support3 registered site_context.rs 1–80; the file ends at 40 and the actual display stopped there. 41–80 do not exist and receive no read credit.",
+  "historical_relationships": [
+    {
+      "source": "registry-selection-reconstructed.json and history-reconciliation.json",
+      "role": 2370,
+      "detail": "The earlier rig digest records 516–903; owner rig records 1–930. Camera owner records 187–351, 440–837 and 899–935, but the exact file ends at 930, so 931–935 is nonexistent. Preserve the literal owner row, with later EOF qualification rather than silently changing it. RIG-PPS-021 records fresh 187–351, 440–515 and 904–930."
+    },
+    {
+      "source": "history-059/adler/READ-L11-382.json and REGISTRATION-ADLER-1238/1239.json",
+      "detail": "Adler independently recorded a full historical 1–930 read using a prospective exact EOF qualification, explicitly excluding nonexistent 931–935 from raw request 1–935. Separate from my bounded reads and from older camera/rig records."
+    },
+    {
+      "source": "history-059/segovb/READ-L12-784.json and -785.json, associated 352/355 registrations, partial receipts and proposals",
+      "detail": "Subagent /root/lens12_frontier read role2370 1–385 then 386–930, and role2371 1–975 then 976–2102. Root adoption preserves the two-stage same-reader union; it does not claim a fresh single full reread or any current/other-lens credit. The mod.rs 352 record preserves exact EOF930 and the historical 899–935 qualification."
+    },
+    {
+      "source": "history-774/.../rig/traces.jsonl RIG-PPS-038 /fresh_current_source_reads/0 and history-774/.../continuation/camera/traces.jsonl CONT-CAMERA-PP-008 /exact_source_proofs/0",
+      "role": 2371,
+      "detail": "Earlier RIG-PPS-038 records 1–2102 historical source read. CONT-CAMERA-PP-008 and RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039 explicitly inherit that rig read and independently join source/contract proofs; neither claims a new full-file read. Camera owner coverage and additional-sources rows retain their distinct scopes."
+    },
+    {
+      "source": "history-774/.../producer-supplement-after-owner/rig/findings.jsonl line21",
+      "id": "RIG-PPS-F021",
+      "detail": "Earlier rig finding already covers render_quest_location native query/decode errors becoming missing/partial observations and a connected unavailable-state repair, while preserving privacy-safe absence and fail-closed readiness. The battle-result branch below refines that family with an exact source consequence; do not automatically create an independent finding or settle aliases."
+    },
+    {
+      "source": "queue-selection-reconstructed.json, derived exactly from recovered 059 queue",
+      "entries": [
+        185,
+        186,
+        189,
+        487,
+        488,
+        489,
+        490,
+        491,
+        492,
+        493,
+        1868
+      ],
+      "detail": "185 and 186 preserve Adler travel plan/error and route-progress contracts; 189 preserves case-site lookup availability; 487–493 retain separately identified route error-cause seams; 1868 keeps terrain absence/failure policy, serialization, raw coordinate invalidity and antimeridian reachability open. 059 historical records and 774 are not checkpoint 3821."
+    },
+    {
+      "source": "reference/previous-web-route-report.json and reference/previous-quest-template-report.json",
+      "detail": "Earlier delegated 2729–2733 route and template reviews are separately attributed; their source reads and conditional findings are not transferred to this packet. They already flag the antimeridian producer question and related presentation/identity scope."
+    }
+  ],
+  "candidate_refinement": {
+    "local_id": "DELEGATE-QUEST-RESULT-UNAVAILABLE-IS-UNRESOLVED",
+    "status": "current bounded conditional refinement of recovered RIG-PPS-F021; no separate count or alias decision",
+    "trace": "Manual case-site pin projection sets generated_case=false and case_resolved=false when no generated aliases exist (investigation/sites.rs 103–117). The quest route first requires an authorized known site and matching character/party occupancy (quests.rs 902–1007; helper 615–628), then seeks the case battle by observer, case and party and matches site (1057–1071). When that row is present, battle_result query 1077–1085 uses unwrap_or_default. If a matching durable result exists but that query returns Err, results becomes empty; 1088 with helper 593–595 then computes resolved=false for the manual site. The map template 79–97 takes its rest-before-battle branch, and the enemy template 448–454 and 519–525 takes unresolved layout, despite the unavailable observation.",
+    "conditions": "Requires an authorized observer at an otherwise present manual case site, matching case-battle and existing result, and a failed result query at that moment. No actual failed query, case, player-facing page or server action observed; the independent battle-result writer and other authorization sources were not fully audited.",
+    "future_repair_direction": "After audit gate, retain unavailable versus successful empty result through the quest page decision under privacy-safe error policy; coordinate pin, result and readiness owners and preserve valid no-battle and manual/generated distinctions.",
+    "history": "RIG-PPS-F021 already names missing/partial query observations, while 059 ADLER-L11-QUEST-SITE-READ-ERROR-AS-ABSENCE specifically highlights pin/occupancy lookups. Same family does not itself determine identity or count; central reviewer decides.",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "existing_contract_rechecks": [
+    {
+      "id": "ADLER-L11-TRAVEL-PLAN-FAILURE-TO-UNPLANNED",
+      "trace": "Current mod.rs 626–657 logs plan error and returns None; current 291–298 then falls back to action.reducer_call. Recorded 059 issue and Lens12 q1868 differ in asserted policy; whether unplanned travel on unavailable or failing terrain is supported requires owner decision and native reducer trace. No inferred migration/compatibility label or duplicate count."
+    },
+    {
+      "id": "ADLER-L11-ROUTE-PROGRESS-ARITHMETIC",
+      "trace": "Current mod.rs 694–706 uses total.saturating_mul(minute.min(route.minutes))/route.minutes before interpolation; if the product saturates while a mathematical quotient is representable, progress can be reduced. Actual supported distance/minute and point bounds remain unproved. No huge journey or observed mismatch."
+    },
+    {
+      "id": "ADLER-L11-QUEST-SITE-READ-ERROR-AS-ABSENCE",
+      "trace": "quests.rs 915–938 converts query Err and Ok(None) to the same not-found response; rest helper 866–879 similarly maps unavailable character into a location mismatch. No unavailable lookup, unauthorized exposure, or route execution observed."
+    }
+  ],
+  "nonfindings_and_questions": [
+    "When site, character and party are available, render route explicitly matches both character and party case-site IDs before displaying the location. This is not complete authorization proof; actual reducers and private view are separate.",
+    "Corpse action is a closed action_kind match; examine retains its discipline, stage, action ID, expected revision and confirmation through a reducer call. The route logs reducer errors and redirects; the specific human notification/error policy remains open.",
+    "Party readiness iterates living members and fails closed if refresh or condition lookup fails, but an empty supplied member list yields ready=true; whether an authorized nonempty party can produce an empty observation needs producer/query trace and has earlier related findings. No live party or duplicate finding established.",
+    "Route JSON water spans are deliberately filtered; actual planner reachability and native admission must be traced before asserting missing required terrain spans. Source test 777–827 merely asserts a wetland shape and was not run.",
+    "Direct longitude interpolation can choose the long way across the antimeridian; whether any supported route segment can cross the excluded regional rectangle boundary remains open under earlier q1868.",
+    "Search/query defaults elsewhere (manual contract, party, loot, forecasts and observations) require individual authority, privacy and valid-empty policies; do not equate all errors to one cause without first-operation and owner evidence.",
+    "Earlier camera range 899–935 is historical metadata, not actual source lines beyond EOF. My support3 range 1–80 has its own separate EOF40 deviation.",
+    "All unregistered/unread source complements remain open; tests, runtime, repairs, implementation and checkpoint3821 are not implied."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "Travel plan, weather, typed site pin, query result and case resolution reach selected reducer/page boundaries; full producers/consumers remain open."
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "WGS84 coordinate and CaseSiteId wrappers coexist with native generated values and plain string transport; compare exact boundaries rather than force one coordinate frame."
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "Known site and actor/party matching gate the page; optional backend observations and native reducers require independent availability/admission policy."
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "Early saturating route progress product changes mathematical order under overflow; supported bounds remain open. Zero length/duration explicitly chooses first point."
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "Manual pin completion false plus unavailable result collapses to an unresolved page; expected site/result/case correlations and failure states need explicit owner policy."
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Planned and unplanned action reducers and observer-safe projection have distinct authorities; exact transition and privacy ownership need coordination."
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "Manual site flag and battle-result presence both contribute to derived resolved state, and route point/distance projections are separately derived; no unsupported second-authority finding."
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Keep manual/generated and successful empty/unavailable distinctions, authorization, readiness, and legitimate zero-route behavior through any later repair."
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "CorpseActionKind is exhaustive while result status is flattened to bool/vector; unavailable, absent and present may deserve explicit sum-type ownership subject to policy."
+    },
+    {
+      "lens": "derivability",
+      "observation": "No boilerplate finding established from bounded source; serialization and native wrappers are protocol-specific."
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "WGS84 geographic and unbounded coordinate frames, case versus site identity, observer versus actor, and time versus distance are distinct; exact owner merges remain open."
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "Reducer names, SQL syntax and native fields are boundary protocols; action IDs, party/case identity and retained query causes require separate tracing."
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "E7 coordinate units, geodesic radius, minutes and route fractions have distinct units; numerical extreme, precision and source-admission claims require supporting evidence."
+    }
+  ],
+  "verification": "Run python3 verify-evidence.py and python3 verify-manifest.py for evidence integrity only.",
+  "central_ownership": "Central reviewer owns original role disposition, aliases, counts, ledger and publication. No repair or product validation performed."
+}

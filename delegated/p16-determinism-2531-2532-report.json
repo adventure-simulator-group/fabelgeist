@@ -1,0 +1,188 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:30:45.712720+00:00",
+  "scope": {
+    "original_roles": [
+      2531,
+      2532
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16": "Dirty recorded physical-p16 snapshot at base a120390947c89b703dc74c4255a13c035d054c50; these two archived files match that base and 95e. Overall snapshot has unrelated changes; recovered tracked patch excludes seven untracked files.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports old objects and is not a product revision.",
+    "source_only": "No RNG, BLAKE3, sampler, product, build, test, fixture, rendering, macro or runtime probe executed."
+  },
+  "identities": {
+    "registration": "registration.json",
+    "registration_sha256": "9f341b43e19264feef161f5b89467fe508a33da32fddff1a8fdfbb9ff7730bf5",
+    "support_registration": "support-registration.json",
+    "support_registration_sha256": "48ae9e89ea8b42fcd21b33b6ce18c724bb103262731650bad5603fb40776b964",
+    "comparisons": [
+      {
+        "role": 2531,
+        "path": "crates/fabelgeist-determinism/src/seed.rs",
+        "p16_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "base_a120_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "current_95e_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+        "p16_equals_base": true,
+        "p16_equals_current": true,
+        "base_equals_current": true
+      },
+      {
+        "role": 2532,
+        "path": "crates/fabelgeist-determinism/src/stream.rs",
+        "p16_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "base_a120_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "current_95e_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+        "p16_equals_base": true,
+        "p16_equals_current": true,
+        "base_equals_current": true
+      }
+    ],
+    "git_proofs": "git-proofs.json",
+    "qualification": "Per-file a120/6533/e275/95e equalities are separately Git proved. This does not normalize P16/pr-working dirty snapshots or transfer a previous personal or lens read."
+  },
+  "personal_reads": {
+    "assigned": "read-receipt.json",
+    "support": "support-read-receipt.json",
+    "qualification": "P16 and 95e independently displayed entire seed 1\u2013213 and stream 1\u2013169 in numbered chunks, including tests as source text only. Bounded support separately registered and read."
+  },
+  "prior_attribution": [
+    {
+      "record": "774 rig producer registrations 049 and 050",
+      "source": "history-774/continuation/rig/owner-reached-producer-followup/additional-sources.jsonl.gz and source-qualifications.jsonl.gz lines49\u201350; history-reconciliation.json",
+      "scope": "049 requested seed 1\u201383,114\u2013116,170\u2013174; material qualified 1\u201358,72\u201383,114\u2013116,170\u2013174, expressly excluding derive 59\u201371. 050 requested stream 1\u201361,134\u2013138; qualified 30\u201341,48\u201361,134\u2013138, explicitly excluding contextual SamplingError/next_seed and tests. The registration snapshot spelling is p16 while original registry is physical-p16. 774 source narrative strings and the embedded registry narratives differ in Unicode encoding; exact differences are preserved, with IDs/hashes/ranges checked independently. No credit expansion follows from our full independent reads."
+    },
+    {
+      "record": "774 rig admission03 registrations 031 and 032",
+      "source": "history-774/continuation/rig/admission03/source-range-registration.jsonl.gz lines31\u201332",
+      "scope": "Seed independent admission scope 59\u201371,84\u2013113,147\u2013169; stream scope 1\u201310,44\u201347,74\u201389. These are separately attributed admission role scopes, not an implicit expansion of the earlier producer registration."
+    },
+    {
+      "record": "774 native admission 087 and camera admission 027",
+      "source": "history-774/continuation/native/admission03/source-range-registration.jsonl.gz line87, native/admission03/camera-support/source-qualifications-011.jsonl.gz line15, camera/admission03/source-range-registration.jsonl.gz line29",
+      "scope": "Native separately registered stream 11\u201329,105\u2013117; qualified 12\u201328,105\u2013115, excludes context and weighted_order. Camera separately registered and qualified 104\u2013115; its own caller and exclusion apply. Preserve each author, source family, role and historical acceptance status."
+    },
+    {
+      "record": "059 root e275 L1 current receipt001",
+      "source": "history-059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-001.json rows2\u20133",
+      "scope": "Root Segovb personally read seed 1\u2013213 and stream 1\u2013169 at e275, after prospective registration; no other-lens or later checkpoint transfer."
+    },
+    {
+      "record": "059 subagent /root/lens12_frontier pr-working connected original2250",
+      "source": "history-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-724-ORIGINAL2250.json and segovb/READ-L12-724.json",
+      "scope": "Original pr-working 6533 stream 1\u2013169 independent personal read, documented adoption and future ordered-role constraints remain with original author and revision."
+    },
+    {
+      "record": "Prior 95e name catalog and other assessments",
+      "source": "reference/assessment-name-catalog-95e.json /current_supporting_sources/1; other reference assessment files",
+      "scope": "The published prior name-catalog assessment records current stream 1\u2013135 and complete archived bytes, not a full-file read. We retain its prior authorship and do not transfer its observations as our own reads."
+    }
+  ],
+  "finding_relationships": [
+    {
+      "id": "Q-L1-c356cec832d5514e0721",
+      "status": "Existing 059 range_f32 obligation independently connected to current identical source; no new count.",
+      "source": [
+        "source/2532-current.rs:90",
+        "source/2532-current.rs:93",
+        "source/support-unit.rs:17"
+      ],
+      "reason": "Given finite ordered endpoints whose difference exceeds finite f32, ordinary IEEE subtraction yields infinity; multiplying by a nonnegative unit draw yields infinity for a positive draw or NaN for zero, so the asserted endpoints alone do not establish a finite interval result. This is mathematical source reasoning, not a generated draw. The 059 record identifies the same conditional issue; an actual caller providing such endpoints is not shown.",
+      "future_direction": "Trace admissible caller ranges, desired overflow policy and reproducibility before selecting a checked or alternate numerical formula."
+    },
+    {
+      "id": "ADLER-L11-NAME-SAMPLING-ERROR-OWNERSHIP / SEGOVB-L12-NAME-SAMPLING-ERROR-ERASURE",
+      "status": "Existing historical source issue, current independently reconnected; count once after central alias decision.",
+      "source": [
+        "source/2532-current.rs:12",
+        "source/2532-current.rs:104",
+        "source/support-names.rs:293",
+        "source/support-names.rs:301",
+        "source/support-names.rs:313",
+        "source/support-names.rs:321",
+        "source/support-names.rs:325",
+        "source/support-names.rs:334",
+        "source/support-names-error.rs:4",
+        "source/support-names-error.rs:10"
+      ],
+      "reason": "Current weighted_index returns SamplingError cases, while name generation formats them into NameCatalogError::Sampling(String) at three source boundaries. No malformed catalog or error was generated.",
+      "future_direction": "Decide whether callers need owned typed sampler cause; reconcile native sampler/version exposure and avoid changing final display prematurely."
+    }
+  ],
+  "nonfindings_and_questions": [
+    "The source exposes deterministic framing and a SplitMix64 wrapper but no actual sequence, cross-target identity, statistical property, or library error reachability was tested. Source test assertions are not validation.",
+    "StreamId requires a nonempty literal but does not itself prove global purpose uniqueness or correct stable context at every caller. A 64-bit seed cannot guarantee collision-free identities.",
+    "The range_f32 source conditional does not establish that any supported first-party caller can admit the needed extreme endpoints. No global consumer audit or runtime impact is claimed.",
+    "The weighted sampler delegated native implementation and all cfg-selected features were not newly inspected; 059 prior pinned Rand proof remains separately attributed. Native and camera 774 weighted ranges cannot be assigned to the rig producer reader.",
+    "Original 3821 ledger remains missing. Parent controls attribution, original role accounting, cross-lens aliases, publication and repair ledger."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "StreamId frames purpose and seed, numeric context and output seed; current BuildingAppearance feeds a building ID into its purpose stream and fixed nonempty index bound. Naming paths use separate streams and map sampler failures to text.",
+      "bounded": true
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "Seed, StreamId, DeterministicRng and SamplingError are existing distinct owners. NameCatalogError::Sampling(String) loses the specific owned sampler error before returning from a reusable API.",
+      "bounded": true
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "StreamId rejects empty purpose; Seed accepts every u64. index/choose require nonempty input, weighted selection has typed empty/zero/overflow errors, and range_f32 asserts finite ordered endpoints.",
+      "bounded": true
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "Finite opposite-sign endpoints may overflow the subtraction in range_f32 before multiplication; existing 059 conditional range obligation remains open, not a new unique finding or proven caller failure.",
+      "bounded": true
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "Weighted inputs require nonempty, positive, nonoverflowing aggregate sum, not merely individually valid u64 elements. Catalog admission and consumer reachability require separate evidence.",
+      "bounded": true
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Purpose string, root seed, ordered context, sampled index and serialized name identity have different owners; no claim that all raw numeric or string identities are interchangeable.",
+      "bounded": true
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "Distinct purpose streams intentionally isolate draw counts. No duplicate authority defect is established solely from multiple stream instances or possible output hash collision.",
+      "bounded": true
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Any later change must account for length framing, byte order, named purposes, draw order, error categories and intentional reproducibility requirements; no RNG or fixture was executed.",
+      "bounded": true
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "SamplingError is a closed three-case native adapter while NameCatalogError wraps its formatted text; do not infer all external weighted failures or panic variants are reachable.",
+      "bounded": true
+    },
+    {
+      "lens": "derivability",
+      "observation": "Seed has manual Hash, Ord, formatting and parsing connected to specific canonical encoding and ordering; derive replacement requires separately established behavior equivalence.",
+      "bounded": true
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "A StreamId is a named purpose while Seed is an arbitrary 64-bit word; a 64-bit derived result is not a uniqueness guarantee. Do not manufacture new owners for native boundary values.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "The derivation context is a deliberate BLAKE3 protocol key and stream name is an explicit purpose; their stability is meaningful, not an incidental display string.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "Byte framing uses little-endian u64 lengths and context words, and finish truncates to eight bytes. Sampling bounds and intentional half-open vs inclusive conversions remain distinct.",
+      "bounded": true
+    }
+  ],
+  "verification": "verify-evidence.py verifies original 059/774 records and supplier qualifications, independently registered display scopes, P16/base and Git membership proofs, and manifest coverage. This verifies evidence integrity only."
+}

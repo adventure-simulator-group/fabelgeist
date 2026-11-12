@@ -1,0 +1,261 @@
+{
+  "schema": "726-delegated-checkpoint-30-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 5155,
+  "unique_redacted_original_sha_count": 15,
+  "redacted_public_member_occurrences": 16,
+  "entries": [
+    {
+      "original_sha256": "028d0657bac8dc0c2dd37882ea75baf84e2a15b94176d6a9e7696e7219c8112f",
+      "original_bytes": 14668,
+      "original_git_blob": "4099562047acbe61c69901ee59dd0ecc54023baf",
+      "original_transport_paths": [
+        "segovb/READ-L12-869.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/segovb/READ-L12-869.json",
+          "public_sha256": "111a757e05d39891147514272d8ba1ef3bc4aa5384cdc6791bb5ba6d3db570c4",
+          "public_bytes": 14472
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "182a8e79b2c95c3d977b32769911a632400555171927011bcbb3f20a37f41dc8",
+      "original_bytes": 7165,
+      "original_git_blob": "9cdbf5b484ff9f443dc097d25431650975f5fff9",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-737.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-737.json",
+          "public_sha256": "7404bf797441831a53c23206620ded066c7f6fb222c23afdd0f5fd5d95e8b04e",
+          "public_bytes": 7077
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "1f373b37f53fc91b975e2a8e9a899c2329fd8bc1e658b1b6cbd0e11f8f0731e2",
+      "original_bytes": 9431,
+      "original_git_blob": "2d1b531028783d79f12a4de9107dedadf6beb8a3",
+      "original_transport_paths": [
+        "root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-004.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-determinism-2531-2532-evidence.tar.gz!history-059/root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-004.json",
+          "public_sha256": "2d2afaf109a2f7b17d3599aae5bd23e1e2ff5bada19f008a2dcfbc0f3344e03e",
+          "public_bytes": 8568
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_bytes": 2559596,
+      "original_git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4",
+      "original_transport_paths": [
+        "evidence/audit01-delta/predecessor/source-catalog.json",
+        "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+        "evidence/audit10/catalog.json",
+        "segovb/FROZEN774-CATALOG.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-older-2490-2503-2512-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/root-locks-39-497-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "5ab4f91cbcb555d0df08718c505a88854df9680539b7e31d768a76d371570d38",
+      "original_bytes": 12989,
+      "original_git_blob": "b1b2029d553b5eee5a70d69e8cca25d5358ea209",
+      "original_transport_paths": [
+        "parallel-l12-20261029/PROPOSAL-L12-869.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/PROPOSAL-L12-869.json",
+          "public_sha256": "d3dbd15c2220fda7647eaabeb780131e614e56372f0ffad4f4fba709cd18e114",
+          "public_bytes": 12793
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "61d9bcd1d88965e3c0e94048d3deb658eba72f1a9146fe61fa82e233e2be9d64",
+      "original_bytes": 174589,
+      "original_git_blob": "64bee23590fe82f96a41bb7a59f9d35aa038271a",
+      "original_transport_paths": [
+        "segovb/READ-L11-571.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-older-2490-2503-2512-evidence.tar.gz!prior/materials/historical/059/segovb/READ-L11-571.json",
+          "public_sha256": "330282f2bfda068c65bec44be6b3d64d75e57e6d0f62cfeb4b3378a53c7453a2",
+          "public_bytes": 169706
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "7119c2c806fc12ed329cd8ef8178990f192eb77809b8b9c49cfc0da7a38042a6",
+      "original_bytes": 7157,
+      "original_git_blob": "ccec7c249b81f0dbdd74b0ee9f6bc065f6a64fd1",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-736.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-736.json",
+          "public_sha256": "aaffeea04a93c70074e87c07730ae936b26dc70c88407dfbfe45929979ad0b26",
+          "public_bytes": 7070
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "82b550abe932ef086e52bd7340176145bd862333ce02c1a853e93548d49b55fe",
+      "original_bytes": 7190,
+      "original_git_blob": "64069af85c70495b21cfa988ab68f8113be9f649",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-738.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-738.json",
+          "public_sha256": "d6e7aa9ba6d6e1b9439cb97435a3fd99c4534f3375b4fcfb7e54d6ff9369b403",
+          "public_bytes": 7102
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "8366509f010cb7ec89406c46cbf4a94926b8cc0490f7f268fde41a8335bdc18f",
+      "original_bytes": 11456,
+      "original_git_blob": "b7b5a557dfe286ad8abfc0f9312f63b83b594e28",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-609.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-609.json",
+          "public_sha256": "2abb60b99945adaabdcfd5892329d06bedf4f0b59f42207e254b6c515fd0ef0d",
+          "public_bytes": 11358
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "a0ce517f79a2216d2b80cdb3c57345f5f146f358c4cba209aa54fa7b3352ad40",
+      "original_bytes": 17776,
+      "original_git_blob": "ea71cbc05a81b99c332b703f4d0f76f82316ddb5",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-160.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/nested-locks-680-2313-evidence.tar.gz!history-059/parallel-l11-20261029/READ-160.json",
+          "public_sha256": "a70286f9a1e13e12e0ee514de5bb6b3516e5b79436866ad65deecc44a62c0536",
+          "public_bytes": 16753
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "ad79ff2d7f5bf960577dd0fd8b0feaa6b6202c59328f57944a224d420e6daa29",
+      "original_bytes": 23746,
+      "original_git_blob": "986657e5856357cc74b5adfc8b9fedc178aac63f",
+      "original_transport_paths": [
+        "segovb/READ-L11-696.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/nested-locks-680-2313-evidence.tar.gz!history-059/segovb/READ-L11-696.json",
+          "public_sha256": "8051bdfeb61b48da77ebfe81424177993cc173a180e5721ce52cd2d7acd8008c",
+          "public_bytes": 22723
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "cf22c77e90f9ffc3d77664e81bdb251149e366ed9bf0c7f821663e42fe3a53b3",
+      "original_bytes": 9551,
+      "original_git_blob": "c2513eeee62e5e35b63aa17d6d9b784eb12c098d",
+      "original_transport_paths": [
+        "parallel-l11-20261029/PLAN-180.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/nested-locks-680-2313-evidence.tar.gz!history-059/parallel-l11-20261029/PLAN-180.json",
+          "public_sha256": "a83aa9eb78ea547fbe8d172de674146aee359b807e465456a49c4fe86cf9315a",
+          "public_bytes": 8528
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "d044dff810842c0f385bd097e70f5995fd6248a53022615df1bc6a2e6de00225",
+      "original_bytes": 19843,
+      "original_git_blob": "656ad290b5cc911c13e16d64ad527fd8ace49e3c",
+      "original_transport_paths": [
+        "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-004.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-determinism-2531-2532-evidence.tar.gz!history-059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-004.json",
+          "public_sha256": "a7dbfb0aec61b0894d9a4b189a1cc94e03a59efb65eab9000839a6aae3f0a8ee",
+          "public_bytes": 18980
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "f0cdb3d671271790dae2a0461057e783f138cb531e99b0aae22ee5da5ae755cd",
+      "original_bytes": 5015,
+      "original_git_blob": "872f201b33bc5ad092bb164916aa42f95bd2e430",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-608.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz!history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-608.json",
+          "public_sha256": "ee50b26a584a88f1135c3f96946761c24c51c6caf353ebd7538afa2e29cdaabc",
+          "public_bytes": 4917
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "fe59032840b95ae4c8c35a3a86fd1c9b60f86fc70d90a252cd5a00bfe12ccc7b",
+      "original_bytes": 129340,
+      "original_git_blob": "91796ec93673d847d4df27e2a231e90e7895009d",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-035.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-older-2490-2503-2512-evidence.tar.gz!prior/materials/historical/059/parallel-l11-20261029/READ-035.json",
+          "public_sha256": "7e5021e569867d246d6bef34f3d0ce9e81af8e39011513801db775700548d9b6",
+          "public_bytes": 126707
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

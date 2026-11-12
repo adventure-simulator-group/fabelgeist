@@ -1,0 +1,555 @@
+{
+  "schema": "726-look-queue-2559-reconciliation-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T05:49:42.734004+00:00",
+  "scope": {
+    "original_role": 2559,
+    "original_source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+    "original_material_ranges": [
+      [
+        157,
+        230
+      ],
+      [
+        669,
+        716
+      ]
+    ],
+    "historical_exclusions": "No jump, locomotion, landing, other helper, fixture, or whole-file role credit. The separately read cache 81–156 and other files are support only.",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Bounded source-only current/historical analysis; no cross-author role credit, whole-lens clearance, current runtime evidence or checkpoint3821 promotion."
+  },
+  "identity_and_read_scopes": {
+    "p16_source_sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+    "current_source_sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+    "p16_snapshot": "Dirty physical-p16 based at a120390947c89b703dc74c4255a13c035d054c50. The single P16 object equals that path in a120, 6533 and 039329518e264f19206cf5b0b98d177433f40c17; this is per-file equality, not a clean P16 commit. f82 is recovered-object transport only.",
+    "current_delta": "Whole historical and current files differ; displayed old/current 81–230 and 669–716 are byte-equal by line. Earlier /root/mhr_character independently compared and displayed the separate differences outside original material; this packet does not claim their landing semantics.",
+    "actual_fresh_role_displays": "Both old and 95e: 157–230 and 669–716; registered support 81–156. Whole source outside 81–230 and 669–716 remains unread by this packet. Earlier /root/mhr_character displayed 1–260 and 535–760 at each distinct object, with 261–534 and 761–1813 unread in that earlier receipt.",
+    "registrations": [
+      "registration.json",
+      "extra-registration.json",
+      "extra-registration-2.json",
+      "extra-registration-3.json"
+    ],
+    "receipt": "personal-read-receipt.json",
+    "comparison": "comparison-result.json",
+    "prior_receipt": "history/prior/read-receipt.json"
+  },
+  "historical_records": [
+    {
+      "id": "CONT-CAMERA-OWNERDEF-PP-F001",
+      "reviewer": "774 camera supplier",
+      "revision": "physical-p16 dirty object 8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "evidence": "history/774/05-findings-supplement-002.json.gz",
+      "interpretation": "Original raw semantic angle-pair propagation finding; typed LookDistribution divisor is not a checked angle that was lost. 774 completion-002 and qualification-supplement-002 supersede no-new-repair wording only for this newly registered look role; root owner fixedpoint remained. No global clearance or later-lens credit."
+    },
+    {
+      "id": "CAMERA-ADM03-039 / CAMERA-ADM03-COV-0843",
+      "reviewer": "774 camera admission supplier",
+      "revision": "physical-p16 dirty object",
+      "evidence": "history/774/11-contracts.jsonl.gz and history/774/12-coverage.jsonl.gz",
+      "interpretation": "Separately attributed admission/native-invalid policy and historical look material ranges; do not silently replace or transfer this lens into the newly assessed current windows."
+    },
+    {
+      "id": "059-P16-2559",
+      "reviewer": "Segovb lens11 and /root/lens12_frontier lens12",
+      "evidence": "history/059/segovb/READ-L11-421.json and history/059/segovb/READ-L12-868.json",
+      "interpretation": "Each historical reviewer’s P16 personal material remains exactly 157–230 and 669–716, separate from this reviewer and from original source identity1356. Root L12 adoption is not root personal reread."
+    },
+    {
+      "id": "059-PR-WORKING-1356",
+      "reviewer": "Adler lens11 and Segovb lens12, separately",
+      "evidence": "history/059/adler/READ-L11-185.json and history/059/segovb/READ-L12-378.json",
+      "interpretation": "Earlier distinct original pr-working role1356 source hash equals P16 file hash; Adler recorded full 1–1813 and Segovb L12-378 separately records full 1–1813 in four preserved partial receipts including EOF. This completion is historical same-role evidence only, not a fresh P16-2559 full read or other-lens transfer."
+    },
+    {
+      "id": "Q-L12-24ec01d299d573c6e7a0",
+      "queue_index_zero_based": 1151,
+      "status_at_059": "open-evidence-or-disposition",
+      "evidence": "history/queue-selection-reconstructed.json",
+      "interpretation": "References original pr-working role1356 and includes contemporaneous read-completion steps alongside native rig, cache lifecycle, current, alias and connected graph questions. The separately recovered L12-378 full role1356 receipt addresses only its own historical source-read step; it does not close the rest or establish the status of an unrecovered later queue."
+    },
+    {
+      "id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "queue_index_zero_based": 45,
+      "status_at_059": "open-required-recipient-current-and-alias-qualification",
+      "evidence": "history/queue-selection-reconstructed.json",
+      "interpretation": "Historical first failure concerns final propagated raised-foot support versus earlier capture/cache state. Fixed-tick restoration appears as a conditional relevant downstream context; no source in this packet proves a supported capture mismatch or exact identity with look-pair F001."
+    },
+    {
+      "id": "L1-P19-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "queue_index_zero_based": 2131,
+      "status_at_059": "open-actual-rig-entry-and-support-role-question",
+      "evidence": "history/queue-selection-reconstructed.json",
+      "interpretation": "Historical independent L1 e275 support/capture question, recorded by Root Segovb with its own source and ranges. It relates to q45 but requires first-failure and current-receiver proof; not a P16 look-pair alias."
+    },
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "queue_index_zero_based": 39,
+      "status_at_059": "open-reconciliation",
+      "evidence": "history/queue-selection-reconstructed.json",
+      "interpretation": "Separate retained body-velocity/acceleration frame contract; local camera-to-owner rotation here is related frame context but not evidence of the same first failure or automatic duplicate."
+    }
+  ],
+  "findings_and_open_relationships": [
+    {
+      "id": "CONT-CAMERA-OWNERDEF-PP-F001",
+      "classification": "Existing historical source-backed raw-producer finding, independently corroborated at 95e; no duplicate issue count",
+      "source_refs": [
+        {
+          "id": "p16-role",
+          "archive": "sources/p16-role.rs",
+          "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "revision": null,
+          "snapshot": "physical-p16 dirty",
+          "snapshot_base": "a120390947c89b703dc74c4255a13c035d054c50",
+          "lines": [
+            [
+              157,
+              186
+            ],
+            [
+              191,
+              225
+            ],
+            [
+              669,
+              715
+            ]
+          ]
+        },
+        {
+          "id": "current-role",
+          "archive": "sources/current-role.rs",
+          "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              157,
+              186
+            ],
+            [
+              191,
+              225
+            ],
+            [
+              669,
+              715
+            ]
+          ]
+        },
+        {
+          "id": "current-response",
+          "archive": "sources/current-response.rs",
+          "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              126,
+              139
+            ]
+          ]
+        },
+        {
+          "id": "current-config",
+          "archive": "sources/current-config.rs",
+          "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              14,
+              18
+            ]
+          ]
+        }
+      ],
+      "trace": "The current bounded body gets an owner local rotation, gates camera look to raised guard with no posture transition, produces a Vec2 yaw/pitch pair by atan2 and typed-divisor division then clamps to the configured joint limit. The Option pair is retained in the owner_look map and used only for head/neck before quaternion composition and Transform write. The P16 material body matches those displayed current lines, while entire files differ.",
+      "conditions": "This is the historically recorded semantic propagation issue, not proof of an erased previously checked angle, malformed runtime input, or current product failure. An existing angle owner must be checked against native invalid-value and normalization semantics before use; preserve fractional divisor, hemisphere folding, gating and operation order.",
+      "relationship": "F001 is an exact older P16 producer record and the present current observation corroborates its same displayed data flow. q1151 retains a broader distinct owner/rig/cache graph, not an automatically identical repair or accepted unique count."
+    },
+    {
+      "id": "LOOK-STATE-RESTORE-AND-CACHE",
+      "classification": "Existing safeguards and previously noted conditional readiness question, not new count",
+      "source_refs": [
+        {
+          "id": "current-role",
+          "archive": "sources/current-role.rs",
+          "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              81,
+              85
+            ],
+            [
+              107,
+              148
+            ],
+            [
+              191,
+              225
+            ],
+            [
+              669,
+              681
+            ]
+          ]
+        },
+        {
+          "id": "current-plugin",
+          "archive": "sources/current-plugin.rs",
+          "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              70,
+              94
+            ]
+          ]
+        }
+      ],
+      "trace": "The PostUpdate chain orders restore_procedural_look_base before apply_head_and_torso_look; the look pass stores its pre-look quaternion for the next restore. The same chain later calls fixed-tick pose stabilization before transform propagation. On no fixed clock step it clears its cache; on a changed tick it replaces the map with queried MhrBone entity/transforms; on repeated ticks it restores only matching cached entities.",
+      "conditions": "The cache does not record an explicit asset revision or topology-ready marker in the shown struct. A difference would require a repeated fixed tick with a required bone appearing, changing identity or becoming ready after initial capture. Actual asset, entity, clock and schedule lifecycle and command/deferred-application semantics are not established here. Live path branch and all other safeguards remain in place.",
+      "relationship": "Earlier Adler READ-L11-185 and /root/mhr_character CURRENT-FIXED-TICK-POSE-CACHE-READINESS preserved this same question. q45/q2131 concern final foot-support observation and are related only through later retained/propagated pose contexts; no exact alias is inferred."
+    },
+    {
+      "id": "LOOK-PRODUCER-PATHS-95E",
+      "classification": "Fresh bounded producer bridge and safeguards; no new defect",
+      "source_refs": [
+        {
+          "id": "current-net-client",
+          "archive": "sources/current-net-client.rs",
+          "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+          "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              626,
+              650
+            ]
+          ]
+        },
+        {
+          "id": "current-player",
+          "archive": "sources/current-player.rs",
+          "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              1373,
+              1408
+            ]
+          ]
+        },
+        {
+          "id": "player-write",
+          "archive": "sources/current-player.rs",
+          "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              208,
+              226
+            ],
+            [
+              1086,
+              1095
+            ]
+          ]
+        },
+        {
+          "id": "player-consume",
+          "archive": "sources/current-player.rs",
+          "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              1169,
+              1179
+            ]
+          ]
+        },
+        {
+          "id": "bot-production",
+          "archive": "sources/current-bot.rs",
+          "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+          "path": "crates/adventuresim-tactical-server/src/bot.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              266,
+              307
+            ]
+          ]
+        },
+        {
+          "id": "bot-schedule",
+          "archive": "sources/current-bot.rs",
+          "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+          "path": "crates/adventuresim-tactical-server/src/bot.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              322,
+              344
+            ]
+          ]
+        }
+      ],
+      "trace": "A player request transmits CharacterLook angles; validate_player_input rejects nonfinite look, maps yaw via rem_euclid and clamps pitch before a validated look is written on the shown admitted path. Separately, the bot aim system selects a nearest opposing candidate and assigns yaw from the horizontal Transform offset when its squared length is positive. BotPlugin declares that system in a chained Update schedule; the displayed bot body does not assign pitch.",
+      "conditions": "The bot path is a distinct source writer and does not pass through the player request validation in the displayed body. Whether the plugin is installed in a supported scenario, how all target/actor transforms are admitted, how pitch is initialized, other writers and network replication scheduling remain open. The test-source windows displayed in this packet were not executed.",
+      "relationship": "This narrows the prior /root/mhr_character open producer inventory; it does not establish nonfinite input or a distinct violation, and does not duplicate F001."
+    },
+    {
+      "id": "LOOK-DISTRIBUTION-AND-LIMIT-ADMISSION",
+      "classification": "Existing scoped nonfinding with an aggregate policy question",
+      "source_refs": [
+        {
+          "id": "current-response",
+          "archive": "sources/current-response.rs",
+          "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              29,
+              32
+            ],
+            [
+              126,
+              139
+            ]
+          ]
+        },
+        {
+          "id": "response-conversion",
+          "archive": "sources/current-response.rs",
+          "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              170,
+              174
+            ]
+          ]
+        },
+        {
+          "id": "current-measurement",
+          "archive": "sources/current-measurement.rs",
+          "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              96,
+              107
+            ]
+          ]
+        },
+        {
+          "id": "authored-angle",
+          "archive": "sources/current-authored-angle.rs",
+          "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              8,
+              13
+            ],
+            [
+              80,
+              92
+            ]
+          ]
+        },
+        {
+          "id": "current-config",
+          "archive": "sources/current-config.rs",
+          "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              14,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "current-role",
+          "archive": "sources/current-role.rs",
+          "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "snapshot": null,
+          "snapshot_base": null,
+          "lines": [
+            [
+              195,
+              215
+            ],
+            [
+              693,
+              715
+            ]
+          ]
+        },
+        {
+          "id": "p16-response",
+          "archive": "sources/p16-response.rs",
+          "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "revision": null,
+          "snapshot": "physical-p16 dirty",
+          "snapshot_base": "a120390947c89b703dc74c4255a13c035d054c50",
+          "lines": [
+            [
+              29,
+              32
+            ],
+            [
+              126,
+              139
+            ]
+          ]
+        },
+        {
+          "id": "p16-config",
+          "archive": "sources/p16-config.rs",
+          "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "revision": null,
+          "snapshot": "physical-p16 dirty",
+          "snapshot_base": "a120390947c89b703dc74c4255a13c035d054c50",
+          "lines": [
+            [
+              14,
+              18
+            ]
+          ]
+        }
+      ],
+      "trace": "LookDistribution rejects nonfinite and negative input via checked_nonnegative and separately rejects zero; its documented divisor can be fractional. The configured angular magnitude is finite/nonnegative on its shown constructor path, and the distributed look is clamped before Euler conversion. Only head and neck receive camera aim; directional yaw is separately weighted over six bone roles.",
+      "conditions": "Division by a very small positive divisor can exceed finite range before the later finite clamp; that is not alone a demonstrated failure. Nonfinite incoming directions, stored quaternion validity, application policy and whether the field name means a literal count versus a calibration divisor remain separately open.",
+      "relationship": "This corroborates the earlier look packet and 774 native-invalid/fractional-divisor qualifications, not the separate BodyAngle-before-clamp issue."
+    }
+  ],
+  "nonfindings": [
+    "No jump, landing, fixture, test or other original-role coverage is claimed from adjacent lines or retained full bodies.",
+    "Missing owner transform and absent role-map entries take filter/continue paths in the displayed look pass; these alone do not demonstrate an error-erasure defect.",
+    "Both snapshots explicitly clear fixed-tick cache when no fixed step exists and rebuild it on a changed tick. A supported lifecycle gap has not been established.",
+    "The bot lines 620–725 and 755–790 and 350–365 were read as test source only. No tests, fixture, simulation, viewer or product execution occurred."
+  ],
+  "open_questions": [
+    "Which actual supported actors/writers set or retain CharacterLook yaw and pitch, including bot initialization, local controller and replication?",
+    "Can target or owner transforms reach the bot and procedural consumer with nonfinite or nonunit data under actual admission rules, and what native fallback policy is intended?",
+    "Which owner, if any, represents the derived pair without changing NaN/Inf, hemisphere, normalization or native Quaternion adaptation semantics?",
+    "Do rig creation, entity identity, asset readiness and clock reset prevent or allow a same-tick new-bone cache gap?",
+    "Does final foot-support capture actually observe an affected cached or propagated pose in a supported scenario, and is its first failure identical to the existing q45/q2131 records?",
+    "q1151’s earlier original role1356 full source read is documented, but its other current/rig/helper/alias obligations remain individually open."
+  ],
+  "thirteen_bounded_perspectives": [
+    {
+      "lens": "audit-producer-propagation",
+      "view": "F001 retains a derived angle pair through helper, Option and map to Euler; typed divisor is not itself lost."
+    },
+    {
+      "lens": "audit-existing-type-owners",
+      "view": "Existing LookDistribution owns the divisor, not automatically the derived pair; suitable output owner is unresolved."
+    },
+    {
+      "lens": "audit-type-ownership",
+      "view": "Actor input, bot transform-based yaw, procedural local state and native quaternion adaptation have distinct producers/owners."
+    },
+    {
+      "lens": "audit-type-granularity",
+      "view": "Yaw/pitch pair, fractional divisor, angular limit, action yaw and input yaw may need different policies; no blanket angle wrapper."
+    },
+    {
+      "lens": "audit-admission-contracts",
+      "view": "Finite player input and positive finite divisor guard selected boundaries; all bot/local/network/native and quaternion routes are not proved."
+    },
+    {
+      "lens": "audit-aggregate-states",
+      "view": "Tick, queried bone entity set, rig asset readiness and retained cache must be assessed together before a readiness failure is asserted."
+    },
+    {
+      "lens": "audit-invariant-operations",
+      "view": "Division precedes finite joint clamp, then quaternion composition/normalization; preserve ordering and NaN/Inf behavior."
+    },
+    {
+      "lens": "audit-redundant-authority",
+      "view": "Base-look and fixed-tick caches have distinct purposes and ordered schedule; no duplicate-authority finding follows from retaining two states."
+    },
+    {
+      "lens": "audit-enum-shapes",
+      "view": "Raised guard and posture-transition Option gate a look mode; no enum redesign is supported by these bounded bodies."
+    },
+    {
+      "lens": "audit-magic-numbers",
+      "view": "Weights and limits have separate semantic roles, while the documented divisor is fractional; no unsupported literal-count policy."
+    },
+    {
+      "lens": "audit-magic-strings",
+      "view": "No string concern was discovered in these bounded source windows; historical L12 role1356 raw-string review remains separately attributed."
+    },
+    {
+      "lens": "audit-derivability",
+      "view": "No boilerplate or derive change is justified by this evidence; preserve admission and retained-state semantics."
+    },
+    {
+      "lens": "audit-behavior-preservation",
+      "view": "Keep rear folding, gating, local owner frame, scalar clamp order, role weights and restore scheduling explicit before later any authorized change."
+    }
+  ],
+  "recovery_qualifications": {
+    "old_059": "history/original-registry.json.gz, queue and ledger retain older exact records; selected rows are reconstructed, not 3821.",
+    "p16": "history/p16-recovery.json and history/p16-tracked-reproduced.patch preserve later digest match; seven untracked objects are separate. Reproduction does not prove original invocation, complete filesystem metadata or uninterrupted custody. Earlier prior packet’s missing-patch statement was correct at its time.",
+    "prior_packet": "history/prior contains exact /root/mhr_character report, personal receipts and original registration. Checkpoint13 published registration is a separately preserved path-redacted reconstruction with a different digest; report member itself is byte-identical.",
+    "printed_fragments": "history/fragments-selection-reconstructed.json and retained corpus contain normalized historical outputs and possible field projections, not full current queue or 3821.",
+    "verification": "Evidence hashes, generic parsing and Git membership only. No prior packet verifier, product, test, build, viewer, fixture, simulation or runtime probe was run."
+  }
+}

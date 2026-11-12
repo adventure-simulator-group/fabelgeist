@@ -1,0 +1,728 @@
+{
+  "schema": "726-bounded-stdb-native-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T05:17:37.839957+00:00",
+  "scope": {
+    "original_roles": [
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "authority": "Four separately checksum-bound crates.io packages spacetimedb, spacetimedb-bindings-macro, spacetimedb-sats, spacetimedb-sdk at 2.6.1, archive/member identity distinct from project Git.",
+    "current_project": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "original_project_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_state": "The recorded pr-working source snapshot included unrelated modifications; f82 transports frozen records and native objects, not the native package or project revision. e275 records are earlier separately attributed historical reviews, not 95e or checkpoint3821.",
+    "coverage": "Only personal registered and displayed ranges in receipts; exact unread complements remain uncredited. Role 20 includes 201\u2013202 and 226\u2013228 beyond the original native-owner ranges, as prospectively registered, not borrowed historical coverage."
+  },
+  "assigned_reads": [
+    {
+      "role": 20,
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "package": "spacetimedb",
+      "package_checksum": "b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15",
+      "source_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "original_owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 85,
+          "read_ranges": [
+            [
+              1,
+              200
+            ],
+            [
+              203,
+              225
+            ],
+            [
+              330,
+              465
+            ],
+            [
+              628,
+              655
+            ],
+            [
+              660,
+              695
+            ],
+            [
+              1025,
+              1065
+            ],
+            [
+              1086,
+              1098
+            ],
+            [
+              1228,
+              1295
+            ],
+            [
+              1374,
+              1393
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-SDK-001"
+          ],
+          "read_status": null,
+          "resolved_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs"
+        }
+      ],
+      "original_producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-DIALOGUE-040",
+          "read_ranges_as_recorded": [
+            [
+              200,
+              228
+            ]
+          ]
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-033",
+          "read_ranges_as_recorded": [
+            [
+              200,
+              228
+            ]
+          ]
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+          "read_ranges_as_recorded": [
+            [
+              48,
+              79
+            ],
+            [
+              203,
+              225
+            ],
+            [
+              628,
+              655
+            ],
+            [
+              1025,
+              1065
+            ],
+            [
+              1086,
+              1098
+            ],
+            [
+              1374,
+              1393
+            ]
+          ]
+        }
+      ],
+      "personal_ranges": [
+        [
+          1,
+          228
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ]
+    },
+    {
+      "role": 21,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "package": "spacetimedb-bindings-macro",
+      "package_checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "source_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "original_owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 83,
+          "read_ranges": [
+            [
+              1,
+              204
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-SDK-001"
+          ],
+          "read_status": null,
+          "resolved_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs"
+        }
+      ],
+      "original_producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+          "read_ranges_as_recorded": [
+            [
+              105,
+              204
+            ]
+          ]
+        }
+      ],
+      "personal_ranges": [
+        [
+          1,
+          204
+        ]
+      ]
+    },
+    {
+      "role": 22,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "package": "spacetimedb-bindings-macro",
+      "package_checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "source_sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "original_owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 84,
+          "read_ranges": [
+            [
+              190,
+              361
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-SDK-001"
+          ],
+          "read_status": null,
+          "resolved_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs"
+        }
+      ],
+      "original_producer_reached_contract_observations": [],
+      "personal_ranges": [
+        [
+          190,
+          361
+        ]
+      ]
+    },
+    {
+      "role": 23,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "package": "spacetimedb-sats",
+      "package_checksum": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "source_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "original_owner_contract_proofs": [],
+      "original_producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              95
+            ],
+            [
+              210,
+              251
+            ]
+          ]
+        }
+      ],
+      "personal_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ]
+    },
+    {
+      "role": 24,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "package": "spacetimedb-sdk",
+      "package_checksum": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "source_sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "original_owner_contract_proofs": [],
+      "original_producer_reached_contract_observations": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+          "read_ranges_as_recorded": [
+            [
+              187,
+              254
+            ],
+            [
+              410,
+              450
+            ],
+            [
+              727,
+              770
+            ],
+            [
+              1290,
+              1433
+            ]
+          ]
+        },
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+          "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+          "read_ranges_as_recorded": [
+            [
+              187,
+              254
+            ],
+            [
+              410,
+              450
+            ],
+            [
+              727,
+              770
+            ],
+            [
+              1290,
+              1433
+            ]
+          ]
+        }
+      ],
+      "personal_ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "record": "774 native NATIVE-OWNER-SDK-001, native owner additional-sources rows 84\u201386 one-based",
+      "qualification": "Historical native owner original personal source claims: macro reducer1\u2013204, view190\u2013361, rt exact nine registered ranges. 059 registry read_status=null, while supplier rows explicitly use source_read_status to describe fresh current-lens source at those old scopes. These are separate from the new personal receipt and no broader SDK clearance."
+    },
+    {
+      "record": "774 producer camera CAM-PPS-DIALOGUE-040, rig RIG-PPS-033, native NATIVE-PS-CAMERA-TIME-PACKET-011 and NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016, root foreign-alias-producer-003",
+      "qualification": "Exact original producer records and their per-reader ranges retained. Role23 producer 1\u201395/210\u2013251 and role24 camera/native producer 187\u2013254/410\u2013450/727\u2013770/1290\u20131433 are not synthetic owner-contract proofs. Root, rig and camera rt200\u2013228 are separately attributed."
+    },
+    {
+      "record": "774 native admission03 SOURCE-013..017 / REG-013 and GROUP-067; camera redundant-authority CONTRACT-007/008",
+      "qualification": "Historical native admission independently included additional rt560\u2013628/703\u2013712/1290\u20131308 beyond original owner ranges; our role20 receipt explicitly leaves 560\u2013627,703\u2013712 and1296\u20131308 unread. Native aggregate group067 compares original owner ranges; camera later reads and context stay attributed to camera. Do not import those spans into our fresh read."
+    },
+    {
+      "record": "059 Segovb READ-L11-474 row overlay107 / inherited L11 contract005",
+      "qualification": "Historical overlay reconciles rt560\u2013628/703\u2013712/1290\u20131308 from inherited coverage with fresh_personal_body_reads empty and new_original_role_credit=0. It is a historical summary, not a new current display or 3821 evidence."
+    },
+    {
+      "record": "059 Root Segovb READ-ROOT-L1-CURRENT-020/021 and queue rows732\u2013739",
+      "qualification": "Earlier e275 locked-native source: reducer macro140\u2013180 and rt196\u2013225/620\u2013650 (020), then separately rt48\u201370 (021). e275 timestamp and current attribution preserved, not promoted to 95e. The native formatting boundary and prior transaction documentation are old source findings, not executed transactions."
+    },
+    {
+      "record": "774 native role495 and root role2477; 059 READ-L11-411 and parallel L12 timestamp tail; current ASSESSMENT-L01-HISTORICAL-495",
+      "qualification": "All three registry roles23,495,2477 have identical native timestamp bytes but distinct identities and scopes. Native owner495 recorded full1\u2013343, root owner2477 1\u2013195; Segovb L11 personally registered/read 1\u2013195 and separately196\u2013201; /root/lens12_frontier L12 separately read196\u2013343 with zero original credit. Previously assessed signed-minimum observation is corroborated, not a new count. Current central role495 full read remains its own attribution."
+    },
+    {
+      "record": "774 camera owner role491 / CAM-OWN-SIM-SDK-ERROR-098; current ASSESSMENT-L01-HISTORICAL-491-494, dispatcher and startup-subscription assessments",
+      "qualification": "Role24/491 share exact SDK connection bytes but have distinct scope and reader. Camera role491 recorded715\u2013805/930\u2013975/1138\u20131180; prior current assessment records full1\u20131624; our separate role24 and support reads remain bounded and do not transfer credit. Related dispatcher and subscription issues are distinct, not automatically aliases."
+    },
+    {
+      "record": "prior <LOCAL_PATH_0> and <LOCAL_PATH_1> reports/manifests",
+      "qualification": "Separately attributed current query/code and SATS namespace work; copied exact small reports/manifests and hash-linked full prior evidence. HTTP reply classifications and SDK callbacks are distinct; no automatic alias or coverage transfer."
+    }
+  ],
+  "observations": [
+    {
+      "id": "STDB-NATIVE-REDUCER-VIEW-PORT",
+      "classification": "native source contract corroborating existing historical observations, not a new finding",
+      "trace": "Reducer macro generated invoke points to rt::invoke_reducer; runtime decodes BSATN and calls reducer, whose tuple adapter invokes the original and converts its result via IntoReducerResult. Result<(),E:Display> formats E into Box<str>; sink code writes message bytes. View macro selects context dispatcher, and Vec/Option ViewReturn serialize row data; query paths use separate RawSql. The SDK later decodes its received reducer error payload as BSATN String and distinguishes internal error; the intervening host translation is not shown by these snippets.",
+      "references": [
+        {
+          "id": "21",
+          "archive": "sources/21-spacetimedb-bindings-macro-reducer.rs",
+          "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+          "lines": [
+            [
+              144,
+              170
+            ]
+          ]
+        },
+        {
+          "id": "20",
+          "archive": "sources/20-spacetimedb-rt.rs",
+          "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+          "lines": [
+            [
+              48,
+              57
+            ],
+            [
+              203,
+              224
+            ],
+            [
+              636,
+              646
+            ],
+            [
+              1025,
+              1063
+            ],
+            [
+              1086,
+              1098
+            ],
+            [
+              1376,
+              1393
+            ]
+          ]
+        },
+        {
+          "id": "22",
+          "archive": "sources/22-spacetimedb-bindings-macro-view.rs",
+          "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+          "lines": [
+            [
+              223,
+              228
+            ],
+            [
+              236,
+              275
+            ],
+            [
+              306,
+              332
+            ]
+          ]
+        },
+        {
+          "id": "20",
+          "archive": "sources/20-spacetimedb-rt.rs",
+          "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+          "lines": [
+            [
+              87,
+              100
+            ],
+            [
+              335,
+              360
+            ],
+            [
+              410,
+              430
+            ],
+            [
+              660,
+              688
+            ]
+          ]
+        },
+        {
+          "id": "24",
+          "archive": "sources/24-spacetimedb-sdk-db_connection.rs",
+          "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+          "lines": [
+            [
+              223,
+              253
+            ],
+            [
+              1409,
+              1431
+            ]
+          ]
+        }
+      ],
+      "qualification": "No macro expansion, client generation, host decode/transaction, database operations or actual network run. Early application error erasure remains separately scoped."
+    },
+    {
+      "id": "STDB-TIMESTAMP-MINIMUM-CORROBORATION",
+      "classification": "existing historical native observation under roles495/2477, not a new count",
+      "condition": "A Timestamp constructed with i64::MIN is later passed to to_duration_since_unix_epoch.",
+      "trace": "Public from_micros_since_unix_epoch accepts i64 without a narrower check. The conversion negates a negative signed microsecond value before casting, so the mathematical negation of the minimum is not representable in i64. Behavior depends on overflow-check configuration.",
+      "references": [
+        {
+          "id": "23",
+          "archive": "sources/23-spacetimedb-sats-timestamp.rs",
+          "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+          "lines": [
+            [
+              9,
+              14
+            ],
+            [
+              34,
+              49
+            ],
+            [
+              60,
+              67
+            ]
+          ]
+        },
+        {
+          "id": "20",
+          "archive": "sources/20-spacetimedb-rt.rs",
+          "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+          "lines": [
+            [
+              1034,
+              1056
+            ]
+          ]
+        },
+        {
+          "id": "timestamp-consumer",
+          "archive": "support/timestamp-consumer.rs",
+          "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+          "lines": [
+            [
+              1,
+              30
+            ]
+          ]
+        }
+      ],
+      "qualification": "The first-party clock uses the microsecond getter, not the duration conversion: this does not establish the condition or any failure. The ABI timestamp u64-to-i64 cast may encode signed bits; host contract and supported ranges are unproved."
+    },
+    {
+      "id": "STDB-CALLBACK-DEFERRED-SEND-QUESTION",
+      "classification": "conditional native/current source lifecycle question; not established defect or new count",
+      "condition": "If the selected pending authorization request is actually processed and argument serialization fails, or the send channel is already None at send time.",
+      "trace": "Generated authorization client invokes SDK with callback. The SDK queues the request and returns Ok, then later serializes args and stores the callback before checking the send channel. Apply failure propagates through advance_one_message/frame_tick; selected dispatcher logs its connection error and breaks. In the displayed failure branches no reducer-result callback is invoked; callback table cleanup, connection shutdown and supported cancellation/retry expectations remain unexamined.",
+      "references": [
+        {
+          "id": "generated-client",
+          "archive": "support/generated-client.rs",
+          "sha256": "3ea5479830a3d0f5f6a592731b7fcd3f1b282f78ebed6b03ef9abc010e54b901",
+          "lines": [
+            [
+              27,
+              83
+            ]
+          ]
+        },
+        {
+          "id": "24",
+          "archive": "sources/24-spacetimedb-sdk-db_connection.rs",
+          "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+          "lines": [
+            [
+              418,
+              446
+            ],
+            [
+              746,
+              762
+            ]
+          ]
+        },
+        {
+          "id": "sdk-connection-extra",
+          "archive": "support/sdk-connection-extra.rs",
+          "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+          "lines": [
+            [
+              363,
+              370
+            ],
+            [
+              565,
+              568
+            ],
+            [
+              587,
+              591
+            ],
+            [
+              653,
+              658
+            ]
+          ]
+        },
+        {
+          "id": "sdk-callbacks",
+          "archive": "support/sdk-callbacks.rs",
+          "sha256": "d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+          "lines": [
+            [
+              208,
+              240
+            ]
+          ]
+        },
+        {
+          "id": "dispatcher",
+          "archive": "support/dispatcher.rs",
+          "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+          "lines": [
+            [
+              140,
+              180
+            ]
+          ]
+        },
+        {
+          "id": "dispatcher-tail",
+          "archive": "support/dispatcher.rs",
+          "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+          "lines": [
+            [
+              228,
+              247
+            ]
+          ]
+        }
+      ],
+      "qualification": "No actual request, disconnection, serialization failure, command spawn, retained-resource leak or player outcome was observed. Serialization failure occurs before callback storage; absent send channel occurs after storage. The exact policy and all cleanup paths require additional source evidence."
+    }
+  ],
+  "bounded_nonfindings": [
+    "A successful SDK reducer callback and rejected/internal-error callbacks take distinct native paths; do not equate plain error text with an internal transport failure.",
+    "Native view Option<T> intentionally serializes a zero-or-one row collection. This alone cannot establish whether a given application None incorrectly masks an error.",
+    "Identical native bytes link roles23/495/2477 and24/491, but neither imply a new finding count nor transfer a historical lens or reviewer receipt.",
+    "Application clock getter use does not call the native duration conversion in the displayed source.",
+    "SDK formatting of E:Display at its actual reducer port is not by itself an internal application error-owner violation."
+  ],
+  "open_questions": [
+    "What exact host timestamp ABI bit interpretation, legitimate range, application producer/consumer paths and compiler overflow configuration apply? Does any supported first-party path call the negative-duration conversion?",
+    "What translation exists between the module raw error sink and the SDK BSATN reducer error payload, and which consumer distinguishes local transport status, reducer rejection and internal error?",
+    "When queued sends fail, what are complete callback cleanup, shutdown, user notification, retry/cancellation and resource policies? Does the selected authorization path reach the condition under a supported lifecycle?",
+    "What transaction, isolation, external-side-effect and malformed wire guarantees belong to the actual host? No output in these source windows validates those behaviors.",
+    "Which feature graph and deployment use of the four locked packages and generated bindings applies? Hashes/lock entries do not resolve features or prove execution."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "The SDK turns a typed reducer error into text at the native reducer result port. Application-side early cause loss and HTTP-side classification are separate owner questions; an opaque foreign text port does not justify earlier erasure.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Native Timestamp, SDK Result/error, generated reducer argument types, and project StrategicMinute serve different boundaries. The SDK Result can carry typed application errors until its Display conversion.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Timestamp::from_micros_since_unix_epoch accepts any i64. The minimum signed value is not negatable as signed i64; supported application input and conversion route need evidence. Decode expect and host ABI assumptions do not establish attacker-controlled ingress.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Timestamp negative duration conversion performs signed negation before casting. Checked arithmetic and operator distinctions outside this personal scope must retain their prior independent attribution. SDK pending mutations can fail after the invoking method returned Ok.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "SDK reducer callback result distinguishes successful transaction result, reducer rejection text, and internal failure. Correlating callback/request ID, pending work and transport availability remains a lifecycle question.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 6,
+      "name": "Type ownership",
+      "disposition": "SpacetimeDB module runtime, procedural macro, SATS timestamp and client SDK are four package identities; generated project bindings and application ownership are separate. Preserve role aliases and original readers.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Native callback event status and callback result are correlated projections in inspected source; this alone does not demonstrate conflicting application authority. Host conversion and transaction outcome semantics remain open.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Both selected project root locks have the same exact four package checksums. This preserves package identity only; no source/runtime equivalence, configured features, transaction execution or behavior change is proved.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "SDK callback nested Result distinguishes reducer rejection from internal failure; view Option versus Vec is serialized as a row collection. Preserve accepted empty rows and error policies rather than collapsing outcome states.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Generated macro text checks context/argument/output traits and emits declarations, but was not expanded or compiled. No safe derive/boilerplate replacement follows from these bounded slices.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Timestamp signed Unix microseconds, duration, strategic game minutes, request ID, reducer rejection text and native internal error are distinct facts; do not merge them by shared primitives or by byte-identical source roles.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Reducer Display output is an actual native error-text port; generated SDK callback carries its received error String. Network status, transport failure, early application strings and stable machine codes remain separate issues.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "The ABI presents timestamp u64 bits and converts with as i64; signed-versus-unsigned host interpretation and supported range are unverified. Preserve distinct typed temporal semantics before proposing constraints.",
+      "scope": "Bounded registered source only, no whole-lens completion."
+    }
+  ],
+  "status": {
+    "discovery": "bounded source-only; no whole-lens completion or checkpoint3821 credit",
+    "repair": "not started",
+    "builds_tests_macro_generation_fixtures_database_runtime_product_validation": "not performed"
+  }
+}

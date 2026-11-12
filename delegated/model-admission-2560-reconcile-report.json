@@ -1,0 +1,85 @@
+{
+  "schema": "726-role2560-admission-reconciliation-v1",
+  "created_utc": "2026-11-12T05:53:03.665327+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Three selected historical 059 queue records 404,406,408, role2560 and narrowly registered related old/current support. All other records, unread source ranges and whole lens populations remain open. No new unique defect count or checkpoint3821 credit.",
+  "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical": "pr-working snapshot based on 6533 with unrelated dirty paths; 059 checkpoint eb407672813424d64ec31f208193969f5a62620c, not final 3821. f82 is evidence transport. Exact original 059 bytes, 774 records and preexisting assessments remain separately identified; selected rows are explicitly reconstructed copies.",
+  "registration": "registration.json",
+  "read_receipt": "read-receipt.json",
+  "identity_proofs": "git-proofs.json",
+  "historical_evidence": "historical/evidence-index.json",
+  "identity": "The original registry source objects for model.rs and the five selected support files match both 6533 and 95e file bytes, with separate 20 Git path proofs including 059 queue and ledger. Per-file equality does not establish that the pr-working snapshot was a clean tree, a supported runtime path, other old/current source equality or any audit credit transfer.",
+  "historical_attribution": {
+    "role2560": "Original 774 root ROOT-ADM-REG-002 prospectively registered lines 1–169; original row expressly excludes 170–199 reexports and 200+ fixtures and has no local final qualification. 059 /root/lens12_frontier READ-L12-868 personally read old role2560 1–169, root adoption recorded no personal reread. Prior /root/hair_ops packet independently displayed historical 6533 and current 95e 1–331 separately, with outside-original extension and test source text only. This packet newly displays 12–168 each; no earlier author, whole-body or other-lens credit is transferred.",
+    "related_059": "Exact PL13-049/051/060/061/065 receipt and registration files and queue proposal copied with their original queue-referenced SHA-256s. These receipts name PL13 namespaces and assert historical personal ranges but do not identify a named reader in the inspected fields; no agent name is invented. q404/406/408 remain records of historical SEGOVB identifiers and old revisions.",
+    "historical_774": "Prior packet preserves exact native initial05 contract-groups-005 parity evidence and segovb operations contract-groups-614 neighbour candidate. Their historical reader scopes and conclusions remain separate from this packet.",
+    "current_prior": "Checkpoint12D attributes separately assessed q404 current source trace to /root/mhr_character; this packet independently corroborates the same first operations, not a new count. Prior /root/hair_ops programme/church/partitions finding is related to q408 but expressly does not assume alias with its separate opening geometry relation. Reconciliation-059 snapshot still labels q404 unassessed; the later 12D bounded assessment is newer evidence, not a declaration that all q404 obligations are closed."
+  },
+  "contracts": [
+    {
+      "queue_index": 404,
+      "id": "SEGOVB-L13-RETAINED-ROOM-ORDINALS",
+      "classification": "Historical finding corroborated on matching historical and 95e source; checkpoint12D previously assessed same current first operations, zero new unique count.",
+      "source_refs": [
+        "6533e444fa37552927070cc8d8190907fd3b413e model.rs 110–130,140–168; model/layout.rs 3–16; model/room_index.rs 20–39; generator/room_allocation.rs 156–174; generator/wall_derivation.rs 4–39",
+        "95e63628f9d70b8dd6e6fede64334696c6995009 model.rs 110–130,140–168; model/layout.rs 3–16; model/room_index.rs 20–39; generator/room_allocation.rs 156–174; generator/wall_derivation.rs 4–39"
+      ],
+      "observation": "RoomIndex privately wraps a u16 and from_ordinal checks usize→u16. collect_rooms extracts serialized_ordinal into public Room.id; derive_walls extracts assignment ordinals before storing WallSegment.inside_room/outside_room, each raw u16. These operations reproduce q404’s first ownership site, independently corroborating 12D; not evidence of an actual invalid room lookup.",
+      "safeguards": "Ordinal conversion rejects values outside u16; derive_walls returns MissingCellAssignment for an absent assignment. RoomIndex::from_serialized accepts any u16, including zero, so representation alone does not prove membership in a specific storey. Historical full allocation and frame trace remain separately attributed to their original PL13 and 12D readers.",
+      "open": "Actual loaders, public construction, cross-storey identity and population checks, wall-frame retention and other consumers remain to reconcile; typed identity and population membership are distinct."
+    },
+    {
+      "queue_index": 406,
+      "id": "SEGOVB-L13-ROUND-TOWER-WALL-DIMENSIONS",
+      "classification": "Historical finding corroborated at selected matching source; no new count or unsupported reachability claim.",
+      "source_refs": [
+        "6533e444fa37552927070cc8d8190907fd3b413e model.rs 38–80; model/layout.rs 293–327,362–402; generator/round_towers.rs 23–40,54–64",
+        "95e63628f9d70b8dd6e6fede64334696c6995009 model.rs 38–80; model/layout.rs 293–327,362–402; generator/round_towers.rs 23–40,54–64"
+      ],
+      "observation": "CellDiameter constructor rejects zero and its custom Deserialize calls that constructor. RoundTower::new admits its anchor/diameter only after both coordinate parity checks, and RoundTower Deserialize calls that constructor. However, the same new function retains wall height and thickness unchanged and these fields are public; the selected native preparation forms shell inner radius as radius minus thickness and propagates thickness. This substantiates the historical independent dimension/cross-field question, not a proof that all such values reach or pass downstream geometry.",
+      "safeguards": "Positive whole-cell diameter, bounded conversion and parity validation are meaningful guards; they do not decide wall-height, zero-thickness, solid-core or thickness-versus-radius policy. The fallible wall_solid call is visible, but this packet does not inspect its implementation or infer acceptance.",
+      "open": "Supported tower creators, every data and mutation boundary, checked solid/annular consumers, finite/zero/solid modes, thickness relationship and exact alias policy remain unproved."
+    },
+    {
+      "queue_index": 408,
+      "id": "SEGOVB-L13-OPENING-DIMENSION-PROPAGATION",
+      "classification": "Historical finding supported only at selected retained field declarations; no new count or inferred full profile trace.",
+      "source_refs": [
+        "6533e444fa37552927070cc8d8190907fd3b413e model/layout.rs 39–55,57–62",
+        "95e63628f9d70b8dd6e6fede64334696c6995009 model/layout.rs 39–55,57–62"
+      ],
+      "observation": "Opening is publicly constructible and derives Deserialize while retaining width, sill and height as f32; StoreyPlan retains openings in a vector. No local field-validation hook appears in this declaration. That is relevant to the historical first-retention owner question; it does not establish all ways objects arrive or that any negative/nonfinite value is supported and rendered.",
+      "safeguards": "OpeningKind is an enum and StoreyPlan retains the kind and each dimension explicitly. Prior 059 and separately attributed current packets describe downstream checks and consumers beyond this packet; they are not newly read here.",
+      "open": "Ingress adapters and owner choices, zero/flat spring and normalization policy, profile/cuboid/void/door consumers, distinct church aperture consistency issue and exact first-failure aliases require further source review."
+    }
+  ],
+  "related_not_aliased": [
+    "774 SEGOVB-INITIAL04-CONTRACT-614 Cell::neighbour endpoint issue is an operation distinct from room ordinal ownership; prior /root/hair_ops player-build trace and support are retained in prior/model/report.json.",
+    "059 404 room ordinals and 405 storey ordinals are different identities, while membership and relationship questions connect them.",
+    "059 408 raw opening dimension ownership and the previous programme/church wall-opening consistency finding may interact but have different identified first sites; no automatic duplicate or independent-count decision."
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Typed room producer extracts raw ordinals at collect_rooms and derive_walls; actual downstream full graph is not freshly read.",
+    "existing_type_owners": "CellDiameter, GridLength and RoomIndex are existing bespoke owners; suitable wall/opening dimensions and exact semantics remain open.",
+    "admission_contracts": "Positive diameter and tower parity guarded on constructor and decoding; public raw height/thickness and Opening fields lack a guard in these displayed declarations.",
+    "invariant_operations": "Tower inner-radius subtraction is visible; semantic annulus policy and native evaluation are not established. Cell neighbour endpoint is independently prior evidence.",
+    "aggregate_states": "Anchor/diameter parity checked jointly; height/thickness/radius and room/population membership require independent contracts.",
+    "type_ownership": "RoomIndex versus Cell/Direction versus tower wall dimensions have separate roles; historical room ordinals and tower quantities are not one finding.",
+    "redundant_authority": "Public raw retention can erase an existing semantic owner, but this packet does not establish conflicting independently authoritative stored values.",
+    "behavior_preservation": "Any future repair must preserve valid signed coordinates and zero RoomIndex, parity, and explicitly chosen solid/zero/flat modes; no behavior validation.",
+    "enum_shapes": "Direction and OpeningKind already identify meaningful cases; no new enum defect shown in these windows.",
+    "derivability": "Custom CellDiameter and RoundTower deserialization routes uphold sampled guards; derived Opening deserialization has no visible local per-field check.",
+    "type_granularity": "Room ordinal and storey ordinal, cell position and positive diameter, opening width and sill height must not be conflated.",
+    "magic_strings": "Observed deserialization errors and source-format constants have legitimate diagnostic/format roles; no new string issue established.",
+    "magic_numbers": "Physical wall thickness, height and opening width are existing retained measurements requiring domain policy; do not mechanically treat all raw numbers as independent defects."
+  },
+  "open_questions": [
+    "Confirm supported public construction, deserialization, mutation and producer routes for retained Room/WallSegment/Opening and RoundTower values.",
+    "Establish target geometry owner rules for solid versus annular towers, positive versus optional zero values and opening profiles; inspect downstream guards without assuming them.",
+    "Reconcile 059/774 aliases and central 12D/12E evidence by exact first site, with reader/revision attribution, before any ledger update.",
+    "Uninspected source windows and historical queue population remain open; no full-lens audit or final checkpoint recovery is asserted."
+  ],
+  "future_direction": "Connect existing owners and first-site ledger records before later authorized repairs; preserve valid signed cell coordinates, zero room identity and supported solid/flat forms. No repair or product validation is performed.",
+  "validation": "Only evidence-integrity checks, source display and mathematical/source reasoning; no tests, builds, fixtures, geometry operations, product execution, probes or repairs."
+}

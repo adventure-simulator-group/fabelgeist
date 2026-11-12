@@ -1,0 +1,121 @@
+{
+  "schema": "726-bounded-roof-historical-reassessment-v1",
+  "created_utc": "2026-11-12T05:22:23.643153+00:00",
+  "author": "/root/hair_ops",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original pr-working roles2496\u20132497; separately displayed recovered historical objects and pinned current full bodies. The original snapshot is 6533-based and had unrelated modifications. Matching 6533 and 95e blobs prove only these file contents, not entire tree cleanliness or other source behavior.",
+  "role_reads": [
+    {
+      "index": 2496,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+      "original_material": [
+        [
+          1,
+          210
+        ]
+      ],
+      "historical_sha256": "dd13cae2d6e503271f19d7b30abc921198c79f954a5a74368982ac567597f2e8",
+      "historical_display": [
+        [
+          1,
+          210
+        ]
+      ],
+      "historical_git_blob": "e5285ae7656e81e837d5f122db041541c064754b",
+      "current_sha256": "dd13cae2d6e503271f19d7b30abc921198c79f954a5a74368982ac567597f2e8",
+      "current_display": [
+        [
+          1,
+          210
+        ]
+      ],
+      "current_git_blob": "e5285ae7656e81e837d5f122db041541c064754b",
+      "independent_displays": true,
+      "unread_complements": []
+    },
+    {
+      "index": 2497,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "original_material": [
+        [
+          1,
+          251
+        ]
+      ],
+      "historical_sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "historical_display": [
+        [
+          1,
+          251
+        ]
+      ],
+      "historical_git_blob": "2ee645d343c33c90510b1ff0ba42673065ed4544",
+      "current_sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "current_display": [
+        [
+          1,
+          251
+        ]
+      ],
+      "current_git_blob": "2ee645d343c33c90510b1ff0ba42673065ed4544",
+      "independent_displays": true,
+      "unread_complements": []
+    }
+  ],
+  "findings": [
+    {
+      "id": "SUPPORT-EXISTING-ROOF-ABUTMENT-IDENTITY-2497",
+      "classification": "Existing family corroboration; no new defect count",
+      "source": "Recovered historical and 95e roof_abutments.rs:24\u201363,90\u2013122,148\u2013180",
+      "observation": "Edge index is masked to three bits and station index to eight before weathering IDs are formed. Accepted same-assembly stations 0 and 256, or accepted edge enumeration indices separated by eight, can repeat encoded base IDs; upstand/counter roles repeat even if the first apron reused an old flashing ID. Completeness counts accepted stations and cleanup removes solids/interfaces by ID.",
+      "condition": "Only if relevant edges/stations are admitted and hosted; actual plan bounds, input reachability, allocation namespaces, subsequent repair and final consumers remain unproved.",
+      "relationship": "Original 774 ROOT-INITIAL04-F001 and NATIVE-INITIAL05-F002 and 059 q639 Q-L11-2f8a2a6324127b4f5f82 already record the conditional packed identity problem. Prior /root/hair_ops report CURRENT-ROOF-ABUTMENT-MASKED-IDENTITY-RELATION and its separately recorded current supports remain unchanged. Do not automatically merge other packed ID families or add duplicate count.",
+      "future_direction": "Trace admitted cardinalities and the actual allocator/consumers; if reachable, use a coherent capacity-aware identity contract and preserve deterministic IDs and cleanup semantics in any later authorized repair."
+    },
+    {
+      "id": "SUPPORT-EXISTING-MIXED-ABUTMENT-CHILD-2497",
+      "classification": "Existing 774 conditional candidate corroboration; no new defect count",
+      "source": "Recovered historical and 95e roof_abutments.rs:7\u201322,148\u2013150,182\u2013186,224\u2013247",
+      "observation": "The Wall pass precedes Tower. After producing a nonempty Wall result, it iterates every Tower child, retains the child valley edges against the wall pass edge IDs and rebuilds flashing IDs. A later Tower pass can see only the retained child list.",
+      "condition": "Requires a parent with separate wall and tower contact classes, a Tower child with distinct tower-edge IDs, and successful hosted wall samples. Supported mixed topology, later reconciliation and actual final plan outcomes remain open.",
+      "relationship": "Original 774 CONT07-CONTRACT-578, CONT07-CONTRACT-654, CONT07-F127 and the original candidate record preserve the earlier reader and conditional nature. The prior /root/hair_ops CURRENT-ROOF-WALL-TOWER-CHILD-OVERWRITE-RELATION traces related current support separately; do not recount or infer final runtime failure.",
+      "future_direction": "Trace admitted mixed parents and later child/refit reconciliation, then reconcile each supported child against its matching contours while preserving legitimate rejected contacts, subject to any later authorized repair."
+    }
+  ],
+  "nonfindings": [
+    "Station count is floored at one before the denominator at roof_abutments.rs:33\u201338; this local observation does not settle nonfinite/overflow or full geometry admission.",
+    "Incomplete hosted contacts drain the newly collected samples and clean linked solids/interfaces/bonds at roof_abutments.rs:148\u2013180. Masked identifier collisions and any partial mutation on an earlier error remain separate qualified concerns.",
+    "Gable test source includes zero eave with no walls; it was displayed as text only and does not establish output, runtime behavior or a wall-host case."
+  ],
+  "open_questions": [
+    "A zero eave makes the strict host-offset comparison in gable_enclosure.rs:23\u201333 impossible; do supported zero-eave roofs have matching hosts and what is the intended wall-envelope policy?",
+    "Gable clipping can return fewer than three vertices and update_pitch zips existing enclosure entries with two reconstructed polygons (gable_enclosure.rs:64\u201380,90\u2013125). Which validated producers or mutations can yield invalid planes or mismatched enclosure counts, and how do downstream consumers handle them?",
+    "Do supported topology, wall hosting and later reconciliation expose the mixed wall/tower case or bounded ID overlap? How do independent geometry and allocator authorities interact?",
+    "Complete native rendering, all plan producers, error rollback, other source files, all thirteen global lens populations, and exact cross-lens aliases remain open. No examples or geometry were executed."
+  ],
+  "historical_attribution": {
+    "original_774": "CONT07-CONTRACT-578 records the earlier CONT07 reviewer\u2019s fresh bounded source reads at 6533 for gable 1\u2013210 and abutments 1\u2013251; CONT07-CONTRACT-654 separately follows mixed abutments. Original root/native invariant and aggregate narratives remain exact records in the copied earlier packet. These are historical, not 95e or checkpoint3821.",
+    "original_059": "Segovb READ-L11-414 records original roles2496 1\u2013210 and2497 1\u2013251; READ-L12-848/849 explicitly attribute fresh personal 6533 reads to /root/lens12_frontier, with root adoption and no cross-lens transfer. Their original registrations, exact Windows-field qualification and receipts are preserved unchanged in the earlier packet.",
+    "prior_same_agent": "Prior /root/hair_ops packet report SHA 7d2fbd12ffc6d1557934332d368a1d166c7c85551837cb7a4c9f57c217d62a5b displayed 95e bodies fully, but its historical bodies were archived and never displayed; its receipt remains unchanged and copied complete. Its earlier support reads have their own exact registered scopes and are referenced as prior observations, not fresh this pass.",
+    "prior_other_agent": "/root/rig_identity previous roof geometry and roof assemblies/cutting packet findings are separate source evidence and authorship. Cross-lens relationships, e.g. retained raw positions and geometry tolerances, require central reconciliation; do not transfer personal credit.",
+    "recovery": "Original registry and source archive, historical 059/774 records, prior packet and q639/1929\u20131931 are retained. f82 is the recovered object transport; 6533 equality per file is not proof of clean pr-working snapshot. No reconstructed selection is an original 3821 record."
+  },
+  "lens_perspectives": {
+    "producer-propagation": "Gable sections pass raw roof positions and plane data into retained enclosure polygons; samples keep host/solid IDs through assembly. Relate to original native roof point propagation rather than declaring all geometric kernel vectors defective.",
+    "existing-type-owners": "RoofPiece, RidgeAxis, RoofEdgeKind, RoofAbutmentKind, RoofAbutmentSample and architectural collision/bounds owners exist. Inspect canonical position, plane and global identity owners before choosing migration boundaries.",
+    "admission-contracts": "Host selection and station completeness are conditional. No scoped source proves admitted edge/station capacities, arbitrary public RoofFace aggregate validity or supported zero-eave wall host case.",
+    "invariant-operations": "3-bit edge and 8-bit station masks can repeat identifiers for distinct accepted stations; roof plane clipping arithmetic assumes meaningful finite normal and thickness. Preserve old aliases and conditional reachability.",
+    "aggregate-states": "Edge kind, samples, weathering IDs, support interfaces, bonds, child links and drainage form coupled relations. Wall-kind filtering of tower child links is historic CONT07-F127; cleanup and native admission are partial positive evidence.",
+    "type-ownership": "Canonical checked allocator and retained architectural point/plane topology owner require connected discovery; existing samples and assembly types do not automatically ensure collection-level uniqueness or graph coherence.",
+    "redundant-authority": "Gable profiles are derived from face planes; tower child stores edge and flashing associations that a separate kind-local pass can erase. Cite CONT07-F127, not a second independent defect.",
+    "behavior-preservation": "Both bodies byte-identical across 6533 and 95e; this object equality does not prove the entire current product or surrounding contract unchanged. Any future change must preserve contact rejection, pure-tower behavior, deterministic identifiers, clipping and typed errors.",
+    "enum-shapes": "Wall/Tower abutment and edge kinds and Tower child use named enums. Typed kinds alone do not guarantee correct matching associations, and optional flashing/recipe or failed host is not automatically an invalid legacy mode.",
+    "derivability": "The assigned production bodies contain computation, not handwritten serialization/trait boilerplate requiring an independent derive finding; no whole-repository conclusion.",
+    "type-granularity": "Edge identity, sample station identity, host wall identity and solid role are related but distinct. Separate representability for each and do not merge unrelated allocator families solely because they use masks.",
+    "magic-strings": "No production string-valued dispatch appears in the two assigned bodies; existing test message is diagnostic source only. Downstream audit strings are typed audit labels and require separate policy review.",
+    "magic-numbers": "Lengths, contact station spacing, geometric offsets, tolerance and identity bit masks are raw values with different dimensions and roles. Examine the station range and geometry tolerance owners with error budgets; do not wrap indices, fixed sign choices or every numerical constant indiscriminately."
+  },
+  "lens_scope": "The thirteen bounded perspectives above reproduce this same reviewer\u2019s earlier 95e packet as historical prior assessment; the newly separate source displays corroborate identical named bytes but do not grant full-repository/lens clearance. No new support-body displays occurred in this packet.",
+  "implementation": "not started",
+  "validation": "not performed; no product, geometry, test, fixture, build, runtime probe or repair."
+}

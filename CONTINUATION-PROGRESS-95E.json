@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 05:20:46 UTC; main may advance. See MAIN-RECHECK-20261112-0520.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 05:54:54 UTC; main may advance. See MAIN-RECHECK-20261112-0554.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1012,
+  "new_current_ledger_candidates": 1015,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -503,7 +503,9 @@
     "ASSESSMENT-DELEGATED-BVH-MESH-2550-2551.json",
     "ASSESSMENT-DELEGATED-FURNITURE-P16-2552-2553.json",
     "ASSESSMENT-DELEGATED-STOREY-PLAN-P16-2554-2555.json",
-    "ASSESSMENT-DELEGATED-PR-PREFIX-2558.json"
+    "ASSESSMENT-DELEGATED-PR-PREFIX-2558.json",
+    "ASSESSMENT-DELEGATED-GEOMETRY-LIGHTING-P16-2478-2556.json",
+    "ASSESSMENT-DELEGATED-BODY-SAMPLE-P16-2510-2557.json"
   ],
   "qualification": "Partial current trace and historical body read remain distinct; neither closes a lens, historical alias or current scope.",
   "new_nonfinding_assessments": [
@@ -537,7 +539,8 @@
     "ASSESSMENT-RUNTIME-EQUIPMENT-FIT-95E.json",
     "ASSESSMENT-PLANT-LOD-ROOT-ASSOCIATION-95E.json",
     "ASSESSMENT-VIEW-SPEC-FIXTURE-ASSOCIATION-95E.json",
-    "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json"
+    "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12G-95E.json"
   ],
   "post_transition_deleted_base_reads": [
     "ASSESSMENT-L01-DELETED-272.json",
@@ -2207,7 +2210,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-EDF7B38A.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-25A585A6.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2246,15 +2249,24 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-12C-95E.json",
     "ASSESSMENT-DELEGATED-RECONCILIATION-12D-95E.json",
     "ASSESSMENT-DELEGATED-RECONCILIATION-12E-95E.json",
-    "ASSESSMENT-DELEGATED-RECONCILIATION-12F-95E.json"
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12F-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12G-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12H-95E.json"
   ],
   "registration_hash_mismatch_qualification": [
     "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-25.json",
     "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-26.json",
     "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-27.json",
-    "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-28.json"
+    "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-28.json",
+    "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-29.json"
   ],
   "delegated_batch26_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-26.json",
   "delegated_batch27_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-27.json",
-  "delegated_batch28_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-28.json"
+  "delegated_batch28_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-28.json",
+  "delegated_batch29_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-29.json",
+  "delegated_batch30_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
+  "delegated_batch31_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-31.json",
+  "delegated_batch12_reconciliation_qualification": "All eleven checkpoint 12 packets received bounded coordinator reconciliation through 12A–12H only. Their connected scopes, other packets, thirteen lenses and historical semantic queue remain open.",
+  "checkpoint30_prior_manifests_qualification": "QUALIFICATION-CHECKPOINT30-PRIOR-MANIFESTS.json",
+  "checkpoint31_saphyr_registration_qualification": "delegated/saphyr-2573-2576-reconcile-evidence.tar.gz!history-pin-qualification.json"
 }

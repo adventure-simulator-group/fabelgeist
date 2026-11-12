@@ -1,0 +1,469 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+  "source_roles": "ASSESSMENT-DELEGATED-GEOMETRY-LIGHTING-P16-2478-2556.json",
+  "historical_git_path_proof": "CENTRAL-P16-2478-2556-PATH-PROOFS.json",
+  "central_current_display_evidence": {
+    "registration": "CENTRAL-12G-REGISTRATION.json",
+    "receipt": "CENTRAL-12G-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-12G-CURRENT-WINDOWS-PROOF.json"
+  },
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-geometry-lighting-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-geometry-lighting-hair-report.json",
+      "original_finding": {
+        "id": "INTERIOR-FIELD-CARDINALITY-AND-CELL-SPAN-RELATION",
+        "status": "connected already recorded current and historical conditional contracts; no new accepted unique count",
+        "first_contract": "The field finds minimum room-cell coordinates and computes each span by signed i16 subtraction and increment before casting to u32. It multiplies width, depth and levels as u32 before allocating, then uses derived flattened indices into the vector. The source model exposes cell coordinates and building/storey collections; the two dynamic building compilation paths invoke from_plan.",
+        "safeguards": "The inspected footprint_cells generator rejects width/depth above i16::MAX and emits coordinates from zero below each accepted dimension. That limits the straightforward single-footprint source but does not prove all BuildingPlan producer, transformation, deserialization, membership, cardinality and device resource policies. In the normal factory path, base_samples clones samples and contribution indices are built from the same dimensions and cell loop; no independent out-of-bounds contribution is established merely by finding raw indices.",
+        "condition": "A supported plan or later permitted field mutation must violate the relevant span, product, indexing or dimension/sample relationship, and no earlier admission may reject first. No accepted plan, overflow, allocation, GPU issue or runtime panic has been observed.",
+        "future_direction": "Establish a checked plan-to-field boundary and coherent cardinality/resource ownership while preserving legitimate zero/outside room sentinel, independently distinguish cell-span arithmetic from later field mutation, and retain normal factory coupling.",
+        "historical_relation": "Central REVIEW-INTERIOR-FIELD-CELL-SPAN-001 already records conditional signed span/product arithmetic with its own current source. 774 RIG-ADMISSION03-F033 records pr-working field visibility and dimensions/sample cardinality with original rig attribution; 774 SEGOVB-INITIAL04-CONTRACT-611 records full P16 operations. They are related but not automatically the same failure. 059 L12 connected TEAM020 and q2244 preserve the factory coupling without cross-lens or current transfer.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+            "lines": [
+              [
+                11,
+                26
+              ],
+              [
+                37,
+                46
+              ],
+              [
+                48,
+                142
+              ],
+              [
+                144,
+                153
+              ],
+              [
+                157,
+                206
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+            "lines": [
+              [
+                6,
+                49
+              ],
+              [
+                52,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model.rs",
+            "lines": [
+              [
+                12,
+                12
+              ],
+              [
+                110,
+                130
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                3,
+                35
+              ],
+              [
+                39,
+                63
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+            "lines": [
+              [
+                4,
+                19
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+            "lines": [
+              [
+                28,
+                34
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+            "lines": [
+              [
+                290,
+                298
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+            "lines": [
+              [
+                1,
+                36
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-geometry-lighting-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-geometry-lighting-hair-report.json",
+      "original_finding": {
+        "id": "INTERIOR-SHUTTER-SOURCE-AND-IDENTITY-RELATION",
+        "status": "independent bounded support for previously recorded conditional shutter matching questions",
+        "first_contract": "For each room opening, opening_light searches all resolved opening assemblies and chooses the first TimberShutter with origin within 0.01 m of the source wall centre and matching storey-adjusted sill. It does not compare the source wall/host identity in this predicate even though the resolved OpeningAssembly stores a host source. Missing match gives glass transmission and creates no shutter contribution; a match stores a typed OpeningAssemblyId for later scene-window lookup.",
+        "safeguards": "The caller already restricts source walls to exterior walls belonging to the room and excludes doors. The generator derives the resolved opening frame from a projected/return-adjusted wall span and an optional tangent offset; a common origin may also be produced for ordinary cases. A shutter starts closed, and the update later selects the first SceneWindow matching building and opening IDs, treating absence as closed.",
+        "condition": "For a missing match, an eligible shutter must be displaced beyond the tolerance and no different assembly match; for a wrong first match, distinct eligible assemblies must satisfy the same origin/sill predicate while representing different source openings. A supported generated or admitted plan, all scene/window identity and lifecycle guarantees, and observed daylight impact remain unproved.",
+        "future_direction": "Trace exact opening-to-resolved-assembly correspondence and legitimate shifted apertures, then choose an authoritative association or a precise ambiguity/missing-match policy. Preserve opaque and glass transmission, normal initially closed state and separate scene entity identity.",
+        "historical_relation": "/root/rig_identity P16-SHUTTER-OPENING-ORIGIN-MATCH already describes the shifted-origin failure and leaves competing matches open; P16-SHUTTER-SCENE-OPENING-SELECTION separately concerns the later scene-window query. 059 /root/lens12_frontier connected field receipt raised geometric identity as open; q2244 stays its original broader identity. Do not count these as independent duplicates or transfer that reviewer's reads.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+            "lines": [
+              [
+                11,
+                26
+              ],
+              [
+                37,
+                46
+              ],
+              [
+                48,
+                142
+              ],
+              [
+                144,
+                153
+              ],
+              [
+                157,
+                206
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+            "lines": [
+              [
+                6,
+                49
+              ],
+              [
+                52,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                3,
+                35
+              ],
+              [
+                39,
+                63
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/plan.rs",
+            "lines": [
+              [
+                4,
+                19
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "lines": [
+              [
+                3,
+                12
+              ],
+              [
+                119,
+                126
+              ],
+              [
+                311,
+                321
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+            "lines": [
+              [
+                10,
+                31
+              ],
+              [
+                238,
+                250
+              ],
+              [
+                1088,
+                1103
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/wall_spans.rs",
+            "lines": [
+              [
+                15,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/window_closures.rs",
+            "lines": [
+              [
+                11,
+                25
+              ],
+              [
+                66,
+                75
+              ],
+              [
+                98,
+                105
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-geometry-lighting-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-geometry-lighting-hair-report.json",
+      "original_finding": {
+        "id": "INTERIOR-FIELD-STATE-AND-RESIDENCY",
+        "status": "prior source-scope relation, no new finding",
+        "first_contract": "Factory initializes shutter openness at zero and stores same-loop contribution indices and a clone of the base samples. On a sufficiently large change, the updater clones the base and adds each indexed contribution before clamping components; the field sampling function separately uses dimensions and a positive room tag. The lighting plugin orders shutter update before upload after transform propagation and chooses at most 16 fields within a 65,536-sample budget.",
+        "condition": "Factory source alone does not prove all subsequent mutation, transform validity, GPU selection coherence, per-scene uniqueness or the effect of an invalid direction. No renderer or product was executed.",
+        "future_direction": "Trace accepted mutation and supported scene population, then align CPU/GPU residency or document a quality fallback while preserving sample index and room-tag semantics.",
+        "historical_relation": "Central REVIEW-INTERIOR-EXPOSURE-GPU-RESIDENCY-001 concerns CPU exposure versus GPU field selection; exposure was not personally reread here, so its claim remains attributed to the prior current assessment. /root/rig_identity P16-SHUTTER-ZERO-DIRECTION-POLICY and P16-SHUTTER-SCENE-OPENING-SELECTION are separate conditional prior findings.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+            "lines": [
+              [
+                11,
+                26
+              ],
+              [
+                37,
+                46
+              ],
+              [
+                48,
+                142
+              ],
+              [
+                144,
+                153
+              ],
+              [
+                157,
+                206
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+            "lines": [
+              [
+                6,
+                49
+              ],
+              [
+                52,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+            "lines": [
+              [
+                19,
+                23
+              ],
+              [
+                38,
+                50
+              ],
+              [
+                150,
+                160
+              ],
+              [
+                189,
+                220
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-geometry-lighting-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-geometry-lighting-hair-report.json",
+      "original_finding": {
+        "id": "GEOMETRY-ERROR-ADAPTER-CONTRACT",
+        "status": "bounded source trace and nonfinding, not a new unique defect",
+        "first_contract": "finite walks X, Y, Z in order and returns the first nonfinite component as GeometryError::NonFinite with its caller-supplied GeometryRole and CoordinateAxis. Position, Displacement and Elevation constructors call it and their Serde deserializers readmit values. Direction adapters translate Bevy Zero, Infinite and NaN rejection to the same named canonical DirectionError variants and retain that typed cause in GeometryError; direction constructors use the adapter.",
+        "condition": "These inspected paths do not prove all alternative construction, reflection or consumer admission, nor the pinned framework implementation of direction validation. No native invocation or serialization was run.",
+        "future_direction": "Preserve checked frame and numeric meaning, first-error axis, typed source and native boundary conversion while tracing actual dependent producers and recipients.",
+        "historical_relation": "774 camera CONT-CAMERA-OWNER-SOURCE-042 and CONT-CAMERA-OWNER-REACHED-PP-TRACE-002 independently cover P16 1–28 and exact scoped receiver bodies, with original supplier/lens attribution. 059 /root/lens12_frontier L12-839 and q3445 preserve P16 transport scope. Historical pr-working behavior group155 also compares a different base and must not be misidentified as P16 clean base.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+            "lines": [
+              [
+                3,
+                28
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+            "lines": [
+              [
+                62,
+                88
+              ],
+              [
+                91,
+                109
+              ],
+              [
+                113,
+                139
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+            "lines": [
+              [
+                40,
+                81
+              ],
+              [
+                109,
+                142
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/error.rs",
+            "lines": [
+              [
+                6,
+                12
+              ],
+              [
+                14,
+                35
+              ],
+              [
+                38,
+                47
+              ],
+              [
+                50,
+                95
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Interior field cardinality",
+      "relationship": "The displayed span arithmetic and sample allocation refine existing REVIEW-INTERIOR-FIELD-CELL-SPAN-001; separately stored dimensions/sample cardinality and later mutation remain related but not automatically identical to that first operation. Admitted plan, overflow and runtime outcome are unproved."
+    },
+    {
+      "identity": "Shutter association",
+      "relationship": "The proximity-based first assembly match further supports existing P16-SHUTTER-OPENING-ORIGIN-MATCH; potential competing sources remain conditional. Later scene-window selection is a separate operation and no automatic alias or new unique count is inferred."
+    },
+    {
+      "identity": "Field state and residency",
+      "relationship": "The factory initializes corresponding contribution indices and base samples; update precedes upload in the displayed schedule. The selected source does not reread exposure, so its earlier CPU/GPU residency claim remains separately attributed. Mutation, population and rendering remain open."
+    },
+    {
+      "identity": "Geometry error adapter",
+      "relationship": "Selected constructors and deserializers preserve role/axis and typed direction errors in source; alternative construction, reflection and native framework behavior remain open. This is a bounded nonfinding, not a general lens clearance."
+    },
+    {
+      "identity": "Historical reads",
+      "relationship": "Delegate independently displayed P16 and current roles2478 and2556, preserving 2556 original material 130–142 and additional later text separately. Role2478 had a prior bounded-current-only trace; retaining that record does not transfer its reader to the P16 object."
+    }
+  ],
+  "new_qualified_ledger_rows": [],
+  "further_evidence_for_existing_rows": [
+    "REVIEW-INTERIOR-FIELD-CELL-SPAN-001",
+    "P16-SHUTTER-OPENING-ORIGIN-MATCH",
+    "REVIEW-INTERIOR-EXPOSURE-GPU-RESIDENCY-001"
+  ],
+  "open": "Ten of eleven checkpoint12 bundles have bounded central reconciliation. The remaining packet, source scopes, unique aliases, all thirteen lenses and all 3713 historical semantic queue records remain open. These relationships are not a unique defect count.",
+  "repair": "not started",
+  "validation": "not performed"
+}

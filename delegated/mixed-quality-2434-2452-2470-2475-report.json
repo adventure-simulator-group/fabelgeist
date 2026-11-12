@@ -1,0 +1,784 @@
+{
+  "schema": "726-mixed-quality-source-assessment-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T05:34:18.736777+00:00",
+  "classification": "Bounded current-source assessment plus separately attributed historical evidence; not an implementation, validation, whole-lens clearance, or checkpoint3821 record.",
+  "authority": {
+    "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "roles": [
+      2434,
+      2452,
+      2470,
+      2475
+    ],
+    "registration": "registration.json",
+    "actual_personal_receipt": "read-receipt.json",
+    "structural_inventory": "structural-inventory.json",
+    "git_proofs": "git-proofs.json",
+    "retained_original_registry": "historical/original-registry.json.gz",
+    "historical_selection_reconstructed": "historical/registry-selection-reconstructed.json",
+    "qualification": "Exact commit/path objects and transport are preserved. This review does not establish present working-tree cleanliness or transfer older reviewer coverage."
+  },
+  "snapshot_qualifications": [
+    {
+      "role": 2434,
+      "snapshot": "pr-working",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "statement": "Frozen registry says 747 changed variants and records four unrelated modified files. The 2434 per-file bytes match head and f82 recovered object; its registry modified state means changed against base, not that this file is one of the four dirty paths. Whole pr-working snapshot is not called clean."
+    },
+    {
+      "role": 2452,
+      "snapshot": "report-p17",
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+      "statement": "Registry records empty status at capture, 32 changed variants and SHA256 3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd. Read-only Git diff from base to head reproduces the digest and the raw head commit proves that base is the parent. This is a reconstructed stream, not proof of the original invocation or present worktree status. P17 base metrics source independently matches 95e per file; P17 changed source differs."
+    },
+    {
+      "roles": [
+        2470,
+        2475
+      ],
+      "snapshot": "rig-quality",
+      "head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "statement": "Registry records empty status at capture and eight changed variants with SHA256 6dcc1f6784b41bc1e76fd55bdd2f0c0b5083a5eb8ec18bcebd9519bdf4e869cf. Reproduced base-to-head diff matches and raw commit proves direct parent. Original invocation and present worktree cleanliness remain unknown. Each frozen file differs from 95e. The baseline TOML in cbbb is per-file identical to role2434 historical at 6533, but snapshot identities remain distinct."
+    },
+    {
+      "id": "recovery",
+      "statement": "Full exact original 059 registry, transport manifest, queue and ledger retained compressed; selected records are explicitly reconstructed from those originals. f82 is a historical object transport, not any of the source revisions. P16 is not a source of these four roles; no P16 patch or checkpoint3821 work is inferred."
+    }
+  ],
+  "personal_coverage": [
+    {
+      "role": 2434,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "rust-quality-baseline.toml",
+      "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "eof": 12847,
+      "displayed": [
+        [
+          1,
+          200
+        ],
+        [
+          12748,
+          12847
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          201,
+          12747
+        ]
+      ]
+    },
+    {
+      "role": 2434,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "rust-quality-baseline.toml",
+      "sha256": "8e83b77456e90d3ad376eda65cc6fc23ddf8123acf15b2bbea103191db52fb38",
+      "eof": 12812,
+      "displayed": [
+        [
+          1,
+          200
+        ],
+        [
+          12713,
+          12812
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          201,
+          12712
+        ]
+      ]
+    },
+    {
+      "role": 2452,
+      "kind": "historical",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "eof": 1184,
+      "displayed": [
+        [
+          1,
+          150
+        ],
+        [
+          320,
+          500
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          151,
+          319
+        ],
+        [
+          501,
+          1184
+        ]
+      ]
+    },
+    {
+      "role": 2452,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "eof": 2050,
+      "displayed": [
+        [
+          1,
+          150
+        ],
+        [
+          1150,
+          1350
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          151,
+          1149
+        ],
+        [
+          1351,
+          2050
+        ]
+      ]
+    },
+    {
+      "role": 2470,
+      "kind": "historical",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "eof": 1819,
+      "displayed": [
+        [
+          1,
+          150
+        ],
+        [
+          760,
+          1000
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          151,
+          759
+        ],
+        [
+          1001,
+          1819
+        ]
+      ]
+    },
+    {
+      "role": 2470,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "eof": 1780,
+      "displayed": [
+        [
+          1,
+          150
+        ],
+        [
+          710,
+          960
+        ]
+      ],
+      "unread_by_this_packet": [
+        [
+          151,
+          709
+        ],
+        [
+          961,
+          1780
+        ]
+      ]
+    },
+    {
+      "role": 2475,
+      "kind": "historical",
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "path": "rust-quality.toml",
+      "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+      "eof": 1001,
+      "displayed": [
+        [
+          1,
+          1001
+        ]
+      ],
+      "unread_by_this_packet": []
+    },
+    {
+      "role": 2475,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "rust-quality.toml",
+      "sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+      "eof": 1028,
+      "displayed": [
+        [
+          1,
+          1028
+        ]
+      ],
+      "unread_by_this_packet": []
+    }
+  ],
+  "earlier_reviewers": [
+    {
+      "role": 2434,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "record": "historical/059/segovb/READ-L11-402.json",
+      "registration": "historical/059/segovb/REGISTRATION-SEGOVB-1323.json",
+      "reviewer": "Segovb lens11",
+      "scope": "1–12847 qualified as the union of six retained original partial receipts, not six full reads."
+    },
+    {
+      "role": 2434,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "record": "historical/059/segovb/READ-L12-819.json",
+      "reviewer": "/root/lens12_frontier lens12",
+      "scope": "Nine retained partial receipts give qualified same-lens union 1–12847; fresh final 12481–12847; truncated attempt zero credit, root adoption not root personal read."
+    },
+    {
+      "role": 2452,
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "record": "historical/059/segovb/READ-L11-406.json",
+      "registration": "historical/059/segovb/REGISTRATION-SEGOVB-1347.json",
+      "reviewer": "Segovb lens11",
+      "scope": "Original receipt reports full 1–1184, including test source only; original reviewer and revision preserved."
+    },
+    {
+      "role": 2452,
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "record": "historical/059/segovb/READ-L12-827.json",
+      "reviewer": "/root/lens12_frontier lens12",
+      "scope": "Previously read 1–555 plus fresh 556–1184; qualified same-lens union, no full fresh reread or root personal transfer."
+    },
+    {
+      "role": 2470,
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "record": "historical/059/segovb/READ-L11-409.json",
+      "registration": "historical/059/segovb/REGISTRATION-SEGOVB-1365.json",
+      "reviewer": "Segovb lens11",
+      "scope": "Original full range 1–1819 in historical receipt; test text was not executed."
+    },
+    {
+      "role": 2470,
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "record": "historical/059/segovb/READ-L12-835.json",
+      "reviewer": "/root/lens12_frontier lens12",
+      "scope": "Earlier 1–555 and fresh 556–1819, qualified same-lens union; root adoption does not transfer personal credit."
+    },
+    {
+      "role": 2475,
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "record": "historical/059/segovb/READ-L11-410.json",
+      "registration": "historical/059/segovb/REGISTRATION-SEGOVB-1374.json",
+      "reviewer": "Segovb lens11",
+      "scope": "Fresh personally bounded historical 1–1001 in six chunks, as original receipt states; old config/analyzer/main independently reused at equal recorded cbbb identities, not a fresh reread."
+    },
+    {
+      "role": 2475,
+      "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "record": "historical/059/segovb/READ-L12-838.json",
+      "reviewer": "/root/lens12_frontier lens12",
+      "scope": "Previous 1–555 and fresh 556–1001; qualified full same-lens union, full reread false; root personal reread empty."
+    },
+    {
+      "role": 2452,
+      "reviewer": "/root/mhr_character",
+      "record": "historical/prior/p17-metrics/read-receipt.json",
+      "scope": "Historically frozen P17 1–409 and 95e 1–1283 personally displayed; respective test tails 410–1184 and 1284–2050 unread by that reviewer. Exact previous receipt and report retained, no attribution transfer."
+    },
+    {
+      "role": 2470,
+      "reviewer": "/root/hair_ops",
+      "record": "historical/prior/rig-export/read-receipt.json",
+      "scope": "Historically frozen cbbb 1–889 and 95e 1–844 personally displayed; test tails 890–1819 and 845–1780 unread by that reviewer. 6533 comparison was not their personal read."
+    },
+    {
+      "role": 2434,
+      "reviewer": "/root/rig_identity earlier independent packet",
+      "record": "historical/prior/quality/personal-read-receipt.json",
+      "scope": "Earlier separate 6533/95e bounded selected baseline ranges; complete TOML bytes structurally parsed but not personally displayed in full. Do not transfer previous support or old reviewer scope into this packet."
+    },
+    {
+      "roles": [
+        2434,
+        2475
+      ],
+      "reviewer": "historical 774 root owner supplier",
+      "record": "historical/774-selected-variant-comparison-reconstructed.json",
+      "scope": "Root coverage rows zero based 25/26 claim full native-format metadata under ROOT-OWNER-METADATA-001, not application source clearance."
+    },
+    {
+      "role": 2452,
+      "reviewer": "historical 774 native owner supplier",
+      "record": "historical/774-selected-variant-comparison-reconstructed.json",
+      "scope": "Native coverage rows 289/628 and contract NATIVE-OWNER-REPORT-METRICS-005 refer to P17 full 1–1184; row628 preserves historical dependency and receiver qualifications. No product validation."
+    },
+    {
+      "role": 2470,
+      "reviewer": "historical 774 rig owner and producer suppliers",
+      "record": "historical/774-selected-variant-comparison-reconstructed.json",
+      "scope": "Owner coverage row90 explicitly says shared identical lines plus complete distinct-line read; producer row177 says unified delta against earlier fully read 1841-line variant and shared identical lines. Preserve distinct attribution: neither is a fresh whole-file reread by this agent."
+    }
+  ],
+  "observations": [
+    {
+      "id": "REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E",
+      "classification": "Existing conditional finding; independent partial source corroboration only, no new duplicate count",
+      "source_refs": [
+        {
+          "id": "2452-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-current.rs",
+          "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+          "lines": [
+            [
+              1155,
+              1182
+            ],
+            [
+              1257,
+              1270
+            ],
+            [
+              119,
+              135
+            ]
+          ]
+        }
+      ],
+      "trace": "Current terrain relief filters absent bones or clearance values and returns 0.0 if no finite minimum/maximum remains. Current minimum-foot-clearance separately returns -1.0 when no finite value remains. Scenario grouping/warmup is visible in the registered source. This local evidence is consistent with, but does not reproduce the entire capture/consumer chain of, the earlier assessment.",
+      "conditions": "Only matters if a selected supported scenario requires the missing observation and the wider capture, admission, validation and result-consumer chain permits a relevant gap; no supported trajectory or accepted invalid report has been demonstrated. Partial cohorts, nonapplicable modes, and independent gates need separate policy.",
+      "future_direction": "In a later authorized repair, determine required observation completeness and retain measured, unavailable and nonapplicable distinctions through the relevant consumers; preserve independent gates and modes.",
+      "relationship": "Prior /root/hair_ops discovery and /root/mhr_character independent trace in historical/prior/p17-metrics/report.json; related 059 q562/565/1216/1231/1236 are not automatically aliases."
+    },
+    {
+      "id": "QUALITY-METADATA-CBBB-95E-COMPARISON",
+      "classification": "Source identity and configuration observation; not a new defect",
+      "source_refs": [
+        {
+          "id": "2475-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-historical.toml",
+          "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+          "lines": [
+            [
+              1,
+              8
+            ],
+            [
+              193,
+              209
+            ],
+            [
+              835,
+              849
+            ]
+          ]
+        },
+        {
+          "id": "2475-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-current.toml",
+          "sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+          "lines": [
+            [
+              1,
+              8
+            ],
+            [
+              656,
+              659
+            ],
+            [
+              1016,
+              1028
+            ]
+          ]
+        },
+        {
+          "id": "2470-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-historical.rs",
+          "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+          "lines": [
+            [
+              1,
+              30
+            ],
+            [
+              76,
+              113
+            ]
+          ]
+        },
+        {
+          "id": "2470-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-current.rs",
+          "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+          "lines": [
+            [
+              1,
+              30
+            ],
+            [
+              710,
+              729
+            ]
+          ]
+        }
+      ],
+      "trace": "Both config revisions declare limits and the same generated-client excluded path. cbbb has two MHR source scopes at lines193–203 that do not appear as matching full records in 95e; 95e adds an export/buffer.rs boundary scope and a CollarRows machine-epsilon exception, and rephrases the JointChannel scope. The exporter moved buffer support to a module in current source. Declared reasons do not prove matching behavior, complete coverage of a named source, a correct exception, or actual generated-client behavior.",
+      "conditions": "Inventory compares exact configuration records. A removed scope can be affected by matching/reason policy or changed source and cannot itself establish a defect or a waiver. Full source bodies, parser policy, named consumers, regex interpretation and exceptions need their own qualified evidence.",
+      "future_direction": "Before any later quality-policy change, trace actual scanner matcher and affected source at 95e, preserving explicit external-format boundaries and numeric policy.",
+      "relationship": "Related to older ROOT-OWNER-METADATA-001 and Segovb READ-L11-410/READ-L12-838. The earlier independent QUALITY-MATCH-PATTERN-SPACE-FINGERPRINT-95E finding concerns scanner string normalization, and is preserved in historical/prior/quality/REPORT.json; this metadata delta does not duplicate or resolve it."
+    },
+    {
+      "id": "METRICS-PLANTED-ANCHOR-GAP-OPEN-95E",
+      "classification": "New bounded source observation and open question; not a counted defect",
+      "source_refs": [
+        {
+          "id": "2452-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-current.rs",
+          "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+          "lines": [
+            [
+              1185,
+              1218
+            ]
+          ]
+        }
+      ],
+      "trace": "When a foot has support at or above FULL_PLANT_SUPPORT_WEIGHT but its bone is missing, the loop continues without clearing an existing anchor. A later available bone at the full threshold is compared with the earlier anchor. An explicitly lower support sample clears it.",
+      "conditions": "Only relevant if a selected frame can lack that bone while the support stays above threshold and a later comparable observation returns. The inspected source alone does not establish a supported reachable trajectory, missing-frame policy, misleading result or gate outcome. Frame continuity and other validation may rule out this condition.",
+      "future_direction": "Trace selected-scenario capture and required-bone admission; decide whether an observation gap should retain, invalidate or reset the anchor. Keep plant drift and general optional-observation policy distinct until exact first failure and acceptance are established.",
+      "relationship": "Related to previously published ASSESSMENT-REPORT-METRIC-SUPPORT-95E and REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E; not asserted identical to either and no duplicate count or transferred read credit."
+    },
+    {
+      "id": "RIG-EXPORT-RELATED-PRIOR-FINDINGS",
+      "classification": "Earlier separately attributed findings; contextual linkage only",
+      "source_refs": [
+        {
+          "id": "2470-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-historical.rs",
+          "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+          "lines": [
+            [
+              760,
+              787
+            ],
+            [
+              816,
+              887
+            ]
+          ]
+        },
+        {
+          "id": "2470-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-current.rs",
+          "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+          "lines": [
+            [
+              715,
+              745
+            ],
+            [
+              771,
+              842
+            ]
+          ]
+        }
+      ],
+      "trace": "Displayed old/current export bodies build glTF accessor/skin structures and invoke shell, morph and GLB writers. These excerpts do not personally re-establish the earlier UV-remapping, socket-input, color-linearization or nonfinite-normal first failures.",
+      "conditions": "Preserve earlier sources, reachable producer qualifications and conditions from the independently frozen prior report. No current malformed input or generated asset was evaluated.",
+      "future_direction": "Central reconciliation can use the original per-owner evidence and precise first-failure conditions before grouping later repair work.",
+      "relationship": "Prior /root/hair_ops report retains q460 SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE, historical SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001, SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001, and current REVIEW-GLB-BODY-NORMAL-NONFINITE-001. q165 and q637 are related but not automatic aliases."
+    }
+  ],
+  "nonfindings": [
+    {
+      "source_refs": [
+        {
+          "id": "2475-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-historical.toml",
+          "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+          "lines": [
+            [
+              1,
+              8
+            ]
+          ]
+        },
+        {
+          "id": "2475-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-current.toml",
+          "sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+          "lines": [
+            [
+              1,
+              8
+            ]
+          ]
+        }
+      ],
+      "statement": "The same generated client path exclusion is quality-checker configuration, not permission to edit generated code or an exemption from this audit."
+    },
+    {
+      "source_refs": [
+        {
+          "id": "2452-historical",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-historical.rs",
+          "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+          "lines": [
+            [
+              398,
+              407
+            ]
+          ]
+        },
+        {
+          "id": "2452-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-current.rs",
+          "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+          "lines": [
+            [
+              1272,
+              1282
+            ]
+          ]
+        }
+      ],
+      "statement": "Both displayed revision bodies use terrain-specific metric warmup selection. This textual correspondence alone does not establish equivalent surrounding report behavior."
+    },
+    {
+      "source_refs": [
+        {
+          "id": "2452-historical",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-historical.rs",
+          "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+          "lines": [
+            [
+              410,
+              500
+            ]
+          ]
+        },
+        {
+          "id": "2452-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "sources/2452-current.rs",
+          "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+          "lines": [
+            [
+              1284,
+              1350
+            ]
+          ]
+        },
+        {
+          "id": "2470-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-historical.rs",
+          "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+          "lines": [
+            [
+              890,
+              1000
+            ]
+          ]
+        },
+        {
+          "id": "2470-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-character-creator/src/export.rs",
+          "archive": "sources/2470-current.rs",
+          "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+          "lines": [
+            [
+              845,
+              960
+            ]
+          ]
+        }
+      ],
+      "statement": "The displayed test modules are source text, not executed tests, fixtures or runtime evidence. Their unread complements remain stated separately."
+    },
+    {
+      "source_refs": [
+        {
+          "id": "2434-historical",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "rust-quality-baseline.toml",
+          "archive": "sources/2434-historical.toml",
+          "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+          "lines": [
+            [
+              1,
+              100
+            ]
+          ]
+        },
+        {
+          "id": "2434-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "rust-quality-baseline.toml",
+          "archive": "sources/2434-current.toml",
+          "sha256": "8e83b77456e90d3ad376eda65cc6fc23ddf8123acf15b2bbea103191db52fb38",
+          "lines": [
+            [
+              1,
+              100
+            ]
+          ]
+        }
+      ],
+      "statement": "Generic full-byte TOML parsing found old/current baseline counts 209/485/1369 and 207/481/1368 for files/functions/findings; no duplicates in selected key tuples. Parsing is structural evidence and does not amount to full personal source display or product scanner execution."
+    },
+    {
+      "source_refs": [
+        {
+          "id": "2475-historical",
+          "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-historical.toml",
+          "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+          "lines": [
+            [
+              231,
+              301
+            ]
+          ]
+        },
+        {
+          "id": "2475-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "rust-quality.toml",
+          "archive": "sources/2475-current.toml",
+          "sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+          "lines": [
+            [
+              229,
+              299
+            ]
+          ]
+        }
+      ],
+      "statement": "Declared semantic families are checker vocabulary rather than evidence that all related first-party bodies are correct or that every bespoke owner is covered."
+    }
+  ],
+  "open_questions": [
+    "Can any supported selected animation scenario produce a missing required foot observation while all independently required capture, frame, admission and report gates remain satisfied?",
+    "What observation-gap and plant-anchor policy is intended for the precise selected scenario and time interval?",
+    "Do quality scope path/item matching, fingerprint normalization, and exception admission enforce the asserted text under actual 95e scanner semantics?",
+    "For changed MHR scopes, which actual source moves or policy changes motivate the current record differences? Metadata comparison alone supplies no functional equivalence or old/current alias.",
+    "Which GLB producers can actually reach the surface-only compact-UV, malformed socket, or finite-to-nonfinite color cases under their real admission contracts? Earlier established conditions and authors remain distinct.",
+    "Uninspected source complements, supporting owners, prior capture/acceptance paths and historical unresolved queue entries require separately attributed review; none is closed by this packet."
+  ],
+  "thirteen_bounded_perspectives": [
+    {
+      "lens": "audit-existing-type-owners",
+      "disposition": "Historical 774 supplier entries distinguish metadata and P17/rig ownership; source observations of frames, glTF accessors and TOML records do not close owner selection for unread dependencies."
+    },
+    {
+      "lens": "audit-type-ownership",
+      "disposition": "Config owner metadata, report metrics, writer and generated-client names belong to distinct boundaries; consumer and producer ownership remain separately traceable."
+    },
+    {
+      "lens": "audit-type-granularity",
+      "disposition": "Measured relief, absent samples, no-contact and nonapplicable scenarios require policy distinction; numeric zero and -1 sentinels have different local roles."
+    },
+    {
+      "lens": "audit-admission-contracts",
+      "disposition": "No local source proves required bone, full-plant support and missing-value admission jointly guarantee each report sample; preserve old socket/UV admission questions."
+    },
+    {
+      "lens": "audit-aggregate-states",
+      "disposition": "Support threshold, optional bone and stored drift anchor interact across frames; their joint reachability and policy are open."
+    },
+    {
+      "lens": "audit-invariant-operations",
+      "disposition": "Relief folds optional values and uses a finite fallback; plant anchor is retained on one missing path. No complete arithmetic, GLB asset or runtime behavior inferred."
+    },
+    {
+      "lens": "audit-producer-propagation",
+      "disposition": "Capture, report group, derived metric and validation consumers must be traced together; quality config naming a source is not producer coverage."
+    },
+    {
+      "lens": "audit-redundant-authority",
+      "disposition": "P17 and current report variants and configuration snapshots must not be conflated; preserve the separately sourced historical ankle/sole discrepancy CAMERA-INITIAL07-F065 without automatic aliases."
+    },
+    {
+      "lens": "audit-enum-shapes",
+      "disposition": "Scenario kinds and explicit quality scope kinds mark contextual alternatives; no enum redesign or application-wide semantics inferred from metadata."
+    },
+    {
+      "lens": "audit-magic-numbers",
+      "disposition": "Configured limits, machine-epsilon exception records, GLB external constants and measurement thresholds differ in purpose; reason text does not prove correctness or authorize generic wrappers."
+    },
+    {
+      "lens": "audit-magic-strings",
+      "disposition": "Scope kind/path/item/reason, semantic-family patterns and glTF keys are format/policy strings; actual matcher and native sink semantics require their own source proof."
+    },
+    {
+      "lens": "audit-derivability",
+      "disposition": "Inspected windows do not justify a derivation change; preserve native serialization, explicit policy and uninspected fields."
+    },
+    {
+      "lens": "audit-behavior-preservation",
+      "disposition": "Old and current bodies differ substantially; ensure warmup and observation applicability, glTF layout and original snapshot qualifiers are compared before any later repair. No behavioral preservation demonstrated."
+    }
+  ],
+  "historical_variant_comparison": "historical/774-selected-variant-comparison-reconstructed.json records selected 774 rows byte-equivalent as JSON objects in original and historical-family-export variants; root and rig contracts files differ as whole files even though selected contract rows match. Both exact variants and hashes are retained.",
+  "incident": "incident.json additively records an accidental rewrite of two prior local evidence-verification.json files by their verification scripts, the original/new hashes, and copies of both exact old published and altered bytes. Their old local manifests remain unchanged and each now has exactly the identified mismatch; publication and user extraction were not modified. The earlier independent P17 registration collision and digest-matching reconstruction are preserved in historical/prior/p17-metrics/preexisting-collision-recovery-qualification.json; its registration is not represented as uninterrupted original custody.",
+  "limitations": [
+    "No builds, tests, fixture invocation, shader/rendering, product code execution, runtime probes, implementation or product validation.",
+    "Exact preserved complete source bytes, hash and parsing do not claim unshown source line reads; previous agents and original 059/774 suppliers retain their own receipts and revisions.",
+    "Prior reports are linked by retained reports, receipts, frozen manifest hashes and published archive hashes; no automated alias or count increase.",
+    "Neither recorded original clean statuses at capture nor any commit/path proof establishes current checkout cleanliness."
+  ]
+}

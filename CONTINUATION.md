@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0520.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0554.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -115,9 +115,9 @@ changed top-level originals remain local only.
 `ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json` adds bounded
 reconciliation of two more checkpoint 12 packets. It preserves the earlier
 scoped split-eave rejection, the named recovered-object readers and
-conditional source relationships. Two packets and all connected scopes
-remain open. The ledger contains 1012 relationships and entries; this is
-not a count of unique defects.
+conditional source relationships. At that checkpoint two packets and all
+connected scopes remained open; subsequent bounded reconciliation is
+recorded below.
 `RECOVERY-VERIFICATION-D832ADAE.json` records the latest same-machine
 fetch, checkout and evidence check, with its transcript limitations.
 `DELEGATED-EVIDENCE-CHECKPOINT-26.json` preserves nine more attributed
@@ -163,6 +163,33 @@ the additive prior-read disclosure does not transfer reader credit.
 matching selected rows with distinct whole-file hashes; whole-file
 identity and cause remain unproved. All public path-redacted copies are
 reconstructions with exact changed top-level originals kept locally.
+`ASSESSMENT-DELEGATED-RECONCILIATION-12G-95E.json` and
+`ASSESSMENT-DELEGATED-RECONCILIATION-12H-95E.json` add bounded geometry,
+shutter, and pose-sampling relationships. They finish bounded coordinator
+reconciliation of the eleven checkpoint 12 packets only; their connected
+scopes, other packets, all thirteen lenses, and the 3,713-record historical
+semantic queue remain open. The ledger has 1,015 entries and relationships,
+not a count of unique defects.
+`RECOVERY-VERIFICATION-25A585A6.json` records the latest same-machine
+fetch, checkout, and evidence-only check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-29.json` preserves twelve additional
+attributed packets, including native package and P16/pr-working source scopes,
+pending central reconciliation. A generic inherited role 40 manifest phrase
+about an unrecovered registration identity is not established by that packet;
+its report and additive reader qualification control. Supplier variants and
+source ranges, including nonexistent lines beyond EOF, remain distinct.
+`DELEGATED-EVIDENCE-CHECKPOINT-30.json` preserves six additional packets,
+including bounded lockfile and quality reviews, pending central reconciliation.
+Their unread complements and earlier readers remain explicit.
+`QUALIFICATION-CHECKPOINT30-PRIOR-MANIFESTS.json` binds three prior packet
+manifests omitted from later frozen manifests to already published copies.
+The mixed-quality packet preserves two accidentally rewritten local scratch
+verification outputs and exact originals recovered from published archives;
+the scratch files were not silently restored. Public path-redacted copies are
+reconstructions; changed top-level originals remain local only.
+`DELEGATED-EVIDENCE-CHECKPOINT-31.json` preserves three more additive
+source-family reconciliation packets pending central review. One incidental
+unregistered five-line source display is recorded without audit credit.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

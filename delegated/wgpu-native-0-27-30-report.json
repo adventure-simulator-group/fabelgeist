@@ -1,0 +1,445 @@
+{
+  "schema": "726-wgpu-native-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T05:01:04.260835+00:00",
+  "scope": {
+    "roles": [
+      0,
+      27,
+      28,
+      29,
+      30
+    ],
+    "identity": "wgpu 29.0.4 and wgpu-types 29.0.4 crates.io package members, not project Git revisions. Role0 dependency-wgpu29.0.4:device.rs and role28 native-dependency:wgpu-29.0.4/device.rs intentionally remain separate historical role identities with distinct source ranges, despite exact same member SHA.",
+    "locks": "Independent structural inventory of eight retained tracked lockfiles: 6533 and 95e root and character-creator lockfiles select both 29.0.4 package checksums, while each revision\u2019s fabelgeist-mhr and numpy-storage lockfiles do not select those versions. Lock metadata is not a claim of activated feature/target, actual device behavior or arbitrary external builds.",
+    "recovery": "Exact package archive checksums match all selected locks; archived members match original registry source SHA and f82 transported object bytes. 6533 historical pr-working snapshot had unrelated modifications. Original 774 owner record row positions are zero-based; both full-file versions retained with distinct digests and selected differences limited to CARGO_REGISTRY path redaction vs original absolute path. No source or history promoted into missing checkpoint3821.",
+    "limits": "Original material windows and all support display partitions are individually registered; full archived file bytes and prior reviewers confer no fresh unlisted scope. No backend, GPU, fixture, shader, test, build or runtime probe executed."
+  },
+  "assigned_reads": [
+    {
+      "id": "0",
+      "archive": "sources/0-wgpu-device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "revision": "wgpu@29.0.4 package archive",
+      "path": "wgpu-29.0.4/src/api/device.rs",
+      "lines": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ]
+    },
+    {
+      "id": "27",
+      "archive": "sources/27-wgpu-buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "revision": "wgpu@29.0.4 package archive",
+      "path": "wgpu-29.0.4/src/api/buffer.rs",
+      "lines": [
+        [
+          835,
+          880
+        ]
+      ]
+    },
+    {
+      "id": "28",
+      "archive": "sources/28-wgpu-device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "revision": "wgpu@29.0.4 package archive",
+      "path": "wgpu-29.0.4/src/api/device.rs",
+      "lines": [
+        [
+          685,
+          750
+        ]
+      ]
+    },
+    {
+      "id": "29",
+      "archive": "sources/29-wgpu-surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "revision": "wgpu@29.0.4 package archive",
+      "path": "wgpu-29.0.4/src/api/surface.rs",
+      "lines": [
+        [
+          430,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "30",
+      "archive": "sources/30-wgpu-types-adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "revision": "wgpu-types@29.0.4 package archive",
+      "path": "wgpu-types-29.0.4/src/adapter.rs",
+      "lines": [
+        [
+          175,
+          300
+        ]
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-OWNER-PROBE-015",
+      "attribution": "774 rig owner Lens2",
+      "source": "history/774/rig-owner-contracts.jsonl.gz",
+      "qualification": "Role0\u2019s original bounded native wgpu error source supplements a historical probe callback that formats typed Error to retained text; full probe bodies were read by the original reviewer, not this author. Actual boundary/terminal policy open."
+    },
+    {
+      "id": "RIG-OWNER-NATIVE-CAUSE-023",
+      "attribution": "774 rig owner Lens2",
+      "source": "history/774/rig-owner-contracts.jsonl.gz",
+      "qualification": "Roles27\u201330 original rig source windows and native error owner fitting; browser JsValue, native cfg and terminal policy remain qualified. Do not assert every underlying variant is public or all wgpu errors have rich sources."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-010/018\u2013021",
+      "attribution": "774 rig admission Lens3",
+      "source": "history/774/rig-admission-contracts.jsonl.gz",
+      "qualification": "Fresh historical own reads of each exact original range and separate roles. Error prose is permitted native diagnostic data, public SDK errors do not establish application admission, and per-target cfg remains unresolved."
+    },
+    {
+      "id": "CAMERA-INITIAL07-CONTRACT-005/006",
+      "attribution": "774 camera redundant-authority Lens7",
+      "source": "history/774/camera-contracts.jsonl.gz",
+      "qualification": "Independent fresh historical bounded source reads, preserving distinct source identities; no whole SDK or other-lens credit."
+    },
+    {
+      "id": "NATIVE-INITIAL05-GROUP-064",
+      "attribution": "774 native aggregate Lens5",
+      "source": "history/774/native-aggregate-064.json.gz",
+      "qualification": "Previously displayed original requested windows but compared narrowed semantic ranges: role27 849\u2013870, role28 698\u2013745, role29 460\u2013505, role30 182\u2013262. Surrounding lines are historical context, not semantic aggregate proof; preserves actual old reviewer limits."
+    },
+    {
+      "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP",
+      "attribution": "059 historical queue159 with exact source subcontracts at 2269\u20132272",
+      "source": "queue-selection-reconstructed.json",
+      "qualification": "059 parent and its recorded aliases cover adapter, device, canvas and surface first-failure paths; preserve exact q362\u2013365/2269\u20132272 relations as recorded rather than add counts."
+    },
+    {
+      "id": "ADLER-L11-BUFFER-READBACK-ERROR-OWNERSHIP",
+      "attribution": "059 historical queue158 with native/wasm mapped-cause subcontracts 334\u2013335",
+      "source": "queue-selection-reconstructed.json",
+      "qualification": "Existing mapping cause records; channel closure, poll handling and extent contracts remain distinct unless centrally reconciled."
+    },
+    {
+      "id": "prior 95e current source assessments",
+      "attribution": "earlier separately preserved current reviewer assessments",
+      "source": "historical-attribution.json#/references",
+      "qualification": "Prior GPU context, buffer, kernel and hair assessments have their own current ranges and attribution; our freshly registered support is independent and narrower, no transferred credit."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP",
+      "classification": "Existing retained parent and recorded subcontracts; independent bounded 95e confirmation, no new count.",
+      "trace": "Current context.open maps native adapter and device request errors to constant anyhow messages and, on wasm presentation, maps native surface creation error to a constant. The native package declares non-exhaustive RequestAdapterError with NotFound backend diagnostic bitsets or EnvNotSet, RequestDeviceError with cfg-specific inner representation and CreateSurfaceError with private Hal/Web/RawHandle kinds. The SDK Error::source implementation is specific: Core/Hal arms delegate to their inner error.source(), Web has None, and the RawHandle source depends on std cfg. Do not assert the immediate private variant is always directly downcastable or every lower cause survives. Hair headless path separately constructs HairGpuError::Adapter/Device with native error values. No adapter/device/surface request ran.",
+      "references": [
+        {
+          "id": "context",
+          "archive": "support/context.rs",
+          "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+          "lines": [
+            [
+              193,
+              208
+            ],
+            [
+              229,
+              247
+            ]
+          ]
+        },
+        {
+          "id": "30",
+          "archive": "sources/30-wgpu-types-adapter.rs",
+          "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+          "revision": "wgpu-types@29.0.4 package archive",
+          "path": "wgpu-types-29.0.4/src/adapter.rs",
+          "lines": [
+            [
+              182,
+              212
+            ],
+            [
+              214,
+              262
+            ]
+          ]
+        },
+        {
+          "id": "28",
+          "archive": "sources/28-wgpu-device.rs",
+          "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+          "revision": "wgpu@29.0.4 package archive",
+          "path": "wgpu-29.0.4/src/api/device.rs",
+          "lines": [
+            [
+              698,
+              745
+            ]
+          ]
+        },
+        {
+          "id": "29",
+          "archive": "sources/29-wgpu-surface.rs",
+          "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+          "revision": "wgpu@29.0.4 package archive",
+          "path": "wgpu-29.0.4/src/api/surface.rs",
+          "lines": [
+            [
+              460,
+              505
+            ]
+          ]
+        },
+        {
+          "id": "hair-error",
+          "archive": "support/hair-error.rs",
+          "sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/error.rs",
+          "lines": [
+            [
+              31,
+              40
+            ]
+          ]
+        },
+        {
+          "id": "hair-headless",
+          "archive": "support/hair-headless.rs",
+          "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/gpu/mod.rs",
+          "lines": [
+            [
+              605,
+              635
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After the audit gate, preserve native error values with useful context through the actual boundary and reconcile browser JsValue transport and platform-specific source chains; retain original 059 identities and user-facing policy."
+    },
+    {
+      "id": "ADLER-L11-BUFFER-READBACK-ERROR-OWNERSHIP",
+      "classification": "Existing retained parent and recorded map-cause subcontracts; independent bounded 95e confirmation.",
+      "trace": "The wgpu BufferAsyncError is a native unit struct with generic Display and Error, not a record containing hidden per-buffer diagnostics. Current Buffer.read debug-formats the native mapping error into anyhow text; the wasm mapping path discards the value, while the channel-closed branch and poll outcomes are separate. Current compute ReadbackError has a distinct Mapping native field and Poll native field. No mapping, wait, error or readback was run; actual all callers and source chain policies remain open.",
+      "references": [
+        {
+          "id": "27",
+          "archive": "sources/27-wgpu-buffer.rs",
+          "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+          "revision": "wgpu@29.0.4 package archive",
+          "path": "wgpu-29.0.4/src/api/buffer.rs",
+          "lines": [
+            [
+              849,
+              860
+            ]
+          ]
+        },
+        {
+          "id": "buffer",
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              40,
+              43
+            ],
+            [
+              65,
+              109
+            ]
+          ]
+        },
+        {
+          "id": "compute-readback",
+          "archive": "support/compute-readback.rs",
+          "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/readback.rs",
+          "lines": [
+            [
+              46,
+              66
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After the audit gate, retain available native class and outcome ownership without inventing payloads absent in BufferAsyncError; preserve channel and polling distinctions and reconcile known aliases."
+    },
+    {
+      "id": "OBS-WGPU-ERROR-SCOPE-LIFETIME-29",
+      "classification": "Bounded API contract and existing validation-owner relationship; no new incident.",
+      "trace": "Native on_uncaptured_error receives a typed Error handler. Error distinguishes OutOfMemory/Validation/Internal and retains a boxed source; formatting need not preserve downcastable ownership. ErrorScopeGuard is !Send/!Sync; explicitly calling pop returns the Option<Error> future and records popped state, whereas dropping an unpopped guard calls pop and drops its future. Separately inspected current ValidationScope.finish polls and explicitly pops, returning distinct Native, Progress, or ProgressWithNative cases; Uncaptured mode creates no guard. This is source semantics and cfg-qualified code, not an observed scope, asynchronous completion or device failure. Existing kernel validation ownership and poll observations remain separately attributed.",
+      "references": [
+        {
+          "id": "0",
+          "archive": "sources/0-wgpu-device.rs",
+          "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+          "revision": "wgpu@29.0.4 package archive",
+          "path": "wgpu-29.0.4/src/api/device.rs",
+          "lines": [
+            [
+              417,
+              428
+            ],
+            [
+              756,
+              785
+            ],
+            [
+              787,
+              853
+            ]
+          ]
+        },
+        {
+          "id": "device-scope-tail",
+          "archive": "sources/0-wgpu-device.rs",
+          "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+          "revision": "wgpu@29.0.4 package archive",
+          "path": "wgpu-29.0.4/src/api/device.rs",
+          "lines": [
+            [
+              854,
+              877
+            ]
+          ]
+        },
+        {
+          "id": "validation-observation",
+          "archive": "support/validation-observation.rs",
+          "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/globals/validation_observation.rs",
+          "lines": [
+            [
+              6,
+              27
+            ]
+          ]
+        },
+        {
+          "id": "validation-scope",
+          "archive": "support/validation-scope.rs",
+          "sha256": "e3ad593b83da185620d2729a5fde4a0f7bfda1c39993494432c55a0c989e0973",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+          "lines": [
+            [
+              11,
+              32
+            ],
+            [
+              36,
+              65
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After the audit gate, trace every guard owner, early return, cancellation and completion policy; retain typed native and progress outcomes where supported without changing borrowed-device/browser observation mode by inference."
+    }
+  ],
+  "bounded_nonfindings": [
+    "wgpu and wgpu-types are external SDK/API and encoding boundaries; raw diagnostic strings, publicly constructible SDK categories and native buffers do not automatically violate project bespoke value rules.",
+    "BufferAsyncError is a unit category; loss of its type/class is not evidence that a detailed hidden source exists.",
+    "Roles0 and28 intentionally remain separate audit identities despite identical archive member and hash. Their source windows, earlier reviewer histories and fresh displays do not merge into full-device read credit.",
+    "Device/Surface Error::source forwarding behavior depends on backend/std cfg and may skip to a nested source or return None; preserve actual typed wrapper and do not infer an unavailable chain.",
+    "A rustc cfg, package presence in a lock or source declaration alone proves neither selected features nor a successful GPU/device operation."
+  ],
+  "open_questions": [
+    "What is the supported terminal and browser JsValue transport policy for context construction, and can every native typed cause be retained across those boundaries?",
+    "Which application APIs construct or drop validation scopes on early return or cancellation, and which observations must be reported for borrowed, owned or browser devices?",
+    "What are the exact feature/target configurations in real builds and the native error-chain behavior for each backend? The locked source alone does not establish them.",
+    "What callers of Buffer.read require preserving map versus channel versus poll failures, and how do prior queue aliases reconcile without collapsing distinct first failures?",
+    "Which remaining SDK members and first-party owners were not inspected? Roles0 and28 leave device.rs 1\u2013397, 429\u2013684, 751 and (apart from registered tail support) 854\u2013877 outside assigned role credit; other uninspected complements are explicit in receipts."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Typed SDK errors reach some first-party boundaries but selected context/buffer paths lower them to text; exhaustive producers/consumers remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Native Error, RequestDeviceError, CreateSurfaceError, RequestAdapterError, BufferAsyncError and current ReadbackError retain distinct suitable roles; preserve existing 774 owner fits."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "SDK public error variants and native diagnostic text are intentionally broad; application target, mode, scope ownership and terminal policy require separate proof."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "A guard must be explicitly popped to retrieve its future; an unpopped guard drops captured result. Current selected wrapper explicitly pops, but all early/cancel paths remain open."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "ValidationScopeError can retain polling progress and captured native error together; buffer mapping, channel and polling results are distinct related outcomes."
+    },
+    {
+      "lens": 6,
+      "name": "Type ownership",
+      "disposition": "SDK variants are authoritative at native API boundaries; first-party typed wrappers/contexts should preserve rather than counterfeit native payload."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Device and surface error enums, nested source chains, human descriptions and adapter backend diagnostics have different scope; no duplicate owner inferred."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Both selected 6533 and 95e lockfiles carry the exact same package checksums. That establishes package identity only, not feature, device or runtime equivalence."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Native ErrorFilter, Error, RequestAdapterError and mapping modes encode real closed/non-exhaustive distinctions; backend-private kinds and cfg limits retained."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Native error traits, cfg aliases and current derive annotations have distinct contracts; no derive replacement asserted from these windows."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Unit buffer map error, adapter backend diagnostics, device/surface wrapper and uncaptured callback carry different detail; no synthetic reason is inferred."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "wgpu diagnostic descriptions and WebGPU strings are native diagnostic payloads; first-party wildcard replacement can erase typed cause before terminal formatting."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "SDK raw backend bitsets and error scope indices are native operational metadata, not independently invented gameplay quantities; semantic admission stays with owner."
+    }
+  ],
+  "status": {
+    "discovery": "bounded partial; no whole-lens or full SDK clearance",
+    "repair": "not started",
+    "product_validation": "not performed",
+    "gpu_device_shader_build_test_fixture_probe_execution": "not run"
+  }
+}

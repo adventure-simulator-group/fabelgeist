@@ -1,0 +1,502 @@
+{
+  "schema": "726-bounded-direction-parry-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T05:24:17.158017+00:00",
+  "scope": {
+    "original_roles": [
+      15,
+      16
+    ],
+    "native_authority": "bevy_math 0.19.1 and parry3d 0.27.0 exact crates.io package checksums and members; separately registered glam 0.32.1 support",
+    "project_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_later_review": "e2755a732c84e67296b5e3441a4259a84f461b2f is separately retained earlier revision, not 95e or checkpoint3821",
+    "qualification": "Original role15/16 records are reached producer scopes; f82 transports source objects and old records, not native package revision. The historical pr-working snapshot has modifications. Current support is bounded; identical e275/95e camera files are per-file comparison, not whole tree cleanliness."
+  },
+  "assigned_reads": [
+    {
+      "role": 15,
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "package": "bevy_math",
+      "version": "0.19.1",
+      "package_checksum": "98ead494dcfaa9b4594eed7f09a27d868b7cc7fc9ebd655c5643322778f4a8a2",
+      "source_sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "original_producer_scopes": [
+        {
+          "delta_observation_index": 1,
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+          "json_pointer": "/additional_actual_source_proofs/7",
+          "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row13/proofs/0",
+          "read_ranges_as_recorded": [
+            [
+              15,
+              47
+            ],
+            [
+              550,
+              611
+            ]
+          ],
+          "material_contract_ranges_as_recorded": [
+            [
+              15,
+              47
+            ],
+            [
+              550,
+              611
+            ]
+          ],
+          "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+          "role_as_recorded": null,
+          "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "additional_historical_admission_scopes": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-range-registration.jsonl",
+          "row_1based": 7,
+          "registration_id": "NATIVE-ADMISSION03-REG-007",
+          "original_record": {
+            "id": "NATIVE-ADMISSION03-REG-007",
+            "at": "2026-10-22T06:54:40.530354+00:00",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+            "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+            "snapshot": "native-dependency",
+            "actual_EOF": 1511,
+            "material_ranges": [
+              [
+                1,
+                170
+              ],
+              [
+                550,
+                660
+              ]
+            ],
+            "role": "Exact direct Dir2/Dir3 new/new_unchecked admission and invalid direction errors relied upon by assigned P16 orientation18, preserving prior15\u201347/550\u2013611 roles.",
+            "reason": "Actual P16 orientation from_vector/from_normalized/spatial methods directly call these already-pinned native constructors. Register bounded needed method context before reading; no wholeSDK exemption.",
+            "exclusions": "No unrelated operators/rotation/slerp/foreign tests or whole1511 coverage. Native is_normalized predicate downstream is literal firstparty gate; arithmetic04 independent.",
+            "resolved_path": "CARGO_HOME/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/direction.rs",
+            "status": "registered_before_direct_native_admission_body_analysis"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              1,
+              170
+            ],
+            [
+              550,
+              660
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_math-0.19.1\\src\\direction.rs",
+          "actual_EOF": 1511,
+          "bytes": 50858
+        },
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-range-registration.jsonl",
+          "row_1based": 8,
+          "registration_id": "NATIVE-ADMISSION03-REG-008",
+          "original_record": {
+            "id": "NATIVE-ADMISSION03-REG-008",
+            "at": "2026-10-22T06:55:08.295622+00:00",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+            "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+            "snapshot": "native-dependency",
+            "actual_EOF": 1511,
+            "material_ranges": [
+              [
+                171,
+                205
+              ]
+            ],
+            "role": "Direct Dir2::new_and_length helper invoked153\u2013155 by registered Dir2::new; exact constructor body needed before admission closure.",
+            "reason": "Prior bounded new153\u2013155 delegates this immediately following helper. Register before new body analysis; same pinned native file.",
+            "exclusions": "No unrelated operators/fullSDK/otherlens credit. Preserve prior registrations007 and original ranges.",
+            "resolved_path": "CARGO_HOME/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/direction.rs",
+            "status": "registered_before_direct_native_admission_body_analysis"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              171,
+              205
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_math-0.19.1\\src\\direction.rs",
+          "actual_EOF": 1511,
+          "bytes": 50858
+        }
+      ],
+      "personal_ranges": [
+        [
+          1,
+          205
+        ],
+        [
+          550,
+          660
+        ]
+      ]
+    },
+    {
+      "role": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "package": "parry3d",
+      "version": "0.27.0",
+      "package_checksum": "99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5",
+      "source_sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "original_producer_scopes": [
+        {
+          "delta_observation_index": 2,
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+          "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+          "json_pointer": "/additional_actual_source_proofs/10",
+          "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row23/proofs/0",
+          "read_ranges_as_recorded": [
+            [
+              60,
+              87
+            ]
+          ],
+          "material_contract_ranges_as_recorded": [
+            [
+              60,
+              87
+            ]
+          ],
+          "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+          "role_as_recorded": null,
+          "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+          "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+        }
+      ],
+      "additional_historical_admission_scopes": [],
+      "personal_ranges": [
+        [
+          1,
+          397
+        ]
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "record": "774 camera CAM-PPS-CAMERA-BOUNDARIES-048 proof 7/10",
+      "qualification": "Original camera fresh source receipt direction15\u201347/550\u2013611 and Parry manifest60\u201387, exact source hashes and source identities. Camera found CAM-PPS-F005; actual old claims/repair remain historical. No fabricated owner proof. Redacted vs original-path producer file variants are both exact; selected proofs differ only path, but their whole selected trace also differs current_sources."
+    },
+    {
+      "record": "774 native NATIVE-ADMISSION03-REG-007/008, SOURCE-011/012 and NATIVE-INITIAL05-GROUP-075",
+      "qualification": "Later native admission independently recorded Dir2/3 native source1\u2013205/550\u2013660 and Parry60\u201387. Native aggregate role15 compares semantic1\u2013201/559\u2013616 and marks203\u2013205/550\u2013558/618\u2013660 context only. Do not convert that earlier partial semantic comparison into a whole SDK read; our separate displays do not transfer older lens attribution."
+    },
+    {
+      "record": "774 CAMERA-INITIAL07-CONTRACT-007",
+      "qualification": "Separate camera redundant-authority review reports fresh direction1\u2013205/550\u2013660 and Parry60\u201387. Neither this nor the owner metadata grant personal new-lens credit."
+    },
+    {
+      "record": "059 READ-L11-473 overlay79 and INHERITED-L11-CONTRACT-003",
+      "qualification": "Segovb\u2019s later historical L11 reconciliation reports no fresh body read and reuses direction1\u2013205/550\u2013660, with zero new original credit. Exact receipt/proof retained."
+    },
+    {
+      "record": "059 READ-REVISIT-L12-633-015 and its registration",
+      "qualification": "Independent L12 prospective fresh direction1\u201381/550\u2013611; selected Dir3 semantic559\u2013611 and context550\u2013558. It left glam Vec3 length/cross/scalar division and feature caveats open and did not claim original/other-lens credit."
+    },
+    {
+      "record": "059 root e275 READ-ROOT-L1-CURRENT-079/088/089 and related parallel camera receipts; queue entries2346\u20132348",
+      "qualification": "Original e275 root and parallel personal scopes remain distinct. Earlier root079 already included glam Vec3 scalar-division1419\u20131430, so our corroborating source read is not first evidence. Queue subcontracts belong to ADLER-L11-CAMERA-SEGMENT-ADMISSION; e275 and 95e camera files independently match as individual bytes, but historical source attribution remains e275."
+    },
+    {
+      "record": "prior current ASSESSMENT-CAMERA-CLEARANCE-95E and ASSESSMENT-OWNED-GROUND-SUPPORT-95E; 059 CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION",
+      "qualification": "Existing camera conditional finding and separate sampled-support failure question retain prior reviewer scopes and repair owners. Camera and surface routes are related via native direction rejection but are not automatically duplicates."
+    }
+  ],
+  "observations": [
+    {
+      "id": "DIRECTION-CAMERA-SEGMENT-CORROBORATION",
+      "classification": "existing ADLER-L11-CAMERA-SEGMENT-ADMISSION and historical CAM-PPS-F005 continuation; no new count",
+      "condition": "A computed camera segment has nonzero finite components yet its f32 squared length rounds to zero (or computed length becomes nonfinite); whether real admitted scene inputs produce such a delta is unproved.",
+      "trace": "Current sweep forms endpoint minus origin and maps every Dir3 constructor error to fraction1/no hit without shape cast. Aim substitutes camera direction but preserves the measured muzzle distance; soft occlusion substitutes negative-Z and preserves separately computed subject distance. Bevy new_and_length rejects nonpositive/nonfinite length, with Zero/Infinite/NaN classification based on the completed length. Exact locked glam Vec3 source computes sqrt of componentwise dot. Under ordinary f32 arithmetic a represented nonzero magnitude around 1e-30 has squared magnitude around 1e-60, below f32 minimum subnormal, yielding zero after rounding; this is mathematical reasoning, not a product probe.",
+      "references": [
+        {
+          "id": "sweep",
+          "archive": "support/sweep.rs",
+          "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+          "lines": [
+            [
+              152,
+              180
+            ]
+          ]
+        },
+        {
+          "id": "aim",
+          "archive": "support/aim.rs",
+          "sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+          "lines": [
+            [
+              60,
+              78
+            ]
+          ]
+        },
+        {
+          "id": "occlusion",
+          "archive": "support/occlusion.rs",
+          "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+          "lines": [
+            [
+              83,
+              100
+            ]
+          ]
+        },
+        {
+          "id": "15",
+          "archive": "sources/15-bevy_math-direction.rs",
+          "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+          "lines": [
+            [
+              21,
+              47
+            ],
+            [
+              559,
+              594
+            ]
+          ]
+        },
+        {
+          "id": "math-lib",
+          "archive": "support/math-lib.rs",
+          "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+          "lines": [
+            [
+              103,
+              103
+            ]
+          ]
+        },
+        {
+          "id": "glam-vec3",
+          "archive": "support/glam-vec3.rs",
+          "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+          "lines": [
+            [
+              247,
+              252
+            ],
+            [
+              550,
+              565
+            ]
+          ]
+        }
+      ],
+      "qualification": "Do not infer ordinary scene reachability, a successful shape cast, actual clearance, enabled features, floating-point environment or visible effects. Prior 059 rows2346\u20132348 and prior current assessment cover this family; preserve aim and occlusion as separately conditioned subcontracts.",
+      "later_repair_direction": "After the audit and separately authorized work, choose coherent direction/length/endpoints and explicit zero versus nonzero rejected-query policy while retaining intended camera behavior and separate failure owners."
+    },
+    {
+      "id": "DIRECTION-EAGER-DIVISION-CONTEXT",
+      "classification": "prior L12 open question narrowed with separately attributed source; no new finding",
+      "trace": "Both constructors evaluate value/length as an argument to then_some before checking whether a direction is returned. In exact glam0.32.1 Vec3 Div<f32> implementation, each component uses scalar f32 division; this method contains no glam_assert invocation. The independently registered glam assert macro is feature gated elsewhere, but that fact does not make this selected Vec3 division invoke it. Prior 059 root079 independently read the same native division and keeps its attribution.",
+      "references": [
+        {
+          "id": "15",
+          "archive": "sources/15-bevy_math-direction.rs",
+          "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+          "lines": [
+            [
+              172,
+              184
+            ],
+            [
+              582,
+              594
+            ]
+          ]
+        },
+        {
+          "id": "glam-division",
+          "archive": "support/glam-division.rs",
+          "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+          "lines": [
+            [
+              1419,
+              1428
+            ]
+          ]
+        },
+        {
+          "id": "glam-assert",
+          "archive": "support/glam-assert.rs",
+          "sha256": "4926c68286db038d1ea7601be8b518cbfe7ca2777eb219531f395b74f7d34d3a",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        }
+      ],
+      "qualification": "This only narrows assertion concern for selected Vec3/f32 body. Do not infer other vector implementations, actual target FP exceptions/flush behavior, full feature resolution or any executed panic/return."
+    },
+    {
+      "id": "PARRY-MANIFEST-BOUNDARY",
+      "classification": "native package configuration contract, not application finding",
+      "trace": "Normalized parry3d Cargo manifest declares default required-features/std/spade and required-features dim3/f32, with library required-features entry. Current workspace manifest requests avian3d 3d/f32/parry-f32 with default features disabled, and tactical-core inherits that dependency. Lockfiles select package versions, but declarations alone do not prove the resolved feature graph or a running collision query.",
+      "references": [
+        {
+          "id": "16",
+          "archive": "sources/16-parry3d-Cargo.toml",
+          "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+          "lines": [
+            [
+              1,
+              10
+            ],
+            [
+              57,
+              84
+            ],
+            [
+              106,
+              124
+            ]
+          ]
+        },
+        {
+          "id": "workspace-manifest",
+          "archive": "support/workspace-manifest.toml",
+          "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+          "lines": [
+            [
+              107,
+              114
+            ]
+          ]
+        },
+        {
+          "id": "core-manifest",
+          "archive": "support/core-manifest.toml",
+          "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              14,
+              28
+            ]
+          ]
+        }
+      ],
+      "qualification": "Do not equate the Cargo package metadata with actual selected target features, renderer/physics behavior or product execution."
+    }
+  ],
+  "bounded_nonfindings": [
+    "The upstream Zero class documents zero or very close to zero; it is not proof that the original vector was exactly zero.",
+    "Dir3::new_unchecked explicitly requires normalized input; debug diagnostics alone are not an application policy guarantee, and no unsupported bypass or current invalid caller is claimed.",
+    "The two error and measured segment fallback routes do not automatically share the sampled support owner; their failure contracts and consumers differ.",
+    "Parry default features and workspace requested feature names are configuration declarations, not evidence of actually enabled feature resolution."
+  ],
+  "open_questions": [
+    "Can valid scene producers yield an exact zero, tiny nonzero, overflowed subtraction or nonfinite computed norm on a supported target, and what should each camera query do?",
+    "What are complete current camera aim, soft-occlusion, sweep and surface support callers, feature settings and later acceptance policy? Preserve separate 059 q2346\u20132348 and sampled-support relationships until reconciliation.",
+    "What are actual Avian/Parry feature resolution, native cast semantics, FP mode and allowed scene bounds? No Cargo resolution, physics or runtime behavior was inspected.",
+    "Does any supported deserialize/reflect/unchecked route violate first-party direction admission? Only visible cfg attributes and constructor windows were read; feature expansion and other source remain open."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Camera sweep, aim and soft-occlusion compute a delta and treat Dir3 rejection differently. The exact direction/distance/endpoint relationship and zero policy are existing connected producer issues.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Bevy Dir2/Dir3 and InvalidDirectionError already distinguish normalized direction and native failure classes. Project scene positions, distance and query segments represent additional facts; no replacement owner inferred.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Dir2/Dir3 new check computed vector length finite and positive. new_unchecked has a normalized-vector precondition with debug-only diagnostics; no release admission enforcement follows from the wrapper name.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "glam Vec3 dot and length perform f32 multiplication and square root; very small finite nonzero components can have squared magnitude round to zero under ordinary f32 semantics. Eager then_some computes vector division before gating; selected Vec3/f32 division itself has no glam assertion.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "Direction and original length arise from the same vector in new_and_length; camera fallback direction and separately retained distance may represent a different endpoint. Explicit exact-zero policy and query outcome remain coupled.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 6,
+      "name": "Type ownership",
+      "disposition": "Native Bevy owns numeric direction validity, Parry owns collision-kernel manifest settings, and first-party camera owns segment/failure policy. Do not conflate native error with domain clearance.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "The three current camera representations are related but have different consumers and fallback effects; no conflicting parallel state is established solely by these slices.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Matching package and individual e275/95e source bytes support unchanged source identity only. Maintain intentional zero motion, normal camera behavior, captured failures and no-hit semantics subject to explicit future decisions.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "InvalidDirectionError Zero/Infinite/NaN describe computed length; a caller may need to separate exact zero from nonzero rejected direction, no-hit and query failure. This is an existing conditional family, not an automatic new count.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Native derive and cfg feature declarations are upstream framework facts; unchecked constructor and serialization/reflection potential require separate feature and code-generation evidence before any derivability recommendation.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Unit direction, displacement, endpoint, length, and scalar dimension are distinct. Parry dim3/f32 markers are compilation configuration and not bespoke gameplay owners.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Native error prose, feature names and Cargo source metadata are framework presentation/configuration, not game-state identities. Avoid turning typed failures into early unstructured application text.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Float length, dimension and precision are required by native math/physics APIs; bounded arithmetic checks and explicit physical/query policy remain first-party obligations.",
+      "scope": "Only personally displayed registered source windows; no whole-lens completion."
+    }
+  ],
+  "status": {
+    "discovery": "bounded source-only; no whole-lens completion or checkpoint3821 credit",
+    "repair": "not started",
+    "build_tests_examples_physics_runtime_product_validation": "not performed"
+  }
+}

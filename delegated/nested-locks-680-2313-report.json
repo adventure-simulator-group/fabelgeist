@@ -1,0 +1,245 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:41:28.647844+00:00",
+  "scope": {
+    "original_roles": [
+      680,
+      2313
+    ],
+    "historical_snapshot": "pr-working at recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e with unrelated staged/unstaged/untracked changes; per-file equality to 6533 proved",
+    "registry_comparison_base": "3a50b708381ad00c116445c2c999a49c3943088b; recorded base_sha256 values match this base per file, not the 6533 snapshots",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is historical evidence transport, not product revision",
+    "constraints": "No Cargo resolution, build, test, shader, macro, product execution, runtime probe or repair."
+  },
+  "identities": {
+    "registration": "registration.json",
+    "registration_sha256": "f5c0bdffb425679aaa85dca057d2efaf2176e7ef0772931651e3d6a1172a610f",
+    "package_registration": "package-registration.json",
+    "package_registration_sha256": "0e1e78647498fd12f40a4153d4c4d9b933fb67dadd13224290f2b7b4bf364922",
+    "native_registration": "native-registration.json",
+    "native_registration_sha256": "131f75f19e8aaea4d4b77fc42e71a1646961e14873accf6c9230f1676d11d75b",
+    "feature_support_registration": "feature-support-registration.json",
+    "feature_support_registration_sha256": "04f1e2ff01d819dcadaf1bf364df753ffd7287f9e597d66155f712548cb10710",
+    "comparisons": [
+      {
+        "role": 680,
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "recorded_registry_base_sha256": "e7446afc26aaf978f628c8c2b07269f379bf990bd2cfce58ac78e28bf3164ee3",
+        "historical_6533_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+        "current_95e_sha256": "6d43df2de46078b0b4bb892d533d0236e0826350bafa0c85d418cf1e627225e3",
+        "historical_equal_6533": true,
+        "historical_equal_current": false
+      },
+      {
+        "role": 2313,
+        "path": "crates/fabelgeist-mhr/Cargo.lock",
+        "recorded_registry_base_sha256": "84291a41f3258125af7ac8148db30f314122c22bdec03b44b8b2735f4521773f",
+        "historical_6533_sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+        "current_95e_sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c",
+        "historical_equal_6533": true,
+        "historical_equal_current": false
+      }
+    ],
+    "base_identity": "base-identities.json",
+    "git_proofs": "git-proofs.json",
+    "qualification": "Full lock and selected crate archives retained exactly. The structural package index parses full lock metadata solely for staging and comparison; it grants no personal full-body display, feature resolution or native execution credit."
+  },
+  "personal_read_scope": {
+    "initial": "read-receipt.json",
+    "package_windows": "package-read-receipt.json",
+    "native_windows": "native-read-receipt.json",
+    "feature_support": "feature-support-read-receipt.json",
+    "assigned_lock_unions": "lock-personal-coverage.json",
+    "summary": [
+      {
+        "role": 680,
+        "label": "historical",
+        "displayed_line_count": 228,
+        "unread_line_count": 12082,
+        "EOF": 12310
+      },
+      {
+        "role": 680,
+        "label": "current",
+        "displayed_line_count": 229,
+        "unread_line_count": 12091,
+        "EOF": 12320
+      },
+      {
+        "role": 2313,
+        "label": "historical",
+        "displayed_line_count": 141,
+        "unread_line_count": 6952,
+        "EOF": 7093
+      },
+      {
+        "role": 2313,
+        "label": "current",
+        "displayed_line_count": 142,
+        "unread_line_count": 6960,
+        "EOF": 7102
+      }
+    ],
+    "qualification": "Historical and current independent new displays; complement remains unread by this packet. Old 059 and earlier mhr reads are separately preserved and are not merged into this personal coverage."
+  },
+  "prior_attribution": [
+    {
+      "record": "774 RIG-OWNER-CARGO-016",
+      "source": "history-774/audit-existing-type-owners/rig/coverage.jsonl.gz lines94\u201395, contracts.jsonl.gz line17, cargo-native-config-inventory.json.gz; audit-producer-propagation/rig/sources.json.gz rows0 and155",
+      "scope": "Rig recorded full requested lock ranges and producer source_read_complete while explicitly describing full standard-library TOML structured metadata decode, not manual full source read; 1064 and 661 package rows. Retain original status and method, without claiming personally displayed full bodies or native execution."
+    },
+    {
+      "record": "059 lens11_reconcile e275 child lock prior source",
+      "source": "queue-selection-reconstructed.json entries2937,2938,3711; history-059 READ-194/195/197, PLAN-212/213/214 and root READ/VERIFY 730/731/733",
+      "scope": "Original agent personally recorded each child initial 1\u2013150; other separately registered continuation intervals contribute to the Creator full qualified same-lens union, with no single whole-file fresh display. MHR lock has specific remaining unread material in the 059 record. Root adoption/verification and original e275 attribution stay separately preserved; exact source equality to 95e is a per-file proof, not credit transfer."
+    },
+    {
+      "record": "Prior /root/mhr_character metadata packet",
+      "source": "prior-mhr/BUNDLE-MANIFEST.json and prior-mhr/lock-read-coverage.json; prior-mhr-index.json",
+      "scope": "At the earlier historical 6533 and 95e MHR lock review this same author displayed header and selected package windows only: historical 195/7093 and current 198/7102 lines; the remainder remained unread. The exact prior manifest/receipts/registrations and historical authorship remain separate. The prior verifier was not run."
+    },
+    {
+      "record": "059 ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#browser-canvas-js-cause204",
+      "source": "queue-selection-reconstructed.json entry2271; history-059 READ-159/160, PLAN-179/180 and root READ/VERIFY 695/696",
+      "scope": "Earlier lens11_reconcile independently read e275 WGPU context and pinned web-sys 0.3.103 OffscreenCanvas member; root records and source/version attribution remain separate from this packet."
+    }
+  ],
+  "observations": [
+    {
+      "id": "LOCK-GRAPH-DISTINCT-WGPU",
+      "disposition": "Prior dependency-source obligation independently reconnected; no new product finding.",
+      "source": [
+        "source/680-current.toml:30",
+        "source/680-current.toml:64",
+        "source/680-current.lock:1914",
+        "source/680-current.lock:1964",
+        "source/680-current.lock:2914",
+        "source/680-current.lock:3566",
+        "source/680-current.lock:3901",
+        "source/680-current.lock:3927",
+        "source/680-current.lock:11103",
+        "source/680-current.lock:11132",
+        "source/2313-current.lock:1622",
+        "source/2313-current.lock:6340"
+      ],
+      "detail": "Creator lock associates bevy_render 0.19.1 with wgpu 29.0.4; its burn-wgpu to cubecl to cubecl-wgpu metadata points to wgpu 30.0.1. Both source selectors/checksums are distinct. MHR contains cubecl-wgpu and a wgpu 30.0.1 entry; the metadata-only full package index found one wgpu version in that child lock. These are dependency-catalogue associations and do not prove target-selected features or a runtime interop failure."
+    },
+    {
+      "id": "WEB-SYS-EXACT-CANVAS-MEMBER",
+      "disposition": "New bounded evidence connecting previously distinct 0.3.103 and 0.3.105 package identities; do not relabel old whole-package evidence or create a duplicate finding.",
+      "source": [
+        "source/root-current.lock:11473",
+        "source/680-current.lock:11031",
+        "source/2313-current.lock:6296",
+        "source/web-sys-0.3.103-canvas.rs:48",
+        "source/web-sys-0.3.105-canvas.rs:48",
+        "source/web-sys-0.3.103-features-mod.rs:6469",
+        "source/web-sys-0.3.105-features-mod.rs:6602",
+        "source/gpu-manifest-current:34",
+        "source/gpu-context-current:193"
+      ],
+      "detail": "95e root lock pins web-sys 0.3.103 checksum 8622dcb61c0bcc9fffa6938bed81210af2da9a7e4a1a834b2e37a59b6dfb6141; both 6533 and 95e child locks pin 0.3.105 checksum 9fbddc4a036f00ec4f18c83445bd3115cb306a91da554919a099d9222fe4a7f8. Exact locally recovered archives match those checksums. Their independently displayed gen_OffscreenCanvas.rs members are byte-identical SHA-256 254a020b8c525a480fcc0bab0a517eb333bd273075298553559b548ef8b83c50. Both expose new -> Result<OffscreenCanvas, JsValue>, gate the module by OffscreenCanvas, and declare OffscreenCanvas -> EventTarget. Other native members, compiler selection, feature unification and browser behavior are not covered."
+    },
+    {
+      "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#browser-canvas-js-cause204",
+      "disposition": "Existing 059 source finding reconnected, not counted again.",
+      "source": [
+        "source/gpu-manifest-current:34",
+        "source/gpu-context-current:193",
+        "source/gpu-context-current:203",
+        "source/web-sys-0.3.105-canvas.rs:48"
+      ],
+      "detail": "The current manifest requests the OffscreenCanvas feature under wasm32, and the current wasm32 presentation path maps the constructor JsValue error to fixed text. Actual wasm32/feature activation, presentation reachability and a thrown error are not established; independently proven matching member does not transfer old reader attribution."
+    },
+    {
+      "id": "CHILD-MANIFEST-DELTA",
+      "disposition": "Bounded observed metadata difference, no product failure established.",
+      "source": [
+        "source/680-historical.toml:8",
+        "source/680-current.toml:8",
+        "source/680-current.toml:22",
+        "source/680-current.lock:118",
+        "source/2313-current.toml:8",
+        "source/2313-current.lock:2377"
+      ],
+      "detail": "Compared manifests make bevy_egui and egui_extras optional within offline-creator and add spade to Creator; current MHR adds a direct derive_more declaration and its lock package dependency. These observations do not prove all lock changes, feature compatibility, or successful resolution."
+    }
+  ],
+  "open_questions": [
+    "Which target, Cargo command, feature unification and root versus child workspace are intended for each actual consumer? No Cargo invocation or selected-feature proof exists in this packet.",
+    "Can the web-sys 0.3.105 source archive be used for any other API or backend requirement? Only the OffscreenCanvas member and selected module/feature declarations were inspected; no whole-package equivalence is implied.",
+    "Does the wasm32 presentation path occur, and does retaining its thrown JsValue matter to an actual consumer? No browser or product call ran.",
+    "Are other child lock package bodies, remaining source intervals and all thirteen lenses independently assessed? No: per-packet unread ranges are recorded; historic structured parses and other reviewers do not erase them.",
+    "Original checkpoint3821 final ledger/queue remains missing; central reconciliation, alias and publication decisions remain open."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "The two child-workspace manifests and lock package references retain separate package identities. wasm32 GPU code consumes OffscreenCanvas under a presentation branch; actual target/feature activation remains unproved.",
+      "bounded": true
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "Cargo package identities and dependency associations are Cargo-native metadata. Bevy/WGPU29 and Burn/CubeCL/WGPU30 have distinct versioned owners; exact package member provenance is required.",
+      "bounded": true
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "A lock package checksum identifies a registry archive, not an enabled API; both native OffscreenCanvas modules gate the type by feature. No Cargo feature selection or target build was performed.",
+      "bounded": true
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "The old and current selected lock tuples retain separate source and checksum values; matching one generated source member does not prove whole-crate equivalence.",
+      "bounded": true
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "Lock version, package version, source, checksum, dependency references and actual manifest feature/target context form one identity contract; any one field alone cannot resolve the build graph.",
+      "bounded": true
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Child locks belong to their own workspace contexts, while root lock is another Cargo context. Do not transfer a root dependency version or native proof across those boundaries by name.",
+      "bounded": true
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "Two WGPU versions are separately referenced by recorded Bevy and CubeCL paths. Their coexistence is not itself a conflicting authority or an incompatibility finding.",
+      "bounded": true
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "A future dependency or feature change must preserve the intended target selection and externally observable behavior; these bounded static windows provide no build or runtime acceptance.",
+      "bounded": true
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "Cargo feature arrays and Rust result types encode different native boundaries; no bespoke enum redesign is supported by these lock stanzas.",
+      "bounded": true
+    },
+    {
+      "lens": "derivability",
+      "observation": "Generated Cargo lock tables and wasm bindings remain native formats and generated source; no first-party handwritten boilerplate defect follows.",
+      "bounded": true
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "A crate release versus a single generated member, a target-specific feature declaration and an instantiated runtime canvas are distinct scopes. Identical member bytes do not equate package releases.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "Git revisions, Cargo source selectors, checksums and feature names are native resolver metadata; their correctness and provenance differ from arbitrary application text.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "Package versions and checksum fields identify different dependency releases; two WGPU majors do not prove arithmetic, ABI or backend behavior is compatible or incompatible.",
+      "bounded": true
+    }
+  ],
+  "verification": "Offline verify-evidence.py checks original registry and records, exact lock, base and archive identities, prospective registrations and personal read partitions, original 059 receipts, previous MHR selected copies, and raw Git proofs. BUNDLE-MANIFEST.json covers all packet files except root manifest itself; no old verifier was invoked."
+}

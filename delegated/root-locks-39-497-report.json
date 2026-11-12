@@ -1,0 +1,92 @@
+{
+  "schema": "726-bounded-lock-source-audit-v1",
+  "created_utc": "2026-11-12T05:40:14.428912+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "registration": "registration.json",
+  "personal_receipt": "read-receipt.json",
+  "source_proof": "git-proofs.json",
+  "history": "historical/recovery-and-prior-index.json",
+  "scope": "Only original roles39 and497 selected windows; 95e manifests, native manifests and archive checks are support. No full-role or full-lens completion is asserted.",
+  "identity": {
+    "physical_p16": "role39 SHA256 1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201, 13103 lines. Registry labels snapshot dirty physical-p16 at a120; object differs from a120 base. f82 transports exact recovered registry object, never a project revision.",
+    "pr_working": "role497 SHA256 82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce, 13102 lines. Per-file Git proofs show bytes equal a120 clean base and 6533 HEAD; registry defines the snapshot as HEAD plus existing changes and lists four unrelated modified files; this is not a clean-tree assertion.",
+    "current": "95e Cargo.lock SHA256 cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73, Git blob 8cee024c538ebc473ef64c709eaba8c585fa4c55, 12545 lines. Each source copy was separately displayed in its own registered windows.",
+    "p16_patch": "Later recovered tracked.patch matches registry SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; tracked delta excludes seven untracked objects, whose hashes are separately recorded. Original diff-generation command, uninterrupted custody and filesystem metadata are not established. Later recovery supersedes only older contemporaneous missing-patch status."
+  },
+  "observations": [
+    {
+      "id": "LOCK-39-497-SAMPLED-PACKAGE-IDENTITY",
+      "classification": "source-backed package identity support; no new defect count",
+      "references": [
+        "P16 Cargo.lock 3428–3436,8551–8576,9768–9784,10220–10256,10303–10327,10373–10405,10947–10972",
+        "pr-working Cargo.lock 3427–3435,8550–8575,9767–9783,10219–10255,10302–10326,10372–10404,10946–10971",
+        "95e Cargo.lock 3259–3267,8202–8227,9371–9387,9761–9797,9844–9868,9914–9946,10475–10500"
+      ],
+      "detail": "Independently displayed stanzas pin the same registry package/version/checksum for serde-saphyr 1.2.0, tiny-skia 0.11.4, tiny-skia-path 0.11.4, bytemuck 1.25.2 and spacetimedb, bindings-macro, lib and sats 2.6.1 in all three. Both png 0.17.16 and 0.18.1 are present; the tiny-skia stanza names png 0.17.16 specifically. The archived four crate hashes match each corresponding observed registry checksum in each lock.",
+      "qualifications": "Presence, registry checksum and dependency metadata are not proof of platform selection, enabled features, dynamic reachability, product usage, correct behavior, whole package inspection or equivalent historical/current project behavior."
+    },
+    {
+      "id": "LOCK-39-497-P16-MODULE-METADATA",
+      "classification": "corroboration of existing published mechanical delta; no defect count",
+      "references": [
+        "P16 Cargo.lock 256–275",
+        "pr-working Cargo.lock 256–274",
+        "95e Cargo.lock 256–274",
+        "prior/LOCKFILE-DELTA.json",
+        "mechanical-comparison.json"
+      ],
+      "detail": "P16 adventuresim-stdb-module stanza includes fabelgeist-geometry, absent from the corresponding pr-working and 95e stanza. Independent full-file metadata-only comparison of the two historical lock files identifies one differing package record and no added/removed package keys. This is evidence of recorded lock metadata, not proof of build correctness or a dependency issue. Existing LOCKFILE-DELTA current snapshot c100 is an older reported source and is not a 95e comparison."
+    },
+    {
+      "id": "LOCK-FEATURE-OBLIGATION",
+      "classification": "existing unresolved feature and usage obligation, not a new product finding",
+      "references": [
+        "95e Cargo.toml 130–140,159",
+        "95e adventuresim-core/Cargo.toml 9–11,21–30,32–42",
+        "95e adventuresim-weapon-model/Cargo.toml 8–14",
+        "serde-saphyr-1.2.0 Cargo.toml 50–55,81–83",
+        "tiny-skia-0.11.4 Cargo.toml 46–48,54–64"
+      ],
+      "detail": "Project declarations request workspace serde-saphyr in normal and build dependencies and tiny-skia for weapon-model; core spacetimedb is optional and selected by its named feature. External serde-saphyr serde_derived_types is separately optional and outside its listed defaults; tiny-skia declares png optional and png-format in defaults. These declarations do not settle feature unification across workspace, target, host/build dependencies or compile configurations.",
+      "history": "Prior /root/hair_ops options report flags a conditional native Options missing-field default divergence if the optional feature is activated and actually used, distinct from graphics f32 admission; tiny-skia report links native PNG error ownership to historical q124 and current assessment. Do not count the same site again; no evidence here establishes native usage or either failure."
+    }
+  ],
+  "historical_attribution": {
+    "774_owner": "Raw historical/774-root-owner-coverage.jsonl lines 1–2 attribute full lines 1–13103 and 1–13102 to root as full_stdlib_native_format_metadata ROOT-OWNER-METADATA-001, not my read or whole semantic/other-lens completion. Historical camera row 602 attributed to camera records pr-working 1227–1278 and 8279–8302, bounded current-lens contract CAM-OWN-NATIVE-PHYSICS-PORT-071.",
+    "774_native": "Native registration 016 covers P16 10243–10256,10303–10327,10373–10405 and its local qualification only namespace/dependency route. Registration 079 covers pr-working requested 10219–10256,10302–10327,10372–10405, finally narrowed to 10219–10255,10302–10326,10372–10404. Registration 096 requested 10436–10467 and finally narrows to 10436–10466. These preserve native historical attribution and differing context, do not transfer any read credit or later-lens closure.",
+    "059": "Exact original queue in recovered/ and explicitly reconstructed selections rows 72,124,1303,1791; Adler READ-L11-217 and READ-L11-328 exact prior copied originals. q72/q1303 concern graphics source admission and parser dependency; q124 concerns icon PNG error cause; q1791 identifies previously unread native Pixmap tail. Their recorded old revisions/readers, original zero ordered credit and pending scope stay historical, never checkpoint3821.",
+    "earlier_self": "Previous own pr-working support lock reads 9767–9783 (saphyr-errors receipt) and 10944–10964 (tiny-skia receipt); earlier current support 9370–9408 (saphyr-errors), 9370–9418 (saphyr-options), 3259–3270 and 10473–10503 (tiny-skia). Those records are preserved separately; fresh reads in this packet are not an inferred transfer.",
+    "evidence": "Historical registrations, 059 receipts and 774 files remain exact bytes, via original hashes and f82 paths. Selections are marked reconstructed, prior reports are later assessments, and current results are newly assessed. No 3821 final source/ledger has been recovered."
+  },
+  "nonfindings": [
+    "Matched checksums show each selected archive matches named lock content, not that every transitive dependency is safe or executed.",
+    "Two PNG versions are not themselves evidence of duplication or a defect; tiny-skia specifically records 0.17.16.",
+    "Different lock contents do not alone establish a defect or migration need.",
+    "No new standalone supported-reachability product finding established by these windows."
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Sampled core and weapon lock edges and 95e declarations; full producer, feature and consumer graphs remain open.",
+    "existing_type_owners": "Package identifiers and checksums own dependency provenance; inspect actual application type and native API before assigning repair ownership.",
+    "admission_contracts": "Lock entries do not establish input admission, parser reachability or enabled-feature policy; old 059 graphics admission remains separately qualified.",
+    "invariant_operations": "Package pin equality does not prove operation-level invariants or behavior; previous native findings remain conditional and separately attributed.",
+    "aggregate_states": "Lock identity, Cargo manifest declarations and selected feature/target graph jointly determine meaningful dependency evidence; only first two are bounded here.",
+    "type_ownership": "Registry package identity differs from project Git revision and from application owner boundaries.",
+    "redundant_authority": "Different old/current files and duplicate png versions do not themselves prove competing authorities.",
+    "behavior_preservation": "Recorded P16 module edge and current core edge differ from old records; no build or actual behavior comparison.",
+    "enum_shapes": "No app enum contract shown by the selected Cargo metadata; semantic product code remains outside this read.",
+    "derivability": "Optional external serde_derived_types feature identified; no activated derive or generated code inferred.",
+    "type_granularity": "PNG 0.17.16/0.18.1 and separate SpacetimeDB packages remain distinct identities, not flattened by name.",
+    "magic_strings": "Registry locator, crate names and checksums are format provenance fields, not automatically candidates for bespoke application strings.",
+    "magic_numbers": "Version constraints and checksums follow package format; no raw number migration is supported by a lock pin alone."
+  },
+  "open_questions": [
+    "Which feature sets, targets and host/build graphs actually resolve in supported workflows, including serde_derived_types, core spacetimedb and tiny-skia png-format?",
+    "Which package versions, package source algorithms, applications and transitive consumers not sampled remain relevant to open 059/774 and current findings?",
+    "Is any supported caller using derived Options deserialization, tiny-skia borrowed/pixel paths or native typed PNG causes? This packet does not establish those paths.",
+    "What is the exact cross-lens alias or ledger disposition for package-specific open questions and old records? Central owns reconciliation.",
+    "Most historical/current Cargo.lock bodies remain personally unread; receipt lists exact complements. Original root metadata coverage and this bounded work do not close the 13-lens population."
+  ],
+  "future_repair_direction": "After audit completion and separate authorization, attach each affected first-party owner, precise supported feature graph and upstream/downstream boundary to the existing repair ledger before deciding any dependency, ownership or adapter change; preserve distinct error and parser policies. No repair started.",
+  "validation": "Only read-only evidence-integrity verification, archive/hash checks, Git source membership, Python stdlib metadata comparison and source text inspection; no cargo, product, build, test, fixture, image, parser, macro, probe or runtime execution."
+}

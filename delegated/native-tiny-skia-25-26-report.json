@@ -1,0 +1,139 @@
+{
+  "schema": "726-bounded-native-source-audit-v1",
+  "created_utc": "2026-11-12T05:17:01.021713+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Native tiny-skia 0.11.4 original roles25\u201326; original rig historical 46\u201347, 155\u2013182 and producer additional 385\u2013430 preserved, independent fresh full bodies read. Package is crates.io, not project Git; f82 only transports recovery. 6533-based pr-working historical lock is an individual object in a snapshot with unrelated modifications.",
+  "identity": {
+    "tiny_skia_archive_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+    "current_lock": "95e Cargo.lock 10475\u201310488",
+    "historical_lock": "recovered pr-working Cargo.lock 10946\u201310959",
+    "match": "Both name tiny-skia 0.11.4, registry source and matching checksum 83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab; exact recovered role bytes equal crate members, cache and f82 recovered objects.",
+    "support_locks": "Current lock pins bytemuck 1.25.2 at 3259\u20133266 and tiny-skia-path 0.11.4 at 10490\u201310499; both support archives match their lock checksums. Cargo manifest tiny-skia 46\u201364 makes PNG feature optional and enabled by its default list; first-party project Cargo.toml:159 and weapon-model Cargo.toml:13 request the workspace dependency. Actual target feature resolution beyond this source declaration remains open."
+  },
+  "roles": [
+    {
+      "index": 25,
+      "source": "source/role-25.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "read": [
+        [
+          1,
+          66
+        ]
+      ],
+      "unread": [],
+      "original_rig_owner": [
+        [
+          46,
+          47
+        ]
+      ],
+      "original_rig_producer": [
+        [
+          46,
+          47
+        ]
+      ]
+    },
+    {
+      "index": 26,
+      "source": "source/role-26.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "read": [
+        [
+          1,
+          603
+        ]
+      ],
+      "unread": [],
+      "original_rig_owner": [
+        [
+          155,
+          182
+        ]
+      ],
+      "original_rig_producer": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "SUPPORT-EXISTING-ICON-PNG-CAUSE-25-26",
+      "classification": "Fresh source corroboration of existing q124, 774 rig RIG-OWNER-F012/RIG-PPS-F010; no additional counted first failure",
+      "trace": [
+        "tiny-skia Cargo.toml:46\u201348,54\u201364 defines optional png 0.17 and default png-format; pixmap.rs:170\u2013174 and 389\u2013419 returns png::EncodingError and propagates PNG header/image-write errors.",
+        "95e weapon-model icon.rs:95\u2013113 delegates WeaponIcon::encode_png to studio and defines IconError::Png(String); studio.rs:107\u2013114 constructs dimensions, requires an exactly sized Pixmap::from_vec and maps the native error to error.to_string() before returning. This is a real typed-cause erasure at the reusable application boundary; retained message text does not retain the native value."
+      ],
+      "conditions": "No PNG encoding or application was run, and no actual encoder error, consumer that branches on it, or target-specific feature graph is established. Invalid dimensions/buffer are distinct pre-encoding paths.",
+      "historical_relationship": "774 rig RIG-OWNER-CLIENT-EQUIPMENT-026 and RIG-PPS-022/F010 recorded the exact native and first-party cause relationship; 059 Adler READ-L11-328/q124 independently recorded original connected ranges 155\u2013182 and 385\u2013430 with zero additional ordered role credit. Current ASSESSMENT-WEAPON-IDENTITY-95E already addresses the same application site. q1791 additionally preserved unread native tails; present independently read full role is new bounded evidence, not a transfer of historical read credit.",
+      "future_direction": "After audit and separate authorization, preserve the concrete native encoding cause through the first-party icon result until the actual final presentation boundary, retaining invalid-size/buffer distinctions and intended bytes. Reconcile dependency exposure/features and all callers centrally."
+    },
+    {
+      "id": "CANDIDATE-NATIVE-PIXEL-ROW-ALIAS-25-26",
+      "classification": "Newly assessed conditional native source contract mismatch; no demonstrated product reachability or accepted duplicate count",
+      "trace": [
+        "tiny-skia pixmap.rs:238\u2013243 and 348\u2013353 promise None for an out-of-bounds position but compute width*y+x and only bounds-check the resulting one-dimensional pixel slice. For a 2\u00d72 exact-length pixmap, x=2,y=0 forms index2, which lies within the four-element slice and addresses the next row even though x is out of width. The checked arithmetic prevents overflow but does not check each coordinate.",
+        "Pixmap::from_vec validates exact buffer length at 56\u201368; tiny-skia-path size.rs:13\u201330 and lib.rs:62\u201363 admit nonzero 2\u00d72 dimensions. PixmapRef uses the same formula; its permissive borrowed-buffer extent at pixmap.rs:293\u2013306 can also expose trailing complete pixels for out-of-height coordinates."
+      ],
+      "conditions": "This is mathematical reasoning from source only; neither the example nor any pixmap was constructed or rendered. The current registered studio path calls from_vec and encode_png, not pixel; filename-only search found no direct .pixel( in weapon-model and no explicit PixmapRef/PixmapMut names in searched project crates apart from the tiny_skia import in studio. Aliases, generated/client-excluded code, transitive native callers and all usage remain unproved.",
+      "historical_relationship": "Old rig and Adler assessed only encoding windows, and q124 concerns typed PNG cause at a different first site. 059 q1791 explicitly says native pixmap tails unread. A bounded keyword search of original queue and 774 original wave records did not find this coordinate-contract first site; no global uniqueness or alias decision claimed.",
+      "future_direction": "If the external API or a supported application caller needs this documented contract, establish explicit x<width and y<height checks before addressing while preserving in-bounds pixel behavior; determine upstream ownership and any downstream caller policy before any authorized repair."
+    },
+    {
+      "id": "CANDIDATE-NATIVE-OVERSIZED-BORROWED-SLICE-25-26",
+      "classification": "Newly assessed conditional native admission/operation mismatch; no demonstrated product reachability or accepted count",
+      "trace": [
+        "pixmap.rs:293\u2013306 and 451\u2013465 explicitly accept a byte slice whose length is at least the minimum and retain the full slice. pixmap.rs:356\u2013358 and 518\u2013520 cast the full slice to PremultipliedColorU8, a transparent [u8;4] type (tiny-skia color.rs:91\u2013100).",
+        "For a 1\u00d71 size, four bytes are required; an otherwise valid five-byte borrowed slice passes the length check, yet is not divisible into four-byte pixels. Locked bytemuck 1.25.2 lib.rs:405\u2013429,496\u2013515 and internal.rs:247\u2013272,353\u2013373,381\u2013405 reject slop and cast_slice/cast_slice_mut panic on error. Thus a subsequent pixels()/pixels_mut(), and PixmapMut::fill which calls pixels_mut at pixmap.rs:503\u2013507, can panic rather than work on the admitted four-byte image region.",
+        "With a larger excess divisible by four, pixmap.rs:312\u2013316,356\u2013358 and 503\u2013507 instead expose/copy/mutate the whole slice, including bytes beyond the declared image extent; exact desired handling of an oversized borrowed slice is the documented at-least contract to reconcile."
+      ],
+      "conditions": "The stated sizes are mathematical reasoning, not a generated input or executed image. Requires a supported caller to supply an oversized borrowed buffer and access the related operations. Current studio uses the exact-length owned Pixmap::from_vec and does not prove this route. All direct/indirect consumers and native package policies remain open.",
+      "historical_relationship": "The earlier 774 rig and 059 Adler native windows concern encoding, not inspected from_bytes/pixels admissions. q1791 expressly retains pixmap unread tail. It is related to but not automatically the same first site as the pixel-coordinate candidate or q124; central determines aliases and counts.",
+      "future_direction": "If this public boundary is relevant, reconcile documented at-least admission with region-limited slice storage/operations or an explicitly changed admission contract; preserve correct exact-buffer behavior and decide upstream owner before any authorized repair."
+    }
+  ],
+  "nonfindings": [
+    "Current studio encode uses Pixmap::from_vec, which checks exact RGBA byte length before entering the encoder; borrowed-slice findings do not establish a failure on that path.",
+    "The integer dimensions, RGBA byte representation, optional PNG dependency and native png error are concrete format boundaries; no blanket bespoke-type replacement or code change follows from their primitive shape.",
+    "No target-specific feature graph, app rendering, PNG bytes, decode outcome or runtime behavior has been verified."
+  ],
+  "historical_attribution": {
+    "774": "Original rig current-lens owner read Cargo.toml46\u201347 and pixmap155\u2013182; RIG-PPS-022 separately adds pixmap385\u2013430. Both original root-scope registry rows and exact rig source records retained. Registry row values 87/86 correspond to JSONL physical 1-based lines 88/87, respectively; no silent row-index rewrite.",
+    "059": "inherited-coverage.jsonl records roles25/26 as accounted_no_new_finding, with role26 ranges155\u2013182 and385\u2013430. Adler READ-L11-328 and REGISTRATION-ADLER-977 record a fresh connected reinspection of only those same windows and zero additional original frontier credit; q124 concerns PNG cause and q1791 marks the rest unread then. None becomes checkpoint3821 or another reader\u2019s current source credit.",
+    "current_prior": "Prior /root/rig_identity screen-armor packet assessed icon bounds and current caller ranges as separate support; its report/manifest/receipt are included unchanged. Current central ASSESSMENT-WEAPON-IDENTITY-95E addresses PNG error; central owns alias reconciliation.",
+    "identity_and_qualifications": "One fresh full display of each native body; recovered archive, package, cache and Git-object equality do not count additional reads. 95e current Cargo.lock is project Git; native crates retain package identities. Historical pr-working lock is separate 6533-based dirty snapshot source."
+  },
+  "lens_perspectives": {
+    "producer_propagation": "Owned pixmap -> PNG native error -> icon wrapper is traced in current sources; alternate source images and callers remain open.",
+    "existing_type_owners": "png::EncodingError already owns the native cause; first-party IconError provides the contextual boundary.",
+    "admission_contracts": "Owned pixmap exact buffer and borrowed pixmap minimum buffer differ; admitted oversized borrowed slices can conflict with later casts.",
+    "invariant_operations": "Linear pixel addressing checks scalar overflow and final slice index, but not x/y independently; full-slice casts require lengths divisible by four.",
+    "aggregate_states": "Image dimensions, stride and underlying borrowed byte extent must stay coherent; excess may be exposed or mutated.",
+    "type_ownership": "Native pixmap semantics and PNG encoding belong to tiny-skia/png; game-specific icon/context and source identity belong to weapon-model.",
+    "redundant_authority": "Borrowed size plus unsliced capacity can describe different extents; this does not by itself prove conflicting application authorities.",
+    "behavior_preservation": "Fresh exact package identity matches historical and current locks; no image execution or output equivalence verified.",
+    "enum_shapes": "IconError already separates invalid spec/rasterization/PNG cases; its PNG payload is still text.",
+    "derivability": "Native Pixmap and color have specific Clone/Copy/Pod behavior in sampled source; no broad derive cleanup is justified.",
+    "type_granularity": "Pixel coordinate dimensions, RGBA buffers, encoded PNG and diagnostic errors have distinct contracts; do not use logical game geometry types for byte codec ports.",
+    "magic_strings": "First-party PNG error to_string erases typed cause before reusable return; external encoder error text remains native diagnostic output.",
+    "magic_numbers": "Four byte RGBA and positive image dimensions are format constraints, not arbitrary gameplay quantities; other pixel and sizing policies remain open."
+  },
+  "open_questions": [
+    "Do any supported first-party, generated, transitive or third-party consumers use tiny-skia Pixmap::pixel, PixmapRef/Mut::from_bytes or aliases on these inputs?",
+    "What behavior is intended for oversized borrowed bytes: should excess remain accessible, be ignored, be forbidden, or be used for an explicit stride?",
+    "What is the actual resolved PNG feature/dependency graph for supported targets and what consumers need the concrete native cause?",
+    "Are either candidate already represented in any not-yet-inspected ledger/issue or upstream record? Central must decide aliases without duplicate counting.",
+    "No product build, image operation, runtime probe, test, or validation has occurred; all thirteen global lens populations remain incomplete."
+  ],
+  "implementation": "not started",
+  "validation": "not performed; no image operations, parser, builds, tests, fixtures, rendering or product execution."
+}

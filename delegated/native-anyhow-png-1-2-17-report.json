@@ -1,0 +1,458 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:18:27.990445+00:00",
+  "scope": {
+    "original_roles": [
+      1,
+      2,
+      17
+    ],
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "original_project_snapshot": "pr-working, recorded 6533e444fa37552927070cc8d8190907fd3b413e base with unrelated working changes",
+    "p16_snapshot": "dirty physical-p16; recorded base a120390947c89b703dc74c4255a13c035d054c50, not the dirty Cargo.lock bytes; recovered tracked patch excludes seven untracked files",
+    "historical_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not product revision",
+    "restrictions": "Static evidence only; no product, encoding, parsing, macro execution, build, test, fixture, or probe."
+  },
+  "identity": {
+    "registration": "registration.json",
+    "registration_sha256": "778507f6617e93a634dc527f66eddb99295ee5bd0026e3b029c7efb63992cb2e",
+    "support_registrations": [
+      {
+        "file": "support-registration.json",
+        "sha256": "3b48a8cfc1d2bc202930a7586b26856fcaf7d4bd677c29e187eba51e1a2930d6"
+      },
+      {
+        "file": "support2-registration.json",
+        "sha256": "b37b991f8f75769a30d31a75b4c22ae87c2a0d3871ea0e3d4efce0483a6ed873"
+      },
+      {
+        "file": "support3-registration.json",
+        "sha256": "b2eaaf39cf8bf3708b05ecca964718f590187fb1f75ca96f45495fda5759196c"
+      },
+      {
+        "file": "support4-registration.json",
+        "sha256": "48ac22dbea1196ba20f840250575854196b310c0c4ba6789eff07a2563b79939"
+      }
+    ],
+    "native_package_archives": {
+      "anyhow": {
+        "name": "anyhow",
+        "version": "1.0.104",
+        "archive": "source/anyhow-1.0.104.crate",
+        "sha256": "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470",
+        "bytes": 48819,
+        "cache_source": "<LOCAL_PATH_0>",
+        "manifest_member": "anyhow-1.0.104/Cargo.toml",
+        "manifest_archive": "source/anyhow-1.0.104-Cargo.toml",
+        "manifest_sha256": "249789761ff37004dda628765f0c9e60a61fa43cbbd2d364789dca0c789eeb59"
+      },
+      "png": {
+        "name": "png",
+        "version": "0.17.16",
+        "archive": "source/png-0.17.16.crate",
+        "sha256": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+        "bytes": 117975,
+        "cache_source": "<LOCAL_PATH_1>",
+        "manifest_member": "png-0.17.16/Cargo.toml",
+        "manifest_archive": "source/png-0.17.16-Cargo.toml",
+        "manifest_sha256": "4005257603189350db6db75e67238a990f31ccbf0d2f54f24fc4877aea8b4b56"
+      }
+    },
+    "locks": [
+      {
+        "label": "p16",
+        "revision": null,
+        "archive": "source/p16-Cargo.lock",
+        "path": "Cargo.lock",
+        "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "git_blob": "f0068932e5c3980690b241f7c2aff8a7a09686e9",
+        "bytes": 306149,
+        "EOF": 13103,
+        "package_stanzas": [
+          {
+            "package": "anyhow",
+            "present": true,
+            "package_record": {
+              "name": "anyhow",
+              "version": "1.0.104",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
+            },
+            "registered_range": [
+              840,
+              844
+            ]
+          },
+          {
+            "package": "png",
+            "present": true,
+            "package_record": {
+              "name": "png",
+              "version": "0.17.16",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+              "dependencies": [
+                "bitflags 1.3.2",
+                "crc32fast",
+                "fdeflate",
+                "flate2",
+                "miniz_oxide 0.8.9"
+              ]
+            },
+            "registered_range": [
+              8551,
+              8562
+            ]
+          }
+        ],
+        "registered_ranges": [
+          [
+            840,
+            844
+          ],
+          [
+            8551,
+            8562
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "qualification": "P16 is recorded dirty snapshot, not its a120 base. A lock record proves package identity, not resolved features or runtime use."
+      },
+      {
+        "label": "historical_pr",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "archive": "source/historical_pr-Cargo.lock",
+        "path": "Cargo.lock",
+        "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "git_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+        "bytes": 306125,
+        "EOF": 13102,
+        "package_stanzas": [
+          {
+            "package": "anyhow",
+            "present": true,
+            "package_record": {
+              "name": "anyhow",
+              "version": "1.0.104",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
+            },
+            "registered_range": [
+              839,
+              843
+            ]
+          },
+          {
+            "package": "png",
+            "present": true,
+            "package_record": {
+              "name": "png",
+              "version": "0.17.16",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+              "dependencies": [
+                "bitflags 1.3.2",
+                "crc32fast",
+                "fdeflate",
+                "flate2",
+                "miniz_oxide 0.8.9"
+              ]
+            },
+            "registered_range": [
+              8550,
+              8561
+            ]
+          }
+        ],
+        "registered_ranges": [
+          [
+            839,
+            843
+          ],
+          [
+            8550,
+            8561
+          ]
+        ],
+        "transport_path": null,
+        "qualification": "P16 is recorded dirty snapshot, not its a120 base. A lock record proves package identity, not resolved features or runtime use."
+      },
+      {
+        "label": "current",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "archive": "source/current-Cargo.lock",
+        "path": "Cargo.lock",
+        "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+        "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+        "bytes": 293260,
+        "EOF": 12545,
+        "package_stanzas": [
+          {
+            "package": "anyhow",
+            "present": true,
+            "package_record": {
+              "name": "anyhow",
+              "version": "1.0.104",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
+            },
+            "registered_range": [
+              835,
+              839
+            ]
+          },
+          {
+            "package": "png",
+            "present": true,
+            "package_record": {
+              "name": "png",
+              "version": "0.17.16",
+              "source": "registry+https://github.com/rust-lang/crates.io-index",
+              "checksum": "82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526",
+              "dependencies": [
+                "bitflags 1.3.2",
+                "crc32fast",
+                "fdeflate",
+                "flate2",
+                "miniz_oxide 0.8.9"
+              ]
+            },
+            "registered_range": [
+              8202,
+              8213
+            ]
+          }
+        ],
+        "registered_ranges": [
+          [
+            835,
+            839
+          ],
+          [
+            8202,
+            8213
+          ]
+        ],
+        "transport_path": null,
+        "qualification": "P16 is recorded dirty snapshot, not its a120 base. A lock record proves package identity, not resolved features or runtime use."
+      }
+    ],
+    "project_support_per_file_comparisons": [
+      {
+        "original_index": 708,
+        "recorded_snapshot": "pr-working",
+        "historical_sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+        "6533_sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+        "95e_sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+        "historical_equal_6533": true,
+        "historical_equal_current": true,
+        "qualification": "Per-file identity only; historical snapshot has unrelated working changes."
+      },
+      {
+        "original_index": 765,
+        "recorded_snapshot": "pr-working",
+        "historical_sha256": "a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+        "6533_sha256": "a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+        "95e_sha256": "4e65cd862aff1f268f9fedc0a953073acb93c57b0578a9f8e2c8a08ed6b8acce",
+        "historical_equal_6533": true,
+        "historical_equal_current": false,
+        "qualification": "Per-file identity only; historical snapshot has unrelated working changes."
+      },
+      {
+        "original_index": 2100,
+        "recorded_snapshot": "pr-working",
+        "historical_sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+        "6533_sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+        "95e_sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+        "historical_equal_6533": true,
+        "historical_equal_current": true,
+        "qualification": "Per-file identity only; historical snapshot has unrelated working changes."
+      },
+      {
+        "original_index": 2102,
+        "recorded_snapshot": "pr-working",
+        "historical_sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+        "6533_sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+        "95e_sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+        "historical_equal_6533": true,
+        "historical_equal_current": true,
+        "qualification": "Per-file identity only; historical snapshot has unrelated working changes."
+      }
+    ],
+    "additional_comparisons": [
+      {
+        "historical_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+        "6533_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+        "current_sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+        "historical_equal_6533": true,
+        "historical_equal_current": false
+      },
+      {
+        "historical_sha256": "827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+        "6533_sha256": "827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+        "current_sha256": "827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+        "historical_equal_6533": true,
+        "historical_equal_current": true
+      }
+    ],
+    "tiny_archive": {
+      "archive": "support/tiny-skia-0.11.4.crate",
+      "sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab"
+    },
+    "proofs": "git-proofs.json",
+    "qualification": "Exact .crate checksums match individually recorded lock stanzas and archive members match original transport objects. Cargo.lock does not resolve selected features or prove execution. No whole-tree cleanliness or source coverage follows from a file identity."
+  },
+  "personal_read_scope": {
+    "assigned_and_lock": "personal-read-receipt.json",
+    "bounded_support": [
+      "support-read-receipt.json",
+      "support2-read-receipt.json",
+      "support3-read-receipt.json",
+      "support4-read-receipt.json"
+    ],
+    "qualification": "Only displayed numbered windows qualify. Full archived source bytes are recoverable but unread complements remain unread. Current support and historical supplier reads are separate. Failed reversed-filename support displays produced no source and are noted in receipts."
+  },
+  "historical_relationships": [
+    {
+      "ref": "774 rig owner RIG-OWNER-F016 / RIG-OWNER-EQUIPMENT-EXPORT-036",
+      "evidence": "history-774/audit-existing-type-owners/rig/findings.jsonl.gz line16 and contracts.jsonl.gz line37; owner additional-sources.jsonl.gz zero-based rows111\u2013112",
+      "scope": "Historical rig owner recorded anyhow error.rs 32\u201387,138\u2013190,780\u2013810 and wrapper.rs 1\u201340. Its source-backed cause-chain discovery was unrepaired; no read credit transfer."
+    },
+    {
+      "ref": "774 rig owner RIG-OWNER-F012 / RIG-OWNER-CLIENT-EQUIPMENT-026; producer RIG-PPS-F010 dedup RIG-OWNER-F012",
+      "evidence": "history-774/audit-existing-type-owners/rig/findings.jsonl.gz line12; producer-supplement-after-owner/rig/findings.jsonl.gz line10; traces.jsonl.gz row21 /fresh_current_source_reads/14",
+      "scope": "Historical owner png encoder 20\u2013165 (additional-sources row88); historical producer independently recorded same 20\u2013165. Keep each supplier and lens separate."
+    },
+    {
+      "ref": "059 ADLER-L11-ICON-PNG-ERROR-OWNERSHIP, queue /entries/124",
+      "evidence": "059-selection-reconstructed.json; original adler/READ-L11-328.json and its registrations, original /root/lens12_frontier segovb/READ-L12-706.json and separate native view",
+      "scope": "059 L11 recorded historical icon.rs 1\u2013521, studio.rs 1\u2013114 and tiny pixmap 155\u2013182,385\u2013430; independent L12 source scopes and author are preserved in the original receipts. No newer checkpoint 3821 claim."
+    },
+    {
+      "ref": "current weapon assessment and 059 reconciliation /entries/124",
+      "evidence": "reference/assessment-weapon-identity-95e.json and reference/reconciliation-059.json",
+      "scope": "Prior 95e source-connected PNG finding, no separate count or transferred personal reads; central decides aliases and ledger."
+    }
+  ],
+  "finding_recheck": [
+    {
+      "id": "RIG-OWNER-F016",
+      "disposition": "Independently confirmed current typed producer, adapter and native wrapper source; nested-cause reachability remains open. Do not count as new.",
+      "evidence": [
+        "support/765-current.rs:137",
+        "support/765-current.rs:141",
+        "support/765-current.rs:151",
+        "support/producer-current.rs:109",
+        "support/producer-current.rs:118",
+        "support/producer-current.rs:142",
+        "support/rig-current.rs:44",
+        "support/rig-current.rs:55",
+        "support/rig-error-current.rs:54",
+        "support/708-current.rs:17",
+        "support/708-current.rs:22",
+        "support/708-current.rs:27",
+        "source/native-1.rs:38",
+        "source/native-1.rs:75",
+        "source/native-1.rs:166",
+        "source/native-1.rs:180",
+        "source/native-2.rs:10",
+        "source/native-2.rs:31"
+      ],
+      "reason": "If generate_clothing_shells returns a ClothingError whose own source chain is nonempty, msg wraps that typed payload in MessageError, whose implementation lacks source delegation; its vtable still permits direct payload downcast. The inspected rig.span may return RigJointLookupError and the ClothingError MissingLandmark variant is transparent, but macro expansion and the existence of a further inner source were not established. NormalOffset is declared with a source; its shown construction is in GarmentSpecification before the generator call and bypasses this map_err, so it is not proof of this exact failure at this call.",
+      "historical_comparison": "The historical 765 file equals 6533 but differs from 95e: skin-weight access changes at 146\u2013147 while map_err at 151 remains. The producer also differs per-file, while 708 and rig.rs match.",
+      "future_repair_direction": "Resolve the actual reachable error/source variants, transparent-derive behavior, callers, feature/configuration and acceptance policy before considering standard typed error conversion."
+    },
+    {
+      "id": "RIG-OWNER-F012 / RIG-PPS-F010 / ADLER-L11-ICON-PNG-ERROR-OWNERSHIP",
+      "disposition": "Independently re-observed current adapter behavior and linked existing records; count once after central reconciliation.",
+      "evidence": [
+        "support/2100-current.rs:95",
+        "support/2100-current.rs:101",
+        "support/2102-current.rs:107",
+        "support/2102-current.rs:113",
+        "support/tiny-pixmap.rs:170",
+        "source/native-17.rs:23"
+      ],
+      "reason": "If PNG encoding returns an error, tiny-skia exposes owned png::EncodingError and studio converts it into String before returning IconError::Png. Original and 95e icon/studio files match exactly; no error was induced.",
+      "future_repair_direction": "Consider retaining the native owned error across the reusable icon boundary with dependency feature access and terminal-display behavior resolved later."
+    }
+  ],
+  "nonfindings_and_questions": [
+    "The native png 0.17.16 From<EncodingError> for io::Error (120\u2013123) formats to a string; no project path using this reverse conversion was established, so it is native source context rather than an additional product finding.",
+    "png EncodingError implements deprecated cause (53\u201360), not source in this visible impl; do not assert a preserved std::error::Error::source chain from the cause method or native enum payload alone.",
+    "At the actual generator call the nonempty ClothingError source chain, especially transparent MissingLandmark behavior and any reachable NormalOffset, remains unproved. Source signature and attributes do not prove macro expansion.",
+    "Whether these exact failures are reachable in current workflows, user-facing terminal policy, selected package features and every adapter/caller remain open; no negative or positive runtime inference.",
+    "Other Error::msg callers and the png writer body remain unread; no blanket API defect, whole-crate coverage, whole-lens completion, adoption, product validation or checkpoint 3821 reconstruction is claimed.",
+    "Recorded 059 and 774 statements are historical evidence, not automatically fresh 95e reads; actual unchanged file bytes and independently registered current ranges are separately proved."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "generate_clothing_shells returns ClothingError, and equipment_export 141\u2013151 maps it through Error::msg; PNG EncodingError flows through tiny-skia Pixmap and is formatted at studio 112\u2013113. Nested-cause reachability and error consumers remain bounded.",
+      "bounded": true
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "ClothingError and png::EncodingError are actual native/bespoke error owners before adapters; precise feature exposure and application policy remain open.",
+      "bounded": true
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "Error::msg accepts Display+Debug+Send+Sync rather than requiring StdError; its standard error alternative has a stricter trait contract. Feature cfg and all other constructors remain unread.",
+      "bounded": true
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "Two distinct conversions transform the carried diagnostic state: Error::msg suppresses delegated source; studio to_string discards the owned PNG error. No runtime operation was performed.",
+      "bounded": true
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "An error payload, its downcast identity, display and nested source have independent properties; retaining a direct payload is not evidence of a retained nested cause.",
+      "bounded": true
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Keep the project and native error ownership boundaries distinct; a prospective future repair must resolve dependency and native port without inferring that third-party source should change.",
+      "bounded": true
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "No independent duplicate source-of-truth defect established in these bounded constructor and adapter windows.",
+      "bounded": true
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Future work should retain direct typed cause, current user-facing message, invalid dimensions versus rasterization categories, and native feature/port behavior; applicability and consumers need review.",
+      "bounded": true
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "EncodingError distinguishes IoError, Format, Parameter and LimitsExceeded, while IconError Png(String) preserves only a broad category and text.",
+      "bounded": true
+    },
+    {
+      "lens": "derivability",
+      "observation": "The inspected generic wrapper and enum implementations are native library protocol; no source-supported first-party boilerplate change is established.",
+      "bounded": true
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "ClothingError, nested GeometryError, EncodingError, io::Error and presentation string serve different roles; no type equivalence follows from display text.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "The studio to_string is an early diagnostic projection, not evidence that all final display strings are inappropriate. Other strings and consumers are not covered.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "The registered material contains native source line, dimensions and enum metadata; no independent primitive-unit defect is established from these scopes.",
+      "bounded": true
+    }
+  ],
+  "verification": "verify-evidence.py checks offline source/archive/lock identity, original record hashes, registrations/receipts, raw Git-tree proofs and historical native supplier ranges. BUNDLE-MANIFEST.json checks every packet file except itself. These are evidence checks, not product validation.",
+  "central_ownership": "Parent owns baseline, checkpoint publication, coverage accounting and cross-lens/repair-ledger reconciliation. No unique count or implementation approval asserted."
+}

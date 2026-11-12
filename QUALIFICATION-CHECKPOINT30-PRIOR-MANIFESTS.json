@@ -1,0 +1,34 @@
+{
+  "schema": "726-prior-manifest-additive-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
+  "qualification": "Each retained prior packet manifest was copied as historical reference but was omitted from the later frozen packet manifest. The bytes are bound separately here and match their previously published packet manifest. No earlier manifest was modified; the separately bound bytes do not grant historical or checkpoint3821 read credit.",
+  "entries": [
+    {
+      "bundle_id": "mixed-quality-2434-2452-2470-2475",
+      "unlisted_nested_prior_manifest": "historical/prior/quality/MANIFEST.json",
+      "sha256": "a6256e9360504dc37c75eb51cc068af6b2a71b12ce7842ce01936ff0714a3bb5",
+      "bytes": 38834,
+      "prior_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-9.json",
+      "prior_bundle": "quality-rules",
+      "prior_member": "MANIFEST.json"
+    },
+    {
+      "bundle_id": "sats-semantic-queue-2561-2562",
+      "unlisted_nested_prior_manifest": "history/prior/macro/MANIFEST.json",
+      "sha256": "0ba2e375bc7c19ba47bad08676489bc1065e7ffd9c1fd4819c23c3aa2f24bbdf",
+      "bytes": 17821,
+      "prior_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+      "prior_bundle": "stdb-macro",
+      "prior_member": "MANIFEST.json"
+    },
+    {
+      "bundle_id": "sats-semantic-queue-2561-2562",
+      "unlisted_nested_prior_manifest": "history/prior/namespace/MANIFEST.json",
+      "sha256": "1bb1cd766967f97e9bc39615046b0c1508ea6fa82db9633728e684e28aeeeb31",
+      "bytes": 18438,
+      "prior_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-21.json",
+      "prior_bundle": "sats-namespace-2672-2674",
+      "prior_member": "MANIFEST.json"
+    }
+  ]
+}

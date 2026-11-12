@@ -1,0 +1,182 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:22:12.966597+00:00",
+  "scope": {
+    "original_roles": [
+      2524,
+      2525
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16": "Dirty recorded physical-p16 snapshot at base a120390947c89b703dc74c4255a13c035d054c50; both specific archived files match that base and 95e. Other snapshot changes remain; recovered tracked patch excludes seven untracked files.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports recovered objects and is not a product revision.",
+    "source_only": "No configuration, YAML, macros, tests, fixtures, products, probes, repairs or builds executed."
+  },
+  "identities": {
+    "registration": "registration.json",
+    "registration_sha256": "68a7ad6b1150734a6123fa5c97cf2469cb6552b8d4b8f72994312722049b983e",
+    "support_registration": "support-registration.json",
+    "support_registration_sha256": "59158cbf8e917ae09e9279449850dacb0e243d003ac0c6a767f8306c58148196",
+    "comparisons": [
+      {
+        "role": 2524,
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+        "p16_sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+        "base_a120_sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+        "current_95e_sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+        "p16_equals_base": true,
+        "p16_equals_current": true,
+        "base_equals_current": true
+      },
+      {
+        "role": 2525,
+        "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+        "p16_sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+        "base_a120_sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+        "current_95e_sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+        "p16_equals_base": true,
+        "p16_equals_current": true,
+        "base_equals_current": true
+      }
+    ],
+    "git_proofs": "git-proofs.json",
+    "previous_current_e275": "Separate e275 Git proofs bind the old root read receipts to the same file bytes, not their read credit."
+  },
+  "personal_reads": {
+    "assigned": "read-receipt.json",
+    "support": "support-read-receipt.json",
+    "qualification": "For each snapshot independently: role2524 55\u2013115, role2525 1\u201326. Full archived body is not full review. Support ranges are separate; config tests appearing in 731\u2013745 are static source only."
+  },
+  "prior_attribution": [
+    {
+      "record": "774 RIG-OWNER-REACHED-PRODUCER-REGISTER-038",
+      "source": "history-774/continuation/rig/owner-reached-producer-followup/additional-sources.jsonl.gz line38 and source-qualifications.jsonl.gz line38",
+      "scope": "Original row source_id physical-p16 with snapshot field p16; registered 68\u2013110, qualified material 73\u201386 and 104\u2013110. Displayed max/translated 87\u2013101 were explicitly excluded from that supplier operation credit. Our own wider 55\u2013115 reads do not rewrite that qualification.",
+      "limits": "Producer acceptance and owner delta pending; no previous lens/repair credit assumed."
+    },
+    {
+      "record": "774 CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-012",
+      "source": "history-774/continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl.gz line12",
+      "scope": "camera supplier original 2525 historical physical-p16 registration full 1\u201326. The local registration and proposed owner-fit queue are preserved; they are not proof of global acceptance."
+    },
+    {
+      "record": "059 SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION / queue entry260",
+      "source": "history-059/segovb/READ-L12-603.json and READ-L12-588.json; queue-selection-reconstructed.json",
+      "scope": "Segovb L12 personally read historical pr-working grounding 1\u2013407 at 6533, then used a qualified same-lens reuse in batch603; fresh 603 apron 1\u2013281. No current 95e or independent different-lens credit transfers."
+    },
+    {
+      "record": "059 root e275 L1 current receipts 029 and 071",
+      "source": "history-059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-029.json and READ-ROOT-L1-CURRENT-071.json",
+      "scope": "Segovb root personally read e275 defaults 1\u201326 and grounding 73\u2013110. Receipt071 also records inherited same-lens supplier full 1\u2013407, explicitly not a root personal full reread. Equality proof does not transfer reads."
+    },
+    {
+      "record": "Published earlier 95e trace",
+      "source": "reference/assessment-support-interval-95e.json /current_supporting_sources/7 and reference/assessment-scenario-clock-config-95e.json /current_supporting_sources/9",
+      "scope": "The published trace records grounding 68\u2013110,100\u2013250,300\u2013390 and defaults 1\u201325. Its original attribution and source scope remain separate from this review."
+    }
+  ],
+  "finding_relationships": [
+    {
+      "id": "SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION",
+      "status": "Existing 059 historical finding and prior conditional current assessment; not counted again.",
+      "new_personal_source_refs": [
+        "source/2524-current.rs:73",
+        "source/2524-current.rs:81",
+        "source/2524-current.rs:104",
+        "source/support-apron.rs:120",
+        "source/support-apron.rs:128",
+        "source/support-apron.rs:143"
+      ],
+      "observation": "from_metres and deserialization reject nonfinite values; floor_interval constructs both SupportElevation endpoints directly after ramp and step arithmetic. The previously assessed extreme finite operand overflow, policy admissibility, intersection and selected-floor safeguard are prior-source analysis, not a newly executed or fully retraced case.",
+      "future_direction": "Decide whether interval bounds may intentionally be unbounded; inspect real policy/doorway producers and downstream selection. Preserve crossed finite infeasibility and avoid blanket limits without policy."
+    },
+    {
+      "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+      "status": "Related earlier 95e candidate, not deduplicated solely on default loader and not recounted.",
+      "new_personal_source_refs": [
+        "source/2525-current.rs:6",
+        "source/2525-current.rs:11",
+        "source/2525-current.rs:16",
+        "source/2525-current.rs:24",
+        "source/support-config.rs:725"
+      ],
+      "observation": "The compiled loader deserializes and validates its embedded canonical config and Default clones that canonical instance. A separate earlier assessment connected selected-vs-default review fixture behavior; this packet did not personally retrace its selected config or fixture code.",
+      "future_direction": "Determine the intended selected-vs-canonical owner for each actual caller; later validation is outside this source-only task."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "from_metres accepts negative finite and zero; no unsupported nonnegative restriction should be inferred. translated checks the arithmetic result, while max does not by itself prove every constructor and producer.",
+    "GateDatum point calls Position::from_metres after adding elevation, but the implementation of that position constructor and all callers were not personally read in this packet.",
+    "No individual malformed embedded YAML or actual runtime configuration was loaded; the shown source branches do not establish any panic happened or that all dynamic config users share the compiled default.",
+    "Original role2524 material ranges and unread source complement remain explicit; original supplier and this author have independent scope even where bytes overlap. Cross-lens aliases, owner decisions, final ledger and checkpoint3821 evidence remain open."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "GateDatum::from_metres delegates to SupportElevation admission and retains the typed datum. PreparedApron constructs typed interval endpoints directly after arithmetic; producer reachability and interval policy remain open.",
+      "bounded": true
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "SupportElevation owns finite signed scene metres; GateDatum carries it for a gate-relative conversion. The compiled TacticalCombatConfig default owner is separate from any selected runtime configuration.",
+      "bounded": true
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "SupportElevation::from_metres and Deserialize require finite values; direct same-module constructor sites must independently satisfy this invariant. Default YAML is parsed into the typed config and validated before canonical exposure.",
+      "bounded": true
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "translated readmits the sum and reports NonFinite; apron directly constructs floor endpoints after ramp/step computation. The previously documented conditional overflow requires actual producer reachability.",
+      "bounded": true
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "FloorConstraints holds two endpoints and permits crossed finite bounds as infeasibility according to the source comment; do not reorder them or presume all typed inputs guarantee feasible aggregate.",
+      "bounded": true
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Architecture-level elevation, gate coordinate frame and tactical combat configuration have distinct authorities. Future policy changes require their owner and consumer evidence.",
+      "bounded": true
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "A canonical compiled default and a selected runtime configuration can intentionally differ; earlier review-fixture mismatch depends on chosen semantics and is not newly proved here.",
+      "bounded": true
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Negative and zero finite elevations are admitted; invalid compiled defaults panic. Any future change must preserve accepted values, typed error order and explicit selected-vs-canonical configuration policy.",
+      "bounded": true
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "No distinct enum-shape defect is established from these bounded leaf windows; optional/absent support and crossed interval meanings require their owning consumer reads.",
+      "bounded": true
+    },
+    {
+      "lens": "derivability",
+      "observation": "Handwritten Deserialize calls finite admission; blindly deriving deserialization would remove its explicit check. No unnecessary implementation claim is supported.",
+      "bounded": true
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "Signed elevations, signed offsets, scene positions and gate-relative positions are related but distinct semantic roles; a numeric-unit similarity does not make owners interchangeable.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "Compiled-default panic strings format terminal diagnostics; old L12 classification and dynamic error consumer questions are preserved, without inferring private string protocol from this window.",
+      "bounded": true
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "ZERO is a legitimate finite datum and constants/read ranges are not evidence of a new primitive misuse; extreme arithmetic is a conditional prior finding rather than blanket cap justification.",
+      "bounded": true
+    }
+  ],
+  "verification": "verify-evidence.py verifies registered sources and displayed/unread partitions, recovered original 059 and 774 records, 18 raw Git path proofs and relevant P16 identity/patch qualifications. BUNDLE-MANIFEST.json covers all packet files except itself. This is evidence verification only.",
+  "central_ownership": "Parent controls baseline, coverage accounting, aliases, ledger and checkpoint publication."
+}

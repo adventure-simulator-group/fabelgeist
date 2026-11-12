@@ -1,0 +1,464 @@
+{
+  "schema": "726-bounded-bevy-native-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T05:10:04.437010+00:00",
+  "scope": {
+    "original_roles": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "authority": "bevy_app/bevy_asset/bevy_ecs registry packages version 0.19.1 with exact archive checksums; package identity distinct from project Git",
+    "project_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_project_head_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "dirty_pr_working": "Original registry records unrelated modifications and role1692 status object modified; 6533 is recorded head, not a clean snapshot or the dirty file itself.",
+    "coverage": "Only source windows in read-receipt and support receipts; exact complement unread. No role or whole-lens completion inferred."
+  },
+  "assigned_reads": [
+    {
+      "role": 3,
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "package": "bevy_app",
+      "version": "0.19.1",
+      "package_checksum": "5fd2aa472d43b4d081ef41d26300d17bd22cba6d68df2a223eb358782fa40bc6",
+      "source_sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "original_registered_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "nonexistent_original_tail": []
+    },
+    {
+      "role": 4,
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "package": "bevy_asset",
+      "version": "0.19.1",
+      "package_checksum": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+      "source_sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "original_registered_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "nonexistent_original_tail": [
+        [
+          130,
+          159
+        ]
+      ]
+    },
+    {
+      "role": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "package": "bevy_asset",
+      "version": "0.19.1",
+      "package_checksum": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+      "source_sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "original_registered_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "nonexistent_original_tail": []
+    },
+    {
+      "role": 6,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "package": "bevy_ecs",
+      "version": "0.19.1",
+      "package_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "source_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "original_registered_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "nonexistent_original_tail": []
+    },
+    {
+      "role": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "package": "bevy_ecs",
+      "version": "0.19.1",
+      "package_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "source_sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "original_registered_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "nonexistent_original_tail": []
+    },
+    {
+      "role": 8,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "package": "bevy_ecs",
+      "version": "0.19.1",
+      "package_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "source_sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "original_registered_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "personal_registered_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "nonexistent_original_tail": []
+    }
+  ],
+  "historical_relationships": [
+    {
+      "record": "774 rig RIG-OWNER-ASSET-CAUSE-020 / RIG-OWNER-F006",
+      "qualification": "Original rig historical finding: preserve owned event.error and path through status, deduplicated there against earlier producer wave; no repair or validation. Native role4 recorded requested 1\u2013159, but actual EOF129. Exact redacted and original-path supplier rows retained; rig rows differ in path only."
+    },
+    {
+      "record": "774 native NATIVE-OWNER-OBSERVER-001 / NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "qualification": "Historical native reviewer additionally inspected function/observer port and P16 command chain, concluding required owning observer-failure readback was unfinished; those P16 records and personal scopes are not ours and no current product verdict follows. Original supplier metadata for roles3,6\u20138 has read_status null; separate native framework-port and range-coverage explicitly record bounded old reads. Native selected supplier variants differ in path and native_source_path, not byte-identical."
+    },
+    {
+      "record": "774 RIG-ADMISSION03-CONTRACT-013/014, CAMERA-INITIAL07-CONTRACT-005/006, NATIVE-INITIAL05-GROUP-020/064/065",
+      "qualification": "Separately attributed historical lens reviews; role4 reinspection corrected to 1\u2013129 in the relevant admission, camera and native aggregate records. Other original scopes and context exclusions remain as recorded in exact historical objects; do not transfer their read credit."
+    },
+    {
+      "record": "059 READ-L11-244 and registrations 526/530, queue entries 91/92",
+      "qualification": "Exact recovered receipt/registrations retained with original byte hashes. Adler recorded role1692 1\u2013226 and independently reinspected role4 1\u2013129 as connected support with zero original frontier credit; corrected nonexistent130\u2013159. Related issues ADLER-L11-STRATEGIC-ASSET-FAILURE-CAUSE-OWNERSHIP and ADLER-L11-NATIVE-ASSET-EVENT-EOF-PROVENANCE remain historical, not a new product error or checkpoint3821."
+    },
+    {
+      "record": "prior current ASSESSMENT-STRATEGIC-STATUS-CENSUS-95E.json",
+      "qualification": "Prior independently attributed current support role1692 1\u2013207 and same asset-cause item, with separate tactical loading and GPU observations and lifecycle caveats. This packet independently displayed only current 1\u2013120 and 180\u2013207; it does not take credit for prior full reading."
+    }
+  ],
+  "observations": [
+    {
+      "id": "BEVY-STATUS-CAUSE-CURRENT-REASSESSMENT",
+      "classification": "existing ADLER-L11-STRATEGIC-ASSET-FAILURE-CAUSE-OWNERSHIP corroborated at 95e; no new count",
+      "condition": "A failed asset notification is read by capture_asset_failures and its path satisfies is_required_scene_asset; other event reachability, filtering and retries unverified.",
+      "trace": "Native event carries id, AssetPath and AssetLoadError; server failure path propagates cloned native cause. Current SceneAssetFailure retains a formatted path and status_error selects it only if scene.error is absent. The display can intentionally be a string but the typed cause and full identity were already lost in the earlier retained state.",
+      "references": [
+        {
+          "id": "4",
+          "archive": "sources/4-bevy_asset-event.rs",
+          "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+          "lines": [
+            [
+              26,
+              43
+            ]
+          ]
+        },
+        {
+          "id": "5",
+          "archive": "sources/5-bevy_asset-mod.rs",
+          "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+          "lines": [
+            [
+              2086,
+              2108
+            ],
+            [
+              2352,
+              2417
+            ],
+            [
+              2419,
+              2441
+            ]
+          ]
+        },
+        {
+          "id": "current",
+          "archive": "support/current-status.rs",
+          "sha256": "3a17db60e7f3371d1040442ac335fa84371b8ab9eee2eba20ea36ae2397b686a",
+          "lines": [
+            [
+              63,
+              91
+            ],
+            [
+              194,
+              207
+            ]
+          ]
+        },
+        {
+          "id": "dirty-past",
+          "archive": "support/dirty-past-status.rs",
+          "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+          "lines": [
+            [
+              85,
+              100
+            ],
+            [
+              213,
+              226
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Coordinate original native cause/identity retention through the final serialization boundary with asset readiness, separately assessed loading/texture failures, and supported retry/reset policy. Preserve material outcome behavior pending owner decisions."
+    },
+    {
+      "id": "BEVY-OBSERVER-PORT-HISTORICAL-CONTEXT",
+      "classification": "source-confirmed native contract and historical NATIVE-OWNER-F009 relationship, no independently established current first-party defect",
+      "condition": "If a default observer runner gets RunSystemError::Failed, it uses a per-observer or world fallback error handler. A BevyError created by the generic From conversion defaults to Panic severity, subject to explicit later severity or handler choices.",
+      "trace": "The function system accepts output conversion through IntoResult; inspected implementations include ordinary output, RunSystemError and BevyError. The default observer runner invokes the handler with BevyError and Observer context; only if the handler returns does it queue deferred operations. Generic From boxes the input and sets Panic. The built-in fallback matches severity; project handler setup and specific producer/command path at 95e were not examined.",
+      "references": [
+        {
+          "id": "3",
+          "archive": "sources/3-bevy_app-app.rs",
+          "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+          "lines": [
+            [
+              1468,
+              1483
+            ]
+          ]
+        },
+        {
+          "id": "6",
+          "archive": "sources/6-bevy_ecs-bevy_error.rs",
+          "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+          "lines": [
+            [
+              53,
+              86
+            ],
+            [
+              399,
+              415
+            ]
+          ]
+        },
+        {
+          "id": "7",
+          "archive": "sources/7-bevy_ecs-handler.rs",
+          "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              104,
+              121
+            ],
+            [
+              127,
+              146
+            ]
+          ]
+        },
+        {
+          "id": "8",
+          "archive": "sources/8-bevy_ecs-mod.rs",
+          "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+          "lines": [
+            [
+              70,
+              82
+            ]
+          ]
+        },
+        {
+          "id": "function-system",
+          "archive": "support/function-system.rs",
+          "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+          "lines": [
+            [
+              576,
+              612
+            ]
+          ]
+        },
+        {
+          "id": "observer-runner",
+          "archive": "support/observer-runner.rs",
+          "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+          "lines": [
+            [
+              110,
+              124
+            ]
+          ]
+        }
+      ],
+      "future_direction": "For each actual fallible observer, inspect configured handler, owning operation, typed error admission and command-level state/readback before choosing a propagation contract. Retain NATIVE-PP-018 as historical; no automatic current alias or extra count."
+    },
+    {
+      "id": "BEVY-ASSET-EVENT-EOF-PROVENANCE",
+      "classification": "historical coverage qualification, not product finding",
+      "trace": "Original role4 requests 1\u2013159; the exact 0.19.1 archive member and f82 recovered object both end at 129. The 059 and 774 subsequent records already expressly make the same correction.",
+      "references": [
+        {
+          "id": "4",
+          "archive": "sources/4-bevy_asset-event.rs",
+          "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+          "lines": [
+            [
+              1,
+              129
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "bounded_nonfindings": [
+    "Native failed asset typed/untyped messages are two projections of one inspected internal event; this source alone does not establish separate authorities or duplicate load failures.",
+    "Native ErrorContext variants attach payload to distinct contexts; no invalid coupling demonstrated in the inspected source.",
+    "Do not infer native callback handler selection, application outcome, all producer paths, retry behavior, feature selection or package use at runtime from lock entries and source alone.",
+    "Manual trait implementations, diagnostic formatting and native deprecated alias are SDK facts; no blanket refactor is established."
+  ],
+  "open_questions": [
+    "Which actual 95e asset requests, path predicates, source/label identities, retry/reset lifecycle and current consumers lead to this receiver? What cause and identity should be shown or retained across those transitions?",
+    "Which real observer callbacks at pinned 95e are fallible, what error conversion and per-observer/fallback handler do they use, and how is an authoritative command result read back? Is NATIVE-PP-018 still current?",
+    "Do bounded current and historical status differences affect accepted paths or lifecycle? Separately compare status precedence, loading-screen and texture-residency ownership before any alias or new count.",
+    "What cfg/features, targets, application construction and relevant runtime behavior actually apply? Lock selection and source-only review do not resolve them."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "The typed AssetLoadError and identity arrive at the native event but 95e strategic status retains formatted path text only for events accepted by its required-asset predicate; producer, retry and reset reachability remain open.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Native AssetLoadError and AssetPath already exist; reuse is an existing historical and current cause-ownership issue, not an invented new error type. BevyError is a native callback owner, not an authoritative domain result.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Public asset event fields admit construction of notifications; declaration alone does not authenticate actual load history. BevyError constructor admits a range of error sources and explicit severity; no application policy inferred.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "The native runner sends RunSystemError::Failed to the installed or fallback handler, then queues deferred actions if the handler returns; the default severity path can panic. No transactional or caller-readback guarantee follows.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "The untyped event carries matching id, path and owned error together. Independent retention as path-only text loses original identity and cause; actual event origin and retry transitions require separate evidence.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 6,
+      "name": "Type ownership",
+      "disposition": "Native types own native failure details; strategic retained-state ownership and the observer command result are distinct first-party boundaries. Existing historical directions remain connected without automatically merging the issues.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Typed and untyped event deliveries are native projections of one failure in the inspected path, not by themselves evidence of conflicting authorities. Scene status priority and possible other receivers need lifecycle review.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "95e and 6533 root/character-creator locks independently select exact same package identities; this neither proves same product behavior nor resolves cfg, platform or handler configuration.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "AssetLoadError, AssetEvent and ErrorContext carry variant-specific payloads; preserving error states and any supported retry needs an actual product policy decision, not a cosmetic enum conversion.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "AssetEvent uses manual traits and the native handler and error types have intentional generic/cfg structures. No safe blanket derive change is established from this bounded source.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Asset ID, AssetPath, AssetLoadError, observer context and command result denote different facts. Loss of the first three at the status receiver is connected to the known 059 item, not proof of a universal error abstraction.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Native diagnostics and final serialized status legitimately contain strings; current status formats path text before retaining the native failure cause. Human-facing wording and disclosure policy remain questions.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Observer tick and framework identifiers in the inspected APIs are native operational representations; no gameplay primitive violation is established in these windows.",
+      "scope": "These registered source windows only; not whole-lens completion."
+    }
+  ],
+  "status": {
+    "discovery": "bounded source-only; no whole-lens or checkpoint3821 clearance",
+    "repair": "not started",
+    "builds_tests_fixtures_runtime_product_validation": "not performed"
+  }
+}

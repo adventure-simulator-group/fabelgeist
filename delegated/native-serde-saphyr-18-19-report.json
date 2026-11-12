@@ -1,0 +1,151 @@
+{
+  "schema": "726-bounded-native-source-audit-v1",
+  "created_utc": "2026-11-12T05:09:42.901531+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_source": "Original roles18\u201319 are native-dependency serde-saphyr 1.2.0; f82 is evidence transport, not native package or 95e project revision. The earlier pr-working Cargo.lock is a separate recovered role497 object from a 6533-based snapshot with unrelated modifications, not a clean-tree proof.",
+  "identity": {
+    "package": "serde-saphyr 1.2.0 from crates.io",
+    "archive": "native/serde-saphyr-1.2.0.crate",
+    "archive_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "current_lock": "95e Cargo.lock 9371\u20139386",
+    "historical_lock": "recovered pr-working role497 Cargo.lock 9767\u20139783",
+    "proof": "Both lock stanzas use registry+https://github.com/rust-lang/crates.io-index and the identical package checksum, which equals the preserved archive SHA256. Both original role bytes match archive members, original registry archive and f82 transported content. Lock membership does not prove target-specific feature resolution or execution."
+  },
+  "roles": [
+    {
+      "index": 18,
+      "source": "source/role-18.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "fresh_display": [
+        [
+          1,
+          120
+        ],
+        [
+          676,
+          1100
+        ],
+        [
+          1920,
+          2005
+        ],
+        [
+          2200,
+          2280
+        ]
+      ],
+      "unread": [
+        [
+          121,
+          675
+        ],
+        [
+          1101,
+          1919
+        ],
+        [
+          2006,
+          2199
+        ],
+        [
+          2281,
+          2882
+        ]
+      ],
+      "historical_root_windows": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ]
+    },
+    {
+      "index": 19,
+      "source": "source/role-19.rs",
+      "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "fresh_display": [
+        [
+          1,
+          139
+        ]
+      ],
+      "unread": [],
+      "historical_root_windows": [
+        [
+          20,
+          44
+        ]
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "SUPPORT-EXISTING-STRUCTURED-YAML-ERROR-OWNER-18-19",
+      "classification": "Fresh source support for existing configuration error ownership records, not a new counted first failure",
+      "trace": [
+        "serde-saphyr 1.2.0 de/error.rs:684\u2013714, 884\u2013933, 984\u2013998, 1031\u20131039, 1067\u20131076 declares non-exhaustive Error with explicit message, location, I/O, resolver, alias and wrapped-snippet payloads. lib.rs:26\u201334 reexports it as Error and DeserializeError. de/api.rs:83\u201388 returns Result<T, Error> from from_str.",
+        "At 95e presentation/config.rs:207\u2013225 formats the native parse error and metadata/read I/O errors into String before returning; error text and file path context remain visible but native typed payload cannot be recovered from the String. Server startup.rs:27\u201342,55\u201361 similarly formats metadata, I/O, YAML and validation failures into String before StartupInputs returns.",
+        "Native de/error.rs:2248\u20132255 implements Serde custom by converting the supplied Display message into a redacted string. This generic custom conversion is a separate actual boundary; it does not require every first-party application layer to erase a native Error afterwards."
+      ],
+      "conditions": "These paths are source observations. Actual failed inputs, end-user effect, downstream recovery/classification need, and every alternative ingress were not established. No parser or product was run.",
+      "historical_relationship": "Original 774 root ROOT-OWNER-DECAL-AND-YAML-CAUSE-077 and ROOT-PPS-YAML-CAUSE-035 already identify this native structured owner and graphics/audio error propagation. 059 q71 ADLER-L11-GRAPHICS-CONFIG-ERROR-OWNERSHIP and q278 SEGOVB-L12-TACTICAL-STARTUP-ERROR-OWNERSHIP preserve separate first-party families with different prior readers/revisions. q52 audio is related but audio source was not freshly read here. Existing current ASSESSMENT-COMBAT-CONFIG-ERROR-95E and ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E remain independently attributed. Alias and repair ownership belong to central reconciliation.",
+      "future_direction": "After audit and any separately authorized repair, compare application-owned error enums and retain the native value and input/field context through actual internal boundaries until presentation; preserve current accepted/rejected inputs and legitimate Serde custom and compiled-default final panic boundaries. Do not assume the package needs modification."
+    },
+    {
+      "id": "QUESTION-NATIVE-STANDARD-ERROR-CHAIN-18",
+      "classification": "Conditional native boundary question; no proven additional product defect or duplicate count",
+      "trace": [
+        "Native de/error.rs:1036\u20131039 stores std::io::Error in IOError and 1067\u20131076 stores Box<Error> in WithSnippet; de/error.rs:2233 provides an empty std::error::Error implementation with no source() override. A generic std::error::Error source-chain walk therefore uses the standard default and does not expose those inner fields through source(); named variants and retained typed value may still permit explicit matching, and Display rendering may still preserve diagnostic text.",
+        "The inspected first-party from_str adapters already stringify at their own boundary, and from_str takes a string, not a reader. No project consumer walking this native Error source chain or actual relevant IOError/WithSnippet reachability is shown."
+      ],
+      "conditions": "Only consequential if an actually supported caller needs generic source-chain traversal on an applicable variant. Native feature choices, parser construction of variants and concrete consumers are unexamined; current observations do not show a product failure.",
+      "historical_relationship": "Related to ROOT-PPS-YAML-CAUSE-035 native error/first-party ownership but not shown identical to the first-party early formatting site. Preserve upstream/source-chain question separately from q71/q278 and make no automatic alias or extra accepted finding.",
+      "future_direction": "Determine supported variants, exact generic consumer and intended upstream API before deciding whether application matching, a wrapper, an upstream change, or no change is appropriate; do not change external package as part of this audit."
+    }
+  ],
+  "nonfindings": [
+    "Original root explicitly recognized a structured external YAML error and generic custom Serde text boundary; source-backed distinctions prevent a blanket assertion that every native YAML error is just prose.",
+    "Compiled-in canonical defaults.rs:11\u201318 intentionally formats its initialization parse/validation failure in a final panic path; this bounded read does not justify the same early-erasure assessment as a recoverable internal caller, and 059 q2241 retains that qualification.",
+    "Public enum variants, external format strings, parser locations, and byte counts are format/native API constructs; these facts alone do not demonstrate a bespoke type, enum, arithmetic or magic-number defect.",
+    "No target feature graph or all-callers search was performed, and package/archive equality proves source identity only."
+  ],
+  "historical_attribution": {
+    "original_774": "Root audit-existing-type-owners additional-sources records and producer root trace retained exactly in historical/774/. Original root personally recorded error 676\u20131100,1960\u20131985,2227\u20132270 and lib 20\u201344, and ROOT-PPS-YAML-CAUSE-035 credits these exact windows. Original 059 registry owner_contract_proofs records row 152/153; exact historical JSONL members occur at physical 1-based lines 153/154, consistent with zero-based registry row indexing; preserve both instead of silently changing the registry.",
+    "original_059": "evidence/audit11/inherited-coverage.jsonl original index18/19 marks inherited ranges accounted_no_new_finding with no new finding refs. Adler READ-L11-217 personally read old pr-working graphics config 1\u2013414; lens12_frontier READ-L12-698 personally read old startup 1\u2013120 at 6533. These records have their own revision/scopes and no checkpoint3821 or current independent-read credit. 059 q52/71/278 and q774/1547/1549/2241/2242 retained in original queue and in clearly reconstructed selections.",
+    "prior_own": "Roles2573\u20132574 packet /root/hair_ops previously read native api 1\u2013180 and options 1\u2013560, current graphics config 1\u2013404, and current lock 9370\u20139418. That packet did not read roles18\u201319; its report/manifest/receipt are preserved. Current support re-displays in this packet were separately registered.",
+    "recovery": "Recovered 059 registry/source object archive and catalog are included; catalog labels source recovery only, not audit coverage. One native source display is not separate historical and current displays. Historical 3821 ledger/queue remain missing per central recovery; no synthesized historical evidence is attributed to it."
+  },
+  "lens_perspectives": {
+    "producer_propagation": "Native from_str Error reaches two current application adapters; bounded internal propagation shows early formatting, while full job/UI and all ingress are open.",
+    "existing_type_owners": "Native Error already models several structured causes; first-party contextual error owner remains case-specific and must not reconstruct semantics from displayed strings.",
+    "admission_contracts": "Types and generic custom boundary distinguished; no full parser/options/feature activation or all config constructors audited here.",
+    "invariant_operations": "No native arithmetic invariant failure established in sampled error and reexport windows; larger error body unread.",
+    "aggregate_states": "WithSnippet and resolver variants bind contextual payloads; actual construction and contextual validity remain open.",
+    "type_ownership": "Native parse semantics belong to dependency; graphics/server input context and error lifecycle belong to their first-party boundaries.",
+    "redundant_authority": "No two competing error facts proven. Separate String rendering may erase native distinctions rather than create an independent authority.",
+    "behavior_preservation": "Current and historical lock same native package checksum; source identities and separate project revisions do not establish runtime or all configuration equivalence.",
+    "enum_shapes": "Non-exhaustive native Error enum explicitly models multiple variants; non-exhaustive matching and actual consumer policies must be respected.",
+    "derivability": "Debug delegates Display and std::error::Error is an empty impl at 1969\u20131980,2233; do not assume Clone/Eq or recommend derives for external IO payload.",
+    "type_granularity": "Parser, OS read, validation and path context differ; structured application case granularity and public API needs remain unresolved.",
+    "magic_strings": "Native custom converts Display to message and two inspected app adapters eagerly format causes. User-facing terminal display is a legitimate text boundary; no blanket ban on external diagnostics.",
+    "magic_numbers": "Sampled capacities, identifiers, location and parser numeric payloads are native format data; no supported semantic replacement or bounded policy shown."
+  },
+  "open_questions": [
+    "Which supported first-party error consumers need structured cause or classification before their true final native/JS/CLI output?",
+    "Can concrete WithSnippet or IOError variants reach a consumer that relies on standard source traversal, and does a supported design require that traversal?",
+    "What target features/options resolve and what other YAML API entrypoints/first-party adapters are used?",
+    "Current and historical external dependencies, source-level readable error rendering, redaction and downstream UI/worker propagation outside displayed windows are not assessed.",
+    "error.rs 121\u2013675,1101\u20131919,2006\u20132199,2281\u20132882 remain unread in this packet. Full thirteen-lens populations, cross-lens aliases, repair and validation remain central work."
+  ],
+  "implementation": "not started",
+  "validation": "not performed; no parser, package, product, code examples, builds, tests, fixtures or runtime probes executed."
+}

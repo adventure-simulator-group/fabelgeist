@@ -1,0 +1,2300 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "created_utc": "2026-11-12T05:02:58.140970+00:00",
+  "reader": "/root/hair_ops",
+  "scope": "Original physical-p16 role 40 content/tactical/combat.yaml, current authored text and bounded typed producer/admission/consumer sources.",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "limits": [
+    "Static source inspection, text diff and evidence-integrity checks only. No YAML parsing by product or external parser, code generation, macros, tests, builds, gameplay, fixtures, runtime probes, repairs or publication edits.",
+    "Current build and test bodies were read as source text only; their executions and outcomes are not inferred.",
+    "Thirteen partial perspectives cover only registered windows and do not assert whole-lens completion or independent ledger counts.",
+    "Historical 774/059 records retain original reviewer, revision and scope. No evidence is promoted to checkpoint 3821."
+  ],
+  "registration": {
+    "path": "registration.json",
+    "sha256": "b497e9ee26f8875b0f333e0f33c1072a3de5fde6c208d08acb6aeea25494facc",
+    "created_utc": "2026-11-12T04:58:33.314311+00:00",
+    "qualification": "Prospective registration preceded separate full old/current text displays; old 344 lines and current 346. Other revision copies were compared mechanically only."
+  },
+  "source_identity": {
+    "historical": "Registry physical-p16 YAML exact SHA-256 05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3, 344 lines; dirty P16 snapshot based a120390947c89b703dc74c4255a13c035d054c50 remains distinct from clean base. Its bytes equal a120, 6533e444fa37552927070cc8d8190907fd3b413e and 039329518e264f19206cf5b0b98d177433f40c17 per file, not whole-tree cleanliness. f82 is evidence transport.",
+    "current": "95e SHA-256 d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6, 346 lines; differs from old by two additions only, captured in source-diff.patch. This exact current file also matches the separately proved e2755a732c84e67296b5e3441a4259a84f461b2f blob.",
+    "later_recovery": "Later tracked P16 patch matches recorded fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked paths and original command/custody limitations remain. This matching patch is not a clean-tree assertion."
+  },
+  "assigned_personal_displays": [
+    {
+      "original_index": 40,
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "identity": "exact archived physical-p16 registry object",
+      "revision": null,
+      "local": "source/40-historical.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "eof": 344,
+      "actual_display_chunks": [
+        [
+          1,
+          90
+        ],
+        [
+          91,
+          180
+        ],
+        [
+          181,
+          270
+        ],
+        [
+          271,
+          344
+        ]
+      ],
+      "original_registry_material_ranges": null,
+      "navigation_only_lines_at_assigned_scope": [],
+      "unread_complement": [],
+      "qualification": "Old/current YAML separately displayed in full, text only; no YAML parser, fixture or product execution; comparison versions mechanically verified not displayed."
+    },
+    {
+      "original_index": 40,
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "source/40-95e6.yaml",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "eof": 346,
+      "actual_display_chunks": [
+        [
+          1,
+          90
+        ],
+        [
+          91,
+          180
+        ],
+        [
+          181,
+          270
+        ],
+        [
+          271,
+          346
+        ]
+      ],
+      "original_registry_material_ranges": null,
+      "navigation_only_lines_at_assigned_scope": [],
+      "unread_complement": [],
+      "qualification": "Old/current YAML separately displayed in full, text only; no YAML parser, fixture or product execution; comparison versions mechanically verified not displayed."
+    }
+  ],
+  "support_personal_displays": [
+    {
+      "name": "defaults",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "eof": 26,
+      "full_line_body_displays": [
+        [
+          1,
+          26
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "config-locomotion",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/config-locomotion.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "eof": 65,
+      "full_line_body_displays": [
+        [
+          1,
+          65
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "config-transitions",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/config-transitions.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61",
+      "eof": 25,
+      "full_line_body_displays": [
+        [
+          1,
+          25
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "locomotion",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "eof": 260,
+      "full_line_body_displays": [
+        [
+          130,
+          200
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          129
+        ],
+        [
+          201,
+          260
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "posture-transition",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/posture-transition.rs",
+      "sha256": "b927dd93f8476ed803e3d1fdc5af512987347a9aed81f4635727da7ff3544e49",
+      "eof": 160,
+      "full_line_body_displays": [
+        [
+          1,
+          120
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          121,
+          160
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "combat-build",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/combat-build.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "eof": 275,
+      "full_line_body_displays": [
+        [
+          1,
+          150
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          151,
+          275
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "server-startup",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/server-startup.rs",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "eof": 120,
+      "full_line_body_displays": [
+        [
+          1,
+          110
+        ]
+      ],
+      "navigation_only_lines": [
+        118
+      ],
+      "unread_complement": [
+        [
+          111,
+          117
+        ],
+        [
+          119,
+          120
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "config-owner",
+      "registration": "support-registration.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/config-owner.rs",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "eof": 779,
+      "full_line_body_displays": [
+        [
+          350,
+          430
+        ],
+        [
+          600,
+          665
+        ]
+      ],
+      "navigation_only_lines": [
+        56,
+        59,
+        435,
+        445,
+        489,
+        502,
+        514,
+        527,
+        534,
+        541,
+        559,
+        567,
+        581,
+        598,
+        668,
+        695,
+        702,
+        705,
+        725,
+        737,
+        744,
+        751,
+        755,
+        762,
+        763,
+        766,
+        767,
+        768,
+        774
+      ],
+      "unread_complement": [
+        [
+          1,
+          55
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          60,
+          349
+        ],
+        [
+          431,
+          434
+        ],
+        [
+          436,
+          444
+        ],
+        [
+          446,
+          488
+        ],
+        [
+          490,
+          501
+        ],
+        [
+          503,
+          513
+        ],
+        [
+          515,
+          526
+        ],
+        [
+          528,
+          533
+        ],
+        [
+          535,
+          540
+        ],
+        [
+          542,
+          558
+        ],
+        [
+          560,
+          566
+        ],
+        [
+          568,
+          580
+        ],
+        [
+          582,
+          597
+        ],
+        [
+          599,
+          599
+        ],
+        [
+          666,
+          667
+        ],
+        [
+          669,
+          694
+        ],
+        [
+          696,
+          701
+        ],
+        [
+          703,
+          704
+        ],
+        [
+          706,
+          724
+        ],
+        [
+          726,
+          736
+        ],
+        [
+          738,
+          743
+        ],
+        [
+          745,
+          750
+        ],
+        [
+          752,
+          754
+        ],
+        [
+          756,
+          761
+        ],
+        [
+          764,
+          765
+        ],
+        [
+          769,
+          773
+        ],
+        [
+          775,
+          779
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "runtime",
+      "registration": "support-registration-runtime.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/runtime.rs",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "eof": 98,
+      "full_line_body_displays": [
+        [
+          1,
+          98
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "posture-tail",
+      "registration": "support-registration-runtime.json",
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/posture-tail.rs",
+      "sha256": "b927dd93f8476ed803e3d1fdc5af512987347a9aed81f4635727da7ff3544e49",
+      "eof": 160,
+      "full_line_body_displays": [
+        [
+          120,
+          160
+        ]
+      ],
+      "navigation_only_lines": [
+        73
+      ],
+      "unread_complement": [
+        [
+          1,
+          72
+        ],
+        [
+          74,
+          119
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "net-client",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/net-client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "eof": 1514,
+      "full_line_body_displays": [
+        [
+          1,
+          95
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          96,
+          1514
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "net-message",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/net-message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "eof": 475,
+      "full_line_body_displays": [
+        [
+          40,
+          75
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          39
+        ],
+        [
+          76,
+          475
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "net-replication",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/net-replication.rs",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "eof": 242,
+      "full_line_body_displays": [
+        [
+          60,
+          90
+        ]
+      ],
+      "navigation_only_lines": [
+        18
+      ],
+      "unread_complement": [
+        [
+          1,
+          17
+        ],
+        [
+          19,
+          59
+        ],
+        [
+          91,
+          242
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "server-projection",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/server-projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "eof": 3497,
+      "full_line_body_displays": [
+        [
+          1915,
+          1965
+        ]
+      ],
+      "navigation_only_lines": [
+        18,
+        543,
+        563,
+        963,
+        991,
+        1042,
+        1091,
+        1341,
+        1424,
+        1498,
+        1569,
+        1623,
+        2331,
+        2943,
+        3031,
+        3063,
+        3104,
+        3169,
+        3212,
+        3266,
+        3307
+      ],
+      "unread_complement": [
+        [
+          1,
+          17
+        ],
+        [
+          19,
+          542
+        ],
+        [
+          544,
+          562
+        ],
+        [
+          564,
+          962
+        ],
+        [
+          964,
+          990
+        ],
+        [
+          992,
+          1041
+        ],
+        [
+          1043,
+          1090
+        ],
+        [
+          1092,
+          1340
+        ],
+        [
+          1342,
+          1423
+        ],
+        [
+          1425,
+          1497
+        ],
+        [
+          1499,
+          1568
+        ],
+        [
+          1570,
+          1622
+        ],
+        [
+          1624,
+          1914
+        ],
+        [
+          1966,
+          2330
+        ],
+        [
+          2332,
+          2942
+        ],
+        [
+          2944,
+          3030
+        ],
+        [
+          3032,
+          3062
+        ],
+        [
+          3064,
+          3103
+        ],
+        [
+          3105,
+          3168
+        ],
+        [
+          3170,
+          3211
+        ],
+        [
+          3213,
+          3265
+        ],
+        [
+          3267,
+          3306
+        ],
+        [
+          3308,
+          3497
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "config-declaration",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/config-declaration.rs",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "eof": 779,
+      "full_line_body_displays": [
+        [
+          1,
+          90
+        ],
+        [
+          700,
+          729
+        ]
+      ],
+      "navigation_only_lines": [
+        396,
+        405,
+        411,
+        414,
+        417,
+        418,
+        422,
+        435,
+        445,
+        489,
+        502,
+        514,
+        527,
+        534,
+        541,
+        559,
+        567,
+        581,
+        598,
+        623,
+        633,
+        645,
+        668,
+        695,
+        737,
+        744,
+        751,
+        755,
+        762,
+        763,
+        766,
+        767,
+        768,
+        774
+      ],
+      "unread_complement": [
+        [
+          91,
+          395
+        ],
+        [
+          397,
+          404
+        ],
+        [
+          406,
+          410
+        ],
+        [
+          412,
+          413
+        ],
+        [
+          415,
+          416
+        ],
+        [
+          419,
+          421
+        ],
+        [
+          423,
+          434
+        ],
+        [
+          436,
+          444
+        ],
+        [
+          446,
+          488
+        ],
+        [
+          490,
+          501
+        ],
+        [
+          503,
+          513
+        ],
+        [
+          515,
+          526
+        ],
+        [
+          528,
+          533
+        ],
+        [
+          535,
+          540
+        ],
+        [
+          542,
+          558
+        ],
+        [
+          560,
+          566
+        ],
+        [
+          568,
+          580
+        ],
+        [
+          582,
+          597
+        ],
+        [
+          599,
+          622
+        ],
+        [
+          624,
+          632
+        ],
+        [
+          634,
+          644
+        ],
+        [
+          646,
+          667
+        ],
+        [
+          669,
+          694
+        ],
+        [
+          696,
+          699
+        ],
+        [
+          730,
+          736
+        ],
+        [
+          738,
+          743
+        ],
+        [
+          745,
+          750
+        ],
+        [
+          752,
+          754
+        ],
+        [
+          756,
+          761
+        ],
+        [
+          764,
+          765
+        ],
+        [
+          769,
+          773
+        ],
+        [
+          775,
+          779
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "player-plugin",
+      "registration": "support-registration-network.json",
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/player-plugin.rs",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "eof": 944,
+      "full_line_body_displays": [
+        [
+          20,
+          55
+        ]
+      ],
+      "navigation_only_lines": [
+        243,
+        440,
+        526,
+        597,
+        706,
+        867
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ],
+        [
+          56,
+          242
+        ],
+        [
+          244,
+          439
+        ],
+        [
+          441,
+          525
+        ],
+        [
+          527,
+          596
+        ],
+        [
+          598,
+          705
+        ],
+        [
+          707,
+          866
+        ],
+        [
+          868,
+          944
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "build-tail",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/build-tail.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "eof": 275,
+      "full_line_body_displays": [
+        [
+          130,
+          185
+        ]
+      ],
+      "navigation_only_lines": [
+        93,
+        95,
+        113,
+        117,
+        118,
+        119
+      ],
+      "unread_complement": [
+        [
+          1,
+          92
+        ],
+        [
+          94,
+          94
+        ],
+        [
+          96,
+          112
+        ],
+        [
+          114,
+          116
+        ],
+        [
+          120,
+          129
+        ],
+        [
+          186,
+          275
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "auto-model",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/auto-model.rs",
+      "sha256": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677",
+      "eof": 121,
+      "full_line_body_displays": [
+        [
+          1,
+          121
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "auto-route",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/auto-route.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "eof": 2878,
+      "full_line_body_displays": [
+        [
+          625,
+          665
+        ]
+      ],
+      "navigation_only_lines": [
+        1339
+      ],
+      "unread_complement": [
+        [
+          1,
+          624
+        ],
+        [
+          666,
+          1338
+        ],
+        [
+          1340,
+          2878
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "auto-mobility",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/auto-mobility.rs",
+      "sha256": "06bfd3a023ac0c22751466720321fe796aba122f605d621f16ba56b318c712f8",
+      "eof": 226,
+      "full_line_body_displays": [
+        [
+          40,
+          90
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          39
+        ],
+        [
+          91,
+          226
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "auto-scheduling",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/auto-scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "eof": 391,
+      "full_line_body_displays": [
+        [
+          210,
+          245
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          209
+        ],
+        [
+          246,
+          391
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "server-send",
+      "registration": "support-registration-authority.json",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/server-send.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "eof": 3497,
+      "full_line_body_displays": [
+        [
+          960,
+          1050
+        ]
+      ],
+      "navigation_only_lines": [
+        18,
+        543,
+        563,
+        1091,
+        1341,
+        1424,
+        1498,
+        1569,
+        1623,
+        1942,
+        1945,
+        1949,
+        2331,
+        2943,
+        3031,
+        3063,
+        3104,
+        3169,
+        3212,
+        3266,
+        3307
+      ],
+      "unread_complement": [
+        [
+          1,
+          17
+        ],
+        [
+          19,
+          542
+        ],
+        [
+          544,
+          562
+        ],
+        [
+          564,
+          959
+        ],
+        [
+          1051,
+          1090
+        ],
+        [
+          1092,
+          1340
+        ],
+        [
+          1342,
+          1423
+        ],
+        [
+          1425,
+          1497
+        ],
+        [
+          1499,
+          1568
+        ],
+        [
+          1570,
+          1622
+        ],
+        [
+          1624,
+          1941
+        ],
+        [
+          1943,
+          1944
+        ],
+        [
+          1946,
+          1948
+        ],
+        [
+          1950,
+          2330
+        ],
+        [
+          2332,
+          2942
+        ],
+        [
+          2944,
+          3030
+        ],
+        [
+          3032,
+          3062
+        ],
+        [
+          3064,
+          3103
+        ],
+        [
+          3105,
+          3168
+        ],
+        [
+          3170,
+          3211
+        ],
+        [
+          3213,
+          3265
+        ],
+        [
+          3267,
+          3306
+        ],
+        [
+          3308,
+          3497
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "config-validation",
+      "registration": "support-registration-validation.json",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/config-validation.rs",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "eof": 779,
+      "full_line_body_displays": [
+        [
+          431,
+          599
+        ],
+        [
+          666,
+          700
+        ]
+      ],
+      "navigation_only_lines": [
+        56,
+        59,
+        396,
+        405,
+        411,
+        414,
+        417,
+        418,
+        422,
+        623,
+        633,
+        645,
+        702,
+        705,
+        725,
+        737,
+        744,
+        751,
+        755,
+        762,
+        763,
+        766,
+        767,
+        768,
+        774
+      ],
+      "unread_complement": [
+        [
+          1,
+          55
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          60,
+          395
+        ],
+        [
+          397,
+          404
+        ],
+        [
+          406,
+          410
+        ],
+        [
+          412,
+          413
+        ],
+        [
+          415,
+          416
+        ],
+        [
+          419,
+          421
+        ],
+        [
+          423,
+          430
+        ],
+        [
+          600,
+          622
+        ],
+        [
+          624,
+          632
+        ],
+        [
+          634,
+          644
+        ],
+        [
+          646,
+          665
+        ],
+        [
+          701,
+          701
+        ],
+        [
+          703,
+          704
+        ],
+        [
+          706,
+          724
+        ],
+        [
+          726,
+          736
+        ],
+        [
+          738,
+          743
+        ],
+        [
+          745,
+          750
+        ],
+        [
+          752,
+          754
+        ],
+        [
+          756,
+          761
+        ],
+        [
+          764,
+          765
+        ],
+        [
+          769,
+          773
+        ],
+        [
+          775,
+          779
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "positive-speed",
+      "registration": "support-registration-types.json",
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/positive-speed.rs",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "eof": 253,
+      "full_line_body_displays": [
+        [
+          1,
+          40
+        ],
+        [
+          140,
+          210
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          41,
+          139
+        ],
+        [
+          211,
+          253
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "unit-interval",
+      "registration": "support-registration-types.json",
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/unit-interval.rs",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "eof": 97,
+      "full_line_body_displays": [
+        [
+          1,
+          97
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "positive-length",
+      "registration": "support-registration-types.json",
+      "path": "crates/fabelgeist-geometry/src/length.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/positive-length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "eof": 40,
+      "full_line_body_displays": [
+        [
+          1,
+          40
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    },
+    {
+      "name": "positive-speed-nonnegative",
+      "registration": "support-registration-speed-extra.json",
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/positive-speed.rs",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "eof": 253,
+      "full_line_body_displays": [
+        [
+          41,
+          80
+        ]
+      ],
+      "navigation_only_lines": [
+        20,
+        148
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ],
+        [
+          21,
+          40
+        ],
+        [
+          81,
+          147
+        ],
+        [
+          149,
+          253
+        ]
+      ],
+      "ordered_role_credit": 0,
+      "qualification": "Current support only. Same-path overlapping support windows remain separate; startup test text 76–110 was read, not executed. Build source only, never executed."
+    }
+  ],
+  "navigation_actual_source_lines": {
+    "crates/adventuresim-core/AGENTS.md": [
+      8
+    ],
+    "crates/adventuresim-core/build/combat_resolution.rs": [
+      93,
+      95,
+      113,
+      117,
+      118,
+      119
+    ],
+    "crates/adventuresim-core/src/autopsy.rs": [
+      7,
+      151,
+      401,
+      488,
+      491,
+      493
+    ],
+    "crates/adventuresim-core/src/autoresolve.rs": [
+      643,
+      644,
+      1339
+    ],
+    "crates/adventuresim-core/src/autoresolve/authored_weapon.rs": [
+      4,
+      116
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_exchange.rs": [
+      148
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_iteration.rs": [
+      420,
+      497,
+      822,
+      825,
+      827,
+      828,
+      832,
+      837,
+      840
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs": [
+      198,
+      246
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs": [
+      105,
+      120
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs": [
+      71,
+      73
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs": [
+      460,
+      461,
+      475,
+      496,
+      524
+    ],
+    "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs": [
+      232
+    ],
+    "crates/adventuresim-core/src/autoresolve/power.rs": [
+      83
+    ],
+    "crates/adventuresim-core/src/bestiary.rs": [
+      310
+    ],
+    "crates/adventuresim-core/src/combat.rs": [
+      517,
+      676,
+      1076,
+      1097
+    ],
+    "crates/adventuresim-core/src/combat/capability.rs": [
+      50
+    ],
+    "crates/adventuresim-core/src/combat/config.rs": [
+      27,
+      29,
+      31,
+      75
+    ],
+    "crates/adventuresim-core/src/combat/targeting.rs": [
+      261,
+      399
+    ],
+    "crates/adventuresim-core/src/combat/weapon_contact/tests.rs": [
+      2
+    ],
+    "crates/adventuresim-core/src/lib.rs": [
+      108
+    ],
+    "crates/adventuresim-core/src/linear_speed.rs": [
+      20,
+      148
+    ],
+    "crates/adventuresim-core/src/unit_interval.rs": [
+      11,
+      23
+    ],
+    "crates/adventuresim-stdb-module/src/capability.rs": [
+      134,
+      135
+    ],
+    "crates/adventuresim-stdb-module/src/corpse.rs": [
+      13
+    ],
+    "crates/adventuresim-stdb-module/src/investigation/sites.rs": [
+      188
+    ],
+    "crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs": [
+      78
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/authority_model.rs": [
+      262
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs": [
+      1,
+      142,
+      188,
+      220
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs": [
+      3
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/combat_error.rs": [
+      3
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/encounters.rs": [
+      945
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs": [
+      156,
+      1903
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs": [
+      85,
+      113
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/party_readiness.rs": [
+      89
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/tests/combat_party.rs": [
+      917,
+      918
+    ],
+    "crates/adventuresim-stdb-module/src/tactical.rs": [
+      775
+    ],
+    "crates/adventuresim-tactical-client/src/animation/AGENTS.md": [
+      5,
+      8
+    ],
+    "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs": [
+      33
+    ],
+    "crates/adventuresim-tactical-client/src/animation/mod.rs": [
+      265,
+      272,
+      487
+    ],
+    "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs": [
+      658
+    ],
+    "crates/adventuresim-tactical-client/src/animation/presentation.rs": [
+      179
+    ],
+    "crates/adventuresim-tactical-client/src/animation/procedural.rs": [
+      670
+    ],
+    "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs": [
+      196
+    ],
+    "crates/adventuresim-tactical-client/src/animation/procedural/height.rs": [
+      129,
+      256,
+      285
+    ],
+    "crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs": [
+      522
+    ],
+    "crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs": [
+      127
+    ],
+    "crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs": [
+      112
+    ],
+    "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs": [
+      159
+    ],
+    "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs": [
+      82
+    ],
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs": [
+      532
+    ],
+    "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs": [
+      33,
+      39,
+      51,
+      99,
+      130
+    ],
+    "crates/adventuresim-tactical-client/src/animation_viewer_main.rs": [
+      46,
+      83,
+      99
+    ],
+    "crates/adventuresim-tactical-client/src/player.rs": [
+      41,
+      243,
+      440,
+      526,
+      597,
+      706,
+      867
+    ],
+    "crates/adventuresim-tactical-client/src/player/action_clock.rs": [
+      102
+    ],
+    "crates/adventuresim-tactical-client/src/player/attack_start.rs": [
+      55,
+      87,
+      119,
+      199,
+      287,
+      365
+    ],
+    "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs": [
+      178
+    ],
+    "crates/adventuresim-tactical-core/AGENTS.md": [
+      5
+    ],
+    "crates/adventuresim-tactical-core/README.md": [
+      10
+    ],
+    "crates/adventuresim-tactical-core/src/animation/locomotion.rs": [
+      174
+    ],
+    "crates/adventuresim-tactical-core/src/animation/state.rs": [
+      660
+    ],
+    "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs": [
+      73
+    ],
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs": [
+      92,
+      133
+    ],
+    "crates/adventuresim-tactical-core/src/combat.rs": [
+      269
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config.rs": [
+      56,
+      59,
+      396,
+      405,
+      411,
+      414,
+      417,
+      418,
+      422,
+      435,
+      445,
+      489,
+      502,
+      514,
+      527,
+      534,
+      541,
+      559,
+      567,
+      581,
+      598,
+      623,
+      633,
+      645,
+      668,
+      695,
+      702,
+      705,
+      725,
+      737,
+      744,
+      751,
+      755,
+      762,
+      763,
+      766,
+      767,
+      768,
+      774
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/defaults.rs": [
+      3,
+      8,
+      11,
+      12,
+      24
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/landing.rs": [
+      3,
+      25,
+      27
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs": [
+      1,
+      13,
+      36,
+      48,
+      54,
+      59
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/playback.rs": [
+      3,
+      34,
+      42
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs": [
+      3,
+      34,
+      40
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/procedural.rs": [
+      3,
+      54,
+      60
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/runtime.rs": [
+      11,
+      14,
+      24,
+      36,
+      37,
+      42,
+      61
+    ],
+    "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs": [
+      1,
+      11,
+      17,
+      18,
+      19
+    ],
+    "crates/adventuresim-tactical-core/src/physics.rs": [
+      168,
+      338,
+      942,
+      996,
+      1031,
+      1091,
+      1140,
+      1148,
+      1222,
+      1317,
+      1333,
+      1366,
+      1419,
+      1463,
+      1506,
+      1520,
+      1566,
+      1692
+    ],
+    "crates/adventuresim-tactical-core/src/physics/plugin.rs": [
+      34
+    ],
+    "crates/adventuresim-tactical-netcode/src/client.rs": [
+      4,
+      52,
+      59
+    ],
+    "crates/adventuresim-tactical-netcode/src/lib.rs": [
+      24
+    ],
+    "crates/adventuresim-tactical-netcode/src/message.rs": [
+      64
+    ],
+    "crates/adventuresim-tactical-netcode/src/replication.rs": [
+      18,
+      78
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs": [
+      5,
+      13,
+      18,
+      20,
+      23,
+      27,
+      28,
+      43,
+      48,
+      59,
+      64,
+      69,
+      74,
+      83,
+      102,
+      103,
+      119,
+      154,
+      160,
+      172,
+      173,
+      176,
+      177,
+      180,
+      181,
+      184,
+      186,
+      192,
+      193
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs": [
+      3
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs": [
+      6,
+      55,
+      73,
+      128,
+      155
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs": [
+      6,
+      39,
+      40
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs": [
+      13,
+      87,
+      90,
+      114,
+      127,
+      145,
+      157,
+      174,
+      197
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs": [
+      226
+    ],
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs": [
+      101,
+      134,
+      163,
+      194,
+      237,
+      250,
+      272,
+      287
+    ],
+    "crates/adventuresim-tactical-server/src/bot.rs": [
+      146,
+      156,
+      313,
+      326,
+      533,
+      556,
+      562,
+      569,
+      576,
+      631,
+      693,
+      788,
+      927,
+      1133
+    ],
+    "crates/adventuresim-tactical-server/src/bot/defense.rs": [
+      77,
+      146,
+      185
+    ],
+    "crates/adventuresim-tactical-server/src/bot/offense.rs": [
+      54,
+      230
+    ],
+    "crates/adventuresim-tactical-server/src/bot/offense/facts.rs": [
+      66,
+      179
+    ],
+    "crates/adventuresim-tactical-server/src/combat.rs": [
+      131,
+      488,
+      524,
+      945,
+      995,
+      1092
+    ],
+    "crates/adventuresim-tactical-server/src/combat/AGENTS.md": [
+      3,
+      6
+    ],
+    "crates/adventuresim-tactical-server/src/combat/condition.rs": [
+      26
+    ],
+    "crates/adventuresim-tactical-server/src/combat/contact.rs": [
+      8
+    ],
+    "crates/adventuresim-tactical-server/src/combat/defense.rs": [
+      199
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ingress.rs": [
+      69,
+      170,
+      310,
+      353,
+      434,
+      578,
+      584,
+      704,
+      785,
+      1011,
+      1062,
+      1139,
+      1178
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs": [
+      125,
+      175
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs": [
+      34,
+      120,
+      155,
+      241,
+      256
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ingress/work.rs": [
+      27
+    ],
+    "crates/adventuresim-tactical-server/src/combat/melee.rs": [
+      27,
+      145,
+      234,
+      269
+    ],
+    "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": [
+      26,
+      88,
+      163
+    ],
+    "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs": [
+      27
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ranged.rs": [
+      142
+    ],
+    "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs": [
+      23
+    ],
+    "crates/adventuresim-tactical-server/src/iteration.rs": [
+      7,
+      241,
+      294
+    ],
+    "crates/adventuresim-tactical-server/src/iteration/equipment.rs": [
+      1
+    ],
+    "crates/adventuresim-tactical-server/src/iteration/logging.rs": [
+      203
+    ],
+    "crates/adventuresim-tactical-server/src/player_projection.rs": [
+      18,
+      543,
+      563,
+      963,
+      991,
+      1042,
+      1091,
+      1341,
+      1424,
+      1498,
+      1569,
+      1623,
+      1942,
+      1945,
+      1949,
+      2331,
+      2943,
+      3031,
+      3063,
+      3104,
+      3169,
+      3212,
+      3266,
+      3307
+    ],
+    "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs": [
+      17
+    ],
+    "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs": [
+      121
+    ],
+    "crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs": [
+      37,
+      96
+    ],
+    "crates/adventuresim-tactical-server/src/startup.rs": [
+      11,
+      27,
+      37,
+      48,
+      63,
+      96,
+      118
+    ],
+    "crates/fabelgeist-geometry/src/length.rs": [
+      15,
+      17
+    ]
+  },
+  "prior_reader_qualification": {
+    "file": "prior-reader-qualification.json",
+    "sha256": "66ec494c7d4868950e4cd85df52fd383f05fc76d6b89410a62c5f42fb2a0ce11",
+    "qualification": "Prior own 95e support (235–270 and 275–310) and /root/mhr_character 95e support (195–222,230–265,318–346) retain their own receipts. After our registration and fresh displays, q688 revealed Root Segovb full e275 YAML 1–346; additive disclosure preserves its author, revision and chronology. No historical, current, ordered-role or lens credit transfers."
+  },
+  "historical_attribution": [
+    {
+      "reviewer": "Camera historical P16 owner and producer",
+      "records": [
+        "historical/774/00-additional-sources.jsonl",
+        "historical/774/01-sources.jsonl",
+        "historical/774/02-physical-owner-comparison-003.json",
+        "historical/774/03-coverage.jsonl"
+      ],
+      "qualification": "Camera owner supplier row 20 (zero-based) records full historical P16 1–344 under CAM-OWN-SCALE-001, CAM-OWN-AUTORESOLVE-001 and CAM-OWN-CONFIG-001; CONT-CAMERA-SOURCE-422 records a separate fresh complete text read. Historical receiving and owner-fit obligations keep their original scope and disposition; no modern current credit."
+    },
+    {
+      "reviewer": "SEGO-INITIAL11 historical, then Root Segovb e275 independent current L1",
+      "records": [
+        "historical/059/segovb/INHERITED-L11-CONTRACT-010.json",
+        "historical/059/evidence/audit11/inherited-coverage.jsonl",
+        "historical/059/root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-010.json",
+        "historical/059/root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-010.json"
+      ],
+      "qualification": "Historic 010 covers role40 P16 1–344; separate e275 346-line source is byte-identical to 95e and retains Root Segovb independent reader and e275 identity. Earlier admitted zero and signed animation quantities remain distinct policy roles."
+    },
+    {
+      "reviewer": "segovb historical L12 role1786",
+      "records": [
+        "historical/059/segovb/READ-L12-578.json",
+        "historical/059/segovb/PLAN-L12-578.json",
+        "historical/059/segovb/REGISTRATION-SEGOVB-L12-693.json"
+      ],
+      "qualification": "Fresh pr-working posture-transition source 1–158, old hardcoded airborne endpoint and contingent config/native integration question; preserve that revision and reader, no transfer to current 95e."
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "Q-L1-4bf8b628e17b292c3fab",
+      "status": "Existing 059 q688 current-source refinement; no new count or automatically closed authority decision.",
+      "observation": "The authored 95e YAML has autoresolve guarded speed 2.0, lunge speed 5.5 and lunge maximum travel 1.0 alongside matching movement raised-guard, run and quickstep-target values. Core build source projects the movement values into those three fields of EMBEDDED_AUTORESOLVE_PARAMETERS, and resolve_battle reads that generated constant. The tactical config retains an AutoresolveParameters field and parent validation separately validates its members and movement members; the personally read full parent validate body does not compare these paired values.",
+      "current_evidence": [
+        "content/tactical/combat.yaml:25–35,73–90 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-core/build/combat_resolution.rs:12–39,71–98,108–145 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-core/src/combat/config.rs:18–36,71–118 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-core/src/autoresolve.rs:637–649 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs:55–75 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs:223–234 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/combat_config.rs:52–67,417–700 @ 95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "condition_and_limits": "The committed literal pairs agree. If a supported authored configuration changes an autoresolve-side value without its movement-side counterpart, the inspected build projection remains derived from movement. A separate tactical-server runtime config is not proof that a separately built strategic process dynamically consumes it. Whether divergent custom inputs or independently tunable values are supported, deployed, observed or intended remains unresolved. No build, authored edit or battle executed.",
+      "future_repair_direction": "Decide the canonical shared movement/AI projection and intended runtime-versus-build configuration boundary; retain one explicit authority and consistent typed projections if the contract requires equality, or document/represent intentional independent concepts. Preserve legitimate strategic-only policy and combat authority. No repair performed.",
+      "relationship": "Original 059 q688 already asks for exact producer and authority; this packet supplies current bounded source, not a new duplicate."
+    },
+    {
+      "id": "Q-L12-e9a5e106515b3d2e6219",
+      "status": "Existing 059 q1463 narrowed for the current typed owner, not fully closed.",
+      "observation": "Current YAML adds the 0.92 airborne endpoint. The start and end are UnitInterval fields and state-transition validate rejects start greater than or equal to end. Parent validation invokes it; the inspected server loader and client snapshot observer validate before installing a runtime snapshot. Dive recovery selects 1.0 for grounded slide or the configured airborne endpoint, then uses checked clamped inverse interpolation and smoothstep.",
+      "current_evidence": [
+        "content/tactical/combat.yaml:195–199 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs:5–24 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/combat_config.rs:628–633 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/unit_interval.rs:23–35,51–68 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs:54–85 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-netcode/src/client.rs:51–64 @ 95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "condition_and_limits": "For the inspected validated snapshot route the ordered interval is a source-level precondition; the authored 0.18 and 0.92 satisfy the displayed strict ordering arithmetically. Client event delivery timing, native root integration, earlier startup state, alternate construction and actual runtime behavior are not established. Historical hardcoded 0.92 and old pr-working reader remain separately attributed.",
+      "future_repair_direction": "Preserve admissible ordered endpoint relation and intended grounded/airborne distinction; address other producer/native contracts only on actual evidence."
+    },
+    {
+      "id": "P16-CONFIG-RELATED-PRIOR-CANDIDATES",
+      "status": "Historical/current links only; no inherited read credit or new count.",
+      "observation": "Earlier /root/mhr_character p16-config packet records ragdoll per-qualifying-update retention, muscle envelope threshold, and playback snap/deadband policy questions. This packet read their authored current values and cites that author’s separate bounded analysis, without reasserting runtime behavior.",
+      "relationships": [
+        "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+        "P16-CONFIG-MUSCLE-ENVELOPE-POLICY",
+        "P16-CONFIG-PHASE-DEADBAND-SNAP",
+        "059 q1547 / q2241 / q2242 configuration diagnostic and dynamic error-policy obligations remain distinct from q688."
+      ]
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    {
+      "topic": "New zero-speed stride owner",
+      "evidence": [
+        "content/tactical/combat.yaml:176–185 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs:7–19 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/fabelgeist-geometry/src/length.rs:9–38 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/animation/locomotion.rs:166–185 @ 95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "assessment": "The added 0.9 m value is represented as PositiveLength and used as the low-speed endpoint blended to walk/run values. These are authored data and checked typed routes, not proof that every numerical extreme or visual result is safe."
+    },
+    {
+      "topic": "Snapshot path",
+      "evidence": [
+        "crates/adventuresim-tactical-core/src/combat_config/defaults.rs:6–19 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-server/src/startup.rs:27–42,55–64 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-server/src/player_projection.rs:978–991,1020–1042,1942–1950 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-netcode/src/replication.rs:75–78 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-netcode/src/client.rs:23–39,51–64 @ 95e63628f9d70b8dd6e6fede64334696c6995009",
+        "crates/adventuresim-tactical-core/src/combat_config/runtime.rs:11–20,36–55 @ 95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "assessment": "Source shows compiled default parse+validate, server file load+validate, ordered event selection on join/reconnect, and client validate/install/resource replacement. It does not prove event delivery, initialization ordering, all server mutations or consistency while disconnected."
+    },
+    {
+      "topic": "Zero, signed and schema policy",
+      "assessment": "Old and current contain deliberate zero unarmed precision, zero first-run rotation, zero transmission and negative presentation/toe offsets. Do not impose universal positive numbers or remove legitimate signed values. Both old/current show schema 9, but unsupported backward compatibility is not a defect by itself; no old file was parsed through current code."
+    }
+  ],
+  "open_questions": [
+    "Which autoresolve/movement/AI quantities are one shared policy versus legitimately distinct, and which actual build/deploy and custom runtime configuration paths accept divergent values?",
+    "Does the full current server/native root integration use the validated airborne and slide handoff intervals as intended across all producer paths?",
+    "Can a client observe a default snapshot before the server snapshot arrives, and what readiness/delivery guarantees apply? This bounded source does not establish an incident.",
+    "What are the intended ragdoll per-contact and playback threshold policies and their historical aliases? Preserve original reviewer qualifications.",
+    "Does every actual producer and consumer use a validated process snapshot and preserve error causes across dynamic configuration boundaries?"
+  ],
+  "related_evidence": [
+    {
+      "path": "prior/mhr-config/report.json",
+      "sha256": "7c54e5638c3a2fd134a1e9a7734fbb2a0c21f6c64654b1f2f1a1127e4cb0e742",
+      "attribution": "/root/mhr_character roles2483–2485; earlier current support windows and findings retained."
+    },
+    {
+      "path": "prior/own-body-target/report.json",
+      "sha256": "63ece836818246a03aa51c7f06add166754c61d1c7afd15f69359b90fc8fcf89",
+      "attribution": "/root/hair_ops roles2486–2487; previous YAML support 235–270."
+    },
+    {
+      "path": "prior/own-ik/report.json",
+      "sha256": "f9d7725735d0dcd0fefd0a3cba78aad7f62f17289236a9d9f15caf07a32f5a22",
+      "attribution": "/root/hair_ops role2490; previous YAML support 275–310."
+    }
+  ],
+  "thirteen_lenses": [
+    {
+      "lens": "audit-magic-numbers",
+      "bounded_assessment": "Authored raw constants are configuration data with varied units and roles; current typed owners are separately traced. Do not treat every numeric literal as a universal shared threshold."
+    },
+    {
+      "lens": "audit-magic-strings",
+      "bounded_assessment": "YAML keys and Chest token are authored schema data; parser and error text paths remain bounded, no inference of business branching on prose."
+    },
+    {
+      "lens": "audit-existing-type-owners",
+      "bounded_assessment": "PositiveLength, UnitInterval and PositiveSpeed encode distinct physical ranges; raw movement/AI values still require their own producer/consumer evidence."
+    },
+    {
+      "lens": "audit-type-ownership",
+      "bounded_assessment": "Core build projection currently uses movement/AI fields for repeated autoresolve values; q688 owns the unresolved canonical authority decision."
+    },
+    {
+      "lens": "audit-type-granularity",
+      "bounded_assessment": "Distances, offsets, directions, durations, rates and fractions differ despite numeric YAML representation. Valid zero/negative categories must not be unified into positive-only policy."
+    },
+    {
+      "lens": "audit-enum-shapes",
+      "bounded_assessment": "Airborne versus grounded trajectory is an explicit enum selecting distinct endpoint policy; authored body-part name is a closed semantic role in surrounding schema."
+    },
+    {
+      "lens": "audit-admission-contracts",
+      "bounded_assessment": "Whole config validate checks typed values and state-transition ordering, and inspected server/client install paths call it. Direct deserialization/public fields do not by themselves prove aggregate validation."
+    },
+    {
+      "lens": "audit-invariant-operations",
+      "bounded_assessment": "Ordered unit-interval handoff feeds checked inverse interpolation; stride uses checked interpolation. All native/large-value limits and resulting visual behavior remain open."
+    },
+    {
+      "lens": "audit-aggregate-states",
+      "bounded_assessment": "Parent validates start < end and various movement constraints, but does not compare displayed duplicate autoresolve/movement values; policy and supported divergent configs remain conditional q688."
+    },
+    {
+      "lens": "audit-producer-propagation",
+      "bounded_assessment": "The changed authored fields flow through typed config to locomotion/recovery; server selected snapshot is sent on inspected join/reconnect and client receiver installs it. Delivery/readiness not proven."
+    },
+    {
+      "lens": "audit-redundant-authority",
+      "bounded_assessment": "Paired autoresolve/movement fields and build projection are source-backed q688; do not assume all similar-valued parameters are duplicates."
+    },
+    {
+      "lens": "audit-derivability",
+      "bounded_assessment": "Serde derives and validation serve different structural/aggregate duties; no handwritten boilerplate issue established by this bounded text."
+    },
+    {
+      "lens": "audit-behavior-preservation",
+      "bounded_assessment": "Keep grounded and airborne handoff meanings, signed toe/presentation offsets, zero disabled choices and canonical validated source. No product tests or visual runs."
+    }
+  ],
+  "evidence_files": {
+    "historical": "historical-manifest.json and historical-selections-reconstructed.json",
+    "display_receipt": "read-receipt.json",
+    "late_prior_reader_disclosure": "prior-reader-qualification.json",
+    "diff": "source-diff.patch",
+    "offline_git_proofs": "git-proofs.json",
+    "verifier": "verify-evidence.py",
+    "manifest": "MANIFEST.json"
+  }
+}

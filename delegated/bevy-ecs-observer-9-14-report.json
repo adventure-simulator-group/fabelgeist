@@ -1,0 +1,577 @@
+{
+  "schema": "726-delegated-native-source-review-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T05:10:23.740358+00:00",
+  "scope": "Original native Bevy ECS source roles 9–14 at their exact recorded materially reached owner ranges, with independently registered native error and project observer support. This is not whole dependency, feature, project, or lens coverage.",
+  "source_only": "Evidence and static source inspection only. No product, native crate, observer, macro, fixture, build, test, simulation or runtime probe executed; test source is text only.",
+  "identity": {
+    "package": "bevy_ecs 0.19.1",
+    "archive": "source/bevy_ecs-0.19.1.crate",
+    "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+    "basis": "All six member bytes equal independently recovered registry objects transported at f82; pinned 95e, 6533 and dirty physical-p16 lock stanzas each record exact crates.io checksum. Matching lock does not prove selected target/features or runtime use. Native package member identity is separate from project Git revision.",
+    "project_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_p16": "Recorded base a120390947c89b703dc74c4255a13c035d054c50 plus dirty P16 tracked changes and seven untracked paths. Recovered tracked patch has SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, but excludes the seven untracked files. The P16 lock and iteration/logging bodies differ from a120 and are separately proven f82 archived objects; never call them clean-base bytes.",
+    "previous_059": "e2755a732c84e67296b5e3441a4259a84f461b2f was the prior reviewer’s current revision, not 95e or checkpoint3821. Current 95e logging.rs is byte-identical to their e275 file, while iteration.rs differs; raw Git proof per file, no read credit transfer.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is recovered-object transport, not source version",
+    "git_proofs": "git-proofs.json and git-objects/ prove source members as transported blobs, lock and support paths at recorded revisions and previous e275 file identities."
+  },
+  "personal_read_scope": [
+    {
+      "registration": "registration.json",
+      "registration_sha256": "1296a28b358a621be7c4378ddcd066b17a862a50fd96d783b5e3b1648617c8b4",
+      "receipt": "personal-read-receipt.json",
+      "receipt_sha256": "0a59339cde2f4d631831fe9cee1a5aff2387c350a58baedf26a2763955034791",
+      "entries": [
+        {
+          "archive": "source/native-9.rs",
+          "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+          "displayed_chunks": [
+            [
+              216,
+              275
+            ],
+            [
+              554,
+              583
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              215
+            ],
+            [
+              276,
+              553
+            ],
+            [
+              584,
+              638
+            ]
+          ]
+        },
+        {
+          "archive": "source/native-10.rs",
+          "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+          "displayed_chunks": [
+            [
+              45,
+              64
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              44
+            ],
+            [
+              65,
+              1916
+            ]
+          ]
+        },
+        {
+          "archive": "source/native-11.rs",
+          "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+          "displayed_chunks": [
+            [
+              1,
+              75
+            ],
+            [
+              76,
+              150
+            ]
+          ],
+          "unread_complement": [
+            [
+              151,
+              186
+            ]
+          ]
+        },
+        {
+          "archive": "source/native-12.rs",
+          "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+          "displayed_chunks": [
+            [
+              570,
+              630
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              569
+            ],
+            [
+              631,
+              991
+            ]
+          ]
+        },
+        {
+          "archive": "source/native-13.rs",
+          "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+          "displayed_chunks": [
+            [
+              1,
+              75
+            ]
+          ],
+          "unread_complement": [
+            [
+              76,
+              85
+            ]
+          ]
+        },
+        {
+          "archive": "source/native-14.rs",
+          "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+          "displayed_chunks": [
+            [
+              3448,
+              3475
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              3447
+            ],
+            [
+              3476,
+              4740
+            ]
+          ]
+        },
+        {
+          "archive": "source/p16-Cargo.lock",
+          "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+          "displayed_chunks": [
+            [
+              1802,
+              1829
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              1801
+            ],
+            [
+              1830,
+              13103
+            ]
+          ]
+        },
+        {
+          "archive": "source/historical_pr-Cargo.lock",
+          "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+          "displayed_chunks": [
+            [
+              1801,
+              1828
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              1800
+            ],
+            [
+              1829,
+              13102
+            ]
+          ]
+        },
+        {
+          "archive": "source/current-Cargo.lock",
+          "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+          "displayed_chunks": [
+            [
+              1784,
+              1811
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              1783
+            ],
+            [
+              1812,
+              12545
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "registration": "support-registration.json",
+      "registration_sha256": "b2d0f7ce62b913633e548c63462d31b2c94ebbe01027f29e116d5a20eb59c6bb",
+      "receipt": "support-read-receipt.json",
+      "receipt_sha256": "f044033e6514788cade38f478648237f4ce2a90ec566686fae8a1d3395938d0a",
+      "entries": [
+        {
+          "archive": "support/406-historical_p16.rs",
+          "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "displayed_chunks": [
+            [
+              140,
+              175
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              139
+            ],
+            [
+              176,
+              649
+            ]
+          ]
+        },
+        {
+          "archive": "support/406-current.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "displayed_chunks": [
+            [
+              140,
+              175
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              139
+            ],
+            [
+              176,
+              649
+            ]
+          ]
+        },
+        {
+          "archive": "support/408-historical_p16.rs",
+          "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+          "displayed_chunks": [
+            [
+              185,
+              235
+            ],
+            [
+              236,
+              285
+            ],
+            [
+              286,
+              335
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              184
+            ],
+            [
+              336,
+              431
+            ]
+          ]
+        },
+        {
+          "archive": "support/408-current.rs",
+          "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+          "displayed_chunks": [
+            [
+              185,
+              235
+            ],
+            [
+              236,
+              285
+            ],
+            [
+              286,
+              335
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              184
+            ],
+            [
+              336,
+              427
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "registration": "support2-registration.json",
+      "registration_sha256": "d7b2e69d6412c1c80fab98a10bd4356ad1e8a3b1449076629b628ec7631fe87c",
+      "receipt": "support2-read-receipt.json",
+      "receipt_sha256": "5e36c1045fc186ee4004b48d43eea0fcdf23924384d49083092f355d9cffbc19",
+      "entries": [
+        {
+          "archive": "support/native-handler.rs",
+          "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+          "displayed_chunks": [
+            [
+              1,
+              75
+            ],
+            [
+              76,
+              150
+            ]
+          ],
+          "unread_complement": [
+            [
+              151,
+              187
+            ]
+          ]
+        },
+        {
+          "archive": "support/native-bevy-error.rs",
+          "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+          "displayed_chunks": [
+            [
+              1,
+              90
+            ],
+            [
+              380,
+              420
+            ]
+          ],
+          "unread_complement": [
+            [
+              91,
+              379
+            ],
+            [
+              421,
+              567
+            ]
+          ]
+        },
+        {
+          "archive": "support/native-system-error.rs",
+          "sha256": "c96bb464ff9cbdca864846c99c75a291af64b02b2b9c39f8200192a39e78db27",
+          "displayed_chunks": [
+            [
+              370,
+              430
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              369
+            ],
+            [
+              431,
+              521
+            ]
+          ]
+        },
+        {
+          "archive": "support/408-historical_p16.rs",
+          "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+          "displayed_chunks": [
+            [
+              1,
+              50
+            ],
+            [
+              51,
+              100
+            ]
+          ],
+          "unread_complement": [
+            [
+              101,
+              431
+            ]
+          ]
+        },
+        {
+          "archive": "support/408-current.rs",
+          "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+          "displayed_chunks": [
+            [
+              1,
+              50
+            ],
+            [
+              51,
+              100
+            ]
+          ],
+          "unread_complement": [
+            [
+              101,
+              427
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "registration": "support3-registration.json",
+      "registration_sha256": "0ef2728d4d81661cca1b4d18e9c95711b06e627b137c110b28afb26b81c067f5",
+      "receipt": "support3-read-receipt.json",
+      "receipt_sha256": "a6de6602560e3aa7c5f903713dfb242fed1e24d8f824daffdd4b282d474815f6",
+      "entries": [
+        {
+          "archive": "support/geometry-historical_p16.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "displayed_chunks": [
+            [
+              1,
+              50
+            ],
+            [
+              51,
+              95
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "archive": "support/geometry-current.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "displayed_chunks": [
+            [
+              1,
+              50
+            ],
+            [
+              51,
+              95
+            ]
+          ],
+          "unread_complement": []
+        }
+      ]
+    }
+  ],
+  "source_scope_qualification": "Native owner ranges are exact and bounded (role9 216–275,554–583; 10 45–64; 11 1–150; 12 570–630; 13 1–75; 14 3448–3475); archived full files and package are not full personal reads. All lock and support unread complements are enumerated in receipts. Package manifest parsed for name/version metadata without a source display; no body read credit.",
+  "navigation_qualification": "Before registration, a preliminary rg on the unpinned working-tree Cargo.lock displayed package/version-only metadata lines 1419,1429,1463,1472,1505,1516,1538,1561,1605,1617,1633,1659,1675,1691,1720,1731,1768,1785,1786,1815,1827,1883,1918,1950,1966,1989,2000,2029,2077,2106. These unpinned metadata views receive no pinned, historical, or personal-body read credit. Independently registered exact pinned and old stanzas were subsequently displayed. Other navigation emitted filenames and line numbers only.",
+  "historical_relationships": [
+    {
+      "source": "history-reconciliation.json and history-774/.../audit-existing-type-owners/native/native-framework-port.json",
+      "id": "NATIVE-OWNER-OBSERVER-001",
+      "detail": "Earlier native owner recorded these exact six range sets, and separate additional native handler, error and Bevy app ranges. Each original additional-sources JSONL row and source hash matches; source_read_status says exact material owner/receiving bodies, not unrelated whole modules. Actual original owner row is zero-based in registry, while resolved read file row is one-based."
+    },
+    {
+      "source": "history-774/.../audit-existing-type-owners/native/findings.jsonl line9",
+      "id": "NATIVE-OWNER-F009",
+      "detail": "Historical finding records the P16 typed observer callback/result mismatch and unfinished owning report/readback path. Its own dedup names NATIVE-PP-018, and supplemental native finding NATIVE-PS-F001 also points to those earlier identities. Preserve owner and source history; no independent count."
+    },
+    {
+      "source": "history-059/segovb/READ-L11-680.json and READ-L11-681.json plus parallel READ-144/145 and PLAN-162/163",
+      "detail": "059 prior parallel lens11_reconcile personally read full e275 logging.rs 1–427 and iteration.rs 1–648, together with other separately registered files. Root adopted those source-only dispositions at 680/681, accepted unique-count change zero; recorded old revision, attribution, plans, STATE and VERIFY remain distinct. Earlier prior observation explicitly says no current unsupported bespoke-result callback was then established. e275 logging bytes equal 95e, but e275 iteration source differs."
+    },
+    {
+      "source": "ledger-selection-reconstructed.json",
+      "pointers": [
+        "/segovb_continuation/current_connected_dispositions/235",
+        "/segovb_continuation/current_connected_dispositions/236"
+      ],
+      "detail": "Exact reconstructions from recovered 059 ledger retain historic e275 reader and later-current-reconciliation caveat; they are not a 3821 ledger or new source review."
+    },
+    {
+      "source": "registry-related-reconstructed.json and p16-per-file-qualification.json",
+      "detail": "Original P16 roles 39,406,408,449 and pr-working role497 are connected support identities, not assigned native roles; P16 lock/iteration/logging were recorded modified and occur in recovered tracked patch. P16 geometry error source is individually unchanged against its recorded object. Historical reader and revision remain independent."
+    }
+  ],
+  "finding_recheck": {
+    "ids": [
+      "NATIVE-OWNER-F009",
+      "NATIVE-PP-018",
+      "NATIVE-PS-F001"
+    ],
+    "classification": "Historical source concern and future typed-producer repair dependency, not a new current finding count",
+    "trace": "Observer::new uses IntoObserverSystem with default Out=() and rejects exclusive systems (native 9:218–243; 13:9–16,32–50). Function systems require IntoResult<Out> (12:576–612); the selected explicit fallible forms for output () are Result<(),RunSystemError> and Result<(),BevyError>. Historical P16 iteration.rs 154–160 installs callbacks; historical logging.rs 198–206 and 302–310 declare MeleeGeometryResult<()> and fabelgeist_geometry::GeometryResult<()> respectively. GeometryResult is an alias for Result<T,GeometryError> (historical geometry error.rs 3–4), not the selected Bevy error forms. Prior owner identified this native callback port as unfinished; no compilation was attempted and no current compile error is asserted.",
+    "native_failure_port": "If an accepted observer system returns Failed, native runner 11:110–123 invokes its configured handler or fallback, then queues deferred work if the handler returns. World fallback uses an installed FallbackErrorHandler or default (14:3458–3465); native handler 105–120 and 127–145 defaults to severity dispatch, and native BevyError 400–410 converts supported errors into boxed causes with default Panic severity. Actual handler configuration, skip/failure policy and final report readback are application concerns, not inferred from lock alone. Skipped parameter validation is explicitly a separate non-error native variant (system.rs 389–396), so it is not automatically an unhandled failure.",
+    "current_95e": "In independently displayed current logging.rs 197–205 and 299–307, both selected callbacks return unit. Same install positions are visible in current iteration.rs 154–160. This narrows the current claim: the historical typed callback incompatibility is not demonstrated by those selected current signatures; it does not prove all callbacks/paths safe or that the old finding is repaired.",
+    "future_repair_direction": "After audit gate, if a future typed geometry producer must fail from an observer, coordinate accepted native callback shape with an explicit retained first-cause/readback owner through the iteration report and command result; preserve domain errors, legitimate optional values, native execution semantics and transient tactical authority.",
+    "limits": "No observer run, compiler outcome, handler invocation, installed-handler inventory, generated report or product result observed. Feature activation and full owner/consumer coverage remain open.",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  "nonfindings_and_questions": [
+    "The Bevy API supplies observer system type, error handler and fallback; generic native BevyError is an integration port and is not by itself the canonical gameplay geometry-error owner.",
+    "Native runner tests at 126–150 and observer-system test source 54–75 are text only; their presence does not demonstrate execution, panic, handler selection or integration.",
+    "Observer runner deduplicates a matching last_trigger_id and evaluates registered conditions before invoking a system (11:49–68); event semantics and actual ordering across all native code were not fully read.",
+    "The selected 95e callbacks retain raw physical geometry fields where old P16 used checked SignedLength, but precise migration owner and operation contracts remain prior connected issues; do not infer a repaired typed path from unit return.",
+    "Whether current native handlers are custom-installed, any future fallible callbacks occur, and failure is retained in IterationError/report remain separate connected source questions.",
+    "RunSystemError::Skipped is distinct from Failed; do not treat every skipped optional parameter as swallowed error without concrete required-parameter policy.",
+    "P16 original bytes are dirty despite base and 6533 comparisons; package archive and project lock equality do not resolve Cargo features or every target.",
+    "All unregistered source and lock complements remain open. Recovered historical evidence, reconstructed selections and newly assessed scopes are separate and do not become checkpoint3821."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "Typed P16 geometry output reaches native observer registration; selected current unit callbacks and 059 separately attributed prior read narrow present claim. Readback future contract remains open."
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "Native BevyError/RunSystemError own framework port; GeometryError and intended IterationError own distinct domain/command semantics."
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "ObserverSystem requires a suitable system and default unit output, Observer::new rejects exclusive systems, and skipped validation has explicit meaning."
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "Runner marks trigger ID, evaluates conditions, and queues deferred work after a returning handler; full event scheduling and error side effects are outside bounded scope."
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "Callback failure, handler behavior, retained first cause and completed report are related state obligations; no actual current fallible callback established."
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Keep framework errors at native port while domain errors and iteration report completion remain with application owners; no blanket native replacement."
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "Framework callback handler and durable iteration result have different authority; their handoff must be explicit if custom failure is introduced."
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Respect supported unit callbacks, skip semantics, custom severity/handler, deferred work, structured error and tactical transient-state boundaries in future work."
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "RunSystemError distinguishes Skipped and Failed, while native observer API unit output and optional handler have separate protocol meanings; no required enum redesign established."
+    },
+    {
+      "lens": "derivability",
+      "observation": "Native framework traits and manual generic conversions implement library protocol; no unnecessary first-party boilerplate finding arises from these bounded reads."
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "GeometryError, BevyError, RunSystemError, observer identity and retained command error have distinct roles despite error conversion compatibility."
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "Native diagnostic names and error prose are final framework diagnostics; no new app protocol string issue established."
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "Trigger IDs, event/entity identifiers and test/source line counts are framework/structural roles; none implies a new domain unit defect in this window."
+    }
+  ],
+  "verification": "Run python3 verify-evidence.py and python3 verify-manifest.py for source and evidence identity only.",
+  "central_ownership": "Central reviewer owns baseline, original role and ledger reconciliation, aliases, counts and checkpoint publication. No repair or product validation occurred."
+}
