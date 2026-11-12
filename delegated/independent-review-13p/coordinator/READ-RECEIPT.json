@@ -1,0 +1,177 @@
+{
+  "schema": "726-central-13p-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T12:42:16.264589+00:00",
+  "registration": "REGISTRATION.json",
+  "registration_sha256": "af9fd9095cd50782055b3daf77fe238c581df5443984b68904859e631674e68d",
+  "displays": [
+    {
+      "path": "DISPLAY.txt",
+      "sha256": "190dc0beac6a4329244295a6b99740aff3d3f520f8d2780d71d57b8dff1402c1"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "incidence",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/incidence.rs",
+      "displayed_ranges": [
+        [
+          20,
+          22
+        ],
+        [
+          31,
+          33
+        ],
+        [
+          59,
+          87
+        ],
+        [
+          95,
+          113
+        ],
+        [
+          126,
+          137
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          34,
+          58
+        ],
+        [
+          88,
+          94
+        ],
+        [
+          114,
+          125
+        ],
+        [
+          138,
+          142
+        ]
+      ]
+    },
+    {
+      "tag": "constraint",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/constraint.rs",
+      "displayed_ranges": [
+        [
+          60,
+          70
+        ],
+        [
+          80,
+          115
+        ],
+        [
+          259,
+          285
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          59
+        ],
+        [
+          71,
+          79
+        ],
+        [
+          116,
+          258
+        ],
+        [
+          286,
+          292
+        ]
+      ]
+    },
+    {
+      "tag": "wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+      "displayed_ranges": [
+        [
+          172,
+          188
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          171
+        ],
+        [
+          189,
+          301
+        ]
+      ]
+    },
+    {
+      "tag": "upload",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "displayed_ranges": [
+        [
+          21,
+          31
+        ],
+        [
+          42,
+          57
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          20
+        ],
+        [
+          32,
+          41
+        ],
+        [
+          58,
+          58
+        ]
+      ]
+    },
+    {
+      "tag": "shell",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-shell/src/shell.rs",
+      "displayed_ranges": [
+        [
+          75,
+          137
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          74
+        ],
+        [
+          138,
+          408
+        ]
+      ]
+    }
+  ],
+  "qualification": "Coordinator received these registered windows after registration; copied complete source bytes alone grant no additional read credit. Prior historical and delegated readers retain separate attribution. No product or shader execution."
+}

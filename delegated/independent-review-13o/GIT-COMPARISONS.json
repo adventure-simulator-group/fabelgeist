@@ -1,0 +1,61 @@
+{
+  "schema": "726-particles-13o-git-comparisons-v1",
+  "transport_sources": [
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/findings.jsonl",
+      "git_blob": "ab07e3119387e62a2ecd36d88084d704549f1592",
+      "decoded_sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "capture": "history/findings.jsonl.gz"
+    },
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719",
+      "decoded_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "capture": "history/source-range-registration.jsonl.gz"
+    },
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c",
+      "decoded_sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "capture": "history/additional-contracts.jsonl.gz"
+    }
+  ],
+  "project_sources": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "equal_current_capture": true
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "git_blob": "cf331079b7d721d4894378112552b5273571233d",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "equal_current_capture": true
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "equal_current_capture": true
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "git_blob": "cf331079b7d721d4894378112552b5273571233d",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "equal_current_capture": true
+    }
+  ],
+  "qualification": "Direct local Git evidence for these file objects only. Historical pr-working snapshot had unrelated modifications; f82 transports historical records, not product revision. No commit author metadata copied."
+}

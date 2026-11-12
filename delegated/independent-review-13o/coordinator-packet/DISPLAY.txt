@@ -1,0 +1,295 @@
+--- particles 13-33 ---
+  13 /// Positions, the previous substep's positions, and velocities.
+  14 ///
+  15 /// Position and inverse mass share a buffer -- `xyz` and `w` -- because a
+  16 /// constraint solve reads both and nothing else, and one load beats two. An
+  17 /// inverse mass of zero pins the particle: every correction is scaled by it,
+  18 /// so a pinned particle never moves and the solver needs no special case.
+  19 /// Since the two are interleaved, changing what is pinned means going through
+  20 /// [`Particles::write`] with both.
+  21 pub struct Particles {
+  22     /// xyz = position, w = inverse mass. Also usable as a vertex buffer.
+  23     pub positions: Buffer,
+  24     /// xyz = position at the start of the substep.
+  25     pub previous: Buffer,
+  26     /// xyz = velocity.
+  27     pub velocities: Buffer,
+  28     /// Kept on the host because the inverse masses share their words with the
+  29     /// positions: re-uploading positions alone would otherwise have to read
+  30     /// the buffer back first.
+  31     inverse_masses: Vec<ParticleInverseMass>,
+  32     count: u32,
+  33     capacity: u32,
+--- particles 37-64 ---
+  37     pub fn new(context: &WgpuContext, capacity: u32) -> Result<Self> {
+  38         let capacity = capacity.max(1);
+  39         let bytes = capacity as u64 * 16;
+  40         // `vertex` so that the renderer can draw straight out of the solver's
+  41         // own buffer, with no copy between simulating and showing.
+  42         let definition = BufferDefinition::storage()
+  43             .with_usage(BufferUse::Vertex)
+  44             .with_usage(BufferUse::CopySource);
+  45         Ok(Self {
+  46             positions: Buffer::new(
+  47                 context,
+  48                 (bytes).into(),
+  49                 definition.clone().with_label(("particle positions").into()),
+  50             )?,
+  51             previous: Buffer::new(
+  52                 context,
+  53                 (bytes).into(),
+  54                 definition.clone().with_label(("particle previous").into()),
+  55             )?,
+  56             velocities: Buffer::new(
+  57                 context,
+  58                 (bytes).into(),
+  59                 definition.with_label(("particle velocities").into()),
+  60             )?,
+  61             inverse_masses: Vec::new(),
+  62             count: 0,
+  63             capacity,
+  64         })
+--- particles 86-115 ---
+  86     /// Upload positions and inverse masses, and reset velocities to rest.
+  87     pub fn write(
+  88         &mut self,
+  89         context: &WgpuContext,
+  90         positions: &[Vec3],
+  91         inverse_masses: &[ParticleInverseMass],
+  92     ) -> Result<()> {
+  93         if positions.len() != inverse_masses.len() {
+  94             return Err(anyhow!(
+  95                 "Particles::write: {} positions but {} inverse masses",
+  96                 positions.len(),
+  97                 inverse_masses.len()
+  98             ));
+  99         }
+ 100         if positions.len() as u32 > self.capacity {
+ 101             return Err(anyhow!(
+ 102                 "Particles::write: capacity is {}, given {}",
+ 103                 self.capacity,
+ 104                 positions.len()
+ 105             ));
+ 106         }
+ 107 
+ 108         let packed = ParticlePositions::new(positions, inverse_masses)?;
+ 109         self.positions.write(context, packed.upload())?;
+ 110         self.previous.write(context, packed.upload())?;
+ 111         self.velocities
+ 112             .write(context, ParticleVelocities::at_rest(&packed).upload())?;
+ 113         self.count = positions.len() as u32;
+ 114         self.inverse_masses = inverse_masses.to_vec();
+ 115         Ok(())
+--- particles 118-166 ---
+ 118     /// The inverse masses as last uploaded. Zero pins the particle.
+ 119     pub fn inverse_masses(&self) -> &[ParticleInverseMass] {
+ 120         &self.inverse_masses
+ 121     }
+ 122 
+ 123     /// Overwrite positions, keeping the inverse masses. Used to re-drape a
+ 124     /// garment from a fresh layout without rebuilding the constraints.
+ 125     pub fn write_positions(&mut self, context: &WgpuContext, positions: &[Vec3]) -> Result<()> {
+ 126         if positions.len() as u32 != self.count {
+ 127             return Err(anyhow!(
+ 128                 "Particles::write_positions: holds {} particles, given {}",
+ 129                 self.count,
+ 130                 positions.len()
+ 131             ));
+ 132         }
+ 133         let masses = std::mem::take(&mut self.inverse_masses);
+ 134         let result = self.write(context, positions, &masses);
+ 135         self.inverse_masses = masses;
+ 136         result
+ 137     }
+ 138 
+ 139     pub async fn read_positions(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
+ 140         let records = ParticlePositions::from(
+ 141             self.positions
+ 142                 .read::<ParticlePositionRecord>(context)
+ 143                 .await?,
+ 144         );
+ 145         Ok(records.positions().take(self.count as usize).collect())
+ 146     }
+ 147 
+ 148     pub async fn read_velocities(&self, context: &WgpuContext) -> Result<Vec<Vec3>> {
+ 149         let records = ParticleVelocities::from(
+ 150             self.velocities
+ 151                 .read::<ParticleVelocityRecord>(context)
+ 152                 .await?,
+ 153         );
+ 154         Ok(records.velocities().take(self.count as usize).collect())
+ 155     }
+ 156 
+ 157     pub async fn read_inverse_masses(
+ 158         &self,
+ 159         context: &WgpuContext,
+ 160     ) -> Result<Vec<ParticleInverseMass>> {
+ 161         let records = ParticlePositions::from(
+ 162             self.positions
+ 163                 .read::<ParticlePositionRecord>(context)
+ 164                 .await?,
+ 165         );
+ 166         Ok(records.inverse_masses().take(self.count as usize).collect())
+--- packed 23-43 ---
+  23 /// Positions stay paired with their mass words through upload and readback.
+  24 pub struct ParticlePositions(Vec<ParticlePositionRecord>);
+  25 impl ParticlePositions {
+  26     pub fn new(positions: &[Vec3], inverse_masses: &[ParticleInverseMass]) -> Result<Self> {
+  27         ensure!(
+  28             positions.len() == inverse_masses.len(),
+  29             "Particles::write: {} positions but {} inverse masses",
+  30             positions.len(),
+  31             inverse_masses.len()
+  32         );
+  33         Ok(Self(
+  34             positions
+  35                 .iter()
+  36                 .zip(inverse_masses)
+  37                 .map(|(p, &inverse_mass)| ParticlePositionRecord {
+  38                     position: [p.x, p.y, p.z],
+  39                     inverse_mass,
+  40                 })
+  41                 .collect(),
+  42         ))
+  43     }
+--- buffer 15-20 ---
+  15 #[derive(Clone, Debug)]
+  16 pub struct Buffer {
+  17     pub buffer: Arc<wgpu::Buffer>,
+  18     pub size: BufferByteLength,
+  19     pub usage: wgpu::BufferUsages,
+  20 }
+--- buffer 127-150 ---
+ 127     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
+ 128         data.write_to(context, &self.buffer, BufferByteOffset::START);
+ 129         Ok(())
+ 130     }
+ 131 
+ 132     /// Write one host upload at a checked byte address within this buffer.
+ 133     pub fn write_at(
+ 134         &self,
+ 135         context: &WgpuContext,
+ 136         at: BufferByteOffset,
+ 137         data: BufferUpload<'_>,
+ 138     ) -> Result<()> {
+ 139         let end = at
+ 140             .checked_after(data.length())
+ 141             .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+ 142         if u64::from(end) > u64::from(self.size) {
+ 143             return Err(anyhow!(
+ 144                 "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
+ 145                 data.length(),
+ 146                 self.size
+ 147             ));
+ 148         }
+ 149         data.write_to(context, &self.buffer, at);
+ 150         Ok(())
+--- outer 88-113 ---
+  88     pub async fn project_particles(
+  89         &self,
+  90         context: &fabelgeist_gpu::globals::WgpuContext,
+  91         particles: &fabelgeist_xpbd::Particles,
+  92         faces: &[[u32; 3]],
+  93     ) -> anyhow::Result<()> {
+  94         let mut positions = particles.read_positions(context).await?;
+  95         let mut velocities = particles.read_velocities(context).await?;
+  96         let changed = self.project(
+  97             &mut positions,
+  98             &mut velocities,
+  99             particles.inverse_masses(),
+ 100             faces,
+ 101         );
+ 102         if changed {
+ 103             particles.positions.write(
+ 104                 context,
+ 105                 fabelgeist_xpbd::ParticlePositions::new(&positions, particles.inverse_masses())?
+ 106                     .upload(),
+ 107             )?;
+ 108             particles.velocities.write(
+ 109                 context,
+ 110                 fabelgeist_xpbd::ParticleVelocities::from(velocities.as_slice()).upload(),
+ 111             )?;
+ 112         }
+ 113         Ok(())
+--- contacts 100-155 ---
+ 100         iterations: u32,
+ 101         interval_start: Option<&[Vec3]>,
+ 102     ) -> anyhow::Result<usize> {
+ 103         let mut previous = match interval_start {
+ 104             Some(start) => {
+ 105                 anyhow::ensure!(
+ 106                     start.len() == particles.count() as usize,
+ 107                     "interval start does not match the particle count"
+ 108                 );
+ 109                 start.to_vec()
+ 110             }
+ 111             None => {
+ 112                 let records = fabelgeist_xpbd::ParticlePositions::from(
+ 113                     particles
+ 114                         .previous
+ 115                         .read::<fabelgeist_xpbd::ParticlePositionRecord>(context)
+ 116                         .await?,
+ 117                 );
+ 118                 records
+ 119                     .positions()
+ 120                     .take(particles.count() as usize)
+ 121                     .collect()
+ 122             }
+ 123         };
+ 124         let predicted = particles.read_positions(context).await?;
+ 125         let mut corrected = predicted.clone();
+ 126         let mut velocities = particles.read_velocities(context).await?;
+ 127         let count = corrected.len();
+ 128         let mut masses = particles.inverse_masses().to_vec();
+ 129         previous.extend_from_slice(&self.static_positions);
+ 130         corrected.extend_from_slice(&self.static_positions);
+ 131         masses.resize(corrected.len(), ParticleInverseMass::PINNED);
+ 132         velocities.resize(corrected.len(), Vec3::default());
+ 133         let contacts = self.solve_inner(
+ 134             &mut corrected,
+ 135             &previous,
+ 136             &masses,
+ 137             thickness,
+ 138             iterations,
+ 139             Some(&mut velocities),
+ 140         );
+ 141         if contacts > 0 {
+ 142             particles.positions.write(
+ 143                 context,
+ 144                 fabelgeist_xpbd::ParticlePositions::new(
+ 145                     &corrected[..count],
+ 146                     particles.inverse_masses(),
+ 147                 )?
+ 148                 .upload(),
+ 149             )?;
+ 150             particles.velocities.write(
+ 151                 context,
+ 152                 fabelgeist_xpbd::ParticleVelocities::from(&velocities[..count]).upload(),
+ 153             )?;
+ 154         }
+ 155         Ok(contacts)
+--- solver 236-259 ---
+ 236     fn record_predict(
+ 237         &self,
+ 238         batch: &mut KernelBatch,
+ 239         particles: &Particles,
+ 240         substep: f32,
+ 241     ) -> Result<()> {
+ 242         let mut parameters = PassParameters::new();
+ 243         parameters.insert("positions", particles.positions.clone());
+ 244         parameters.insert("previous", particles.previous.clone());
+ 245         parameters.insert("velocities", particles.velocities.clone());
+ 246         parameters.insert(
+ 247             "gravity",
+ 248             fabelgeist_math::Vec4::new(
+ 249                 self.settings.gravity.x,
+ 250                 self.settings.gravity.y,
+ 251                 self.settings.gravity.z,
+ 252                 0.0,
+ 253             ),
+ 254         );
+ 255         parameters.insert("substep", substep);
+ 256         parameters.insert("damping", self.settings.damping);
+ 257         parameters.insert("count", particles.count());
+ 258         parameters.insert("max_speed", self.settings.max_speed);
+ 259         batch.dispatch_items(&self.predict, &parameters, particles.count())?;

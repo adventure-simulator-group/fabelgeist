@@ -1,0 +1,18 @@
+{
+  "schema": "726-evidence-verifier-evolution-qualification-v1",
+  "observed_checkpoint_commit": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "inventory": "delegated/evidence-verifier-evolution/SOURCE-INVENTORY.json",
+  "inventory_manifest_sha256": "a190cfe1a540960f70e08fd776ba17644c981383cac44dd1d84d918ad59953da",
+  "scope": "Static inspection of 694 root verify_*.py files, exact Git-blob matched to the recorded evidence commit. Four one-line regular expressions identify selected progress and partial-state assertion patterns; they do not establish all equivalent patterns, executable paths or the number of unique affected scripts.",
+  "heuristic_counts": {
+    "lenses_zero": 249,
+    "queue_zero": 312,
+    "partial_status": 256,
+    "candidate_count": 241
+  },
+  "concrete_example": "verify_delegated_reconciliation_4_95e.py asserts that the live q1859 current_reconciliation starts with partial and that live lenses_complete and queue_records_semantically_reconciled equal zero. Those facts describe the observed checkpoint, but treating them as permanent live-state invariants would reject a later justified closure.",
+  "candidate_count_qualification": "The candidate-count pattern compares a live count to the live ledger length and is not by itself evidence of a frozen zero-state constraint.",
+  "consequence": "Before recording any actual completed lens or semantically reconciled queue row that conflicts with a historical check, establish a reviewed evidence-verification method that preserves the earlier assertion against its exact time-bound state while separately validating the new live state. Do not remove or silently weaken historical assertions. No such adaptation is implemented or independently approved here.",
+  "limits": "No audit lens or queue row is closed by this inspection; no original historical record is overwritten. The reported checkpoint was published and its same-machine recovery check was still ongoing when this inventory was made.",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,38 @@
+--- constraint 71-79 ---
+  71         let storage = BufferDefinition::storage();
+  72         let lambdas = Buffer::new(
+  73             context,
+  74             count.lambda_bytes(),
+  75             storage
+  76                 .with_usage(BufferUse::CopySource)
+  77                 .with_label(("constraint lambdas").into()),
+  78         )?;
+  79 
+--- buffer 23-36 ---
+  23     pub fn new(
+  24         context: &WgpuContext,
+  25         bytes: BufferByteLength,
+  26         definition: BufferDefinition,
+  27     ) -> Result<Buffer> {
+  28         if u64::from(bytes) == 0 {
+  29             return Err(anyhow!("Buffer size must be greater than 0"));
+  30         }
+  31         let buffer = definition.allocate_native(context, bytes);
+  32         let usage = buffer.usage();
+  33         Ok(Buffer {
+  34             buffer: Arc::new(buffer),
+  35             size: bytes,
+  36             usage,
+--- buffer 153-164 ---
+ 153     pub fn from_upload(
+ 154         context: &WgpuContext,
+ 155         data: BufferUpload<'_>,
+ 156         definition: BufferDefinition,
+ 157     ) -> Result<Buffer> {
+ 158         let buffer = Self::new(
+ 159             context,
+ 160             data.length(),
+ 161             definition.with_usage(BufferUse::CopyDestination),
+ 162         )?;
+ 163         buffer.write(context, data)?;
+ 164         Ok(buffer)

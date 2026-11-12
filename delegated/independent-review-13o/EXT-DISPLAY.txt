@@ -1,0 +1,139 @@
+--- packed 44-82 ---
+  44     pub fn upload(&self) -> BufferUpload<'_> {
+  45         BufferUpload::from_elements(&self.0)
+  46     }
+  47     pub fn positions(&self) -> impl Iterator<Item = Vec3> + '_ {
+  48         self.0
+  49             .iter()
+  50             .map(|p| Vec3::new(p.position[0], p.position[1], p.position[2]))
+  51     }
+  52     pub fn inverse_masses(&self) -> impl Iterator<Item = ParticleInverseMass> + '_ {
+  53         self.0.iter().map(|p| p.inverse_mass)
+  54     }
+  55 }
+  56 impl From<Vec<ParticlePositionRecord>> for ParticlePositions {
+  57     fn from(records: Vec<ParticlePositionRecord>) -> Self {
+  58         Self(records)
+  59     }
+  60 }
+  61 
+  62 /// Velocity records cannot be used as position/mass records.
+  63 ///
+  64 /// ```compile_fail
+  65 /// use fabelgeist_xpbd::{ParticlePositions, ParticleVelocities};
+  66 /// fn positions(_: ParticlePositions) {}
+  67 /// positions(ParticleVelocities::from(&[][..]));
+  68 /// ```
+  69 pub struct ParticleVelocities(Vec<ParticleVelocityRecord>);
+  70 impl ParticleVelocities {
+  71     pub fn at_rest(positions: &ParticlePositions) -> Self {
+  72         Self(vec![ParticleVelocityRecord::default(); positions.0.len()])
+  73     }
+  74     pub fn upload(&self) -> BufferUpload<'_> {
+  75         BufferUpload::from_elements(&self.0)
+  76     }
+  77     pub fn velocities(&self) -> impl Iterator<Item = Vec3> + '_ {
+  78         self.0
+  79             .iter()
+  80             .map(|v| Vec3::new(v.velocity[0], v.velocity[1], v.velocity[2]))
+  81     }
+  82 }
+--- buffer 38-109 ---
+  38     }
+  39 
+  40     pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
+  41         let size = u64::from(self.size);
+  42         let readback = readback::Readback::<T>::new(size)?;
+  43         let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
+  44 
+  45         let (target_buffer, needs_unmap) = if is_mappable {
+  46             (self.buffer.clone(), false)
+  47         } else {
+  48             // 1. Create staging buffer
+  49             let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
+  50                 label: Some("Staging Buffer"),
+  51                 size,
+  52                 usage: wgpu::BufferUsages::MAP_READ | wgpu::BufferUsages::COPY_DST,
+  53                 mapped_at_creation: false,
+  54             });
+  55 
+  56             // 2. Copy data to staging buffer
+  57             let mut encoder = context
+  58                 .device
+  59                 .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
+  60             encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging_buffer, 0, size);
+  61             context.queue.submit(Some(encoder.finish()));
+  62             (Arc::new(staging_buffer), true)
+  63         };
+  64 
+  65         #[allow(unused_mut)]
+  66         let (tx, mut rx) = futures_channel::oneshot::channel();
+  67 
+  68         // 1. Start mapping
+  69         {
+  70             let slice = target_buffer.slice(..);
+  71             slice.map_async(wgpu::MapMode::Read, move |res| {
+  72                 let _ = tx.send(res);
+  73             });
+  74         }
+  75 
+  76         // 2. Poll if on native
+  77         #[cfg(not(target_arch = "wasm32"))]
+  78         {
+  79             // Waiting on the queue is what a readback actually costs. Asking
+  80             // whether it is done and then sleeping a millisecond between asks
+  81             // adds the sleep's granularity to every one -- and on Windows that
+  82             // is not a millisecond, it is whatever the system timer is set to,
+  83             // which turned a four-megabyte read into four milliseconds and
+  84             // sometimes eight. `Wait` returns when the work is done.
+  85             let _ = context.device.poll(wgpu::PollType::wait_indefinitely());
+  86             loop {
+  87                 match rx.try_recv() {
+  88                     Ok(Some(res)) => {
+  89                         res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
+  90                         break;
+  91                     }
+  92                     // `Wait` covers submitted work, so this is reached only for
+  93                     // a buffer that was already mappable and had nothing
+  94                     // submitted for it. Yielding keeps that case from spinning
+  95                     // a core without putting a sleep back in the common one.
+  96                     Ok(None) => {
+  97                         let _ = context.device.poll(wgpu::PollType::Poll);
+  98                         std::thread::yield_now();
+  99                     }
+ 100                     Err(_) => return Err(anyhow!("Mapping channel closed")),
+ 101                 }
+ 102             }
+ 103         }
+ 104 
+ 105         // 3. Await result (only on wasm, since native loop already consumed rx)
+ 106         #[cfg(target_arch = "wasm32")]
+ 107         rx.await
+ 108             .map_err(|_| anyhow!("Mapping channel closed"))?
+ 109             .map_err(|_| anyhow!("GPU Mapping error"))?;
+--- outer 45-69 ---
+  45             return None;
+  46         }
+  47         let signed = (point - closest).dot(normal);
+  48         if signed >= self.clearance {
+  49             return None;
+  50         }
+  51         Some((point + normal * (self.clearance - signed), normal))
+  52     }
+  53 
+  54     /// Maximum remaining displacement needed to satisfy an outer layer.
+  55     pub fn residual(&self, positions: &[Vec3]) -> f32 {
+  56         positions
+  57             .iter()
+  58             .filter_map(|&p| self.correction(p).map(|(q, _)| (q - p).length()))
+  59             .fold(0.0, f32::max)
+  60     }
+  61 
+  62     /// Project host particles, preserving pinned vertices and sliding velocity.
+  63     pub fn project(
+  64         &self,
+  65         positions: &mut [Vec3],
+  66         velocities: &mut [Vec3],
+  67         masses: &[ParticleInverseMass],
+  68         faces: &[[u32; 3]],
+  69     ) -> bool {

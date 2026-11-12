@@ -1,0 +1,186 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T01:47:40.578965+00:00",
+  "scope": "Original ordered registry roles 2652 incidence.rs and 2653 constraint/address.rs, plus separately registered bounded 95e supports. Thirteen perspectives are bounded to these actual reads and do not certify complete lenses or whole product coverage.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working snapshot recorded at 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications; not a clean-tree claim",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee stores recovered registry source objects only, not the audited source revision",
+    "later_p16": "Later recovery of the separately attributed dirty physical-P16 tracked patch and separately archived untracked objects is unrelated to these pr-working roles and must keep its own identity and completeness qualification.",
+    "checkpoint3821": "Final original 3821 queue/ledger remain unrecovered; nothing here substitutes for or promotes earlier records into 3821."
+  },
+  "sources": [
+    {
+      "role": 2652,
+      "path": "crates/fabelgeist-xpbd/src/incidence.rs",
+      "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+      "bytes": 4688,
+      "lines": 142,
+      "git_blob": "bce29e338a1e9af1a4e12938138e65c26fdeb47e",
+      "identity": "Exact archived pr-working file equals the corresponding 6533 and 95e files byte-for-byte; this does not establish whole-tree equality."
+    },
+    {
+      "role": 2653,
+      "path": "crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "sha256": "1cca95c32add21d41c68abe0296d3d31684d982060d8b2098f896423b2f97075",
+      "bytes": 988,
+      "lines": 32,
+      "git_blob": "1479a62c36423026dc49fbe1037d94639e229239",
+      "identity": "Exact archived pr-working file equals the corresponding 6533 and 95e files byte-for-byte; this does not establish whole-tree equality."
+    }
+  ],
+  "assigned_personal_displays": [
+    {
+      "role": 2652,
+      "pr_working_actual_display": [
+        [
+          1,
+          142
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          142
+        ]
+      ],
+      "unread_old_and_current": []
+    },
+    {
+      "role": 2653,
+      "pr_working_actual_display": [
+        [
+          1,
+          32
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          32
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registration": "support-registration*.json",
+  "git_membership_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig source range registrations REG-115 and REG-116, additions ADDITIONAL-115 and ADDITIONAL-116, within hash-linked garment-underlayer evidence archive",
+      "attribution": "Original supplier rig; source as recorded pr-working; later lens credit false, repair not started.",
+      "ranges": {
+        "2652": [
+          [
+            1,
+            140
+          ]
+        ],
+        "2653": [
+          [
+            1,
+            32
+          ]
+        ]
+      },
+      "relationship": "ADDITIONAL-115 describes role versus particle-buffer membership, nonzero arity, complete records, same-input coloring; ADDITIONAL-116 records size narrowing and F073 capacity admission. Exact F073 finding body is not included as recovered in this packet."
+    },
+    {
+      "source": "059 segovb/READ-L11-433.json and REGISTRATION-SEGOVB-1569/1570",
+      "attribution": "Original segovb personal read; recorded pr-working identity",
+      "ranges": {
+        "2652": [
+          [
+            1,
+            140
+          ]
+        ],
+        "2653": [
+          [
+            1,
+            32
+          ]
+        ]
+      },
+      "qualification": "Incidence 141–142 not credited in original read."
+    },
+    {
+      "source": "059 segovb/READ-L12-915.json; registrations PAR-L12-717/718 and identity-specific qualifications",
+      "attribution": "/root/lens12_frontier original prospective bounded personal read, adopted by root with root_personal_rereads empty and no other-lens verdict transfer",
+      "ranges": {
+        "2652": [
+          [
+            1,
+            140
+          ]
+        ],
+        "2653": [
+          [
+            1,
+            32
+          ]
+        ]
+      },
+      "qualification": "Incidence 141–142 not credited in original read."
+    }
+  ],
+  "findings": [
+    {
+      "id": "CANDIDATE-XPBD-KERNEL-INCIDENCE-ARITY-CONTRACT",
+      "status": "Newly assessed, source-backed conditional public API boundary; supported producer reachability and runtime outcome not established; duplicate/alias decision reserved to central reconciliation.",
+      "contract": "ConstraintSet::new separately accepts a kernel and a complete nonzero-arity incidence, but the inspected path does not couple the incidence arity to that kernel’s particle-address layout. A selected fixed-arity kernel can therefore demand more particle words per record than the uploaded record supplies.",
+      "source_trace": [
+        "incidence.rs:20–22,59–87,95–113: nonzero arity, complete records and ordered particle-word upload",
+        "constraint.rs:60–70,80–90,259–285: generic kernel and incidence accepted independently, retained and bound on solve",
+        "wgsl.rs:172–188: DISTANCE declares particle array and requests 2*constraint and 2*constraint+1",
+        "gpu/buffer/upload.rs:25–27,42–47 and gpu/buffer/mod.rs:23–36,153–164: one populated u32 word remains one word in upload and recorded allocation size"
+      ],
+      "symbolic_condition": "For one complete arity-1 incidence record, selecting the distance kernel and supplying its required attachment would retain one particle word; the first scheduled distance constraint requests logical particle-array indices 0 and 1, so index 1 is beyond that one-word declared upload. This is reasoning about source contracts only, not an execution or claim of a particular GPU result.",
+      "scope_limit": "No inspected supported producer selects this combination. Other native validation may reject a binding or affect behavior; its exact policy was not inspected. ConstraintSet::distance constructs arity-2 edges (constraint.rs:94–115 and incidence.rs:31–33,126–137). Shell validates mesh and uses distance arity-2 plus an explicit arity-4 bending incidence (shell.rs:75–137; mesh.rs:85–129). Do not imply these normal paths are faulty.",
+      "history_relationship": "Related to 059 q620/q625 and q1859 and /root/rig_identity particle membership/permutation finding. Distinct mechanism from /root/mhr_character/central raw-attachment element-stride observation: this concerns the particle-incidence record width selected for a kernel, not attachment layout. May require a shared schema repair; no automatic alias or separate accepted unique count.",
+      "future_repair_direction": "At kernel/constraint schema ownership, connect intended particle record arity and all binding layouts with the admitted incidence, reject incompatible construction before a native dispatch, and preserve explicit supported custom kernels and zero-set modes. Any specific implementation and acceptance test belongs to a later authorized repair/validation phase."
+    },
+    {
+      "id": "XPBD-COLOR-CAPACITY-FIRST-OPERATION-REFINEMENT",
+      "status": "Existing historical F073/q625 capacity family, source refinement only; not a new independent finding count.",
+      "source_trace": [
+        "constraint/address.rs:19–31: count usize, lambda-byte computation and usize-to-u32 native casts",
+        "coloring.rs:19–27,89–148: u32 ConstraintSlot counts/prefix sums and original-index narrowing before upload/dispatch"
+      ],
+      "condition": "If an allocation can supply 2^32 one-particle constraints with distinct u32 particle addresses, the greedy schedule places them in the same color, and the 2^32th increment of the u32 slot count at coloring.rs:135 exceeds u32 capacity, preceding the later count casts; enabled overflow checks fail and unchecked arithmetic may wrap. Memory, platform, compiler configuration, product reachability and device limits were not demonstrated.",
+      "history_relationship": "Original rig ADDITIONAL-116 cites F073; 059 q620/q625 already preserve the capacity question. This is one conditional first-operation trace for that family; no duplicate count or claim that F073 original finding body is reproduced.",
+      "future_repair_direction": "Choose and enforce the supported count/device capacity before coloring arithmetic and native narrowing, with checked arithmetic where appropriate; retain legitimate empty sets. Acceptance/validation is future work."
+    }
+  ],
+  "nonfindings": [
+    "ConstraintIndex, ConstraintSlot and ParticleIndex have distinct roles; ParticleIndex explicitly does not claim membership in a particular Particles buffer.",
+    "ConstraintArity rejects zero and ConstraintIncidence checks whole fixed-arity records while retaining an immutable borrow; empty whole sets and the minimum native word are intentional modes, not errors solely by emptiness.",
+    "ConstraintSet::new obtains coloring from the very incidence it uploads; the private helper’s separate arguments alone do not establish ordinary caller permutation mismatch.",
+    "Distance and spring check per-record counts before their reorder; shell validates particle indices and count correspondences before its inspected construction path. These observations do not close public membership, attachment schema, numerical or other callers."
+  ],
+  "open_questions": [
+    "Which supported callers may supply arbitrary kernels and incidence records, and what exact fixed/dynamic layout contract is intended at this API?",
+    "Does native binding layout validation or robust access change the manifestation for mismatched records? No runtime or native execution has been performed.",
+    "What input, allocation, target and device limits actually bound coloring and dispatch counts before the u32 arithmetic?",
+    "How should the particle-layout candidate relate to q625/q1859 and previously accepted membership and attachment findings in the central ledger?",
+    "Can public exposed buffers and attachments be mutated into other invalid aggregate states? The prior /root/rig_identity record preserves those separate questions."
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "Typed edge and explicit shell bend producers reach ConstraintSet and native particle words; generic custom kernel/arity admission remains conditional and producer reachability open.",
+    "existing-type-owners": "ParticleIndex, ConstraintArity, ConstraintCount and ConstraintIndex already own semantic distinctions; an explicit kernel-layout contract may need an owner.",
+    "admission-contracts": "Nonzero arity and complete records are checked; buffer membership and kernel-selected arity are separate obligations, not established by those checks.",
+    "invariant-operations": "Color count/prefix u32 overflow and usize-to-u32 narrowing have a conditional capacity trace; no execution or practical allocation established.",
+    "aggregate-states": "Coloring is derived from the same incidence by the ordinary constructor; chosen kernel, attachment schema, particle-buffer membership and later public buffers remain separate coupled-state obligations.",
+    "wrong-duplicate-owners": "Incidence owns record layout, coloring owns schedule, address types own source and permuted ordinals; potential cross-owner kernel contract needs design rather than inferred consolidation.",
+    "redundant-authority": "Kernel and incidence independently describe a record width in the generic boundary; no demonstrated conflict for the typed distance or shell producer paths.",
+    "behavior-preservation": "Future repair should preserve complete empty incidence, the native placeholder, same-incidence color order and supported custom kernels; no refactor or behavioral comparison run.",
+    "enum-state-shape": "ZeroArity and Incomplete are structured variants with their counts/arity; empty constraints and disabled solve are legitimate separate modes.",
+    "derivability": "NonZeroUsize and private incidence borrow enforce local invariants; blindly deriving broader constructors cannot prove kernel or buffer membership.",
+    "granularity": "Particle addresses, original constraint indices, color slots and counts address different spaces; role typing alone cannot certify a particular buffer or shader layout.",
+    "raw-strings": "Buffer labels, attachment binding names and diagnostic text are native boundary/presentation strings. No raw-string finding for the two assigned roles.",
+    "raw-primitives": "u32 device words, usize host counts and f32 solver inputs have distinct roles; bounded support establishes narrowing but not complete numerical/device policy."
+  },
+  "limitations": "No product execution, kernel compilation, solver/geometry simulation, build, test, runtime probe, repair, source edit or publication edit. Evidence checks and symbolic reasoning only. Historical observations remain original attribution and revision. This packet is one partial source-family review."
+}

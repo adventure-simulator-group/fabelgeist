@@ -338,7 +338,16 @@ zero-area Surface sampling proposal to its prior records and leaves q619 open.
 The coordinator draft has not yet received a separate semantic review.
 `ASSESSMENT-CENTRAL-PARTICLES-13O-95E.json` reconnects recovered F082
 to bounded current particle and buffer source, including selected writeback
-safeguards. Its coordinator draft has not had separate semantic review.
+safeguards. At that checkpoint its draft had not had separate semantic review.
+`ASSESSMENT-CENTRAL-PARTICLES-13O-REVIEW-ADDENDUM.json` preserves the later
+independent review and its earlier-assertion and historical-scope refinements.
+`ASSESSMENT-CENTRAL-INCIDENCE-13P-95E.json` connects a conditional kernel and
+incidence-width question; its later independent review and recovered F073
+supplement are in `ASSESSMENT-CENTRAL-INCIDENCE-13P-REVIEW-ADDENDUM.json`.
+`ASSESSMENT-CENTRAL-COLLIDER-13Q-95E.json`
+independently corroborates existing collider count and error-state records.
+`EVIDENCE-VERIFIER-EVOLUTION-QUALIFICATION.json` records historical verifier
+assumptions that must remain time-bound as the audit proceeds.
 `delegated/checkpoint39-stage/REPORT.json` preserves three additional
 source-family packets pending central reconciliation. The independent review
 and the earlier temporary-original permission limitation are recorded in
@@ -352,6 +361,8 @@ subsequent fetched-checkout evidence check, byte-identical transcript and
 same-machine custody limitation.
 `delegated/checkpointc629-verification/RECOVERY-RECORD.json` records the
 next fetched-checkout evidence check and its same-machine custody limitation.
+`delegated/checkpoint8608-verification/RECOVERY-RECORD.json` records the
+next byte-identical fetched-checkout evidence check, with the same-machine limit.
 `RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
 fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine

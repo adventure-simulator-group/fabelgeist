@@ -1,0 +1,740 @@
+--- incidence 1-142 ---
+   1 //! Particle incidence acquires its solver role before coloring or upload.
+   2 use derive_more::{Display, Error, From};
+   3 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload, WgpuContext};
+   4 use std::num::NonZeroUsize;
+   5 
+   6 /// Address of a solver particle, independent of draw or constraint addresses.
+   7 /// Admission assigns a role, not membership in any particular particle buffer.
+   8 ///
+   9 /// ```compile_fail
+  10 /// use fabelgeist_xpbd::{ConstraintIndex, ParticleIndex};
+  11 /// let _: ConstraintIndex = ParticleIndex::from(3);
+  12 /// ```
+  13 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, Hash)]
+  14 pub struct ParticleIndex(u32);
+  15 
+  16 /// Number of particle entries in a flattened constraint input.
+  17 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  18 pub struct ConstraintParticleCount(usize);
+  19 
+  20 /// A fixed constraint always touches at least one particle.
+  21 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  22 pub struct ConstraintArity(NonZeroUsize);
+  23 
+  24 /// A checked view of complete, immutable fixed-arity particle records.
+  25 #[derive(Clone, Debug)]
+  26 pub struct ConstraintIncidence<'a> {
+  27     particles: &'a [ParticleIndex],
+  28     arity: ConstraintArity,
+  29 }
+  30 
+  31 /// The two-particle records used by distance and spring constraints.
+  32 #[derive(Clone, Debug, Default)]
+  33 pub struct ConstraintEdges(Vec<[ParticleIndex; 2]>);
+  34 
+  35 #[derive(Clone, Debug, Display, Error, PartialEq, Eq)]
+  36 pub enum ConstraintLayoutError {
+  37     #[display("ConstraintSet: arity must be at least one")]
+  38     ZeroArity,
+  39     #[display(
+  40         "ConstraintSet: {particles} indices is not a whole number of arity-{arity} constraints"
+  41     )]
+  42     Incomplete {
+  43         particles: ConstraintParticleCount,
+  44         arity: ConstraintArity,
+  45     },
+  46 }
+  47 
+  48 impl From<ParticleIndex> for usize {
+  49     fn from(index: ParticleIndex) -> Self {
+  50         index.0 as usize
+  51     }
+  52 }
+  53 
+  54 impl ConstraintArity {
+  55     // A native edge record contains two particle addresses.
+  56     const PAIR: Self = Self(NonZeroUsize::MIN.saturating_add(1));
+  57 }
+  58 
+  59 impl TryFrom<usize> for ConstraintArity {
+  60     type Error = ConstraintLayoutError;
+  61     fn try_from(arity: usize) -> Result<Self, ConstraintLayoutError> {
+  62         NonZeroUsize::new(arity)
+  63             .map(Self)
+  64             .ok_or(ConstraintLayoutError::ZeroArity)
+  65     }
+  66 }
+  67 
+  68 impl<'a> ConstraintIncidence<'a> {
+  69     /// Borrow particle-address records, preserving their exact order.
+  70     pub fn from_records<const N: usize>(
+  71         records: &'a [[ParticleIndex; N]],
+  72     ) -> Result<Self, ConstraintLayoutError> {
+  73         Self::new(records.as_flattened(), ConstraintArity::try_from(N)?)
+  74     }
+  75 
+  76     /// Borrow flat particle storage only when every record is complete.
+  77     pub fn new(
+  78         particles: &'a [ParticleIndex],
+  79         arity: ConstraintArity,
+  80     ) -> Result<Self, ConstraintLayoutError> {
+  81         if !particles.len().is_multiple_of(arity.0.get()) {
+  82             return Err(ConstraintLayoutError::Incomplete {
+  83                 particles: ConstraintParticleCount(particles.len()),
+  84                 arity,
+  85             });
+  86         }
+  87         Ok(Self { particles, arity })
+  88     }
+  89     pub fn arity(&self) -> ConstraintArity {
+  90         self.arity
+  91     }
+  92     pub(crate) fn records(&self) -> impl Iterator<Item = &[ParticleIndex]> {
+  93         self.particles.chunks(self.arity.0.get())
+  94     }
+  95     pub(crate) fn upload_ordered(
+  96         &self,
+  97         context: &WgpuContext,
+  98         coloring: &crate::Coloring,
+  99     ) -> anyhow::Result<Buffer> {
+ 100         let mut words = Vec::with_capacity(self.particles.len());
+ 101         for &constraint in coloring.order() {
+ 102             let first = usize::from(constraint) * self.arity.0.get();
+ 103             for particle in &self.particles[first..first + self.arity.0.get()] {
+ 104                 // This is the constraint particle buffer's native u32 ABI.
+ 105                 words.push(particle.0);
+ 106             }
+ 107         }
+ 108         Buffer::from_upload(
+ 109             context,
+ 110             BufferUpload::from_elements(&words).with_empty_word(),
+ 111             BufferDefinition::storage().with_label("constraint particles".into()),
+ 112         )
+ 113     }
+ 114 }
+ 115 
+ 116 impl From<&[[u32; 2]]> for ConstraintEdges {
+ 117     fn from(records: &[[u32; 2]]) -> Self {
+ 118         let mut edges = Vec::with_capacity(records.len());
+ 119         for &record in records {
+ 120             edges.push(record.map(ParticleIndex::from));
+ 121         }
+ 122         Self(edges)
+ 123     }
+ 124 }
+ 125 
+ 126 impl ConstraintEdges {
+ 127     pub fn pairs(&self) -> &[[ParticleIndex; 2]] {
+ 128         &self.0
+ 129     }
+ 130     pub fn count(&self) -> crate::ConstraintCount {
+ 131         self.0.len().into()
+ 132     }
+ 133     pub fn incidence(&self) -> ConstraintIncidence<'_> {
+ 134         ConstraintIncidence {
+ 135             particles: self.0.as_flattened(),
+ 136             arity: ConstraintArity::PAIR,
+ 137         }
+ 138     }
+ 139 }
+ 140 
+ 141 #[cfg(test)]
+ 142 mod tests;
+--- constraint 1-115 ---
+   1 //! A coloured set of constraints, and the buffers behind it.
+   2 //!
+   3 //! Anything the solver sweeps over is one of these: a fabric's stretch, its
+   4 //! bending, the seams joining two panels, a set of tethers. What differs
+   5 //! between them is the kernel and the per-constraint data; what is the same is
+   6 //! the colouring, the Lagrange multipliers, and the dispatch per colour.
+   7 
+   8 use fabelgeist_gpu::prelude::{BufferUpload, BufferUse};
+   9 use std::sync::Arc;
+  10 
+  11 use anyhow::anyhow;
+  12 use fabelgeist_compute::prelude::*;
+  13 use fabelgeist_gpu::prelude::*;
+  14 
+  15 use crate::coloring::{ColorCount, Coloring};
+  16 use crate::particles::Particles;
+  17 use crate::wgsl;
+  18 use crate::{ConstraintArity, ConstraintEdges, ConstraintIncidence};
+  19 pub use address::{ConstraintCount, ConstraintIndex};
+  20 
+  21 mod address;
+  22 
+  23 /// Extra per-constraint buffers a kernel wants, bound by name.
+  24 ///
+  25 /// Distance constraints pass their rest lengths here; a bending constraint
+  26 /// passes its rest angles. The set reorders them into colour order for you --
+  27 /// see [`ConstraintSet::reorder`].
+  28 pub type Attachments = Vec<(String, Buffer)>;
+  29 
+  30 /// One constraint kernel, its constraints in colour order, and its
+  31 /// multipliers.
+  32 pub struct ConstraintSet {
+  33     pub name: String,
+  34     kernel: Arc<Kernel>,
+  35     clear: Arc<Kernel>,
+  36 
+  37     /// Particle indices, `arity` per constraint, in colour order.
+  38     pub particles: Buffer,
+  39     /// One Lagrange multiplier per constraint.
+  40     pub lambdas: Buffer,
+  41     /// Whatever else the kernel binds, already in colour order.
+  42     pub attachments: Attachments,
+  43 
+  44     coloring: Coloring,
+  45     arity: ConstraintArity,
+  46     /// The XPBD compliance: the inverse of stiffness, in metres per newton.
+  47     /// Zero is infinitely stiff.
+  48     pub compliance: f32,
+  49     /// Skip this set without tearing it down.
+  50     pub enabled: bool,
+  51 }
+  52 
+  53 impl ConstraintSet {
+  54     /// Build from constraints in any order; they are coloured and reordered
+  55     /// here.
+  56     ///
+  57     /// `incidence` contains complete particle-address records. Every attachment
+  58     /// must have one value per constraint, in the same original order, and is
+  59     /// permuted to match.
+  60     pub fn new(
+  61         context: &WgpuContext,
+  62         name: impl Into<String>,
+  63         kernel: Arc<Kernel>,
+  64         cache: &KernelCache,
+  65         incidence: &ConstraintIncidence<'_>,
+  66         compliance: f32,
+  67     ) -> Result<Self> {
+  68         let coloring = Coloring::for_incidence(incidence);
+  69         let count = coloring.constraint_count();
+  70         let particle_buffer = incidence.upload_ordered(context, &coloring)?;
+  71         let storage = BufferDefinition::storage();
+  72         let lambdas = Buffer::new(
+  73             context,
+  74             count.lambda_bytes(),
+  75             storage
+  76                 .with_usage(BufferUse::CopySource)
+  77                 .with_label(("constraint lambdas").into()),
+  78         )?;
+  79 
+  80         Ok(Self {
+  81             name: name.into(),
+  82             kernel,
+  83             clear: cache.get(context, wgsl::CLEAR_LAMBDAS)?,
+  84             particles: particle_buffer,
+  85             lambdas,
+  86             attachments: Vec::new(),
+  87             coloring,
+  88             arity: incidence.arity(),
+  89             compliance,
+  90             enabled: true,
+  91         })
+  92     }
+  93 
+  94     /// A set of distance constraints -- the common case.
+  95     pub fn distance(
+  96         context: &WgpuContext,
+  97         cache: &KernelCache,
+  98         name: impl Into<String>,
+  99         edges: &ConstraintEdges,
+ 100         rest_lengths: &[f32],
+ 101         compliance: f32,
+ 102     ) -> Result<Self> {
+ 103         if edges.count() != ConstraintCount::from(rest_lengths.len()) {
+ 104             return Err(anyhow!(
+ 105                 "ConstraintSet::distance: {} edges but {} rest lengths",
+ 106                 edges.count(),
+ 107                 rest_lengths.len()
+ 108             ));
+ 109         }
+ 110         let incidence = edges.incidence();
+ 111         let kernel = cache.get(context, &wgsl::constraint_kernel(wgsl::DISTANCE))?;
+ 112         let mut set = Self::new(context, name, kernel, cache, &incidence, compliance)?;
+ 113         let reordered = set.reorder(rest_lengths);
+ 114         set.attach(context, "rest_lengths", &reordered)?;
+ 115         Ok(set)
+--- constraint 240-285 ---
+ 240     pub fn record_clear(&self, batch: &mut KernelBatch) -> Result<()> {
+ 241         if !self.enabled || self.constraint_count().is_empty() {
+ 242             return Ok(());
+ 243         }
+ 244         let mut parameters = PassParameters::new();
+ 245         parameters.insert("lambdas", self.lambdas.clone());
+ 246         parameters.insert("count", self.constraint_count().uniform());
+ 247         parameters.insert("pad0", 0u32);
+ 248         parameters.insert("pad1", 0u32);
+ 249         parameters.insert("pad2", 0u32);
+ 250         batch.dispatch_items(
+ 251             &self.clear,
+ 252             &parameters,
+ 253             self.constraint_count().dispatch_items(),
+ 254         )?;
+ 255         Ok(())
+ 256     }
+ 257 
+ 258     /// One Gauss-Seidel sweep: one dispatch per colour, in order.
+ 259     pub fn record_solve(
+ 260         &self,
+ 261         batch: &mut KernelBatch,
+ 262         particles: &Particles,
+ 263         substep: f32,
+ 264     ) -> Result<()> {
+ 265         if !self.enabled || self.constraint_count().is_empty() {
+ 266             return Ok(());
+ 267         }
+ 268 
+ 269         for range in self.coloring.colors() {
+ 270             if range.count().is_empty() {
+ 271                 continue;
+ 272             }
+ 273 
+ 274             let mut parameters = PassParameters::new();
+ 275             parameters.insert("positions", particles.positions.clone());
+ 276             parameters.insert("lambdas", self.lambdas.clone());
+ 277             parameters.insert("particles", self.particles.clone());
+ 278             for (name, buffer) in &self.attachments {
+ 279                 parameters.insert(name.clone(), buffer.clone());
+ 280             }
+ 281             range.bind(&mut parameters);
+ 282             parameters.insert("compliance", self.compliance);
+ 283             parameters.insert("substep", substep);
+ 284 
+ 285             batch.dispatch_items(&self.kernel, &parameters, range.dispatch_items())?;
+--- coloring 1-153 ---
+   1 //! Greedy constraint coloring preserves arrival order within each color.
+   2 //!
+   3 //! Constraints sharing a particle occupy different dispatches. Sequential color
+   4 //! dispatches retain the solver's Gauss-Seidel order without device races.
+   5 use std::collections::HashMap;
+   6 
+   7 use crate::{ConstraintCount, ConstraintIncidence, ConstraintIndex, ParticleIndex};
+   8 use derive_more::{Display, From};
+   9 use fabelgeist_gpu::prelude::PassParameters;
+  10 
+  11 /// A color's position in the sequential solve schedule.
+  12 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  13 pub struct ConstraintColor(usize);
+  14 
+  15 /// Number of colors in the sequential solve schedule.
+  16 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord)]
+  17 pub struct ColorCount(usize);
+  18 
+  19 /// A constraint address after permutation into color order.
+  20 ///
+  21 /// ```compile_fail
+  22 /// use fabelgeist_xpbd::{ConstraintIndex, ConstraintSlot};
+  23 /// fn original(_: ConstraintIndex) {}
+  24 /// fn wrong(slot: ConstraintSlot) { original(slot); }
+  25 /// ```
+  26 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  27 pub struct ConstraintSlot(u32);
+  28 
+  29 /// Immutable color interval, in reordered constraint slots.
+  30 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  31 pub struct ColorRange {
+  32     color: ConstraintColor,
+  33     first: ConstraintSlot,
+  34     end: ConstraintSlot,
+  35 }
+  36 
+  37 /// Constraints grouped into colors, with their immutable permutation.
+  38 #[derive(Clone, Debug, Default)]
+  39 pub struct Coloring {
+  40     order: Vec<ConstraintIndex>,
+  41     ranges: Vec<ConstraintSlot>,
+  42 }
+  43 
+  44 impl From<ConstraintSlot> for usize {
+  45     fn from(slot: ConstraintSlot) -> Self {
+  46         slot.0 as usize
+  47     }
+  48 }
+  49 
+  50 impl ColorRange {
+  51     pub fn color(self) -> ConstraintColor {
+  52         self.color
+  53     }
+  54     pub fn count(self) -> ConstraintCount {
+  55         ((self.end.0 - self.first.0) as usize).into()
+  56     }
+  57     pub fn slots(self) -> impl Iterator<Item = ConstraintSlot> {
+  58         (self.first.0..self.end.0).map(ConstraintSlot)
+  59     }
+  60     pub(crate) fn bind(self, parameters: &mut PassParameters) {
+  61         parameters.insert("first", self.first.0);
+  62         parameters.insert("count", self.count().uniform());
+  63     }
+  64     pub(crate) fn dispatch_items(self) -> u32 {
+  65         self.count().dispatch_items()
+  66     }
+  67 }
+  68 
+  69 impl Coloring {
+  70     pub fn color_count(&self) -> ColorCount {
+  71         self.ranges.len().saturating_sub(1).into()
+  72     }
+  73     pub fn constraint_count(&self) -> ConstraintCount {
+  74         self.order.len().into()
+  75     }
+  76     pub fn order(&self) -> &[ConstraintIndex] {
+  77         &self.order
+  78     }
+  79     pub fn colors(&self) -> impl Iterator<Item = ColorRange> + '_ {
+  80         self.ranges
+  81             .windows(2)
+  82             .enumerate()
+  83             .map(|(color, bounds)| ColorRange {
+  84                 color: ConstraintColor(color),
+  85                 first: bounds[0],
+  86                 end: bounds[1],
+  87             })
+  88     }
+  89     pub fn for_incidence(incidence: &ConstraintIncidence<'_>) -> Self {
+  90         let records: Vec<&[ParticleIndex]> = incidence.records().collect();
+  91         Self::for_constraints(&records)
+  92     }
+  93     /// Variable-arity graphs may contain empty records and repeated addresses.
+  94     /// Incidence identifies conflicts; it does not validate particle membership.
+  95     pub fn for_constraints(constraints: &[&[ParticleIndex]]) -> Self {
+  96         if constraints.is_empty() {
+  97             return Self {
+  98                 order: Vec::new(),
+  99                 ranges: vec![ConstraintSlot(0)],
+ 100             };
+ 101         }
+ 102         let mut taken: HashMap<ParticleIndex, Vec<bool>> = HashMap::new();
+ 103         let mut colors = Vec::with_capacity(constraints.len());
+ 104         let mut color_count = ColorCount(0);
+ 105         for particles in constraints {
+ 106             let mut candidate = ConstraintColor(0);
+ 107             loop {
+ 108                 let mut free = true;
+ 109                 for particle in *particles {
+ 110                     if let Some(used) = taken.get(particle)
+ 111                         && used.get(candidate.0).is_some_and(|&occupied| occupied)
+ 112                     {
+ 113                         free = false;
+ 114                         break;
+ 115                     }
+ 116                 }
+ 117                 if free {
+ 118                     break;
+ 119                 }
+ 120                 candidate.0 += 1;
+ 121             }
+ 122             for &particle in *particles {
+ 123                 let used = taken.entry(particle).or_default();
+ 124                 if used.len() <= candidate.0 {
+ 125                     used.resize(candidate.0 + 1, false);
+ 126                 }
+ 127                 used[candidate.0] = true;
+ 128             }
+ 129             // Preserve the original native u32 color word narrowing.
+ 130             colors.push(ConstraintColor(candidate.0 as u32 as usize));
+ 131             color_count.0 = color_count.0.max(candidate.0 + 1);
+ 132         }
+ 133         let mut counts = vec![ConstraintSlot(0); color_count.0 + 1];
+ 134         for color in &colors {
+ 135             counts[color.0 + 1].0 += 1;
+ 136         }
+ 137         for i in 1..counts.len() {
+ 138             counts[i].0 += counts[i - 1].0;
+ 139         }
+ 140         let ranges = counts.clone();
+ 141         let mut cursor = counts;
+ 142         let mut order = vec![ConstraintIndex::from(0); constraints.len()];
+ 143         for (index, color) in colors.iter().enumerate() {
+ 144             let slot = &mut cursor[color.0];
+ 145             order[slot.0 as usize] = ConstraintIndex::from(index as u32);
+ 146             slot.0 += 1;
+ 147         }
+ 148         Self { order, ranges }
+ 149     }
+ 150 }
+ 151 
+ 152 #[cfg(test)]
+ 153 mod tests;
+--- address 1-32 ---
+   1 //! Original constraint addresses remain separate from color-order slots.
+   2 use derive_more::{Display, From, Into};
+   3 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
+   4 
+   5 /// Address of a constraint in its producer's original order.
+   6 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq)]
+   7 pub struct ConstraintIndex(u32);
+   8 
+   9 /// Complete per-constraint record cardinality, including an empty set.
+  10 #[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
+  11 pub struct ConstraintCount(usize);
+  12 
+  13 impl From<ConstraintIndex> for usize {
+  14     fn from(index: ConstraintIndex) -> Self {
+  15         index.0 as usize
+  16     }
+  17 }
+  18 
+  19 impl ConstraintCount {
+  20     pub fn is_empty(self) -> bool {
+  21         self.0 == 0
+  22     }
+  23     pub(crate) fn lambda_bytes(self) -> BufferByteLength {
+  24         ((self.0.max(1) as u64) * 4).into()
+  25     }
+  26     pub(crate) fn uniform(self) -> PassParameter {
+  27         (self.0 as u32).into()
+  28     }
+  29     pub(crate) fn dispatch_items(self) -> u32 {
+  30         self.0 as u32
+  31     }
+  32 }
+--- wgsl 150-205 ---
+ 150     pad0: u32,
+ 151     pad1: u32,
+ 152 };
+ 153 @group(0) @binding(3) var<uniform> params: FinalizeParams;
+ 154 
+ 155 @compute @workgroup_size(256)
+ 156 fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
+ 157     let index = global_id.x;
+ 158     if (index >= params.count) {
+ 159         return;
+ 160     }
+ 161     if (positions[index].w == 0.0) {
+ 162         velocities[index] = vec4<f32>(0.0, 0.0, 0.0, 0.0);
+ 163         return;
+ 164     }
+ 165     let delta = positions[index].xyz - previous[index].xyz;
+ 166     velocities[index] = vec4<f32>(delta / params.substep, 0.0);
+ 167 }
+ 168 "#;
+ 169 
+ 170 /// Distance constraints: the workhorse. Cloth stretch, seams and tethers are
+ 171 /// all this kernel with different rest lengths and compliances.
+ 172 pub const DISTANCE: &str = r#"
+ 173 @group(0) @binding(1) var<storage, read_write> lambdas: array<f32>;
+ 174 // Two particle indices per constraint.
+ 175 @group(0) @binding(2) var<storage, read> particles: array<u32>;
+ 176 @group(0) @binding(3) var<storage, read> rest_lengths: array<f32>;
+ 177 @group(0) @binding(4) var<uniform> params: SolveParams;
+ 178 
+ 179 @compute @workgroup_size(256)
+ 180 fn main(@builtin(global_invocation_id) global_id: vec3<u32>) {
+ 181     let local = global_id.x;
+ 182     if (local >= params.count) {
+ 183         return;
+ 184     }
+ 185     let constraint = params.first + local;
+ 186 
+ 187     let a = particles[constraint * 2u];
+ 188     let b = particles[constraint * 2u + 1u];
+ 189     let inverse_mass_a = particle_inverse_mass(a);
+ 190     let inverse_mass_b = particle_inverse_mass(b);
+ 191 
+ 192     let delta = particle_position(a) - particle_position(b);
+ 193     let distance = length(delta);
+ 194     // Two coincident particles have no direction to separate along. Leaving
+ 195     // them alone lets the next substep, when something else has nudged them
+ 196     // apart, do the work.
+ 197     if (distance < 1e-9) {
+ 198         return;
+ 199     }
+ 200 
+ 201     let normal = delta / distance;
+ 202     let value = distance - rest_lengths[constraint];
+ 203     // |grad| is 1 for both particles, so the weighted denominator is just the
+ 204     // sum of the inverse masses.
+ 205     let alpha_tilde = xpbd_alpha_tilde(params.compliance, params.substep);
+--- upload 1-58 ---
+   1 //! Borrowed host element bytes admitted for a native buffer upload.
+   2 
+   3 use crate::globals::WgpuContext;
+   4 
+   5 use super::{BufferByteLength, BufferByteOffset};
+   6 
+   7 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+   8 pub enum BufferUploadOccupancy {
+   9     Empty,
+  10     Populated,
+  11 }
+  12 
+  13 /// Exact `NoUninit` element representation, retained through queue submission.
+  14 ///
+  15 /// ```compile_fail
+  16 /// use crate::prelude::{BufferUpload, BufferByteLength};
+  17 /// let data = BufferUpload::from_elements(&[7u32]);
+  18 /// let _: BufferByteLength = data;
+  19 /// ```
+  20 #[derive(Clone, Copy, Debug)]
+  21 pub struct BufferUpload<'a>(&'a [u8]);
+  22 
+  23 const EMPTY_BINDING_WORD: [u8; std::mem::size_of::<u32>()] = [0; std::mem::size_of::<u32>()];
+  24 
+  25 impl<'a> BufferUpload<'a> {
+  26     pub fn from_elements<T: bytemuck::NoUninit>(elements: &'a [T]) -> Self {
+  27         Self(bytemuck::cast_slice(elements))
+  28     }
+  29 
+  30     pub fn length(self) -> BufferByteLength {
+  31         BufferByteLength::from(self.0.len())
+  32     }
+  33 
+  34     pub fn occupancy(self) -> BufferUploadOccupancy {
+  35         if self.0.is_empty() {
+  36             BufferUploadOccupancy::Empty
+  37         } else {
+  38             BufferUploadOccupancy::Populated
+  39         }
+  40     }
+  41 
+  42     /// Keep the established scalar-word binding for an empty armor input.
+  43     pub fn with_empty_word(self) -> Self {
+  44         match self.occupancy() {
+  45             BufferUploadOccupancy::Empty => Self(&EMPTY_BINDING_WORD),
+  46             BufferUploadOccupancy::Populated => self,
+  47         }
+  48     }
+  49 
+  50     pub(super) fn write_to(
+  51         self,
+  52         context: &WgpuContext,
+  53         buffer: &wgpu::Buffer,
+  54         at: BufferByteOffset,
+  55     ) {
+  56         context.queue.write_buffer(buffer, u64::from(at), self.0);
+  57     }
+  58 }
+--- buffer 1-36 ---
+   1 use crate::globals::WgpuContext;
+   2 use anyhow::{Result, anyhow};
+   3 use std::sync::Arc;
+   4 
+   5 mod definition;
+   6 mod extent;
+   7 mod label;
+   8 mod readback;
+   9 mod upload;
+  10 pub use definition::{BufferDefinition, BufferUse};
+  11 pub use extent::{BufferByteLength, BufferByteOffset};
+  12 pub use label::BufferLabel;
+  13 pub use upload::{BufferUpload, BufferUploadOccupancy};
+  14 
+  15 #[derive(Clone, Debug)]
+  16 pub struct Buffer {
+  17     pub buffer: Arc<wgpu::Buffer>,
+  18     pub size: BufferByteLength,
+  19     pub usage: wgpu::BufferUsages,
+  20 }
+  21 
+  22 impl Buffer {
+  23     pub fn new(
+  24         context: &WgpuContext,
+  25         bytes: BufferByteLength,
+  26         definition: BufferDefinition,
+  27     ) -> Result<Buffer> {
+  28         if u64::from(bytes) == 0 {
+  29             return Err(anyhow!("Buffer size must be greater than 0"));
+  30         }
+  31         let buffer = definition.allocate_native(context, bytes);
+  32         let usage = buffer.usage();
+  33         Ok(Buffer {
+  34             buffer: Arc::new(buffer),
+  35             size: bytes,
+  36             usage,
+--- buffer 151-166 ---
+ 151     }
+ 152 
+ 153     pub fn from_upload(
+ 154         context: &WgpuContext,
+ 155         data: BufferUpload<'_>,
+ 156         definition: BufferDefinition,
+ 157     ) -> Result<Buffer> {
+ 158         let buffer = Self::new(
+ 159             context,
+ 160             data.length(),
+ 161             definition.with_usage(BufferUse::CopyDestination),
+ 162         )?;
+ 163         buffer.write(context, data)?;
+ 164         Ok(buffer)
+ 165     }
+ 166 }
+--- shell 75-150 ---
+  75 impl Shell {
+  76     pub fn new(
+  77         context: &WgpuContext,
+  78         cache: &KernelCache,
+  79         mesh: &ShellMesh,
+  80         material: ShellMaterial,
+  81     ) -> Result<Self> {
+  82         mesh.validate()?;
+  83         material.validate()?;
+  84         if mesh.positions.is_empty() {
+  85             return Err(anyhow!("Shell: the garment has no particles"));
+  86         }
+  87 
+  88         let inverse_masses = mesh.inverse_masses();
+  89         let particles = Particles::from_positions(context, &mesh.positions, &inverse_masses)?;
+  90 
+  91         let stretch = ConstraintSet::distance(
+  92             context,
+  93             cache,
+  94             "stretch",
+  95             &ConstraintEdges::from(mesh.edges.as_slice()),
+  96             &mesh.rest_lengths,
+  97             material.stretch_compliance,
+  98         )?;
+  99 
+ 100         // Seams start at zero rest length -- the two edges are meant to become
+ 101         // one -- and the solver closes the gap over the first few frames. That
+ 102         // pulling-together is the whole drape: it is what turns flat panels
+ 103         // into a garment shaped round a body.
+ 104         let seam_rest = vec![0.0f32; mesh.seams.len()];
+ 105         let seams = ConstraintSet::distance(
+ 106             context,
+ 107             cache,
+ 108             "seams",
+ 109             &ConstraintEdges::from(mesh.seams.as_slice()),
+ 110             &seam_rest,
+ 111             material.seam_compliance,
+ 112         )?;
+ 113 
+ 114         let bend_particles: Vec<[ParticleIndex; 4]> = mesh
+ 115             .bends
+ 116             .iter()
+ 117             .map(|bend| bend.particles().map(ParticleIndex::from))
+ 118             .collect();
+ 119         let bend_incidence = ConstraintIncidence::from_records(&bend_particles)?;
+ 120         let bend_kernel = cache.get(
+ 121             context,
+ 122             &fabelgeist_xpbd::wgsl::constraint_kernel(wgsl::BEND),
+ 123         )?;
+ 124         let mut bending = ConstraintSet::new(
+ 125             context,
+ 126             "bending",
+ 127             bend_kernel,
+ 128             cache,
+ 129             &bend_incidence,
+ 130             material.bend_compliance,
+ 131         )?;
+ 132         // The weights are per constraint and the set is stored in colour
+ 133         // order, so they have to be permuted the same way -- otherwise every
+ 134         // hinge reads another hinge's weights.
+ 135         let ordered_weights = bending.reorder(&mesh.bend_weights);
+ 136         let flat_weights: Vec<f32> = ordered_weights.into_iter().flatten().collect();
+ 137         bending.attach_raw(context, "weights", &flat_weights)?;
+ 138 
+ 139         let self_collision = SelfCollision::new(
+ 140             context,
+ 141             cache,
+ 142             mesh.positions.len() as u32,
+ 143             &mesh.adjacency(),
+ 144             material.particle_radius(),
+ 145         )?;
+ 146 
+ 147         Ok(Self {
+ 148             outer_layer: None,
+ 149             host_contacts: HostContactSchedule::default(),
+ 150             surface_contacts: crate::surface_contact::SurfaceContacts::new(

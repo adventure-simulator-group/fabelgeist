@@ -1,0 +1,10 @@
+{
+  "schema": "726-independent-review-13o-scan-receipt-v1",
+  "archive_sha256": "d1bc3dbdb196aa8fdaeb320fbebbf14e0b8d071872fc4a82e0bf3932c6d55612",
+  "scans": {
+    "AGENT-ARCHIVE-SCAN.json": "c7db0ea7b2988322eb01a8b0e9d9d551e5ddcb6b63a9c7c058aea6de47c6a8d3",
+    "COORDINATOR-ARCHIVE-SCAN.json": "c7db0ea7b2988322eb01a8b0e9d9d551e5ddcb6b63a9c7c058aea6de47c6a8d3"
+  },
+  "qualification": "The reviewer and coordinator each scanned the same archive on the same machine using the bounded derived 40-digest corpus and selected text patterns. This does not prove independent custody or complete privacy. The coordinator first passed a file path where the scanner required a directory; that preliminary call stopped at its directory assertion before scanning. A fresh single-archive directory was then scanned successfully.",
+  "product_validation": "not performed"
+}

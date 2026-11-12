@@ -1,0 +1,66 @@
+{
+  "schema": "726-central-13p-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T12:42:16.264840+00:00",
+  "registration": "EXT-REGISTRATION.json",
+  "registration_sha256": "e1804d484692717142cd883df9ec194eaa4bb3cdbe54d5338aa68c7313469063",
+  "displays": [
+    {
+      "path": "EXT-DISPLAY.txt",
+      "sha256": "b139379e4fa3cadbb3a4e2d273e5a5a85b17810e545acc4815820909fb7b69f4"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "constraint",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/constraint.rs",
+      "displayed_ranges": [
+        [
+          71,
+          79
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          70
+        ],
+        [
+          80,
+          292
+        ]
+      ]
+    },
+    {
+      "tag": "buffer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "displayed_ranges": [
+        [
+          23,
+          36
+        ],
+        [
+          153,
+          164
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          22
+        ],
+        [
+          37,
+          152
+        ],
+        [
+          165,
+          178
+        ]
+      ]
+    }
+  ],
+  "qualification": "Coordinator received these registered extension windows after registration. Its unread complements concern this extension alone; separately registered windows remain separate. No product execution."
+}

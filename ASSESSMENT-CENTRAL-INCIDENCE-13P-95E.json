@@ -1,0 +1,187 @@
+{
+  "schema": "726-central-13p-bounded-reconciliation-draft-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Coordinator reconciliation of the previously attributed incidence/kernel arity candidate and a separate conditional coloring capacity refinement; source-only and not whole-lens coverage.",
+  "evidence": {
+    "registration": "delegated/central-13p-incidence/REGISTRATION.json",
+    "display": "delegated/central-13p-incidence/DISPLAY.txt",
+    "receipt": "delegated/central-13p-incidence/READ-RECEIPT.json",
+    "extension_registration": "delegated/central-13p-incidence/EXT-REGISTRATION.json",
+    "extension_display": "delegated/central-13p-incidence/EXT-DISPLAY.txt",
+    "extension_receipt": "delegated/central-13p-incidence/EXT-READ-RECEIPT.json",
+    "extension2_registration": "delegated/central-13p-incidence/EXT2-REGISTRATION.json",
+    "extension2_redisplays": [
+      "delegated/central-13p-incidence/EXT2-REDISPLAY-A.txt",
+      "delegated/central-13p-incidence/EXT2-REDISPLAY-B.txt"
+    ],
+    "extension2_receipt": "delegated/central-13p-incidence/EXT2-READ-RECEIPT.json",
+    "git_membership": "delegated/central-13p-incidence/TREE-PROOFS.json"
+  },
+  "display_qualification": "The first EXT2-DISPLAY.txt was saved but the tool response was truncated; actually received fragments are uncertain and receive no additional personal-read credit. The same prospectively registered windows were then received in full in two smaller displays. Complete copied source bytes and other readers' work do not give the coordinator additional read credit.",
+  "source_trace": [
+    {
+      "path": "crates/fabelgeist-xpbd/src/incidence.rs",
+      "lines": [
+        [
+          1,
+          22
+        ],
+        [
+          31,
+          33
+        ],
+        [
+          59,
+          87
+        ],
+        [
+          95,
+          113
+        ],
+        [
+          126,
+          137
+        ]
+      ],
+      "observation": "ParticleIndex assigns a role without proving membership. Arity is nonzero, flat records must be complete, ordered upload emits one u32 word per particle address and substitutes an empty word only for an empty upload. ConstraintEdges supplies pairs."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+      "lines": [
+        [
+          60,
+          115
+        ],
+        [
+          259,
+          285
+        ]
+      ],
+      "observation": "The generic constructor receives an Arc<Kernel> and incidence separately, derives coloring and uploads that incidence, and stores kernel and arity without a shown check that the selected kernel consumes that record width. The selected distance constructor obtains pair incidence and checks rest-length count. Solve returns early for disabled or empty sets, binds buffers and dispatches nonempty color ranges."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+      "lines": [
+        [
+          172,
+          188
+        ]
+      ],
+      "observation": "DISTANCE is shader source text declaring two particle indices per constraint and referring to 2*constraint and 2*constraint+1. It was not compiled or executed."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "lines": [
+        [
+          21,
+          31
+        ],
+        [
+          42,
+          57
+        ]
+      ],
+      "observation": "Element upload is a byte slice; the minimum word is substituted only when empty."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": [
+        [
+          23,
+          36
+        ],
+        [
+          153,
+          164
+        ]
+      ],
+      "observation": "The displayed generic upload allocates from upload length; native allocation, binding validation and read outcome are not demonstrated."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/coloring.rs",
+      "lines": [
+        [
+          19,
+          27
+        ],
+        [
+          89,
+          148
+        ]
+      ],
+      "observation": "Coloring is built from incidence records, assigns conflicts by particle address and accumulates/prefixes u32 ConstraintSlot counters."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "lines": [
+        [
+          1,
+          32
+        ]
+      ],
+      "observation": "ConstraintCount retains usize but displayed native uniform and dispatch conversions narrow to u32; lambda byte allocation has a separate conversion."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "lines": [
+        [
+          75,
+          137
+        ]
+      ],
+      "observation": "The selected Shell path validates mesh and material, constructs stretch/seams via distance pair records and builds explicit four-particle bending incidence; it is not a witness of the hypothetical distance/arity-one pairing."
+    }
+  ],
+  "conditional_candidate": {
+    "prior_identity": "CANDIDATE-XPBD-KERNEL-INCIDENCE-ARITY-CONTRACT",
+    "classification": "If an otherwise admissible custom caller can pair the distance kernel with a complete one-record arity-one incidence and its other required bindings, and a nonempty solve reaches the shader, the shown populated upload contains one particle word while DISTANCE source refers to logical words 0 and 1 for constraint zero. This is a source-level mismatch of the selected layouts, not proof of a dispatched call, successful native binding or a particular GPU result.",
+    "unproved": [
+      "Supported caller, kernel acquisition and all required binding admission.",
+      "Native buffer and binding validation, device behavior, execution reachability and any product effect.",
+      "Intended supported custom-kernel schema and exact shared owner."
+    ]
+  },
+  "capacity_refinement": {
+    "status": "Related historical capacity family; no separate unique finding count.",
+    "conditional_trace": "If a 64-bit host can allocate 2^32 one-particle records with distinct u32 particle addresses and those records are colored into the same color, the u32 slot count increment at coloring.rs:135 exceeds its representable range on the 2^32th record, before the later count narrowing. Overflow-check policy, practical allocation, actual inputs and native limits were not established; no execution performed.",
+    "historical": "The prior hair_ops report connects this to 774 rig ADDITIONAL-116/F073 and reconstructed 059 q620/q625. The original F073 finding body was not recovered in that packet and must not be silently reconstructed from this trace."
+  },
+  "historical_relationships": [
+    {
+      "source": "delegated/xpbd-incidence-address-hair-ops-report.json",
+      "attribution": "/root/hair_ops at checkpoint19; source revision and original pr-working qualifications remain in its report.",
+      "relationship": "The agent previously recorded the candidate and symbolic arity-one example, and separately documented capacity; this coordinator adds bounded 95e personal displays, proof chains and reconciliation."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/620",
+      "attribution": "Recovered and reconstructed checkpoint 059 queue; not the missing final 3821 queue.",
+      "relationship": "Names connected ConstraintIncidence and Coloring binding identity/capacity. It remains open and has zero body/population credit."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/625",
+      "attribution": "Recovered and reconstructed checkpoint 059 queue; not checkpoint 3821.",
+      "relationship": "Names connected ConstraintSet native membership, count capacity, attachment and permutation, with aliases unresolved. It remains open and has zero body/population credit."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/1859",
+      "attribution": "Recovered and reconstructed checkpoint 059 queue; not checkpoint 3821.",
+      "relationship": "Discusses constraint indexing, attachment record width, reserved bindings and cached arity; it is a related aggregate question, not an explicit statement of the narrower particle-membership condition. It remains open and has zero body/population credit."
+    },
+    {
+      "source": "REVIEW-XPBD-RAW-ATTACHMENT-STRIDE-95E and REVIEW-XPBD-CONSTRAINT-PARTICLE-MEMBERSHIP-95E",
+      "attribution": "Previously assessed working-ledger entries.",
+      "relationship": "The attachment record width and membership of particle ordinals in a particular buffer have different first operations from the incidence width selected for a kernel. A shared schema/ownership repair or alias remains a design question, not assumed."
+    }
+  ],
+  "open": [
+    "Trace supported callers and intended custom kernel/particle record schema.",
+    "Reconcile kernel layout, all attachments, particle-buffer membership and count limits without treating related historical records as automatic aliases.",
+    "Retain empty sets, their minimum native word, disabled solving and supported custom kernels in a future contract.",
+    "Recover missing final checkpoint 3821 ledger/queue if available; do not promote earlier records."
+  ],
+  "repair_direction_for_later": "Consider one explicit selected-kernel layout contract tied to incidence and binding admission, preserving intentional supported custom kernels and empty modes. Choose capacity policy before coloring arithmetic and narrowing; implementation and acceptance work require later authorization.",
+  "lens_qualification": "Admission, invariant operations, aggregate state, producer propagation, ownership and redundant authority are implicated within these limited source windows. No complete-lens verdict or global semantic queue credit is claimed.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "Coordinator reconciliation has not received a separate semantic review; earlier agent findings retain independent attribution and scope."
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "726-independent-incidence-13p-history-registration-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T12:59:54.977247+00:00",
+  "sources": [
+    {
+      "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "path": "baseline-059/queue.json",
+      "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "planned_json_pointers": [
+        "/entries/620",
+        "/entries/625",
+        "/entries/1859"
+      ],
+      "qualification": "Exact earlier committed transport, not checkpoint3821. Full queue omitted because unrelated private paths; selected values reconstructed."
+    },
+    {
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "stored_sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b",
+      "decoded_sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "capture": "history/additional-contracts.jsonl.gz",
+      "planned_lines": [
+        101,
+        102
+      ],
+      "qualification": "Original rig reviewer records; independent review of selected lines does not transfer their source reads."
+    }
+  ]
+}

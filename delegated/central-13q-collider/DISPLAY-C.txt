@@ -1,0 +1,58 @@
+--- gpu-buffer 22-37 ---
+  22 impl Buffer {
+  23     pub fn new(
+  24         context: &WgpuContext,
+  25         bytes: BufferByteLength,
+  26         definition: BufferDefinition,
+  27     ) -> Result<Buffer> {
+  28         if u64::from(bytes) == 0 {
+  29             return Err(anyhow!("Buffer size must be greater than 0"));
+  30         }
+  31         let buffer = definition.allocate_native(context, bytes);
+  32         let usage = buffer.usage();
+  33         Ok(Buffer {
+  34             buffer: Arc::new(buffer),
+  35             size: bytes,
+  36             usage,
+  37         })
+--- gpu-buffer 127-150 ---
+ 127     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
+ 128         data.write_to(context, &self.buffer, BufferByteOffset::START);
+ 129         Ok(())
+ 130     }
+ 131 
+ 132     /// Write one host upload at a checked byte address within this buffer.
+ 133     pub fn write_at(
+ 134         &self,
+ 135         context: &WgpuContext,
+ 136         at: BufferByteOffset,
+ 137         data: BufferUpload<'_>,
+ 138     ) -> Result<()> {
+ 139         let end = at
+ 140             .checked_after(data.length())
+ 141             .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+ 142         if u64::from(end) > u64::from(self.size) {
+ 143             return Err(anyhow!(
+ 144                 "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
+ 145                 data.length(),
+ 146                 self.size
+ 147             ));
+ 148         }
+ 149         data.write_to(context, &self.buffer, at);
+ 150         Ok(())
+--- gpu-definition 119-133 ---
+ 119     pub(super) fn allocate_native(
+ 120         &self,
+ 121         context: &WgpuContext,
+ 122         length: BufferByteLength,
+ 123     ) -> wgpu::Buffer {
+ 124         let usage = match self.usage {
+ 125             UsageSelection::Unspecified => GENERAL_USAGE,
+ 126             UsageSelection::Explicit(flags) => flags,
+ 127         };
+ 128         context.device.create_buffer(&wgpu::BufferDescriptor {
+ 129             label: self.label.as_ref().map(<&str>::from),
+ 130             size: u64::from(length),
+ 131             usage,
+ 132             mapped_at_creation: false,
+ 133         })

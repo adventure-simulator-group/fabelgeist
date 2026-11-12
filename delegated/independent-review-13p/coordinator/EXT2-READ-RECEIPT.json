@@ -1,0 +1,78 @@
+{
+  "schema": "726-central-13p-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T12:42:16.265004+00:00",
+  "registration": "EXT2-REGISTRATION.json",
+  "registration_sha256": "12fcdfe1ad4c2b5d1a93c1e5095f644bf4051ae023ddced07937e6049b77119a",
+  "displays": [
+    {
+      "path": "EXT2-REDISPLAY-A.txt",
+      "sha256": "1e46aaf48955340347bea8f9ca3461089aa51c22b2babbfc551e268672a4d599"
+    },
+    {
+      "path": "EXT2-REDISPLAY-B.txt",
+      "sha256": "ced349081f4354cfb9660403e5d3c68ae53aa2df9b0295ed5f7ca9ec2d0a804f"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "incidence",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/incidence.rs",
+      "displayed_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "unread_complement": [
+        [
+          20,
+          142
+        ]
+      ]
+    },
+    {
+      "tag": "address",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "displayed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "coloring",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/coloring.rs",
+      "displayed_ranges": [
+        [
+          19,
+          27
+        ],
+        [
+          89,
+          148
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          18
+        ],
+        [
+          28,
+          88
+        ],
+        [
+          149,
+          153
+        ]
+      ]
+    }
+  ],
+  "qualification": "The first display was saved as EXT2-DISPLAY.txt but its returned output was truncated, so its actually received fragments are uncertain and it grants no extra read credit. After the same prospective registration, the complete windows were re-displayed in two smaller successfully received chunks. Complements concern this registration alone. No product execution."
+}

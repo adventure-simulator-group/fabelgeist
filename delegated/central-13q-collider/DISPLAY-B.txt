@@ -1,0 +1,72 @@
+--- contact 45-115 ---
+  45 impl Collisions {
+  46     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+  47         Ok(Self {
+  48             analytic_kernel: cache.get(context, &wgsl::analytic_source())?,
+  49             mesh_kernel: cache.get(context, &MeshCollider::kernel_source())?,
+  50             colliders: Vec::new(),
+  51             collider_buffer: Buffer::new(
+  52                 context,
+  53                 ColliderCapacity::INITIAL.byte_length(),
+  54                 BufferDefinition::storage().with_label(("colliders").into()),
+  55             )?,
+  56             collider_capacity: ColliderCapacity::INITIAL,
+  57             mesh: None,
+  58             particle_radius: 0.0,
+  59             enabled: true,
+  60         })
+  61     }
+  62 
+  63     pub fn colliders(&self) -> &[Collider] {
+  64         &self.colliders
+  65     }
+  66 
+  67     fn collider_count(&self) -> ColliderCount {
+  68         ColliderCount::from(self.colliders.len())
+  69     }
+  70 
+  71     /// Replace the analytic collider list and upload it.
+  72     pub fn set_colliders(&mut self, context: &WgpuContext, colliders: Vec<Collider>) -> Result<()> {
+  73         let count = ColliderCount::from(colliders.len());
+  74         if self.collider_capacity.fit(count) == ColliderCapacityFit::GrowthRequired {
+  75             self.collider_capacity = ColliderCapacity::for_count(count);
+  76             self.collider_buffer = Buffer::new(
+  77                 context,
+  78                 self.collider_capacity.byte_length(),
+  79                 BufferDefinition::storage().with_label(("colliders").into()),
+  80             )?;
+  81         }
+  82         if !colliders.is_empty() {
+  83             self.collider_buffer.write(
+  84                 context,
+  85                 BufferUpload::from_elements(&pack_colliders(&colliders)),
+  86             )?;
+  87         }
+  88         self.colliders = colliders;
+  89         Ok(())
+  90     }
+  91 
+  92     /// Move the shapes without changing how many there are -- an animated
+  93     /// skeleton driving a set of capsules, frame by frame.
+  94     pub fn update_colliders(
+  95         &mut self,
+  96         context: &WgpuContext,
+  97         colliders: &[Collider],
+  98     ) -> Result<()> {
+  99         let held = self.collider_count();
+ 100         let provided = ColliderCount::from(colliders.len());
+ 101         if provided != held {
+ 102             return Err(anyhow!(
+ 103                 "Collisions::update_colliders: holds {} colliders, given {}; use `set_colliders` to change the count",
+ 104                 held,
+ 105                 provided
+ 106             ));
+ 107         }
+ 108         if !colliders.is_empty() {
+ 109             self.collider_buffer.write(
+ 110                 context,
+ 111                 BufferUpload::from_elements(&pack_colliders(colliders)),
+ 112             )?;
+ 113         }
+ 114         self.colliders = colliders.to_vec();
+ 115         Ok(())

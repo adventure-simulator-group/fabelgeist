@@ -1,0 +1,104 @@
+{
+  "schema": "726-independent-particles-13o-semantic-review-v1",
+  "reviewer": "/root/mhr_character",
+  "reviewed_utc": "2026-11-12T12:48:29.467682+00:00",
+  "result": "The bounded, conditional F082 current-source relationship is supported, with the readback and downstream assertions qualified below. This is source review, not product validation or a new unique defect count.",
+  "reviewed_working_evidence": {
+    "coordinator_assessment": "COORDINATOR-ASSESSMENT.json",
+    "assessment_sha256": "40d5fe149df72e0b65a34a5f8370505c275f442db6161cf514d7d738dd9293d8",
+    "packet_manifest": "coordinator-packet/MANIFEST.json",
+    "packet_manifest_sha256": "8d9839d9ba3f9c08f02312d0ee09b3dc6ab8b7daa87982ad3bb0c46ee1210b2f",
+    "qualification": "At observation these coordinator materials were untracked working files; their identity is distinct from source revision and from the publication repository committed HEAD. All 28 packet members matched their manifest, with no unlisted files at the time of copying. Draft-versus-final changed only six evidence paths and review_qualification; the draft accurately predates this separately recorded review."
+  },
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "independent_read_receipts": [
+    "REGISTRATION.json",
+    "READ-RECEIPT.json",
+    "EXT-REGISTRATION.json",
+    "EXT-READ-RECEIPT.json",
+    "READBACK-REGISTRATION.json",
+    "READBACK-RECEIPT.json"
+  ],
+  "observations": [
+    {
+      "name": "Public buffer and retained aggregate",
+      "references": [
+        "crates/fabelgeist-xpbd/src/particles.rs:13-33",
+        "crates/fabelgeist-xpbd/src/particles.rs:37-85",
+        "crates/fabelgeist-xpbd/src/solver.rs:236-259",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:15-37",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:127-150",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:20-27",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:50-56"
+      ],
+      "analysis": "The three public buffers can be individually replaced while count, capacity and host inverse masses remain private; public buffer upload accepts element representations. The selected solver binds these buffers and dispatches the retained count. Supported callers, all native usage requirements, mutation, synchronization and native outcomes are not established."
+    },
+    {
+      "name": "Short readback and whole-record guard",
+      "references": [
+        "crates/fabelgeist-xpbd/src/particles.rs:139-166",
+        "crates/fabelgeist-xpbd/src/particles/packed.rs:23-24",
+        "crates/fabelgeist-xpbd/src/particles/packed.rs:47-58",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:40-62",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs:11-24",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs:28-43"
+      ],
+      "analysis": "For a replacement whose declared byte size is an integer number of records below the retained count, a successful native read and copy yields that smaller number of typed records; each selected particle reader takes at most the retained count without enforcing equality. A partial-record byte size is rejected, and the native read can fail. This is conditional source reasoning, not evidence a supported caller reaches or executes this scenario."
+    },
+    {
+      "name": "Selected write safeguards and earlier assertion",
+      "references": [
+        "crates/fabelgeist-xpbd/src/particles.rs:86-115",
+        "crates/fabelgeist-xpbd/src/particles.rs:123-136",
+        "crates/fabelgeist-xpbd/src/particles/packed.rs:23-43",
+        "crates/fabelgeist-shell/src/outer_layer.rs:62-71",
+        "crates/fabelgeist-shell/src/outer_layer.rs:88-113",
+        "crates/fabelgeist-shell/src/surface_contact.rs:95-155"
+      ],
+      "analysis": "Normal write checks position/mass cardinality before upload, then updates count and host masses after the three shown uploads; write_positions restores the temporarily taken mass vector on normal return, including returned errors. The selected correction paths pack with the host mass vector and reject a mismatched pack before their writeback. However, OuterLayer::project first asserts the positions/velocities and positions/masses lengths: a successful short read reaching this call can panic at those earlier assertions before the pack safeguard. This is a current-source refinement of 774 ADDITIONAL-104, which already mentioned downstream assertions, not a new historical discovery. SurfaceContacts is not shown safe up to its pack on all mismatched states; its internal solver and native effects remain outside this review."
+    }
+  ],
+  "historical_relationships": [
+    {
+      "record": "RIG-ADMISSION03-F082",
+      "authority": "Recovered 774 rig admission03 findings.jsonl line 89, exact f82 transport object; original 774 reviewer attribution preserved.",
+      "relationship": "Explicitly names the historical pr-working particle/packed files, public replacement, private retained count, conditional shorter readback and solver count. ADDITIONAL-104 line 90 also records downstream assertions; ADDITIONAL-105 line 91 records packing safeguards. REGISTER-104/105 lines 104/105 are historical registrations, not the present reviewer’s source credit.",
+      "qualification": "The two registered historical per-file SHA-256 values match their 6533 and 95e Git files. This does not make the entire pr-working snapshot clean; f82 is a transport identity, not a product revision."
+    },
+    {
+      "record": "q1856 / Q-L12-a6453dca0eb01ea0a5da",
+      "relationship": "The historical unresolved shell record explicitly discusses public triangles or replacement particles diverging from private cached state. Related to the current shell post-admission topology entry, with normal-construction and actual caller questions retained; it is not automatically F082 itself."
+    },
+    {
+      "record": "q1859 / Q-L12-72f11f1f4c735d798a7e",
+      "relationship": "The historical row discusses constraint reorder/indexing, attachment shapes, reserved binding identities and cached arity. It is related to constraint aggregate/public-composition questions, but its displayed text does not itself establish the narrower particle-membership relation. The current constraint-particle-membership ledger entry is separately attributed; exact alias or narrower historical provenance remains open."
+    },
+    {
+      "record": "q1856 and q1859 transport",
+      "relationship": "Both selected JSON values compare equal across the original 56f-committed 059 queue and two separately identified published transformed transports. The full byte streams differ; selected reconstructed records do not reproduce original queue bytes. Both records remain open, with zero body/population credit and scope-locator resolution required."
+    },
+    {
+      "record": "Prior independent reviews",
+      "relationship": "Checkpoint19 xpbd-particles is /root/mhr_character; followup43 is /root/hair_ops. Their separately registered original and current ranges are preserved in the exact retained prior reports. The coordinator’s 95e-only registered windows and this reviewer’s current windows are separately attributed. No read credit is transferred."
+    }
+  ],
+  "ledger_comparison": {
+    "registration": "LEDGER-REGISTRATION.json",
+    "selected_rows": "history/ledger-selection-reconstructed.json",
+    "qualification": "The selected shell and constraint rows matched in observed committed and working ledgers, while the full ledger hashes differed; the working file had staged changes at that observation. Neither identity should be conflated with the product source commit or later publication state."
+  },
+  "open_questions": [
+    "Actual supported buffer replacement, uploads, callers and lifecycle; GPU usage, mapping and synchronization requirements; whether native readback succeeds.",
+    "Policy for particle buffer/count/host mass consistency and short reads, including legitimate empty and pinned states; effects of device failure and panics are not determined.",
+    "Whether or how generic Buffer F065, count conversion F073 supplement, shell topology and constraint membership share owners or aliases.",
+    "The internal SurfaceContacts solver and full consumer graph were not inspected here; downstream effects other than the shown OuterLayer assertions remain open.",
+    "Historical checkpoint3821 original records remain unrecovered; no older or newly assessed work is promoted into it."
+  ],
+  "scope_and_limits": [
+    "No product, fixture, tests, build, shader or runtime execution; source and evidence verification only.",
+    "No modification of publication, product source, earlier packets or protected extraction.",
+    "Full captured source and archived historical streams prove object identity, not personal full-body read credit. Registered personal display extents and complements are in the receipts.",
+    "Tree proofs bind file bytes to recorded root trees; commit-to-tree binding is verified against the Git repository only when the optional publication argument is supplied. No raw commit author metadata copied.",
+    "This is bounded independent semantic review, not a whole-lens closure, exhaustive caller trace, repair or product validation."
+  ]
+}

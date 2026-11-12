@@ -1,0 +1,116 @@
+{
+  "schema": "726-central-13q-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T12:48:17.446353+00:00",
+  "registration_sha256": "bd461a1be841c6d4e04e13eac4e58e584d5b937063e3d28ef5826abf4c6e6ecc",
+  "displays": [
+    {
+      "path": "DISPLAY-A.txt",
+      "tags": [
+        "count"
+      ],
+      "sha256": "b365b1e21b21e2b56a8fd97cd3987dd6b4c8b4fae15398f24f849982876f8759"
+    },
+    {
+      "path": "DISPLAY-B.txt",
+      "tags": [
+        "contact"
+      ],
+      "sha256": "e5ca0d18cadd4a23752913d50aa7d00c42e22f6d279369d0858f69f0688b0497"
+    },
+    {
+      "path": "DISPLAY-C.txt",
+      "tags": [
+        "gpu-buffer",
+        "gpu-definition"
+      ],
+      "sha256": "a1e8727a9e669a90f2bdb4db134ab2f31d91bb96d2fff6db26c4c7b4df603100"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "contact",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-physics/src/contact.rs",
+      "displayed_ranges": [
+        [
+          45,
+          115
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          44
+        ],
+        [
+          116,
+          261
+        ]
+      ]
+    },
+    {
+      "tag": "count",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "displayed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "gpu-buffer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "displayed_ranges": [
+        [
+          22,
+          37
+        ],
+        [
+          127,
+          150
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          21
+        ],
+        [
+          38,
+          126
+        ],
+        [
+          151,
+          178
+        ]
+      ]
+    },
+    {
+      "tag": "gpu-definition",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "displayed_ranges": [
+        [
+          119,
+          133
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          118
+        ],
+        [
+          134,
+          138
+        ]
+      ]
+    }
+  ],
+  "qualification": "Registered windows were received as three separately bounded displays; order is count, contact, generic buffer and definition. Copied full sources do not grant additional personal reads, and previous historical and delegate readers retain separate credit. No product, test or fixture execution."
+}

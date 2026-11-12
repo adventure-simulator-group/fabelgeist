@@ -1,0 +1,107 @@
+{
+  "schema": "726-central-13q-bounded-corroboration-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Independent coordinator reread of selected collider count, capacity and returned-error operations; corroboration of prior records, not new finding or whole-lens review.",
+  "evidence": {
+    "registration": "REGISTRATION.json",
+    "displays": [
+      "DISPLAY-A.txt",
+      "DISPLAY-B.txt",
+      "DISPLAY-C.txt"
+    ],
+    "receipt": "READ-RECEIPT.json",
+    "git_membership": "TREE-PROOFS.json"
+  },
+  "source_references": [
+    {
+      "path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "lines": [
+        [
+          1,
+          55
+        ]
+      ],
+      "observation": "Full host ColliderCount stores usize; fit and binding narrow to u32; capacity is rounded in usize and then narrowed; byte length comes from retained u32 capacity."
+    },
+    {
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "lines": [
+        [
+          45,
+          115
+        ]
+      ],
+      "observation": "Fresh Collisions reserves capacity 16. Growth assigns new capacity before a fallible buffer construction, then writes and replaces the host list; update rejects unequal retained/provided counts before write and list replacement."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": [
+        [
+          22,
+          37
+        ],
+        [
+          127,
+          150
+        ]
+      ],
+      "observation": "Buffer::new returns an error for zero bytes before native allocation. The displayed write hands data to the native queue without the explicit bounds check found in a separate write_at path; no native result or behavior follows solely from that source."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "lines": [
+        [
+          119,
+          133
+        ]
+      ],
+      "observation": "The displayed native allocator returns wgpu::Buffer, not a Rust Result. Panics or device errors and their policy remain unexamined."
+    }
+  ],
+  "conditional_cases": [
+    {
+      "identity": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "reasoning": "On a 64-bit host, if a fresh capacity-16 instance receives a hypothetical vector of length 2^32, the displayed fit conversion produces 0 and selects retained capacity 16. If execution subsequently reaches packing and upload, the stored buffer extent and original host count have not been made coherent by that fit. ColliderCount::bind also narrows, but this bounded read does not prove its consumer is reached. Neither a feasible vector, packing, native write, product execution nor device result is established."
+    },
+    {
+      "identity": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "reasoning": "On a 64-bit host, if a fresh capacity-16 instance receives a hypothetical vector of length 2^31+1, growth is selected, host rounding gives 2^32 and the cast gives capacity 0. The shown Buffer::new zero-byte branch returns Err before allocation, after capacity assignment and before replacing the old buffer or host list. Thus the source condition leaves capacity 0 alongside the previous capacity-16 buffer and empty list. This is scalar source reasoning; practical reachability and later caller policy are unproved."
+    },
+    {
+      "identity": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+      "reasoning": "A mismatched update returns before buffer write and host-list replacement. That early mismatch path differs from the conditional growth-error state; exact diagnostic wording is not itself an asserted compatibility requirement."
+    }
+  ],
+  "historical_relationships": [
+    {
+      "source": "baseline-059/queue.json#/entries/479,480,435",
+      "attribution": "Recovered/reconstructed checkpoint 059, not the missing final checkpoint 3821.",
+      "relationship": "q479 records count/capacity narrowing; q480 records prior capacity assignment before fallible buffer replacement and describes a possible larger-capacity mismatch; the presently shown zero-byte branch instead leaves capacity zero with the old buffer. q435 concerns mismatch diagnostic. All remain open with no global alias or closure decision."
+    },
+    {
+      "source": "delegated/physics-collider-count-report.json and ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json",
+      "attribution": "Prior /root/rig_identity source review and central reconciliation.",
+      "relationship": "Previously recorded the conditional zero-byte transition and count issue; this coordinator reread is corroboration, not a new unique finding."
+    },
+    {
+      "source": "delegated/followup-44-physics-tests/PUBLIC-REPORT.json",
+      "attribution": "/root/mhr_character followup; its test, fixture and support reads are separately attributed.",
+      "relationship": "Already distinguishes early mismatch test from growth error and the packer-generated expected values from an independent schema oracle. This coordinator did not read, run or gain credit for those test and fixture bodies."
+    },
+    {
+      "source": "774 RIG-ADMISSION03-F073-SUPPLEMENT-001",
+      "attribution": "Original rig supplier, as preserved by the earlier packet.",
+      "relationship": "Related raw count/capacity/native boundary; exact alias remains open and original historical authorship/revision is unchanged."
+    }
+  ],
+  "open": [
+    "Actual supported collider producers, practical host memory, device limits and intended count policy.",
+    "Whether a supported caller retries after the conditional returned error, and what it observes.",
+    "Relationship among the historical source questions, generic Buffer boundary and native schema; preserve early mismatch and empty-set behavior."
+  ],
+  "lens_qualification": "Limited relationships to admission, operations, aggregate state, authority, behavior and native primitive boundaries; no complete lens or semantic queue closure.",
+  "future_direction": "If later authorized after audit, settle the supported host/native count limit before narrowing and commit correlated capacity/buffer/list state only after a successful relevant construction; preserve intended empty and mismatch behavior.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "Coordinator corroboration has not received a separate semantic review. Earlier reviewers retain independent attribution; no test, fixture, product, shader, build or runtime execution."
+}

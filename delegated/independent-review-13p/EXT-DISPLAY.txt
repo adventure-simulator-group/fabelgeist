@@ -1,0 +1,101 @@
+--- constraint 140-239 ---
+ 140         let mut set = Self::new(context, name, kernel, cache, &incidence, compliance)?;
+ 141         let reordered_rest = set.reorder(rest_lengths);
+ 142         set.attach(context, "rest_lengths", &reordered_rest)?;
+ 143         let reordered_params = set.reorder(spring_params);
+ 144         set.attach(context, "spring_params", &reordered_params)?;
+ 145         Ok(set)
+ 146     }
+ 147 
+ 148     /// Permute per-constraint values from the caller's order into colour
+ 149     /// order.
+ 150     ///
+ 151     /// Every attachment has to go through this, or a constraint reads another
+ 152     /// constraint's rest length -- which produces cloth that looks nearly
+ 153     /// right and is completely wrong.
+ 154     pub fn reorder<T: Copy>(&self, values: &[T]) -> Vec<T> {
+ 155         self.coloring
+ 156             .order()
+ 157             .iter()
+ 158             .map(|&index| values[usize::from(index)])
+ 159             .collect()
+ 160     }
+ 161 
+ 162     /// Bind a per-constraint buffer under the name the kernel declares. The
+ 163     /// values must already be in colour order -- see [`ConstraintSet::reorder`].
+ 164     pub fn attach<T: bytemuck::NoUninit>(
+ 165         &mut self,
+ 166         context: &WgpuContext,
+ 167         name: impl Into<String>,
+ 168         values: &[T],
+ 169     ) -> Result<()> {
+ 170         let name = name.into();
+ 171         if ConstraintCount::from(values.len()) != self.constraint_count() {
+ 172             return Err(anyhow!(
+ 173                 "ConstraintSet `{}`: attachment `{name}` has {} values for {} constraints",
+ 174                 self.name,
+ 175                 values.len(),
+ 176                 self.constraint_count()
+ 177             ));
+ 178         }
+ 179         let definition = BufferDefinition::storage().with_label(name.as_str().into());
+ 180         // A zero-length buffer cannot be allocated, and an empty constraint
+ 181         // set is perfectly ordinary -- a garment with no seams, say -- so it
+ 182         // gets one unused slot instead. Nothing ever dispatches over it.
+ 183         let buffer = if values.is_empty() {
+ 184             Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?
+ 185         } else {
+ 186             Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?
+ 187         };
+ 188         self.attachments.retain(|(existing, _)| existing != &name);
+ 189         self.attachments.push((name, buffer));
+ 190         Ok(())
+ 191     }
+ 192 
+ 193     /// Bind a buffer whose length is a multiple of the constraint count --
+ 194     /// several values per constraint, already in colour order.
+ 195     pub fn attach_raw<T: bytemuck::NoUninit>(
+ 196         &mut self,
+ 197         context: &WgpuContext,
+ 198         name: impl Into<String>,
+ 199         values: &[T],
+ 200     ) -> Result<()> {
+ 201         let name = name.into();
+ 202         let count = self.constraint_count();
+ 203         if !count.is_empty() && !values.len().is_multiple_of(usize::from(count)) {
+ 204             return Err(anyhow!(
+ 205                 "ConstraintSet `{}`: attachment `{name}` has {} values, which is not a whole number per constraint ({count})",
+ 206                 self.name,
+ 207                 values.len()
+ 208             ));
+ 209         }
+ 210         let definition = BufferDefinition::storage().with_label(name.as_str().into());
+ 211         let buffer = if values.is_empty() {
+ 212             Buffer::from_upload(context, BufferUpload::from_elements(&[0u32]), definition)?
+ 213         } else {
+ 214             Buffer::from_upload(context, BufferUpload::from_elements(values), definition)?
+ 215         };
+ 216         self.attachments.retain(|(existing, _)| existing != &name);
+ 217         self.attachments.push((name, buffer));
+ 218         Ok(())
+ 219     }
+ 220 
+ 221     pub fn constraint_count(&self) -> ConstraintCount {
+ 222         self.coloring.constraint_count()
+ 223     }
+ 224 
+ 225     pub fn color_count(&self) -> ColorCount {
+ 226         self.coloring.color_count()
+ 227     }
+ 228 
+ 229     pub fn arity(&self) -> ConstraintArity {
+ 230         self.arity
+ 231     }
+ 232 
+ 233     pub fn coloring(&self) -> &Coloring {
+ 234         &self.coloring
+ 235     }
+ 236 
+ 237     /// Reset the multipliers. Once per substep, before the sweeps: XPBD's
+ 238     /// compliance only means a real stiffness if `lambda` starts each substep
+ 239     /// at zero.

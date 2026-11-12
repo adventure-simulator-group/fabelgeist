@@ -1,0 +1,124 @@
+--- incidence 1-19 ---
+   1 //! Particle incidence acquires its solver role before coloring or upload.
+   2 use derive_more::{Display, Error, From};
+   3 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload, WgpuContext};
+   4 use std::num::NonZeroUsize;
+   5 
+   6 /// Address of a solver particle, independent of draw or constraint addresses.
+   7 /// Admission assigns a role, not membership in any particular particle buffer.
+   8 ///
+   9 /// ```compile_fail
+  10 /// use fabelgeist_xpbd::{ConstraintIndex, ParticleIndex};
+  11 /// let _: ConstraintIndex = ParticleIndex::from(3);
+  12 /// ```
+  13 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, Hash)]
+  14 pub struct ParticleIndex(u32);
+  15 
+  16 /// Number of particle entries in a flattened constraint input.
+  17 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  18 pub struct ConstraintParticleCount(usize);
+  19 
+--- address 1-32 ---
+   1 //! Original constraint addresses remain separate from color-order slots.
+   2 use derive_more::{Display, From, Into};
+   3 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
+   4 
+   5 /// Address of a constraint in its producer's original order.
+   6 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq)]
+   7 pub struct ConstraintIndex(u32);
+   8 
+   9 /// Complete per-constraint record cardinality, including an empty set.
+  10 #[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
+  11 pub struct ConstraintCount(usize);
+  12 
+  13 impl From<ConstraintIndex> for usize {
+  14     fn from(index: ConstraintIndex) -> Self {
+  15         index.0 as usize
+  16     }
+  17 }
+  18 
+  19 impl ConstraintCount {
+  20     pub fn is_empty(self) -> bool {
+  21         self.0 == 0
+  22     }
+  23     pub(crate) fn lambda_bytes(self) -> BufferByteLength {
+  24         ((self.0.max(1) as u64) * 4).into()
+  25     }
+  26     pub(crate) fn uniform(self) -> PassParameter {
+  27         (self.0 as u32).into()
+  28     }
+  29     pub(crate) fn dispatch_items(self) -> u32 {
+  30         self.0 as u32
+  31     }
+  32 }
+--- coloring 19-27 ---
+  19 /// A constraint address after permutation into color order.
+  20 ///
+  21 /// ```compile_fail
+  22 /// use fabelgeist_xpbd::{ConstraintIndex, ConstraintSlot};
+  23 /// fn original(_: ConstraintIndex) {}
+  24 /// fn wrong(slot: ConstraintSlot) { original(slot); }
+  25 /// ```
+  26 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  27 pub struct ConstraintSlot(u32);
+--- coloring 89-148 ---
+  89     pub fn for_incidence(incidence: &ConstraintIncidence<'_>) -> Self {
+  90         let records: Vec<&[ParticleIndex]> = incidence.records().collect();
+  91         Self::for_constraints(&records)
+  92     }
+  93     /// Variable-arity graphs may contain empty records and repeated addresses.
+  94     /// Incidence identifies conflicts; it does not validate particle membership.
+  95     pub fn for_constraints(constraints: &[&[ParticleIndex]]) -> Self {
+  96         if constraints.is_empty() {
+  97             return Self {
+  98                 order: Vec::new(),
+  99                 ranges: vec![ConstraintSlot(0)],
+ 100             };
+ 101         }
+ 102         let mut taken: HashMap<ParticleIndex, Vec<bool>> = HashMap::new();
+ 103         let mut colors = Vec::with_capacity(constraints.len());
+ 104         let mut color_count = ColorCount(0);
+ 105         for particles in constraints {
+ 106             let mut candidate = ConstraintColor(0);
+ 107             loop {
+ 108                 let mut free = true;
+ 109                 for particle in *particles {
+ 110                     if let Some(used) = taken.get(particle)
+ 111                         && used.get(candidate.0).is_some_and(|&occupied| occupied)
+ 112                     {
+ 113                         free = false;
+ 114                         break;
+ 115                     }
+ 116                 }
+ 117                 if free {
+ 118                     break;
+ 119                 }
+ 120                 candidate.0 += 1;
+ 121             }
+ 122             for &particle in *particles {
+ 123                 let used = taken.entry(particle).or_default();
+ 124                 if used.len() <= candidate.0 {
+ 125                     used.resize(candidate.0 + 1, false);
+ 126                 }
+ 127                 used[candidate.0] = true;
+ 128             }
+ 129             // Preserve the original native u32 color word narrowing.
+ 130             colors.push(ConstraintColor(candidate.0 as u32 as usize));
+ 131             color_count.0 = color_count.0.max(candidate.0 + 1);
+ 132         }
+ 133         let mut counts = vec![ConstraintSlot(0); color_count.0 + 1];
+ 134         for color in &colors {
+ 135             counts[color.0 + 1].0 += 1;
+ 136         }
+ 137         for i in 1..counts.len() {
+ 138             counts[i].0 += counts[i - 1].0;
+ 139         }
+ 140         let ranges = counts.clone();
+ 141         let mut cursor = counts;
+ 142         let mut order = vec![ConstraintIndex::from(0); constraints.len()];
+ 143         for (index, color) in colors.iter().enumerate() {
+ 144             let slot = &mut cursor[color.0];
+ 145             order[slot.0 as usize] = ConstraintIndex::from(index as u32);
+ 146             slot.0 += 1;
+ 147         }
+ 148         Self { order, ranges }

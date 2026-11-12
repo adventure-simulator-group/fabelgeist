@@ -1,0 +1,105 @@
+{
+  "schema": "726-independent-incidence-13p-semantic-review-v1",
+  "reviewer": "/root/mhr_character",
+  "reviewed_utc": "2026-11-12T13:03:16.856942+00:00",
+  "result": "The bounded one-record kernel/incidence mismatch and conditional coloring-capacity arithmetic are supported as source reasoning under the stated premises. Neither establishes supported runtime reachability, device behavior, or a new unique defect count.",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "coordinator_packet": {
+    "manifest": "coordinator/MANIFEST.json",
+    "manifest_sha256": "da9dc87d795c6142db14c330f5e4fd2a26b27b9b73570f0653d1378ba5801ece",
+    "assessment": "coordinator/ASSESSMENT-DRAFT.json",
+    "assessment_sha256": "0cfd1cd5c1a3587637e0c68b7a5a026ea37ce2bdb29ae413c3fd8c2d78c460e7",
+    "qualification": "All 35 listed members matched their identities with no unlisted files. REGISTRATION, EXT and EXT2 displays were checked against source. The initial EXT2 display was saved but its tool response was truncated; do not award read credit for its uncertain fragments. Two later, successfully received smaller redisplays together cover the registered windows. Their concatenation also matches the saved full text, which alone is not a personal-read receipt."
+  },
+  "independent_receipts": [
+    "REGISTRATION.json",
+    "READ-RECEIPT.json",
+    "EXT-REGISTRATION.json",
+    "EXT-READ-RECEIPT.json"
+  ],
+  "observations": [
+    {
+      "name": "One-record layout example",
+      "references": [
+        "crates/fabelgeist-xpbd/src/incidence.rs:59-93",
+        "crates/fabelgeist-xpbd/src/incidence.rs:95-113",
+        "crates/fabelgeist-xpbd/src/coloring.rs:89-148",
+        "crates/fabelgeist-xpbd/src/constraint.rs:60-91",
+        "crates/fabelgeist-xpbd/src/constraint.rs:259-285",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:25-31",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:42-47",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:153-164",
+        "crates/fabelgeist-xpbd/src/wgsl.rs:172-188"
+      ],
+      "analysis": "One complete arity-one record is admitted by the shown incidence shape checks. One record yields one color with range [0,1], and ordered upload creates one populated u32 particle word. The distance shader text refers to particles[0] and particles[1] for constraint zero. The generic constructor stores supplied kernel and arity without a shown schema comparison; a conditional solve would need kernel acquisition, valid remaining bindings, native acceptance and actual dispatch. No shader or product code was run."
+    },
+    {
+      "name": "Coloring counter capacity",
+      "references": [
+        "crates/fabelgeist-xpbd/src/incidence.rs:13-14",
+        "crates/fabelgeist-xpbd/src/coloring.rs:19-27",
+        "crates/fabelgeist-xpbd/src/coloring.rs:89-148",
+        "crates/fabelgeist-xpbd/src/constraint/address.rs:19-30"
+      ],
+      "analysis": "On a sufficiently provisioned 64-bit host, 2^32 distinct u32 particle indices can form 2^32 one-entry records with no shared address. The greedy algorithm can place all records in color zero; incrementing the u32 count for the final record exceeds u32::MAX at coloring line 135, before later ConstraintCount uniform/dispatch casts. Overflow behavior depends on compiler/profile policy; huge host allocations and earlier failure are not established. This is a source-level refinement of the historical native-capacity family, not an independent accepted count."
+    },
+    {
+      "name": "Distinguished boundaries and safeguards",
+      "references": [
+        "crates/fabelgeist-xpbd/src/constraint.rs:94-115",
+        "crates/fabelgeist-xpbd/src/constraint.rs:148-218",
+        "crates/fabelgeist-xpbd/src/incidence.rs:6-14",
+        "crates/fabelgeist-xpbd/src/constraint.rs:259-285",
+        "crates/fabelgeist-shell/src/shell.rs:75-137"
+      ],
+      "analysis": "The selected distance constructor derives arity-two records and checks rest-length cardinality; the selected Shell stretch/seam path uses that constructor and bending constructs arity four. Independently, attach_raw admits whole multiples of count without a selected-kernel record-width check, including an empty input; that is attachment width, not the incidence word width example. ParticleIndex assigns an ordinal role but not membership in the later particles buffer. These boundaries can share future ownership without being presumed aliases; normal Shell admission, supported callers and native access remain qualified."
+    }
+  ],
+  "history": [
+    {
+      "record": "Checkpoint19 incidence/address report",
+      "attribution": "/root/hair_ops; exact report retained as prior/incidence-report.json.",
+      "relationship": "Its previously documented candidate and capacity trace remain that reviewer’s work. The current coordinator and this reviewer made separately registered 95e source displays; no personal-read transfer."
+    },
+    {
+      "record": "774 rig ADDITIONAL-115 and ADDITIONAL-116",
+      "location": "f82 transport admission03/additional-contracts.jsonl lines 101 and 102, exact decoded bytes retained.",
+      "relationship": "115 records role-only particle membership and incidence safeguards; 116 associates ConstraintCount narrowing with F073, while preserving generic zero/all-word counts and warning earlier allocation may fail. Historical source IDs are pr-working; the individually registered incidence and address source bytes match 6533 and 95e, which does not make the whole historical working tree clean."
+    },
+    {
+      "record": "774 rig F073, supplement 001, supplement 002",
+      "location": "f82 transport admission03/findings.jsonl lines 78, 91 and 101, independently registered and read for this review.",
+      "relationship": "The prior incidence packet correctly stated that it did not contain the F073 body. A separately published followup43 archive now supplies exact f82-backed historical records. The base finding concerns hair count admission; supplement 002 explicitly connects ConstraintCount narrowing and Coloring slot accumulation/index casting to that family and states no new finding count. Keep the prior packet’s limitation, original rig attribution and historical revision; do not infer original or current product execution from historic fixture references."
+    },
+    {
+      "record": "059 q620 / Q-L11-926bba4819e3aab3e8e6",
+      "relationship": "Open historical record explicitly connects ConstraintIncidence/Coloring binding identity and capacity."
+    },
+    {
+      "record": "059 q625 / Q-L11-9694f54d1f3a357e50e2",
+      "relationship": "Open historical record names native address membership, count capacity, attachment and permutation, with exact aliases unresolved."
+    },
+    {
+      "record": "059 q1859 / Q-L12-72f11f1f4c735d798a7e",
+      "relationship": "Open historical record discusses constraint indexing, raw attachment width, reserved binding and cached arity; it does not itself state the narrower particle-to-buffer membership condition. Queue rows have zero body/population credit, require scope locator resolution, and are 059 records rather than missing checkpoint3821."
+    },
+    {
+      "record": "Current attachment-stride and particle-membership ledger entries",
+      "relationship": "Separate existing entries with different first operations and still-open alias/ownership questions. The two selected ledger rows and separately identified committed and observed working hashes are preserved in LEDGER-REGISTRATION and the reconstructed selection."
+    }
+  ],
+  "open_questions": [
+    "Supported custom callers, kernel acquisition, required binding admission and intended kernel schema; actual native validation and device behavior.",
+    "Policy and evidence for host/device capacity, checked arithmetic and inputs of the size posited; possible earlier resource failures.",
+    "Exact alias and shared-owner decisions across incidence layout, raw attachment stride, particle membership and existing F073 family.",
+    "The full producer graph, native backend and shader execution were not reviewed; no whole-lens closure or product validation.",
+    "Original checkpoint3821 ledger/queue remains unrecovered; do not promote earlier records."
+  ],
+  "scope": [
+    "Source and evidence inspection only; no builds, tests, product, shader, fixture or runtime execution.",
+    "No publication, product source, prior packet or protected evidence extraction modification.",
+    "Tree proof chains bind captured blobs to recorded roots; optional Git verification binds roots to commits. No raw commit author metadata is copied.",
+    "Source displays and historical reviewer attribution remain separately identified; full copied source establishes identity, not personal-read coverage."
+  ],
+  "separate_prior_handoff_correction": "CAPTURE-IDENTITY-CORRECTION.json records the independently verified restricted CAPTURE whole-file hash and distinct stage-manifest hash. The earlier differing value and exact handoff location could not be independently reconstructed."
+}

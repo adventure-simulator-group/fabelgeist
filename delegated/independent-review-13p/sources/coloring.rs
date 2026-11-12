@@ -1,0 +1,153 @@
+//! Greedy constraint coloring preserves arrival order within each color.
+//!
+//! Constraints sharing a particle occupy different dispatches. Sequential color
+//! dispatches retain the solver's Gauss-Seidel order without device races.
+use std::collections::HashMap;
+
+use crate::{ConstraintCount, ConstraintIncidence, ConstraintIndex, ParticleIndex};
+use derive_more::{Display, From};
+use fabelgeist_gpu::prelude::PassParameters;
+
+/// A color's position in the sequential solve schedule.
+#[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+pub struct ConstraintColor(usize);
+
+/// Number of colors in the sequential solve schedule.
+#[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, PartialOrd, Ord)]
+pub struct ColorCount(usize);
+
+/// A constraint address after permutation into color order.
+///
+/// ```compile_fail
+/// use fabelgeist_xpbd::{ConstraintIndex, ConstraintSlot};
+/// fn original(_: ConstraintIndex) {}
+/// fn wrong(slot: ConstraintSlot) { original(slot); }
+/// ```
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ConstraintSlot(u32);
+
+/// Immutable color interval, in reordered constraint slots.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ColorRange {
+    color: ConstraintColor,
+    first: ConstraintSlot,
+    end: ConstraintSlot,
+}
+
+/// Constraints grouped into colors, with their immutable permutation.
+#[derive(Clone, Debug, Default)]
+pub struct Coloring {
+    order: Vec<ConstraintIndex>,
+    ranges: Vec<ConstraintSlot>,
+}
+
+impl From<ConstraintSlot> for usize {
+    fn from(slot: ConstraintSlot) -> Self {
+        slot.0 as usize
+    }
+}
+
+impl ColorRange {
+    pub fn color(self) -> ConstraintColor {
+        self.color
+    }
+    pub fn count(self) -> ConstraintCount {
+        ((self.end.0 - self.first.0) as usize).into()
+    }
+    pub fn slots(self) -> impl Iterator<Item = ConstraintSlot> {
+        (self.first.0..self.end.0).map(ConstraintSlot)
+    }
+    pub(crate) fn bind(self, parameters: &mut PassParameters) {
+        parameters.insert("first", self.first.0);
+        parameters.insert("count", self.count().uniform());
+    }
+    pub(crate) fn dispatch_items(self) -> u32 {
+        self.count().dispatch_items()
+    }
+}
+
+impl Coloring {
+    pub fn color_count(&self) -> ColorCount {
+        self.ranges.len().saturating_sub(1).into()
+    }
+    pub fn constraint_count(&self) -> ConstraintCount {
+        self.order.len().into()
+    }
+    pub fn order(&self) -> &[ConstraintIndex] {
+        &self.order
+    }
+    pub fn colors(&self) -> impl Iterator<Item = ColorRange> + '_ {
+        self.ranges
+            .windows(2)
+            .enumerate()
+            .map(|(color, bounds)| ColorRange {
+                color: ConstraintColor(color),
+                first: bounds[0],
+                end: bounds[1],
+            })
+    }
+    pub fn for_incidence(incidence: &ConstraintIncidence<'_>) -> Self {
+        let records: Vec<&[ParticleIndex]> = incidence.records().collect();
+        Self::for_constraints(&records)
+    }
+    /// Variable-arity graphs may contain empty records and repeated addresses.
+    /// Incidence identifies conflicts; it does not validate particle membership.
+    pub fn for_constraints(constraints: &[&[ParticleIndex]]) -> Self {
+        if constraints.is_empty() {
+            return Self {
+                order: Vec::new(),
+                ranges: vec![ConstraintSlot(0)],
+            };
+        }
+        let mut taken: HashMap<ParticleIndex, Vec<bool>> = HashMap::new();
+        let mut colors = Vec::with_capacity(constraints.len());
+        let mut color_count = ColorCount(0);
+        for particles in constraints {
+            let mut candidate = ConstraintColor(0);
+            loop {
+                let mut free = true;
+                for particle in *particles {
+                    if let Some(used) = taken.get(particle)
+                        && used.get(candidate.0).is_some_and(|&occupied| occupied)
+                    {
+                        free = false;
+                        break;
+                    }
+                }
+                if free {
+                    break;
+                }
+                candidate.0 += 1;
+            }
+            for &particle in *particles {
+                let used = taken.entry(particle).or_default();
+                if used.len() <= candidate.0 {
+                    used.resize(candidate.0 + 1, false);
+                }
+                used[candidate.0] = true;
+            }
+            // Preserve the original native u32 color word narrowing.
+            colors.push(ConstraintColor(candidate.0 as u32 as usize));
+            color_count.0 = color_count.0.max(candidate.0 + 1);
+        }
+        let mut counts = vec![ConstraintSlot(0); color_count.0 + 1];
+        for color in &colors {
+            counts[color.0 + 1].0 += 1;
+        }
+        for i in 1..counts.len() {
+            counts[i].0 += counts[i - 1].0;
+        }
+        let ranges = counts.clone();
+        let mut cursor = counts;
+        let mut order = vec![ConstraintIndex::from(0); constraints.len()];
+        for (index, color) in colors.iter().enumerate() {
+            let slot = &mut cursor[color.0];
+            order[slot.0 as usize] = ConstraintIndex::from(index as u32);
+            slot.0 += 1;
+        }
+        Self { order, ranges }
+    }
+}
+
+#[cfg(test)]
+mod tests;

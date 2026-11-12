@@ -1,0 +1,53 @@
+--- incidence 1-19 ---
+   1 //! Particle incidence acquires its solver role before coloring or upload.
+   2 use derive_more::{Display, Error, From};
+   3 use fabelgeist_gpu::prelude::{Buffer, BufferDefinition, BufferUpload, WgpuContext};
+   4 use std::num::NonZeroUsize;
+   5 
+   6 /// Address of a solver particle, independent of draw or constraint addresses.
+   7 /// Admission assigns a role, not membership in any particular particle buffer.
+   8 ///
+   9 /// ```compile_fail
+  10 /// use fabelgeist_xpbd::{ConstraintIndex, ParticleIndex};
+  11 /// let _: ConstraintIndex = ParticleIndex::from(3);
+  12 /// ```
+  13 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq, Hash)]
+  14 pub struct ParticleIndex(u32);
+  15 
+  16 /// Number of particle entries in a flattened constraint input.
+  17 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  18 pub struct ConstraintParticleCount(usize);
+  19 
+--- address 1-32 ---
+   1 //! Original constraint addresses remain separate from color-order slots.
+   2 use derive_more::{Display, From, Into};
+   3 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameter};
+   4 
+   5 /// Address of a constraint in its producer's original order.
+   6 #[derive(Clone, Copy, Debug, Display, From, PartialEq, Eq)]
+   7 pub struct ConstraintIndex(u32);
+   8 
+   9 /// Complete per-constraint record cardinality, including an empty set.
+  10 #[derive(Clone, Copy, Debug, Display, From, Into, PartialEq, Eq)]
+  11 pub struct ConstraintCount(usize);
+  12 
+  13 impl From<ConstraintIndex> for usize {
+  14     fn from(index: ConstraintIndex) -> Self {
+  15         index.0 as usize
+  16     }
+  17 }
+  18 
+  19 impl ConstraintCount {
+  20     pub fn is_empty(self) -> bool {
+  21         self.0 == 0
+  22     }
+  23     pub(crate) fn lambda_bytes(self) -> BufferByteLength {
+  24         ((self.0.max(1) as u64) * 4).into()
+  25     }
+  26     pub(crate) fn uniform(self) -> PassParameter {
+  27         (self.0 as u32).into()
+  28     }
+  29     pub(crate) fn dispatch_items(self) -> u32 {
+  30         self.0 as u32
+  31     }
+  32 }

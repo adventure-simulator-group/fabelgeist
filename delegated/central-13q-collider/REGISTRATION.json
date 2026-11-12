@@ -1,0 +1,77 @@
+{
+  "schema": "726-central-13q-prospective-registration-v1",
+  "reader": "/root",
+  "registered_utc": "2026-11-12T12:47:14.547149+00:00",
+  "scope": "Selected collider host count, capacity/error transition and generic buffer allocation; test and fixture contents excluded.",
+  "entries": [
+    {
+      "tag": "contact",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-physics/src/contact.rs",
+      "git_blob": "e433eefec37485a3b5e26e9f4047525cb1c97e4d",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "bytes": 8967,
+      "eof": 261,
+      "registered_ranges": [
+        [
+          45,
+          115
+        ]
+      ],
+      "capture": "sources/contact.rs"
+    },
+    {
+      "tag": "count",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "git_blob": "b5629d9376c26e346a90399a617e91f2d33eb205",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "bytes": 1836,
+      "eof": 55,
+      "registered_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "capture": "sources/count.rs"
+    },
+    {
+      "tag": "gpu-buffer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "bytes": 6193,
+      "eof": 178,
+      "registered_ranges": [
+        [
+          22,
+          37
+        ],
+        [
+          127,
+          150
+        ]
+      ],
+      "capture": "sources/gpu-buffer.rs"
+    },
+    {
+      "tag": "gpu-definition",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "git_blob": "cfcb7405a863ce860abc2eba4b5faecc29898845",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "bytes": 3925,
+      "eof": 138,
+      "registered_ranges": [
+        [
+          119,
+          133
+        ]
+      ],
+      "capture": "sources/gpu-definition.rs"
+    }
+  ],
+  "qualification": "Prospective registration before source display; no read-credit transfer from previous reviewers; copied bytes do not themselves count as reading. No product, test, fixture or native execution."
+}
