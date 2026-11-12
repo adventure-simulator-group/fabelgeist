@@ -1,0 +1,1041 @@
+{
+  "schema": "726-bounded-p17-geometry-source-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:34:14.590047+00:00",
+  "scope": {
+    "original_roles": [
+      2687,
+      2688
+    ],
+    "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not the P17 commit",
+    "registration": "registration.json",
+    "fresh_personal_read_receipt": "personal-read-receipt.json",
+    "prior_support_packet": "historical/prior-p17-scene-grounding-exact-local.tar.gz",
+    "qualification": "All four assigned bodies were freshly personally displayed after prospective registration: coordinates P17/current 1\u2013140 and error P17/current 1\u201328. Prior same-agent packet roles 2681\u20132682 separately retains coordinates 1\u2013110 and error 1\u201328 as support only. Support bounds and projection have their own registrations. No blanket whole-lens credit or checkpoint3821 reconstruction."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "ROOT-ADM-F003",
+      "classification": "existing 774 root finding, same source contract and owner; freshly assessed P17 and 95e, no new unique count",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            49,
+            85
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/current-scene-projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            93,
+            105
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ],
+      "first_contract": "The Position and Displacement types assert finite coordinates, but their metres and marker fields have pub(super) visibility to the parent spatial_geometry module and its descendants, allowing direct literal construction or mutation outside the checking coordinates module. Their checked factories and manual Deserialize are not all possible internal admissions.",
+      "conditions": "Static representability, not an observed bad caller: an invalid X/Z Position could pass through From<Position<Scene>> without another check. If a NaN position reached SpatialBounds::new, lower>upper alone does not reject the NaN. The separately read union uses same-module sibling literal construction on input bounds and native vector min/max; the earlier root record identifies legitimate admitted-value union and no bad caller. Native vector implementation and actual reachability are not independently proven here. Elevation has private metres and is not automatically covered by this visibility finding.",
+      "future_repair_direction": "Central owner can reconcile all constructors and valid union operations, and after audit authorization enforce finite ownership without weakening frame identity, signed-zero/selection behavior, or adding unchecked duplicate wrappers. No repair or validation performed."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "Both P17 assigned bodies are byte-identical to 95e, and their individual source blobs also match pr-working HEAD 6533. The pr-working working snapshot has four unrelated modifications; P16, P17 and pr-working historical roles retain their separate original identity and reviewers.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "P17 recorded head 90a and f82 historical transport independently established"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "P17 recorded head 90a and f82 historical transport independently established"
+        }
+      ]
+    },
+    {
+      "observation": "Native finite helper checks components in X, Y, Z sequence and returns the first failing axis with a typed GeometryRole; the named direction error cases are mapped to typed GeometryError::Direction, rather than locally formatted as strings. This does not prove the external SDK or any application error presentation.",
+      "sources": [
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-geometry-error.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/error.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "lines": [
+            38,
+            79
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "observation": "Generic Elevation admits signed finite heights and zero; private metres plus checked Deserialize is a distinct admission contract from sibling-visible vector backing. Its max retains one finite operand if inputs satisfy that contract.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        }
+      ]
+    },
+    {
+      "observation": "The compile-fail documentation was viewed only as source, and no tests or native code ran. Geometry error support 91\u201395, all Bevy/Serde implementation bodies, and unregistered source callers remain personally unread; full archived bytes are not full read credit.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-geometry-error.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/error.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "lines": [
+            38,
+            79
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 NATIVE-ADMISSION03-REG-044/045, QUAL-044/045, contract-groups-059",
+      "scope": "Original Native P17 prospective exact body scopes 1\u2013140 and 1\u201328, own admission comparison, finite helper error order, inherited root visibility qualification, no actual invalid caller or later-lens credit."
+    },
+    {
+      "record": "774 ROOT-ADM-GEOMETRY-VISIBILITY-007 / ROOT-ADM-F003",
+      "scope": "Root original pr-working Position/Displacement 9\u201339 and 62\u2013110; Bounds union full contextual proof and static counterexample retained. Original finding and qualification are not new 95e or checkpoint3821 finding."
+    },
+    {
+      "record": "059 segovb/READ-L11-438.json and REGISTRATION-SEGOVB-1604/1605",
+      "scope": "P17 coordinates 1\u2013140 and error 1\u201328 fresh personal reads as reported; these receipt rows do not name an individual."
+    },
+    {
+      "record": "059 segovb/READ-L12-932.json and parallel-l12-20261029 REGISTRATION-PAR-L12-751/752",
+      "scope": "Subagent /root/lens12_frontier full fresh prospective bounded P17 body reads; root adoption has no personal rereads, no new finding or current reconciliation."
+    },
+    {
+      "record": "059 segovb/READ-L11-411.json, READ-L12-839.json and PAR-L12-490",
+      "scope": "Physical-p16 error role2478 1\u201328 was reviewed earlier; L11 records its own assessed range and bounded read, L12 attributes the personal read to /root/lens12_frontier. The object matches the P17 bytes but historical roles and dirty P16 snapshot remain separate."
+    },
+    {
+      "record": "historical/prior-l01-geometry-661-668.json",
+      "scope": "Previously published Lens1 historical pr-working role664 bounds, role666 coordinates, and role668 error full body; earlier bounded c100 observations retain their own attribution and exact source contexts. Snapshot HEAD 6533 has unrelated dirty paths."
+    },
+    {
+      "record": "historical/prior-p17-scene-grounding-exact-local.tar.gz",
+      "scope": "Earlier /root/rig_identity packet for roles2681\u20132682: personally read coordinates P17/current 1\u2013110 and finite helper P17/current 1\u201328 as support, with independent registration/receipt. Those support scopes are not retrospectively reassigned as historical or another reviewer\u2019s ordered roles."
+    },
+    {
+      "record": "historical/prior-current-geometry-owners.json",
+      "scope": "Prior source assessment of scalar error-axis semantics and DirectionError serialization as separately qualified policy/derivability questions; this packet does not infer a duplicate from its named direction adapter."
+    },
+    {
+      "record": "historical/p17-base-to-head-reproduced.patch",
+      "scope": "Read-only Git diff recorded P17 base 18360adba0fb43add88c75dfbd2f45d7e71d8ace to head 90a gives 268281 bytes SHA256 3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd, matching both original registry and prior reproduction. It does not prove original invocation or current worktree cleanliness and grants no diff-body read credit."
+    },
+    {
+      "record": "historical/p16-recovery.json and historical/p16-tracked.patch",
+      "scope": "Later P16 tracked diff matches original recorded digest, excludes seven untracked files and does not establish the original command or continuous custody. P16 base a120 is not its dirty snapshot commit. No evidence is promoted into checkpoint3821."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "No retained raw business-string protocol is declared by these bodies. Manual deserialization maps typed construction errors to native serde::custom at the final decoder boundary; do not infer a new string grammar.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Zero is a valid position, displacement and signed elevation. The finite predicate and position arithmetic do not justify arbitrary positivity, normalization, or rejecting zero-size bounds.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Position, Displacement and Elevation retain declared GeometryFrame and geometric role, and the native error helper retains role and failing axis. A ScenePlanPoint is a two-axis projection with a separate owner.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            51,
+            60
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-scene-projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            93,
+            105
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "SpatialBounds already owns min/max Position endpoints and checks order; native Vec3 is the explicit input/arithmetic port. From<Position<Scene>> is an intentional projection that relies on the source owner.",
+      "sources": [
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/current-scene-projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            93,
+            105
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Frame-tagged points, translations and elevations express distinct concepts. GeometryFrame is a public marker trait, not a runtime certificate of a specific scene or actual geographic provenance.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            51,
+            60
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-scene-projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            93,
+            105
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Position translation and displacement-to recheck complete vector arithmetic; a finite operand pair can overflow and cause an error. Elevation::max selects from admitted finite values, with signed-zero semantics kept, rather than promising positivity.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "SpatialBounds::new checks min<=max per coordinate and permits equality; at and union assume Position invariants. If a nonfinite Position were admitted by the existing sibling visibility gap, NaN comparisons could evade ordering, but no actual invalid producer is shown.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            49,
+            85
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Position/Displacement from_metres and Deserialize use the finite helper, yet pub(super) raw Vec3 and frame backing permit same-namespace construction/mutation outside that owner. Elevation metres remains private; its own checked routes are separate.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "The adapter matches the named Zero, Infinite and NaN native direction rejection variants to corresponding portable DirectionError cases, and NonFinite retains role plus axis; native enum implementation and all callers were not inspected.",
+      "sources": [
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-geometry-error.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/error.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "lines": [
+            38,
+            79
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Frame markers and finite XY(Z) leaves have different roles from bounds membership and scene provenance. Bounds::union selects extrema from two existing bounds; this evidence does not establish a second independent truth for the same fact.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            51,
+            60
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            49,
+            85
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "The ScenePlanPoint From implementation copies X/Z without rechecking; a hypothetical invalid source value could propagate the existing ROOT-ADM-F003 bypass, while genuine validity depends on all permitted Position producers.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-scene-projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            93,
+            105
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        },
+        {
+          "archive": "support/p17-scene-projection.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+          "lines": [
+            91,
+            103
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "P17 and 95e assigned files and the inspected bounds file match byte for byte. Their surrounding consumers, supported policies, current admission and original historical reviewer scopes remain distinct.",
+      "sources": [
+        {
+          "archive": "sources/2687-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "P17 recorded head 90a and f82 historical transport independently established"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2688-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "P17 recorded head 90a and f82 historical transport independently established"
+        },
+        {
+          "archive": "sources/2688-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            28
+          ],
+          "original_role_credit": 2688,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-bounds.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+          "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+          "lines": [
+            5,
+            35
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Manual Deserialize calls checked constructors; simply deriving direct backing-field deserialization could weaken finite admission. Opaque Reflect annotations alone are not native reflection-construction proof; custom DirectionError serialization is a separate prior review.",
+      "sources": [
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            9,
+            50
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            89
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            91,
+            111
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "sources/2687-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            113,
+            140
+          ],
+          "original_role_credit": 2687,
+          "identity_qualification": "pinned 95e current; fresh independent full assigned display"
+        },
+        {
+          "archive": "support/current-geometry-error.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/error.rs",
+          "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+          "lines": [
+            38,
+            79
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded separately registered support, no ordered-role or earlier-reviewer read credit"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can any supported same-namespace producer construct or mutate a nonfinite Position/Displacement and deliver it to ScenePlanPoint or SpatialBounds, and what invariant must all such routes enforce?",
+      "relationship": "Existing ROOT-ADM-F003 and 059 Q-L12-dabc2ad14b781a81794d concern related visibility and scene producer scope; do not automatically alias them."
+    },
+    {
+      "question": "What exact native Vec3 min/max and reflection construction semantics apply under the selected build, and which supported serializers or deserializers exercise them?",
+      "relationship": "774 opaque witness and 059 L12-CLOSURE-REPORT-GEOMETRY-TYPED-ERROR-NATIVE-PORT retain their own package/version and reader scopes; no feature resolution or execution here."
+    },
+    {
+      "question": "Which current native direction errors must remain distinguishable to real callers and where are causes projected to presentation?",
+      "relationship": "Typed adapter has three named variants; prior scalar-axis and serializer questions are distinct, as are camera normalization failures. No automatic alias."
+    },
+    {
+      "question": "Which valid framed coordinates and bounds need long-range arithmetic or external provenance guarantees beyond finite admission?",
+      "relationship": "Checked vector operations can return nonfinite errors; geometric membership, unit scale and domain limits require separate callers."
+    }
+  ],
+  "evidence": {
+    "registry": "historical/registry.json.gz",
+    "original_transport_manifest": "historical/original-transport-manifest.json.gz",
+    "historical_records": "historical-attribution.json",
+    "queue_selection": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "verification": "verify-evidence.py and verify-manifest.py",
+    "scope_coverage": "personal-read-receipt.json"
+  },
+  "limits": "Static text inspection and evidence hashing only; no product build, test, macro, runtime probe, simulation, execution, implementation or product validation. No source/publication edit. No whole-lens clearance or checkpoint3821 reconstruction."
+}

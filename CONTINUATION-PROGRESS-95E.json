@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 02:38:19–02:38:20 UTC; main may advance. See MAIN-RECHECK-20261112-0238.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 02:54:37–02:54:38 UTC; main may advance. See MAIN-RECHECK-20261112-0254.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 955,
+  "new_current_ledger_candidates": 962,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -494,7 +494,8 @@
     "ASSESSMENT-DELEGATED-ANIMATION-ROOF-2488-2495.json",
     "ASSESSMENT-DELEGATED-BUILDING-P16-2496-2503.json",
     "ASSESSMENT-DELEGATED-BUILDING-P16-2504-2512.json",
-    "ASSESSMENT-DELEGATED-CLOSURES-P16-2513-2518.json"
+    "ASSESSMENT-DELEGATED-CLOSURES-P16-2513-2518.json",
+    "ASSESSMENT-DELEGATED-P16-2519-2523.json"
   ],
   "qualification": "Partial current trace and historical body read remain distinct; neither closes a lens, historical alias or current scope.",
   "new_nonfinding_assessments": [
@@ -2198,7 +2199,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-DF4241BF.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-30EE4E5C.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2213,6 +2214,11 @@
     "registration": "CENTRAL-11A-REGISTRATION.json",
     "receipt": "CENTRAL-11A-READ-RECEIPT.json",
     "git_path_proof": "CENTRAL-11A-CURRENT-WINDOWS-PROOF.json",
-    "qualification": "Nine bounded current-source displays in preparation for, but not yet centrally reconciled into, checkpoint11. No historical reviewer credit or whole-lens completion is implied."
-  }
+    "qualification": "Nine bounded current-source displays support the first central checkpoint11 reconciliation; no historical reviewer or whole-lens credit is implied."
+  },
+  "delegated_batch11_partial_reconciliation": [
+    "ASSESSMENT-DELEGATED-RECONCILIATION-11A-95E.json"
+  ],
+  "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json",
+  "delegated_batch22_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-22.json"
 }

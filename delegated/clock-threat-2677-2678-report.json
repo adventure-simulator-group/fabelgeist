@@ -1,0 +1,956 @@
+{
+  "schema": "726-bounded-clock-threat-source-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:25:06.781984+00:00",
+  "scope": {
+    "roles": [
+      2677,
+      2678
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_objects": "P16 object transported by f82; pr-working object transported by f82 and individually matches 6533",
+    "registration": "registration.json",
+    "fresh_personal_reads": "personal-read-receipt.json",
+    "support": "support-registration.json and extra-support-registration.json; support only",
+    "qualification": "Thirteen perspectives apply only to displayed assigned bodies and stated bounded support, not whole-lens, whole-program, or ordered-role credit for support."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "REVIEW-ITERATION-TIMEOUT-COUNT-001",
+      "classification": "existing published conditional finding, source-level confirmation only; no new duplicate",
+      "evidence": [
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-netcode.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+          "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+          "lines": [
+            33,
+            38
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/p16-iteration.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "lines": [
+            43,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "f82 transports frozen P16 dirty object, no additional ordered role credit"
+        },
+        {
+          "archive": "sources/2677-historical_object.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "f82 is transport of P16 dirty snapshot object, not P16 product commit"
+        }
+      ],
+      "detail": "Both explicitly inspected loop versions initialize final_tick to maximum_ticks, use exclusive 0..maximum_ticks and on an exhausted loop report final_tick + 1 as simulated_ticks and convert it into TacticalElapsed. At current 30 Hz and 180 seconds this is 5401 versus 5400 update calls; the separately inspected P16 64 Hz loop analogously gives 11521 versus 11520. Early terminating index k correctly reports k+1. Neither an actual supported timeout nor Bevy schedule execution was established.",
+      "relationship": "Same first contract family as 059 ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT (queue index 118) and published prior current assessment REVIEW-ITERATION-TIMEOUT-COUNT-001; pending q1753/q1761 remain distinct records pending central alias review. Historical numbers, exact source versions and authors are unchanged.",
+      "later_direction": "After audit and only if repairs/validation are separately authorized, derive completed-update count independently from the observation coordinate and check exhausted and early-completion cases, rate and report propagation; preserve tick semantics and f32 order as appropriate. No implementation or validation is performed."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The two assigned historical objects and 95e files match byte for byte; P16 clock additionally matches a120 base per file; pr-working limits match 6533 per file. Equality does not convert dirty snapshots into clean commits or establish the same surrounding behavior.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "sources/2677-historical_object.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "f82 is transport of P16 dirty snapshot object, not P16 product commit"
+        },
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "sources/2678-historical_object.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pr-working snapshot had other modifications; this object is proven independently"
+        }
+      ]
+    },
+    {
+      "observation": "The two limits are 1000 and 300000; the current validated bestiary path checks growth and inclusive baseline range, and quest source checks a u64 inclusive range using the same constants. Public EscalationProfile and its Deserialize derive remain raw; combat_for_incident clamps raw count and baseline. This bounded evidence does not establish an invalid supported caller or justify treating intentionally raw values as admitted validated values.",
+      "sources": [
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            1114,
+            1123
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            727,
+            745
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/quest-unsigned.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            220,
+            235
+          ],
+          "role": null,
+          "identity_qualification": "bounded support, no ordered-role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            154,
+            201
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "observation": "P16 QUAL-027 records shorthand no Serde although this actual clock derives Serialize. Its detailed 774 group 052 explicitly states Serialize-only with no Deserialize. Preserve both exact records; a statement of no decoding/admission is the source-supported narrower reading, not a claim that serialization is absent.",
+      "sources": [
+        {
+          "archive": "sources/2677-historical_object.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "f82 is transport of P16 dirty snapshot object, not P16 product commit"
+        }
+      ]
+    },
+    {
+      "observation": "Long-count f32 conversion can equate observations: 16,777,216 and 16,777,217 both round to the same f32 before multiplication. The bounded current duel is much smaller, and no supported long-running producer was established; this is a conditional precision question, not an additional defect or runtime finding.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 NATIVE-ADMISSION03-REG-027 and QUAL-027, native/admission03/contract-groups-052, original f82 transport",
+      "roles": "P16 clock 1\u201329, Native original prospective reader; surrounding PR/P16 references as originally qualified. P16 64 Hz context preserved. No transfer of later-lens credit."
+    },
+    {
+      "record": "774 NATIVE-ADMISSION03-REG-033 and QUAL-033, native/admission03/contract-groups-057, original f82 transport",
+      "roles": "pr-working constants 1\u20137; Native profile is raw, generator clamps and distinct scale semantics preserved; no original new deduplicated finding."
+    },
+    {
+      "record": "059 segovb/READ-L11-437.json and REGISTRATION-SEGOVB-1594/1595",
+      "roles": "Fresh personal read claims for both original full bodies; these receipt rows do not name a particular individual. Do not invent one."
+    },
+    {
+      "record": "059 segovb/READ-L12-928.json and parallel-l12-20261029 registrations 741/742",
+      "roles": "/root/lens12_frontier personally read 2677 1\u201329 and 2678 1\u20137; root adoption records zero personal rereads. 059 recorded no new findings or current reconciliation."
+    },
+    {
+      "record": "059 adler/READ-L11-320.json and REGISTRATION-ADLER-900",
+      "roles": "pr-working clock role 2056, full 1\u201329 and fresh_reads as recorded; preserve receipt identity rather than claiming another named reviewer; same bytes do not transfer credit or imply automatic alias."
+    },
+    {
+      "record": "historical/prior-current-timeout-assessment.json",
+      "roles": "Previously published 95e count finding, bounded sources and prior attribution retained separately. New /root/rig_identity support reads do not supply its original credit."
+    },
+    {
+      "record": "historical/p16-recovery.json and historical/p16-tracked.patch",
+      "roles": "Later matched tracked patch SHA and 159 statuses; seven untracked objects are separate. Matching bytes do not prove original command or continuous custody. Neither a120 base nor f82 transport is the dirty snapshot commit; no 3821 reconstruction."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "The assigned bodies have no semantic raw-string protocol. Current diagnostic strings belong to selected native errors; no string-domain finding follows.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/quest-unsigned.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            220,
+            235
+          ],
+          "role": null,
+          "identity_qualification": "bounded support, no ordered-role credit"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "The shared numeric constants name authored enemy-power limits, and current rate is 30 Hz; no demand to wrap every number. The base-orc value and two numeric bounds separately encode a documented relationship whose change policy is unproven.",
+      "sources": [
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-netcode.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+          "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+          "lines": [
+            33,
+            38
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "TacticalElapsed represents tactical observation, distinct from AnimationElapsed interval and native scalar output; power-limit ownership is centralized in the dependency-free shared module.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-elapsed.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            9,
+            35
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-build.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/build.rs",
+          "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "lines": [
+            59,
+            72
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "The checked AnimationElapsed constructor already owns finite nonnegative intervals; it is called after clock subtraction, so using it as a replacement for the tactical observation would conflate roles.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-elapsed.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            9,
+            35
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "A tactical coordinate is distinct from a completed update count and an elapsed interval. Normalized combat power and per-enemy multiplier have distinct scales; blindly narrowing the latter to a fraction at most one would change policy.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            154,
+            201
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Subtraction re-admits the result as AnimationElapsed; retrograde observations return Negative, equal observations return zero. f32 tick conversion is finite at the current positive 30 Hz even for u64 input, but loses single-tick distinction for sufficiently large counts; bounded duel uses at most 5401 for this result path.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-elapsed.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            9,
+            35
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-netcode.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+          "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+          "lines": [
+            33,
+            38
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "EscalationProfile is public raw data with separate mode, growth and baseline power; validation of selected authored sources and generator clamps do not make every direct literal or deserialization a sealed validated profile.",
+      "sources": [
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            1114,
+            1123
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            727,
+            745
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            154,
+            201
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Private TacticalElapsed backing and pub(super) tick constructor, Serialize output without a derived Deserialize route, and checked interval constructor are visible in this scope. Bestiary and quest checks are inclusive on 1000..300000; direct raw profile ingress outside those paths remains policy-dependent.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-elapsed.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            9,
+            35
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            1114,
+            1123
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            727,
+            745
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/quest-unsigned.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            220,
+            235
+          ],
+          "role": null,
+          "identity_qualification": "bounded support, no ordered-role credit"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "EscalationMode owns the Mob/Single distinction in the profile, and the generator selects behavior by variant; no associated-payload defect is established by these scopes.",
+      "sources": [
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            154,
+            201
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Limits are reused in content validation and runtime math rather than duplicated there; documented 1000=one-tenth of baseline orc 10000 and 300000=thirty orcs are expressed in separate constants, with no demonstrated current inconsistency.",
+      "sources": [
+        {
+          "archive": "sources/2678-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation_limits.rs",
+          "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+          "lines": [
+            1,
+            7
+          ],
+          "role": 2678,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-bestiary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/bestiary.rs",
+          "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+          "lines": [
+            1114,
+            1123
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-quest-validation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+          "lines": [
+            727,
+            745
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "The tick-count producer sends the clock value into the result; an independent logging path uses clock.tick as an observation. Existing timeout mismatch belongs at count/coordinate boundary, not a new clock-object duplicate.",
+      "sources": [
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/logging-clock.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+          "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+          "lines": [
+            237,
+            240
+          ],
+          "role": null,
+          "identity_qualification": "bounded support, no ordered-role credit"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Historical P16 and 95e clock bytes match, but the enclosing iteration tick rate changes from 64 Hz to 30 Hz; preserve each context and assess numeric behavior from its own rate.",
+      "sources": [
+        {
+          "archive": "sources/2677-historical_object.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "f82 is transport of P16 dirty snapshot object, not P16 product commit"
+        },
+        {
+          "archive": "support/p16-iteration.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "lines": [
+            43,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "f82 transports frozen P16 dirty object, no additional ordered role credit"
+        },
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-netcode.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-netcode/src/lib.rs",
+          "sha256": "9830f6dfbbd20a69f7ac1149c6e305244f7fe87e5dc4a082ad2c912f0427b7d9",
+          "lines": [
+            33,
+            38
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        },
+        {
+          "archive": "support/current-iteration.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+          "lines": [
+            44,
+            96
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Clock derives Serialize but not Deserialize; serialization output is not an admission path. EscalationProfile derives Serde for raw data, so derived decoding alone does not imply a checked profile.",
+      "sources": [
+        {
+          "archive": "sources/2677-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+          "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+          "lines": [
+            8,
+            29
+          ],
+          "role": 2677,
+          "identity_qualification": "pinned project revision"
+        },
+        {
+          "archive": "support/current-threat.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/threat_escalation.rs",
+          "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+          "lines": [
+            7,
+            44
+          ],
+          "role": null,
+          "identity_qualification": "pinned 95e bounded support, not ordered role credit"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Which supported duel inputs can reach the exhausted loop, and how should completed update count, native scheduler time, event observations, and report consumers be related?",
+      "relationship": "Existing REVIEW-ITERATION-TIMEOUT-COUNT-001 and 059 ADLER-L11-ITERATION-TIMEOUT-TICK-COUNT; no automatic duplicate or runtime proof."
+    },
+    {
+      "question": "Are any supported producers outside the bounded duel allowed enough ticks to require distinct consecutive f32 observations, or is the coordinate intentionally quantized?",
+      "relationship": "The source-only 2^24 rounding example is not evidence of current reachability."
+    },
+    {
+      "question": "For every supported direct EscalationProfile construction or deserialization, is invalid authored power rejected at admission, intentionally clamped at generation, or exposed as raw state? Which caller owns that policy?",
+      "relationship": "774 contract-groups-057 already distinguishes raw profiles from admitted content and generator bounds; do not assert a new defect until actual producers and policy are traced."
+    },
+    {
+      "question": "Should the documented one-tenth and thirty-orc relationships be a single computed authority when policy values evolve, or are all three independently authored constants?",
+      "relationship": "No present mismatch or reached failure established; preserve unbounded other consumers as open."
+    }
+  ],
+  "evidence": {
+    "registry": "historical/registry.json.gz",
+    "original_transport_manifest": "historical/original-transport-manifest.json.gz",
+    "historical_records": "historical-attribution.json",
+    "queue_selection": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "verification": "verify-evidence.py and verify-manifest.py",
+    "scope_coverage": "personal-read-receipt.json lists exact displayed chunks and unread complements"
+  },
+  "limits": "Static text inspection and evidence hashing only; no implementations, builds, tests, simulations, product execution, runtime probes, validation or publication changes. No claims about uninspected source, whole-lens completion, or recovered checkpoint3821."
+}

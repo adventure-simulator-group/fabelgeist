@@ -1,0 +1,728 @@
+{
+  "schema": "726-bounded-p16-schedule-allocation-review-v1",
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T02:27:37.625335+00:00",
+  "scope": {
+    "roles": [
+      2675,
+      2676
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "physical-p16 dirty snapshot based on a120390947c89b703dc74c4255a13c035d054c50",
+    "identity_qualification": "Both recovered P16 assigned objects individually equal their a120 and 95e blobs; original status omits these paths. This does not make the overall P16 snapshot clean. f82 is evidence transport, not a project revision.",
+    "actual_personal_reads": "Separately prospectively registered and displayed allocation 1–364 at each revision and activity 28 only at each revision; activity complements 1–27 and 29–243 unread. Tests within allocation source were read but never run.",
+    "support": "Only registered current support windows as listed; earlier reviewer sources remain separate."
+  },
+  "findings_and_relationships": [
+    {
+      "id": "REVIEW-SCHEDULE-PARALLEL-ALLOCATION-001",
+      "classification": "Existing current conditional aggregate API concern; no new unique count, no assumed universal API invariant or observed bad player schedule.",
+      "detail": "validate_daily_allocation checks the sum and individual 15-minute divisibility of its ten-element activity array, then independently parses two organization duration/ID tuples, without checking that each tuple matches its corresponding activity slot. DailySchedulePlan and Scheduled fields are public; ActivityMinutes::try_from accepts zero, while OrganizationAllocation::parse rejects zero with an ID and blank IDs. Direct construction or a direct mismatched helper call can therefore represent an inconsistent proposed plan if the type is intended as a complete validated aggregate.",
+      "symbolic_case": "A direct call with ten zero array entries and each separate organization tuple set to 1440 minutes with nonblank IDs meets the shown local numeric/parse conditions but yields disjoint represented durations. This is source reasoning only; it does not establish organization membership, an actual call, a saved record, or player-visible failure.",
+      "safeguards": "The inspected normal native reducer and web adapter pass the same original apprenticeship/practice values into both array slots and tuples; the native reducer builds its storage row from the plan and applies an organization membership/role guard before update. This does not prove all external or future callers safe.",
+      "sources": [
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            35
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            39,
+            58
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            104,
+            132
+          ]
+        },
+        {
+          "archive": "source/2676-current.rs",
+          "path": "crates/adventuresim-core/src/activity.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            28,
+            28
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            14,
+            18
+          ]
+        },
+        {
+          "archive": "support/1.rs",
+          "path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            10
+          ]
+        },
+        {
+          "archive": "support/2.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            195,
+            261
+          ]
+        },
+        {
+          "archive": "support/4.rs",
+          "path": "crates/strategic-web/src/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            39
+          ]
+        },
+        {
+          "archive": "support/extra-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            128,
+            152
+          ]
+        }
+      ],
+      "history": [
+        "Prior current ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E independently established this condition, source calls and limitations; preserve its reviewer and source ranges.",
+        "774 ROOT-ADM-F005 and native group049 address public construction/plan admissibility; their relationship is connected, not a newly counted defect.",
+        "059 independent Lens13 PL13-210 assessed pr-working allocation role1014 1–364 and left parallel organization consistency and native adapter contract open; its earlier role1013 partials and authorship remain distinct."
+      ],
+      "future_repair_direction": "Once authorized, decide whether the public plan certifies a consistent bounded day; if so derive the organization durations from one authoritative representation or reject inconsistency and prevent bypass, retaining valid zero/unallocated and native authorization."
+    },
+    {
+      "id": "NATIVE-LOWER-ADM03-F001",
+      "classification": "Reconnected original 774 conditional alternate-writer finding with newly inspected 95e source; separate from the parallel-input aggregate candidate and no additional unique count.",
+      "detail": "The current isolated configure_simulation_character reducer requires its other run, character, profile, settlement and party conditions, then checks schedule total against MINUTES_PER_DAY without the 15-minute predicate or organization pairing, and later copies the raw supplied allocation into the saved table row. ScheduleAllocation::allocated_minutes sums the ten u16 fields. A raw one-minute allocation has a total below one day but fails ActivityMinutes::try_from and thus the private ValidatedSchedule conversion.",
+      "consumer_limit": "The separately inspected native effective_location_schedule maps a raw stored allocation into DailySchedule and calls ValidatedSchedule::try_from(...).expect before effective_at; the web Some(location) preview also uses an expect, while None clones. These source paths reveal a precondition relationship, not that the proposed request reaches either consumer, that a transaction commits, or that a panic or failure occurred. Further guards and indirect calls/transaction behavior remain unproved.",
+      "sources": [
+        {
+          "archive": "support/writer-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            342,
+            360
+          ]
+        },
+        {
+          "archive": "support/writer-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            421,
+            475
+          ]
+        },
+        {
+          "archive": "support/extra-1.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            38,
+            56
+          ]
+        },
+        {
+          "archive": "support/total-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            83,
+            97
+          ]
+        },
+        {
+          "archive": "support/sum-0.rs",
+          "path": "crates/adventuresim-core/src/strategic_time.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            414,
+            417
+          ]
+        },
+        {
+          "archive": "support/1.rs",
+          "path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            10
+          ]
+        },
+        {
+          "archive": "source/2676-current.rs",
+          "path": "crates/adventuresim-core/src/activity.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            28,
+            28
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            28,
+            36
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            177,
+            196
+          ]
+        },
+        {
+          "archive": "support/3.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            90
+          ]
+        },
+        {
+          "archive": "support/extra-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            728,
+            741
+          ]
+        },
+        {
+          "archive": "support/extra-2.rs",
+          "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2103,
+            2112
+          ]
+        }
+      ],
+      "history": [
+        "Original native followthrough001 recorded P16 source-only NATIVE-LOWER-ADM03-F001 and original role256 sim source SHA caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c; that historical simulation file is a dirty P16 modification, not a120. The exact original object is preserved but not personally displayed by this reviewer.",
+        "The separately read 95e simulation source SHA 909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60 differs; analogous local gate and write are independently evidenced by current ranges, not inferred from prior hash.",
+        "059 q3301 concerns the write-validation/preview-expect contract and q2494 is a related saved schedule owner question; exact aliases and all writers remain centrally unresolved."
+      ],
+      "future_repair_direction": "When implementation is authorized, reconcile every intended saved writer with the canonical numeric day and organization policy, retaining isolated-run authorization, valid zero schedules, and the current organization authority; decide error propagation through consumers. Do not treat any hypothetical invalid record as an observed event."
+    },
+    {
+      "id": "L12-CLOSURE-PHYSICAL-SCHEDULE-ORGANIZATION-IDENTITY",
+      "classification": "Existing 059 q3444; source relationship expanded, owner and alias still open.",
+      "detail": "parse trims a present nonempty ID and the native guard passes IDs to require_activity_membership, with practice role checked separately. The web normalize closure drops blank optional IDs before calling the same parser: a zero-minute blank becomes None in this adapter, whereas direct parse sees Some and returns OrganizationWithoutMinutes. For positive blank, web maps to missing ID and direct parse to empty ID. This is a static boundary distinction, not an automatically defective behavior: form encoding and exact identity ownership remain unresolved. effective_at operates on minute amounts and location, not organization IDs.",
+      "sources": [
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            39,
+            58
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            68,
+            74
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            217,
+            255
+          ]
+        },
+        {
+          "archive": "support/4.rs",
+          "path": "crates/strategic-web/src/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            39
+          ]
+        },
+        {
+          "archive": "support/extra-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            128,
+            152
+          ]
+        }
+      ],
+      "future_repair_direction": "Identify actual organization key owner and live producers/consumers and choose normalization at the appropriate boundary; preserve explicit source-specific typed errors unless changed by an authorized design decision."
+    }
+  ],
+  "nonfindings": [
+    {
+      "observation": "DailySchedule is an explicitly broad raw transport with Default/Serde; ValidatedSchedule separately verifies numeric budget and increments, without proving organization membership. Do not assert every raw DailySchedule is invalid solely because it is unvalidated.",
+      "sources": [
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            175
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            177,
+            196
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Redistribution transfers unavailable whole segments to available planned activities only when a positive weight exists; otherwise unavailable minutes are not reassigned, and reading is preserved. The source tests express expected behavior but no test or simulation ran.",
+      "sources": [
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            217,
+            282
+          ]
+        },
+        {
+          "archive": "source/2675-current.rs",
+          "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            320,
+            344
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Is DailySchedulePlan a promised durable validated aggregate, or merely an unconstrained DTO returned by a selected factory? Who can construct/mutate it?",
+    "Can any real caller submit mismatched array/organization durations? The two examined production adapters match; exact-spelling search does not exclude aliases or external callers.",
+    "Do any isolated writer requests satisfy all surrounding gates and persist an invalid non-quarter-hour schedule? What paths subsequently reach a saved-schedule consumer, and what is the transaction behavior? None was executed.",
+    "What are the existing organization ID owner, blank-vs-absent transport contract and actual membership/role policy across all producers?",
+    "Are all other saved-schedule writers and deserializers constrained to the private numeric validator, and should preview/native expect become structured failure?",
+    "Does the RNG weighted_index implementation provide the bounded selection contract assumed by effective_at? It was not independently read or run here."
+  ],
+  "history": [
+    {
+      "origin": "774 Native initial",
+      "records": [
+        "history-774/native/admission03/source-range-registration.jsonl.gz rows 24–25",
+        "history-774/native/admission03/source-qualifications-final-082.jsonl.gz",
+        "history-774/native/admission03/contract-groups-049.json.gz"
+      ],
+      "scope": "NATIVE-ADMISSION03-REG-024 read P16 allocation 1–364 including existing tests as source; REG-025 reads activity 28 only. Original review records ROOT-ADM-F005 relationship; no global/later-lens credit."
+    },
+    {
+      "origin": "774 Native later followthrough",
+      "records": [
+        "history-774/native/admission03/source-range-registration.jsonl.gz rows 115 and 119",
+        "history-774/native/admission03/source-qualifications-followthrough-current.jsonl.gz",
+        "history-774/native/admission03/camera-lower-followthrough/schedule-contracts-001.json.gz",
+        "historical-support-unread.json"
+      ],
+      "scope": "REG-115 originally requested 1–283 and qualified actual material 1–282, excluding tests; REG-119 only activity line28. Lower source writer role122 was requested 348–495, qualified 349–494, under separately preserved dirty P16; recorded NATIVE-LOWER-ADM03-F001, no product execution."
+    },
+    {
+      "origin": "774 Camera",
+      "records": [
+        "history-774/camera/admission03/source-range-registration.jsonl.gz row8",
+        "history-774/camera/admission03/source-qualifications-final-current.jsonl.gz",
+        "history-774/camera/admission03/schedule-receiver-admission-051.json.gz"
+      ],
+      "scope": "CAMERA-ADM03-REG-008 read P16 allocation 134–198 only to compare raw DailySchedule vs private wrapper at specific leisure receiver. No transfer of other ranges."
+    },
+    {
+      "origin": "774 root",
+      "records": [
+        "history-774/root/admission03/schedule-admission-021.json.gz"
+      ],
+      "scope": "Original ROOT-ADM-F005 public aggregate/variant admission concern and intentionally broad raw schedule distinction, with membership authority separate."
+    },
+    {
+      "origin": "059 Lens11",
+      "records": [
+        "history-059/segovb/REGISTRATION-SEGOVB-1592.json",
+        "history-059/segovb/REGISTRATION-SEGOVB-1593.json",
+        "history-059/segovb/READ-L11-437.json"
+      ],
+      "scope": "Receipt 2026-10-28T19:36:59.153923+00:00 records P16 allocation 1–364 in 1–140,141–280,281–364 windows, activity28 only. The record does not name an individual reviewer."
+    },
+    {
+      "origin": "059 Lens12",
+      "reader": "/root/lens12_frontier",
+      "records": [
+        "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-739.json",
+        "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-740.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-927-001.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-927-002.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-928-001.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-L12-927.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-L12-928.json",
+        "history-059/segovb/READ-L12-927.json",
+        "history-059/segovb/READ-L12-928.json"
+      ],
+      "scope": "Independent prospective reads: allocation 1–195 then 196–364, activity line28 in a separate partial. Root adoption has zero personal rereads; preserve original P16 identity and no transfer."
+    },
+    {
+      "origin": "059 Lens13",
+      "records": [
+        "history-059/parallel-l13-20261029/REGISTRATION-PL13-210.json",
+        "history-059/parallel-l13-20261029/READ-PL13-210-PARTIAL-001.json",
+        "history-059/parallel-l13-20261029/READ-PL13-210-PARTIAL-002.json",
+        "history-059/parallel-l13-20261029/READ-PL13-210.json",
+        "history-059/segovb/READ-L13-PARALLEL-208.json"
+      ],
+      "scope": "Separate pr-working role1013 body cumulative prefixes 1–460 and 1–920, then fresh tail 921–1363; role1014 allocation 1–364 separately read and root adopted without personal reread. These concern historical pr-working, not P16 role credit."
+    }
+  ],
+  "baseline_qualifications": [
+    "Original P16 tracked patch recovery matches registry SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked objects were separately recorded. Original diff invocation and uninterrupted custody remain unproven.",
+    "No checkpoint 3821 ledger/queue reconstruction, historical promotion or whole-lens completion. No repairs, product execution, builds, tests, fixtures, simulation, runtime probes or validation."
+  ],
+  "support_reads": [
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/0.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "eof": 1363,
+      "actual_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          26,
+          1363
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/1.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "eof": 698,
+      "actual_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          21,
+          698
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/2.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "eof": 263,
+      "actual_ranges": [
+        [
+          185,
+          263
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          184
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/3.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "eof": 741,
+      "actual_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          96,
+          741
+        ]
+      ]
+    },
+    {
+      "path": "crates/strategic-web/src/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/4.rs",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "eof": 99,
+      "actual_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-0.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "eof": 741,
+      "actual_ranges": [
+        [
+          110,
+          190
+        ],
+        [
+          715,
+          741
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          109
+        ],
+        [
+          191,
+          714
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-1.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "eof": 98,
+      "actual_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          81,
+          98
+        ]
+      ]
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-2.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "eof": 3812,
+      "actual_ranges": [
+        [
+          2085,
+          2120
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          2084
+        ],
+        [
+          2121,
+          3812
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/writer-0.rs",
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "eof": 610,
+      "actual_ranges": [
+        [
+          340,
+          495
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          339
+        ],
+        [
+          496,
+          610
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/total-0.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "eof": 98,
+      "actual_ranges": [
+        [
+          81,
+          98
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/sum-0.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "eof": 860,
+      "actual_ranges": [
+        [
+          405,
+          430
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          404
+        ],
+        [
+          431,
+          860
+        ]
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Both inspected player/web adapters pass their corresponding numeric fields into array and organization tuples; native reconstructs and checks membership before a normal saved update. An isolated alternate writer has a narrower numeric gate. Other sources/writers are not excluded.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "ActivityMinutes owns quarter-hour conversion, ValidatedSchedule owns a checked numeric day, and OrganizationAllocation owns the parser-level organization pairing; DB membership remains with native organization authority.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "Public Scheduled and DailySchedulePlan construction can bypass factory relations; an isolated raw writer checks only total before a potential saved update. Keep the aggregate and alternate-writer predicates distinct.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "ValidatedSchedule checks all ten entries and day total before redistribution. Redistribution transfers whole 15-minute segments and leaves reading unchanged; no RNG algorithm execution or full deterministic proof is inferred.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "The ten-element array and separately supplied organization tuples may represent different amounts when a direct caller bypasses selected adapter conventions; this is the existing conditional parallel-allocation finding.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "The planner carries schedule allocations; membership/practice authorization resides in the inspected native guard. Do not infer an organization identity type or move native authority from raw ID strings alone.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "The array apprenticeship/practice minutes and separate typed organization durations are independently provided and can disagree; selected adapters presently derive both inputs from the same original fields.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Zero minutes are valid in ordinary ActivityMinutes; preserve quarter-hour/day bounds and intended optional organization, unchanged reading and no-available-weight behavior. Existing tests are source text, not a pass.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "None versus Scheduled already differentiates organization state, but public Scheduled payload permits zero or blank when constructed outside parse; no blanket restriction on ordinary ActivityMinutes follows.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "Raw DailySchedule derives Serde/Default; private ValidatedSchedule is constructed through TryFrom. No automatic derive recommendation or universal decoder admission proof is made.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "ActivityMinutes means a 15-minute-aligned u16, not a whole-day budget or nonzero scheduled organization amount. The ValidatedSchedule adds total constraints; raw ScheduleAllocation is transport.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "Organization ID remains String through parse/trim and extraction; q3444 asks for actual identity owner and consumers. StreamId is a deterministic namespace; Display text is final presentation, not an established business key.",
+      "status": "bounded source perspective; not whole-lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "15-minute segments and 1,440-minute day come from distinct canonical constants and serve divisibility and aggregate sum. Their exact values do not establish runtime behavior.",
+      "status": "bounded source perspective; not whole-lens closure"
+    }
+  ]
+}

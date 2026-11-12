@@ -1,0 +1,1357 @@
+{
+  "schema": "726-bounded-grounding-surface-source-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:43:48.875853+00:00",
+  "scope": {
+    "original_roles": [
+      2695,
+      2696
+    ],
+    "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e per-file; original pr-working snapshot contained four unrelated modifications",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports exact original objects, not snapshot commit",
+    "registration": "registration.json",
+    "personal_reads": "personal-read-receipt.json",
+    "qualification": "Both revisions of validation 1\u2013157 and floor 1\u2013299,305\u2013311,314\u2013323 freshly displayed independently. Validation 158\u2013159 and floor 300\u2013304,312\u2013313 remain unread/excluded. Separately registered current floor-region 1\u201378 is support only, not original role2697 credit. No whole-lens or checkpoint3821 completion."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "ROOT-ADM-F010",
+      "classification": "existing 774 accepted-grounding mutable-backing finding; ROOT-ADM-G039 floor-bearing supplement freshly source-confirmed, no new count",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            141,
+            190
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            192,
+            262
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/surface.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            8,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/single-builder.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+          "lines": [
+            74,
+            103
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separately registered current access/builder source; not assigned or old reviewer scope"
+        },
+        {
+          "archive": "support/surface-access.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            78,
+            89
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separately registered current access/builder source; not assigned or old reviewer scope"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ],
+      "first_contract": "FloorBearing::admit rejects an empty region vector, but its regions and other fields are visible within grounding. In the original G039 static counterexample, after an admitted bearing has its regions cleared within that namespace, validate_floors still finds a matching member and validate_floor iterates zero regions; absent, wrong_area and perimeter are zero, so these floor checks return Ok. Other surface checks and later effects remain separate.",
+      "conditions": "This is a representable post-admission mutation/re-admission bypass, not an actual observed bad caller, running program or established full accepted surface. The shown current single builder installs a one-region bearing, assembles geometry and calls admit_generated before return. F010 also covers accepted surface backing and a conditional doorway slice if regions are cleared; preserve that separate subpath and historic source attribution.",
+      "later_direction": "After complete audit and authorization, protect accepted coupled geometry/indices while preserving legitimate construction-time mutation followed by coherent admission. Preserve intentional floor sliver allowances and member ordering."
+    },
+    {
+      "id": "REVIEW-SUPPORT-GRADE-FINITE-NORMAL-UNDERFLOW-95E",
+      "classification": "new source/mathematical conditional mechanism within existing grade family; proposed child, not an accepted unique count or established final-surface witness",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/mesh.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            212,
+            223
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/support-policy.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "lines": [
+            6,
+            32
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/ground-triangle.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+          "lines": [
+            20,
+            46
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/plan-polygon.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+          "lines": [
+            116,
+            145
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/polygon-arithmetic.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+          "lines": [
+            226,
+            242
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separately registered current arithmetic and containment support only"
+        },
+        {
+          "archive": "native/glam-vec2.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec2.rs",
+          "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+          "lines": [
+            184,
+            189
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        },
+        {
+          "archive": "native/glam-vec2.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec2.rs",
+          "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+          "lines": [
+            459,
+            465
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        },
+        {
+          "archive": "native/glam-vec3.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec3.rs",
+          "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+          "lines": [
+            261,
+            270
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        },
+        {
+          "archive": "native/bevy-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy",
+          "native_version": "0.19.1",
+          "native_member": "bevy-0.19.1/src/lib.rs",
+          "sha256": "10075d3357dd35ffcb0b0c85a276ded49573b59d692e075ba6e8ad8b2738aa48",
+          "lines": [
+            50,
+            52
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "native package source and manifest declarations only; selected compiled features/target unproved"
+        },
+        {
+          "archive": "native/bevy-internal-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_internal",
+          "native_version": "0.19.1",
+          "native_member": "bevy_internal-0.19.1/src/lib.rs",
+          "sha256": "e4d62ec28c75d725a321bacfe8c6d2ac8cc8848833d3e9ddbcba22ff5f0c8c55",
+          "lines": [
+            63,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "native package source and manifest declarations only; selected compiled features/target unproved"
+        },
+        {
+          "archive": "native/bevy-math-lib.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_math",
+          "native_version": "0.19.1",
+          "native_member": "bevy_math-0.19.1/src/lib.rs",
+          "sha256": "d743684d4c464873715e1fa8ef5fe0b6fa537fabb1172894056c3a7bff504a26",
+          "lines": [
+            101,
+            103
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "native package source and manifest declarations only; selected compiled features/target unproved"
+        },
+        {
+          "archive": "native/bevy-math-Cargo.toml",
+          "revision": null,
+          "git_path": null,
+          "native_package": "bevy_math",
+          "native_version": "0.19.1",
+          "native_member": "bevy_math-0.19.1/Cargo.toml",
+          "sha256": "55eaac570fdbe4828cebd617d6feb73ce13af0fb030f5c4cba99417c967a2a2f",
+          "lines": [
+            118,
+            121
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "native package source and manifest declarations only; selected compiled features/target unproved"
+        }
+      ],
+      "first_contract": "A non-flat finite support triangle should not measure as grade zero merely because the horizontal normal length calculation loses its squared components. validate_encoded checks only that the normal is finite and normal.y is nonzero before calling maximum_grade.",
+      "static_reasoning": "For abstract triangle edges (s,s,0) and (0,s,s) with s=2^-40, the locked glam cross source yields normal (2^-80,-2^-80,2^-80): each component is finite and Y is nonzero. Under ordinary IEEE f32 arithmetic, each horizontal square is 2^-160, below half the least subnormal, so the shown Vec2 dot and length produce zero; division by 2^-80 gives grade zero although the exact planar grade is sqrt(2). Thus the shown normal gate does not reject this mechanism, and a positive configured limit would not reject that computed zero at the grade comparison. No triangle, fixture, calculation, decoder or product was executed.",
+      "conditions": "This follows the locked package text and ordinary rounding assumptions; actual compiled feature/target/FP mode, all region/membership/floor checks, caller policy, supported generated or decoded surface and physical use remain unproved. It is not a claim that a complete surface passes or that a player sees a failure. PlanPolygon and GroundTriangle bounded source show no blanket minimum area in the displayed gates, but do not establish the rest of the route.",
+      "relationship": "Related to 059 ADLER-L11-SUPPORT-GRADE-NUMERIC-ADMISSION and Q-L12-1542c41f322277996bc9, plus prior 95e geography-grade assessment. The historical example uses normal overflow and is rejected by the final-surface finite-normal gate; the tiny finite-normal underflow is a different numerical mechanism and possible recipient. Preserve the earlier withdrawal, all statuses, and defer exact alias/child disposition to central reconciliation.",
+      "later_direction": "Trace real supported producers and complete decoded/generated admission, choose a robust finite grade or explicit unmeasurable result without inventing a global minimum size, and validate only if later authorized."
+    },
+    {
+      "id": "ADLER-L11-SUPPORT-GRADE-NUMERIC-ADMISSION",
+      "classification": "previously recorded 059 and separately reassessed 95e standalone mesh grade issue; no duplicate count",
+      "sources": [
+        {
+          "archive": "support/mesh-admission.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            69,
+            102
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/mesh.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            212,
+            223
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ],
+      "first_contract": "Standalone mesh validation admits finite vertices and index topology without the normal check, while maximum_grade uses f32 cross/length. The prior large-normal source example is rejected by validate_encoded before it could support a final-surface acceptance claim.",
+      "conditions": "Original 059 receipt and 95e assessment preserve the historical example, source ranges, rejected final-surface inference and actual producer/consumer uncertainty. No numeric input was decoded or run."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The two assigned source files match original pr-working per-file 6533 objects and pinned 95e byte for byte. Snapshot status nevertheless records four unrelated modifications; f82 object transport and per-file equality do not prove a clean historical tree.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "observation": "Floor coverage subtracts original faces and accumulates uncovered and wrong-level areas; an allowance is computed from external perimeter and contact tolerance. This is not a promise of zero uncovered area, complete native collider validity or terrain provenance.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            192,
+            262
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            76,
+            102
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            141,
+            190
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "observation": "The registered production edge key maps both signed zeros to the same zero key and otherwise uses raw f32 bits; it is an edge-cancellation key, not a general serialization or vertex identity rule.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            305,
+            311
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            76,
+            102
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "observation": "The current FloorRegion source reconstructs its scene outline from the original wire variant and exposes it read-only; no independent supported mismatched-wire state is established. Its historical original role2697 remains a separate ordered scope.",
+      "sources": [
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "observation": "Tests or module declarations in the excluded lines and all unregistered source are unread; no test, fixture, decoder, native macro, shader, simulation, runtime probe or product validation ran.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 ROOT-ADM-REG-026/027/030, QUAL-REG-030 and ROOT-ADM-G038/G039",
+      "scope": "Original Root direct admission scope 2695 1\u2013157; floor REG027 1\u2013299 and 314\u2013323; REG030 originally 300\u2013313, then corrected to production key 305\u2013311. Excluded cfg/test/context lines retain no body credit. G039 adds the empty-bearing static F010 counterexample."
+    },
+    {
+      "record": "774 ROOT-ADM-F010",
+      "scope": "Original Root pr-working accepted surface/foundation/geographic mutable storage issue, with specific prior static examples and no actual bad caller; keep its linked Rig F042/F043 qualifications and original remedy ownership."
+    },
+    {
+      "record": "059 segovb/READ-L11-440.json / REGISTRATION-SEGOVB-1613/1614",
+      "scope": "Role2695 has no fresh personal reread and adopts same-lens Adler READ-L11-279 / REGISTRATION-ADLER-689 exact 1\u2013157; role2696 reports fresh bounded personal reads 1\u2013299,305\u2013311,314\u2013323 without naming an individual in the row. Do not credit 300\u2013304 or 312\u2013313."
+    },
+    {
+      "record": "059 adler/READ-L11-274.json and segovb/READ-L12-600.json",
+      "scope": "Original pr-working mesh 1\u2013242 source reads and grade finding/independent review as recorded. Adler READ-L11-279 withdrew the large-overflow example as a final-surface acceptance witness after its new 1\u2013157 surface validator read; preserve this correction."
+    },
+    {
+      "record": "historical/prior-current-geography-grade.json",
+      "scope": "Earlier published 95e grade reassessment and its 30 original current support archives retain their ranges, prior author and normal-gate qualification; native glam archive and locally installed rust source qualifications preserved."
+    },
+    {
+      "record": "historical/prior-current-support-interval.json and full prior P17 scene/grounding packet",
+      "scope": "Earlier interval/elevation finding SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION is related ownership context, with a different first contract from grade underflow or F010; no alias or attribution transfer."
+    },
+    {
+      "record": "historical/p16-recovery.json and prior P17 packet",
+      "scope": "P16 dirty snapshot uses a120 base, later matching tracked patch excludes seven untracked and does not prove original command or custody. Prior P17 matching base-to-head diff is reproduction, not original invocation or current worktree cleanliness. No promotion to checkpoint3821."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Error variants retain typed FloorBearingIssue, Geometry and Grade data; textual formatting and native Serde error projection are presentation boundaries, not evidence of a private string protocol.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            141,
+            190
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Zero and signed-zero normalization in edge keys serve exact edge identity; perimeter times positive contact tolerance is an explicit sliver allowance rather than proof of exact full-area coverage. Positive grade is a distinct ratio, not a length.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            76,
+            102
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            305,
+            311
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            141,
+            190
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/support-policy.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "lines": [
+            6,
+            32
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "FloorBearing ties a building ID, floor regions and SupportElevation; PropertySupportMesh and Surface are distinct transport/admission owners. GroundTriangle is a selected planar source, not authority for unrelated terrain or physics.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/surface.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            8,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/mesh-admission.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            69,
+            102
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/ground-triangle.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+          "lines": [
+            20,
+            46
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Existing scene polygons, checked finite SupportElevation and typed grade/error owners are already used. The f32 grade arithmetic must still preserve its semantic measurement; typing the limit alone cannot repair underflow.",
+      "sources": [
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/support-policy.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "lines": [
+            6,
+            32
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/mesh.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            212,
+            223
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "FloorRegion retains its original Scene versus Architectural admission authority and reconstructs a scene outline; a support triangle, floor datum and clipping region remain distinct roles, not one generic geometric value.",
+      "sources": [
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            192,
+            262
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            134,
+            156
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Support normals are checked finite with nonzero Y before grade, but the squared horizontal length may underflow for a finite nonzero normal. Exact numerical condition and full-surface reachability remain separately qualified.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/mesh.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            212,
+            223
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "native/glam-vec2.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec2.rs",
+          "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+          "lines": [
+            184,
+            189
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        },
+        {
+          "archive": "native/glam-vec2.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec2.rs",
+          "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
+          "lines": [
+            459,
+            465
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        },
+        {
+          "archive": "native/glam-vec3.rs",
+          "revision": null,
+          "git_path": null,
+          "native_package": "glam",
+          "native_version": "0.32.1",
+          "native_member": "glam-0.32.1/src/f32/vec3.rs",
+          "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+          "lines": [
+            261,
+            270
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "locked package text only, no resolved features, compilation, vector backend or runtime claim"
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "validate_floors checks member order/count, then per-bearing datum and union coverage. Its loop assumes each bearing still has a nonempty admitted region vector; grounding-scoped mutation can bypass that relation as already recorded in ROOT-ADM-F010/G039.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            141,
+            190
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            192,
+            262
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/surface.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            8,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Wire FloorBearing calls admit, rejecting zero building/empty or overlapping regions, while surface decode and generated admission both call validate_encoded. Wider grounding-visible storage requires post-admission coherence; this is the existing F010 family, not an inferred actual bad caller.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/surface.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            8,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/single-builder.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+          "lines": [
+            74,
+            103
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separately registered current access/builder source; not assigned or old reviewer scope"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Single vs compound grading attempt selects the required member count, and FloorRegionWire owns scene versus architectural payloads. This scope establishes no separate enum-shape defect.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "FloorRegion stores its admission wire alongside the derived scene outline but rebuilds the latter through TryFrom and exposes it read-only; this bounded source does not establish independently mutable duplicate authorities.",
+      "sources": [
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Selected single-building construction installs one bearing and appends apron geometry before admit_generated; accepted-surface validation must be distinct from the earlier raw construction and standalone mesh API.",
+      "sources": [
+        {
+          "archive": "support/single-builder.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+          "lines": [
+            74,
+            103
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separately registered current access/builder source; not assigned or old reviewer scope"
+        },
+        {
+          "archive": "support/surface.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "lines": [
+            8,
+            65
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "support/mesh-admission.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            69,
+            102
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support, no ordered-role or historical read credit"
+        },
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Both historical pr-working role objects match 95e per-file. The original grade overflow example was qualified by final-surface normal rejection; retain that correction while separately investigating finite-normal precision and all other recipients.",
+      "sources": [
+        {
+          "archive": "sources/2695-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+          "lines": [
+            47,
+            131
+          ],
+          "original_role_credit": 2695,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/mesh.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "lines": [
+            212,
+            223
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "FloorBearing derives Deserialize via a checked wire conversion and FloorRegion reconstitutes its outline through TryFrom; replacing those routes with direct field decoding would omit shown aggregate checks.",
+      "sources": [
+        {
+          "archive": "sources/2696-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "lines": [
+            9,
+            75
+          ],
+          "original_role_credit": 2696,
+          "identity_qualification": "pinned 95e current independent bounded display"
+        },
+        {
+          "archive": "support/floor-region.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "native_package": null,
+          "native_version": null,
+          "native_member": null,
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "lines": [
+            8,
+            76
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent pinned current bounded support only, no ordered-role or historical read credit"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can any supported complete decoded/generated surface produce finite nonzero normals in the f32 squared-length underflow regime and pass all floor, polygon, policy and native consumer gates?",
+      "relationship": "Candidate underflow is a specific conditional numeric mechanism, related to q1518 and q103; do not restore the withdrawn 1e20 final-surface claim or assume an exact alias."
+    },
+    {
+      "question": "Can supported grounding code mutate an already admitted FloorBearing or PropertySupportSurface after its final validation, and does a later owner assume nonempty region or index coherence?",
+      "relationship": "Existing ROOT-ADM-F010 and G039 statically establish representable bypass; no bad caller found in bounded support."
+    },
+    {
+      "question": "Are perimeter-tolerance allowance, overlapping/wrong-height face exclusion and exact edge splitting correct for all actual generated floor partitions and native geometry arithmetic?",
+      "relationship": "Precise policy/producer/clip questions remain in 059 q1534/q1508; current bounded read is not full generator/consumer clearance."
+    },
+    {
+      "question": "How should grade failure preserve finite observed values, numerical unmeasurability, selected surface absence and collider failure across all callers?",
+      "relationship": "Existing grade family, sampled-support error classification and interval-elevation admission are related but not assumed identical."
+    },
+    {
+      "question": "Which Bevy/glam features, target FP settings and actual native backend are used by each supported build?",
+      "relationship": "Locked archive and reexports prove package-source identity, not cargo feature resolution, compilation or runtime floating-point mode."
+    }
+  ],
+  "evidence": {
+    "registry": "historical/registry.json.gz",
+    "original_transport_manifest": "historical/original-transport-manifest.json.gz",
+    "historical_records": "historical-attribution.json",
+    "queue_selection": "queue-selection-reconstructed.json",
+    "native_source_registration": "numeric-support-registration.json and bevy-support-registration.json",
+    "git_proofs": "git-proofs.json",
+    "verification": "verify-evidence.py and verify-manifest.py",
+    "scope_coverage": "personal-read-receipt.json"
+  },
+  "limits": "Source inspection, mathematical reasoning and evidence hashing only; no implementation, builds, tests, product execution, simulations, runtime probes, rendering, product validation or publication edits. No full-lens clearance or checkpoint3821 reconstruction."
+}

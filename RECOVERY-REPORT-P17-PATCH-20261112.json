@@ -1,0 +1,25 @@
+{
+  "schema": "726-p17-matching-patch-recovery-v1",
+  "historical_snapshot": "report-p17",
+  "recorded_base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+  "recorded_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "registry": "recovered/original-registry-source-archive/registry.json.gz",
+  "recorded_changed_variants": 32,
+  "recorded_status_porcelain": [],
+  "recorded_meaning": "Mandatory P17 source delta90a; shared motor dependency still pending",
+  "recovered_patch": {
+    "path": "recovered/p17-patch-recovery/tracked.patch",
+    "sha256": "3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd",
+    "bytes": 268281
+  },
+  "git_tree_delta_proof": {
+    "path": "recovered/p17-patch-recovery/git-delta-proof.tar.gz",
+    "sha256": "8639a4146cd18901ad8dd5b965c9656e6bd31d9d5cfb26219a3258484225700f",
+    "bytes": 157146,
+    "raw_git_objects": 85,
+    "changed_paths": 32
+  },
+  "method": "The delegate and coordinator separately reproduced git diff --binary between the recorded base and head in the same object store. A later object-only temporary Git repository constructed from the published commit, changed-tree and blob proof reproduces the same patch with --abbrev=9; equal subtree IDs need not be unpacked.",
+  "qualification": "The original registry did not record the historical invocation. A matching patch digest and the recorded empty status are evidence about that captured snapshot, not proof of the original command, uninterrupted custody, current worktree cleanliness, resolved shared motor dependency, checkpoint3821, source-read credit or product behavior. The two reproductions are not independent-machine attestations.",
+  "product_execution": "not performed"
+}

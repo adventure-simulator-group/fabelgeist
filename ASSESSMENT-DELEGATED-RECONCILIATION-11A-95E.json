@@ -1,0 +1,1181 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+  "source_roles": "ASSESSMENT-DELEGATED-P16-2519-2523.json",
+  "git_path_proofs": [
+    "CENTRAL-P16-2519-2523-PATH-PROOFS.json"
+  ],
+  "central_registration": "CENTRAL-11A-REGISTRATION.json",
+  "central_receipt": "CENTRAL-11A-READ-RECEIPT.json",
+  "central_current_window_git_proof": "CENTRAL-11A-CURRENT-WINDOWS-PROOF.json",
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-REVIEW-WINDOW-CHILD-ASSET-READINESS",
+        "kind": "conditional source-contract candidate",
+        "first_contract": "Operable window leaf compilation emits non-primary Iron parts and, for leaded glass with cames, LeadAlloy parts. The production window observer spawns each non-primary batch as a child of the SceneWindow. Review Observation::check tests GPU assets for root windows, but its child-parts loop checks only parts with sign ancestry or a boundary parent. Those window child mesh/image IDs are not checked by that loop; capture_views is gated by the resulting building_review::ready. A distinct child asset could therefore still be pending when this check returns ready.",
+        "condition": "The child must exist or be expected and its distinct required asset must still be unprepared while all separately checked requirements pass. Other capture settling/readbacks and native renderer scheduling may incidentally make it ready; no incomplete screenshot or runtime occurrence was observed.",
+        "future_direction": "Identify every production batch required for a review view and include its actual mesh/material/image readiness and missing-child representation in the owning capture gate, while preserving legitimate optional parts and native IDs.",
+        "relationships": [
+          "059 Q-L12-f238115d43d2e895f929 and Q-L12-c0b87495151f633b7051 keep window observer, native asset and review readiness connections open. READ-L11-247 accurately described checks for root windows and sign/boundary parts, not an exhaustive child readiness guarantee.",
+          "Prior /root/mhr_character p16-window-leaf-spec packet first connected leaf batching and observer, but did not establish this new readiness comparison; its author, prior scopes and grep qualification remain separate. Central owns unique count and alias decision."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+            "lines": [
+              [
+                60,
+                84
+              ],
+              [
+                86,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+            "lines": [
+              [
+                49,
+                71
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/windows.rs",
+            "lines": [
+              [
+                20,
+                35
+              ],
+              [
+                55,
+                73
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+            "lines": [
+              [
+                51,
+                83
+              ],
+              [
+                93,
+                103
+              ],
+              [
+                112,
+                166
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+            "lines": [
+              [
+                14,
+                20
+              ],
+              [
+                32,
+                39
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                959,
+                965
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-REVIEW-REPEATED-PENDING-DEADLINE",
+        "kind": "conditional timing question",
+        "first_contract": "observe sets pending_since only at the first non-ready observation and clears it during Configure; an intervening ready observation does not reset the timestamp. If readiness later drops again within the same non-Configure view, the 120-second comparison uses the original pending timestamp, not the start of the later pending period. The registered capture source returns to Configure between view completions.",
+        "condition": "A ready-to-pending fluctuation must occur within one view after enough elapsed time; normal GPU residency stability, capture timing and scheduling were not established. The code does impose a bounded wait; this is not an indefinite wait claim.",
+        "future_direction": "Decide whether the timeout represents total per-view elapsed waiting or one continuous pending episode, and encode that policy with typed stage/context; preserve explicit Configure reset and terminal diagnostics.",
+        "relationships": [
+          "059 Q-L11-ae1080e6522145b1f863 preserves readiness/GPU/garden terminal versus pending questions; no claim that earlier record resolved this timing policy."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+            "lines": [
+              [
+                12,
+                12
+              ],
+              [
+                32,
+                49
+              ],
+              [
+                252,
+                285
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+            "lines": [
+              [
+                96,
+                108
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                3055,
+                3070
+              ],
+              [
+                3148,
+                3162
+              ],
+              [
+                3238,
+                3259
+              ],
+              [
+                3370,
+                3386
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-REVIEW-EXPECT-AND-EVIDENCE-WRITES",
+        "kind": "observed repository rule mismatch, no runtime incident",
+        "first_contract": "The non-test readiness source uses expect on the material lookup and unwrap/expect for JSON serialization and file output; the separately inspected GPU readiness source uses expect on mutex locks. crates/AGENTS.md:126 explicitly forbids unwrap or expect outside tests. In Observation::check the same material was checked earlier before the lookup, so the source alone does not prove that material expect can fail. Serialization, I/O, lock poisoning and terminal error handling remain distinct boundaries.",
+        "condition": "The rule mismatch is textual. No JSON, file, lock, GPU, or product operation was executed, and no claim of an observed failure or forced panic is made.",
+        "future_direction": "Preserve the viewer\u2019s intended success/failure protocol while replacing prohibited operations with typed propagation or explicit handling if central owner reconciliation accepts the issue.",
+        "relationships": [
+          "Related to prior /root/mhr_character p16-closure-door-presentation rule mismatch in recipe_mesh; separate call sites and owners, no automatic deduplication.",
+          "059 Q-L11-abc338ddc33fac1266cc retains capture/output acknowledgement and filesystem outcome questions; do not equate a written readiness file with successful image capture."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+            "lines": [
+              [
+                142,
+                155
+              ],
+              [
+                189,
+                199
+              ],
+              [
+                287,
+                300
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+            "lines": [
+              [
+                32,
+                39
+              ],
+              [
+                42,
+                49
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-REVIEW-OUTPUT-READY-QUALIFICATION",
+        "kind": "evidence semantics question",
+        "first_contract": "observe inserts state.view into recorded and writes building-presentation.json when the readiness check passes; it is ordered before capture_views. The JSON property captured_views_ready comes from this readiness set. Screenshot completion and final capture recording happen in separately controlled readback callbacks.",
+        "condition": "The record demonstrates what the reviewed source attempts to assert before capture, not that any screenshot was saved, complete, or visually correct. Whether downstream consumers interpret the property as completed-capture evidence is untraced.",
+        "future_direction": "Keep readiness observations, actual capture completion and filesystem acknowledgements distinct in the later central evidence ledger and any future owner contract.",
+        "relationships": [
+          "059 Q-L11-abc338ddc33fac1266cc and Q-L11-ae1080e6522145b1f863 remain separate capture/readiness/terminal obligations."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+            "lines": [
+              [
+                14,
+                28
+              ],
+              [
+                252,
+                267
+              ],
+              [
+                287,
+                300
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                959,
+                965
+              ],
+              [
+                3238,
+                3259
+              ],
+              [
+                3370,
+                3390
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-REVIEW-OLDER-TYPED-PRODUCER-REUSE",
+        "kind": "historical carried findings, zero new unique count",
+        "first_contract": "ReviewLeafPose stores a scene leaf\u2019s checked hinge and angle as Vec3/f32 before applying the local transform; readiness converts SceneBuildingId to u64 for the rendered-building map and palette helper. These are current observations on the same material producer paths described in 774.",
+        "condition": "Quaternion/position computation at the actual geometry kernel and deterministic seed derivation can be legitimate native boundaries; all helper/caller ownership and equivalent behavior remain to reconcile.",
+        "future_direction": "Carry exact historical whole-function producer targets and preservation requirements into central ledger without transferring older review credit or widening same-owner reuse to derived geometry.",
+        "relationships": [
+          "RIG-OWNER-REACHED-PRODUCER-F003 and F004 in independently hashed older 774 records, attributed to rig; previous window/door packets preserve same families, not new counts."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+            "lines": [
+              [
+                112,
+                141
+              ],
+              [
+                163,
+                189
+              ],
+              [
+                191,
+                217
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+            "lines": [
+              [
+                169,
+                182
+              ],
+              [
+                189,
+                195
+              ],
+              [
+                214,
+                220
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-review-openings-readiness",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-review-openings-readiness-report.json",
+      "original_finding": {
+        "id": "P16-OPENING-INDEX-AND-SELECTOR",
+        "kind": "open local policy question",
+        "first_contract": "select_pose indexes state.views[state.view] and then fixture.views[camera] without local bounds checks; frame selects the first qualifying opening for each target and reports an absence if none. State/camera validity, exit scheduling and source selection semantics are not wholly established by this body.",
+        "condition": "A bad state/view or camera index must reach the system, or an intended target must be absent. Nearby capture code has a separate guard and view-length assertion, but full system scheduling/fixture validation were not inspected. No actual panic, stale view or missing target is asserted.",
+        "future_direction": "Trace capture/view producers, schedule and fixture admissibility before deciding a typed index or contextual error boundary; preserve intentional selection and optional profiles.",
+        "relationships": [
+          "059 Q-L12-81a7cf16f467242541d6 left OpeningTarget frame and capturestate/camera-index policy open; no new unique count."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+            "lines": [
+              [
+                38,
+                101
+              ],
+              [
+                144,
+                160
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+            "lines": [
+              [
+                73,
+                81
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+            "lines": [
+              [
+                108,
+                130
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                2735,
+                2743
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-viewer-building-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-viewer-building-hair-report.json",
+      "original_finding": {
+        "id": "VIEWER-SCENE-SETUP-EXPECT-RULE",
+        "kind": "source rule mismatch in separately registered support; uniqueness/alias requires central reconciliation",
+        "first_contract": "Current setup_scene consumes setup.0 with expect in production code, while the governing crate rule forbids unwrap/expect outside tests. The same setup function later calls the assigned building and boundary spawners.",
+        "condition": "The rule mismatch is established by source text; neither a second invocation, missing setup, panic, scheduling behavior nor a runtime failure has been established. This support source is not original role2521.",
+        "direction": "At a future repair stage give the already-consumed setup state an appropriate explicit error/handled policy in the owning viewer setup and retain the actual once-only scheduling contract; determine any native caller behavior before claiming a runtime defect.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                1235,
+                1246
+              ],
+              [
+                1263,
+                1277
+              ],
+              [
+                1337,
+                1339
+              ]
+            ]
+          }
+        ],
+        "rule_reference": {
+          "path": "reference/rule-crates__AGENTS.md",
+          "lines": [
+            [
+              126,
+              127
+            ]
+          ]
+        },
+        "history": "No exact same expect entry found in a bounded current publication/packet text search; central owns de-duplication and any accepted unique count."
+      }
+    },
+    {
+      "bundle_id": "p16-viewer-building-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-viewer-building-hair-report.json",
+      "original_finding": {
+        "id": "VIEWER-GATE-DATUM-TYPED-CONSTRUCTION",
+        "kind": "qualified P16-to-current comparison; no separate unique defect",
+        "first_contract": "P16 calls GateDatum::from_metres on the boundary elevation scalar; 95e passes the SupportElevation value directly to GateDatum::new. Current GeneratedBoundary holds that value and its wire conversion checks equality with the accepted support gate. Both old and current support types expose the raw f32 and from_metres returns the same f32 if finite.",
+        "condition": "For a finite incoming SupportElevation, the old reconstruction yields that same stored scalar and the new constructor keeps it; this bounded mathematical/source comparison is not a product equivalence proof. If a nonfinite value were somehow constructed internally, old from_metres rejects and new bypasses that check; no supported path to such a value was shown. Inputs, other changed owners and native behavior remain independently unproved.",
+        "direction": "Preserve already-admitted typed elevation and the rejected-nonfinite policy at its actual producer/admission owner; investigate internal construction only if relevant before claiming a regression.",
+        "references": [
+          {
+            "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+            "lines": [
+              [
+                1,
+                78
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+            "lines": [
+              [
+                5,
+                18
+              ],
+              [
+                20,
+                47
+              ],
+              [
+                49,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+            "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+            "lines": [
+              [
+                154,
+                200
+              ],
+              [
+                214,
+                217
+              ],
+              [
+                246,
+                255
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+            "lines": [
+              [
+                154,
+                202
+              ],
+              [
+                210,
+                225
+              ],
+              [
+                254,
+                263
+              ]
+            ]
+          },
+          {
+            "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+            "lines": [
+              [
+                73,
+                85
+              ],
+              [
+                104,
+                109
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+            "lines": [
+              [
+                73,
+                85
+              ],
+              [
+                104,
+                109
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+            "lines": [
+              [
+                12,
+                29
+              ],
+              [
+                39,
+                53
+              ],
+              [
+                69,
+                100
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-viewer-building-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-viewer-building-hair-report.json",
+      "original_finding": {
+        "id": "VIEWER-DISTANT-IDENTITY-ADMISSION",
+        "kind": "narrowing of prior Segovb 059 source question; no new unique defect",
+        "first_contract": "The helper filters distant IDs against generated playable IDs but does not independently deduplicate the distant list. Current distant-placement validation rejects zero and duplicate IDs within that list, and TacticalSceneInput::load calls validate, whose source validation invokes the urban validator.",
+        "condition": "This narrows the duplicate-distant premise for that validated input. The helper accepts an input reference and generated building slice; the trace does not prove every caller uses load/validate, preserves the validated input unchanged, or that arbitrary other producers enforce cross-population identity.",
+        "direction": "Preserve one canonical SceneBuildingId through playable and distant views; establish actual admission/producer relation before choosing deduplication or reporting duplicated presentation.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+            "lines": [
+              [
+                5,
+                18
+              ],
+              [
+                20,
+                47
+              ],
+              [
+                49,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+            "lines": [
+              [
+                113,
+                123
+              ],
+              [
+                229,
+                268
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+            "lines": [
+              [
+                4,
+                16
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+            "lines": [
+              [
+                4,
+                25
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+            "lines": [
+              [
+                150,
+                164
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                1235,
+                1246
+              ],
+              [
+                1263,
+                1277
+              ],
+              [
+                1337,
+                1339
+              ]
+            ]
+          }
+        ],
+        "history": "059 segovb READ-L12-545 original role1702 independently identified the missing distant-list local dedup and requested input validation; this is a bounded followup with separate author."
+      }
+    },
+    {
+      "bundle_id": "p16-viewer-building-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-viewer-building-hair-report.json",
+      "original_finding": {
+        "id": "VIEWER-GATE-POSE-AND-OPENING-RELATION",
+        "kind": "connection to existing 059 q2238/q2243 and prior door packet; no automatic alias",
+        "first_contract": "The gate is requested using property identity, while the SceneDoor carries front building identity and the opening returned by CityGate. CityGate forms an opening by OR-ing property ID with the gate domain tag. The viewer uses one converted pose to populate the door, native transform and review pose; inspected ReviewLeafPose reads that same paired pose without changing its leaf.",
+        "condition": "No actual property/opening admitted-domain collision or affected presentation is established. One current consumer shows no leaf-copy mutation between these outputs; it does not cover all native consumers or prove namespace uniqueness. Prior /root/mhr_character door packet connects this tag to the separate door-observer classification; no authorship transfer.",
+        "direction": "Trace producer domains and all required native identity recipients; keep property, building, opening and pose roles distinct, and reconcile q2238/q2243 without automatically combining their separate contracts.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+            "lines": [
+              [
+                5,
+                18
+              ],
+              [
+                20,
+                47
+              ],
+              [
+                49,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+            "lines": [
+              [
+                211,
+                225
+              ],
+              [
+                237,
+                263
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+            "lines": [
+              [
+                154,
+                202
+              ],
+              [
+                210,
+                225
+              ],
+              [
+                254,
+                263
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+            "lines": [
+              [
+                112,
+                129
+              ],
+              [
+                163,
+                216
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-viewer-building-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-viewer-building-hair-report.json",
+      "original_finding": {
+        "id": "VIEWER-QUEUED-PREFIX-ERROR-POLICY",
+        "kind": "existing qualified partial-publication question",
+        "first_contract": "Viewer building setup queues opening spawns before building transform/collider success, creates an empty entity and queues sign insertion before the fallible collider compile; boundary setup can queue earlier loop iterations before a later boundary conversion error. Caller setup_scene propagates failures using ?.",
+        "condition": "No supported generated building/boundary error after an earlier command, native command application, retained/visible partial scene, cleanup, retry or terminal policy was proved. The analogous strategic scene is a different caller and native error boundary.",
+        "direction": "Identify the admitted failure and viewer setup error/command lifetime policy before deciding a transaction or explicit partial state repair; keep it related to, not automatically merged with, the strategic scene error contract.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+            "lines": [
+              [
+                5,
+                18
+              ],
+              [
+                20,
+                47
+              ],
+              [
+                49,
+                76
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+            "lines": [
+              [
+                112,
+                129
+              ],
+              [
+                163,
+                216
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+            "lines": [
+              [
+                174,
+                185
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "lines": [
+              [
+                1235,
+                1246
+              ],
+              [
+                1263,
+                1277
+              ],
+              [
+                1337,
+                1339
+              ]
+            ]
+          }
+        ],
+        "history": "Already noted independently by Adler READ-L11-247, Segovb READ-L12-545, 774 SEGOVB-INITIAL04-CONTRACT-604 and /root/lens12_frontier PROPOSAL-L12-856; their historical revisions/ranges are preserved separately."
+      }
+    },
+    {
+      "bundle_id": "p16-compound-boundary",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-compound-boundary-report.json",
+      "original_finding": {
+        "id": "P16-CITY-GATE-OPENING-ID-DOMAIN",
+        "classification": "current corroboration and bounded receiver refinement of existing 059 question; no automatic duplicate count",
+        "first_contract": "CityGate::door ORs the CityPropertyId bits into the fixed 0xc300000000000000 opening tag and owns_opening recognizes any opening with those tag bits. Property IDs 1 and (1 | 1<<56) are distinct u64 values but yield the same tagged opening word because bit 56 is already set in the tag. An ordinary SceneDoor with an opening ID satisfying the mask follows the gate presentation branch: it does not receive the PresentedBuildingClosureMesh or building LOD visibility components used by the shown sync system.",
+        "condition_and_limits": "The public property wrapper and SceneDoor decoder do not themselves prove reserved-bit constraints or namespace membership, but a supported admitted high-bit property pair or an ordinary tagged opening reaching this receiver was not established. The independently traced normal CitySite generated roster takes at most 16,384 lots and assigns IDs 1..=16,384, and property compilation copies lot.id; this shown generator path avoids that property-bit collision. Actual external/other producers, ordinary opening ID bounds, scene admission, and visible impact remain unproved. No runtime, fixture, or product validation.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+            "ranges": [
+              [
+                17,
+                19
+              ],
+              [
+                58,
+                67
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+            "ranges": [
+              [
+                10,
+                10
+              ],
+              [
+                211,
+                225
+              ],
+              [
+                238,
+                240
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+            "ranges": [
+              [
+                70,
+                76
+              ],
+              [
+                106,
+                113
+              ],
+              [
+                168,
+                182
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/residences/roster.rs",
+            "ranges": [
+              [
+                9,
+                21
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+            "ranges": [
+              [
+                30,
+                38
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+            "ranges": [
+              [
+                160,
+                178
+              ],
+              [
+                179,
+                201
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+            "ranges": [
+              [
+                28,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+            "ranges": [
+              [
+                5,
+                19
+              ],
+              [
+                31,
+                49
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Trace every admitted property and ordinary opening producer and keyed consumer; establish a disjoint/injective identity contract or contextual tagged identity at the proper boundary if their domains require it. Preserve small generated IDs and gate-specific visibility semantics.",
+        "relationships": [
+          "Exact historical 059 L12-CLOSURE-CITY-GATE-OPENING-ID-DOMAIN raised this first operation and reserved-bit question; the current roster and actual presentation receiver narrow it without rewriting historic scope or claiming closure.",
+          "Related to P16-COLLISION-BAR-SOURCE-IDENTITY and the roof child packed-ID domain only as namespace patterns; no alias or shared accepted duplicate is assumed."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-compound-boundary",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-compound-boundary-report.json",
+      "original_finding": {
+        "id": "P16-CITY-GATE-FIXED-VERSUS-LEAF-ADMISSION",
+        "classification": "conditional public aggregate admission question from distinct current entry points",
+        "first_contract": "CityGate has public raw width and height. For a finite gate with width 0, positive height and finite admitted orientation/centre, fixed_members can construct the two positive-width gate posts without checking that opening width is positive; CityGate::door separately passes width to LeafDimensions and returns ZeroExtent. Thus the fixed-member operation alone does not establish that the same descriptor can produce an operable leaf.",
+        "condition_and_limits": "A caller must provide a zero-width or otherwise invalid public/decoded gate to a consumer of fixed members without validating the separate door. The shown ordinary property producer supplies a 1.6 m width, and the packing clearance shown calls gate.door after fixed members. Terrain projection invokes fixed_members independently, but no successful accepted malformed compound/foundation or wrong rendered geometry is established. Zero-valid generic cuboid extents are a distinct intentional contract.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+            "ranges": [
+              [
+                58,
+                67
+              ],
+              [
+                69,
+                74
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+            "ranges": [
+              [
+                125,
+                135
+              ],
+              [
+                151,
+                176
+              ],
+              [
+                181,
+                208
+              ],
+              [
+                215,
+                265
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+            "ranges": [
+              [
+                8,
+                16
+              ],
+              [
+                91,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+            "ranges": [
+              [
+                9,
+                12
+              ],
+              [
+                164,
+                198
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+            "ranges": [
+              [
+                8,
+                23
+              ],
+              [
+                39,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+            "ranges": [
+              [
+                4,
+                15
+              ],
+              [
+                33,
+                55
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Determine the accepted boundary for the whole CityGate and whether fixed geometry is intentionally valid without an operable leaf. If a complete gate requires a positive aperture, admit or validate that contract at the actual shared boundary while preserving contextual errors and generic zero-extent cuboids.",
+        "relationships": [
+          "Connected to 059 gate/door/aggregate owner and support questions, but not the same demonstrated operation as reserved-bit encoding, right-hinge placement, or terrain datum dispatch. Central adjudicates any count."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-compound-boundary",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-compound-boundary-report.json",
+      "original_finding": {
+        "id": "P16-BOUNDARY-PACKING-TERRAIN-DATUM",
+        "classification": "bounded nonfinding and remaining consumer review for historical frame question",
+        "first_contract": "CityBoundaryMember::packing_cuboid explicitly interprets wall and gate-relative heights at a common zero datum. The current property clearance uses this representation for packing and sweep. In the independently displayed terrain projection, member_levels matches the pose: post head uses gate elevation, wall/cap head uses local soil, and support cells preserve element identity.",
+        "condition_and_limits": "These are two specific inspected callers and their source contracts, not proof for all conversions, terrain geometry, invalid numeric input, renderers or physics. No product execution or actual projected surface.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+            "ranges": [
+              [
+                38,
+                73
+              ],
+              [
+                81,
+                115
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+            "ranges": [
+              [
+                8,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+            "ranges": [
+              [
+                40,
+                55
+              ],
+              [
+                115,
+                130
+              ],
+              [
+                238,
+                270
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Retain the documented zero-datum packing context and distinct GateRelative/GroundRelative terrain dispatch; inspect unassessed consumers before closing the full cross-frame contract.",
+        "relationships": [
+          "059 L12-CLOSURE-BOUNDARY-FRAME-PACKING-TERRAIN and 774 RIG-OWNER81-DEFINITION-002 already distinguish the zero-datum mode from a general frame alias. This is partial current caller evidence, not whole-queue closure."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-compound-boundary",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-compound-boundary-report.json",
+      "original_finding": {
+        "id": "REVIEW-GATE-RIGHT-HINGE-INTERACTION-OFFSET-001",
+        "classification": "prior current finding with assigned producer independently corroborated; no duplicate count",
+        "first_contract": "For the right hinge, the assigned CityGate producer offsets hinge from the leaf closed centre by plus half width, while the shown server spawn adds another plus half width to derive doorway centre. That differs from the left-hinge case and is the producer/consumer link already analyzed by the previous current review.",
+        "condition_and_limits": "The published prior review supplies the symbolic interaction consequence and its actor/scene qualifications; this delegate read only the cited producer and server spawn ranges, not an actor behavior, physics result or product runtime.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+            "ranges": [
+              [
+                37,
+                49
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+            "ranges": [
+              [
+                225,
+                247
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-server/src/doors.rs",
+            "ranges": [
+              [
+                142,
+                162
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Keep the prior accepted source evidence and validate actual placement, actor accessibility, both handednesses and native consumers in the later authorized implementation phase.",
+        "relationships": [
+          "Hash-linked ASSESSMENT-GATE-HANDEDNESS-95E.json and its original personal/source qualifications remain authoritative earlier current evidence; this is not a new unique finding."
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Capture readiness and outputs",
+      "relationship": "Window-child readiness, pending episode deadline and ready-versus-saved semantics are separate conditional source contracts. The rule mismatch is source text, not an incident. Connect earlier capture-save and preapplied-readiness records without assuming the same cause."
+    },
+    {
+      "identity": "Viewer setup and deferred commands",
+      "relationship": "setup_scene expect is a separate source-rule call site; viewer queued prefixes share a general failure shape with the strategic adapter but use distinct callers and error boundaries."
+    },
+    {
+      "identity": "Gate identity, construction and frames",
+      "relationship": "The compound packet strengthens the existing city-gate namespace row without duplicate count. Zero-aperture fixed-member versus leaf admission remains a distinct conditional aggregate question. The inspected zero-datum packing and terrain dispatch are bounded nonfindings; prior handedness remains attributed to its earlier finding."
+    },
+    {
+      "identity": "Historical boundaries",
+      "relationship": "All five P16 and current bodies were separately displayed by named delegates. Original material exclusions remain explicit; per-file equality does not make the dirty snapshot clean. Historical proposals are not checkpoint3821 records."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "P16-REVIEW-WINDOW-CHILD-ASSET-READINESS",
+    "P16-REVIEW-PENDING-DEADLINE-POLICY",
+    "P16-REVIEW-READINESS-EXPECT-RULE",
+    "P16-VIEWER-SETUP-EXPECT-RULE",
+    "P16-REVIEW-READY-OUTPUT-CAPTURE-RELATION",
+    "P16-CITY-GATE-FIXED-AND-LEAF-ADMISSION",
+    "P16-VIEWER-QUEUED-BUILDING-PREFIX"
+  ],
+  "open": "Only three of nine checkpoint11 bundles are centrally reconciled. Other bundles, remaining source and alias questions, all thirteen lenses and all 3713 historical semantic queue records remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

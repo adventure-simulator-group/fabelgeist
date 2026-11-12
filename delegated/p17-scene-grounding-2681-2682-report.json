@@ -1,0 +1,978 @@
+{
+  "schema": "726-bounded-p17-scene-grounding-source-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:30:28.206275+00:00",
+  "scope": {
+    "roles": [
+      2681,
+      2682
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "historical_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee carries same registered P17 source objects; f82 is not the P17 source commit",
+    "registration": "registration.json",
+    "personal_reads": "personal-read-receipt.json",
+    "qualification": "P17 scene_coordinates 1\u2013120 and current 1\u2013122 personally displayed; grounding 1\u2013110 each is ordered scope. Grounding 111\u2013165 independently registered support only; 166\u2013407 unread. Support Position 1\u2013110 excludes 111\u2013140; source archives do not grant credit for unread bodies. No whole-lens or checkpoint3821 completion."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION",
+      "classification": "existing 059 finding reassessed at current 95e in published ASSESSMENT-SUPPORT-INTERVAL-95E; independent bounded source connection, no duplicate",
+      "sources": [
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-apron.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+          "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+          "lines": [
+            109,
+            149
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support for prior interval finding, no ordered-role credit"
+        },
+        {
+          "archive": "sources/2682-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "support/p17-apron.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+          "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+          "lines": [
+            109,
+            149
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support for prior interval finding, no ordered-role credit"
+        }
+      ],
+      "first_contract": "Finite SupportElevation is retained in FloorConstraints through direct descendant constructors after rise arithmetic; when an admitted operand tuple yields nonfinite rise, endpoints may be nonfinite before floor selection.",
+      "conditions": "Previously published current assessment supplies a source-level conditional operand example and distinguishes normal bounded-settlement policy, completed-property reachability, selected-floor safeguards and platform-qualified powi. This fresh review independently displays the constructor and arithmetic sites, not all necessary producers or consumers. No actual invalid property, selected floor or runtime behavior is claimed.",
+      "later_direction": "Preserve signed finite elevations and crossed finite infeasibility; resolve actual input/interval policy and choose checked admission or explicit unbounded endpoint only after authorization."
+    },
+    {
+      "id": "ROOT-ADM-F003",
+      "classification": "existing 774 root visibility finding; P17 and 95e lower owner and dependent projection compared, no new count",
+      "sources": [
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            21,
+            29
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            88
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-finite.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            18
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support for Position XYZ finite admission"
+        },
+        {
+          "archive": "sources/2681-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+          "lines": [
+            18,
+            103
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ],
+      "first_contract": "Position and Displacement advertise finite native components, while pub(super) backing is accessible to the parent spatial_geometry module and its descendants. Checked constructors and Deserialize call finite, but widened visibility permits a same-namespace raw literal/mutation to bypass them. From<Position<Scene>> copies XZ into ScenePlanPoint without a fresh finite check.",
+      "conditions": "This is an encapsulation route and dependent risk, not proof of an actual nonfinite caller. 774 ROOT-ADM-GEOMETRY-VISIBILITY-007 records the original pr-working source, exact semantic counterexample, known finite Bounds union, and remedy direction; source identity for the P17/current lower coordinate file matches its own roles, not automatic historical credit transfer.",
+      "later_direction": "Central owner should reconcile exact source identities and keep finite typed selection/union possible if tightening backing visibility after the audit."
+    },
+    {
+      "id": "CAPTURE-GROUND-CLEARANCE-ADMISSION-95E",
+      "classification": "prior /root/mhr_character current-vs-P17 finding; freshly inspected bounded dependent source corroborates mechanism but does not transfer authorship",
+      "sources": [
+        {
+          "archive": "support/p17-root-motion.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+          "lines": [
+            19,
+            51
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-root-motion.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            18,
+            47
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "sources/2682-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ],
+      "first_contract": "P17 optionally maps a present ground clearance through SignedLength::from_metres and transposes errors; current code maps it to raw subtraction. The source difference is real and separate from the checked point and elevation wrappers.",
+      "conditions": "Prior packet conditions an actual issue on material capture and nonfinite calculated clearance; genuine missing ground stays None. Source ranges reviewed here do not establish real extreme values, full report outcome or runtime behavior.",
+      "later_direction": "Preserve absent support versus invalid calculated clearance under the chosen report policy, after tracing the whole consumer and authorizing validation."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The P17 point file differs from 95e by only the two SceneVelocity reexport/module lines. The source of that added module is not inspected here; no claims about its API or behavior follow. P17 EOF 120 and 95e/pr-working EOF 122 independently corroborate the old EOF provenance concern without crediting nonexistent 123\u2013155.",
+      "sources": [
+        {
+          "archive": "sources/2681-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+          "lines": [
+            18,
+            103
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ]
+    },
+    {
+      "observation": "SupportElevation accepts negative finite values and rechecks addition; signed zero, a zero datum and negative offsets are legitimate. It does not promise positive height, queried-terrain membership or a completed whole-property relation.",
+      "sources": [
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "lines": [
+            11,
+            21
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "lines": [
+            35,
+            45
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-grounding-interval.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            112,
+            153
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support outside ordered role 2682 original range; no retrospective credit"
+        }
+      ]
+    },
+    {
+      "observation": "In both capture source versions invalid XZ point conversion and a terrain query returning None are combined by and_then. Whether this distinction must surface is a capture/report policy and reachability question, not a newly established failure or automatic alias of the existing clearance arithmetic issue.",
+      "sources": [
+        {
+          "archive": "support/p17-root-motion.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+          "lines": [
+            19,
+            51
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-root-motion.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            18,
+            47
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "observation": "No complete review of grounding 166\u2013407, geometry consumers, SceneVelocity, Bevy reflection/Serde adapter internals, other native SDK behavior, runtime, or selected source tests is claimed.",
+      "sources": [
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 NATIVE-ADMISSION03-REG-037/038 and QUAL-037/038, group059",
+      "scope": "Original Native prospective P17 reads 2681 1\u2013120 and 2682 1\u2013110, source 90a/f82 transport separately; group059 connects P17 root motion and records lower Position visibility qualification. No later-lens credit."
+    },
+    {
+      "record": "774 ROOT-ADM-GEOMETRY-VISIBILITY-007 / ROOT-ADM-F003",
+      "scope": "Original root pr-working finite Position/Displacement 9\u201339 and 62\u2013110; direct admissibility/visibility concern, currently known Bounds union was finite and no bad caller observed. Do not duplicate as a point-specific new finding."
+    },
+    {
+      "record": "059 segovb/READ-L11-438.json / REGISTRATION-SEGOVB-1598 and 1599",
+      "scope": "Both specified P17 roles fresh personal body reads in the original receipt; no named individual in rows."
+    },
+    {
+      "record": "059 segovb/READ-L12-930.json and parallel-l12-20261029 REGISTRATION-PAR-L12-745/746",
+      "scope": "/root/lens12_frontier independently read 2681 1\u2013120, 2682 1\u2013110; root adoption records no personal rereads. No new findings or current reconciliation in that receipt."
+    },
+    {
+      "record": "059 adler/READ-L11-291.json / REGISTRATION-ADLER-755",
+      "scope": "pr-working role1907 1\u2013122, original EOF correction 123\u2013155 excluded; that source object matches 95e but is distinct from P17 role2681. Do not transfer historical reader credit."
+    },
+    {
+      "record": "059 segovb/READ-L12-603.json / REGISTRATION-SEGOVB-L12-747",
+      "scope": "pr-working apron role1840 1\u2013281 fresh read, original queue entry260 and later 95e reassessment retained with their own evidence and attribution; not this agent\u2019s full read."
+    },
+    {
+      "record": "059 proposal L12-857 / PAR-L12-543 and queue L12-CLOSURE-SUPPORT-ELEVATION-SIGNED-ADMISSION",
+      "scope": "/root/lens12_frontier independently read expanded physical-p16 grounding 68\u2013110, source object same bytes but P16 is a separately attributed dirty snapshot and not P17; no cross-revision credit."
+    },
+    {
+      "record": "historical/prior-p17-capture-exact-local.tar.gz and historical/prior-current-support-interval.json",
+      "scope": "/root/mhr_character capture packet exact report and manifest reproduced; published report byte-match separately verified. Prior current interval assessment source ranges retain its existing author/revision and all conditions."
+    },
+    {
+      "record": "historical/p17-base-to-head-reproduced.patch",
+      "scope": "Independently generated git diff 18360adba0fb43add88c75dfbd2f45d7e71d8ace to recorded P17 head 90a, 268281 bytes SHA256 3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd matching original registry. This neither proves original invocation nor current worktree cleanliness and gives no patch-body read credit."
+    },
+    {
+      "record": "historical/p16-recovery.json and historical/p16-tracked.patch",
+      "scope": "Later matched P16 tracked diff and seven excluded untracked objects; original source snapshot and prior readers remain distinct from P17 and 95e. No historical status promoted to checkpoint3821."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Finite-decoding error strings in the two owners are final native Serde diagnostics, not an independently established private string protocol.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Zero is an explicit valid origin/elevation and signed metres are legitimate. Separate tolerances, reference datum and realistic range policies require consumers; no arbitrary positivity bound follows.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "ScenePlanPoint owns finite scene-local XZ; SupportElevation owns finite signed scene height. Position<Scene> is a separate three-dimensional owner and SignedLength a signed offset, not interchangeable geometric roles.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            88
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "lines": [
+            11,
+            21
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "The position conversion reuses Position<Scene> and the elevation translation accepts SignedLength. Both depend on actual admission and completed arithmetic; assigning one generic Vec/f32 owner would lose those distinct roles.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            88
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "lines": [
+            35,
+            45
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Point, displacement and signed elevation are distinct; member/compound support fields retain several identities and elevations but do not by themselves seal every geographic or grading relation.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-grounding-interval.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            112,
+            153
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support outside ordered role 2682 original range; no retrospective credit"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Point translation and support translation readmit the completed arithmetic. SupportElevation::max selects an operand, whereas the existing apron bypass separately constructs interval endpoints after arithmetic.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-apron.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+          "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+          "lines": [
+            109,
+            149
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support for prior interval finding, no ordered-role credit"
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "CompoundSupportLevels holds public front/rear/court/gate/street members, while its documentation explicitly says selected levels do not prove bounded grading; relationship validation and all consumers are outside this scope.",
+      "sources": [
+        {
+          "archive": "support/current-grounding-interval.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            112,
+            153
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support outside ordered role 2682 original range; no retrospective credit"
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Both owners check native numeric construction and Serde deserialization and use opaque reflection annotations. The point From<Position<Scene>> relies on upstream finite position; the sibling-visible Position backing and descendant SupportElevation construction require separate scrutiny.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            21,
+            29
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-position.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "lines": [
+            62,
+            88
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-finite.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "lines": [
+            8,
+            18
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support for Position XYZ finite admission"
+        },
+        {
+          "archive": "support/current-apron.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+          "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+          "lines": [
+            109,
+            149
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "independent bounded support for prior interval finding, no ordered-role credit"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "CourtTreatment explicitly carries the terraced limits only for Terraced. CaptureGround distinguishes an authored plane from terrain; invalid XZ and unavailable terrain can each return None in this bounded helper, with intended optionality unresolved.",
+      "sources": [
+        {
+          "archive": "support/current-grounding-interval.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            112,
+            153
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support outside ordered role 2682 original range; no retrospective credit"
+        },
+        {
+          "archive": "support/current-root-motion.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            18,
+            47
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Floor/court/gate/street heights represent potentially different surfaces and cannot be unified from similar scalar types; the shown shared owner does not itself prove consistency or duplication.",
+      "sources": [
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-grounding-interval.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            112,
+            153
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "separate bounded support outside ordered role 2682 original range; no retrospective credit"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "P17 capture checks present terrain-clearance subtraction into SignedLength and propagates error; current capture retains raw f32 difference. Prior agent CAPTURE-GROUND-CLEARANCE-ADMISSION-95E supplies a separate conditional current assessment.",
+      "sources": [
+        {
+          "archive": "support/p17-root-motion.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+          "lines": [
+            19,
+            51
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-root-motion.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            18,
+            47
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/current-measurement.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "lines": [
+            35,
+            45
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "The P17 and current scene-coordinate file diff is two added velocity module/reexport lines; the independently displayed point body is otherwise identical. The P17 grounding file matches 95e bytes; unrelated surroundings and consumers can still differ.",
+      "sources": [
+        {
+          "archive": "sources/2681-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+          "lines": [
+            18,
+            103
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-p17.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "registered 059 P17 exact range; f82 transports object and 90a identifies P17 source commit"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "support/p17-root-motion.rs",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+          "lines": [
+            19,
+            51
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        },
+        {
+          "archive": "support/current-root-motion.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            18,
+            47
+          ],
+          "original_role_credit": null,
+          "identity_qualification": "bounded independently registered support; no ordered-role or other-agent read credit"
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "ScenePlanPoint and SupportElevation serialize transparently but deserialize through a manual finite check. Blindly deriving raw deserialization would bypass that visible check. Opaque reflection attributes alone do not prove the native adapter behavior.",
+      "sources": [
+        {
+          "archive": "sources/2681-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "lines": [
+            20,
+            105
+          ],
+          "original_role_credit": 2681,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        },
+        {
+          "archive": "sources/2682-current.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "lines": [
+            73,
+            110
+          ],
+          "original_role_credit": 2682,
+          "identity_qualification": "pinned 95e current, bounded independent display"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can a supported complete SingleBuildingSupportRequest produce the nonfinite interval operands, and are unbounded constraints permitted by owner policy? What recipients and selected-floor safeguards apply?",
+      "relationship": "Existing SEGOVB-L12-APRON-FLOOR-INTERVAL-ELEVATION-ADMISSION; retain prior 95e conditional reassessment and do not duplicate."
+    },
+    {
+      "question": "Can any actual current sibling create or mutate nonfinite Position<Scene> and pass it to the infallible projection, or does the desired finite invariant warrant structural tightening regardless?",
+      "relationship": "ROOT-ADM-F003 and 059 Q-L12-dabc2ad14b781a81794d are related but not asserted identical."
+    },
+    {
+      "question": "Should nonfinite capture XZ be distinguishable from an absent terrain sample, and which caller/report rejects such transforms?",
+      "relationship": "Prior 774 group059 describes raw diagnostic observations; CAPTURE-GROUND-CLEARANCE-ADMISSION-95E concerns nonfinite clearance after an available height. Do not assume same first contract."
+    },
+    {
+      "question": "What complete capture, surface, terrain, support selection and IK consumers require terrain membership, support identity or missing-versus-invalid semantics?",
+      "relationship": "Preserve 059 q5, q632, q884/q885, q2130 and current assessment qualifications; this packet does not resolve them."
+    },
+    {
+      "question": "Does the newly added SceneVelocity module change any dependent invariant or its native interface?",
+      "relationship": "The module body is uninspected; a declaration or reexport is not coverage."
+    }
+  ],
+  "evidence": {
+    "registry": "historical/registry.json.gz",
+    "original_transport_manifest": "historical/original-transport-manifest.json.gz",
+    "historical_records": "historical-attribution.json",
+    "queue_selection": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "verification": "verify-evidence.py and verify-manifest.py",
+    "scope_coverage": "personal-read-receipt.json lists displayed chunks, per-registration unread complements and separate support"
+  },
+  "limits": "Static text inspection, mathematical reasoning and evidence hashing only; no implementation, builds, tests, simulations, rendering, product execution, runtime probes, product validation or publication edits. No inferred whole-lens clearance or recovered checkpoint3821."
+}

@@ -1,0 +1,857 @@
+{
+  "schema": "726-bounded-p16-context-presence-review-v1",
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T02:35:32.623358+00:00",
+  "scope": {
+    "roles": [
+      2692
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "physical-p16 dirty snapshot based on a120390947c89b703dc74c4255a13c035d054c50",
+    "identity": "Historical recovered object equals a120 and 95e for this file only; f82 is evidence transport, not project revision. P16 remains dirty.",
+    "actual_reads": "Independently registered and displayed full 1–196 at each revision in chunks 1–120,121–196. Bounded support registrations and their unread complements are listed separately.",
+    "chronology_note": "registration-chronology-note.json retains generic registration wording qualification and prior overlapping displays: treatment 816–825 and 835–855, reducer line760 had earlier prospective coverage; no unregistered first exposure.",
+    "recovery_note": "059 Lens12 proposal934 and two partials exist; no root adoption READ/VERIFY/STATE-L12-934 was found in the two bounded older collections or original transport manifest. Do not infer global absence or adoption."
+  },
+  "findings_and_relationships": [
+    {
+      "id": "Q-L12-09e949f0c0a4f8354fa8",
+      "classification": "Existing 059 q1046 and prior 95e contextual-presence assessment; no additional unique count.",
+      "observation": "Context membership requires a well-formed half-open time interval; equal entered/left is well formed but contains no minute. Observer case-site visibility checks uniquely active occupancy, canonical matching site, observer-specific exact-site knowledge, and patient visibility where applicable. A contact reducer requires current actor time, an exact case/hostile reference and matching membership revision, collects candidate rows, then requires exactly one and an allowed decision; exact retry returns earlier when its tuple matches. These are bounded source safeguards, not proof of all materialization paths or transaction outcomes.",
+      "producer": "The inspected roster materializer checks existing context kind/location/role and count, detects a deterministic character ID collision, creates a persistent field character, and inserts an open membership with revision 1. Its field-character constructor calls insert_character_with_origin, which records a birth row when absent. This does not establish all births, deletions, retries, direct DB writers or supported missing-record policy.",
+      "sources": [
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2,
+            25
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            27,
+            62
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            64,
+            111
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            148,
+            196
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            330,
+            419
+          ]
+        },
+        {
+          "archive": "support/extra-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2039,
+            2065
+          ]
+        },
+        {
+          "archive": "support/2.rs",
+          "path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2192,
+            2214
+          ]
+        },
+        {
+          "archive": "support/extra-2.rs",
+          "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            57,
+            69
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            965,
+            1045
+          ]
+        },
+        {
+          "archive": "support/extra-3.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1046,
+            1068
+          ]
+        }
+      ],
+      "related": [
+        "059 q1046 retains open source/owner and producer/UI boundaries; central prior ASSESSMENT-WEAPON-CAPABILITY-PRESENCE-95E independently assesses same family at 95e.",
+        "059 q179 observer frontier and q217 native typed/raw identity are related dependencies, not automatic aliases; their exact provenance and current populations remain separately open.",
+        "774 Native group069 describes P16 native full parent and exact 2692 helper; it also records the missing-clock zero fallback as source-loss qualification without asserting a bad caller."
+      ],
+      "future_direction": "When authorized, reconcile producer/API/observer frontier/native owner contracts and actual supported malformed or absent states, preserving scoped privacy, first closure, retry and valid empty intervals; do not conflate typed identity and DB transport."
+    },
+    {
+      "id": "PRESENCE-MISSING-BIRTH-VIEW-REDUCER-CONDITIONAL",
+      "classification": "Previously recorded ASSESSMENT-L01-PRESENCE-SAFEGUARD-95E conditional question; no new unique finding or assumed alias.",
+      "observation": "The contextual view helper in this assigned file requires a birth row for character_alive_at_for_view, like the inspected reducer chronology helper. The separate outbreak patient availability view uses is_none_or on the birth lookup, while its reducer counterpart delegates to character_alive_at, which uses is_some_and. If a character lacks birth metadata and all other context-specific checks pass, these helpers can classify that state differently; they are distinct paths, and this source review does not establish that both projections describe the same concrete interaction or that the state is reachable.",
+      "safeguards": "The inspected field-character creation path calls insert_character_with_origin and record_character_birth; the latter inserts a birth row if absent. Other creation/deletion paths and native transactions remain open.",
+      "sources": [
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            128,
+            146
+          ]
+        },
+        {
+          "archive": "support/extra-1.rs",
+          "path": "crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            21
+          ]
+        },
+        {
+          "archive": "support/3.rs",
+          "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1542,
+            1551
+          ]
+        },
+        {
+          "archive": "support/3.rs",
+          "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1589,
+            1613
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            381,
+            392
+          ]
+        },
+        {
+          "archive": "support/extra-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2039,
+            2065
+          ]
+        },
+        {
+          "archive": "support/2.rs",
+          "path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2192,
+            2214
+          ]
+        },
+        {
+          "archive": "support/extra-2.rs",
+          "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            57,
+            69
+          ]
+        }
+      ],
+      "future_direction": "Decide supported missing-birth state and life-record policy across each actual view/reducer pair, preserving historical chronology and observer privacy; verify producers before assigning effect."
+    },
+    {
+      "id": "NATIVE-ADM03-CONTEXT-MISSING-CLOCK",
+      "classification": "Prior 774 Native069 source-loss qualification with bounded current contextual-treatment support; not assigned a new count or automatic q181 alias.",
+      "observation": "The current contextual-treatment helper returns Unavailable for missing/dead actor or patient and first checks actual co-presence. For two actors in the same nonempty settlement, the inspected co-presence helper returns true without requiring a clock. The later treatment helper uses StrategicMinute::ZERO when the actor clock is absent when filtering contextual rows, then may use a same-party preference if no contextual row/claim applies. The exact relationship to q181 is a policy/alias question.",
+      "surgery_guard": "For the inspected surgery flow, require_together precedes an initial decision, but align_and_advance later requires both actor and patient clock rows before the second decision. Thus this trace does not demonstrate an accepted or committed treatment without a clock; full caller set, prior guards, effects/rollback and supported missing-row reachability remain open.",
+      "sources": [
+        {
+          "archive": "support/treatment-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            816,
+            855
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            593,
+            620
+          ]
+        },
+        {
+          "archive": "support/projection-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            856,
+            903
+          ]
+        },
+        {
+          "archive": "support/reducer-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            748,
+            758
+          ]
+        },
+        {
+          "archive": "support/treatment-1.rs",
+          "path": "crates/adventuresim-core/src/strategic_action.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            20,
+            65
+          ]
+        },
+        {
+          "archive": "support/reducer-1.rs",
+          "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            949,
+            966
+          ]
+        },
+        {
+          "archive": "support/gates-0.rs",
+          "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            812,
+            843
+          ]
+        },
+        {
+          "archive": "support/reducer-1.rs",
+          "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1034,
+            1054
+          ]
+        }
+      ],
+      "future_direction": "At the correct authority boundary, determine whether missing clock is supported and whether it must remain explicit; preserve ordinary same-settlement, same-party and emergency/refusal rules and account for later validation."
+    }
+  ],
+  "nonfindings": [
+    {
+      "observation": "Reversed context intervals are rejected by context_membership_valid_at; an equal entered and left value is well formed but has no active instant under the right-open predicate. Unique occupancy and exact claim selection reject ambiguity.",
+      "sources": [
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2,
+            25
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            40,
+            43
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            64,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The use of multiple membership, occupancy, knowledge, time and patient checks expresses distinct authority predicates and is not, by itself, redundant authority or proof of product validation.",
+      "sources": [
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            82,
+            111
+          ]
+        },
+        {
+          "archive": "source/2692-current.rs",
+          "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            148,
+            196
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What supported producers, imports, deletions or partial native states can create a missing birth or personal clock row?",
+    "Which actual view and reducer pairs refer to the same observer/frontier, and do their missing-birth policies disagree on a reachable request?",
+    "Does any non-surgery caller rely on the treatment minute-zero fallback without an authoritative clock gate, and what is intended same-settlement behavior?",
+    "Do current producers ensure membership identity, revision, interval and exact-site provenance consistently through all retries and native transactions?",
+    "Are q179/q181/q217 and q1046 linked by a shared repair or distinct first-failed contracts? Exact aliases remain centrally open."
+  ],
+  "history": [
+    {
+      "origin": "774 native admission03",
+      "records": [
+        "history-774/native/admission03/source-range-registration.jsonl.gz row54 NATIVE-ADMISSION03-REG-054",
+        "history-774/native/admission03/source-qualifications-final-082.jsonl.gz",
+        "history-774/native/admission03/contract-groups-069.json.gz group p16-actual-context-admission",
+        "historical-support-unread.json"
+      ],
+      "scope": "Native reviewer reports complete P16 presence helper 1–196 and separate full P16 parent source comparison; its parent object (registry role317) was dirty and is archived but not personally displayed by this reviewer. Includes source-loss fallback qualification and no new finding count."
+    },
+    {
+      "origin": "059 Lens11",
+      "records": [
+        "history-059/segovb/REGISTRATION-SEGOVB-1610.json",
+        "history-059/segovb/READ-L11-439.json",
+        "history-059/segovb/VERIFY-L11-439.json",
+        "history-059/segovb/STATE-L11-439.json"
+      ],
+      "scope": "Receipt dated 2026-10-28T19:40:29.173666+00:00 credits full 1–196 in windows 1–150 and 151–196. No named individual is inferred; original P16 attribution retained."
+    },
+    {
+      "origin": "059 Lens12 proposal",
+      "reader": "/root/lens12_frontier",
+      "records": [
+        "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-757.json",
+        "history-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-757-ORIGINAL2692.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-934-001.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-934-002.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-L12-934.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-933-940.json",
+        "recovery-search.json"
+      ],
+      "scope": "Prospective registration 05:19:30 UTC, partial 1–195 05:20:26 and final line196 05:20:44, proposal 05:28:19; original root adoption was not found in bounded old collections/transport manifest and is not inferred."
+    },
+    {
+      "origin": "Prior current evidence",
+      "records": [
+        "reference/prior-presence-safeguard.json",
+        "reference/prior-weapon-presence.json",
+        "prior-evidence-index.json"
+      ],
+      "scope": "Previous 95e source scopes and findings retain original attribution; no original ordered-role, checkpoint3821 or independent lens credit transfers."
+    }
+  ],
+  "baseline_qualifications": [
+    "P16 is a dirty snapshot; later tracked patch recovered with original SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 and seven untracked objects separately recorded. Original diff invocation and uninterrupted custody remain unproven.",
+    "No original checkpoint3821 ledger or queue reconstructed, no historical promotion, product execution, builds, tests, runtime probes, repairs or whole-lens closure."
+  ],
+  "support_reads": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/0.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "eof": 1353,
+      "actual_ranges": [
+        [
+          35,
+          80
+        ],
+        [
+          122,
+          175
+        ],
+        [
+          330,
+          422
+        ],
+        [
+          585,
+          655
+        ],
+        [
+          690,
+          735
+        ],
+        [
+          760,
+          825
+        ],
+        [
+          965,
+          1045
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          34
+        ],
+        [
+          81,
+          121
+        ],
+        [
+          176,
+          329
+        ],
+        [
+          423,
+          584
+        ],
+        [
+          656,
+          689
+        ],
+        [
+          736,
+          759
+        ],
+        [
+          826,
+          964
+        ],
+        [
+          1046,
+          1353
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/1.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "eof": 617,
+      "actual_ranges": [
+        [
+          340,
+          430
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          339
+        ],
+        [
+          431,
+          617
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/2.rs",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "eof": 3968,
+      "actual_ranges": [
+        [
+          2166,
+          2214
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          2165
+        ],
+        [
+          2215,
+          3968
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/3.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "eof": 2111,
+      "actual_ranges": [
+        [
+          1542,
+          1649
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          1541
+        ],
+        [
+          1650,
+          2111
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-0.rs",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "eof": 3968,
+      "actual_ranges": [
+        [
+          2035,
+          2068
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          2034
+        ],
+        [
+          2069,
+          3968
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-1.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "eof": 200,
+      "actual_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          25,
+          200
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-2.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "eof": 267,
+      "actual_ranges": [
+        [
+          45,
+          80
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          44
+        ],
+        [
+          81,
+          267
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/extra-3.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "eof": 1353,
+      "actual_ranges": [
+        [
+          1046,
+          1095
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          1045
+        ],
+        [
+          1096,
+          1353
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/projection-0.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "eof": 1353,
+      "actual_ranges": [
+        [
+          176,
+          250
+        ],
+        [
+          835,
+          935
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          175
+        ],
+        [
+          251,
+          834
+        ],
+        [
+          936,
+          1353
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/treatment-0.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "eof": 1353,
+      "actual_ranges": [
+        [
+          816,
+          855
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          815
+        ],
+        [
+          856,
+          1353
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/treatment-1.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "eof": 1209,
+      "actual_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          91,
+          1209
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/reducer-0.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "eof": 1353,
+      "actual_ranges": [
+        [
+          740,
+          760
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          739
+        ],
+        [
+          761,
+          1353
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/reducer-1.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "eof": 1435,
+      "actual_ranges": [
+        [
+          920,
+          970
+        ],
+        [
+          1010,
+          1060
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          919
+        ],
+        [
+          971,
+          1009
+        ],
+        [
+          1061,
+          1435
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/gates-0.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "eof": 1435,
+      "actual_ranges": [
+        [
+          800,
+          880
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          799
+        ],
+        [
+          881,
+          1435
+        ]
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Normal context roster builds character and membership records; case-site claims then propagate membership identity and revision through observer-specific presence. Other creation and context producers remain open.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "StrategicMinute, case-site/place identity and StrategicPresence have distinct existing owners; raw DB IDs are a bounded native boundary and q217 retains its exact typed-to-string readmission question.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "The raw membership table has public interval and revision fields. Read paths require well-formed interval, frontier, unique occupancy, provenance, knowledge and role where shown; no universal table write admission inferred.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "Temporal predicate uses entered<=minute<left with well-formed left>=entered. Saturating revision, mutation and all closure writers are not independently covered here.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "Case view visibility joins membership, observer clock, occupancy, canonical place, lead knowledge and patient visibility; these separate conditions cannot be inferred from any one valid ID.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "World-actor owns contextual records/decisions, investigation owns observer-safe site lookup, and core StrategicPresence owns the selected co-presence representation; exact namespace and provenance boundaries stay open.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "The context view and outbreak availability helper make different missing-birth choices in separate paths. Reconcile their shared life-record policy without assuming they are identical views or duplicating the earlier finding.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Keep half-open and equal-instant-empty intervals, unique claims, observer-scoped site knowledge, legitimate missing/death boundaries, retry behavior and explicit refusal/emergency distinction; no old error prose mandate.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "Context kinds and contact/treatment decision states are explicit enums; null/missing rows and empty intervals are not proof they should collapse to one state.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "This source-only scope establishes no safe derive replacement. Privacy checks, temporal comparisons and uniqueness logic are semantic operations.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Membership ID, context/contact reference, case-site location, revision, actor identity, personal minute and public sentinel are distinct even when represented by String or integer.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "Exact case-context sentinel and native DB raw site keys are scoped protocol boundaries. q217 concerns typed CaseSiteId converted to raw &str then readmitted; not every native string is an independent finding.",
+      "status": "bounded source perspective; no whole-lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "Contact action ID length 1–160, revision and real minute zero have different contracts; zero used for absent actor time is a conditional source-loss question, not evidence of a valid clock row.",
+      "status": "bounded source perspective; no whole-lens closure"
+    }
+  ]
+}

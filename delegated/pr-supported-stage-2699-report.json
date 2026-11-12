@@ -1,0 +1,249 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T02:45:18.569046+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2699
+    ],
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e, base 3a50b708381ad00c116445c2c999a49c3943088b, with four unrelated modified files; snapshot is not a clean commit",
+    "assigned_source_objects": [
+      {
+        "original_index": 2699,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "snapshot": "pr-working dirty snapshot; individual archived file equals recorded HEAD",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "source_archive": "source/2699-historical.rs",
+        "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "git_blob": "fb361cce7e4baecc411cbe9ff3faab3ae49ced41",
+        "bytes": 2242,
+        "actual_EOF": 56,
+        "registered_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            56
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b"
+      },
+      {
+        "original_index": 2699,
+        "source_id": "current:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+        "source_archive": "source/2699-current.rs",
+        "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+        "git_blob": "fb361cce7e4baecc411cbe9ff3faab3ae49ced41",
+        "bytes": 2242,
+        "actual_EOF": 56,
+        "registered_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            56
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      }
+    ],
+    "actual_reads": "personal-read-receipt.json and read-scope-summary.json",
+    "cross_lens_qualification": "Thirteen bounded perspectives, not whole-lens closure. No ordered-role credit, historical unique-count change or reviewer transfer."
+  },
+  "historical_records": [
+    {
+      "source": "history-774/root/admission03/source-range-registration.jsonl.gz line 33; source-qualifications-final-current.jsonl.gz line 33; coverage.jsonl.gz line 329; supported-stage-admission-048.json.gz",
+      "author": "Original 774 root",
+      "at": "2026-10-22T15:02:08.703021+00:00 registration; 15:02:52.539947+00:00 G048",
+      "scope": "ROOT-ADM-REG-033 / COVERAGE-329 personally records supported.rs 1–56; direct construction and attachment only, not separate tests or uninspected callees. G048 identifies validation and reconstruction ordering and carries conditional F010 as separate issue. Exact local files match f82 transport, which is not project source revision."
+    },
+    {
+      "source": "history-059/adler/REGISTRATION-ADLER-787.json and READ-L11-297.json#/connected_reinspection/0",
+      "author": "Original Adler Lens11",
+      "scope": "Prospectively registered and actually personally read role 2699 1–56 as out-of-order connected support, with zero ordered frontier credit. The original receipt retains its own pending validation and consumer boundaries."
+    },
+    {
+      "source": "history-059/segovb/REGISTRATION-SEGOVB-1617.json, READ-L11-440.json, STATE-L11-440.json, VERIFY-L11-440.json",
+      "author": "Original Segovb Lens11",
+      "at": "2026-10-28T19:42:46.071708+00:00 receipt",
+      "scope": "At first ordered role 2699, adopted the exact earlier Adler same-lens proof; fresh_personal_body_reads is empty, not a Segovb reread. State and verification retain historic progression, not checkpoint 3821."
+    },
+    {
+      "source": "history-059/segovb/REGISTRATION-CONNECTED-L12-672-ORIGINAL2699.json and READ-CONNECTED-L12-672-POPULATIONS.json",
+      "author": "Original Segovb Lens12",
+      "at": "2026-10-29T16:21:47.171838+00:00 registration, 16:23:55.054174+00:00 receipt",
+      "scope": "Separate prospectively registered connected personal read 1–56; zero ordered frontier credit, no current or other-lens transfer."
+    },
+    {
+      "source": "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-764.json, QUALIFICATION-PAR-L12-764-ORIGINAL2699.json, PARTIAL-PAR-L12-937-003.json and PROPOSAL-L12-937.json",
+      "author": "Original /root/lens12_frontier",
+      "at": "2026-10-30T05:19:31.001539+00:00 registration, 05:21:23.485564+00:00 partial",
+      "scope": "Independently prospectively read 1–56. Proposal 937 expressly requires root adoption and has no new findings. No adoption established in bounded two-target/manifest search; no global absence assertion."
+    },
+    {
+      "source": "history-059/root-l1-current-e275-20261029/REGISTRATION-ROOT-L1-CURRENT-082.json and PARTIAL-ROOT-L1-CURRENT-082-001.json",
+      "author": "Original root Lens1",
+      "at": "2026-10-30T01:31:03.165712+00:00 partial",
+      "scope": "Independently displayed role body 1–56 at then-current e2755a732c84e67296b5e3441a4259a84f461b2f, same blob as 95e. Attribution and revision remain e275; no 95e reader transfer."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ORDERED-STAGES",
+      "source": "source/2699-current.rs 19–54; support/scene_input.rs 161–164; support/validation.rs 5–62; support/grounding.rs 47–73; support/geographic.rs 20–55",
+      "detail": "The supported stage validates source and grounding before geographic generation; prepares terrain/ground/buildings/obstacles/repair report; validates generated pads and compounds. validate_grounding allows None with empty physical placements, requires projection for nonempty placements and rejects a projection for an empty set. Geographic preparation separately calls validate_source before its private upsample and ground generation. validate_grid and other delegated validation bodies were not personally read here."
+    },
+    {
+      "id": "PRESENTED-RECONSTRUCTION",
+      "source": "source/2699-current.rs 33–47; support/presented.rs 12–54,58–103; support/property.rs 14–46; support/projection.rs 228–245,251–310; support/settlement.rs 165–204",
+      "detail": "With a projection, source construction starts with sampled fine terrain, then adds valid centered, expanding vista rings and forwards all triangles to GeographicSurface; source failure becomes GeographicSupport. Projection checks source digest and placement bindings before compiling owned settlement terrain, which is installed on SceneTerrain. The supporting body does not show all helper internals or prove every possible failure is categorically diagnosed."
+    },
+    {
+      "id": "CLEARANCE-ORDER",
+      "source": "source/2699-current.rs 44–54; support/obstacles.rs 4–35; support/surface.rs 103–108; support/generation.rs 20–55",
+      "detail": "After support installation, obstacle removal computes centre and physical envelope using tree/rock radius plus humanoid radius and controller skin, filtering against projection surfaces, then returns terrain and retained assets; generate_unfurnished subsequently generates patch, furniture, gardens and boundaries. Other consumer policies and radius/native defaults were not personally inspected."
+    },
+    {
+      "id": "PRESERVED-CANCEL-CANDIDATE-CHAIN",
+      "source": "support/projection.rs 230–245; support/settlement.rs 168–183; support/surface.rs 115–120; prior-grounding/support/foundation.rs 247–286,319–374; prior-grounding/report.json#/conditional_findings/0",
+      "detail": "Current reconstruction calls settlement compile; each plan invokes its foundation compiler, connecting this stage to the separately assessed summed-area check. Earlier source-level duplicate-half example is a local check blind spot, not proof this sampled-plus-vista producer emits duplicates, validates the required plan, passes all banks or produces a scene. The earlier discovery and reads remain attributed to prior packet, not duplicated or closed."
+    },
+    {
+      "id": "EXISTING-SAMPLED-SUPPORT-CLASSIFICATION",
+      "source": "reference/prior-sampled-support.json#/conditional_findings/0; queue-selection-reconstructed.json#/entries/5; history-059/root-l1-current-e275-20261029/PARTIAL-ROOT-L1-CURRENT-082-001.json",
+      "detail": "Prior 95e assessment retains CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION for tiny public sampled-grid numerical failure vs MissingSupport, with normal validated input spacing excluding its specific public-API example according to that independently attributed report. The present receipt shows validate_source calls validate_grid but does not personally read its body and does not claim new closure."
+    }
+  ],
+  "conditional_findings": [],
+  "open_questions": [
+    "Can the actual sampled fine mesh and each admitted vista ring produce overlapping and compensating uncovered source areas in a valid staged input? Inspect seam helpers and source-generation invariants; this packet alone cannot infer reachability.",
+    "Does complete compilation, including bank coverage and every plan, reject any reachable overlap/gap case despite the local summed-area predicate?",
+    "Which source failures may pass validate_source but return GeographicSupport, and do supported diagnostics need a distinct cause at the owning error boundary?",
+    "Do all consumers treat public SupportedSceneTerrain as an ordinary output, or depend on it being an unforgeable validated witness? Trace before claiming a bypass.",
+    "Confirm full validate_grid, scene source producer and input-size/limits, not just its invocation. Keep q1593 and existing sampled-support numerical classification separate until exact alias and real boundary conditions established.",
+    "Obstacle counter narrowing, native controller skin and all scene/physical support consumers require separate evidence before assigning a capacity or authority defect.",
+    "Recorded pr-working patch digest is not independently recovered here; per-file identity does not make snapshot clean. Later P16 tracked patch belongs to a different snapshot and does not establish this one."
+  ],
+  "connected_history": [
+    "Prior grounding 2693–2694 packet manifest fb97fcfb97dfaf1da72585b46d23b9634c978543fdaf81ff7b06e1fbe6bfe21c, selected exact members retained in prior-grounding/ with original personal receipts; not new source-read credit.",
+    "059 q634 geographic/intersection/compilation remains open; q1593 supported and geographic source validation dependency is narrowed by direct current call chain only; q5 CONT08 sampled numerical classification distinct from owned-area check; q119 terrain polygon collection union is related geometry context, not established alias.",
+    "774 ROOT-ADM-F010 geographic backing/index and reported area cancellation have different first predicates; neither an automatic new unique count nor equivalence inferred."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "scope_assessment": "The scene generation producer receives the supported stage as five typed components before preparing downstream products; direct callers beyond shown generation remain open."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "scope_assessment": "Existing source, bound projection, terrain and physical placement owners remain connected; no substitute owner identified in scope."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "scope_assessment": "validate_source and validate_grounding precede geographic generation; projection reconstruct checks source digest and bindings before compile. Deep validate_grid, topology and all producers remain separate."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "scope_assessment": "The previous equal-area cancellation candidate connects through surface.foundations but actual presented-source reachability and complete compilation remain open."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "scope_assessment": "Grounding is absent only for empty physical placements in shown validation, with present+empty rejected. Public SupportedSceneTerrain fields are stage outputs, not proof that arbitrary literals passed its construction path."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "scope_assessment": "SupportedSceneTerrain owns a stage product; generated scene builds further outputs after this stage. Other consumers and standalone construction policy remain open."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "scope_assessment": "Source and placement digests verify producer-bound projection before reconstruct; ground grid and owned geometry have separate material/physical roles in shown source. Full all-consumer coherence remains open."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "scope_assessment": "Preserve empty-city optional mode, exact presented source and explicit source/placement mismatches; do not replace a failed reconstruction with guessed floors or resampled terrain."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "scope_assessment": "Sampled versus Owned terrain is a closed enum. GeographicSupport is a typed validation error; whether one category sufficiently explains different source failures remains a policy question."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "scope_assessment": "No uninspected serde/default derivation may be used as proof of an accepted SupportedSceneTerrain; nothing here establishes unnecessary handwritten boilerplate."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "scope_assessment": "Grounding projection, actual placements and geographic source retain different owner roles. Historic Adler 1–56 read was adopted by Segovb, with no Segovb fresh reread."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "scope_assessment": "The selected stage carries typed SceneInputError/SceneValidationError rather than an internal string protocol. Full external error/report consumers remain open."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "scope_assessment": "Grid and vista limits are referenced through validation owners; native counts, scales, collision clearance and actual source bounds require independent callee and policy evidence."
+    }
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "extra-registration.json",
+      "surface-registration.json"
+    ],
+    "actual_read_receipts": [
+      "personal-read-receipt.json",
+      "support-read-receipt.json",
+      "extra-read-receipt.json",
+      "surface-read-receipt.json"
+    ],
+    "scope_summary": "read-scope-summary.json",
+    "exact_git_tree_membership": "git-proofs.json",
+    "historical": "historical-index.json",
+    "prior_grounding": "prior-grounding-index.json",
+    "reconstructed_records": [
+      "registry-selection-reconstructed.json",
+      "queue-selection-reconstructed.json"
+    ],
+    "originals": [
+      "reference/registry.json.gz",
+      "reference/queue.json.gz",
+      "reference/original-transport-manifest.json.gz"
+    ]
+  },
+  "checkpoint3821": "Original final checkpoint 3821 ledger/queue remains unrecovered; no recovered records promoted into it.",
+  "implementation": "not started",
+  "product_validation": "not performed"
+}

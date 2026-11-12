@@ -1,0 +1,310 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T02:41:38.098195+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2693,
+      2694
+    ],
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working: recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e, base 3a50b708381ad00c116445c2c999a49c3943088b, snapshot had four unrelated modified files",
+    "assigned_source_objects": [
+      {
+        "original_index": 2693,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+        "snapshot": "pr-working dirty snapshot; individual archived file equals recorded HEAD",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+        "source_archive": "source/2693-historical.rs",
+        "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+        "git_blob": "d4c2b85897225092600ef26306ddbcb5588891eb",
+        "bytes": 6759,
+        "actual_EOF": 181,
+        "registered_ranges": [
+          [
+            1,
+            181
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            120
+          ],
+          [
+            121,
+            181
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            179
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3"
+      },
+      {
+        "original_index": 2693,
+        "source_id": "current:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+        "source_archive": "source/2693-current.rs",
+        "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+        "git_blob": "d4c2b85897225092600ef26306ddbcb5588891eb",
+        "bytes": 6759,
+        "actual_EOF": 181,
+        "registered_ranges": [
+          [
+            1,
+            181
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            120
+          ],
+          [
+            121,
+            181
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      },
+      {
+        "original_index": 2694,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+        "snapshot": "pr-working dirty snapshot; individual archived file equals recorded HEAD",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+        "source_archive": "source/2694-historical.rs",
+        "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+        "git_blob": "876cdcc6cc7b88407e54cb07f9a7e7c8decdf805",
+        "bytes": 1871,
+        "actual_EOF": 52,
+        "registered_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            52
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc"
+      },
+      {
+        "original_index": 2694,
+        "source_id": "current:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+        "source_archive": "source/2694-current.rs",
+        "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+        "git_blob": "876cdcc6cc7b88407e54cb07f9a7e7c8decdf805",
+        "bytes": 1871,
+        "actual_EOF": 52,
+        "registered_ranges": [
+          [
+            1,
+            52
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            52
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      }
+    ],
+    "actual_reads": "personal-read-receipt.json; read-scope-summary.json for independently registered support",
+    "cross_lens_qualification": "13 bounded perspectives only; no whole-lens completion, ordered credit, new historical finding count or reviewer transfer"
+  },
+  "historical_records": [
+    {
+      "source": "history-774/root/admission03/source-range-registration.jsonl.gz lines 23–24; source-qualifications-final-current.jsonl.gz lines 23–24; coverage.jsonl.gz lines 209–210; foundation-source-admission-038.json.gz",
+      "author": "Original 774 root",
+      "time": "2026-10-22T14:34:59.114784+00:00 and 14:34:59.129559+00:00 registrations; F010 14:38:03.283453+00:00",
+      "scope": "ROOT-ADM-REG-023/024: source 1–179 only; members 1–52. F010 identifies geographic backing/index coupled mutation alongside other separate geometry stores. Local 774 whole-file bytes match f82 transport exactly.",
+      "qualification": "f82 is source evidence transport, not project source revision. Original excludes source 180–181 and all other lenses."
+    },
+    {
+      "source": "history-059/segovb/REGISTRATION-SEGOVB-1611.json and 1612; READ-L11-439.json, STATE-L11-439.json, VERIFY-L11-439.json",
+      "author": "Original Segovb Lens11",
+      "time": "2026-10-28T19:40:29.173666+00:00 receipt",
+      "scope": "Independent personal source 1–179; members 1–52, historical pr-working. Receipt leaves GroundTriangle, ScenePlanPolygon, intersection and compiler acceptance pending; state records original next 2695, not 3821."
+    },
+    {
+      "source": "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-758/759; QUALIFICATION-PAR-L12-758/759; PARTIAL-PAR-L12-935-001/002; PROPOSAL-L12-935.json",
+      "author": "Original /root/lens12_frontier",
+      "scope": "Independent prospective historical source 1–179 and members 1–52. 935 isolated proposal has no new findings and expressly requires root adoption. Historical registered body reads do not imply ordered or other-lens credit.",
+      "qualification": "No READ/VERIFY/STATE-L12-935 found in two-target filename scan or original transport manifest; bounded search only, not global absence."
+    },
+    {
+      "source": "history-059/segovb/READ-L12-592.json and queue-selection-reconstructed.json#/entries/1495",
+      "author": "Original Segovb Lens12",
+      "scope": "Full earlier historical binding.rs 1–209 with detailed member issue to Owner mapping and report-context requirement left pending; no new raw-string failure claimed."
+    }
+  ],
+  "observations": [
+    {
+      "id": "OWNED-MEMBERS",
+      "source": "members.rs 4–7,21–52; support/binding.rs 74–83",
+      "detail": "new and manual Deserialize reject empty, zero IDs and duplicates while preserving original order; ids exposes an immutable slice. The shown compound binding constructs exactly two IDs and maps all member errors to Owner carrying property and front ID. Whether loss of detailed cause matters to its reporting consumer remains q1495; no new error-erasure count."
+    },
+    {
+      "id": "GEOGRAPHIC-SOURCE",
+      "source": "source.rs 33–57,101–177; support/geometry.rs 20–47; support/query.rs 72–92,129–151",
+      "detail": "Source constructor requires all nonempty admitted finite nonvertical triangles, canonical sort, a derived query and extension. It retains repeated triangles, because sorting alone does not deduplicate. Query enumerates source positions and returns all intersecting indices. from_vista_lod checks raster shape, finite origin and positive spacing before narrowing and triangulation; values then face GroundTriangle admission. Coverage/overlap are not a constructor guarantee."
+    },
+    {
+      "id": "HISTORIC-F010",
+      "source": "source.rs 13–16,34–42,138–158,166–176; historical F010",
+      "detail": "pub(super) triangle backing, private query and cached factor permit a privileged parent to invalidate coherence if it mutates backing after construction; query results index backing directly. The historical record states no actual bad caller. Earlier L11 says no external mutation through the public copied triangles() view; that narrower observation does not negate internal privileged access. No actual invalid mutation or crash shown, no new count."
+    },
+    {
+      "id": "POLYGON-AND-FLOOR",
+      "source": "support/polygon.rs 14–19,63–127; support/floor.rs 25–46,65–93; source.rs 63–99",
+      "detail": "An arbitrary scene polygon is routed through PlanPolygon; rigid projection preserves represented coordinates and may have small rounded bends. height_range fans the outline and discards failed triangle constructions, returns extremal intersections; floor select treats None as SourceSample. The complete projection, fan, intersection, policy and accepted coverage behavior remain open; no asserted actual malformed polygon."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "GROUND-SOURCE-AREA-CANCELLATION-CANDIDATE-95E",
+      "classification": "Current source-level conditional area-check blind spot; not an observed product incident or accepted new unique ledger count.",
+      "first_contract": "If single coverage of every support triangle is required, aggregate overlap area must not mask an equally large uncovered area.",
+      "trace": "At source.rs 138–158 duplicate valid triangles are retained. geometry.rs 20–47 admits flat, finite nonvertical examples; query.rs 82–92 and 129–151 retains both candidate indices; geometry.rs 188–210 plus planar.rs 3–24 clips and measures each. For a flat support triangle with planar vertices (0,0),(2,0),(0,2), area is 2. Two identical flat source triangles (0,0),(1,0),(0,2) each intersect in area 1. foundations.rs 319–348 sums both and 351–374 compares 2 against support area 2, so its discrepancy is 0 even though one half is duplicated and another half uncovered. All heights equal zero, so the shown displacement check is neutral.",
+      "limits": "This is mathematical source reasoning only: no constructor, clipping operation, fixture, compiler, test, simulation or product ran. The example establishes the local visit_source_intersections/validate_coverage area predicate, not a successful full compiler result. Other support triangles, bank compile 288, source/plan ingress, admissible producer topology, and any independent rejection policy remain open.",
+      "future_repair_direction": "Trace valid source/plan producers and every later coverage/overlap gate; establish desired tolerance semantics. If full pointwise coverage and no overlap are required at this owner, use an explicit union/overlap or equivalent coverage witness that cannot hide matching areas, preserving intentional contact tolerance and accepted shared boundaries. Design/implementation/validation remain future work.",
+      "relationship": "Related to original 059 Q-L11-7279af0e092343b35843 (q634) pending complete GeographicSurface/intersection/compilation; related to 774 ROOT-ADM-G038 and source coverage logic. ADLER-L11-TERRAIN-POLYGON-COLLECTION-UNION (q119) concerns geographic polygon collection semantics, not established as same first failure. Central must reconcile exact aliases and count; do not assume duplicate or distinct."
+    }
+  ],
+  "open_questions": [
+    "Do normal geographic producers ever admit overlapping source triangles with compensating gaps, and are they forbidden earlier?",
+    "Can the complete floor selection, all support triangle checks and bank compile together admit the source-level example or a supported variant?",
+    "Does the intended coverage tolerance permit independent small gaps and overlaps, and what evidence establishes pointwise support ownership?",
+    "Are there actual privileged mutation paths to GeographicSurface.triangles, and must the cache be sealed or coherently rebuilt? F010 shows representability, not reachability.",
+    "Does the boundary reporting consumer need the precise Empty/Zero/Duplicate cause erased at from_property, beyond property/front context?",
+    "Can legal rigid projections and fan GroundTriangle rejection lead to missing extrema? Read connected polygon owner and producer limits before disposition.",
+    "PropertyMembers duplicate check is quadratic in list length; its public constructor and serde have no local length bound, but normal compound binding supplies two. Larger admitted producers, exposure and resource policy remain unresolved.",
+    "Per-file pr-working equality does not establish a clean whole snapshot or verified original patch; recovered later P16 tracked patch/untracked objects belong to a different snapshot and are not imported as this role’s provenance."
+  ],
+  "connected_history": [
+    "Reconstructed 059 q634 for unfinished geographic/intersection/compilation; q1495 member error context; q1499 empty-foundation policy; q1491/q1494 boundary contact policies; q102 and q3125 related foundation geometry; q119 terrain polygon union. Historical originals and prior 95e reports preserved separately. No automatic alias or duplicate count.",
+    "Earlier root/current source assessment ASSESSMENT-FOUNDATION-VOLUME-95E and ASSESSMENT-OWNED-GROUND-SUPPORT-95E keep original authored ranges and identities; tiny triangle filtering, finite volume arithmetic and empty foundation policy are independent predicates unless central establishes an exact identity.",
+    "Historical 774 ROOT-ADM-F010 is a retained finding about privileged backing mutation, not the equal-area cancellation predicate."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "scope_assessment": "Vista payload is converted to checked triangle source; typed members pass into a boundary binding. Full ordinary producers and ingress policies remain open."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "scope_assessment": "ScenePlanPoint, SupportElevation and PropertyMembers retain distinct units/identity. No evidenced owner substitution in these bodies."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "scope_assessment": "Members new/Deserialize share the same predicate; source requires all valid triangles and nonempty. ROOT-ADM-F010 records privileged mutable triangle backing risk."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "scope_assessment": "Triangle/query index coherence is conditional on no privileged mutation. Summed intersection areas can cancel overlaps against gaps; future policy/producer trace required."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "scope_assessment": "Private member list enforces per-list identities, not whole property arity or scene membership. Summed area is not a proof of pointwise single coverage."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "scope_assessment": "Source and member aggregates have coherent local purpose; full cross-module ownership and diagnostic failure semantics remain open."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "scope_assessment": "Spatial query and extension factor are derived from triangles, not automatically an independent authority; pub(super) backing creates possible stale cache if mutated."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "scope_assessment": "Preserve ordered member IDs, rejection distinctions at canonical owner, A–C vista diagonal, intentional no-sample results and typed errors when considering any future repair."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "scope_assessment": "PropertyMemberIssue owns Empty, Zero, Duplicate and their relevant indices/ID; Option sampling distinguishes no value from a fabricated elevation."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "scope_assessment": "Manual Deserialize intentionally routes through new; deriving transparent decoding directly would bypass checks. Reflect implementation and other producers uninspected."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "scope_assessment": "ID nonzero is aggregate-specific; compiler and consumers determine arity/ownership. Source triangles are finite nonvertical while geographic coverage is separate."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "scope_assessment": "Typed member diagnostics use thiserror at presentation boundary. Historical L12 592 already left erasure from detailed member issue to Owner context unresolved."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "scope_assessment": "2+ raster axes and checked count establish necessary indexing shape; tolerances and spatial meaning belong to connected policy. No unsupported global bounds inferred."
+    }
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "extension-registration.json",
+      "coverage-registration.json"
+    ],
+    "actual_read_receipts": [
+      "personal-read-receipt.json",
+      "support-read-receipt.json",
+      "extension-read-receipt.json",
+      "coverage-read-receipt.json"
+    ],
+    "scope_summary": "read-scope-summary.json",
+    "exact_git_tree_membership": "git-proofs.json",
+    "historical": "historical-index.json",
+    "reconstructed_records": [
+      "registry-selection-reconstructed.json",
+      "queue-selection-reconstructed.json"
+    ],
+    "originals": [
+      "reference/registry.json.gz",
+      "reference/queue.json.gz",
+      "reference/original-transport-manifest.json.gz"
+    ],
+    "earlier_assessments": "prior-evidence-index.json"
+  },
+  "checkpoint3821": "Final original checkpoint 3821 ledger/queue remains unrecovered; neither prior nor this assessment is promoted into it.",
+  "implementation": "not started",
+  "product_validation": "not performed"
+}

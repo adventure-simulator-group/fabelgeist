@@ -1,0 +1,95 @@
+{
+  "schema": "726-delegated-checkpoint-22-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-22.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 10529,
+  "unique_redacted_original_sha_count": 4,
+  "redacted_public_member_occurrences": 7,
+  "entries": [
+    {
+      "original_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_bytes": 2559596,
+      "original_git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4",
+      "original_transport_paths": [
+        "evidence/audit01-delta/predecessor/source-catalog.json",
+        "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+        "evidence/audit10/catalog.json",
+        "segovb/FROZEN774-CATALOG.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p17-geometry-measurement-2679-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p17-positive-length-2680-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/p16-combat-2689-2691-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/grounding-regions-2697-2698-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "61d9bcd1d88965e3c0e94048d3deb658eba72f1a9146fe61fa82e233e2be9d64",
+      "original_bytes": 174589,
+      "original_git_blob": "64bee23590fe82f96a41bb7a59f9d35aa038271a",
+      "original_transport_paths": [
+        "segovb/READ-L11-571.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p17-geometry-measurement-2679-evidence.tar.gz!historical/059/segovb/READ-L11-571.json",
+          "public_sha256": "330282f2bfda068c65bec44be6b3d64d75e57e6d0f62cfeb4b3378a53c7453a2",
+          "public_bytes": 169706
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "85aecdd77533ea17f2a81f0710eda520f9c220d5afd2013cf1cd3e837ae05220",
+      "original_bytes": 25557,
+      "original_git_blob": "6b4664adae3620e37d940f956cd4b09f72f96576",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-003.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p17-geometry-measurement-2679-evidence.tar.gz!historical/059/parallel-l11-20261029/READ-003.json",
+          "public_sha256": "2ec9d50c84ab3d63a85749b568f2023eb7ac71106dd72f2b4b631216eab93b3a",
+          "public_bytes": 25256
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "fe59032840b95ae4c8c35a3a86fd1c9b60f86fc70d90a252cd5a00bfe12ccc7b",
+      "original_bytes": 129340,
+      "original_git_blob": "91796ec93673d847d4df27e2a231e90e7895009d",
+      "original_transport_paths": [
+        "parallel-l11-20261029/READ-035.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p17-geometry-measurement-2679-evidence.tar.gz!historical/059/parallel-l11-20261029/READ-035.json",
+          "public_sha256": "7e5021e569867d246d6bef34f3d0ce9e81af8e39011513801db775700548d9b6",
+          "public_bytes": 126707
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

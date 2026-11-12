@@ -1,0 +1,335 @@
+{
+  "schema": "726-bounded-p17-manifest-lock-review-v1",
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T02:30:59.693971+00:00",
+  "scope": {
+    "original_roles": [
+      2683,
+      2684,
+      2685,
+      2686
+    ],
+    "historical_snapshot": "report-p17",
+    "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "snapshot_qualification": "Original registry records base 18360adba0fb43add88c75dfbd2f45d7e71d8ace, HEAD 90a, empty status and patch SHA256 3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd. This packet verifies each recovered source object against 90a and f82 transport; the separately recorded patch bytes are not independently recovered or verified here. The P17 snapshot is separate from P16 or pr-working; f82 is evidence transport only.",
+    "personal_scope": "Each assigned old/current object independently registered and displayed: role2683 full 1–55; role2684 old 1–19/current 1–21; role2685 old/current 85–99; role2686 old 1434–1443,2307–2366,2660–2702 and current 1417–1426,2139–2198,2492–2534. All unread complements recorded. No Cargo execution or feature activation inference.",
+    "historical_scope_qualification": "Original role2683 material was only 1–27 and role2685 only lines85 and95; this review independently extends them contextually without enlarging prior reader or ordered-role credit. Lockfiles remain partially read even though full exact bytes are preserved."
+  },
+  "findings_and_relationships": [
+    {
+      "id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "classification": "Reconnected 059 q2332 owner/feature question; no new unique finding and no automatic alias.",
+      "observations": [
+        "Historical building-generator Cargo.toml:23 requested local geometry reflect; its current version requests reflect and bevy-math. Historical geometry feature reflect maps to an optional bevy_reflect dependency; current geometry adds bevy-math mapped to optional bevy_math. The root workspace path and Bevy requirement in the displayed windows are textually unchanged.",
+        "Both selected lock windows contain identical exact records for bevy, bevy_internal, bevy_reflect and bevy_reflect_derive at 0.19.1 with unchanged registry source, checksums and dependency lists; all four full-file object identities differ across snapshots.",
+        "These are source declarations and locked package identities only: no Cargo feature graph, compiler selection, macro behavior, actual runtime reflection, or product behavior is established."
+      ],
+      "sources": [
+        {
+          "archive": "source/2683-historical.toml",
+          "path": "crates/adventuresim-building-generator/Cargo.toml",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            22,
+            27
+          ]
+        },
+        {
+          "archive": "source/2683-current.toml",
+          "path": "crates/adventuresim-building-generator/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            22,
+            27
+          ]
+        },
+        {
+          "archive": "source/2684-historical.toml",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            9,
+            16
+          ]
+        },
+        {
+          "archive": "source/2684-current.toml",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            18
+          ]
+        },
+        {
+          "archive": "source/2685-historical.toml",
+          "path": "Cargo.toml",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            85,
+            99
+          ]
+        },
+        {
+          "archive": "source/2685-current.toml",
+          "path": "Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            85,
+            99
+          ]
+        },
+        {
+          "archive": "source/2686-historical.lock",
+          "path": "Cargo.lock",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            1434,
+            1443
+          ]
+        },
+        {
+          "archive": "source/2686-historical.lock",
+          "path": "Cargo.lock",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            2307,
+            2366
+          ]
+        },
+        {
+          "archive": "source/2686-historical.lock",
+          "path": "Cargo.lock",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            2660,
+            2702
+          ]
+        },
+        {
+          "archive": "source/2686-current.lock",
+          "path": "Cargo.lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1417,
+            1426
+          ]
+        },
+        {
+          "archive": "source/2686-current.lock",
+          "path": "Cargo.lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2139,
+            2198
+          ]
+        },
+        {
+          "archive": "source/2686-current.lock",
+          "path": "Cargo.lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            2492,
+            2534
+          ]
+        }
+      ],
+      "historical_relationships": [
+        "774 NATIVE-ADMISSION03-REG-039 through 043 and contract-groups-059 preserve original P17 dependency-path observation; REG041 covers only workspace line95, REG043 only line85. Its prior rig reflection witness and P17 first-party wrapper analysis are separate source reviews, not inferred from these manifests.",
+        "059 Lens11 READ-L11-438 and /root/lens12_frontier Lens12 proposal 931 recorded only the exact original ranges, current feature activation and later source reconciliation explicitly unresolved.",
+        "Prior /root/mhr_character reflect-opaque-common packet personally read native bevy_reflect_derive 0.19.1 source and current lock as a separate package/source assessment; no macro source read or credit is transferred into this packet.",
+        "Earlier /root/mhr_character P16 role2671 read a root-manifest object with the same historical SHA 5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d, but P16 and report-p17 are different recorded snapshots with separate historical author/range scopes."
+      ],
+      "future_direction": "If reflection admission requires a repair, independently identify the actually enabled first-party wrapper/feature and exact native port before deciding ownership and acceptance. This metadata comparison alone proposes no product repair."
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The manifest and feature names are Cargo namespace syntax; no independent raw-string or primitive owner defect is established. A different declaration does not alone prove an application behavior change.",
+      "sources": [
+        {
+          "archive": "source/2683-current.toml",
+          "path": "crates/adventuresim-building-generator/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            27
+          ]
+        },
+        {
+          "archive": "source/2684-current.toml",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The selected four old/current package records are exact text matches, with version 0.19.1 and the same individual checksums. Whole Cargo.lock SHA differs and the unread remainder may contain other changes; no full lockfile comparison, package activation, or global dependency conclusion is claimed.",
+      "proof": "lock-window-comparison.json"
+    },
+    {
+      "observation": "Geometry default feature list is empty in both displayed manifests, but this says nothing by itself about all feature requests or an actually selected build configuration.",
+      "sources": [
+        {
+          "archive": "source/2684-historical.toml",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "lines": [
+            9,
+            14
+          ]
+        },
+        {
+          "archive": "source/2684-current.toml",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            16
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which actual target/build feature set, if any, enables reflection and bevy-math for each relevant application? This packet does not run Cargo or infer feature resolution.",
+    "Which current first-party reflected values and consumers exercise the separately assessed native derive/opaque paths, and what admission/mutation conditions apply?",
+    "What differences exist outside the bounded root manifest and lockfile windows, and do they matter to a connected repair?",
+    "Is the separately recorded report-p17 patch independently recoverable with its original 3c72c8... hash? This review verifies the 90a commit/tree/objects, not that patch.",
+    "Any cross-snapshot and historical finding aliases require central source-by-source reconciliation; no global lens closure follows."
+  ],
+  "history": [
+    {
+      "origin": "774 native admission03",
+      "records": [
+        "history-774/native/admission03/source-range-registration.jsonl.gz rows 39–43",
+        "history-774/native/admission03/source-qualifications-final-082.jsonl.gz",
+        "history-774/native/admission03/contract-groups-059.json.gz group p17-capture-selected-observation-admission",
+        "history-774/rig/admission03/reflection-witness-001.json.gz"
+      ],
+      "scope": "Original Native registration039 building 1–27, 040 geometry 1–19, 041 root95, 043 root85, 042 lock 1434–1443/2307–2366/2660–2702. Original supplier compares the stated P17 dependency metadata to separately attributed rig opaque reflection witness. No whole lock/other lens/product execution credit."
+    },
+    {
+      "origin": "059 Lens11",
+      "records": [
+        "history-059/segovb/REGISTRATION-SEGOVB-1600.json through -1603.json",
+        "history-059/segovb/READ-L11-438.json",
+        "history-059/segovb/VERIFY-L11-438.json",
+        "history-059/segovb/STATE-L11-438.json"
+      ],
+      "scope": "Receipt at 2026-10-28T19:38:40.647078+00:00 records original exact four scopes, no named individual inferred. Explicitly excludes building28–55, unrelated root lines and other lock packages; no build or runtime feature-unification claim."
+    },
+    {
+      "origin": "059 Lens12",
+      "reader": "/root/lens12_frontier",
+      "records": [
+        "history-059/parallel-l12-20261029/REGISTRATION-PAR-L12-747.json through -750.json",
+        "history-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-747-ORIGINAL2683.json through -750-ORIGINAL2686.json",
+        "history-059/parallel-l12-20261029/PARTIAL-PAR-L12-931-001.json through -004.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-L12-931.json",
+        "history-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-925-932.json",
+        "history-059/segovb/READ-L12-931.json"
+      ],
+      "scope": "Four separate prospectively registered partials at 05:10:44–05:11:01 UTC for original ranges, then proposal and root adoption 05:14:44 UTC with root_personal_rereads empty. Preserve individual 90a/P17 attribution and no cross-lens/whole-file credit."
+    },
+    {
+      "origin": "Prior current and P17 reviews",
+      "records": [
+        "reference/prior-p17-orientation-report.json",
+        "reference/prior-reflect-opaque-common-report.json",
+        "reference/prior-p16-world-manifests-report.json",
+        "prior-evidence-index.json"
+      ],
+      "scope": "Earlier exact sources, revisions and reviewers retained as written; prior native package source and earlier full P16 root-manifest reads are not inherited as this reviewer’s present role read."
+    }
+  ],
+  "baseline_qualifications": [
+    "The registered report-p17 status is empty and its exact source HEAD is 90a; current 95e and separately dirty physical P16 are distinct identities. Recorded patch hash is historical metadata, not independently verified here.",
+    "No checkpoint3821 promotion, product execution, Cargo resolution, feature inference, build, test, runtime probe, repair or whole-lens closure."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Manifest declarations describe dependency/feature requests and lock package edges; they do not establish an actually selected feature set, compiled producer or consumer.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "The geometry crate is the declared local dependency and reflect is a named feature; metadata alone does not determine the first-party owner of an admitted value.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "A manifest and lockfile are dependency evidence, not an admission gate. Prior reflection and geometry source analyses remain separately attributed; enabled decoder/mutation routes are open.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "No arithmetic or mutation implementation is assessed within these manifest and lock windows.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "A dependency graph and its manifest requests do not by themselves establish a valid application aggregate or runtime state.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "Workspace geometry path, Bevy registry packages, and derive package each occupy distinct metadata roles; no type ownership conclusion follows from package naming alone.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "Workspace declarations and corresponding lock records serve different metadata roles; repeated package names do not themselves establish duplicated runtime authority.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "The P17 and 95e manifests declare different geometry feature requests. Their behavioral effect is not assessed, and historical package details are not an obsolete-API compatibility mandate.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "No semantic enum or boolean payload contract can be determined from these package records alone.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "The lock records identify bevy_reflect_derive 0.19.1; macro source and generated behavior belong to separately scoped evidence and no macro was expanded.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Feature names, package versions and content checksums are different Cargo metadata categories; they are not interchangeable value or frame types.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "Cargo package names, version requirements, dependency paths and feature names are native manifest grammar; they are not automatically application business strings. q2332 retains the underlying owner/actual feature question.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "Bevy 0.19.0 declarations and 0.19.1 lock records are package version metadata, not domain units or proof of runtime compilation.",
+      "status": "bounded metadata perspective only; no whole-lens closure"
+    }
+  ]
+}
