@@ -3,7 +3,8 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-1151.json`).
+2026-11-10 and rechecked on 2026-11-12
+(`MAIN-RECHECK-20261112-1216.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -332,6 +333,9 @@ recorded in `FOLLOWUP-43-PRIVATE-RETENTION.json`.
 physics contact test-source reviews pending central reconciliation. Tests and
 fixtures were read as text only; the original archive and inert script-name
 changes are qualified in `FOLLOWUP-44-PHYSICS-RETENTION.json`.
+`ASSESSMENT-CENTRAL-SURFACE-13N-95E.json` reconnects a conditional
+zero-area Surface sampling proposal to its prior records and leaves q619 open.
+The coordinator draft has not yet received a separate semantic review.
 `delegated/checkpoint39-stage/REPORT.json` preserves three additional
 source-family packets pending central reconciliation. The independent review
 and the earlier temporary-original permission limitation are recorded in
@@ -340,6 +344,9 @@ and the earlier temporary-original permission limitation are recorded in
 the changed public blobs, including retained Git author metadata and its limits.
 `RECOVERY-VERIFICATION-A0D09CDB.json` records the next same-machine recovery
 check, with its transcript and prior-history limitations.
+`delegated/checkpoint64f-verification/RECOVERY-RECORD.json` records the
+subsequent fetched-checkout evidence check, byte-identical transcript and
+same-machine custody limitation.
 `RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
 fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine
@@ -352,6 +359,9 @@ public evidence, with 15 observed current text paths and unread archive limits.
 `PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json` links an unapplied reconstruction
 of those 15 files. Its independently reviewed legacy verifier adapters remain
 pending; the earlier history cannot be erased by a forward commit.
+`delegated/path-digest-adapter-coordinator-review/REVIEW.json` records a
+bounded review of the scratch verifier draft. A future live integration must
+check the actual 15 target files, not just the bundled scratch overlay.
 `delegated/checkpoint-privacy-prescan/REPORT.json` records a bounded scan
 of the then-staged evidence and its separate same-machine script identity;
 it does not cover later files or remove earlier Git history.

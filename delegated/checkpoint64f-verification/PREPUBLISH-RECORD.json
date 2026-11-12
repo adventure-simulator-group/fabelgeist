@@ -1,0 +1,14 @@
+{
+  "schema": "726-checkpoint64f-prepublish-verification-v1",
+  "commit": "64f0b01e1da02a6132fe18d77edebaa9ff0db96a",
+  "parent": "a0d09cdb771c526f42df398da2ad57d7c6e10520",
+  "evidence_log_sha256": "ceef8a45aaff5538559afa7cb68ce391375367e79058628b0980621f227f3d55",
+  "evidence_log_bytes": 140542,
+  "evidence_log_lines": 1648,
+  "scope": "The coordinator ran the evidence-only driver on the frozen staged files before creating the commit; the transcript does not include a checkout ID. The coordinator separately observed the clean staged bytes, parent and resulting commit identity.",
+  "privacy": "The final staged-input scan examined 584 files, reported zero matches to the 40 derived private digest identifiers, no selected path/credential matches or exceptions, and 48 disclosed email-pattern occurrences in Git commit-object copies. Selected patterns, bounded decoding and excluded Git history are not complete privacy clearance.",
+  "main_observation": "MAIN-POSTCHECK.json records the connector observation after the driver and before publication; it is not included in the already checked 64f commit.",
+  "scanner_invocation_qualification": "A later attempt to scan the transcript by passing a file path to the digest scanner failed because it requires a directory. A subsequent directory scan covering the transcript and its local manifest passed with zero matches. Neither invocation executed product code.",
+  "recovery": "A separate same-machine fetched checkout verification is in progress; it is not claimed by this preliminary record.",
+  "product_validation": "not performed"
+}

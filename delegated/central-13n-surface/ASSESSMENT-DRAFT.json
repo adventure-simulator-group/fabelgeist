@@ -1,0 +1,34 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded coordinator reconciliation of the prior Surface zero-area cumulative-distribution endpoint proposal, selected producer and PLY admission. Not a whole-lens review.",
+  "central_display_evidence": {
+    "registration": "delegated/central-13n-surface/REGISTRATION.json",
+    "display": "delegated/central-13n-surface/DISPLAY.txt",
+    "receipt": "delegated/central-13n-surface/READ-RECEIPT.json"
+  },
+  "source_references": [
+    {"path": "crates/fabelgeist-hair/src/surface.rs", "lines": [[36, 105], [147, 191]]},
+    {"path": "crates/fabelgeist-hair/src/rng.rs", "lines": [[16, 35], [123, 125]]},
+    {"path": "crates/fabelgeist-hair/src/hairdo.rs", "lines": [[176, 198]]},
+    {"path": "crates/fabelgeist-hair/src/export/ply.rs", "lines": [[170, 245]]}
+  ],
+  "observation": "Assume Surface construction completes for valid positions, channels and two indexed triangles, the first with computed area zero and the second with positive finite computed area A. Its cumulative area values are [0, A]. A direct sample_at call with documented share 0 computes target 0, so the strict c < target partition returns zero and selects the first, zero-area triangle. This is source-level reasoning for an explicitly conditional input; no mesh or sampling call was run and no supported producer was demonstrated.",
+  "producer_and_admission": "The selected Hairdo guide path obtains its share through rng::unit, whose displayed expression has zero in its possible numeric output range; no particular seed, guide or generated result is established. The displayed PLY path requires nonempty triangulated faces and in-range position indices before Surface::new, but those shown checks do not reject zero area. The full parser, constructor, normals and actual data admission have not been proven to accept the conceptual mesh.",
+  "historical_relationships": [
+    "Checkpoint19 and followup42 /root/hair_ops separately proposed and corroborated REVIEW-HAIR-SURFACE-ZERO-AREA-SHARE-95E. The coordinator's current 95e windows above are separate from that reviewer's historical and current displays; historical pr-working byte equality does not transfer read credit.",
+    "Recovered 774 rig F074 and the reconstructed public selection of recovered 059 queue q619 concern broader Surface aggregate, admission and mutable CDF/BVH authority. This endpoint selection is related evidence, not an established exact alias or queue closure.",
+    "Current REVIEW-BVH-DEGENERATE-TRIANGLE-CLOSEST-95E concerns a distinct closest-point branch for a degenerate triangle. REVIEW-HAIR-HEAD-MESH-INDEX-95E concerns a separate GPU adjacency index boundary. A common admission owner and any exact alias remain unresolved."
+  ],
+  "candidate": "REVIEW-HAIR-SURFACE-ZERO-AREA-SHARE-95E",
+  "ledger_qualification": "Reconnect the prior conditional candidate under its existing proposal identity; this is not a claim of a new historical finding or a unique independent defect.",
+  "open": [
+    "Trace actual Surface and PLY producers, constructor/BVH behavior and supported degenerate geometry; establish whether any real direct share or seed reaches the endpoint.",
+    "Decide whether zero-area triangles are rejected, skipped or intentionally selectable at cumulative boundaries, and preserve valid area-weighted sampling and relevant diagnostics.",
+    "Resolve connections to F074, q619, BVH closest-point and GPU head-mesh records without assuming shared first failure or repair ownership. All independent lens scopes and checkpoint3821 recovery remain open."
+  ],
+  "repair_direction_for_later": "After policy and separate implementation authorization, consider coherent area admission and cumulative-boundary selection while retaining ordinary finite positive-area behavior.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "This newly reconciled coordinator draft has not received a separate semantic review. The prior source proposal and original reader remain separately attributed."
+}

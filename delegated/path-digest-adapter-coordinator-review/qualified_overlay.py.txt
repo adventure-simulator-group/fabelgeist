@@ -1,0 +1,34 @@
+"""Evidence-only overlay; original whole-file bindings stay qualified."""
+import hashlib,json,os,pathlib
+HERE=pathlib.Path(__file__).resolve().parent; H=lambda b:hashlib.sha256(b).hexdigest()
+CROSS='86061e719695baf67fdfd4128c5739820405b9f64836ec1c6b846f1aa7dd816b';BINDINGS='1558300e89dfeab48385666eb9ce119d2ece5f5a679da000aa95cc6c42d20780';MARK='<REDACTED_INDIVIDUAL_PATH_DIGEST>'
+def get(name,digest):
+ b=(HERE/name).read_bytes();assert H(b)==digest,name;return json.loads(b)
+C=get('CROSSWALK.json',CROSS);B=get('MANIFEST-BINDINGS.json',BINDINGS);ROWS={r['source_path']:r for r in C['files']};BOUND={x['source_path']:x for x in B['bindings']};assert len(ROWS)==len(BOUND)==15 and set(ROWS)==set(BOUND)
+for name,rec in ROWS.items():
+ b=BOUND[name];raw=(HERE/'historical-manifests'/b['historical_manifest']).read_bytes();assert H(raw)==b['manifest_sha256'];m=json.loads(raw);files=m['files'];v=next(x for x in files if x['path']==b['manifest_member']) if isinstance(files,list) else files[b['manifest_member']]
+ assert (v['sha256'],v['bytes'])==(b['original_file_sha256'],b['original_file_bytes'])==(rec['original_file_sha256'],rec['original_file_bytes'])
+class Overlay:
+ def __init__(self,package):
+  self.package=package.strip('/');self.root=pathlib.Path(os.environ['AUDIT_PUBLICATION_ROOT']).resolve();self.seen=set()
+ def package_path(self):return self.root/self.package
+ def key(self,name):
+  q=pathlib.PurePosixPath(name);assert not q.is_absolute() and '..' not in q.parts;return '/'.join(x for x in (self.package,q.as_posix()) if x)
+ def read(self,name):
+  key=self.key(name)
+  if key in ROWS:
+   r=ROWS[key];b=(HERE/'overlay'/key).read_bytes();assert (H(b),len(b))==(r['successor_file_sha256'],r['successor_file_bytes']);self.seen.add(key);return b
+  return (self.root/key).read_bytes()
+ def matches(self,name,b,expected_sha,expected_bytes):
+  key=self.key(name)
+  if key not in ROWS:return H(b)==expected_sha and len(b)==expected_bytes
+  r=ROWS[key];assert (expected_sha,expected_bytes)==(r['original_file_sha256'],r['original_file_bytes']);assert (H(b),len(b))==(r['successor_file_sha256'],r['successor_file_bytes']);self.seen.add(key);return True
+ def private_index(self,name):
+  key=self.key(name);root=os.environ.get('AUDIT_PRIVATE_CAPTURE');assert root,'Private digest comparisons require AUDIT_PRIVATE_CAPTURE; public-only run leaves them unverified.'
+  raw=(pathlib.Path(root)/'originals'/key).read_bytes();r=ROWS[key];assert (H(raw),len(raw))==(r['original_file_sha256'],r['original_file_bytes']);return json.loads(raw)
+ @staticmethod
+ def private_field(public,private,key,observed):
+  assert public[key]==MARK and private[key]==observed
+  assert {k:v for k,v in public.items() if k!=key}=={k:v for k,v in private.items() if k!=key};return True
+ def finish(self,expected):
+  assert self.seen==set(expected),(len(self.seen),len(expected));print('QUALIFIED_OVERLAY: checked',len(self.seen),'successor identities against preserved historical whole-file manifest bindings; private digest comparisons require restricted originals.')

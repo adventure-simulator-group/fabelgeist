@@ -1,0 +1,25 @@
+{
+  "schema": "726-path-digest-adapter-coordinator-review-v1",
+  "reviewer": "/root",
+  "scope": "Bounded static inspection of the interrupted scratch evidence-verifier integration, separate from product source and audit-lens read credit.",
+  "reviewed_capture_manifest_sha256": "e33c9950910fa318c60d66edd11719f3a18b5f65a19d43dc5fcbea6824b5bb10",
+  "reviewed_files": [
+    {
+      "path": "qualified_overlay.py.txt",
+      "sha256": "27e725d83583847e4e316f155759f5c1534d0b0379e8de9fc875b929e32a0a9a",
+      "bytes": 3045
+    },
+    {
+      "path": "run-evidence-adapters-v2.py.txt",
+      "sha256": "42d9178b08f225e840b57bc1d4ad8c0eb9f2547164608318ddaccc1985e2a46f",
+      "bytes": 2786
+    }
+  ],
+  "observed_publication_commit": "64f0b01e1da02a6132fe18d77edebaa9ff0db96a",
+  "current_file_comparison": "At this observed checkout, all 15 named target files matched their original whole-file identities and differed from the separately identified proposed overlay bytes. This is a point-in-time same-machine comparison, not a claim about later files.",
+  "finding": "The draft Overlay.read deliberately loads affected content from the bundled scratch overlay, while Overlay.matches verifies that bundled successor against the recorded historical identity. The draft runner supplies a publication root but does not itself compare those 15 target files to the overlay. This is consistent with its stated scratch-only purpose; if reused as the sole live-checkout verifier after a future overlay, it would not establish that the live 15 files actually contain the reconstructed bytes.",
+  "integration_condition": "Before adoption, separately bind all 15 actual current publication files to the intended successor whole-file hashes and preserve checks on unaffected files. Do not treat a scratch-overlay pass, matching assert counts, or a reversible source delta as proof of semantic equivalence. The reviewer has not reviewed all archive and helper dependencies or private-output behavior.",
+  "time_bound_external_check": "The separate qualified-059 external check still fails against the changing working baseline because it asserts a captured historical whole-file identity. Preserve that failure and snapshot scope; do not weaken the historical assertion to make a live checkout pass.",
+  "attribution": "The scratch adapter and original captures were authored by /root/hair_ops; /root separately inspected the two identified source files and compared the 15 captured target and overlay identities. The originating agent turn ended at a usage limit, so independent semantic review was not completed.",
+  "limits": "Source-text and same-machine evidence-byte inspection only. No user extraction, product code, fixture, test, build, runtime probe or repair was executed. Old Git history and unread archives remain outside scope."
+}

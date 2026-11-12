@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Run only the six proposed read-only evidence adapters; no product execution."""
+import argparse,hashlib,json,os,pathlib,subprocess,sys
+P=pathlib.Path(__file__).resolve().parent
+ap=argparse.ArgumentParser();ap.add_argument('--publication-root',required=True,type=pathlib.Path);ap.add_argument('--private-capture',type=pathlib.Path);ap.add_argument('--review-original-dir',type=pathlib.Path);ap.add_argument('--review-proof',type=pathlib.Path);ap.add_argument('--baseline-private-dir',type=pathlib.Path);ap.add_argument('--qualified-public-dir',type=pathlib.Path);ap.add_argument('--qualified-external-publication',action='store_true');a=ap.parse_args()
+if bool(a.review_original_dir)!=bool(a.review_proof):ap.error('review original directory and proof must be provided together')
+if (a.review_original_dir or a.baseline_private_dir) and not a.private_capture:ap.error('private proof checks require --private-capture')
+pre=subprocess.run([sys.executable,'-B',str(P/'verify-integration-evidence-v2.py'),'--publication',str(a.publication_root)],stdout=subprocess.PIPE,stderr=subprocess.PIPE);assert pre.returncode==0,'Evidence bundle precheck failed; no adapters run.'
+env=dict(os.environ);env['AUDIT_PUBLICATION_ROOT']=str(a.publication_root);env['PYTHONPATH']=str(P);env['PYTHONDONTWRITEBYTECODE']='1'
+if a.private_capture:env['AUDIT_PRIVATE_CAPTURE']=str(a.private_capture)
+runs=[(n,[]) for n in ('review13k','baseline059','supplement059','privacy56f','qualified059','rootprivacy')]
+if a.review_original_dir:runs.append(('review13k',['--original-dir',str(a.review_original_dir),'--proof',str(a.review_proof)]))
+if a.baseline_private_dir:runs.append(('baseline059',['--private-dir',str(a.baseline_private_dir)]))
+if a.qualified_public_dir:
+ args=['--public-dir',str(a.qualified_public_dir)]
+ if a.baseline_private_dir:args+=['--private-dir',str(a.baseline_private_dir)]
+ if a.qualified_external_publication:args+=['--publication',str(a.publication_root)]
+ runs.append(('qualified059',args))
+out=[]
+for name,args in runs:
+ try:r=subprocess.run([sys.executable,'-B',str(P/'successor-verifiers'/(name+'.py')),*args],env=env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=55);result={'adapter':name,'exit_code':r.returncode,'stdout_sha256':hashlib.sha256(r.stdout).hexdigest(),'stdout_bytes':len(r.stdout),'stderr_sha256':hashlib.sha256(r.stderr).hexdigest(),'stderr_bytes':len(r.stderr)}
+ except subprocess.TimeoutExpired:result={'adapter':name,'exit_code':'timeout'}
+ out.append(result)
+print(json.dumps({'results':out,'qualification':'Whole-output hashes only; optional private comparisons run only with supplied restricted inputs. No product code, no writes. A nonzero result is not a pass.'},indent=2))
+if any(x['exit_code']!=0 for x in out):sys.exit(1)

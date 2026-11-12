@@ -1,0 +1,243 @@
+--- surface 36-105 ---
+  36 impl Surface {
+  37     /// A surface from its parts. Missing normals are computed from the
+  38     /// triangles, area-weighted; missing UVs are zero.
+  39     pub fn new(
+  40         positions: Vec<Vec3>,
+  41         normals: Option<Vec<Vec3>>,
+  42         uvs: Option<Vec<[f32; 2]>>,
+  43         triangles: Vec<[u32; 3]>,
+  44     ) -> Self {
+  45         let normals = normals.unwrap_or_else(|| vertex_normals(&positions, &triangles));
+  46         let uvs = uvs.unwrap_or_else(|| vec![[0.0; 2]; positions.len()]);
+  47         let mut cdf = Vec::with_capacity(triangles.len());
+  48         let mut total = 0.0;
+  49         for t in &triangles {
+  50             let [a, b, c] = t.map(|i| positions[i as usize]);
+  51             total += (b - a).cross(c - a).length() * 0.5;
+  52             cdf.push(total);
+  53         }
+  54         let bvh = TriangleBvh::new(positions.clone(), triangles.clone());
+  55         Self {
+  56             positions,
+  57             normals,
+  58             uvs,
+  59             triangles,
+  60             cdf,
+  61             bvh,
+  62         }
+  63     }
+  64 
+  65     pub fn area(&self) -> f32 {
+  66         *self.cdf.last().unwrap_or(&0.0)
+  67     }
+  68 
+  69     /// A point uniformly distributed by area.
+  70     pub fn sample(&self, rng: &mut Rng) -> SurfacePoint {
+  71         let share = rng.next_f32();
+  72         self.sample_at(share, rng.next_f32(), rng.next_f32())
+  73     }
+  74 
+  75     /// The point at `share` of the area (which triangle) and `u`, `v` across
+  76     /// it (where in it), each in `[0, 1)`: [`Surface::sample`] from numbers
+  77     /// drawn elsewhere.
+  78     pub fn sample_at(&self, share: f32, u: f32, v: f32) -> SurfacePoint {
+  79         let target = share * self.area();
+  80         let t = self
+  81             .cdf
+  82             .partition_point(|&c| c < target)
+  83             .min(self.cdf.len() - 1);
+  84         let (mut u, mut v) = (u, v);
+  85         if u + v > 1.0 {
+  86             u = 1.0 - u;
+  87             v = 1.0 - v;
+  88         }
+  89         self.at_barycentric(t as u32, [1.0 - u - v, u, v])
+  90     }
+  91 
+  92     fn at_barycentric(&self, triangle: u32, w: [f32; 3]) -> SurfacePoint {
+  93         let [a, b, c] = self.triangles[triangle as usize].map(|i| i as usize);
+  94         let position =
+  95             self.positions[a] * w[0] + self.positions[b] * w[1] + self.positions[c] * w[2];
+  96         let normal =
+  97             (self.normals[a] * w[0] + self.normals[b] * w[1] + self.normals[c] * w[2]).normalize();
+  98         let uv =
+  99             [0, 1].map(|k| self.uvs[a][k] * w[0] + self.uvs[b][k] * w[1] + self.uvs[c][k] * w[2]);
+ 100         SurfacePoint {
+ 101             position,
+ 102             normal,
+ 103             uv,
+ 104             triangle,
+ 105         }
+--- surface 147-191 ---
+ 147     pub fn from_ply(bytes: &[u8]) -> Result<Self> {
+ 148         let ply = crate::export::ply::read(bytes)?;
+ 149         let find = |names: &[&str]| {
+ 150             names
+ 151                 .iter()
+ 152                 .find_map(|n| ply.vertex_properties.iter().position(|p| p == n))
+ 153         };
+ 154         let (Some(x), Some(y), Some(z)) = (find(&["x"]), find(&["y"]), find(&["z"])) else {
+ 155             return Err(HairDataError::PlyMissingCoordinates);
+ 156         };
+ 157         let positions: Vec<Vec3> = ply
+ 158             .vertices
+ 159             .iter()
+ 160             .map(|v| Vec3::new(v[x], v[y], v[z]))
+ 161             .collect();
+ 162         let normals = match (find(&["nx"]), find(&["ny"]), find(&["nz"])) {
+ 163             (Some(a), Some(b), Some(c)) => Some(
+ 164                 ply.vertices
+ 165                     .iter()
+ 166                     .map(|v| Vec3::new(v[a], v[b], v[c]).normalize())
+ 167                     .collect(),
+ 168             ),
+ 169             _ => None,
+ 170         };
+ 171         let uvs = match (
+ 172             find(&["s", "u", "texture_u"]),
+ 173             find(&["t", "v", "texture_v"]),
+ 174         ) {
+ 175             (Some(a), Some(b)) => Some(ply.vertices.iter().map(|v| [v[a], v[b]]).collect()),
+ 176             _ => None,
+ 177         };
+ 178         let mut triangles = Vec::new();
+ 179         for face in &ply.faces {
+ 180             for k in 1..face.len().saturating_sub(1) {
+ 181                 triangles.push([face[0], face[k], face[k + 1]]);
+ 182             }
+ 183         }
+ 184         if triangles.is_empty() {
+ 185             return Err(HairDataError::PlyMissingFaces);
+ 186         }
+ 187         let count = positions.len() as u32;
+ 188         if triangles.iter().flatten().any(|&i| i >= count) {
+ 189             return Err(HairDataError::PlyVertexIndex);
+ 190         }
+ 191         Ok(Self::new(positions, normals, uvs, triangles))
+--- rng 16-35 ---
+  16 impl Rng {
+  17     pub fn new(seed: u64) -> Self {
+  18         Self(seed ^ 0x9E37_79B9_7F4A_7C15)
+  19     }
+  20 
+  21     pub fn next_u64(&mut self) -> u64 {
+  22         self.0 = self.0.wrapping_add(0x9E37_79B9_7F4A_7C15);
+  23         let mut z = self.0;
+  24         z = (z ^ (z >> 30)).wrapping_mul(0xBF58_476D_1CE4_E5B9);
+  25         z = (z ^ (z >> 27)).wrapping_mul(0x94D0_49BB_1331_11EB);
+  26         z ^ (z >> 31)
+  27     }
+  28 
+  29     pub fn next_u32(&mut self) -> u32 {
+  30         (self.next_u64() >> 32) as u32
+  31     }
+  32 
+  33     /// Uniform in `[0, 1)`.
+  34     pub fn next_f32(&mut self) -> f32 {
+  35         (self.next_u64() >> 40) as f32 / (1u64 << 24) as f32
+--- rng 123-125 ---
+ 123 /// Uniform in `[0, 1)` for an ID under a seed.
+ 124 pub fn unit(id: u32, seed: u32) -> f32 {
+ 125     (hash(id, seed) >> 8) as f32 / (1u32 << 24) as f32
+--- hairdo 176-198 ---
+ 176     /// The guides on `head` (the hairdo's own, [`Hairdo::head`]), rooted on
+ 177     /// `scalp`, `points` points each. `variation` (0 to 1) jitters their
+ 178     /// lengths and directions.
+ 179     pub fn guides(
+ 180         &self,
+ 181         head: &Head,
+ 182         scalp: &Surface,
+ 183         points: usize,
+ 184         variation: f32,
+ 185         seed: u64,
+ 186     ) -> Strands {
+ 187         let count = self.guide_count();
+ 188         let key = guide_key(seed);
+ 189         let spacing = guide_spacing(scalp.area(), count);
+ 190         let mut placed = PointGrid::new(spacing);
+ 191         let mut roots = Vec::new();
+ 192         // Candidates drawn by index, so the GPU draws the same ones.
+ 193         let [a, u, v] = [1, 2, 3].map(|k| rng::hash(key, k));
+ 194         for i in 0..(count * 40) as u32 {
+ 195             if roots.len() >= count {
+ 196                 break;
+ 197             }
+ 198             let p = scalp.sample_at(rng::unit(i, a), rng::unit(i, u), rng::unit(i, v));
+--- ply 170-245 ---
+ 170 pub fn read(bytes: &[u8]) -> Result<Ply> {
+ 171     let Header {
+ 172         ascii,
+ 173         body,
+ 174         elements,
+ 175     } = Header::read(bytes)?;
+ 176 
+ 177     let mut ply = Ply {
+ 178         vertex_properties: Vec::new(),
+ 179         vertices: Vec::new(),
+ 180         faces: Vec::new(),
+ 181     };
+ 182     let mut tokens = if ascii {
+ 183         Some(std::str::from_utf8(&bytes[body..])?.split_whitespace())
+ 184     } else {
+ 185         None
+ 186     };
+ 187     let mut cursor = body;
+ 188     let mut next = |kind: Scalar| -> Result<f64> {
+ 189         if let Some(tokens) = tokens.as_mut() {
+ 190             Ok(tokens
+ 191                 .next()
+ 192                 .ok_or(HairDataError::Truncated {
+ 193                     format: HairDataFormat::Ply,
+ 194                 })?
+ 195                 .parse()?)
+ 196         } else {
+ 197             let size = kind.size();
+ 198             let b = bytes
+ 199                 .get(cursor..cursor + size)
+ 200                 .ok_or(HairDataError::Truncated {
+ 201                     format: HairDataFormat::Ply,
+ 202                 })?;
+ 203             cursor += size;
+ 204             Ok(kind.read(b))
+ 205         }
+ 206     };
+ 207     for element in &elements {
+ 208         let is_vertex = element.name == "vertex";
+ 209         let is_face = element.name == "face";
+ 210         if is_vertex {
+ 211             ply.vertex_properties = element
+ 212                 .properties
+ 213                 .iter()
+ 214                 .map(|p| match p {
+ 215                     Property::Scalar(n, _) | Property::List(n, _, _) => n.clone(),
+ 216                 })
+ 217                 .collect();
+ 218         }
+ 219         for _ in 0..element.count {
+ 220             let mut row = Vec::new();
+ 221             let mut face = Vec::new();
+ 222             for property in &element.properties {
+ 223                 match property {
+ 224                     Property::Scalar(_, kind) => row.push(next(*kind)? as f32),
+ 225                     Property::List(name, count, item) => {
+ 226                         let n = next(*count)? as usize;
+ 227                         for _ in 0..n {
+ 228                             let v = next(*item)?;
+ 229                             if is_face && (name == "vertex_indices" || name == "vertex_index") {
+ 230                                 face.push(v as u32);
+ 231                             }
+ 232                         }
+ 233                         row.push(0.0);
+ 234                     }
+ 235                 }
+ 236             }
+ 237             if is_vertex {
+ 238                 ply.vertices.push(row);
+ 239             } else if is_face {
+ 240                 ply.faces.push(face);
+ 241             }
+ 242         }
+ 243     }
+ 244     Ok(ply)
+ 245 }
