@@ -336,6 +336,9 @@ changes are qualified in `FOLLOWUP-44-PHYSICS-RETENTION.json`.
 `ASSESSMENT-CENTRAL-SURFACE-13N-95E.json` reconnects a conditional
 zero-area Surface sampling proposal to its prior records and leaves q619 open.
 The coordinator draft has not yet received a separate semantic review.
+`ASSESSMENT-CENTRAL-PARTICLES-13O-95E.json` reconnects recovered F082
+to bounded current particle and buffer source, including selected writeback
+safeguards. Its coordinator draft has not had separate semantic review.
 `delegated/checkpoint39-stage/REPORT.json` preserves three additional
 source-family packets pending central reconciliation. The independent review
 and the earlier temporary-original permission limitation are recorded in
@@ -347,6 +350,8 @@ check, with its transcript and prior-history limitations.
 `delegated/checkpoint64f-verification/RECOVERY-RECORD.json` records the
 subsequent fetched-checkout evidence check, byte-identical transcript and
 same-machine custody limitation.
+`delegated/checkpointc629-verification/RECOVERY-RECORD.json` records the
+next fetched-checkout evidence check and its same-machine custody limitation.
 `RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
 fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine

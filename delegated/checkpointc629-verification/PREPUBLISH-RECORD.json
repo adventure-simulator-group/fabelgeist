@@ -1,0 +1,13 @@
+{
+  "schema": "726-checkpointc629-prepublish-verification-v1",
+  "commit": "c6291d0648a5ddd57fc306c31a6be972750e5611",
+  "parent": "64f0b01e1da02a6132fe18d77edebaa9ff0db96a",
+  "evidence_log_sha256": "b6013fb19ae5ff8c4995b3afc5db9051a9ff43edbcea76da22b2d3b3806aaecc",
+  "evidence_log_bytes": 141308,
+  "evidence_log_lines": 1657,
+  "scope": "The coordinator ran the evidence-only driver on the frozen staged files before creating this commit. The transcript does not contain a checkout ID; staged-byte equality and the commit identity were separately observed.",
+  "privacy": "The final staged-input scan checked 31 files and 31 views with no known digest, selected path, credential or email candidates and no scan exceptions; its pattern pass checked 31 streams with no issues. History and unrecognized representations remain outside these bounds.",
+  "main_observation": "MAIN-POSTCHECK.json is the bracketed connector observation after the evidence check and before publication; it was not included in the checked c629 tree.",
+  "recovery": "The fetched same-machine recovery check is ongoing and is not yet claimed by this preliminary record.",
+  "product_validation": "not performed"
+}

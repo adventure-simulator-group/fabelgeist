@@ -1,0 +1,106 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-draft-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Bounded coordinator reconciliation of recovered F082 particle-buffer coherence and selected writeback safeguards; not a whole-lens review.",
+  "central_display_evidence": {
+    "registration": "delegated/central-13o-particles/REGISTRATION.json",
+    "display": "delegated/central-13o-particles/DISPLAY.txt",
+    "receipt": "delegated/central-13o-particles/READ-RECEIPT.json",
+    "extension_registration": "delegated/central-13o-particles/EXT-REGISTRATION.json",
+    "extension_display": "delegated/central-13o-particles/EXT-DISPLAY.txt",
+    "extension_receipt": "delegated/central-13o-particles/EXT-READ-RECEIPT.json"
+  },
+  "source_references": [
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "lines": [
+        [
+          13,
+          33
+        ],
+        [
+          37,
+          85
+        ],
+        [
+          86,
+          115
+        ],
+        [
+          118,
+          166
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "lines": [
+        [
+          23,
+          43
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "lines": [
+        [
+          15,
+          20
+        ],
+        [
+          127,
+          150
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+      "lines": [
+        [
+          88,
+          113
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "lines": [
+        [
+          100,
+          155
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "lines": [
+        [
+          236,
+          259
+        ]
+      ]
+    }
+  ],
+  "observation": "Particles exposes position, previous and velocity buffers while retaining private count, capacity and host inverse masses. A caller able to independently replace a buffer or upload different mass words can represent inconsistent host/device identities; the selected solver binds those public buffers and dispatches using the retained count. If a replacement position buffer yields a successful read with fewer decoded records than count, read_positions and read_inverse_masses take only the available records and return the shorter collection. Native admission, actual callers, buffer behavior and readback success are not established.",
+  "safeguards": [
+    "Particles::write checks equal full position and mass slice lengths before packing and updates count and host masses after the shown uploads; its capacity comparison narrows length and has a separate representability question.",
+    "The selected OuterLayer and SurfaceContacts correction paths repack positions with the retained host inverse masses, and ParticlePositions::new rejects mismatched slice lengths before those uploads. They are not evidence of divergent mass writes under the displayed conditions.",
+    "write_positions restores the taken host mass cache on normal returned errors, and successful writes preserve the supplied host mass values. Native errors, panics and partial external device effects were not exercised."
+  ],
+  "historical_relationships": [
+    "Recovered 774 rig RIG-ADMISSION03-F082 already identifies public buffer replacement, retained count and conditional short readback in the historical pr-working particle files. /root/mhr_character checkpoint19 and /root/hair_ops followup43 later reviewed separately registered old/current source windows; this coordinator displayed only the stated 95e windows.",
+    "Recovered F065 concerns the shared generic Buffer boundary; F073 supplementary count narrowing is a separate native-count question. Existing REVIEW-SHELL-POST-ADMISSION-TOPOLOGY-95E and q1856 concern shell topology, while REVIEW-XPBD-CONSTRAINT-PARTICLE-MEMBERSHIP-95E and q1859 concern constraint ordinals. Their exact first failures and potential shared ownership remain distinct and unresolved."
+  ],
+  "proposed_ledger_identity": "RIG-ADMISSION03-F082",
+  "ledger_qualification": "Reconnect the recovered historical identity as a conditional current relationship without claiming a newly unique historical defect, exact alias or lens closure.",
+  "open": [
+    "Trace supported external buffer replacement/writers, actual native validation and whether readback can succeed with fewer records.",
+    "Establish intended aggregate ownership, buffer/count/mass consistency, legitimate empty and pinned states, synchronization and short-read policy.",
+    "Reconcile shared Buffer admission, F073 representability, shell topology and constraint membership without assuming aliases; original checkpoint3821 records remain unrecovered."
+  ],
+  "repair_direction_for_later": "After policy and separate implementation authorization, consider coherent particle buffer/count/mass ownership and explicit readback extent while preserving pinned particles and legitimate empty states.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "The preserved coordinator draft predates this path-qualification update. The final record changes only evidence paths and this review qualification; no separate semantic review has been completed. Earlier reviewers keep their own source scopes."
+}

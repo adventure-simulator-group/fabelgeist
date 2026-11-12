@@ -1,0 +1,22 @@
+--- particles 65-85 ---
+  65     }
+  66 
+  67     /// Allocate and upload in one go.
+  68     pub fn from_positions(
+  69         context: &WgpuContext,
+  70         positions: &[Vec3],
+  71         inverse_masses: &[ParticleInverseMass],
+  72     ) -> Result<Self> {
+  73         let mut particles = Self::new(context, positions.len() as u32)?;
+  74         particles.write(context, positions, inverse_masses)?;
+  75         Ok(particles)
+  76     }
+  77 
+  78     pub fn count(&self) -> u32 {
+  79         self.count
+  80     }
+  81 
+  82     pub fn capacity(&self) -> u32 {
+  83         self.capacity
+  84     }
+  85 

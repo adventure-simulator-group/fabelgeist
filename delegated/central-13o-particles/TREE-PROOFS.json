@@ -1,0 +1,280 @@
+{
+  "schema": "726-central-13o-git-tree-proof-v1",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "file": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "decoded_bytes": 1635,
+      "decoded_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "file": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "decoded_bytes": 2434,
+      "decoded_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0"
+    },
+    "b42fd5d8c9f60752936553b68e20b98bcba0fa79": {
+      "file": "trees/b42fd5d8c9f60752936553b68e20b98bcba0fa79.tree.gz",
+      "decoded_bytes": 137,
+      "decoded_sha256": "cc5952928e3e5bbf88ce8db58d38d45110a12f938ea109c420c6d6f980a9f8c8"
+    },
+    "bfb6c65151316e91be58047568f0500cf815bd19": {
+      "file": "trees/bfb6c65151316e91be58047568f0500cf815bd19.tree.gz",
+      "decoded_bytes": 516,
+      "decoded_sha256": "ff6de55b2adec458f7f211dd41ccfb530d8b57e713995a8d81c61f369f59e1ee"
+    },
+    "4b9d263e15207425a14459c83345fd985be8db0a": {
+      "file": "trees/4b9d263e15207425a14459c83345fd985be8db0a.tree.gz",
+      "decoded_bytes": 73,
+      "decoded_sha256": "317ed521cfa86c8ec2dfe0474806fdbc446689ee64531b4d633172a2d03ce21f"
+    },
+    "bb6e3964d67309b57fe7f316e7866adb7e94ef3f": {
+      "file": "trees/bb6e3964d67309b57fe7f316e7866adb7e94ef3f.tree.gz",
+      "decoded_bytes": 181,
+      "decoded_sha256": "f8c0c697f51c57f29f8c4ee200034aa199a33dee901b3bd98ac0f6d71a6efb58"
+    },
+    "8fd83ad489459acbbc8dda549bb81e54ad04ac13": {
+      "file": "trees/8fd83ad489459acbbc8dda549bb81e54ad04ac13.tree.gz",
+      "decoded_bytes": 137,
+      "decoded_sha256": "6603f06ab694efe17315ac69ce30b40642f0633cb20b3d02f247e14b052c9525"
+    },
+    "481a3448a1e746f5bbbc51918fd4139826b0129f": {
+      "file": "trees/481a3448a1e746f5bbbc51918fd4139826b0129f.tree.gz",
+      "decoded_bytes": 64,
+      "decoded_sha256": "c47806761684c26fcd6214c264c143c3685da1a2108df9dddce25dedb2792ce1"
+    },
+    "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905": {
+      "file": "trees/6bf7fdedb04b270f10e1b05fa49e47cdc6f21905.tree.gz",
+      "decoded_bytes": 323,
+      "decoded_sha256": "596ebe34a38928b9b5512134801d6d863ba0e343f511a59a07cad680bd9d9850"
+    },
+    "38ec2782f1d8391271a5ff83ad9e0335b63602af": {
+      "file": "trees/38ec2782f1d8391271a5ff83ad9e0335b63602af.tree.gz",
+      "decoded_bytes": 297,
+      "decoded_sha256": "f9dc96365a23443ddc498d2030ffabfbbe6b86100e9af5641a999929e7ec670b"
+    },
+    "318f352d30ed30dc250f1dcc1d3d6f76f051b2e4": {
+      "file": "trees/318f352d30ed30dc250f1dcc1d3d6f76f051b2e4.tree.gz",
+      "decoded_bytes": 100,
+      "decoded_sha256": "9d4ac96a45a98a2961de337b953b6c078554b0861c4e6c26c2a0012c409ccfe9"
+    },
+    "57e15932d604712f59fbc3c4bfcb8586c2a8c209": {
+      "file": "trees/57e15932d604712f59fbc3c4bfcb8586c2a8c209.tree.gz",
+      "decoded_bytes": 477,
+      "decoded_sha256": "960e62d7c8144beb6994e2724b0bb31e60897c7f8a1206f9fa3204ae5b4b36b5"
+    }
+  },
+  "proofs": [
+    {
+      "tag": "particles",
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-xpbd",
+          "mode": "40000",
+          "object": "b42fd5d8c9f60752936553b68e20b98bcba0fa79"
+        },
+        {
+          "tree": "b42fd5d8c9f60752936553b68e20b98bcba0fa79",
+          "name": "src",
+          "mode": "40000",
+          "object": "bfb6c65151316e91be58047568f0500cf815bd19"
+        },
+        {
+          "tree": "bfb6c65151316e91be58047568f0500cf815bd19",
+          "name": "particles.rs",
+          "mode": "100644",
+          "object": "0bb18d1e97c3f10381646efac7c7dc7314709778"
+        }
+      ]
+    },
+    {
+      "tag": "packed",
+      "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "blob": "cf331079b7d721d4894378112552b5273571233d",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-xpbd",
+          "mode": "40000",
+          "object": "b42fd5d8c9f60752936553b68e20b98bcba0fa79"
+        },
+        {
+          "tree": "b42fd5d8c9f60752936553b68e20b98bcba0fa79",
+          "name": "src",
+          "mode": "40000",
+          "object": "bfb6c65151316e91be58047568f0500cf815bd19"
+        },
+        {
+          "tree": "bfb6c65151316e91be58047568f0500cf815bd19",
+          "name": "particles",
+          "mode": "40000",
+          "object": "4b9d263e15207425a14459c83345fd985be8db0a"
+        },
+        {
+          "tree": "4b9d263e15207425a14459c83345fd985be8db0a",
+          "name": "packed.rs",
+          "mode": "100644",
+          "object": "cf331079b7d721d4894378112552b5273571233d"
+        }
+      ]
+    },
+    {
+      "tag": "buffer",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "object": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "object": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "object": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "object": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "buffer",
+          "mode": "40000",
+          "object": "38ec2782f1d8391271a5ff83ad9e0335b63602af"
+        },
+        {
+          "tree": "38ec2782f1d8391271a5ff83ad9e0335b63602af",
+          "name": "mod.rs",
+          "mode": "100644",
+          "object": "4c1982bd2804730df56574d30429cd3a17adab17"
+        }
+      ]
+    },
+    {
+      "tag": "outer",
+      "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+      "blob": "c02101e64b29447ac9e38213ea5d579f7c50cfb1",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-shell",
+          "mode": "40000",
+          "object": "318f352d30ed30dc250f1dcc1d3d6f76f051b2e4"
+        },
+        {
+          "tree": "318f352d30ed30dc250f1dcc1d3d6f76f051b2e4",
+          "name": "src",
+          "mode": "40000",
+          "object": "57e15932d604712f59fbc3c4bfcb8586c2a8c209"
+        },
+        {
+          "tree": "57e15932d604712f59fbc3c4bfcb8586c2a8c209",
+          "name": "outer_layer.rs",
+          "mode": "100644",
+          "object": "c02101e64b29447ac9e38213ea5d579f7c50cfb1"
+        }
+      ]
+    },
+    {
+      "tag": "contacts",
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "blob": "93e604bf608e15c26f6381ea00d941a42e7fc25b",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-shell",
+          "mode": "40000",
+          "object": "318f352d30ed30dc250f1dcc1d3d6f76f051b2e4"
+        },
+        {
+          "tree": "318f352d30ed30dc250f1dcc1d3d6f76f051b2e4",
+          "name": "src",
+          "mode": "40000",
+          "object": "57e15932d604712f59fbc3c4bfcb8586c2a8c209"
+        },
+        {
+          "tree": "57e15932d604712f59fbc3c4bfcb8586c2a8c209",
+          "name": "surface_contact.rs",
+          "mode": "100644",
+          "object": "93e604bf608e15c26f6381ea00d941a42e7fc25b"
+        }
+      ]
+    },
+    {
+      "tag": "solver",
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "blob": "5fdd6b99bd496b05199ae7c816aeec514cc28e15",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-xpbd",
+          "mode": "40000",
+          "object": "b42fd5d8c9f60752936553b68e20b98bcba0fa79"
+        },
+        {
+          "tree": "b42fd5d8c9f60752936553b68e20b98bcba0fa79",
+          "name": "src",
+          "mode": "40000",
+          "object": "bfb6c65151316e91be58047568f0500cf815bd19"
+        },
+        {
+          "tree": "bfb6c65151316e91be58047568f0500cf815bd19",
+          "name": "solver.rs",
+          "mode": "100644",
+          "object": "5fdd6b99bd496b05199ae7c816aeec514cc28e15"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact tree objects bind source paths to blobs; the revision-to-root anchor is separately available in an earlier retained public checkpoint19 Git commit object. No source-read or independent custody claim."
+}

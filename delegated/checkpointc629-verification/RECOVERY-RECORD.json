@@ -1,0 +1,12 @@
+{
+  "schema": "726-checkpointc629-same-machine-recovery-v1",
+  "commit": "c6291d0648a5ddd57fc306c31a6be972750e5611",
+  "parent": "64f0b01e1da02a6132fe18d77edebaa9ff0db96a",
+  "procedure": "The coordinator observed the separate recovery checkout clean at the prior commit, fetched the handoff branch, checked out FETCH_HEAD detached, separately observed the stated commit and clean status, ran the full public evidence driver, and observed the same commit and clean status again.",
+  "transcript_sha256": "b6013fb19ae5ff8c4995b3afc5db9051a9ff43edbcea76da22b2d3b3806aaecc",
+  "transcript_bytes": 141308,
+  "transcript_lines": 1657,
+  "prepublish_byte_equality": "The complete recovery transcript equals the separately captured prepublish transcript byte for byte.",
+  "qualification": "The transcript itself does not embed the checkout ID; the coordinator observed it separately. Fetch, checkout, verification and retained originals are on the same machine and do not establish independent-machine custody, complete privacy or product behavior. The prepublication record accurately states its earlier time when recovery was still ongoing.",
+  "product_validation": "not performed"
+}

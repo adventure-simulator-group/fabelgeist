@@ -1,0 +1,121 @@
+{
+  "schema": "726-central-13o-prospective-registration-v1",
+  "reader": "/root",
+  "registered_utc": "2026-11-12T12:17:53.252180+00:00",
+  "scope": "Bounded particle host/device identity, raw buffer API, solver consumer and two selected writeback safeguards.",
+  "entries": [
+    {
+      "tag": "particles",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "bytes": 5979,
+      "eof": 171,
+      "registered_ranges": [
+        [
+          13,
+          33
+        ],
+        [
+          37,
+          64
+        ],
+        [
+          86,
+          115
+        ],
+        [
+          118,
+          166
+        ]
+      ],
+      "capture": "sources/particles.rs"
+    },
+    {
+      "tag": "packed",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "git_blob": "cf331079b7d721d4894378112552b5273571233d",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "bytes": 3317,
+      "eof": 100,
+      "registered_ranges": [
+        [
+          23,
+          43
+        ]
+      ],
+      "capture": "sources/packed.rs"
+    },
+    {
+      "tag": "buffer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "bytes": 6193,
+      "eof": 178,
+      "registered_ranges": [
+        [
+          15,
+          20
+        ],
+        [
+          127,
+          150
+        ]
+      ],
+      "capture": "sources/buffer.rs"
+    },
+    {
+      "tag": "outer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-shell/src/outer_layer.rs",
+      "git_blob": "c02101e64b29447ac9e38213ea5d579f7c50cfb1",
+      "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+      "bytes": 6993,
+      "eof": 196,
+      "registered_ranges": [
+        [
+          88,
+          113
+        ]
+      ],
+      "capture": "sources/outer.rs"
+    },
+    {
+      "tag": "contacts",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "git_blob": "93e604bf608e15c26f6381ea00d941a42e7fc25b",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "bytes": 21661,
+      "eof": 623,
+      "registered_ranges": [
+        [
+          100,
+          155
+        ]
+      ],
+      "capture": "sources/contacts.rs"
+    },
+    {
+      "tag": "solver",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "git_blob": "5fdd6b99bd496b05199ae7c816aeec514cc28e15",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "bytes": 9493,
+      "eof": 280,
+      "registered_ranges": [
+        [
+          236,
+          259
+        ]
+      ],
+      "capture": "sources/solver.rs"
+    }
+  ],
+  "qualification": "Registration precedes any displays. Full copied source bytes establish object identity, not full-body read credit. Historical and delegate readers retain their own attributions; no product execution."
+}
