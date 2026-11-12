@@ -1,0 +1,519 @@
+{
+  "schema": "726-bounded-roof-edit-bearing-assessment-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T03:50:14.426506+00:00",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "assigned_historical": "pr-working head 6533e444fa37552927070cc8d8190907fd3b413e; base 3a50b708381ad00c116445c2c999a49c3943088b; four recorded status entries elsewhere, not a clean snapshot",
+    "historical_bytes": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports recovered source objects; each assigned object separately equals 6533 and 95e, and also same-path a120 base; no claim that whole recorded working trees were clean",
+    "p16_qualification": "P16 is a separately recorded dirty snapshot; later locally reproduced tracked patch bytes match recorded digest but do not prove original invocation or uninterrupted custody and exclude seven untracked paths. None of these roles is a P16 snapshot role and no P16 state is equated with a120 clean base.",
+    "checkpoint_3821": "Missing original state is not reconstructed or credited from earlier 059/774; historical summaries, reconstructed selections, source bytes and newly assessed work remain distinct."
+  },
+  "scope": {
+    "original_roles": [
+      2752,
+      2753,
+      2754
+    ],
+    "actual_personal_reads": "See read-receipt.json and support-read-receipt.json, with exact prospective timestamps and separately displayed old/current chunks. Source archives preserve complete object bytes, not read credit for complements.",
+    "historic_and_current_material": {
+      "2752": [
+        [
+          1,
+          46
+        ]
+      ],
+      "2753": [
+        [
+          1,
+          149
+        ],
+        [
+          150,
+          229
+        ]
+      ],
+      "2754": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    "unread_each_revision": {
+      "2752": [],
+      "2753": [
+        [
+          230,
+          351
+        ]
+      ],
+      "2754": [
+        [
+          59,
+          138
+        ]
+      ]
+    },
+    "support": "All support is separately registered current 95e source; no assignment of historic, original or ordered role credit; no whole-lens completion."
+  },
+  "findings": [
+    {
+      "id": "DELEGATE-ROOF-BEARING-YAW-PROXY-95E",
+      "classification": "source-backed conditional bearing-contact policy and graph-reachability question; central reconciliation decides count and alias",
+      "first_contract": "audit_positive_bearing claims physical interfaces overlap their owning solid including full rotation but tests selected frame/heating/workplace roles with oriented cuboid overlap and tests other roles, including RoofEdgeTreatment and RoofGutter, with a yaw-only bounds overlap. The fallback disregards crossfall and longfall. Same owner and supported node plus any overlapping interface suffice.",
+      "conditions": "If a representable roof-role solid/interface pair reaches this audit with yaw-only overlap above 0.001 m but no actual oriented physical overlap, and physical contact is required for that role, the local bearing predicate can refrain from reporting missing_positive_bearing. Full graph admission, supported producer reachability, all other audit issues and intended tolerance/shape policy are not established.",
+      "symbolic_reasoning_only": "Consider a 2 m x 0.07 m x 0.14 m cuboid at centre (0,0,0), yaw/crossfall 0 and longfall 45 degrees, with a matching-owner and matching-node interface centred (0.8,0,0) and half-extents (0.08,0.025,0.08). The yaw-only proxy spans x \u00b11, y \u00b10.035, z \u00b10.07, so all axis overlaps exceed 0.001. Under inverse Z rotation every point in the interface has local y at most (0.025 - 0.72)/sqrt(2), below -0.49 m, outside the solid y half-size 0.035 m: the pair does not physically intersect. This is mathematical reasoning on source expressions only, not a constructed or executed fixture, accepted state, current output or evidence this exact interface is generated.",
+      "producer_context": "The actual weathering producer assigns RoofEdgeTreatment to non-eave edge solids and computes their nonzero longfall from edge pitch; it creates a support interface at the edge midpoint with the same owner and first support node. That demonstrates relevant rotation-bearing source shape, but not this hypothetical displacement or any complete reachable successful plan.",
+      "references": [
+        {
+          "id": "2754-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "archive": "sources/2754-current.source",
+          "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+          "lines": [
+            [
+              1,
+              57
+            ]
+          ]
+        },
+        {
+          "id": "bounds-helper",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+          "archive": "support/bounds-helper.source",
+          "sha256": "e6f71c899743f84ee65814398d45e0b9a98d21945a3d5cf6b483a47a368a742c",
+          "lines": [
+            [
+              1,
+              9
+            ],
+            [
+              231,
+              235
+            ]
+          ]
+        },
+        {
+          "id": "oriented-overlap",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/solid_overlap.rs",
+          "archive": "support/oriented-overlap.source",
+          "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+          "lines": [
+            [
+              51,
+              80
+            ]
+          ]
+        },
+        {
+          "id": "solid-type",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "archive": "support/solid-type.source",
+          "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+          "lines": [
+            [
+              70,
+              75
+            ],
+            [
+              108,
+              113
+            ],
+            [
+              345,
+              389
+            ]
+          ]
+        },
+        {
+          "id": "roof-producer",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "archive": "support/roof-producer.source",
+          "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+          "lines": [
+            [
+              499,
+              569
+            ]
+          ]
+        },
+        {
+          "id": "network-owner",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "archive": "support/network-owner.source",
+          "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+          "lines": [
+            [
+              65,
+              105
+            ]
+          ]
+        },
+        {
+          "id": "bearing-caller",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "archive": "support/bearing-caller.source",
+          "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+          "lines": [
+            [
+              1,
+              55
+            ]
+          ]
+        }
+      ],
+      "related_records": [
+        "059 Segovb READ-L11-451 required the actual rotation kernel; it did not inspect or close this precise current fallback question.",
+        "/root/hair_ops CANDIDATE-ROOF-YAW-BOUNDS-CONTACT-PROXY is roof_contacts::touching and potential JunctionBond production, and REFINEMENT-ROOF-FINAL-JUNCTION-YAW-PROXY is bind_roof_junctions; this finding concerns the bearing audit receiver, so retain related evidence but do not assume same or extra count.",
+        "REVIEW-BRETECHE-BEARING-OVERLAP-AREA-001 concerns projected contact-area arithmetic and a separate breteche receiver; it is not this predicate.",
+        "NATIVE-INITIAL05-F004 and ROOT-INITIAL04-F004 concern a successful pitch edit leaving generated corresponding interface bounds stale. Same-owner/node ANY semantics can use a different interface; do not infer universal bearing failure or automatically alias to this yaw-only receiver."
+      ],
+      "future_direction": "After audit and implementation authorization, establish required overlap authority and treatment of rotations/shapes/tolerances; if exact physical bearing is intended, use a consistent oriented contact measure at that boundary while preserving legitimate role-specific shapes, owner/node matching and intended alternatives. No code change or validation has been performed."
+    }
+  ],
+  "recovered_historical_findings": [
+    {
+      "ids": [
+        "NATIVE-INITIAL05-F004",
+        "ROOT-INITIAL04-F004"
+      ],
+      "author_and_revision": "774 native and 774 root, respectively; individually attributed pr-working recovered source snapshot, not 3821.",
+      "relationship": "Both independently trace pitch edit staging and weathering movement with corresponding generated support-interface bounds left at prior position. Root F004 calls the successful changed-pitch case conditional; native expressly states ANY same owner/node interface can establish bearing, so no universal missing-bearing error. Their potential identity and ledger aggregation require central reconciliation.",
+      "current_reassessment": "95e assigned bodies are individually byte-identical to recovered historical objects; current separately registered producer read supports its current trace, not a new historical read or new duplicate count.",
+      "references": [
+        {
+          "id": "2753-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "archive": "sources/2753-current.source",
+          "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+          "lines": [
+            [
+              61,
+              77
+            ],
+            [
+              88,
+              147
+            ],
+            [
+              150,
+              228
+            ]
+          ]
+        },
+        {
+          "id": "roof-producer",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "archive": "support/roof-producer.source",
+          "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+          "lines": [
+            [
+              499,
+              569
+            ]
+          ]
+        },
+        {
+          "id": "2754-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "archive": "sources/2754-current.source",
+          "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+          "lines": [
+            [
+              31,
+              57
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "ROOT-INITIAL04-F003"
+      ],
+      "author_and_revision": "774 root; historical pr-working",
+      "relationship": "Previously recorded finite-vertex versus plane noncollinearity/normal.y division issue; roof-plane support read relates to pitch reconstruction, but is not this bearing predicate.",
+      "references": [
+        {
+          "id": "roof-plane",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "archive": "support/roof-plane.source",
+          "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+          "lines": [
+            [
+              1,
+              35
+            ],
+            [
+              400,
+              445
+            ]
+          ]
+        },
+        {
+          "id": "2753-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "archive": "sources/2753-current.source",
+          "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+          "lines": [
+            [
+              88,
+              100
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_narrowing": [
+    {
+      "id": "owned-plan-error-boundary",
+      "detail": "framed_roofs mutates borrowed geometry internally then can return an error, but the inspected orchestration constructs an owned BuildingPlan and resolve_architectural_envelope consumes self; this route returns the plan only on success. Thus internal partial changes alone do not establish externally published partial plan on Result::Err. Earlier /root/lens12_frontier had already prospectively read historical same-path bodies and 059 adopted L12-CLOSURE-ROOF-OWNED-PLAN-ERROR-RETENTION (queue index 2308) as scoped rejection; our 95e current read independently confirms this path only. Other callers, panic behavior, and external shared side effects are not exhaustively analyzed.",
+      "references": [
+        {
+          "id": "2752-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+          "archive": "sources/2752-current.source",
+          "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+          "lines": [
+            [
+              1,
+              46
+            ]
+          ]
+        },
+        {
+          "id": "envelope-owner",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+          "archive": "support/envelope-owner.source",
+          "sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+          "lines": [
+            [
+              1,
+              68
+            ]
+          ]
+        },
+        {
+          "id": "orchestration",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/orchestration.rs",
+          "archive": "support/orchestration.source",
+          "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+          "lines": [
+            [
+              1,
+              8
+            ],
+            [
+              54,
+              92
+            ]
+          ]
+        },
+        {
+          "id": "generate-audit",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "archive": "support/generate-audit.source",
+          "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+          "lines": [
+            [
+              301,
+              311
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "result-edit-staging",
+      "detail": "set_roof_pitch checks the new range, existence, no-op, topology and old tangent before staging clones of the assembly and resolved geometry. Its returned Result::Err from reconstruction precedes assignments to the plan. This does not imply panic safety: source_piece_index maps directly into plan.roofs in the Gable case, for which admission of a coherent retained graph remains to be established. 059 READ-L11-451 and RootADM-F001 already recorded the broader graph/index context; no unsupported reachability or separate accepted defect is asserted.",
+      "references": [
+        {
+          "id": "2753-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "archive": "sources/2753-current.source",
+          "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+          "lines": [
+            [
+              1,
+              77
+            ],
+            [
+              131,
+              141
+            ]
+          ]
+        },
+        {
+          "id": "building-plan",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/model/plan.rs",
+          "archive": "support/building-plan.source",
+          "sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+          "lines": [
+            [
+              1,
+              53
+            ]
+          ]
+        },
+        {
+          "id": "roof-assembly",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "archive": "support/roof-assembly.source",
+          "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+          "lines": [
+            [
+              250,
+              320
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gable-zip",
+      "detail": "gable updater zips enclosure faces with a two-polygon array for a recipe, but producer emits the two gable enclosure faces first. Shorter-zip semantics alone do not establish a supported defect; additional enclosures and exact producer policy stay open.",
+      "references": [
+        {
+          "id": "gable-owner",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+          "archive": "support/gable-owner.source",
+          "sha256": "dd13cae2d6e503271f19d7b30abc921198c79f954a5a74368982ac567597f2e8",
+          "lines": [
+            [
+              1,
+              45
+            ],
+            [
+              114,
+              135
+            ]
+          ]
+        },
+        {
+          "id": "roof-producer",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "archive": "support/roof-producer.source",
+          "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+          "lines": [
+            [
+              581,
+              600
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 root ROOT-INITIAL04-REG001 and contract-groups-003",
+      "scope": "2752 original full 1\u201346; first premature display expressly gave zero credit; subsequent prospective fresh read is recorded in coverage/contract group. Earlier finding and unresolved publication caveat preserved; later 059 Lens12 owned-plan scoped rejection independently narrows it."
+    },
+    {
+      "record": "774 native NATIVE-INITIAL05-REG-001/002/003 and contract-groups-010",
+      "scope": "2753 registered 1\u2013149 and 150\u2013229, semantically qualified 1\u2013148 and 150\u2013228 (149,229 blank); 2754 registered 1\u201358, semantically qualified 1\u201357 (58 blank). Excluded 2753:230\u2013351 and 2754:59\u2013138. Source qualification and all actual findings preserved unchanged."
+    },
+    {
+      "record": "059 Segovb READ-L11-450 and READ-L11-451",
+      "scope": "2752 fresh 1\u201346; 2753 fresh 1\u2013149,150\u2013229; 2754 fresh 1\u201358. L11-451 describes full-rotation positive bearing but leaves actual rotation kernel/current relationship open. Historical queue and ledger are summaries, not missing 3821."
+    },
+    {
+      "record": "059 /root/lens12_frontier READ-CONNECTED-PAR-L12-865-ROOF-OWNED-ERROR-POLICY and Segovb TEAM019 adoption",
+      "scope": "Separate prospective 6533 2752 read 1\u201346 and architectural_envelope 1\u201368; zero early ordered/global credit, later scoped owned-self error rejection in historical queue; not current work attribution. Earlier 059 L11 batches 414,419,420 retain their own sources and scope."
+    },
+    {
+      "record": "whole-file source-range registration mismatch",
+      "scope": "For 2752 registry recorded root source-range-registration SHA fac20d5f701303cb5bd5d6d1671d1d15b7d869cb5c6d49e58c7e56ab7a62a17f while f82 file SHA is 44adb80f029797f8356f93ac8d236d38b82db5611fc5b03ac4d427715c969bf5; 2753/2754 registry native recorded a55052656e8d8119bf9df849d6786c589de4ad51b3a635ed898256cddf1e69bc while f82 file is 0bb2e7a6198efc2e3db19800dd507c9a5ec91dc47c9fa388e612162d133f5bed. Each selected JSON row exactly matches embedded registry original_record; whole file variants with registry hashes not located in inspected collections. Cause unknown; selected-row equality is not whole-file equality."
+    },
+    {
+      "record": "prior current and delegated evidence",
+      "scope": "Prior church apse trace in assessment 11B is /root/rig_identity, previous current roof_editing 5\u201318 and 61\u201377 support. Roof contact and finalization packets are /root/hair_ops, 95e, with own registrations and exact local frozen archives. No credit transfer and no automatic aliases; reconstructed public redacted copies have separate hashes."
+    }
+  ],
+  "open_questions": [
+    "Which roof and other non-framed solid roles must establish actual fully oriented physical bearing, versus an intentionally approximate or shape-specific proxy?",
+    "Can a supported authoring/edit or retained plan path reach a same-owner/node bearing interface that satisfies the yaw-only predicate while the associated oriented solid lacks real contact? Which other audit rules can reject such a plan?",
+    "For changed pitch, what is the canonical binding between an edge treatment and its generated bearing interface, and can a different valid same-owner/node interface intentionally certify support?",
+    "Can malformed but supported retained/decoded roof graphs reach the source_piece_index indexing or other uninspected callers? What graph boundary owns this relation?",
+    "Which linked geometric proxy and related historical F004 records share a single first failure or repair, and which are distinct contracts? Central reconciliation is required.",
+    "Do owner identifiers, mutable graph details and other source ranges introduce side effects or publication paths outside the inspected owned-self call chain? No universal atomicity claim."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission contracts",
+      "disposition": "Pitch range and topology checks narrow accepted edit requests; public roof assembly/source index coherence remains conditional. SupportInterface positive contact is separately audited."
+    },
+    {
+      "lens": "aggregate states",
+      "disposition": "Pitch weathering and support-interface geometry are correlated; historical F004 remains conditional and ANY support semantics prevents universal audit-failure inference."
+    },
+    {
+      "lens": "behavior preservation",
+      "disposition": "No implementation or behavioral change; retain no-op, topology-reject and Result staging semantics as future repair constraints."
+    },
+    {
+      "lens": "derivability",
+      "disposition": "No gratuitous manual trait/serialization replacement demonstrated in the bounded production ranges."
+    },
+    {
+      "lens": "enum shapes",
+      "disposition": "RoofEdgeTreatment and RoofGutter are closed role variants; a role-specific overlap decision is explicit but its intended geometric contract is open."
+    },
+    {
+      "lens": "existing type owners",
+      "disposition": "ResolvedSolid carries typed position, dimensions and angle owners; wrappers do not alone prove owner/node/contact coherence."
+    },
+    {
+      "lens": "invariant operations",
+      "disposition": "Existing historical plane computation and changed-pitch projection relationships are separately referenced; finite input does not alone guarantee a valid plane."
+    },
+    {
+      "lens": "magic numbers",
+      "disposition": "Bearing threshold 0.001 m and role-specific geometry offsets/clearances have explicit local context; numerical policy and tolerance authority remain open."
+    },
+    {
+      "lens": "magic strings",
+      "disposition": "missing_positive_bearing is an audit diagnostic identifier, not enough evidence of a misplaced arbitrary external string owner."
+    },
+    {
+      "lens": "producer propagation",
+      "disposition": "Non-eave roof producer forwards longfall and support owner/node to the bearing receiver, but the non-frame fallback loses full-rotation information."
+    },
+    {
+      "lens": "redundant authority",
+      "disposition": "Weather solid and independent support-interface bounds can diverge after pitch editing; existing F004 records capture the correlated authority question."
+    },
+    {
+      "lens": "type granularity",
+      "disposition": "Do not collapse raw recipe vs resolved roof assembly or optional framing; they occupy different lifecycle roles in the inspected flow."
+    },
+    {
+      "lens": "type ownership",
+      "disposition": "Positive-contact authority is the bearing audit in this inspected path; geometric shape, admitted state and intended role policy remain owner questions."
+    }
+  ],
+  "restrictions": "Evidence-only inspection and integrity verification; no product execution, geometry or fixture construction, simulation, repair, source edit, build, test, probe, or validation. No global lens completion claimed."
+}

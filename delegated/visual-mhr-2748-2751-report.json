@@ -1,0 +1,782 @@
+{
+  "schema": "726-visual-mhr-2748-2751-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T03:45:00.902421+00:00",
+  "scope": {
+    "original_roles": [
+      2748,
+      2749,
+      2750,
+      2751
+    ],
+    "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "nature": "Bounded static source audit. Thirteen perspectives are limited to displayed source, not whole-lens or repository completion. No fixes, generation, builds, tests, product/fixture execution, rendering or runtime probes.",
+    "reads": "registration.json and read-receipt.json record separate original and 95e role bodies. lib-compare-registration.json and lib-compare-read-receipt.json separately register additional old/current library context. Support registrations/receipts distinguish every new connected source; retained complete source bytes are not credit for unread ranges."
+  },
+  "baseline_and_identity": [
+    {
+      "roles": [
+        2748,
+        2749,
+        2751
+      ],
+      "historical": "pr-working dirty snapshot, base 3a50b708381ad00c116445c2c999a49c3943088b and head 6533e444fa37552927070cc8d8190907fd3b413e. Each exact archived object equals its same-path individual 6533 and 95e Git blob, not proof of an entirely clean snapshot. f82 is evidence transport, not project revision."
+    },
+    {
+      "role": 2748,
+      "historical_sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+      "material": [
+        [
+          1,
+          50
+        ]
+      ],
+      "unread": [
+        [
+          51,
+          75
+        ]
+      ],
+      "context": "The distinct physical-p16 role332 has full-file SHA d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704; our separate P16 support 1–50 equals the assigned pr-working/current 1–50, while the complete files differ. P16 test tail51–75 was not personally read in this packet."
+    },
+    {
+      "role": 2749,
+      "historical_sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "material": [
+        [
+          1,
+          76
+        ]
+      ],
+      "unread": [
+        [
+          77,
+          138
+        ]
+      ]
+    },
+    {
+      "role": 2750,
+      "historical_sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "current_sha256": "f760d4ca6d1b6e6c9909be505ee450addca82166bc499f403db08c897d69836d",
+      "historical_material": [
+        [
+          31,
+          43
+        ]
+      ],
+      "personal_context_addition": "Independently registered and read 1–30 in both copies after assigned31–43; complete copies then personally displayed in this review only. Old Rig earlier premature display remains uncredited and does not retroactively extend its role.",
+      "current_delta": "lib-historical-to-current.diff: exports reordered above modules and current publicly reexports MeshVertexCount, CorrectiveArchiveBytes and CorrectiveForwardError; all original facade names remain. Current full bytes also equal prior 059 e275 delegated source, with independent revision and reviewer attribution."
+    },
+    {
+      "role": 2751,
+      "historical_sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "historical_material": [
+        [
+          1,
+          110
+        ]
+      ],
+      "original_unread": [
+        [
+          111,
+          322
+        ]
+      ],
+      "current_support_addition": "Separately registered current111–178 personal read; it is not original role material, historic personal credit, or whole-file coverage."
+    },
+    {
+      "p16_recovery": "P16 recorded base/head a120390947c89b703dc74c4255a13c035d054c50 and dirty status159; reproduced 524542-byte tracked patch matches recorded SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Seven untracked objects are separate. Matching bytes do not establish original invocation, uninterrupted custody, all filesystem metadata or current old-worktree cleanliness; keep earlier missing-patch historical qualification and later recovery distinct."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "review": "774 Camera CAMERA-INITIAL07-REG001 / CONTRACT-003",
+      "scope": "Role2748 fresh pr-working production1–50 after prospective registration. Earlier full75 display occurred before registration and is explicitly uncredited; tests51–75 excluded. The separate old P16 role332 and its previous full review remain different identity and attribution.",
+      "evidence": [
+        "history/774/camera/initial07-redundant-authority/source-range-registration.jsonl.gz",
+        "history/774/camera/initial07-redundant-authority/contracts.jsonl.gz",
+        "history/774/camera/initial07-redundant-authority/findings.jsonl.gz",
+        "history/assessment-historical-331-332.json"
+      ]
+    },
+    {
+      "review": "774 Camera CAMERA-INITIAL07-REG002 / CONTRACT-004",
+      "scope": "Role2749 fresh production1–76, original test77–138 excluded; F003 records conditional missing dependencies of skeletal offsets and changed existing mesh morph metadata, F004 inconsistent per-joint basis reference vs fitting owner. Preserve separate exact first failures and no actual bad asset/runtime claim.",
+      "evidence": [
+        "history/774/camera/initial07-redundant-authority/source-range-registration.jsonl.gz",
+        "history/774/camera/initial07-redundant-authority/contracts.jsonl.gz",
+        "history/774/camera/initial07-redundant-authority/findings.jsonl.gz"
+      ]
+    },
+    {
+      "review": "774 Rig RIG-INITIAL06-REG-001 / QUAL-001/002",
+      "scope": "Premature earlier library full display and the erroneous 46-line/full-read statement in contracts005 receive no source/lens credit. Actual EOF is43; fresh registered historical role read31–43 only, docs1–30 excluded. Our later independent context display is not retroactive Rig coverage.",
+      "evidence": [
+        "history/774/rig/initial06-type-ownership/source-range-registration.jsonl.gz",
+        "history/774/rig/initial06-type-ownership/qualifications.jsonl.gz",
+        "history/774/rig/initial06-type-ownership/contracts-005.json.gz",
+        "history/774/rig/initial06-type-ownership/additional-sources.jsonl.gz"
+      ]
+    },
+    {
+      "review": "774 Rig RIG-INITIAL06-REG-002 / CONTRACT-006",
+      "scope": "Fresh pr-working generic Transform1–110, with explicit later qualification that line110 is in scope and from_mat4/composition/inverse/test111–322 excluded. No shared-MHR owner merger based solely on name.",
+      "evidence": [
+        "history/774/rig/initial06-type-ownership/source-range-registration.jsonl.gz",
+        "history/774/rig/initial06-type-ownership/contracts-006.json.gz",
+        "history/774/rig/initial06-type-ownership/additional-sources.jsonl.gz"
+      ]
+    },
+    {
+      "review": "059 Segovb READ-L11-450",
+      "scope": "Prospectively registered personal historical 2748 1–50, 2749 1–76, 2750 31–43, 2751 1–110. The receipt flags mesh-availability without trigger and look_at default/from_mat4 as unresolved; no accepted unique increase and no current reconciliation.",
+      "evidence": [
+        "history/059/segovb/READ-L11-450.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1667.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1668.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1669.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1670.json"
+      ]
+    },
+    {
+      "review": "059 parallel lens11_reconcile e275 PL11-1174 and root adoption",
+      "scope": "Original parallel READ-185 records fresh personal e275 library1–43 and says root adoption pending. Subsequent Segovb READ-L11-721 is strict bundle adoption with mapped continuation3368 and zero root reread; new-target reconciliation remains false. e275 full source SHA equals 95e library individually; no automatic other-lens or role2750 historical read transfer.",
+      "evidence": [
+        "history/059/parallel-l11-20261029/READ-185.json",
+        "history/059/parallel-l11-20261029/VERIFY-185.json",
+        "history/059/parallel-l11-20261029/PLAN-203.json",
+        "history/059/segovb/READ-L11-721.json"
+      ]
+    },
+    {
+      "review": "059 Lens12 prospective 814–817 and locator qualifications",
+      "scope": "The /root/lens12_frontier registrations name 6533 and roles2748–2751, with prospective ranges only. Their four exact locator qualifications explicitly grant no body credit. Only partial957 receipts for roles2736 and2737 were located in the extracted collection; no role2748–2751 Lens12 read or adoption was located in that bounded search. Do not infer reading or completion from stored source objects.",
+      "evidence": [
+        "history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-814.json",
+        "history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-815.json",
+        "history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-816.json",
+        "history/059/parallel-l12-20261029/REGISTRATION-PAR-L12-817.json",
+        "history/059/parallel-l12-20261029/QUALIFICATION-PAR-L12-814-ORIGINAL2748.json",
+        "history/059/parallel-l12-20261029/QUALIFICATION-PAR-L12-815-ORIGINAL2749.json",
+        "history/059/parallel-l12-20261029/QUALIFICATION-PAR-L12-816-ORIGINAL2750.json",
+        "history/059/parallel-l12-20261029/QUALIFICATION-PAR-L12-817-ORIGINAL2751.json"
+      ]
+    },
+    {
+      "review": "Earlier 95e MHR and presentation work",
+      "scope": "Prior /root/mhr_character exact packet reviews source roles2316–2318 and 2319–2322 independently. Historical q171 describes distinct MHR f64 bind admission; prior 95e proportions and equipment presentation reports retain their author, revision, exact scope and unresolved asset policy. No transfer or automatic duplicate claim.",
+      "evidence": [
+        "historical-attribution.json",
+        "history/assessment-proportion-route-95e.json",
+        "history/assessment-equipment-presentation-95e.json"
+      ]
+    }
+  ],
+  "findings_and_qualified_observations": [
+    {
+      "id": "DELEGATE-MATH-ZERO-SCALE-DECOMPOSITION-95E",
+      "classification": "Newly assessed current source candidate, conditional public API contract; central owner determines aliases and whether counted.",
+      "references": [
+        {
+          "id": "2751-current",
+          "archive": "sources/2751-current.source",
+          "source_path": "crates/fabelgeist-math/src/transform.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "lines": [
+            [
+              5,
+              10
+            ],
+            [
+              22,
+              33
+            ],
+            [
+              49,
+              53
+            ],
+            [
+              62,
+              107
+            ]
+          ]
+        },
+        {
+          "id": "generic-transform-extra",
+          "archive": "support/generic-transform-extra.source",
+          "source_path": "crates/fabelgeist-math/src/transform.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "lines": [
+            [
+              112,
+              147
+            ],
+            [
+              150,
+              151
+            ]
+          ]
+        },
+        {
+          "id": "animation-transform-caller",
+          "archive": "support/animation-transform-caller.source",
+          "source_path": "crates/fabelgeist-animation/src/animation/mod.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "e5149cdf02e65907ab26e619ff82f395869503be9c014e464ef01731e3b2c124",
+          "lines": [
+            [
+              12,
+              15
+            ],
+            [
+              23,
+              33
+            ],
+            [
+              51,
+              62
+            ]
+          ]
+        },
+        {
+          "id": "animation-manifest",
+          "archive": "support/animation-manifest.source",
+          "source_path": "crates/fabelgeist-animation/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "c2091fc5e4e9c43dc0f1944ead0dfb0a2511a0ad8162fd3d0e7790974e33553f",
+          "lines": [
+            [
+              8,
+              10
+            ]
+          ]
+        }
+      ],
+      "trace": "The generic Transform publicly represents per-axis scale and has a constructor taking it without a positivity check. from_mat4 extracts each column length and divides components by those scales; for the finite affine diagonal matrix diag(1,1,0,1), scale.z is zero and r22 is 0/0, so the returned X rotation becomes NaN via atan2. A zero-axis scale is representable through the generic API. The separate public JointTransform::to_transform conversion calls this same from_mat4, while the shown auto-rigger conversion builds translation-only matrices and does not establish a collapsed input.",
+      "condition": "The diagonal case is symbolic source reasoning, not a fabricated or executed product fixture. No actual caller, imported asset, enabled product path, accepted zero scale, or rendered/retained bad animation value observed. Whether a collapsed scale should be a supported transform, rejected input, or an explicit no-unique-rotation case is unresolved.",
+      "historical_relationship": "059 READ-L11-450 explicitly left from_mat4 as uninspected connected callee; 774 Rig role2751 excluded111–322. q171 ADLER-L11-MHR-BIND-TRANSFORM-ADMISSION is related singularity policy in the distinct f64 MHR bind owner, not an automatic alias. Prior peer packet retains that finding and source.",
+      "future_repair_direction": "Decide the zero/degenerate-scale contract at the shared transform decomposition boundary and either return a meaningful rejection or provide a defined representation for the supported collapsed case; coordinate the JointTransform conversion while preserving valid Euler ordering, per-axis scales and intentional raw matrix boundaries."
+    },
+    {
+      "id": "DELEGATE-MATH-LOOK-AT-ALT-UP-95E",
+      "classification": "Newly assessed current source candidate from a previously open 059 look_at policy, conditional on supported inputs; central reconciliation decides count.",
+      "references": [
+        {
+          "id": "2751-current",
+          "archive": "sources/2751-current.source",
+          "source_path": "crates/fabelgeist-math/src/transform.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "lines": [
+            [
+              56,
+              60
+            ]
+          ]
+        },
+        {
+          "id": "matrix-owner",
+          "archive": "support/matrix-owner.source",
+          "source_path": "crates/fabelgeist-math/src/matrix/mat4.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "117ab1b23f9a547462573871ff5bef9824f3fad9dedf3878569f0569c0c39c28",
+          "lines": [
+            [
+              12,
+              15
+            ],
+            [
+              178,
+              205
+            ],
+            [
+              224,
+              230
+            ]
+          ]
+        },
+        {
+          "id": "matrix-identity",
+          "archive": "support/matrix-identity.source",
+          "source_path": "crates/fabelgeist-math/src/matrix/mat4.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "117ab1b23f9a547462573871ff5bef9824f3fad9dedf3878569f0569c0c39c28",
+          "lines": [
+            [
+              41,
+              45
+            ]
+          ]
+        },
+        {
+          "id": "matrix-identity-tail",
+          "archive": "support/matrix-identity-tail.source",
+          "source_path": "crates/fabelgeist-math/src/matrix/mat4.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "117ab1b23f9a547462573871ff5bef9824f3fad9dedf3878569f0569c0c39c28",
+          "lines": [
+            [
+              46,
+              50
+            ]
+          ]
+        },
+        {
+          "id": "vec3-normalize",
+          "archive": "support/vec3-normalize.source",
+          "source_path": "crates/fabelgeist-math/src/vector/vec3.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+          "lines": [
+            [
+              65,
+              70
+            ],
+            [
+              81,
+              91
+            ]
+          ]
+        },
+        {
+          "id": "generic-transform-extra",
+          "archive": "support/generic-transform-extra.source",
+          "source_path": "crates/fabelgeist-math/src/transform.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "lines": [
+            [
+              112,
+              147
+            ]
+          ]
+        }
+      ],
+      "trace": "For eye=(1,0,0), target=(1,0,1), up=(0,0,0.1), the forward and up directions are parallel. Their cross product is zero; the branch picks alternate up=(0,0,1) because up.z is below 0.9, which is also parallel to forward. Normalizing zero leaves it zero. The constructed view is singular; inverse returns None, Transform::look_at replaces it with the identity matrix and decomposition therefore returns zero position rather than the nonzero eye.",
+      "condition": "The example is mathematical source reasoning only. Up-vector magnitude is not explicitly constrained in these displayed APIs, but the intended degenerate look direction/up policy and supported external consumers are unknown. Exact-spelling 95e search found the method itself and a source-only test, no identified non-test direct first-party call; aliases, method references and external consumers remain open. No rendered failure or runtime behavior observed.",
+      "historical_relationship": "059 Segovb READ-L11-450 noted default inverse and explicitly left its native context unclosed. This is new bounded analysis, not an assumed duplicate or historical accepted finding.",
+      "future_repair_direction": "Specify failure or fallback semantics for degenerate look inputs; if fallback is supported, select a stable alternate axis based on forward direction and preserve the requested eye, with typed failure where a direction cannot be established."
+    },
+    {
+      "id": "CAMERA-INITIAL07-F001",
+      "classification": "Existing historical derived-equipment invalidation finding, independently connected at 95e; no new count or actual stale display claimed.",
+      "references": [
+        {
+          "id": "2748-current",
+          "archive": "sources/2748-current.source",
+          "source_path": "crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+          "lines": [
+            [
+              11,
+              35
+            ],
+            [
+              40,
+              48
+            ]
+          ]
+        },
+        {
+          "id": "equipment-spawn",
+          "archive": "support/equipment-spawn.source",
+          "source_path": "crates/adventuresim-tactical-client/src/equipment.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+          "lines": [
+            [
+              428,
+              465
+            ],
+            [
+              474,
+              512
+            ]
+          ]
+        },
+        {
+          "id": "placeholder-visual",
+          "archive": "support/placeholder-visual.source",
+          "source_path": "crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+          "lines": [
+            [
+              31,
+              55
+            ]
+          ]
+        },
+        {
+          "id": "p16-visuals",
+          "archive": "support/p16-visuals.source",
+          "source_path": "crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+          "lines": [
+            [
+              1,
+              50
+            ]
+          ]
+        }
+      ],
+      "trace": "The visual plugin chains orphan cleanup, placeholder spawning, skin/render synchronization and item update; runtime body preparation and generation are ordered after spawn and before skin sync. Orphan removal only tests whether the source physical component exists. Current spawn watches physical addition but not Changed<TacticalEquipmentPhysical>; fallback creation copies dimensions and anchor. Invalid physical on an otherwise watched update continues before old placeholder removal.",
+      "condition": "Requires a supported in-place physical mutation, invalid update or removed dependency with no other effective rebuild trigger and a surviving placeholder. Exact normal producers, deferred scheduling, asset lifetime and observed player state are not established. Physical proxy and generated visible mesh have intentionally different roles.",
+      "historical_relationship": "774 Camera F001 and earlier 95e ASSESSMENT-EQUIPMENT-PRESENTATION-95E already identify this lifecycle question; q records and current review retain original authors. P16 sibling is distinct full object despite equality of inspected production lines.",
+      "future_repair_direction": "Confirm supported source lifecycles and, if mutable updates are admitted, coherently invalidate derived placeholders for relevant changes/removals/rejection without conflating the collision proxy and rendered artifact."
+    },
+    {
+      "id": "CAMERA-INITIAL07-F003",
+      "classification": "Existing 774 conditional morph/rest dependency finding independently reconnected at 95e, with no new count.",
+      "references": [
+        {
+          "id": "2749-current",
+          "archive": "sources/2749-current.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+          "lines": [
+            [
+              15,
+              26
+            ],
+            [
+              28,
+              50
+            ],
+            [
+              51,
+              71
+            ]
+          ]
+        },
+        {
+          "id": "skeletal-owner",
+          "archive": "support/skeletal-owner.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+          "lines": [
+            [
+              69,
+              112
+            ]
+          ]
+        },
+        {
+          "id": "morph-plugin",
+          "archive": "support/morph-plugin.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              39,
+              62
+            ]
+          ]
+        },
+        {
+          "id": "rig-loading",
+          "archive": "support/rig-loading.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+          "lines": [
+            [
+              199,
+              222
+            ]
+          ]
+        }
+      ],
+      "trace": "Morph synchronization reacts to any added MorphWeights, owner ID, explicit/reference changes and removals. It skips an entity if first_mesh or its morph names are unavailable and it does not directly observe a mesh asset event. When all listed triggers become quiet, a later mesh/name availability or content change alone is not one of its displayed conditions. The first-party system chain attaches a rig scene before sync and skeletal code separately exports its reference.",
+      "condition": "A supported loader or editor must actually produce that asynchronous or mutable asset transition without another qualifying trigger; the source alone does not prove Bevy asset lifecycle, normal shipped scene timing or an observed stale visual. Existing F003 already covers missing morph-metadata dependency, and the historical 059 receipt explicitly noted the initial availability question.",
+      "future_repair_direction": "Establish whether mesh/name inputs are immutable and ready before relevant signals. If transitions are supported, own asset revision/readiness dependency and invalidate/retry affected retained morph weights, keeping normal character identity and explicit/default proportions."
+    },
+    {
+      "id": "CAMERA-INITIAL07-F004",
+      "classification": "Existing 774 reference consistency finding related to current 059 q1204 and prior 95e assessment; no automatic alias or new count.",
+      "references": [
+        {
+          "id": "skeletal-owner",
+          "archive": "support/skeletal-owner.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+          "lines": [
+            [
+              46,
+              60
+            ],
+            [
+              69,
+              112
+            ]
+          ]
+        },
+        {
+          "id": "2749-current",
+          "archive": "sources/2749-current.source",
+          "source_path": "crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+          "lines": [
+            [
+              34,
+              50
+            ],
+            [
+              62,
+              65
+            ]
+          ]
+        }
+      ],
+      "trace": "The loader accepts a finite basis per node; the bone loop can queue the owning character reference from each differing basis, and the morph consumer uses the owner reference. Prior 95e FittingRig and creator evidence describes a shared-reference producer and explicit fitting consistency check; those prior reads remain separately attributed.",
+      "condition": "No supplied or shipped mixed-reference rig, command order, supported custom asset or actual resulting state was observed. Determine shared-reference and asset policy; per-joint basis values themselves need not be equal.",
+      "future_repair_direction": "Preserve one authoritative reference per supported rig and ensure skeletal/morph/equipment fitting consume a coherent reference, with an explicit response to unsupported inconsistent inputs."
+    },
+    {
+      "id": "MHR-EXPORT-AND-TRANSFORM-OWNER-COMPARISON",
+      "classification": "Changed source and bounded distinct-owner observation; not a defect by itself.",
+      "references": [
+        {
+          "id": "2750-current",
+          "archive": "sources/2750-current.source",
+          "source_path": "crates/fabelgeist-mhr/src/lib.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "f760d4ca6d1b6e6c9909be505ee450addca82166bc499f403db08c897d69836d",
+          "lines": [
+            [
+              30,
+              43
+            ]
+          ]
+        },
+        {
+          "id": "vertex-count",
+          "archive": "support/vertex-count.source",
+          "source_path": "crates/fabelgeist-mhr/src/character/vertices.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "29b48faa4e75d7d03b64072a24aa8305ecf2e042011dfb2660c4e4052b0ce1b1",
+          "lines": [
+            [
+              6,
+              14
+            ],
+            [
+              21,
+              29
+            ],
+            [
+              49,
+              55
+            ]
+          ]
+        },
+        {
+          "id": "corrective-archive",
+          "archive": "support/corrective-archive.source",
+          "source_path": "crates/fabelgeist-mhr/src/correctives/archive.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "33931272145f9a4dbcbf5fc42dbba2be30c24a148844c8ff70758559bad317df",
+          "lines": [
+            [
+              10,
+              15
+            ],
+            [
+              38,
+              48
+            ]
+          ]
+        },
+        {
+          "id": "corrective-input",
+          "archive": "support/corrective-input.source",
+          "source_path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "7aab7cf313d2341a45df98bb77ece002b9a36afc7719eaf9db3a67bb5cf5ccee",
+          "lines": [
+            [
+              14,
+              17
+            ],
+            [
+              35,
+              48
+            ],
+            [
+              51,
+              63
+            ]
+          ]
+        },
+        {
+          "id": "2751-current",
+          "archive": "sources/2751-current.source",
+          "source_path": "crates/fabelgeist-math/src/transform.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "lines": [
+            [
+              5,
+              10
+            ]
+          ]
+        },
+        {
+          "id": "mhr-math-aliases",
+          "archive": "support/mhr-math-aliases.source",
+          "source_path": "crates/fabelgeist-mhr/src/math.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "lines": [
+            [
+              1,
+              9
+            ]
+          ]
+        },
+        {
+          "id": "mhr-math",
+          "archive": "support/mhr-math.source",
+          "source_path": "crates/fabelgeist-mhr/src/math.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "lines": [
+            [
+              138,
+              143
+            ],
+            [
+              159,
+              169
+            ]
+          ]
+        },
+        {
+          "id": "mhr-manifest",
+          "archive": "support/mhr-manifest.source",
+          "source_path": "crates/fabelgeist-mhr/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "7ac1a547fd9fbe280e15a57c5fa465a28452d70d52496a967233ed7b273c2c46",
+          "lines": [
+            [
+              8,
+              18
+            ],
+            [
+              20,
+              20
+            ]
+          ]
+        },
+        {
+          "id": "math-manifest",
+          "archive": "support/math-manifest.source",
+          "source_path": "crates/fabelgeist-math/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+          "lines": [
+            [
+              8,
+              14
+            ]
+          ]
+        }
+      ],
+      "trace": "Current facade exposes a storage-owned vertex count, role-labeled corrective bytes and a structured corrective input error alongside the pre-existing MHR exports. Corrective input checks joint and channel extents while its own docs say extent does not prove rig identity/value provenance. Generic math stores f32 Vec3 position, degree-Euler rotation and per-axis scale; MHR uses f64 array translation, quaternion rotation and scalar uniform scale for a momentum skeleton state.",
+      "condition": "No loaded model, archive contents, count-to-instance correspondence, resolved dependency features, generated asset, GPU or runtime behavior follows from the exports or manifests. MHR is a standalone workspace; its Burn git pin and explicit manifest features are declarations, not actual resolved feature selection.",
+      "future_repair_direction": "Keep each representation and owner distinct; use explicit checked conversions only when a demonstrated consumer requires them, preserving geometry/frame/precision semantics and current archive and error boundaries."
+    }
+  ],
+  "nonfindings": [
+    "The 95e MHR facade still exports the prior module and type names; the observed additions and reordering alone do not establish a backwards-compatibility defect.",
+    "A checked morph-weight index guard prevents an out-of-range write when the names list exceeds existing weights; skipping such a slot remains an asset-admission question.",
+    "Seed-derived proportions when explicit values are absent are an intentional displayed fallback; absence is not automatically stale or erroneous.",
+    "Distinct f32 Euler/per-axis and f64 quaternion/uniform transforms cannot be declared duplicate based on the shared name; each stores different data and has a different source role.",
+    "The P16 role332 and pr-working role2748 share displayed lines1–50 but not whole-file SHA; their snapshots and reviewers must stay separate.",
+    "A matrix inverse None-to-default policy or publicly representable zero scale alone does not prove an actual product failure; usage and supported input policy remain open.",
+    "All test source read within auto-rigger 330–370 was text only. No test, asset, fixture, renderer, numerical kernel or product executed."
+  ],
+  "open_questions": [
+    "Are zero per-axis scales and singular matrices intended to be supported generic transform values, and can actual JointTransform consumers admit them?",
+    "Are parallel forward/up directions expected to receive a stable fallback, an explicit error, or a documented precondition? Is any real first-party or external caller affected?",
+    "Can current normal Bevy loading expose MorphWeights before the mesh names become available without another watched trigger, or mutate names under a fixed component? No resolved feature or engine event guarantee is inferred.",
+    "Can supported equipment physical values, appearance components, rig references or underlying assets change without the retained cache being rebuilt?",
+    "Which actual model archive and rig-instance boundaries provide authorization and identity; equal vertex/joint counts do not prove the same asset?",
+    "Do new generic mathematical candidates overlap historical pending records or any centrally tracked owner? Do not duplicate q171 or CAMERA F003/F004 without first-failure reconciliation."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission-contracts",
+      "scope": "Public raw transform/zero scale and corrective extent gates are distinct; supported degenerate inputs and model provenance require actual owner policy."
+    },
+    {
+      "lens": "aggregate-states",
+      "scope": "Per-joint basis/reference and morph consumer coherence retain prior F004; count-equality does not certify rig instance."
+    },
+    {
+      "lens": "behavior-preservation",
+      "scope": "Three exact historical role files unchanged; library facade gained explicit new exports and reordered declarations. Preserve real defaults, frames, valid transform and system ordering."
+    },
+    {
+      "lens": "derivability",
+      "scope": "The displayed derives on raw Transform and typed count provide no clear safe boilerplate-only removal; generated and external representations remain outside."
+    },
+    {
+      "lens": "enum-shapes",
+      "scope": "CorrectiveForwardError represents joint count, channel and layout errors distinctly; no unsupported conversion from legitimate optional morph or appearance modes."
+    },
+    {
+      "lens": "existing-type-owners",
+      "scope": "Use existing MHR vertex and rig count roles, native skeletal reference and shared matrix/transform owners at appropriate boundaries; count does not imply instance identity."
+    },
+    {
+      "lens": "invariant-operations",
+      "scope": "Zero-scale decomposition and parallel-up fallback have conditional source-level issues; transform constructors have no blanket rigid/finiteness guarantee. No numerical execution performed."
+    },
+    {
+      "lens": "magic-numbers",
+      "scope": "Euler degree conversion and distinct per-axis/scalar scale are meaningful; raw inverse/look_at thresholds need domain/error-budget review but no unsupported global threshold claim."
+    },
+    {
+      "lens": "magic-strings",
+      "scope": "Identity and skeletal morph names dispatch through different existing owners; namespace collision and malformed metadata remain unproven without actual named assets."
+    },
+    {
+      "lens": "producer-propagation",
+      "scope": "Character ID/explicit proportions and per-bone reference feed morph weights; current event guards do not prove all asset-lifecycle refreshes. Equipment producer and renderer remain separate."
+    },
+    {
+      "lens": "redundant-authority",
+      "scope": "Per-bone reference versus owner-cached reference/fitting consistency is historical F004; derived visual geometry is not itself collision authority."
+    },
+    {
+      "lens": "type-granularity",
+      "scope": "Distinguish Euler f32 per-axis transform, MHR f64 quaternion/uniform transform, finite matrix admission and semantic instance identity; no universal transform merger."
+    },
+    {
+      "lens": "type-ownership",
+      "scope": "Generic geometry decomposition belongs fabelgeist-math, MHR skeleton state to MHR, rig identity to shared Rig and actual character/reference presentation to tactical animation owners."
+    }
+  ],
+  "provenance_limitations": [
+    "Full original 059 registry and transport manifest plus mechanically compressed 059 queue/ledger are retained. Selected 059 bytes match original manifest sizes, SHA-256 and Git blobs, but original payload Git paths were unavailable in inspected stores.",
+    "Selected registry/queue records are explicitly reconstructed. Original 774 documents and archived source objects have f82 commit/tree proofs; 059 and 774 records are not missing checkpoint3821.",
+    "The registry cites Camera registration JSONL SHA 63b443... and Rig registration JSONL SHA 3c030e..., while the f82 files are 046842... and 8770f5... respectively. Each selected parsed row exactly equals the embedded original record, but the complete files differ and expected whole-file variants were not located in the inspected local collections. Cause is unknown; do not present them as byte-identical. Root visual-pipeline-role-083 does match its recorded whole-file SHA.",
+    "A related two exact earlier peer packets are archived with their original manifest and reviewer; any redacted public reconstruction has distinct hashes.",
+    "No repairs, builds, tests, code generation, macros, fixtures/product execution, rendering or probes. Pinned animation guide native diagnostic is an implementation/validation workflow; explicit source-only user stop takes precedence here."
+  ]
+}

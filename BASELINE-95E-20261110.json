@@ -20777,7 +20777,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ]
       },
       {
         "id": "ROOF-CHILD-ID-PRODUCER-RELATION",
@@ -20801,10 +20804,343 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "PR-ROOF-PRIMARY-ABUTMENT-ADJACENCY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "After two eligible one-face primary edges match and either is a wall/tower abutment, the classifier chooses WallAbutment and binding appends the other face, producing two faces. The roof audit expects exactly one face for WallAbutment and OpeningCut. The later contour code either leaves the abutment kind or changes it to OpeningCut without removing the added face; the inspected edge refit only adjusts flashing, not adjacency.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Constructors and intermediate passes must complete and such a coincident primary pair must be supported/reachable. The audit discrepancy follows from that source state if it remains present when checked. No generated plan was run. Historical relation: Related to 059 Q-L11-1f255e4a529b1484b496 and Q-L12-daa19af99971265e71a0 roof junction/contour obligations. The original Lens 12 receipt classified TowerAbutment to WallAbutment as a possible intentional unified mode; this new observation concerns face-count consumer compatibility, not name-based category inference. No automatic alias assigned.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine whether a cross-roof joint with an abutment is an internal two-face junction or a one-face boundary contact, and express one shared topology policy consistently in binding, contour handling and audit.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "PR-ROOF-MULTIWAY-DEFERRED-EDGE",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Consider three distinct eligible primary assemblies A, B and C whose single-face edges all coincide. A/B pairing appends B face to A and schedules B edge for removal. A/C is skipped because A now has two faces; B/C can still pair because B is not removed until the end, then schedules C. The final edge removal retains the A edge with A/B face references but removes B and C edge records after generating additional B/C junction geometry.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "This is source-level reasoning over the loops, not a generated example or execution. The constructors must succeed, no earlier matching edge diverts find(), and such a three-way coincident configuration must be admitted or require explicit rejection; any later geometry cleanup and intended nonmanifold semantics are unresolved. Historical relation: The /root/lens12_frontier READ-L12-862 already flagged adjacency expansion before deferred removal and multiway semantics as a conditional question. This is a more explicit source-state consequence of that historical question; root determines canonical alias and count. Related 059 broad roof topology queue Q-L12-daa19af99971265e71a0 remains open.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Set an admitted manifold/multiway contact policy at the roof graph owner; consume matched edges once or explicitly represent/reject multiway junctions and keep solids, face references and removals coherent.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "PR-ROOF-VALLEY-ENDPOINT-ORIENTATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Valley drainage uses the left edge start as inlet and end extended along delta as outlet without selecting by elevation. If end.y - start.y is at least 0.09 m, the newly created route fails the downstream strict inlet.y > outlet.y + 0.01 check: its vertical difference equals 0.10 - (end.y - start.y) - 0.08*(delta.y/length).",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Requires a bound valley with that orientation and rise, successful nondegenerate geometry construction, survival to audit, and no other qualifying route for the same terminal. The function admits either endpoint pairing direction and the edge producer takes face polygon order; neither proves the orientation is reachable or that the check ultimately reports an issue. Historical relation: Related to 059 broad roof drainage/junction obligations and older 774 NATIVE-ROOF-PPS-RAW-SOURCE-002, which inventories raw drainage sample/route coordinates; not automatically the checked-point-loss identity NATIVE-ROOF-PPS-F001.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Prove upstream endpoint ordering or choose the higher endpoint as inlet and lower outlet at the owner of this route, retaining the geometry tolerance, endpoint extension and downstream terminal relationship.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "PR-ROOF-ENCLOSURE-AGGREGATE-MATERIAL",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Each roof resolver receives the same walls slice and the enclosure adapter selects Timber if any wall is timber, else Rubble if any is rubble, else Masonry. It does not filter by roof, gable host, or replacement status, whereas the support-node search filters replaced walls. Thus a remote or replaced timber wall can determine the infill material for another roof if those wall combinations are supported.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Mixed, separate and replaced wall presence and the intended material authority for each gable are not established. The explicit priority and empty-wall default may be deliberate; this is not a confirmed defect or obsolete fallback. Historical relation: Original 059 /root/segovb L11 and /root/lens12_frontier L12 separately recorded this explicit timber/rubble/masonry priority and legitimate empty case; this does not upgrade their historical disposition or establish a new defect. Native roof raw-source inventory concerns related enclosure records, not identical authority.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Confirm whether the actual gable/contact wall is material authority or the building-wide policy is intended; if local authority is required, retain the host-to-enclosure relation and define missing or mixed-host handling.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "PR-ROOF-REMOVED-WEATHER-INTERFACE",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For matched boundary edges, binding removes old weather solids by their 0x5000 IDs but does not directly remove their associated support interfaces. The original edge producer created a parallel 0x9-tagged interface; the refit collects orphan treatment IDs only by iterating treatment solids that remain.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "An applicable preexisting treatment and interface must exist, and another intervening or later pass or downstream contract may remove or tolerate the interface; these bounded reads do not prove stale accepted state or an actual error. Historical relation: Exact same issue raised conditionally by /root/segovb READ-L11-420; preserve original pending status and reviewer, do not create an independent count.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace weather solid/interface lifecycle to the native consumer and define owner-coherent removal only if the interface must not outlive its solid.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "REFINEMENT-ROOF-INTERNAL-CLEARANCE-DEGENERATE-EDGE",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For a finite nonzero edge whose strict interior interval is (low, high), the two retained lengths, in real arithmetic before floating-point rounding, are max(low*L - 0.08, 0) and max((1-high)*L - 0.08, 0). Thus an outside portion no longer than 0.08 m produces a zero edge, and one no longer than 0.10 m produces an edge at most 0.02 m; near the boundary floating-point comparisons require their actual values. The implementation appends the second edge without checking either retained edge length. The separate roof audit reports invalid_roof_edge for a duplicate ID or length <= 0.02 m if that edge reaches it.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Requires an admitted attached child and finite parent edge with that near-endpoint interior interval, and the short edge surviving intervening graph stages into the audited plan. The actual supported input, completed plan, audit invocation outcome, treatment consequences, and acceptance policy are not established by this source-only analysis. Historical relation: 774 NATIVE-INITIAL05-GROUP-012 already records near-zero outside halves, the edge-versus-cap gate and unresolved coherent topology. /root/lens12_frontier 059 PROPOSAL-L12-862 already records strict interior and nonpositive cap skip. /root/rig_identity CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT is a different 2D trimmer branch; CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE is a different source of a degenerate edge. These are related, not automatic aliases.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "First resolve the intended topology and treatment policy for a cut with a too-short outside segment, including whether to reject, omit, or represent one side. Preserve checked geometry admission and synchronize edge, physical cap, bearing and references; compare to the earlier 5–8 cm endpoint-trimmer case rather than assuming a common failure.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "REFINEMENT-ROOF-SPLIT-CAP-INTERFACE-IDENTITY",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For the non-church-apse branch, hip, half-hip and pavilion plate_specs supply four support nodes and each original roof edge-treatment solid retains the full support_nodes vector. On an actual split_caps path with both residual lengths positive, the second solid inherits that vector and emits one SupportInterface per support node using the same ID derived solely from the second solid. Four support relations therefore share one ID in that conditional path.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "An admitted multi-support roof must reach a genuine interior cut of an actual treatment with both positive cap remnants; subsequent consumers and identity namespace must require individually addressable relations. Source producer multiplicity is demonstrated, but reachability and observed downstream effect are not. Historical relation: /root/lens12_frontier 059 PROPOSAL-L12-862 and 774 NATIVE-INITIAL05-GROUP-012 already explicitly identify multiple interfaces with the same ID; current producer multiplicity and first-versus-map recipients narrow their open question rather than create an independent count.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish whether the ID denotes the bearing contact or its parent physical fragment and trace all actual recipient lookups. If relations require independent identity, allocate and retain one stable relation identity per node with coordinated cleanup; otherwise expose an explicit multi-relation lookup contract. Preserve valid multiple support nodes.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "REFINEMENT-ROOF-FINAL-JUNCTION-YAW-PROXY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "bind_roof_junctions considers different-owner solid pairs when one owner is a roof and accepts overlap of locally computed yaw-only axis-aligned bounds; it ignores longfall and crossfall. It then creates bounds, area and penetration values for a JunctionBond. An earlier caller creates roof apron flashing with crossfall -0.10 radians and size Y=0.045 m, Z=0.34 m; for a fully rotated cuboid its vertical extent is 0.045*cos(0.10)+0.34*sin(0.10), whereas this local yaw bound uses 0.045 m.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Requires a supported surviving oriented solid pair whose contact classification differs materially between the yaw-only proxy and the intended physical-contact policy. Actual geometry and acceptance not demonstrated; an AABB is not by itself proof of exact oriented contact. Historical relation: 059 Segovb READ-L11-420 and /root/lens12_frontier L12-862, and 774 NATIVE-INITIAL05-GROUP-012 already recorded yaw-only bounds and unresolved contract. /root/hair_ops previous CANDIDATE-ROOF-YAW-BOUNDS-CONTACT-PROXY concerns roof_contacts::touching, a different function and producer/recipient; its source relation is real but an alias or independent count is not assumed.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Clarify whether this producer is a broad phase or authoritative contact declaration, then use one explicit, appropriately tolerant physical-contact policy at the true authority boundary. Preserve intentional corner contacts and other geometry-specific allowances.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "ROOF-JUNCTION-AND-SPLIT-SLOT-IDENTITY-OPEN",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The junction builder allocates IDs from local roof_bonds.len() starting at zero and extends the existing geometry bonds. The earlier abutment code also appends tagged bonds to that geometry. Split edge and cap IDs separately bitwise-OR a fixed 0xF00000 slot with collection-derived serials and owner/assembly shifts; the source has no local capacity or collision guard at those lines.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "An existing and new bond must occupy the same actual ID namespace/value, or admitted collection counts must make relevant packed bits overlap, and an identified consumer must require uniqueness. No supported input reaches a collision, no repeated finalizer invocation, and no recipient impact is established. Historical relation: 059 L12-862 already asks about the local bond counter, packed fragment slots and consumer. 774 NATIVE-INITIAL05-GROUP-012 already relates these to F002 allocator context. /root/rig_identity split-eave serial-bit observation has a different packed expression and is not automatically the same ID contract.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Identify the allocation authority, actual count/input bounds, all ID consumers, and finalizer call lifecycle; preserve distinct domains until exact alias evidence exists.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "CANDIDATE-ROOF-PARENT-DRIP-MINIMUM-GAP",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Selection accepts any parent more than 0.08 m below source_low, but the emitted outlet is source_low − 0.07 m and the discharge is recipient_y + 0.06 m. The audit requires reconstructed outlet centre > discharge + 0.08 m. Therefore the stated source-level interval can be selected yet fails fall_is_vertical, making that station invalid in the roof drainage check. The document path calls audit_plan and rejects issues, while generate directly calls generate_unchecked; no unsupported plan or emitted runtime instance has been demonstrated.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "A parent candidate passes the selector condition recipient_y + 0.08 < source_low and produces the ParentRoofFace disposition. For actual computed f32 values the eventual reconstructed outlet-void centre is at or below (recipient_y + 0.06) + 0.08. This includes a real-arithmetic gap strictly between 0.08 and 0.21 metres when rounding is small; endpoints and large-coordinate precision require separate qualification. The station/network must reach the corresponding roof audit to obtain the stated audit issue. Historical relation: Related to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and native NATIVE-ROOF-PPS-TRACE-016, but those records inventory fallback and require final audit proof; the selected-parent height gap is a different precise predicate and no automatic alias or accepted count is claimed. Reconcile with any existing drainage acceptance owner centrally.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish admitted parent/child gap and intended fall geometry. If supported, align candidate admission, authored offsets and the final audited fall contract; preserve valid parent and ground dispositions and source error policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "ROOF-SAMPLING-CONVEX-COVERAGE-RECHECK-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "RoofPlanSampling projects a face and each cutout then applies an all-edge half-plane test to the 25 grid centres. The roof drainage audit independently recomputes a 5×5 grid and the same orientation/all-edge predicate with the same side threshold. It therefore does not independently restore a grid point omitted by that same predicate. If expected and retained sample sets are empty, sample validity and coverage checks use all() over empty collections and count equality; those sample checks can pass if all other channel/station requirements pass. The separate weather recipient uses a general even/odd polygon query. Current child-cut construction takes a convex hull before storing those particular cutouts, which narrows rather than proves the topology question.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "A finite nondegenerate face or cutout permits a fixed 5×5 grid midpoint which the intended general weather-face containment classifies differently from the all-edge convex predicate, with equal nonzero signed-area orientations in both computations. The strongest vacuous case additionally has no expected midpoint under the convex predicate and an existing network with zero samples. Historical relation: 059 /root/lens12_frontier READ-L12-864 left convex vs general topology admission open. 774 native NATIVE-ROOF-PPS-TRACE-020 documented convex sampling and separate general weather/tessellation without assuming global convexity. The audit replication and conditional empty-coverage consequence are newly inspected current support, not an accepted duplicate or proof of an admitted failing shape.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish what face/cutout topology is actually admitted and whether empty sampling is valid. If general nonconvex topology is supported, use an appropriate containment contract and independent coverage check while preserving numerical tolerance and accepted cutout behavior.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "CANDIDATE-ROOF-PARENT-CANDIDATE-ORDER",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The first pass ranks all obstacle-clear contained candidate/face pairs by plan distance before testing the winning face’s height. If that winner is too high, it does not try the next obstacle-clear candidate; it switches to fallback, which tests containment and height but not obstacle clearance. The later roof audit can reject a resulting fall under its own collision criteria, whereas the source generator has already selected the fallback. The stated combination is a reasoning condition, not a demonstrated generated layout.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "The nearest obstacle-clear first-pass parent-face candidate is not below source_low by the required 0.08 m, while another first-pass candidate is sufficiently lower and obstacle-clear. The later cardinal fallback encounters a different lower contained face first whose fall is blocked. Historical relation: Connected to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE, but that prior record asks whether fallback is accepted and does not prove this candidate-selection ordering. Keep distinct from the arithmetic minimum-gap and junction namespace contracts pending exact alias reconciliation.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine supported overlapping parent face topology and intended preference ordering; if the condition is supported, consider selecting among candidates that satisfy both clearance and height before any explicitly qualified fallback.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "ROOF-OUTLET-STATION-CAP-POLICY-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The outlet source comment states principal gable/hip roofs have at most two stations, whereas the implementation sets the limit to four for every kind and the inspected roof audit describes and enforces a cap of four for each assembly. A reachable >2 principal station and which policy controls are not established.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "Reachability, applicable acceptance policy and actual output remain unproved. Historical relation: Exact existing 059 L12-CLOSURE-ROOF-OUTLET-STATION-COUNT-POLICY, Root Segovb READ-L11-420 and /root/lens12_frontier READ-L12-863; 774 NATIVE-ROOF-PPS-TRACE-016 also records all-kind four. Do not count as a new finding.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Resolve intended project gate and align authoritative code/documentation at the owning boundary; no product change is made.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "ROOF-GROUND-FALLBACK-AUDIT-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The source generator selects the last enumerated candidate on an exhausted search. The roof audit checks station fall clearance and disposition, and document generation rejects any issues. The plain generate function does not invoke that audit. These facts do not establish that all rejected source candidates fail every downstream audit or that any supported layout reaches fallback.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        ],
+        "relationship_qualification": "No candidate passes the source filter and the last candidate is chosen, then a retained network reaches the roof audit. Where that candidate fails the audit’s own clearance, vertical fall, roof intersection, portal or stair predicates, station validity fails; the audit is not identical to the full generator search. Historical relation: Exact continuation of L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and 059 READ-L11-420/READ-L12-863, not a new duplicate. The 059 contract remains open for actual supported fall and full acceptance policy.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace the specific supported fallback, geometry and caller before deciding whether to return an explicit no-clear-outlet error or preserve a permitted free-drip mode.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0349.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0408.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

@@ -1,0 +1,65 @@
+{
+  "schema": "726-additive-historical-reconciliation-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T03:52:38.183396+00:00",
+  "correction": "The frozen prior role2766 report missed the exact historical ROOT-INITIAL04-F007 identity. Its current from_span bypass observation is an independent 95e reassessment of that existing first failure, not a newly counted finding. Preserve the source-level example, 059 Segovb 452 question and original old attributions; no automatic alias of unrelated consequences.",
+  "prior_report_sha256": "c9eb1ba655cc50f1d0e98d8382a63156b2a47829c7da525c69930527c4c97ec1",
+  "prior_manifest_sha256": "8540a7d57788da9f918164be00fc1c39028f3d366c290b587cc4e24a38226b9b",
+  "original_findings_record": "root-findings.jsonl, exact line id ROOT-INITIAL04-F007",
+  "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+  "historical_snapshot": "pr-working, 6533-based with unrelated dirty paths; per-file 6533 match independently proved",
+  "historical_reader": "Original root invariant-operations, fresh role2766 1\u2013142 according to root-contract-015; camera original fresh post-registration 1\u2013142 (premature 1\u2013150 uncredited). Native aggregate-state contract023 consumed that finding, preserve its own scope and attribution.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "qualification": "f82 is evidence transport, not historical source HEAD; no checkpoint3821 reconstruction, cross-lens read transfer, implementation or validation. Prior packet and extracted evidence remain unchanged.",
+  "records": [
+    {
+      "local": "prior/REPORT.json",
+      "origin": "<LOCAL_PATH_0>",
+      "sha256": "c9eb1ba655cc50f1d0e98d8382a63156b2a47829c7da525c69930527c4c97ec1",
+      "bytes": 41605
+    },
+    {
+      "local": "prior/MANIFEST.json",
+      "origin": "<LOCAL_PATH_1>",
+      "sha256": "8540a7d57788da9f918164be00fc1c39028f3d366c290b587cc4e24a38226b9b",
+      "bytes": 24829
+    },
+    {
+      "local": "prior/read-receipt.json",
+      "origin": "<LOCAL_PATH_2>",
+      "sha256": "7dfd4047ceaa2509dce61422fcfecb592d6439873d385cdcfeceaba340fa523e",
+      "bytes": 33749
+    },
+    {
+      "local": "prior/source/2766-pr-working.rs",
+      "origin": "<LOCAL_PATH_3>",
+      "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+      "bytes": 13928
+    },
+    {
+      "local": "prior/source/2766-95e6.rs",
+      "origin": "<LOCAL_PATH_4>",
+      "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+      "bytes": 13928
+    },
+    {
+      "local": "root-findings.jsonl",
+      "origin": "git:f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "sha256": "f7644ce74ff5fd9aa66ad714bfcd9a3089e3783ce3f9aa5f660da1ee8b772a81",
+      "bytes": 103831
+    },
+    {
+      "local": "root-contract-015.json",
+      "origin": "git:f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/continuation/root/initial04-invariant-operations/contract-groups-015.json",
+      "sha256": "9f207b5d6e4f63e3e75baf19ada25701fd3da7c11ede7817b8a4b9b5320d956e",
+      "bytes": 7221
+    },
+    {
+      "local": "native-contract-023.json",
+      "origin": "git:f82adcabd9d89c4fa2dd7f99253a45297a0681ee:handoff/774/adler-original/audit/continuation/native/initial05-aggregate-states/contract-groups-023.json",
+      "sha256": "a6fe735f8bf959a8f0d3fc1e1493eacc6b6e2dc31264596bab4f2adcc241b67d",
+      "bytes": 25732
+    }
+  ],
+  "git_proofs": "git-proofs.json"
+}

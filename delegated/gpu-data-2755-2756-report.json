@@ -1,0 +1,163 @@
+{
+  "schema": "726-gpu-data-2755-2756-source-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T03:55:34.649032+00:00",
+  "scope": {
+    "original_roles": [
+      2755,
+      2756
+    ],
+    "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Pr-working snapshot records head 6533e444fa37552927070cc8d8190907fd3b413e, with four unrelated status changes and 747 changed variants recorded; f82 f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports recovered original objects, not the project revision. Original archived bodies individually match same-path 6533 and 95e Git blobs; this proves no overall clean snapshot.",
+    "original_role_2755": "Original rig and 059 materially read 1–28; personally displayed historical and 95e 1–28 independently.",
+    "original_role_2756": "Original rig and 059 materially read only 7–13 and excluded 1–6 and the texture/color graph. Personally displayed historical and 95e 1–13 independently; 1–6 is extra context, not historical credit.",
+    "support": "Separate pinned-project current support and wgpu/wgpu-types source windows, plus exact unread complements, are recorded in read-scope-summary.json. Support is not ordered-role credit. Native archive bytes establish Cargo.lock package identity only, not effective feature resolution or execution."
+  },
+  "observations": [
+    {
+      "key": "buffer-label-identity-and-native-boundary",
+      "classification": "Scoped nonfinding and historical confirmation; no new repair identity",
+      "source_refs": [
+        "source/2755-current.rs:1-28",
+        "support/buffer_definition.rs:27-31,47-65,119-134",
+        "native/wgpu-29.0.4-src_lib.rs:105,129-130",
+        "native/wgpu-29.0.4-src_api_mod.rs:27,59,85-86",
+        "native/wgpu-29.0.4-src_api_buffer.rs:840-847",
+        "native/wgpu-types-29.0.4-src_lib.rs:31,57",
+        "native/wgpu-types-29.0.4-src_buffer.rs:7-16",
+        "support/parameters_mod.rs:5-22"
+      ],
+      "trace": "BufferLabel owns private String and From<String>/From<&str> preserve text; optional BufferDefinition.label passes a borrowed value to wgpu::BufferDescriptor.label. Native wgpu aliases BufferDescriptor to the wgpu-types descriptor with optional str Label, and wgpu-types documents that field as a debugging label. PassParameters separately uses String keys to find parameters.",
+      "qualification": "No local nonempty/identifier validation was found in the displayed constructors; empty and arbitrary text pass those constructors. This alone does not prove acceptance by every backend. Native label and shader parameter key have different roles; do not conflate their admission policies. 059 q317/2331 retain shader-name propagation as separate open contracts."
+    },
+    {
+      "key": "shared-math-reexport",
+      "classification": "Scoped nonfinding and historical confirmation; no duplicate owner established",
+      "source_refs": [
+        "source/2756-current.rs:7-13",
+        "support/math_root.rs:7-15",
+        "support/parameter.rs:1-20",
+        "support/gpu_manifest.toml:8-10"
+      ],
+      "trace": "GPU data reexports fabelgeist_math math, matrix, transform and vector; PassParameter imports Mat2/3/4, Transform and Vec2/3/4 through that data module. The math crate defines/reexports those modules.",
+      "qualification": "This is a reexport of existing definitions, not proof of a separate GPU math type. Does not inspect internal math behavior, texture/color implementation or every consumer. Source declarations of the math wgpu feature do not prove selected features."
+    },
+    {
+      "key": "mapping-use-combination",
+      "classification": "Independent bounded confirmation of existing conditional /root/rig_identity candidate REVIEW-GPU-BUFFER-MAP-USAGE-COMBINATION-95E; no duplicate count",
+      "source_refs": [
+        "support/buffer_definition.rs:7-18,67-89,91-110,119-133",
+        "support/buffer_mod.rs:22-36",
+        "native/wgpu-types-29.0.4-src_buffer.rs:64-75",
+        "reference/gpu-reflection-report.json#/candidate_policy_question",
+        "queue-selection-reconstructed.json#/entries/1833"
+      ],
+      "trace": "A caller can build storage() plus HostRead; the builder combines STORAGE, COPY_SRC, COPY_DST and MAP_READ and forwards those flags to the native descriptor after Buffer::new checks nonzero length. Locked wgpu-types documents that without MAPPABLE_PRIMARY_BUFFERS, MAP_READ may accompany only COPY_DST.",
+      "qualification": "The exact condition requires such a caller and a device lacking the feature. Neither ordinary reachability, feature enablement, native validation result nor product behavior was observed here. The prior author connected RIG-ADMISSION03-ADDITIONAL-087 and 059 q1833; preserve the earlier attribution and no duplicate count. API policy may deliberately delegate native validation. Later remedy, if required by owner policy, should admit feature-dependent combinations or retain explicit delegated validation without removing legitimate map-only/storage-copy cases."
+    },
+    {
+      "key": "public-buffer-metadata",
+      "classification": "Connection to existing REVIEW-GPU-BUFFER-METADATA-AUTHORITY-95E; no new finding",
+      "source_refs": [
+        "support/buffer_mod.rs:15-20,22-43",
+        "reference/gpu-bind-buffer-95e.json#/observations",
+        "queue-selection-reconstructed.json#/entries/352"
+      ],
+      "trace": "Buffer exposes its native handle, logical size and usage publicly; Buffer::new initializes them together, while the inspected read branch uses stored size and usage. Public state can later be supplied or changed independently.",
+      "qualification": "Logical and allocation size may intentionally differ. Existing assessment and q352 retain their own conditions, consumers, authors and overlap decisions; no current pipeline, invalid buffer, native call or panic ran."
+    },
+    {
+      "key": "signed-parameter-representation",
+      "classification": "Connection to earlier parameter/ABI assessment, not a newly asserted defect",
+      "source_refs": [
+        "support/parameter.rs:10-27,119-129",
+        "reference/gpu-parameters-context-95e.json#/observations",
+        "queue-selection-reconstructed.json#/entries/151"
+      ],
+      "trace": "From<i32> stores the cast value in the Unsigned(u32) variant. The separately attributed existing assessment analyzes downstream byte emission and the bind helper.",
+      "qualification": "That prior assessment notes equal two-complement bytes for -1 in selected writers but separately leaves shader scalar kind/ABI and other consumer paths open. A cast by itself does not prove incorrect signed behavior and no shader or consumer executed."
+    }
+  ],
+  "nonfindings": [
+    "No additional bounded grammar is justified for native diagnostic BufferLabel merely because shader lookup keys also contain strings.",
+    "Data module reexports canonical fabelgeist-math modules; the inspected reexport is not a second math implementation.",
+    "The native descriptor label is optional; lack of a label and a present empty label are distinct values at this boundary. No claim is made that every backend presents or validates them identically.",
+    "No independent repair is counted for the existing mapping-usage, public buffer metadata, or signed-parameter questions."
+  ],
+  "open_questions": [
+    "Which actual callers compose buffer usages and on which devices/features, and should this lower-level builder reject combinations or deliberately delegate validation to wgpu?",
+    "How should shader lookup key ownership, reflection ABI scalar kind and width, missing bindings, and packing be reconciled across the already recorded q151, q317 and q2331?",
+    "What contract governs logical size versus native allocation extent and public buffer field coherence? Retain current review and 059 q352 as distinct source evidence until centrally reconciled.",
+    "Do any supported renderer backends further constrain or present labels differently? Neither full native backend graph nor renderer execution was inspected.",
+    "What current Cargo features are enabled per actual target and dependency unification? The manifest, lock and matching crate archives do not establish a resolved feature set.",
+    "Complete all unrelated modules, later roles, remaining native source and thirteen-lens work centrally; no whole-lens closure follows from these bodies."
+  ],
+  "historical_relationships": {
+    "774": "rig RIG-INITIAL06-REG-003 and REG-004 registered roles 2755 1–28 and 2756 7–13; additional-sources, coverage, scope-delta-019 and contracts-010 record the corresponding original personal comparisons. Preserve original exclusions and pending global reconciliation.",
+    "059": "segovb REGISTRATION-SEGOVB-1674 and 1675, READ-L11-451, STATE-L11-451 and VERIFY-L11-451 report same historical ranges and acceptance count change 0; current_reconciled was false. These are original 059 records, not checkpoint 3821.",
+    "queue": "059 q1833 specifically left BufferDefinition/BufferLabel body and wider GPU usage/native graph questions open; this packet supports only its bounded label/definition subquestion, not whole closure. q151, q157, q158, q317, q352 and q2331 remain separately identified; no automatic aliases.",
+    "prior_current": "reference/gpu-reflection-report.json authored /root/rig_identity records REVIEW-GPU-BUFFER-MAP-USAGE-COMBINATION-95E and earlier rig admission observation; separately published GPU assessments retain current public-buffer and numeric-parameter observations. Their scope, conditions and attribution are not assigned to this reviewer.",
+    "3821": "The original checkpoint 3821 queue/ledger remains unrecovered and is not reconstructed or promoted here."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "BufferLabel producers preserve supplied text to optional native descriptor; PassParameters uses a separate key path. Wider producer/caller graphs remain open."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "BufferLabel owns diagnostic text; fabelgeist-math owns the reexported math definitions. Shader parameter identity is a separate previously recorded owner question."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "String conversions introduce no visible label grammar; the existing conditional usage combination requires feature and API-policy qualification."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Conversions preserve the label contents; inspected usage union may compose feature-restricted flags, and i32 conversion is linked to an earlier signed-kind ABI question."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Public Buffer handle, size and usage can diverge after initial construction; prior current assessment and q352 retain their scope and conditions."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "The shared GPU layer owns the diagnostic wrapper while math retains its canonical definitions. Do not treat the math reexport or native descriptor as a competing owner."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Reexporting the same math definitions does not establish duplicated authority; stored native and wrapper metadata remain an existing conditional coherence question."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Preserve exact supplied diagnostic spelling, absence versus present label, and legitimate storage/map modes in any future repair; native display and backend outcomes remain unobserved."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "UsageSelection distinguishes unspecified from explicit flags, and BufferUse owns individual meanings; combinations must respect the native device contract if the API promises admission."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Displayed conversion implementations project owned or borrowed text; no source evidence establishes a safe mechanical derive replacement or full trait surface."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Diagnostic label, shader lookup key, byte extent and usage flags are distinct roles despite underlying strings or integers; unrelated namespaces are outside scope."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Open diagnostic labels serve backend tooling; lookup strings separately retain q317/2331, not an automatic common identifier or nonempty policy."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Native bit flags and buffer byte lengths have existing units and owners; no gameplay tuning or universal numeric domain follows from this narrow scope."
+    }
+  ],
+  "limits": [
+    "Static source and evidence verification only: no builds, tests, doctests, fixtures, macros, shaders, GPU, renderer, product, probes or repair executed.",
+    "No implementation or product validation; no feature-resolution claim.",
+    "No checkpoint 3821 evidence or lens closure is created by this packet.",
+    "The git tree, native archive, and transport checks are evidence integrity checks, not product checks.",
+    "A preliminary git grep for PassParameter::Unsigned was attempted in the workspace checkout, whose object store could not parse 95e (fatal unable to parse object); the command used || : and returned a masked shell status. It displayed no source and proves no absence. All project evidence and raw proofs were obtained from the separately pinned publication repository."
+  ]
+}

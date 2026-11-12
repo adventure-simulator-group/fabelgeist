@@ -1,0 +1,134 @@
+{
+  "schema": "726-native-rand-bridge-2761-2763-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T03:44:45.378967+00:00",
+  "scope": {
+    "original_roles": [
+      2761,
+      2762,
+      2763
+    ],
+    "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "native_package": "rand 0.9.5 archive SHA256 b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41 matches both 6533/95e Cargo.lock entries. Exact three f82 transported historical source objects match corresponding package members. Native source is not a project Git path.",
+    "original_snapshot": "Original registry literal snapshot and source IDs native-rand0.9.5 retained. No same-named row exists in the project snapshot list; package and lock identity separately establish the object. f82 is evidence transport, not original project revision.",
+    "own_assigned_displays": "Historical and locked-package copies separately displayed after prospective registration: 2761:16–61; 2762:49–54; 2763:58,95–103,357. Complements unread in this assigned review. 2761 SIMD branch is context-only and 2763:102–103 is documentation, not iterator-body coverage.",
+    "own_prior_support_chronology": "In the earlier independently frozen <LOCAL_PATH_0> packet, this same reviewer registered at 2026-11-12T03:40:52.398727+00:00 and displayed 2761-support 1–61, 2762-support 1–82, and 2763-support 50–110,345–365 by 03:41:01.920924+00:00. Those were support-only reads, before the new ordered-role registration; prior exact receipt and manifest are copied and verified separately, without transferring credit.",
+    "features": "Both project manifests directly request rand =0.9.5 with default-features false and alloc; rand 0.8.8 is a separate optional dependency. Package/lock identities and declarations do not establish a resolved feature graph."
+  },
+  "observations": [
+    {
+      "key": "u64-native-bridge",
+      "classification": "independent bounded confirmation of ROOT-INITIAL04-CONTRACT-014 and previous rand packet; no new unique finding",
+      "source_refs": [
+        "source/2761-locked-package.rs:16–33,58–61",
+        "source/2762-locked-package.rs:49–54",
+        "source/2763-locked-package.rs:58,95–100,357",
+        "support/uniform_int.rs:100–160,280",
+        "support/stream.rs:30–61,104–138"
+      ],
+      "trace": "For u64 the widening helper multiplies two u64 values in u128 and returns high and low 64-bit words; (2^64−1)^2 is below 2^128. Generic Rng::random dispatches StandardUniform, whose u64 implementation invokes next_u64; the concrete UniformInt sampler compares the low word with a threshold and retries rejected values. Project DeterministicRng constructs this sampler with a nonzero exclusive upper bound.",
+      "condition": "This is a source/mathematical argument for the selected u64 path, not execution, statistical certification, a proof of random-word quality, or a guarantee of one word per sample. SIMD, other widths, single-sample and other Rng methods are not covered. Native macro definitions/invocations were read as text only.",
+      "future_repair_direction": "Maintain fixed-width draws and existing error/seed/order semantics when reconciling the actual consumer contract; rejection can consume multiple full-width words."
+    },
+    {
+      "key": "unbounded-rejection-condition",
+      "classification": "conditional native precondition, not an observed project defect or unique count",
+      "source_refs": [
+        "support/uniform_int.rs:128–158,280",
+        "source/2761-locked-package.rs:22–30,61",
+        "source/2762-locked-package.rs:49–53",
+        "source/2763-locked-package.rs:95–100"
+      ],
+      "trace": "The rejection loop has no fixed iteration limit. For upper u64::MAX the threshold is 1, and a hypothetical RngCore returning zero forever yields a zero low product and never passes the rejection comparison.",
+      "condition": "This is mathematical reasoning about an arbitrary native trait implementation; the project uses SplitMix64, whose actual state transition was not inspected here. No observed hang, reachable current caller, simulated generator or test is asserted. Do not count generic random-source semantics as a product failure without evidence."
+    },
+    {
+      "key": "weighted-boundary",
+      "classification": "prior historical contract independently reconnected through bounded support",
+      "source_refs": [
+        "support/weighted_index.rs:99–136,358–368",
+        "support/weight.rs:25–60,85–101",
+        "support/stream.rs:104–130"
+      ],
+      "trace": "Native u64 weight construction rejects empty, all-zero and overflow before sampling. Sample uses the cumulative partition; weighted_order removes each selected positive entry before repeating, preserving the possibility of multiple native word draws on rejection.",
+      "condition": "The full seed, consumer, data-admission and platform graph remains open. No broader native zero-weight, custom-weight or floating-point claim is made. ROOT-INITIAL04-CONTRACT-014, Q-L1-64c44b9147016afcc221 and prior rand packet already cover this family."
+    }
+  ],
+  "nonfindings": [
+    "The concrete u64-to-u128 widening product cannot overflow its u128 intermediate.",
+    "A nonzero bound makes the inspected [0, upper) native constructor nonempty; an ordinary constructor failure is not established. Repository prohibition on production expect is a separate rule concern captured by 059 queue Q-L1-504e174ec1af40aaddd8.",
+    "RngCore and StandardUniform are native extension/adapter interfaces, not duplicate first-party sampler authorities merely by existing.",
+    "A documented SIMD macro branch is read as context, not validated or executed."
+  ],
+  "open_questions": [
+    "Which actual project consumers, seed/state producers and platform targets exercise the selected u64 path, and what replay and random-source progress guarantees do they require?",
+    "Which Cargo features are active in each deployment, and are any feature-dependent sampler decoders or native algorithms relevant? No resolution was performed.",
+    "Can any actual producer supply a pathological generator or workload to the private sample path? Current SplitMix64 transition and external callers remain unread here.",
+    "What existing canonical finding or policy owns repository-rule production expects for established valid bounds?"
+  ],
+  "historical_relationships": {
+    "774": "ROOT-INITIAL04-REG006, REG007 and REG008 and ROOT-INITIAL04-CONTRACT-014 preserve original reviewer, exact scopes, u64 bridge and exclusions. No cross-lens credit from historical identity.",
+    "059": "SEGOVB-1681,1682,1683 prospective registrations and READ-L11-452 historical personal reads use exact original scopes; prior accepted_unique_count_change=0/current_reconciled=false. The 059 queue entries 646 and 661 are reconstructed selections and remain distinct pending contracts.",
+    "prior_packet": "Frozen prior rand 2757–2760 packet manifest SHA256 f901f1993490489a2c94d0d3cec6648a81384f6d4000517cfbcdc75a4f94e89e; its support4 registration and actual receipt evidence are preserved as earlier support-only work, not this ordered role.",
+    "current": "Earlier ASSESSMENT-DETERMINISM-95E retains its original reviewer/scope. No historical reading is promoted into checkpoint3821 or presented as its reconstruction."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Project bounded sampler delegates through native Rng and StandardUniform to a full-width RngCore word, with seed/consumer graph beyond scope."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "NonZeroU64 owns the nonzero exclusive bound, while native RNG traits define the actual source boundary."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Concrete positive bound admits the native constructor; arbitrary RngCore quality and project profile admission are separate obligations."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "u64 widening multiplication fits u128 and rejection preserves the selected bounded u64 result, conditional on source contract."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Weighted cumulative totals and live candidate ordering jointly determine selected index; source-level graph not whole application validation."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Native arithmetic helper is a dependency implementation; do not invent a parallel first-party numeric owner for the same bridge."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Project sampler and native distribution own different abstraction boundaries; source evidence does not establish duplicate authority."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Keep u64 draw width, seeded stream order, error distinctions and variable rejection draw count in later connected repair design."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "No scoped native enum redesign is indicated; SamplingError classes remain separate from generic Rng source semantics."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Macro source and trait blankets are text only, without macro execution or inferred feature resolution."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "A full word, bounded index, nonzero upper and weighted identity have different meanings even though each uses an integer."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "No scoped native string policy finding; project stream identities and diagnostics require their own owners."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "64-bit shift and full-width boundaries are mathematical representation parameters; threshold zero/full-range meaning is a native algorithm, not gameplay tuning."
+    }
+  ],
+  "limits": [
+    "Bounded source-family assessment only; not whole-lens completion.",
+    "No source, package, test, macro, fixture, build, simulation or product/runtime probe was executed.",
+    "Original extraction and central publication unchanged; central owner decides aliases, unique counts, repair ledger and checkpoint."
+  ]
+}

@@ -1,0 +1,1232 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+  "source_roles": "ASSESSMENT-DELEGATED-ROOFS-2540-2545.json",
+  "historical_git_path_proof": "CENTRAL-PR-2540-2545-PATH-PROOFS.json",
+  "central_current_display_evidence": {
+    "registration": "CENTRAL-12A-REGISTRATION.json",
+    "receipt": "CENTRAL-12A-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-12A-CURRENT-WINDOWS-PROOF.json"
+  },
+  "delegated_observations": [
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "PR-ROOF-PRIMARY-ABUTMENT-ADJACENCY",
+        "kind": "conditional source-contract discrepancy",
+        "first_contract": "After two eligible one-face primary edges match and either is a wall/tower abutment, the classifier chooses WallAbutment and binding appends the other face, producing two faces. The roof audit expects exactly one face for WallAbutment and OpeningCut. The later contour code either leaves the abutment kind or changes it to OpeningCut without removing the added face; the inspected edge refit only adjusts flashing, not adjacency.",
+        "condition": "Constructors and intermediate passes must complete and such a coincident primary pair must be supported/reachable. The audit discrepancy follows from that source state if it remains present when checked. No generated plan was run.",
+        "future_direction": "Determine whether a cross-roof joint with an abutment is an internal two-face junction or a one-face boundary contact, and express one shared topology policy consistently in binding, contour handling and audit.",
+        "relationships": [
+          "Related to 059 Q-L11-1f255e4a529b1484b496 and Q-L12-daa19af99971265e71a0 roof junction/contour obligations. The original Lens 12 receipt classified TowerAbutment to WallAbutment as a possible intentional unified mode; this new observation concerns face-count consumer compatibility, not name-based category inference. No automatic alias assigned."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+            "lines": [
+              [
+                18,
+                38
+              ],
+              [
+                85,
+                88
+              ],
+              [
+                152,
+                164
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                262,
+                275
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+            "lines": [
+              [
+                15,
+                30
+              ],
+              [
+                148,
+                180
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                1,
+                52
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "lines": [
+              [
+                1130,
+                1157
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE",
+        "kind": "current conditional strengthening of recovered historical contract; no new count",
+        "first_contract": "The binding flashing uses tag 8, assembly ID shifted 16, 0x6000 and left edge index; the immediate drainage pass uses the identical prefix and face_index*8 for a gutter floor. For an eligible left edge index 0 bound as a Valley and adjacent to its own face 0, face 0 has at least that valley as an eligible drainage edge. The pass retains RoofFlashing and creates the face-0 floor, so their ResolvedItemIds are equal at that stage.",
+        "condition": "Successful geometry constructors, a supported source layout exposing that edge/face pairing, and survival of both solids through later cleanup are needed to establish an audited final duplicate. The current native audit reports repeated solid IDs; document generation rejects a nonempty audit result, while the separate generate entry point does not run the exhaustive audit. No runtime evidence or admitted layout proven.",
+        "future_direction": "Give roof-junction flashing and per-face drainage solids disjoint identity ownership or otherwise prove bounded uniqueness across the actual shared namespace; preserve solid, support-interface and downstream reference identity together.",
+        "relationships": [
+          "Exact historical 059 Q index 2259 with /root/lens12_frontier 6533 reads, original proposal, connected caller/consumer/API receipts and root adoption retained independently. This strengthens that same exact producer-pair obligation and is not an independent duplicate. Historical connected receipts describe the earlier API boundary at 6533; our registered 95e support establishes only its displayed current ranges."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+            "lines": [
+              [
+                18,
+                44
+              ],
+              [
+                45,
+                68
+              ],
+              [
+                85,
+                88
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                262,
+                264
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+            "lines": [
+              [
+                1,
+                31
+              ],
+              [
+                59,
+                66
+              ],
+              [
+                111,
+                137
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+            "lines": [
+              [
+                23,
+                39
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "lines": [
+              [
+                7,
+                9
+              ],
+              [
+                153,
+                162
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+            "lines": [
+              [
+                198,
+                207
+              ],
+              [
+                301,
+                311
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "PR-ROOF-MULTIWAY-DEFERRED-EDGE",
+        "kind": "conditional refinement of prior multiway topology question; no automatic additional count",
+        "first_contract": "Consider three distinct eligible primary assemblies A, B and C whose single-face edges all coincide. A/B pairing appends B face to A and schedules B edge for removal. A/C is skipped because A now has two faces; B/C can still pair because B is not removed until the end, then schedules C. The final edge removal retains the A edge with A/B face references but removes B and C edge records after generating additional B/C junction geometry.",
+        "condition": "This is source-level reasoning over the loops, not a generated example or execution. The constructors must succeed, no earlier matching edge diverts find(), and such a three-way coincident configuration must be admitted or require explicit rejection; any later geometry cleanup and intended nonmanifold semantics are unresolved.",
+        "future_direction": "Set an admitted manifold/multiway contact policy at the roof graph owner; consume matched edges once or explicitly represent/reject multiway junctions and keep solids, face references and removals coherent.",
+        "relationships": [
+          "The /root/lens12_frontier READ-L12-862 already flagged adjacency expansion before deferred removal and multiway semantics as a conditional question. This is a more explicit source-state consequence of that historical question; root determines canonical alias and count. Related 059 broad roof topology queue Q-L12-daa19af99971265e71a0 remains open."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+            "lines": [
+              [
+                5,
+                38
+              ],
+              [
+                39,
+                45
+              ],
+              [
+                85,
+                88
+              ],
+              [
+                123,
+                149
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                262,
+                275
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                213,
+                221
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "PR-ROOF-VALLEY-ENDPOINT-ORIENTATION",
+        "kind": "conditional source-contract candidate",
+        "first_contract": "Valley drainage uses the left edge start as inlet and end extended along delta as outlet without selecting by elevation. If end.y - start.y is at least 0.09 m, the newly created route fails the downstream strict inlet.y > outlet.y + 0.01 check: its vertical difference equals 0.10 - (end.y - start.y) - 0.08*(delta.y/length).",
+        "condition": "Requires a bound valley with that orientation and rise, successful nondegenerate geometry construction, survival to audit, and no other qualifying route for the same terminal. The function admits either endpoint pairing direction and the edge producer takes face polygon order; neither proves the orientation is reachable or that the check ultimately reports an issue.",
+        "future_direction": "Prove upstream endpoint ordering or choose the higher endpoint as inlet and lower outlet at the owner of this route, retaining the geometry tolerance, endpoint extension and downstream terminal relationship.",
+        "relationships": [
+          "Related to 059 broad roof drainage/junction obligations and older 774 NATIVE-ROOF-PPS-RAW-SOURCE-002, which inventories raw drainage sample/route coordinates; not automatically the checked-point-loss identity NATIVE-ROOF-PPS-F001."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+            "lines": [
+              [
+                23,
+                38
+              ],
+              [
+                89,
+                121
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                403,
+                423
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "lines": [
+              [
+                1186,
+                1222
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "PR-ROOF-ENCLOSURE-AGGREGATE-MATERIAL",
+        "kind": "open owner and product-policy question",
+        "first_contract": "Each roof resolver receives the same walls slice and the enclosure adapter selects Timber if any wall is timber, else Rubble if any is rubble, else Masonry. It does not filter by roof, gable host, or replacement status, whereas the support-node search filters replaced walls. Thus a remote or replaced timber wall can determine the infill material for another roof if those wall combinations are supported.",
+        "condition": "Mixed, separate and replaced wall presence and the intended material authority for each gable are not established. The explicit priority and empty-wall default may be deliberate; this is not a confirmed defect or obsolete fallback.",
+        "future_direction": "Confirm whether the actual gable/contact wall is material authority or the building-wide policy is intended; if local authority is required, retain the host-to-enclosure relation and define missing or mixed-host handling.",
+        "relationships": [
+          "Original 059 /root/segovb L11 and /root/lens12_frontier L12 separately recorded this explicit timber/rubble/masonry priority and legitimate empty case; this does not upgrade their historical disposition or establish a new defect. Native roof raw-source inventory concerns related enclosure records, not identical authority."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+            "lines": [
+              [
+                1,
+                18
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                1,
+                36
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                27,
+                55
+              ],
+              [
+                580,
+                590
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "prworking-edge-material",
+      "author": "/root/mhr_character",
+      "report": "delegated/prworking-edge-material-report.json",
+      "original_finding": {
+        "id": "PR-ROOF-REMOVED-WEATHER-INTERFACE",
+        "kind": "historical pending relationship, not a confirmed defect",
+        "first_contract": "For matched boundary edges, binding removes old weather solids by their 0x5000 IDs but does not directly remove their associated support interfaces. The original edge producer created a parallel 0x9-tagged interface; the refit collects orphan treatment IDs only by iterating treatment solids that remain.",
+        "condition": "An applicable preexisting treatment and interface must exist, and another intervening or later pass or downstream contract may remove or tolerate the interface; these bounded reads do not prove stale accepted state or an actual error.",
+        "future_direction": "Trace weather solid/interface lifecycle to the native consumer and define owner-coherent removal only if the interface must not outlive its solid.",
+        "relationships": [
+          "Exact same issue raised conditionally by /root/segovb READ-L11-420; preserve original pending status and reviewer, do not create an independent count."
+        ],
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+            "lines": [
+              [
+                123,
+                149
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                495,
+                500
+              ],
+              [
+                551,
+                569
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                8,
+                12
+              ],
+              [
+                39,
+                60
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "roof-finalization-internal-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/roof-finalization-internal-hair-report.json",
+      "original_finding": {
+        "id": "REFINEMENT-ROOF-INTERNAL-CLEARANCE-DEGENERATE-EDGE",
+        "status": "source-mathematical refinement of earlier conditional clearance and graph-coherence questions; no new accepted unique count",
+        "first_contract": "For a finite nonzero edge whose strict interior interval is (low, high), the two retained lengths, in real arithmetic before floating-point rounding, are max(low*L - 0.08, 0) and max((1-high)*L - 0.08, 0). Thus an outside portion no longer than 0.08 m produces a zero edge, and one no longer than 0.10 m produces an edge at most 0.02 m; near the boundary floating-point comparisons require their actual values. The implementation appends the second edge without checking either retained edge length. The separate roof audit reports invalid_roof_edge for a duplicate ID or length <= 0.02 m if that edge reaches it.",
+        "downstream": "The same child path immediately invokes split_caps then the independent planar treatment trimmer. split_caps skips changing a treatment if either cap remainder is nonpositive. The later trimmer and final alignment cleanup can remove, retain, or change treatments depending on their actual geometry and other edges; finalization does not create a missing retained cap. The source does not establish that an originally corresponding cap and edge have identical cut parameters.",
+        "condition": "Requires an admitted attached child and finite parent edge with that near-endpoint interior interval, and the short edge surviving intervening graph stages into the audited plan. The actual supported input, completed plan, audit invocation outcome, treatment consequences, and acceptance policy are not established by this source-only analysis.",
+        "future_direction": "First resolve the intended topology and treatment policy for a cut with a too-short outside segment, including whether to reject, omit, or represent one side. Preserve checked geometry admission and synchronize edge, physical cap, bearing and references; compare to the earlier 5–8 cm endpoint-trimmer case rather than assuming a common failure.",
+        "historical_relation": "774 NATIVE-INITIAL05-GROUP-012 already records near-zero outside halves, the edge-versus-cap gate and unresolved coherent topology. /root/lens12_frontier 059 PROPOSAL-L12-862 already records strict interior and nonpositive cap skip. /root/rig_identity CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT is a different 2D trimmer branch; CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE is a different source of a degenerate edge. These are related, not automatic aliases.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+            "lines": [
+              [
+                8,
+                40
+              ],
+              [
+                43,
+                117
+              ],
+              [
+                122,
+                143
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                38,
+                105
+              ],
+              [
+                262,
+                277
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "lines": [
+              [
+                1130,
+                1135
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+            "lines": [
+              [
+                323,
+                359
+              ],
+              [
+                361,
+                410
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                1,
+                80
+              ],
+              [
+                82,
+                138
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "roof-finalization-internal-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/roof-finalization-internal-hair-report.json",
+      "original_finding": {
+        "id": "REFINEMENT-ROOF-SPLIT-CAP-INTERFACE-IDENTITY",
+        "status": "strengthened 059/774 conditional identity question; no new accepted unique count",
+        "first_contract": "For the non-church-apse branch, hip, half-hip and pavilion plate_specs supply four support nodes and each original roof edge-treatment solid retains the full support_nodes vector. On an actual split_caps path with both residual lengths positive, the second solid inherits that vector and emits one SupportInterface per support node using the same ID derived solely from the second solid. Four support relations therefore share one ID in that conditional path.",
+        "downstream": "ResolvedGeometry::interface and interface_mut return the first matching ID. The separately inspected timber audit collects interfaces into an ID-keyed HashMap, and refit updates only the first interface matching the treatment-derived ID. Those operations have different representations of duplicate-key relations; bearing::audit_positive_bearing instead matches owner/node/bounds and does not require ID lookup. The source alone does not prove any timber member or caller references this particular split cap ID, an incorrect consumed node, stale bounds, or accepted invalid plan.",
+        "condition": "An admitted multi-support roof must reach a genuine interior cut of an actual treatment with both positive cap remnants; subsequent consumers and identity namespace must require individually addressable relations. Source producer multiplicity is demonstrated, but reachability and observed downstream effect are not.",
+        "future_direction": "Establish whether the ID denotes the bearing contact or its parent physical fragment and trace all actual recipient lookups. If relations require independent identity, allocate and retain one stable relation identity per node with coordinated cleanup; otherwise expose an explicit multi-relation lookup contract. Preserve valid multiple support nodes.",
+        "historical_relation": "/root/lens12_frontier 059 PROPOSAL-L12-862 and 774 NATIVE-INITIAL05-GROUP-012 already explicitly identify multiple interfaces with the same ID; current producer multiplicity and first-versus-map recipients narrow their open question rather than create an independent count.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+            "lines": [
+              [
+                8,
+                40
+              ],
+              [
+                43,
+                117
+              ],
+              [
+                122,
+                143
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                117,
+                154
+              ],
+              [
+                172,
+                174
+              ],
+              [
+                495,
+                557
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                1,
+                80
+              ],
+              [
+                82,
+                138
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+            "lines": [
+              [
+                78,
+                99
+              ],
+              [
+                445,
+                461
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "lines": [
+              [
+                41,
+                46
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+            "lines": [
+              [
+                8,
+                56
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "roof-finalization-internal-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/roof-finalization-internal-hair-report.json",
+      "original_finding": {
+        "id": "REFINEMENT-ROOF-FINAL-JUNCTION-YAW-PROXY",
+        "status": "historical yaw-only concern connected to separate current contacts candidate; same underlying issue or distinct defect remains for central reconciliation",
+        "first_contract": "bind_roof_junctions considers different-owner solid pairs when one owner is a roof and accepts overlap of locally computed yaw-only axis-aligned bounds; it ignores longfall and crossfall. It then creates bounds, area and penetration values for a JunctionBond. An earlier caller creates roof apron flashing with crossfall -0.10 radians and size Y=0.045 m, Z=0.34 m; for a fully rotated cuboid its vertical extent is 0.045*cos(0.10)+0.34*sin(0.10), whereas this local yaw bound uses 0.045 m.",
+        "downstream": "The caller creates abutment contours immediately before final alignment and junction binding. The separately inspected overlap audit consults bonds and geometry-specific bearing policy and separately checks retained bonds. This packet establishes neither accepted false contacts nor omitted needed contacts or the outcome of those checks.",
+        "condition": "Requires a supported surviving oriented solid pair whose contact classification differs materially between the yaw-only proxy and the intended physical-contact policy. Actual geometry and acceptance not demonstrated; an AABB is not by itself proof of exact oriented contact.",
+        "future_direction": "Clarify whether this producer is a broad phase or authoritative contact declaration, then use one explicit, appropriately tolerant physical-contact policy at the true authority boundary. Preserve intentional corner contacts and other geometry-specific allowances.",
+        "historical_relation": "059 Segovb READ-L11-420 and /root/lens12_frontier L12-862, and 774 NATIVE-INITIAL05-GROUP-012 already recorded yaw-only bounds and unresolved contract. /root/hair_ops previous CANDIDATE-ROOF-YAW-BOUNDS-CONTACT-PROXY concerns roof_contacts::touching, a different function and producer/recipient; its source relation is real but an alias or independent count is not assumed.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                1,
+                80
+              ],
+              [
+                82,
+                138
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                38,
+                105
+              ],
+              [
+                262,
+                277
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+            "lines": [
+              [
+                1,
+                6
+              ],
+              [
+                33,
+                45
+              ],
+              [
+                67,
+                103
+              ],
+              [
+                123,
+                145
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+            "lines": [
+              [
+                344,
+                362
+              ],
+              [
+                376,
+                387
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "roof-finalization-internal-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/roof-finalization-internal-hair-report.json",
+      "original_finding": {
+        "id": "ROOF-JUNCTION-AND-SPLIT-SLOT-IDENTITY-OPEN",
+        "status": "connected existing 059/774 namespace and lifecycle questions; not an accepted new defect",
+        "first_contract": "The junction builder allocates IDs from local roof_bonds.len() starting at zero and extends the existing geometry bonds. The earlier abutment code also appends tagged bonds to that geometry. Split edge and cap IDs separately bitwise-OR a fixed 0xF00000 slot with collection-derived serials and owner/assembly shifts; the source has no local capacity or collision guard at those lines.",
+        "condition": "An existing and new bond must occupy the same actual ID namespace/value, or admitted collection counts must make relevant packed bits overlap, and an identified consumer must require uniqueness. No supported input reaches a collision, no repeated finalizer invocation, and no recipient impact is established.",
+        "future_direction": "Identify the allocation authority, actual count/input bounds, all ID consumers, and finalizer call lifecycle; preserve distinct domains until exact alias evidence exists.",
+        "historical_relation": "059 L12-862 already asks about the local bond counter, packed fragment slots and consumer. 774 NATIVE-INITIAL05-GROUP-012 already relates these to F002 allocator context. /root/rig_identity split-eave serial-bit observation has a different packed expression and is not automatically the same ID contract.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+            "lines": [
+              [
+                8,
+                40
+              ],
+              [
+                43,
+                117
+              ],
+              [
+                122,
+                143
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+            "lines": [
+              [
+                1,
+                80
+              ],
+              [
+                82,
+                138
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "lines": [
+              [
+                38,
+                105
+              ],
+              [
+                262,
+                277
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+            "lines": [
+              [
+                1,
+                6
+              ],
+              [
+                33,
+                45
+              ],
+              [
+                67,
+                103
+              ],
+              [
+                123,
+                145
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "lines": [
+              [
+                1130,
+                1135
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+            "lines": [
+              [
+                78,
+                99
+              ],
+              [
+                445,
+                461
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "pr-roof-outlets-sampling",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-roof-outlets-sampling-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-PARENT-DRIP-MINIMUM-GAP",
+        "status": "New conditional source arithmetic finding; supported program reachability, policy and exact alias remain unresolved",
+        "condition": "A parent candidate passes the selector condition recipient_y + 0.08 < source_low and produces the ParentRoofFace disposition. For actual computed f32 values the eventual reconstructed outlet-void centre is at or below (recipient_y + 0.06) + 0.08. This includes a real-arithmetic gap strictly between 0.08 and 0.21 metres when rounding is small; endpoints and large-coordinate precision require separate qualification. The station/network must reach the corresponding roof audit to obtain the stated audit issue.",
+        "observation": "Selection accepts any parent more than 0.08 m below source_low, but the emitted outlet is source_low − 0.07 m and the discharge is recipient_y + 0.06 m. The audit requires reconstructed outlet centre > discharge + 0.08 m. Therefore the stated source-level interval can be selected yet fails fall_is_vertical, making that station invalid in the roof drainage check. The document path calls audit_plan and rejects issues, while generate directly calls generate_unchecked; no unsupported plan or emitted runtime instance has been demonstrated.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+            "ranges": [
+              [
+                146,
+                149
+              ],
+              [
+                217,
+                225
+              ],
+              [
+                241,
+                252
+              ],
+              [
+                481,
+                503
+              ],
+              [
+                813,
+                823
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "ranges": [
+              [
+                260,
+                290
+              ],
+              [
+                331,
+                370
+              ],
+              [
+                524,
+                552
+              ],
+              [
+                738,
+                775
+              ],
+              [
+                931,
+                950
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "ranges": [
+              [
+                7,
+                9
+              ],
+              [
+                49,
+                50
+              ],
+              [
+                153,
+                163
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+            "ranges": [
+              [
+                198,
+                207
+              ],
+              [
+                281,
+                286
+              ],
+              [
+                301,
+                309
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Related to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and native NATIVE-ROOF-PPS-TRACE-016, but those records inventory fallback and require final audit proof; the selected-parent height gap is a different precise predicate and no automatic alias or accepted count is claimed. Reconcile with any existing drainage acceptance owner centrally.",
+        "future_direction": "Establish admitted parent/child gap and intended fall geometry. If supported, align candidate admission, authored offsets and the final audited fall contract; preserve valid parent and ground dispositions and source error policy."
+      }
+    },
+    {
+      "bundle_id": "pr-roof-outlets-sampling",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-roof-outlets-sampling-report.json",
+      "original_finding": {
+        "id": "ROOF-SAMPLING-CONVEX-COVERAGE-RECHECK-RELATION",
+        "status": "Current conditional continuation of 059 READ-L12-864 topology question; independent acceptance and actual supported nonconvex topology remain open",
+        "condition": "A finite nondegenerate face or cutout permits a fixed 5×5 grid midpoint which the intended general weather-face containment classifies differently from the all-edge convex predicate, with equal nonzero signed-area orientations in both computations. The strongest vacuous case additionally has no expected midpoint under the convex predicate and an existing network with zero samples.",
+        "observation": "RoofPlanSampling projects a face and each cutout then applies an all-edge half-plane test to the 25 grid centres. The roof drainage audit independently recomputes a 5×5 grid and the same orientation/all-edge predicate with the same side threshold. It therefore does not independently restore a grid point omitted by that same predicate. If expected and retained sample sets are empty, sample validity and coverage checks use all() over empty collections and count equality; those sample checks can pass if all other channel/station requirements pass. The separate weather recipient uses a general even/odd polygon query. Current child-cut construction takes a convex hull before storing those particular cutouts, which narrows rather than proves the topology question.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+            "ranges": [
+              [
+                11,
+                27
+              ],
+              [
+                28,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+            "ranges": [
+              [
+                316,
+                325
+              ],
+              [
+                405,
+                433
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+            "ranges": [
+              [
+                3,
+                16
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+            "ranges": [
+              [
+                17,
+                57
+              ],
+              [
+                245,
+                261
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+            "ranges": [
+              [
+                25,
+                37
+              ],
+              [
+                44,
+                66
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+            "ranges": [
+              [
+                123,
+                158
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "ranges": [
+              [
+                795,
+                845
+              ],
+              [
+                846,
+                871
+              ],
+              [
+                873,
+                945
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 /root/lens12_frontier READ-L12-864 left convex vs general topology admission open. 774 native NATIVE-ROOF-PPS-TRACE-020 documented convex sampling and separate general weather/tessellation without assuming global convexity. The audit replication and conditional empty-coverage consequence are newly inspected current support, not an accepted duplicate or proof of an admitted failing shape.",
+        "future_direction": "Establish what face/cutout topology is actually admitted and whether empty sampling is valid. If general nonconvex topology is supported, use an appropriate containment contract and independent coverage check while preserving numerical tolerance and accepted cutout behavior."
+      }
+    },
+    {
+      "bundle_id": "pr-roof-outlets-sampling",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-roof-outlets-sampling-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-PARENT-CANDIDATE-ORDER",
+        "status": "Conditional current source observation; alternative availability, obstacle case and required prioritization are unproved",
+        "condition": "The nearest obstacle-clear first-pass parent-face candidate is not below source_low by the required 0.08 m, while another first-pass candidate is sufficiently lower and obstacle-clear. The later cardinal fallback encounters a different lower contained face first whose fall is blocked.",
+        "observation": "The first pass ranks all obstacle-clear contained candidate/face pairs by plan distance before testing the winning face’s height. If that winner is too high, it does not try the next obstacle-clear candidate; it switches to fallback, which tests containment and height but not obstacle clearance. The later roof audit can reject a resulting fall under its own collision criteria, whereas the source generator has already selected the fallback. The stated combination is a reasoning condition, not a demonstrated generated layout.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+            "ranges": [
+              [
+                139,
+                160
+              ],
+              [
+                161,
+                169
+              ],
+              [
+                210,
+                255
+              ],
+              [
+                481,
+                503
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "ranges": [
+              [
+                357,
+                390
+              ],
+              [
+                401,
+                455
+              ],
+              [
+                524,
+                552
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Connected to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE, but that prior record asks whether fallback is accepted and does not prove this candidate-selection ordering. Keep distinct from the arithmetic minimum-gap and junction namespace contracts pending exact alias reconciliation.",
+        "future_direction": "Determine supported overlapping parent face topology and intended preference ordering; if the condition is supported, consider selecting among candidates that satisfy both clearance and height before any explicitly qualified fallback."
+      }
+    },
+    {
+      "bundle_id": "pr-roof-outlets-sampling",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-roof-outlets-sampling-report.json",
+      "original_finding": {
+        "id": "ROOF-OUTLET-STATION-CAP-POLICY-RELATION",
+        "status": "Current confirmation of original 059 policy/documentation question; no new unique defect",
+        "observation": "The outlet source comment states principal gable/hip roofs have at most two stations, whereas the implementation sets the limit to four for every kind and the inspected roof audit describes and enforces a cap of four for each assembly. A reachable >2 principal station and which policy controls are not established.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+            "ranges": [
+              [
+                1,
+                4
+              ],
+              [
+                45,
+                78
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "ranges": [
+              [
+                42,
+                78
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Exact existing 059 L12-CLOSURE-ROOF-OUTLET-STATION-COUNT-POLICY, Root Segovb READ-L11-420 and /root/lens12_frontier READ-L12-863; 774 NATIVE-ROOF-PPS-TRACE-016 also records all-kind four. Do not count as a new finding.",
+        "future_direction": "Resolve intended project gate and align authoritative code/documentation at the owning boundary; no product change is made."
+      }
+    },
+    {
+      "bundle_id": "pr-roof-outlets-sampling",
+      "author": "/root/rig_identity",
+      "report": "delegated/pr-roof-outlets-sampling-report.json",
+      "original_finding": {
+        "id": "ROOF-GROUND-FALLBACK-AUDIT-RELATION",
+        "status": "Partial current source resolution of 059 fallback acceptance question; no unique accepted defect",
+        "condition": "No candidate passes the source filter and the last candidate is chosen, then a retained network reaches the roof audit. Where that candidate fails the audit’s own clearance, vertical fall, roof intersection, portal or stair predicates, station validity fails; the audit is not identical to the full generator search.",
+        "observation": "The source generator selects the last enumerated candidate on an exhausted search. The roof audit checks station fall clearance and disposition, and document generation rejects any issues. The plain generate function does not invoke that audit. These facts do not establish that all rejected source candidates fail every downstream audit or that any supported layout reaches fallback.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+            "ranges": [
+              [
+                619,
+                626
+              ],
+              [
+                737,
+                800
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "ranges": [
+              [
+                331,
+                370
+              ],
+              [
+                379,
+                390
+              ],
+              [
+                401,
+                455
+              ],
+              [
+                457,
+                470
+              ],
+              [
+                476,
+                523
+              ],
+              [
+                554,
+                567
+              ],
+              [
+                738,
+                775
+              ],
+              [
+                944,
+                950
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "ranges": [
+              [
+                7,
+                9
+              ],
+              [
+                49,
+                50
+              ],
+              [
+                153,
+                163
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+            "ranges": [
+              [
+                198,
+                207
+              ],
+              [
+                281,
+                286
+              ],
+              [
+                301,
+                309
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Exact continuation of L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and 059 READ-L11-420/READ-L12-863, not a new duplicate. The 059 contract remains open for actual supported fall and full acceptance policy.",
+        "future_direction": "Trace the specific supported fallback, geometry and caller before deciding whether to return an explicit no-clear-outlet error or preserve a permitted free-drip mode."
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Junction and gutter identity",
+      "relationship": "The first packet refines the existing 11C ROOF-JUNCTION-GUTTER-COLLISION-CLEANUP-RELATION for a conditional edge-zero/face-zero source pairing; it is the same historical 059 producer-pair obligation, not a new unique defect. Later cleanup and supported graph remain open."
+    },
+    {
+      "identity": "Internal cuts and interfaces",
+      "relationship": "Near-end short split edges and repeated interface IDs refine previously named 774 and 059 obligations. They are distinct operations from the 10D end-clearance and split-eave concerns; no supported plan, final audit or recipient failure is established."
+    },
+    {
+      "identity": "Yaw contact checks",
+      "relationship": "The final roof junction builder uses a separate local yaw-only bound from RoofContacts::touching. Both are conditionally related physical-contact policies, but distinct first callers and consequences; no automatic alias or actual physical outcome is established."
+    },
+    {
+      "identity": "Outlet selection and fallback",
+      "relationship": "Minimum gap arithmetic, candidate order, cap policy, sampling replication and ground fallback have different predicates and retain the original 059 proposals. None demonstrates a supported plan or product behavior; output entry points and audit requirements remain separate."
+    },
+    {
+      "identity": "Historical displays",
+      "relationship": "Roles2542 and2543 are coordinator displays of separately recovered pr-working objects. Delegate 6533 and current displays remain separately attributed; matching file bytes do not prove whole-snapshot cleanliness."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "PR-ROOF-PRIMARY-ABUTMENT-ADJACENCY",
+    "PR-ROOF-MULTIWAY-DEFERRED-EDGE",
+    "PR-ROOF-VALLEY-ENDPOINT-ORIENTATION",
+    "PR-ROOF-ENCLOSURE-AGGREGATE-MATERIAL",
+    "PR-ROOF-REMOVED-WEATHER-INTERFACE",
+    "REFINEMENT-ROOF-INTERNAL-CLEARANCE-DEGENERATE-EDGE",
+    "REFINEMENT-ROOF-SPLIT-CAP-INTERFACE-IDENTITY",
+    "REFINEMENT-ROOF-FINAL-JUNCTION-YAW-PROXY",
+    "ROOF-JUNCTION-AND-SPLIT-SLOT-IDENTITY-OPEN",
+    "CANDIDATE-ROOF-PARENT-DRIP-MINIMUM-GAP",
+    "ROOF-SAMPLING-CONVEX-COVERAGE-RECHECK-RELATION",
+    "CANDIDATE-ROOF-PARENT-CANDIDATE-ORDER",
+    "ROOF-OUTLET-STATION-CAP-POLICY-RELATION",
+    "ROOF-GROUND-FALLBACK-AUDIT-RELATION"
+  ],
+  "open": "Three of eleven checkpoint12 bundles have bounded central reconciliation. Remaining packets, source scopes, unique aliases, all thirteen lenses and all 3713 historical semantic queue records remain open. These rows are relationships, not a unique defect count.",
+  "repair": "not started",
+  "validation": "not performed"
+}

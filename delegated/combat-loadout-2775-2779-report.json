@@ -1,0 +1,680 @@
+{
+  "schema": "726-bounded-combat-loadout-assessment-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T03:54:29.051269+00:00",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "2775 physical-p16 dirty snapshot at recorded a120390947c89b703dc74c4255a13c035d054c50 base/head; 2776\u20132779 pr-working snapshot recorded base 3a50b708381ad00c116445c2c999a49c3943088b and head 6533e444fa37552927070cc8d8190907fd3b413e with four separate status entries",
+    "objects": "All five individual recovered objects transported by f82adcabd9d89c4fa2dd7f99253a45297a0681ee equal their own same-path a120, 6533 and pinned 95e blobs. This individual equality does not make either recorded snapshot clean, turn a120 into a dirty P16 commit, transfer original reviewer credit, or establish whole-worktree equivalence.",
+    "p16_patch": "A later independent tracked diff reproduction matches the recorded patch digest; its exact bytes and independent recovery report are preserved. It excludes seven untracked paths and does not establish original command, uninterrupted custody or full filesystem state.",
+    "checkpoint_3821": "Missing checkpoint is not reconstructed from earlier registry, 059 summary or 774 records; recovered evidence, selected reconstructions and newly assessed work are identified separately."
+  },
+  "scope": {
+    "original_roles": [
+      2775,
+      2776,
+      2777,
+      2778,
+      2779
+    ],
+    "personal_displays": "Historical and 95e roles individually registered before display and read in bounded chunks; exact receipts and all support ranges and unread complements are separately preserved.",
+    "assigned_material_each_revision": {
+      "2775": [
+        [
+          1,
+          45
+        ]
+      ],
+      "2776": [
+        [
+          1,
+          39
+        ]
+      ],
+      "2777": [
+        [
+          1,
+          26
+        ]
+      ],
+      "2778": [
+        [
+          1,
+          18
+        ]
+      ],
+      "2779": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    "assigned_unread_each_revision": {
+      "2775": [
+        [
+          46,
+          72
+        ]
+      ],
+      "2776": [
+        [
+          40,
+          94
+        ]
+      ],
+      "2777": [],
+      "2778": [],
+      "2779": []
+    },
+    "support": "Current armor.rs 40\u201394 was separately registered and personally displayed as support, not historic/original role2776 read credit; all other support current 95e only. Full object bytes and metadata searches confer no read credit."
+  },
+  "findings": [
+    {
+      "id": "DELEGATE-MELEE-HEALTH-NONFINITE-ADMISSION-95E",
+      "classification": "conditional source-level admission and capability policy question; no accepted unique count or supported runtime claim",
+      "first_contract": "The public melee capability maps a holding side to required arms and treats the first health value <= 0.0 as disabled; otherwise it returns Available. PlayerBody::body_part_health returns an unconstrained f32, and public CombatBody.health exposes an f32 array. If the selected arm health is NaN, the ordered comparison <= 0.0 is false, so that selected arm is not rejected by this predicate. No malformed body or fixture was constructed or executed.",
+      "conditions_and_limits": "A supported producer must admit a nonfinite arm value to the action capability and the desired invalid-input policy must require rejection or an explicit error for this to become a product defect. The code alone does not establish NaN reaches supported tactical/autoresolve state, proves no whole-state admission, implies zero health is valid, or decides whether raw trait values may rely on an upstream invariant. Infinities, all producers, mutations, and network admission remain open. The prior 059 reviewer explicitly left NaN/positive-health admission pending.",
+      "connections": "Actual autoresolve can_attack_melee projects equipment to the melee weapon and holding side first, then calls the same capability. Tactical ingress gets a hand-specific view and also calls it; tactical Limbs and strategic CharacterLimbs return their respective fields. These are source connections only; none establishes an invalid normal input or live outcome.",
+      "references": [
+        {
+          "id": "2775-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/combat/capability.rs",
+          "archive": "sources/2775-current.source",
+          "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+          "lines": [
+            [
+              20,
+              45
+            ]
+          ]
+        },
+        {
+          "id": "body-trait",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/body.rs",
+          "archive": "support/body-trait.source",
+          "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+          "lines": [
+            [
+              46,
+              60
+            ]
+          ]
+        },
+        {
+          "id": "combat-model-types",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/combat-model-types.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              7,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "auto-model",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/auto-model.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              111,
+              132
+            ],
+            [
+              250,
+              255
+            ],
+            [
+              313,
+              315
+            ]
+          ]
+        },
+        {
+          "id": "autoresolve",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve.rs",
+          "archive": "support/autoresolve.source",
+          "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+          "lines": [
+            [
+              273,
+              280
+            ]
+          ]
+        },
+        {
+          "id": "tactical-player",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/player.rs",
+          "archive": "support/tactical-player.source",
+          "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+          "lines": [
+            [
+              203,
+              227
+            ]
+          ]
+        },
+        {
+          "id": "tactical-ingress",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+          "archive": "support/tactical-ingress.source",
+          "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+          "lines": [
+            [
+              173,
+              182
+            ]
+          ]
+        },
+        {
+          "id": "tactical-inventory",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+          "archive": "support/tactical-inventory.source",
+          "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "lines": [
+            [
+              430,
+              441
+            ]
+          ]
+        },
+        {
+          "id": "stdb-capability",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-stdb-module/src/capability.rs",
+          "archive": "support/stdb-capability.source",
+          "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+          "lines": [
+            [
+              168,
+              179
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 Segovb READ-L11-453 leaves positive-health/NaN native admission and producers open. 774 CAMERA-INITIAL07-CONTRACT-043 traces the selected side and current body predicate, distinguishing it from broader retained capabilities; no unique finding for this exact input is asserted by that contract. CAMERA-INITIAL07-F031 concerns a distinct historical stale injury-to-health projection, not evidence of this nonfinite path. Central must reconcile any broader existing admission record before deciding an alias/count.",
+      "future_direction": "Determine canonical limb-health admission, representation and invalid-value policy across actual producers and consumers; if nonfinite state is supported or can cross a required boundary, reject it at its proper owner or propagate an explicit typed failure without inventing an offhand transfer or alternate fatigue penalty. Implementation and validation are outside this audit."
+    }
+  ],
+  "existing_and_related": [
+    {
+      "id": "RIG-INITIAL06-F009",
+      "attribution": "774 rig, pr-working/P16 separately sourced; existing historical ownership finding, not newly counted.",
+      "detail": "Existing F009 concerns sharing the seven-part combat body-part owner with item protection targets. Separately registered 95e support still shows EquipmentBodyPart and BodyPart each with seven corresponding cases and equipment_body_part explicitly maps each; neither fine-grained EquipmentLocation nor medical BodyRegion automatically shares this exact role. The source recheck is current work, not a completed repair or automatic alias.",
+      "references": [
+        {
+          "id": "equipment-part",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "archive": "support/equipment-part.source",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "lines": [
+            [
+              287,
+              301
+            ]
+          ]
+        },
+        {
+          "id": "body-trait",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/body.rs",
+          "archive": "support/body-trait.source",
+          "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "id": "armor-helper-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "archive": "support/armor-helper-current.source",
+          "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "lines": [
+            [
+              40,
+              50
+            ]
+          ]
+        },
+        {
+          "id": "equipment-location",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "archive": "support/equipment-location.source",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "lines": [
+            [
+              303,
+              336
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q-L12-eab37babfedc890849b1",
+      "attribution": "059 queue row 1768, an unresolved historical locator/producer-to-armor-consumer contract with zero source or population credit",
+      "detail": "Related armor roster and armor_surface boundary. The present bounded reads do not close all earlier source, producer, native or current-engine questions and do not establish alias to other findings.",
+      "references": [
+        {
+          "id": "2776-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "archive": "sources/2776-current.source",
+          "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "lines": [
+            [
+              6,
+              38
+            ]
+          ]
+        },
+        {
+          "id": "equipment-trait",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment.rs",
+          "archive": "support/equipment-trait.source",
+          "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+          "lines": [
+            [
+              620,
+              639
+            ]
+          ]
+        },
+        {
+          "id": "tactical-inventory",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+          "archive": "support/tactical-inventory.source",
+          "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "lines": [
+            [
+              562,
+              586
+            ]
+          ]
+        },
+        {
+          "id": "combat-armor",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/combat/armor.rs",
+          "archive": "support/combat-armor.source",
+          "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+          "lines": [
+            [
+              35,
+              87
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-SLOTLESS-PROTECTIVE-CONTACT-OMISSION-001",
+      "attribution": "prior current 95e protective-contact assessment with its own inspection provenance; exact assessment preserved",
+      "detail": "Prior candidate is a conditional later equipment-contact receipt query omission. The current packet only independently reads selected armor-surface and contact-energy source; it does not prove that earlier candidate or transfer its source credit. Not an automatic duplicate of health admission or taxonomy."
+    }
+  ],
+  "nonfindings_and_narrowing": [
+    {
+      "id": "selected-arm",
+      "detail": "Melee capability distinguishes no selected side, disabled arm with the arm identity, and available. For Both, either selected arm at <=0 disables; deliberately no inferred offhand transfer. Action capability and broad character capability are different epochs/scope, not proven redundant authority.",
+      "references": [
+        {
+          "id": "2775-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/combat/capability.rs",
+          "archive": "sources/2775-current.source",
+          "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+          "lines": [
+            [
+              6,
+              45
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "armor-projection-stages",
+      "detail": "WearableProtection describes one layer, LayeredArmor an aggregate and ArmorSurface a selected contact. The default aggregate adapter intentionally supplies None identity/material; tactical inventory selects a layer surface. Optional identity alone is not a defect. Source does not establish every producer, successful receipt or sample policy.",
+      "references": [
+        {
+          "id": "2776-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "archive": "sources/2776-current.source",
+          "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "lines": [
+            [
+              6,
+              38
+            ]
+          ]
+        },
+        {
+          "id": "armor-helper-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "archive": "support/armor-helper-current.source",
+          "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+          "lines": [
+            [
+              52,
+              94
+            ]
+          ]
+        },
+        {
+          "id": "equipment-trait",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment.rs",
+          "archive": "support/equipment-trait.source",
+          "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+          "lines": [
+            [
+              620,
+              639
+            ]
+          ]
+        },
+        {
+          "id": "tactical-inventory",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/inventory.rs",
+          "archive": "support/tactical-inventory.source",
+          "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+          "lines": [
+            [
+              562,
+              586
+            ]
+          ]
+        },
+        {
+          "id": "auto-model",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/auto-model.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              332,
+              359
+            ]
+          ]
+        },
+        {
+          "id": "combat-armor",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/combat/armor.rs",
+          "archive": "support/combat-armor.source",
+          "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+          "lines": [
+            [
+              35,
+              87
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restricted-loadout-and-shared-enums",
+      "detail": "LoadoutSlot is the deliberate subset for initial anchors and total one-way conversion into the broader EquipmentLocation; the enum match is exhaustive for its own variants. SimpleAttribute labels, limb attributes and attack style are distinct canonical owners; cfg-gated derives do not establish actual feature resolution or ABI compatibility.",
+      "references": [
+        {
+          "id": "2777-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/attribute/simple.rs",
+          "archive": "sources/2777-current.source",
+          "sha256": "ee811c460ae3fdb00f99b496a86b5dd9e0f9e060f4d210bb1df16d8cb015f5b6",
+          "lines": [
+            [
+              1,
+              26
+            ]
+          ]
+        },
+        {
+          "id": "2778-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/combat_style.rs",
+          "archive": "sources/2778-current.source",
+          "sha256": "061ad83361e2177d953bb8c9b3246f1c654156078edd65e63926ed4dd62c9d77",
+          "lines": [
+            [
+              1,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "2779-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/equipment/loadout.rs",
+          "archive": "sources/2779-current.source",
+          "sha256": "2848f940513dcb82bf20ee25704f89782089ef98a038e7047e1687616e8fb6f1",
+          "lines": [
+            [
+              1,
+              39
+            ]
+          ]
+        },
+        {
+          "id": "equipment-location",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "archive": "support/equipment-location.source",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "lines": [
+            [
+              303,
+              336
+            ]
+          ]
+        },
+        {
+          "id": "attribute-owner",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/attribute.rs",
+          "archive": "support/attribute-owner.source",
+          "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+          "lines": [
+            [
+              48,
+              99
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "diagnostic-projection-qualification",
+      "detail": "The melee iteration diagnostic chooses a disabled arm from melee_holding_side then queries the unprojected CombatEquipment. The separate actual autoresolve receiver uses for_melee() first. The inspected authored_equipment builder sets weapon and melee_weapon together and leaves both side values at the same Right default, so the inspected construction does not show a mismatch. Different independently admitted equipment, other builder paths and diagnostic use remain open; do not assert an accepted mismatch or new finding from field duplication alone.",
+      "references": [
+        {
+          "id": "melee-evidence",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+          "archive": "support/melee-evidence.source",
+          "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+          "lines": [
+            [
+              286,
+              303
+            ]
+          ]
+        },
+        {
+          "id": "autoresolve",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve.rs",
+          "archive": "support/autoresolve.source",
+          "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+          "lines": [
+            [
+              273,
+              280
+            ]
+          ]
+        },
+        {
+          "id": "auto-model",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/auto-model.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              250,
+              255
+            ]
+          ]
+        },
+        {
+          "id": "combat-model-types",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/combat-model-types.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              82,
+              94
+            ]
+          ]
+        },
+        {
+          "id": "iteration-builder",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+          "archive": "support/iteration-builder.source",
+          "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+          "lines": [
+            [
+              257,
+              274
+            ]
+          ]
+        },
+        {
+          "id": "equipment-default",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/autoresolve/model.rs",
+          "archive": "support/equipment-default.source",
+          "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+          "lines": [
+            [
+              222,
+              235
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 CAMERA-INITIAL07-REG005 / CONTRACT-043",
+      "scope": "Original physical-p16 role2775, personally registered/read 1\u201345, excludes 46\u201372 test source; distinct pr-working role893 full read. The separate rig SOURCE-2775-DELTA036 reports its own fresh 1\u201345, and later SOURCE-2775 095 reports qualified semantic carry rather than fresh reread."
+    },
+    {
+      "record": "774 RIG-INITIAL06-REG-015 / CONTRACTS-033",
+      "scope": "Original pr-working role2776 declarations 1\u201339 only. P16 counterpart full94 and Camera REG007 fresh pr-working 40\u201394 overlay are separate prior author/revision/range records; earlier Camera unregistered full display of 40\u201394 was explicitly uncredited."
+    },
+    {
+      "record": "774 RIG-INITIAL06-REG-018/019/020 / CONTRACTS-037/040/041",
+      "scope": "Original pr-working role2777 1\u201326, 2778 1\u201318, 2779 1\u201339; exact prior writer and lens retained. Contract040 records existing F009; carry source status and no other-lens credit."
+    },
+    {
+      "record": "059 Segovb READ-L11-453",
+      "scope": "Fresh role2775 1\u201345, 2776 1\u201339, 2777 1\u201326, 2778 1\u201318, 2779 1\u201339 in respective recorded snapshots. Separate READ-L11-481 overlay index202 fresh pr-working armor40\u201394 after REGISTRATION-SEGOVB-1810, reusing 1\u201339 from 453 only in that reviewer own lens; no role duplication."
+    },
+    {
+      "record": "whole-file registration hash mismatch",
+      "scope": "Registry recorded camera b2b854ae03171e06f730e6ffe1f244461f41081441d0f6e592f6c9a11402f758 versus f82 file 0468421dafdd1987a398ee9c63762859be9544a5b012ccb8bc7d6833d7dffddf. Rig registry recorded b9d682173b1f86b9765e12f7eb5e6a9e631399a88babb98cffaaf07d5c58c5a4 for role2776 and 83af239cb13e6cd10f62793f359f924ac7be7526c858ea4db31f9e9f3d3d009e for 2777\u20132779, versus f82 file 8770f5b2d71c63d66c9fb8035fd73c4dab9c7a8a1bf67063bbe55831b1c7187b. Each selected parsed row equals its registry original_record; whole-file variants were not found in inspected collections and cause is unknown. Selected row equality does not establish whole-file identity."
+    }
+  ],
+  "open_questions": [
+    "Which supported producers and serialization/native boundaries guarantee limb-health finiteness and valid range before selected-arm capability? What should invalid state return?",
+    "Can a supported tactical two-handed/hand-selection configuration legitimately require both arms, and which source owns that policy? No reachable mismatch shown here.",
+    "Do any real diagnostic callers admit a melee_holding_side different from the unprojected holding_side, and what is their diagnostic contract?",
+    "Which identity/material/coverage source is authoritative for each strategic aggregate, selected tactical layer and final contact/receipt route? Broader earlier Q-L12 and protective-contact assessment remain open.",
+    "Should same seven-part names be a shared owner across build-time and runtime feature contexts, and what are the exact independent ABI/code-generation constraints? F009 owns this earlier question.",
+    "Can raw layer coverage/resistance and weighted aggregation reach nonfinite or overflowing values through supported input? 059 overlay 481 left producer validity open."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission contracts",
+      "disposition": "Typed enum variants restrict labels; raw f32 health and armor values are not by themselves admission certificates. NaN conditional remains open."
+    },
+    {
+      "lens": "aggregate states",
+      "disposition": "Health and selected side jointly classify capability; wearable, aggregate and contact-surface facts have different stages and must not be conflated."
+    },
+    {
+      "lens": "behavior preservation",
+      "disposition": "No change made. Retain specified offhand action, available/no-side/disabled distinctions and role-specific surface semantics if repair is later authorized."
+    },
+    {
+      "lens": "derivability",
+      "disposition": "SimpleAttribute, MeleeAttackStyle and LoadoutSlot use ordinary derives; their explicit cross-type conversion preserves a narrower input set."
+    },
+    {
+      "lens": "enum shapes",
+      "disposition": "MeleeAttackCapability owns disabled arm payload in its variant. No supported extra enum payload requirement established."
+    },
+    {
+      "lens": "existing type owners",
+      "disposition": "774 F009 already covers two seven-part owner taxonomies; map remains in current separately registered support."
+    },
+    {
+      "lens": "invariant operations",
+      "disposition": "The <=0 capability gate is not a finiteness check; LayeredArmor helper clamps some local inputs and sums other measures; actual upstream validity remains open."
+    },
+    {
+      "lens": "magic numbers",
+      "disposition": "Zero is the capability disability threshold. The domain and native admission for health and protection require actual producer policy, not mechanically wrapping all f32 values."
+    },
+    {
+      "lens": "magic strings",
+      "disposition": "Scoped wire renames and diagnostic text are boundary/label representations; no unowned product string issue shown in assigned ranges."
+    },
+    {
+      "lens": "producer propagation",
+      "disposition": "Autoresolve explicitly projects the selected melee weapon and side before the shared capability. Tactical selected-hand view feeds the same shared predicate; full producer paths are not exhausted."
+    },
+    {
+      "lens": "redundant authority",
+      "disposition": "Melee action capability is derived from selected equipment and body; prior camera review distinguishes broad retained capabilities. Layered armor and contact selected surface are distinct projections."
+    },
+    {
+      "lens": "type granularity",
+      "disposition": "Initial loadout subset and full equipment topology, simple and limb attributes, and generic attack style each have distinct purpose; no blanket collapse."
+    },
+    {
+      "lens": "type ownership",
+      "disposition": "Seven-part taxonomy owner F009 and raw health admission owner need separate reconciliation; optional surface material/id may represent deliberate aggregate or innate data."
+    }
+  ],
+  "restrictions": "Static source and evidence integrity checks only. No product repair, build, test, generated code, macros, fixture/product execution, simulation, runtime probe or product validation. No whole-lens or historical 3821 completion claim."
+}

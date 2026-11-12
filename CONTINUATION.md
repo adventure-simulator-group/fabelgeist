@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0349.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0408.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -101,6 +101,17 @@ recovery check, with its transcript limitations.
 packets pending central reconciliation. Their path-redacted public copies are
 reconstructed; exact changed top-level originals are retained locally only.
 The original 2740–2744 snapshot and source labels remain unnormalized.
+`ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json` connects the first three
+checkpoint 12 packets in bounded source review. The other packets, connected
+scopes, all lenses and the historical queue remain open.
+`RECOVERY-VERIFICATION-017463E0.json` records the latest same-machine
+recovery check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-25.json` preserves nine more source packets
+and an additive correction, pending central reconciliation. The packets retain
+whole-file historical hash mismatches and the workspace-output incident as
+qualified records. `QUALIFICATION-REGISTRATION-HASH-MISMATCHES-25.json`
+compares 13 selected matching rows with their distinct whole-file hashes. Path-redacted public copies are reconstructed; their exact
+changed top-level originals remain local only.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

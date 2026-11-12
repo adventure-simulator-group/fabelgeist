@@ -1,0 +1,150 @@
+{
+  "schema": "726-native-rand-2757-2760-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T03:42:12.306497+00:00",
+  "scope": {
+    "original_roles": [
+      2757,
+      2758,
+      2759,
+      2760
+    ],
+    "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "native": "rand 0.9.5 archive SHA256 b9ef1d0d795eb7d84685bca4f72f3649f064e6641543d3a8c415898726a57b41; exact historical four bodies match corresponding archive members. Historical source transported by f82adcabd9d89c4fa2dd7f99253a45297a0681ee, not a project Git revision.",
+    "registry_qualification": "Original source IDs, CARGO_HOME paths and snapshot native-rand0.9.5 are preserved verbatim. The project snapshot table has no native-rand0.9.5 row; this is external package evidence bound by archive checksum and 6533/95e lock entries, not a project tree.",
+    "package_pin_and_features": "Exact 6533 Cargo.lock 8937–8945 and 95e Cargo.lock 8583–8591 match archive checksum; fabelgeist-determinism manifest at each declares rand =0.9.5 with default-features false and alloc. Manifest also separately declares optional rand 0.8.8 for spacetimedb, and both lockfiles contain 0.10.2: none is substituted for this native role. Native Cargo.toml declares serde, unbiased and other features but the resolved aggregate feature graph was not computed.",
+    "coverage": "Independently displayed historical and locked-package bodies: role2757 1–145,358–369; 2758 190–260,268–312,399–416; 2759 1–160,280; 2760 25–60,85–115. Exact complements are in personal-read-receipt.json. 2758 line416 was separately registered by earlier reviewer SEGOVB-1680 and is independently read context in this review; source tests/examples only, no execution. Original role exclusions remain."
+  },
+  "observations": [
+    {
+      "key": "native-u64-weighted-path",
+      "classification": "independent bounded confirmation of ROOT-INITIAL04-CONTRACT-014; no new unique count",
+      "source_refs": [
+        "source/2757-locked-package.rs:99–137,358–368",
+        "source/2758-locked-package.rs:220–258,268–312,399–416",
+        "source/2759-locked-package.rs:71–160,280",
+        "source/2760-locked-package.rs:25–60,85–115",
+        "support/native-utils.rs:16–30,58–61",
+        "support/native-integer.rs:49–53",
+        "support/native-rng.rs:58–59,95–100,357",
+        "support/stream.rs:48–61,104–138"
+      ],
+      "trace": "WeightedIndex<u64> rejects empty inputs, all-zero total and checked-add overflow before creating the distribution, and then obtains its selected index from cumulative partitioning. For a positive total, the concrete UniformInt<u64> constructor admits [0,total), calculates a threshold, and its constructed sample retries u64 widening products whose low word is below that threshold; the u64 distribution reads next_u64 and the widening product uses u128. Equal cumulative boundaries skip zero-weight entries; selection lies within the input index range on the shown sorted nonnegative construction.",
+      "condition": "This concerns the concrete constructed u64 path and conditional uniform-word arithmetic only; it is not a claim that a PRNG sequence is random, that a sample always consumes one word, or that every other width, float, custom Weight, sample_single, SIMD, serializer, or feature configuration is valid. Source documentation at uniform_int.rs:61–66 warns of possible bias for other paths; it cannot be generalized over the inspected constructed rejection loop. No macro, sample, example or test was run.",
+      "future_repair_direction": "Preserve native checked errors, deterministic stable candidate order, zero-weight exclusion, bounds and variable draw count if changing surrounding owner contracts; do not create a duplicate sampler."
+    },
+    {
+      "key": "weighted-order-and-quest",
+      "classification": "bounded current nonfinding, supporting historical 774 contract",
+      "source_refs": [
+        "support/stream.rs:104–130",
+        "support/sampling.rs:5–109"
+      ],
+      "trace": "The first-party weighted_order copies input, samples a positive remaining entry, zeroes that entry and repeats exactly the original positive count. Given the concrete native source contract, positive selections do not recur and later nonnegative totals cannot exceed a valid initial total. Quest choice rejects no candidates before the sampler; quest order returns an empty vector for no eligible candidates, canonicalizes identities, filters impossible/nonpositive entries and propagates SamplingError.",
+      "condition": "No full application graph or observed generation run is proven; target package and feature conditions are as recorded. weighted_order repeatedly rebuilds distributions, but no user-controlled unbounded workload or application performance conclusion is established."
+    },
+    {
+      "key": "language-default-and-name-errors",
+      "classification": "reconnected existing source contracts, no additional unique counts",
+      "source_refs": [
+        "support/language_profile.rs:495–512,526–562",
+        "support/language_initialization.rs:6–23",
+        "support/names.rs:282–321,322–337",
+        "support/name_error.rs:3–10,13–30"
+      ],
+      "trace": "The public SettlementLanguageProfile derives zero Default; initial_oral_languages passes its three public weights directly to weighted_index and expects positive total. A zero/default profile therefore meets the source-level all-zero sampler error condition if the helper receives it. Inferred profiles in the shown producer sum to the whole, but callers or decoded/public values have separate authority. Name generation converts the same typed SamplingError to NameCatalogError::Sampling(String) for three weighted groups.",
+      "history": "059 REVIEW-L3-INITIAL-LANGUAGE-PROFILE-WEIGHTS, ADLER-L11-NAME-SAMPLING-ERROR-OWNERSHIP and SEGOVB-L12-NAME-SAMPLING-ERROR-ERASURE already record distinct facets; do not assume aliases or observed runtime failures. ADLER-L11-NAME-CATALOG-WEIGHT-ADMISSION remains a separate current validator/producer question.",
+      "future_repair_direction": "Either make the intended normalized profile invariant explicit at its owner or expose a fallible initialization, and retain sampler cause to the presentation boundary; independently verify all actual producers and name-catalog aggregate admission."
+    },
+    {
+      "key": "finite-float-range",
+      "classification": "prior finding, current support confirmation only",
+      "source_refs": [
+        "support/stream.rs:90–94",
+        "history-774/root/initial04-invariant-operations/contract-groups-006.json.gz",
+        "reference/determinism-95e.json"
+      ],
+      "trace": "For finite ordered endpoints -f32::MAX and +f32::MAX, f32 span subtraction can overflow; multiplication by a zero or positive unit draw can produce NaN or infinity. This is a source-level arithmetic argument for the public interval API, not a rand u64 weighted-sampler defect.",
+      "history": "Original ROOT-INITIAL04-F005 and 059 Q-L1-c356cec832d5514e0721 already describe the conditional case; published ASSESSMENT-DETERMINISM-95E records it again. No actual production caller with extreme endpoints is claimed.",
+      "future_repair_direction": "Choose overflow-safe interval construction or explicit typed rejection consistent with owner policy and draw ordering; preserve true native boundaries and do not implement in this audit."
+    }
+  ],
+  "nonfindings": [
+    "For u64 inputs the native checked_add implementation returns Overflow rather than publishing a wrapped total; InvalidWeight is unreachable for ordinary u64 values.",
+    "The full-width UniformInt zero-range sentinel is intentional for the inclusive full integer interval; the project exclusive [0, positive upper) path does not construct that sentinel.",
+    "Source expects with locally established positive native bounds do not establish ordinary panic; repository rule concerns remain separate from fabricated runtime counterexamples.",
+    "Previously registered test examples and RejectionProbe are source evidence only; no execution or statistical result."
+  ],
+  "open_questions": [
+    "Which deployment feature graph actually enables rand serde, unbiased and other features, and are any externally deserialized native sampler states admitted? No feature resolution or other decoder graph is inferred.",
+    "Do all name catalog validation routes prove aggregate weight totals fit u64 and retain structured causes before formatting?",
+    "Which ordinary call sites can supply an all-zero language profile or extreme finite float range, and what is authoritative admission?",
+    "What application candidate-size bounds exist for every weighted_order consumer, and is repeated O(n) distribution construction acceptable under actual workload?",
+    "Are every supported seed, generator state and stable candidate order appropriately qualified across platform/upgrade boundaries? Native source version alone does not prove replay results."
+  ],
+  "historical_relationships": {
+    "older_774": "ROOT-INITIAL04-REG002–005,009–010 and ROOT-INITIAL04-CONTRACT-014 personally read exact pinned native ranges, including additional u64 bridge proofs. ROOT-INITIAL04-F005 records floating endpoint overflow. Their historical lenses, source revisions and original exclusions remain separate.",
+    "l11_059": "READ-L11-451 and SEGOVB-1676–1679 assess the original material. SEGOVB-1680 separately extends 2758 to line416, not part of original role; accepted_unique_count_change=0 and current_reconciled=false.",
+    "l1_059": "READ-ROOT-L1-CURRENT-004 and queue Q-L1-c356cec832d5514e0721 preserve the e275 current-main and old native attribution; package byte equality is not a transfer of that review or a claim the e275 revision is 95e.",
+    "prior_current": "ASSESSMENT-DETERMINISM-95E and /root/rig_identity p16-runtime-determinism report retain their own authors and scopes. Name/language 059 receipts and findings remain historical, not promoted to checkpoint3821."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Stable candidate producer and checked u64 weights reach the native sampler; quest preserves typed error while names format it early."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "NonZeroU64 and existing SamplingError own the actual bounds/error meanings; language profile and name aggregate require their own semantic admission."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Native u64 constructor rejects empty, zero total and overflow; public language profile can represent zero and reaches an expect only if an unvalidated caller passes it."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Constructed u64 sampling uses rejection and checked widening; first-party f32 span may overflow under finite opposite-sign extremes, already recorded."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Weight totals, profile normalization and relation of retained source group to selected index require whole-aggregate guarantees."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Canonical deterministic sampler owns integer selection; name domain should preserve its error cause rather than invent a parallel sampler."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "No duplicate sampler authority asserted from bounded native and project adapters; direct constructor and real consumer each have distinct boundary roles."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Preserve canonical order, generator/stream identity, precise zero/error behavior and potentially multiple full-word draws, not a fixed-one-draw assumption."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "SamplingError enumerates empty, zero and overflow; native error has distinct invalid/overflow outcomes, with concrete u64 invalid-weight case unreachable."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Native optional serde derives and macros are source only; neither active features nor derived decoder validation are established."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Nonzero bounded sampling differs from float intervals and retained normalized profiles; avoid merging them merely because all produce numbers."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Name error formatting erases a typed cause at internal API; native diagnostic strings and domain stream IDs have different roles."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Full-width zero sentinel and rejection threshold express a native algorithm; original indexes are structural, not arbitrary application tuning."
+    }
+  ],
+  "limits": [
+    "Bounded native/current source assessment only; thirteen whole lenses are not closed.",
+    "No code, examples, fixtures, tests, macros, builds, dependency resolution, simulation or product/runtime probes were executed.",
+    "No source, extracted evidence or publication checkout was changed; central coordination owns counts, aliases, repair ledger and publication."
+  ]
+}

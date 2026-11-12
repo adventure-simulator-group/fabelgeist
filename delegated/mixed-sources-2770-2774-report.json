@@ -1,0 +1,1086 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T03:54:19.216560+00:00",
+  "scope": {
+    "roles": [
+      2770,
+      2771,
+      2772,
+      2773,
+      2774
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_identity": "2770\u20132772 and 2774 are pr-working 6533-based with unrelated modifications; 2773 is separately physical-p16 dirty a120-based. All five exact archived objects individually match 6533 and 95e; 2773 also matches a120 and its 039 catalogued object. None of those per-file identities makes either snapshot clean or identical as a whole.",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "p16_recovery": "Later reproduced tracked patch exactly matches recorded SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked objects separately preserved. Original patch generation command and uninterrupted custody are not established. f82/039 are archive transport/per-file origin, not P16 HEAD.",
+    "qualification": "No historical read attribution, completed lens or checkpoint3821 evidence transferred."
+  },
+  "assigned_personal_displays": [
+    {
+      "original_index": 2770,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "snapshot": "pr-working",
+      "identity": "archived exact pr-working registry object",
+      "revision": null,
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "local": "source/2770-historical.rs",
+      "eof": 46,
+      "actual_display_chunks": [
+        [
+          1,
+          46
+        ]
+      ],
+      "original_material_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2770,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "snapshot": "pr-working",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "local": "source/2770-95e6.rs",
+      "eof": 46,
+      "actual_display_chunks": [
+        [
+          1,
+          46
+        ]
+      ],
+      "original_material_ranges": [],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2771,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "snapshot": "pr-working",
+      "identity": "archived exact pr-working registry object",
+      "revision": null,
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "local": "source/2771-historical.rs",
+      "eof": 460,
+      "actual_display_chunks": [
+        [
+          7,
+          8
+        ]
+      ],
+      "original_material_ranges": [
+        [
+          7,
+          8
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          460
+        ]
+      ],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2771,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "snapshot": "pr-working",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "local": "source/2771-95e6.rs",
+      "eof": 460,
+      "actual_display_chunks": [
+        [
+          7,
+          8
+        ]
+      ],
+      "original_material_ranges": [],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          6
+        ],
+        [
+          9,
+          460
+        ]
+      ],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2772,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "snapshot": "pr-working",
+      "identity": "archived exact pr-working registry object",
+      "revision": null,
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "local": "source/2772-historical.rs",
+      "eof": 64,
+      "actual_display_chunks": [
+        [
+          1,
+          64
+        ]
+      ],
+      "original_material_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2772,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "snapshot": "pr-working",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "local": "source/2772-95e6.rs",
+      "eof": 64,
+      "actual_display_chunks": [
+        [
+          1,
+          64
+        ]
+      ],
+      "original_material_ranges": [],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2773,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+      "snapshot": "physical-p16",
+      "identity": "archived exact physical-p16 registry object",
+      "revision": null,
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "local": "source/2773-historical.rs",
+      "eof": 138,
+      "actual_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          138
+        ]
+      ],
+      "original_material_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2773,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+      "snapshot": "physical-p16",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "local": "source/2773-95e6.rs",
+      "eof": 138,
+      "actual_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          138
+        ]
+      ],
+      "original_material_ranges": [],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2774,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "snapshot": "pr-working",
+      "identity": "archived exact pr-working registry object",
+      "revision": null,
+      "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+      "local": "source/2774-historical.rs",
+      "eof": 177,
+      "actual_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          132
+        ]
+      ],
+      "original_material_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          133,
+          177
+        ]
+      ],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    },
+    {
+      "original_index": 2774,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "snapshot": "pr-working",
+      "identity": "pinned 95e",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+      "local": "source/2774-95e6.rs",
+      "eof": 177,
+      "actual_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          132
+        ]
+      ],
+      "original_material_ranges": [],
+      "navigation_only_lines": [
+        140,
+        167,
+        169,
+        170,
+        175
+      ],
+      "unread_complement": [
+        [
+          133,
+          139
+        ],
+        [
+          141,
+          166
+        ],
+        [
+          168,
+          168
+        ],
+        [
+          171,
+          174
+        ],
+        [
+          176,
+          177
+        ]
+      ],
+      "qualification": "Comparison Git bytes not separately displayed; prior readers retain their own scope; historical excluded tests and helper bodies not role credit."
+    }
+  ],
+  "support_personal_displays": [
+    {
+      "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/hair-parting.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "eof": 433,
+      "full_line_body_displays": [
+        [
+          90,
+          170
+        ]
+      ],
+      "navigation_only_lines": [
+        21,
+        263,
+        291,
+        293,
+        416
+      ],
+      "unread_complement": [
+        [
+          1,
+          20
+        ],
+        [
+          22,
+          89
+        ],
+        [
+          171,
+          262
+        ],
+        [
+          264,
+          290
+        ],
+        [
+          292,
+          292
+        ],
+        [
+          294,
+          415
+        ],
+        [
+          417,
+          433
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/hairdo.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/hair-braid.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "eof": 710,
+      "full_line_body_displays": [
+        [
+          120,
+          140
+        ],
+        [
+          400,
+          430
+        ]
+      ],
+      "navigation_only_lines": [
+        38,
+        202,
+        222
+      ],
+      "unread_complement": [
+        [
+          1,
+          37
+        ],
+        [
+          39,
+          119
+        ],
+        [
+          141,
+          201
+        ],
+        [
+          203,
+          221
+        ],
+        [
+          223,
+          399
+        ],
+        [
+          431,
+          710
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/combat-precision.rs",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "eof": 113,
+      "full_line_body_displays": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          113
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/combat-contact.rs",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "eof": 1137,
+      "full_line_body_displays": [
+        [
+          390,
+          465
+        ]
+      ],
+      "navigation_only_lines": [
+        33
+      ],
+      "unread_complement": [
+        [
+          1,
+          32
+        ],
+        [
+          34,
+          389
+        ],
+        [
+          466,
+          1137
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment/armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/combat-surface.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "eof": 94,
+      "full_line_body_displays": [
+        [
+          1,
+          75
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          76,
+          94
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/shell-layout.rs",
+      "sha256": "82a6a4729b279187a9e7012181e5b85601f4ab3924c707d3243816168a83bc62",
+      "eof": 311,
+      "full_line_body_displays": [
+        [
+          85,
+          120
+        ],
+        [
+          140,
+          165
+        ],
+        [
+          220,
+          270
+        ]
+      ],
+      "navigation_only_lines": [
+        5
+      ],
+      "unread_complement": [
+        [
+          1,
+          4
+        ],
+        [
+          6,
+          84
+        ],
+        [
+          121,
+          139
+        ],
+        [
+          166,
+          219
+        ],
+        [
+          271,
+          311
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/shell-part.rs",
+      "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+      "eof": 399,
+      "full_line_body_displays": [
+        [
+          280,
+          315
+        ]
+      ],
+      "navigation_only_lines": [
+        18
+      ],
+      "unread_complement": [
+        [
+          1,
+          17
+        ],
+        [
+          19,
+          279
+        ],
+        [
+          316,
+          399
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/limb.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/limb-shape.rs",
+      "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+      "eof": 478,
+      "full_line_body_displays": [
+        [
+          455,
+          478
+        ]
+      ],
+      "navigation_only_lines": [
+        258
+      ],
+      "unread_complement": [
+        [
+          1,
+          257
+        ],
+        [
+          259,
+          454
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/pauldron.rs",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "eof": 244,
+      "full_line_body_displays": [
+        [
+          50,
+          90
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          1,
+          49
+        ],
+        [
+          91,
+          244
+        ]
+      ],
+      "ordered_role_credit": 0
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "local": "support/garment-spec.rs",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "eof": 582,
+      "full_line_body_displays": [
+        [
+          1,
+          60
+        ]
+      ],
+      "navigation_only_lines": [],
+      "unread_complement": [
+        [
+          61,
+          582
+        ]
+      ],
+      "ordered_role_credit": 0
+    }
+  ],
+  "navigation_receipts": "read-receipt.json records exact line-only navigation, including current 2774 test-text hits, which are not historical material or evidence of execution.",
+  "source_observations": [
+    {
+      "role": 2770,
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/limb_build.rs",
+          "ranges": [
+            [
+              7,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/limb.rs",
+          "ranges": [
+            [
+              466,
+              478
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+          "ranges": [
+            [
+              65,
+              78
+            ]
+          ]
+        }
+      ],
+      "assessment": "Pauldron generate_limb_armor_on validates fit, records carrier and plates/shells, submits, explicitly reads carrier status and rejects nonzero. Its record_limb_armor sibling returns the recorded plates without this explicit status read, while carrier record separately validates the pauldron design. Other limb shape validates design before part build. All observations are static source control flow; no GPU operation ran."
+    },
+    {
+      "role": 2771,
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-garment-code/src/math.rs",
+          "ranges": [
+            [
+              7,
+              8
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-garment-code/src/pattern/spec.rs",
+          "ranges": [
+            [
+              8,
+              20
+            ],
+            [
+              38,
+              51
+            ]
+          ]
+        }
+      ],
+      "assessment": "V2/V3 are f64 arrays; pattern source uses them for edge-local curvature parameters and for panel vertices, translation and degree-valued rotation. They are representation aliases rather than admitted finite/frame/unit contracts. Exactly the two original lines were read old and current; unrelated math helpers remain unread."
+    },
+    {
+      "role": 2772,
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/identity.rs",
+          "ranges": [
+            [
+              5,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/ops/interpolate.rs",
+          "ranges": [
+            [
+              96,
+              111
+            ],
+            [
+              130,
+              163
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-hair/src/hairdo.rs",
+          "ranges": [
+            [
+              129,
+              133
+            ],
+            [
+              419,
+              425
+            ]
+          ]
+        }
+      ],
+      "assessment": "Private PartingGroupId is produced by nonnegative i32 decoding or default zero, so its current gpu_word i32 cast is representable; negatives encode Unassigned. StrandId is stable identity independent of array position. lane requires positive lanes and public/Serde Lanes count can be zero; group() itself reaches inverted clamp first in the shown braid call. Ordinary braid selector uses 3. Prior q162 and q372 remain connected, not counted again."
+    },
+    {
+      "role": 2773,
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/combat/armor.rs",
+          "ranges": [
+            [
+              5,
+              88
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+          "ranges": [
+            [
+              84,
+              113
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/combat.rs",
+          "ranges": [
+            [
+              420,
+              460
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/equipment/armor.rs",
+          "ranges": [
+            [
+              29,
+              38
+            ]
+          ]
+        }
+      ],
+      "assessment": "ContactPrecision constructor asserts finite nonnegative input; armor resolves edge/blunt and a single padding budget into resisted/transmitted/penetrated energy and emits an outcome. The selected caller passes attack force and chosen surface. The fixed absolute debug conservation threshold and externally supplied surface/force values need source-producer and numeric-policy tracing; no erroneous behavior or bad supported combat input demonstrated. Existing tests at 90\u2013138 were source text only, never run."
+    },
+    {
+      "role": 2774,
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+          "ranges": [
+            [
+              16,
+              34
+            ],
+            [
+              47,
+              132
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+          "ranges": [
+            [
+              100,
+              119
+            ],
+            [
+              144,
+              155
+            ],
+            [
+              227,
+              265
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+          "ranges": [
+            [
+              295,
+              310
+            ]
+          ]
+        }
+      ],
+      "assessment": "ShellPlan admits nonzero count, nonempty triple indices within count and consistent paired edge direction, then constructs outer/inner/edge faces and native high-bit source encoding. Layout sums carrier/final counts, narrows source length to u32 and offsets packed indices. Checked native capacity, global offset, valid geometry and allocator/device limits remain open; earlier 95e pauldron assessment already records the same large-count capacity question. Original tests 134\u2013177 remain excluded, though current navigation displayed selected matching lines and receipt lists them."
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "RECONNECT-059-PARTING-LANES",
+      "classification": "Existing 059 q162 ADLER-L11-HAIR-PARTING-LANE-ADMISSION and q372 SEGOVB-L12-CONNECTED-HAIR-PARTING-ZERO-LANES-ADMISSION independently reconnected; no new unique finding or automatic alias.",
+      "condition": "A public or deserialized Parting::Lanes count=0 reaches group(); the clamp has inverted bounds. A count of 2^31 or larger has separate signed representation/overflow behavior. lane also assumes nonzero lanes. No default braid failure: selected Hairdo::parting sets 3.",
+      "relationships": "q162 records Adler source ranges, q372 records /root/lens12_frontier fresh historical reads and root adoption without personal reread; prior /root/hair_ops current support is separate. Current full identity display is new here.",
+      "future_direction": "Own the count/representation admission across CPU and GPU adapters, preserving distinct unassigned sentinel and group identity; trace actual supported inputs before selecting enforcement. No simulation or tests."
+    },
+    {
+      "id": "REVIEW-PAULDRON-RECORD-CARRIER-STATUS-95E",
+      "classification": "Prior published current candidate and historical Adler348 status question reconnected, not a second finding.",
+      "condition": "The selected recording sibling returns the plate object after making the carrier; the separate generator path explicitly reads the carrier status. The earlier published assessment reports a carrier failure indicator may be discarded on the public shortcut; our bounded current reads corroborate the local difference but do not independently reread all carrier, shader or creator-support paths.",
+      "relationships": "ASSESSMENT-PAULDRON-PART-95E preserves its own source ranges and original historical attribution. /root/rig_identity separately inspected limb 7\u201320. No shader/device operation or successful invalid mesh shown.",
+      "future_direction": "Trace carrier status ownership through all callers and later gates, preserve separately handled generator/creator paths, and decide consistent propagation without implementing now."
+    },
+    {
+      "id": "OPEN-SHELL-PACKING-CAPACITY-95E",
+      "classification": "Related existing 059 Segovb 453 and published current ASSESSMENT-PAULDRON-PART-95E capacity question; no new unique finding.",
+      "condition": "Individual carrier index and accumulated shell offsets must fit the low 31-bit packed space; layout count accumulation and u32 narrowing additionally require representable totals. Current constructor tests i<count but no explicit bit-31/count-sum bound in the inspected ranges.",
+      "relationships": "The earlier current assessment gives the hypothetical two 2^30-carrier shell arithmetic; no allocation, geometry or shader ran. The original native supplier assessed actual topology and bounds in 774 REG007/QUAL007, excluding tests.",
+      "future_direction": "Trace actual chart limits, allocation and producer admission before deciding checked aggregate capacity at the responsible owner. Separate alias decisions from unrelated bit packing."
+    },
+    {
+      "id": "OPEN-SHELL-DEGENERATE-CARRIER",
+      "classification": "Previously recorded 059 READ-L11-453 unresolved geometry condition; not new or proven reachable.",
+      "condition": "A repeated-index triangle can satisfy the displayed simple index and directed-edge conditions in some arrangements, but whether any allowed carrier producer can emit it and whether later validation rejects it remain uninspected.",
+      "future_direction": "Trace exact supported carrier geometry, and if needed enforce topology and geometry contracts without imposing an unsupported universal mesh policy."
+    }
+  ],
+  "nonfindings": [
+    "The original P16 combat armor record assigns physical energy partition, not a second fatigue or movement impairment pool. Original 774 camera distinguishes observed contact outcome from scaled effects and does not treat labels alone as duplicated mutable authority.",
+    "Current generic garment math aliases are format/calculation representations; PanelSpec field context, not a generic array alias, determines coordinate frame and unit. No requirement to wrap every kernel scalar was established.",
+    "Hair unassigned uses an explicit host enum and a native negative sentinel at the interface; no obsolete compatibility fallback is inferred. Current private Assigned constructors bound the signed conversion.",
+    "Shell face variants derive in the same plan as indices. This does not by itself certify geometric manifoldness, downstream buffer length or runtime output."
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 RIG-INITIAL06-REG-012/-013/-014 and corresponding OWNERSHIP-PROOF / contracts021,023,026",
+      "reviewer": "rig",
+      "revision": "pr-working exact archived objects, 6533 per-file identity",
+      "fresh_ranges": {
+        "2770": [
+          [
+            1,
+            46
+          ]
+        ],
+        "2771": [
+          [
+            7,
+            8
+          ]
+        ],
+        "2772": [
+          [
+            1,
+            64
+          ]
+        ]
+      },
+      "qualification": "Only original scoped body; no helper or other-lens credit."
+    },
+    {
+      "record": "774 CAMERA-INITIAL07-REG004 / ADDITIONAL and CONTRACT-039",
+      "reviewer": "camera",
+      "revision": "physical-p16 exact archived source",
+      "fresh_ranges": {
+        "2773": [
+          [
+            1,
+            138
+          ]
+        ]
+      },
+      "qualification": "P16 body separately read after prospective registration, including existing test text only; separately compared old PR source, no product execution."
+    },
+    {
+      "record": "774 NATIVE-INITIAL05-REG007 / QUAL007 / contract-groups-023",
+      "reviewer": "native",
+      "revision": "pr-working exact archived source",
+      "fresh_ranges": {
+        "2774": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      "qualification": "Only bounded topology source; 133\u2013177 excluded, no shader implementation credit."
+    },
+    {
+      "record": "059 Segovb READ-L11-452 and READ-L11-453; REGISTRATION-SEGOVB-1690 through 1694",
+      "reviewer": "Segovb root Lens11",
+      "revision": "each original recorded PR or dirty P16 snapshot",
+      "fresh_ranges": {
+        "2770": [
+          [
+            1,
+            46
+          ]
+        ],
+        "2771": [
+          [
+            7,
+            8
+          ]
+        ],
+        "2772": [
+          [
+            1,
+            64
+          ]
+        ],
+        "2773": [
+          [
+            1,
+            138
+          ]
+        ],
+        "2774": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      "qualification": "Existing historical receipts report accepted unique count change 0 and no current/later checkpoint proof."
+    },
+    {
+      "record": "059 Segovb shared READ-L11-503 row2 / REGISTRATION-SEGOVB-1906; READ-L11-580 row28 delegated inherited attestation",
+      "reviewer": "Segovb fresh historical shared read; root adopts e275 same-lens exact attestation without fresh agent/root read",
+      "revision": "6533 historical and e2755a732c84e67296b5e3441a4259a84f461b2f same-byte scoped reuse",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "qualification": "Shared scope38 and original role2772 are distinct populations; no new e275 body display or other lens credit."
+    },
+    {
+      "record": "ASSESSMENT-PAULDRON-PART-95E and ASSESSMENT-ARMOR-BODY-COORD-95E",
+      "reviewer": "not named in those prior documents",
+      "revision": "95e",
+      "prior_support": {
+        "limb_build": [
+          [
+            1,
+            46
+          ]
+        ],
+        "shell_plan_pauldron": [
+          [
+            1,
+            132
+          ]
+        ],
+        "shell_plan_body_coord": [
+          [
+            1,
+            177
+          ]
+        ]
+      },
+      "qualification": "Prior current support does not transfer ordered role attribution or our own read. This packet freshly displays original scopes separately."
+    },
+    {
+      "record": "/root/rig_identity besagew radial report",
+      "reviewer": "/root/rig_identity",
+      "revision": "95e",
+      "report_sha256": "dc92077a7c6268c996c083027c4e953c9cd26a1bc2b1853398c14dcaa5396bdb",
+      "manifest_sha256": "d0180fcf54e74c48f90d0c6f6e048f5900e83ec67f73ee5351023fb050b076bb",
+      "prior_support": {
+        "limb_build": [
+          [
+            7,
+            20
+          ]
+        ],
+        "shell_plan": [
+          [
+            39,
+            61
+          ],
+          [
+            73,
+            119
+          ]
+        ]
+      },
+      "qualification": "Its separate conditional triangle-budget case REVIEW-BESAGEW-RADIAL-TRIANGLE-BUDGET-95E has design enablement and runtime policy questions; not a demonstrated runtime mesh nor automatically alias of count bounds."
+    },
+    {
+      "record": "/root/hair_ops earlier hair ops packet",
+      "reviewer": "/root/hair_ops",
+      "revision": "95e",
+      "prior_support": {
+        "identity.rs": [
+          [
+            1,
+            64
+          ]
+        ]
+      },
+      "report_sha256": "7133d95f6907010d5fb6e40d4216dff0128b4604378402dfea655ad02e5b427a",
+      "qualification": "Earlier support only, separately attributed; new full current role display here after registration."
+    }
+  ],
+  "thirteen_lenses": {
+    "producer_propagation": "Hair lane producer flows through group and integration; current default braid count is three. Limb shape validates authored design, but native device frame/status callers still require connected tracing.",
+    "existing_type_owners": "Stable StrandId, group membership and current ordinal are distinct; V2/V3 alias does not by itself prove semantic frame. ContactPrecision has finite nonnegative admission but its callers and energy producers remain separate.",
+    "admission_contracts": "Parting public count lacks enforced positivity; shell topology checks basic capacity/index/edge relations but not packed-bit count in these bodies. ArmorSurface fields are public raw inputs; current invalid producer is unproved.",
+    "invariant_operations": "Existing zero/large lane arithmetic and shell offset/narrowing questions retained. Combat conservation assertion uses absolute 0.001 and requires numeric-scale policy; no numerical failure claimed.",
+    "aggregate_states": "Shell sources, indices and faces are produced together. PartLayout aggregation and component/readback require capacity and buffer relationships across shells; topology and geometric validity are distinct.",
+    "type_ownership": "Hair identity is host membership, shell source encodes armor topology and combat energy belongs selected impact. Do not merge their native integer or scalar representations.",
+    "redundant_authority": "Camera original distinguishes contact outcome from scaled effects; energy channels and outcome carry related stage-specific facts. Carrier status must be propagated rather than invented as an independent parallel authority.",
+    "behavior_preservation": "All assigned bodies match old/current per-file, but prior excluded scopes and consumers still require fresh evidence. Preserve intentional unassigned and zero-width/none cases; no whole snapshot equivalence.",
+    "enum_shapes": "PartingGroup explicitly separates unassigned from assigned; VertexSource distinguishes inner/outer prior to ABI packing; ArmorImpactOutcome does not automatically own mutually exclusive energy payloads.",
+    "derivability": "Faces are derived from same plan indices/count; do not introduce independent writable redundant face authority. Provenance and frame identity need actual consumers, not blind derive.",
+    "type_granularity": "V2/V3 are generic native array dimensions; panel translation, rotation and 2D curvature are different roles. Precision is not a damage category; parting count bounds not global StrandId bounds.",
+    "magic_strings": "Native WGSL/source labels, device batch label and serde boundary representations have different functions; static words and test names are not automatically product identities.",
+    "magic_numbers": "Bit31 is a concrete native packing discriminator, lane count3 is braid policy, energy 0.5 and absolute 0.001 are equation/tolerance choices. Trace owners and limits rather than reflexive constants."
+  },
+  "open_questions": [
+    "Can a supported caller supply invalid lane count, nonfinite force/surface values or unsupported oversized shell plans before their real owner validates?",
+    "Do all pauldron recording/creator paths propagate status before mesh consumption, including later gates and the separately handled generator?",
+    "What are maximum actual chart and aggregate carrier counts, memory/device limits, and triangle/alias policies?",
+    "Can supported carrier geometry produce repeated-index or other degenerate triangles and do later checks reject them?",
+    "What bounded error budget should govern combat energy partition and how do producer magnitudes affect it?",
+    "Reconcile ledger aliases and any earlier findings centrally without changing historical attribution or claiming checkpoint3821."
+  ],
+  "evidence_map": {
+    "registration": "registration.json",
+    "receipt": "read-receipt.json",
+    "historical_records": "historical-manifest.json",
+    "historical_registry_selection": "historical-selections-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "source_archive": "recovered/objects.tar.gz",
+    "verification": "verify-evidence.py and evidence-verification.txt",
+    "manifest": "MANIFEST.json"
+  },
+  "execution": "Only source and evidence-integrity inspection; no shader, macro, product, fixture, test, generation, build, probe, simulation, repair or publication edits."
+}
