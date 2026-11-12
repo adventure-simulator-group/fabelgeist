@@ -1,0 +1,138 @@
+{
+  "schema": "726-serde-map-2785-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T04:00:18.028117+00:00",
+  "scope": {
+    "original_roles": [
+      2785
+    ],
+    "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "package": "serde_json 1.0.151; source_id dependency-serde_json1.0.151:src/map.rs, registry snapshot pinned-cargo as recorded. Package checksum c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14 matches both historical 6533 and current 95e project lock stanzas; neither lock establishes effective target-specific features.",
+    "historical": "The original archived native member is SHA256 b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33, transported by f82adcabd9d89c4fa2dd7f99253a45297a0681ee and equal byte-for-byte to the checksum-verified registry crate member. It is native package source, not a project Git path. Camera 774 registered 29–36 and 120–130, then explicitly excluded blank 130 from material reads; 059 read 29–36 and 120–129.",
+    "personal": "Independently registered and displayed both recovered historical object and package-member bytes at 29–36 and 120–129. Unread 1–28, 37–119, 130–1181; archive availability is not whole-file read. Current dialogue, native parser and feature metadata are support only.",
+    "historical_dialogue": "Original F020 references both physical-p16 dirty snapshot (recorded base a120390947c89b703dc74c4255a13c035d054c50) and pr-working dirty snapshot (recorded head 6533e444fa37552927070cc8d8190907fd3b413e). The three recovered dialogue build, authoring schema and lib source objects separately match their a120, 6533 and 95e path blobs; this does not establish whole-tree cleanliness. Later P16 tracked-patch recovery matches the recorded SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 but original diff command and uninterrupted custody remain unproved, and seven untracked files are separate."
+  },
+  "observations": [
+    {
+      "key": "map-replacement-native-contract",
+      "classification": "Independent bounded confirmation of CAMERA-INITIAL07-CONTRACT-108 and 059 receipt; not a new defect",
+      "sources": [
+        "source/2785-package.rs:29-36,120-129",
+        "support/package-manifest.toml:65-79",
+        "support/value-de.rs:121-148,1329-1382",
+        "support/json-de.rs:1393-1453,1972-2034,2507-2517,2709-2714"
+      ],
+      "trace": "Map uses BTreeMap without preserve_order and IndexMap with it. Its documented insert replaces an existing value and returns the old one; the ordinary Value object visitor repeatedly inserts keys and ignores that old return. The JSON deserializer exposes successive object keys through MapAccess without a remembered-key set in this inspected scope. KeyClassifier has special arbitrary_precision and raw_value token cases; ordinary keys take the Map branch.",
+      "condition": "No assertion of active preserve_order, arbitrary_precision, raw_value or target-specific feature unification. No package code, macro, JSON document, test or fixture was run. Native map replacement alone is not a library defect."
+    },
+    {
+      "key": "dialogue-topic-source-provenance",
+      "classification": "Newly assessed current source confirmation/refinement of historical CAMERA-INITIAL07-F020; no duplicate count",
+      "sources": [
+        "support/dialogue-build.rs:414-429,455-524,526-573",
+        "support/authoring-schema.rs:49-60",
+        "support/dialogue-lib.rs:60-73,455-463,585-596,830-848",
+        "support/value-de.rs:121-148,1329-1382",
+        "support/json-de.rs:1393-1453,1972-2034,2507-2517,2709-2714",
+        "source/2785-package.rs:120-129",
+        "history-774/camera/initial07-redundant-authority/findings.jsonl.gz#CAMERA-INITIAL07-F020"
+      ],
+      "trace": "For an otherwise valid authored topic object whose ordinary label field appears twice with different string values, the build path deserializes raw text to Value first; repeated map insertion leaves the later value before typed schema validation. Separately, the scanner records each scalar in input order with the same joined document/path and original value_json/position. The generated source list preserves that order. source_for_topic selects the first source entry with the document and label path, while the compiled topic carries the later label.",
+      "condition": "Requires a syntactically accepted input containing repeated ordinary label keys and a surrounding document that passes all other build validation, followed by a source lookup. No present authored duplicate, successful build, observed UI behavior, emitted artifact or parser execution has been established. Reserved arbitrary_precision/raw_value classifier sentinels are excluded. The historical finding also discussed other fragment/choice lookup sites; this review independently inspected their 95e source, but does not claim all downstream UI consumers or rendered consequences.",
+      "future_repair_direction": "Later decide a single source-aware association or reject duplicate object keys before Value normalization and scanner construction; retain exact provenance, nested array paths and deterministic ordering. Do not patch the native map, conflate this attribution issue with semantic revision hashing, or implement during this audit."
+    },
+    {
+      "key": "other-duplicate-name-suspicion",
+      "classification": "Historical relationship and separate unresolved admission question; no automatic alias",
+      "sources": [
+        "history-059/segovb/READ-L11-446.json",
+        "history-059/segovb/REGISTRATION-SEGOVB-1648.json",
+        "history-059/segovb/READ-L11-454.json",
+        "queue-selection-reconstructed.json#/entries/195"
+      ],
+      "trace": "059 batch 446, original role 2729, raised duplicate column/product-name insertion only conditionally on malformed SQL/SATS schema admission and connected the name to a generated typed receiver. Batch 454 explicitly connected the generic Map source to that suspicion while not treating replacement alone as a bug.",
+      "condition": "This is not original registry role 446, and the SQL schema/row consumer is not the dialogue authoring scanner; no present malformed schema, alias to F020, or independent new finding is asserted. Prior report for roles 2729–2733 retains its own source and review attribution."
+    }
+  ],
+  "nonfindings": [
+    "The ordinary JSON Map replacement behavior is documented native package semantics, not redundant retained authority inside Map.",
+    "The preserve_order feature changes backing and ordering, but both branches are described by the same public insertion replacement contract in the inspected Map source; do not infer the active branch from lock contents.",
+    "The distinct semantic catalog digest and a source-position map can serve different purposes; the conditional issue is their disagreeing interpretation of the same duplicate field, not their mere coexistence.",
+    "Nearby 059 dialogue JSON cause-erasure and payload-admission contracts have different producers/first failures; retain their exact identities without presumed aliases."
+  ],
+  "open_questions": [
+    "Are duplicate ordinary keys possible in the authoritative authored dialogue input and should the owning boundary reject them or preserve source provenance for the semantic winning value?",
+    "Which actual current downstream consumers expose or depend on the specific SourceRef/value_json or topic/fragment provenance, and what should they do when association is ambiguous?",
+    "What serde_json features are actually resolved for each build host and runtime target after unification? Archive and lock identities do not prove effective features.",
+    "Does the separate SATS SQL/product schema path admit repeated names or reject them before its map insertion and generated receiver? Its historical batch446 concern remains independently qualified.",
+    "All unregistered parser, map, schema, UI, package and other source roles, and thirteen whole-lens audit completion, remain open."
+  ],
+  "historical_relationships": {
+    "774": "camera CAMERA-INITIAL07-REG016 visitor 121–148 and REG017 map 29–36 / 120–130 prospectively; qualifications excludes blank130, additional-sources records material 29–36 / 120–129. CONTRACT-101 and F020 record the conditional competing winner; CONTRACT-108 says native map has one replacement authority and supports F020. Coverage assigns no other-lens credit.",
+    "059": "segovb REGISTRATION-SEGOVB-1705 and READ-L11-454 retain material 29–36/120–129, count change zero and current_reconciled false. READ-L11-446 and REG1648 concern distinct original role 2729 SQL/SATS schema admission; batch number 446 is not role 446. Exact F020 ID does not appear in copied 059 queue under that identifier; related aliases elsewhere remain unresolved.",
+    "prior_personal": "Earlier /root/mhr_character packet <LOCAL_PATH_0> separately registered/displayed native Value 160–205 and 300–325 for role2589. Current packet prospectively read other Value windows as support; previous and present source coverage are not transferred into one another. Earlier camera REG016 reader is separately attributed.",
+    "p16": "Tracked patch reproduction and later recovery are recorded in reference/p16-patch-recovery.json and reference/p16-tracked.patch; seven untracked files, invocation and custody qualifications remain. F020 source objects individually match specified base/current Git blobs, not entire snapshots.",
+    "3821": "No original 3821 queue or ledger restored; this packet does not promote historic evidence or historical summaries into that checkpoint."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Raw authored source feeds a semantic Value and an independent ordered source-map scanner; the topic lookup later carries the first matching provenance."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "serde_json owns its native JSON map representation; first-party dialogue owns authoring schema, topic semantics and source association."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Ordinary duplicate object keys are normalized before typed BuildDocument decoding; any enclosing authoring validation and actual duplicate inputs remain conditional."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Map insertion replaces an earlier value while scanner pushes both records; input-order and source-path association are the meaningful cross-boundary operations."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "A topic value and its SourceRef path/position/value_json should jointly describe the same admitted semantic field; repeated keys can break that relationship under F020 conditions."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Canonical source association or duplicate-key admission belongs at the first-party dialogue authoring boundary; native JSON Map is a representation owner."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Two independent interpretations choose different duplicate winners in the F020 condition. Distinct semantic digest and source provenance are legitimate roles when coherently associated."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Any later design should preserve supported array paths, source positions, deterministic file order and intended semantic revision hashing; do not silently change native Map behavior."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Value distinguishes object/number/raw branches and feature-gated sentinels; ordinary keys are not a single closed field enum at the native JSON boundary."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Serde derives appear only as source text; no macro expansion, feature resolution or claim that deriving solves source association."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "JSON map key, authored topic label and position-bearing SourceRef path have different semantic roles even though they contain strings."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Open JSON keys and authored label strings are native/content boundaries; the joined source path is a provenance protocol whose escaping and association require owner policy."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Document index and line/column are provenance coordinates and array ordinals, not interchangeable domain quantities; no numeric tuning finding from the bounded map source."
+    }
+  ],
+  "limits": [
+    "Source and evidence inspection only. No product or dependency JSON parser invocation, fixture parsing, product, macro, code generation, build, test, browser, runtime probe or repair executed; evidence JSON was read for integrity bookkeeping.",
+    "Native and project feature activation is not established by static Cargo declarations or package lock.",
+    "No whole native source, project source, lens, audit or checkpoint 3821 closure follows from this packet.",
+    "An initial registry context print raised KeyError for optional material_ranges on non-2785 rows; a later metadata query used get and succeeded. Neither operation was a source body read nor evidence of missing source.",
+    "The earlier serde_json de.rs 2655–2685 support window showed from_slice and nearby documentation, not from_str; a later separately registered 2695–2714 window supplied the actual from_str definition."
+  ]
+}

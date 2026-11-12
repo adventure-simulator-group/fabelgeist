@@ -1,0 +1,173 @@
+{
+  "schema": "726-eidolon-prepare-2794-2797-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T04:10:58.221772+00:00",
+  "scope": {
+    "original_roles": [
+      2794,
+      2795,
+      2796,
+      2797
+    ],
+    "native_identity": "bevy_eidolon 0.5.0 Git source at 1a5aff8d4809287e5f5713fb4cf72181b2285fff; each original recovered object equals the native Git path at that commit. The exact original registry snapshot label pinned-native-git-1a5aff8d4809287e5f5713fb4cf72181b2285fff has no matching snapshot-list row; preserve it unchanged. f82 f82adcabd9d89c4fa2dd7f99253a45297a0681ee is original evidence transport, not source commit.",
+    "project_revisions": "The recorded historical 6533e444fa37552927070cc8d8190907fd3b413e root lock contains this native Git source and names adventuresim-tactical-client as a dependency consumer; the pinned current 95e63628f9d70b8dd6e6fede64334696c6995009 root lock structural inventory contains no bevy_eidolon package. A separate exact-token Git search of 95e Cargo.toml, Cargo.lock and crates/ yielded no paths; this does not prove the absence of aliases, indirect code, other paths or dynamic runtime behavior.",
+    "read_scopes": "Both archived historical objects and native commit bodies personally displayed after registration: 2794 1–152, 2795 1–118, 2796 1–47, 2797 1–47. Support-only reads, including native id_allocator test source 42–110 (not run), retain exact complements in read-scope-summary.json.",
+    "native_features": "6533 lock source URL specifies fork/branch and commit; native Cargo.toml package metadata names its upstream repository and declares default trace, but no effective target or feature set is inferred. Root-lock structured inventory is metadata only and does not claim all lines read."
+  },
+  "findings": [
+    {
+      "id": "DELEGATE-EIDOLON-INSTANCE-COUNT-NARROWING-1A5",
+      "classification": "Conditional newly assessed historical-native source bridge; uniqueness and repair owner for central reconciliation",
+      "source_refs": [
+        "support/prepare-tail.rs:305-330",
+        "source/2794-native-git.rs:19-30,97-115",
+        "source/2797-native-git.rs:7-22",
+        "support/backend.rs:28-45",
+        "support/paged.rs:25-34,55-63,107-125,155-160",
+        "support/components.rs:44-54",
+        "history-059/segovb/READ-L11-455.json#role2793",
+        "queue-selection-reconstructed.json#/entries/1313"
+      ],
+      "trace": "The dirty-input producer allocates instance slots with input.instances.len() as u32, then stores the resulting page and offset in Write. The updater computes source buffer capacity from the allocator watermark and subsequently builds/uploads all original input.instances without a local bounds filter. A mathematical 64-bit length of 2^32+1 narrows to one requested slot, while the upload retains the original length.",
+      "conditions": "Requires a host able to construct the enormous vector, accepted and successful allocation, a sufficiently small actual source buffer and a path reaching native queue write. The default paged backend size, available device/memory, allocator implementation, GPU validation and caller support are not established by this source example. No object, input, vector, GPU, runtime probe or fixture was executed. 95e root lock does not contain this dependency; no current 95e issue is asserted.",
+      "historical_relationship": "059 batch455 role2793 already leaves usize-to-u32/count/device limits unresolved; q1313 asks for native allocator/capacity/index integration. This concrete producer-to-upload bridge may refine those obligations; do not automatically count it as distinct from an unknown earlier owner. /root/rig_identity records it as an open question attributed to this reviewer, not a separate count.",
+      "future_repair_direction": "If this historical dependency or an equivalent supported adapter remains in scope, reject unrepresentable/unsupported full instance counts before allocating and uploading, or carry a checked count across the allocation/write boundary. Preserve valid empty and ordinary batch policy and separately reconcile any downstream offset/byte/device bounds; no change or validation is performed here."
+    }
+  ],
+  "observations": [
+    {
+      "key": "native-normal-order",
+      "classification": "Scoped historical 774/059 confirmation, no new unique finding",
+      "source_refs": [
+        "source/2794-native-git.rs:19-64,84-115",
+        "source/2795-native-git.rs:34-60,64-116",
+        "source/2797-native-git.rs:7-46",
+        "support/resources.rs:32-47,63-108,112-148"
+      ],
+      "trace": "The page runner orders updater, batching, non-compute output writes, page flush, then page update. The updater requests source and output capacity for the same allocator watermark, preserves source during reallocation, and leaves output copying disabled. Zero requested bytes with no prior buffer leave None.",
+      "qualification": "That source ordering helps explain paired buffers on the ordinary active nonempty path; it does not prove all public page option combinations, backend invariants, queue/device behavior, recomputation of output after resize, or GPU completion. Different GPU buffers can legitimately have distinct physical sizes. No native runtime observed."
+    },
+    {
+      "key": "stale-page-corroboration",
+      "classification": "Independent bounded source corroboration of /root/rig_identity DELEGATE-EIDOLON-EMPTY-PAGE-STALE-SOURCE; do not count again",
+      "source_refs": [
+        "support/paged.rs:99-104,127-151,155-168",
+        "support/prepare.rs:68-86,227-242",
+        "support/prepare-tail.rs:244-257,305-340",
+        "support/id-allocator.rs:17-39",
+        "source/2794-native-git.rs:27-36,84-94",
+        "source/2797-native-git.rs:16-19",
+        "prior-2790-2793/REPORT.json#/findings/0"
+      ],
+      "trace": "When a paged allocation is freed and active count reaches zero, page reset discards pending clears; separately the existing source buffer is retained when the requested capacity does not grow. The prepare path can recycle the page and the freed batch ID.",
+      "qualification": "Prior reviewer separately traced historical 6533 grass compute dispatch and shader physical bounds; those prior source reads and qualification remain theirs, not this reviewer’s. Their candidate requires actual prior upload, final page free, smaller later allocation with suitable offset/page and batch-ID reuse, stale source slot, compute path and visible/frustum case. Offset allocator behavior and GPU effect are unproved. 95e no longer locks the native dependency."
+    },
+    {
+      "key": "allocator-reset-count",
+      "classification": "Independent bounded corroboration of /root/rig_identity DELEGATE-EIDOLON-PAGED-RESET-ACTIVE-COUNTS; do not count again",
+      "source_refs": [
+        "support/allocator-trait.rs:30-49",
+        "support/backend.rs:22-25,28-56",
+        "support/paged.rs:38-63,127-152,171-176",
+        "prior-2790-2793/REPORT.json#/findings/1",
+        "search-results.json#native-dot-reset"
+      ],
+      "trace": "The public allocator trait reset clears pages, allocation mappings, pending clears and watermarks but leaves active_counts. Creating new page zero appends a fresh count to the end, and commit indexes active_counts[0], potentially inheriting the prior page count.",
+      "qualification": "Only if trait reset occurs with nonzero retained counts, then a page is recreated; the exact .reset( navigation in native src/ finds wrapper dispatch and the different per-page reset only, not all possible external, qualified or dynamic callers. Current 95e locked dependency is absent. Distinct from historical BatchBuffer.reset retained capacity and from final-free stale-source candidate; no runtime witness or duplicate count."
+    },
+    {
+      "key": "current-transition",
+      "classification": "Current-source and lock qualification, not native renderer execution",
+      "source_refs": [
+        "lock-inventory.json",
+        "search-results.json#current-eidolon-token",
+        "support/current-chunk.rs:1-10,34-60",
+        "support/current-instance.rs:14-25,36-42,82-95",
+        "support/current-spawn.rs:45-52,61-105",
+        "reference/grass-chunk-and-config-95e.json#/observations/0"
+      ],
+      "trace": "Independent structural root-lock inventory finds the historical native package in 6533 but not 95e. Current chunk-instancing code has ChunkInstance/InstanceChunk and per-ground-cell entity construction; the previously published current grass assessment separately traces the renderer transition.",
+      "qualification": "A source token/lock absence does not prove absence outside searched paths, dependencies loaded in other ways or product rendering behavior. Do not apply historical native failures automatically to current 95e chunk code."
+    }
+  ],
+  "nonfindings": [
+    "Source/output buffer usage and copy policies serve different producer and rendering roles; different fields or raw labels alone do not establish duplicate authority.",
+    "A zero-capacity absent buffer is an explicit no-allocation state in native utils, not automatically a missing required output state.",
+    "Different aligned and minimum physical buffer capacities do not imply logical batch arrays must have identical physical element lengths.",
+    "The scoped valid-clears filter and retained native diagnostic labels are not a proven product data-loss or magic-string finding without a broken allocator or caller contract."
+  ],
+  "open_questions": [
+    "Can an actual 6533 caller provide more than u32::MAX instance records, and what host/device limits or upstream admission prevent this source-level narrowing before native upload?",
+    "Is the historical-native length narrowing a distinct first-failure owner or an existing 059 q1313 / batcher count-cap obligation? Central must decide exact identity.",
+    "Do supported historical callers invoke global trait reset with nonzero counts, and what is the intended reset/whole-page lifecycle?",
+    "Does the final-free/reuse/compute condition actually arise for the old grass adapter under available offset allocator, visibility and render scheduling?",
+    "What active Cargo features and device capabilities applied to each historic host/target? Lock identity alone is insufficient.",
+    "All 95e renderer consumers, broader native source graph and all thirteen whole lenses remain open; the original checkpoint3821 ledger is not established."
+  ],
+  "historical_relationships": {
+    "774": "NATIVE-INITIAL05-REG018–021 rows 18–21 registered each full original role. NATIVE-INITIAL05-GROUP-071 and QUAL020 compared full scopes, preserved normal order, identified untraced backend/collector prerequisites and accepted zero new unique findings.",
+    "059": "segovb REG1714–1716 plus READ/STATE/VERIFY-L11-455 cover 2794–2796, REG1717 plus L11-456 covers 2797. Each retains full original scope and no unique-count change; current_reconciled false. Role2793 count/offset/device limits remain an explicit historical open question.",
+    "prior_delegate": "/root/rig_identity packet <LOCAL_PATH_0> has MANIFEST SHA256 3200c59749bee4c8b027f9072a358369f08c504a302395a9883b75b0e7f40a5b and REPORT SHA256 2a47746580d55d7cf84861e2e83e30af90ff61fa2e8ee609c190beda5e8ab654. Its earlier source receipt shows native prepare/mod 1–105 and 227–340, with 106–226 unread; updater 1–130 and 131–152 from two registrations; other support role read ranges remain exactly in its receipt. Selected manifest-matching source/record subset archived under prior-2790-2793.",
+    "queue": "059 q1313, q1314 and q1315 remain existing broad historical grass/native obligations; concrete subcontracts and aliases require central reconciliation. Historical dependency is not automatically reachable in 95e.",
+    "3821": "Original checkpoint3821 queue and ledger not recovered; no historical receipt or current source promoted into it."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Input instance length is narrowed for native allocation while the full input is carried into source upload; their connected size domain requires explicit admission."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Native InstanceAllocation couples page and offset, while Write carries entity, offset and batch identity; an index type does not by itself validate the count/upload extent."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Count conversion, allocator success and buffer/device capacity require caller conditions; the ordinary zero-length path is separately filtered by native collection."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Page counters, watermark, pending clears, capacity alignment, upload length and reset are related operations; known reset/copy questions remain distinct."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Page buffers, bind groups and batch tables must agree on one logical page; normal runner ordering is scoped evidence, not proof for arbitrary public state."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Native allocator owns page/slot protocol, renderer owns upload and culling, and 95e current chunk instancing is a separate first-party renderer."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Watermark and active count serve related but different roles; leaving active counts behind on global reset is the earlier conditional coherence issue."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Future native-boundary work should preserve source copy on growth, valid output regeneration policy, empty-page semantics and target-specific draw protocol after policy is determined."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Default Paged and Custom backends are distinct closed variants; no blanket claim that custom allocators share paged invariants."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Derives and macros were inspected as source only. No expansion or inferred replacement of native trait or resource logic."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Page ID, instance count, element offset, byte capacity, batch ID and tombstone marker have different meanings despite u32/u64 storage."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Formatting buffer labels is an open diagnostic boundary; no domain lookup or hard-coded application identity was established."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Four-byte alignment, 1024-byte minimum and invalid-batch sentinel are native buffer/format parameters; u32 narrowing is a representability boundary, not gameplay tuning."
+    }
+  ],
+  "limits": [
+    "No native or product source, GPU, shader, test, fixture, macro, code generator, build, render, simulation, runtime probe or repair executed. Tests displayed as source text only.",
+    "Current Git text search and root-lock metadata inventory are bounded evidence, not full dynamic call graph or Cargo feature resolution.",
+    "Registered historical native scope and 95e current project evidence remain separately identified; no package-wide, lens-wide or checkpoint3821 closure."
+  ]
+}

@@ -19559,7 +19559,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
         ]
       },
       {
@@ -21088,7 +21089,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ]
       },
       {
         "id": "ROOF-OUTLET-STATION-CAP-POLICY-RELATION",
@@ -21137,10 +21141,200 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+      },
+      {
+        "id": "L12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "0x6800 already sets the bit contributed by child bit 7. For the same parent and slot, child IDs 1000 and 1128 encode the same serial even though they differ. This is a property of the packed expression, not proof of a reachable alias.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "The 059 root-adopted /root/lens12_frontier connected review rejected this suspicion for the 6533 fresh-generator route: its bounded producer yields at most three child IDs 1000–1002. Our separately registered 95e derivation likewise creates at most three dormers, none TransverseGable; the displayed orchestration, envelope, framed-roof and child-binding path passes these recipes unchanged. Primary CrossGable links start with no split-edge IDs. Independent callers, mutation routes, and broader product admission have not been exhausted. No accepted duplicate is claimed. Historical relation: Exact 059 queue 2264 and its root-adopted rejection for the bounded 6533 fresh producer remain controlling for that route. Distinct from 059 Q2259 and related, not automatically identical, to CANDIDATE-ROOF-SPLIT-EAVE-SERIAL-BIT-OVERLAP.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Retain the exact scoped rejection and revisit the namespace if a real admitted producer exposes larger/different cross-gable child domains; make role/child/slot uniqueness and native references coherent before widening those inputs.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "PR-SPLIT-EAVE-PRIOR-LINK-INVALIDATION",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The cross-gable splitting helper removes the selected parent eave edge, adds three replacements and sets split_eave_edges only on the current child link. If a later child splits an eave segment that an earlier child link still names, that earlier reference is not rewritten by this helper. The roof audit resolves the earlier three IDs against current edges and requires three connected eave/opening/eave segments.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "Two successful cross-gable cuts on the same parent with the second selecting a segment from the first, retained links, no later edge reusing the removed ID or other repair, and an audit are required. The displayed current fresh dormer producer has no TransverseGable outputs and the other CrossGable links begin empty; an actually supported route supplying two cuts was not established. This is reasoning from source, not a fixture or executed product. Historical relation: Related to the broad 059 topology and connected-owner questions Q-L11-1f255e4a529b1484b496 and Q-L12-daa19af99971265e71a0; exact alias remains open.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "If multi-cross-gable input is supported, maintain stable topology ownership or atomically update all affected child-edge references during a split; otherwise make the supported input boundary explicit. Preserve intentional edge geometry, tolerances and outlet relations.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "PR-SPLIT-EAVE-SHARED-ENDPOINT-SAMPLES",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The three split edges share endpoints and retain the old face references. The ray kernel admits edge parameters from -0.002 through 1.002, so a common-grid sample whose downhill ray lands at or close to a shared endpoint can be accepted by two edge receivers. Both primary and supplemental producers retain sampled points separately, while the audit compares the total sample count to the single expected grid and requires coverage.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "Both same-face receivers must create retained networks, the shared ray must satisfy the height and intersection checks for both, and any later mutation/cleanup must leave both samples. A duplicate with full coverage increases the count beyond expectation; missing coverage also fails the separate coverage predicate. A supported current fresh-route split case was not established, and no geometry was generated. Historical relation: 059 /root/lens12_frontier earlier noted existing_edges is captured once per link. Endpoint acceptance is a separate predicate; 774 RAW-SOURCE-002 is broader sampling inventory, not an automatic alias.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Define boundary ownership for shared receiver segments or deduplicate per-face sample assignment without losing eave/apron physical identity; preserve tolerances, meaningful empty/partial modes and intended audit coverage.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "PR-WEATHER-CONTAINMENT-BOUNDARY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Weather containment applies a general odd-even polygon test to the outer outline and excludes cutouts with the same predicate. The predicate uses strict crossing comparisons, so boundary membership can depend on which polygon side is queried; drainage sampling separately uses a convex sign/tolerance predicate.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "The intended treatment of exact outer and hole boundary contacts and admissible convex/concave face shapes is not established. The two kernels have distinct roles; difference alone does not prove a defect. Historical relation: Related to ROOF-SAMPLING-CONVEX-COVERAGE-RECHECK-RELATION, but weather projection and convex sampling serve distinct operations; 059 cautioned against alias-by-remedy. 774 RAW-SOURCE-002 records additional numerical constraints.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Specify boundary and polygon-shape semantics at the owner of weather-recipient admission and compare actual downstream fall-cone and sampling requirements before unifying kernels.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "CANDIDATE-GABLE-AUDIT-SHORT-ENCLOSURE-BEFORE-ROOF-CHECK",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A reciprocal RoofGable wall and hosted opening are checked by gable_openings::valid. Once it finds a parentless roof with the source roof ID, a face with the source enclosure ID and inset_walls exactly [wall.id], it calls face.normal(), which indexes polygon[1], [0] and [2] without checking its length. If the matched polygon has fewer than three points and the call is reached, an index panic follows from source control flow. The roof audit has a length-at-least-three issue check, but audit_structural_assemblies calls enclosure/gable audit before that roof audit.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "Requires a matching parentless roof, linked face and singleton inset wall, a hosted RoofGable opening, polygon length below three, and all earlier plan audit stages reaching this call. Public mutable/serializable face fields make the shape representable, but no valid generated, edited or admitted plan and no actual earlier audit outcome have been demonstrated. Historical relation: Related to 774 SEGOVB-INITIAL04-CONTRACT-608 cardinality and the native F001 producer question; not automatically a distinct defect. The source-level indexing consequence is conditional on the stated preceding stages and matching state.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish the canonical enclosure admission and edit/validation lifecycle. Make the earliest responsible boundary reject or safely report malformed reciprocal geometry before an index-based consumer, while preserving valid singleton wall and aperture checks; retain source context and native error behavior.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "ROOF-ENCLOSURE-FIRST-THREE-NORMAL-CONDITION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The private constructor copies a polygon unchanged. normal computes the cross product of its first three vertices and normalize_or_zero; if those three are collinear or coincide the resulting zero normal yields a zero tangent even if later vertices would form nonzero area. The residual projection uses that tangent, and the tessellator checks only polygon length before using normal, tangent and the projected residual.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "Requires a retained face with at least three vertices whose first three are degenerate, a later nondegenerate vertex, and a supported consumer path. The current constructor and length-only audit do not by themselves rule this out, but no actual generated, edited or admitted polygon with that arrangement has been established. Geometry-library behavior, triangulation outcome and physical effect remain unproved. Historical relation: Related to 774 SEGOVB-INITIAL04-CONTRACT-608 operations. Degenerate first-three geometry is distinct from short cardinality; exact supported state and relationship remain open.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Decide the enclosure polygon's nondegenerate orientation and planarity admission contract at the owning construction or edit boundary, and ensure later valid operations cannot invalidate it. Preserve existing reciprocal cut and frame semantics.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "SHED-SEAM-RESOLUTION-AND-PROFILE-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For a shed, the search considers depths k*0.01 m for integer k=1 through 800 and accepts the first depth where both cheek points have a parent surface at or above the modeled underside. DormerLayout maps None to InvalidRoofDormer. A hypothetical viable depth interval containing no sampled value, or lying outside the sampled range, is not discovered by this algorithm; no supported roof with such a viable interval is shown.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "Establish the supported parent geometry, required seam location/precision, boundary handling, and whether geometric acceptance can occur strictly between samples or outside 0.01–8.00 m. Non-shed fallback is a separate branch and cannot automatically be treated as shed behavior. Historical relation: Related to 11C ROOF-DORMER-SEAM-FALLBACK-POLICY, but that is a non-shed fallback branch and not the same predicate.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Choose one coherent build-up/profile authority and explicit search/absence policy if those domains need change. Preserve first-success ordering, both-cheek predicate, authored pitch, legitimate None/error and the independent non-shed fallback semantics.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+      },
+      {
+        "id": "SHED-CHILD-FACE-AND-PARENT-ADMISSION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "roof_dormers::append indexes assemblies[0] before layout; shed underside_height indexes child.faces[0] and divides by its plane normal. The regular shed face-polygon branch constructs one quadrilateral and resolution pushes a RoofFace for each surviving polygon, but finite positive size and nonzero plane normal depend on producer/admission context.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
+        ],
+        "relationship_qualification": "The empty parent issue requires a nonempty dormer set with no parent after preceding admissions. The empty child/nonzero normal question requires actual resolved child topology or an externally admitted malformed state. No unsupported input, runtime panic or validity outcome is established. Historical relation: Parent indexing corroborates existing ROOF-DORMER-PARENT-SOURCE-CONDITION and 059 Q2258. The child face and normal question is separately conditioned on resolved topology or admitted malformed state; no unique count inferred.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Reconcile the public building program domain, error ownership, actual shed face producer and plane/face aggregate contract. Preserve finite authored geometry, explicit seam failure and intended empty non-dormer cases.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0408.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0428.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

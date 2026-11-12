@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 04:08:28–04:08:29 UTC; main may advance. See MAIN-RECHECK-20261112-0408.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 04:28:30 UTC; main may advance. See MAIN-RECHECK-20261112-0428.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 991,
+  "new_current_ledger_candidates": 999,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -498,7 +498,8 @@
     "ASSESSMENT-DELEGATED-P16-2519-2523.json",
     "ASSESSMENT-DELEGATED-WINDOWS-2526-2533.json",
     "ASSESSMENT-DELEGATED-ROOFS-2534-2539.json",
-    "ASSESSMENT-DELEGATED-ROOFS-2540-2545.json"
+    "ASSESSMENT-DELEGATED-ROOFS-2540-2545.json",
+    "ASSESSMENT-DELEGATED-ROOFS-2546-2549.json"
   ],
   "qualification": "Partial current trace and historical body read remain distinct; neither closes a lens, historical alias or current scope.",
   "new_nonfinding_assessments": [
@@ -2202,7 +2203,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-017463E0.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-D832ADAE.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2236,7 +2237,12 @@
   "delegated_batch24_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-24.json",
   "delegated_batch25_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-25.json",
   "delegated_batch12_partial_reconciliation": [
-    "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json"
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12A-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json"
   ],
-  "registration_hash_mismatch_qualification": "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-25.json"
+  "registration_hash_mismatch_qualification": [
+    "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-25.json",
+    "QUALIFICATION-REGISTRATION-HASH-MISMATCHES-26.json"
+  ],
+  "delegated_batch26_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-26.json"
 }

@@ -1,0 +1,596 @@
+{
+  "schema": "726-bounded-viewer-bones-assessment-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T03:59:31.252061+00:00",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "history": "2786 is pr-working, recorded head 6533e444fa37552927070cc8d8190907fd3b413e with four unrelated dirty status entries; 2787 and 2789 are report-p17 with recorded base 18360adba0fb43add88c75dfbd2f45d7e71d8ace and head 90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696, empty recorded status and 32 changed variants.",
+    "per_file_proof": "Each exact f82-transported recovered object separately matches same-path 18360, 90a, 6533 and 95e bytes. This does not identify snapshots with each other, imply whole-tree cleanliness or award historic read credit. f82 is evidence transport, not project source revision.",
+    "p17_patch": "The independently reproduced 18360-to-90a binary tracked diff has the exact registry-recorded SHA-256 3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd; raw proof and reproduction report retained. Original historical invocation, uninterrupted custody, current worktree cleanliness, independent-machine attestation and completion of the shared motor dependency are not established.",
+    "checkpoint_3821": "Unavailable original state is not promoted or reconstructed from prior records. Historical summaries, mechanically selected rows, original recovered evidence and this new assessment remain distinct."
+  },
+  "scope": {
+    "original_roles": [
+      2786,
+      2787,
+      2789
+    ],
+    "personally_displayed_per_revision": {
+      "2786": [
+        [
+          3,
+          17
+        ],
+        [
+          19,
+          36
+        ]
+      ],
+      "2787": [
+        [
+          6,
+          106
+        ]
+      ],
+      "2789": [
+        [
+          50,
+          79
+        ]
+      ]
+    },
+    "unread_assigned_complements": {
+      "2786": [
+        [
+          1,
+          2
+        ],
+        [
+          18,
+          18
+        ],
+        [
+          37,
+          69
+        ]
+      ],
+      "2787": [
+        [
+          1,
+          5
+        ],
+        [
+          107,
+          138
+        ]
+      ],
+      "2789": [
+        [
+          1,
+          49
+        ],
+        [
+          80,
+          514
+        ]
+      ]
+    },
+    "qualification": "Exact separate old and 95e body read chunks and complementary unread ranges are retained in read-receipt.json. Additional current rig binding/index source read is separately registered support, not retroactive P17 role coverage. Full archived source bytes do not establish body reads. No tests, viewer, fixture or rendering executed."
+  },
+  "findings": [
+    {
+      "id": "DELEGATE-CAPTURE-DUPLICATE-ROLE-OWNER-95E",
+      "classification": "conditional source-backed identity/producer-consumer relationship; actual supported duplicate reachability and canonical count remain open",
+      "first_contract": "When HumanoidRig caching encounters multiple HumanoidBone entries with the same owner and BoneRole, it retains the minimum entity and warns. The report collector queries all owned reportable HumanoidBone entries, converts each into (role,sample), and FromIterator builds a BTreeMap keyed by role, dropping duplicate multiplicity. It does not compare retained query entity identity with the rig cache.",
+      "conditional_reasoning": "If an admissible scene contains two reportable bones with the same owner and role, and the collection retains the higher entity while the rig retained the lower, report observation and the rig-selected role can refer to different source transforms. The project declares nightly-2026-07-13; its installed std source implements stable key sorting then keeps the last duplicate. For this implementation a later query position for the higher entity would produce that relationship. The public BTreeMap FromIterator documentation promises only that all but one duplicate value is dropped; the exact last-entry behavior is source-path/toolchain-implementation-qualified, not a universal API guarantee. No source here establishes actual query order, compiler used in any run, valid duplicate-producing asset/scene, differing transform, capture, rendered output, or overall validation success.",
+      "safeguards": "Normal scene loader skips actors already marked AnimationRigAttached; that narrows but does not prove a unique role inside every admitted scene. Required-frame completion checks presence of all 17 mapped roles, not role multiplicity. Repeated-view comparison checks keys and sample changes but the inspected bodies do not guarantee stable selection of the same rig-authoritative entity. Other gates remain independent.",
+      "references": [
+        {
+          "id": "2787-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "archive": "sources/2787-current.source",
+          "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+          "lines": [
+            [
+              6,
+              24
+            ],
+            [
+              28,
+              34
+            ],
+            [
+              63,
+              75
+            ]
+          ]
+        },
+        {
+          "id": "2789-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "archive": "sources/2789-current.source",
+          "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+          "lines": [
+            [
+              50,
+              79
+            ]
+          ]
+        },
+        {
+          "id": "rig-assignment",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "archive": "support/rig-assignment.source",
+          "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+          "lines": [
+            [
+              17,
+              21
+            ],
+            [
+              30,
+              35
+            ],
+            [
+              128,
+              133
+            ],
+            [
+              200,
+              204
+            ],
+            [
+              211,
+              239
+            ]
+          ]
+        },
+        {
+          "id": "rig-index",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "archive": "support/rig-index.source",
+          "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+          "lines": [
+            [
+              246,
+              275
+            ]
+          ]
+        },
+        {
+          "id": "root-motion",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "support/root-motion.source",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            [
+              19,
+              47
+            ]
+          ]
+        },
+        {
+          "id": "report-mod",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "support/report-mod.source",
+          "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+          "lines": [
+            [
+              102,
+              110
+            ]
+          ]
+        },
+        {
+          "id": "repeated-eval",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "archive": "support/repeated-eval.source",
+          "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+          "lines": [
+            [
+              91,
+              105
+            ]
+          ]
+        },
+        {
+          "id": "scene-loader",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+          "archive": "support/scene-loader.source",
+          "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+          "lines": [
+            [
+              199,
+              223
+            ]
+          ]
+        },
+        {
+          "id": "rig-identity",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+          "archive": "support/rig-identity.source",
+          "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+          "lines": [
+            [
+              7,
+              12
+            ],
+            [
+              20,
+              38
+            ]
+          ]
+        },
+        {
+          "id": "rust-toolchain",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "rust-toolchain.toml",
+          "archive": "support/rust-toolchain.source",
+          "sha256": "0ede9efa984ca1bbaacf8ad3231e6e9ee1efd4000986bc913a2178c7ceb5be8a",
+          "lines": [
+            [
+              1,
+              5
+            ]
+          ]
+        },
+        {
+          "id": "btree-map",
+          "identity": "installed nightly-2026-07-13 Rust source path, not project Git or proof of the runtime compiler",
+          "archive": "native/btree-map.source",
+          "sha256": "2ce3f3468c9686421c216a74b38211fefdfe506c794b3c350bbf69ce3fb71a19",
+          "lines": [
+            [
+              1708,
+              1717
+            ],
+            [
+              2539,
+              2553
+            ]
+          ]
+        },
+        {
+          "id": "btree-dedup",
+          "identity": "installed nightly-2026-07-13 Rust source path, not project Git or proof of the runtime compiler",
+          "archive": "native/btree-dedup.source",
+          "sha256": "cf3228e4287fe8e544494cb50819ace515f9b480fa6f3011f7b3abfe69b15a86",
+          "lines": [
+            [
+              1,
+              4
+            ],
+            [
+              32,
+              47
+            ]
+          ]
+        },
+        {
+          "id": "stable-sort",
+          "identity": "installed nightly-2026-07-13 Rust source path, not project Git or proof of the runtime compiler",
+          "archive": "native/stable-sort.source",
+          "sha256": "b1f0a5f6e3d104d6176699cf05efdfe1725095cd984fdf4422ddc3093726361c",
+          "lines": [
+            [
+              138,
+              142
+            ],
+            [
+              192,
+              196
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "059 READ-L11-454 already observed map collection collapses duplicates and left actual capture role uniqueness/key assignment open. 059 Q-L12-702460b99f30e116d7c9 and prior ASSESSMENT-INSPECTION-REPORT-BOUNDARIES-95E also left duplicate production and query order unresolved. This adds the current separately read stable-minimum rig receiver as a possible authority divergence; central must decide whether it refines the same contract or merits a distinct record, without automatic additional count.",
+      "future_direction": "Determine whether valid scene admission guarantees one entity per report role and what the diagnostic should report when that invariant fails. If duplicate states are supported, preserve explicit duplicate detection or collect from the same chosen canonical rig owner while retaining required role, finite-transform and view checks. No changes or product validation performed."
+    }
+  ],
+  "existing_and_related": [
+    {
+      "id": "P17-NONFINITE-LATER-VIEW-MISMATCH",
+      "attribution": "earlier current review by /root/rig_identity in exact retained <LOCAL_PATH_0> packet and central assessment 9; historical 059 ADLER-L11-JITTER-MEASUREMENT-COVERAGE separately attributed",
+      "detail": "Current comparator can miss a NaN distance in a later view when other fields match; the first-view finite gate is a separate safeguard. The independently inspected current role/collector here supports the same input path, not a duplicate numerical finding. P17 typed repeated comparison at 90a must retain its earlier separate source/reader and cannot be inferred from current bytes.",
+      "references": [
+        {
+          "id": "root-motion",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "support/root-motion.source",
+          "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "lines": [
+            [
+              19,
+              47
+            ]
+          ]
+        },
+        {
+          "id": "capture-calls",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "support/capture-calls.source",
+          "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "lines": [
+            [
+              620,
+              637
+            ],
+            [
+              657,
+              663
+            ]
+          ]
+        },
+        {
+          "id": "repeated-eval",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "archive": "support/repeated-eval.source",
+          "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+          "lines": [
+            [
+              91,
+              128
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P17-ROTATION-IDENTITY-TOLERANCE",
+      "attribution": "earlier /root/rig_identity P17/current capture packet, source/math reasoning only",
+      "detail": "Existing dot shortcut and angular tolerance question is a different comparator issue; no role-identity alias or new count assumed.",
+      "references": [
+        {
+          "id": "repeated-eval",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "archive": "support/repeated-eval.source",
+          "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+          "lines": [
+            [
+              108,
+              127
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Q-L12-702460b99f30e116d7c9",
+      "attribution": "059 historical queue row 1229 and separately authored current inspection assessment",
+      "detail": "Original role/order/consumer obligation remains an open historic record; do not rewrite or treat scope as checkpoint3821. Duplicate query-order and rig authority now have separately registered current support."
+    }
+  ],
+  "nonfindings": [
+    {
+      "id": "report-subset-is-intentional",
+      "detail": "17 fixed, unique role-to-label pairs select a report projection of the 27-role rig enum; extra root, spine, neck, camera, clavicle and weapon roles are not automatically missing report entries. Iteration uses lexical report-label order, serializer fails on unmapped keys, and collection has no completeness certificate; report completion independently checks all 17 role keys for each planned frame.",
+      "references": [
+        {
+          "id": "2787-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "archive": "sources/2787-current.source",
+          "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+          "lines": [
+            [
+              6,
+              24
+            ],
+            [
+              26,
+              40
+            ],
+            [
+              63,
+              106
+            ]
+          ]
+        },
+        {
+          "id": "2789-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "archive": "sources/2789-current.source",
+          "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+          "lines": [
+            [
+              50,
+              79
+            ]
+          ]
+        },
+        {
+          "id": "rig-assignment",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "archive": "support/rig-assignment.source",
+          "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+          "lines": [
+            [
+              136,
+              138
+            ]
+          ]
+        },
+        {
+          "id": "report-mod",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "archive": "support/report-mod.source",
+          "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+          "lines": [
+            [
+              102,
+              110
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "repeated-current-pairing",
+      "detail": "Current repeated comparison explicitly checks that no keys are missing on either side and then retrieves the matching key; the prior P17 reviewer inspected its own different revision and zip behavior. Source pairing alone is not a demonstrated mismatch or panic.",
+      "references": [
+        {
+          "id": "repeated-eval",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "archive": "support/repeated-eval.source",
+          "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+          "lines": [
+            [
+              91,
+              105
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "museum-rosters",
+      "detail": "The 13-entry Henry and 16-entry Nuremberg lists are distinct ordered authored harness selections; current harness selects them and resolves each ID and every placement through the catalog. No duplicate list ID was observed by manual source reading. Actual catalog membership, attachment admissibility, asset loading and rendered appearance are uninspected, and the expect calls are not a demonstrated failure.",
+      "references": [
+        {
+          "id": "2786-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+          "archive": "sources/2786-current.source",
+          "sha256": "35d53d3ede39827789e549ee71207e9a7441cceb825d1f119698459e6d238922",
+          "lines": [
+            [
+              3,
+              17
+            ],
+            [
+              19,
+              36
+            ]
+          ]
+        },
+        {
+          "id": "harness",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+          "archive": "support/harness.source",
+          "sha256": "96b6408758b0c8b82f49c210bb4acc352526519b3ba8a525b3500f045279af24",
+          "lines": [
+            [
+              12,
+              42
+            ],
+            [
+              105,
+              117
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 native NATIVE-INITIAL05-REG010 and contract-groups-057",
+      "scope": "pr-working role2786 fresh registered 3\u201317 and 19\u201336 only; 1\u20132,18,37\u201369 excluded. 774 native explicitly records no intra-list duplicate and leaves catalog/attachment admission open."
+    },
+    {
+      "record": "774 native NATIVE-INITIAL05-REG011 / REG012 and contract-groups-060/062",
+      "scope": "report-p17 role2787 independently registered and freshly read 6\u2013106; 108\u2013129 separately registered reduced-parent overlay REG012. Remaining serialize helper and full authored hierarchy excluded. 774 native preserves lexical label ordering, equal-key P17 zip and serializer rejection."
+    },
+    {
+      "record": "774 rig RIG-INITIAL06-REG-031 and contracts-062",
+      "scope": "report-p17 role2789 fresh 50\u201379 only; the reviewer explicitly calls its enum 27 roles, distinct from 17 report labels and authored joint names/ordinals. No rig-binding 80+ historical credit."
+    },
+    {
+      "record": "059 Segovb READ-L11-454 and READ-L11-482",
+      "scope": "454 personally reads 2786 3\u201317/19\u201336, 2787 6\u2013106 and 2789 50\u201379 at their recorded original snapshots. 482 overlay index223 reuses 108\u2013129 as a qualified same-lens bridge from separately attributed Adler READ-L11-202 full 1\u2013138 pr-working role1431, with no fresh body read for that overlay; original roles/revisions remain distinct."
+    },
+    {
+      "record": "059 count narrative correction",
+      "scope": "READ-L11-454 calls the BoneRole enum 29 variants; the exact personally read 50\u201379 enum contains 27 and current support rig.rs:136\u2013138 explicitly declares COUNT=27. Original 059 words are retained verbatim, with this as a new scoped correction; 774 rig contracts-062 independently already says 27. This is a historical summary discrepancy, not altered evidence or added role credit."
+    },
+    {
+      "record": "774 registration file hashes",
+      "scope": "The recorded registry native source-range hashes are 587999f70195c85cc8453cab05d04f8c5f37dce1491b0b625e3249b682f82d19 and 82ef2931535fb6dcc5144763c128a72593ae6bedf81baad256b49eb5a405e5f1; f82 native file is 0bb2e7a6198efc2e3db19800dd507c9a5ec91dc47c9fa388e612162d133f5bed. Registry rig hash ca600af0baa8d39e1ba899b9a9a1e2d8cfa1a9783ebb90e742b4155bb1573a74 differs from f82 file 8770f5b2d71c63d66c9fb8035fd73c4dab9c7a8a1bf67063bbe55831b1c7187b. All selected parsed rows equal their embedded original_record; whole-file registry-hash variants were not found in inspected collections, cause unknown."
+    },
+    {
+      "record": "prior current capture and historical records",
+      "scope": "Exact prior /root/rig_identity capture packet retained with original report and manifest, source revisions and personal read scopes. Other prior current central assessments are separate evidence; no prior read ownership transferred to this packet."
+    }
+  ],
+  "open_questions": [
+    "Can any supported admitted scene/rig produce duplicate reportable BoneRole components for the same owner, including scene reload or duplicated authored names?",
+    "Should capture reject duplicates or choose the same entity as HumanoidRig, and what owns that identity under query and asynchronous binding changes?",
+    "Which Rust toolchain/compiler is actually used in relevant deployments, and does native Bevy query order permit the conditional high-entity-last relationship? No build or runtime was inspected.",
+    "Do all catalog IDs and every placement in the museum rosters remain admitted and parent-compatible, and what external asset readiness contract applies?",
+    "How do report finite/required key gates, global trace scope and later-view comparisons interact in an actual capture? Prior numerical findings and historical obligations remain independently qualified.",
+    "Do reconstructed same-lens 059 overlay bridges confer only their stated historical lens use and role distinction? No fresh credit or 3821 carry follows here."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission contracts",
+      "disposition": "Report keys serialize only for mapped roles; map construction alone does not establish required-role completeness, unique producer or finite native transform."
+    },
+    {
+      "lens": "aggregate states",
+      "disposition": "Frame/plan match and all 17 required keys are a separate report-level contract; candidate duplicate selection relates collection to the independently cached rig owner."
+    },
+    {
+      "lens": "behavior preservation",
+      "disposition": "Report intentionally preserves lexical labels for iteration, folds and ties; the older P17 equal-key zipped comparator and current lookup have separate source histories."
+    },
+    {
+      "lens": "derivability",
+      "disposition": "BoneRole derives ordering; CapturedBones has custom iteration and serialization to preserve report-label order and reject unmapped roles, so no automatic derive replacement is established."
+    },
+    {
+      "lens": "enum shapes",
+      "disposition": "27 semantic rig roles and 17 report labels represent distinct scopes; absence/unmapped role has an explicit Option at the reporting adapter."
+    },
+    {
+      "lens": "existing type owners",
+      "disposition": "CapturedBones keys use existing BoneRole; labels are boundary representation, not a second gameplay rig enum."
+    },
+    {
+      "lens": "invariant operations",
+      "disposition": "The current repeated delta and numerical shortcut were separately assessed earlier; incomplete finite checks or duplicate collection cannot be declared safe from role typing alone."
+    },
+    {
+      "lens": "magic numbers",
+      "disposition": "Roster count and collection order are structural. Existing current repeat thresholds have separate numerical evidence; preserve their intended tolerances."
+    },
+    {
+      "lens": "magic strings",
+      "disposition": "Museum IDs are catalog-facing identifiers and report labels are external report names; lookup/asset admission and stable label policy stay open."
+    },
+    {
+      "lens": "producer propagation",
+      "disposition": "Authenticated rig identities produce HumanoidBone owner/role, then query samples propagate into a report map; multiplicity/authority remains conditional."
+    },
+    {
+      "lens": "redundant authority",
+      "disposition": "Current rig chooses lowest entity per duplicate while report maps same-role samples through independent collection. Divergence requires an admitted duplicate and qualifying query order."
+    },
+    {
+      "lens": "type granularity",
+      "disposition": "Capture subset, complete semantic rig vocabulary, and authored rig joint identity are separate meaningful layers; no blanket merge or expansion."
+    },
+    {
+      "lens": "type ownership",
+      "disposition": "Canonical entity selection and duplicate admission remain rig/capture boundary questions, with earlier same-role queue links preserved for central reconciliation."
+    }
+  ],
+  "restrictions": "Static source inspection, native std source inspection and evidence integrity checks only. No viewer, fixture, rendering, macro, test, build, runtime probe, product validation, or repair. No whole-lens or checkpoint3821 completion is claimed."
+}

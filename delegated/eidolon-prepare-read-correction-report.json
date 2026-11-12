@@ -1,0 +1,41 @@
+{
+  "schema": "726-eidolon-earlier-support-read-correction-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T04:20:23.894141+00:00",
+  "corrected_record": "own/report.json#/historical_relationships/prior_delegate and own/README.md",
+  "original_claim": "The prior native-prepare receipt covered 1\u2013105 and 227\u2013340 and that receipt alone left 106\u2013226 unread. The frozen report and README incorrectly implied that this gap was unread by the same reviewer overall.",
+  "correction": "/root/rig_identity separately registered and personally displayed native-inputs 106\u2013226 in support-registration-3.json. Together with the separately registered native-prepare 1\u2013105 and 227\u2013340, the same author displayed the union 1\u2013340 as support only. No single receipt entry claims 1\u2013340 and no ordered-role credit transfers.",
+  "identity": "All cited receipts are for native bevy_eidolon commit 1a5aff8d4809287e5f5713fb4cf72181b2285fff, src/render/prepare/mod.rs, source SHA256 7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092, Git blob 073b691cfb1f6f64c2a62f7726a044cae08897c8.",
+  "files": {
+    "own": {
+      "source_packet": "<LOCAL_PATH_0>",
+      "manifest": "own/BUNDLE-MANIFEST.json",
+      "manifest_sha256": "dbed96e5184e51b97a52b71d6536935877ba32d43af4a740ddde24d362d76393",
+      "files": [
+        "report.json",
+        "README.md",
+        "git-proofs.json",
+        "support/prepare.rs",
+        "git-objects/65dc16301531b58e21fe3cf2ddfe56ab832cca7d.tree.gz",
+        "git-objects/4ec9f491d2b954d9bfbb8906e55f2a0c0530abf2.tree.gz",
+        "git-objects/a7c19ba3bc756f63fd37fbd5cf60e8f9ec5002b8.tree.gz",
+        "git-objects/6538e84f75c405e0d7b845bb60f8549eaa13df1b.tree.gz",
+        "git-objects/1a5aff8d4809287e5f5713fb4cf72181b2285fff.commit.gz"
+      ]
+    },
+    "rig": {
+      "source_packet": "<LOCAL_PATH_1>",
+      "manifest": "rig/MANIFEST.json",
+      "manifest_sha256": "3200c59749bee4c8b027f9072a358369f08c504a302395a9883b75b0e7f40a5b",
+      "files": [
+        "REPORT.json",
+        "support-registration-2.json",
+        "support-registration-3.json",
+        "support-read-receipt.json",
+        "support/native-prepare.source",
+        "support/native-inputs.source"
+      ]
+    }
+  },
+  "qualification": "Additive correction: neither frozen source packet is changed. Historical/current 3821 and product-validation limits remain as before."
+}

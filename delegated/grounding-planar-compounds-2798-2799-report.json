@@ -1,0 +1,462 @@
+{
+  "schema": "726-grounding-planar-compounds-review-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:18:11.940547+00:00",
+  "status": "bounded thirteen perspectives; discovery incomplete outside assigned sources",
+  "scope": {
+    "original_roles": [
+      2798,
+      2799
+    ],
+    "old_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "identity": "Each of the two old/current assigned file bytes is identical, independently displayed and Git-proved; historical blob also matches exact f82 recovered source object. Overall original pr-working snapshot recorded four unrelated changes; byte identity is not a whole-tree cleanliness claim.",
+    "original_material": {
+      "2798": [
+        [
+          3,
+          66
+        ]
+      ],
+      "2799": [
+        [
+          7,
+          100
+        ],
+        [
+          218,
+          252
+        ]
+      ]
+    },
+    "historical_774_qualified_material": {
+      "2798": [
+        [
+          3,
+          66
+        ]
+      ],
+      "2799": [
+        [
+          12,
+          100
+        ],
+        [
+          218,
+          252
+        ]
+      ]
+    },
+    "personal_reads": "Each 83-line planar and 294-line compound body separately displayed at both revisions. The additional historical complements 1\u20132,67\u201383 and 1\u20136,101\u2013217,253\u2013294 are new personal support, not credit to the original native reviewer. Current support has separate registrations and exact unread complements; see receipts.",
+    "limitations": "Only source/text/evidence checks; no source edits, implementation, fixture construction, parsing/execution, product/build/test/codegen, runtime probe, simulation, or rendering. No claim of whole-lens clearance or completed checkpoint 3821."
+  },
+  "findings_and_questions": [
+    {
+      "id": "NATIVE-INITIAL05-F024",
+      "classification": "Existing 774 historical finding; independently connected and source-corroborated at 95e, no additional unique count.",
+      "first_contract": "Adding areas of separately clipped geographic triangles cannot establish both coverage and lack of overlap: missing and duplicate coverage can compensate.",
+      "trace": "Current source accepts individual finite measurable triangles and sorts them, without a shown pairwise disjointness gate in from_triangles; intersection independently clips every candidate; visit_source_intersections sums each clipped area and compares only its signed difference with the support triangle area. The 774 source-level example uses one area-two triangular support and two copies of its same area-one half, leaving another half uncovered while the sum equals two. The comparison is symbolic and historical, not a constructed input or executed product.",
+      "conditions": "The query must return both duplicate source faces, required geometric and later compilation gates must be satisfied, and an actual consumer must admit that geographic source. The ordinary shown vista LOD constructor emits a--c split faces per cell rather than deliberately duplicated halves. This does not establish a generated or installed bad scene or prove all producer inputs.",
+      "sources": [
+        {
+          "id": "ground-source",
+          "archive": "support/ground-source.rs",
+          "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+          "lines": [
+            [
+              33,
+              42
+            ],
+            [
+              101,
+              157
+            ]
+          ]
+        },
+        {
+          "id": "ground-triangle",
+          "archive": "support/ground-triangle.rs",
+          "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+          "lines": [
+            [
+              20,
+              46
+            ]
+          ]
+        },
+        {
+          "id": "ground-triangle-tail",
+          "archive": "support/ground-triangle-tail.rs",
+          "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+          "lines": [
+            [
+              188,
+              210
+            ]
+          ]
+        },
+        {
+          "id": "2798-current",
+          "archive": "sources/2798-current.rs",
+          "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+          "lines": [
+            [
+              3,
+              66
+            ],
+            [
+              69,
+              83
+            ]
+          ]
+        },
+        {
+          "id": "foundation",
+          "archive": "support/foundation.rs",
+          "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+          "lines": [
+            [
+              303,
+              315
+            ],
+            [
+              319,
+              374
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "774 NATIVE-INITIAL05-GROUP-078/F024 and 059 READ-L11-456 role2798; 059 q635 requests floor/planar/limits/source/native followup. Full earlier geometry/comparison is retained in history; this is not a newly discovered historical defect or full closure.",
+      "future_direction": "If source partition cannot be guaranteed at its admission owner, preserve distinct union-covered and multiply covered area proofs or an equivalent correlated partition invariant while preserving legitimate shared edges, tolerance and owner decisions.",
+      "acceptance": "An admissible support cannot pass complete geographic coverage solely because duplicate area numerically offsets an uncovered region; preserve valid edges and owner semantics.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "NATIVE-INITIAL05-F027",
+      "classification": "Existing 774 historical decoded geometry/metadata relationship finding; independently connected at 95e, no additional unique count.",
+      "first_contract": "Matching descriptor/owner/tag metadata and separately valid cell prisms do not by themselves establish that the physical enclosure cells derive from the matched descriptor and foundation.",
+      "trace": "SceneBoundary deserialization checks property, front and descriptor against its support binding; binding validate_cells checks capacity and allowed/represented elements, not physical locations. BoundarySupportCell deserialization checks its own prism and the mesh retains the decoded cells; its collider consumes native_positions. Normal projection takes the compound and own foundation, checks the members and returns projection mesh and gate together.",
+      "conditions": "The 774 example conditionally translates otherwise valid cell coordinates while retaining matching metadata and gate. No untrusted input, actual tampered cache, complete supported scene or physical effect established. Coordinates must remain valid and representative of the decoded route. Current source retains the separately identified potential recenter arithmetic question from prior report, not automatically this same defect.",
+      "sources": [
+        {
+          "id": "2799-current",
+          "archive": "sources/2799-current.rs",
+          "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+          "lines": [
+            [
+              12,
+              100
+            ],
+            [
+              102,
+              155
+            ],
+            [
+              160,
+              215
+            ],
+            [
+              218,
+              267
+            ],
+            [
+              270,
+              294
+            ]
+          ]
+        },
+        {
+          "id": "binding",
+          "archive": "support/binding.rs",
+          "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+          "lines": [
+            [
+              16,
+              48
+            ],
+            [
+              59,
+              69
+            ],
+            [
+              73,
+              107
+            ],
+            [
+              109,
+              123
+            ],
+            [
+              134,
+              172
+            ]
+          ]
+        },
+        {
+          "id": "enclosure",
+          "archive": "support/enclosure.rs",
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "lines": [
+            [
+              24,
+              60
+            ],
+            [
+              194,
+              217
+            ],
+            [
+              219,
+              252
+            ]
+          ]
+        },
+        {
+          "id": "projection",
+          "archive": "support/projection.rs",
+          "sha256": "b9c9f5a56ca087ccf2cd618c4136ff2fe79d900005cdb98d007270cfc41bf1d1",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+          "lines": [
+            [
+              4,
+              63
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "774 NATIVE-INITIAL05-GROUP-083/F027; 059 READ-L11-456 role2799 and earlier 95e grounding/collider reports preserve original authorship and assumptions. Related to metadata/foundation owner concerns; do not infer one alias or fresh count.",
+      "future_direction": "If deserialized cells are supported, establish a canonical correlated descriptor/foundation/physical mesh at admission or explicitly validate that relationship, preserving legitimate split/terraced cells and ordinary atomic projection.",
+      "acceptance": "Supported decoded fixed geometry cannot silently diverge from its declared owner and descriptor under the chosen authority policy.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "DELEGATE-SCENE-BOUNDARY-REAR-MEMBER-QUESTION",
+      "classification": "New local admission observation and unresolved owner-policy question, not an accepted unique count or demonstrated product defect.",
+      "first_contract": "SceneBoundary wire contains a property ID and front building but no expected rear ID; its binding validator checks property, first/front member and descriptor, not the second member against a scene compound.",
+      "trace": "PropertyMembers decoding requires nonempty, nonzero, distinct IDs; BindingWire validation requires exactly two. Given an otherwise valid binding and a different nonzero unique second ID, the displayed local validation has no reference to the actual compound rear ID. Normal project checks the foundation against both compound members, then constructs binding from the same compound, which narrows the ordinary path.",
+      "conditions": "A supported decoder/caching/transport path must accept the independently changed second member and a relying consumer or owner must require correlation with a separate compound. Whether independently serialized SceneBoundary has such a contract, authoritative metadata exists at that boundary, and any actual error or wrong behavior are open; no wire input was constructed or decoded.",
+      "sources": [
+        {
+          "id": "2799-current",
+          "archive": "sources/2799-current.rs",
+          "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+          "lines": [
+            [
+              12,
+              100
+            ],
+            [
+              102,
+              155
+            ],
+            [
+              160,
+              215
+            ],
+            [
+              218,
+              267
+            ],
+            [
+              270,
+              294
+            ]
+          ]
+        },
+        {
+          "id": "members",
+          "archive": "support/members.rs",
+          "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+          "lines": [
+            [
+              21,
+              50
+            ]
+          ]
+        },
+        {
+          "id": "binding",
+          "archive": "support/binding.rs",
+          "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+          "lines": [
+            [
+              16,
+              48
+            ],
+            [
+              59,
+              69
+            ],
+            [
+              73,
+              107
+            ],
+            [
+              109,
+              123
+            ],
+            [
+              134,
+              172
+            ]
+          ]
+        },
+        {
+          "id": "projection",
+          "archive": "support/projection.rs",
+          "sha256": "b9c9f5a56ca087ccf2cd618c4136ff2fe79d900005cdb98d007270cfc41bf1d1",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+          "lines": [
+            [
+              4,
+              63
+            ]
+          ]
+        },
+        {
+          "id": "enclosure",
+          "archive": "support/enclosure.rs",
+          "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+          "lines": [
+            [
+              24,
+              60
+            ],
+            [
+              194,
+              217
+            ],
+            [
+              219,
+              252
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to 774 F027 binding correlation and prior compound-boundary authority, but concerns the second owner member rather than physically displaced cells; central should reconcile exact alias/remedy and all consumers.",
+      "future_direction": "Determine the owning scene/property roster and supported decode boundary; if the roster is authoritative, retain or verify the full member relation at the earliest applicable admission, without adding compatibility representations.",
+      "acceptance": "Every supported boundary accepted for a property has a member roster that agrees with the chosen authoritative property owner, or a contextual typed failure.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "nonfindings": [
+    "Planar clip retains the nonnegative half-plane and inserts crossings; subtract first checks full intersection to preserve disjoint topology; signed_area translates to the first origin. Correctness still relies on supplied convex CCW outlines and numeric assumptions.",
+    "distance_outside returns zero for an empty outline by vacuous all, but the 774 REG023/canonical caller proof says accepted outline preconditions matter; no blanket reachable geometry defect follows.",
+    "The new full-body role2799 read shows scene input checks for property, roof/member identity, plot, routes, walls and gates; these checks do not by themselves prove every external descriptor/retained-mesh relationship.",
+    "CityAccessSegment permits equal endpoints as long as displacement is finite, while contains_centreline returns false for zero squared length and endpoint connectivity uses tolerances. This is a policy/caller question, not proof zero-length routes are wrong or accepted in a complete scene.",
+    "GeneratedBoundary checks gate equality on wire and normal projection binds returned mesh and gate together; keep this legitimate checked repeated datum."
+  ],
+  "open_questions": [
+    "Can supported generated or decoded geographic source actually contain the duplicated-overlap/missing-coverage configuration and pass the remaining construction/control gates?",
+    "Does every supported independently decoded SceneBoundary have an authoritative compound roster available, and which consumers rely on its second member or its physical cell/descriptor relationship?",
+    "Which condition makes zero-length access segments legitimate; do full compound, gate, clearance and producer paths reject or intentionally use them?",
+    "What are exact aliases and connected repair ownership among old F024, F027, current finite-recenter, surface ownership and scene-publication failure questions?",
+    "Are target arithmetic, native collision and queue/command scheduling contracts satisfied? No probes, execution, feature resolution or fixture validation were performed."
+  ],
+  "history": {
+    "files": "historical-attribution.json",
+    "registry": "registry-selection-reconstructed.json",
+    "queue": "queue-selection-reconstructed.json",
+    "current_prior": "Prior central assessments and prior packet reports/manifests are preserved as separately authored historical references; their archived full source packets remain at their respective directories/publication.",
+    "qualification": "774 REG022 3\u201368 was narrowed to 3\u201366 by QUAL026, REG024 7\u2013100/218\u2013253 was narrowed to 12\u2013100/218\u2013252 by QUAL027. 774 REG023 separately read 69\u201383; 059 READ-L11-456 reads 2798 3\u201366, 2799 7\u2013100/218\u2013252 and additional 101; 059 READ-L11-483 overlay226 freshly read 69\u201383 and reused 3\u201366. Whole registration-file SHA variants do not match f82, but exact selected rows do; no claim of whole-file identity."
+  },
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Traced geographic source\u2192clip\u2192coverage and compound\u2192project\u2192boundary; all scene and decode producers remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "SceneBoundary, binding, members, physical cells and geographic triangles have distinct existing owners; canonical cross-owner admission remains a policy question."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Wire member, descriptor and prism checks are real and limited; decoded rear-member and physical-cell correlation remain conditional questions."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Planar clip, subtraction and f64 area are source-inspected; coverage area addition cannot prove non-overlap independently."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "F024 and F027 preserve separately coupled coverage and geometry facts; rear-member relation is not automatically an alias."
+    },
+    {
+      "lens": 6,
+      "name": "Wrong/duplicate owners",
+      "disposition": "Boundary and property roster ownership must be resolved at actual decode/producer boundary; no owner rewrite prescribed."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Wire descriptor, digest, cell coordinates and gate must be reconciled; gate duplicate is explicitly checked and is not automatically a defect."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Old and current assigned bytes match, but historical and current readers/revisions differ and runtime equivalence is unproved."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "Support constraint enum and typed errors carry distinct outcomes; zero-length route and absent foundation policy remain open."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Manual TryFrom validates correlated payloads; a bare derived decoder would not establish those checks."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "ScenePlanPoint, typed length, property/member IDs and gate-relative positions distinguish frames and roles; no generic substitution asserted."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Serde field identifiers and typed diagnostic text in the inspected family are boundary/presentation strings; no semantic branching on text established."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Scene plot limits and route tolerance have explicit local policy owners, while f32/f64 areas, widths and distances require preserved units and admission assumptions."
+    }
+  ],
+  "deduplication": "No accepted unique count changed; central owns reconciliation and publication.",
+  "verification": "verify-evidence.py verifies source/evidence identity and read scope only."
+}
