@@ -1,0 +1,10 @@
+tree 500ca728b94674afda6b91f8f01b4ed084825a28
+parent 990430b77a9f63548ffcb642074185f61ddb3322
+author Bruno Segovia <bruno@adventuresim.org> 1792958169 -0700
+committer Bruno Segovia <bruno@adventuresim.org> 1792958169 -0700
+
+Preserve the unencrypted #774 audit handoff for another machine
+
+Include audit evidence, thirteen review lenses, source snapshots, ownership
+records and preserved implementation objects with exact continuation points.
+Extract the supplied Adler archive so every Git blob stays below 100 MiB.

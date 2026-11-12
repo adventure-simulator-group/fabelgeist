@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0923.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-1005.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -291,6 +291,14 @@ independent integrity reviews, separately identifying redacted copies,
 reviewed versions and externally retained private dependencies.
 `delegated/independent-review-13k-rig/` preserves the earlier draft
 review and corrected alias, read-scope and registration-name qualifications.
+`delegated/checkpoint39-stage/REPORT.json` preserves three additional
+source-family packets pending central reconciliation. The independent review
+and the earlier temporary-original permission limitation are recorded in
+`QUALIFICATION-CHECKPOINT39-INDEPENDENT-REVIEW.json`.
+`delegated/independent-privacy-d7b14/REPORT.json` records a bounded review of
+the changed public blobs, including retained Git author metadata and its limits.
+`RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
+fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine
 current-tree path-redacted reconstructions from the prior public bytes.
 Prior Git history and copies can still contain paths. Exact earlier blobs are

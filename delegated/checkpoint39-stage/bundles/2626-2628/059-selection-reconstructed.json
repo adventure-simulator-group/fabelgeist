@@ -1,0 +1,1073 @@
+{
+  "queue_source_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "entries": {
+    "152": {
+      "contract_id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "kind": "retained-finding-or-question",
+      "lens": 11,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "Reader admitted record extent and recursive container boundary/progress contract.",
+      "first_failed_contract_or_unresolved_question": "A non-null FBX record end must be a valid forward boundary within the containing extent before parsing or cursor reset.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+          "source_sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              18
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/0",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/README.md",
+          "source_sha256": "39300bf6dd58c4ce0ad1b1fdb2a48dc721890a4731ca7a093ac0e2ab4fc49471",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              73
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/1",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/animation.rs",
+          "source_sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              374
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/2",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs",
+          "source_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              24
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/3",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding_tests.rs",
+          "source_sha256": "c1ded4b8b3e23e0bd0a611b634c00d344fe2a512193b53d43420c1c53dc2c719",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              119
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/4",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/fixtures/array_encoding.txt",
+          "source_sha256": "58b862c072c0efaa21bd96340b233fe43cb6b20c48093202d7975f703fc1ea5f",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              95
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/5",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+          "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              548
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/6",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/object_name.rs",
+          "source_sha256": "e3dada8ff669d491646dde601f0d483e72806176c28582aace3cf9d71cc73037",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              46
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/7",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2257,
+              "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2257"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf:221-263,396-421,517-545",
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../adler/READ-L11-358.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "remaining_evidence": [
+        "Current parser and actual model-file import callers",
+        "Native32/64 header extent representation/all20 parser owner dedup",
+        "Connected malformed offset, nested extent and sentinel acceptance"
+      ],
+      "dependencies": [
+        "Current parser and actual model-file import callers",
+        "Native32/64 header extent representation/all20 parser owner dedup",
+        "Connected malformed offset, nested extent and sentinel acceptance"
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Backward/nonadvancing non-null end offsets reject deterministically",
+        "Child record cannot escape its admitted parent/file extent",
+        "Valid32/64 record layouts and null sentinels preserved",
+        "Malformed input cannot reset public parse loop to an earlier record"
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    },
+    "153": {
+      "contract_id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "kind": "retained-finding-or-question",
+      "lens": 11,
+      "lens_resolution_required": false,
+      "status": "open-reconciliation",
+      "canonical_owner": "FBX property count/array decoded extent admission and bounded native decompression.",
+      "first_failed_contract_or_unresolved_question": "Untrusted count and byte-extent metadata must be checked before allocation/decompression work can be proportional to it.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+          "source_sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              18
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/0",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/README.md",
+          "source_sha256": "39300bf6dd58c4ce0ad1b1fdb2a48dc721890a4731ca7a093ac0e2ab4fc49471",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              73
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/1",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/animation.rs",
+          "source_sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              374
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/2",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs",
+          "source_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              24
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/3",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding_tests.rs",
+          "source_sha256": "c1ded4b8b3e23e0bd0a611b634c00d344fe2a512193b53d43420c1c53dc2c719",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              119
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/4",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/fixtures/array_encoding.txt",
+          "source_sha256": "58b862c072c0efaa21bd96340b233fe43cb6b20c48093202d7975f703fc1ea5f",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              95
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/5",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+          "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              548
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/6",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-fbx/src/object_name.rs",
+          "source_sha256": "e3dada8ff669d491646dde601f0d483e72806176c28582aace3cf9d71cc73037",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              46
+            ]
+          ],
+          "attribution_as_recorded": null,
+          "proof_pointer": "/sources/7",
+          "receipt": {
+            "path": "adler/READ-L11-358.json",
+            "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+          },
+          "lens_context": 11,
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "declared_source_identity_navigation": [
+        {
+          "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "original_registry_identity_candidates": [
+            {
+              "original_role": 2257,
+              "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+              "snapshot": "pr-working",
+              "registry_pointer": "/files/2257"
+            }
+          ],
+          "source_key_and_ranges_as_recorded": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf:424-450,452-469,517-529",
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "historical_receipt": "../../adler/READ-L11-358.json",
+      "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "remaining_evidence": [
+        "Actual import resource limits and current parser",
+        "All20 admitted byte/element count and native decompression owners",
+        "Supported suffix behavior and connected malformed/large-count acceptance"
+      ],
+      "dependencies": [
+        "Actual import resource limits and current parser",
+        "All20 admitted byte/element count and native decompression owners",
+        "Supported suffix behavior and connected malformed/large-count acceptance"
+      ],
+      "closure_condition": [
+        "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Tiny malformed input cannot request infeasible property reserve before rejection",
+        "Declared array extent arithmetic checked before allocation",
+        "Inflation work has an explicit admitted bound",
+        "Supported exact/empty/extra payload and structured encoding/source errors follow documented final policy"
+      ],
+      "existing_alias_applications_as_recorded": [],
+      "body_or_population_credit": 0,
+      "runtime_validation": "Not run",
+      "implementation_gate_complete": false
+    },
+    "2942": {
+      "contract_id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "kind": "connected-contract",
+      "lens": 12,
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false,
+      "granular_contract_views": [
+        {
+          "lens": 12,
+          "root_adoption": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-023.json",
+            "sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+            "verification": "segovb/VERIFY-L12-CONNECTED-TEAM-023.json",
+            "verification_sha256": "bce51c837e728ffb790ba6cdd8bdb10aeb7562fd7e5e7623840197fd2c7f99d5"
+          },
+          "contract_update_as_proposed": {
+            "contract_id_or_proposed_new_id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+            "lens": 12,
+            "canonical_owner_or_explicit_unresolved_owner_question": "Typed FbxArrayEncoding/UnsupportedFbxArrayEncoding and num_enum native compiler adapter.",
+            "first_failed_contract_or_unresolved_question": "Own743 Reader::u32 at242 -> read_props typedencoding at467 -> supported0/1 enum or typedreported_code error; newnum_enum generatorerror_constructor(number)239/typeError213/246 + parsedtypedcustompaths preserve adapterclassification. Native token/attribute strings compilegrammar/diagnostics, notruntimebusinessclassifier.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "original_index": 497,
+                "source_id": "pr-working:Cargo.lock",
+                "source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "Cargo.lock",
+                "actual_EOF": 13102,
+                "assessed_ranges": [
+                  [
+                    7674,
+                    7694
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "receipt": {
+                  "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM023-COMPLETED-VIEWS.json",
+                  "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065"
+                },
+                "row_pointer": "/rows/0",
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-692.json",
+                  "sha256": "3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1"
+                }
+              },
+              {
+                "original_index": 2628,
+                "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+                "source_sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+                "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+                "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+                "actual_EOF": 342,
+                "assessed_ranges": [
+                  [
+                    211,
+                    212
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "receipt": {
+                  "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM023-COMPLETED-VIEWS.json",
+                  "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065"
+                },
+                "row_pointer": "/rows/2",
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-697.json",
+                  "sha256": "f6ea8fd3309a4de475a613412c9f3e01a39ea22a0e0d07ef216019a5aaaa3e0d"
+                }
+              },
+              {
+                "original_index": 2626,
+                "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+                "source_sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+                "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+                "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+                "actual_EOF": 362,
+                "assessed_ranges": [
+                  [
+                    190,
+                    260
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-899.json",
+                  "sha256": "15955889dd963cd2d0e6c76fc0767924e2c035313632a742da20babe9bf5896c"
+                },
+                "row_pointer": "/rows/0",
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-693.json",
+                  "sha256": "8c3c4ed68bce910b9fd5324e45850f2983afb9f9be48ac1188dfdebb53b9997e"
+                }
+              },
+              {
+                "original_index": 2627,
+                "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+                "source_sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+                "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+                "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+                "actual_EOF": 574,
+                "assessed_ranges": [
+                  [
+                    1,
+                    20
+                  ],
+                  [
+                    62,
+                    406
+                  ],
+                  [
+                    408,
+                    447
+                  ],
+                  [
+                    506,
+                    533
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-900.json",
+                  "sha256": "aa96f5a1a094d00355063658435c299116fdb7f2c86eeeb51629d83e63f23f1c"
+                },
+                "row_pointer": "/rows/0",
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-694.json",
+                  "sha256": "df1528c1ade45bd66bf4836694679fed72f5fad1ad91da13615b6e70750680d1"
+                }
+              },
+              {
+                "original_index": 2628,
+                "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+                "source_sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+                "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+                "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+                "actual_EOF": 342,
+                "assessed_ranges": [
+                  [
+                    1,
+                    210
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-901.json",
+                  "sha256": "3faa9803b4a739c9701b5977d886eb79b80922147c04096b0b8593e529bb4f43"
+                },
+                "row_pointer": "/rows/0",
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-695.json",
+                  "sha256": "9aad81f7b565638512e063f853353d08ff14c217c936852d08af0703e70c23ec"
+                }
+              },
+              {
+                "original_index": 2251,
+                "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+                "source_sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-fbx/Cargo.toml",
+                "actual_EOF": 18,
+                "assessed_ranges": [
+                  [
+                    1,
+                    18
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "ranges_used_now": [
+                  [
+                    1,
+                    18
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-205.json",
+                  "sha256": "711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                  "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+                },
+                "row_pointer": "/rows/0",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-743.json",
+                  "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+                },
+                "root_row_pointer": "/rows/0",
+                "original_semantic_contract": {
+                  "exact_function_ownership": [
+                    "Manifest1..18"
+                  ],
+                  "string_inventory": [
+                    "Native Cargo package/feature/dependency/version identifiers; no semantic String API."
+                  ],
+                  "trace": [
+                    "Native FBX crate -> shared rig + pure-Rust flate2 +num_enum; actual versions/features/native bodies require lock/current reconciliation."
+                  ],
+                  "conditional_cases": [
+                    "No build/test/decompression/generator executed; declaration not dependency body coverage."
+                  ]
+                },
+                "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+              },
+              {
+                "original_index": 2254,
+                "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs",
+                "source_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+                "actual_EOF": 24,
+                "assessed_ranges": [
+                  [
+                    1,
+                    24
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "ranges_used_now": [
+                  [
+                    1,
+                    24
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-208.json",
+                  "sha256": "3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                  "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+                },
+                "row_pointer": "/rows/3",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-743.json",
+                  "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+                },
+                "root_row_pointer": "/rows/3",
+                "original_semantic_contract": {
+                  "exact_function_ownership": [
+                    "UnsupportedFbxArrayEncoding9..12/FbxArrayEncoding21..24 native enum/derive declarations"
+                  ],
+                  "string_inventory": [
+                    "Derived Display native error presentation; no raw semantic String field/API. Actual supported enum Uncompressed0/Zlib1 and typed reported_code retained."
+                  ],
+                  "trace": [
+                    "Reader.u32 wire encoding -> derived TryFrom error owns raw code -> typed enum -> exhaustive native decoder -> public parse. Exact enum admission source proof independent of tests."
+                  ],
+                  "conditional_cases": [
+                    "Unsupported code not formal invalid-native-format assertion; no old nonzero->Zlib policy preservation, no compatibilityshim. Derive macro native implementation/features remain separate."
+                  ]
+                },
+                "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+              },
+              {
+                "original_index": 2257,
+                "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+                "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+                "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+                "git_path": "crates/fabelgeist-fbx/src/lib.rs",
+                "actual_EOF": 548,
+                "assessed_ranges": [
+                  [
+                    1,
+                    548
+                  ]
+                ],
+                "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+                "ranges_used_now": [
+                  [
+                    222,
+                    259
+                  ],
+                  [
+                    397,
+                    515
+                  ]
+                ],
+                "prospective_registration": {
+                  "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-211.json",
+                  "sha256": "e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b"
+                },
+                "original_agent_receipt": {
+                  "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                  "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+                },
+                "row_pointer": "/rows/6",
+                "root_adoption": {
+                  "path": "segovb/READ-L12-743.json",
+                  "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+                },
+                "root_row_pointer": "/rows/6",
+                "original_semantic_contract": {
+                  "exact_function_ownership": [
+                    "Prop accessors106/116/127/135/146; Node.child157/children_named161/property70187/vec3198/i64213; Reader.take222/u32242/u64246/header_word251/header_size259; Object.is_limb268/is_null_node272/is_node276; Scene.from_roots282/parse348/get352/root357/children363/children_with_property368/child_of_kind380/objects_of_kind385; parse397/decode_array424/read_props452/read_node518..546"
+                  ],
+                  "string_inventory": [
+                    "Node.name35/Object.class58/kind60/Link.property73 retain native open FBX namespace, byte/lossy decoding at actual native boundary523/302/335. Generic container can retain unknown record/class/property names; no blanket closed enum or new labelgrammar imposed. Exact closed animation property admission gap is2253:193. Internal parser predicates currently anyhow/bail prose226/228/403/405/442/510 distinct reason sites; actual flate2 IO cause remains retained by context437, not text-erased."
+                  ],
+                  "trace": [
+                    "Native binary data -> supported-format predicate399 -> Reader.take checked_add225/trunc227 -> native prop tag -> typed encoding467 -> exhaustive decoder431/typed native IO context437 -> Node/Scene objects+link graph -> actual animation property recognizer -> typed Take and rig boundary pending. Object names from FbxQualifiedName297 then FbxObjectName299, owning implementation next material source needed."
+                  ],
+                  "conditional_cases": [
+                    "u32/u64 exact4/8take guarantee try_into unwrap243/247 length; parseversion407 data>=27 checked399, array parsers exactwidth448. Outside-test assertion rules still cases, no invented malformed short-buffer unwrap panic from these exact guards.",
+                    "Native unknownprop type510 rejects; nonUTF8 Stringlossy is deliberate container name decoding per README. Native duplicateobjectID304 overwrites map while objects retained, ignored connection type321 and propertydefaults require actual graph policy/caller before failure. read_node endoffset539/header recursion bounds malformednative policy remains connected, no runtimeprobe."
+                  ]
+                },
+                "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+              }
+            ],
+            "remaining_evidence": [
+              "Native exactformat unsupportedencoding policy remains as alreadydocumented, no automaticinvalidFBXclaim. Current source delta only if applicable identities/adapter change; no macroexecution required to document discovery."
+            ],
+            "dependencies": [
+              {
+                "path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-899-FBX-NATIVE-INPUT-READER.json",
+                "sha256": "8046f8c6170bd8472a9c572ff7773f822b639fb770a4e20f50d6525744fe762d"
+              }
+            ],
+            "closure_condition": "Frozen native source discovery closes with exactpackage/input/constructor/reader chain or explicit limitedpolicy; no macro/runtime validation or arbitraryforeignfeature closure implied.",
+            "audit_disposition_for_exact_frozen_scope": "Source-backed native adapter disposition: typed reason/rawcode preserved, no new Stringfinding.",
+            "accepted_unique_count_change": 0,
+            "current_source_reconciled": false
+          },
+          "exact_source_identities_and_assessed_ranges": [
+            {
+              "original_index": 497,
+              "source_id": "pr-working:Cargo.lock",
+              "source_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "Cargo.lock",
+              "actual_EOF": 13102,
+              "assessed_ranges": [
+                [
+                  7674,
+                  7694
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "receipt": {
+                "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM023-COMPLETED-VIEWS.json",
+                "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065"
+              },
+              "row_pointer": "/rows/0",
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-692.json",
+                "sha256": "3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1"
+              }
+            },
+            {
+              "original_index": 2628,
+              "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+              "source_sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+              "actual_EOF": 342,
+              "assessed_ranges": [
+                [
+                  211,
+                  212
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "receipt": {
+                "path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM023-COMPLETED-VIEWS.json",
+                "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065"
+              },
+              "row_pointer": "/rows/2",
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-697.json",
+                "sha256": "f6ea8fd3309a4de475a613412c9f3e01a39ea22a0e0d07ef216019a5aaaa3e0d"
+              }
+            },
+            {
+              "original_index": 2626,
+              "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+              "source_sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+              "actual_EOF": 362,
+              "assessed_ranges": [
+                [
+                  190,
+                  260
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-899.json",
+                "sha256": "15955889dd963cd2d0e6c76fc0767924e2c035313632a742da20babe9bf5896c"
+              },
+              "row_pointer": "/rows/0",
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-693.json",
+                "sha256": "8c3c4ed68bce910b9fd5324e45850f2983afb9f9be48ac1188dfdebb53b9997e"
+              }
+            },
+            {
+              "original_index": 2627,
+              "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+              "source_sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+              "actual_EOF": 574,
+              "assessed_ranges": [
+                [
+                  1,
+                  20
+                ],
+                [
+                  62,
+                  406
+                ],
+                [
+                  408,
+                  447
+                ],
+                [
+                  506,
+                  533
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-900.json",
+                "sha256": "aa96f5a1a094d00355063658435c299116fdb7f2c86eeeb51629d83e63f23f1c"
+              },
+              "row_pointer": "/rows/0",
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-694.json",
+                "sha256": "df1528c1ade45bd66bf4836694679fed72f5fad1ad91da13615b6e70750680d1"
+              }
+            },
+            {
+              "original_index": 2628,
+              "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+              "source_sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+              "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+              "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+              "actual_EOF": 342,
+              "assessed_ranges": [
+                [
+                  1,
+                  210
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-901.json",
+                "sha256": "3faa9803b4a739c9701b5977d886eb79b80922147c04096b0b8593e529bb4f43"
+              },
+              "row_pointer": "/rows/0",
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-695.json",
+                "sha256": "9aad81f7b565638512e063f853353d08ff14c217c936852d08af0703e70c23ec"
+              }
+            },
+            {
+              "original_index": 2251,
+              "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+              "source_sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+              "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-fbx/Cargo.toml",
+              "actual_EOF": 18,
+              "assessed_ranges": [
+                [
+                  1,
+                  18
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "ranges_used_now": [
+                [
+                  1,
+                  18
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-205.json",
+                "sha256": "711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+              },
+              "row_pointer": "/rows/0",
+              "root_adoption": {
+                "path": "segovb/READ-L12-743.json",
+                "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+              },
+              "root_row_pointer": "/rows/0",
+              "original_semantic_contract": {
+                "exact_function_ownership": [
+                  "Manifest1..18"
+                ],
+                "string_inventory": [
+                  "Native Cargo package/feature/dependency/version identifiers; no semantic String API."
+                ],
+                "trace": [
+                  "Native FBX crate -> shared rig + pure-Rust flate2 +num_enum; actual versions/features/native bodies require lock/current reconciliation."
+                ],
+                "conditional_cases": [
+                  "No build/test/decompression/generator executed; declaration not dependency body coverage."
+                ]
+              },
+              "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+            },
+            {
+              "original_index": 2254,
+              "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs",
+              "source_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+              "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+              "actual_EOF": 24,
+              "assessed_ranges": [
+                [
+                  1,
+                  24
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "ranges_used_now": [
+                [
+                  1,
+                  24
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-208.json",
+                "sha256": "3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+              },
+              "row_pointer": "/rows/3",
+              "root_adoption": {
+                "path": "segovb/READ-L12-743.json",
+                "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+              },
+              "root_row_pointer": "/rows/3",
+              "original_semantic_contract": {
+                "exact_function_ownership": [
+                  "UnsupportedFbxArrayEncoding9..12/FbxArrayEncoding21..24 native enum/derive declarations"
+                ],
+                "string_inventory": [
+                  "Derived Display native error presentation; no raw semantic String field/API. Actual supported enum Uncompressed0/Zlib1 and typed reported_code retained."
+                ],
+                "trace": [
+                  "Reader.u32 wire encoding -> derived TryFrom error owns raw code -> typed enum -> exhaustive native decoder -> public parse. Exact enum admission source proof independent of tests."
+                ],
+                "conditional_cases": [
+                  "Unsupported code not formal invalid-native-format assertion; no old nonzero->Zlib policy preservation, no compatibilityshim. Derive macro native implementation/features remain separate."
+                ]
+              },
+              "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+            },
+            {
+              "original_index": 2257,
+              "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+              "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+              "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+              "git_path": "crates/fabelgeist-fbx/src/lib.rs",
+              "actual_EOF": 548,
+              "assessed_ranges": [
+                [
+                  1,
+                  548
+                ]
+              ],
+              "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+              "ranges_used_now": [
+                [
+                  222,
+                  259
+                ],
+                [
+                  397,
+                  515
+                ]
+              ],
+              "prospective_registration": {
+                "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-211.json",
+                "sha256": "e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b"
+              },
+              "original_agent_receipt": {
+                "path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+                "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc"
+              },
+              "row_pointer": "/rows/6",
+              "root_adoption": {
+                "path": "segovb/READ-L12-743.json",
+                "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81"
+              },
+              "root_row_pointer": "/rows/6",
+              "original_semantic_contract": {
+                "exact_function_ownership": [
+                  "Prop accessors106/116/127/135/146; Node.child157/children_named161/property70187/vec3198/i64213; Reader.take222/u32242/u64246/header_word251/header_size259; Object.is_limb268/is_null_node272/is_node276; Scene.from_roots282/parse348/get352/root357/children363/children_with_property368/child_of_kind380/objects_of_kind385; parse397/decode_array424/read_props452/read_node518..546"
+                ],
+                "string_inventory": [
+                  "Node.name35/Object.class58/kind60/Link.property73 retain native open FBX namespace, byte/lossy decoding at actual native boundary523/302/335. Generic container can retain unknown record/class/property names; no blanket closed enum or new labelgrammar imposed. Exact closed animation property admission gap is2253:193. Internal parser predicates currently anyhow/bail prose226/228/403/405/442/510 distinct reason sites; actual flate2 IO cause remains retained by context437, not text-erased."
+                ],
+                "trace": [
+                  "Native binary data -> supported-format predicate399 -> Reader.take checked_add225/trunc227 -> native prop tag -> typed encoding467 -> exhaustive decoder431/typed native IO context437 -> Node/Scene objects+link graph -> actual animation property recognizer -> typed Take and rig boundary pending. Object names from FbxQualifiedName297 then FbxObjectName299, owning implementation next material source needed."
+                ],
+                "conditional_cases": [
+                  "u32/u64 exact4/8take guarantee try_into unwrap243/247 length; parseversion407 data>=27 checked399, array parsers exactwidth448. Outside-test assertion rules still cases, no invented malformed short-buffer unwrap panic from these exact guards.",
+                  "Native unknownprop type510 rejects; nonUTF8 Stringlossy is deliberate container name decoding per README. Native duplicateobjectID304 overwrites map while objects retained, ignored connection type321 and propertydefaults require actual graph policy/caller before failure. read_node endoffset539/header recursion bounds malformednative policy remains connected, no runtimeprobe."
+                ]
+              },
+              "historical_qualification": "Exactoldregistrationoriginalindex/hash/PR/source/ranges and selected743rootbodyattestation authenticated; preserve original prospectivepersonalread, no invented historicaltimestamp or newreread."
+            }
+          ],
+          "remaining_evidence": [
+            "Native exactformat unsupportedencoding policy remains as alreadydocumented, no automaticinvalidFBXclaim. Current source delta only if applicable identities/adapter change; no macroexecution required to document discovery."
+          ],
+          "closure_condition": "Frozen native source discovery closes with exactpackage/input/constructor/reader chain or explicit limitedpolicy; no macro/runtime validation or arbitraryforeignfeature closure implied.",
+          "all_current_and_all_lens_closure": false,
+          "new_body_credit": 0
+        }
+      ],
+      "remaining_evidence": [
+        {
+          "latest_exact_scope_evidence": [
+            "Native exactformat unsupportedencoding policy remains as alreadydocumented, no automaticinvalidFBXclaim. Current source delta only if applicable identities/adapter change; no macroexecution required to document discovery."
+          ],
+          "historical_unread_and_current_obligations_preserved": true
+        }
+      ],
+      "exact_frozen_scope_dispositions": [
+        {
+          "root_adoption": {
+            "path": "segovb/READ-L12-CONNECTED-TEAM-023.json",
+            "sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+            "verification": "segovb/VERIFY-L12-CONNECTED-TEAM-023.json",
+            "verification_sha256": "bce51c837e728ffb790ba6cdd8bdb10aeb7562fd7e5e7623840197fd2c7f99d5"
+          },
+          "disposition": "Source-backed native adapter disposition: typed reason/rawcode preserved, no new Stringfinding.",
+          "applies_only_to_exact_assessed_sources": true,
+          "current_reconciled": false,
+          "all_lens_or_goal_closed": false
+        }
+      ]
+    }
+  },
+  "ledger_source_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+  "journal_entries": {},
+  "qualification": "Exact reconstructed selected records; preserve recorded nulls and granular prior authors. Not checkpoint3821."
+}

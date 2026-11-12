@@ -1,0 +1,113 @@
+# Fabelgeist agent guide
+
+## Architecture and data safety
+
+- Keep tactical tick state, including positions, damage, HP, and enemies, in the
+  transient Bevy server. Persisting it to SpacetimeDB would violate the
+  strategic/tactical authority boundary.
+- Backward compatibility is intentionally unsupported. Always implement the
+  clean final schema and API directly; never add migrations, compatibility
+  shims or fields, deprecated forwarding APIs, dual paths, compatibility
+  aliases, or legacy fallbacks. Remove any such path encountered within the
+  work's scope rather than preserving or extending it.
+- Disposable data does not make destructive operations generally safe. Reset and
+  reseed only through the isolated development workflows; never delete a public
+  or player-bearing database without explicit approval.
+- Files in `crates/adventuresim-stdb-client/src/` are generated from the
+  SpacetimeDB schema. After changing that schema, run `just generate-db-client`
+  rather than editing bindings by hand.
+
+## Combat legibility
+
+- Every gameplay-relevant combat factor must be legible to the player or highly
+  intuitive from the situation. Combat impairment belongs in the incapacitation
+  wheel; do not add hidden parallel penalties or fatigue pools.
+- Fatigue is one general value, displayed in black on the incapacitation wheel.
+  Weapon work, defenses, dodges, and strenuous movement all contribute to it.
+  Do not introduce per-muscle fatigue or a separate oxygen-debt impairment.
+- Combat performance depends on total incapacitation, not fatigue directly.
+  Encumbrance contributes once through incapacitation, shown in translucent
+  grey. Neither fatigue nor total incapacitation adds a movement-speed penalty
+  before incapacitation; physical mass and limb effects remain separate.
+- Yellow wheel extensions indicate projected increases, never current impairment
+  or an additional gameplay penalty. Preserve the wheel's 100% display cutoff.
+- Limb-specific injury penalties remain intentional pending a separate design
+  decision.
+
+## Documentation and interface assets
+
+- `README.md` provides repository orientation; `wiki/index.md` owns the game
+  vision and product boundaries.
+- Keep the root `README.md` minimal: project introduction and core links.
+  Never automatically append content below its AGPLv3 license link or add
+  module/feature blurbs, implementation notes, or usage instructions elsewhere
+  in that file. Expanding the root README requires an explicit user request;
+  routine documentation updates belong in the owning crate or guide.
+- Treat `research/archive/` as non-authoritative evidence, not current
+  documentation. Do not use it to infer current behavior; inspect the code and
+  tests instead. A claim may return to the live wiki only through the
+  greenfield reference-audit process.
+- Keep documented behavior, architecture, and developer workflow synchronized
+  with implementation changes.
+- Keep iteration reports, reviewer verdicts, validation transcripts, and
+  completion summaries in ignored local output directories such as `target/`.
+  Commit durable usage guides, design contracts, and source references instead.
+  Wrap Markdown prose at 80 columns, preserving code blocks, tables, and links.
+- For wiki prose, first follow
+  `wiki/contributing/wiki-writing.md`, which defines the project's editorial
+  voice.
+- Agents may author wiki prose, but only on a dedicated wiki branch created from
+  `main`, never on the implementation branch that made the wiki stale. Open a
+  separate pull request for the wiki update and request Bruno Segovia's review.
+  Agents must not merge wiki prose they authored, and wiki prose must not be
+  merged until Bruno approves its exact wording.
+- `wiki/SUMMARY.md` is generated from `wiki/navigation.toml`. When adding,
+  removing, or moving a wiki page, update the manifest and run
+  `python scripts/update_wiki_summary.py`; never edit the summary directly.
+- Prefer the vendored Game Icons SVGs in
+  `crates/strategic-web/static/icons/game/` when an icon improves the interface.
+  If the collection lacks an appropriate icon, add one from Game-Icons.net via
+  Iconify and update both the collection's `ATTRIBUTION.md` and the repository's
+  `THIRD_PARTY_NOTICES.md`.
+
+## Contributor-facing writing
+
+- Write issues, pull requests, and durable documentation for a contributor who
+  has not read the implementation conversation. Lead with the concrete problem
+  and intended or resulting behavior; include enough context to understand the
+  scope without following another link.
+- Explain unfamiliar domain terms and abbreviations when first used. Prefer
+  concrete code or gameplay examples over internal shorthand or process labels.
+- Prefer "bespoke type" to "domain type" for purpose-specific types.
+- Describe the final change, material decisions, validation, and known limits.
+  Keep agent run history, goal status, local recovery notes, and abandoned
+  approaches in ignored reports unless they explain a relevant tradeoff.
+- Treat related issues and conversation snapshots as supplemental evidence.
+  Readers must be able to understand and review the proposal from its own text.
+
+## Pull request context
+
+- Unless the user says otherwise, every pull request must include an
+  `Implementation context` section that links a reviewed Codex shared
+  conversation snapshot when one is available.
+- The section must also give a concise summary of the material decisions and
+  validation evidence. The PR body remains the authoritative summary of scope
+  and verification.
+- Treat every shared conversation as public publication. Before sharing, remove
+  credentials, tokens, private URLs, personal data, and nonessential local
+  paths. Codex's automatic secret masking is not sufficient review on its own.
+
+## Rust style and maintainability
+
+- Before editing Rust source or Cargo manifests, also follow
+  `crates/AGENTS.md`.
+
+## Bounded debugging
+
+- Use one implementation agent for reproduce/fix/test loops until the
+  authoritative acceptance test passes or deterministic evidence leaves a
+  concrete ambiguity.
+- Diagnose the earliest failed contract from bounded evidence. Do not load full
+  logs or investigate downstream symptoms while that failure explains the run.
+- If the user requests one iteration or testing cycle, perform exactly one
+  fix/test cycle and report the agents, tests, and evidence files used.

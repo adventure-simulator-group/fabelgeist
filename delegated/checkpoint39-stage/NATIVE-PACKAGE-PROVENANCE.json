@@ -1,0 +1,83 @@
+{
+  "schema": "726-cp39-native-package-provenance-v1",
+  "original_packet_author": "/root/mhr_character",
+  "package_archives": [
+    {
+      "path": "bundles/2626-2628/num_enum-0.7.6.crate",
+      "sha256": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+      "version": "0.7.6",
+      "name": "num_enum",
+      "bytes_unchanged": true
+    },
+    {
+      "path": "bundles/2626-2628/num_enum_derive-0.7.6.crate",
+      "sha256": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+      "version": "0.7.6",
+      "name": "num_enum_derive",
+      "bytes_unchanged": true
+    }
+  ],
+  "lock_views": [
+    {
+      "view": "sources/current-Cargo.lock.gz",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "stored_sha256": "29a77090ce3a5d67f90fcc55358f6ff88aa37aaca308ef29834f965b432867df",
+      "decoded_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "matched_packages": [
+        {
+          "name": "num_enum",
+          "version": "0.7.6",
+          "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        },
+        {
+          "name": "num_enum_derive",
+          "version": "0.7.6",
+          "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ]
+    },
+    {
+      "view": "sources/old-Cargo.lock.gz",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "stored_sha256": "f2a225c2bd23399fc851eb514c56908d5d2d97d6dfbb2171ec7264813f8a70d0",
+      "decoded_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "matched_packages": [
+        {
+          "name": "num_enum",
+          "version": "0.7.6",
+          "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        },
+        {
+          "name": "num_enum_derive",
+          "version": "0.7.6",
+          "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ]
+    },
+    {
+      "view": "reference/p16-dirty-Cargo.lock.gz",
+      "revision": "separately qualified dirty P16 snapshot",
+      "stored_sha256": "1046f0bf579b650b22e42b724ffe71114925bb01cca24dbafd7e70adcdcc43cc",
+      "decoded_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "matched_packages": [
+        {
+          "name": "num_enum",
+          "version": "0.7.6",
+          "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        },
+        {
+          "name": "num_enum_derive",
+          "version": "0.7.6",
+          "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+          "registry_source": "registry+https://github.com/rust-lang/crates.io-index"
+        }
+      ]
+    }
+  ],
+  "qualification": "The lock entries and exact package archive bytes match at each separately identified lock view. The dirty P16 view is not its clean base and is not checkpoint3821. This source evidence does not establish activated features, macro expansion, crate-path selection, runtime reachability or package-wide coverage. No package code was executed."
+}

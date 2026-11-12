@@ -1,0 +1,48 @@
+{
+  "schema": "726-independent-checkpoint39-review-v1",
+  "reviewer": "/root/rig_identity",
+  "subject": "Evidence transport and local-original custody review of checkpoint 39, before central publication",
+  "reviewer_involvement": "The stage was assembled by /root/hair_ops. This reviewer separately authored the 2623–2624 reconciliation and earlier bounded 2626–2628 source views; this is an independent packaging and identity check, not an independent source-audit verdict on those prior reads.",
+  "input_manifests": {
+    "staged_public_manifest_sha256": "f8f2bb8d08a3f3fcc404bc941ace2fde02bc103ca31c22fd6135b91e9b5abf08",
+    "separate_local_manifest_filename": "LOCAL-MANIFEST.json",
+    "separate_local_manifest_sha256": "110e7d3c557bc8b2d784119637bb3b4021829a3db13e9a2d5361cb569dc42e18",
+    "2623-2624_source_manifest_sha256": "b7e581220dfdefd61974ba545d2b6f297f9e99dab1f0cef1503966c07ff2b6d2",
+    "2625_source_manifest_sha256": "a56451e7a165b7bc1df01f1eebd09a6d04a8016606f87612e679fff565efe427",
+    "2626-2628_source_manifest_sha256": "fb2a43d7316bba20a13e5f1df47262514b80d1bd2e6d85302b9ee19fbc2e8c4b",
+    "prior_83_member_manifest_sha256": "9d4d934c1abe5b36003c0306cd679da13831f15ba71cdf5b89e1a80ef91e5395",
+    "earlier_published_prior_tar_sha256": "999d95b6e32b252f4fdbb3677292455230f78a2bde1771bb44209919a68ca45b"
+  },
+  "findings": [
+    {
+      "id": "CP39-LOCAL-ORIGINAL-CUSTODY",
+      "classification": "local privacy limitation",
+      "observation": "The separate local-originals root and changed-originals directory had mode 775, and all 36 retained original objects had mode 664 when inspected. With a traversable temporary parent, these modes grant other local users read access. Separation from the public stage does not itself enforce a restricted local-originals boundary.",
+      "disposition": "Do not modify the frozen packet. If filesystem-restricted custody is required, arrange a separately retained restricted copy and preserve the original hashes and this observation. This is not an assertion of observed unauthorized access."
+    },
+    {
+      "id": "CP39-NESTED-COMMIT-COPIES",
+      "classification": "metadata-disclosure count clarification",
+      "observation": "The 87 indexed Git objects include 10 top-level commit copies of four distinct commits. The unchanged prior tar additionally contains three commit copies of 6533, 95e and f82, making 13 observed copies when archive members are included. The stage discloses author/committer names and email fields, but its 10-copy count should be described as the top-level indexed count, not as a count across nested archives.",
+      "disposition": "Keep the disclosure and explicitly distinguish 10 indexed copies from three nested copies. The copies preserve exact object identities; changing commit metadata would change those identities. Public availability of all identity fields was not established by a live-remote check."
+    }
+  ],
+  "verified_evidence": {
+    "manifest_completeness": "The public manifest binds 351 files besides itself, the local manifest binds 43 files besides itself, neither tree had a symlink, and each listed length and SHA-256 matched. All 333 original source-member bytes matched the separate frozen source packets; the five supplemental members matched the separate earlier original packet.",
+    "redaction_replay": "Across 38 reconstructed source/supplement occurrences, all 125 indexed substitutions replayed exactly from 36 retained original stored objects into public decoded bytes. Each substituted span began with an absolute path root and contained no whitespace, quote, angle bracket or trailing listed punctuation. This prefix check and known examples are not a complete semantic privacy judgment. Public unchanged copies were byte-identical to originals.",
+    "earlier_tar": "The nested prior manifest was omitted from the later source top manifest but is exactly bound both as a new public member and as the inner member of the earlier tar. The original prior manifest binds 83 original members; 78 equal the earlier tar members and five differ. All five originals were independently matched to the separate prior packet and are supplied as four privacy reconstructions and one exact safe copy. This does not retroactively make the earlier tar identical to its original manifest.",
+    "original_059": "The queue, ledger and original registry each appear twice as gzip members whose original decoded SHA-256, length and Git blob match the 059 transport manifest. The queue and ledger are reconstructed publicly, with separate original/public stored and decoded identities; the registry gzip is an exact copy. Comparing parsed original and public JSON found only 12 changed queue string leaves and 14 changed ledger string leaves, corresponding to the recorded substitutions. The transport manifest is not a source-read receipt or checkpoint3821 evidence.",
+    "native_packages": "Both 0.7.6 crate archive SHA-256 values match the corresponding package name, version, registry source and checksum in the separately captured current 95e, historical 6533 and dirty-P16 lock views. This does not prove resolved features, macro expansion or reachability.",
+    "archive_and_objects": "The three unchanged archives contain 184 verified entries, including 33 nested gzip members. The indexed raw 87 Git objects reproduce their listed object IDs. Archive contents, tar headers, compressed bytes and gzip-decoded payloads were inspected within the recorded scanner bounds.",
+    "attribution": "The exact source reports and read receipts retain /root/rig_identity for 2623–2624, /root/hair_ops for 2625 and /root/mhr_character for 2626–2628. They distinguish 774 supplier rig and 059 readers from later reviews; READ-L11-429 does not name an individual, and root adoption of /root/lens12_frontier work is not a root reread. All exact ranges and unread complements remain in the original reports and receipts; no read credit is transferred by this transport review.",
+    "baseline_and_history": "Pinned project source 95e remains distinct from dirty historical pr-working at recorded HEAD 6533; per-file equality does not make the historical tree clean. The 2623–2624 source report separately records committed publication 56f baseline SHA-256 28138b45… and time-bound observed working baseline f81012f4…. The committed baseline copy was independently compared to the 56f Git object, and the f82 compressed commit object was already committed there byte-for-byte. A locally cached audit-publication remote ref contains 56f; that is not a live-remote verification. The P16 tracked patch is a later matching reproduction with seven untracked files outside it, not a120 itself and not proof of original invocation or uninterrupted custody. Missing checkpoint3821 material is not supplied or promoted here."
+  },
+  "limitations": [
+    "This is a bounded packaging, identity, attribution and privacy review. It does not independently re-audit all product source or establish behavior, whole-lens coverage, feature resolution, ledger aliases or counts.",
+    "The path/account/credential scanner covers stored bytes, gzip-decoded payloads and supported tar/crate members, with specified fingerprints and canonical agent identifiers exempted. It found zero unclassified candidates and no local home-directory account-name occurrences, but cannot exclude every secret, personal value, encoding, or non-path false positive; raw Git objects intentionally disclose author/committer fields.",
+    "Source archives and original manifests retain historical identities. A public reconstruction must be linked by its own public stored and decoded hashes plus an explicit original-to-public crosswalk, never treated as byte-identical to the original.",
+    "The five recovered prior originals and 36 changed originals were available separately at review time; the public review packet contains no local-original values. Their continued availability and access control remain separate custody questions.",
+    "The full evidence check requires the separately retained original source packets and changed originals. The publication-object check additionally requires the retained local publication Git repository; neither check relies on untrusted prior verifier scripts.",
+    "No product code, macros, GPU work, fixtures, builds, tests, repairs or runtime probes were executed, and neither reviewed packet nor the publication was modified."
+  ]
+}

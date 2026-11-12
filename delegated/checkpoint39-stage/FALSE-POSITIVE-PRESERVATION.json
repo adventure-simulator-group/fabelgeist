@@ -1,0 +1,42 @@
+{
+  "schema": "726-cp39-false-positive-preservation-v1",
+  "checks": [
+    {
+      "packet": "2623-2624",
+      "source_path": "history/baseline-059-ledger.json.gz",
+      "public_path": "bundles/2623-2624/history/baseline-059-ledger.json.gz",
+      "known_non_path_phrase": "source/home/window/viewport/overlay",
+      "original_stored_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "original_decoded_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "public_stored_sha256": "15139ed0e894b0dfd98f0e59f2ec7caef74abb558ad806a3c7615b3ba0719dc8",
+      "public_decoded_sha256": "4141a329629dfac8e694560ce5b7a03c89263776afe6af63ebd0a5bd5f13daf5",
+      "original_phrase_occurrences": 1,
+      "public_phrase_occurrences": 1
+    },
+    {
+      "packet": "2623-2624",
+      "source_path": "history/history-774/contract-groups.jsonl.gz",
+      "public_path": "bundles/2623-2624/history/history-774/contract-groups.jsonl.gz",
+      "known_non_path_phrase": "engine/presentation/city/source/home/noerrors",
+      "original_stored_sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1",
+      "original_decoded_sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "public_stored_sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1",
+      "public_decoded_sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "original_phrase_occurrences": 1,
+      "public_phrase_occurrences": 1
+    },
+    {
+      "packet": "2626-2628",
+      "source_path": "skills/bespoke-audit.md",
+      "public_path": "bundles/2626-2628/skills/bespoke-audit.md",
+      "known_non_path_phrase": "definitions/users/dependencies",
+      "original_stored_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "original_decoded_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "public_stored_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "public_decoded_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "original_phrase_occurrences": 1,
+      "public_phrase_occurrences": 1
+    }
+  ],
+  "qualification": "These known slash-prose examples were independently compared in original and reconstructed decoded content. The earlier published prior tar remains unchanged and still contains its own historically recorded false-positive replacement in the 774 contract-groups member; the exact original 774 source is supplied separately. This check is not an exhaustive inventory of all possible false positives."
+}

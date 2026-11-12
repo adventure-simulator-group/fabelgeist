@@ -1,0 +1,708 @@
+{
+  "schema": "726-bounded-garment-shape-2623-2624-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T01:15:46.255688+00:00",
+  "status": "Bounded source-only assessment. Central owns ledger, count, aliases and publication. No checkpoint3821 promotion or product validation.",
+  "source_authority": {
+    "historical": "Recorded pr-working HEAD 6533e444fa37552927070cc8d8190907fd3b413e plus unrelated dirty modifications. Assigned recovered objects each match the corresponding 6533 project object; no whole-snapshot cleanliness claim.",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009; both assigned objects match old bytes per file with separately registered personal displays.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee carries historical records and recovered source objects; it is not a project source revision.",
+    "p16": "Registry lookup by assigned SHA-256 returns only roles 2623/2624; it does not exclude a same-path P16 object with different bytes. Separate dirty P16 base a120390947c89b703dc74c4255a13c035d054c50 and recovered tracked patch remain independently attributed: RECOVERY-PHYSICAL-P16-PATCH-20261111.json SHA-256 30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007, tracked.patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked files separately preserved.",
+    "checkpoint3821": "No historical receipt or new bounded assessment is promoted to checkpoint3821."
+  },
+  "roles": [
+    {
+      "original_index": 2623,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+      "source_sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-armor/src/garment_armor.rs",
+          "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+          "git_blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+          "bytes": 4419,
+          "eof": 129,
+          "prospective_ranges": [
+            [
+              1,
+              129
+            ]
+          ],
+          "local_file": "source/2623-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-armor/src/garment_armor.rs",
+          "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+          "git_blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+          "bytes": 4419,
+          "eof": 129,
+          "prospective_ranges": [
+            [
+              1,
+              129
+            ]
+          ],
+          "local_file": "source/2623-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2623,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+          "actual_display_ranges": [
+            [
+              1,
+              75
+            ],
+            [
+              76,
+              129
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 129,
+          "source_file": "source/2623-historical.rs"
+        },
+        {
+          "original_index": 2623,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+          "actual_display_ranges": [
+            [
+              1,
+              75
+            ],
+            [
+              76,
+              129
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 129,
+          "source_file": "source/2623-current.rs"
+        }
+      ]
+    },
+    {
+      "original_index": 2624,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "source_sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+          "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+          "git_blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+          "bytes": 4769,
+          "eof": 137,
+          "prospective_ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "local_file": "source/2624-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+          "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+          "git_blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+          "bytes": 4769,
+          "eof": 137,
+          "prospective_ranges": [
+            [
+              1,
+              137
+            ]
+          ],
+          "local_file": "source/2624-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2624,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+          "actual_display_ranges": [
+            [
+              1,
+              70
+            ],
+            [
+              71,
+              137
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 137,
+          "source_file": "source/2624-historical.rs"
+        },
+        {
+          "original_index": 2624,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+          "actual_display_ranges": [
+            [
+              1,
+              70
+            ],
+            [
+              71,
+              137
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 137,
+          "source_file": "source/2624-current.rs"
+        }
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "actual_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "eof": 62,
+      "source_file": "support/0.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "actual_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "eof": 154,
+      "source_file": "support/1.rs",
+      "unread_for_this_registration": [
+        [
+          116,
+          154
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c7922d2a01a4f9d133b9eecc639eb8a3f40c56b46d0478087c31a417da1cf2d7",
+      "actual_ranges": [
+        [
+          180,
+          230
+        ],
+        [
+          260,
+          300
+        ],
+        [
+          320,
+          360
+        ]
+      ],
+      "eof": 386,
+      "source_file": "support/2.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          179
+        ],
+        [
+          231,
+          259
+        ],
+        [
+          301,
+          319
+        ],
+        [
+          361,
+          386
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c7922d2a01a4f9d133b9eecc639eb8a3f40c56b46d0478087c31a417da1cf2d7",
+      "actual_ranges": [
+        [
+          231,
+          245
+        ]
+      ],
+      "eof": 386,
+      "source_file": "support/3.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          230
+        ],
+        [
+          246,
+          386
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "actual_ranges": [
+        [
+          32,
+          90
+        ]
+      ],
+      "eof": 361,
+      "source_file": "support/4.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          31
+        ],
+        [
+          91,
+          361
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "actual_ranges": [
+        [
+          240,
+          290
+        ]
+      ],
+      "eof": 290,
+      "source_file": "support/5.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          239
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f3a62a48644dc5a0e6e24709857dc95742ba1eaafa24535bb77ca0aa61bd3106",
+      "actual_ranges": [
+        [
+          380,
+          430
+        ]
+      ],
+      "eof": 483,
+      "source_file": "support/6.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          379
+        ],
+        [
+          431,
+          483
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "actual_ranges": [
+        [
+          330,
+          390
+        ]
+      ],
+      "eof": 510,
+      "source_file": "support/7.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          329
+        ],
+        [
+          391,
+          510
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c7922d2a01a4f9d133b9eecc639eb8a3f40c56b46d0478087c31a417da1cf2d7",
+      "actual_ranges": [
+        [
+          30,
+          75
+        ],
+        [
+          145,
+          179
+        ]
+      ],
+      "eof": 386,
+      "source_file": "support/8.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          29
+        ],
+        [
+          76,
+          144
+        ],
+        [
+          180,
+          386
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "actual_ranges": [
+        [
+          45,
+          150
+        ]
+      ],
+      "eof": 461,
+      "source_file": "support/9.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          44
+        ],
+        [
+          151,
+          461
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_chausses.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "actual_ranges": [
+        [
+          215,
+          255
+        ]
+      ],
+      "eof": 334,
+      "source_file": "support/10.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          214
+        ],
+        [
+          256,
+          334
+        ]
+      ]
+    }
+  ],
+  "support_qualification": "Current 95e bounded support only. Unread complements are per registration. Inline WGSL/source text was read, never executed. Source bytes archived in full do not imply full reads. A metadata-only per-file comparison of historical gpu/garment.rs is recorded separately without historical body-read credit.",
+  "historical_records": [
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L11-428.json",
+      "file": "history-059/READ-L11-428.json",
+      "sha256": "75a5786b37308de58ed000064cb93a6e210d091cb213533198c94d6b98654074",
+      "bytes": 9776,
+      "git_blob": "34b2e2e8ccb48904f5822bb9d0f5284ad8aff219"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1538.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1538.json",
+      "sha256": "bb428a84c89670f478ebded3336b21d07631c38c5694c42b76a85e22e24d4421",
+      "bytes": 699,
+      "git_blob": "1d0fe033c04dbf10953916baaf615e67d739fd02"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1539.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1539.json",
+      "sha256": "29e7bc5c2503b5c43d5203169ef35eb686c253dd7383dfde4c8d5f4b591c8462",
+      "bytes": 713,
+      "git_blob": "e9050f19a2b3098e4daa9f98a36acfe1ddc7171e"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-897.json",
+      "file": "history-059/READ-L12-897.json",
+      "sha256": "01a611c5097ca476b6e281f87a697a1691dedc5b8d920e5597428391180cf6ba",
+      "bytes": 12249,
+      "git_blob": "d87d4f3183ecd61f3aa55e4e722763efb745b45a"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-897.json",
+      "file": "history-059/PROPOSAL-L12-897.json",
+      "sha256": "54d1e66177aae5e8635d1e517651003770fce05c643fda17148ecbbf31e23f86",
+      "bytes": 9336,
+      "git_blob": "a14cfea6507d3fa9b413160374bd29885208d461"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-689.json",
+      "file": "history-059/REGISTRATION-PAR-L12-689.json",
+      "sha256": "b22700c01a231b00172e2413de9259dbfa63fac74ca6f6ba2bae4f651764ff45",
+      "bytes": 3615,
+      "git_blob": "9e707ebd8ddcf5307ceab05fddd656ad4a243ab7"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-690.json",
+      "file": "history-059/REGISTRATION-PAR-L12-690.json",
+      "sha256": "b75a04bb2379fe6974f97b9e4e95d5e87e8c5cc1efc1bf22ea5135611db8fe02",
+      "bytes": 3585,
+      "git_blob": "8f54659aa8bdd523ce702d05ed7f3c33c0290479"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-689-ORIGINAL2623.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-689-ORIGINAL2623.json",
+      "sha256": "68ca804b7b3b6468655e0c214bfc08b0ddb119dd1ceb6837275986a1c06bb525",
+      "bytes": 1489,
+      "git_blob": "27f247d51d529fd4d6c12d2493ef8ec740924ae2"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-690-ORIGINAL2624.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-690-ORIGINAL2624.json",
+      "sha256": "f614d9cbb5a6f83b01a67e2fc95eea681a00e509e57817ab9247b6f772a0fb2f",
+      "bytes": 1517,
+      "git_blob": "f893c9a0e3018d694a4e43a50ce0a4a41b946719"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "file": "history-774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "bytes": 126879,
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "file": "history-774/additional-contracts.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "bytes": 111211,
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/contract-groups.jsonl",
+      "file": "history-774/contract-groups.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "bytes": 1319065,
+      "git_blob": "ecdb74ed7aca240980d954a5a975f9152575f82e"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/findings.jsonl",
+      "file": "history-774/findings.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "bytes": 120871,
+      "git_blob": "ab07e3119387e62a2ecd36d88084d704549f1592"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/contracts-022.json",
+      "file": "history-774/contracts-022.json.gz",
+      "encoding": "gzip",
+      "sha256": "9e22d460d14e983925b38e9fb76ed100368998b6134164ee8b1d581cd8215336",
+      "bytes": 4734,
+      "git_blob": "dc7cf88c850d205333680cc4ff565325edf8368d"
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-072/073 and ADDITIONAL-072/073",
+      "attribution": "774 rig reviewer, historical pr-working; garment_armor.rs 1–129 and garment_plate_design.rs 1–137",
+      "relation": "General kind/shape admission, numeric bounds and aggregate relations, with original exclusions and no later-lens credit. These records do not by themselves establish specialized tube entry compatibility."
+    },
+    {
+      "id": "RIG-ADMISSION03-ADDITIONAL-074",
+      "attribution": "774 rig reviewer, historical wrapped_tassets.rs actual source 1–54",
+      "relation": "Preserves default break 6 and standalone bounds; enclosing parent requires break<count. Original record says TassetSide55+ excluded; do not silently expand reviewer scope."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-610",
+      "attribution": "774 rig reviewer, historical gpu/wrapped_tassets.rs 1–154, historical queue_index 583",
+      "relation": "Wrapped recorder validates design and requires WrappedTassets variant before chart division; raw paired device fit/status remain separately open. No source execution or whole-lens credit."
+    },
+    {
+      "id": "RIG-INITIAL06-GROUP-022 wrapped-tasset-host-shader-port",
+      "attribution": "774 rig reviewer, historical wrapper 1–154 and separately scoped carrier/shape WGSL bodies",
+      "relation": "Preserves distinctions between domain design and native chart representation, body coordinate frame and pending status. Related to wrapped branch, not an inferred alias for tube entry."
+    },
+    {
+      "id": "READ-L11-428 / REGISTRATION-SEGOVB-1538/1539",
+      "attribution": "Original 059 segovb reviewer; historical 6533/pr-working; fresh garment design 1–129, shape 1–137",
+      "relation": "Historical parent cross-field reasoning and type relationship; current personal reads are separate."
+    },
+    {
+      "id": "READ-L12-897 / PROPOSAL-L12-897 / REGISTRATION-PAR-L12-689/690 and source qualifications",
+      "attribution": "Original 059 /root/lens12_frontier, 6533 full garment design 1–129 and shape 1–137; root adoption explicitly no root personal rereads",
+      "relation": "Historical scoped Lens12 sources, no other-lens or current credit transfer."
+    },
+    {
+      "id": "Q-L12-ae99db0adb61f27b6ebb baseline-059 queue1818",
+      "attribution": "Reconstructed historical pending revisit; no historical body scope by itself",
+      "relation": "Asks for actual garment validator and fit metadata. Fresh source trace contributes bounded evidence without closing or making the candidate an automatic alias."
+    },
+    {
+      "id": "ASSESSMENT-STAGING-TASSETS-95E.json",
+      "sha256": "1972e4e56dbbdb7b9a7ffacdceec86c910f42ed36697d2888d88ab34e624d7c9",
+      "attribution": "Earlier published 95e current supporting source assessment; design 1–129, shape 1–75",
+      "relation": "Independent prior support scope and 059 history preserved; no personal read or ordered-role credit transferred."
+    },
+    {
+      "id": "ASSESSMENT-L01-TASSET-NODE-95E.json",
+      "sha256": "0af15ecfff69554cd6c705c914a0ccbf141a7e9834a9e1b925eec5caef8383c7",
+      "attribution": "Earlier published 95e Lens1 current source assessment; design 1–129, shape 1–130 and wrapped support 1–62",
+      "relation": "Contains conditional finite body-span support-station overflow REVIEW-TASSET-SUPPORT-STATION-COUNT-OVERFLOW-001, separately scoped and not the tube-kind candidate. Do not infer alias or claim its reading."
+    }
+  ],
+  "candidate_findings": [
+    {
+      "id": "local-candidate-garment-tube-kind-admission",
+      "status": "Conditional source-supported public-entry contract question; central decides policy, alias and ledger count.",
+      "trigger": "Caller supplies GarmentArmorDesign::new(GarmentArmorKind::Fauld) directly to public gpu::record_garment_tube, and prior fallible GPU/recipe operations succeed. Assigned new() sets Fauld shape, clearance 10, wall 3, length 1000, flare 180, waist 900 and count 4; assigned shape defaults waist rise 50, front arch 0, arch width 500, slope 0. These values meet all inspected general shape/kind, scalar and front_arch < length predicates. This is a conceptual source argument, not an executed fixture.",
+      "evidence": "The tube entry at gpu/garment.rs:193–240 calls general design.validate but has no kind/shape gate. It chooses skirt behavior only for MailSkirt or PaddedSkirt, then creates a ring-based generic TUBE shell with length/clearance/wall and does not pass the Fauld payload. It is publicly re-exported at gpu/mod.rs:80–82. By comparison, record_fauld checks for Fauld shape after general validation at garment.rs:268–279. This establishes source-level operation selection if the direct call and preceding fallible steps succeed, not an observed completed mesh or silent runtime behavior.",
+      "ordinary_path": "device_garment.rs:247–271 dispatches Fauld to fitted skirt; device_garment_skirt.rs:57–69,133–136 uses record_fauld for Fauld and record_garment_tube for other skirt cases after its Tassets branch. No ordinary caller passing Fauld directly to tube was shown; other external callers remain open.",
+      "impact_and_policy": "A general valid design can enter a public specialized recorder that does not use the design's plated construction payload. Whether unsupported direct calls are caller-precondition violations or should yield an explicit error requires API ownership decision; no accepted finished geometry, crash, UX, rendering or product outage is claimed.",
+      "future_direction": "After admission policy is established and implementation is authorized, define the accepted tube families at the owning public entry and reject/represent unsupported kind or shape combinations before building the recipe. Preserve supported sleeve, chausse and flexible skirt routes and existing general validation; do not add compatibility fallback.",
+      "historical_qualification": "774 ADD072/073 cover general design and shape validation, and CONTRACT610 covers wrapped recorder; neither establishes tube-specific admission. Bounded 059 queue and receipt searches did not find exact tube contract, but cannot establish global novelty or alias. gpu/garment.rs 6533 and 95e object bytes are identical by metadata/Git membership only; no personal historical body read is claimed."
+    }
+  ],
+  "nonfindings": [
+    "General validation rejects inconsistent kind/shape pairs while allowing ordinary and wrapped Tassets for the same kind, so their coexistence is not automatically redundant.",
+    "Wrapped section_break 0 denotes unsplit; a positive break must be less than count. Standalone wrapped default break 6 requires a containing count of at least 7, but new(Tassets) selects ordinary Tassets, so this does not make that constructor invalid.",
+    "Fauld front arch < design length and positive count limits are explicit parent conditions; observed chart loops do not divide by zero on the validated route.",
+    "Named specialized wrapped, fauld and ordinary tasset recorders validate the general design and additionally match their required variants; invalid-shape behavior is already explicit for these entries.",
+    "Current high-level Fauld dispatch reaches record_fauld in the inspected path, not the conceptual public direct tube misuse."
+  ],
+  "open_questions": [
+    "Is direct record_garment_tube intended to accept any generally valid GarmentArmorDesign as a generic geometry request, or only the sleeve/chausse/flexible-skirt families? Which public contract and caller should own rejection?",
+    "Are there external or other supported direct callers of the public tube entry and do they depend on permissive behavior? Bounded source inspection does not establish this.",
+    "What do device kernels, geometry preparation, fitted status, visual output and actual error propagation do? None were executed or fully inspected.",
+    "Are any historical finding or later current ledger aliases an exact match for specialized tube-kind admission? Bounded searches cannot establish global absence.",
+    "How should the existing tasset support-station count and body/rig admission relationships be reconciled? They remain separate from the tube candidate."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Kind-specific new design and tagged plate shape feed general validation, then special-purpose garment recorders. Current higher-level creator chooses plate-shape and kind branches; public direct recorder remains separately callable."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "GarmentArmorKind, GarmentPlateShape, WrappedTassetDesign, Millimeters and Permille have distinct present owners; valid general design does not alone certify compatibility with every specialized public recorder."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "General design validates kind/shape agreement and scalar/aggregate limits, and wrapped/fauld/tasset recorders additionally require their respective shape variants. Candidate tube recorder lacks comparable kind admission; scope and public input policy remain for central disposition."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "Positive bounded lame count protects the inspected wrapped, fauld and tasset divisions on validated entry. Section break is checked against parent count before use. No kernel or numeric result validation is inferred."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "Fauld arch must be below overall length and wrapped section break below count; the parent owns those multi-field relations. A valid shape/kind pair and the specific recorder selection form a separate cross-boundary relation."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "The kind catalog selects garment family while shape enum carries optional and alternative construction payloads; Tassets has ordinary and wrapped shapes, so kind-to-shape is not a one-to-one duplicate enum. Recorder acceptance ownership remains the open candidate."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "Kind and shape retain related semantics with explicit compatibility gate; valid Tassets can have two shapes. Do not merge their authorities without tracing catalog, construction modes and callers."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Historical assigned source objects match each other per file at 6533 and current 95e. This is not whole-snapshot cleanliness, behavioral equality or a runtime test."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "GarmentPlateShape variants own different payloads, and None is valid for non-plate kinds. Wrapped section_break=0 is intentional unsplit mode; no blanket NonZero requirement."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "Assigned enums and structures derive ordinary serde and standard equality/hash traits; no additional safe derivability change established."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Units of length, anatomical ratios, course counts, shape-kind and authored/display labels differ. Some relative proportions legitimately exceed 1000, so a single bounded probability type would be incorrect without context."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "No business-string field or string-dispatch API appears in assigned role bodies. Shader strings and resource labels in bounded support are native interfaces, not by themselves business identifiers."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Fauld-specific minimum length, 1..12 versus 1..8 count bounds, 0 unsplit sentinel, flap and overlap geometry constants encode different constraints; caller/design subtype admission remains independent of unit naming."
+    }
+  ],
+  "limitations": [
+    "No source/product changes, repairs, product build, test, fixture, browser, rendering, simulation, runtime probe, shader execution or product validation.",
+    "Evidence-only scripts hash bytes, decompress evidence, and verify Git membership; mathematical arguments are not simulated fixtures.",
+    "Historical reviewer and current scopes remain separate; exact file equality does not establish a clean pr-working snapshot, working behavior or user reachability.",
+    "Thirteen perspectives cover only these source roles and registered support, not whole-lens, audit, queue or ledger closure."
+  ]
+}

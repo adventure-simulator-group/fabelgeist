@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+"""Read-only bounded scan of changed Git blobs and nested evidence.
+Invocation: python3 scan.py <old-revision> <new-revision> <safe-output.json>
+Must be run in the desired repository. Candidate values are never written.
+"""
+import bisect,collections,hashlib,io,json,os,re,struct,subprocess,sys,tarfile,zipfile,zlib
+from pathlib import Path,PurePosixPath
+assert len(sys.argv)==4
+OLD,NEW,OUT=sys.argv[1:]
+MAX=128*1024*1024;DEPTH=14
+sha=lambda b:hashlib.sha256(b).hexdigest()
+patterns={
+ 'unix_path':re.compile(rb'(?<![A-Za-z0-9_])(?:\\?/)(?:home|Users|root|tmp|private(?:\\?/)tmp|var(?:\\?/)folders|run(?:\\?/)user|dev(?:\\?/)shm)(?:\\?/)[^\x00-\x20\x7f\"\'<>|]{1,320}'),
+ 'encoded_unix_path':re.compile(rb'(?i)(?:\\u002f|%2f)(?:home|users|root|tmp)(?:\\u002f|%2f)[a-z0-9_.%\\-]{1,320}'),
+ 'windows_path':re.compile(rb'(?i)(?<![A-Za-z0-9_])[a-z]:(?:\\{1,4}|/){1,2}(?:users|documents and settings)(?:\\{1,4}|/){1,2}[^\x00-\x20\x7f\"\'<>|]{1,320}'),
+ 'email':re.compile(rb'(?<![A-Za-z0-9_.+%\-])[A-Za-z0-9_.+%\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}(?![A-Za-z0-9_.\-])'),
+ 'private_key':re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----'),
+ 'credential':re.compile(rb'\b(?:gh[pousr]_[A-Za-z0-9]{25,}|github_pat_[A-Za-z0-9_]{40,}|AKIA[A-Z0-9]{16}|xox[baprs]-[A-Za-z0-9-]{20,})\b')}
+# Git and agent IDs may contain /root/... without denoting filesystem access.
+# Context is bounded and every detected path/email/credential is masked.
+def scrub(b):
+ for k,r in patterns.items(): b=r.sub(lambda m:('['+k+':'+sha(m.group())[:12]+']').encode(),b)
+ return b.decode('utf8','replace').replace('\r',' ').replace('\n',' ')
+def git(*a,input=None):return subprocess.check_output(['git',*a],input=input)
+root=git('rev-parse','--show-toplevel').decode().strip();parts=Path(root).parts
+home=('/'+parts[1]+'/'+parts[2]).encode() if len(parts)>2 and parts[1] in ('home','Users') else os.path.expanduser('~').encode()
+user=home.split(b'/')[-1].lower();assert len(user)>=4;patterns['account_identifier']=re.compile(re.escape(user),re.IGNORECASE);cache={};stats=collections.Counter();all_exceptions=[]
+def matches(data,field='content'):
+ found=[];nl=None;view_hash=sha(data)
+ for kind,pat in patterns.items():
+  for m in pat.finditer(data):
+   if nl is None: nl=[i for i,c in enumerate(data) if c==10]
+   v=m.group();normalized=v.replace(b'\\/',b'/').replace(b'\\\\',b'\\');start=max(0,m.start()-140);end=min(len(data),m.end()+140)
+   context=data[start:end]; line=bisect.bisect_left(nl,m.start())+1
+   lower=normalized.lower();category='not-path'
+   if kind=='unix_path':
+    if lower.startswith(b'/root/'):category='root_agent_style' if re.match(rb'^/root/(?:lens[0-9]|mhr_character|rig_identity|hair_ops|root(?:/|$))',lower) else ('root_hidden_storage' if lower.startswith((b'/root/.',b'/root/tmp/')) else 'root_other')
+    elif lower.startswith((b'/tmp/',b'/private/tmp/')):category='temp_726_named' if re.search(rb'/(?:tmp/)?726[-_]',lower) else 'temp_other'
+    elif lower.startswith(b'/home/'):category='home_example' if re.match(rb'^/home/(?:user|username|example|runner)(?:/|$)',lower) else 'home_other'
+    elif lower.startswith(b'/users/'):category='users_example' if re.match(rb'^/users/(?:user|username|example|runner)(?:/|$)',lower) else 'users_other'
+    else:category='other_unix'
+   if kind=='windows_path':category='windows'
+   ls=data.rfind(b'\n',0,m.start())+1;le=data.find(b'\n',m.end());le=len(data) if le<0 else le; ln=data[ls:le].lower()
+   marker='author_or_committer_line' if kind in ('email','account_identifier') and (ln.startswith(b'author ') or ln.startswith(b'committer ')) else ('email_line' if kind=='email' else None)
+   path_parts=[q for q in re.split(rb'[/\\]+',lower) if q] if kind in ('unix_path','windows_path') else []
+   lexical={'path_depth':len(path_parts),'regex_metacharacters':any(c in v for c in (b'[',b']',b'(',b')',b'*',b'?',b'{',b'}',b'|',b'^',b'$')),'redaction_word':any(t in lower for t in (b'redact',b'private-path',b'local-path',b'<user',b'example',b'placeholder',b'sanitize')),'line_regex_or_scan_word':any(t in ln for t in (b're.compile',b're.sub',b're.search',b're.match',b'regex',b'pattern',b'scan',b'sanitize',b'redact')),'line_assert_or_inequality':b'assert ' in ln or b'!=' in ln,'line_metadata_or_author':any(t in ln for t in (b'agent',b'reviewer',b'reviewed',b'author',b'attribution',b'continuation'))}
+   found.append({'kind':kind,'category':category,'lexical':lexical,'metadata_marker':marker,'field':field,'line':line,'value_sha256':sha(v),'view_sha256':view_hash,'account_home_prefix_match':lower.startswith(home.lower()+b'/') or lower==home.lower(),'account_name_in_windows_path':kind=='windows_path' and user in lower.split(b'\\')+lower.split(b'/'),'context':scrub(context)})
+ return found
+def child_label(s):
+ raw=s.encode('utf8','surrogateescape');return scrub(raw) if any(r.search(raw) for r in patterns.values()) else s
+def visit(data,depth):
+ key=(sha(data),depth)
+ if key in cache:stats['cache_hits']+=1;return cache[key]
+ n={'sha256':key[0],'bytes':len(data),'local':[],'children':[],'exceptions':[]};cache[key]=n;stats['unique_views']+=1;stats['unique_view_bytes']+=len(data)
+ if len(data)>MAX:n['exceptions'].append({'reason':'per-member size limit','bytes':len(data)});return n
+ if depth>DEPTH:n['exceptions'].append({'reason':'nesting depth limit','depth':depth});return n
+ if data.startswith(b'\x1f\x8b'):
+  stats['gzip_views']+=1;n['type']='gzip';pos=0;member=0
+  try:
+   while pos<len(data):
+    if not (data[pos:pos+3]==b'\x1f\x8b\x08' and len(data)>=pos+10):raise ValueError('invalid trailing bytes')
+    flags=data[pos+3];assert not flags&0xe0;cur=pos+10;stats['gzip_members']+=1;stats['gzip_flags_'+str(flags)]+=1
+    if flags&4:
+     assert len(data)>=cur+2;l=struct.unpack('<H',data[cur:cur+2])[0];cur+=2;v=data[cur:cur+l];assert len(v)==l;cur+=l
+     n['local']+=matches(v,f'gzip[{member}].extra')
+    for flag,label in ((8,'name'),(16,'comment')):
+     if flags&flag:
+      end=data.index(b'\0',cur);v=data[cur:end];cur=end+1;n['local']+=matches(v,f'gzip[{member}].{label}')
+    if flags&2:cur+=2
+    dec=zlib.decompressobj(31);out=dec.decompress(data[pos:],MAX+1)
+    if len(out)>MAX or not dec.eof:raise ValueError('gzip per-member expanded size or invalid stream')
+    consumed=len(data[pos:])-len(dec.unused_data);assert consumed>cur-pos
+    n['children'].append({'edge':f'gzip-member[{member}]','node':visit(out,depth+1)});pos+=consumed;member+=1
+  except Exception as e:n['exceptions'].append({'reason':'gzip parse/decompression/size','type':type(e).__name__})
+  return n
+ # ustar/PAX/GNU tar headers or old tar headers with valid checksums.
+ tar=False
+ if len(data)>=512:
+  h=data[:512]
+  try:
+   expected=int(h[148:156].strip(b'\0 ') or b'0',8);tar=(h[257:262]==b'ustar' or expected!=0 and sum(h[:148])+8*32+sum(h[156:])==expected)
+  except ValueError:tar=False
+ if tar:
+  n['type']='tar';stats['tar_views']+=1
+  try:
+   with tarfile.open(fileobj=io.BytesIO(data),mode='r:') as t:
+    for i,m in enumerate(t):
+     stats['tar_entries']+=1
+     metadata=[('name',m.name),('linkname',m.linkname),('uname',m.uname),('gname',m.gname)]
+     for j,(k,v) in enumerate(m.pax_headers.items()):metadata.extend([(f'pax-key[{j}]',str(k)),(f'pax-value[{j}]',str(v))])
+     for label,v in metadata:
+      n['local']+=matches(v.encode('utf8','surrogateescape'),f'tar[{i}].{label}')
+     if m.isfile():
+      if m.size>MAX:n['exceptions'].append({'reason':'tar member size limit','member_index':i,'bytes':m.size});continue
+      f=t.extractfile(m);assert f is not None;v=f.read(MAX+1)
+      if len(v)>MAX:n['exceptions'].append({'reason':'tar member read limit','member_index':i});continue
+      n['children'].append({'edge':f'tar[{i}]:'+child_label(m.name),'node':visit(v,depth+1)})
+     elif m.issym() or m.islnk():stats['tar_links_not_followed']+=1
+   for j,(k,v) in enumerate(t.pax_headers.items()):
+    n['local']+=matches(str(k).encode('utf8','surrogateescape'),f'tar.global-pax-key[{j}]')
+    n['local']+=matches(str(v).encode('utf8','surrogateescape'),f'tar.global-pax-value[{j}]')
+  except Exception as e:n['exceptions'].append({'reason':'tar parse','type':type(e).__name__})
+  return n
+ if data.startswith((b'PK\x03\x04',b'PK\x05\x06')):
+  n['type']='zip';stats['zip_views']+=1
+  try:
+   with zipfile.ZipFile(io.BytesIO(data)) as z:
+    n['local']+=matches(z.comment,'zip.comment')
+    for i,m in enumerate(z.infolist()):
+     stats['zip_entries']+=1
+     for label,v in [('name',m.filename.encode('utf8','surrogateescape')),('comment',m.comment),('extra',m.extra)]:n['local']+=matches(v,f'zip[{i}].{label}')
+     if m.is_dir():continue
+     if m.file_size>MAX:n['exceptions'].append({'reason':'zip member size limit','member_index':i,'bytes':m.file_size});continue
+     with z.open(m) as f:v=f.read(MAX+1)
+     if len(v)>MAX:n['exceptions'].append({'reason':'zip member read limit','member_index':i});continue
+     n['children'].append({'edge':f'zip[{i}]:'+child_label(m.filename),'node':visit(v,depth+1)})
+  except Exception as e:n['exceptions'].append({'reason':'zip parse','type':type(e).__name__})
+  return n
+ if data.startswith((b'BZh',b'\xfd7zXZ\x00',b'\x28\xb5\x2f\xfd')):
+  n['exceptions'].append({'reason':'unsupported recognized compression format'});stats['unsupported_compressed']+=1;return n
+ n['type']='raw';stats['raw_views']+=1;n['local']=matches(data)
+ return n
+
+def flatten(node,chain,findings,exceptions):
+ for x in node['local']:findings.append({'chain':chain,**x})
+ for x in node['exceptions']:exceptions.append({'chain':chain,'view_sha256':node['sha256'],**x})
+ for c in node['children']:flatten(c['node'],chain+'!'+c['edge'],findings,exceptions)
+parents=git('rev-list','--parents','-n','1',NEW).decode().split();assert parents[0]==NEW and OLD in parents[1:]
+fields=git('diff-tree','--raw','-z','--no-commit-id','-r','--no-renames',OLD,NEW).split(b'\0');rows=[]
+for i in range(0,len(fields)-1,2):
+ h=fields[i].decode().split();assert len(h)==5;path=fields[i+1].decode('utf8','surrogateescape');status=h[4]
+ if status=='D':continue
+ assert status in ('A','M','T');rows.append({'path':path,'status':status,'oid':h[3],'mode':h[1]})
+p=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+findings=[];exceptions=[];inventory=[]
+try:
+ for i,row in enumerate(rows):
+  p.stdin.write((row['oid']+'\n').encode());p.stdin.flush();hdr=p.stdout.readline().decode().split();assert len(hdr)==3 and hdr[0]==row['oid'] and hdr[1]=='blob';length=int(hdr[2]);data=p.stdout.read(length);assert len(data)==length and p.stdout.read(1)==b'\n'
+  safe_path=child_label(row['path']);stats['top_blobs']+=1;stats['top_bytes']+=length
+  identity={'path':safe_path,'status':row['status'],'git_blob':row['oid'],'stored_bytes':length,'stored_sha256':sha(data),'mode':row['mode']};inventory.append(identity)
+  for m in matches(row['path'].encode('utf8','surrogateescape'),'git-path'): findings.append({'chain':safe_path,**m})
+  if len(data)>MAX:exceptions.append({'chain':safe_path,'reason':'top blob size limit','bytes':length});continue
+  flatten(visit(data,0),safe_path,findings,exceptions)
+  if (i+1)%50==0 or i+1==len(rows):print('processed',i+1,'of',len(rows),'unique_views',stats['unique_views'],'candidate_occurrences',len(findings),'exceptions',len(exceptions),flush=True)
+finally:
+ p.stdin.close();p.stdout.close();p.wait()
+result={'schema':'726-d7b14-changed-blob-privacy-review-v1','old_revision':OLD,'new_revision':NEW,'parent_oids':parents[1:],'scope':'Changed new-commit blob bodies and their recursively recognized gzip/tar/zip containers; removed preimage blobs and unchanged files outside scope. No worktree files used.','limits':{'max_decoded_member_bytes':MAX,'max_depth':DEPTH,'other_formats':'XZ, bzip2, zstd recognized but not decompressed and recorded as exceptions; all other container formats may be missed.','pattern_scope':'Selected generic Unix/Windows local paths, limited Unicode/percent-encoded slash forms, current account identifier, e-mail, PEM private-key markers, GitHub/AWS/Slack-shaped credentials; JSON slash escapes included, other encodings or secrets not exhaustive.','semantics':'Candidates are not by themselves exposures: distinguish code examples, regex patterns, agent identities, upstream publicly distributed bytes and commit author metadata. Git blob SHA-1 denotes stored content, while SHA-256 is an independent digest.','account_match':'Computed from the workspace parent home path at review time; outside that environment only generic detection and recorded prefix hash replay, not account-prefix classification, are reproducible.','archive_handling':'Each gzip member, tar/zip member and metadata field is visited up to per-member and depth bounds; tar links are not followed. Raw unknown/binary content is scanned as bytes, but arbitrary nesting or alternate compressed forms is not inferred.'},'account_home_prefix_sha256':sha(home),'stats':dict(stats),'inventory':inventory,'candidates':findings,'exceptions':exceptions}
+Path(OUT).write_text(json.dumps(result,indent=2,ensure_ascii=True)+'\n');os.chmod(OUT,0o600)
+print('finished candidates',len(findings),'exceptions',len(exceptions),'unique views',stats['unique_views'],flush=True)

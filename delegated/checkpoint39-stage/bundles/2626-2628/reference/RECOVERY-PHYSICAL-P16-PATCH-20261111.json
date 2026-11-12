@@ -1,0 +1,61 @@
+{
+  "schema": "726-physical-p16-tracked-patch-recovery-v1",
+  "discovered": "2026-11-11",
+  "historical_source": {
+    "snapshot": "physical-p16",
+    "base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "registry": "recovered/original-registry-source-archive/registry.json.gz",
+    "registry_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "meaning": "Mandatory unfinished P16 dirty delta, frozen before further fixes",
+    "attribution": "The original registry retains each path owner, audit owner and supplier receipt. This later recovery does not transfer historical attribution or change the revision."
+  },
+  "recovered_patch": {
+    "path": "recovered/physical-p16-patch-recovery/tracked.patch",
+    "sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "bytes": 524542,
+    "identity": "An independently reproduced stream exactly matches the historical registry patch SHA-256. The registry inspected does not specify the historical command, so this does not prove how the earlier stream was produced.",
+    "method": "Read-only git diff --binary HEAD in the live historical P16 worktree; no patch application or product execution.",
+    "scope": "151 tracked modifications and one tracked deletion; seven untracked files are not included in git diff."
+  },
+  "live_comparison": {
+    "agent": "/root/hair_ops",
+    "observed_utc": "2026-11-11T23:31:06.819810+00:00",
+    "published_report": "recovered/physical-p16-patch-recovery/live-comparison-redacted.json",
+    "published_report_sha256": "873b0fed750999d05b00224be4c3924e0bb782cc7a64d37c5188ba01c64f878f",
+    "original_report_sha256": "ae764f60ef7d46a7d3949c376441b6cbb8466453cf750069cd75c8607ec660bd",
+    "original_report_bytes": 62151,
+    "publication_qualification": "Reconstructed copy redacts only three local path values; the exact original report remains in the local ignored disk inventory. It is not claimed byte-identical.",
+    "worktree_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "status_count": 159,
+    "status_exact_match": true,
+    "status_counts": {
+      " M": 151,
+      " D": 1,
+      "??": 7
+    },
+    "existing_path_hashes_match_historical_registry": 158,
+    "deleted_path_count": 1,
+    "untracked_hashes_match_historical_registry": 7,
+    "independent_coordinator_observation": "Coordinator separately reproduced and saved the tracked patch stream and verified its recorded digest and length, and independently compared all 159 recorded statuses and all 158 registered path hashes to the published original registry and archived objects."
+  },
+  "untracked_and_other_source_objects": {
+    "archive": "recovered/original-registry-source-archive/objects.tar.gz",
+    "identity": "All 158 existing changed paths, including the seven untracked paths, have content-addressed objects in the previously published original registry source archive. The deleted path base object is also preserved there. The report records each path and digest.",
+    "qualification": "The matching tracked patch does not contain untracked files. Status, path hashes and base object identity are checked separately; hash matches do not establish uninterrupted custody or all filesystem metadata."
+  },
+  "earlier_search": {
+    "record": "SEARCH-P16-PATCH-20261111.json",
+    "qualification": "The earlier suffix-and-size-limited search honestly reported no patch file among 7,156 candidates in two target collections. It did not inspect arbitrary names or reproduce the live worktree diff. This later recovery supersedes only its contemporaneous missing-patch status, without changing the earlier record."
+  },
+  "authority": "Historical dirty evidence only. The incomplete 95e working authority remains distinct. This is neither final checkpoint 3821 restoration nor proof of current code behavior, a repair, a completed lens, or product validation.",
+  "product_validation": "not performed",
+  "later_agent_inventory": {
+    "agent": "/root/hair_ops",
+    "published_report": "recovered/physical-p16-patch-recovery/old-evidence-inventory-redacted.md",
+    "published_sha256": "13a7dce967b935ee38542d0aeb4f91a1cd02e188a1caff4f1da72ef6551cc5a1",
+    "original_sha256": "085b229b77f9d4a1a46529658bb0835e4bd72ba659b094dad09689339365b57a",
+    "original_bytes": 9339,
+    "redacted_unique_paths": 9,
+    "qualification": "Reconstructed public report with nonessential local paths redacted. Original local bytes and attribution are preserved separately. Its contemporaneous statement that its author had not saved a patch remains true for that observation; coordinator separately saved the matching stream."
+  }
+}

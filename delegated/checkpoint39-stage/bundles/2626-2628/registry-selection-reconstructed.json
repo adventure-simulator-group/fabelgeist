@@ -1,0 +1,254 @@
+{
+  "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "roles": {
+    "2626": {
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+      "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "bytes": 11547,
+      "actual_line_count": 362,
+      "scope_kind": "materially_reached_admission_contract",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "admission03_scope_observations": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+          "row_1based": 80,
+          "registration_id": "RIG-ADMISSION03-REGISTER-080",
+          "original_record": {
+            "id": "RIG-ADMISSION03-REGISTER-080",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+            "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+            "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+            "actual_EOF": 362,
+            "material_ranges": [
+              [
+                190,
+                260
+              ]
+            ],
+            "reason": "Actual directly used TryFromPrimitive derive generator for assignedFBX FbxArrayEncoding, explicitlypinned num_enum0.7.6 dependency. Qualify closedvariant match and customrawerror route, no generatedadapterclearancefromtests alone.",
+            "exclusions": "OtherderiveFromPrimitive/unsafe/default macros andwholeforeignpackage excluded. Parserhelpers onlyifconcretelyrequired, registeredbeforebody.",
+            "status": "registered_before_bounded_actual_admission_analysis",
+            "at": "2026-10-22T10:56:52.258253+00:00"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              190,
+              260
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+          "actual_EOF": 362,
+          "bytes": 11547
+        }
+      ],
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+      "admission_discovery": "source_backed_packet_acceptance_pending"
+    },
+    "2627": {
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+      "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "bytes": 25892,
+      "actual_line_count": 574,
+      "scope_kind": "materially_reached_admission_contract",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "admission03_scope_observations": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+          "row_1based": 81,
+          "registration_id": "RIG-ADMISSION03-REGISTER-081",
+          "original_record": {
+            "id": "RIG-ADMISSION03-REGISTER-081",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+            "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\parsing.rs",
+            "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+            "actual_EOF": 574,
+            "material_ranges": [
+              [
+                1,
+                20
+              ],
+              [
+                62,
+                406
+              ],
+              [
+                506,
+                533
+              ]
+            ],
+            "reason": "Direct EnumInfo deriveinput parsing, variantliteral expression extraction and errorattributeprojection for actualFBX repru32/0/1/customerror; otherFromPrimitive exhaustiveness helpers excluded.",
+            "exclusions": "Only actual FBX closed-discriminant/customerror derive; no otherenumfeature/foreignpackage orwholecrate credit.",
+            "status": "registered_before_bounded_actual_admission_analysis",
+            "at": "2026-10-22T10:57:24.406910+00:00"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              1,
+              20
+            ],
+            [
+              62,
+              406
+            ],
+            [
+              506,
+              533
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\parsing.rs",
+          "actual_EOF": 574,
+          "bytes": 25892
+        },
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+          "row_1based": 83,
+          "registration_id": "RIG-ADMISSION03-REGISTER-083",
+          "original_record": {
+            "id": "RIG-ADMISSION03-REGISTER-083",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+            "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\parsing.rs",
+            "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+            "actual_EOF": 574,
+            "material_ranges": [
+              [
+                408,
+                447
+              ]
+            ],
+            "reason": "Direct literal and parse_discriminant helpers called by exactEnumInfo for actualFBX literal0/1 discriminants; emptyalternativeattrs mean alternativeshelpernevercalledcurrentinput.",
+            "exclusions": "No range/complexalternativevalues,catchall/default feature orwholeforeignpackage.",
+            "status": "registered_before_bounded_actual_admission_analysis",
+            "at": "2026-10-22T10:58:02.466736+00:00"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              408,
+              447
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\parsing.rs",
+          "actual_EOF": 574,
+          "bytes": 25892
+        }
+      ],
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+      "admission_discovery": "source_backed_packet_acceptance_pending"
+    },
+    "2628": {
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+      "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "bytes": 10928,
+      "actual_line_count": 342,
+      "scope_kind": "materially_reached_admission_contract",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "admission03_scope_observations": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+          "row_1based": 82,
+          "registration_id": "RIG-ADMISSION03-REGISTER-082",
+          "original_record": {
+            "id": "RIG-ADMISSION03-REGISTER-082",
+            "authority": "continuation/root/admission03-discovery-authority-043.json",
+            "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+            "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\enum_attributes.rs",
+            "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+            "actual_EOF": 342,
+            "material_ranges": [
+              [
+                1,
+                210
+              ]
+            ],
+            "reason": "Actual num_enum error_type(name,constructor) attribute parser called by EnumInfo to preserve UnsupportedFbxArrayEncoding::from(raw) diagnostic route; tests/crateoverride tail excluded.",
+            "exclusions": "Only actual FBX closed-discriminant/customerror derive; no otherenumfeature/foreignpackage orwholecrate credit.",
+            "status": "registered_before_bounded_actual_admission_analysis",
+            "at": "2026-10-22T10:57:24.418834+00:00"
+          },
+          "local_qualifications": [],
+          "effective_material_ranges": [
+            [
+              1,
+              210
+            ]
+          ],
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\enum_attributes.rs",
+          "actual_EOF": 342,
+          "bytes": 10928
+        }
+      ],
+      "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+      "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+      "admission_discovery": "source_backed_packet_acceptance_pending"
+    }
+  },
+  "snapshot_rows": [
+    {
+      "id": "pr-working",
+      "root": "SNAPSHOTS/pr-working",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "meaning": "PR HEAD plus all existing staged/unstaged/untracked changes; primary source inventory",
+      "changed_variants": 747,
+      "patch_sha256": "dba7a85bb2105ccdf0587c4713fdc2a33b374600457f5c05e9c5f29d087193b1",
+      "status_porcelain": [
+        " M crates/adventuresim-stdb-module/src/character.rs",
+        " M crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+        " M crates/adventuresim-tactical-client/src/equipment.rs",
+        " M crates/adventuresim-tactical-client/src/equipment/icons.rs"
+      ]
+    }
+  ],
+  "qualification": "Registry rows reconstructed exactly; f82 transports native bytes, not project revision."
+}

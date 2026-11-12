@@ -15,7 +15,7 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 09:23:43–09:23:44 UTC; main may advance. See MAIN-RECHECK-20261112-0923.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 10:05:12 UTC; main may advance. See MAIN-RECHECK-20261112-1005.json.",
   "new_transition_lens_cells_partial": 1,
   "new_current_ledger_candidates": 1025,
   "post_transition_historical_body_reads": [
@@ -2214,7 +2214,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-56F24F64.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-D7B14A15.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2308,5 +2308,8 @@
   "public_evidence_driver": "check_published_evidence_privacy.py",
   "native_registry_observation": "NATIVE-SERDE-SAPHYR-PUBLIC-REGISTRY-OBSERVATION.json",
   "published_56f_privacy_scan": "delegated/privacy-56f-scan/REPORT.json; public transport is a separately verified reconstruction and preserves scan and chronology limits. Exact packet files and ten committed blobs were rechecked in a separate same-machine local capture; see PRIVACY-56F-LOCAL-CAPTURE-VERIFICATION.json.",
-  "public_059_early_link_correction": "delegated/qualified-059-early-links/INVENTORY.json; the initial 15-script inventory omitted five earlier direct-link verifiers with 22 059 references. Historical verifiers remain unchanged; separately named successors use the qualified original/public crosswalk."
+  "public_059_early_link_correction": "delegated/qualified-059-early-links/INVENTORY.json; the initial 15-script inventory omitted five earlier direct-link verifiers with 22 059 references. Historical verifiers remain unchanged; separately named successors use the qualified original/public crosswalk.",
+  "delegated_batch39_pending_central_reconciliation": "delegated/checkpoint39-stage/REPORT.json",
+  "checkpoint39_independent_review": "QUALIFICATION-CHECKPOINT39-INDEPENDENT-REVIEW.json",
+  "d7b14_privacy_independent_review": "delegated/independent-privacy-d7b14/REPORT.json"
 }

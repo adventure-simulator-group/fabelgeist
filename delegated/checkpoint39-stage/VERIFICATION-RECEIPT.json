@@ -1,0 +1,27 @@
+{
+  "schema": "726-cp39-evidence-verification-receipt-v1",
+  "recorded_utc": "2026-11-12T08:43:25.050363+00:00",
+  "evidence_verifier": "/root/hair_ops",
+  "pre_receipt_public_manifest_sha256": "fde56454a98f8a39372d96e4dd0a5d2c33e198abd94d623f15d562c0b7cce2cc",
+  "local_only_manifest_sha256": "110e7d3c557bc8b2d784119637bb3b4021829a3db13e9a2d5361cb569dc42e18",
+  "identities_sha256": "2562b3225b973326e23924c235ea8c3b395914ba98917bd5b2795d895b466cfa",
+  "supplemental_prior_sha256": "0f3ab7c543182c81e0c9b84c683662570232371eadda2f024b4bcb7baef628ec",
+  "prior_manifest_comparison_sha256": "52c617dc00be5f7da9f0f72b865933581a5aa9f4c94ca9f495b8c5626d158083",
+  "checks": {
+    "three_source_files": 333,
+    "supplemental_prior_files": 5,
+    "changed_original_stored_objects": 36,
+    "privacy_replacement_operations": 125,
+    "original_prior_manifest_members": 83,
+    "prior_published_identical_members": 78,
+    "prior_published_different_members": 5,
+    "raw_git_object_identities": 87,
+    "recursively_inspected_archive_objects": 3,
+    "archive_entries": 184,
+    "nested_gzip_members": 33,
+    "native_package_lock_views": 3,
+    "known_slash_prose_examples_preserved": 3,
+    "unclassified_path_or_secret_candidates": 0
+  },
+  "qualification": "The first full read-only evidence verifier run passed at the named pre-receipt manifest using the exact separately retained originals and source inputs. This receipt is additive; the final stage is reverified after its manifest is regenerated. Privacy scanning is bounded. No product code, macro, build, test, fixture, runtime probe, repair or product validation was performed."
+}

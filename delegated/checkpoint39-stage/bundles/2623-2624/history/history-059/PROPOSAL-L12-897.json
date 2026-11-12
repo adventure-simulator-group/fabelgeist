@@ -1,0 +1,182 @@
+{
+  "kind": "Isolated ordered Lens12 source assessment proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 897,
+  "proposed_original_before": 2623,
+  "proposed_original_after": 2625,
+  "new_original_roles_proposed": 2,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "accepted_unique_count_change": 0,
+  "authoritative_ledger_written": false,
+  "current_source_reconciled": false,
+  "implementation_gate_complete": false,
+  "product_execution": false,
+  "runtime_validation": "Not run; source/evidence only",
+  "at": "2026-10-30T04:15:32.193277+00:00",
+  "new_findings": [],
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-896.json",
+  "predecessor_proposal_sha256": "d1e44a0ecaa0680392ae2fb29380e8806cbf7300934e47a5bb5f1bea50159547",
+  "rows": [
+    {
+      "original_index": 2623,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+      "source_sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "actual_EOF": 129,
+      "source_object": "parallel-l12-20261029/source-889-896-ordered-20261030/b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-689.json",
+      "registration_sha256": "b22700c01a231b00172e2413de9259dbfa63fac74ca6f6ba2bae4f651764ff45",
+      "requested_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          129
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-689-ORIGINAL2623.json",
+        "sha256": "68ca804b7b3b6468655e0c214bfc08b0ddb119dd1ceb6837275986a1c06bb525"
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "metadata_nested_range_shape_preflight": "Exact recursive range fields listofpairs withinEOF; listed source-specific Windowslocators qualified beforebody, no genericnormalization.",
+      "function_contract": {
+        "exact_function_ownership": [
+          "GarmentArmorKind20..34/GarmentArmorDesign37..51/new54..88/validate90..128 full129."
+        ],
+        "string_inventory": [
+          "GarmentArmorDesign::new54..88 typedKind-specificdefaults; validate90..128 preserves typedDesignError intoGenerateError through plate_shape91/fluting96 andaggregatechecks. GarmentPlateShape owns payload8..35 and for_kind39..68/validate70..136 verifiesmatchingKind74/82/95/114/126; None legitimate for remainingkinds, no Stringdiscriminatororcompatibilitydefect. Source nativeSerde -> typedKind/Shape pair -> validate -> actualnativegeometry preserves typedclassification; duplicatedkind/shapeaggregateownership otherlensindependent. WrappedTassets.shape.validate73 body notgrantedbycall; actualearlierowner may already be owncovered, otherwise exactconnected proof required."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native authored serde/typedcaller -> exact typed design/owned validator -> retained design or geometry state -> actual nativeGPU/codec consumer. Only assessed functions above have body coverage; caller/callee/native code outside these exact bodies remains separately required."
+        ],
+        "conditional_cases": [
+          "Supported optional construction/empty or no-decoration modes remain intentional; no obsoleteAPI/errorprose preservation required. Source-only reads provide no runtime validation or cross-lens verdict."
+        ]
+      }
+    },
+    {
+      "original_index": 2624,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "source_sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "actual_EOF": 137,
+      "source_object": "parallel-l12-20261029/source-889-896-ordered-20261030/9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-690.json",
+      "registration_sha256": "b75a04bb2379fe6974f97b9e4e95d5e87e8c5cc1efc1bf22ea5135611db8fe02",
+      "requested_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          137
+        ]
+      ],
+      "unread_registered_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": [],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "body_output_truncation_status": "untruncated",
+      "identity_specific_windows_qualification": {
+        "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-690-ORIGINAL2624.json",
+        "sha256": "f614d9cbb5a6f83b01a67e2fc95eea681a00e509e57817ab9247b6f772a0fb2f"
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": 0,
+      "metadata_nested_range_shape_preflight": "Exact recursive range fields listofpairs withinEOF; listed source-specific Windowslocators qualified beforebody, no genericnormalization.",
+      "function_contract": {
+        "exact_function_ownership": [
+          "GarmentPlateShape6..36/for_kind39..68/validate70..136 full137."
+        ],
+        "string_inventory": [
+          "GarmentArmorDesign::new54..88 typedKind-specificdefaults; validate90..128 preserves typedDesignError intoGenerateError through plate_shape91/fluting96 andaggregatechecks. GarmentPlateShape owns payload8..35 and for_kind39..68/validate70..136 verifiesmatchingKind74/82/95/114/126; None legitimate for remainingkinds, no Stringdiscriminatororcompatibilitydefect. Source nativeSerde -> typedKind/Shape pair -> validate -> actualnativegeometry preserves typedclassification; duplicatedkind/shapeaggregateownership otherlensindependent. WrappedTassets.shape.validate73 body notgrantedbycall; actualearlierowner may already be owncovered, otherwise exactconnected proof required."
+        ],
+        "producer_api_state_consumer_native_boundary": [
+          "Native authored serde/typedcaller -> exact typed design/owned validator -> retained design or geometry state -> actual nativeGPU/codec consumer. Only assessed functions above have body coverage; caller/callee/native code outside these exact bodies remains separately required."
+        ],
+        "conditional_cases": [
+          "Supported optional construction/empty or no-decoration modes remain intentional; no obsoleteAPI/errorprose preservation required. Source-only reads provide no runtime validation or cross-lens verdict."
+        ]
+      }
+    }
+  ],
+  "pending_connected_contracts": [
+    "Actual own-L12 native armor LOD caller/error retention and shader compiler input boundary; no finding from string/native compiler API alone.",
+    "GarmentCoif formatter220 actual caller/native boundary and canonical current/alias closure; optionalmodes legitimate.",
+    "Exact current main/all20/all13/all populations/every registered extension remain separate; no product/runtime execution."
+  ],
+  "necessary_all_other_lens_queue": [
+    {
+      "original_index": 2623,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+      "source_sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact source contract independently qualifies per lens, no body/verdict transfer."
+    },
+    {
+      "original_index": 2624,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "source_sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "credit": 0,
+      "reason": "Exact source contract independently qualifies per lens, no body/verdict transfer."
+    }
+  ],
+  "scope_qualifications": [
+    "Only exact registered materialscopes credited, unregistered source tails or callees excluded.",
+    "Future2610 rootTEAM022 full414 reuse ordered891 once, no reread or newregistration."
+  ],
+  "contract_updates": [],
+  "current_delta_updates": [
+    {
+      "scope": "Original2623..2624 exactsourcecontracts",
+      "status": "unreconciled",
+      "new_current_source_credit": 0,
+      "required": "Actual current e275 source/owner/native caller/all20/exact aliases"
+    }
+  ],
+  "partial_read_receipts": [
+    {
+      "path": "parallel-l12-20261029/PARTIAL-PAR-L12-897-001.json",
+      "sha256": "1aaee6fa28c6f1a80798229041124d37d588372f1ee0d766d53ffee26202c32f"
+    }
+  ],
+  "actual_new_body_lines_counted_once_in_ordered_rows": 266
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "726-d7b14-privacy-review-local-capture-v1",
+  "public_review_manifest_sha256": "6ba6ac12c52c840a5350dcf94c914a0fb9571fb5cc6bb40d6d76f58933b4976f",
+  "private_retained_manifest_sha256": "fb4941ba4a79951c3c37dcb5528d268871092fe901bb394faecac957bebdda05",
+  "private_files": 21,
+  "private_bytes": 228267446,
+  "git_replay_log": "PRIVACY-D7B14-GIT-CHECK.log",
+  "git_replay_log_sha256": "3de2ad4d99a9028340b1f09ccdf11a04430ddd7bd8ff104588cbab714f7892e9",
+  "qualification": "Context-bearing scan files are retained with owner-only mode bits on this machine. Public review covers the changed commit and recognized gzip/tar streams with stated limits; generic agent-style root strings were sampled, earlier history and unchanged blobs are outside the scan, and remote availability of commit metadata was not established. No overall privacy clearance or prior-history erasure is claimed.",
+  "product_validation": "not performed",
+  "local_byte_comparison": "All 21 retained files were compared by length and SHA-256 with the separate local scan source, and retained file/root modes had no group or other bits."
+}

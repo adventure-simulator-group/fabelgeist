@@ -1,0 +1,156 @@
+{
+  "schema": "726-num-enum-support-prospective-v1",
+  "registered_utc": "2026-11-12T01:20:10.213184+00:00",
+  "author": "/root/rig_identity",
+  "purpose": "Inspect package feature declarations/reexport and bounded FBX declaration and use; metadata is not Cargo feature resolution or execution. Historical and current support separately displayed.",
+  "entries": [
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "pr-base",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-fbx/Cargo.toml",
+      "git_blob": "9bf1252e72b8ceff78e14579f22105c38a24f8f9",
+      "archive": "support/pr-base-Cargo.toml",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "eof": 18,
+      "registered_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "pr-base",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "git_blob": "a935d23dfa13b14aca9d61e508f0126235fc279a",
+      "archive": "support/pr-base-array_encoding.rs",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "eof": 24,
+      "registered_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "pr-base",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "git_blob": "9519876da12887b9c37db2258f77a873a5c1bd90",
+      "archive": "support/pr-base-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "eof": 548,
+      "registered_ranges": [
+        [
+          420,
+          480
+        ]
+      ]
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-fbx/Cargo.toml",
+      "git_blob": "9bf1252e72b8ceff78e14579f22105c38a24f8f9",
+      "archive": "support/current-Cargo.toml",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "eof": 18,
+      "registered_ranges": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "git_blob": "a935d23dfa13b14aca9d61e508f0126235fc279a",
+      "archive": "support/current-array_encoding.rs",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "eof": 24,
+      "registered_ranges": [
+        [
+          1,
+          24
+        ]
+      ]
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "label": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "git_blob": "9519876da12887b9c37db2258f77a873a5c1bd90",
+      "archive": "support/current-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "eof": 548,
+      "registered_ranges": [
+        [
+          420,
+          480
+        ]
+      ]
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "package": "num_enum",
+      "version": "0.7.6",
+      "archive_sha256": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+      "member": "num_enum-0.7.6/Cargo.toml",
+      "archive": "support/num_enum-Cargo.toml",
+      "sha256": "1451ba4c3948ab057e45c8e30674938dc1c2d025206557f72543d8e3ec81579d",
+      "eof": 102,
+      "registered_ranges": [
+        [
+          47,
+          51
+        ],
+        [
+          85,
+          88
+        ]
+      ]
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "package": "num_enum",
+      "version": "0.7.6",
+      "archive_sha256": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+      "member": "num_enum-0.7.6/src/lib.rs",
+      "archive": "support/num_enum-lib.rs",
+      "sha256": "c4890107b756ad546bddacb8bf5a2d735bdf6ebe12fa0aed8052710e985cd79b",
+      "eof": 99,
+      "registered_ranges": [
+        [
+          1,
+          53
+        ]
+      ]
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "package": "num_enum_derive",
+      "version": "0.7.6",
+      "archive_sha256": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+      "member": "num_enum_derive-0.7.6/Cargo.toml",
+      "archive": "support/num_enum_derive-Cargo.toml",
+      "sha256": "c2b63f5feb0277a2d0e0cdd8c4620e144515daa0f53d30f892e1803ed4c835e2",
+      "eof": 72,
+      "registered_ranges": [
+        [
+          1,
+          72
+        ]
+      ]
+    }
+  ]
+}

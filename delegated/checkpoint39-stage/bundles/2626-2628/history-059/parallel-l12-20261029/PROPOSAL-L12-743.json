@@ -1,0 +1,482 @@
+{
+  "kind": "Parallel L12 ordered fullsource proposal; root adoption required",
+  "lens": 12,
+  "proposed_batch": 743,
+  "proposed_original_before": 2251,
+  "proposed_original_after": 2258,
+  "predecessor_proposal": "parallel-l12-20261029/PROPOSAL-L12-742.json",
+  "predecessor_proposal_sha256": "2b4d5a6eb4c7e1b535edecb658be120362b41fc90e9df5b4ad4d8840894151e0",
+  "rows": [
+    {
+      "original_index": 2251,
+      "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+      "source_sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/Cargo.toml",
+      "actual_EOF": 18,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-205.json",
+      "registration_sha256": "711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a",
+      "assessed_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          18
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Manifest1..18"
+        ],
+        "string_inventory": [
+          "Native Cargo package/feature/dependency/version identifiers; no semantic String API."
+        ],
+        "trace": [
+          "Native FBX crate -> shared rig + pure-Rust flate2 +num_enum; actual versions/features/native bodies require lock/current reconciliation."
+        ],
+        "conditional_cases": [
+          "No build/test/decompression/generator executed; declaration not dependency body coverage."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2252,
+      "source_id": "pr-working:crates/fabelgeist-fbx/README.md",
+      "source_sha256": "39300bf6dd58c4ce0ad1b1fdb2a48dc721890a4731ca7a093ac0e2ab4fc49471",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/README.md",
+      "actual_EOF": 73,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-206.json",
+      "registration_sha256": "c5ade160456e417e635deedc6beccbb019aa6a009dbd5bb8c0ec5a628209eed1",
+      "assessed_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          73
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Full README1..73 source documentation"
+        ],
+        "string_inventory": [
+          "Names and encoding/duration descriptions document native boundaries; prose not source implementation proof."
+        ],
+        "trace": [
+          "Documents FbxQualifiedName/FbxObjectName -> rig and animation; own bodies still needed, no body credit from docs. Array fixture source independently read in2255/2256, no historical execution inherited."
+        ],
+        "conditional_cases": [
+          "Unknown/empty/whitespace object name spellings intentionally admitted; no grammar/compatibility defect. Unsupported encoding means this reader support boundary, no claim Autodesk-invalid. External format link context not consulted or treated as native body evidence."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2253,
+      "source_id": "pr-working:crates/fabelgeist-fbx/src/animation.rs",
+      "source_sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/src/animation.rs",
+      "actual_EOF": 374,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-207.json",
+      "registration_sha256": "4099f257183d25bf9ae6b0563272691badfc625027c9a1f85e216732e9b63268",
+      "assessed_ranges": [
+        [
+          1,
+          374
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          374
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "FbxAnimationDuration.from_seconds82/seconds91; Curve.sample106/TransformChannel.sample134/key_times143/NodeAnimation.key_times151/Take.key_times163/Scene.takes182/stack_duration238/collect_layer249/transform_channel296/ticks_to_seconds350; tests358..374 read only"
+        ],
+        "string_inventory": [
+          "Typed FbxQualifiedName/FbxObjectName retained on NodeAnimation55/Take65. Native FBX labels d|X/d|Y/d|Z/Lcl properties at native graph boundary; recognized closed transform property persisted as String in targets186/193, API252 and rematched286 remains precise internal propagation gap. InvalidFbxAnimationDuration typed cause preserved via with_context226; added message is context, no cause erasure."
+        ],
+        "trace": [
+          "Actual native Link.property from Scene.lib335 -> children_with_property368 -> recognized transform property190 -> targets String193 -> collect_layer HashMapString252/property.as_str262/match286 -> NodeAnimation typed optional fields -> Take -> actual rig/importer native consumer pending."
+        ],
+        "conditional_cases": [
+          "Parser-produced Curve times/values sliced same min count330..336; no ordinary cardinality panic from this actual route, arbitrary public Curve remains admission contract. Whether mismatched arrays should truncate or reject is explicit policy question, not compatibility defect.",
+          "Empty stack skipped212; first connected animation layer208; absent axis curves use actual static defaults136..138 intentionally. Duration zero admitted86; negative/nonpositive declared span is ignored244 then inferred keys216..221 policy; actual native acceptance may need explicit decision, no invented negative-duration witness.",
+          "collect_layer last_mut.expect282 is present afterpush275, outside-test rulecase but no missingentry failure on this route."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2254,
+      "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs",
+      "source_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "actual_EOF": 24,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-208.json",
+      "registration_sha256": "3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b",
+      "assessed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          24
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "UnsupportedFbxArrayEncoding9..12/FbxArrayEncoding21..24 native enum/derive declarations"
+        ],
+        "string_inventory": [
+          "Derived Display native error presentation; no raw semantic String field/API. Actual supported enum Uncompressed0/Zlib1 and typed reported_code retained."
+        ],
+        "trace": [
+          "Reader.u32 wire encoding -> derived TryFrom error owns raw code -> typed enum -> exhaustive native decoder -> public parse. Exact enum admission source proof independent of tests."
+        ],
+        "conditional_cases": [
+          "Unsupported code not formal invalid-native-format assertion; no old nonzero->Zlib policy preservation, no compatibilityshim. Derive macro native implementation/features remain separate."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2255,
+      "source_id": "pr-working:crates/fabelgeist-fbx/src/array_encoding_tests.rs",
+      "source_sha256": "c1ded4b8b3e23e0bd0a611b634c00d344fe2a512193b53d43420c1c53dc2c719",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/src/array_encoding_tests.rs",
+      "actual_EOF": 119,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-209.json",
+      "registration_sha256": "d4ad297272b77c4a7708d4dd9fd58ee7aa36e9707ffb5802d97e067a1037fe46",
+      "assessed_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          119
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "compressed6/file12/value31/snapshot48/observe66/test117..119"
+        ],
+        "string_inventory": [
+          "Test-only serialization Strings label/diagnostics/native fixture output. Fixtures compare complete error prose62/118 but no future requirement preserve obsolete error prose or parser policy."
+        ],
+        "trace": [
+          "Source-only independent native bytes -> parse -> snapshot95 observations -> fixture compare. Tests read untruncated, never run; compressed helper not executed."
+        ],
+        "conditional_cases": [
+          "Native test unwrap valid test scope. Current fixture content does not prove current runtime success, preservation qualification is historical only."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2256,
+      "source_id": "pr-working:crates/fabelgeist-fbx/src/fixtures/array_encoding.txt",
+      "source_sha256": "58b862c072c0efaa21bd96340b233fe43cb6b20c48093202d7975f703fc1ea5f",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/src/fixtures/array_encoding.txt",
+      "actual_EOF": 95,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-210.json",
+      "registration_sha256": "85fd12aee9d76483643cb3a9056195ebb829de31ee9aeedffafbe6dfd1339023",
+      "assessed_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          95
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Full95 fixture observations read as native test data"
+        ],
+        "string_inventory": [
+          "Fixture record labels normal/empty/short/extra/corrupt and error prose are test data, not product protocol IDs. Source fixture records exactfloatbits/boolbytes and typed unsupportedencoding messages."
+        ],
+        "trace": [
+          "Test native bytes generation2255 -> public parser -> historical expected textual observations -> test comparison. No execution/acceptance credit."
+        ],
+        "conditional_cases": [
+          "Unsupported codes7/u32MAX precede decompression by actual2257 reader467, not old fallback preservation. No fixture edit/generation performed."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    },
+    {
+      "original_index": 2257,
+      "source_id": "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+      "source_sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "frozen_git_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/fabelgeist-fbx/src/lib.rs",
+      "actual_EOF": 548,
+      "registration": "parallel-l12-20261029/REGISTRATION-PAR-L12-211.json",
+      "registration_sha256": "e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b",
+      "assessed_ranges": [
+        [
+          1,
+          548
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          548
+        ]
+      ],
+      "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+      "metadata_nested_range_shape_preflight": "All recursively nested original2251\u20132257 fields inspected; no flat fields",
+      "function_contract": {
+        "exact_function_ownership": [
+          "Prop accessors106/116/127/135/146; Node.child157/children_named161/property70187/vec3198/i64213; Reader.take222/u32242/u64246/header_word251/header_size259; Object.is_limb268/is_null_node272/is_node276; Scene.from_roots282/parse348/get352/root357/children363/children_with_property368/child_of_kind380/objects_of_kind385; parse397/decode_array424/read_props452/read_node518..546"
+        ],
+        "string_inventory": [
+          "Node.name35/Object.class58/kind60/Link.property73 retain native open FBX namespace, byte/lossy decoding at actual native boundary523/302/335. Generic container can retain unknown record/class/property names; no blanket closed enum or new labelgrammar imposed. Exact closed animation property admission gap is2253:193. Internal parser predicates currently anyhow/bail prose226/228/403/405/442/510 distinct reason sites; actual flate2 IO cause remains retained by context437, not text-erased."
+        ],
+        "trace": [
+          "Native binary data -> supported-format predicate399 -> Reader.take checked_add225/trunc227 -> native prop tag -> typed encoding467 -> exhaustive decoder431/typed native IO context437 -> Node/Scene objects+link graph -> actual animation property recognizer -> typed Take and rig boundary pending. Object names from FbxQualifiedName297 then FbxObjectName299, owning implementation next material source needed."
+        ],
+        "conditional_cases": [
+          "u32/u64 exact4/8take guarantee try_into unwrap243/247 length; parseversion407 data>=27 checked399, array parsers exactwidth448. Outside-test assertion rules still cases, no invented malformed short-buffer unwrap panic from these exact guards.",
+          "Native unknownprop type510 rejects; nonUTF8 Stringlossy is deliberate container name decoding per README. Native duplicateobjectID304 overwrites map while objects retained, ignored connection type321 and propertydefaults require actual graph policy/caller before failure. read_node endoffset539/header recursion bounds malformednative policy remains connected, no runtimeprobe."
+        ]
+      },
+      "source_accounted_with_pending_contracts": true,
+      "other_lens_verdict_transfer": false
+    }
+  ],
+  "new_original_roles_proposed": 7,
+  "new_overlay_merged_shared_extension_credit": 0,
+  "new_findings": [
+    {
+      "id": "PAR-L12-FBX-ANIMATION-TRANSFORM-PROPERTY-PROPAGATION",
+      "classification": "Source-proven closed internal semantic identity retained as String; alias/current/native rig closure pending",
+      "first_failed_contract": "Scene::takes recognizes precisely Lcl Translation/Rotation/Scaling190 then stores property.to_string193 in local targets HashMap186 instead of retaining its admitted transform-property identity",
+      "canonical_owner": "FBX animation transform target property owner, distinct from open native container Link.property and qualified/normalized object names",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/animation.rs SHA61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d ::Scene::takes186..193/collect_layer249..293"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native FBX connection properties read at lib335 -> children_with_property368 -> closed recognizer animation190 -> retained local targets String193 -> collect_layer typed-map String API252 -> as_str262 +second match286 -> NodeAnimation translation/rotation/scale -> Take -> rig/importer native boundary pending actual consumer",
+      "connected_repair_scope": [
+        "Admit supported transform-property enum at recognizer190 and carry it through targets/API/consumer",
+        "Leave open native FBX record and property namespace at parser boundary; typed object names remain distinct owner"
+      ],
+      "dependencies": [
+        "Actual object_name owner/rig/importer transform consumer/current/all20",
+        "Exact same source/function/hash aliases against existing FBX property findings; common enum remedy insufficient"
+      ],
+      "acceptance_requirements": [
+        "No redispatch by magic Lcl strings after recognized admission",
+        "Unknown native properties remain representable by generic container; unsupported animation targets handled at documented recognition boundary",
+        "Translation/rotation/scale sampling/default/layer policies documented separately; no obsolete API or behavior compatibility requirement"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-READ-OVERFLOW-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "checked_add(len) fails225 creates only anyhow/bail message at226 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::Reader::take222..236:226"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-TRUNCATED-READ-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "requested end exceeds source bytes227 creates only anyhow/bail message at228 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::Reader::take222..236:228"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-ASCII-FORMAT-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "nonbinary input is recognized ASCII402 creates only anyhow/bail message at403 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::parse397..422:403"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-BINARY-FORMAT-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "missing required binary magic/minimumheader399 creates only anyhow/bail message at405 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::parse397..422:405"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-ARRAY-LENGTH-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "decoded array byte extent shorter than count*width441 creates only anyhow/bail message at442 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::decode_array424..450:442"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    },
+    {
+      "id": "PAR-L12-FBX-PROPERTY-TAG-REASON",
+      "classification": "Exact frozen native parser predicate represented as prose; alias/currentpending",
+      "first_failed_contract": "unknown native property tag variant creates only anyhow/bail message at510 rather than owning typed reason and context",
+      "canonical_owner": "FBX native reader parser admission error, composed with existing typed encoding/duration errors and native decompression cause",
+      "exact_function_ownership": [
+        "crates/fabelgeist-fbx/src/lib.rs SHA13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf ::read_props452..515:510"
+      ],
+      "producer_api_state_consumer_native_boundary": "Native file bytes -> exact parser predicate -> Result<anyhow> textualreason -> parse/Scene::parse -> actual importer/rig client -> finalnative presentation pending actualcallers",
+      "connected_repair_scope": [
+        "Own this exact reason with offsets/lengths/wiretag/format context",
+        "Retain native decompression error as cause; propagate parseraggregate to actual client then finalformat"
+      ],
+      "dependencies": [
+        "Actual importer/caller/current/all20/native IO/decompression boundary",
+        "Exact predicate aliases must reconcile individually; no common typed-error-remedy alias"
+      ],
+      "acceptance_requirements": [
+        "Typed reason/context inspectable without matching error prose",
+        "Actual native supported formats/property policy preserved only as intended release contract; no obsolete prose/Boxdowncast/API preservation",
+        "No repair or parser/runtime/testexecution before audit ledger gate"
+      ],
+      "accepted_unique_count_change": 0,
+      "current_source_reconciled": false
+    }
+  ],
+  "pending_connected_contracts": [
+    "Actual FbxQualifiedName/FbxObjectName implementation and downstream rig/importer/current/all20; malformed graph/duration/array-min policies explicit",
+    "Native flate2/num_enum/format definition body/features, previousmandatory/nativeerror/morph/domain/current obligations remainopen"
+  ],
+  "accepted_unique_count_change": 0,
+  "current_source_reconciled": false,
+  "runtime_validation": "Not run; audit only",
+  "authoritative_ledger_written": false,
+  "implementation_gate_complete": false
+}

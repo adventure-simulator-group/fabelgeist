@@ -1,0 +1,6 @@
+import pathlib,subprocess,hashlib,json,datetime
+p=pathlib.Path(__file__).parent;repo='<PRIVATE_PATH_0001>';rev='95e63628f9d70b8dd6e6fede64334696c6995009';(p/'support').mkdir(exist_ok=True);rows=[]
+specs=[('crates/fabelgeist-armor/src/wrapped_tassets.rs',[[1,62]]),('crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs',[[1,115]]),('crates/fabelgeist-armor/src/gpu/garment.rs',[[180,230],[260,300],[320,360]])]
+for i,(path,ranges) in enumerate(specs):
+ b=subprocess.check_output(['git','-C',repo,'show',f'{rev}:{path}']);blob=subprocess.check_output(['git','-C',repo,'rev-parse',f'{rev}:{path}'],text=True).strip();rel=f'support/{i}.rs';(p/rel).write_bytes(b);rows.append(dict(path=path,revision=rev,sha256=hashlib.sha256(b).hexdigest(),blob=blob,bytes=len(b),eof=len(b.splitlines()),prospective_ranges=ranges,file=rel))
+x=dict(author='/root/mhr_character',at=datetime.datetime.now(datetime.timezone.utc).isoformat(),purpose='Bounded current WrappedTassetDesign admission, canonical record validation and garment branch selection; support only.',navigation_qualification='Before registration only Git grep filenames and source metadata locator line numbers printed. No body display.',rows=rows);(p/'support-registration.json').write_text(json.dumps(x,indent=2)+'\n');print(json.dumps(x,indent=2))

@@ -1,0 +1,111 @@
+{
+  "schema": "independent-checkpoint39-input-review-v1",
+  "public_manifest_members": 351,
+  "local_manifest_members": 43,
+  "source_members_checked_against_original_packets": 333,
+  "supplemental_prior_members_checked": 5,
+  "reconstructed_occurrences": 38,
+  "substitutions_replayed": 125,
+  "substitution_prefix_categories": {
+    "absolute-root": 125
+  },
+  "distinct_placeholders": 56,
+  "distinct_retained_originals": 36,
+  "git_objects": 87,
+  "top_level_git_commit_copies": 10,
+  "distinct_commit_objects": [
+    "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "6533e444fa37552927070cc8d8190907fd3b413e",
+    "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+  ],
+  "commit_object_locations_including_archive": [
+    "bundles/2623-2624/git-objects/56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e.commit.gz",
+    "bundles/2623-2624/git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit.gz",
+    "bundles/2623-2624/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+    "bundles/2623-2624/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+    "bundles/2623-2624/history/prior-role/published-evidence.tar.gz!git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit.gz",
+    "bundles/2623-2624/history/prior-role/published-evidence.tar.gz!git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+    "bundles/2623-2624/history/prior-role/published-evidence.tar.gz!git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+    "bundles/2625/git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit",
+    "bundles/2625/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit",
+    "bundles/2625/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit",
+    "bundles/2626-2628/git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit.gz",
+    "bundles/2626-2628/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+    "bundles/2626-2628/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz"
+  ],
+  "archive_count": 3,
+  "archive_entries": 184,
+  "nested_gzip_members": 33,
+  "native_package_archives": 2,
+  "independent_lock_views": 3,
+  "prior_manifest_members": 83,
+  "prior_exact_earlier_tar": 78,
+  "prior_different_earlier_tar": 5,
+  "prior_different_members": [
+    "build-proofs.py",
+    "history-774/contract-groups.jsonl.gz",
+    "recover-history.py",
+    "register-support.py",
+    "register.py"
+  ],
+  "original_059": {
+    "queue": {
+      "transport_path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+      "original_decoded_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "original_stored_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "public_stored_sha256": "b14ccf59731672c4dc6dd712a64d2b68458cb6c1ccec54e125b6a1251a3f32c3",
+      "public_decoded_sha256": "8222cb7b408cf08fcb15d53e224f4ae30b66dc44a4fafef65cd4275cf92af9db",
+      "status": "privacy-reconstructed",
+      "occurrences": 2
+    },
+    "ledger": {
+      "transport_path": "evidence/continuation-segovb/ledger.json",
+      "original_decoded_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "original_git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+      "original_stored_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "public_stored_sha256": "15139ed0e894b0dfd98f0e59f2ec7caef74abb558ad806a3c7615b3ba0719dc8",
+      "public_decoded_sha256": "4141a329629dfac8e694560ce5b7a03c89263776afe6af63ebd0a5bd5f13daf5",
+      "status": "privacy-reconstructed",
+      "occurrences": 2
+    },
+    "registry": {
+      "transport_path": "evidence/audit05/original-scope-072.json",
+      "original_decoded_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "original_git_blob": "676b73c3d63cd01cab63ca8f6cda7da56c772b17",
+      "original_stored_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "public_stored_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "public_decoded_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "status": "exact-safe-copy",
+      "occurrences": 2
+    }
+  },
+  "original_vs_public_059_json_differences": {
+    "queue": {
+      "value-str": 12
+    },
+    "ledger": {
+      "value-str": 14
+    }
+  },
+  "bounded_privacy_scan": {
+    "counts": {
+      "payloads": 655,
+      "bytes": 155377088,
+      "agent-identifiers": 3854,
+      "archives": 3
+    },
+    "unclassified_count": 0,
+    "unclassified": [],
+    "local_account_name_occurrence_locations": {}
+  },
+  "local_original_permissions": {
+    "root_octal": "0o775",
+    "objects_dir_octal": "0o775",
+    "object_modes_octal": [
+      "0o664"
+    ]
+  },
+  "scope": "Evidence only; account and secret patterns and policy fingerprint exemptions are bounded, not a proof of privacy. No product code or old verifier was run."
+}

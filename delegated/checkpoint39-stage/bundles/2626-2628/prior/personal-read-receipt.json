@@ -1,0 +1,511 @@
+{
+  "schema": "726-num-enum-personal-read-receipt-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:21:21.160819+00:00",
+  "registration_hashes": [
+    {
+      "path": "registration.json",
+      "sha256": "d52d1e388dcd094201516bddf900eaeea5938d2309c704271c4302fbe4f18217",
+      "registered_utc": "2026-11-12T01:19:42.852003+00:00"
+    },
+    {
+      "path": "support-registration.json",
+      "sha256": "68487d587608cb42df1e83418bb4f7006b375a5502bee5cf6411fa71e4bcd834",
+      "registered_utc": "2026-11-12T01:20:10.213184+00:00"
+    },
+    {
+      "path": "helper-registration.json",
+      "sha256": "77fb3486632f0ccf1f6c06dd06c08921e56a0e403f0228fe46d4924adc8019a5",
+      "registered_utc": "2026-11-12T01:20:22.123251+00:00"
+    },
+    {
+      "path": "reader-registration.json",
+      "sha256": "bf84cfe5b15f5174a28e3b49f71a5ee0b88a86f6fed5a46d930a11c732b2a30e",
+      "registered_utc": "2026-11-12T01:21:13.981584+00:00"
+    }
+  ],
+  "reads": [
+    {
+      "kind": "assigned original material",
+      "role": 2626,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "archive": "sources/2626-lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "actual_eof": 362,
+      "registration": "registration.json",
+      "actual_display_ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          190,
+          260
+        ]
+      ],
+      "unread_complement_at_this_assigned_read": [
+        [
+          1,
+          189
+        ],
+        [
+          261,
+          362
+        ]
+      ],
+      "actual_read_qualification": "All stated chunks displayed without tool truncation after registration; adjacent planned 60-line chunks were coalesced into at most 120-line displays. Full archived bytes are not whole-file read credit."
+    },
+    {
+      "kind": "assigned original material",
+      "role": 2627,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "archive": "sources/2627-parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "actual_eof": 574,
+      "registration": "registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          181
+        ],
+        [
+          182,
+          301
+        ],
+        [
+          302,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "unread_complement_at_this_assigned_read": [
+        [
+          21,
+          61
+        ],
+        [
+          407,
+          407
+        ],
+        [
+          448,
+          505
+        ],
+        [
+          534,
+          574
+        ]
+      ],
+      "actual_read_qualification": "All stated chunks displayed without tool truncation after registration; adjacent planned 60-line chunks were coalesced into at most 120-line displays. Full archived bytes are not whole-file read credit."
+    },
+    {
+      "kind": "assigned original material",
+      "role": 2628,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "archive": "sources/2628-enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "actual_eof": 342,
+      "registration": "registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          210
+        ]
+      ],
+      "unread_complement_at_this_assigned_read": [
+        [
+          211,
+          342
+        ]
+      ],
+      "actual_read_qualification": "All stated chunks displayed without tool truncation after registration; adjacent planned 60-line chunks were coalesced into at most 120-line displays. Full archived bytes are not whole-file read credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/pr-base-Cargo.toml",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "package": null,
+      "actual_eof": 18,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          18
+        ]
+      ],
+      "unread_complement_at_this_support_read": [],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/pr-base-array_encoding.rs",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "package": null,
+      "actual_eof": 24,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          24
+        ]
+      ],
+      "unread_complement_at_this_support_read": [],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/pr-base-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "package": null,
+      "actual_eof": 548,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          420,
+          480
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          420,
+          480
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          419
+        ],
+        [
+          481,
+          548
+        ]
+      ],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/current-Cargo.toml",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "package": null,
+      "actual_eof": 18,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          18
+        ]
+      ],
+      "unread_complement_at_this_support_read": [],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/current-array_encoding.rs",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "package": null,
+      "actual_eof": 24,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          24
+        ]
+      ],
+      "unread_complement_at_this_support_read": [],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "project support, no ordered-role credit",
+      "archive": "support/current-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "package": null,
+      "actual_eof": 548,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          420,
+          480
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          420,
+          480
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          419
+        ],
+        [
+          481,
+          548
+        ]
+      ],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "archive": "support/num_enum-Cargo.toml",
+      "sha256": "1451ba4c3948ab057e45c8e30674938dc1c2d025206557f72543d8e3ec81579d",
+      "revision": null,
+      "package": "num_enum",
+      "actual_eof": 102,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          47,
+          51
+        ],
+        [
+          85,
+          88
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          47,
+          51
+        ],
+        [
+          85,
+          88
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          46
+        ],
+        [
+          52,
+          84
+        ],
+        [
+          89,
+          102
+        ]
+      ],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "archive": "support/num_enum-lib.rs",
+      "sha256": "c4890107b756ad546bddacb8bf5a2d735bdf6ebe12fa0aed8052710e985cd79b",
+      "revision": null,
+      "package": "num_enum",
+      "actual_eof": 99,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          53
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          54,
+          99
+        ]
+      ],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "native package support, no ordered-role credit",
+      "archive": "support/num_enum_derive-Cargo.toml",
+      "sha256": "c2b63f5feb0277a2d0e0cdd8c4620e144515daa0f53d30f892e1803ed4c835e2",
+      "revision": null,
+      "package": "num_enum_derive",
+      "actual_eof": 72,
+      "registration": "support-registration.json",
+      "actual_display_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          1,
+          72
+        ]
+      ],
+      "unread_complement_at_this_support_read": [],
+      "actual_read_qualification": "Displayed after distinct registration, no original role credit."
+    },
+    {
+      "kind": "separate package path-helper support",
+      "archive": "sources/2627-parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "package": "num_enum_derive 0.7.6",
+      "actual_eof": 574,
+      "registration": "helper-registration.json",
+      "actual_display_ranges": [
+        [
+          534,
+          574
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          534,
+          574
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          533
+        ]
+      ],
+      "actual_read_qualification": "Extra lines 534\u2013574 are separately registered support, not original role credit or Cargo feature resolution."
+    },
+    {
+      "kind": "separate reader support; no ordered role credit",
+      "archive": "support/pr-base-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "actual_eof": 548,
+      "registration": "reader-registration.json",
+      "actual_display_ranges": [
+        [
+          222,
+          247
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          222,
+          247
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          221
+        ],
+        [
+          248,
+          548
+        ]
+      ],
+      "actual_read_qualification": "Separate support display after registration; complements describe this specific support registration, other registered reads remain separate."
+    },
+    {
+      "kind": "separate reader support; no ordered role credit",
+      "archive": "support/current-lib.rs",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_eof": 548,
+      "registration": "reader-registration.json",
+      "actual_display_ranges": [
+        [
+          222,
+          247
+        ]
+      ],
+      "actual_display_chunks": [
+        [
+          222,
+          247
+        ]
+      ],
+      "unread_complement_at_this_support_read": [
+        [
+          1,
+          221
+        ],
+        [
+          248,
+          548
+        ]
+      ],
+      "actual_read_qualification": "Separate support display after registration; complements describe this specific support registration, other registered reads remain separate."
+    }
+  ],
+  "scope_qualification": "Actual displayed chunks are recorded rather than planned chunk partition. Old 774 and 059 reads remain independently attributed, no cross-lens or checkpoint3821 transfer.",
+  "initial_receipt": {
+    "path": "personal-read-receipt-initial.json",
+    "sha256": "2d724ad930e3f25277f391e316bcc3155b72338531f724ff5404ec5bd429f524",
+    "qualification": "Initial 13 personal reads retained unchanged; later reader support added prospectively."
+  }
+}

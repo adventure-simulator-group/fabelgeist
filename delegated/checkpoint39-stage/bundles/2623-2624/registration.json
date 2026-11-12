@@ -1,0 +1,246 @@
+{
+  "schema": "726-garment-shape-reconciliation-registration-v1",
+  "registered_utc": "2026-11-12T07:42:04.003830+00:00",
+  "author": "/root/rig_identity",
+  "entries": [
+    {
+      "id": "garment-old",
+      "role": 2623,
+      "kind": "historical material",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "archive": "sources/garment-old",
+      "bytes": 4419,
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "git_blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+      "eof": 129,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          129
+        ]
+      ]
+    },
+    {
+      "id": "garment-now",
+      "role": 2623,
+      "kind": "current counterpart",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "archive": "sources/garment-now",
+      "bytes": 4419,
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "git_blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+      "eof": 129,
+      "prospective_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          129
+        ]
+      ]
+    },
+    {
+      "id": "shape-old",
+      "role": 2624,
+      "kind": "historical material",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "archive": "sources/shape-old",
+      "bytes": 4769,
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "git_blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+      "eof": 137,
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          137
+        ]
+      ]
+    },
+    {
+      "id": "shape-now",
+      "role": 2624,
+      "kind": "current counterpart",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "archive": "sources/shape-now",
+      "bytes": 4769,
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "git_blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+      "eof": 137,
+      "prospective_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          137
+        ]
+      ]
+    },
+    {
+      "id": "wrapped",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "archive": "sources/wrapped",
+      "bytes": 2095,
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "git_blob": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14",
+      "eof": 62,
+      "prospective_ranges": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "id": "wrapped-gpu",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "archive": "sources/wrapped-gpu",
+      "bytes": 6274,
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "git_blob": "dd076150f50c59218912878309bfe091c7654250",
+      "eof": 154,
+      "prospective_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          61,
+          115
+        ]
+      ]
+    },
+    {
+      "id": "garment-gpu",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/gpu/garment.rs",
+      "archive": "sources/garment-gpu",
+      "bytes": 12016,
+      "sha256": "c7922d2a01a4f9d133b9eecc639eb8a3f40c56b46d0478087c31a417da1cf2d7",
+      "git_blob": "1d6f2548586b07bc1b45a48b04d8e8cc2c4b6b1a",
+      "eof": 386,
+      "prospective_ranges": [
+        [
+          30,
+          75
+        ],
+        [
+          145,
+          195
+        ],
+        [
+          196,
+          245
+        ],
+        [
+          260,
+          300
+        ],
+        [
+          320,
+          360
+        ]
+      ]
+    },
+    {
+      "id": "gpu-public",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "archive": "sources/gpu-public",
+      "bytes": 11660,
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "git_blob": "17b46652cce1fd007c751d9c02c6187e8f639a23",
+      "eof": 361,
+      "prospective_ranges": [
+        [
+          70,
+          90
+        ]
+      ]
+    },
+    {
+      "id": "device-garment",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "archive": "sources/device-garment",
+      "bytes": 9954,
+      "sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "git_blob": "4ee2f0471ba7f6f7b29556655520d94a5394c5ef",
+      "eof": 290,
+      "prospective_ranges": [
+        [
+          240,
+          290
+        ]
+      ]
+    },
+    {
+      "id": "device-skirt",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "archive": "sources/device-skirt",
+      "bytes": 16940,
+      "sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "git_blob": "21cd6e8f34b3aeb90d8a07cac2c278c8c1f5d238",
+      "eof": 461,
+      "prospective_ranges": [
+        [
+          45,
+          100
+        ],
+        [
+          101,
+          150
+        ]
+      ]
+    },
+    {
+      "id": "device-chausses",
+      "role": null,
+      "kind": "current separately registered support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/device_chausses.rs",
+      "archive": "sources/device-chausses",
+      "bytes": 12626,
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "git_blob": "732d976e0860e2213c7c25b327b85fd87e83476a",
+      "eof": 334,
+      "prospective_ranges": [
+        [
+          215,
+          255
+        ]
+      ]
+    }
+  ],
+  "qualification": "pr-working recorded snapshot has unrelated modifications; per-file identity does not prove clean tree. Support windows confer no other role credit. WGSL and tests only as source text."
+}

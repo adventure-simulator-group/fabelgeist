@@ -1,0 +1,10 @@
+{
+  "schema": "726-checkpoint39-private-original-check-v1",
+  "public_manifest_sha256": "f8f2bb8d08a3f3fcc404bc941ace2fde02bc103ca31c22fd6135b91e9b5abf08",
+  "private_manifest_sha256": "110e7d3c557bc8b2d784119637bb3b4021829a3db13e9a2d5361cb569dc42e18",
+  "log": "CHECKPOINT39-PRIVATE-ORIGINAL-CHECK.log",
+  "log_sha256": "fa91a57f8b68af90efecd29ac693442a6f3cebc86180de85fd4d348bf9fcfdc0",
+  "observation": "The public verifier with local originals passed 36 distinct original identities and replayed 125 recorded path substitutions. A retained copy was created with no group or other permission bits on its root and contents.",
+  "qualification": "This is same-machine custody, not independent-machine recovery. An independent reviewer observed that the earlier temporary source directory had mode 775 and its sampled files 664; that earlier source was not treated as restricted or changed in place. The retained copy has the same file bytes but separately tightened permissions. The public check cannot prove original substitutions without the private inputs.",
+  "product_validation": "not performed"
+}

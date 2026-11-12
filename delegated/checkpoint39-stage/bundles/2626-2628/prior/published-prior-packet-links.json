@@ -1,0 +1,128 @@
+{
+  "schema": "726-published-prior-packet-recovery-v1",
+  "archives": [
+    {
+      "published_archive": "<PRIVATE_PATH_0034>",
+      "sha256": "46bbab699840fbcfaf4d4c77361c9eebb17f84163e8ace15d67893e7c39a0467",
+      "bytes": 691077,
+      "local_original_bundle": "<PRIVATE_PATH_0035>",
+      "checked_members": [
+        {
+          "member": "MANIFEST.json",
+          "published_sha256": "21dd8ff24253bf981fefe51d9616ff698a58db5335d3058d09b7809402e32c00",
+          "local_sha256": "21dd8ff24253bf981fefe51d9616ff698a58db5335d3058d09b7809402e32c00",
+          "published_bytes": 15523,
+          "local_bytes": 15523,
+          "byte_identical": true
+        },
+        {
+          "member": "git-proofs.json",
+          "published_sha256": "8be4fc969a4c6f91c1a0adb31099a2d455affe6d2fc3dd446f3e03c7fe8b63e4",
+          "local_sha256": "8be4fc969a4c6f91c1a0adb31099a2d455affe6d2fc3dd446f3e03c7fe8b63e4",
+          "published_bytes": 36465,
+          "local_bytes": 36465,
+          "byte_identical": true
+        },
+        {
+          "member": "historical-774/handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+          "published_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+          "local_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+          "published_bytes": 126879,
+          "local_bytes": 126879,
+          "byte_identical": true
+        },
+        {
+          "member": "historical-774-compressed/additional-contracts.jsonl.gz",
+          "published_sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b",
+          "local_sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b",
+          "published_bytes": 32962,
+          "local_bytes": 32962,
+          "byte_identical": true
+        },
+        {
+          "member": "historical-774-compressed/contract-groups.jsonl.gz",
+          "published_sha256": "634ae638cff8d8d4418f286ba26772dc54519df707f91209ca81b366c15e6e41",
+          "local_sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1",
+          "published_bytes": 324283,
+          "local_bytes": 324271,
+          "byte_identical": false,
+          "published_uncompressed_sha256": "29c69051fc0971a1a4fdd62b536d3d1bea018ea4f033a063614429c68e7c8c51",
+          "local_original_uncompressed_sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+          "first_different_row_1based": 767,
+          "selected_rows": [
+            {
+              "row_1based": 649,
+              "id": "RIG-ADMISSION03-CONTRACT-649",
+              "sha256_of_exact_row_bytes": "adce68860ceef546e4cde366ca4b2505d9a5214f2f2ca62b68e7a23a63986824",
+              "byte_identical": true
+            },
+            {
+              "row_1based": 652,
+              "id": "RIG-ADMISSION03-CONTRACT-652",
+              "sha256_of_exact_row_bytes": "16a0910d061398602b6c5f8e22d01c1c560138379f9ba4de40a062121a34d71e",
+              "byte_identical": true
+            }
+          ],
+          "qualification": "Published checkpoint14 reconstructed public copy redacts paths; not the exact original full file. Original locally retained separately and f82 transport membership remains proof."
+        },
+        {
+          "member": "historical-774-compressed-attribution.json",
+          "published_sha256": "b46af7eb5b4476a7ce67cb6d7135f12544c6744dc39379ac3385b04422c3962d",
+          "local_sha256": "b46af7eb5b4476a7ce67cb6d7135f12544c6744dc39379ac3385b04422c3962d",
+          "published_bytes": 1395,
+          "local_bytes": 1395,
+          "byte_identical": true
+        }
+      ]
+    },
+    {
+      "published_archive": "<PRIVATE_PATH_0036>",
+      "sha256": "4d9082d02c81a40fb8c3dc575ebdc4215c47241ca669371af990d8bc3ac22a49",
+      "bytes": 522121,
+      "local_original_bundle": "<PRIVATE_PATH_0037>",
+      "checked_members": [
+        {
+          "member": "MANIFEST.json",
+          "published_sha256": "285b056edaefbb9e72100b9d729030b32aa0f602bd49099c42ac5280c2c1112f",
+          "local_sha256": "285b056edaefbb9e72100b9d729030b32aa0f602bd49099c42ac5280c2c1112f",
+          "published_bytes": 14363,
+          "local_bytes": 14363,
+          "byte_identical": true
+        },
+        {
+          "member": "REPORT.json",
+          "published_sha256": "4af6ede09c8f15bae79f5ee7aca3b847360365def30f85df5201bd95cd6e988c",
+          "local_sha256": "4af6ede09c8f15bae79f5ee7aca3b847360365def30f85df5201bd95cd6e988c",
+          "published_bytes": 20960,
+          "local_bytes": 20960,
+          "byte_identical": true
+        },
+        {
+          "member": "registration.json",
+          "published_sha256": "e26e1b17ccf32da8170253b63cd68553340f81a927b76c0d3156d01a6fac6bd7",
+          "local_sha256": "e26e1b17ccf32da8170253b63cd68553340f81a927b76c0d3156d01a6fac6bd7",
+          "published_bytes": 6476,
+          "local_bytes": 6476,
+          "byte_identical": true
+        },
+        {
+          "member": "git-proofs.json",
+          "published_sha256": "4d4c12b637f7395d50e76f2d42f447c512ba7f7e44b5631f4719d82325fc7f4f",
+          "local_sha256": "4d4c12b637f7395d50e76f2d42f447c512ba7f7e44b5631f4719d82325fc7f4f",
+          "published_bytes": 27276,
+          "local_bytes": 27276,
+          "byte_identical": true
+        },
+        {
+          "member": "metadata/p16-dirty-Cargo.lock.gz",
+          "published_sha256": "1046f0bf579b650b22e42b724ffe71114925bb01cca24dbafd7e70adcdcc43cc",
+          "local_sha256": "1046f0bf579b650b22e42b724ffe71114925bb01cca24dbafd7e70adcdcc43cc",
+          "published_bytes": 71365,
+          "local_bytes": 71365,
+          "byte_identical": true
+        }
+      ]
+    }
+  ],
+  "qualification": "Selected historical rows compared byte for byte. Published reconstructed full-file copy is separately labeled; preserve original and published hashes/attribution."
+}

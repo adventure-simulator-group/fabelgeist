@@ -1,0 +1,152 @@
+{
+  "at": "2026-10-28T19:23:33.629155+00:00",
+  "lens": 11,
+  "batch": 429,
+  "original_indices": [
+    2626,
+    2627,
+    2628
+  ],
+  "sources": [
+    {
+      "registration": "target/726-audit-adler-20261027/segovb/REGISTRATION-SEGOVB-1542.json",
+      "registration_sha256": "5e6a121bf88a8aaf9e8fc77093eab9c23d4ff5aaa7ec2a3dc62b87cf7f078eab",
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "original_index": 2626,
+      "assessed_ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          190,
+          260
+        ]
+      ]
+    },
+    {
+      "registration": "target/726-audit-adler-20261027/segovb/REGISTRATION-SEGOVB-1543.json",
+      "registration_sha256": "6b901891d7d4299d3f04518e04d1c4d46e172ee601e9d9e9ea784470cd8d2159",
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "original_index": 2627,
+      "assessed_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ]
+    },
+    {
+      "registration": "target/726-audit-adler-20261027/segovb/REGISTRATION-SEGOVB-1544.json",
+      "registration_sha256": "804ac481f6a2d9d55be8bcd24747e9865204f9dc473a9c3486f9275cbf134789",
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "original_index": 2628,
+      "assessed_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "fresh_personal_body_reads": [
+        [
+          1,
+          210
+        ]
+      ]
+    }
+  ],
+  "fresh_bounded_windows": {
+    "1542": [
+      [
+        190,
+        260
+      ]
+    ],
+    "1543": [
+      [
+        1,
+        20
+      ],
+      [
+        62,
+        221
+      ],
+      [
+        222,
+        381
+      ],
+      [
+        382,
+        406
+      ],
+      [
+        408,
+        447
+      ],
+      [
+        506,
+        533
+      ]
+    ],
+    "1544": [
+      [
+        1,
+        150
+      ],
+      [
+        151,
+        210
+      ]
+    ]
+  },
+  "role_dispositions": [
+    "num_enum derive_try_from_primitive190..260 generatesTryFromPrimitive+TryFromrepresentation returningactualconfiguredtypederror withoriginalnumber onunknownmatch, notdefault/catchallacceptance. Matcharms fromnoncatchallvariant values incldeclaredalternatives; denyunreachable_patterns catchesconflictinggeneratedconstants. CannotDeriveBoth marker distinguishnativeFromvsTryFrom modes. Actualprojectderiveannotation anderrorowner identityneedall20comparison; noAPI/errorprosepreservationrequired.",
+    "EnumInfo helpers62..130 filtercatchallfromTryFrom arms andparseexactoneintegerrepr, rejectreprC/missingrepr, collectcheckedattrs. Parse132..406 explicitdefault/catchallmutualexclusion, catchallonefieldmatchingrepr, noncatchallunitvariants, literalduplicatecanonical/alternativescheck andnativegeneratedcompilerchecksforexpressioncollisions. Nextdiscriminantwrappingexplicitmacroconstconstruction notruntimecanonicalvalueoverflowacceptanceclaim. parse_discriminant420..447 fixedi128/byte/expression roles; negativesi128min parsinglimitations actualRustinputrequirementnotproductvalidityfinding. parse_alternative_values448..505andvariantattributeparser notread, actualprojectalternativesneedthosebodydependencies, notinferredfromname.",
+    "Attributes1..210 preserveserrorname/constructoraspairedrequiredpayload, rejectsduplicatecrate/error andmissinghalfconfig. ErrorType525..532 carriesactualsynPathsintogeneratedassociatederror. FinalErrorTypeConstructorfn204..210bodyread, implclosing211/unrelated212..342unread. CrateAttributeactualparsebodyoutsideoriginalscopeunread, actualprojectcratepathinferenceandnativeget_crate_pathimplementation remainqualified. Nativealternatives/defaults arecapabilities; occurrenceofwordalternatives/defaultdoesnotestablishobsoletebackwardcompatibilityproductpath."
+  ],
+  "pending_contracts": [
+    "Actualprojectnum_enumderiveannotations/errorconstructors andnumericnativeboundaries,currentall20/exactaliases remainrequired; nativecapabilityalone notproductdefect.",
+    "All inheritedconnected/extensions/strict EOF/futureproof/populations/currentdutiesretained."
+  ],
+  "next_original": 2629,
+  "accepted_unique_count_change": 0,
+  "implementation_gate_complete": false,
+  "current_reconciled": false,
+  "repairs": "not started",
+  "product_validation": "not run"
+}

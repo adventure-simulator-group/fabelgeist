@@ -1,0 +1,844 @@
+{
+  "schema": "726-num-enum-derive-bounded-source-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:23:55.647638+00:00",
+  "purpose": "Independent bounded source review of original roles 2626\u20132628, with current FBX context and 13 perspectives; central agent retains reconciliation, ledger and publication.",
+  "scope_and_identity": {
+    "native_package": "num_enum_derive 0.7.6, crates.io registry archive SHA-256 680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+    "source_provenance": "Original registry material source objects exactly match archive members and f82 transport objects. f82 is transport, not package revision or project head. Source spans and unread complements in personal-read-receipt.json.",
+    "original_roles": [
+      2626,
+      2627,
+      2628
+    ],
+    "project_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "pr_working": "Recorded head 6533e444fa37552927070cc8d8190907fd3b413e, with four unrelated status entries. The compared FBX files individually match that Git head and current 95e; do not call entire snapshot clean.",
+    "lock_selection": "Structured parsing of old-head, current, and separately retained original dirty P16 Cargo.lock each shows num_enum and num_enum_derive 0.7.6 with registry source and package checksums matching separately retained archives. Lock entries are identity evidence, not feature resolution, build or macro execution.",
+    "p16": "P16 dirty snapshot based on a120, not a commit; later recovered 524542-byte tracked patch matches recorded SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Original diff invocation and uninterrupted custody remain unproved; seven untracked files separate. Its lock is only separately attributed historical evidence, never checkpoint3821.",
+    "checkpoint_3821": "Original 3821 ledger/queue not established by this packet; no promotion of recovered historical evidence."
+  },
+  "personal_source_trace": [
+    {
+      "step": "The FBX manifest requests num_enum 0.7.6 with default-features=false; the package manifest declares std/default and complex-expressions forwarding, and exact =0.7.6 derive dependency. Another dependency can unify Cargo features; no actual feature set or target is inferred.",
+      "sources": [
+        {
+          "archive": "support/current-Cargo.toml",
+          "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+          "lines": [
+            8,
+            15
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/num_enum-Cargo.toml",
+          "sha256": "1451ba4c3948ab057e45c8e30674938dc1c2d025206557f72543d8e3ec81579d",
+          "lines": [
+            47,
+            51
+          ],
+          "revision_or_package": "num_enum"
+        },
+        {
+          "archive": "support/num_enum-Cargo.toml",
+          "sha256": "1451ba4c3948ab057e45c8e30674938dc1c2d025206557f72543d8e3ec81579d",
+          "lines": [
+            85,
+            87
+          ],
+          "revision_or_package": "num_enum"
+        },
+        {
+          "archive": "support/num_enum_derive-Cargo.toml",
+          "sha256": "c2b63f5feb0277a2d0e0cdd8c4620e144515daa0f53d30f892e1803ed4c835e2",
+          "lines": [
+            38,
+            47
+          ],
+          "revision_or_package": "num_enum_derive"
+        }
+      ]
+    },
+    {
+      "step": "Native num_enum reexports derive and trait; FBX declares repr(u32), two explicit unit variants 0 and 1, no alternative/default/catch-all attributes, and a custom UnsupportedFbxArrayEncoding name and ::from constructor. Error struct declares raw reported_code u32; derive_more From is declared, but its own implementation was not independently read in this packet.",
+      "sources": [
+        {
+          "archive": "support/num_enum-lib.rs",
+          "sha256": "c4890107b756ad546bddacb8bf5a2d735bdf6ebe12fa0aed8052710e985cd79b",
+          "lines": [
+            10,
+            12
+          ],
+          "revision_or_package": "num_enum"
+        },
+        {
+          "archive": "support/num_enum-lib.rs",
+          "sha256": "c4890107b756ad546bddacb8bf5a2d735bdf6ebe12fa0aed8052710e985cd79b",
+          "lines": [
+            22,
+            29
+          ],
+          "revision_or_package": "num_enum"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            3,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "step": "Native EnumInfo captures repr and paths, retains literal expressions and checks directly literal collisions; the selected generator constructs typed consts, emits matches over selected expressions and passes number to configured error constructor on wildcard; standard TryFrom delegates. This is source-level intended generation, not a macro expansion or execution result.",
+      "sources": [
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            91,
+            128
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            132,
+            160
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            263,
+            281
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            361,
+            403
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            408,
+            447
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            506,
+            532
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            190,
+            255
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            112,
+            156
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            181,
+            210
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        }
+      ]
+    },
+    {
+      "step": "Current Reader::u32 uses a checked four-byte take and little-endian conversion; array-property source calls typed conversion before length, payload read and decoding; decode matches both admitted variants. The source shows intended behavior conditional on compiler selecting this package and successful macro expansion; it does not establish actual importer use or runtime occurrence.",
+      "sources": [
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            222,
+            243
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            424,
+            437
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            452,
+            470
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "step": "get_crate_path selects a proc-macro-crate lookup branch when that feature is active, and ::num_enum fallback otherwise. The FBX manifest uses the unrenamed dependency and the enum declaration supplies no explicit crate override; branch activation is unresolved, and the lookup/error diagnostic was not executed.",
+      "sources": [
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            534,
+            560
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-Cargo.toml",
+          "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+          "lines": [
+            15,
+            15
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            15,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "nonfindings": [
+    {
+      "id": "NUM-ENUM-FBX-TYPED-ADAPTER-SOURCE-OBSERVATION",
+      "status": "bounded no-new-finding; source trace and not a whole package or lens clearance",
+      "observation": "The selected declared 0/1 enum, explicit custom error path and generated wildcard error(number) are consistent with a closed admitted encoding and preservation of the original number at the selected constructor call. This does not itself prove derive_more From output, expanded code, running parse, an FBX standard rule, or external calls.",
+      "historical_relationship": "Same bounded topic as q2942 and ASSESSMENT-FBX-95E; independent current support does not create a second defect or change their attribution.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            7,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            201,
+            255
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            385,
+            403
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            112,
+            156
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        }
+      ]
+    },
+    {
+      "id": "NUM-ENUM-CRATE-PATH-CONDITIONAL",
+      "status": "question resolved narrowly for current unrenamed declaration; feature graph remains open",
+      "observation": "Fallback source selects ::num_enum and project dependency is named num_enum; lookup branch can find or fallback to that spelling. No rename problem is established for the inspected source. Diagnostics/rename behavior for other consumers and actual feature configuration are outside scope.",
+      "sources": [
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            534,
+            560
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-Cargo.toml",
+          "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+          "lines": [
+            15,
+            15
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    }
+  ],
+  "connected_existing_findings": [
+    {
+      "id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "queue_index_zero_based": 2942,
+      "relationship": "Existing 059 exact frozen adapter disposition, not newly counted finding; current per-file support and native package archive equality provide bounded independent comparison. Preserve its current_reconciled=false as historical state, without claiming global closure.",
+      "original_attribution": "Original /root/lens12_frontier fresh registered role reads, root adoption with zero personal rereads; separate 697 support 211\u2013212."
+    },
+    {
+      "id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "queue_index_zero_based": 153,
+      "relationship": "Distinct upstream array allocation/decompression budget contract: the current decoder support lines 434\u2013448 are related context, not a new num_enum admission error or alias; actual policy and remaining boundary/consumer traces remain open.",
+      "sources": [
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            424,
+            448
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            452,
+            469
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "queue_index_zero_based": 152,
+      "relationship": "Related FBX parse boundary historical contract, not tested and no independent reachability claim or duplicate."
+    }
+  ],
+  "historical_records": [
+    {
+      "origin": "original 774",
+      "supplier": "rig",
+      "source": "historical linked exact registration rows 80\u201383 and additional-contracts rows 66\u201369",
+      "ids": [
+        "RIG-ADMISSION03-REGISTER-080",
+        "RIG-ADMISSION03-REGISTER-081",
+        "RIG-ADMISSION03-REGISTER-082",
+        "RIG-ADMISSION03-REGISTER-083",
+        "RIG-ADMISSION03-ADDITIONAL-080",
+        "RIG-ADMISSION03-ADDITIONAL-081",
+        "RIG-ADMISSION03-ADDITIONAL-082",
+        "RIG-ADMISSION03-ADDITIONAL-083"
+      ],
+      "qualifications": "Original native 0.7.6 source-only admission work; no assigned802 or later-lens credit. Source ranges and timestamps are retained exactly in reconstructed registry and linked original records."
+    },
+    {
+      "origin": "original 774",
+      "supplier": "rig",
+      "ids": [
+        "RIG-ADMISSION03-CONTRACT-649",
+        "RIG-ADMISSION03-CONTRACT-652"
+      ],
+      "qualification": "Historical FBX manifest and enum source reviews; separate original attribution and revision; no count transfer. Published checkpoint14 contract-groups public member is path-redacted and differs from original full file; these selected rows 649/652 were independently compared byte-for-byte and match the local original, as recorded in published-prior-packet-links.json."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical-059/segovb/READ-L11-429.json",
+      "qualification": "Fresh personal reads of all three original material ranges; receipt does not name an individual reader, so no author is inferred. Current source not reconciled."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipts": [
+        "historical-059/segovb/READ-L12-899.json",
+        "historical-059/segovb/READ-L12-900.json",
+        "historical-059/segovb/READ-L12-901.json"
+      ],
+      "qualification": "/root/lens12_frontier independent fresh registered ranges; root adoption no personal rereads; reported f82 is transported native source. Prior separately registered 697 enum_attributes 211\u2013212 belongs to delegate and remains outside this packet personal read."
+    },
+    {
+      "origin": "current published FBX assessment",
+      "record": "ASSESSMENT-FBX-95E.json",
+      "qualification": "The earlier author independently examined its own bounded source, q2942 and adapter context. This packet hash-links it; no borrowed source-read credit, duplicate finding, or assumed closure."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "The selected compiler attribute keys, quoted token names and diagnostic strings are macro grammar/diagnostics; FBX error Display is presentation. No scoped retained business reason encoded as a string was established.",
+      "sources": [
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            8,
+            12
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            112,
+            156
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            6,
+            11
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "FBX wire codes 0 and 1 are explicit discriminants under a u32 repr, not unexplained scattered semantic values in the inspected route. Number enters at the native boundary; other project consumers remain uninspected.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            463,
+            470
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "FBX owns its encoding enum and unsupported-code error while num_enum supplies generic conversion machinery. No misplaced first-party owner was shown in this bounded use.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            6,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/num_enum-lib.rs",
+          "sha256": "c4890107b756ad546bddacb8bf5a2d735bdf6ebe12fa0aed8052710e985cd79b",
+          "lines": [
+            22,
+            29
+          ],
+          "revision_or_package": "num_enum"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Typed encoding crosses into decode_array and is exhaustively matched in its scoped body; no competing existing owner was identified here.",
+      "sources": [
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            424,
+            433
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "An unsupported raw code is intentionally captured as a u32 error field rather than asserted invalid in all FBX contexts; different data sizes and property tags should not be equated with this encoding. No extra raw-code domain restriction is inferred.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            6,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            463,
+            469
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Numeric discriminants/alternatives are represented in syntax expressions and generated repr constants; the chosen explicit 0/1 have no incremental-discriminant dependence. No claim about arbitrary i128 parsing, generated expression validity or feature paths.",
+      "sources": [
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            272,
+            281
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            374,
+            382
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            420,
+            447
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            21,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Name and constructor form a paired error-type payload; missing or duplicate entries are rejected in inspected parser, with actual paths carried into generator. Type checking or invocation was not executed.",
+      "sources": [
+        {
+          "archive": "sources/2628-enum_attributes.rs",
+          "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "lines": [
+            112,
+            156
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            520,
+            532
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            207,
+            213
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Scoped source emits one branch per declared non-catch-all expression and a wildcard error using the raw number; FBX selected variants have no extra attributes. Full native parser, other derive modes and actual macro output are not validated.",
+      "sources": [
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            62,
+            89
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            223,
+            255
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "FBX encoding is a closed two-variant enum; default/catchall and alternative generator capabilities elsewhere are not evidence of an actual FBX fallback or a legacy path.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2627-parsing.rs",
+          "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "lines": [
+            162,
+            170
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            231,
+            240
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Selected source uses the repr and declared enum variants to produce matching constants; no independently stored mapping or duplicate authoritative encoding table was shown within bounded FBX support.",
+      "sources": [
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            201,
+            235
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            424,
+            433
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Original-head and 95e exact inspected FBX file bytes match, while lock records select same package checksum. That source equality does not prove compiler, feature resolution, end-to-end behavior or preserve unsupported policies across earlier unidentified versions.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            14,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            463,
+            470
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Source carries the word from Reader::u32 to TryFrom before reading payload, and passes typed encoding into selected decoder; q2942 already owns the connected historical trace. Import reachability and result transport remain open.",
+      "sources": [
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            242,
+            243
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            463,
+            475
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-lib.rs",
+          "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+          "lines": [
+            424,
+            433
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "TryFromPrimitive derivation and configured error paths are visible. Whether a different implementation or derive is desirable would require broader review and behavior preservation; no rewrite is proposed from this bounded native read.",
+      "sources": [
+        {
+          "archive": "support/current-array_encoding.rs",
+          "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+          "lines": [
+            3,
+            24
+          ],
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            190,
+            195
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        },
+        {
+          "archive": "sources/2626-lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "lines": [
+            245,
+            255
+          ],
+          "revision_or_package": "num_enum_derive 0.7.6"
+        }
+      ]
+    }
+  ],
+  "future_repair_boundaries": [
+    {
+      "owner": "Existing q153 FBX decode-budget contract",
+      "direction": "If that separately established contract is repaired later, admit checked sizes and a bounded decode/allocation before proportional work while preserving the typed encoding error and separately decided suffix policy.",
+      "qualification": "Source-only connection, no implementation or acceptance test in this packet."
+    },
+    {
+      "owner": "Existing q152 FBX record extent and progress",
+      "direction": "Separately establish forward and enclosing extent admission without conflating record headers with enum code admission.",
+      "qualification": "Inherited connected issue; not independently read or newly counted here."
+    },
+    {
+      "owner": "q2942 native adapter scope",
+      "direction": "Preserve declared typed 0/1 handling and raw constructor input if future code changes; do not require a compatibility fallback.",
+      "qualification": "Existing no-new-finding disposition, not a standalone repair."
+    }
+  ],
+  "open_questions": [
+    "Actual Cargo feature unification, target-specific selection, successful macro expansion and all other num_enum consumers are not resolved by lock records or declarative manifests.",
+    "Exact Rust compiler handling and source requirements of other enum expressions, catch-all, alternate values and crate-renaming branches remain outside assigned ranges and are not generalized from this FBX case.",
+    "Whether additional FBX encoding values should be supported, and exact behavior for unsupported or malformed files, require product/format policy separately; unsupported is not proven invalid FBX.",
+    "The derive_more From expansion and downstream any error context were not inspected here; source tracing establishes only constructor path and argument at this boundary.",
+    "Real importer reachability, decoder limits and adoption of q152/q153 remain open, as recorded by the existing current assessment; no product behavior was probed.",
+    "Other native package lines, recorded 059 original 2628 extra 211\u2013212 and other previous reads retain their respective attribution; see exact complement partitions. No whole-file, whole-package or whole-lens clearance."
+  ],
+  "evidence": {
+    "prospective_registrations": [
+      "registration.json",
+      "support-registration.json",
+      "helper-registration.json",
+      "reader-registration.json"
+    ],
+    "personal_reads": "personal-read-receipt.json",
+    "exact_native_archives": [
+      "metadata/num_enum_derive-0.7.6.crate",
+      "metadata/num_enum-0.7.6.crate"
+    ],
+    "raw_git_commit_tree_proofs": "git-proofs.json",
+    "historical_records": "historical-attribution.json",
+    "prior_evidence_hash_links": [
+      "evidence-links.json",
+      "prior-lock-evidence-links.json",
+      "published-prior-packet-links.json"
+    ],
+    "reconstructed_original_registry": "registry-selection-reconstructed.json",
+    "reconstructed_original_queue": "queue-selection-reconstructed.json"
+  },
+  "limits": "Source inspection and evidence verification only. No implementation, product build, test, macro expansion, compiler, runtime, simulation or fixture execution. Historical summaries and reconstructed rows are distinguished from exact recovered records."
+}

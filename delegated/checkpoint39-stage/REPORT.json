@@ -1,0 +1,70 @@
+{
+  "schema": "726-checkpoint39-evidence-publication-stage-v1",
+  "created_utc": "2026-11-12T08:38:24.354757+00:00",
+  "author": "/root/hair_ops",
+  "baseline": "Pinned current 95e63628f9d70b8dd6e6fede64334696c6995009; source packets preserve their separately attributed historical snapshots and read extents. This stage is not a new historical checkpoint3821 or a lens clearance.",
+  "source_packets": [
+    {
+      "packet": "2623-2624",
+      "author": "/root/rig_identity",
+      "source_manifest": "MANIFEST.json",
+      "source_manifest_sha256": "b7e581220dfdefd61974ba545d2b6f297f9e99dab1f0cef1503966c07ff2b6d2",
+      "source_manifest_member_count": 116,
+      "source_file_count_including_manifest_and_extras": 118,
+      "supplemental_original_members": [
+        "history/prior-role/MANIFEST.json"
+      ]
+    },
+    {
+      "packet": "2625",
+      "author": "/root/hair_ops",
+      "source_manifest": "MANIFEST.json",
+      "source_manifest_sha256": "a56451e7a165b7bc1df01f1eebd09a6d04a8016606f87612e679fff565efe427",
+      "source_manifest_member_count": 66,
+      "source_file_count_including_manifest_and_extras": 67,
+      "supplemental_original_members": []
+    },
+    {
+      "packet": "2626-2628",
+      "author": "/root/mhr_character",
+      "source_manifest": "BUNDLE-MANIFEST.json",
+      "source_manifest_sha256": "fb2a43d7316bba20a13e5f1df47262514b80d1bd2e6d85302b9ee19fbc2e8c4b",
+      "source_manifest_member_count": 147,
+      "source_file_count_including_manifest_and_extras": 148,
+      "supplemental_original_members": []
+    }
+  ],
+  "counts": {
+    "source_files": 333,
+    "privacy_reconstructed_files": 34,
+    "exact_safe_files": 299,
+    "private_path_replacements": 118,
+    "secret_replacements": 0,
+    "distinct_redacted_values": 54,
+    "changed_stored_original_objects_retained_locally": 36,
+    "git_objects_verified_and_kept_exact": 87,
+    "archive_objects_inspected_and_kept_exact": 3,
+    "archive_entries_inspected": 184,
+    "nested_gzip_members_inspected": 33,
+    "prior_manifest_members_verified_against_linked_local_source": 83,
+    "prior_published_exact_members": 78,
+    "prior_published_different_members": 5,
+    "supplemental_prior_members": 5,
+    "supplemental_prior_privacy_reconstructed_files": 4,
+    "supplemental_prior_private_path_replacements": 7,
+    "total_source_and_supplemental_files": 338,
+    "total_privacy_reconstructed_files": 38,
+    "total_private_path_replacements": 125,
+    "total_distinct_redacted_values": 56
+  },
+  "privacy": "Only genuinely path-looking or secret candidates are redacted, using escaped-slash normalization and offset-preserving reconstruction. Known slash-prose, regex literals and canonical agent IDs are preserved. Protected raw Git objects, locked package archives and previously published tar archives were recursively inspected and retained byte-for-byte; if a protected object required changes it would be withheld. The scan is bounded and cannot prove absence of all sensitive values.",
+  "recovery_qualification": "Original 059 evidence, reconstructed selections, 774 historical records, P16 dirty state and later patch, and newly assessed 95e work are not interchangeable. The source packet reports preserve read attribution and qualifications; central reconciliation owns cross-lens alias and counting decisions.",
+  "open_limits": [
+    "Original source manifests name the original stored bytes; any privacy-reconstructed public member has a separate hash and cannot be checked against that old manifest as though identical. The new manifest binds every public byte.",
+    "The top-level source manifest for roles 2623\u20132624 excludes a nested prior-role manifest; its original SHA and match to the prior published tar are separately bound.",
+    "Prior published nested tar and native crate archives are unchanged. Registry checksum or Git object identity does not establish package feature selection, macro behavior, runtime reachability or whole-lens completeness.",
+    "Full P16 tracked patch recovery excludes seven untracked files; clean a120 is the base and is not the dirty snapshot, and original invocation/custody remain unproved.",
+    "Some source and artifact readers, historical registration prefixes, 774/native origins and absent checkpoint3821 material remain qualified as in the individual frozen reports. Product execution, builds, tests, probes and repairs were not performed.",
+    "The prior 83-member manifest binds separately retained originals: 78 earlier published tar members match, while five differ. The five prior originals were recovered from an already-linked local packet and supplied here separately after privacy handling; the old tar and historical attributions are unchanged."
+  ]
+}

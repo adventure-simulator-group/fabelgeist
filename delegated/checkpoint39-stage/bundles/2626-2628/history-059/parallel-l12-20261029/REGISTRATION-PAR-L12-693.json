@@ -1,0 +1,90 @@
+{
+  "kind": "Prospective exact Lens12 pinned native macro source material scope",
+  "lens": 12,
+  "original_index": 2626,
+  "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+  "source_sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+  "actual_EOF": 362,
+  "frozen_git_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "git_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+  "source_object": "parallel-l12-20261029/source-898-native-fbx-20261030/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+  "ranges": [
+    [
+      190,
+      260
+    ]
+  ],
+  "registered_at": "2026-10-30T04:21:01.253181+00:00",
+  "original_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "original_record": {
+    "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+    "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+    "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+    "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+    "bytes": 11547,
+    "actual_line_count": 362,
+    "scope_kind": "materially_reached_admission_contract",
+    "audit_owner": "rig",
+    "material_ranges": [
+      [
+        190,
+        260
+      ]
+    ],
+    "admission03_scope_observations": [
+      {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 80,
+        "registration_id": "RIG-ADMISSION03-REGISTER-080",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-080",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+          "snapshot": "pinned Cargo registry dependency num_enum_derive0.7.6",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+          "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "actual_EOF": 362,
+          "material_ranges": [
+            [
+              190,
+              260
+            ]
+          ],
+          "reason": "Actual directly used TryFromPrimitive derive generator for assignedFBX FbxArrayEncoding, explicitlypinned num_enum0.7.6 dependency. Qualify closedvariant match and customrawerror route, no generatedadapterclearancefromtests alone.",
+          "exclusions": "OtherderiveFromPrimitive/unsafe/default macros andwholeforeignpackage excluded. Parserhelpers onlyifconcretelyrequired, registeredbeforebody.",
+          "status": "registered_before_bounded_actual_admission_analysis",
+          "at": "2026-10-22T10:56:52.258253+00:00"
+        },
+        "local_qualifications": [],
+        "effective_material_ranges": [
+          [
+            190,
+            260
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\num_enum_derive-0.7.6\\src\\lib.rs",
+        "actual_EOF": 362,
+        "bytes": 11547
+      }
+    ],
+    "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+    "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+    "admission_discovery": "source_backed_packet_acceptance_pending"
+  },
+  "native_package": {
+    "name": "num_enum_derive",
+    "version": "0.7.6",
+    "crate_archive": "<PRIVATE_PATH_0025>",
+    "crate_sha256": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+    "member": "num_enum_derive-0.7.6/src/lib.rs",
+    "lock_authority": {
+      "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-692.json",
+      "sha256": "3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1"
+    }
+  },
+  "purpose": "Exact frozen FBX TryFromPrimitive native derive generator/parser/attributes source, no macro execution or unrelated foreign feature/body coverage. Lock scope prospectively registered separately, featureactivation and inputadapter stillmustqualify.",
+  "prospective_body_status": "not read at registration",
+  "attribution": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+  "product_execution": false
+}

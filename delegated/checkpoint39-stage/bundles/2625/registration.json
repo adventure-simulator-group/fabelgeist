@@ -1,0 +1,249 @@
+{
+  "schema": "726-prospective-bounded-registration-v1",
+  "registered_utc": "2026-11-12T07:42:55.845422+00:00",
+  "agent": "/root/hair_ops",
+  "role": 2625,
+  "historical_snapshot": "pr-working at recorded base 6533 with unrelated working modifications",
+  "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "original_registry_record": {
+    "source_id": "pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+    "snapshot": "pr-working",
+    "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\wrapped_tassets.rs",
+    "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+    "bytes": 2095,
+    "actual_line_count": 62,
+    "scope_kind": "materially_reached_admission_contract",
+    "audit_owner": "rig",
+    "material_ranges": [
+      [
+        1,
+        54
+      ]
+    ],
+    "admission03_scope_observations": [
+      {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 74,
+        "registration_id": "RIG-ADMISSION03-REGISTER-074",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-074",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\wrapped_tassets.rs",
+          "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+          "actual_EOF": 62,
+          "material_ranges": [
+            [
+              1,
+              54
+            ]
+          ],
+          "reason": "Direct WrappedTassetDesign raw scaled declarations/default/validate called by scoped WrappedTassets shape for assigned native wrapped-tasset creation.",
+          "exclusions": "No unrelated garment operations/foreign package or later lens. TassetSide55+ excluded.",
+          "status": "registered_before_bounded_actual_admission_analysis",
+          "at": "2026-10-22T10:40:57.514237+00:00"
+        },
+        "local_qualifications": [],
+        "effective_material_ranges": [
+          [
+            1,
+            54
+          ]
+        ],
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\wrapped_tassets.rs",
+        "actual_EOF": 62,
+        "bytes": 2095
+      }
+    ],
+    "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+    "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+    "admission_discovery": "source_backed_packet_acceptance_pending"
+  },
+  "registry_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+  "objects_archive_sha256": "794e0b45957709e304ee8e7d9e98f1390c1786644ac4f02891dbaea75e025824",
+  "rows": [
+    {
+      "tag": "old-transport",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "git_blob": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14",
+      "bytes": 2095,
+      "actual_eof": 62,
+      "planned_display_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "retained_body": "source/old-transport.rs",
+      "reason": "original archived pr-working body"
+    },
+    {
+      "tag": "old-6533",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "git_blob": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14",
+      "bytes": 2095,
+      "actual_eof": 62,
+      "planned_display_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "retained_body": "source/old-6533.rs",
+      "reason": "separate Git comparison body"
+    },
+    {
+      "tag": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "git_blob": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14",
+      "bytes": 2095,
+      "actual_eof": 62,
+      "planned_display_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "retained_body": "source/current.rs",
+      "reason": "current role body"
+    },
+    {
+      "tag": "parent",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "git_blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+      "bytes": 4419,
+      "actual_eof": 129,
+      "planned_display_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "retained_body": "source/parent.rs",
+      "reason": "parent aggregate admission"
+    },
+    {
+      "tag": "shape",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "git_blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+      "bytes": 4769,
+      "actual_eof": 137,
+      "planned_display_ranges": [
+        [
+          28,
+          75
+        ]
+      ],
+      "retained_body": "source/shape.rs",
+      "reason": "shape owner"
+    },
+    {
+      "tag": "editor",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/garment_armor_controls.rs",
+      "sha256": "c4cea34fe515c1c7ae37639c7345c7c16e3be8a88d531df91c2108729b0a176f",
+      "git_blob": "02db9fe041f6440e168cc69551209cc01c11ced3",
+      "bytes": 5101,
+      "actual_eof": 133,
+      "planned_display_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "retained_body": "source/editor.rs",
+      "reason": "selected creator transition"
+    },
+    {
+      "tag": "editor-wrapped",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/wrapped_tasset_controls.rs",
+      "sha256": "924c2c277d20d737efe54cfe2b50046f0605e0ac29eaf23b182e2dca58983392",
+      "git_blob": "f666d616cb7431289cfcc38e11f891021b36c64e",
+      "bytes": 1435,
+      "actual_eof": 42,
+      "planned_display_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "retained_body": "source/editor-wrapped.rs",
+      "reason": "selected break cap"
+    },
+    {
+      "tag": "warmup",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs",
+      "sha256": "3129853d5e471b55c8d757b9904276bd5eb90404d662099db7012cd9961dcfb2",
+      "git_blob": "89d75f7f1858488fe113c6e84652f235d4fae239",
+      "bytes": 3446,
+      "actual_eof": 85,
+      "planned_display_ranges": [
+        [
+          54,
+          80
+        ]
+      ],
+      "retained_body": "source/warmup.rs",
+      "reason": "selected authored default"
+    },
+    {
+      "tag": "gpu",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "git_blob": "dd076150f50c59218912878309bfe091c7654250",
+      "bytes": 6274,
+      "actual_eof": 154,
+      "planned_display_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "retained_body": "source/gpu.rs",
+      "reason": "public low-level entry"
+    },
+    {
+      "tag": "device",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+      "sha256": "dc575790bf67f066d6c4dfd64c61f158383fc04efb95bc5dfd3633fe2ce17033",
+      "git_blob": "2aa42e3d89f7ab7608cbd97f9ddc47056e718dbb",
+      "bytes": 11786,
+      "actual_eof": 339,
+      "planned_display_ranges": [
+        [
+          32,
+          116
+        ],
+        [
+          180,
+          235
+        ],
+        [
+          308,
+          325
+        ]
+      ],
+      "retained_body": "source/device.rs",
+      "reason": "station metadata and selected fit/status order"
+    }
+  ],
+  "qualification": "Prospective independent displays; full retained bodies do not alone imply personal reading. Original registry 1\u201354; all other lines are supplemental. f82 transports object bytes, not historical source HEAD. Same-file equality does not prove clean snapshot.",
+  "registration_attempt_qualification": "An earlier metadata-only attempt aborted on an out-of-bounds requested editor-wrapped range 1\u201345; actual EOF 42. The corrected range 1\u201342 is registered here before any source displays. Initial source and object copies, when present, were byte-checked and reused without overwrite."
+}

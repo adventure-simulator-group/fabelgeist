@@ -1,0 +1,134 @@
+{
+  "schema": "726-d7b14-independent-privacy-review-v1",
+  "reviewer": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T10:00:38.676954+00:00",
+  "object_scope": {
+    "parent": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "commit": "d7b14a15ef132422eca86e7d898b47423af92779",
+    "direct_parent_verified": true,
+    "head_raw_commit_sha256": "18a7e8e520e47e5d88e324ec06de14044bcc0ea3424182807cdcd519588785a8",
+    "parent_raw_commit_sha256": "368ccc81d56a94a6e8cd0ac57fe8c8a9e510067b028cee96a575379db3f30ca1",
+    "changed_blobs": 616,
+    "added": 600,
+    "modified": 16,
+    "stored_bytes": 266552743,
+    "largest_blob_bytes": 21631815,
+    "inventory": "CHANGED-BLOBS.json",
+    "qualification": "Only new versions of changed blobs and their recognized nested containers were inventoried. Unchanged history and removed preimages are outside this pass. This is not a claim that the parent commit or repository history is private."
+  },
+  "scan": {
+    "stats": {
+      "top_blobs": 616,
+      "top_bytes": 266552743,
+      "unique_views": 2747,
+      "unique_view_bytes": 583162110,
+      "raw_views": 2437,
+      "gzip_views": 274,
+      "gzip_members": 274,
+      "gzip_flags_0": 270,
+      "tar_views": 36,
+      "tar_entries": 3108,
+      "gzip_flags_8": 4,
+      "cache_hits": 1125
+    },
+    "exceptions": [],
+    "candidates": 37660,
+    "kind_counts": {
+      "unix_path": 37500,
+      "email": 160
+    },
+    "candidate_locations": "CANDIDATE-LOCATIONS.json.gz",
+    "zero_selected_findings": [
+      "No exact workspace-account home prefix or account-identifier candidate.",
+      "No selected Windows or limited encoded-slash path candidate.",
+      "No selected private-key marker or GitHub/AWS/Slack-shaped credential candidate.",
+      "No selected candidate in recognized tar/gzip/zip metadata fields or tracked path names."
+    ],
+    "qualification": "No concrete current-account, temporary or Windows path exposure was established in examined candidates; this is a bounded negative, not proof of absence. A candidate is only a string-pattern hit. Root-agent-style occurrences were not individually adjudicated."
+  },
+  "candidate_classification": [
+    {
+      "kind": "unix_path",
+      "occurrences": 37094,
+      "classification": "Single-component canonical agent-style identifiers; recorded as such, without treating them as filesystem access. All had two path components; their individual contexts were not exhaustively adjudicated."
+    },
+    {
+      "kind": "unix_path",
+      "occurrences": 311,
+      "classification": "Other root-shaped strings; sampled original fields establish reviewer/owner/author identifiers, relative archive paths, and regular-expression literals. Context-specific interpretation remains bounded."
+    },
+    {
+      "kind": "unix_path",
+      "occurrences": 64,
+      "classification": "Six groups in CP7/CP35/CP38 evidence and verifiers: one regular-expression literal group (12 occurrences) and five previously identified semantic false-positive groups (52 occurrences). CP7 and CP35 context checks show relative source/prose substrings; preserved labels in reports are not themselves new absolute account paths.",
+      "references": [
+        "delegated/cp7-tar-reconstruction/INDEX.json",
+        "delegated/independent-evidence-reviews/reviews/cp35/PROPOSAL.json",
+        "delegated/independent-evidence-reviews/reviews/cp38/report.json"
+      ]
+    },
+    {
+      "kind": "unix_path",
+      "occurrences": 31,
+      "classification": "Thirty scanner regular-expression or prefix-reference occurrences and one unchanged upstream source example. The example is not shown to be a path on this machine.",
+      "upstream_example": {
+        "archive": "delegated/privacy-56f-scan/evidence/extras/candidates/serde-saphyr-redacted.tar.gz",
+        "member": "serde-saphyr-1.2.0/examples/spaced_yaml.rs",
+        "line": 110,
+        "member_sha256": "6c91dc768a7e3d16dc5e5c9a8b483a79b84e8dd28099d1f4f7305ee9b377022f",
+        "same_as_registry_archive_member": true
+      }
+    },
+    {
+      "kind": "email",
+      "occurrences": 154,
+      "classification": "Author/committer fields in 77 raw Git commit member occurrences across 27 newly added archives; five distinct Git commit objects. This is actual author metadata, not automatically a credential or proof of private exposure. Three exact objects were already in the parent checkpoint19 archive; prior location of the other two and remote public reachability were not established.",
+      "locations_and_git_proofs": "GIT-COMMIT-OBJECTS.json"
+    },
+    {
+      "kind": "email",
+      "occurrences": 6,
+      "classification": "Four email-shaped example values within three source members of the reconstructed upstream crate. All three source members independently matched the unchanged original registry archive; their source locations are serializer test code and two test files. This is upstream test content, not a newly inferred user identity.",
+      "source_members": [
+        "serde-saphyr-1.2.0/src/ser/serializer.rs",
+        "serde-saphyr-1.2.0/tests/serde_yaml/test_de.rs",
+        "serde-saphyr-1.2.0/tests/tagged.rs"
+      ]
+    }
+  ],
+  "reconstruction_and_upstream": {
+    "original_registry_archive": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+    "original_package_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "unchanged_parent_and_new_blob_bytes": true,
+    "candidate_archive": "delegated/privacy-56f-scan/evidence/extras/candidates/serde-saphyr-redacted.tar.gz",
+    "candidate_archive_sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+    "registry_qualification": "The recorded registry checksum applies to the original archive, not the reconstructed archive. The disclosed upstream-source finding is limited to four compared members; no live upstream download or broad remote-availability determination was attempted.",
+    "compared_member_sha256": {
+      "examples/spaced_yaml.rs": "6c91dc768a7e3d16dc5e5c9a8b483a79b84e8dd28099d1f4f7305ee9b377022f",
+      "src/ser/serializer.rs": "8014964cf1ca87e560954e908d21af29fd031c7e7c169c8efc6a239f51393baa",
+      "tests/serde_yaml/test_de.rs": "9493cf8c06768da92839cd759ea718a6ffdbf24a4b2398ea120eeb4e77887130",
+      "tests/tagged.rs": "e536c1a3f71a1530f80fe12b6f7816f6a08df4bcec810822cc1cb4d0413fd828"
+    }
+  },
+  "limits": {
+    "max_decoded_member_bytes": 134217728,
+    "max_depth": 14,
+    "other_formats": "XZ, bzip2, zstd recognized but not decompressed and recorded as exceptions; all other container formats may be missed.",
+    "pattern_scope": "Selected generic Unix/Windows local paths, limited Unicode/percent-encoded slash forms, current account identifier, e-mail, PEM private-key markers, GitHub/AWS/Slack-shaped credentials; JSON slash escapes included, other encodings or secrets not exhaustive.",
+    "semantics": "Candidates are not by themselves exposures: distinguish code examples, regex patterns, agent identities, upstream publicly distributed bytes and commit author metadata. Git blob SHA-1 denotes stored content, while SHA-256 is an independent digest.",
+    "account_match": "Computed from the workspace parent home path at review time; outside that environment only generic detection and recorded prefix hash replay, not account-prefix classification, are reproducible.",
+    "archive_handling": "Each gzip member, tar/zip member and metadata field is visited up to per-member and depth bounds; tar links are not followed. Raw unknown/binary content is scanned as bytes, but arbitrary nesting or alternate compressed forms is not inferred."
+  },
+  "additional_limits": [
+    "No private value, account prefix or individual email digest is published in this report. Internal context-bearing scan results remain local only.",
+    "Generic root-shaped candidates were grouped and sampled, not all adjudicated one by one.",
+    "The inventory excludes unchanged committed blobs and old versions, including prior disclosures in parent history.",
+    "Scanned gzip filename/comment/extra and tar member/link/owner/PAX keys/values; tar links were not followed. The algorithm may not recognize arbitrary embedded or encrypted containers, Unicode escapes beyond limited slash forms, source fragments split across content chunks, or unselected credential formats.",
+    "Metadata occurrence counts include separately published copies and nested copies; they are not unique people or new exposures.",
+    "Public verifier checks local report integrity and can optionally recheck pinned Git/archives and original package member identities; it does not reperform context adjudication, establish remote reachability or validate product behavior."
+  ],
+  "packet_privacy_review": {
+    "receipt": "PUBLIC-PRIVACY-SCAN.json",
+    "qualification": "A separate candidate scan covered the public packet and its gzip payload. Selected path, account identifier, email and credential patterns produced no hits; unselected encodings and arbitrary secrets remain outside scope."
+  }
+}

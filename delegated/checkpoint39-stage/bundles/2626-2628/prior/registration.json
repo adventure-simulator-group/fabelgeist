@@ -1,0 +1,272 @@
+{
+  "schema": "726-num-enum-derive-prospective-registration-v1",
+  "registered_utc": "2026-11-12T01:19:42.852003+00:00",
+  "author": "/root/rig_identity",
+  "roles": [
+    {
+      "role": 2626,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "native_identity": "crates.io num_enum_derive 0.7.6; not project Git",
+      "archive_member": "num_enum_derive-0.7.6/src/lib.rs",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "preserved_source": "sources/2626-lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "bytes": 11547,
+      "eof": 362,
+      "registered_ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "planned_personal_display_chunks": [
+        [
+          190,
+          249
+        ],
+        [
+          250,
+          260
+        ]
+      ],
+      "old_material_ranges": [
+        [
+          190,
+          260
+        ]
+      ]
+    },
+    {
+      "role": 2627,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "native_identity": "crates.io num_enum_derive 0.7.6; not project Git",
+      "archive_member": "num_enum_derive-0.7.6/src/parsing.rs",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "preserved_source": "sources/2627-parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "bytes": 25892,
+      "eof": 574,
+      "registered_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "planned_personal_display_chunks": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          121
+        ],
+        [
+          122,
+          181
+        ],
+        [
+          182,
+          241
+        ],
+        [
+          242,
+          301
+        ],
+        [
+          302,
+          361
+        ],
+        [
+          362,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "old_material_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ]
+    },
+    {
+      "role": 2628,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "native_identity": "crates.io num_enum_derive 0.7.6; not project Git",
+      "archive_member": "num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "preserved_source": "sources/2628-enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "bytes": 10928,
+      "eof": 342,
+      "registered_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "planned_personal_display_chunks": [
+        [
+          1,
+          60
+        ],
+        [
+          61,
+          120
+        ],
+        [
+          121,
+          180
+        ],
+        [
+          181,
+          210
+        ]
+      ],
+      "old_material_ranges": [
+        [
+          1,
+          210
+        ]
+      ]
+    }
+  ],
+  "package_archive": {
+    "preserved": "metadata/num_enum_derive-0.7.6.crate",
+    "sha256": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+    "bytes": 18789,
+    "qualification": "Cargo archive file matches each original registered native source member and matching lock checksum where selected; not a project Git revision."
+  },
+  "lock_metadata": [
+    {
+      "label": "pr-working-base",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "Cargo.lock",
+      "git_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "preserved_gzip": "metadata/pr-working-base-Cargo.lock.gz",
+      "records": [
+        {
+          "name": "num_enum",
+          "version": "0.7.6",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+          "dependencies": [
+            "num_enum_derive",
+            "rustversion"
+          ]
+        },
+        {
+          "name": "num_enum_derive",
+          "version": "0.7.6",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+          "dependencies": [
+            "proc-macro-crate",
+            "proc-macro2",
+            "quote",
+            "syn 2.0.119"
+          ]
+        }
+      ]
+    },
+    {
+      "label": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "Cargo.lock",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "preserved_gzip": "metadata/current-Cargo.lock.gz",
+      "records": [
+        {
+          "name": "num_enum",
+          "version": "0.7.6",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+          "dependencies": [
+            "num_enum_derive",
+            "rustversion"
+          ]
+        },
+        {
+          "name": "num_enum_derive",
+          "version": "0.7.6",
+          "source": "registry+https://github.com/rust-lang/crates.io-index",
+          "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+          "dependencies": [
+            "proc-macro-crate",
+            "proc-macro2",
+            "quote",
+            "syn 2.0.119"
+          ]
+        }
+      ]
+    }
+  ],
+  "p16_dirty_lock_reference": {
+    "path": "<PRIVATE_PATH_0033>",
+    "compressed_sha256": "1046f0bf579b650b22e42b724ffe71114925bb01cca24dbafd7e70adcdcc43cc",
+    "uncompressed_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+    "records": [
+      {
+        "name": "num_enum",
+        "version": "0.7.6",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+        "dependencies": [
+          "num_enum_derive",
+          "rustversion"
+        ]
+      },
+      {
+        "name": "num_enum_derive",
+        "version": "0.7.6",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+        "dependencies": [
+          "proc-macro-crate",
+          "proc-macro2",
+          "quote",
+          "syn 2.0.119"
+        ]
+      }
+    ],
+    "qualification": "Prior separately retained dirty P16 lock based on a120; later recovered patch does not promote this to checkpoint3821."
+  },
+  "limits": "Prospective personal reads only at listed chunks; archive includes unread complements. Source inspection only; no macro execution, build, tests, or feature resolution inferred. Recorded pr-working snapshot had unrelated modifications."
+}

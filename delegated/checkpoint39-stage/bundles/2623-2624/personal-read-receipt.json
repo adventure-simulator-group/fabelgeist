@@ -1,0 +1,240 @@
+{
+  "schema": "726-garment-shape-reconciliation-read-receipt-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T07:42:30.007089+00:00",
+  "registration": "registration.json",
+  "registration_sha256": "20300fa34ba63e482e63b86d9300d8992059fc0cef0c8f9417b6ef845fd415b3",
+  "reads": [
+    {
+      "id": "garment-old",
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "actual_display_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          129
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 129
+    },
+    {
+      "id": "garment-now",
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "actual_display_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          66,
+          129
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 129
+    },
+    {
+      "id": "shape-old",
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "actual_display_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          137
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 137
+    },
+    {
+      "id": "shape-now",
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "actual_display_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          137
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 137
+    },
+    {
+      "id": "wrapped",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "actual_display_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 62
+    },
+    {
+      "id": "wrapped-gpu",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "actual_display_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          61,
+          115
+        ]
+      ],
+      "unread_complement": [
+        [
+          116,
+          154
+        ]
+      ],
+      "eof": 154
+    },
+    {
+      "id": "garment-gpu",
+      "sha256": "c7922d2a01a4f9d133b9eecc639eb8a3f40c56b46d0478087c31a417da1cf2d7",
+      "actual_display_ranges": [
+        [
+          30,
+          75
+        ],
+        [
+          145,
+          195
+        ],
+        [
+          196,
+          245
+        ],
+        [
+          260,
+          300
+        ],
+        [
+          320,
+          360
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          29
+        ],
+        [
+          76,
+          144
+        ],
+        [
+          246,
+          259
+        ],
+        [
+          301,
+          319
+        ],
+        [
+          361,
+          386
+        ]
+      ],
+      "eof": 386
+    },
+    {
+      "id": "gpu-public",
+      "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+      "actual_display_ranges": [
+        [
+          70,
+          90
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          69
+        ],
+        [
+          91,
+          361
+        ]
+      ],
+      "eof": 361
+    },
+    {
+      "id": "device-garment",
+      "sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+      "actual_display_ranges": [
+        [
+          240,
+          290
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          239
+        ]
+      ],
+      "eof": 290
+    },
+    {
+      "id": "device-skirt",
+      "sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+      "actual_display_ranges": [
+        [
+          45,
+          100
+        ],
+        [
+          101,
+          150
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          44
+        ],
+        [
+          151,
+          461
+        ]
+      ],
+      "eof": 461
+    },
+    {
+      "id": "device-chausses",
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "actual_display_ranges": [
+        [
+          215,
+          255
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          214
+        ],
+        [
+          256,
+          334
+        ]
+      ],
+      "eof": 334
+    }
+  ],
+  "qualification": "Registered windows displayed as bounded numbered source output after registration. Unread complements are explicit; no source execution, transferred credit or whole-lens claim."
+}
