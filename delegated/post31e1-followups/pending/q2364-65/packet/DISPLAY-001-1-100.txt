@@ -1,0 +1,100 @@
+   1 use std::{borrow::Cow, mem::size_of_val};
+   2 
+   3 use fabelgeist_numpy_storage::{
+   4     ArchiveMemberName, DeclaredUncompressedByteLength, Npz, NpzArrayName, ZipArchive,
+   5 };
+   6 
+   7 const CENTRAL_HEADER_SIGNATURE: &[u8; 4] = b"PK\x01\x02";
+   8 const CENTRAL_HEADER_BYTES: usize = 46;
+   9 const COMPRESSED_SIZE_FIELD: usize = 20;
+  10 const DECODED_SIZE_FIELD: usize = 24;
+  11 const NAME_LENGTH_FIELD: usize = 28;
+  12 const EXTRA_LENGTH_FIELD: usize = 30;
+  13 const LOCAL_OFFSET_FIELD: usize = 42;
+  14 const ZIP64_EXTRA_TAG: [u8; 2] = [1, 0];
+  15 // First member in ordinary-1.zip: a stored NPY header and four float32 values.
+  16 const STORED_ARRAY_BYTES: u32 = 96;
+  17 
+  18 struct WireCase {
+  19     compressed: u32,
+  20     declared: u32,
+  21     offset: u32,
+  22     extra: Vec<u8>,
+  23 }
+  24 
+  25 fn zip(case: WireCase) -> Vec<u8> {
+  26     let mut bytes = include_bytes!("fixtures/member-count/ordinary-1.zip").to_vec();
+  27     let directory = bytes
+  28         .windows(CENTRAL_HEADER_SIGNATURE.len())
+  29         .position(|v| v == CENTRAL_HEADER_SIGNATURE)
+  30         .unwrap();
+  31     let name_len = u16::from_le_bytes(
+  32         bytes[directory + NAME_LENGTH_FIELD..directory + NAME_LENGTH_FIELD + size_of::<u16>()]
+  33             .try_into()
+  34             .unwrap(),
+  35     ) as usize;
+  36     let old_extra_len = u16::from_le_bytes(
+  37         bytes[directory + EXTRA_LENGTH_FIELD..directory + EXTRA_LENGTH_FIELD + size_of::<u16>()]
+  38             .try_into()
+  39             .unwrap(),
+  40     ) as usize;
+  41     let extra_start = directory + CENTRAL_HEADER_BYTES + name_len;
+  42     bytes[directory + COMPRESSED_SIZE_FIELD..directory + COMPRESSED_SIZE_FIELD + size_of::<u32>()]
+  43         .copy_from_slice(&case.compressed.to_le_bytes());
+  44     bytes[directory + DECODED_SIZE_FIELD..directory + DECODED_SIZE_FIELD + size_of::<u32>()]
+  45         .copy_from_slice(&case.declared.to_le_bytes());
+  46     bytes[directory + LOCAL_OFFSET_FIELD..directory + LOCAL_OFFSET_FIELD + size_of::<u32>()]
+  47         .copy_from_slice(&case.offset.to_le_bytes());
+  48     bytes[directory + EXTRA_LENGTH_FIELD..directory + EXTRA_LENGTH_FIELD + size_of::<u16>()]
+  49         .copy_from_slice(&(case.extra.len() as u16).to_le_bytes());
+  50     bytes.splice(extra_start..extra_start + old_extra_len, case.extra);
+  51     bytes
+  52 }
+  53 
+  54 fn extra(values: &[u64]) -> Vec<u8> {
+  55     let mut bytes = ZIP64_EXTRA_TAG.to_vec();
+  56     bytes.extend_from_slice(&(size_of_val(values) as u16).to_le_bytes());
+  57     for value in values {
+  58         bytes.extend_from_slice(&value.to_le_bytes());
+  59     }
+  60     bytes
+  61 }
+  62 
+  63 fn wire() -> WireCase {
+  64     WireCase {
+  65         compressed: STORED_ARRAY_BYTES,
+  66         declared: STORED_ARRAY_BYTES,
+  67         offset: 0,
+  68         extra: Vec::new(),
+  69     }
+  70 }
+  71 
+  72 #[test]
+  73 fn every_saturation_combination_replaces_only_requested_fields_in_order() {
+  74     for mask in 0..8 {
+  75         let mut case = wire();
+  76         let mut values = Vec::new();
+  77         if mask & 1 != 0 {
+  78             case.declared = u32::MAX;
+  79             values.push(3);
+  80         }
+  81         if mask & 2 != 0 {
+  82             case.compressed = u32::MAX;
+  83             values.push(u64::from(STORED_ARRAY_BYTES));
+  84         }
+  85         if mask & 4 != 0 {
+  86             case.offset = u32::MAX;
+  87             values.push(0);
+  88         }
+  89         case.extra = extra(&values);
+  90         let bytes = zip(case);
+  91         let archive = ZipArchive::from_bytes(bytes.clone()).unwrap();
+  92         let expected = DeclaredUncompressedByteLength::from_bytes(if mask & 1 != 0 {
+  93             3
+  94         } else {
+  95             u64::from(STORED_ARRAY_BYTES)
+  96         });
+  97         assert_eq!(
+  98             archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+  99             Some(expected)
+ 100         );

@@ -1,0 +1,54 @@
+   1 //! Install worker-built occupied geometry without repeating mesh compilation.
+   2 use super::*;
+   3 
+   4 pub(super) fn install(
+   5     cache: &mut TacticalBuildingMeshCache,
+   6     program: &BuildingProgram,
+   7     geometry: Arc<super::super::generation::VenueGeometry>,
+   8     recipe: &GeneratedBuildingRecipe,
+   9     meshes: &mut Assets<Mesh>,
+  10 ) -> Result<Arc<CompiledBuildingLevels>> {
+  11     let mut batches = |source: &[super::super::generation::venue::PreparedBatch]| {
+  12         source
+  13             .iter()
+  14             .map(|batch| {
+  15                 let material = batch.material;
+  16                 let triangles = batch.triangle_count();
+  17                 let mesh = batch.clone().into_mesh();
+  18                 CompiledBuildingBatch {
+  19                     material,
+  20                     mesh: meshes.add(mesh),
+  21                     triangles,
+  22                     transform: Mat4::IDENTITY,
+  23                     uv_offset: Vec2::ZERO,
+  24                 }
+  25             })
+  26             .collect()
+  27     };
+  28     let origin = recipe.collision.bounds.centre()?;
+  29     let compiled = Arc::new(CompiledBuildingLevels {
+  30         facade_openings: recipe.plan.facade_dynamic_openings()?,
+  31         interior: Some(super::super::interior_lighting::InteriorField::from_plan(
+  32             &recipe.plan,
+  33             origin.metres(),
+  34         )),
+  35         program: program.clone(),
+  36         detail: BuildingDetail::Dynamic,
+  37 
+  38         local_origin: origin,
+  39         sign_sites: if program
+  40             .usage
+  41             .and_then(adventuresim_building_generator::signs::shop_trade)
+  42             .is_some()
+  43         {
+  44             signs::sites(&recipe.plan)
+  45         } else {
+  46             Vec::new()
+  47         },
+  48         lod0: batches(&geometry.detail),
+  49         lod1: batches(&geometry.facade),
+  50         lod2: batches(&geometry.shell),
+  51     });
+  52     cache.levels.push(compiled.clone());
+  53     Ok(compiled)
+  54 }

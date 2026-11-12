@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Verify fixed post-31e1 audit-evidence packets, not product behavior."""
+import hashlib
+import json
+import os
+import subprocess
+import sys
+import tarfile
+from pathlib import Path, PurePosixPath
+
+if sys.flags.optimize:
+    raise RuntimeError('Evidence assertions require an unoptimized interpreter')
+P = Path(__file__).resolve().parent
+H = lambda b: hashlib.sha256(b).hexdigest()
+load = lambda p: json.loads(p.read_bytes())
+catalog = load(P / 'CATALOG.json')
+assert catalog['source_revision'] == '95e63628f9d70b8dd6e6fede64334696c6995009'
+assert catalog['parent_checkpoint'] == '31e130bfa8f8914f759c7d5cddc3db92962704c7'
+raw = (P / 'CONTENTS-MANIFEST.json').read_bytes()
+assert H(raw) == catalog['contents_manifest_sha256']
+rows = json.loads(raw)['files']
+paths = list(P.rglob('*'))
+assert all(not p.is_symlink() for p in paths)
+assert {p.relative_to(P).as_posix() for p in paths if p.is_file()} == set(rows) | {'CATALOG.json', 'CONTENTS-MANIFEST.json'}
+for name, row in rows.items():
+    rel = PurePosixPath(name)
+    assert not rel.is_absolute() and '..' not in rel.parts
+    file = P / rel
+    data = file.read_bytes()
+    assert (len(data), H(data)) == (row['bytes'], row['sha256'])
+    assert bool(file.stat().st_mode & 0o111) == row['executable']
+for name, sha in catalog['packet_manifests'].items():
+    assert H((P / name).read_bytes()) == sha
+pending = load(P / 'PENDING-DELEGATES.json')
+assert {x['name'] for x in pending['packets']} == {'q2355-56','q2357-58','q2359','q2360-61','q2362-63','q2364-65','q2366-67','q2368-69'}
+assert all('pending' in x['central_status'] for x in pending['packets'])
+assert H((P / 'encrypted-originals/MANIFEST.json').read_bytes()) == catalog['encrypted_manifest_sha256']
+assert len(load(P / 'encrypted-originals/MANIFEST.json')['objects']) == 7
+mode = load(P / 'coordinator/MODE-QUALIFICATION.json')
+assert H((P / 'coordinator/PRE-GIT-MODE-VERIFY.py.txt').read_bytes()) == mode['old_verifier_sha256']
+assert H((P / 'coordinator/VERIFY.py').read_bytes()) == mode['new_verifier_sha256']
+assert H((P / 'SAFE-COPY-INITIAL.json').read_bytes()) == mode['initial_copy_record_sha256']
+assert H((P / 'SAFE-COPY-RECORD.json').read_bytes()) == mode['qualified_copy_record_sha256']
+draft = load(P / 'coordinator/CENTRAL-DRAFT-V2.json')
+assert draft['source_revision'] == catalog['source_revision'] and draft['parent_published_checkpoint'] == 'PENDING_14D_PUBLICATION'
+assert [x['queue_index'] for x in draft['assessments']] == [2341,2342,2352,2353,2354]
+assert len(draft['ledger_relationships']) == 6 and all(x['future_acceptance'] for x in draft['ledger_relationships'])
+assert draft['supersedes_private_draft_sha256'] == H((P / 'coordinator/evidence/reports/CENTRAL-DRAFT.json').read_bytes())
+
+
+def replay(directory, record_name='RESULT.json'):
+    record = load(directory / record_name)
+    for row in record['cases']:
+        log = (directory / (row['case'] + '.log')).read_bytes()
+        assert row['exit'] == 0 and (len(log), H(log)) == (row['stdout_bytes'], row['stdout_sha256'])
+        assert row['stderr_bytes'] == 0 and row['stderr_sha256'] == H(b'')
+        err = directory / (row['case'] + '.err')
+        if err.exists():
+            assert err.read_bytes() == b''
+
+
+old = load(P / 'coordinator/REPLAY-RESULT.json')
+assert old['script_sha256'] == mode['old_verifier_sha256']
+for row in old['cases']:
+    log = (P / 'coordinator' / (row['case'] + '-replay.log')).read_bytes()
+    assert row['exit'] == 0 and (len(log), H(log)) == (row['stdout_bytes'], row['stdout_sha256'])
+    assert row['stderr_bytes'] == 0 and row['stderr_sha256'] == H(b'')
+assert load(P / 'coordinator/replay-v2/RESULT.json')['script_sha256'] == mode['new_verifier_sha256']
+replay(P / 'coordinator/replay-v2')
+replay(P / 'pending-replay')
+replay(P / 'encrypted-replay')
+replay(P / 'checkpoint-31e1-capture-replay')
+privacy = P / 'privacy-correction'
+assert H((privacy / 'RECORD.json').read_bytes()) == 'f2f634d4bd697e4e67c6574da289a004da0574ced324699318ee47593fa1882d'
+assert H((privacy / 'VERIFIER-TRANSITION.json').read_bytes()) == 'e83b12bb2c2bd92e8508e9d490c9299bf5ad36b0f082248e2411e3ab5829089e'
+transition = load(privacy / 'VERIFIER-TRANSITION.json')
+assert H((privacy / 'PRE-SUCCESSOR-VERIFY.py.txt').read_bytes()) == transition['previous_verifier_sha256']
+correction = load(privacy / 'RECORD.json')
+assert H((privacy / 'encrypted-originals/MANIFEST.json').read_bytes()) == correction['encrypted_original_manifest_sha256']
+assert len(correction['excluded_original_files']) == correction['excluded_file_count'] == 15
+assert all(not (P / x['path']).exists() for x in correction['excluded_original_files'])
+replay(privacy / 'replay')
+replay(privacy / 'binding-replay')
+assert load(privacy / 'binding-replay/RESULT.json')['script_sha256'] == H((privacy / 'VERIFY-CORRECTION.py').read_bytes())
+assert load(P / 'encrypted-replay/RESULT.json')['manifest_sha256'] == catalog['encrypted_manifest_sha256']
+assert load(P / 'checkpoint-31e1-capture-replay/RESULT.json')['script_sha256'] == H((P / 'checkpoint-31e1-precommit/VERIFY-CAPTURE.py').read_bytes())
+provisional = P / 'provisional-verifier-check'
+assert H((provisional / 'RECORD.json').read_bytes()) == '8b443660d4f8e0ae0f12dc09cdf8ef1da8b637d487715ec8b3b18f081dd4dd57'
+pr = load(provisional / 'RECORD.json')
+assert H((provisional / 'INITIAL-VERIFY.py.txt').read_bytes()) == pr['initial_verifier_sha256']
+for row in pr['files']:
+    data = (provisional / row['file']).read_bytes()
+    assert (len(data), H(data)) == (row['bytes'], row['sha256'])
+for name in ['initial-RESULT.json', 'git-mode-normalized-RESULT.json']:
+    assert load(provisional / name)['exit'] == 0
+recovery = P / 'checkpoint-31e1-recovery'
+prepublication = P / 'checkpoint-31e1-prepublication'
+precommit = P / 'checkpoint-31e1-precommit'
+assert H((recovery / 'RECOVERY-RECORD.json').read_bytes()) == catalog['recovery_record_sha256']
+assert H((prepublication / 'RESULT.json').read_bytes()) == catalog['prepublication_result_sha256']
+assert H((precommit / 'RECORD.json').read_bytes()) == catalog['precommit_record_sha256']
+r = load(recovery / 'RECOVERY-RECORD.json')
+before = load(prepublication / 'RESULT.json')
+pc = load(precommit / 'RECORD.json')
+transcript = (recovery / 'evidence.log').read_bytes()
+assert transcript == (prepublication / 'evidence.log').read_bytes()
+assert (len(transcript), H(transcript)) == (r['transcript_bytes'], r['transcript_sha256'])
+assert H(transcript) == before['transcript_sha256'] == pc['driver_transcript_sha256']
+assert r['checkpoint'] == r['post_replay_head'] == catalog['parent_checkpoint']
+assert r['recovery_driver_exit'] == before['exit'] == pc['driver_exit'] == 0
+assert r['prepublication_and_recovery_transcripts_byte_identical'] and r['post_replay_clean']
+assert r['symbolic_ref_exit_after'] == 1 and r['assertion_preflight'] == {'assertions_enabled': True, 'optimization_level': 0}
+assert load(recovery / 'FETCH-QUALIFICATION.json')['asserted_fetch_head'] == catalog['parent_checkpoint']
+assert pc['scanned_capture_matches_index_and_worktree'] and pc['staged_files'] == 1652
+
+for q in ['q2360-61','q2362-63','q2366-67']:
+    delivery = P / 'pending' / q / 'delivery'
+    public = P / 'pending' / q / 'public'
+    manifest = load(delivery / 'DELIVERY-MANIFEST.json')
+    info = manifest['archive']
+    archive = (delivery / info['name']).read_bytes()
+    assert (len(archive), H(archive)) == (info['bytes'], info['sha256'])
+    expected = manifest['members']
+    found = set()
+    with tarfile.open(delivery / info['name'], 'r:gz') as tar:
+        for member in tar.getmembers():
+            rel = PurePosixPath(member.name)
+            assert member.isfile() and not rel.is_absolute() and '..' not in rel.parts
+            name = rel.as_posix()
+            assert name not in found and name in expected
+            found.add(name)
+            body = tar.extractfile(member).read()
+            assert (len(body), H(body)) == (expected[name]['bytes'], expected[name]['sha256'])
+            assert body == (public / rel).read_bytes()
+    assert found == set(expected) == {x.relative_to(public).as_posix() for x in public.rglob('*') if x.is_file()}
+    receipts = manifest.get('receipts', manifest.get('receipt_files'))
+    for name, row in receipts.items():
+        assert PurePosixPath(name).name == name
+        data = (delivery / 'receipts' / name).read_bytes()
+        assert (len(data), H(data)) == (row['bytes'], row['sha256'])
+
+status = P / 'pending'
+env = os.environ.copy()
+for name in ['PYTHONOPTIMIZE','PYTHONPATH','PYTHONHOME','PYTHONSTARTUP','PYTHONINSPECT','PYTHONUSERBASE']:
+    env.pop(name, None)
+env.update({'PYTHONNOUSERSITE':'1','PYTHONDONTWRITEBYTECODE':'1','GIT_NO_REPLACE_OBJECTS':'1','GIT_NO_LAZY_FETCH':'1'})
+checks = []
+for q in ['q2355-56','q2359','q2364-65']:
+    directory = status / q
+    script = 'VERIFY-EVIDENCE-v2.py' if q == 'q2355-56' else 'VERIFY-EVIDENCE.py'
+    checks.extend([[directory / 'packet' / script], [directory / 'scan/VERIFY-SCAN.py','--packet',directory / 'packet'],
+                   [directory / 'digest/VERIFY-OUTER.py','--scan',directory / 'scan']])
+for q in ['q2357-58','q2368-69']:
+    checks.append([status / q / 'public/VERIFY-EVIDENCE.py'])
+for q in ['q2360-61','q2362-63','q2366-67']:
+    checks.append([status / q / 'public/verify-successor.py'])
+checks.extend([[P / 'coordinator/VERIFY.py'], [P / 'encrypted-originals/VERIFY.py'],
+               [P / 'checkpoint-31e1-precommit/VERIFY-CAPTURE.py'],
+               [privacy / 'encrypted-originals/VERIFY.py'], [privacy / 'VERIFY-CORRECTION.py']])
+for args in checks:
+    subprocess.run([sys.executable, '-B', *map(str, args)], cwd=P, env=env, check=True)
+print('Verified fixed packet bytes, archive membership, qualified coordinator evidence and eight pending delegated families.')
+print('Optional Git, transport, original-packet, anchor and private-key checks are not repeated by this default run.')
+print('Ciphertext is opaque to scans; independent custody, product behavior, checkpoint3821 recovery and audit closure remain unproved.')

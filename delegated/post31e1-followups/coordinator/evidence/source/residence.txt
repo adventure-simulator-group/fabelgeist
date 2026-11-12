@@ -1,0 +1,36 @@
+--- crates/adventuresim-stdb-module/src/residence.rs:680-698 ---
+  680         .is_some_and(|presence| presence.place() == &expected_place)
+  681         || !occupant_presence
+  682             .as_ref()
+  683             .is_some_and(|presence| presence.place() == &expected_place)
+  684         || !owner_presence
+  685             .as_ref()
+  686             .zip(occupant_presence.as_ref())
+  687             .is_some_and(|(owner, occupant)| are_co_present(owner, occupant))
+  688     {
+  689         return Err("Residence admission requires both characters to be co-located".into());
+  690     }
+  691     let dependent = ctx.db.character_kinship().iter().any(|edge| {
+  692         edge.subject_id == holding.holder_character_id
+  693             && edge.related_id == occupant_id
+  694             && edge.established_minute <= actor_minute
+  695             && matches!(edge.kind, KinshipKind::Parent | KinshipKind::Child)
+  696     });
+  697     if occupant.age_years < ADULT_AGE_YEARS && !dependent {
+  698         return Err("Only an adult or dependent child may occupy a residence".into());
+--- crates/adventuresim-stdb-module/src/residence.rs:792-806 ---
+  792     let residents = occupancy::residents_at(ctx, &holding.property_id, due_minute)
+  793         .into_iter()
+  794         .filter(|character_id| {
+  795             occupant_holding_id_at(ctx, *character_id, due_minute).as_deref() == Some(holding_id)
+  796         });
+  797     let mut adults = 0_u32;
+  798     let mut dependents = 0_u32;
+  799     for character_id in residents {
+  800         let effective_age = crate::relationship::effective_age_years(ctx, character_id, due_minute);
+  801         let underage =
+  802             effective_age.is_some_and(|age| age < adventuresim_core::courtship::ADULT_AGE_YEARS);
+  803         if underage {
+  804             dependents = dependents.saturating_add(1);
+  805         } else {
+  806             adults = adults.saturating_add(1);

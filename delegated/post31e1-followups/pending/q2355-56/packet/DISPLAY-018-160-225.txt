@@ -1,0 +1,66 @@
+ 160     ambient: Res<'w, GlobalAmbientLight>,
+ 161     ambient_handoff: Res<'w, AtmosphereIblStatus>,
+ 162     images: Res<'w, Assets<Image>>,
+ 163     understory_review_specimens: Query<
+ 164         'w,
+ 165         's,
+ 166         (&'static UnderstoryReviewSpecimen, &'static mut Visibility),
+ 167         (
+ 168             Without<GroundScatterLayer>,
+ 169             Without<CaptureOverlay>,
+ 170             Without<VistaTerrain>,
+ 171             Without<TreeReviewBackdrop>,
+ 172             Without<SceneObstacle>,
+ 173             Without<Camera3d>,
+ 174         ),
+ 175     >,
+ 176     tree_trunks: Query<'w, 's, (), With<TreeTrunkLod>>,
+ 177     presented_tree_roots: Query<'w, 's, (), With<PresentedTree>>,
+ 178     presented_tree_species: Query<'w, 's, &'static TreePresentationSpecies, With<PresentedTree>>,
+ 179     terrain: Query<'w, 's, &'static SceneTerrain>,
+ 180     litter_anchors: Query<'w, 's, &'static GroundLitterCaptureAnchors>,
+ 181     plant_anchors: Query<'w, 's, &'static crate::presentation::PlantCaptureAnchors>,
+ 182     plant_lods: plant_lods::Instances<'w, 's>,
+ 183     plant_meshes: Res<'w, Assets<Mesh>>,
+ 184     plant_visible: Query<'w, 's, &'static bevy::camera::visibility::VisibleEntities>,
+ 185     obstacle_transforms: Query<
+ 186         'w,
+ 187         's,
+ 188         (&'static SceneObstacle, &'static GlobalTransform),
+ 189         (Without<Camera3d>, Without<TacticalGameplayCamera>),
+ 190     >,
+ 191     vista_trees: Query<
+ 192         'w,
+ 193         's,
+ 194         (
+ 195             &'static GlobalTransform,
+ 196             &'static TreeImpostorProvenance,
+ 197             &'static VisibilityRange,
+ 198             Has<Collider>,
+ 199         ),
+ 200         (
+ 201             With<VistaTreePresentation>,
+ 202             Without<SceneObstacle>,
+ 203             Without<Camera3d>,
+ 204             Without<TacticalGameplayCamera>,
+ 205         ),
+ 206     >,
+ 207     plaster_grazing_lights: Query<
+ 208         'w,
+ 209         's,
+ 210         (&'static mut Transform, &'static mut PointLight),
+ 211         (
+ 212             With<PlasterGrazingReviewLight>,
+ 213             Without<Camera3d>,
+ 214             Without<TacticalGameplayCamera>,
+ 215             Without<TreeReviewBackdrop>,
+ 216         ),
+ 217     >,
+ 218 }
+ 219 
+ 220 #[derive(Component)]
+ 221 struct TreeReviewBackdrop;
+ 222 
+ 223 #[derive(Component)]
+ 224 struct TreeReviewSpecimen;
+ 225 

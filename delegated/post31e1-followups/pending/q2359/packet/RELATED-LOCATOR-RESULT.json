@@ -1,0 +1,69 @@
+[
+  {
+    "stream": "queue",
+    "total": 6,
+    "retained": [
+      {
+        "selector": "229",
+        "contract_id": "SEGOVB-L12-CUSTODY-OBJECT-PRIVATE-READMISSION",
+        "matched_fields": [
+          "canonical_owner",
+          "first_failed_contract_or_unresolved_question",
+          "dependencies"
+        ]
+      },
+      {
+        "selector": "978",
+        "contract_id": "Q-L12-fba0b8a6504c5caf8eb8",
+        "matched_fields": [
+          "first_failed_contract_or_unresolved_question"
+        ]
+      },
+      {
+        "selector": "1105",
+        "contract_id": "Q-L12-783512be8ab77c9b5e57",
+        "matched_fields": [
+          "first_failed_contract_or_unresolved_question"
+        ]
+      },
+      {
+        "selector": "1422",
+        "contract_id": "Q-L12-3c233fc9e5508622265c",
+        "matched_fields": [
+          "first_failed_contract_or_unresolved_question"
+        ]
+      },
+      {
+        "selector": "1899",
+        "contract_id": "Q-L12-72d1bd3523d462facd89",
+        "matched_fields": [
+          "first_failed_contract_or_unresolved_question"
+        ]
+      },
+      {
+        "selector": "2359",
+        "contract_id": "L2-EXT-GPU-READINESS-NATIVE-IDENTITIES",
+        "matched_fields": [
+          "canonical_owner"
+        ]
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "stream": "ledger",
+    "total": 1,
+    "retained": [
+      {
+        "selector": "SEGOVB-L12-CUSTODY-OBJECT-PRIVATE-READMISSION",
+        "contract_id": "SEGOVB-L12-CUSTODY-OBJECT-PRIVATE-READMISSION",
+        "matched_fields": [
+          "canonical_owner",
+          "first_failed_contract",
+          "dependencies"
+        ]
+      }
+    ],
+    "omitted": 0
+  }
+]

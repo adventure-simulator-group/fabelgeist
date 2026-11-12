@@ -1,0 +1,120 @@
+   1 use adventuresim_building_generator::spatial_geometry::{Displacement, Position, RigidRotation};
+   2 use adventuresim_core::linear_speed::SignedSpeed;
+   3 use adventuresim_tactical_core::{
+   4     animation::UnitInterval,
+   5     scene_coordinates::{Scene, SceneVelocity},
+   6 };
+   7 use bevy::prelude::*;
+   8 use fabelgeist_geometry::SignedLength;
+   9 
+  10 pub use adventuresim_tactical_core::animation::ResponseShapingTime;
+  11 use aim::update_camera_aim;
+  12 use collision::{CameraHit, CameraVolumeDebug};
+  13 pub use config::{CameraProfile, CameraRigConfig};
+  14 use rig::update_camera_rig;
+  15 use rig_history::CameraRigState;
+  16 use values::ScreenError;
+  17 pub use values::{CameraError, CameraResult, ScreenWindow};
+  18 
+  19 mod aim;
+  20 pub(crate) mod collision;
+  21 pub(crate) mod config;
+  22 mod rig;
+  23 mod rig_history;
+  24 mod smoothing;
+  25 mod values;
+  26 
+  27 pub struct TacticalCameraPlugin;
+  28 
+  29 #[derive(SystemSet, Debug, Clone, Copy, PartialEq, Eq, Hash)]
+  30 pub(crate) enum TacticalCameraSet {
+  31     Offset,
+  32     Aim,
+  33 }
+  34 
+  35 #[derive(Resource, Debug, Clone, Copy)]
+  36 pub(crate) struct CameraMode {
+  37     pub(crate) third_person: bool,
+  38 }
+  39 
+  40 /// A collider tagged as soft can obscure the subject but never retracts the
+  41 /// camera. Foliage, particles, and thin decorative props should use this.
+  42 #[derive(Component, Debug, Clone, Copy, Default)]
+  43 pub struct CameraSoftOccluder;
+  44 
+  45 #[derive(Resource, Debug, Clone, Copy, Default)]
+  46 pub(crate) struct CameraRigDebugState(pub(crate) Option<CameraRigObservation>);
+  47 
+  48 #[derive(Debug, Clone, Copy)]
+  49 pub(crate) struct CameraRigObservation {
+  50     pub(crate) raised_blend: UnitInterval,
+  51     pub(crate) subject: Position<Scene>,
+  52     pub(crate) focus: Position<Scene>,
+  53     pub(crate) collision_origin: Position<Scene>,
+  54     pub(crate) collision_volume: CameraVolumeDebug,
+  55     pub(crate) desired_endpoint: Position<Scene>,
+  56     pub(crate) final_endpoint: Position<Scene>,
+  57     pub(crate) collision: Option<CameraHit>,
+  58     pub(crate) soft_occluder: Option<SoftOcclusion>,
+  59     pub(crate) desired_distance: SignedLength,
+  60     pub(crate) limited_distance: SignedLength,
+  61     pub(crate) focus_velocity: SceneVelocity,
+  62     pub(crate) boom_velocity: SignedSpeed,
+  63     pub(crate) screen_error: ScreenError,
+  64     pub(crate) sweet_spot: ScreenWindow,
+  65 }
+  66 
+  67 #[derive(Clone, Copy, Debug)]
+  68 pub(crate) struct SoftOcclusion {
+  69     pub(crate) entity: Entity,
+  70     pub(crate) point: Position<Scene>,
+  71 }
+  72 
+  73 #[derive(Resource, Debug, Clone, Copy, Default)]
+  74 pub(crate) struct CameraAimState(pub(crate) Option<CameraAimObservation>);
+  75 
+  76 #[derive(Debug, Clone, Copy)]
+  77 pub(crate) struct CameraAimObservation {
+  78     pub(crate) camera_origin: Position<Scene>,
+  79     pub(crate) camera_target: Position<Scene>,
+  80     pub(crate) camera_hit: Option<Entity>,
+  81     pub(crate) muzzle_origin: Position<Scene>,
+  82     pub(crate) actual_target: Position<Scene>,
+  83     pub(crate) actual_hit: Option<Entity>,
+  84 }
+  85 
+  86 #[derive(Resource, Debug, Clone, Copy, Default)]
+  87 pub(crate) struct CameraDebugEnabled(pub(crate) bool);
+  88 
+  89 impl Plugin for TacticalCameraPlugin {
+  90     fn build(&self, app: &mut App) {
+  91         app.init_resource::<CameraMode>()
+  92             .init_resource::<CameraRigConfig>()
+  93             .init_resource::<CameraRigState>()
+  94             .init_resource::<CameraRigDebugState>()
+  95             .init_resource::<CameraAimState>()
+  96             .init_resource::<CameraDebugEnabled>()
+  97             .add_systems(Update, toggle_camera_mode)
+  98             .add_systems(
+  99                 PostUpdate,
+ 100                 update_camera_rig
+ 101                     .in_set(TacticalCameraSet::Offset)
+ 102                     .before(TransformSystems::Propagate),
+ 103             )
+ 104             .add_systems(
+ 105                 PostUpdate,
+ 106                 update_camera_aim
+ 107                     .in_set(TacticalCameraSet::Aim)
+ 108                     .after(TacticalCameraSet::Offset)
+ 109                     .before(TransformSystems::Propagate),
+ 110             );
+ 111         #[cfg(feature = "debug")]
+ 112         app.add_systems(Update, toggle_camera_debug);
+ 113     }
+ 114 }
+ 115 
+ 116 impl Default for CameraMode {
+ 117     fn default() -> Self {
+ 118         Self { third_person: true }
+ 119     }
+ 120 }

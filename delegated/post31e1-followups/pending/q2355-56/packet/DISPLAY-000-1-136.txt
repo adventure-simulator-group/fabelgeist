@@ -1,0 +1,136 @@
+   1 //! One-recipe baking with owned pixel data, usable without a renderer or filesystem.
+   2 
+   3 mod compressed;
+   4 mod wire;
+   5 
+   6 use bevy::{prelude::*, render::render_resource::TextureFormat};
+   7 use serde::{Deserialize, Serialize};
+   8 
+   9 use crate::{LeafSpecies, SurfaceTextureSet, TextureParameters, TextureRecipeId};
+  10 
+  11 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  12 #[serde(rename_all = "kebab-case")]
+  13 pub enum MapChannel {
+  14     Albedo,
+  15     Normal,
+  16     Height,
+  17     Arm,
+  18     Opacity,
+  19     FrontAlbedo,
+  20     BackAlbedo,
+  21     FrontNormal,
+  22     BackNormal,
+  23     HeightAo,
+  24     LitterSurface,
+  25     Transmittance,
+  26     OpticalNormal,
+  27     ThicknessRoughness,
+  28 }
+  29 
+  30 impl MapChannel {
+  31     pub const fn slug(self) -> &'static str {
+  32         match self {
+  33             Self::Albedo => "albedo",
+  34             Self::Normal => "normal",
+  35             Self::Height => "height",
+  36             Self::Arm => "arm",
+  37             Self::Opacity => "opacity",
+  38             Self::FrontAlbedo => "front-albedo",
+  39             Self::BackAlbedo => "back-albedo",
+  40             Self::FrontNormal => "front-normal",
+  41             Self::BackNormal => "back-normal",
+  42             Self::HeightAo => "height-ao",
+  43             Self::LitterSurface => "surface",
+  44             Self::Transmittance => "transmittance",
+  45             Self::OpticalNormal => "optical-normal",
+  46             Self::ThicknessRoughness => "thickness-roughness",
+  47         }
+  48     }
+  49 }
+  50 
+  51 #[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+  52 pub enum PixelEncoding {
+  53     R8,
+  54     Rg8,
+  55     Rgba8,
+  56     Srgb8,
+  57 }
+  58 
+  59 impl PixelEncoding {
+  60     pub const fn channels(self) -> usize {
+  61         match self {
+  62             Self::R8 => 1,
+  63             Self::Rg8 => 2,
+  64             Self::Rgba8 | Self::Srgb8 => 4,
+  65         }
+  66     }
+  67 
+  68     pub const fn texture_format(self) -> TextureFormat {
+  69         match self {
+  70             Self::R8 => TextureFormat::R8Unorm,
+  71             Self::Rg8 => TextureFormat::Rg8Unorm,
+  72             Self::Rgba8 => TextureFormat::Rgba8Unorm,
+  73             Self::Srgb8 => TextureFormat::Rgba8UnormSrgb,
+  74         }
+  75     }
+  76 }
+  77 
+  78 #[derive(Clone)]
+  79 pub struct BakedMap {
+  80     pub channel: MapChannel,
+  81     pub size: u32,
+  82     pub mip_levels: u32,
+  83     pub encoding: PixelEncoding,
+  84     pub sampler: bevy::image::ImageSampler,
+  85     /// Complete production mip payload, not only the base image.
+  86     pub bytes: Vec<u8>,
+  87 }
+  88 
+  89 #[derive(Clone)]
+  90 pub struct BakedRecipe {
+  91     pub recipe: TextureRecipeId,
+  92     pub tile_metres: f32,
+  93     pub height_range_metres: f32,
+  94     pub maps: Vec<BakedMap>,
+  95 }
+  96 
+  97 impl BakedRecipe {
+  98     pub fn generate(recipe: TextureRecipeId, params: &TextureParameters) -> Self {
+  99         let mut images = Assets::<Image>::default();
+ 100         let handles = generate_maps(recipe, params, &mut images);
+ 101         let maps = handles
+ 102             .into_iter()
+ 103             .map(|(channel, handle)| {
+ 104                 let mut image = images.get_mut(&handle).expect("generated image exists");
+ 105                 let encoding = match image.texture_descriptor.format {
+ 106                     TextureFormat::R8Unorm => PixelEncoding::R8,
+ 107                     TextureFormat::Rg8Unorm => PixelEncoding::Rg8,
+ 108                     TextureFormat::Rgba8Unorm => PixelEncoding::Rgba8,
+ 109                     TextureFormat::Rgba8UnormSrgb => PixelEncoding::Srgb8,
+ 110                     format => panic!("unsupported procedural encoding: {format:?}"),
+ 111                 };
+ 112                 BakedMap {
+ 113                     channel,
+ 114                     size: image.width(),
+ 115                     mip_levels: image.texture_descriptor.mip_level_count,
+ 116                     encoding,
+ 117                     sampler: image.sampler.clone(),
+ 118                     bytes: image.data.take().expect("CPU recipe produces pixels"),
+ 119                 }
+ 120             })
+ 121             .collect();
+ 122         let (tile_metres, height_range_metres) = physical_scale(recipe, params);
+ 123         Self {
+ 124             recipe,
+ 125             tile_metres,
+ 126             height_range_metres,
+ 127             maps,
+ 128         }
+ 129     }
+ 130 
+ 131     pub fn map(&self, channel: MapChannel) -> Option<&BakedMap> {
+ 132         self.maps.iter().find(|map| map.channel == channel)
+ 133     }
+ 134 }
+ 135 
+ 136 fn surface_maps(surface: SurfaceTextureSet) -> Vec<(MapChannel, Handle<Image>)> {

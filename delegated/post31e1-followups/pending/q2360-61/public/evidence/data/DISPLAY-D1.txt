@@ -1,0 +1,51 @@
+SOURCE crates/fabelgeist-numpy-storage/README.md:1-50
+   1 # fabelgeist-numpy-storage
+   2 
+   3 NumPy `.npy` and `.npz` reading for Burn, in pure Rust — no NumPy, no C zlib.
+   4 
+   5 ```rust
+   6 use burn::tensor::Device;
+   7 use fabelgeist_numpy_storage::{Npz, NpzArrayName};
+   8 
+   9 let archive = Npz::open("weights.npz")?;
+  10 for name in archive.keys() {
+  11     println!("{name}: {:?}", archive.array(&name)?.shape());
+  12 }
+  13 let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
+  14 ```
+  15 
+  16 - File-backed archives use read-only mappings; in-memory archives own their
+  17   input bytes. Members may be stored or deflated, and ZIP64 is handled.
+  18 - `NpzMember::uncompressed_size` returns the archive metadata as a bespoke
+  19   `DeclaredUncompressedByteLength`. It does not decode or verify actual length.
+  20 - Element types: `f4`, `f8`, `i4`, `i8`, `u1`, `b1`.
+  21   Decoded numbers use `NpyFloat32Values` and `NpyIntegerValues`; `NpyByteStates`
+  22   classifies every payload byte as zero or nonzero. Tensor upload uses
+  23   `to_tensor` / `to_int_tensor`, so a `.npz` written as `float64` still loads
+  24   into an f32 tensor.
+  25 - Fortran-ordered arrays are rejected rather than silently transposed.
+  26 
+  27 Used by `fabelgeist-mhr` for the MHR pose-corrective tensors.
+  28 
+  29 ## ZIP structure and byte quantities
+  30 
+  31 [`rawzip` 0.5.2](https://docs.rs/rawzip/0.5.2/rawzip/) owns end records,
+  32 ZIP64 metadata, central-directory framing and bounded member access. Our adapter
+  33 owns the 66,000-byte end-record search window, declared member-count bound,
+  34 lookup names and decompression policy. Parser errors reject admission rather
+  35 than publishing a partially parsed directory. The [count contract](member-count.md)
+  36 describes the retained application bound and structural-policy differences.
+  37 
+  38 The public `DeclaredUncompressedByteLength` remains an unverified archive
+  39 declaration. Structural positions and compressed ranges stay inside rawzip's
+  40 private entry handles; application APIs do not expose those parser details.
+  41 See the [size contract](zip-extents.md).
+  42 
+  43 ## Archive compression
+  44 
+  45 The reader classifies rawzip's central-directory method into its supported
+  46 Stored or Deflated state, retaining any other method as a bespoke
+  47 `ZipCompressionCode` for decimal diagnostics. Unsupported methods remain
+  48 queryable metadata and fail when member bytes are requested. Local framing and
+  49 compressed bounds are checked before the method error. The central directory
+  50 selects the method even when the local header declares a different one.

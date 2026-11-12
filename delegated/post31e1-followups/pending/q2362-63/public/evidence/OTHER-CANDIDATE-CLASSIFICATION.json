@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "location": "data/PRIOR-Q2316-SELECT-VIEW.json",
+      "count": 1,
+      "canonical_agent_identifier": true,
+      "python_expression": false
+    },
+    {
+      "location": "data/prior-q2316/REPORT.json",
+      "count": 1,
+      "canonical_agent_identifier": true,
+      "python_expression": false
+    },
+    {
+      "location": "verify-evidence.py",
+      "count": 1,
+      "canonical_agent_identifier": false,
+      "python_expression": true
+    }
+  ],
+  "qualification": "All are path-pattern matches but are agent-identity or Python-expression text; redaction and replay will retain qualification and attribution."
+}

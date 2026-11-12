@@ -1,0 +1,56 @@
+{
+  "schema": "726-post31e1-time-bound-followup-snapshot-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "31e130bfa8f8914f759c7d5cddc3db92962704c7",
+  "observed_counts": {
+    "lenses": 13,
+    "lenses_complete": 0,
+    "queue_records": 3713,
+    "queue_semantically_reconciled": 0,
+    "current_ledger_entries_and_relationships": 1078
+  },
+  "queue_selections": [
+    {
+      "index": 2341,
+      "contract_id": "L2-EXT-ERRANTRY-CAMP-COORDINATE-OWNER-FIT",
+      "current_reconciliation_at_snapshot": "partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2342,
+      "contract_id": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+      "current_reconciliation_at_snapshot": "partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2352,
+      "contract_id": "PL13-263-DISCLOSURE-CLOCK-ERROR-DEFAULT-PENDING",
+      "current_reconciliation_at_snapshot": "partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2353,
+      "contract_id": "PL13-263-DISCLOSURE-PROVENANCE-OUTER-NONE-PENDING",
+      "current_reconciliation_at_snapshot": "partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2354,
+      "contract_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "current_reconciliation_at_snapshot": "partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    }
+  ],
+  "added_ledger_relationship_ids": [
+    "relationship-journey-relative-time-owner-95e",
+    "relationship-errantry-bound-camp-owner-95e",
+    "relationship-errantry-zero-binding-selector-95e",
+    "relationship-disclosure-clock-error-default-95e",
+    "relationship-disclosure-outer-provenance-95e",
+    "relationship-resident-age-chronology-95e"
+  ],
+  "central_report_sha256": "f6b4815c5a2c2e245d4ea22ffdc2b0731afe0f3ef6fa73d1124ed3d9809437cc",
+  "bundle_catalog_sha256": "baacfc6031c54a0d90689482b90ca2a90fbd79fa5013cb4f79c95b4c356c00a7",
+  "checkpoint_31e1_recovery_record_sha256": "8b99ab9500cfeb9f5b90e2dcf0b120b5804b7c6a6105d00926036d5f36c9bff8",
+  "encrypted_manifest_sha256": "1c6686810125aba335120bb6fe0c54edf05c0b9e6e437b97e7678de6daab93d0",
+  "privacy_correction_record_sha256": "f2f634d4bd697e4e67c6574da289a004da0574ced324699318ee47593fa1882d",
+  "main_observation_sha256": "40c0328b9fab81736e5ff3a17a15c82629074c951b57f76dc39703a436db1c2c",
+  "qualification": "Time-bound counts include planning relationships and conditional candidates, not independent defects. Historical, reconstructed, encrypted and current work retain original attribution. Final checkpoint3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

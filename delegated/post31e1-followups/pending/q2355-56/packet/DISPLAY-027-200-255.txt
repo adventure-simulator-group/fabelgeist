@@ -1,0 +1,56 @@
+ 200         for compound in &self.compounds {
+ 201             let playable = playable_region.is_some_and(|region| compound.plot.intersects(region));
+ 202             compound_members.extend([compound.front_building_id, compound.rear_building_id]);
+ 203             if playable {
+ 204                 playable_members.extend([compound.front_building_id, compound.rear_building_id]);
+ 205             }
+ 206         }
+ 207         for garden in &self.gardens {
+ 208             compound_members.insert(garden.front_building_id);
+ 209             if playable_region.is_some_and(|region| garden.plot.intersects(region)) {
+ 210                 playable_members.insert(garden.front_building_id);
+ 211             }
+ 212         }
+ 213         let mut result = CitySceneLayout {
+ 214             parishes: self.parishes,
+ 215             compounds: self.compounds,
+ 216             single_properties: self.single_properties,
+ 217             gardens: self.gardens,
+ 218             streets: self.streets,
+ 219             yards: self.yards,
+ 220             businesses: self.businesses,
+ 221             support_recipes: self.support_recipes,
+ 222             ..Default::default()
+ 223         };
+ 224         for building in self.buildings {
+ 225             if playable_members.contains(&building.id)
+ 226                 || (!compound_members.contains(&building.id)
+ 227                     && playable_half_extent_metres.is_some_and(|extent| {
+ 228                         building.centre_metres.metres().abs().max_element() <= extent
+ 229                     }))
+ 230             {
+ 231                 result.playable.push(building);
+ 232             } else {
+ 233                 result.distant.push(DistantBuildingPlacement {
+ 234                     prosperity: self.prosperity,
+ 235                     id: building.id,
+ 236                     archetype: building.program.archetype,
+ 237                     usage: building.program.usage,
+ 238                     service_size: building.program.service_size,
+ 239                     seed: building.program.seed,
+ 240                     centre_metres: building.centre_metres,
+ 241                     orientation: building.orientation,
+ 242                     base_elevation_metres: building.base_elevation_metres,
+ 243                 });
+ 244             }
+ 245         }
+ 246         let maximum = crate::scene_input::buildings::MAX_TACTICAL_BUILDINGS;
+ 247         if result.playable.len() > maximum {
+ 248             return Err(CityCompileError::PlayableCapacity {
+ 249                 required: result.playable.len(),
+ 250                 maximum,
+ 251             });
+ 252         }
+ 253         Ok(result)
+ 254     }
+ 255 }

@@ -1,0 +1,66 @@
+ 140             camera_origin,
+ 141             camera_forward,
+ 142             actor_origin,
+ 143             maximum_distance,
+ 144             choices
+ 145                 .iter()
+ 146                 .filter(|choice| choice.body == body)
+ 147                 .filter_map(|choice| {
+ 148                     choice
+ 149                         .resolved
+ 150                         .map(|resolved| (resolved, resolved.1, choice.stable_key))
+ 151                 }),
+ 152         ) {
+ 153             return Some(resolved);
+ 154         }
+ 155         exhausted.push(body);
+ 156     }
+ 157 }
+ 158 
+ 159 #[derive(SystemParam)]
+ 160 struct CombatTargeting<'w, 's> {
+ 161     spatial: SpatialQuery<'w, 's>,
+ 162     attackers: Query<
+ 163         'w,
+ 164         's,
+ 165         (
+ 166             &'static Transform,
+ 167             &'static Collider,
+ 168             &'static CharacterDimensions,
+ 169             &'static TacticalCombatSide,
+ 170             &'static CharacterControllerCamera,
+ 171         ),
+ 172     >,
+ 173     cameras: Query<'w, 's, &'static Transform, With<TacticalGameplayCamera>>,
+ 174     hitboxes: Query<
+ 175         'w,
+ 176         's,
+ 177         (
+ 178             Entity,
+ 179             &'static GlobalTransform,
+ 180             &'static Collider,
+ 181             &'static ColliderOf,
+ 182             &'static LimbHitbox,
+ 183         ),
+ 184     >,
+ 185     combatants: Query<
+ 186         'w,
+ 187         's,
+ 188         (
+ 189             &'static TacticalCombatSide,
+ 190             &'static TacticalCombatState,
+ 191             &'static Transform,
+ 192             &'static Collider,
+ 193         ),
+ 194     >,
+ 195     scene_items: Query<'w, 's, Entity, With<TacticalSceneItem>>,
+ 196 }
+ 197 
+ 198 #[derive(Component, Debug, Clone, Copy)]
+ 199 struct BufferedMeleeAttack {
+ 200     family: StrikeFamily,
+ 201     hand: AttackHand,
+ 202 }
+ 203 
+ 204 impl AttackState {
+ 205     fn new(

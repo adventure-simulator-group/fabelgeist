@@ -1,0 +1,103 @@
+[
+  {
+    "query": {
+      "term": "streaming::present",
+      "paths": [
+        "crates/adventuresim-tactical-client/src"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+        "line": 20
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "update_camera_rig",
+      "paths": [
+        "crates/adventuresim-tactical-client/src"
+      ]
+    },
+    "total": 3,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera.rs",
+        "line": 14
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera.rs",
+        "line": 100
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "line": 19
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "struct Position<",
+      "paths": [
+        "crates/adventuresim-building-generator/src"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "line": 25
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "type Position",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/camera.rs",
+        "crates/adventuresim-tactical-client/src/camera"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "ImageSize",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "PixelExtent",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "TextureExtent",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  }
+]

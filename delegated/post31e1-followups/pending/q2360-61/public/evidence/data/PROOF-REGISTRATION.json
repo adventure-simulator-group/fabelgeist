@@ -1,0 +1,31 @@
+{
+  "at_utc": "2026-11-12T18:20:24.405192+00:00",
+  "commits": {
+    "95e": "<LOCAL_PATH_0002>",
+    "e275": "<LOCAL_PATH_0003>"
+  },
+  "tree_roots": [
+    "<LOCAL_PATH_0058>",
+    "<LOCAL_PATH_0059>"
+  ],
+  "paths": [
+    "crates/fabelgeist-numpy-storage/README.md",
+    "crates/fabelgeist-numpy-storage/member-count.md",
+    "crates/fabelgeist-numpy-storage/src/npy.rs",
+    "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+    "crates/fabelgeist-numpy-storage/src/npz.rs",
+    "crates/fabelgeist-numpy-storage/src/zip.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/member_count.rs"
+  ],
+  "historical_sha256": {
+    "crates/fabelgeist-numpy-storage/README.md": "3c72adb3ed071b243b68d523cfc86d0ca8c2cb59c1abb428ed601d46cdc3a6a2",
+    "crates/fabelgeist-numpy-storage/member-count.md": "c9488482d37ce7259d56d5f89e858aff9c0f348ba2d6d9efa7db06e0cdf552ed",
+    "crates/fabelgeist-numpy-storage/src/npy.rs": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+    "crates/fabelgeist-numpy-storage/src/npy/metadata.rs": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+    "crates/fabelgeist-numpy-storage/src/npz.rs": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+    "crates/fabelgeist-numpy-storage/src/zip.rs": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+    "crates/fabelgeist-numpy-storage/src/zip/member_count.rs": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867"
+  },
+  "purpose": "prove each historical e275 and current 95e file path; reconstruct e275 bodies from same-hash current bytes, explicitly not claim original object recovered",
+  "fallback": "git cat-file tree on derived IDs, read-only"
+}

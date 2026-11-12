@@ -1,0 +1,13 @@
+--- crates/adventuresim-core/src/strategic_action.rs:318-329 ---
+  318 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  319 pub struct RequestedDuration(NonZeroU64);
+  320 
+  321 impl RequestedDuration {
+  322     pub fn try_new(minutes: u64) -> Result<Self, DurationError> {
+  323         NonZeroU64::new(minutes)
+  324             .map(Self)
+  325             .ok_or(DurationError::ZeroDuration)
+  326     }
+  327     pub const fn minutes(self) -> u64 {
+  328         self.0.get()
+  329     }

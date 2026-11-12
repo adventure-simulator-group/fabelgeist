@@ -1,0 +1,5 @@
+{
+  "error": "RuntimeError(\"git ('cat-file', 'commit', '95e63628f9d70b8dd6e6fede64334696c6995009') exit 128 stderr fatal: git cat-file 95e63628f9d70b8dd6e6fede64334696c6995009: bad file\\n\")",
+  "qualification": "Partial outputs retained. No retries overwrite previous files.",
+  "traceback": "Traceback (most recent call last):\n  File \"<PRIVATE-PATH-0001>\", line 38, in <module>\n    commit=git('cat-file','commit',rev);assert oid('commit',commit)==rev\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<PRIVATE-PATH-0001>\", line 11, in git\n    if p.returncode:raise RuntimeError('git '+str(args)+' exit '+str(p.returncode)+' stderr '+p.stderr.decode(errors='replace'))\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: git ('cat-file', 'commit', '95e63628f9d70b8dd6e6fede64334696c6995009') exit 128 stderr fatal: git cat-file 95e63628f9d70b8dd6e6fede64334696c6995009: bad file\n\n"
+}

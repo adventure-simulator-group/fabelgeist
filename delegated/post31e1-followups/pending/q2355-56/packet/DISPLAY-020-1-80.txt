@@ -1,0 +1,80 @@
+   1 //! Clear exhibit scenery and scene-specific caches while retaining the renderer.
+   2 
+   3 use super::*;
+   4 
+   5 pub(crate) fn clear_demo_scene(world: &mut World) {
+   6     clear_scene_entities(world);
+   7     buildings::reset_gpu(world, ownership::PresentationOwner::RegionalMap);
+   8     world.insert_resource(buildings::TacticalBuildingMeshCache::default());
+   9     #[cfg(target_family = "wasm")]
+  10     if let Err(error) = generation::clear_residency() {
+  11         warn!(%error, "Could not clear generated product residency");
+  12     }
+  13     world.insert_resource(obstacles::tree::TreePresentationCache::default());
+  14     world.insert_resource(obstacles::tree::RetainedTreePresentations::default());
+  15     world.insert_resource(TreeAssetResidencyDiagnostics::default());
+  16     world.insert_resource(obstacles::tree::VistaTreePresentationCache::default());
+  17 }
+  18 
+  19 /// Replace scene entities while retaining prepared geometry for tactical handoff.
+  20 pub(crate) fn clear_scene_entities(world: &mut World) {
+  21     if let Some(mut cache) = world.get_resource_mut::<buildings::TacticalBuildingMeshCache>() {
+  22         cache.recipes.clear();
+  23     }
+  24     buildings::reset_gpu(world, ownership::PresentationOwner::Scene);
+  25     world.remove_resource::<StreamCityTraffic>();
+  26     world.remove_resource::<PendingCityBuildings>();
+  27     world.remove_resource::<vista::streets::streaming::CityTrafficResidency>();
+  28     let mut entities = world
+  29         .query_filtered::<Entity, Or<(
+  30             With<SceneTerrain>,
+  31             With<SceneObstacle>,
+  32             With<SceneBuilding>,
+  33             With<SceneFurniture>,
+  34             With<SceneDoor>,
+  35             With<SceneWindow>,
+  36             With<terrain::ScenePresentationOf>,
+  37             With<GroundScatterLayer>,
+  38             With<GroundLitterCaptureAnchors>,
+  39             With<GroundLitterDiagnostics>,
+  40             With<VistaTerrain>,
+  41             With<buildings::DistantCityBuildingPresentation>,
+  42             With<VistaTreePresentation>,
+  43             With<vista::VistaGrassPresentation>,
+  44             With<vista::VistaRockPresentation>,
+  45         )>>()
+  46         .iter(world)
+  47         .collect::<Vec<_>>();
+  48     entities.extend(
+  49         world
+  50             .query_filtered::<Entity, Or<(
+  51                 With<vista::streets::CityStreetPresentation>,
+  52                 With<vista::streets::CityYardPresentation>,
+  53                 With<SceneBoundary>,
+  54                 With<SceneGarden>,
+  55                 With<ground_scatter::gardens::DistantGardenPresentation>,
+  56             )>>()
+  57             .iter(world),
+  58     );
+  59     for entity in entities {
+  60         if world.get::<ownership::PresentationOwner>(entity)
+  61             == Some(&ownership::PresentationOwner::RegionalMap)
+  62         {
+  63             continue;
+  64         }
+  65         if let Ok(entity) = world.get_entity_mut(entity) {
+  66             entity.despawn();
+  67         }
+  68     }
+  69     world.insert_resource(ActiveVistaSurface::default());
+  70     world.flush();
+  71 }
+  72 
+  73 #[cfg(test)]
+  74 mod tests {
+  75     use super::*;
+  76 
+  77     #[test]
+  78     fn replacing_a_scene_releases_unconsumed_generation_recipes() {
+  79         let mut world = World::new();
+  80         let mut cache = buildings::TacticalBuildingMeshCache::default();

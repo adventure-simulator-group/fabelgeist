@@ -1,0 +1,111 @@
+{
+  "granular": [
+    {
+      "lens": 2,
+      "manifest": {
+        "path": "root-l2-extension-20261030/PROPOSAL-BUNDLE-ROOT-L2-EXT-005-020.json",
+        "sha256": "531558580597ef0f708e8c3f390bc437d3011a99ad32b6dc00991d5ce32437c8"
+      },
+      "contract_update": {
+        "contract_id": "L2-EXT-STREAMING-FOCUS-OWNER-FIT",
+        "lens": 2,
+        "canonical_owner": "PendingCityBuildings.focus/prioritize and canonical ScenePlanPoint",
+        "first_failed_contract_or_unresolved_question": "Retained focus Option<Vec2> denotes camera-derived scene planar point, candidate ScenePlanPoint is finite signed scene-local east/north metres. Exact native camera scene-frame producer contract still needed before declaring an exact fit.",
+        "exact_functions": [
+          "streaming.rs::PendingCityBuildings17..22/prioritize62..77/present249..251",
+          "scene_coordinates.rs::ScenePlanPoint23/from_metres31..37/TryFrom51..64/Deserialize93..98"
+        ],
+        "trace": [
+          "Native camera GlobalTransform xz passes into prioritize; raw Vec2 focus is retained across frames and compared to typed placement.centre_metres.",
+          "Existing ScenePlanPoint admits finite signed positions and zero, distinct from PlanDisplacement and architectural/geographic coordinates.",
+          "No scene frame equivalence or admitted invalid camera witness invented merely from similarly named points."
+        ],
+        "remaining_evidence": [
+          "Prospectively admit complete actual gameplay camera/frame producer and scene placement frame authority at exact identities.",
+          "Compare exact global first-operation aliases; common Vec2 wrapper remedy is not alias."
+        ],
+        "dependencies": [
+          "Actual scene camera native pose/frame producer",
+          "Canonical ScenePlanPoint admission and placement source frame"
+        ],
+        "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+        "later_repair_acceptance_requirements": [
+          "If same frame proved, retain checked ScenePlanPoint after native conversion; valid signed/zero positions remain admitted.",
+          "If frames differ, own explicit conversion or distinct role instead of forcing matching numeric representations."
+        ],
+        "audit_discovery_closed_within_named_scope": false,
+        "existing_canonical_identity": null,
+        "new_accepted_unique_count": 0
+      },
+      "remaining_evidence": [
+        "Prospectively admit complete actual gameplay camera/frame producer and scene placement frame authority at exact identities.",
+        "Compare exact global first-operation aliases; common Vec2 wrapper remedy is not alias."
+      ],
+      "dependencies": [
+        "Actual scene camera native pose/frame producer",
+        "Canonical ScenePlanPoint admission and placement source frame"
+      ],
+      "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+      "named_scope_only": true,
+      "whole_parent_or_global_closed": false,
+      "body_or_population_credit": 0,
+      "selected_source_rows": 16
+    }
+  ],
+  "later_same_lens_adoption": [
+    {
+      "lens": 2,
+      "receipt": {
+        "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-007.json",
+        "sha256": "34e6fd5f7de309f05797c39367c15074a6dc863f98ae154d8d93c6cf73f340a4"
+      },
+      "verification": {
+        "path": "segovb/VERIFY-L2-EXT-CURRENT-005.json",
+        "sha256": "3dbcd3e986dfcd16342fc1cd25d552e283635c8c7c6107a1ed86d9a1be98fecf"
+      },
+      "qualified_prior_contract_view": {
+        "contract_id": "L2-EXT-STREAMING-FOCUS-OWNER-FIT",
+        "lens": 2,
+        "canonical_owner": "PendingCityBuildings.focus/prioritize and canonical ScenePlanPoint",
+        "first_failed_contract_or_unresolved_question": "Retained focus Option<Vec2> denotes camera-derived scene planar point, candidate ScenePlanPoint is finite signed scene-local east/north metres. Exact native camera scene-frame producer contract still needed before declaring an exact fit.",
+        "exact_functions": [
+          "streaming.rs::PendingCityBuildings17..22/prioritize62..77/present249..251",
+          "scene_coordinates.rs::ScenePlanPoint23/from_metres31..37/TryFrom51..64/Deserialize93..98"
+        ],
+        "trace": [
+          "Native camera GlobalTransform xz passes into prioritize; raw Vec2 focus is retained across frames and compared to typed placement.centre_metres.",
+          "Existing ScenePlanPoint admits finite signed positions and zero, distinct from PlanDisplacement and architectural/geographic coordinates.",
+          "No scene frame equivalence or admitted invalid camera witness invented merely from similarly named points."
+        ],
+        "remaining_evidence": [
+          "Prospectively admit complete actual gameplay camera/frame producer and scene placement frame authority at exact identities.",
+          "Compare exact global first-operation aliases; common Vec2 wrapper remedy is not alias."
+        ],
+        "dependencies": [
+          "Actual scene camera native pose/frame producer",
+          "Canonical ScenePlanPoint admission and placement source frame"
+        ],
+        "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+        "later_repair_acceptance_requirements": [
+          "If same frame proved, retain checked ScenePlanPoint after native conversion; valid signed/zero positions remain admitted.",
+          "If frames differ, own explicit conversion or distinct role instead of forcing matching numeric representations."
+        ],
+        "audit_discovery_closed_within_named_scope": false,
+        "existing_canonical_identity": null,
+        "new_accepted_unique_count": 0
+      },
+      "remaining_evidence": [
+        "Prospectively admit complete actual gameplay camera/frame producer and scene placement frame authority at exact identities.",
+        "Compare exact global first-operation aliases; common Vec2 wrapper remedy is not alias."
+      ],
+      "dependencies": [
+        "Actual scene camera native pose/frame producer",
+        "Canonical ScenePlanPoint admission and placement source frame"
+      ],
+      "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+      "global_or_native_chain_closed": false,
+      "body_or_population_credit": 0,
+      "selected_source_rows": 16
+    }
+  ]
+}

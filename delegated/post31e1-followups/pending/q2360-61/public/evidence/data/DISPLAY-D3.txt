@@ -1,0 +1,51 @@
+SOURCE crates/fabelgeist-numpy-storage/README.md:101-150
+ 101 Structured descriptors, pickled objects and Fortran ordering are unsupported.
+ 102 This is a parser for the supported scalar format, not a general Python parser.
+ 103 
+ 104 Supported scalar and ordering admission precedes shape-product and payload
+ 105 checks. Any zero axis gives zero elements; this flat reader computes no strides.
+ 106 Oversized shape and payload products return layout errors. Numeric words are
+ 107 little-endian; native-endian dtype spellings are admitted only on little-endian
+ 108 hosts. Trailing payload bytes are ignored. Tensor rank admission precedes value
+ 109 collection and device upload. Existing observations cover scalar and empty
+ 110 shapes, overflow context, rank causes, header failure priority, stored-width
+ 111 decoding and metadata immutability.
+ 112 
+ 113 ## Decoded values
+ 114 
+ 115 `NpyFloat32Values`, `NpyIntegerValues` and `NpyByteStates` retain ordered NumPy
+ 116 decoding results. Float and integer collections hold native `f32` and `i64`
+ 117 projections; byte states classify each individual payload byte as zero or
+ 118 nonzero, independently of element width.
+ 119 
+ 120 Construct a collection with `From<&NpyArray>`. Borrowed slices expose the native
+ 121 scalars, while the distinct collections retain the ordered conversion policy.
+ 122 Convert a collection to its native vector at a tensor-data or other external
+ 123 representation boundary. Float64-to-integer conversion reads the original stored
+ 124 number independently of float32 projection. Floating-to-integer casts saturate
+ 125 as Rust defines, float32 NaN bits and signed zero are preserved, and numeric
+ 126 byte values are not normalized to booleans.
+ 127 
+ 128 Native fixed-width word iterators preserve order and exclude an incomplete final
+ 129 word, as the previous decoder did. Each iterator supplies its exact allocation
+ 130 count to standard collection operations. Array shape, dtype admission, archive
+ 131 lookup and parser error handling retain their existing contracts; the decoded-
+ 132 value collection does not validate an array's metadata or classify a number as a
+ 133 mesh index or activation coefficient.
+ 134 
+ 135 The character importer admits corrective tensor extents together, then validates
+ 136 all sparse coordinate roles against that layout before allocating the dense
+ 137 buffer. Sparse contributions retain their checked offsets and a borrow of the
+ 138 same layout through upload. Native coefficients and decoded indices enter the
+ 139 numerical adapter only after collection admission. Sparse transposition,
+ 140 duplicate replacement and native narrowing before bounds checks are unchanged.
+ 141 Impossible joint subtraction and overflowing tensor extents now return concrete
+ 142 corrective-import errors before allocation. Native tensor upload may use a
+ 143 backend's integer representation, such as i32, separately from the decoded i64
+ 144 storage number.
+ 145 
+ 146 `NpyFloat32Values` explicitly projects stored numbers to float32 precision;
+ 147 float64 input bytes remain available on the admitted array. Integer decoding
+ 148 reads the original stored number independently. `NpyTensorLayout` retains fixed
+ 149 rank, typed dimensions and their checked element product. Conversion from an
+ 150 admitted `NpyShape` reuses its product; construction from dimension literals is

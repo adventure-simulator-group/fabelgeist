@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-12T18:45:55.768474+00:00",
+  "reason": "git -C current checkout cat-file commit 95e failed with bad file; no source body was read",
+  "actions": [
+    {
+      "kind": "read prior q2362/q2363 capture and proof registrations and receipts",
+      "paths": [
+        "<PRIVATE-PATH-0010>",
+        "<PRIVATE-PATH-0011>",
+        "<PRIVATE-PATH-0012>"
+      ],
+      "scope": "source object store or other exact immutable source route, commit/tree proof metadata only"
+    },
+    {
+      "kind": "inspect git object-store metadata",
+      "scope": "read-only Git object availability and alternates in known audit worktrees, no content display"
+    }
+  ],
+  "qualification": "The failed command output and partial history copies are retained in CAPTURE-ERROR.json and capture.py; the subsequent retry must use distinct paths."
+}

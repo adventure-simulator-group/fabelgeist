@@ -1,0 +1,31 @@
+{
+  "classification": "Frozen actual artdemo plugin/readiness chain collapses failed texture recipe into pending noninstalled outcome; native failed load/current acceptance pending",
+  "source_receipt": "../../adler/READ-L11-205.json",
+  "source_key": "4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931:35-58,77-99,105-135;9b5cf78205d9e06cf9e5020a05dfa36cec92c54a5bb40e7480790be0471a5279:110-167;81ecb5d3d8ae44d03b83c3de1fe81332b833fcffabf776d4faeed2baad4cb708:244-307",
+  "trace": [
+    "ProceduralTextureResidency stores requested strong recipe handles and an installed set; request uses entry.or_insert_with(load), no terminal error state or failed handle refresh API.",
+    "is_ready returns installed.contains for each recipe; install_loaded_texture_recipes only sees successfully available RuntimeTextureRecipe assets and marks installed after inserting maps.",
+    "RuntimeTextureLoader propagates reader/decompression io errors and rejects mismatched filename/recipe before returning the asset; failed recipe has no successful maps publication to installed.",
+    "art-demo textures_ready delegates only is_ready; scenery_ready returns Ok(false) immediately if textures not ready, before its separate oak impostor failure check.",
+    "show installs PendingScenery whenfalse; spawn_pending returns on Ok(false), leaving pending/current scene Ok(None). report_readiness maps PendingScenery to Loading; it checks scene handles/buildings but not failed texture handles.",
+    "Conditional actual producer case: requested required recipe reaches terminal load error and never installs. Every subsequent application readiness pass can continue to report Loading. Native asset lifecycle, actual BakedTexturesPlugin installation and current source still require connection before runtime claim."
+  ],
+  "first_failed_contract": "Required asset readiness must preserve terminal load failure and its recipe/cause, rather than collapse it into the same result as an unfinished request.",
+  "canonical_owner": "Per-recipe texture residency outcome at native asset loading/installation boundary, consumed as checked readiness by scenery preparation.",
+  "repair_dependencies": [
+    "Exact native AssetServer terminal failure state, request/loader/install scheduling and recipe handles/destinations; actual plugin installation source chain now established206",
+    "All ProceduralTextureResidency::is_ready consumers including terrain/material preparation; missing resource or intentionally empty recipe sets stay separately classified",
+    "PreparedTreeImpostorAssets separate error checks, ownership of retries/cancellation and retaining original AssetLoadError cause",
+    "Current source, all20 families/aliases and population-wide extension identity deduplication; newly reached runtime source mandatory for all13 lenses"
+  ],
+  "acceptance": [
+    "Failed required texture load leads to typed unavailable/failed outcome carrying recipe identity and original cause at actual scene status consumer",
+    "Pending loads remain pending and successfully installed recipes become ready without losing stable material handles",
+    "Failed texture cannot indefinitely mask an independent already terminal oak impostor failure as generic loading",
+    "Valid empty recipe sets/studio exhibits and successful native/web loading keep intended behavior; retry policy explicit rather than accidental cached failure"
+  ],
+  "repair_status": "not started; exhaustive audit ledger incomplete",
+  "validation_status": "Source-only actual artdemo-to-presentation-to-materials-to-texture plugin installation and loader/readiness/status chain established205/206; no runtime/test execution; native failed fixture/current pending",
+  "accepted_unique_count_change": 0,
+  "connected_actual_plugin_proof": "READ-L11-206 connected full original1589 (future ordered frontier, zero new original credit here) TacticalPresentationPlugin::build230 adds materials::TacticalMaterialsPlugin; connected exact materials.rs32 adds BakedTexturesPlugin. That plugin runtime.rs19..23 initializes residency/loader/install system. Actual artdemo1449 .add_plugins(presentation)176 therefore installs the very residency used byshow/readiness, not only an uninstalled helper. Source path complete through required recipe set/exhibit/status, native failed request fixture/current/aliases stillpending."
+}

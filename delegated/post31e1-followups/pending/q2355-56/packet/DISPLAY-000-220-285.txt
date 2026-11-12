@@ -1,0 +1,66 @@
+ 220         }
+ 221         CrenellationMask => vec![(
+ 222             MapChannel::Opacity,
+ 223             crate::generate_crenellation_mask(params, images),
+ 224         )],
+ 225         _ => unreachable!("surface and leaf recipes are dispatched before specialized maps"),
+ 226     }
+ 227 }
+ 228 
+ 229 fn physical_scale(recipe: TextureRecipeId, p: &TextureParameters) -> (f32, f32) {
+ 230     use TextureRecipeId::*;
+ 231     match recipe {
+ 232         Rock => (p.rock.tile_metres, p.rock.height_range_metres),
+ 233         LimePlaster => (
+ 234             p.lime_plaster.tile_metres,
+ 235             p.lime_plaster.height_range_metres,
+ 236         ),
+ 237         HewnOak => (p.hewn_oak.tile_metres, p.hewn_oak.height_range_metres),
+ 238         WattleAndDaub => (
+ 239             p.wattle_and_daub.tile_metres,
+ 240             p.wattle_and_daub.height_range_metres,
+ 241         ),
+ 242         HandmadeBrick => (
+ 243             p.handmade_brick.tile_metres,
+ 244             p.handmade_brick.height_range_metres,
+ 245         ),
+ 246         RubbleMasonry => (
+ 247             p.rubble_masonry.tile_metres,
+ 248             p.rubble_masonry.height_range_metres,
+ 249         ),
+ 250         DressedStone => (
+ 251             p.dressed_stone.tile_metres,
+ 252             p.dressed_stone.height_range_metres,
+ 253         ),
+ 254         ClayRoofTile => (
+ 255             p.clay_roof_tile.tile_metres,
+ 256             p.clay_roof_tile.height_range_metres,
+ 257         ),
+ 258         SlateRoof => (p.slate_roof.tile_metres, p.slate_roof.height_range_metres),
+ 259         TimberShingle => (
+ 260             p.timber_shingle.tile_metres,
+ 261             p.timber_shingle.height_range_metres,
+ 262         ),
+ 263         PlankFloor => (p.plank_floor.tile_metres, p.plank_floor.height_range_metres),
+ 264         LeadSheet => (p.lead_sheet.tile_metres, p.lead_sheet.height_range_metres),
+ 265         Ironwork => (p.ironwork.tile_metres, p.ironwork.height_range_metres),
+ 266         OakBark => (
+ 267             p.surface.oak_bark_tile_metres,
+ 268             p.surface.oak_bark_height_range_metres,
+ 269         ),
+ 270         ForestSoil => (
+ 271             p.common.forest_soil_tile_metres,
+ 272             p.common.forest_soil_height_range_metres,
+ 273         ),
+ 274         ForestLitter => (
+ 275             p.common.forest_litter_tile_metres,
+ 276             p.common.forest_litter_height_range_metres,
+ 277         ),
+ 278         WindowGlass => (
+ 279             p.window_glass.tile_metres,
+ 280             p.window_glass.thickness_variation_metres,
+ 281         ),
+ 282         // Atlas recipes have no periodic world-space surface contract.
+ 283         _ => (1.0, 0.0),
+ 284     }
+ 285 }

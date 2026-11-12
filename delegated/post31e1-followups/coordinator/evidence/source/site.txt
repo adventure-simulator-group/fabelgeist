@@ -1,0 +1,131 @@
+--- crates/adventuresim-stdb-module/src/investigation/sites.rs:250-265 ---
+  250     capability: &InvestigationActionCapability,
+  251 ) -> Option<ExactActionCaseSite> {
+  252     let site = ctx
+  253         .db
+  254         .case_site_authority()
+  255         .id_key()
+  256         .find(&capability.target_id)?;
+  257     let generated_aliases = case_site_provenance_reducer(ctx, &site)?;
+  258     match (&generated_aliases, capability.provenance_kind) {
+  259         (None, InvestigationProvenanceKind::Manual) if capability.generated_case_id.is_empty() => {}
+  260         (Some((canonical, public)), InvestigationProvenanceKind::Generated)
+  261             if capability.generated_case_id == canonical.as_str()
+  262                 && (capability.case_id == canonical.as_str()
+  263                     || capability.case_id == public.as_str()) => {}
+  264         _ => return None,
+  265     }
+--- crates/adventuresim-stdb-module/src/investigation/sites.rs:323-355 ---
+  323 pub(crate) fn exact_case_site_for_observer_at(
+  324     ctx: &ReducerContext,
+  325     observer_character_id: u64,
+  326     case_site_id: &str,
+  327     minute: StrategicMinute,
+  328 ) -> Option<(CaseSiteAuthority, InvestigationLead)> {
+  329     let requested_place = canonical_case_site_place(case_site_id)?;
+  330     let site = ctx
+  331         .db
+  332         .case_site_authority()
+  333         .id_key()
+  334         .find(case_site_id.to_string())?;
+  335     if site.id.to_place() != requested_place {
+  336         return None;
+  337     }
+  338     let generated_aliases = case_site_provenance_reducer(ctx, &site)?;
+  339     ctx.db
+  340         .investigation_lead()
+  341         .owner_character_id()
+  342         .filter(observer_character_id)
+  343         .find(|lead| {
+  344             canonical_case_site_place(&lead.exact_location_id)
+  345                 .is_some_and(|lead_place| lead_place == requested_place)
+  346                 && (lead.case_id == site.case_id
+  347                     || generated_aliases
+  348                         .as_ref()
+  349                         .is_some_and(|aliases| lead.case_id == aliases.1.as_str()))
+  350                 && lead.latitude_e7 == site.latitude_e7
+  351                 && lead.longitude_e7 == site.longitude_e7
+  352                 && lead_is_live_at(ctx, lead, minute)
+  353                 && lead.destination_stage.is_exact()
+  354         })
+  355         .map(|lead| (site, lead))
+--- crates/adventuresim-stdb-module/src/investigation/sites.rs:456-472 ---
+  456 pub(crate) fn disclose_exact_case_site(
+  457     ctx: &ReducerContext,
+  458     observer_character_id: u64,
+  459     case_id: &str,
+  460     site: &CaseSiteAuthority,
+  461     source_label: &str,
+  462 ) -> Result<(), String> {
+  463     let aliases = case_site_provenance_reducer(ctx, site);
+  464     if site.case_id != case_id
+  465         && !aliases
+  466             .flatten()
+  467             .is_some_and(|(_, public_case_id)| public_case_id == case_id)
+  468     {
+  469         return Err("Case-site disclosure does not belong to the disclosed case".into());
+  470     }
+  471     let base_id = format!("case-site-disclosure:{observer_character_id}:{}", site.id);
+  472     let recorded_at = crate::time::refresh_clock(ctx).unwrap_or_default();
+--- crates/adventuresim-stdb-module/src/investigation/sites.rs:490-550 ---
+  490         .collect();
+  491     if let Some(canonical_id) = active
+  492         .iter()
+  493         .find(|existing| {
+  494             existing.case_id == case_id
+  495                 && existing.latitude_e7 == site.latitude_e7
+  496                 && existing.longitude_e7 == site.longitude_e7
+  497                 && existing.destination_stage.is_exact()
+  498         })
+  499         .map(|lead| lead.id.clone())
+  500     {
+  501         for mut duplicate in active {
+  502             if duplicate.id != canonical_id {
+  503                 duplicate.corrected_by = canonical_id.clone();
+  504                 ctx.db.investigation_lead().id().update(duplicate);
+  505             }
+  506         }
+  507         return Ok(());
+  508     }
+  509     let id = if disclosures.is_empty() {
+  510         base_id
+  511     } else {
+  512         let next_revision = disclosures
+  513             .iter()
+  514             .filter_map(|(id, _lead)| match id {
+  515                 CaseSiteDisclosureLeadId::Base => None,
+  516                 CaseSiteDisclosureLeadId::Revision(revision) => Some(*revision),
+  517             })
+  518             .max()
+  519             .unwrap_or(0)
+  520             .checked_add(1)
+  521             .filter(|revision| *revision <= 99_999_999)
+  522             .ok_or("Case-site disclosure revision space is exhausted")?;
+  523         format!("{base_id}:revision:{next_revision:08}")
+  524     };
+  525     for mut stale in active {
+  526         stale.corrected_by = id.clone();
+  527         ctx.db.investigation_lead().id().update(stale);
+  528     }
+  529     ctx.db.investigation_lead().insert(InvestigationLead {
+  530         id,
+  531         owner_character_id: observer_character_id,
+  532         case_id: case_id.into(),
+  533         proposition_id: String::new(),
+  534         summary: format!("Exact destination disclosed: {}", site.name),
+  535         source_label: source_label.into(),
+  536         confidence_bps: adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
+  537         destination_stage: DestinationKnowledgeStage::ExactBelieved,
+  538         directions: site.description.clone(),
+  539         exact_location_id: site.id.as_str().to_owned(),
+  540         latitude_e7: site.latitude_e7,
+  541         longitude_e7: site.longitude_e7,
+  542         witness_name: String::new(),
+  543         witness_description: String::new(),
+  544         witness_occupation_or_relationship: String::new(),
+  545         expected_location: String::new(),
+  546         current_learned_location: site.name.clone(),
+  547         contradiction_group: format!("case-site:{}", site.case_id),
+  548         corrected_by: String::new(),
+  549         recorded_at,
+  550     });

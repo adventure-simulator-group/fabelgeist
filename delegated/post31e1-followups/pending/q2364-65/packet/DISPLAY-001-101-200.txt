@@ -1,0 +1,100 @@
+ 101         assert!(matches!(
+ 102             archive
+ 103                 .bytes(&ArchiveMemberName::from("values.npy"))
+ 104                 .unwrap(),
+ 105             Cow::Borrowed(_)
+ 106         ));
+ 107         let npz = Npz::from_bytes(bytes).unwrap();
+ 108         assert_eq!(
+ 109             npz.get(&NpzArrayName::new("values"))
+ 110                 .map(|member| member.uncompressed_size()),
+ 111             Some(expected)
+ 112         );
+ 113         assert_eq!(
+ 114             npz.get(&NpzArrayName::new("values.npy"))
+ 115                 .map(|member| member.uncompressed_size()),
+ 116             Some(expected)
+ 117         );
+ 118         assert_eq!(
+ 119             Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 120                 &npz.array(&NpzArrayName::new("values")).unwrap()
+ 121             ))
+ 122             .len(),
+ 123             4
+ 124         );
+ 125     }
+ 126 }
+ 127 
+ 128 #[test]
+ 129 fn partial_zip64_fields_retain_unreplaced_saturation_and_first_extra() {
+ 130     let mut case = wire();
+ 131     case.declared = u32::MAX;
+ 132     case.compressed = u32::MAX;
+ 133     case.offset = u32::MAX;
+ 134     case.extra = extra(&[17]);
+ 135     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 136     assert_eq!(
+ 137         archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+ 138         Some(DeclaredUncompressedByteLength::from_bytes(17))
+ 139     );
+ 140     assert!(
+ 141         archive
+ 142             .bytes(&ArchiveMemberName::from("values.npy"))
+ 143             .is_err()
+ 144     );
+ 145     let mut case = wire();
+ 146     case.declared = u32::MAX;
+ 147     case.extra = extra(&[17]);
+ 148     case.extra.extend_from_slice(&extra(&[23]));
+ 149     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 150     assert_eq!(
+ 151         archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+ 152         Some(DeclaredUncompressedByteLength::from_bytes(17))
+ 153     );
+ 154     let mut case = wire();
+ 155     case.declared = u32::MAX;
+ 156     case.extra = vec![1, 0, 7, 0, 1, 2, 3, 4, 5, 6, 7];
+ 157     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 158     assert_eq!(
+ 159         archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+ 160         Some(DeclaredUncompressedByteLength::from_bytes(u64::from(
+ 161             u32::MAX
+ 162         )))
+ 163     );
+ 164 }
+ 165 
+ 166 #[test]
+ 167 fn declared_full_width_zero_and_mismatch_do_not_measure_payloads() {
+ 168     for value in [0, 1, u64::from(u32::MAX), 1 << 32, 1 << 63, u64::MAX] {
+ 169         let mut case = wire();
+ 170         case.declared = u32::MAX;
+ 171         case.extra = extra(&[value]);
+ 172         let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 173         let size = archive
+ 174             .uncompressed_size(&ArchiveMemberName::from("values.npy"))
+ 175             .unwrap();
+ 176         assert_eq!(size, DeclaredUncompressedByteLength::from_bytes(value));
+ 177         assert_eq!(size.bytes(), value);
+ 178         assert_eq!(
+ 179             archive
+ 180                 .bytes(&ArchiveMemberName::from("values.npy"))
+ 181                 .unwrap()
+ 182                 .len(),
+ 183             STORED_ARRAY_BYTES as usize
+ 184         );
+ 185         assert!(
+ 186             archive
+ 187                 .uncompressed_size(&ArchiveMemberName::from("missing"))
+ 188                 .is_none()
+ 189         );
+ 190     }
+ 191 }
+ 192 
+ 193 #[test]
+ 194 fn inherited_numpy_storage_and_first_duplicate_selection_remain_intact() {
+ 195     let bytes = include_bytes!("fixtures/member-count/ordinary-2.zip");
+ 196     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
+ 197     assert!(matches!(
+ 198         archive
+ 199             .bytes(&ArchiveMemberName::from("values.npy"))
+ 200             .unwrap(),

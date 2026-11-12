@@ -1,0 +1,322 @@
+SOURCE crates/fabelgeist-numpy-storage/tests/record_kinds.rs:1-321
+   1 use std::borrow::Cow;
+   2 
+   3 use fabelgeist_numpy_storage::{
+   4     ArchiveMemberName, DeclaredUncompressedByteLength, Npz, NpzArrayName, ZipArchive,
+   5 };
+   6 
+   7 struct DirectoryCase {
+   8     label: &'static str,
+   9     names: Option<&'static [&'static str]>,
+  10 }
+  11 
+  12 fn fixture(label: &str) -> &'static [u8] {
+  13     match label {
+  14         "stored-deflated" => include_bytes!("fixtures/record-kinds/stored-deflated.zip"),
+  15         "nearest-end-is-empty" => include_bytes!("fixtures/record-kinds/nearest-end-is-empty.zip"),
+  16         "nearest-end-selects-second" => {
+  17             include_bytes!("fixtures/record-kinds/nearest-end-selects-second.zip")
+  18         }
+  19         "end-with-comment-candidate" => {
+  20             include_bytes!("fixtures/record-kinds/end-with-comment-candidate.zip")
+  21         }
+  22         "end-window-inclusive" => include_bytes!("fixtures/record-kinds/end-window-inclusive.zip"),
+  23         "end-window-excluded" => include_bytes!("fixtures/record-kinds/end-window-excluded.zip"),
+  24         "unknown-central-3735928559" => {
+  25             include_bytes!("fixtures/record-kinds/unknown-central-3735928559.zip")
+  26         }
+  27         "unknown-local-3735928559" => {
+  28             include_bytes!("fixtures/record-kinds/unknown-local-3735928559.zip")
+  29         }
+  30         "central-second-is-local" => {
+  31             include_bytes!("fixtures/record-kinds/central-second-is-local.zip")
+  32         }
+  33         "local-is-central" => include_bytes!("fixtures/record-kinds/local-is-central.zip"),
+  34         "zip64-count-saturated" => {
+  35             include_bytes!("fixtures/record-kinds/zip64-count-saturated.zip")
+  36         }
+  37         "zip64-offset-saturated" => {
+  38             include_bytes!("fixtures/record-kinds/zip64-offset-saturated.zip")
+  39         }
+  40         "zip64-locator-mismatch" => {
+  41             include_bytes!("fixtures/record-kinds/zip64-locator-mismatch.zip")
+  42         }
+  43         "zip64-end-mismatch" => include_bytes!("fixtures/record-kinds/zip64-end-mismatch.zip"),
+  44         "zip64-locator-known-wrong" => {
+  45             include_bytes!("fixtures/record-kinds/zip64-locator-known-wrong.zip")
+  46         }
+  47         "zip64-end-known-wrong" => {
+  48             include_bytes!("fixtures/record-kinds/zip64-end-known-wrong.zip")
+  49         }
+  50         "zip64-record-outside" => include_bytes!("fixtures/record-kinds/zip64-record-outside.zip"),
+  51         "zip64-not-triggered" => include_bytes!("fixtures/record-kinds/zip64-not-triggered.zip"),
+  52         "duplicate-members" => include_bytes!("fixtures/record-kinds/duplicate-members.zip"),
+  53         "stored-central-deflate-local" => {
+  54             include_bytes!("fixtures/record-kinds/stored-central-deflate-local.zip")
+  55         }
+  56         "deflate-central-stored-local" => {
+  57             include_bytes!("fixtures/record-kinds/deflate-central-stored-local.zip")
+  58         }
+  59         "different-local-name-extra" => {
+  60             include_bytes!("fixtures/record-kinds/different-local-name-extra.zip")
+  61         }
+  62         "zip64-entry-extra" => include_bytes!("fixtures/record-kinds/zip64-entry-extra.zip"),
+  63         "short-end-no-locator" => include_bytes!("fixtures/record-kinds/short-end-no-locator.zip"),
+  64         "central-name-overrun" => include_bytes!("fixtures/record-kinds/central-name-overrun.zip"),
+  65         _ => panic!("unknown authored fixture {label}"),
+  66     }
+  67 }
+  68 
+  69 #[test]
+  70 fn directory_and_zip64_records_use_checked_admission_and_selected_counts() {
+  71     let cases = [
+  72         DirectoryCase {
+  73             label: "stored-deflated",
+  74             names: Some(&["values.npy", "second.npy"]),
+  75         },
+  76         DirectoryCase {
+  77             label: "nearest-end-is-empty",
+  78             names: Some(&[]),
+  79         },
+  80         DirectoryCase {
+  81             label: "nearest-end-selects-second",
+  82             names: Some(&["second.npy"]),
+  83         },
+  84         DirectoryCase {
+  85             label: "end-with-comment-candidate",
+  86             names: Some(&[]),
+  87         },
+  88         DirectoryCase {
+  89             label: "end-window-inclusive",
+  90             names: Some(&["values.npy", "second.npy"]),
+  91         },
+  92         DirectoryCase {
+  93             label: "unknown-central-3735928559",
+  94             names: None,
+  95         },
+  96         DirectoryCase {
+  97             label: "central-second-is-local",
+  98             names: None,
+  99         },
+ 100         DirectoryCase {
+ 101             label: "zip64-count-saturated",
+ 102             names: None,
+ 103         },
+ 104         DirectoryCase {
+ 105             label: "zip64-offset-saturated",
+ 106             names: None,
+ 107         },
+ 108         DirectoryCase {
+ 109             label: "zip64-locator-mismatch",
+ 110             names: None,
+ 111         },
+ 112         DirectoryCase {
+ 113             label: "zip64-end-mismatch",
+ 114             names: None,
+ 115         },
+ 116         DirectoryCase {
+ 117             label: "zip64-locator-known-wrong",
+ 118             names: None,
+ 119         },
+ 120         DirectoryCase {
+ 121             label: "zip64-end-known-wrong",
+ 122             names: None,
+ 123         },
+ 124         DirectoryCase {
+ 125             label: "zip64-record-outside",
+ 126             names: None,
+ 127         },
+ 128         DirectoryCase {
+ 129             label: "zip64-not-triggered",
+ 130             names: Some(&["values.npy", "second.npy"]),
+ 131         },
+ 132         DirectoryCase {
+ 133             label: "short-end-no-locator",
+ 134             names: Some(&[]),
+ 135         },
+ 136     ];
+ 137     for case in cases {
+ 138         let archive = ZipArchive::from_bytes(fixture(case.label).to_vec());
+ 139         assert_eq!(
+ 140             archive
+ 141                 .map(|archive| archive
+ 142                     .names()
+ 143                     .map(|name| name.to_string())
+ 144                     .collect::<Vec<_>>())
+ 145                 .map_err(|error| matches!(
+ 146                     error,
+ 147                     fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. }
+ 148                 )),
+ 149             case.names
+ 150                 .map(|names| names
+ 151                     .iter()
+ 152                     .map(|name| name.to_string())
+ 153                     .collect::<Vec<_>>())
+ 154                 .ok_or(true),
+ 155             "{}",
+ 156             case.label
+ 157         );
+ 158     }
+ 159     let error = ZipArchive::from_bytes(fixture("end-window-excluded").to_vec())
+ 160         .err()
+ 161         .unwrap();
+ 162     assert_eq!(
+ 163         error.to_string(),
+ 164         "not a zip archive: no end-of-central-directory record"
+ 165     );
+ 166 }
+ 167 
+ 168 #[test]
+ 169 fn wrong_local_signatures_retain_entry_errors() {
+ 170     for label in ["unknown-local-3735928559", "local-is-central"] {
+ 171         let archive = ZipArchive::from_bytes(fixture(label).to_vec()).unwrap();
+ 172         assert!(archive.contains(&ArchiveMemberName::from("values.npy")));
+ 173         assert_eq!(
+ 174             archive
+ 175                 .bytes(&ArchiveMemberName::from("values.npy"))
+ 176                 .unwrap_err()
+ 177                 .to_string(),
+ 178             "corrupt zip entry values.npy"
+ 179         );
+ 180         let npz = Npz::from_bytes(fixture(label).to_vec()).unwrap();
+ 181         assert_eq!(
+ 182             npz.array(&NpzArrayName::new("values"))
+ 183                 .err()
+ 184                 .unwrap()
+ 185                 .to_string(),
+ 186             "corrupt zip entry values.npy"
+ 187         );
+ 188     }
+ 189 }
+ 190 
+ 191 fn assert_member_storage_and_values(archive: &ZipArchive, npz: &Npz) {
+ 192     let stored = archive
+ 193         .bytes(&ArchiveMemberName::from("values.npy"))
+ 194         .unwrap();
+ 195     assert!(matches!(&stored, Cow::Borrowed(_)));
+ 196     assert_eq!(
+ 197         stored.as_ptr(),
+ 198         archive
+ 199             .bytes(&ArchiveMemberName::from("values.npy"))
+ 200             .unwrap()
+ 201             .as_ptr()
+ 202     );
+ 203     assert!(matches!(
+ 204         archive
+ 205             .bytes(&ArchiveMemberName::from("second.npy"))
+ 206             .unwrap(),
+ 207         Cow::Owned(_)
+ 208     ));
+ 209     assert_eq!(
+ 210         npz.keys().map(|name| name.to_string()).collect::<Vec<_>>(),
+ 211         ["values", "second"]
+ 212     );
+ 213     assert_eq!(
+ 214         npz.array(&NpzArrayName::new("values"))
+ 215             .unwrap()
+ 216             .shape()
+ 217             .dimensions(),
+ 218         [fabelgeist_numpy_storage::NpyDimension::from(4)]
+ 219     );
+ 220     assert_eq!(
+ 221         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 222             &npz.array(&NpzArrayName::new("values")).unwrap()
+ 223         ))
+ 224         .iter()
+ 225         .map(|v| v.to_bits())
+ 226         .collect::<Vec<_>>(),
+ 227         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
+ 228     );
+ 229     assert_eq!(
+ 230         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 231             &npz.array(&NpzArrayName::new("second")).unwrap()
+ 232         )),
+ 233         [5.0, 6.0, 7.0, 8.0]
+ 234     );
+ 235 }
+ 236 
+ 237 #[test]
+ 238 fn owned_and_mapped_archives_keep_borrowed_and_decoded_members() {
+ 239     let bytes = fixture("stored-deflated");
+ 240     assert_member_storage_and_values(
+ 241         &ZipArchive::from_bytes(bytes.to_vec()).unwrap(),
+ 242         &Npz::from_bytes(bytes.to_vec()).unwrap(),
+ 243     );
+ 244     let path = std::env::temp_dir().join(format!(
+ 245         "zip-record-kinds-test-{}-{}.zip",
+ 246         std::process::id(),
+ 247         std::time::SystemTime::now()
+ 248             .duration_since(std::time::UNIX_EPOCH)
+ 249             .unwrap()
+ 250             .as_nanos(),
+ 251     ));
+ 252     std::fs::write(&path, bytes).unwrap();
+ 253     assert_member_storage_and_values(
+ 254         &ZipArchive::open(&path).unwrap(),
+ 255         &Npz::open(&path).unwrap(),
+ 256     );
+ 257     std::fs::remove_file(path).unwrap();
+ 258 }
+ 259 
+ 260 #[test]
+ 261 fn duplicate_and_disagreeing_headers_keep_member_semantics() {
+ 262     let bytes = fixture("duplicate-members");
+ 263     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
+ 264     assert_eq!(
+ 265         archive
+ 266             .names()
+ 267             .map(|name| name.to_string())
+ 268             .collect::<Vec<_>>(),
+ 269         ["values.npy", "values.npy"]
+ 270     );
+ 271     assert!(matches!(
+ 272         archive
+ 273             .bytes(&ArchiveMemberName::from("values.npy"))
+ 274             .unwrap(),
+ 275         Cow::Borrowed(_)
+ 276     ));
+ 277     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 278     assert_eq!(
+ 279         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 280             &npz.array(&NpzArrayName::new("values")).unwrap()
+ 281         ))[0],
+ 282         1.0
+ 283     );
+ 284     for label in [
+ 285         "stored-central-deflate-local",
+ 286         "deflate-central-stored-local",
+ 287         "different-local-name-extra",
+ 288         "zip64-entry-extra",
+ 289     ] {
+ 290         let archive = ZipArchive::from_bytes(fixture(label).to_vec()).unwrap();
+ 291         assert_eq!(
+ 292             archive.uncompressed_size(&ArchiveMemberName::from("values.npy")),
+ 293             Some(DeclaredUncompressedByteLength::from_bytes(96))
+ 294         );
+ 295         assert_eq!(
+ 296             matches!(
+ 297                 archive
+ 298                     .bytes(&ArchiveMemberName::from("values.npy"))
+ 299                     .unwrap(),
+ 300                 Cow::Owned(_)
+ 301             ),
+ 302             label == "deflate-central-stored-local"
+ 303         );
+ 304         let npz = Npz::from_bytes(fixture(label).to_vec()).unwrap();
+ 305         assert_eq!(
+ 306             Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 307                 &npz.array(&NpzArrayName::new("values")).unwrap()
+ 308             ))[0],
+ 309             1.0,
+ 310             "{label}"
+ 311         );
+ 312     }
+ 313 }
+ 314 
+ 315 #[test]
+ 316 fn malformed_name_frame_returns_a_structural_error() {
+ 317     assert!(matches!(
+ 318         ZipArchive::from_bytes(fixture("central-name-overrun").to_vec()),
+ 319         Err(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 320     ));
+ 321 }

@@ -1,0 +1,24 @@
+   1 //! Strategic skyline admission shares the existing static city assembly.
+   2 use super::*;
+   3 
+   4 pub(crate) fn queue_strategic_city(
+   5     commands: &mut Commands,
+   6     input: &TacticalSceneInput,
+   7     occupied: &[adventuresim_tactical_core::scene_input::GeneratedBuilding],
+   8 ) {
+   9     let placements = input
+  10         .distant_buildings
+  11         .iter()
+  12         .filter(|placement| {
+  13             !occupied
+  14                 .iter()
+  15                 .any(|building| building.placement.id == placement.id)
+  16         })
+  17         .copied()
+  18         .collect::<Vec<_>>();
+  19     commands.insert_resource(StreamCityTraffic);
+  20     commands.insert_resource(PendingCityBuildings::new(
+  21         &placements,
+  22         &input.establishments,
+  23     ));
+  24 }

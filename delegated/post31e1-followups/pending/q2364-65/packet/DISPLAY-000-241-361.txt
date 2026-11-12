@@ -1,0 +1,121 @@
+ 241         assert_eq!(
+ 242             npz.as_ref()
+ 243                 .map(|npz| npz.names().map(|name| name.to_string()).collect::<Vec<_>>())
+ 244                 .map_err(|error| matches!(
+ 245                     error.downcast_ref::<fabelgeist_numpy_storage::zip::ZipReadError>(),
+ 246                     Some(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 247                 )),
+ 248             case.names
+ 249                 .map(|names| names
+ 250                     .iter()
+ 251                     .map(|name| name.to_string())
+ 252                     .collect::<Vec<_>>())
+ 253                 .ok_or(true),
+ 254             "{}",
+ 255             case.label
+ 256         );
+ 257         let expected_keys = case
+ 258             .names
+ 259             .map(|names| {
+ 260                 names
+ 261                     .iter()
+ 262                     .map(|name| name.strip_suffix(".npy").unwrap().to_owned())
+ 263                     .collect::<Vec<_>>()
+ 264             })
+ 265             .ok_or(true);
+ 266         assert_eq!(
+ 267             npz.as_ref()
+ 268                 .map(|npz| npz.keys().map(|name| name.to_string()).collect::<Vec<_>>())
+ 269                 .map_err(|error| matches!(
+ 270                     error.downcast_ref::<fabelgeist_numpy_storage::zip::ZipReadError>(),
+ 271                     Some(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 272                 )),
+ 273             expected_keys,
+ 274             "{}",
+ 275             case.label
+ 276         );
+ 277     }
+ 278 }
+ 279 
+ 280 #[test]
+ 281 fn inconsistent_zip64_count_is_rejected_for_owned_and_mapped_archives() {
+ 282     let bytes = include_bytes!("fixtures/member-count/zip64-18446744073709551615.zip");
+ 283     assert!(matches!(
+ 284         ZipArchive::from_bytes(bytes.to_vec()),
+ 285         Err(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 286     ));
+ 287     assert!(Npz::from_bytes(bytes.to_vec()).is_err());
+ 288     let path = std::env::temp_dir().join(format!(
+ 289         "zip-member-count-test-{}-{}.zip",
+ 290         std::process::id(),
+ 291         std::time::SystemTime::now()
+ 292             .duration_since(std::time::UNIX_EPOCH)
+ 293             .unwrap()
+ 294             .as_nanos()
+ 295     ));
+ 296     std::fs::write(&path, bytes).unwrap();
+ 297     assert!(matches!(
+ 298         ZipArchive::open(&path),
+ 299         Err(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 300     ));
+ 301     assert!(Npz::open(&path).is_err());
+ 302     std::fs::remove_file(path).unwrap();
+ 303     let bytes = include_bytes!("fixtures/member-count/ordinary-1-local-mismatch.zip");
+ 304     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
+ 305     assert_eq!(
+ 306         archive
+ 307             .bytes(&ArchiveMemberName::from("values.npy"))
+ 308             .unwrap_err()
+ 309             .to_string(),
+ 310         "corrupt zip entry values.npy"
+ 311     );
+ 312     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 313     assert_eq!(
+ 314         npz.array(&NpzArrayName::new("values"))
+ 315             .err()
+ 316             .unwrap()
+ 317             .to_string(),
+ 318         "corrupt zip entry values.npy"
+ 319     );
+ 320 }
+ 321 
+ 322 #[test]
+ 323 fn capacity_cap_does_not_limit_real_members_or_change_duplicate_selection() {
+ 324     let bytes = include_bytes!("fixtures/member-count/beyond-initial-capacity.zip");
+ 325     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
+ 326     assert_eq!(archive.names().count(), 4097);
+ 327     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 328     assert_eq!(npz.keys().count(), 4097);
+ 329     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
+ 330     let archive = ZipArchive::from_bytes(bytes.to_vec()).unwrap();
+ 331     assert_eq!(
+ 332         archive
+ 333             .names()
+ 334             .map(|name| name.to_string())
+ 335             .collect::<Vec<_>>(),
+ 336         ["values.npy", "values.npy"]
+ 337     );
+ 338     assert!(matches!(
+ 339         archive
+ 340             .bytes(&ArchiveMemberName::from("values.npy"))
+ 341             .unwrap(),
+ 342         Cow::Borrowed(_)
+ 343     ));
+ 344     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 345     assert_eq!(
+ 346         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 347             &npz.array(&NpzArrayName::new("values")).unwrap()
+ 348         ))[0],
+ 349         1.0
+ 350     );
+ 351 }
+ 352 
+ 353 #[test]
+ 354 fn nonzero_count_rejects_a_malformed_name_frame() {
+ 355     assert!(matches!(
+ 356         ZipArchive::from_bytes(
+ 357             include_bytes!("fixtures/member-count/central-name-overrun.zip").to_vec(),
+ 358         ),
+ 359         Err(fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. })
+ 360     ));
+ 361 }

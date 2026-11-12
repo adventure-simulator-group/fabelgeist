@@ -1,0 +1,61 @@
+ 125                 building.placement.centre_metres = centre.translated(centering)?;
+ 126                 relocation.after = building.transform()?;
+ 127             }
+ 128         }
+ 129         relocate_interior_furniture(&mut generated.furniture, &moves)?;
+ 130         Ok(street)
+ 131     }
+ 132 
+ 133     pub(super) fn camera(&self) -> Transform {
+ 134         let target = self.front.metres() + Vec3::Y * self.height * FRAME_CENTRE_HEIGHT_FRACTION;
+ 135         Transform::from_translation(
+ 136             self.front.metres() + Vec3::new(0.0, EYE_HEIGHT_METRES, self.distance()),
+ 137         )
+ 138         .looking_at(target, Vec3::Y)
+ 139     }
+ 140 
+ 141     pub(super) fn vertical_fov(&self) -> f32 {
+ 142         2.0 * (self.height * 0.5 / self.distance()).atan()
+ 143     }
+ 144 
+ 145     pub(super) fn spawn_ground(&self, commands: &mut Commands, root: Entity) {
+ 146         commands.spawn((StreetGround(self.clone()), ChildOf(root)));
+ 147     }
+ 148     fn distance(&self) -> f32 {
+ 149         // Keep a normal horizontal lens across the wide strip, rather than an
+ 150         // extreme wide-angle lens obtained by retaining the old vertical FOV.
+ 151         let fov = crate::presentation::TacticalCameraSetup::default()
+ 152             .vertical_fov_degrees
+ 153             .to_radians();
+ 154         self.width.max(MINIMUM_BAY_METRES) * 0.5 / (fov * 0.5).tan()
+ 155     }
+ 156 }
+ 157 
+ 158 pub(super) fn build_ground(
+ 159     mut commands: Commands,
+ 160     grounds: Query<(Entity, &StreetGround), Added<StreetGround>>,
+ 161     mut meshes: ResMut<Assets<Mesh>>,
+ 162     mut materials: ResMut<Assets<StandardMaterial>>,
+ 163 ) {
+ 164     for (entity, ground) in &grounds {
+ 165         let street = &ground.0;
+ 166         commands.entity(entity).insert((
+ 167             Mesh3d(
+ 168                 meshes.add(
+ 169                     Plane3d::default()
+ 170                         .mesh()
+ 171                         .size(street.width + GROUND_DEPTH_METRES, GROUND_DEPTH_METRES),
+ 172                 ),
+ 173             ),
+ 174             MeshMaterial3d(materials.add(StandardMaterial {
+ 175                 base_color: Color::srgb(0.25, 0.23, 0.19),
+ 176                 perceptual_roughness: 1.0,
+ 177                 ..default()
+ 178             })),
+ 179             Transform::from_translation(street.front.metres() + Vec3::Y * 0.01),
+ 180         ));
+ 181     }
+ 182 }
+ 183 
+ 184 fn relocate_interior_furniture(
+ 185     furniture: &mut FurnitureLayout,

@@ -1,0 +1,121 @@
+ 165 }
+ 166 
+ 167 fn tactical_tonemapping(tonemapping: TonemappingConfig) -> Tonemapping {
+ 168     match tonemapping {
+ 169         TonemappingConfig::None => Tonemapping::None,
+ 170         TonemappingConfig::AcesFitted => Tonemapping::AcesFitted,
+ 171         TonemappingConfig::AgX => Tonemapping::AgX,
+ 172         TonemappingConfig::TonyMcMapface => Tonemapping::TonyMcMapface,
+ 173     }
+ 174 }
+ 175 
+ 176 #[derive(Resource, Clone, Copy)]
+ 177 pub(crate) struct TacticalCameraSetup {
+ 178     pub(crate) translation: Vec3,
+ 179     pub(crate) direction: Vec3,
+ 180     pub(crate) vertical_fov_degrees: f32,
+ 181 }
+ 182 
+ 183 /// Identifies the one interactive tactical camera. Initialization-only
+ 184 /// atmosphere face cameras deliberately omit this marker.
+ 185 #[derive(Component)]
+ 186 pub(crate) struct TacticalGameplayCamera;
+ 187 
+ 188 /// Retained geographic camera; independent of actor-scene installation.
+ 189 #[derive(Component)]
+ 190 pub(crate) struct RegionalMapCamera;
+ 191 
+ 192 impl Default for TacticalCameraSetup {
+ 193     fn default() -> Self {
+ 194         Self {
+ 195             translation: Vec3::ZERO,
+ 196             direction: Vec3::NEG_Z,
+ 197             vertical_fov_degrees: 80.0,
+ 198         }
+ 199     }
+ 200 }
+ 201 
+ 202 pub(in crate::presentation) fn setup_tactical_presentation(
+ 203     mut commands: Commands,
+ 204     mut scattering_mediums: ResMut<Assets<ScatteringMedium>>,
+ 205     settings: Res<TacticalGraphicsSettings>,
+ 206     camera_setup: Res<TacticalCameraSetup>,
+ 207 ) {
+ 208     if settings.config.rendering.atmosphere.enabled {
+ 209         commands.spawn(Atmosphere::earth(
+ 210             scattering_mediums.add(ScatteringMedium::default()),
+ 211         ));
+ 212     }
+ 213 
+ 214     let mut camera = commands.spawn((
+ 215         Name::new("Tactical gameplay camera"),
+ 216         TacticalGameplayCamera,
+ 217         Camera3d::default(),
+ 218         Projection::Perspective(PerspectiveProjection {
+ 219             fov: camera_setup.vertical_fov_degrees.to_radians(),
+ 220             far: 60_000.0,
+ 221             ..default()
+ 222         }),
+ 223         Transform::from_translation(camera_setup.translation)
+ 224             .looking_to(camera_setup.direction, Vec3::Y),
+ 225         Exposure::SUNLIGHT,
+ 226         tactical_tonemapping(settings.config.rendering.tonemapping),
+ 227         DistanceFog {
+ 228             color: Color::srgb_u8(188, 201, 207),
+ 229             falloff: FogFalloff::Linear {
+ 230                 start: 30_000.0,
+ 231                 end: 50_000.0,
+ 232             },
+ 233             ..default()
+ 234         },
+ 235         tactical_msaa(settings.config.rendering.anti_aliasing),
+ 236     ));
+ 237     match settings.config.rendering.anti_aliasing {
+ 238         AntiAliasingConfig::Fxaa => {
+ 239             camera.insert(bevy::anti_alias::fxaa::Fxaa::default());
+ 240         }
+ 241         AntiAliasingConfig::Smaa { quality } => {
+ 242             use bevy::anti_alias::smaa::{Smaa, SmaaPreset};
+ 243             camera.insert(Smaa {
+ 244                 preset: match quality {
+ 245                     SmaaQuality::Low => SmaaPreset::Low,
+ 246                     SmaaQuality::Medium => SmaaPreset::Medium,
+ 247                     SmaaQuality::High => SmaaPreset::High,
+ 248                     SmaaQuality::Ultra => SmaaPreset::Ultra,
+ 249                 },
+ 250             });
+ 251         }
+ 252         AntiAliasingConfig::Off | AntiAliasingConfig::Msaa { .. } => {}
+ 253     }
+ 254     camera.insert(match settings.config.rendering.shadows.filtering {
+ 255         ShadowFiltering::Hardware2x2 => bevy::light::ShadowFilteringMethod::Hardware2x2,
+ 256         ShadowFiltering::Gaussian => bevy::light::ShadowFilteringMethod::Gaussian,
+ 257     });
+ 258     if settings.config.rendering.atmosphere.enabled {
+ 259         // The live atmosphere owns sky and direct-light transport. Its separate
+ 260         // bake probe produces the cached EnvironmentMapLight; the camera must
+ 261         // not also carry an AtmosphereEnvironmentMapLight producer.
+ 262         camera.insert(AtmosphereSettings::default());
+ 263     }
+ 264     if settings.config.rendering.bloom.enabled {
+ 265         camera.insert(Bloom::NATURAL);
+ 266     }
+ 267 }
+ 268 
+ 269 pub(super) fn apply_active_environment_fog(
+ 270     active: Res<ActiveTacticalScene>,
+ 271     environments: Query<Ref<SceneEnvironment>>,
+ 272     mut fog: Single<&mut DistanceFog, With<TacticalGameplayCamera>>,
+ 273 ) {
+ 274     let Some(entity) = active.entity else {
+ 275         return;
+ 276     };
+ 277     let Ok(environment) = environments.get(entity) else {
+ 278         return;
+ 279     };
+ 280     if !active.is_changed() && !environment.is_changed() {
+ 281         return;
+ 282     }
+ 283     **fog = scene_distance_fog(&environment);
+ 284 }
+ 285 

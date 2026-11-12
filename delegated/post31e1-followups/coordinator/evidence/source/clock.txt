@@ -1,0 +1,36 @@
+--- crates/adventuresim-stdb-module/src/time/clock.rs:1-31 ---
+    1 // Owns official and personal clock initialization, refresh, and family-clock propagation.
+    2 pub fn initialize_time(ctx: &ReducerContext) {
+    3     if ctx.db.world_clock().id().find(0).is_none() {
+    4         ctx.db.world_clock().insert(WorldClock {
+    5             id: 0,
+    6             official_minutes: WORLD_START_MINUTE,
+    7             epoch_micros: ctx.timestamp.to_micros_since_unix_epoch(),
+    8         });
+    9     }
+   10 }
+   11 
+   12 pub fn refresh_clock(ctx: &ReducerContext) -> Result<StrategicMinute, String> {
+   13     if ctx.db.world_clock().id().find(0).is_none() {
+   14         initialize_time(ctx);
+   15     }
+   16     let mut clock = ctx
+   17         .db
+   18         .world_clock()
+   19         .id()
+   20         .find(0)
+   21         .ok_or_else(|| "World clock is not initialized".to_string())?;
+   22     let official_minutes = calculate_official_minute(
+   23         clock.epoch_micros,
+   24         ctx.timestamp.to_micros_since_unix_epoch(),
+   25     );
+   26     if official_minutes != clock.official_minutes {
+   27         clock.official_minutes = official_minutes;
+   28         ctx.db.world_clock().id().update(clock);
+   29     }
+   30     Ok(official_minutes)
+   31 }
+--- crates/adventuresim-stdb-module/src/time/clock.rs:125-127 ---
+  125 pub fn initialize_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+  126     ensure_character_time(ctx, character_id)
+  127 }

@@ -1,0 +1,10 @@
+{
+  "classification": "Current source-derived conditional native asset admission failure; generated correct assets exclude the malformed recipe/channel case, no observed runtime incident",
+  "first_failed_contract": "BakedRecipe::from_bytes validates map shapes and unique channels but does not establish that a channel belongs to its declared recipe before RuntimeTextureLoader admits it as RuntimeTextureRecipe. The installation consumer requires every supplied map channel to have a reserved destination for that same recipe.",
+  "canonical_owner": "One TextureRecipeId-owned required/allowed map-channel contract, consumed at BakedRecipe/runtime asset admission and ProceduralTextureAssets::reserve; exact required-versus-allowed sparse map policy remains explicit.",
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "runtime_validation": "Not run; audit-only source conditional",
+  "repair_status": "Not started; audit-only",
+  "exact_global_alias_inventory_complete": false
+}

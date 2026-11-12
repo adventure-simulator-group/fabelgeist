@@ -1,0 +1,51 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npy.rs:61-110
+  61             "=i8" | "i8" if cfg!(target_endian = "little") => Dtype::I64,
+  62             "|u1" | "u1" => Dtype::U8,
+  63             "|b1" | "b1" => Dtype::Bool,
+  64             other => bail!("unsupported NumPy dtype {other:?}"),
+  65         })
+  66     }
+  67 
+  68     pub fn storage_width(self) -> NpyElementWidth {
+  69         match self {
+  70             Dtype::U8 | Dtype::Bool => NpyElementWidth::Byte,
+  71             Dtype::F32 | Dtype::I32 => NpyElementWidth::Word32,
+  72             Dtype::F64 | Dtype::I64 => NpyElementWidth::Word64,
+  73         }
+  74     }
+  75 }
+  76 
+  77 impl NpyArray {
+  78     pub fn shape(&self) -> &NpyShape {
+  79         &self.shape
+  80     }
+  81     pub fn dtype(&self) -> Dtype {
+  82         self.dtype
+  83     }
+  84     pub fn element_count(&self) -> NpyElementCount {
+  85         self.shape.element_count()
+  86     }
+  87     pub fn is_empty(&self) -> bool {
+  88         self.element_count().is_empty()
+  89     }
+  90 
+  91     /// Element bytes, exactly as stored.
+  92     pub fn bytes(&self) -> &[u8] {
+  93         &self.bytes
+  94     }
+  95 
+  96     /// Uploads the array to a device as a float tensor.
+  97     pub fn to_tensor<const D: usize>(
+  98         &self,
+  99         device: &Device,
+ 100     ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
+ 101         let layout = NpyTensorLayout::<D>::try_from(&self.shape)?;
+ 102         NpyFloat32Values::from(self).into_tensor(layout, device)
+ 103     }
+ 104 
+ 105     /// Uploads the array to a device as an integer tensor.
+ 106     pub fn to_int_tensor<const D: usize>(
+ 107         &self,
+ 108         device: &Device,
+ 109     ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
+ 110         let dimensions = NpyTensorLayout::<D>::try_from(&self.shape)?;

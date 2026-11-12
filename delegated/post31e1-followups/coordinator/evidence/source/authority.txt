@@ -1,0 +1,38 @@
+--- crates/adventuresim-stdb-module/src/strategic/authority_model.rs:598-605 ---
+  598 #[derive(Clone, Debug, Default, PartialEq, SpacetimeType)]
+  599 pub struct JourneyCampInterval {
+  600     pub movement_minute: u64,
+  601     pub elapsed_start_minute: u64,
+  602     pub elapsed_minutes: u64,
+  603     pub average_fatigue_start: f32,
+  604     pub average_fatigue_end: f32,
+  605     pub maximum_fatigue_end: f32,
+--- crates/adventuresim-stdb-module/src/strategic/authority_model.rs:643-670 ---
+  643 /// The durable strategic record behind the travel tracker. Party location
+  644 /// answers where the party is right now; this record retains the journey's
+  645 /// original endpoints, completed camp stops, and authoritative forecast.
+  646 #[derive(Clone, Debug)]
+  647 #[table(accessor = party_journey_authority)]
+  648 pub struct PartyJourney {
+  649     #[primary_key]
+  650     pub party_id: String,
+  651     #[index(btree)]
+  652     pub gateway_bucket: u8,
+  653     pub origin: JourneyEndpoint,
+  654     pub destination: JourneyEndpoint,
+  655     pub total_movement_minutes: u64,
+  656     pub completed_movement_minutes: u64,
+  657     /// Movement coordinates for camps the party has actually reached.
+  658     pub reached_camp_movement_minutes: Vec<u64>,
+  659     pub actual_camp_intervals: Vec<JourneyCampInterval>,
+  660     pub forecast_camp_intervals: Vec<JourneyCampInterval>,
+  661     /// A journey keeps the leader's chosen threshold from departure.
+  662     pub fatigue_percent: u8,
+  663     /// Journey-local minute at the beginning of this leg, represented on the
+  664     /// excursion's frozen canonical day. `completed_elapsed_minutes` remains
+  665     /// the monotonic progress coordinate for this leg.
+  666     pub departure_minute: StrategicMinute,
+  667     pub total_elapsed_minutes: u64,
+  668     pub completed_elapsed_minutes: u64,
+  669     pub walking_minutes_per_day: u16,
+  670     pub travel_at_night: bool,

@@ -1,0 +1,107 @@
+   1 //! Checked animation measurements shared by configuration and presentation.
+   2 
+   3 use super::{
+   4     AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+   5 };
+   6 use adventuresim_building_generator::spatial_geometry::PositiveLength;
+   7 use bevy::math::FloatExt;
+   8 use serde::{Deserialize, Serialize};
+   9 
+  10 #[derive(
+  11     Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
+  12 )]
+  13 #[serde(try_from = "f32", into = "f32")]
+  14 pub struct NonnegativeLength(f32);
+  15 
+  16 /// Positive elapsed seconds for action durations, divisors and decay lengths.
+  17 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
+  18 #[serde(try_from = "f32", into = "f32")]
+  19 #[into(f32)]
+  20 pub struct PositiveAnimationDuration(AnimationElapsed);
+  21 
+  22 impl NonnegativeLength {
+  23     pub const ZERO: Self = Self(0.0);
+  24     pub const fn from_metres(value: f32) -> AnimationValueResult<Self> {
+  25         match checked_nonnegative(value, AnimationQuantity::Length) {
+  26             Ok(value) => Ok(Self(value)),
+  27             Err(error) => Err(error),
+  28         }
+  29     }
+  30     /// Admit a completed nonnegative distance computation before retaining it.
+  31     pub fn from_arithmetic(value: f32) -> AnimationValueResult<Self> {
+  32         if !value.is_finite() {
+  33             return Err(AnimationValueError::Overflow {
+  34                 quantity: AnimationQuantity::Length,
+  35             });
+  36         }
+  37         Self::from_metres(value)
+  38     }
+  39     pub fn metres(self) -> f32 {
+  40         self.0
+  41     }
+  42     /// Metre scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+  43     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+  44         Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
+  45     }
+  46     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
+  47     pub fn half(self) -> Self {
+  48         Self(self.0 * 0.5)
+  49     }
+  50 }
+  51 impl PositiveAnimationDuration {
+  52     pub fn from_elapsed(value: AnimationElapsed) -> AnimationValueResult<Self> {
+  53         if value.is_zero() {
+  54             return Err(AnimationValueError::NonPositive {
+  55                 quantity: AnimationQuantity::Elapsed,
+  56             });
+  57         }
+  58         Ok(Self(value))
+  59     }
+  60     /// Duration covered by a native count of fixed sample intervals.
+  61     pub fn sample_span(self, intervals: u32) -> AnimationValueResult<AnimationElapsed> {
+  62         let seconds = self.seconds() * intervals as f32;
+  63         if !seconds.is_finite() {
+  64             return Err(AnimationValueError::Overflow {
+  65                 quantity: AnimationQuantity::Elapsed,
+  66             });
+  67         }
+  68         Ok(AnimationElapsed::from_seconds(seconds)?)
+  69     }
+  70     pub fn elapsed(self) -> AnimationElapsed {
+  71         self.0
+  72     }
+  73     pub fn seconds(self) -> f32 {
+  74         self.0.seconds()
+  75     }
+  76 }
+  77 impl From<PositiveLength> for NonnegativeLength {
+  78     fn from(value: PositiveLength) -> Self {
+  79         Self(value.metres())
+  80     }
+  81 }
+  82 impl TryFrom<f32> for NonnegativeLength {
+  83     type Error = AnimationValueError;
+  84     fn try_from(value: f32) -> AnimationValueResult<Self> {
+  85         Self::from_metres(value)
+  86     }
+  87 }
+  88 
+  89 impl TryFrom<f32> for PositiveAnimationDuration {
+  90     type Error = AnimationValueError;
+  91     fn try_from(value: f32) -> AnimationValueResult<Self> {
+  92         Self::from_elapsed(AnimationElapsed::from_seconds(value)?)
+  93     }
+  94 }
+  95 
+  96 pub(super) const fn checked_nonnegative(
+  97     value: f32,
+  98     quantity: AnimationQuantity,
+  99 ) -> AnimationValueResult<f32> {
+ 100     if !value.is_finite() {
+ 101         return Err(AnimationValueError::NonFinite { quantity });
+ 102     }
+ 103     if value < 0.0 {
+ 104         return Err(AnimationValueError::Negative { quantity });
+ 105     }
+ 106     Ok(value)
+ 107 }

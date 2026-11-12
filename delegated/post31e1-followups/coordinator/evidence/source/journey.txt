@@ -1,0 +1,137 @@
+--- crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:175-190 ---
+  175     ctx.db.party_journey_authority().insert(PartyJourney {
+  176         party_id: party.id.clone(),
+  177         gateway_bucket: 0,
+  178         origin,
+  179         destination,
+  180         total_movement_minutes,
+  181         completed_movement_minutes: 0,
+  182         reached_camp_movement_minutes: Vec::new(),
+  183         actual_camp_intervals: Vec::new(),
+  184         forecast_camp_intervals: itinerary_camps(&itinerary),
+  185         fatigue_percent,
+  186         departure_minute,
+  187         total_elapsed_minutes: itinerary.total_elapsed_minutes,
+  188         completed_elapsed_minutes: 0,
+  189         walking_minutes_per_day: party.walking_minutes_per_day,
+  190         travel_at_night: party.travel_at_night,
+--- crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:223-249 ---
+  223 fn record_party_journey_camp(
+  224     ctx: &ReducerContext,
+  225     party_id: &str,
+  226     leg_minutes: u64,
+  227 ) -> Result<(), String> {
+  228     let Some(mut journey) = ctx
+  229         .db
+  230         .party_journey_authority()
+  231         .party_id()
+  232         .find(party_id.to_string())
+  233     else {
+  234         return Ok(());
+  235     };
+  236     journey.completed_movement_minutes = journey
+  237         .completed_movement_minutes
+  238         .saturating_add(leg_minutes)
+  239         .min(journey.total_movement_minutes);
+  240     journey.completed_elapsed_minutes = journey
+  241         .completed_elapsed_minutes
+  242         .saturating_add(leg_minutes);
+  243     if journey.reached_camp_movement_minutes.last() != Some(&journey.completed_movement_minutes) {
+  244         journey
+  245             .reached_camp_movement_minutes
+  246             .push(journey.completed_movement_minutes);
+  247     }
+  248     ctx.db.party_journey_authority().party_id().update(journey);
+  249     bind_errantry_trials_to_current_camp(ctx, party_id)?;
+--- crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:262-308 ---
+  262 pub(crate) fn party_journey_is_current_camp(party: &Party, journey: &PartyJourney) -> bool {
+  263     party_journey_is_active(party, journey)
+  264         && journey
+  265             .reached_camp_movement_minutes
+  266             .contains(&journey.completed_movement_minutes)
+  267 }
+  268 
+  269 /// A resolved interruption or an ordinary walking boundary remains an active
+  270 /// journey location, but it is not a durable camp and therefore owns no camp
+  271 /// fireplace custody.
+  272 pub(crate) fn party_journey_is_between_camps(party: &Party, journey: &PartyJourney) -> bool {
+  273     party_journey_is_active(party, journey)
+  274         && !journey
+  275             .reached_camp_movement_minutes
+  276             .contains(&journey.completed_movement_minutes)
+  277 }
+  278 
+  279 /// Canonical identity for the party's currently reached journey camp.
+  280 ///
+  281 /// The identity names the camp only. This adapter proves that the named camp
+  282 /// is the party's coherent current off-settlement location before returning
+  283 /// it to presence and fixture consumers.
+  284 pub(crate) fn current_journey_camp_place(
+  285     ctx: &ReducerContext,
+  286     party_id: &str,
+  287 ) -> Result<adventuresim_core::strategic_place::StrategicPlaceId, String> {
+  288     let party = ctx
+  289         .db
+  290         .party_authority()
+  291         .id()
+  292         .find(party_id.to_string())
+  293         .ok_or("Party not found")?;
+  294     let journey = ctx
+  295         .db
+  296         .party_journey_authority()
+  297         .party_id()
+  298         .find(party_id.to_string())
+  299         .ok_or("Journey camp not found")?;
+  300     if !party_journey_is_current_camp(&party, &journey) {
+  301         return Err("This is not the party's current journey camp".into());
+  302     }
+  303     adventuresim_core::strategic_place::StrategicPlaceId::journey_camp(
+  304         party_id,
+  305 journey.departure_minute,
+  306         journey.completed_movement_minutes,
+  307     )
+  308     .map_err(|_| "Journey camp has an invalid canonical identity".into())
+--- crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:722-764 ---
+  722 pub(crate) fn record_party_camp_rest(
+  723     ctx: &ReducerContext,
+  724     party_id: &str,
+  725     elapsed: u64,
+  726     average_start: f32,
+  727     average_end: f32,
+  728     maximum_end: f32,
+  729 ) -> Result<(), String> {
+  730     advance_party_wilderness_elapsed(ctx, party_id, elapsed)?;
+  731     let Some(mut journey) = ctx
+  732         .db
+  733         .party_journey_authority()
+  734         .party_id()
+  735         .find(party_id.to_string())
+  736     else {
+  737         return Ok(());
+  738     };
+  739     let start = journey.completed_elapsed_minutes;
+  740     journey.completed_elapsed_minutes = journey.completed_elapsed_minutes.saturating_add(elapsed);
+  741     if let Some(last) = journey.actual_camp_intervals.last_mut()
+  742         && last.movement_minute == journey.completed_movement_minutes
+  743         && last
+  744             .elapsed_start_minute
+  745             .saturating_add(last.elapsed_minutes)
+  746             == start
+  747     {
+  748         last.elapsed_minutes = last.elapsed_minutes.saturating_add(elapsed);
+  749         last.average_fatigue_end = average_end;
+  750         last.maximum_fatigue_end = maximum_end;
+  751     } else if journey.actual_camp_intervals.len() < MAX_ITINERARY_SEGMENTS {
+  752         journey.actual_camp_intervals.push(JourneyCampInterval {
+  753             movement_minute: journey.completed_movement_minutes,
+  754             elapsed_start_minute: start,
+  755             elapsed_minutes: elapsed,
+  756             average_fatigue_start: average_start,
+  757             average_fatigue_end: average_end,
+  758             maximum_fatigue_end: maximum_end,
+  759         });
+  760     } else {
+  761         return Err("Journey has too many camp checkpoints".into());
+  762     }
+  763     ctx.db.party_journey_authority().party_id().update(journey);
+  764     Ok(())

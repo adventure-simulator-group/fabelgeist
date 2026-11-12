@@ -1,0 +1,22 @@
+{
+  "script_sha256": "37db69bd2b5f6d6def3322ccd17c4dbf8f20fef72ba45c9150ae8d78291ffd4e",
+  "cases": [
+    {
+      "case": "portable",
+      "exit": 0,
+      "stdout_bytes": 116,
+      "stdout_sha256": "eb3751e71a344d7f887ecf5ea1f0640621642255c38c501485a88df1047d41fa",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "git",
+      "exit": 0,
+      "stdout_bytes": 206,
+      "stdout_sha256": "e1c7304d597f5465b38c52fbbcfaf39c062b088683ad3810bede05174d494fa6",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "The Git replay uses local objects on the same machine. It checks byte identity, not independent custody, opaque ciphertext contents or product behavior."
+}

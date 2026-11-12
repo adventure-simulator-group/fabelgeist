@@ -28,6 +28,21 @@ records same-machine recovery of the preceding published checkpoint.
 `delegated/post9e9e-followups/checkpoint-9e9e-recovery/RECOVERY-RECORD.json`
 records same-machine recovery of the preceding published checkpoint.
 
+`delegated/post31e1-followups/checkpoint-31e1-recovery/RECOVERY-RECORD.json`
+records same-machine recovery of checkpoint 31e1 with an identical transcript.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json` connects partial journey,
+disclosure and resident-age source assessments to their attributed history.
+The three packet families pending in the 14D snapshot received this partial
+review; no queue record or lens is thereby complete. Eight later delegated
+families remain pending in `delegated/post31e1-followups/PENDING-DELEGATES.json`.
+
+`delegated/post31e1-followups/privacy-correction/RECORD.json` records the
+initial scan exposure and path-safe successor. Exact omitted files and scan
+logs are encrypted with the separately held same-machine key.
+
+The following 14D paragraph describes its earlier time-bound snapshot.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json` connects bounded shader,
 admission, water, investigation and occupancy source work to its separately
 attributed history. Other delegated packets remain pending central review.

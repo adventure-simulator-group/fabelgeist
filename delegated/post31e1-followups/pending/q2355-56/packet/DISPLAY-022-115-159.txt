@@ -1,0 +1,45 @@
+ 115         FurnitureAnchor, FurnitureFootprint, FurnitureGroup, FurnitureGroupId, FurnitureGroupKind,
+ 116         FurnitureInstanceId, FurnitureLayout, FurnitureLocation, GeneratedFurniture,
+ 117         SceneFurniture, SceneFurnitureGroup, SceneVistaFurniture, furniture_collider,
+ 118     };
+ 119     pub use crate::scene_input::{
+ 120         BuildingOrientation, DistantBuildingPlacement, EnvironmentalSample, GardenPlantSupport,
+ 121         GeneratedBoundary, GeneratedBuilding, GeneratedObstacle, GeneratedTacticalScene,
+ 122         ROCK_RADIUS_METRES, RockArchetype, RockLithology, RockRecipe, SceneBoundary, SceneBuilding,
+ 123         SceneDoor, SceneEnvironment, SceneEnvironmentFixture, SceneEstablishment, SceneGarden,
+ 124         SceneInputError, SceneObstacle, SceneRepairReport, SceneSource, SceneWindow,
+ 125         TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+ 126         TREE_CANOPY_GROUND_RADIUS_METRES, TREE_TRUNK_HEIGHT_METRES, TREE_TRUNK_RADIUS_METRES,
+ 127         TacticalBuildingPlacement, TacticalSceneInput, TacticalSurface, TerrainSampleGrid,
+ 128         VistaLod, VistaSample,
+ 129     };
+ 130     pub use crate::terrain_transition::{
+ 131         CollarWidthVariation, RuptureWander, TerrainCollarParameters, TerrainTransitionCollar,
+ 132     };
+ 133     pub use crate::volumetric_terrain::{
+ 134         SceneTerrainPatch, TerrainGeologicStructure, TerrainLandformKind, TerrainLandformLod,
+ 135         TerrainLandformRecipe, TerrainSurfaceParameters, TerrainSurfacePreset,
+ 136         TerrainSurfaceRecipe, TerrainSurfaceSource, terrain_landform_patch,
+ 137     };
+ 138     pub use adventuresim_core::item_catalog;
+ 139     pub use adventuresim_core::item_catalog::{EquipmentChannel, EquipmentLocation};
+ 140     pub use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed, SignedSpeed};
+ 141     pub use adventuresim_core::prelude::*;
+ 142     pub use avian3d::prelude::*;
+ 143     pub use bevy_ahoy::{
+ 144         AhoySystems, CharacterController, CharacterControllerState, CharacterLook,
+ 145         camera::{CharacterControllerCamera, CharacterControllerCameraOf},
+ 146         input,
+ 147     };
+ 148     pub use bevy_enhanced_input::{self, prelude::*};
+ 149 }
+ 150 
+ 151 bevy::app::plugin_group! {
+ 152     #[derive(Debug)]
+ 153     pub struct AdventureSimulatorCorePlugins {
+ 154         physics:::AdventureSimulatorPhysicsPlugin,
+ 155     }
+ 156 }
+ 157 
+ 158 /// Canonical vista vertex heights and clipped cell topology.
+ 159 pub mod vista_surface;

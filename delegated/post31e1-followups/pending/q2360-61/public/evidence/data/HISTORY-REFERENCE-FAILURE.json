@@ -1,0 +1,4 @@
+{
+  "failure": "First path/hash locator incorrectly used the regex [a-f]{64}, excluding hexadecimal digits, and falsely reported zero references. Its output remains preserved and must not be interpreted as evidence of absence.",
+  "corrective_action": "A separately registered v2 locator uses [0-9a-f]{64}."
+}

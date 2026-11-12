@@ -1,0 +1,111 @@
+ 111             out.extend_from_slice(&(name.len() as u16).to_le_bytes());
+ 112             out.extend_from_slice(&0u16.to_le_bytes());
+ 113             out.extend_from_slice(name.as_bytes());
+ 114             out.write_all(payload).unwrap();
+ 115 
+ 116             directory.extend_from_slice(&CENTRAL_FILE_HEADER.to_le_bytes());
+ 117             directory.extend_from_slice(&[20, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+ 118             directory.extend_from_slice(&crc.to_le_bytes());
+ 119             directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 120             directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 121             directory.extend_from_slice(&(name.len() as u16).to_le_bytes());
+ 122             directory.extend_from_slice(&[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+ 123             directory.extend_from_slice(&offset.to_le_bytes());
+ 124             directory.extend_from_slice(name.as_bytes());
+ 125         }
+ 126 
+ 127         let directory_offset = out.len() as u32;
+ 128         let directory_size = directory.len() as u32;
+ 129         out.extend_from_slice(&directory);
+ 130         out.extend_from_slice(&END_OF_CENTRAL_DIRECTORY.to_le_bytes());
+ 131         out.extend_from_slice(&[0, 0, 0, 0]);
+ 132         out.extend_from_slice(&(members.len() as u16).to_le_bytes());
+ 133         out.extend_from_slice(&(members.len() as u16).to_le_bytes());
+ 134         out.extend_from_slice(&directory_size.to_le_bytes());
+ 135         out.extend_from_slice(&directory_offset.to_le_bytes());
+ 136         out.extend_from_slice(&[0, 0]);
+ 137         out
+ 138     }
+ 139 
+ 140     fn write_temp(bytes: &[u8]) -> std::path::PathBuf {
+ 141         let path = std::env::temp_dir().join(format!(
+ 142             "fabelgeist-numpy-storage-{}.npz",
+ 143             std::time::SystemTime::now()
+ 144                 .duration_since(std::time::UNIX_EPOCH)
+ 145                 .unwrap()
+ 146                 .as_nanos()
+ 147         ));
+ 148         std::fs::write(&path, bytes).unwrap();
+ 149         path
+ 150     }
+ 151 
+ 152     #[test]
+ 153     fn reads_stored_members() {
+ 154         let payload: Vec<u8> = [1.0f32, 2.0, 3.0, 4.0]
+ 155             .iter()
+ 156             .flat_map(|v| v.to_le_bytes())
+ 157             .collect();
+ 158         let archive = zip(&[
+ 159             (
+ 160                 "weights.npy",
+ 161                 crate::npy::tests::encode("<f4", "2, 2", &payload),
+ 162             ),
+ 163             (
+ 164                 "indices.npy",
+ 165                 crate::npy::tests::encode(
+ 166                     "<i8",
+ 167                     "2,",
+ 168                     &[7i64, 9]
+ 169                         .iter()
+ 170                         .flat_map(|v| v.to_le_bytes())
+ 171                         .collect::<Vec<_>>(),
+ 172                 ),
+ 173             ),
+ 174         ]);
+ 175 
+ 176         let path = write_temp(&archive);
+ 177         let npz = Npz::open(&path).unwrap();
+ 178         assert_eq!(
+ 179             npz.keys().map(|name| name.to_string()).collect::<Vec<_>>(),
+ 180             ["weights", "indices"]
+ 181         );
+ 182         assert!(npz.get(&NpzArrayName::new("weights")).is_some());
+ 183         assert!(npz.get(&NpzArrayName::new("weights.npy")).is_some());
+ 184         assert!(npz.get(&NpzArrayName::new("missing")).is_none());
+ 185 
+ 186         let weights = npz.array(&NpzArrayName::new("weights")).unwrap();
+ 187         assert_eq!(
+ 188             weights.shape().dimensions(),
+ 189             [crate::NpyDimension::from(2); 2]
+ 190         );
+ 191         assert_eq!(
+ 192             Vec::<f32>::from(crate::NpyFloat32Values::from(&weights)),
+ 193             [1.0, 2.0, 3.0, 4.0]
+ 194         );
+ 195         assert_eq!(
+ 196             Vec::<i64>::from(crate::NpyIntegerValues::from(
+ 197                 &npz.array(&NpzArrayName::new("indices")).unwrap()
+ 198             )),
+ 199             [7, 9]
+ 200         );
+ 201 
+ 202         let memory_npz = Npz::from_bytes(archive).unwrap();
+ 203         assert_eq!(
+ 204             Vec::<f32>::from(crate::NpyFloat32Values::from(
+ 205                 &memory_npz.array(&NpzArrayName::new("weights")).unwrap()
+ 206             )),
+ 207             [1.0, 2.0, 3.0, 4.0]
+ 208         );
+ 209 
+ 210         std::fs::remove_file(path).ok();
+ 211     }
+ 212 
+ 213     #[test]
+ 214     fn reports_a_missing_member() {
+ 215         let archive = zip(&[("a.npy", crate::npy::tests::encode("<f4", "1,", &[0; 4]))]);
+ 216         let path = write_temp(&archive);
+ 217         let npz = Npz::open(&path).unwrap();
+ 218         assert!(npz.array(&NpzArrayName::new("b")).is_err());
+ 219         std::fs::remove_file(path).ok();
+ 220     }
+ 221 }

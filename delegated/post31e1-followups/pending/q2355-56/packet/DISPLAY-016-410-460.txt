@@ -1,0 +1,51 @@
+ 410     90.0 / surface_distance_metres.max(0.5)
+ 411 }
+ 412 
+ 413 fn attack_target_within_angular_threshold(
+ 414     camera_forward: Vec3,
+ 415     direction_to_candidate: Vec3,
+ 416     surface_distance_metres: f32,
+ 417 ) -> bool {
+ 418     let Some(camera_forward) = camera_forward.try_normalize() else {
+ 419         return false;
+ 420     };
+ 421     let Some(direction) = direction_to_candidate.try_normalize() else {
+ 422         return false;
+ 423     };
+ 424     let threshold = attack_target_angular_threshold_degrees(surface_distance_metres).to_radians();
+ 425     camera_forward.dot(direction).clamp(-1.0, 1.0) >= threshold.cos()
+ 426 }
+ 427 
+ 428 #[expect(
+ 429     clippy::too_many_arguments,
+ 430     reason = "Bevy injects player ownership, camera, mesh, material, and combat configuration state independently"
+ 431 )]
+ 432 fn on_new_player_added_hook(
+ 433     event: On<Add, Player>,
+ 434     mut commands: Commands,
+ 435     camera: Single<Entity, With<TacticalGameplayCamera>>,
+ 436     query: Query<(&Player, &CharacterId)>,
+ 437     local_character: Res<LocalCharacterId>,
+ 438     mut meshes: ResMut<Assets<Mesh>>,
+ 439     mut materials: ResMut<Assets<StandardMaterial>>,
+ 440     combat_config: Res<TacticalCombatConfig>,
+ 441 ) -> Result {
+ 442     let (Player { name }, id) = query.get(event.entity)?;
+ 443     info!(entity = ?event.entity, id = id.0, "Added new player {name}");
+ 444 
+ 445     let is_client_player = local_character.0 == id.0;
+ 446     if is_client_player {
+ 447         info!(
+ 448             entity = ?event.entity,
+ 449             "New player is assigned to this client. Assuming control...",
+ 450         );
+ 451 
+ 452         commands.entity(event.entity).insert((
+ 453             tactical_character_controller(),
+ 454             ClientPlayer,
+ 455             LocalBodyFacing::default(),
+ 456             LocalQuickstepTrace::default(),
+ 457             GrassInteractor,
+ 458             actions!(Player[
+ 459                 (
+ 460                     Action::<input::Movement>::new(),

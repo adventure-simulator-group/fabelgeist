@@ -1,0 +1,61 @@
+ 510                     Transform::from_translation(Vec3::from_array(hitbox.center_metres)),
+ 511                 ));
+ 512             }
+ 513         }
+ 514     });
+ 515 
+ 516     Ok(())
+ 517 }
+ 518 
+ 519 #[expect(
+ 520     clippy::type_complexity,
+ 521     reason = "the Bevy query selects the complete local-facing state while excluding the gameplay camera from player transforms"
+ 522 )]
+ 523 fn predict_local_body_facing(
+ 524     time: Res<Time>,
+ 525     guard: Res<WeaponGuardInputState>,
+ 526     combat_config: Res<TacticalCombatConfig>,
+ 527     mut players: Query<
+ 528         (
+ 529             &CharacterControllerCamera,
+ 530             &SkeletonState,
+ 531             Option<&AttackState>,
+ 532             &mut Transform,
+ 533             &mut LocalBodyFacing,
+ 534         ),
+ 535         With<ClientPlayer>,
+ 536     >,
+ 537     cameras: Query<&Transform, (With<TacticalGameplayCamera>, Without<ClientPlayer>)>,
+ 538 ) {
+ 539     let elapsed = AnimationElapsed::from(time.delta());
+ 540     for (camera, skeleton, attack, mut transform, mut facing) in &mut players {
+ 541         if skeleton.body().is_downed() || skeleton.is_posture_transitioning() {
+ 542             facing.rotation = None;
+ 543             continue;
+ 544         }
+ 545 
+ 546         let Ok(camera_transform) = cameras.get(camera.get()) else {
+ 547             continue;
+ 548         };
+ 549         let current = facing.rotation.unwrap_or(transform.rotation);
+ 550         let next = if let Some((target_position, remaining)) = attack.and_then(|state| {
+ 551             state.target_position.map(|target| {
+ 552                 (
+ 553                     target,
+ 554                     AnimationElapsed::from(state.facing_timer.remaining()),
+ 555                 )
+ 556             })
+ 557         }) {
+ 558             let desired_forward = target_position - transform.translation;
+ 559             BodyFacingTurn::for_deadline(current, desired_forward, remaining, elapsed)
+ 560                 .and_then(|turn| turn.advance(current, desired_forward, elapsed))
+ 561         } else {
+ 562             advance_body_facing_with_turn(
+ 563                 current,
+ 564                 camera_transform.rotation,
+ 565                 skeleton.world_velocity,
+ 566                 skeleton.action_kind(),
+ 567                 guard.desired,
+ 568                 elapsed,
+ 569                 BodyFacingTurn::configured_half_turn(
+ 570                     combat_config.presentation.body_turn_seconds_per_half_turn,

@@ -1,0 +1,174 @@
+   1 //! Asynchronous loading of checked-in texture recipes, without running generators.
+   2 
+   3 mod handles;
+   4 #[cfg(test)]
+   5 mod tests;
+   6 
+   7 use bevy::{
+   8     asset::{AssetLoader, LoadContext, RenderAssetUsages, io::Reader},
+   9     prelude::*,
+  10     render::render_resource::{Extent3d, TextureDimension},
+  11 };
+  12 use std::collections::{HashMap, HashSet};
+  13 
+  14 use crate::{BakedMap, BakedRecipe, MapChannel, TextureRecipeId};
+  15 
+  16 pub struct BakedTexturesPlugin;
+  17 
+  18 impl Plugin for BakedTexturesPlugin {
+  19     fn build(&self, app: &mut App) {
+  20         app.init_asset::<RuntimeTextureRecipe>()
+  21             .init_asset_loader::<RuntimeTextureLoader>()
+  22             .init_resource::<ProceduralTextureResidency>()
+  23             .add_systems(Update, install_loaded_texture_recipes);
+  24     }
+  25 }
+  26 
+  27 #[derive(Asset, TypePath)]
+  28 struct RuntimeTextureRecipe {
+  29     maps: Vec<(MapChannel, Image)>,
+  30 }
+  31 
+  32 /// Owns one strong container handle per requested recipe and installs its maps
+  33 /// into the stable image handles used by materials.
+  34 #[derive(Resource, Default)]
+  35 pub struct ProceduralTextureResidency {
+  36     requested: HashMap<TextureRecipeId, Handle<RuntimeTextureRecipe>>,
+  37     installed: HashSet<TextureRecipeId>,
+  38     destinations: HashMap<(TextureRecipeId, MapChannel), Handle<Image>>,
+  39 }
+  40 
+  41 impl ProceduralTextureResidency {
+  42     pub fn request(
+  43         &mut self,
+  44         server: &AssetServer,
+  45         recipes: impl IntoIterator<Item = TextureRecipeId>,
+  46     ) {
+  47         for recipe in recipes {
+  48             self.requested
+  49                 .entry(recipe)
+  50                 .or_insert_with(|| server.load(recipe.runtime_asset_path()));
+  51         }
+  52     }
+  53 
+  54     pub fn is_ready(&self, recipes: impl IntoIterator<Item = TextureRecipeId>) -> bool {
+  55         recipes
+  56             .into_iter()
+  57             .all(|recipe| self.installed.contains(&recipe))
+  58     }
+  59 
+  60     pub fn installed_count(&self, recipes: impl IntoIterator<Item = TextureRecipeId>) -> usize {
+  61         recipes
+  62             .into_iter()
+  63             .filter(|recipe| self.installed.contains(recipe))
+  64             .count()
+  65     }
+  66 
+  67     pub fn requested_container_count(&self) -> usize {
+  68         self.requested.len()
+  69     }
+  70 
+  71     fn destination(
+  72         &mut self,
+  73         recipe: TextureRecipeId,
+  74         channel: MapChannel,
+  75         images: &mut Assets<Image>,
+  76     ) -> Handle<Image> {
+  77         self.destinations
+  78             .entry((recipe, channel))
+  79             .or_insert_with(|| images.add(Image::default()))
+  80             .clone()
+  81     }
+  82 }
+  83 
+  84 fn install_loaded_texture_recipes(
+  85     recipes: Res<Assets<RuntimeTextureRecipe>>,
+  86     mut residency: ResMut<ProceduralTextureResidency>,
+  87     mut images: ResMut<Assets<Image>>,
+  88 ) {
+  89     let ready = residency
+  90         .requested
+  91         .iter()
+  92         .filter_map(|(id, handle)| (!residency.installed.contains(id)).then_some((*id, handle)))
+  93         .filter_map(|(id, handle)| recipes.get(handle).map(|recipe| (id, recipe.maps.clone())))
+  94         .collect::<Vec<_>>();
+  95     for (id, maps) in ready {
+  96         for (channel, image) in maps {
+  97             let handle = residency
+  98                 .destinations
+  99                 .get(&(id, channel))
+ 100                 .expect("runtime map has a destination");
+ 101             images
+ 102                 .insert(handle.id(), image)
+ 103                 .expect("reserved runtime image handle exists");
+ 104         }
+ 105         residency.installed.insert(id);
+ 106     }
+ 107 }
+ 108 
+ 109 #[derive(Default, TypePath)]
+ 110 struct RuntimeTextureLoader;
+ 111 
+ 112 impl AssetLoader for RuntimeTextureLoader {
+ 113     type Asset = RuntimeTextureRecipe;
+ 114     type Settings = ();
+ 115     type Error = std::io::Error;
+ 116 
+ 117     async fn load(
+ 118         &self,
+ 119         reader: &mut dyn Reader,
+ 120         _settings: &Self::Settings,
+ 121         load_context: &mut LoadContext<'_>,
+ 122     ) -> Result<Self::Asset, Self::Error> {
+ 123         let mut bytes = Vec::new();
+ 124         reader.read_to_end(&mut bytes).await?;
+ 125         let bake = BakedRecipe::from_compressed_bytes(&bytes)?;
+ 126         if load_context
+ 127             .path()
+ 128             .path()
+ 129             .file_stem()
+ 130             .and_then(|name| name.to_str())
+ 131             != Some(bake.recipe.slug())
+ 132         {
+ 133             return Err(std::io::Error::other(
+ 134                 "texture bake recipe does not match its filename",
+ 135             ));
+ 136         }
+ 137         let maps = bake
+ 138             .maps
+ 139             .into_iter()
+ 140             .map(|map| (map.channel, Image::from(map)))
+ 141             .collect();
+ 142         Ok(RuntimeTextureRecipe { maps })
+ 143     }
+ 144 
+ 145     fn extensions(&self) -> &[&str] {
+ 146         &["ptex"]
+ 147     }
+ 148 }
+ 149 
+ 150 impl TextureRecipeId {
+ 151     /// Relative to Bevy's asset root, on native and web builds alike.
+ 152     pub fn runtime_asset_path(self) -> String {
+ 153         format!("textures/procedural/{}.ptex", self.slug())
+ 154     }
+ 155 }
+ 156 
+ 157 impl From<BakedMap> for Image {
+ 158     fn from(map: BakedMap) -> Self {
+ 159         let mut image = Image::new_uninit(
+ 160             Extent3d {
+ 161                 width: map.size,
+ 162                 height: map.size,
+ 163                 depth_or_array_layers: 1,
+ 164             },
+ 165             TextureDimension::D2,
+ 166             map.encoding.texture_format(),
+ 167             RenderAssetUsages::RENDER_WORLD,
+ 168         );
+ 169         image.texture_descriptor.mip_level_count = map.mip_levels;
+ 170         image.data = Some(map.bytes);
+ 171         image.sampler = map.sampler;
+ 172         image
+ 173     }
+ 174 }

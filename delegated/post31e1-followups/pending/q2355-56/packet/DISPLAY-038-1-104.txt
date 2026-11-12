@@ -1,0 +1,104 @@
+   1 //! Scalar set-out distances and overlap areas retain their units and admission.
+   2 
+   3 #[cfg(feature = "reflect")]
+   4 use bevy_reflect::Reflect;
+   5 use serde::{Deserialize, Serialize};
+   6 
+   7 use crate::{
+   8     CoordinateAxis, GeometryError, GeometryResult as Result, GeometryRole, PositiveLength,
+   9 };
+  10 
+  11 /// Finite signed metres, including zero offsets and negative insets.
+  12 /// ```compile_fail
+  13 /// use fabelgeist_geometry::{SignedLength, PositiveLength};
+  14 /// fn wrong_role(inset: SignedLength) -> PositiveLength { inset }
+  15 /// ```
+  16 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Default)]
+  17 #[cfg_attr(feature = "reflect", derive(Reflect))]
+  18 #[repr(transparent)]
+  19 #[serde(transparent)]
+  20 #[cfg_attr(feature = "reflect", reflect(opaque))]
+  21 pub struct SignedLength(f32);
+  22 
+  23 /// Finite nonnegative square metres. Empty overlap is a valid zero area.
+  24 /// ```compile_fail
+  25 /// use fabelgeist_geometry::{Area, SignedLength};
+  26 /// fn wrong_unit(area: Area) -> SignedLength { area }
+  27 /// ```
+  28 #[derive(Clone, Copy, Debug, PartialEq, Serialize)]
+  29 #[cfg_attr(feature = "reflect", derive(Reflect))]
+  30 #[repr(transparent)]
+  31 #[serde(transparent)]
+  32 #[cfg_attr(feature = "reflect", reflect(opaque))]
+  33 pub struct Area(f32);
+  34 
+  35 impl SignedLength {
+  36     pub const ZERO: Self = Self(0.0);
+  37     pub const fn from_metres(value: f32) -> Result<Self> {
+  38         if !value.is_finite() {
+  39             return Err(GeometryError::NonFinite {
+  40                 role: GeometryRole::SignedLength,
+  41                 axis: CoordinateAxis::X,
+  42             });
+  43         }
+  44         Ok(Self(value))
+  45     }
+  46     /// Native minimum of two finite admitted lengths, including signed zero.
+  47     pub fn min(self, other: Self) -> Self {
+  48         Self(self.0.min(other.0))
+  49     }
+  50 
+  51     /// Native maximum of two finite admitted lengths, including signed zero.
+  52     pub fn max(self, other: Self) -> Self {
+  53         Self(self.0.max(other.0))
+  54     }
+  55 
+  56     /// A bounded millimetre observation is always finite. Preserve the native
+  57     /// armor conversion's f32 promotion followed by division, without rounding
+  58     /// through an intermediate representation or changing it to multiplication.
+  59     pub fn from_millimetres(value: u16) -> Self {
+  60         Self(f32::from(value) / 1_000.0)
+  61     }
+  62 
+  63     /// Scale a signed offset at its numerical kernel and retain finite admission.
+  64     pub fn scaled_by(self, factor: f32) -> Result<Self> {
+  65         Self::from_metres(self.0 * factor)
+  66     }
+  67 
+  68     pub fn metres(self) -> f32 {
+  69         self.0
+  70     }
+  71 }
+  72 impl From<PositiveLength> for SignedLength {
+  73     fn from(value: PositiveLength) -> Self {
+  74         Self(value.metres())
+  75     }
+  76 }
+  77 impl<'de> Deserialize<'de> for SignedLength {
+  78     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
+  79         Self::from_metres(f32::deserialize(d)?).map_err(serde::de::Error::custom)
+  80     }
+  81 }
+  82 
+  83 impl Area {
+  84     pub const ZERO: Self = Self(0.0);
+  85     pub fn from_square_metres(value: f32) -> Result<Self> {
+  86         let role = GeometryRole::Area;
+  87         let axis = CoordinateAxis::X;
+  88         if !value.is_finite() {
+  89             return Err(GeometryError::NonFinite { role, axis });
+  90         }
+  91         if value < 0.0 {
+  92             return Err(GeometryError::NegativeExtent { role, axis });
+  93         }
+  94         Ok(Self(value))
+  95     }
+  96     pub fn square_metres(self) -> f32 {
+  97         self.0
+  98     }
+  99 }
+ 100 impl<'de> Deserialize<'de> for Area {
+ 101     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Self, D::Error> {
+ 102         Self::from_square_metres(f32::deserialize(d)?).map_err(serde::de::Error::custom)
+ 103     }
+ 104 }

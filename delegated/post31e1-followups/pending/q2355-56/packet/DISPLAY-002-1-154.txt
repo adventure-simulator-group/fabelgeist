@@ -1,0 +1,154 @@
+   1 //! A small JSON header followed by raw mip payloads; pixel bytes never expand into JSON arrays.
+   2 use super::*;
+   3 
+   4 const HEADER_LENGTH_BYTES: usize = 4;
+   5 const MAX_HEADER_BYTES: usize = 16 * 1024;
+   6 const MAX_MAPS: usize = 8;
+   7 const MAX_TEXTURE_SIZE: u32 = 2048;
+   8 
+   9 #[derive(Serialize, Deserialize)]
+  10 #[serde(deny_unknown_fields)]
+  11 struct Header {
+  12     recipe: TextureRecipeId,
+  13     tile_metres: f32,
+  14     height_range_metres: f32,
+  15     maps: Vec<MapHeader>,
+  16 }
+  17 
+  18 #[derive(Serialize, Deserialize)]
+  19 #[serde(deny_unknown_fields)]
+  20 struct MapHeader {
+  21     channel: MapChannel,
+  22     size: u32,
+  23     mip_levels: u32,
+  24     encoding: PixelEncoding,
+  25     sampler: bevy::image::ImageSampler,
+  26 }
+  27 
+  28 impl BakedRecipe {
+  29     pub fn to_bytes(&self) -> Vec<u8> {
+  30         let header = Header {
+  31             recipe: self.recipe,
+  32             tile_metres: self.tile_metres,
+  33             height_range_metres: self.height_range_metres,
+  34             maps: self
+  35                 .maps
+  36                 .iter()
+  37                 .map(|map| MapHeader {
+  38                     channel: map.channel,
+  39                     size: map.size,
+  40                     mip_levels: map.mip_levels,
+  41                     encoding: map.encoding,
+  42                     sampler: map.sampler.clone(),
+  43                 })
+  44                 .collect(),
+  45         };
+  46         let header = serde_json::to_vec(&header).expect("finite generated metadata serializes");
+  47         let mut bytes = Vec::with_capacity(
+  48             HEADER_LENGTH_BYTES
+  49                 + header.len()
+  50                 + self.maps.iter().map(|map| map.bytes.len()).sum::<usize>(),
+  51         );
+  52         bytes.extend_from_slice(&(header.len() as u32).to_le_bytes());
+  53         bytes.extend_from_slice(&header);
+  54         for map in &self.maps {
+  55             bytes.extend_from_slice(&map.bytes);
+  56         }
+  57         bytes
+  58     }
+  59 
+  60     pub fn from_bytes(bytes: &[u8]) -> Result<Self, String> {
+  61         let length_bytes: [u8; HEADER_LENGTH_BYTES] = bytes
+  62             .get(..HEADER_LENGTH_BYTES)
+  63             .ok_or("missing bake header length")?
+  64             .try_into()
+  65             .unwrap();
+  66         let length = u32::from_le_bytes(length_bytes) as usize;
+  67         if length > MAX_HEADER_BYTES {
+  68             return Err("bake header exceeds limit".into());
+  69         }
+  70         let header: Header = serde_json::from_slice(
+  71             bytes
+  72                 .get(HEADER_LENGTH_BYTES..HEADER_LENGTH_BYTES + length)
+  73                 .ok_or("truncated bake header")?,
+  74         )
+  75         .map_err(|error| error.to_string())?;
+  76         if header.maps.is_empty()
+  77             || header.maps.len() > MAX_MAPS
+  78             || !header.tile_metres.is_finite()
+  79             || header.tile_metres <= 0.0
+  80             || !header.height_range_metres.is_finite()
+  81             || header.height_range_metres < 0.0
+  82         {
+  83             return Err("invalid bake metadata".into());
+  84         }
+  85         let mut offset = HEADER_LENGTH_BYTES + length;
+  86         let mut maps: Vec<BakedMap> = Vec::with_capacity(header.maps.len());
+  87         for map in header.maps {
+  88             if !map.size.is_power_of_two()
+  89                 || map.size > MAX_TEXTURE_SIZE
+  90                 || map.mip_levels == 0
+  91                 || map.mip_levels > map.size.ilog2() + 1
+  92                 || maps.iter().any(|previous| previous.channel == map.channel)
+  93             {
+  94                 return Err("invalid map dimensions, mips, or duplicate channel".into());
+  95             }
+  96             let count = (0..map.mip_levels)
+  97                 .map(|level| (map.size >> level).pow(2) as usize)
+  98                 .sum::<usize>()
+  99                 * map.encoding.channels();
+ 100             let data = bytes
+ 101                 .get(offset..offset + count)
+ 102                 .ok_or("truncated map payload")?
+ 103                 .to_vec();
+ 104             offset += count;
+ 105             maps.push(BakedMap {
+ 106                 channel: map.channel,
+ 107                 size: map.size,
+ 108                 mip_levels: map.mip_levels,
+ 109                 encoding: map.encoding,
+ 110                 sampler: map.sampler,
+ 111                 bytes: data,
+ 112             });
+ 113         }
+ 114         if offset != bytes.len() {
+ 115             return Err("unexpected trailing bake data".into());
+ 116         }
+ 117         Ok(Self {
+ 118             recipe: header.recipe,
+ 119             tile_metres: header.tile_metres,
+ 120             height_range_metres: header.height_range_metres,
+ 121             maps,
+ 122         })
+ 123     }
+ 124 }
+ 125 
+ 126 #[cfg(test)]
+ 127 mod tests {
+ 128     use super::*;
+ 129 
+ 130     #[test]
+ 131     fn transfer_preserves_all_mips_and_rejects_truncated_or_trailing_data() {
+ 132         let source = BakedRecipe {
+ 133             recipe: TextureRecipeId::CrenellationMask,
+ 134             tile_metres: 1.0,
+ 135             height_range_metres: 0.0,
+ 136             maps: vec![BakedMap {
+ 137                 channel: MapChannel::Opacity,
+ 138                 size: 2,
+ 139                 mip_levels: 2,
+ 140                 encoding: PixelEncoding::R8,
+ 141                 sampler: bevy::image::ImageSampler::linear(),
+ 142                 bytes: vec![0, 255, 128, 64, 112],
+ 143             }],
+ 144         };
+ 145         let mut bytes = source.to_bytes();
+ 146         assert_eq!(
+ 147             BakedRecipe::from_bytes(&bytes).unwrap().maps[0].bytes,
+ 148             source.maps[0].bytes
+ 149         );
+ 150         assert!(BakedRecipe::from_bytes(&bytes[..bytes.len() - 1]).is_err());
+ 151         bytes.push(0);
+ 152         assert!(BakedRecipe::from_bytes(&bytes).is_err());
+ 153     }
+ 154 }

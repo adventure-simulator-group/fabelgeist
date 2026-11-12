@@ -1,0 +1,22 @@
+{
+  "script_sha256": "d34010794b7b7b7fd5675ce49be2947aae9a795f9d978ffc9bf73073c58e4575",
+  "cases": [
+    {
+      "case": "portable",
+      "exit": 0,
+      "stdout_bytes": 325,
+      "stdout_sha256": "ba85add9742e2f8c9f866fa7f0e14d0fc8203c0ec09b680e0debf248dc51915f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "anchored",
+      "exit": 0,
+      "stdout_bytes": 376,
+      "stdout_sha256": "e6f3bbe658c28f07f124abf88023f93700ae174a03fc17c56c35dd7860fd7a03",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Anchored replay uses the same-machine repository and currently staged predecessor evidence; the latter is not yet the published 14D commit. Independent custody and product behavior are not established."
+}

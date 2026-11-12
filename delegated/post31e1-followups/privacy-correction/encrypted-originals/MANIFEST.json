@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "post31e1-private-prescan-originals",
+      "ciphertext": "post31e1-private-prescan-originals.aesgcm",
+      "ciphertext_sha256": "2c18c5fe059bf2c93f75a16ef736430a1e27ebba1919c79821c9d44b52a8a623",
+      "ciphertext_bytes": 6338,
+      "plaintext_archive_sha256": "de10e274bb6a4214e90798ece4a190e52d808e03ffcdc7acecf46a23944dff35",
+      "plaintext_archive_bytes": 6310,
+      "regular_files": 20,
+      "directories": 14,
+      "associated_data": "726-audit-private-evidence:post31e1-private-prescan-originals:v1"
+    }
+  ],
+  "key_custody": "The separately held same-machine key also protects the preceding checkpoint originals and verifier-failure logs; no key bytes are included here. The new nonce was checked against the preceding 29 ciphertexts using this key.",
+  "qualification": "Each source was archived and authenticated round-trip verified against its exact file bytes and modes. Ciphertext is opaque to content scans; no independent key custody, product behavior or checkpoint3821 recovery is established."
+}

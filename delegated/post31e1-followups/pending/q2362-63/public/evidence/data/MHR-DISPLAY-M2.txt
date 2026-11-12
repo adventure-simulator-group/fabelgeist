@@ -1,0 +1,41 @@
+SOURCE crates/fabelgeist-mhr/src/correctives/archive.rs:41-80
+  41         let activation = Npz::open(activation)?;
+  42         Ok(Self { activation, basis })
+  43     }
+  44 
+  45     pub(super) fn from_bytes(archives: CorrectiveArchiveBytes) -> Result<Self> {
+  46         let activation = Npz::from_bytes(archives.activation)?;
+  47         let basis = Npz::from_bytes(archives.basis)?;
+  48         Ok(Self { activation, basis })
+  49     }
+  50 
+  51     pub(super) fn basis(&self) -> Result<Option<NpyArray>> {
+  52         let name = CorrectiveArray::Basis.name();
+  53         let Some(member) = self.basis.get(&name) else {
+  54             return Ok(None);
+  55         };
+  56         member
+  57             .array()
+  58             .context("reading the corrective basis")
+  59             .map(Some)
+  60     }
+  61 
+  62     pub(super) fn activation<'layout>(
+  63         &self,
+  64         layout: &'layout CorrectiveLayout,
+  65     ) -> Result<SparseActivation<'layout>> {
+  66         let indices = NpyIntegerValues::from(
+  67             &self
+  68                 .activation
+  69                 .array(&CorrectiveArray::SparseIndices.name())
+  70                 .context("reading the sparse activation indices")?,
+  71         );
+  72         let weights = NpyFloat32Values::from(
+  73             &self
+  74                 .activation
+  75                 .array(&CorrectiveArray::SparseWeights.name())
+  76                 .context("reading the sparse activation weights")?,
+  77         );
+  78         Ok(SparseActivation::new(indices, weights, layout)?)
+  79     }
+  80 }

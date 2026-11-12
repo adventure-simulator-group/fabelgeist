@@ -1,0 +1,41 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npy/metadata.rs:61-100
+  61         actual: NpyElementCount,
+  62     },
+  63 }
+  64 impl NpyDimension {
+  65     /// Admits a native array extent, including zero, at a decoder or literal.
+  66     pub const fn new(dimension: usize) -> Self {
+  67         Self(dimension)
+  68     }
+  69 
+  70     pub fn checked_add(self, other: Self) -> Option<Self> {
+  71         self.0.checked_add(other.0).map(Self)
+  72     }
+  73 
+  74     pub fn checked_sub(self, other: Self) -> Option<Self> {
+  75         self.0.checked_sub(other.0).map(Self)
+  76     }
+  77 
+  78     pub fn checked_mul(self, other: Self) -> Option<Self> {
+  79         self.0.checked_mul(other.0).map(Self)
+  80     }
+  81 }
+  82 
+  83 impl NpyElementCount {
+  84     /// Admits the literal element product once, with zero axes taking priority.
+  85     pub(super) fn from_dimensions(dimensions: &[NpyDimension]) -> Result<Self> {
+  86         let mut elements = 1usize;
+  87         if dimensions.contains(&NpyDimension(0)) {
+  88             elements = 0;
+  89         } else {
+  90             for dimension in dimensions {
+  91                 elements = elements.checked_mul(dimension.0).ok_or_else(|| {
+  92                     NpyLayoutError::ElementCountOverflow {
+  93                         dimensions: dimensions.to_vec(),
+  94                     }
+  95                 })?;
+  96             }
+  97         }
+  98         Ok(Self(elements))
+  99     }
+ 100 

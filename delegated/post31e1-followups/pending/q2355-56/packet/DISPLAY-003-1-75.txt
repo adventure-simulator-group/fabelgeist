@@ -1,0 +1,75 @@
+   1 /// Stable identifier used by review tools and future recipe-specific agents.
+   2 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, serde::Serialize, serde::Deserialize)]
+   3 #[serde(rename_all = "kebab-case")]
+   4 pub enum TextureRecipeId {
+   5     WhiteOakLeaf,
+   6     DryWhiteOakLeaf,
+   7     HazelLeaf,
+   8     BlackthornLeaf,
+   9     HawthornLeaf,
+  10     BeechLeaf,
+  11     OakBark,
+  12     ForestSoil,
+  13     ForestLitter,
+  14     Rock,
+  15     LimePlaster,
+  16     HewnOak,
+  17     WattleAndDaub,
+  18     HandmadeBrick,
+  19     RubbleMasonry,
+  20     DressedStone,
+  21     ClayRoofTile,
+  22     SlateRoof,
+  23     TimberShingle,
+  24     PlankFloor,
+  25     LeadSheet,
+  26     Ironwork,
+  27     WindowGlass,
+  28     CrenellationMask,
+  29 }
+  30 
+  31 impl TextureRecipeId {
+  32     pub const fn slug(self) -> &'static str {
+  33         match self {
+  34             Self::WhiteOakLeaf => "white-oak-leaf",
+  35             Self::DryWhiteOakLeaf => "dry-white-oak-leaf",
+  36             Self::HazelLeaf => "hazel-leaf",
+  37             Self::BlackthornLeaf => "blackthorn-leaf",
+  38             Self::HawthornLeaf => "hawthorn-leaf",
+  39             Self::BeechLeaf => "beech-leaf",
+  40             Self::OakBark => "oak-bark",
+  41             Self::ForestSoil => "forest-soil",
+  42             Self::ForestLitter => "forest-litter",
+  43             Self::Rock => "rock",
+  44             Self::LimePlaster => "lime-plaster",
+  45             Self::HewnOak => "hewn-oak",
+  46             Self::WattleAndDaub => "wattle-and-daub",
+  47             Self::HandmadeBrick => "handmade-brick",
+  48             Self::RubbleMasonry => "rubble-masonry",
+  49             Self::DressedStone => "dressed-stone",
+  50             Self::ClayRoofTile => "clay-roof-tile",
+  51             Self::SlateRoof => "slate-roof",
+  52             Self::TimberShingle => "timber-shingle",
+  53             Self::PlankFloor => "plank-floor",
+  54             Self::LeadSheet => "lead-sheet",
+  55             Self::Ironwork => "ironwork",
+  56             Self::WindowGlass => "window-glass",
+  57             Self::CrenellationMask => "crenellation-mask",
+  58         }
+  59     }
+  60 }
+  61 
+  62 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  63 pub enum TextureFamily {
+  64     Foliage,
+  65     Wood,
+  66     Ground,
+  67     Stone,
+  68     Wall,
+  69     Roof,
+  70     Floor,
+  71     Metal,
+  72     Glass,
+  73     Mask,
+  74 }
+  75 

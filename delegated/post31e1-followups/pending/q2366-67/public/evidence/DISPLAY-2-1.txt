@@ -1,0 +1,218 @@
+SOURCE crates/fabelgeist-numpy-storage/tests/zip_errors.rs:1-217
+   1 use std::{borrow::Cow, error::Error, io, path::Path};
+   2 
+   3 use fabelgeist_numpy_storage::{
+   4     ArchiveMemberName, NpyFloat32Values, Npz, NpzArrayName, ZipArchive,
+   5     zip::{Result, ZipFileOperation, ZipReadError},
+   6 };
+   7 
+   8 const STORED: &[u8] = include_bytes!("fixtures/zip-errors/stored.zip");
+   9 const DEFLATED: &[u8] = include_bytes!("fixtures/zip-errors/deflated.zip");
+  10 
+  11 fn rejected<T>(result: Result<T>) -> ZipReadError {
+  12     result
+  13         .err()
+  14         .expect("fixture must reject at the observed boundary")
+  15 }
+  16 
+  17 #[test]
+  18 fn absent_end_and_member_have_distinct_public_classifications() {
+  19     let error = rejected(ZipArchive::from_bytes(
+  20         include_bytes!("fixtures/zip-errors/no-end.zip").to_vec(),
+  21     ));
+  22     assert!(matches!(error, ZipReadError::MissingEndRecord));
+  23     assert_eq!(
+  24         error.to_string(),
+  25         "not a zip archive: no end-of-central-directory record"
+  26     );
+  27     assert!(error.source().is_none());
+  28 
+  29     let archive = ZipArchive::from_bytes(STORED.to_vec()).unwrap();
+  30     let query = "absent\0\nλ";
+  31     let error = rejected(archive.bytes(&ArchiveMemberName::from(query)));
+  32     assert!(
+  33         matches!(&error, ZipReadError::MissingMember { name } if name == &ArchiveMemberName::from(query))
+  34     );
+  35     assert_eq!(
+  36         error.to_string(),
+  37         format!("archive has no member {query:?}")
+  38     );
+  39     assert!(error.source().is_none());
+  40 }
+  41 
+  42 #[test]
+  43 fn local_header_and_payload_extent_keep_their_earlier_failure_precedence() {
+  44     // Native fixture encoding port: the end record names the authored central
+  45     // header; only its compression word is replaced with a rejected wire code.
+  46     // Earlier local-header/extent checks must still win over that method.
+  47     let mut corrupt = include_bytes!("fixtures/zip-errors/corrupt-local.zip").to_vec();
+  48     let directory = u32::from_le_bytes(
+  49         corrupt[corrupt.len() - 6..corrupt.len() - 2]
+  50             .try_into()
+  51             .unwrap(),
+  52     ) as usize;
+  53     corrupt[directory + 10..directory + 12].copy_from_slice(&u16::MAX.to_le_bytes());
+  54     let archive = ZipArchive::from_bytes(corrupt).unwrap();
+  55     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
+  56     assert!(
+  57         matches!(&error, ZipReadError::CorruptMember { name, .. } if name == &ArchiveMemberName::from("values.npy"))
+  58     );
+  59     assert_eq!(error.to_string(), "corrupt zip entry values.npy");
+  60     assert!(
+  61         error
+  62             .source()
+  63             .is_some_and(|source| source.is::<rawzip::Error>())
+  64     );
+  65 
+  66     let mut past = include_bytes!("fixtures/zip-errors/past-end.zip").to_vec();
+  67     let directory =
+  68         u32::from_le_bytes(past[past.len() - 6..past.len() - 2].try_into().unwrap()) as usize;
+  69     past[directory + 10..directory + 12].copy_from_slice(&u16::MAX.to_le_bytes());
+  70     let archive = ZipArchive::from_bytes(past).unwrap();
+  71     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
+  72     assert!(
+  73         matches!(&error, ZipReadError::MemberPastEnd { name, .. } if name == &ArchiveMemberName::from("values.npy"))
+  74     );
+  75     assert_eq!(
+  76         error.to_string(),
+  77         "zip entry values.npy runs past the end of the archive"
+  78     );
+  79     assert!(
+  80         error
+  81             .source()
+  82             .is_some_and(|source| source.is::<rawzip::Error>())
+  83     );
+  84 }
+  85 
+  86 #[test]
+  87 fn unsupported_method_retains_the_rejected_native_word() {
+  88     let archive = ZipArchive::from_bytes(
+  89         include_bytes!("fixtures/zip-errors/unsupported-method.zip").to_vec(),
+  90     )
+  91     .unwrap();
+  92     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
+  93     assert!(matches!(
+  94         error,
+  95         ZipReadError::UnsupportedCompression { code } if u16::from(code) == u16::MAX
+  96     ));
+  97     assert_eq!(
+  98         error.to_string(),
+  99         "unsupported zip compression method 65535"
+ 100     );
+ 101     assert!(error.source().is_none());
+ 102 }
+ 103 
+ 104 #[test]
+ 105 fn inflate_failure_retains_the_native_cause_through_npz_anyhow() {
+ 106     let input = include_bytes!("fixtures/zip-errors/bad-deflate.zip");
+ 107     let archive = ZipArchive::from_bytes(input.to_vec()).unwrap();
+ 108     let error = rejected(archive.bytes(&ArchiveMemberName::from("values.npy")));
+ 109     let ZipReadError::Inflate { name, source } = &error else {
+ 110         panic!("unexpected classification: {error:?}")
+ 111     };
+ 112     assert_eq!(name, &ArchiveMemberName::from("values.npy"));
+ 113     assert_eq!(source.kind(), io::ErrorKind::InvalidInput);
+ 114     assert_eq!(source.to_string(), "corrupt deflate stream");
+ 115     let retained = error.source().unwrap().downcast_ref::<io::Error>().unwrap();
+ 116     assert!(std::ptr::eq(source, retained));
+ 117     assert_eq!(error.to_string(), "inflating zip entry values.npy");
+ 118 
+ 119     let npz = Npz::from_bytes(input.to_vec()).unwrap();
+ 120     let outer = npz.array(&NpzArrayName::new("values")).err().unwrap();
+ 121     assert!(matches!(
+ 122         outer.downcast_ref::<ZipReadError>(),
+ 123         Some(ZipReadError::Inflate { .. })
+ 124     ));
+ 125     assert!(outer.downcast_ref::<io::Error>().is_none());
+ 126     assert_eq!(
+ 127         outer.chain().map(ToString::to_string).collect::<Vec<_>>(),
+ 128         ["inflating zip entry values.npy", "corrupt deflate stream"]
+ 129     );
+ 130     assert_eq!(
+ 131         outer
+ 132             .chain()
+ 133             .find_map(|cause| cause.downcast_ref::<io::Error>())
+ 134             .unwrap()
+ 135             .kind(),
+ 136         io::ErrorKind::InvalidInput
+ 137     );
+ 138 }
+ 139 
+ 140 #[test]
+ 141 fn native_open_failure_retains_path_operation_and_original_io() {
+ 142     let path =
+ 143         Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/zip-errors/not-present.zip");
+ 144     let error = rejected(ZipArchive::open(&path));
+ 145     let ZipReadError::Native {
+ 146         operation,
+ 147         native_path,
+ 148         source,
+ 149     } = &error
+ 150     else {
+ 151         panic!("unexpected classification: {error:?}")
+ 152     };
+ 153     assert_eq!(*operation, ZipFileOperation::Open);
+ 154     assert_eq!(native_path, &path);
+ 155     assert_eq!(source.kind(), io::ErrorKind::NotFound);
+ 156     assert_eq!(error.to_string(), format!("opening {}", path.display()));
+ 157     assert!(std::ptr::eq(
+ 158         source,
+ 159         error.source().unwrap().downcast_ref::<io::Error>().unwrap()
+ 160     ));
+ 161 }
+ 162 
+ 163 #[cfg(target_os = "linux")]
+ 164 #[test]
+ 165 fn native_directory_map_failure_is_distinct_from_open() {
+ 166     let path = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/zip-errors");
+ 167     let error = rejected(ZipArchive::open(&path));
+ 168     let ZipReadError::Native {
+ 169         operation,
+ 170         native_path,
+ 171         source,
+ 172     } = &error
+ 173     else {
+ 174         panic!("unexpected classification: {error:?}")
+ 175     };
+ 176     assert_eq!(*operation, ZipFileOperation::Map);
+ 177     assert_eq!(native_path, &path);
+ 178     assert_eq!(source.raw_os_error(), Some(19));
+ 179     assert_eq!(
+ 180         error.to_string(),
+ 181         format!("memory-mapping {}", path.display())
+ 182     );
+ 183     assert!(std::ptr::eq(
+ 184         source,
+ 185         error.source().unwrap().downcast_ref::<io::Error>().unwrap()
+ 186     ));
+ 187 }
+ 188 
+ 189 #[test]
+ 190 fn successful_stored_and_deflated_reads_preserve_borrowing_and_float_bits() {
+ 191     let stored = ZipArchive::from_bytes(STORED.to_vec()).unwrap();
+ 192     let deflated = ZipArchive::from_bytes(DEFLATED.to_vec()).unwrap();
+ 193     let borrowed = stored
+ 194         .bytes(&ArchiveMemberName::from("values.npy"))
+ 195         .unwrap();
+ 196     let repeated = stored
+ 197         .bytes(&ArchiveMemberName::from("values.npy"))
+ 198         .unwrap();
+ 199     let decoded = deflated
+ 200         .bytes(&ArchiveMemberName::from("values.npy"))
+ 201         .unwrap();
+ 202     assert!(matches!(borrowed, Cow::Borrowed(_)));
+ 203     assert!(matches!(decoded, Cow::Owned(_)));
+ 204     assert!(std::ptr::eq(borrowed.as_ptr(), repeated.as_ptr()));
+ 205     assert_eq!(borrowed, decoded);
+ 206     for input in [STORED, DEFLATED] {
+ 207         let npz = Npz::from_bytes(input.to_vec()).unwrap();
+ 208         let array = npz.array(&NpzArrayName::new("values")).unwrap();
+ 209         assert_eq!(
+ 210             Vec::<f32>::from(NpyFloat32Values::from(&array))
+ 211                 .iter()
+ 212                 .map(|value| value.to_bits())
+ 213                 .collect::<Vec<_>>(),
+ 214             [0, 0x8000_0000, 1, 0x7f80_0000, 0xff80_0000, 0x7fc0_1234]
+ 215         );
+ 216     }
+ 217 }

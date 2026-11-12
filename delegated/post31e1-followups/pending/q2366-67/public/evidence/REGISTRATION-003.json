@@ -1,0 +1,15 @@
+{
+  "purpose": "independent correction for transcribed expected queue digest and extraction",
+  "actions": [
+    {
+      "kind": "read prior registration",
+      "path": "<PRIVATE-PATH-0006>",
+      "scope": "original and reconstructed queue whole-file hash fields only"
+    },
+    {
+      "kind": "check the actual original and reconstructed queue whole-file digests, extract exact entries 2366 and 2367 from both",
+      "scope": "write bytes and hashes; display selected entry content after equality verification"
+    }
+  ],
+  "note": "The previous copied original expected digest had 63 hex characters, with one omitted b; earlier failure is retained. No contents changed."
+}

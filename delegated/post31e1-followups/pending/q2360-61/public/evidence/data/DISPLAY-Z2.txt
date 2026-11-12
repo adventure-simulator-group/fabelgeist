@@ -1,0 +1,61 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip.rs:71-130
+  71         })?;
+  72         // SAFETY: model assets are read-only inputs; concurrent truncation by
+  73         // another process is out of scope, as elsewhere in this workspace.
+  74         let data = unsafe { Mmap::map(&file) }.map_err(|source| ZipReadError::Native {
+  75             operation: ZipFileOperation::Map,
+  76             native_path: path.to_path_buf(),
+  77             source,
+  78         })?;
+  79         Self::from_data(ArchiveData::Mapped(data))
+  80     }
+  81 
+  82     pub fn from_bytes(data: Vec<u8>) -> Result<Self> {
+  83         Self::from_data(ArchiveData::Owned(data))
+  84     }
+  85 
+  86     fn from_data(data: ArchiveData) -> Result<Self> {
+  87         let archive = ZipLocator::new()
+  88             .max_search_space(END_DIRECTORY_SEARCH_WINDOW_BYTES)
+  89             .locate_in_slice(data)
+  90             .map_err(|(_, source)| ZipReadError::from(source))?;
+  91         let member_count = ArchiveMemberCount::from(archive.entries_hint());
+  92         let mut entries = Vec::with_capacity(member_count.initial_capacity());
+  93         let mut directory = archive.entries();
+  94         // The declaration remains our upper bound; rawzip bounds each record
+  95         // by the selected directory span. No partial archive is published on error.
+  96         for _ in member_count.native_iteration_range() {
+  97             let Some(header) = directory.next_entry().map_err(ZipReadError::from)? else {
+  98                 break;
+  99             };
+ 100             entries.push(Entry {
+ 101                 name: ArchiveMemberName::from(header.file_path().as_ref()),
+ 102                 compression: ZipCompression::from(header.compression_method()),
+ 103                 uncompressed_size: DeclaredUncompressedByteLength::from_bytes(
+ 104                     header.uncompressed_size_hint(),
+ 105                 ),
+ 106                 location: header.wayfinder(),
+ 107             });
+ 108         }
+ 109         Ok(Self { archive, entries })
+ 110     }
+ 111 
+ 112     /// Member names, in central-directory order.
+ 113     pub fn names(&self) -> impl Iterator<Item = &ArchiveMemberName> {
+ 114         self.entries.iter().map(|entry| &entry.name)
+ 115     }
+ 116 
+ 117     pub fn contains(&self, name: &ArchiveMemberName) -> bool {
+ 118         self.entries.iter().any(|entry| entry.name == *name)
+ 119     }
+ 120 
+ 121     /// Declared decoded length of the first exact match, without verification.
+ 122     pub fn uncompressed_size(
+ 123         &self,
+ 124         name: &ArchiveMemberName,
+ 125     ) -> Option<DeclaredUncompressedByteLength> {
+ 126         self.find(|member| member == name)
+ 127             .map(|member| member.uncompressed_size())
+ 128     }
+ 129 
+ 130     pub(crate) fn find(

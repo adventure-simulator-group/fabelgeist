@@ -1,0 +1,40 @@
+   1 //! Positive scalar measurements are independent of coordinate frame and datum.
+   2 
+   3 #[cfg(feature = "reflect")]
+   4 use bevy_reflect::Reflect;
+   5 use serde::{Deserialize, Serialize};
+   6 
+   7 use crate::{CoordinateAxis, GeometryError, GeometryRole};
+   8 
+   9 /// A finite positive length in metres, for dimensions and working clearances.
+  10 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize)]
+  11 #[cfg_attr(feature = "reflect", derive(Reflect))]
+  12 #[repr(transparent)]
+  13 #[serde(transparent)]
+  14 #[cfg_attr(feature = "reflect", reflect(opaque))]
+  15 pub struct PositiveLength(f32);
+  16 
+  17 impl PositiveLength {
+  18     pub const fn from_metres(value: f32) -> Result<Self, GeometryError> {
+  19         let role = GeometryRole::PositiveLength;
+  20         let axis = CoordinateAxis::X;
+  21         if !value.is_finite() {
+  22             return Err(GeometryError::NonFinite { role, axis });
+  23         }
+  24         if value < 0.0 {
+  25             return Err(GeometryError::NegativeExtent { role, axis });
+  26         }
+  27         if value == 0.0 {
+  28             return Err(GeometryError::ZeroExtent { role, axis });
+  29         }
+  30         Ok(Self(value))
+  31     }
+  32     pub const fn metres(self) -> f32 {
+  33         self.0
+  34     }
+  35 }
+  36 impl<'de> Deserialize<'de> for PositiveLength {
+  37     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+  38         Self::from_metres(f32::deserialize(deserializer)?).map_err(serde::de::Error::custom)
+  39     }
+  40 }

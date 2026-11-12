@@ -1,0 +1,81 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npz.rs:81-160
+  81     }
+  82 
+  83     pub fn array(&self) -> Result<NpyArray> {
+  84         let bytes = self.member.bytes()?;
+  85         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
+  86     }
+  87 }
+  88 
+  89 #[cfg(test)]
+  90 mod tests {
+  91     use super::*;
+  92     use std::io::Write;
+  93 
+  94     const END_OF_CENTRAL_DIRECTORY: u32 = 0x0605_4b50;
+  95     const CENTRAL_FILE_HEADER: u32 = 0x0201_4b50;
+  96     const LOCAL_FILE_HEADER: u32 = 0x0403_4b50;
+  97 
+  98     /// Builds a minimal stored-member zip so the reader can be tested without
+  99     /// depending on an external archiver.
+ 100     fn zip(members: &[(&str, Vec<u8>)]) -> Vec<u8> {
+ 101         let mut out = Vec::new();
+ 102         let mut directory = Vec::new();
+ 103         for (name, payload) in members {
+ 104             let offset = out.len() as u32;
+ 105             let crc = 0u32;
+ 106             out.extend_from_slice(&LOCAL_FILE_HEADER.to_le_bytes());
+ 107             out.extend_from_slice(&[20, 0, 0, 0, 0, 0, 0, 0, 0, 0]); // version, flags, method, time, date
+ 108             out.extend_from_slice(&crc.to_le_bytes());
+ 109             out.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 110             out.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 111             out.extend_from_slice(&(name.len() as u16).to_le_bytes());
+ 112             out.extend_from_slice(&0u16.to_le_bytes());
+ 113             out.extend_from_slice(name.as_bytes());
+ 114             out.write_all(payload).unwrap();
+ 115 
+ 116             directory.extend_from_slice(&CENTRAL_FILE_HEADER.to_le_bytes());
+ 117             directory.extend_from_slice(&[20, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+ 118             directory.extend_from_slice(&crc.to_le_bytes());
+ 119             directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 120             directory.extend_from_slice(&(payload.len() as u32).to_le_bytes());
+ 121             directory.extend_from_slice(&(name.len() as u16).to_le_bytes());
+ 122             directory.extend_from_slice(&[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+ 123             directory.extend_from_slice(&offset.to_le_bytes());
+ 124             directory.extend_from_slice(name.as_bytes());
+ 125         }
+ 126 
+ 127         let directory_offset = out.len() as u32;
+ 128         let directory_size = directory.len() as u32;
+ 129         out.extend_from_slice(&directory);
+ 130         out.extend_from_slice(&END_OF_CENTRAL_DIRECTORY.to_le_bytes());
+ 131         out.extend_from_slice(&[0, 0, 0, 0]);
+ 132         out.extend_from_slice(&(members.len() as u16).to_le_bytes());
+ 133         out.extend_from_slice(&(members.len() as u16).to_le_bytes());
+ 134         out.extend_from_slice(&directory_size.to_le_bytes());
+ 135         out.extend_from_slice(&directory_offset.to_le_bytes());
+ 136         out.extend_from_slice(&[0, 0]);
+ 137         out
+ 138     }
+ 139 
+ 140     fn write_temp(bytes: &[u8]) -> std::path::PathBuf {
+ 141         let path = std::env::temp_dir().join(format!(
+ 142             "fabelgeist-numpy-storage-{}.npz",
+ 143             std::time::SystemTime::now()
+ 144                 .duration_since(std::time::UNIX_EPOCH)
+ 145                 .unwrap()
+ 146                 .as_nanos()
+ 147         ));
+ 148         std::fs::write(&path, bytes).unwrap();
+ 149         path
+ 150     }
+ 151 
+ 152     #[test]
+ 153     fn reads_stored_members() {
+ 154         let payload: Vec<u8> = [1.0f32, 2.0, 3.0, 4.0]
+ 155             .iter()
+ 156             .flat_map(|v| v.to_le_bytes())
+ 157             .collect();
+ 158         let archive = zip(&[
+ 159             (
+ 160                 "weights.npy",

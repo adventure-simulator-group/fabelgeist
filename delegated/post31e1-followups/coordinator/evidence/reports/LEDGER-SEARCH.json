@@ -1,0 +1,357 @@
+{
+  "ledger_snapshot_whole_file_sha256": "b10132337fad5f1cf91fbd23c01a3ed4330793e79aac65ec4921aece591d1c50",
+  "ledger_count": 1072,
+  "patterns": {
+    "camp": "errantry|journey camp|journey-camp",
+    "disclosure": "disclos|case site|case-site",
+    "age": "\\bage\\b|birth|age_years|effective_age",
+    "npc": "npc",
+    "chronology": "chronolog",
+    "investigation_clock": "investigation.*clock|clock.*investigation"
+  },
+  "matches": {
+    "camp": [
+      {
+        "index": 173,
+        "id": "Q-L12-ef9ca7cb50456af30916"
+      },
+      {
+        "index": 869,
+        "id": "REVIEW-ERRANTRY-ACTION-STATUS-RESET-95E"
+      }
+    ],
+    "disclosure": [
+      {
+        "index": 112,
+        "id": "CONT-REF-CORRECTION-SOURCE-NAMESPACE"
+      },
+      {
+        "index": 133,
+        "id": "REVIEW-PARTY-LEADER-VOTE-ACTOR-ADMISSION-001"
+      },
+      {
+        "index": 153,
+        "id": "SEGOVB-L12-TRAVEL-CASE-SITE-PRIVATE-RETENTION"
+      },
+      {
+        "index": 741,
+        "id": "ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT"
+      },
+      {
+        "index": 743,
+        "id": "SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE"
+      },
+      {
+        "index": 745,
+        "id": "REVIEW-MEDICAL-OBSERVATION-GAP-EVENT-95E"
+      },
+      {
+        "index": 746,
+        "id": "REVIEW-LIFE-ONLY-CASE-SITE-DEPENDENCY-95E"
+      },
+      {
+        "index": 792,
+        "id": "Q-L12-8efe3b20699c30a24bd0"
+      },
+      {
+        "index": 793,
+        "id": "Q-L12-c04c89e00b6a45fa94d0"
+      },
+      {
+        "index": 825,
+        "id": "DELEGATE-CASE-SITE-PIN-OWNER-CARDINALITY-95E"
+      },
+      {
+        "index": 865,
+        "id": "REVIEW-CAMP-PLANNER-ACTIVE-LEG-ROUNDTRIP-95E"
+      }
+    ],
+    "age": [
+      {
+        "index": 1033,
+        "id": "candidate-blood-future-deposit-earlier-dose-95e"
+      }
+    ],
+    "npc": [
+      {
+        "index": 121,
+        "id": "REVIEW-POPULATION-RESEED-HOUSEHOLD-001"
+      },
+      {
+        "index": 131,
+        "id": "SEGOVB-L12-COND-SESSION-NPC-REUSE-BINDING"
+      },
+      {
+        "index": 450,
+        "id": "REVIEW-L3-INITIAL-LANGUAGE-PROFILE-WEIGHTS"
+      },
+      {
+        "index": 750,
+        "id": "ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION"
+      },
+      {
+        "index": 751,
+        "id": "ADLER-L11-NPC-CHAT-RETRY-SCOPE"
+      }
+    ],
+    "chronology": [
+      {
+        "index": 82,
+        "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      },
+      {
+        "index": 112,
+        "id": "CONT-REF-CORRECTION-SOURCE-NAMESPACE"
+      },
+      {
+        "index": 158,
+        "id": "REVIEW-PARTY-SHARED-FAMILY-CLOCK-MULTIADVANCE-001"
+      },
+      {
+        "index": 746,
+        "id": "REVIEW-LIFE-ONLY-CASE-SITE-DEPENDENCY-95E"
+      },
+      {
+        "index": 750,
+        "id": "ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION"
+      },
+      {
+        "index": 787,
+        "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT"
+      },
+      {
+        "index": 1033,
+        "id": "candidate-blood-future-deposit-earlier-dose-95e"
+      },
+      {
+        "index": 1071,
+        "id": "relationship-case-occupancy-same-minute-identity-95e"
+      }
+    ],
+    "investigation_clock": [
+      {
+        "index": 173,
+        "id": "Q-L12-ef9ca7cb50456af30916"
+      },
+      {
+        "index": 181,
+        "id": "REVIEW-SIM-ACTIVITY-DAY-CLIPPED-COUNT-001"
+      },
+      {
+        "index": 1069,
+        "id": "relationship-investigation-participant-clock-duration-95e"
+      },
+      {
+        "index": 1070,
+        "id": "relationship-investigation-exact-max-plan-adapter-95e"
+      },
+      {
+        "index": 1071,
+        "id": "relationship-case-occupancy-same-minute-identity-95e"
+      }
+    ]
+  },
+  "selected_full_rows": [
+    {
+      "index": 121,
+      "row": {
+        "id": "REVIEW-POPULATION-RESEED-HOUSEHOLD-001",
+        "lens": 7,
+        "severity": "unassigned; source-established overwrite conditional on an already changed resident household and a successful repeated setup",
+        "classification": "New bounded 95e authority assessment of seeded resident replay; no observed game incident or historical unique-count change is claimed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/967",
+          "baseline-059/queue.json#/entries/968",
+          "baseline-059/queue.json#/entries/969",
+          "segovb/READ-L12-267.json via ASSESSMENT-L05-COURTSHIP-LOCATION-95E.json"
+        ],
+        "relationship_qualification": "The seed household replay is a bounded new current authority trace, with historical aliases still open. The profession-label issue revisits the same 059 contract; no additional historical unique-count change is inferred. The separate packing trace stays under its existing ledger record.",
+        "discovery": "partial; admitted player/NPC sequence, all seed callers, transaction outcomes, roster changes and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L07-POPULATION-REPLAY-95E.json"
+      }
+    },
+    {
+      "index": 158,
+      "row": {
+        "id": "REVIEW-PARTY-SHARED-FAMILY-CLOCK-MULTIADVANCE-001",
+        "lens": 7,
+        "severity": "unassigned; conditional source-derived repeated time advancement",
+        "classification": "New bounded current shared-interval authority question; no product execution or established player impact.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1024",
+          "segovb/READ-L12-314.json via ASSESSMENT-FAMILY-SHARED-TIME-95E.json"
+        ],
+        "relationship_qualification": "The shared-rest overlap candidate and the earlier equal-absence question concern the same family helper but different premises; no global alias or historical unique-count change is asserted.",
+        "discovery": "partial; combined admitted state, chronology policy, all callers, transaction semantics and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-FAMILY-SHARED-TIME-95E.json"
+      }
+    },
+    {
+      "index": 173,
+      "row": {
+        "id": "Q-L12-ef9ca7cb50456af30916",
+        "lens": 12,
+        "severity": "unassigned; conditional source-derived measurement and policy question",
+        "classification": "Current bounded revisit of an earlier pending contract, not a new unique historical defect or observed runtime outcome.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1079",
+          "baseline-059/queue.json#/entries/1073 (wait subset only)",
+          "segovb/READ-L12-336.json via ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain their original revision, attribution and individual partial-read corrections. The two broad pending questions overlap this selected wait trace but are not declared global aliases; role 1287 is not credited as read.",
+        "discovery": "partial; native transaction semantics, admitted clipping reachability, report/CLI consumers, intended measurement, all wait producers and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SIMULATION-WAIT-QUEUE-LINKS-95E.json",
+        "related_current_traces": [
+          "ASSESSMENT-SIM-JOURNEY-MASS-95E.json: journey camp separately derives and emits requested and actual rest; its journey/terminal clock policy is not automatically an investigation-wait measurement.",
+          "ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json: medical rest records requested and actual personal clock delta; repair-wait and activity-day counters are distinct source contracts."
+        ]
+      }
+    },
+    {
+      "index": 743,
+      "row": {
+        "id": "SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A generated private case-site identity validation failure is formatted into a generic string error.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/458"
+        ],
+        "relationship_qualification": "Original historical identity and reviewer retained; actual reachability, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; registered delegated source and selected consumers connected, remaining producers and policy open",
+        "connected_repair_direction": "Preserve the typed source error and context through the web boundary if caller policy requires it.",
+        "future_acceptance": "After audit and authorization, assess representative valid and invalid cases under the chosen owner policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json"
+      }
+    },
+    {
+      "index": 750,
+      "row": {
+        "id": "ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          3,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The selected NPC presence path replaces an unavailable or absent clock with noon.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/181"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+        "connected_repair_direction": "Define authoritative observer chronology and distinguish unknown from a genuine noon.",
+        "future_acceptance": "After audit and authorization, assess distinct failure and valid empty/success cases under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-6-95E.json"
+      }
+    },
+    {
+      "index": 787,
+      "row": {
+        "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Residence and family presentation substitutes minute zero for missing or failed clock observations.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/517"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+        "connected_repair_direction": "Preserve authoritative chronology and explicit unavailability in residence projections.",
+        "future_acceptance": "After audit and authorization, assess the exact failure and valid success or absence cases under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
+      }
+    },
+    {
+      "index": 825,
+      "row": {
+        "id": "DELEGATE-CASE-SITE-PIN-OWNER-CARDINALITY-95E",
+        "lens": 7,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A site-only single-row query can encounter multiple owner-keyed pins after a shared lead.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-7.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+        ],
+        "relationship_qualification": "Conditional successful share, eligible pins and normal SQL response; q1881 related, no disclosure claim.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Align owner-scoped pin identity, authorized query and cardinality.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+      }
+    },
+    {
+      "index": 1069,
+      "row": {
+        "id": "relationship-investigation-participant-clock-duration-95e",
+        "lens": 13,
+        "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+        "severity": "unassigned; supported reachability, effect and policy remain open",
+        "classification": "The interrupted receipt combines the maximum participant clock with the leader start and can include a pre-existing offset under conditional states.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2337"
+        ],
+        "current_related_records": [
+          "SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER"
+        ],
+        "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+        "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+        "connected_repair_direction": "Trace supported independent clocks and define the receipt duration authority before selecting a repair direction."
+      }
+    },
+    {
+      "index": 1071,
+      "row": {
+        "id": "relationship-case-occupancy-same-minute-identity-95e",
+        "lens": 13,
+        "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+        "severity": "unassigned; supported reachability, effect and policy remain open",
+        "classification": "Conditional same-minute return can reuse a closed case occupancy key while an earlier outbreak span transition has its own same-key behavior.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2340"
+        ],
+        "current_related_records": [
+          "relationship-investigation-participant-clock-duration-95e"
+        ],
+        "relationship_qualification": "Related historical records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+        "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json",
+        "connected_repair_direction": "Trace supported re-entry, character-clock authority, database transaction behavior and coordinated presence chronology; related clock scope is not an alias."
+      }
+    }
+  ],
+  "qualification": "Literal and regex matching on JSON-serialized current ledger is bounded navigation, not proof of absence or alias. Referents and first operations require human source reconciliation."
+}

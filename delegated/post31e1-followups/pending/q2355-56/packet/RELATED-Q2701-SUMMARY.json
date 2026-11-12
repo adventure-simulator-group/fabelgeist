@@ -1,0 +1,15 @@
+{
+  "contract_id": "REVIEW-L3-TEXTURE-RECIPE-CHANNEL-INSTALL-ADMISSION",
+  "kind": "independent-admission-source-contract",
+  "lens": 3,
+  "canonical_owner": "RuntimeTextureLoader::load and BakedRecipe::from_bytes60..123, RuntimeTextureHandles destinations pending",
+  "first_failed_contract_or_unresolved_question": "Wire proves size/mips/encoding payloadlength, finite positive scale, unique <=8 channels; it permits arbitrary channel set for a recipe. Determine actual required destination/channel contract before claiming loader/install readiness defect. Public BakedMap bypasses decoder, separate conditional raw Image boundary.",
+  "dependencies": [
+    "ROOT-L3-EXT-0003",
+    "ROOT-L3-EXT-0004",
+    "ROOT-L3-EXT-0014",
+    "ROOT-L3-EXT-0015",
+    "ROOT-L3-EXT-0017"
+  ],
+  "status_key_present": false
+}

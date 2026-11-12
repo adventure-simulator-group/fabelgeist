@@ -1,0 +1,61 @@
+  85             TimberShingle,
+  86             PlankFloor,
+  87             LeadSheet,
+  88             Ironwork,
+  89             WindowGlass,
+  90             CrenellationMask,
+  91         ];
+  92         match self.id {
+  93             ExhibitId::Oak => OAK,
+  94             ExhibitId::City => CITY,
+  95             _ => &[],
+  96         }
+  97     }
+  98 
+  99     pub fn is_studio(&self) -> bool {
+ 100         !matches!(self.kind, ExhibitKind::Scenery)
+ 101     }
+ 102 
+ 103     pub fn catalog() -> Vec<Self> {
+ 104         serde_json::from_str(include_str!("../../../../assets/art-demo/catalog.json"))
+ 105             .expect("shipped exhibit catalog must be valid")
+ 106     }
+ 107 
+ 108     pub fn id(&self) -> ExhibitId {
+ 109         self.id
+ 110     }
+ 111 
+ 112     pub fn get(id: ExhibitId) -> Self {
+ 113         Self::catalog()
+ 114             .into_iter()
+ 115             .find(|exhibit| exhibit.id == id)
+ 116             .expect("exhibit in catalog")
+ 117     }
+ 118 
+ 119     pub fn view(&self) -> OrbitView {
+ 120         OrbitView::new(
+ 121             Vec3::from_array(self.focus),
+ 122             self.distance,
+ 123             if matches!(self.kind, ExhibitKind::Scenery) {
+ 124                 CameraSpace::Landscape
+ 125             } else {
+ 126                 CameraSpace::Studio
+ 127             },
+ 128         )
+ 129     }
+ 130 
+ 131     pub fn spawn(&self, world: &mut World) -> ArtDemoPreparationResult<Option<Handle<WorldAsset>>> {
+ 132         match self.kind {
+ 133             ExhibitKind::Armor => {
+ 134                 let asset = self
+ 135                     .asset
+ 136                     .as_ref()
+ 137                     .ok_or(ArtDemoPreparationError::MissingArmorAsset)?;
+ 138                 let handle = world
+ 139                     .resource::<AssetServer>()
+ 140                     .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/armor/{asset}")));
+ 141                 world.spawn((
+ 142                     DemoEntity(self.id),
+ 143                     WorldAssetRoot(handle.clone()),
+ 144                     Transform::IDENTITY,
+ 145                     Visibility::default(),

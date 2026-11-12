@@ -1,0 +1,15 @@
+# q2352–q2353: disclosure time and provenance
+
+The selected clock producer initializes a missing world-clock row before its
+explicit missing-row error. Disclosure would use minute zero if that error were
+returned, but no ordinary supported error witness is established.
+
+A same-case disclosure accepts an invalid outer-None provenance result, while
+observer and action lookups require an outer Some. Valid manual Some(None) is
+distinct. Selected manual and generated authoring paths provide safeguards; the
+reachability of invalid provenance through supported callers remains open.
+
+REPORT.json retains the original 059 and older 774 attribution, current source
+references, ledger relationships, bounded thirteen-lens perspectives and
+remaining questions. READ-LIMITS.json distinguishes actual source displays from
+unread captures. No product execution or validation occurred.

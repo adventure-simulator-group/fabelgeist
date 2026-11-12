@@ -1,0 +1,51 @@
+SOURCE crates/fabelgeist-numpy-storage/README.md:51-100
+  51 
+  52 Stored members borrow the original archive bytes. `flate2` decodes Deflate into
+  53 owned bytes. Checksums, encryption and agreement between declared and decoded
+  54 sizes are not verified. A declared size is used for the initial Deflate
+  55 reservation, retaining the existing native cast and allocation policy; it is
+  56 not a resource budget. `rawzip` is an unmodified registry dependency, not
+  57 vendored source. There is one structural parser.
+  58 
+  59 Decode a serialized array with `NpyArray::from_bytes`, or read a standalone file
+  60 with `NpyArray::read`.
+  61 
+  62 ## Array metadata
+  63 
+  64 The decoder checks the shape, element type, and payload length. A decoded
+  65 `NpyArray` keeps that metadata immutable. Use `shape`, `dtype`, `element_count`,
+  66 and `is_empty` to inspect it. Public mutation cannot reinterpret one decoded
+  67 element as several differently sized values or replace the dimensions behind its
+  68 checked element count.
+  69 
+  70 `NpyShape` owns a sequence of `NpyDimension` values and admits their product.
+  71 `NpyRank` counts axes; `NpyElementCount` counts stored elements. A scalar has
+  72 rank zero and one element. Any zero axis makes an array empty before other
+  73 dimensions can overflow. `NpyElementWidth` describes the supported one-, four-,
+  74 and eight-byte storage words. `NpyPayloadLength` owns the checked serialized
+  75 payload length separately from element cardinality.
+  76 
+  77 `NpyLayoutError` retains the failed dimensions, element count and width,
+  78 expected and available payload lengths, or expected/actual ranks and the native
+  79 rank conversion cause. Tensor layouts also reject dimension orders whose native
+  80 framework multiplication would overflow before a later zero axis. Storage shapes
+  81 still admit any zero axis as empty. Constructing a tensor with the wrong rank
+  82 returns this concrete error. Header and standalone-file errors remain
+  83 format-adapter responsibilities. ZIP failures use the concrete classes described
+  84 below.
+  85 
+  86 Native representations stay at explicit adapters: header dimension admission,
+  87 little-endian word decoding, payload slicing, the immutable `bytes` encoding
+  88 view, and Burn tensor construction. MHR corrective-basis admission retains its
+  89 mesh vertex count, converting to `NpyDimension` at the numerical layout
+  90 boundary. Shape queries expose nominal dimensions, not mutable integer vectors.
+  91 Numeric value collections retain decoded storage numbers; general
+  92 storage/transport types remain separate bespoke type families.
+  93 
+  94 The reader supports NPY versions 1.0, 2.0 and 3.0 with checked header lengths.
+  95 One fallible `NpyHeader` admission checks framing and the dictionary, then
+  96 retains the dtype, shape and exact borrowed payload together. Consumers do not
+  97 reconstruct a range against another buffer.
+  98 The scalar header dictionary accepts either quote style and any key order.
+  99 It requires exactly `descr`, `fortran_order` and a shape tuple; duplicate or
+ 100 unknown fields, malformed separators and escaped strings are rejected.

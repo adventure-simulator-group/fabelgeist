@@ -1,0 +1,99 @@
+{
+  "schema": "726-npz-q2316-native-policy-reconciliation-v1",
+  "author": "<LOCAL_PATH_0023>",
+  "created_utc": "2026-11-12T14:38:08.038612+00:00",
+  "review_status": "Independent current source read and historical reconciliation; this report has not been independently semantically reviewed. Coordinator owns ledger and publication decisions.",
+  "scope": "Bounded source-only investigation of recovered 059 q2316 and current 95e child-crate rawzip/Deflate dependencies. No product execution, tests, repairs, global clearance or unique-defect-count change.",
+  "history_and_identity": {
+    "historical_record": "059 q2316 REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY",
+    "historical_disposition": "At e275 the named source audit disposition was documented-conditional-policy-question and exact-scope discovery true; all-lens/global alias completion and repair/runtime pass remained false. Its two explicit decisions concerned ZIP decoded size/CRC and allocation/decompression budgets.",
+    "attribution": "Historical own Lens11 READ-171, READ-175 and READ-176 and separate root READ-L11-707/711/712 retain their original revision, registered ranges and attribution. This task separately registered current source windows and does not transfer personal credit.",
+    "queue_recovery": "The exact original 059 q2316 entry and its path-redacted reconstructed public queue slice are byte-identical; the full queues differ. Neither slice is an original standalone queue nor the missing final checkpoint3821 ledger or queue.",
+    "current_sources": "First-party source and child Cargo files are Git-blob verified against 95e. Historical and current src subtree IDs are identical, but crate Cargo.toml and full root tree differ. No entire-tree or native-runtime equivalence follows."
+  },
+  "locked_dependencies": {
+    "child_workspace": "The pinned crates/fabelgeist-numpy-storage/Cargo.toml declares its own [workspace], rawzip =0.5.2, and flate2 version 1 with default features off and rust_backend requested. The pinned child Cargo.lock lists rawzip 0.5.2 checksum ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c, flate2 1.1.10 checksum 6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb, and miniz_oxide 0.9.1 checksum b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c. All three exact local crate archives match these checksums.",
+    "root_lock": "The separately preserved current root lock has no rawzip row and differs in other package versions; it does not replace the child workspace lock.",
+    "feature_limit": "The direct rust_backend feature enables miniz_oxide in flate2 source. The same source chooses zlib-rs or a C backend when corresponding unified features are enabled. Lock dependency presence and the direct manifest do not establish the actual selected feature graph, target, invocation or runtime backend; miniz observations below are conditional."
+  },
+  "current_findings": [
+    {
+      "id": "REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY",
+      "classification": "Same historical q2316 connected policy/repair owner, with stronger current source support; no new accepted unique defect count.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/zip.rs:31-48,86-109,151-184",
+        "crates/fabelgeist-numpy-storage/src/zip/extent.rs:1-44",
+        "rawzip 0.5.2 src/archive.rs:176-207,227-241,1073-1174,1222-1250",
+        "crates/fabelgeist-numpy-storage/src/npz.rs:55-86"
+      ],
+      "trace": "The central ZIP header stores uncompressed and compressed declarations separately and carries them into the wayfinder. rawzip explicitly documents uncompressed_size_hint as unvalidated and warns against allocation decisions based on it. The first-party Entry records that value as DeclaredUncompressedByteLength; after a selected Deflate member reaches decoding and rawzip get_entry returns, the application casts the u64 declaration to usize and passes it to Vec::with_capacity before reading the decoder. That operational use conflicts with the upstream warning, even though the bespoke type accurately labels the declaration as unverified.",
+      "limits": "The exact current application path is source-backed. The existence of a supported or attacker-controlled archive reaching this branch, actual selected platform, allocator response, impact, and acceptable resource bound are unproved. No particular panic, exploit, checksum failure or user-visible outcome is claimed. The historical q2316 already recognized declaration-driven reservation, so this is connected corroboration rather than a new defect count."
+    },
+    {
+      "id": "NPZ-ZIP-CRC-AND-SIZE-VERIFICATION-Q2316",
+      "classification": "Separate optional native check versus first-party raw data path; policy still open.",
+      "sources": [
+        "rawzip 0.5.2 src/archive.rs:176-207,227-271,494-526",
+        "rawzip 0.5.2 src/archive/reader.rs:6-23,422-463",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:160-181",
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:70-87",
+        "crates/fabelgeist-numpy-storage/src/npy/metadata.rs:113-143"
+      ],
+      "trace": "rawzip get_entry checks availability of the compressed extent and retains central-directory expected CRC and uncompressed size; data() returns raw bytes. claim_verifier and verifying_reader are separate APIs, and ZipVerification::valid compares both expected decoded size and CRC. ZipVerifier accumulates data on reads and invokes validation when a nonempty-buffer read returns zero or accumulated size reaches/exceeds the declaration; an empty-buffer read returns zero without validation and into_inner bypasses verification. The first-party member path calls data() and a DeflateDecoder or returns stored bytes, without selecting that verifier. The later NPY admission checks its own typed payload prefix length, a separate contract from ZIP CRC or full decoded ZIP length.",
+      "limits": "No native verifier, checksum, NPY parser, archive, or fixture was run. No policy requiring CRC or exact decoded size has been established, and no corrupted asset or real outcome is demonstrated. Do not claim the optional verifier is an unconditional archive-wide certificate; consumer read pattern matters."
+    },
+    {
+      "id": "NPZ-DEFLATE-DECODER-AND-RESOURCE-Q2316",
+      "classification": "Checksum-bound library-source trace and conditional backend relationship; native behavior not validated.",
+      "sources": [
+        "flate2 1.1.10 Cargo.toml:57-103,239-247",
+        "flate2 1.1.10 src/deflate/read.rs:163-181,230-243",
+        "flate2 1.1.10 src/deflate/bufread.rs:166-182,230-245",
+        "flate2 1.1.10 src/mem.rs:399-407,480-492",
+        "flate2 1.1.10 src/zio.rs:124-169",
+        "flate2 1.1.10 src/ffi/mod.rs:62-82",
+        "flate2 1.1.10 src/ffi/miniz_oxide.rs:30-35,64-98",
+        "miniz_oxide 0.9.1 src/inflate/stream.rs:163-205,231-259,300-369"
+      ],
+      "trace": "The flate2 Read DeflateDecoder wraps its bufread decoder; the latter constructs Decompress::new(false) and delegates reading through zio. The displayed zio path translates some incomplete/corrupt stream states into IO errors; it receives compressed bytes and an output slice, not the ZIP central CRC or declared decoded size. Under the miniz backend selection, false selects raw format and stream inflate selects the ignore-Adler32 flag for non-zlib format. The application calls read_to_end on the decoder with no separate application-level decompressed-output cap shown.",
+      "limits": "The miniz backend is conditional on actual unified features and is not established as selected for a particular build. Relevant unregistered library internals, other backends, allocator behavior, actual native decoding, and supported asset trust remain open. These observations do not certify ZIP integrity or a particular failure mode."
+    }
+  ],
+  "connected_ledger_and_acceptance": [
+    "Keep q2316 as the connected historical policy/repair identity; cross-reference q2307 selected-member/declaration and q2306 NPY payload framing, rather than creating automatic aliases or a new unique count.",
+    "A later authorized repair decision needs an explicit supported-asset trust model and reservation/decompressed-output budget, plus a separate decision on ZIP CRC and decoded-size checks. Preserve valid zero-size declarations, typed member/operation causes and correct NPY payload semantics as policy permits.",
+    "No validation acceptance was attempted. Any chosen repair and product/runtime validation belong to later authorized work."
+  ],
+  "open_questions": [
+    "Which real supported model/asset producers can supply these archive headers and compressed contents, and are they trusted or player-controlled?",
+    "What maximum initial reservation, total decoded bytes and archive/member counts are required on each supported platform, and what error behavior should be exposed?",
+    "Must ZIP declared decoded size and CRC be verified for stored and deflated members, and which complete consumption pattern and error owner should enforce that policy?",
+    "What exact current Cargo feature unification and backend are used by the supported application build, and what are the remaining native-library and allocator contracts?",
+    "Do source-recognized inputs reach the selected member and get_entry path in practice? This was not probed.",
+    "The original checkpoint3821 final queue and ledger remain missing; do not promote 059 or reconstructed records into that checkpoint."
+  ],
+  "evidence_and_privacy": {
+    "registrations": [
+      "HISTORY-METADATA-REGISTRATION.json",
+      "SYMBOL-METADATA-REGISTRATION.json",
+      "EXT-SYMBOL-METADATA-REGISTRATION.json",
+      "CENTRAL-SYMBOL-REGISTRATION.json",
+      "SOURCE-REGISTRATION.json",
+      "SOURCE-EXT-REGISTRATION.json",
+      "SOURCE-EXT2-REGISTRATION.json",
+      "NATIVE-HISTORY-REGISTRATION.json"
+    ],
+    "receipts": [
+      "SOURCE-READ-RECEIPT.json",
+      "HISTORY-READ-RECEIPT.json"
+    ],
+    "failed_and_unregistered_views": [
+      "FAILED-METADATA-ATTEMPT.json",
+      "UNREGISTERED-METADATA-EVENT.json"
+    ],
+    "archive_privacy": "ARCHIVE-PRIVACY-QUALIFICATION.json records 13 email candidates and 30 unscanned nested ZIP/JAR signatures in exact archive pre-scan. Raw archives, raw commit anchors, full original queue and full flate2 Cargo.toml are separately controlled; public-safe packet uses exact selected source displays with verification requiring supplied originals.",
+    "source_fixture_limits": "Selected flate2 and miniz source test lines were displayed as text only and not executed; receipts record exact ranges. No archive fixture was executed.",
+    "custody": "All local copies and checks are same-machine; no independent-machine custody or broad privacy guarantee."
+  },
+  "limitations": "No product build, test, fixture, parser execution, decompression, macro/shader execution, runtime probe, repair, publication or ledger edit, or cleanup."
+}

@@ -1,0 +1,64 @@
+--- crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs:33-95 ---
+   33 pub(crate) fn case_site_provenance_reducer(
+   34     ctx: &ReducerContext,
+   35     site: &CaseSiteAuthority,
+   36 ) -> Option<Option<(String, String)>> {
+   37     let case = ctx.db.case_authority().id().find(&site.case_id)?;
+   38     let mut authorities = Vec::new();
+   39     for alias in [&case.id, &case.generated_case_id] {
+   40         if alias.is_empty()
+   41             || authorities
+   42                 .iter()
+   43                 .any(|authority: &crate::strategic::QuestGenerationAuthority| {
+   44                     authority.case_id == alias.as_str()
+   45                 })
+   46         {
+   47             continue;
+   48         }
+   49         if let Some(authority) = ctx.db.quest_generation_authority().case_id().find(alias) {
+   50             authorities.push(authority);
+   51         }
+   52         authorities.extend(
+   53             ctx.db
+   54                 .quest_generation_authority()
+   55                 .public_case_id()
+   56                 .filter(alias),
+   57         );
+   58     }
+   59     validated_case_site_aliases(&case, authorities)
+   60 }
+   61 
+   62 pub(super) fn validated_case_site_aliases(
+   63     case: &crate::strategic::CaseAuthority,
+   64     authorities: impl IntoIterator<Item = crate::strategic::QuestGenerationAuthority>,
+   65 ) -> Option<Option<(String, String)>> {
+   66     let mut authorities: Vec<_> = authorities
+   67         .into_iter()
+   68         .filter(|authority| {
+   69             authority.case_id == case.id
+   70                 || authority.public_case_id == case.id
+   71                 || (!case.generated_case_id.is_empty()
+   72                     && (authority.case_id == case.generated_case_id
+   73                         || authority.public_case_id == case.generated_case_id))
+   74         })
+   75         .collect();
+   76     authorities.sort_by(|left, right| left.case_id.cmp(&right.case_id));
+   77     authorities.dedup_by(|left, right| left.case_id == right.case_id);
+   78     match case.provenance_kind {
+   79         InvestigationProvenanceKind::Manual
+   80             if case.generated_case_id.is_empty() && authorities.is_empty() =>
+   81         {
+   82             Some(None)
+   83         }
+   84         InvestigationProvenanceKind::Generated
+   85             if case.generated_case_id == case.id && authorities.len() == 1 =>
+   86         {
+   87             let validated = validate_quest_generation_authority(&authorities[0]).ok()?;
+   88             (validated.manifest.canonical_case_id == case.id).then_some(Some((
+   89                 validated.manifest.canonical_case_id,
+   90                 validated.manifest.public_case_id,
+   91             )))
+   92         }
+   93         _ => None,
+   94     }
+   95 }

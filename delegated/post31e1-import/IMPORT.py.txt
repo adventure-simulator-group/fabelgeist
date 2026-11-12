@@ -1,0 +1,29 @@
+from pathlib import Path, PurePosixPath
+import hashlib,json,os,stat,subprocess
+root=Path('.');base=Path('../private-originals');stage=base/'next-15a-safe-successor-2qo9jiol'
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()=='31e130bfa8f8914f759c7d5cddc3db92962704c7'
+assert not subprocess.check_output(['git','status','--porcelain','-z'])
+sources={'delegated/post31e1-followups':stage/'public','delegated/post31e1-preimport-scan':stage/'preimport-scan','delegated/post31e1-standalone':base/'next-15a-sealed-replay-f4hlkvwl'}
+assert hashlib.sha256((stage/'public/CATALOG.json').read_bytes()).hexdigest()=='baacfc6031c54a0d90689482b90ca2a90fbd79fa5013cb4f79c95b4c356c00a7'
+assert all(not (root/name).exists() for name in sources) and not (root/'delegated/post31e1-import').exists()
+for name,src in sources.items():
+ assert src.is_dir() and not src.is_symlink()
+ assert all(not x.is_symlink() and (x.is_dir() or x.is_file()) for x in src.rglob('*'))
+rows=[]
+for name,src in sources.items():
+ dst=root/name;dst.mkdir();count=total=0;agg=hashlib.sha256()
+ for f in sorted(src.rglob('*')):
+  rel=f.relative_to(src);assert not PurePosixPath(rel.as_posix()).is_absolute() and '..' not in rel.parts
+  target=dst/rel
+  if f.is_dir():target.mkdir(exist_ok=False);continue
+  b=f.read_bytes();target.parent.mkdir(parents=True,exist_ok=True)
+  with target.open('xb') as w:w.write(b)
+  mode=stat.S_IMODE(f.stat().st_mode);target.chmod(mode);assert target.read_bytes()==b and stat.S_IMODE(target.stat().st_mode)==mode
+  agg.update(rel.as_posix().encode()+b'\0'+str(mode).encode()+b'\0'+hashlib.sha256(b).hexdigest().encode()+b'\n');count+=1;total+=len(b)
+ rows.append({'target':name,'files':count,'bytes':total,'aggregate_sha256':agg.hexdigest()})
+out=root/'delegated/post31e1-import';out.mkdir()
+script=stage/'IMPORT.py'
+with (out/'IMPORT.py.txt').open('xb') as f:f.write(script.read_bytes())
+record={'schema':'726-post31e1-import-v1','source_revision':'95e63628f9d70b8dd6e6fede64334696c6995009','parent_checkpoint':'31e130bfa8f8914f759c7d5cddc3db92962704c7','catalog_sha256':'baacfc6031c54a0d90689482b90ca2a90fbd79fa5013cb4f79c95b4c356c00a7','script_sha256':hashlib.sha256(script.read_bytes()).hexdigest(),'copies':rows,'qualification':'Exclusive byte-and-mode copies into previously nonexistent audit evidence directories. Full source modes were checked locally; Git transport preserves executable bits. The imported packet includes a documented path-safe correction, pending source work and same-machine encrypted originals.'}
+with (out/'RECORD.json').open('x') as f:json.dump(record,f,indent=2);f.write('\n')
+print('Imported sealed path-safe evidence directories and exact standalone receipt; no product files changed.')

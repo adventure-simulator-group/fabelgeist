@@ -1,0 +1,119 @@
+   1 //! Typed artistic recipe controls shared by native bakers and the browser studio.
+   2 use fabelgeist_determinism::Seed;
+   3 use serde::{Deserialize, Serialize};
+   4 mod detail_bounds;
+   5 mod inspector;
+   6 mod validation;
+   7 pub use inspector::ControlPath;
+   8 #[cfg(test)]
+   9 mod tests;
+  10 pub use validation::{ControlBounds, ParameterError};
+  11 
+  12 macro_rules! parameter_block {
+  13     (pub struct $name:ident { $($field:ident: $ty:ty = $default:expr;)* }) => {
+  14         #[derive(Clone, serde::Serialize, serde::Deserialize)]
+  15         #[serde(deny_unknown_fields)]
+  16         pub struct $name { $(pub $field: $ty,)* }
+  17         impl Default for $name {
+  18             fn default() -> Self { Self { $($field: $default,)* } }
+  19         }
+  20     };
+  21 }
+  22 pub(crate) use parameter_block;
+  23 
+  24 #[derive(Clone, Default, Serialize, Deserialize)]
+  25 #[serde(deny_unknown_fields)]
+  26 pub struct TextureParameters {
+  27     pub seed: Seed,
+  28     pub leaves: crate::leaf::LeafPresets,
+  29     pub leaf_colors: LeafColorParameters,
+  30     pub resolution: BakeResolution,
+  31     pub clay_roof_tile: crate::clay_roof_tile::Parameters,
+  32     pub crenellation_mask: crate::crenellation_mask::Parameters,
+  33     pub dressed_stone: crate::dressed_stone::Parameters,
+  34     pub ground: crate::ground::Parameters,
+  35     pub handmade_brick: crate::handmade_brick::Parameters,
+  36     pub hewn_oak: crate::hewn_oak::Parameters,
+  37     pub ironwork: crate::ironwork::Parameters,
+  38     pub lead_sheet: crate::lead_sheet::Parameters,
+  39     pub common: crate::Parameters,
+  40     pub lime_plaster: crate::lime_plaster::Parameters,
+  41     pub plank_floor: crate::plank_floor::Parameters,
+  42     pub rock: crate::rock::Parameters,
+  43     pub rubble_masonry: crate::rubble_masonry::Parameters,
+  44     pub slate_roof: crate::slate_roof::Parameters,
+  45     pub surface: crate::surface::Parameters,
+  46     pub timber_shingle: crate::timber_shingle::Parameters,
+  47     pub wattle_and_daub: crate::wattle_and_daub::Parameters,
+  48     pub window_glass: crate::window_glass::Parameters,
+  49     pub dressed_stone_weathering: crate::dressed_stone::weathering::Parameters,
+  50     pub hewn_oak_grain: crate::hewn_oak::grain::Parameters,
+  51     pub dressed_stone_weathering_mortar: crate::dressed_stone::weathering::mortar::Parameters,
+  52 }
+  53 
+  54 /// A cap changes sampling density, never the physical size or authored feature count.
+  55 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default, Serialize, Deserialize)]
+  56 pub enum BakeResolution {
+  57     Draft,
+  58     Medium,
+  59     #[default]
+  60     Full,
+  61 }
+  62 impl TextureParameters {
+  63     pub(crate) fn size(&self, native: u32) -> u32 {
+  64         match self.resolution {
+  65             BakeResolution::Draft => native.min(128),
+  66             BakeResolution::Medium => native.min(256),
+  67             BakeResolution::Full => native,
+  68         }
+  69     }
+  70 }
+  71 impl TextureParameters {
+  72     /// A recipe owns each purpose; context identifies authored features or cells.
+  73     pub(crate) fn rng(
+  74         &self,
+  75         purpose: fabelgeist_determinism::StreamId,
+  76         context: &[u64],
+  77     ) -> fabelgeist_determinism::DeterministicRng {
+  78         purpose.rng(self.seed, context)
+  79     }
+  80 
+  81     /// Frame a derived surface-element seed as the sole context word while
+  82     /// retaining this material's root and the caller-owned stream purpose.
+  83     pub(crate) fn element_rng(
+  84         &self,
+  85         stream: fabelgeist_determinism::StreamId,
+  86         element: fabelgeist_determinism::Seed,
+  87     ) -> fabelgeist_determinism::DeterministicRng {
+  88         self.rng(stream, &[element.to_u64()])
+  89     }
+  90 
+  91     pub(crate) fn field_seed(
+  92         &self,
+  93         purpose: fabelgeist_determinism::StreamId,
+  94         context: &[u64],
+  95     ) -> Seed {
+  96         purpose.seed(self.seed, context)
+  97     }
+  98 }
+  99 
+ 100 #[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+ 101 pub enum LeafSpecies {
+ 102     WhiteOak,
+ 103     DryWhiteOak,
+ 104     Hazel,
+ 105     Blackthorn,
+ 106     Hawthorn,
+ 107     Beech,
+ 108 }
+ 109 
+ 110 parameter_block! {
+ 111     pub struct LeafColorParameters {
+ 112         white_oak: crate::LeafRecipe = crate::LeafRecipe::WHITE_OAK;
+ 113         dry_white_oak: crate::LeafRecipe = crate::LeafRecipe::DRY_WHITE_OAK;
+ 114         hazel: crate::LeafRecipe = crate::LeafRecipe::HAZEL;
+ 115         blackthorn: crate::LeafRecipe = crate::LeafRecipe::BLACKTHORN;
+ 116         hawthorn: crate::LeafRecipe = crate::LeafRecipe::HAWTHORN;
+ 117         beech: crate::LeafRecipe = crate::LeafRecipe::BEECH;
+ 118     }
+ 119 }

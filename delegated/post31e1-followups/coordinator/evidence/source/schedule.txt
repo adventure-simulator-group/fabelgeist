@@ -1,0 +1,28 @@
+--- crates/adventuresim-stdb-module/src/time/schedule.rs:99-125 ---
+   99 fn ensure_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+  100     let official_minutes = refresh_clock(ctx)?;
+  101     if ctx
+  102         .db
+  103         .character_time()
+  104         .character_id()
+  105         .find(character_id)
+  106         .is_none()
+  107     {
+  108         ctx.db.character_time().insert(CharacterTime {
+  109             character_id,
+  110             scan_id: character_id,
+  111             minutes: official_minutes,
+  112         });
+  113     }
+  114     if ctx
+  115         .db
+  116         .character_training_schedule()
+  117         .character_id()
+  118         .find(character_id)
+  119         .is_none()
+  120     {
+  121         ctx.db
+  122             .character_training_schedule()
+  123             .insert(default_schedule(character_id));
+  124     }
+  125     Ok(())

@@ -1,0 +1,86 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "q2357-58-original",
+      "ciphertext": "q2357-58-original.aesgcm",
+      "ciphertext_sha256": "f66b3adf40625dd74c8e21b13988e4a858e334aa5e93c60258dcf4f503a9fe21",
+      "ciphertext_bytes": 350641,
+      "plaintext_archive_sha256": "854c33a3c53e847dbf0e0908753339038d6ef9d98514b0809f9969b1fcd2d9fc",
+      "plaintext_archive_bytes": 350613,
+      "regular_files": 199,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:q2357-58-original:v1"
+    },
+    {
+      "label": "q2360-61-original",
+      "ciphertext": "q2360-61-original.aesgcm",
+      "ciphertext_sha256": "ac332fdf9a8dc200dcc81f83c0000444b84d05977edbb96e52b407d6ed04e088",
+      "ciphertext_bytes": 163513,
+      "plaintext_archive_sha256": "8709d1929a020a0b62dd1b02202a6adacefbb9b4bc609f5819af12e78c5b4e31",
+      "plaintext_archive_bytes": 163485,
+      "regular_files": 148,
+      "directories": 22,
+      "associated_data": "726-audit-private-evidence:q2360-61-original:v1"
+    },
+    {
+      "label": "q2362-63-original",
+      "ciphertext": "q2362-63-original.aesgcm",
+      "ciphertext_sha256": "6099d7e28dd872d44956f9c61b4a28d432eeb27f5ea8b194c04c1a8902038b18",
+      "ciphertext_bytes": 139991,
+      "plaintext_archive_sha256": "f38a1b8f30326ef5e358b5db9b6f0ee42ac220a5636f620a6dfd51da1fceade0",
+      "plaintext_archive_bytes": 139963,
+      "regular_files": 128,
+      "directories": 25,
+      "associated_data": "726-audit-private-evidence:q2362-63-original:v1"
+    },
+    {
+      "label": "q2362-63-ledger-anchor",
+      "ciphertext": "q2362-63-ledger-anchor.aesgcm",
+      "ciphertext_sha256": "9e4df041f7eb6d50b01d12aff7efa93e6f66310a8fb983e2146daa8ccfac6d10",
+      "ciphertext_bytes": 209989,
+      "plaintext_archive_sha256": "5a52c940eb46be02da189aacbfb08b2af7cf34c9c88b73d2a5853b0e3c13374f",
+      "plaintext_archive_bytes": 209961,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2362-63-ledger-anchor:v1"
+    },
+    {
+      "label": "q2366-67-original",
+      "ciphertext": "q2366-67-original.aesgcm",
+      "ciphertext_sha256": "aaef709e042bf2e4d554f5bd5dc4122158cf6522057d9a3c56a30c67516c0860",
+      "ciphertext_bytes": 104512,
+      "plaintext_archive_sha256": "04509af6847ce51b9f93e6b65a4c210121021f974d4f536cd0f635aaae6fdef1",
+      "plaintext_archive_bytes": 104484,
+      "regular_files": 69,
+      "directories": 13,
+      "associated_data": "726-audit-private-evidence:q2366-67-original:v1"
+    },
+    {
+      "label": "q2368-69-original",
+      "ciphertext": "q2368-69-original.aesgcm",
+      "ciphertext_sha256": "eadf0f85e1eaf7eca1e3cf49e8402909fa920f9fd69771d5e392c16db61d9372",
+      "ciphertext_bytes": 3187086,
+      "plaintext_archive_sha256": "700de422d05bb7ecf44207145bf5ad2882de83a287730a0de7a4c4a7754656b0",
+      "plaintext_archive_bytes": 3187058,
+      "regular_files": 294,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:q2368-69-original:v1"
+    },
+    {
+      "label": "bounded-digest-replay-corpus",
+      "ciphertext": "bounded-digest-replay-corpus.aesgcm",
+      "ciphertext_sha256": "a4264ee154b97a8712e6e31649acf6b1360e24573690632cd3681d2a144e9fc7",
+      "ciphertext_bytes": 8941324,
+      "plaintext_archive_sha256": "ece24f0408245794642978d4d5fc003bb668e0d326c0fc9fafa557c119c9e6f9",
+      "plaintext_archive_bytes": 8941296,
+      "regular_files": 3,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:bounded-digest-replay-corpus:v1"
+    }
+  ],
+  "key_custody": "The separately held same-machine key also protects the preceding checkpoint originals and verifier-failure logs; no key bytes are included here. New nonces were checked against those 22 earlier ciphertexts.",
+  "qualification": "Each source was archived and authenticated round-trip verified against its exact file bytes and modes. Ciphertext is opaque to content scans; no independent key custody, product behavior or checkpoint3821 recovery is established."
+}

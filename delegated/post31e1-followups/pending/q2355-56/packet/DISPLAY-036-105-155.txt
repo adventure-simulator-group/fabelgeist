@@ -1,0 +1,51 @@
+ 105 #[derive(Clone, Debug)]
+ 106 pub struct BarkTextureSet {
+ 107     pub height_ao: Handle<Image>,
+ 108 }
+ 109 
+ 110 #[derive(Clone, Debug)]
+ 111 pub struct GroundTextureSet {
+ 112     pub height_ao: Handle<Image>,
+ 113     pub litter_surface: Handle<Image>,
+ 114     pub litter_normal: Handle<Image>,
+ 115 }
+ 116 
+ 117 #[derive(Resource, Clone, Debug)]
+ 118 pub struct ProceduralTextureAssets {
+ 119     pub oak_leaf: LeafTextureSet,
+ 120     pub dry_oak_leaf: LeafTextureSet,
+ 121     pub hazel_leaf: LeafTextureSet,
+ 122     pub blackthorn_leaf: LeafTextureSet,
+ 123     pub hawthorn_leaf: LeafTextureSet,
+ 124     pub beech_leaf: LeafTextureSet,
+ 125     pub oak_bark: BarkTextureSet,
+ 126     pub forest_soil: GroundTextureSet,
+ 127     pub rock: SurfaceTextureSet,
+ 128     pub lime_plaster: SurfaceTextureSet,
+ 129     pub hewn_oak: SurfaceTextureSet,
+ 130     pub wattle_and_daub: SurfaceTextureSet,
+ 131     pub handmade_brick: SurfaceTextureSet,
+ 132     pub rubble_masonry: SurfaceTextureSet,
+ 133     pub dressed_stone: SurfaceTextureSet,
+ 134     pub clay_roof_tile: SurfaceTextureSet,
+ 135     pub slate_roof: SurfaceTextureSet,
+ 136     pub timber_shingle: SurfaceTextureSet,
+ 137     pub plank_floor: SurfaceTextureSet,
+ 138     pub lead_sheet: SurfaceTextureSet,
+ 139     pub ironwork: SurfaceTextureSet,
+ 140     pub window_glass: GlassTextureSet,
+ 141     /// Render-only shell-LOD crown silhouette; not close geometry or collision.
+ 142     pub crenellation_mask: Handle<Image>,
+ 143     pub terrain_blood_mask: Handle<Image>,
+ 144 }
+ 145 
+ 146 #[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+ 147 pub struct LeafRecipe {
+ 148     pub blade: [u8; 3],
+ 149     pub vein: [u8; 3],
+ 150     pub back_blade: [u8; 3],
+ 151     pub roughness: u8,
+ 152 }
+ 153 
+ 154 impl LeafRecipe {
+ 155     const WHITE_OAK: Self = Self {

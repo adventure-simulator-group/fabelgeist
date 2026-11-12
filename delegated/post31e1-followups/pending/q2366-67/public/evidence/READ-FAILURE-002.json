@@ -1,0 +1,7 @@
+{
+  "failure": "off-by-one selected-entry extraction",
+  "mechanism": "extract-entries.py counts from one, while established q identifiers are zero-based indices in entries array",
+  "result": "files named q2366-entry-* contain actual index 2365; files named q2367-entry-* contain actual index 2366",
+  "unregistered_view": "The complete actual index 2365 entry was displayed under the mistaken q2366 label. Actual index 2366 was displayed under the mistaken q2367 label. No actual index 2367 entry was read by that extraction.",
+  "mitigation": "No product source inspected or conclusions accepted based on mistaken selection. Preserve original files and the mislabeled message; re-extract q2366 and q2367 by correct array indices with a separate prospective registration."
+}

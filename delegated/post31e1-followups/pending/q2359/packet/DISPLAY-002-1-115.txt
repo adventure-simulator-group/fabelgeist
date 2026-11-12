@@ -1,0 +1,115 @@
+   1 //! Verify actual owned specimen transforms and GPU residency before capture.
+   2 use crate::presentation::{ManagedGardenPlant, TacticalTreeLeafCardMaterial};
+   3 use adventuresim_tactical_core::prelude::SceneGarden;
+   4 use bevy::{ecs::system::SystemParam, prelude::*};
+   5 
+   6 #[derive(SystemParam)]
+   7 pub(super) struct GardenObservation<'w, 's> {
+   8     gardens: Query<'w, 's, (&'static SceneGarden, &'static GlobalTransform)>,
+   9     plants: Query<
+  10         'w,
+  11         's,
+  12         (
+  13             &'static ManagedGardenPlant,
+  14             &'static GlobalTransform,
+  15             &'static Children,
+  16         ),
+  17     >,
+  18     branches: Query<
+  19         'w,
+  20         's,
+  21         (
+  22             &'static Mesh3d,
+  23             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  24         ),
+  25     >,
+  26     leaves: Query<
+  27         'w,
+  28         's,
+  29         (
+  30             &'static Mesh3d,
+  31             &'static MeshMaterial3d<TacticalTreeLeafCardMaterial>,
+  32         ),
+  33     >,
+  34     leaf_assets: Res<'w, Assets<TacticalTreeLeafCardMaterial>>,
+  35 }
+  36 impl GardenObservation<'_, '_> {
+  37     pub(super) fn check(
+  38         &self,
+  39         gpu: &crate::tactical_scene_viewer::gpu_readiness::GpuReadiness,
+  40     ) -> Result<(), &'static str> {
+  41         let expected = self
+  42             .gardens
+  43             .iter()
+  44             .flat_map(|(scene, transform)| {
+  45                 scene
+  46                     .garden()
+  47                     .plants
+  48                     .iter()
+  49                     .map(move |plant| (plant, transform))
+  50             })
+  51             .collect::<Vec<_>>();
+  52         if self.plants.iter().count() != expected.len() {
+  53             return Err("garden plant count");
+  54         }
+  55         for (plant, base) in expected {
+  56             let Some((_, transform, children)) = self
+  57                 .plants
+  58                 .iter()
+  59                 .find(|(marker, _, _)| marker.0 == plant.id)
+  60             else {
+  61                 return Err("garden plant identity");
+  62             };
+  63             let actual = transform.compute_transform();
+  64             let position = base.transform_point(Vec3::new(
+  65                 plant.centre_metres.metres().x,
+  66                 0.0,
+  67                 plant.centre_metres.metres().y,
+  68             ));
+  69             if actual.translation.distance(position) > 0.001
+  70                 || actual.scale.distance(Vec3::splat(plant.scale.value())) > 0.001
+  71                 || actual
+  72                     .rotation
+  73                     .angle_between(Quat::from_rotation_y(plant.orientation.yaw_radians()))
+  74                     > 0.001
+  75             {
+  76                 return Err("garden plant transform");
+  77             }
+  78             let mut branch_count = 0;
+  79             let mut leaf_count = 0;
+  80             for child in children.iter() {
+  81                 if let Ok((mesh, _)) = self.branches.get(child) {
+  82                     if !gpu.contains(&mesh.0, std::iter::empty()) {
+  83                         return Err("garden branch GPU mesh");
+  84                     }
+  85                     branch_count += 1;
+  86                 }
+  87                 if let Ok((mesh, handle)) = self.leaves.get(child) {
+  88                     let Some(material) = self.leaf_assets.get(&handle.0) else {
+  89                         return Err("garden leaf material");
+  90                     };
+  91                     if !gpu.contains(
+  92                         &mesh.0,
+  93                         [
+  94                             &material.opacity,
+  95                             &material.front_albedo,
+  96                             &material.back_albedo,
+  97                             &material.front_normal,
+  98                             &material.back_normal,
+  99                             &material.arm,
+ 100                         ]
+ 101                         .into_iter()
+ 102                         .map(Handle::id),
+ 103                     ) {
+ 104                         return Err("garden leaf GPU mesh or textures");
+ 105                     }
+ 106                     leaf_count += 1;
+ 107                 }
+ 108             }
+ 109             if branch_count != 1 || leaf_count != 1 {
+ 110                 return Err("garden branch/leaf child count");
+ 111             }
+ 112         }
+ 113         Ok(())
+ 114     }
+ 115 }

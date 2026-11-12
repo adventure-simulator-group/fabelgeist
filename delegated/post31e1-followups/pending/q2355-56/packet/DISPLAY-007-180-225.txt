@@ -1,0 +1,46 @@
+ 180         .insert((
+ 181             Visibility::default(),
+ 182             super::building_closures::FacadeOpenings(compiled.facade_openings.clone()),
+ 183             compiled
+ 184                 .interior
+ 185                 .clone()
+ 186                 .ok_or("playable building needs interior lighting")?,
+ 187         ))
+ 188         .with_children(|parent| {
+ 189             spawn_building_levels(parent, building.id.0, &compiled, &materials);
+ 190             signs.spawn(parent, resolved_sign.as_ref(), &compiled, &mut meshes);
+ 191         });
+ 192     Ok(())
+ 193 }
+ 194 
+ 195 fn on_scene_vista_buildings(
+ 196     bundle: On<SceneVistaBundle>,
+ 197     mut commands: Commands,
+ 198     existing: Query<(Entity, &PresentationOwner), With<DistantCityBuildingPresentation>>,
+ 199     streaming: Option<Res<StreamCityTraffic>>,
+ 200     mut assets: streaming::CityBuildingAssets,
+ 201 ) -> Result {
+ 202     assets.gpu.owners.get_mut(PresentationOwner::Scene).clear();
+ 203     for (entity, owner) in &existing {
+ 204         if *owner == PresentationOwner::Scene {
+ 205             commands.entity(entity).despawn();
+ 206         }
+ 207     }
+ 208     if streaming.is_some() {
+ 209         commands.insert_resource(PendingCityBuildings::new(
+ 210             &bundle.distant_buildings,
+ 211             &bundle.establishments,
+ 212         ));
+ 213     } else {
+ 214         for placement in &bundle.distant_buildings {
+ 215             let establishment = bundle
+ 216                 .establishments
+ 217                 .iter()
+ 218                 .find(|establishment| establishment.building_id == placement.id);
+ 219             assets.spawn(
+ 220                 &mut commands,
+ 221                 placement,
+ 222                 establishment,
+ 223                 BuildingDetail::Static,
+ 224             )?;
+ 225         }

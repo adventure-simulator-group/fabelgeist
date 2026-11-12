@@ -1,0 +1,72 @@
+SOURCE crates/fabelgeist-numpy-storage/src/npy.rs:110-180
+ 110         let dimensions = NpyTensorLayout::<D>::try_from(&self.shape)?;
+ 111         Ok(Tensor::from_data(
+ 112             TensorData::new(Vec::<i64>::from(NpyIntegerValues::from(self)), dimensions),
+ 113             device,
+ 114         ))
+ 115     }
+ 116 }
+ 117 
+ 118 impl NpyArray {
+ 119     /// Parses a `.npy` buffer: header dictionary first, then the element payload.
+ 120     pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
+ 121         let NpyHeader {
+ 122             dtype,
+ 123             shape,
+ 124             payload,
+ 125         } = NpyHeader::from_bytes(bytes)?;
+ 126         Ok(Self {
+ 127             shape,
+ 128             dtype,
+ 129             bytes: payload.to_vec(),
+ 130         })
+ 131     }
+ 132 
+ 133     /// Reads a standalone `.npy` file.
+ 134     pub fn read(path: impl AsRef<Path>) -> Result<Self> {
+ 135         let path = path.as_ref();
+ 136         let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+ 137         Self::from_bytes(&bytes).with_context(|| format!("parsing {}", path.display()))
+ 138     }
+ 139 }
+ 140 
+ 141 #[cfg(test)]
+ 142 pub(crate) mod tests {
+ 143     use super::*;
+ 144 
+ 145     pub(crate) fn encode(dtype: &str, shape: &str, payload: &[u8]) -> Vec<u8> {
+ 146         let header =
+ 147             format!("{{'descr': '{dtype}', 'fortran_order': False, 'shape': ({shape}), }}");
+ 148         let mut padded = header.into_bytes();
+ 149         while (10 + padded.len()) % 64 != 63 {
+ 150             padded.push(b' ');
+ 151         }
+ 152         padded.push(b'\n');
+ 153         let mut out = b"\x93NUMPY\x01\x00".to_vec();
+ 154         out.extend_from_slice(&(padded.len() as u16).to_le_bytes());
+ 155         out.extend_from_slice(&padded);
+ 156         out.extend_from_slice(payload);
+ 157         out
+ 158     }
+ 159 
+ 160     #[test]
+ 161     fn parses_a_float_array() {
+ 162         let payload: Vec<u8> = [1.0f32, -2.5, 3.25]
+ 163             .iter()
+ 164             .flat_map(|v| v.to_le_bytes())
+ 165             .collect();
+ 166         let array = NpyArray::from_bytes(&encode("<f4", "3,", &payload)).unwrap();
+ 167         assert_eq!(array.shape().dimensions(), [NpyDimension::from(3)]);
+ 168         assert_eq!(array.dtype(), Dtype::F32);
+ 169         assert_eq!(
+ 170             Vec::<f32>::from(crate::NpyFloat32Values::from(&array)),
+ 171             [1.0, -2.5, 3.25]
+ 172         );
+ 173     }
+ 174 
+ 175     #[test]
+ 176     fn parses_a_two_dimensional_int_array() {
+ 177         let payload: Vec<u8> = [1i64, 2, 3, 4]
+ 178             .iter()
+ 179             .flat_map(|v| v.to_le_bytes())
+ 180             .collect();

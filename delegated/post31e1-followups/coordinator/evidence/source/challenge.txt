@@ -1,0 +1,176 @@
+--- crates/adventuresim-stdb-module/src/strategic/challenges.rs:1141-1217 ---
+ 1141 pub(crate) fn bind_errantry_trials_to_current_camp(
+ 1142     ctx: &ReducerContext,
+ 1143     party_id: &str,
+ 1144 ) -> Result<(), String> {
+ 1145     let party = ctx
+ 1146         .db
+ 1147         .party_authority()
+ 1148         .id()
+ 1149         .find(party_id.to_string())
+ 1150         .ok_or("Party not found")?;
+ 1151     if party.camp_destination.is_none() {
+ 1152         return Ok(());
+ 1153     }
+ 1154     let journey = ctx
+ 1155         .db
+ 1156         .party_journey_authority()
+ 1157         .party_id()
+ 1158         .find(party_id.to_string())
+ 1159         .ok_or("Camp has no journey authority")?;
+ 1160     let JourneyEndpoint::CaseSite(destination) = &journey.destination else {
+ 1161         return Ok(());
+ 1162     };
+ 1163     let Some(contract_id) = party.active_contract_id.as_deref() else {
+ 1164         return Ok(());
+ 1165     };
+ 1166     let Some(contract) = ctx
+ 1167         .db
+ 1168         .contract_authority()
+ 1169         .id()
+ 1170         .find(contract_id.to_string())
+ 1171     else {
+ 1172         return Ok(());
+ 1173     };
+ 1174     if contract.status != ContractStatus::Accepted
+ 1175         || contract.accepted_by.as_deref() != Some(party_id)
+ 1176     {
+ 1177         return Ok(());
+ 1178     }
+ 1179     let mut candidates = ctx
+ 1180         .db
+ 1181         .challenge_authority()
+ 1182         .party_id()
+ 1183         .filter(&party_id.to_string())
+ 1184         .filter(|challenge| {
+ 1185             challenge.is_open()
+ 1186                 && challenge.case_id == contract.case_id
+ 1187                 && challenge.finale_case_site_id == destination.id
+ 1188                 && challenge.journey_departure_minute == StrategicMinute::ZERO
+ 1189         })
+ 1190         .collect::<Vec<_>>();
+ 1191     candidates.sort_by(|left, right| left.id.cmp(&right.id));
+ 1192     let site_id = format!(
+ 1193         "journey-camp:{}:{}",
+ 1194         journey.departure_minute, journey.completed_movement_minutes
+ 1195     );
+ 1196     if let Some(mut challenge) = candidates.into_iter().next() {
+ 1197         let mut frame: adventuresim_core::errantry::ErrantryFrame =
+ 1198             serde_json::from_str(&challenge.errantry_frame_json)
+ 1199                 .map_err(|_| "Errantry frame authority is invalid")?;
+ 1200         if !frame
+ 1201             .trials
+ 1202             .iter()
+ 1203             .any(|trial| trial.challenge_id.as_deref() == Some(&challenge.id))
+ 1204         {
+ 1205             return Err("Challenge is not bound to its errantry frame".into());
+ 1206         }
+ 1207         for trial in &mut frame.trials {
+ 1208             if trial.site_id == "journey-camp:unbound" {
+ 1209                 trial.site_id = site_id.clone();
+ 1210             }
+ 1211         }
+ 1212         challenge.errantry_frame_json =
+ 1213             serde_json::to_string(&frame).map_err(|_| "Could not encode errantry frame")?;
+ 1214         challenge.journey_departure_minute = journey.departure_minute;
+ 1215         challenge.camp_movement_minute = journey.completed_movement_minutes;
+ 1216         challenge.camp_elapsed_minute = journey.completed_elapsed_minutes;
+ 1217         ctx.db.challenge_authority().id().update(challenge);
+--- crates/adventuresim-stdb-module/src/strategic/challenges.rs:1350-1412 ---
+ 1350         return Err("Errantry issuance does not match the accepted quest".into());
+ 1351     }
+ 1352     let issuer = ctx
+ 1353         .db
+ 1354         .settlement_resident_profile()
+ 1355         .character_id()
+ 1356         .find(errantry.issuer_resident_character_id)
+ 1357         .ok_or("Errantry issuer is no longer a live representative")?;
+ 1358     let issuer_organization =
+ 1359         adventuresim_core::organization::organization(&errantry.issuer_organization_id)
+ 1360             .filter(|organization| organization.errantry_issuance)
+ 1361             .ok_or("Issuer organization lacks errantry authority")?;
+ 1362     if issuer_organization.id != ERRANTRY_ISSUER_ORGANIZATION_ID
+ 1363         || exact_organization_representative(
+ 1364             ctx,
+ 1365             &issuer,
+ 1366             &errantry.issuer_settlement_id,
+ 1367             &errantry.issuer_location_id,
+ 1368         )
+ 1369         .as_deref()
+ 1370             != Some(ERRANTRY_ISSUER_ORGANIZATION_ID)
+ 1371     {
+ 1372         return Err("Errantry issuer is not the exact live Order chapter representative".into());
+ 1373     }
+ 1374     let case = ctx
+ 1375         .db
+ 1376         .case_authority()
+ 1377         .id()
+ 1378         .find(&case_id)
+ 1379         .ok_or("Case not found")?;
+ 1380     if case.resolution_status != CaseStatus::Open {
+ 1381         return Err("Case is no longer open".into());
+ 1382     }
+ 1383     if !party_at_bound_trial_camp(ctx, &party, &challenge) {
+ 1384         return Err(
+ 1385             "The fey trial is available only at its bound camp, after pending encounters".into(),
+ 1386         );
+ 1387     }
+ 1388     if !challenge.is_open() {
+ 1389         return Err("Challenge is closed".into());
+ 1390     }
+ 1391     if challenge.revision != expected_revision {
+ 1392         return Err("Challenge revision is stale".into());
+ 1393     }
+ 1394     let puzzle: adventuresim_puzzles::PuzzleAuthority =
+ 1395         serde_json::from_str(&challenge.puzzle_json)
+ 1396             .map_err(|_| "Challenge authority is invalid")?;
+ 1397     let frame: adventuresim_core::errantry::ErrantryFrame =
+ 1398         serde_json::from_str(&challenge.errantry_frame_json)
+ 1399             .map_err(|_| "Errantry frame authority is invalid")?;
+ 1400     let bound_trial = frame
+ 1401         .trials
+ 1402         .iter()
+ 1403         .find(|trial| trial.challenge_id.as_deref() == Some(&challenge.id))
+ 1404         .ok_or("Challenge is not bound to its errantry frame")?;
+ 1405     if bound_trial.site_id
+ 1406         != format!(
+ 1407             "journey-camp:{}:{}",
+ 1408             challenge.journey_departure_minute, challenge.camp_movement_minute
+ 1409         )
+ 1410         || bound_trial.kind != adventuresim_core::errantry::TrialKind::Puzzle
+ 1411     {
+ 1412         return Err("Errantry trial binding does not match challenge authority".into());
+--- crates/adventuresim-stdb-module/src/strategic/challenges.rs:2125-2157 ---
+ 2125     let puzzle_kind = match launch {
+ 2126         ErrantryLaunch::NormalTravel => adventuresim_puzzles::PuzzleKind::OrderedSigils,
+ 2127         ErrantryLaunch::DirectDemoCamp(kind) => kind,
+ 2128     };
+ 2129     let ordinal = ctx
+ 2130         .db
+ 2131         .challenge_authority()
+ 2132         .party_id()
+ 2133         .filter(&party_id)
+ 2134         .filter(|challenge| match (launch, ErrantryChallengeId::parse(&challenge.id)) {
+ 2135             (ErrantryLaunch::NormalTravel, Some(identity)) => {
+ 2136                 identity.namespace == ErrantryChallengeNamespace::Order
+ 2137                     && identity.puzzle_kind == puzzle_kind.slug()
+ 2138                     && identity.character_id == character_id
+ 2139             }
+ 2140             (ErrantryLaunch::DirectDemoCamp(_), Some(identity)) => {
+ 2141                 identity.namespace == ErrantryChallengeNamespace::Demo
+ 2142                     && identity.character_id == character_id
+ 2143             }
+ 2144             (_, None) => false,
+ 2145         })
+ 2146         .count() as u64;
+ 2147     let suffix = errantry_suffix(character_id, ordinal, launch);
+ 2148     let seed = fabelgeist_determinism::StreamId::new("errantry.road-encounter").seed(character_id.into(), &[ordinal]);
+ 2149     let road_definition =
+ 2150         adventuresim_core::road_encounter_catalog::select_quest_eligible(seed, ordinal)
+ 2151             .ok_or("No quest-eligible road encounter is available")?;
+ 2152     let case_id = format!("case:errantry-puzzle:{suffix}");
+ 2153     let contract_id = format!("contract:errantry-puzzle:{suffix}");
+ 2154     let challenge_id = format!("challenge:{}:{suffix}", puzzle_kind.slug());
+ 2155     let courier_challenge_id = format!("challenge:road-encounter:{suffix}");
+ 2156     let case_site_id = CaseSiteId::from(format!("case-site:errantry-finale:{suffix}"));
+ 2157     let hostile_group_id = format!("hostile-group:errantry-finale:{suffix}");

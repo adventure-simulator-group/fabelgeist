@@ -1,0 +1,91 @@
+{
+  "event": "path-safe successor after initial staged privacy scan",
+  "initial_digest_scan_sha256": "77eaf81b7ab697e19d345e632d4a2f4c0f382308b02b1195962a1a031b2d4dd8",
+  "initial_pattern_scan_sha256": "675577c6493e9fafa89293436e16fd0e1885f7884c4b0523627de9bfea7c4c9a",
+  "initial_digest_scan_forbidden_matches": 0,
+  "initial_digest_candidate_counts": {
+    "unix-temp": 27
+  },
+  "initial_pattern_issue_count": 11,
+  "excluded_file_count": 15,
+  "excluded_original_files": [
+    {
+      "path": "checkpoint-31e1-staged-pattern/SCANNER.py.txt",
+      "bytes": 2367,
+      "whole_file_sha256": "4982a500f168f6f5e5ae82a50b4b7e98edda6e5c622e8dc365d0aad10a08bf0f"
+    },
+    {
+      "path": "pending/q2360-61/public-scan/REGISTRATION.json",
+      "bytes": 254,
+      "whole_file_sha256": "a1aea8398379a4c41505bed2209e085f8a8bbed4b8ab3e989d0540c15345b228"
+    },
+    {
+      "path": "pending/q2360-61/public-scan/scan.py",
+      "bytes": 4263,
+      "whole_file_sha256": "28c1cbb070d84506e9c5e5ed3740d5b062f6d9791ea246834f0283c1dcf63534"
+    },
+    {
+      "path": "pending/q2360-61/restricted-scan/DELIVERY-REGISTRATION.json",
+      "bytes": 129,
+      "whole_file_sha256": "346bdc78f5db57d239d95215270321adf87863b837bcf70f3532739f310c5e45"
+    },
+    {
+      "path": "pending/q2360-61/restricted-scan/REGISTRATION.json",
+      "bytes": 235,
+      "whole_file_sha256": "433f20c2a80294f3f1dfa8d37ceda5263b6055fd96cf41aed23bd37ec9d7090f"
+    },
+    {
+      "path": "pending/q2362-63/public-scan/REGISTRATION.json",
+      "bytes": 258,
+      "whole_file_sha256": "c8e5d2c012eb821c52124ebcb88b81f3460bc1d7be445e7eb7ed25aa88c93612"
+    },
+    {
+      "path": "pending/q2362-63/public-scan/scan.py",
+      "bytes": 4263,
+      "whole_file_sha256": "f35177b86e7f250b3fbdab14053341a12720892dbf0f33b76e37864be8b29b0b"
+    },
+    {
+      "path": "pending/q2362-63/restricted-scan/DELIVERY-registration.json",
+      "bytes": 247,
+      "whole_file_sha256": "d6d45438343d69e6832af03aa9e0af09d7af8378230042b29c29a670254666f3"
+    },
+    {
+      "path": "pending/q2362-63/restricted-scan/RECEIPTS-registration.json",
+      "bytes": 250,
+      "whole_file_sha256": "652c3cbd2488003328da8c5e1842e4017fdc3950b63f88c0b2c7eba138adf922"
+    },
+    {
+      "path": "pending/q2362-63/restricted-scan/REGISTRATION.json",
+      "bytes": 263,
+      "whole_file_sha256": "4a4e7961381a71bd45488f092ccae3051ca284fbd024be7e17387716a54b6fe7"
+    },
+    {
+      "path": "pending/q2366-67/public-scan/REGISTRATION.json",
+      "bytes": 327,
+      "whole_file_sha256": "8e89a2493be21010e29d959575ed7c4c6d976291ba1d3c0f989d14cf1eb56c04"
+    },
+    {
+      "path": "pending/q2366-67/public-scan/scan.py",
+      "bytes": 4263,
+      "whole_file_sha256": "fd3e94ea5a76f270838cc962ca08105ff2c096fb38754ac3ad86d54b99babf9a"
+    },
+    {
+      "path": "pending/q2366-67/restricted-scan/DELIVERY-registration.json",
+      "bytes": 280,
+      "whole_file_sha256": "5010708733b250e9bcddf715d7b8247a9f247a25bb81e619eb6aeda162236037"
+    },
+    {
+      "path": "pending/q2366-67/restricted-scan/RECEIPTS-registration.json",
+      "bytes": 280,
+      "whole_file_sha256": "93e00256cde2fca392d5c3ae2007443bceae3a2aa7b4591b2dd8da9c1fb61bce"
+    },
+    {
+      "path": "pending/q2366-67/restricted-scan/REGISTRATION.json",
+      "bytes": 292,
+      "whole_file_sha256": "eab32beb3a36df2676f772c7bcad2877b1da6571eca4bb8d258c9a90933c6030"
+    }
+  ],
+  "encrypted_original_manifest_sha256": "0a65ccb727068f38d6821b844e4134e983cb44d1c559aa9ad9e03908f4f4ebae",
+  "tool_output_exposure": "The first pattern-scan tool response included two candidate-path digest lines in this conversation; underlying local path values were not printed. These lines were not included in the public branch by this preparation.",
+  "qualification": "The initial safe-copy record describes an earlier complete private preparation; these 15 source/registration artifacts are omitted from this successor and retained exactly in authenticated ciphertext together with both first scan outputs. Other retained scan receipts are bounded. Whole-file hashes are not per-path-value hashes. Ciphertext is opaque to scans; same-machine key custody and prior Git history remain separate limits."
+}

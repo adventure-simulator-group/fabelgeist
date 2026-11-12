@@ -1,0 +1,46 @@
+  85         cache.recipes.get_or_generate(&program).unwrap();
+  86         assert!(!cache.recipes.is_empty());
+  87         world.insert_resource(cache);
+  88         let actor_city = world
+  89             .spawn((
+  90                 buildings::DistantCityBuildingPresentation,
+  91                 ownership::PresentationOwner::Scene,
+  92             ))
+  93             .id();
+  94         let map_city = world
+  95             .spawn((
+  96                 buildings::DistantCityBuildingPresentation,
+  97                 ownership::PresentationOwner::RegionalMap,
+  98             ))
+  99             .id();
+ 100         clear_scene_entities(&mut world);
+ 101         assert!(world.get_entity(actor_city).is_err());
+ 102         assert!(world.get_entity(map_city).is_ok());
+ 103         assert!(
+ 104             world
+ 105                 .resource::<buildings::TacticalBuildingMeshCache>()
+ 106                 .recipes
+ 107                 .is_empty()
+ 108         );
+ 109     }
+ 110 
+ 111     #[test]
+ 112     fn clearing_exhibit_removes_detached_scatter_and_descendants_but_keeps_camera() {
+ 113         let mut world = World::new();
+ 114         world.insert_resource(PendingCityBuildings::new(&[], &[]));
+ 115         let camera = world.spawn(TacticalGameplayCamera).id();
+ 116         let map_camera = world.spawn(RegionalMapCamera).id();
+ 117         let map_root = world.spawn((Transform::default(), Visibility::Hidden)).id();
+ 118         let map_mesh = world.spawn((Mesh3d::default(), ChildOf(map_root))).id();
+ 119         let oak = world.spawn(SceneObstacle::Tree).id();
+ 120         let leaf = world.spawn(ChildOf(oak)).id();
+ 121         let grass = world.spawn(GroundScatterLayer::Grass).id();
+ 122         let terrain = world.spawn(terrain::ScenePresentationOf(oak)).id();
+ 123         clear_demo_scene(&mut world);
+ 124         assert!(!world.contains_resource::<PendingCityBuildings>());
+ 125         for removed in [oak, leaf, grass, terrain] {
+ 126             assert!(world.get_entity(removed).is_err());
+ 127         }
+ 128         assert!(world.get_entity(camera).is_ok());
+ 129         for retained in [map_camera, map_root, map_mesh] {
+ 130             assert!(world.get_entity(retained).is_ok());

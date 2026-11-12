@@ -1,0 +1,28 @@
+{
+  "at_utc": "2026-11-12T18:46:27.684186+00:00",
+  "purpose": "recover Git tree-to-blob proofs without a local commit object",
+  "actions": [
+    {
+      "kind": "read anchored 95e and e275 raw commit bytes and verify SHA-1 object identities",
+      "directory": "<PRIVATE-PATH-0014>"
+    },
+    {
+      "kind": "read raw tree objects from listed prior evidence and use read-only git cat-file tree for derived missing object IDs",
+      "tree_roots": [
+        "<PRIVATE-PATH-0015>",
+        "<PRIVATE-PATH-0016>",
+        "<PRIVATE-PATH-0017>"
+      ]
+    },
+    {
+      "kind": "read physical current checkout five registered source candidates as bytes without displaying; compare independently to tree blob identity and recorded e275 SHA-256 before source display",
+      "root": "<PRIVATE-PATH-0008>",
+      "paths_registration": "REGISTRATION-006.json"
+    },
+    {
+      "kind": "compare pinned current-tree inventory rows for the same source paths",
+      "inventory": "<PRIVATE-PATH-0018>"
+    }
+  ],
+  "qualification": "Physical workspace is only an untrusted candidate until content/object verification. Failed git commit availability remains separately recorded."
+}

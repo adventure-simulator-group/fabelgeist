@@ -1,0 +1,86 @@
+  90             cosine * vector.x - sine * vector.y,
+  91             sine * vector.x + cosine * vector.y,
+  92         )
+  93     }
+  94 }
+  95 
+  96 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  97 #[serde(deny_unknown_fields)]
+  98 pub struct TacticalBuildingPlacement {
+  99     pub id: SceneBuildingId,
+ 100     pub program: BuildingProgram,
+ 101     pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
+ 102     /// Scene elevation of architectural Y=0, retained through detail changes.
+ 103     /// Buried slabs and footings extend below this datum.
+ 104     pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
+ 105     pub orientation: BuildingOrientation,
+ 106 }
+ 107 
+ 108 /// Compact physical program outside the active tactical area. All visual detail
+ 109 /// levels compile this occupied recipe at its original dimensions. Meshes remain
+ 110 /// shared by equal programs; distant instances receive no tactical tick state.
+ 111 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+ 112 #[serde(deny_unknown_fields)]
+ 113 pub struct DistantBuildingPlacement {
+ 114     pub id: SceneBuildingId,
+ 115     pub prosperity: adventuresim_world_schema::ProsperityTier,
+ 116     pub archetype: BuildingArchetype,
+ 117     pub usage: Option<adventuresim_world_schema::settlement_buildings::BuildingUse>,
+ 118     pub service_size: Option<adventuresim_building_generator::ServiceBuildingSize>,
+ 119     pub seed: fabelgeist_determinism::Seed,
+ 120     pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
+ 121     pub base_elevation_metres: crate::city_layout::grounding::SupportElevation,
+ 122     pub orientation: BuildingOrientation,
+ 123 }
+ 124 
+ 125 impl DistantBuildingPlacement {
+ 126     /// The occupied recipe is retained for promotion into a playable venue.
+ 127     pub fn occupied_program(self) -> BuildingProgram {
+ 128         let mut program = match self.usage {
+ 129             Some(usage) => BuildingProgram::settlement(self.archetype, Some(usage), self.seed),
+ 130             None => BuildingProgram::fixture(self.archetype, self.seed),
+ 131         };
+ 132         if let Some(size) = self.service_size {
+ 133             program = program.with_service_size(size);
+ 134         }
+ 135         program
+ 136     }
+ 137 }
+ 138 
+ 139 impl From<DistantBuildingPlacement> for TacticalBuildingPlacement {
+ 140     fn from(placement: DistantBuildingPlacement) -> Self {
+ 141         Self {
+ 142             id: placement.id,
+ 143             program: placement.occupied_program(),
+ 144             centre_metres: placement.centre_metres,
+ 145             base_elevation_metres: placement.base_elevation_metres,
+ 146             orientation: placement.orientation,
+ 147         }
+ 148     }
+ 149 }
+ 150 
+ 151 #[derive(Clone, Debug, PartialEq, Component, Serialize, Deserialize)]
+ 152 #[component(immutable)]
+ 153 #[serde(deny_unknown_fields)]
+ 154 pub struct SceneBuilding {
+ 155     pub id: SceneBuildingId,
+ 156     pub program: BuildingProgram,
+ 157     pub orientation: BuildingOrientation,
+ 158 }
+ 159 
+ 160 /// Compact identity and dimensions for one server-authoritative operable leaf.
+ 161 /// Positions and normalized directions are in the scene frame after explicit
+ 162 /// architectural-floor, collision-centre, or gate-datum conversion.
+ 163 #[derive(Clone, Copy, Debug, PartialEq, Component, Serialize)]
+ 164 #[component(immutable)]
+ 165 pub struct SceneDoor {
+ 166     pub building_id: SceneBuildingId,
+ 167     pub opening_id: adventuresim_building_generator::OpeningAssemblyId,
+ 168     pub size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions,
+ 169     pub doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position<
+ 170         crate::scene_coordinates::Scene,
+ 171     >,
+ 172     pub tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection<
+ 173         crate::scene_coordinates::Scene,
+ 174     >,
+ 175     pub outward: adventuresim_building_generator::spatial_geometry::SpatialDirection<

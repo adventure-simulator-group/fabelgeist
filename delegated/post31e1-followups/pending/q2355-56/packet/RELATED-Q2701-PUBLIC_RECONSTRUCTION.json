@@ -1,0 +1,183 @@
+{
+      "contract_id": "REVIEW-L3-TEXTURE-RECIPE-CHANNEL-INSTALL-ADMISSION",
+      "lens": 3,
+      "kind": "independent-admission-source-contract",
+      "canonical_owner": "RuntimeTextureLoader::load and BakedRecipe::from_bytes60..123, RuntimeTextureHandles destinations pending",
+      "first_failed_contract_or_unresolved_question": "Wire proves size/mips/encoding payloadlength, finite positive scale, unique <=8 channels; it permits arbitrary channel set for a recipe. Determine actual required destination/channel contract before claiming loader/install readiness defect. Public BakedMap bypasses decoder, separate conditional raw Image boundary.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-001-010.json",
+            "sha256": "13a4d7bf9ed68e216a1fa8cb3cb0204738e60a072031b00b116475c412c32a59"
+          },
+          "row_pointer": "/rows/2",
+          "registration": {
+            "path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-001-008.json",
+            "sha256": "2be9d1af44d30dfc41a774c64ca4264d069911f690a7fed59be34216e9ccf3a4"
+          },
+          "registration_pointer": "/rows/2",
+          "source_id": "pr-working:crates/adventuresim-procedural-textures/src/runtime.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "4351bf685bda2d29433f4b23698ef5377f466b51528b0e3400af6147b7d63931",
+          "actual_EOF": 167,
+          "assessed_ranges": [
+            [
+              1,
+              167
+            ]
+          ],
+          "attribution": "Root personal independent Lens3 prospective bounded untruncated body read"
+        },
+        {
+          "receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-001-010.json",
+            "sha256": "13a4d7bf9ed68e216a1fa8cb3cb0204738e60a072031b00b116475c412c32a59"
+          },
+          "row_pointer": "/rows/3",
+          "registration": {
+            "path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-001-008.json",
+            "sha256": "2be9d1af44d30dfc41a774c64ca4264d069911f690a7fed59be34216e9ccf3a4"
+          },
+          "registration_pointer": "/rows/3",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/materials.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "ccff04d8f8288d9f670097d34527841e9a8f2f91472692b25e5dd53b85c5aba8",
+          "actual_EOF": 35,
+          "assessed_ranges": [
+            [
+              1,
+              35
+            ]
+          ],
+          "attribution": "Root personal independent Lens3 prospective bounded untruncated body read"
+        },
+        {
+          "receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-011-015.json",
+            "sha256": "df00cb80ba5adeb4c11a525d87b71082ab813e5b85bfa514ad978dae1d2b0cf9"
+          },
+          "row_pointer": "/rows/3",
+          "registration": {
+            "path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-011-015.json",
+            "sha256": "1285bec4fcfb13d9c5cf63034081a4ec5f7a02e62776972bdb1051022a4d5bec"
+          },
+          "registration_pointer": "/rows/3",
+          "source_id": "pr-working:crates/adventuresim-procedural-textures/src/bake.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "1294409520e95eef7f3ad6c7fa5ad3ff476c07c69f4b7a36dd8deec244d544f4",
+          "actual_EOF": 285,
+          "assessed_ranges": [
+            [
+              1,
+              285
+            ]
+          ],
+          "attribution": "Root personal independent Lens3 prospective bounded untruncated body read"
+        },
+        {
+          "receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-011-015.json",
+            "sha256": "df00cb80ba5adeb4c11a525d87b71082ab813e5b85bfa514ad978dae1d2b0cf9"
+          },
+          "row_pointer": "/rows/4",
+          "registration": {
+            "path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-011-015.json",
+            "sha256": "1285bec4fcfb13d9c5cf63034081a4ec5f7a02e62776972bdb1051022a4d5bec"
+          },
+          "registration_pointer": "/rows/4",
+          "source_id": "pr-working:crates/adventuresim-procedural-textures/src/bake/compressed.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "03f7e2d5ba9a44011ff68a19257eac57115325e432802f87bf7bc4d432e2350c",
+          "actual_EOF": 69,
+          "assessed_ranges": [
+            [
+              1,
+              69
+            ]
+          ],
+          "attribution": "Root personal independent Lens3 prospective bounded untruncated body read"
+        },
+        {
+          "receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-016-017.json",
+            "sha256": "baa9c943e01cf30c2f5fbcc9431d9da8fd4e340c6b691fcf7fca7d2212edcdbf"
+          },
+          "row_pointer": "/rows/1",
+          "registration": {
+            "path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-016-017.json",
+            "sha256": "481d4101db054bf7cfcd2d035e3db97a9806dd9093aebbadf5204565ad705672"
+          },
+          "registration_pointer": "/rows/1",
+          "source_id": "pr-working:crates/adventuresim-procedural-textures/src/bake/wire.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "1668890c7887fe4216ffa1a817da48f6f63ef4f71c2eb95ae610369eff848818",
+          "actual_EOF": 154,
+          "assessed_ranges": [
+            [
+              1,
+              154
+            ]
+          ],
+          "attribution": "Root personal independent Lens3 prospective bounded untruncated body read"
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "native compressed asset\u2192192MiB bound/trailing check\u2192from_bytes dimension/mip/payload gates\u2192filename recipe.slug comparison\u2192private RuntimeTextureRecipe maps",
+        "install loaded channels\u2192images/native handles\u2192installed set\u2192is_ready; exact destinations/handles body still required",
+        "public raw BakedMap\u2192Image::from without decoder proof is separate conditional construction route"
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "ROOT-L3-EXT-0003",
+        "ROOT-L3-EXT-0004",
+        "ROOT-L3-EXT-0014",
+        "ROOT-L3-EXT-0015",
+        "ROOT-L3-EXT-0017"
+      ],
+      "closure_condition": [
+        "Complete required recipe channel/destination producer\u2192private state\u2192install\u2192consumer graph; document supported sparse/partialmip modes versus actual failed contract."
+      ],
+      "later_repair_acceptance_requirements": [
+        "If each recipe requires exact channels, enforce at admission before marking installed; if sparse maps supported document exact readiness meaning. Preserve nonnegative height0 and partialmips if legitimate."
+      ],
+      "policy_decisions_remaining": [
+        "Are required channels per recipe exact, and is installed readiness whole-recipe completeness or availability of supplied maps?"
+      ],
+      "disposition": "Exact existing channel-install question resolved with conditional current source finding; original raw proposal preserved",
+      "frozen_named_scope_discovery_complete": false,
+      "global_alias_inventory_complete": false,
+      "current_reconciled": false,
+      "other_lens_coverage_transferred": false,
+      "repair_runtime_passed": false,
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false,
+      "proposal": {
+        "path": "root-l3-extension-20261030/CONTRACT-PROPOSALS-ROOT-L3-EXT-001-017.json",
+        "sha256": "e9d9564e4a4e7fe9c0eb16b940204d49c8c0b3cd4886788ca114b35b8c383899"
+      },
+      "frozen_named_scope_only": true,
+      "whole_lens_or_global_complete": false,
+      "additive_completion_history": [
+        {
+          "proposal": {
+            "path": "root-l3-extension-20261030/CONTRACT-PROPOSALS-ROOT-L3-TEXTURE-CURRENT-002-v2.json",
+            "sha256": "8113d022cb67f0fa65f12dc9fb97b1cd153697dc2037f606f9bde04ef61130a6"
+          },
+          "prior_remaining_evidence": [
+            "Register/read RuntimeTextureHandles::destinations and required recipe channel producer plus exact installation/nativeImage admission if retaining concern; current graph and exact aliases."
+          ],
+          "resolved_exact_question": {
+            "contract_id": "REVIEW-L3-TEXTURE-RECIPE-CHANNEL-INSTALL-ADMISSION",
+            "same_exact_question": "Prior named question explicitly awaited handles/destination bodies and actual requiredrecipechannel contract; exact source18 plus source19 and current identical qualification resolve this same question.",
+            "not_alias": "ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE concerns failed load collapsed to pending; this successfuldecode incompatiblechannel\u2192missingdestination first failure is distinct."
+          },
+          "current_receipt": {
+            "path": "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-001.json",
+            "sha256": "d96b0384d51a70a02b8c9ba0c2944fa2f35668a4bb6d96e49be1f08172b00064"
+          },
+          "new_body_credit_from_completion": 0
+        }
+      ],
+      "named_scope_discovery_complete": true,
+      "canonical_finding_id": "SEGOVB-L3-TEXTURE-RECIPE-CHANNEL-ADMISSION"
+    }

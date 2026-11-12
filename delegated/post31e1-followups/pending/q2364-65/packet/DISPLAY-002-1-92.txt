@@ -1,0 +1,92 @@
+   1 //! Application count bound and capped native directory reservation.
+   2 
+   3 use std::ops::Range;
+   4 
+   5 use derive_more::From;
+   6 
+   7 /// The count selected by rawzip, retained without native-width narrowing.
+   8 #[derive(Debug, Clone, Copy, From, PartialEq, Eq)]
+   9 #[from(u16, u64)]
+  10 pub(super) struct ArchiveMemberCount(u64);
+  11 
+  12 impl ArchiveMemberCount {
+  13     // The inherited allocation cap is not a directory cardinality limit.
+  14     const INITIAL_CAPACITY_LIMIT: Self = Self(4096);
+  15 
+  16     /// Projects only the capped count into native `Vec` allocation capacity.
+  17     pub(super) fn initial_capacity(self) -> usize {
+  18         self.0.min(Self::INITIAL_CAPACITY_LIMIT.0) as usize
+  19     }
+  20 
+  21     /// Projects into the original native u64 range; callers ignore its ordinal.
+  22     ///
+  23     /// The count is never narrowed to usize for directory iteration.
+  24     pub(super) fn native_iteration_range(self) -> Range<u64> {
+  25         0..self.0
+  26     }
+  27 }
+  28 
+  29 #[cfg(test)]
+  30 mod tests {
+  31     use super::*;
+  32 
+  33     struct OrdinaryCase {
+  34         wire: u16,
+  35         capacity: usize,
+  36     }
+  37 
+  38     #[test]
+  39     fn ordinary_fields_preserve_initial_reservation() {
+  40         let cases = [
+  41             OrdinaryCase {
+  42                 wire: 0,
+  43                 capacity: 0,
+  44             },
+  45             OrdinaryCase {
+  46                 wire: 1,
+  47                 capacity: 1,
+  48             },
+  49             OrdinaryCase {
+  50                 wire: 4095,
+  51                 capacity: 4095,
+  52             },
+  53             OrdinaryCase {
+  54                 wire: 4096,
+  55                 capacity: 4096,
+  56             },
+  57             OrdinaryCase {
+  58                 wire: 4097,
+  59                 capacity: 4096,
+  60             },
+  61             OrdinaryCase {
+  62                 wire: 65534,
+  63                 capacity: 4096,
+  64             },
+  65             OrdinaryCase {
+  66                 wire: 65535,
+  67                 capacity: 4096,
+  68             },
+  69         ];
+  70         for case in cases {
+  71             let count = ArchiveMemberCount::from(case.wire);
+  72             assert_eq!(count.initial_capacity(), case.capacity);
+  73         }
+  74     }
+  75 
+  76     #[test]
+  77     fn zip64_range_retains_high_bits_and_exclusive_end_despite_capacity_cap() {
+  78         for wire in [4096u64, 4097, 1 << 32, (1 << 32) + 1, 1 << 63, u64::MAX] {
+  79             let count = ArchiveMemberCount::from(wire);
+  80             let mut range = count.native_iteration_range();
+  81             assert_eq!(range.next(), Some(0));
+  82             assert_eq!(range.end, wire);
+  83             assert_eq!(range.next_back(), Some(wire - 1));
+  84             assert_eq!(count.initial_capacity(), 4096);
+  85         }
+  86         let empty = ArchiveMemberCount::from(0u64);
+  87         assert_eq!(empty.native_iteration_range().next(), None);
+  88         let single = ArchiveMemberCount::from(1u64);
+  89         assert_eq!(single.native_iteration_range().collect::<Vec<_>>(), [0]);
+  90         assert_eq!(single.initial_capacity(), 1);
+  91     }
+  92 }

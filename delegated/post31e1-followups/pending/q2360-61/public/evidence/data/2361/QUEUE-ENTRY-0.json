@@ -1,0 +1,164 @@
+{
+      "contract_id": "REVIEW-L11-ZIP-MEMBER-COUNT-AUTHORED-CONTRACT",
+      "kind": "qualified-scoped-review-disposition",
+      "lens": 11,
+      "parent_canonical_id": null,
+      "canonical_owner": "fabelgeist-numpy-storage owns application declaration/query/compression/error policy; rawzip owns native ZIP framing; NPY layout/value owners remain separate.",
+      "first_failed_contract_or_unresolved_question": "Declared count is an application upper bound with capped initial reservation, not verified actual cardinality or total resource limit.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R181-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/member-count.md:P09-P11-numpy-zip-authored-contract-test-owner",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "c9488482d37ce7259d56d5f89e858aff9c0f348ba2d6d9efa7db06e0cdf552ed",
+          "assessed_ranges": [
+            [
+              1,
+              36
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              36
+            ]
+          ],
+          "body_receipt": {
+            "path": "<LOCAL_PATH_0010>",
+            "sha256": "22ebe4bc9b16296d098aceabe2217dd623040a1af4a0f055b543eb1644519c30"
+          },
+          "registration_ref_and_sha256": {
+            "path": "<LOCAL_PATH_0011>",
+            "sha256": "139de3fdd203ed48697999af88271d943566a1805de47b57229a319d574d76cd",
+            "json_pointer": "/rows/1"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-717.json",
+            "sha256": "955f8129cbf68ecf3140401f529cc291921cd603562863de87e9ba5417b8456b",
+            "verification": "segovb/VERIFY-L11-717.json",
+            "verification_sha256": "5319b3488524d87bde5d570a6fc7a8f55436b6c7f1230272933b8b93e997b7e1"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R171-2",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+          "assessed_ranges": [
+            [
+              1,
+              184
+            ]
+          ],
+          "receipt_pointer": "/rows/2",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              184
+            ]
+          ],
+          "body_receipt": {
+            "path": "<LOCAL_PATH_0016>",
+            "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+          },
+          "registration_ref_and_sha256": {
+            "path": "<LOCAL_PATH_0013>",
+            "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+            "json_pointer": "/rows/6"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-707.json",
+            "sha256": "2d4d14ccbe1f4551707c122f3961a81534955f37ec0e48e2428bfec7d4525c4d",
+            "verification": "segovb/VERIFY-L11-707.json",
+            "verification_sha256": "4048c851f1c607badfe2d1dd470d9fac862ee8991f2d517256ca84a4751496b9"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R171-6",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/member_count.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867",
+          "assessed_ranges": [
+            [
+              1,
+              92
+            ]
+          ],
+          "receipt_pointer": "/rows/6",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              92
+            ]
+          ],
+          "body_receipt": {
+            "path": "<LOCAL_PATH_0016>",
+            "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+          },
+          "registration_ref_and_sha256": {
+            "path": "<LOCAL_PATH_0013>",
+            "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+            "json_pointer": "/rows/10"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-707.json",
+            "sha256": "2d4d14ccbe1f4551707c122f3961a81534955f37ec0e48e2428bfec7d4525c4d",
+            "verification": "segovb/VERIFY-L11-707.json",
+            "verification_sha256": "4048c851f1c607badfe2d1dd470d9fac862ee8991f2d517256ca84a4751496b9"
+          },
+          "body_credit_from_queue": 0
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "Document4..16 retains fullu64 declaration, reserveatmost4096, requestatmostcount, stopdirectoryexhaustion, reject selected parser errors, count0 skips records.",
+        "18..24 selectednearestEOCD/66000window/no automatic earlier retry/ZIP64consistency/prelude correction are policies, not backward-compatibility defects.32..36 preserves order/duplicates/query roles."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Current firstparty text/test-owner scopes only. Prior native SOURCE004 retains exact own lock/archive/member/range qualifications separately, not new body or whole native clearance. All 73 nontext/no-positiveEOF contracts remain separate.",
+        "No product/native/parser/test/fixture/runtime execution; later repair acceptance separate."
+      ],
+      "closure_condition": [
+        "Root verifies immutable plan199/READ181 and exact own prior source adoptions, then records named authored-doc/test-source disposition; all binary material and runtime outcomes remain unclaimed.",
+        "Record namedretained/rejected/conditional/policydisposition only; no coarseall20/all13/currentdelta closure or accepteduniqueassignment."
+      ],
+      "disposition": "documented-source-owner-disposition-binary-runtime-independent",
+      "policy_decisions_remaining": [
+        "Existing SOURCE004 CRC/decoded-size/resource/search/count/name-policy questions remain distinct; no automatic exact aliases, no new policy requirement or accepted unique finding."
+      ],
+      "later_repair_acceptance_requirements": [
+        "If verified cardinality or alternate candidate recovery is desired, decide it explicitly at application admission; current name/metadata semantics accurately state upper-bound behavior."
+      ],
+      "named_disposition_recorded": true,
+      "audit_discovery_closed_within_exact_named_scope": true,
+      "all_lenses_or_coarse_parent_closed": false,
+      "global_exact_alias_inventory_complete": false,
+      "repair_runtime_passed": false,
+      "proposal": {
+        "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-006.json",
+        "sha256": "97a86fa9755c37447cd94fb8f5fccc78a72a68553f7aa50270b0e2cd91922bd0",
+        "row_pointer": "/contract_updates/1"
+      },
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false,
+      "source_owner_qualification": {
+        "source_kind": "authored documentation",
+        "test_or_doctest_execution": false,
+        "binary_fixture_body_or_owner_contract_closed": false,
+        "native_body_credit": 0,
+        "qualification": "Own firstparty implementation proof rows are listed separately from documentation/test expectations; prior native SOURCE004 is exact historical qualified context only."
+      },
+      "related_prior_native_policy_context": {
+        "bundle": {
+          "path": "<LOCAL_PATH_0009>",
+          "sha256": "ced5d6919e32594bc0824d3fd507342b0b4bd36c98c5c8042be181758c9e1b05"
+        },
+        "role": "Preserve exact prior independently own-Lens11 native qualifiers; no new body/native read or native source-row credit from this reference."
+      }
+    }

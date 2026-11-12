@@ -1,0 +1,16 @@
+   1 //! Checked geometry shared by simulation, generation and authoring.
+   2 //!
+   3 //! Checked values and their portable errors have no mandatory rendering or engine
+   4 //! dependency. Native direction admission remains with its framework;
+   5 //! opaque reflection is available through the optional `reflect` feature.
+   6 //! Engine consumers opt into the `bevy-math` vector projection adapter.
+   7 
+   8 pub use cuboid::CuboidDimensions;
+   9 pub use error::{CoordinateAxis, DirectionError, GeometryError, GeometryResult, GeometryRole};
+  10 pub use length::PositiveLength;
+  11 pub use measurement::{Area, SignedLength};
+  12 
+  13 mod cuboid;
+  14 mod error;
+  15 mod length;
+  16 mod measurement;

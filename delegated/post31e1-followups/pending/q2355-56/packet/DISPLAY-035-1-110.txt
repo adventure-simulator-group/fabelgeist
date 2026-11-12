@@ -1,0 +1,110 @@
+   1 use bevy::prelude::*;
+   2 
+   3 use crate::{
+   4     BarkTextureSet, GlassTextureSet, GroundTextureSet, LeafTextureSet, MapChannel,
+   5     ProceduralTextureAssets, SurfaceTextureSet, TextureRecipeId, empty_terrain_blood_mask,
+   6 };
+   7 
+   8 impl ProceduralTextureAssets {
+   9     /// Reserve stable image handles for committed maps without requesting any containers.
+  10     pub fn reserve(
+  11         residency: &mut super::ProceduralTextureResidency,
+  12         images: &mut Assets<Image>,
+  13     ) -> Self {
+  14         use TextureRecipeId::*;
+  15         Self {
+  16             oak_leaf: LeafTextureSet::load(residency, images, WhiteOakLeaf),
+  17             dry_oak_leaf: LeafTextureSet::load(residency, images, DryWhiteOakLeaf),
+  18             hazel_leaf: LeafTextureSet::load(residency, images, HazelLeaf),
+  19             blackthorn_leaf: LeafTextureSet::load(residency, images, BlackthornLeaf),
+  20             hawthorn_leaf: LeafTextureSet::load(residency, images, HawthornLeaf),
+  21             beech_leaf: LeafTextureSet::load(residency, images, BeechLeaf),
+  22             oak_bark: BarkTextureSet {
+  23                 height_ao: load_map(residency, images, OakBark, MapChannel::HeightAo),
+  24             },
+  25             forest_soil: GroundTextureSet {
+  26                 height_ao: load_map(residency, images, ForestSoil, MapChannel::HeightAo),
+  27                 litter_surface: load_map(
+  28                     residency,
+  29                     images,
+  30                     ForestLitter,
+  31                     MapChannel::LitterSurface,
+  32                 ),
+  33                 litter_normal: load_map(residency, images, ForestLitter, MapChannel::Normal),
+  34             },
+  35             rock: SurfaceTextureSet::load(residency, images, Rock),
+  36             lime_plaster: SurfaceTextureSet::load(residency, images, LimePlaster),
+  37             hewn_oak: SurfaceTextureSet::load(residency, images, HewnOak),
+  38             wattle_and_daub: SurfaceTextureSet::load(residency, images, WattleAndDaub),
+  39             handmade_brick: SurfaceTextureSet::load(residency, images, HandmadeBrick),
+  40             rubble_masonry: SurfaceTextureSet::load(residency, images, RubbleMasonry),
+  41             dressed_stone: SurfaceTextureSet::load(residency, images, DressedStone),
+  42             clay_roof_tile: SurfaceTextureSet::load(residency, images, ClayRoofTile),
+  43             slate_roof: SurfaceTextureSet::load(residency, images, SlateRoof),
+  44             timber_shingle: SurfaceTextureSet::load(residency, images, TimberShingle),
+  45             plank_floor: SurfaceTextureSet::load(residency, images, PlankFloor),
+  46             lead_sheet: SurfaceTextureSet::load(residency, images, LeadSheet),
+  47             ironwork: SurfaceTextureSet::load(residency, images, Ironwork),
+  48             window_glass: GlassTextureSet {
+  49                 transmittance: load_map(residency, images, WindowGlass, MapChannel::Transmittance),
+  50                 optical_normal_gl: load_map(
+  51                     residency,
+  52                     images,
+  53                     WindowGlass,
+  54                     MapChannel::OpticalNormal,
+  55                 ),
+  56                 thickness_roughness: load_map(
+  57                     residency,
+  58                     images,
+  59                     WindowGlass,
+  60                     MapChannel::ThicknessRoughness,
+  61                 ),
+  62             },
+  63             crenellation_mask: load_map(residency, images, CrenellationMask, MapChannel::Opacity),
+  64             // Blood is transient presentation state, not a shared baked texture.
+  65             terrain_blood_mask: images.add(empty_terrain_blood_mask()),
+  66         }
+  67     }
+  68 }
+  69 
+  70 impl LeafTextureSet {
+  71     fn load(
+  72         residency: &mut super::ProceduralTextureResidency,
+  73         images: &mut Assets<Image>,
+  74         recipe: TextureRecipeId,
+  75     ) -> Self {
+  76         Self {
+  77             opacity: load_map(residency, images, recipe, MapChannel::Opacity),
+  78             front_albedo: load_map(residency, images, recipe, MapChannel::FrontAlbedo),
+  79             back_albedo: load_map(residency, images, recipe, MapChannel::BackAlbedo),
+  80             front_normal: load_map(residency, images, recipe, MapChannel::FrontNormal),
+  81             back_normal: load_map(residency, images, recipe, MapChannel::BackNormal),
+  82             height: load_map(residency, images, recipe, MapChannel::Height),
+  83             arm: load_map(residency, images, recipe, MapChannel::Arm),
+  84         }
+  85     }
+  86 }
+  87 
+  88 impl SurfaceTextureSet {
+  89     fn load(
+  90         residency: &mut super::ProceduralTextureResidency,
+  91         images: &mut Assets<Image>,
+  92         recipe: TextureRecipeId,
+  93     ) -> Self {
+  94         Self {
+  95             albedo: load_map(residency, images, recipe, MapChannel::Albedo),
+  96             normal_gl: load_map(residency, images, recipe, MapChannel::Normal),
+  97             height: load_map(residency, images, recipe, MapChannel::Height),
+  98             arm: load_map(residency, images, recipe, MapChannel::Arm),
+  99         }
+ 100     }
+ 101 }
+ 102 
+ 103 fn load_map(
+ 104     residency: &mut super::ProceduralTextureResidency,
+ 105     images: &mut Assets<Image>,
+ 106     recipe: TextureRecipeId,
+ 107     channel: MapChannel,
+ 108 ) -> Handle<Image> {
+ 109     residency.destination(recipe, channel, images)
+ 110 }

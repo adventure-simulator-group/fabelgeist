@@ -1,0 +1,67 @@
+ 201         Cow::Borrowed(_)
+ 202     ));
+ 203     assert!(matches!(
+ 204         archive
+ 205             .bytes(&ArchiveMemberName::from("second.npy"))
+ 206             .unwrap(),
+ 207         Cow::Owned(_)
+ 208     ));
+ 209     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 210     assert_eq!(
+ 211         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 212             &npz.array(&NpzArrayName::new("values")).unwrap()
+ 213         ))
+ 214         .iter()
+ 215         .map(|v| v.to_bits())
+ 216         .collect::<Vec<_>>(),
+ 217         [0x3f800000, 0x80000000, 0x7fc01234, 0x40200000]
+ 218     );
+ 219     let bytes = include_bytes!("fixtures/member-count/duplicate-count-2.zip");
+ 220     let npz = Npz::from_bytes(bytes.to_vec()).unwrap();
+ 221     assert_eq!(
+ 222         Vec::<f32>::from(fabelgeist_numpy_storage::NpyFloat32Values::from(
+ 223             &npz.array(&NpzArrayName::new("values")).unwrap()
+ 224         ))[0],
+ 225         1.0
+ 226     );
+ 227     assert_eq!(
+ 228         npz.get(&NpzArrayName::new("values"))
+ 229             .map(|member| member.uncompressed_size()),
+ 230         Some(DeclaredUncompressedByteLength::from_bytes(u64::from(
+ 231             STORED_ARRAY_BYTES
+ 232         )))
+ 233     );
+ 234 }
+ 235 
+ 236 #[test]
+ 237 fn native_numeric_formatter_options_survive_each_bespoke_quantity() {
+ 238     for value in [0, 3, 1 << 32, u64::MAX] {
+ 239         let decoded = DeclaredUncompressedByteLength::from_bytes(value);
+ 240         assert_eq!(format!("{decoded:>24.3}"), format!("{value:>24.3}"));
+ 241         assert_eq!(format!("{decoded:#024?}"), format!("{value:#024?}"));
+ 242     }
+ 243 }
+ 244 
+ 245 #[test]
+ 246 fn out_of_archive_offsets_return_errors_without_native_overflow() {
+ 247     let mut case = wire();
+ 248     case.offset = u32::MAX;
+ 249     case.extra = extra(&[1 << 32]);
+ 250     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 251     assert_eq!(
+ 252         archive
+ 253             .bytes(&ArchiveMemberName::from("values.npy"))
+ 254             .unwrap_err()
+ 255             .to_string(),
+ 256         "zip entry values.npy runs past the end of the archive"
+ 257     );
+ 258     let mut case = wire();
+ 259     case.offset = u32::MAX;
+ 260     case.extra = extra(&[u64::MAX]);
+ 261     let archive = ZipArchive::from_bytes(zip(case)).unwrap();
+ 262     assert!(
+ 263         archive
+ 264             .bytes(&ArchiveMemberName::from("values.npy"))
+ 265             .is_err()
+ 266     );
+ 267 }

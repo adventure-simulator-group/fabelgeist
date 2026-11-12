@@ -1,0 +1,40 @@
+   1 //! Material and asset plugins shared by tactical gameplay and capture viewers.
+   2 
+   3 use super::*;
+   4 
+   5 pub(super) struct TacticalMaterialsPlugin;
+   6 
+   7 impl Plugin for TacticalMaterialsPlugin {
+   8     fn build(&self, app: &mut App) {
+   9         app.add_plugins((
+  10             MaterialPlugin::<TacticalTerrainMaterial>::default(),
+  11             MaterialPlugin::<TacticalVistaMaterial>::default(),
+  12             MaterialPlugin::<TacticalRockMaterial>::default(),
+  13             MaterialPlugin::<TacticalFoliageMaterial>::default(),
+  14             adventuresim_procedural_materials::ProceduralMaterialsPlugin,
+  15             MaterialPlugin::<TacticalTreeAggregateBarkMaterial>::default(),
+  16             MaterialPlugin::<TacticalTreeImpostorMaterial>::default(),
+  17             MaterialPlugin::<TacticalMoonMaterial>::default(),
+  18             MaterialPlugin::<TacticalStarMaterial>::default(),
+  19             MaterialPlugin::<TacticalCloudMaterial>::default(),
+  20             MaterialPlugin::<TacticalCloudCompositeMaterial>::default(),
+  21         ))
+  22         // Split from the tuple above so the material-plugin group stays within
+  23         // Bevy's 15-element `Plugins` tuple arity limit.
+  24         .add_plugins((
+  25             // Loose stone draws chunk-instanced: one entity per patch mesh, LOD
+  26             // and ground cell instead of two or three per square metre.
+  27             chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleMaterial>::default(),
+  28             chunk_instancing::ChunkMaterialPlugin::<TacticalPebbleBillboardMaterial>::default(),
+  29             chunk_instancing::ChunkMaterialPlugin::<
+  30                 crate::presentation::vista::tree_cards::TacticalVistaTreeInstancedMaterial,
+  31             >::default(),
+  32             MaterialPlugin::<CityGroundMaterial>::default(),
+  33             MaterialPlugin::<TacticalWeatherMaterial>::default(),
+  34             DoorPresentationPlugin,
+  35             WindowPresentationPlugin,
+  36         ))
+  37         .add_plugins(adventuresim_procedural_textures::BakedTexturesPlugin)
+  38         .add_plugins(ground_scatter::plants::PlantPresentationPlugin);
+  39     }
+  40 }

@@ -1,0 +1,41 @@
+SOURCE crates/fabelgeist-mhr/src/correctives/archive.rs:1-40
+   1 //! MHR's corrective archive schema and its fixed array roles.
+   2 
+   3 use std::path::Path;
+   4 
+   5 use anyhow::{Context, Result};
+   6 use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues, Npz, NpzArrayName};
+   7 
+   8 use super::import::{CorrectiveLayout, SparseActivation};
+   9 
+  10 /// Encoded corrective archives with explicit roles before NPZ admission.
+  11 /// Payload contents are checked when the archives and their members are read.
+  12 pub struct CorrectiveArchiveBytes {
+  13     pub activation: Vec<u8>,
+  14     pub basis: Vec<u8>,
+  15 }
+  16 
+  17 pub(super) struct CorrectiveArchives {
+  18     activation: Npz,
+  19     basis: Npz,
+  20 }
+  21 
+  22 pub(super) enum CorrectiveArray {
+  23     Basis,
+  24     SparseIndices,
+  25     SparseWeights,
+  26 }
+  27 
+  28 impl CorrectiveArray {
+  29     pub(super) fn name(self) -> NpzArrayName {
+  30         NpzArrayName::new(match self {
+  31             Self::Basis => "corrective_blendshapes",
+  32             Self::SparseIndices => "0.sparse_indices",
+  33             Self::SparseWeights => "0.sparse_weight",
+  34         })
+  35     }
+  36 }
+  37 
+  38 impl CorrectiveArchives {
+  39     pub(super) fn open(activation: &Path, basis: &Path) -> Result<Self> {
+  40         let basis = Npz::open(basis)?;

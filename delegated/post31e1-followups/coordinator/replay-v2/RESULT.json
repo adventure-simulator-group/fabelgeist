@@ -1,0 +1,30 @@
+{
+  "script_sha256": "cae14c996d5173745e9fa9a86b3fee9842a17a380103187ae93d6da750a386f8",
+  "cases": [
+    {
+      "case": "portable",
+      "exit": 0,
+      "stdout_bytes": 379,
+      "stdout_sha256": "147107bfb1a61174514f67d5f52e35f7565c7be144ed3d2777c7186f70417977",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "anchored",
+      "exit": 0,
+      "stdout_bytes": 430,
+      "stdout_sha256": "2e4f9f359d6f441bb4489c84f105154673f329f7a3194cecdfb8900b1b818fa1",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "git-mode-normalized",
+      "exit": 0,
+      "stdout_bytes": 430,
+      "stdout_sha256": "2e4f9f359d6f441bb4489c84f105154673f329f7a3194cecdfb8900b1b818fa1",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "The normalized-copy replay checks Git executable-bit behavior; anchored inputs remain same-machine. Full original filesystem permissions are not reproduced by Git, and product behavior and independent custody remain unverified."
+}

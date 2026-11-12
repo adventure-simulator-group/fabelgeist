@@ -1,0 +1,44 @@
+   1 //! Declared decoded ZIP sizes, distinct from verified payload lengths.
+   2 
+   3 use derive_more::{Debug, Display};
+   4 
+   5 /// Declared decoded byte length of a ZIP member, including any NPY header.
+   6 ///
+   7 /// This is archive metadata, not a verified decoded size or allocation limit.
+   8 /// ZIP size queries and NPZ member handles return this bespoke type.
+   9 ///
+  10 /// ```
+  11 /// use fabelgeist_numpy_storage::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
+  12 /// fn declared(archive: &ZipArchive) -> Option<DeclaredUncompressedByteLength> {
+  13 ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  14 /// }
+  15 /// ```
+  16 ///
+  17 /// Raw integer size returns are deliberately rejected:
+  18 ///
+  19 /// ```compile_fail
+  20 /// use fabelgeist_numpy_storage::{ArchiveMemberName, ZipArchive};
+  21 /// fn declared(archive: &ZipArchive) -> Option<u64> {
+  22 ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  23 /// }
+  24 /// ```
+  25 #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  26 #[debug("{_0:?}")]
+  27 pub struct DeclaredUncompressedByteLength(u64);
+  28 
+  29 impl DeclaredUncompressedByteLength {
+  30     /// Admits a decoded wire declaration, including zero and u64::MAX.
+  31     pub const fn from_bytes(bytes: u64) -> Self {
+  32         Self(bytes)
+  33     }
+  34 
+  35     /// Projects the unverified declaration at an external byte-count boundary.
+  36     pub const fn bytes(self) -> u64 {
+  37         self.0
+  38     }
+  39 
+  40     /// Native Vec reservation retains the inherited lossy cast and policy.
+  41     pub(super) fn native_allocation_capacity(self) -> usize {
+  42         self.0 as usize
+  43     }
+  44 }

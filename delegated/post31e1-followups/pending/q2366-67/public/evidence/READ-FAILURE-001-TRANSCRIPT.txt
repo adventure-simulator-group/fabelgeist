@@ -1,0 +1,7 @@
+First whole-queue check stopped at `assert h==expect` on the first file.
+Expected digest in REGISTRATION-001.json was 63 hex characters because one b was omitted.
+Output exactly:
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+AssertionError
+The second queue was not read by that failed command. extract-corrected.py uses a separately registered, 64-character expected value matching the prior historical registration.

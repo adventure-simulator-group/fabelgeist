@@ -1,0 +1,100 @@
+   1 //! The architectural ground floor, rather than the collider bottom, seats a building.
+   2 use super::GeneratedBuilding;
+   3 use bevy::prelude::Transform;
+   4 
+   5 impl GeneratedBuilding {
+   6     /// Transform recentered render and collision geometry into the scene.
+   7     /// Authored plan Y=0 is the floor datum. Floor slabs and footings may extend
+   8     /// below it; those buried parts must not lift the walls or door thresholds.
+   9     pub fn geometry_datum(
+  10         &self,
+  11     ) -> Result<
+  12         crate::scene_coordinates::CollisionCentreDatum,
+  13         adventuresim_building_generator::spatial_geometry::GeometryError,
+  14     > {
+  15         use crate::scene_coordinates::{ArchitecturalFloorDatum, ArchitecturalPlanProjection};
+  16         let origin = self.collision.bounds.centre()?;
+  17         let plan =
+  18             ArchitecturalPlanProjection::from_placement(&self.placement, self.collision.bounds)?;
+  19         let floor = self.placement.base_elevation_metres;
+  20         ArchitecturalFloorDatum { plan, floor }.collision_centre(origin)
+  21     }
+  22     pub fn transform(
+  23         &self,
+  24     ) -> Result<Transform, adventuresim_building_generator::spatial_geometry::GeometryError> {
+  25         Ok(self.geometry_datum()?.native_transform())
+  26     }
+  27 }
+  28 
+  29 #[cfg(test)]
+  30 mod tests {
+  31     use super::*;
+  32     use crate::scene_input::{
+  33         BuildingOrientation, GeneratedBuildingRecipe, TacticalBuildingPlacement,
+  34     };
+  35     use adventuresim_building_generator::{
+  36         BuildingArchetype, BuildingProgram, OpeningUse, ServiceBuildingSize,
+  37     };
+  38     use adventuresim_world_schema::settlement_buildings::BuildingUse;
+  39     use bevy::math::{Vec2, Vec3, Vec3Swizzles};
+  40 
+  41     #[test]
+  42     fn distant_promotion_and_preparation_preserve_the_bound_floor_and_program() {
+  43         use crate::scene_input::{DistantBuildingPlacement, GeneratedBuildingRecipes};
+  44         use adventuresim_world_schema::ProsperityTier;
+  45         for floor in [-4.75, 9.5] {
+  46             let distant = DistantBuildingPlacement {
+  47                 id: (1238).into(),
+  48                 prosperity: ProsperityTier::Wealthy,
+  49                 archetype: BuildingArchetype::FachwerkMerchantHouse,
+  50                 usage: Some(BuildingUse::Dwelling),
+  51                 service_size: None,
+  52                 seed: 7_989_866_213_631_017_260.into(),
+  53                 centre_metres: crate::scene_coordinates::ScenePlanPoint::try_from(Vec2::new(
+  54                     -321.574_13,
+  55                     -345.572_57,
+  56                 ))
+  57                 .unwrap(),
+  58                 base_elevation_metres:
+  59                     crate::city_layout::grounding::SupportElevation::from_metres(floor).unwrap(),
+  60                 orientation: BuildingOrientation::from_radians(-0.197_395_56).unwrap(),
+  61             };
+  62             let placement = TacticalBuildingPlacement::from(distant);
+  63             assert_eq!(placement.program, distant.occupied_program());
+  64             assert_eq!(
+  65                 placement.centre_metres.metres(),
+  66                 distant.centre_metres.metres()
+  67             );
+  68             assert_eq!(placement.orientation, distant.orientation);
+  69             assert_eq!(placement.id, distant.id);
+  70             assert_eq!(placement.base_elevation_metres.metres(), floor);
+  71             let generated = super::super::prepare_buildings(
+  72                 std::slice::from_ref(&placement),
+  73                 &mut GeneratedBuildingRecipes::default(),
+  74             )
+  75             .unwrap();
+  76             assert_eq!(generated[0].placement, placement);
+  77             let origin = generated[0].collision.bounds.centre().unwrap().metres();
+  78             let world_floor = generated[0]
+  79                 .transform()
+  80                 .unwrap()
+  81                 .transform_point(-Vec3::Y * origin.y);
+  82             assert!((world_floor.y - floor).abs() < 0.000_01);
+  83             assert!(
+  84                 crate::city_layout::grounding::SupportElevation::from_metres(f32::NAN).is_none()
+  85             );
+  86         }
+  87     }
+  88 
+  89     #[test]
+  90     fn buried_floor_slabs_do_not_raise_bearings_or_thresholds() {
+  91         // Exact occupied recipes of Goslar's reported buildings 304 and 14.
+  92         for (id, archetype, usage, seed, size, base) in [
+  93             (
+  94                 304,
+  95                 BuildingArchetype::TownHouse,
+  96                 BuildingUse::Dwelling,
+  97                 6_514_374_187_028_306_242,
+  98                 None,
+  99                 -2.0,
+ 100             ),

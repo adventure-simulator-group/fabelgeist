@@ -1,0 +1,8 @@
+{
+  "event": "prospective Git mode qualification",
+  "old_verifier_sha256": "d34010794b7b7b7fd5675ce49be2947aae9a795f9d978ffc9bf73073c58e4575",
+  "new_verifier_sha256": "cae14c996d5173745e9fa9a86b3fee9842a17a380103187ae93d6da750a386f8",
+  "initial_copy_record_sha256": "ed31ce0da0f077ace3ce3042762cec725bafcf094b915be279ae91a0d8a70e5e",
+  "qualified_copy_record_sha256": "0cd34b4d2352938a8f402f0c7a933bb57a5e4d9bde2c91c1b70f541c06381058",
+  "qualification": "The first same-machine replay checked exact filesystem modes. Git records executable versus nonexecutable, so the successor checks the executable bit and keeps full original modes only as recorded preparation evidence; authenticated private archives separately preserve their source file modes. No evidence bytes were changed."
+}

@@ -1,0 +1,22 @@
+{
+  "manifest_sha256": "0a65ccb727068f38d6821b844e4134e983cb44d1c559aa9ad9e03908f4f4ebae",
+  "cases": [
+    {
+      "case": "keyless",
+      "exit": 0,
+      "stdout_bytes": 148,
+      "stdout_sha256": "af42f637ca0af0a7c22ecc17778799498238862a065afb3295f5a80dee61a239",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "keyed",
+      "exit": 0,
+      "stdout_bytes": 199,
+      "stdout_sha256": "c2c2307e566e042f95a6d11f10159cf9d96356e81803a90efa0988e45860b871",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Same-machine key authenticated the exact omitted files and initial scan logs in memory. No restoration, independent custody or product behavior is implied."
+}

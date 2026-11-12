@@ -1,0 +1,404 @@
+{
+  "at_utc": "2026-11-12T18:46:54.714368+00:00",
+  "fallback_failures": [],
+  "inventory_rows": [
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/record_kinds.rs",
+      "row": "100644 blob aa1f052b8a4c084b3d551c1a403434a23fb2bd82\tcrates/fabelgeist-numpy-storage/tests/record_kinds.rs"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_errors.rs",
+      "row": "100644 blob 08c2604975354441a2cda0176c5cd162d662d82b\tcrates/fabelgeist-numpy-storage/tests/zip_errors.rs"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "row": "100644 blob aea71d033af691a445a0fc03e7791402e07fc791\tcrates/fabelgeist-numpy-storage/src/zip/error.rs"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "row": "100644 blob 4eb9aa247e596d17a753fb2b770d5638422e62fb\tcrates/fabelgeist-numpy-storage/src/zip.rs"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "row": "100644 blob 46a39897a8c5cb990da8a2db0a215bf51a725b28\tcrates/fabelgeist-numpy-storage/src/npz.rs"
+    }
+  ],
+  "inventory_sha256": "020f2e9f9ef080e0a38facf92bad76e00e30f36aa0fd94249625806e76df400c",
+  "missing": [],
+  "proofs": [
+    {
+      "blob": "aa1f052b8a4c084b3d551c1a403434a23fb2bd82",
+      "bytes": 11020,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "component": "tests",
+          "mode": "40000",
+          "oid": "f2859a362bff5b70ad5ae9f075c22bfa7803a747",
+          "tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68"
+        },
+        {
+          "component": "record_kinds.rs",
+          "mode": "100644",
+          "oid": "aa1f052b8a4c084b3d551c1a403434a23fb2bd82",
+          "tree": "f2859a362bff5b70ad5ae9f075c22bfa7803a747"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/tests/record_kinds.rs",
+      "recorded_e275_sha256": "69bcfa97928a9d376cc26bd7945bfebd8a769c48b4fe6f7b4690544d6c52deb8",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_sha256": "69bcfa97928a9d376cc26bd7945bfebd8a769c48b4fe6f7b4690544d6c52deb8"
+    },
+    {
+      "blob": "08c2604975354441a2cda0176c5cd162d662d82b",
+      "bytes": 7994,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "component": "tests",
+          "mode": "40000",
+          "oid": "f2859a362bff5b70ad5ae9f075c22bfa7803a747",
+          "tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68"
+        },
+        {
+          "component": "zip_errors.rs",
+          "mode": "100644",
+          "oid": "08c2604975354441a2cda0176c5cd162d662d82b",
+          "tree": "f2859a362bff5b70ad5ae9f075c22bfa7803a747"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_errors.rs",
+      "recorded_e275_sha256": "bef087f9ba1c49676479978b296644b5b1340f9470b85f16852cbba5b9b115a5",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_sha256": "bef087f9ba1c49676479978b296644b5b1340f9470b85f16852cbba5b9b115a5"
+    },
+    {
+      "blob": "aea71d033af691a445a0fc03e7791402e07fc791",
+      "bytes": 5024,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68"
+        },
+        {
+          "component": "zip",
+          "mode": "40000",
+          "oid": "322bd5fc952b6f3ef94334b29238e994a6c5b0ad",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        },
+        {
+          "component": "error.rs",
+          "mode": "100644",
+          "oid": "aea71d033af691a445a0fc03e7791402e07fc791",
+          "tree": "322bd5fc952b6f3ef94334b29238e994a6c5b0ad"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "recorded_e275_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260"
+    },
+    {
+      "blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+      "bytes": 6286,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68"
+        },
+        {
+          "component": "zip.rs",
+          "mode": "100644",
+          "oid": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "recorded_e275_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57"
+    },
+    {
+      "blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+      "bytes": 7894,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68"
+        },
+        {
+          "component": "npz.rs",
+          "mode": "100644",
+          "oid": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "recorded_e275_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c"
+    },
+    {
+      "blob": "aa1f052b8a4c084b3d551c1a403434a23fb2bd82",
+      "bytes": 11020,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "component": "tests",
+          "mode": "40000",
+          "oid": "f2859a362bff5b70ad5ae9f075c22bfa7803a747",
+          "tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c"
+        },
+        {
+          "component": "record_kinds.rs",
+          "mode": "100644",
+          "oid": "aa1f052b8a4c084b3d551c1a403434a23fb2bd82",
+          "tree": "f2859a362bff5b70ad5ae9f075c22bfa7803a747"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/tests/record_kinds.rs",
+      "recorded_e275_sha256": "69bcfa97928a9d376cc26bd7945bfebd8a769c48b4fe6f7b4690544d6c52deb8",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "69bcfa97928a9d376cc26bd7945bfebd8a769c48b4fe6f7b4690544d6c52deb8"
+    },
+    {
+      "blob": "08c2604975354441a2cda0176c5cd162d662d82b",
+      "bytes": 7994,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "component": "tests",
+          "mode": "40000",
+          "oid": "f2859a362bff5b70ad5ae9f075c22bfa7803a747",
+          "tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c"
+        },
+        {
+          "component": "zip_errors.rs",
+          "mode": "100644",
+          "oid": "08c2604975354441a2cda0176c5cd162d662d82b",
+          "tree": "f2859a362bff5b70ad5ae9f075c22bfa7803a747"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_errors.rs",
+      "recorded_e275_sha256": "bef087f9ba1c49676479978b296644b5b1340f9470b85f16852cbba5b9b115a5",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "bef087f9ba1c49676479978b296644b5b1340f9470b85f16852cbba5b9b115a5"
+    },
+    {
+      "blob": "aea71d033af691a445a0fc03e7791402e07fc791",
+      "bytes": 5024,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c"
+        },
+        {
+          "component": "zip",
+          "mode": "40000",
+          "oid": "322bd5fc952b6f3ef94334b29238e994a6c5b0ad",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        },
+        {
+          "component": "error.rs",
+          "mode": "100644",
+          "oid": "aea71d033af691a445a0fc03e7791402e07fc791",
+          "tree": "322bd5fc952b6f3ef94334b29238e994a6c5b0ad"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "recorded_e275_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260"
+    },
+    {
+      "blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+      "bytes": 6286,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c"
+        },
+        {
+          "component": "zip.rs",
+          "mode": "100644",
+          "oid": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "recorded_e275_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57"
+    },
+    {
+      "blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+      "bytes": 7894,
+      "chain": [
+        {
+          "component": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+        },
+        {
+          "component": "fabelgeist-numpy-storage",
+          "mode": "40000",
+          "oid": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "component": "src",
+          "mode": "40000",
+          "oid": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+          "tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c"
+        },
+        {
+          "component": "npz.rs",
+          "mode": "100644",
+          "oid": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+          "tree": "c17733266a6817b5313f94bd38edb5a45a35caa5"
+        }
+      ],
+      "historical_record_hash_match": true,
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "recorded_e275_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c"
+    }
+  ],
+  "qualification": "Physical current candidates are authoritative only where the 95e commit-to-tree-to-blob and inventory match. Equal e275 paths prove per-file identity; e275 source bytes are reconstructed, not recovered historical reviewer body. No whole-tree equality.",
+  "tree_routes": {
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": "existing-evidence-tree",
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": "existing-evidence-tree",
+    "322bd5fc952b6f3ef94334b29238e994a6c5b0ad": "existing-evidence-tree",
+    "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c": "existing-evidence-tree",
+    "7737c903f98397669c12da05475f759aa7fcfe73": "existing-evidence-tree",
+    "9185ddb4a75b1d9dabb04373b61580aae20cba68": "existing-evidence-tree",
+    "aa5546dfa40d26f0e800e424e7977c40ba94394e": "existing-evidence-tree",
+    "c17733266a6817b5313f94bd38edb5a45a35caa5": "existing-evidence-tree",
+    "f2859a362bff5b70ad5ae9f075c22bfa7803a747": "git-cat-file-tree"
+  }
+}

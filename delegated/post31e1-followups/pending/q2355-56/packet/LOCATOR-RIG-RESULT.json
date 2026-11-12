@@ -1,0 +1,207 @@
+[
+  {
+    "query": {
+      "term": "final_endpoint",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/camera"
+      ]
+    },
+    "total": 2,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "line": 91
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "line": 111
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "fn update_camera_rig",
+      "paths": [
+        "crates/adventuresim-tactical-client/src"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "line": 19
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "Position<Scene>",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/camera",
+        "crates/adventuresim-tactical-core/src/scene_coordinates"
+      ]
+    },
+    "total": 32,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 50
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 68
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 69
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 70
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 77
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 78
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 140
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 158
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "line": 209
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "line": 88
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "line": 150
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "line": 19
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "line": 20
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+        "line": 26
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+        "line": 31
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+        "line": 68
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+        "line": 92
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 16
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 21
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 31
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 32
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 150
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+        "line": 151
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 22
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 28
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 33
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 75
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 81
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 97
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 109
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 174
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+        "line": 177
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "CameraRigInput",
+      "paths": [
+        "crates/adventuresim-tactical-client/src/camera"
+      ]
+    },
+    "total": 4,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "line": 11
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+        "line": 63
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "line": 17
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+        "line": 27
+      }
+    ],
+    "omitted": 0
+  }
+]

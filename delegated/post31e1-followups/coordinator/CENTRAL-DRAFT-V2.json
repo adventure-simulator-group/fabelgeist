@@ -1,0 +1,223 @@
+{
+  "schema": "726-central-followup-synthesis-draft-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "PENDING_14D_PUBLICATION",
+  "assessments": [
+    {
+      "queue_index": 2341,
+      "historical_contract_id": "L2-EXT-ERRANTRY-CAMP-COORDINATE-OWNER-FIT",
+      "reviewer": "/root/verifier_scope",
+      "central_corroboration": "/root read the registered 95e source windows; see separate source read receipts.",
+      "assessment": "Movement and elapsed are distinct journey-relative u64 coordinates that admit zero. Initialization sets both to zero, a walking stop advances both, and camp rest advances elapsed while movement stays fixed. StrategicMinute is an absolute departure coordinate; RequestedDuration is nonzero and is not an exact zero-valid progress owner. A finite owner comparison does not establish the absence of other reusable leaves.",
+      "source_refs": [
+        "crates/adventuresim-core/src/errantry.rs:100-129",
+        "crates/adventuresim-stdb-module/src/strategic/authority_model.rs:598-605,643-670",
+        "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:175-190,223-249,722-764",
+        "crates/adventuresim-core/src/strategic_action.rs:318-329"
+      ],
+      "open_questions": "Full producer and persistence adapters, bounds, zero and role ownership, other reusable leaves, policy, reachability and global aliases remain open.",
+      "history": "Original 059 q2341 remains open. Original 56f and reconstructed 26e selected entry bytes match, but whole queue streams differ. The earlier root personal 6533 ranges, later e275 reuse without fresh body credit, subsequent source assessments and separate root adoption retain their own attribution; per-file identities do not establish whole-tree equality or checkpoint3821 recovery."
+    },
+    {
+      "queue_index": 2342,
+      "historical_contract_id": "L2-EXT-ERRANTRY-FRAME-ID-OWNER-FIT",
+      "reviewer": "/root/verifier_scope",
+      "central_corroboration": "/root read the registered 95e source windows; see separate source read receipts.",
+      "assessment": "A frame stores separate raw frame, trial, challenge and site IDs. Its selected binder turns an unbound marker into a journey-camp departure/movement string and compares it again at submission. StrategicPlaceId::JourneyCamp carries the same bound camp referent when checked party admission holds, but its codec also carries party identity and is not byte-interchangeable with the trial marker. The binder also selects candidate challenges by zero departure and writes the real departure; if a supported bound departure is zero, a later binding could still satisfy the selector.",
+      "source_refs": [
+        "crates/adventuresim-core/src/errantry.rs:21-35",
+        "crates/adventuresim-core/src/strategic_place.rs:17-35,214-238,286-296,455-505",
+        "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs:262-308",
+        "crates/adventuresim-stdb-module/src/strategic/challenges.rs:1141-1217,1350-1412",
+        "crates/adventuresim-world-schema/src/calendar.rs:82-105"
+      ],
+      "open_questions": "Unbound carrier, party component admission, other ID roles and writers, supported zero departure and rebinding, retry policy, impact and exact aliases remain open.",
+      "history": "Original 059 q2342 remains open. q245 concerns optional road-trial continuation and q3293 concerns geographical coordinates; their different first contracts are related context, not established aliases. Original 6533 reader, e275 selected assessments and root adoptions are not reassigned; 56f and reconstructed 26e selected entries match but whole streams differ."
+    },
+    {
+      "queue_index": 2352,
+      "historical_contract_id": "PL13-263-DISCLOSURE-CLOCK-ERROR-DEFAULT-PENDING",
+      "reviewer": "/root/mhr_character",
+      "central_corroboration": "/root read the registered 95e disclosure and clock windows; see separate source read receipts.",
+      "assessment": "Disclosure replaces a refresh_clock error with default StrategicMinute zero before lead correction or insertion. The shown clock producer first initializes a missing row and errors only if it is still absent; an already matching live lead can return before insertion. A legitimate epoch zero and an error fallback have distinct meanings.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/investigation/sites.rs:456-472,490-550",
+        "crates/adventuresim-stdb-module/src/time/clock.rs:1-31",
+        "crates/adventuresim-world-schema/src/calendar.rs:82-105"
+      ],
+      "open_questions": "No ordinary supported error witness, malformed database incident, retained false timestamp or product outcome is established. Define future fallible-clock policy and inspect other callers and transaction behavior.",
+      "history": "Original 059 q2352 is open; historical PL13-263 independent reader is unnamed in selected metadata, root adoption was without personal reread, and later PL13-272 retains its own clock and chronology work and rejected an ordinary missing-clock witness. Four selected 6533/e275/95e source files match individually, not as whole trees. Older 774 F023 traces and the 059 q940 locator do not prove the same failure."
+    },
+    {
+      "queue_index": 2353,
+      "historical_contract_id": "PL13-263-DISCLOSURE-PROVENANCE-OUTER-NONE-PENDING",
+      "reviewer": "/root/mhr_character",
+      "central_corroboration": "/root read the registered 95e disclosure, observer and provenance windows; see separate source read receipts.",
+      "assessment": "The provenance validator returns outer None for missing or incompatible authority and valid manual Some(None) for manual provenance. Same-case disclosure can proceed when outer provenance is None, whereas observer and action lookups require an outer Some. Selected manual and generated authoring safeguards constrain examples, without proving all producers coherent.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs:33-95",
+        "crates/adventuresim-stdb-module/src/investigation/sites.rs:250-265,323-355,456-469"
+      ],
+      "open_questions": "Supported invalid provenance, all writers, stale persisted states, downstream effects, transaction behavior and global aliases remain open; valid manual Some(None) must be preserved as distinct.",
+      "history": "Original 059 q2353 is open with the same separately attributed PL13-263 and PL13-272 chronology as q2352. Selected original and reconstructed queue objects compare equal, while whole streams differ; this is not checkpoint3821 recovery."
+    },
+    {
+      "queue_index": 2354,
+      "historical_contract_id": "PL13-268-NPC-AGE-CHRONOLOGY-ELIGIBILITY-PENDING",
+      "reviewer": "/root/wrapped_scope",
+      "central_corroboration": "/root read registered 95e resident, character, calendar, schedule, family, NPC-policy and residence windows; see separate source read receipts.",
+      "assessment": "A selected resident draft can pass age 15 and no initial minute to NPC construction. The cached age is 15 and the signed birth is anchored at zero, while the initial personal clock is set to the official minute. If that minute is at least one 365-day year after zero and no intervening operation settles age, effective age is at least 16 while cached age remains 15. The selected NPC policy applies effective age to schedule but cached age to housing and, after a presence gate, romance, before advancing cohort clocks; daily phase receipts can retain a decision. This is a source-conditional sequence.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs:18-48,114-166,267-285",
+        "crates/adventuresim-stdb-module/src/character.rs:2010-2036,2192-2214,2445-2455",
+        "crates/adventuresim-stdb-module/src/time/schedule.rs:99-125",
+        "crates/adventuresim-stdb-module/src/relationship/family.rs:94-113",
+        "crates/adventuresim-stdb-module/src/npc_causal.rs:195-220,266-285,325-373,464-507",
+        "crates/adventuresim-world-schema/src/calendar.rs:10-14,189-204",
+        "crates/adventuresim-core/src/courtship.rs:19"
+      ],
+      "open_questions": "Whether draft age means age at epoch or creation, supported late population creation, selection and survival, intervening lifecycle effects, presence, receipts, transaction outcome, actual impact and aliases remain open.",
+      "history": "Original 059 q2354 remains open. The parallel-l13-20261029 reviewer personally assessed frozen 6533 source; segovb root adopted without personal reread, and later PL13-273–276 and PL13-290 views retain their own scopes. Ten of eleven selected historical/current source pairs match individually; character.rs differs. Per-file comparison is not whole-tree equality or transferred personal coverage."
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-journey-relative-time-owner-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Journey movement and elapsed are zero-valid relative coordinates with distinct update behavior.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2341"
+      ],
+      "current_related_records": [
+        "Q-L12-ef9ca7cb50456af30916",
+        "REVIEW-CAMP-PLANNER-ACTIVE-LEG-ROUNDTRIP-95E"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Classify relative coordinate roles, bounded ranges and producer propagation without conflating absolute departure, nonzero requests or the distinct wait and active-leg contracts.",
+      "future_acceptance": "After the audit and authorization, demonstrate chosen role admission and propagation for zero, walking, rest, boundary and overflow cases while absolute departure remains distinct."
+    },
+    {
+      "id": "relationship-errantry-bound-camp-owner-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A trial marker and canonical StrategicPlaceId can name the same bound camp while carrying different encodings and party authority.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2342",
+        "baseline-059/queue.json#/entries/245"
+      ],
+      "current_related_records": [],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Define unbound and bound states, preserve party authority and retry behavior, and trace all frame producers before choosing an owner.",
+      "future_acceptance": "After the audit and authorization, establish coherent unbound and bound states, party identity, admitted components and retry behavior under the chosen contract."
+    },
+    {
+      "id": "relationship-errantry-zero-binding-selector-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A zero departure selects unbound candidates although zero is admitted by StrategicMinute; supported rebinding at zero is unproved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2342"
+      ],
+      "current_related_records": [
+        "relationship-errantry-bound-camp-owner-95e"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Trace departure writers and prove or refute supported zero and subsequent rebinding before selecting a state representation.",
+      "future_acceptance": "After the audit and authorization, distinguish a legitimate zero departure from unbound state and preserve the chosen repeated-binding behavior."
+    },
+    {
+      "id": "relationship-disclosure-clock-error-default-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Disclosure can substitute zero for an error from its clock producer, whose shown initializer makes the ordinary missing-row witness unproved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2352",
+        "baseline-059/queue.json#/entries/940"
+      ],
+      "current_related_records": [
+        "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+        "ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Trace supported clock errors and decide error propagation separately for disclosure, residence presentation and NPC presence owners.",
+      "future_acceptance": "After the audit and authorization, distinguish a legitimate epoch-zero observation from an unavailable or failed clock according to each caller policy."
+    },
+    {
+      "id": "relationship-disclosure-outer-provenance-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Same-case disclosure and observer/action lookup treat invalid outer provenance differently, while valid manual inner None is intentional.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2353",
+        "baseline-059/queue.json#/entries/940"
+      ],
+      "current_related_records": [
+        "SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE",
+        "DELEGATE-CASE-SITE-PIN-OWNER-CARDINALITY-95E"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Trace coherent manual/generated producers and supported stale states before aligning disclosure and consumer admission; preserve distinct error and pin-cardinality contracts.",
+      "future_acceptance": "After the audit and authorization, preserve valid manual provenance and apply the chosen invalid-provenance policy consistently across disclosure and its readers."
+    },
+    {
+      "id": "relationship-resident-age-chronology-95e",
+      "lens": 13,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Epoch-anchored birth, official initial personal time and cached age can diverge before selected NPC eligibility gates under stated conditions.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2354"
+      ],
+      "current_related_records": [
+        "REVIEW-POPULATION-RESEED-HOUSEHOLD-001",
+        "ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json",
+      "connected_repair_direction": "Resolve draft-age meaning and trace late creation, lifecycle refresh and per-phase receipts; distinguish household replay and presence-clock contracts.",
+      "future_acceptance": "After the audit and authorization, apply the selected draft-age meaning consistently at initial and later personal frontiers, including age boundaries and existing phase receipts."
+    }
+  ],
+  "evidence_classes": {
+    "recovered": "Original 059 selected queue records and hash-cited historical objects where packet says recovered.",
+    "reconstructed": "Path-redacted reconstructed queue selections and any expressly reconstructed slices remain separate from original streams.",
+    "historical_summaries": "Delegated reports describe original reviewer and adopter chronology; they do not transfer personal read credit.",
+    "newly_assessed": "Bounded 95e source reports and registered /root corroborating source displays, not runtime results."
+  },
+  "recovery_qualification": "Original checkpoint3821 final ledger and queue remain missing; no earlier 059/774 record, reconstructed 440 snapshot or new work becomes checkpoint3821 authority.",
+  "counts": "Prospective six relationships are planning entries, not six unique defects; all thirteen lenses and 3,713 semantic queue entries remain open. This is a private draft and has not been applied.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Source-only partial reconciliation; no queue or whole-lens closure, product implementation, test, build, fixture execution or runtime probe.",
+  "supersedes_private_draft_sha256": "e46472604a4f42ad15e62c65eaf69819fd71d3fa0568f1e5e1d26725bff163da",
+  "draft_revision_qualification": "Acceptance criteria are proposed future checks only; no product validation or repair has begun. The earlier provisional draft remains preserved."
+}

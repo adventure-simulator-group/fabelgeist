@@ -1,0 +1,49 @@
+{
+  "lens": 2,
+  "at": "2026-10-30T02:41:39.837320+00:00",
+  "kind": "Prospective decoder and exact declaration closure; no retroactive narrowing",
+  "trigger_contracts": [
+    "Texture runtime recipe to native Image owner/admission",
+    "Building compiled owner declaration closure"
+  ],
+  "rows": [
+    {
+      "registration": "ROOT-L2-EXT-0019",
+      "source_id": "pr-working:crates/adventuresim-procedural-textures/src/bake/wire.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-procedural-textures/src/bake/wire.rs",
+      "source_sha256": "1668890c7887fe4216ffa1a817da48f6f63ef4f71c2eb95ae610369eff848818",
+      "actual_EOF": 154,
+      "source_object": "root-l2-extension-20261030/objects/1668890c7887fe4216ffa1a817da48f6f63ef4f71c2eb95ae610369eff848818",
+      "prospective_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "complete_relevant_scope": "Complete actual wireHeader/MapHeader andBakedRecipe::to_bytes/from_bytes beforetestmodule",
+      "body_credit_before_read": 0
+    },
+    {
+      "registration": "ROOT-L2-EXT-0020",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_path": "crates/adventuresim-tactical-client/src/presentation/buildings.rs",
+      "source_sha256": "f4d17651442bf511cbf0f98d9810f06bcd8a3e227ca4e7ddebbf926de66044fb",
+      "actual_EOF": 596,
+      "source_object": "root-l2-extension-20261030/objects/f4d17651442bf511cbf0f98d9810f06bcd8a3e227ca4e7ddebbf926de66044fb",
+      "prospective_ranges": [
+        [
+          140,
+          142
+        ]
+      ],
+      "complete_relevant_scope": "Prospective exact BuildingSource closing tail, completes136..141 across priorregistered139; no143calleecredit",
+      "body_credit_before_read": 0
+    }
+  ],
+  "preserve_all_existing_registrations_and_unread": true,
+  "new_original_overlay_merged_shared_credit": 0,
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

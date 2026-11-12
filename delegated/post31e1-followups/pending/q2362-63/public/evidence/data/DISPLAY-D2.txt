@@ -1,0 +1,50 @@
+SOURCE crates/fabelgeist-numpy-storage/zip-reader-errors.md:1-49
+   1 # ZIP reader errors
+   2 
+   3 `ZipArchive::open`, `ZipArchive::from_bytes` and member decoding return
+   4 `zip::Result<T>`, whose error is the bespoke `ZipReadError`. Callers match typed
+   5 failure classes without interpreting diagnostic prose:
+   6 
+   7 ```rust
+   8 use fabelgeist_numpy_storage::{ZipArchive, zip::ZipReadError};
+   9 
+  10 match ZipArchive::from_bytes(Vec::new()) {
+  11     Err(ZipReadError::MissingEndRecord) => println!("no ZIP directory"),
+  12     Err(error) => eprintln!("{error}"),
+  13     Ok(archive) => println!("{} members", archive.names().count()),
+  14 }
+  15 ```
+  16 
+  17 `MissingEndRecord` represents rawzip's missing-end classification. Other
+  18 constructor failures use `Archive` and retain the concrete `rawzip::Error`.
+  19 Selected directory corruption rejects admission instead of exposing a partial
+  20 successful archive. Rawzip owns record framing and ZIP64 interpretation.
+  21 
+  22 Member operations distinguish `MissingMember`, `CorruptMember`,
+  23 `MemberPastEnd`, `Inflate` and `UnsupportedCompression`. Names retain
+  24 `ArchiveMemberName`; unsupported methods retain `ZipCompressionCode` and its
+  25 decimal diagnostic. Rawzip's `Eof` becomes `MemberPastEnd`, covering incomplete
+  26 local framing as well as missing compressed bytes. Other member parser failures
+  27 become `CorruptMember`. Both retain the upstream error as their source. Rawzip
+  28 does not expose enough stage information to distinguish every former short
+  29 local-header failure from a truncated payload; no second parser recreates that
+  30 old distinction. Structural checks still precede unsupported-method errors.
+  31 
+  32 Native file failures retain `ZipFileOperation::Open` or `Map`, the original OS
+  33 path and the concrete `std::io::Error`. Deflate failures retain their original
+  34 I/O cause. A rejected path or member name is diagnostic provenance, not proof
+  35 of path safety or successful file identity.
+  36 
+  37 `Npz` keeps its `anyhow::Result` boundary, and errors can be downcast to
+  38 `ZipReadError`. Parser and native causes remain reachable through
+  39 `std::error::Error::source`; MHR's corrective-basis and sparse-activation
+  40 contexts surround the same chain. Default display prints the owning member or
+  41 file context. Alternate display also appends native I/O causes; structural
+  42 member causes remain in the source chain. NPZ's alternate `anyhow` display
+  43 includes those chained parser causes. Archive framing diagnostics include the
+  44 upstream explanation directly.
+  45 
+  46 The adapter retains lossy names, duplicate selection, application count bounds,
+  47 central compression authority and declared-size queries. It does not enable
+  48 rawzip's optional CRC/decoded-size verifier or add encryption handling and
+  49 resource limits. Checked structural access does not certify arbitrary archives.

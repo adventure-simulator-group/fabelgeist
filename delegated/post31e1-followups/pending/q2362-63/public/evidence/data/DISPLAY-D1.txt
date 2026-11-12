@@ -1,0 +1,44 @@
+SOURCE crates/fabelgeist-numpy-storage/zip-extents.md:1-43
+   1 # Declared ZIP decoded lengths
+   2 
+   3 `DeclaredUncompressedByteLength` describes the archive's declared decoded size,
+   4 including an NPY header for NumPy array members. It retains zero and the
+   5 complete
+   6 `u64` width. It does not certify that a member exists, fits an allocation budget
+   7 or decodes to that length.
+   8 
+   9 `ZipArchive::uncompressed_size` returns
+  10 `Option<DeclaredUncompressedByteLength>`. NPZ selects an optional member with
+  11 `Npz::get`; that handle's `uncompressed_size` returns the declared length
+  12 without repeating lookup. NPZ queries retain optional `.npy` suffix matching
+  13 and first-member selection. A stored or deflated member may decode successfully
+  14 even when the declaration disagrees.
+  15 
+  16 ```rust
+  17 use fabelgeist_numpy_storage::{DeclaredUncompressedByteLength, Npz, NpzArrayName};
+  18 
+  19 fn declared_size(archive: &Npz) -> Option<DeclaredUncompressedByteLength> {
+  20     archive.get(&NpzArrayName::new("weights"))
+  21         .map(|member| member.uncompressed_size())
+  22 }
+  23 ```
+  24 
+  25 At an external byte-count boundary, `length.bytes()` projects the full declared
+  26 quantity into `u64`. Literal and decoding boundaries admit quantities through
+  27 `from_bytes`. Display and Debug delegate to the native integer, including its
+  28 formatter options. No serialization schema is introduced.
+  29 
+  30 Rawzip owns compressed ranges and archive-origin positions through private
+  31 entry handles. The application no longer defines `CompressedByteLength` or
+  32 `ArchiveByteOffset`: those parser-only APIs have no application consumer.
+  33 ZIP64 per-entry fields are interpreted by rawzip before the decoded declaration
+  34 is admitted. Partial extra fields may retain unreplaced saturation values;
+  35 these declarations still do not measure actual bytes.
+  36 
+  37 Rawzip checks local framing, range overflow and complete compressed payload
+  38 before handing back a borrowed slice. An out-of-archive local offset returns
+  39 an incomplete-member error rather than overflowing native arithmetic. Stored
+  40 members borrow archive bytes; deflated members return owned bytes. Deflate's
+  41 initial reservation still casts the decoded declaration to `usize`; no new
+  42 allocation budget, checksum, encryption or decoded-size verification is implied.
+  43 NPY payload sizes and tensor dimensions remain separate bespoke quantities.

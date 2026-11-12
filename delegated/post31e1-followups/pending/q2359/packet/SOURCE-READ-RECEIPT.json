@@ -1,0 +1,171 @@
+{
+  "reader": "delegated verifier_scope bounded current source review",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "clock_qualification": "Recorded local registration time versus display file mtime demonstrates recorded sequence only; not comprehension or independent custody.",
+  "displays": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        1,
+        50
+      ],
+      "display": "DISPLAY-000-1-50.txt",
+      "sha256": "78054cb68cefbecd49f7b94067b71245ae0b622a39570579a09575238dd93687",
+      "registration": "SOURCE-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        1,
+        160
+      ],
+      "display": "DISPLAY-001-1-160.txt",
+      "sha256": "1cd61e367fad5e51eac37847bd11100bd9dbf5249f941395034d3ac5edd63ee0",
+      "registration": "SOURCE-SUPPORT-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        161,
+        301
+      ],
+      "display": "DISPLAY-001-161-301.txt",
+      "sha256": "94aa7ea4b042051d1b0cb748e4ad56a4c05a74b2d346e04d1da95204f49bb674",
+      "registration": "SOURCE-SUPPORT-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        1,
+        115
+      ],
+      "display": "DISPLAY-002-1-115.txt",
+      "sha256": "46565fe22c1715d39a9923b4ab5c9ee4587e3abc31f82839ee433bce55ffb115",
+      "registration": "SOURCE-SUPPORT-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        1,
+        160
+      ],
+      "display": "DISPLAY-003-1-160.txt",
+      "sha256": "c57a42289acf4db14e0cf45f8605cc826028afbb2c51cf684abebf7d319feef0",
+      "registration": "SOURCE-SUPPORT-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        70,
+        110
+      ],
+      "display": "DISPLAY-004-70-110.txt",
+      "sha256": "5554616d9ecca5dea75da807fd29433b584c1e8666652f916c0878731f2245cb",
+      "registration": "SOURCE-SUPPORT-REGISTRATION.json",
+      "registered_before_display": true
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "range": [
+        1,
+        153
+      ],
+      "display": "DISPLAY-005-1-153.txt",
+      "sha256": "e00b9d32168100d320851104a76a2194ccd9130d1a91d2c164e6e538cd5b8803",
+      "registration": "SOURCE-GROUND-REGISTRATION.json",
+      "registered_before_display": true
+    }
+  ],
+  "coverage": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs",
+      "capture": "SOURCE-005.dat",
+      "eof": 153,
+      "personally_displayed_union": [
+        [
+          1,
+          153
+        ]
+      ],
+      "personal_displayed_lines": 153,
+      "unread_lines": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "capture": "SOURCE-001.dat",
+      "eof": 301,
+      "personally_displayed_union": [
+        [
+          1,
+          301
+        ]
+      ],
+      "personal_displayed_lines": 301,
+      "unread_lines": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "capture": "SOURCE-002.dat",
+      "eof": 115,
+      "personally_displayed_union": [
+        [
+          1,
+          115
+        ]
+      ],
+      "personal_displayed_lines": 115,
+      "unread_lines": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "capture": "SOURCE-003.dat",
+      "eof": 160,
+      "personally_displayed_union": [
+        [
+          1,
+          160
+        ]
+      ],
+      "personal_displayed_lines": 160,
+      "unread_lines": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "capture": "SOURCE-004.dat",
+      "eof": 4477,
+      "personally_displayed_union": [
+        [
+          70,
+          110
+        ]
+      ],
+      "personal_displayed_lines": 41,
+      "unread_lines": 4436
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "capture": "SOURCE-000.dat",
+      "eof": 50,
+      "personally_displayed_union": [
+        [
+          1,
+          50
+        ]
+      ],
+      "personal_displayed_lines": 50,
+      "unread_lines": 0
+    }
+  ]
+}

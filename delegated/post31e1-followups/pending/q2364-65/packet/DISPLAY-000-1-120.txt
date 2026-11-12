@@ -1,0 +1,120 @@
+   1 use std::borrow::Cow;
+   2 
+   3 use fabelgeist_numpy_storage::{ArchiveMemberName, Npz, NpzArrayName, ZipArchive};
+   4 
+   5 struct DirectoryCase {
+   6     label: &'static str,
+   7     bytes: &'static [u8],
+   8     names: Option<&'static [&'static str]>,
+   9 }
+  10 
+  11 #[test]
+  12 fn selected_counts_and_checked_admission_preserve_directories_and_numpy_keys() {
+  13     let cases = [
+  14         DirectoryCase {
+  15             label: "ordinary-0",
+  16             bytes: include_bytes!("fixtures/member-count/ordinary-0.zip"),
+  17             names: Some(&[]),
+  18         },
+  19         DirectoryCase {
+  20             label: "ordinary-1",
+  21             bytes: include_bytes!("fixtures/member-count/ordinary-1.zip"),
+  22             names: Some(&["values.npy"]),
+  23         },
+  24         DirectoryCase {
+  25             label: "ordinary-2",
+  26             bytes: include_bytes!("fixtures/member-count/ordinary-2.zip"),
+  27             names: Some(&["values.npy", "second.npy"]),
+  28         },
+  29         DirectoryCase {
+  30             label: "ordinary-3",
+  31             bytes: include_bytes!("fixtures/member-count/ordinary-3.zip"),
+  32             names: Some(&["values.npy", "second.npy"]),
+  33         },
+  34         DirectoryCase {
+  35             label: "ordinary-4095",
+  36             bytes: include_bytes!("fixtures/member-count/ordinary-4095.zip"),
+  37             names: Some(&["values.npy", "second.npy"]),
+  38         },
+  39         DirectoryCase {
+  40             label: "ordinary-4096",
+  41             bytes: include_bytes!("fixtures/member-count/ordinary-4096.zip"),
+  42             names: Some(&["values.npy", "second.npy"]),
+  43         },
+  44         DirectoryCase {
+  45             label: "ordinary-4097",
+  46             bytes: include_bytes!("fixtures/member-count/ordinary-4097.zip"),
+  47             names: Some(&["values.npy", "second.npy"]),
+  48         },
+  49         DirectoryCase {
+  50             label: "ordinary-65534",
+  51             bytes: include_bytes!("fixtures/member-count/ordinary-65534.zip"),
+  52             names: Some(&["values.npy", "second.npy"]),
+  53         },
+  54         DirectoryCase {
+  55             label: "ordinary-65535",
+  56             bytes: include_bytes!("fixtures/member-count/ordinary-65535.zip"),
+  57             names: Some(&["values.npy", "second.npy"]),
+  58         },
+  59         DirectoryCase {
+  60             label: "zip64-0",
+  61             bytes: include_bytes!("fixtures/member-count/zip64-0.zip"),
+  62             names: None,
+  63         },
+  64         DirectoryCase {
+  65             label: "zip64-1",
+  66             bytes: include_bytes!("fixtures/member-count/zip64-1.zip"),
+  67             names: None,
+  68         },
+  69         DirectoryCase {
+  70             label: "zip64-2",
+  71             bytes: include_bytes!("fixtures/member-count/zip64-2.zip"),
+  72             names: None,
+  73         },
+  74         DirectoryCase {
+  75             label: "zip64-3",
+  76             bytes: include_bytes!("fixtures/member-count/zip64-3.zip"),
+  77             names: None,
+  78         },
+  79         DirectoryCase {
+  80             label: "zip64-4095",
+  81             bytes: include_bytes!("fixtures/member-count/zip64-4095.zip"),
+  82             names: None,
+  83         },
+  84         DirectoryCase {
+  85             label: "zip64-4096",
+  86             bytes: include_bytes!("fixtures/member-count/zip64-4096.zip"),
+  87             names: None,
+  88         },
+  89         DirectoryCase {
+  90             label: "zip64-4097",
+  91             bytes: include_bytes!("fixtures/member-count/zip64-4097.zip"),
+  92             names: None,
+  93         },
+  94         DirectoryCase {
+  95             label: "zip64-65535",
+  96             bytes: include_bytes!("fixtures/member-count/zip64-65535.zip"),
+  97             names: None,
+  98         },
+  99         DirectoryCase {
+ 100             label: "zip64-65536",
+ 101             bytes: include_bytes!("fixtures/member-count/zip64-65536.zip"),
+ 102             names: None,
+ 103         },
+ 104         DirectoryCase {
+ 105             label: "zip64-4294967295",
+ 106             bytes: include_bytes!("fixtures/member-count/zip64-4294967295.zip"),
+ 107             names: None,
+ 108         },
+ 109         DirectoryCase {
+ 110             label: "zip64-4294967296",
+ 111             bytes: include_bytes!("fixtures/member-count/zip64-4294967296.zip"),
+ 112             names: None,
+ 113         },
+ 114         DirectoryCase {
+ 115             label: "zip64-4294967297",
+ 116             bytes: include_bytes!("fixtures/member-count/zip64-4294967297.zip"),
+ 117             names: None,
+ 118         },
+ 119         DirectoryCase {
+ 120             label: "zip64-9223372036854775808",

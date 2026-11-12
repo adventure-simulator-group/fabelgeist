@@ -1,0 +1,47 @@
+--- crates/adventuresim-core/src/errantry.rs:21-35 ---
+   21 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+   22 pub struct ErrantryFrame {
+   23     pub id: String,
+   24     pub purpose: ErrantryPurpose,
+   25     pub charge: String,
+   26     pub trials: Vec<TrialBinding>,
+   27 }
+   28 
+   29 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+   30 pub struct TrialBinding {
+   31     pub order: u16,
+   32     pub trial_id: String,
+   33     pub challenge_id: Option<String>,
+   34     pub site_id: String,
+   35     pub kind: TrialKind,
+--- crates/adventuresim-core/src/errantry.rs:100-129 ---
+  100 /// A camp's stable identity within one journey. Elapsed time is deliberately
+  101 /// absent: resting advances elapsed time without moving the camp.
+  102 pub fn journey_camp_identity_matches(
+  103     journey_departure_minute: StrategicMinute,
+  104     completed_movement_minute: u64,
+  105     camp_stop_minutes: &[u64],
+  106     bound_departure_minute: StrategicMinute,
+  107     bound_movement_minute: u64,
+  108 ) -> bool {
+  109     journey_departure_minute == bound_departure_minute
+  110         && completed_movement_minute == bound_movement_minute
+  111         && camp_stop_minutes.contains(&bound_movement_minute)
+  112 }
+  113 
+  114 pub fn rested_road_trial_camp_matches(
+  115     journey_departure_minute: StrategicMinute,
+  116     completed_movement_minute: u64,
+  117     completed_elapsed_minute: u64,
+  118     camp_stop_minutes: &[u64],
+  119     bound_departure_minute: StrategicMinute,
+  120     bound_movement_minute: u64,
+  121     available_at_elapsed_minute: u64,
+  122 ) -> bool {
+  123     journey_camp_identity_matches(
+  124         journey_departure_minute,
+  125         completed_movement_minute,
+  126         camp_stop_minutes,
+  127         bound_departure_minute,
+  128         bound_movement_minute,
+  129     ) && completed_elapsed_minute >= available_at_elapsed_minute

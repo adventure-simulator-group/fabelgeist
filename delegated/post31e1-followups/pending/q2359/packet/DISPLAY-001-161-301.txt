@@ -1,0 +1,141 @@
+ 161                     .get(parent.parent())
+ 162                     .is_ok_and(|grandparent| self.signs.contains(grandparent.parent()));
+ 163             if (is_sign || self.boundaries.contains(parent.parent()))
+ 164                 && !self.assets_ready(mesh, material)
+ 165             {
+ 166                 return false;
+ 167             }
+ 168         }
+ 169         let mut rendered_buildings = BTreeMap::<u64, std::collections::HashSet<_>>::new();
+ 170         for (batch, parent, _, material) in &self.batches {
+ 171             let Ok(building) = self.buildings.get(parent.parent()) else {
+ 172                 continue;
+ 173             };
+ 174             assert_eq!(
+ 175                 material.0,
+ 176                 self.palette.for_building(building.id.0).get(batch.material),
+ 177                 "capture bypassed production building material binding"
+ 178             );
+ 179             rendered_buildings
+ 180                 .entry(building.id.0)
+ 181                 .or_default()
+ 182                 .insert(std::mem::discriminant(&batch.level));
+ 183         }
+ 184         if rendered_buildings.len() != requirements.buildings
+ 185             || rendered_buildings.values().any(|levels| levels.len() != 3)
+ 186         {
+ 187             return false;
+ 188         }
+ 189         for (window, _, material) in &self.windows {
+ 190             assert_eq!(
+ 191                 material.0,
+ 192                 self.palette
+ 193                     .for_building(window.building_id.0)
+ 194                     .get(window.leaf.material())
+ 195             );
+ 196             let glass = self
+ 197                 .materials
+ 198                 .get(&material.0)
+ 199                 .expect("ready glass material");
+ 200             if window.leaf == adventuresim_building_generator::WindowLeafKind::TimberShutter {
+ 201                 assert_eq!(glass.specular_transmission, 0.0, "closed shutter is opaque");
+ 202                 continue;
+ 203             }
+ 204             assert_eq!(
+ 205                 glass.base_color_texture.as_ref(),
+ 206                 Some(&self.textures.window_glass.transmittance),
+ 207                 "window must use production glass, never a masonry substitute"
+ 208             );
+ 209             assert!(
+ 210                 glass.specular_transmission > 0.0,
+ 211                 "glass must retain physical transmission"
+ 212             );
+ 213         }
+ 214         for (door, _, material) in &self.doors {
+ 215             assert_eq!(
+ 216                 material.0,
+ 217                 self.palette
+ 218                     .for_building(door.building_id.0)
+ 219                     .get(BuildingLodMaterial::Timber)
+ 220             );
+ 221         }
+ 222         for (&id, expected) in &requirements.signs {
+ 223             let Some((presented, _, transform)) = self.signs.iter().find(|(_, parent, _)| {
+ 224                 self.buildings
+ 225                     .get(parent.parent())
+ 226                     .is_ok_and(|building| building.id == id)
+ 227             }) else {
+ 228                 return false;
+ 229             };
+ 230             assert_eq!(presented.sign.name, expected.sign.name);
+ 231             assert_eq!(presented.sign.font, expected.sign.font);
+ 232             assert_eq!(presented.sign.mount, expected.sign.mount);
+ 233             assert_eq!(presented.sign.finish, expected.sign.finish);
+ 234             assert_eq!(presented.sign.emblem, expected.sign.emblem);
+ 235             assert_eq!(
+ 236                 presented.site.mounting.contact,
+ 237                 expected.site.mounting.contact
+ 238             );
+ 239             // Nearby lettering is streamed by production. The fixture check uses the
+ 240             // actual root placement, including orientation, in the saved camera inputs.
+ 241             let view_is_close = self.cameras.iter().any(|(camera, pose)| {
+ 242                 camera.is_active && pose.translation().distance(transform.translation()) < 35.0
+ 243             });
+ 244             if view_is_close && presented.lettering.is_none() {
+ 245                 return false;
+ 246             }
+ 247         }
+ 248         true
+ 249     }
+ 250 }
+ 251 
+ 252 fn observe(
+ 253     mut readiness: ResMut<Readiness>,
+ 254     requirements: Option<Res<ReviewRequirements>>,
+ 255     state: Option<Res<SceneCaptureState>>,
+ 256     time: Res<Time<Real>>,
+ 257     observation: Observation,
+ 258 ) {
+ 259     let (Some(requirements), Some(state)) = (requirements, state) else {
+ 260         return;
+ 261     };
+ 262     if state.phase == CapturePhase::Configure {
+ 263         readiness.ready = false;
+ 264         readiness.pending_since = None;
+ 265         return;
+ 266     }
+ 267     readiness.ready = observation.check(&requirements);
+ 268     if !readiness.ready {
+ 269         let since = *readiness
+ 270             .pending_since
+ 271             .get_or_insert(time.elapsed_secs_f64());
+ 272         assert!(
+ 273             time.elapsed_secs_f64() - since < MAX_ASSET_WAIT_SECONDS,
+ 274             "building review timed out: gardens={:?}; buildings={}/{}; boundaries={}/{}; doors={}/{}; windows={}/{}",
+ 275             observation.gardens.check(&observation.gpu),
+ 276             observation.buildings.iter().count(),
+ 277             requirements.buildings,
+ 278             observation.boundaries.iter().count(),
+ 279             requirements.boundaries,
+ 280             observation.doors.iter().count(),
+ 281             requirements.doors,
+ 282             observation.windows.iter().count(),
+ 283             requirements.windows
+ 284         );
+ 285         return;
+ 286     }
+ 287     if readiness.recorded.insert(state.view) {
+ 288         let evidence = serde_json::json!({
+ 289             "renderer": "TacticalPresentationPlugin", "backend": format!("{:?}", observation.adapter.backend),
+ 290             "adapter": observation.adapter.name, "graphics": format!("{:?}", observation.graphics.config),
+ 291             "buildings": requirements.buildings, "doors": requirements.doors, "windows": requirements.windows,
+ 292             "supported_signs": requirements.signs.keys().collect::<Vec<_>>(),
+ 293             "material_bindings_verified": true, "lod_levels_per_building": 3, "captured_views_ready": readiness.recorded,
+ 294         });
+ 295         std::fs::write(
+ 296             requirements.output.join("building-presentation.json"),
+ 297             serde_json::to_vec_pretty(&evidence).unwrap(),
+ 298         )
+ 299         .expect("write production presentation evidence");
+ 300     }
+ 301 }

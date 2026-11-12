@@ -1,0 +1,16 @@
+diff --git a/crates/fabelgeist-numpy-storage/Cargo.toml b/crates/fabelgeist-numpy-storage/Cargo.toml
+index b507ce91f..6648d9bc9 100644
+--- a/crates/fabelgeist-numpy-storage/Cargo.toml
++++ b/crates/fabelgeist-numpy-storage/Cargo.toml
+@@ -19,6 +19,11 @@ flate2 = { version = "1", default-features = false, features = ["rust_backend"]
+ 
+ [workspace]
+ 
++[profile.dev]
++debug = "none"
++incremental = false
++strip = "debuginfo"
++
+ [patch.crates-io]
+ pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+ 

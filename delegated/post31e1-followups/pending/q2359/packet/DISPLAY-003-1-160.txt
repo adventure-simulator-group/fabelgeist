@@ -1,0 +1,160 @@
+   1 //! Verify production recipe/material bindings and GPU residency before review readbacks.
+   2 use adventuresim_tactical_core::prelude::SceneFurniture;
+   3 use bevy::{ecs::system::SystemParam, prelude::*, render::renderer::RenderAdapterInfo};
+   4 
+   5 use super::{
+   6     capture_state::{CapturePhase, SceneCaptureState},
+   7     gpu_readiness::GpuReadiness,
+   8 };
+   9 use crate::presentation::{CityGroundMaterial, PresentedFurnitureMesh, TacticalBuildingMaterials};
+  10 
+  11 const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
+  12 
+  13 pub(super) fn install(app: &mut App, profile: &str) {
+  14     let requires_buildings = super::building_review::is_profile(profile)
+  15         || profile == super::interior_furniture_capture::ROOMS_PROFILE
+  16         || profile == super::fixed_city_cameras::PROFILE;
+  17     if requires_buildings {
+  18         app.add_plugins(super::building_review::BuildingReviewPlugin);
+  19     }
+  20     if profile == super::furniture_capture::PROFILE
+  21         || super::interior_furniture_capture::is_profile(profile)
+  22     {
+  23         if !requires_buildings {
+  24             GpuReadiness::install(app);
+  25         }
+  26         app.init_resource::<Readiness>()
+  27             .add_systems(Last, observe.before(super::capture_views));
+  28     }
+  29 }
+  30 
+  31 #[derive(Resource)]
+  32 pub(super) struct ExpectedFurniture {
+  33     pub(super) instances: usize,
+  34     pub(super) batches: usize,
+  35 }
+  36 
+  37 #[derive(Default, Resource)]
+  38 pub(super) struct Readiness {
+  39     ready: bool,
+  40     pending_since: Option<f64>,
+  41     recorded: std::collections::BTreeSet<usize>,
+  42 }
+  43 
+  44 pub(super) fn ready(
+  45     state: Option<Res<SceneCaptureState>>,
+  46     readiness: Option<Res<Readiness>>,
+  47 ) -> bool {
+  48     readiness.is_none_or(|readiness| readiness.ready)
+  49         || state.is_none_or(|state| state.phase == CapturePhase::Configure)
+  50 }
+  51 
+  52 #[derive(SystemParam)]
+  53 struct Observation<'w, 's> {
+  54     furniture: Query<'w, 's, &'static SceneFurniture>,
+  55     batches: Query<
+  56         'w,
+  57         's,
+  58         (
+  59             &'static PresentedFurnitureMesh,
+  60             &'static ChildOf,
+  61             &'static Mesh3d,
+  62             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  63         ),
+  64     >,
+  65     materials: Res<'w, Assets<StandardMaterial>>,
+  66     ground: Query<'w, 's, (&'static Mesh3d, &'static MeshMaterial3d<CityGroundMaterial>)>,
+  67     ground_materials: Res<'w, Assets<CityGroundMaterial>>,
+  68     palette: Res<'w, TacticalBuildingMaterials>,
+  69     gpu: Res<'w, GpuReadiness>,
+  70     adapter: Res<'w, RenderAdapterInfo>,
+  71 }
+  72 
+  73 impl Observation<'_, '_> {
+  74     fn check(&self, expected: &ExpectedFurniture) -> bool {
+  75         !self.ground.is_empty()
+  76             && self.ground.iter().all(|(mesh, handle)| {
+  77                 self.ground_materials
+  78                     .get(&handle.0)
+  79                     .is_some_and(|material| {
+  80                         self.gpu.contains(&mesh.0, material.extension.texture_ids())
+  81                     })
+  82             })
+  83             && self.furniture.iter().count() == expected.instances
+  84             && self.batches.iter().count() == expected.batches
+  85             && self.batches.iter().all(|(batch, parent, mesh, handle)| {
+  86                 let Ok(instance) = self.furniture.get(parent.parent()) else {
+  87                     return false;
+  88                 };
+  89                 if handle.0 != self.palette.for_building(instance.id.0).get(batch.material) {
+  90                     return false;
+  91                 }
+  92                 self.materials.get(&handle.0).is_some_and(|material| {
+  93                     self.gpu.contains(
+  94                         &mesh.0,
+  95                         [
+  96                             &material.base_color_texture,
+  97                             &material.normal_map_texture,
+  98                             &material.metallic_roughness_texture,
+  99                         ]
+ 100                         .into_iter()
+ 101                         .flatten()
+ 102                         .map(Handle::id),
+ 103                     )
+ 104                 })
+ 105             })
+ 106     }
+ 107 }
+ 108 
+ 109 fn observe(
+ 110     mut readiness: ResMut<Readiness>,
+ 111     expected: Option<Res<ExpectedFurniture>>,
+ 112     state: Option<Res<SceneCaptureState>>,
+ 113     time: Res<Time<Real>>,
+ 114     observation: Observation,
+ 115 ) {
+ 116     let (Some(expected), Some(state)) = (expected, state) else {
+ 117         return;
+ 118     };
+ 119     if state.phase == CapturePhase::Configure {
+ 120         readiness.ready = false;
+ 121         readiness.pending_since = None;
+ 122         return;
+ 123     }
+ 124     readiness.ready = observation.check(&expected);
+ 125     if !readiness.ready {
+ 126         let since = *readiness
+ 127             .pending_since
+ 128             .get_or_insert(time.elapsed_secs_f64());
+ 129         assert!(
+ 130             time.elapsed_secs_f64() - since < MAX_ASSET_WAIT_SECONDS,
+ 131             "furniture production meshes or textures did not become GPU resident"
+ 132         );
+ 133         return;
+ 134     }
+ 135     if readiness.recorded.insert(state.view) {
+ 136         let evidence = serde_json::json!({
+ 137             "renderer": "TacticalPresentationPlugin", "backend": format!("{:?}", observation.adapter.backend),
+ 138             "adapter": observation.adapter.name, "instances": expected.instances, "batches": expected.batches,
+ 139             "material_bindings_verified": true, "ground_traffic_masks_gpu_resident": true, "captured_views_ready": readiness.recorded,
+ 140         });
+ 141         std::fs::write(
+ 142             state.output.join("furniture-presentation.json"),
+ 143             serde_json::to_vec_pretty(&evidence).unwrap(),
+ 144         )
+ 145         .expect("write production furniture evidence");
+ 146     }
+ 147 }
+ 148 
+ 149 #[cfg(test)]
+ 150 mod tests {
+ 151     use super::*;
+ 152 
+ 153     #[test]
+ 154     fn terrain_grounding_profile_installs_production_building_lod_review() {
+ 155         let mut app = App::new();
+ 156         app.insert_sub_app(bevy::render::RenderApp, bevy::app::SubApp::new());
+ 157         install(&mut app, super::super::fixed_city_cameras::PROFILE);
+ 158         assert!(app.is_plugin_added::<super::super::building_review::BuildingReviewPlugin>());
+ 159     }
+ 160 }

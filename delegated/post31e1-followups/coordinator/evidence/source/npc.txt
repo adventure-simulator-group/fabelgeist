@@ -1,0 +1,143 @@
+--- crates/adventuresim-stdb-module/src/npc_causal.rs:195-220 ---
+  195 fn initialize_saved_schedule_once(
+  196     ctx: &ReducerContext,
+  197     character_id: u64,
+  198     policy_seed: Seed,
+  199     minute: StrategicMinute,
+  200 ) -> Result<(), String> {
+  201     let day = minute.day_index();
+  202     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Schedule) {
+  203         return Ok(());
+  204     }
+  205     let age_years = crate::relationship::effective_age_years(ctx, character_id, minute)
+  206         .ok_or("NPC policy character is missing age chronology")?;
+  207     if age_years < ADULT_AGE_YEARS {
+  208         // Dependents retain the empty schedule created with their full
+  209         // Character. Childhood work and education are separate follow-ups;
+  210         // never install the adult labor/socializing policy before adulthood.
+  211         record_decision(
+  212             ctx,
+  213             character_id,
+  214             day,
+  215             NpcPolicyDecisionPhase::Schedule,
+  216             NpcPolicyDecisionOutcome::Ineligible,
+  217             None,
+  218             minute,
+  219         );
+  220         return Ok(());
+--- crates/adventuresim-stdb-module/src/npc_causal.rs:266-285 ---
+  266 fn settle_housing_decision(
+  267     ctx: &ReducerContext,
+  268     character_id: u64,
+  269     home_settlement_id: &str,
+  270     minute: StrategicMinute,
+  271 ) -> Result<(), String> {
+  272     let day = minute.day_index();
+  273     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Housing) {
+  274         return Ok(());
+  275     }
+  276     let character = ctx
+  277         .db
+  278         .character()
+  279         .id()
+  280         .find(character_id)
+  281         .ok_or("NPC policy character not found")?;
+  282     let outcome = if !character.alive || character.age_years < ADULT_AGE_YEARS {
+  283         NpcPolicyDecisionOutcome::Ineligible
+  284     } else {
+  285         match crate::residence::settle_npc_residence(ctx, character_id, home_settlement_id)? {
+--- crates/adventuresim-stdb-module/src/npc_causal.rs:325-373 ---
+  325 fn settle_romance_decision(
+  326     ctx: &ReducerContext,
+  327     character_id: u64,
+  328     policy_seed: Seed,
+  329     minute: StrategicMinute,
+  330 ) -> Result<(), String> {
+  331     let day = minute.day_index();
+  332     if phase_already_decided(ctx, character_id, day, NpcPolicyDecisionPhase::Romance) {
+  333         return Ok(());
+  334     }
+  335     let character = ctx
+  336         .db
+  337         .character()
+  338         .id()
+  339         .find(character_id)
+  340         .ok_or("NPC policy character not found")?;
+  341     let Some(actor_presence) = ctx
+  342         .db
+  343         .settlement_resident_presence()
+  344         .character_id()
+  345         .find(character_id)
+  346         .filter(|presence| crate::settlement_population::npc_is_present(ctx, presence, minute))
+  347     else {
+  348         record_decision(
+  349             ctx,
+  350             character_id,
+  351             day,
+  352             NpcPolicyDecisionPhase::Romance,
+  353             NpcPolicyDecisionOutcome::RomanceNoCandidate,
+  354             None,
+  355             minute,
+  356         );
+  357         return Ok(());
+  358     };
+  359     if !character.alive
+  360         || character.age_years < ADULT_AGE_YEARS
+  361         || character.current_settlement_id.as_deref() != Some(&actor_presence.settlement_id)
+  362     {
+  363         record_decision(
+  364             ctx,
+  365             character_id,
+  366             day,
+  367             NpcPolicyDecisionPhase::Romance,
+  368             NpcPolicyDecisionOutcome::Ineligible,
+  369             None,
+  370             minute,
+  371         );
+  372         return Ok(());
+  373     }
+--- crates/adventuresim-stdb-module/src/npc_causal.rs:464-507 ---
+  464 fn process_policy_decisions(ctx: &ReducerContext, time: &CharacterTime) -> Result<(), String> {
+  465     let policy = ctx
+  466         .db
+  467         .npc_policy()
+  468         .character_id()
+  469         .find(time.character_id)
+  470         .ok_or("NPC causal cohort contains a character without policy")?;
+  471     let minute = time.minutes;
+  472     initialize_saved_schedule_once(ctx, time.character_id, policy.policy_seed, minute)?;
+  473     settle_housing_decision(ctx, time.character_id, &policy.home_settlement_id, minute)?;
+  474     settle_romance_decision(ctx, time.character_id, policy.policy_seed, minute)?;
+  475     Ok(())
+  476 }
+  477 
+  478 /// Private recurring scheduler entry point. Lifecycle events are processed
+  479 /// independently of the NPC batch so a wedding or birth never waits for either
+  480 /// participant to log in or to be selected for policy advancement.
+  481 #[reducer]
+  482 pub fn run_npc_causal_tick(
+  483     ctx: &ReducerContext,
+  484     _schedule: NpcCausalSchedule,
+  485 ) -> Result<(), String> {
+  486     if ctx.sender() != ctx.database_identity() {
+  487         return Err("NPC causal processing may only be invoked by its scheduler".into());
+  488     }
+  489     let official_minute = crate::time::refresh_clock(ctx)?;
+  490 
+  491     crate::relationship::settle_due_lifecycle_events_global(
+  492         ctx,
+  493         official_minute,
+  494         MAX_LIFECYCLE_EVENTS_PER_CAUSAL_TICK,
+  495     )?;
+  496 
+  497     let cohort = stable_npc_cohort(ctx, official_minute);
+  498     // The cohort observes one exact personal-time frontier. All durable policy
+  499     // choices are resolved before any member advances, preventing a low id
+  500     // from gaining an extra day of state that changes a peer's same-frontier
+  501     // choice.
+  502     for time in &cohort {
+  503         process_policy_decisions(ctx, time)?;
+  504     }
+  505     for time in cohort {
+  506         let target = official_minute.min(time.minutes.saturating_add_days(1));
+  507         crate::time::advance_stationary_character_to(ctx, time.character_id, target)?;

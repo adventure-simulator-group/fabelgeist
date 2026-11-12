@@ -1,0 +1,17 @@
+  50 ]
+  51 exclude = [
+  52   "vendor/bevy_ahoy",
+  53   "wiki",
+  54   "utils",
+  55   "crates/adventuresim-character-creator",
+  56   # Everything that pulls burn keeps its own workspace: the git
+  57   # dependency and its cubecl toolchain do not belong in the everyday build.
+  58   "crates/fabelgeist-mhr",
+  59   "crates/fabelgeist-numpy-storage",
+  60 ]
+  61 
+  62 [workspace.package]
+  63 version = "0.1.0"
+  64 edition = "2024"
+  65 repository = "https://github.com/adventure-simulator-group/fabelgeist"
+  66 license = "AGPL-3.0"

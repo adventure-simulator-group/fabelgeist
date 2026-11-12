@@ -1,0 +1,13 @@
+diff --git a/crates/adventuresim-procedural-textures/Cargo.toml b/crates/adventuresim-procedural-textures/Cargo.toml
+index d5324ae7a..94b02d09d 100644
+--- a/crates/adventuresim-procedural-textures/Cargo.toml
++++ b/crates/adventuresim-procedural-textures/Cargo.toml
+@@ -14,7 +14,7 @@ serde.workspace = true
+ serde_json.workspace = true
+ 
+ [target."cfg(not(target_family = \"wasm\"))".dependencies]
+-bevy = { workspace = true, default-features = true, features = ["png"] }
++bevy = { workspace = true, features = ["png"] }
+ image = { workspace = true, features = ["png"] }
+ 
+ [lints]

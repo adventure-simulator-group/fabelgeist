@@ -1,0 +1,377 @@
+{
+  "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+  "status": "Current source-supported missing per-run screenshot persistence authority; overall success remains conditional on all other gates, exact capture/P17 aliases pending",
+  "revision": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "producer_internal_api_retained_state_consumer_native_boundary": [
+    "Actual CLI output accepts existing directory PathBuf with fixed default. animation_viewer::run89..179 constructs plan then creates directory/inspection metadata, invalidate_previous_report removes only manifest/index/failure/globalbone trace, and write_body_proportions only writes its JSON. No fresh-output capability/PNG invalidation is admitted at these actual owning preflight functions.",
+    "CaptureSequence retains output/plan/samples, no per-image persistence outcome. capture_frame763..795 receives actual captured Image, fingerprints it, calls native save_to_disk, then marks completion/increments views/frame and calls write_completed_capture.",
+    "Current Cargo.lock pins Bevy_render0.19.1 package checksumfc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc. Cached crate independently verifies lock checksum and screenshot member f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b; native135..195 returns unit and logs conversion/format/nonwasm IO Err without result to app.",
+    "build_completed_report24 sets all_artifacts_written from capture_artifacts_written113..123, checking only metadata.len>0 at planned names. It does not bind those files to current Image/event/run. Existing nonempty read-only per-view files can remain if native save fails, while writable directory permits new report outputs. This is an admitted OS/file-state scenario, not a product probe.",
+    "write_completed_capture writes trace/manifest/HTML then validation_passed595..630 includes all_artifacts_written and other gates; if other gates pass, old nonempty images are sufficient for this artifact gate. New fingerprints certify current rendered images differ, not that those pixels reached file. Native filesystem write success and event arrival are distinct boundary facts."
+  ],
+  "first_failed_contract": "Current capture must retain actual screenshot persistence outcome or a proven fresh per-run artifact receipt before advancing completion and certifying all_artifacts_written. Existing nonempty file metadata cannot attest this run wrote its requested image.",
+  "canonical_owner": "Application-owned capture artifact persistence/completion authority spanning output admission, screenshot observer and report validation; native Bevy unit observer is insufficient outcome capability",
+  "exact_function_ownership": [
+    "Args.output28..30 and main111..127",
+    "animation_viewer::run89..179",
+    "CaptureInspection::publish31..35",
+    "invalidate_previous_report23..37",
+    "setup::write_body_proportions80..94",
+    "CaptureSequence::new69..131/complete147..163",
+    "capture_frame763..795",
+    "native bevy_render::save_to_disk134..195",
+    "capture_artifacts_written113..123",
+    "build_completed_report6..593 artifact24",
+    "validation_passed595..630",
+    "write_completed_capture39..100"
+  ],
+  "connected_repair_scope": "Own per-run requested-image save outcomes and causal failures, coherently retain through asynchronous view completion and manifest/exit acceptance. Preserve unrelated files and legitimate existing output reuse through clean final artifact ownership policy; no destructive blanket directory reset. No code repairs in audit.",
+  "dependencies": [
+    "Exact aliases against CONT08-CAPTURE-SAVE-OUTCOME-ERASURE, plant viewer, diagnostic screenshot/P17 export families; same unit callback/remedy alone not alias proof",
+    "Actual later file/image write API cause/format ownership if repair chooses own persistence; acceptance requirements specify native result without obsolete Box/error-prose constraints",
+    "Broader report metrics/camera/readiness remain independent; current source witness does not claim all other gates actually pass in an executed run"
+  ],
+  "acceptance_requirements": [
+    "Existing nonempty PNG paths cannot satisfy this run artifact success when their new save fails, including readonly per-image files in writable output directory.",
+    "Only actual saved requested image+related manifest/trace/HTML for the same admitted capture can produce completion; current renderer fingerprints alone do not certify persistence.",
+    "Conversion/format/IO failure retains path/image/run identity and actual cause to intended final failure exit/report.",
+    "Missing/empty output remains rejected; valid successful capture and legitimate scenario/inspection modes work; unrelated output files preserved."
+  ],
+  "unique_count_change": 0,
+  "source_receipt": "../../segovb/READ-L11-535.json",
+  "source_receipt_sha256": "715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e",
+  "current_native_receipt": "../../segovb/READ-L11-535-NATIVE-001.json",
+  "current_native_receipt_sha256": "da5083435f9418905c3eebf53595b47e34120d97bc9c001bea4acdbb74364677",
+  "related_not_proven_alias": [
+    "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+    "P17/native capture export and diagnostics"
+  ],
+  "exact_global_alias_inventory_complete": false,
+  "repair_status": "Not started; audit only",
+  "lens12_connected_reconciliation": [
+    {
+      "source_original_index": 1412,
+      "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "exact_function_ownership": [
+        "CaptureSequence::complete147..163/capture_frame763..795"
+      ],
+      "first_failed_contract_same": "Frozenparent invokes native save_to_disk770 then advances completion771..793 without locally retaining persistenceoutcome. Actual nativehelper/report/FS/current underL12 stillunread, so thisscopeconnection doesnottransferL11 verdict/nativebodyorclaimfreshcurrentreconciliation.",
+      "additional_connected_scope": [
+        "Actual parent DTO state/path/filename/screenshot callback and transfer to write_completed_capture793 nowpersonallyread L12; native save semantics andreportcertificate mustbe separatelyassessed."
+      ],
+      "remaining": [
+        "Prospective ownL12 native save_to_disk body ifneeded",
+        "Actualreport all_artifacts_written/nativeFS/outputadmission/current gates",
+        "ExactP17/CONT08/globalaliases notclosed bysharedremedy"
+      ],
+      "receipt": "../../segovb/READ-L12-405.json",
+      "receipt_sha256": "080b33ef49b1c4aef3b565996009376d7750ee1692fa8cbac170da59482b9dee",
+      "scope_only": true,
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "source_original_index": 1437,
+      "source_sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "exact_function_ownership": [
+        "invalidate_previous_report23..37/capture_artifacts_written113..123/write_completed_capture39..100"
+      ],
+      "first_failed_contract_same": "Scoped independently read frozen report predicate onlymetadata(expectedPNG).len>0 119..120; no nativecurrentrunsaveoutcome checkedhere. Existing artifactcertification owner; no nativeL11evidence transferred.",
+      "additional_connected_scope": [
+        "Previous reportinvalidation removesmanifest/index/failure/globaltraceonly25..28, leavesPNGfiles; actualnativefailedsave/current/finalvalidationmuststillbeproved withinL12.",
+        "Completeness requiresactualplanlen/identity/frame/all17bones103..109, narrowingmissingbone falsepass; actualmandatoryfinalpassgatepending."
+      ],
+      "remaining": [
+        "Actual nativeL12savehelper exactarchive/rev/hash/ranges/read",
+        "Actual buildreport/finalgate/current/20families/globalaliases"
+      ],
+      "receipt": "../../segovb/READ-L12-416.json",
+      "receipt_sha256": "01449201548369f683bad000365fc555a96fe323adebc3276fcb2da4024bc314",
+      "scope_only": true,
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "source_original_index": 1440,
+      "source_sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "exact_function_ownership": [
+        "build_completed_report24/validation.all_artifacts_written541/validation_passed598"
+      ],
+      "first_failed_contract_same": "Scoped metadataartifact predicate actualresult retained541 thenmandatoryacceptance598; currentrunsaveoutcome/nativehelper stillpendingindependentlyL12.",
+      "additional_connected_scope": [
+        "Actual strictbonecomplete+finite+continuity/manyothergates mandatory; staleartifactcase conditionalallothergatespass, notblanketpass."
+      ],
+      "remaining": [
+        "ActualnativeL12savehelper/readexactidentity",
+        "Actualcurrentnative/report/allaliases"
+      ],
+      "receipt": "../../segovb/READ-L12-418.json",
+      "receipt_sha256": "a8798d351f397241217ba9c67e6b0d3ef9a23d4377e0405aaadc3605067029f1",
+      "scope_only": true,
+      "current_reconciled": false,
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "lens11_current_source_connections": [
+    {
+      "receipt": {
+        "path": "segovb/READ-L11-644.json",
+        "sha256": "6509c19d2cacd2031f1064e2bc5b6be39a6ea82725d725f3e7c601c5ea20d793",
+        "verification": "segovb/VERIFY-L11-644.json",
+        "verification_sha256": "aef4a162d46148898953476cd6fb5c64320d368af48721cb48625a1fd5855402"
+      },
+      "connection": {
+        "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+        "disposition": "Exact current report portion corroborates existing per-run screenshot persistence authority qualification; whole producer/native save current proof remains separate",
+        "trace": [
+          "invalidate_previous_report23..37 removes only manifest/index/failure/global trace, preserving all unrelated files and leaving screenshots outside this invalidation scope. Current writer build admission44 converts error into AppExit::Error48 before native output publication.",
+          "Actual writer serializes global bone trace56..65, manifest69 and HTML79, writing native artifacts52/67/86. Serialization failures for manifest/HTML return AppExit::Error; native I/O errors panic. No claim that writer silently returns Success after its own failed write; panic-versus-structured publication policy is separate from screenshot certification.",
+          "capture_artifacts_written113..123 only finds each expected screenshot name and accepts native file metadata.len>0 at119..120. This proves nonempty existing bytes, not that this run persisted the captured image, valid PNG decode, matching output identity or native save success. Actual screenshot producer/callback/current native Bevy save outcome remain required; no screenshot/visual inspection/runtime performed here.",
+          "After native report writes, actual validation_passed89 controls Success90 versus failure.txt+Error92..99. P05 jitter summary is retained through own READ012/021 model/build/gates and native JSON writer69, so no display-only assumption from its local predicate. Existing all-view/plan/bone/finite checks are independent."
+        ],
+        "first_failed_contract": "Same existing capture-run artifact certification owner: final screenshot acceptance lacks retained per-run native persistence outcome; this receipt reconciles only actual current invalidation/metadata consumer, not every upstream failure premise.",
+        "canonical_owner": "Capture-run screenshot persistence/outcome authority, connected to final report artifact acceptance.",
+        "exact_function_ownership": [
+          "invalidate_previous_report23..37",
+          "write_completed_capture39..100",
+          "capture_artifacts_written113..123/capture_scenarios_complete102..111"
+        ],
+        "connected_repair_scope": "Carry actual screenshot request/run identity and native save result into retained capture state and final artifact certification; preserve native report admission/I/O/serialization outcomes separately, not only file-size checks.",
+        "dependencies": [
+          "Exact current capture screenshot save callback and authenticated current Bevy_render native result source, CLI/preflight output identity and reused directory policy.",
+          "Root existing canonical full finding/current qualifiers/exact aliases; no other-lens or old-pin native evidence relabeled current."
+        ],
+        "acceptance_requirements": [
+          "Final screenshot acceptance proves this capture run persisted each required view to its intended identity.",
+          "Old nonempty bytes cannot substitute for a failed new save.",
+          "Report artifact/I/O/serialization and required measurement/plan gates remain independently observed."
+        ],
+        "accepted_unique_count_change": 0
+      },
+      "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_target_source_scope_verified": true,
+      "latest_target_reconciled": false,
+      "accepted_unique_count_change": 0
+    },
+    {
+      "receipt": {
+        "path": "segovb/READ-L11-645.json",
+        "sha256": "aacf69d25233f04602ab29b0c1f57d62ae4007f8b927fb23bed54a40780cae27",
+        "verification": "segovb/VERIFY-L11-645.json",
+        "verification_sha256": "1483327cd7f45ec74636da91c7c63ab7f6714a24ae7f15079d075c3fab5c35bc"
+      },
+      "connection": {
+        "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+        "disposition": "Actual current e275 full owning preflight/retained state plus locked native save outcome reconciled; overall success remains conditional on independent report gates, no runtime incident",
+        "producer": "Native viewer Args.output28..30 admits existing PathBuf directory. run89..116 constructs selected CaptureSequence then publishes inspection/create_dir_all and invalidates only named reports. CLI supports legitimate existing output reuse; no fresh-image artifact receipt is admitted at these owning functions.",
+        "internal_api": "CaptureSequence retains output/plan/samples/fingerprints31..54 and CompletedCapture56..66, no per-image persistence outcome. Existing own current READ012 PL0258 actual capture_frame527..798 includes native save_to_disk invocation then capture completion; exact path/revision/hash/EOF identity independently matches current PL0830. This is qualified own personal prior current scope, not new whole capture read.",
+        "retained_state": "Completion/fingerprints attest captured current image and view progress. They do not carry native save Result or a per-run destination content receipt into CompletedCapture. Report metadata acceptance READ108 can read old nonempty paths.",
+        "consumer": "Exact current authenticated native save_to_disk134..195 returns unit FnMut observer; native nonwasm img.save_with_format145 logs Ok/Err146..147 without returning outcome to application. Conversion138 and format139 errors similarly log190/192. Screenshot trigger203..212 is current image arrival, not persisted output.",
+        "native_boundary": "Native OS state case: reusable writable output directory with old nonempty read-only PNG targets can retain old bytes when this run native save logs IO failure. Report files may still be writable and metadata.len>0 accepts old screenshots. Other required plan/bones/finite/continuity/distinct-view gates must independently pass; no actual failure, filesystem setup, rendering, save, mutation or capture performed.",
+        "first_failed_contract": "Same existing current-run screenshot persistence contract: capture completion does not retain actual save outcome or proven fresh per-run artifact identity; native image arrival/fingerprint and old metadata do not prove this requested image was saved.",
+        "canonical_owner": "Application capture-run persistence/completion authority across output admission, image observer, retained state and final artifact acceptance; native unit observer is not an outcome capability.",
+        "exact_function_ownership": [
+          "Args.output28..30/main111..127",
+          "animation_viewer::run89..179",
+          "CaptureSequence::new69..131/complete147..163",
+          "CaptureInspection::publish31..35/setup::write_body_proportions80..94",
+          "capture_frame527..798 exact prior personal READ012 PL0258",
+          "bevy_render::save_to_disk134..195/trigger_screenshots203..212",
+          "capture_artifacts_written113..123/write_completed_capture39..100 via READ108"
+        ],
+        "connected_repair_scope": "Own requested image/run/path save result and preserve actual conversion/format/IO cause through completion and report/native exit. Preserve unrelated files and legitimate reused-output mode through a coherent artifact policy, no destructive directory reset. This is audit-only.",
+        "dependencies": [
+          "Exact global aliases versus CONT08-CAPTURE-SAVE-OUTCOME-ERASURE and other viewers require actual same owning firstfailure/scope; common native helper/remedy is not proof.",
+          "Native callback image/save APIs and chosen replacement design remain later repair/acceptance work; all other report/rendering/plan contracts retain qualifiers."
+        ],
+        "acceptance_requirements": [
+          "Existing nonempty old image cannot satisfy current capture artifact success after failed new save.",
+          "Only actual saved requested image identity/run alongside required report outputs can certify completion.",
+          "Failed conversion/format/IO retains actual cause and requested path/run to final failure policy.",
+          "Preserve unrelated files and legitimate optional inspection/scenario modes; no obsolete prose/Box/downcast/invalid behavior preservation."
+        ],
+        "current_native_provenance": "Current exact Cargo.lock2735..2745 pins bevy_render0.19.1 checksumfc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc. Cached archive SHA/package checksum and screenshot member/local SHAf49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b authenticated. Native personal125..265 only;1..124/266..702 not granted. No .cargo-checksum assumption.",
+        "qualifications": [
+          "Historical root535/root535-native old7a evidence stays historical. This receipt is new prospectively admitted current scope, not relabeling.",
+          "Wasm download branch150..188 has browser semantics and is not a disk-success guarantee.",
+          "Unknown selected label still assert-empty plan103..106 despite Result constructor; that source contract is separate from actual save certification and native report typed admission.",
+          "Inspection orbit raw f32\u2192Quat24 and typed body-proportions serde source roles remain independent canonical admission/current/native qualifications; no universal fallback or screenshot bug alias inferred."
+        ],
+        "accepted_unique_count_change": 0
+      },
+      "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_target_source_scope_verified": true,
+      "latest_target_reconciled": false,
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "lens1_current_source_connections": [
+    {
+      "receipt": {
+        "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-065.json",
+        "sha256": "f5f71bcc8c07090bcaa834d641f373b4cf737aafc15f38b78776b632db826bd9",
+        "verification": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-065.json",
+        "verification_sha256": "ebacf9666b99cfd540473edb5ad8f093e9cd62f508a001b96c8bd5877a933000"
+      },
+      "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "first_failed_contract_same": true,
+      "scope": "Own L1 capture/report plus actual authenticated nativeunit save source; current CLI/outputreuse premise remains unassessed here, no foreignbodycredit or globalalias closure",
+      "qualified_prior_source_links": [
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-061.json",
+          "sha256": "be532e3d715b378d3666f00b9093fada342878cc296c3e150bac7aa0fa60341b",
+          "row_pointer": "/rows/1",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              527,
+              898
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-062.json",
+          "sha256": "382b7984bb96848a7b2922bec37d966015db72cf4a1d61caddf7648fa313ebc4",
+          "row_pointer": "/rows/2",
+          "source_sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+          "assessed_ranges": [
+            [
+              1,
+              234
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-062.json",
+          "sha256": "382b7984bb96848a7b2922bec37d966015db72cf4a1d61caddf7648fa313ebc4",
+          "row_pointer": "/rows/3",
+          "source_sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+          "assessed_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              580,
+              700
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-063.json",
+          "sha256": "a85fe60e3da6b32327cca12035135795cdc8d66ac440f96f41dde13ba955f3f9",
+          "row_pointer": "/rows/1",
+          "source_sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+          "assessed_ranges": [
+            [
+              161,
+              579
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        }
+      ],
+      "other_lens_body_credit": 0,
+      "accepted_unique_count_change": 0,
+      "whole_current_contract_closed": false
+    },
+    {
+      "receipt": {
+        "path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-066.json",
+        "sha256": "2d9a0c33321373da58e6f24ecc5cbd676c0d507efe05c250ed26ea836c34b89d",
+        "verification": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-066.json",
+        "verification_sha256": "b3795204405c05920d7f72003a8ab3b136aee98eb6aac7715218e71271cbd0b6"
+      },
+      "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "first_failed_contract_same": true,
+      "scope": "Own L1 actual CLI/reused output/preflight plus prior owncapture/report/nativeunit save supports same firstfailed artifact certification contract. Other acceptance gates/sourcecase incidence remain conditional; no foreignbodycredit or globalalias closure",
+      "qualified_prior_source_links": [
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-061.json",
+          "sha256": "be532e3d715b378d3666f00b9093fada342878cc296c3e150bac7aa0fa60341b",
+          "row_pointer": "/rows/1",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              527,
+              898
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-062.json",
+          "sha256": "382b7984bb96848a7b2922bec37d966015db72cf4a1d61caddf7648fa313ebc4",
+          "row_pointer": "/rows/2",
+          "source_sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+          "assessed_ranges": [
+            [
+              1,
+              234
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-062.json",
+          "sha256": "382b7984bb96848a7b2922bec37d966015db72cf4a1d61caddf7648fa313ebc4",
+          "row_pointer": "/rows/3",
+          "source_sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+          "assessed_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              580,
+              700
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-063.json",
+          "sha256": "a85fe60e3da6b32327cca12035135795cdc8d66ac440f96f41dde13ba955f3f9",
+          "row_pointer": "/rows/0",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              1,
+              180
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0
+        },
+        {
+          "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-065.json",
+          "sha256": "f5f71bcc8c07090bcaa834d641f373b4cf737aafc15f38b78776b632db826bd9",
+          "row_pointer": "/rows/1",
+          "source_sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+          "assessed_ranges": [
+            [
+              100,
+              220
+            ]
+          ],
+          "reread": false,
+          "other_lens_credit": 0,
+          "archive_authenticated_again": true
+        }
+      ],
+      "other_lens_body_credit": 0,
+      "accepted_unique_count_change": 0,
+      "whole_current_contract_closed": false
+    }
+  ]
+}

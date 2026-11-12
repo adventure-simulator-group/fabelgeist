@@ -1,0 +1,22 @@
+{
+  "script_sha256": "d7a0bfd206d9915672dd01905fa898a86a4ac9c5c38504e97d1162bd63441269",
+  "cases": [
+    {
+      "case": "keyless",
+      "exit": 0,
+      "stdout_bytes": 113,
+      "stdout_sha256": "4bf532d7b0b1bf6244451133440d7f6c55cf4a01a9287bf1387d9afd970da3f9",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "case": "keyed",
+      "exit": 0,
+      "stdout_bytes": 191,
+      "stdout_sha256": "9fb903dbe6678a2f08f4ad10bf57ec317f2f8c46b845929052423192e2b0df3f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Same-machine key authenticated every omitted file and initial scan output in memory; no restoration or independent custody is claimed."
+}

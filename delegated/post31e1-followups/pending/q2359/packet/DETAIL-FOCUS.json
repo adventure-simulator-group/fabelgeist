@@ -1,0 +1,60 @@
+{
+  "granular_contract_update": {
+    "contract_id": "L2-EXT-GPU-READINESS-NATIVE-IDENTITIES",
+    "lens": 2,
+    "canonical_owner": "GpuReadiness/ResidentAssets native AssetId role owner",
+    "first_failed_contract_or_unresolved_question": "Mesh/Image asset identities remain native typed IDs through render snapshot and contains predicate; no primitive identity conversion or reuse defect established in this exact50-line scope.",
+    "exact_functions": [
+      "gpu_readiness.rs::GpuReadiness15/ResidentAssets18..21/install24..30/contains32..39/observe42..50"
+    ],
+    "trace": [
+      "Arc Mutex shares one typed AssetId<Mesh>/AssetId<Image> snapshot; actual renderworld collections supply identities.",
+      "contains tests actual meshID and all native textureIDs. This is a native API representation contract, not proof of native runtime readiness or temporal policy."
+    ],
+    "remaining_evidence": [
+      "Current prospective same-lens proof and exact global aliases remain independent; scoped field classification does not close full surface/renderer/runtime contracts."
+    ],
+    "dependencies": [
+      "Existing typed firstparty semantic fields and native resource identifier ports"
+    ],
+    "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+    "later_repair_acceptance_requirements": [
+      "Retain typed identities/enum payload relationships and deliberate optional empty states. No product/runtime acceptance implied."
+    ],
+    "audit_discovery_closed_within_named_scope": true,
+    "existing_canonical_identity": null,
+    "new_accepted_unique_count": 0
+  },
+  "adoption_fields": {
+    "lens": 2,
+    "receipt": {
+      "path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-007.json",
+      "sha256": "34e6fd5f7de309f05797c39367c15074a6dc863f98ae154d8d93c6cf73f340a4"
+    },
+    "verification": {
+      "path": "segovb/VERIFY-L2-EXT-CURRENT-005.json",
+      "sha256": "3dbcd3e986dfcd16342fc1cd25d552e283635c8c7c6107a1ed86d9a1be98fecf"
+    },
+    "remaining_evidence": [
+      "Current prospective same-lens proof and exact global aliases remain independent; scoped field classification does not close full surface/renderer/runtime contracts."
+    ],
+    "dependencies": [
+      "Existing typed firstparty semantic fields and native resource identifier ports"
+    ],
+    "closure_condition": "Qualify exact selected source/native/owner relation and any concrete pending producer; classify finding/policy/conditional/rejection with exact aliases. Current and whole-parent/global source closure remains separate.",
+    "global_or_native_chain_closed": false,
+    "body_or_population_credit": 0
+  },
+  "adoption_keys": [
+    "lens",
+    "receipt",
+    "verification",
+    "exact_source_identities_and_assessed_ranges",
+    "qualified_prior_contract_view",
+    "remaining_evidence",
+    "dependencies",
+    "closure_condition",
+    "global_or_native_chain_closed",
+    "body_or_population_credit"
+  ]
+}

@@ -1,0 +1,94 @@
+   1 //! Current ranged-aim observations own all endpoints and hit identities.
+   2 use super::*;
+   3 use adventuresim_tactical_core::prelude::{
+   4     CharacterControllerCameraOf, PlayerEquipment, SpatialQuery, SpatialQueryFilter,
+   5     TacticalPlayerViewer, WeaponGuardState,
+   6 };
+   7 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
+   8 
+   9 #[expect(
+  10     clippy::too_many_arguments,
+  11     reason = "Bevy injects the camera, controller, input, and spatial state as independent system parameters"
+  12 )]
+  13 pub(super) fn update_camera_aim(
+  14     mode: Res<CameraMode>,
+  15     guard: Res<WeaponGuardInputState>,
+  16     config: Res<CameraRigConfig>,
+  17     spatial: SpatialQuery,
+  18     cameras: Query<(&Transform, &CharacterControllerCameraOf)>,
+  19     controllers: Query<&Transform, Without<CharacterControllerCameraOf>>,
+  20     viewer: TacticalPlayerViewer,
+  21     mut aim: ResMut<CameraAimState>,
+  22 ) {
+  23     aim.0 = None;
+  24     if !mode.third_person || guard.desired != WeaponGuardState::Raised {
+  25         return;
+  26     }
+  27     for (camera, camera_of) in &cameras {
+  28         aim.0 = None;
+  29         if !viewer
+  30             .get(camera_of.character_controller)
+  31             .is_ok_and(|player| player.weapon_is_ranged())
+  32         {
+  33             continue;
+  34         }
+  35         let Ok(controller) = controllers.get(camera_of.character_controller) else {
+  36             continue;
+  37         };
+  38         let observed = (|| -> CameraResult<CameraAimObservation> {
+  39             let filter =
+  40                 SpatialQueryFilter::from_excluded_entities([camera_of.character_controller]);
+  41             let camera_origin = Position::from_metres(camera.translation)?;
+  42             let camera_direction = camera.forward();
+  43             // Native physics rays consume scene metres and Bevy unit directions.
+  44             let camera_hit = spatial.cast_ray(
+  45                 camera_origin.metres(),
+  46                 camera_direction,
+  47                 config.aim_distance.metres(),
+  48                 true,
+  49                 &filter,
+  50             );
+  51             let camera_target = Position::from_metres(
+  52                 camera_origin.metres()
+  53                     + *camera_direction
+  54                         * camera_hit.map_or(config.aim_distance.metres(), |hit| hit.distance),
+  55             )?;
+  56             let planar_forward = Vec3::new(camera_direction.x, 0.0, camera_direction.z)
+  57                 .try_normalize()
+  58                 .unwrap_or(Vec3::NEG_Z);
+  59             let right = planar_forward.cross(Vec3::Y).normalize_or_zero();
+  60             let muzzle_origin = Position::from_metres(
+  61                 controller.translation
+  62                     + right * config.muzzle_offset.right.metres()
+  63                     + Vec3::Y * config.muzzle_offset.up.metres()
+  64                     + planar_forward * config.muzzle_offset.forward.metres(),
+  65             )?;
+  66             let muzzle_delta = camera_target.metres() - muzzle_origin.metres();
+  67             let muzzle_distance = muzzle_delta.length();
+  68             let muzzle_direction = Dir3::new(muzzle_delta).unwrap_or(camera_direction);
+  69             let actual_hit = spatial.cast_ray(
+  70                 muzzle_origin.metres(),
+  71                 muzzle_direction,
+  72                 muzzle_distance,
+  73                 true,
+  74                 &filter,
+  75             );
+  76             let actual_target = Position::from_metres(
+  77                 muzzle_origin.metres()
+  78                     + *muzzle_direction * actual_hit.map_or(muzzle_distance, |hit| hit.distance),
+  79             )?;
+  80             Ok(CameraAimObservation {
+  81                 camera_origin,
+  82                 camera_target,
+  83                 camera_hit: camera_hit.map(|hit| hit.entity),
+  84                 muzzle_origin,
+  85                 actual_target,
+  86                 actual_hit: actual_hit.map(|hit| hit.entity),
+  87             })
+  88         })();
+  89         match observed {
+  90             Ok(observation) => aim.0 = Some(observation),
+  91             Err(error) => warn!(%error, "cannot prepare camera aim observation"),
+  92         }
+  93     }
+  94 }

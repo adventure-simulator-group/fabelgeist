@@ -1,0 +1,41 @@
+  70     TerrainDetailPatch, TerrainMaterialPresentation, TreeAssetResidencyDiagnostics,
+  71     TreeImpostorProvenance, TreeLeafRepresentation, TreeLeafTriangleCount, TreeLod, TreeLodCluster,
+  72     TreeLodRenderOverride, TreePresentationSpecies, TreeTrunkLod, UnderstoryReviewSpecimen,
+  73     VistaTerrain, VistaTreePresentation, WeatherParticle, WoodyUnderstoryPresentationCache,
+  74     oak_bark_material, oak_leaf_material, oak_review_terminal_specimen,
+  75     spawn_understory_review_specimens,
+  76 };
+  77 
+  78 use view_camera::camera_for_view;
+  79 
+  80 mod benchmark_progress;
+  81 mod building_review;
+  82 mod buildings;
+  83 mod camera_obstruction;
+  84 mod capture_resolution;
+  85 mod capture_state;
+  86 mod capture_terrain;
+  87 mod capture_visibility;
+  88 mod city_capture;
+  89 mod debris_capture;
+  90 pub(crate) mod fixed_city_cameras;
+  91 mod furniture_capture;
+  92 mod furniture_overlay;
+  93 mod furniture_readiness;
+  94 mod gpu_readiness;
+  95 mod interior_capture;
+  96 mod interior_furniture_capture;
+  97 mod manifest;
+  98 mod plant_lods;
+  99 mod setup_obstacles;
+ 100 mod terrain_setup;
+ 101 mod triangle_census;
+ 102 mod view_camera;
+ 103 mod view_specs;
+ 104 mod vista_geometry;
+ 105 mod vista_validation;
+ 106 
+ 107 const PERFORMANCE_VIEW_WIDTH: u32 = 2560;
+ 108 const PERFORMANCE_VIEW_HEIGHT: u32 = 1440;
+ 109 const PERFORMANCE_TARGET_FPS: f64 = 60.0;
+ 110 const PERFORMANCE_FRAME_BUDGET_MS: f64 = 1_000.0 / PERFORMANCE_TARGET_FPS;

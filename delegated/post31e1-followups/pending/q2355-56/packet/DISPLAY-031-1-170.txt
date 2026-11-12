@@ -1,0 +1,170 @@
+   1 //! Complete checked camera-frame preparation, before retained history is replaced.
+   2 use super::*;
+   3 use crate::camera::{
+   4     collision::{CameraFrame, CameraVolume},
+   5     rig_history::CameraPoseHistory,
+   6     smoothing::{camera_view_metrics, critical_damp_scalar, damp_focus, sweet_spot_target},
+   7 };
+   8 use adventuresim_tactical_core::animation::UnitInterval;
+   9 
+  10 pub(super) struct CameraSubjectObservation<'a> {
+  11     pub(super) entity: Entity,
+  12     pub(super) transform: &'a Transform,
+  13     pub(super) controller: &'a CharacterControllerState,
+  14     pub(super) skeleton: Option<&'a SkeletonState>,
+  15 }
+  16 
+  17 pub(super) struct CameraRigInput {
+  18     subject: Entity,
+  19     origin: Position<Scene>,
+  20     pub(super) anchor: Position<Scene>,
+  21     rotation: RigidRotation,
+  22     profile: CameraProfile,
+  23     raised_blend: UnitInterval,
+  24     elapsed: AnimationElapsed,
+  25 }
+  26 
+  27 impl CameraRigInput {
+  28     pub(super) fn observe(
+  29         subject: CameraSubjectObservation<'_>,
+  30         camera: &Transform,
+  31         profile: CameraProfile,
+  32         raised_blend: UnitInterval,
+  33         config: &CameraRigConfig,
+  34         elapsed: AnimationElapsed,
+  35     ) -> CameraResult<Self> {
+  36         let crouch_adjustment = match subject.skeleton.map(SkeletonState::body) {
+  37             Some(BodyState::Prone) => config.prone_focus_adjustment,
+  38             Some(BodyState::Supine) => config.supine_focus_adjustment,
+  39             _ if subject.controller.crouching => config.crouch_focus_adjustment,
+  40             _ => SignedLength::ZERO,
+  41         };
+  42         Ok(Self {
+  43             subject: subject.entity,
+  44             origin: Position::from_metres(subject.transform.translation)?,
+  45             anchor: Position::from_metres(
+  46                 subject.transform.translation
+  47                     + Vec3::Y * (profile.focus_height.metres() + crouch_adjustment.metres()),
+  48             )?,
+  49             rotation: RigidRotation::from_quaternion(camera.rotation)?,
+  50             profile,
+  51             raised_blend,
+  52             elapsed,
+  53         })
+  54     }
+  55 
+  56     pub(super) fn prepare(
+  57         self,
+  58         history: &mut CameraPoseHistory,
+  59         projection: &Projection,
+  60         spatial: &SpatialQuery,
+  61         soft_occluders: &Query<(), With<CameraSoftOccluder>>,
+  62         config: &CameraRigConfig,
+  63     ) -> CameraResult<CameraRigObservation> {
+  64         let screen_error = self.prepare_follow(history, projection, config)?;
+  65         let frame = CameraFrame {
+  66             origin: self.origin,
+  67             anchor: self.anchor,
+  68             focus: history.focus,
+  69             rotation: self.rotation,
+  70             shoulder_offset: history.shoulder_offset,
+  71             distance: self.profile.distance,
+  72         };
+  73         let volume = CameraVolume::new(projection, config.collision_margin)?;
+  74         let placement = history.boom.place(
+  75             &frame,
+  76             &volume,
+  77             spatial,
+  78             &SpatialQueryFilter::from_excluded_entities([self.subject]),
+  79             &|entity| !soft_occluders.contains(entity),
+  80             config,
+  81             self.elapsed,
+  82         )?;
+  83         let subject_delta = self.anchor.metres() - placement.position.metres();
+  84         let subject_distance = subject_delta.length();
+  85         let subject_direction = Dir3::new(subject_delta).unwrap_or(Dir3::NEG_Z);
+  86         let soft_occlusion = spatial.cast_ray_predicate(
+  87             placement.position.metres(),
+  88             subject_direction,
+  89             subject_distance,
+  90             true,
+  91             &SpatialQueryFilter::from_excluded_entities([self.subject]),
+  92             &|entity| soft_occluders.contains(entity),
+  93         );
+  94         let soft_occluder = soft_occlusion
+  95             .map(|hit| {
+  96                 Ok::<_, CameraError>(SoftOcclusion {
+  97                     entity: hit.entity,
+  98                     point: Position::from_metres(
+  99                         placement.position.metres() + *subject_direction * hit.distance,
+ 100                     )?,
+ 101                 })
+ 102             })
+ 103             .transpose()?;
+ 104         Ok(CameraRigObservation {
+ 105             raised_blend: self.raised_blend,
+ 106             subject: self.anchor,
+ 107             focus: history.focus,
+ 108             collision_origin: frame.origin,
+ 109             collision_volume: volume.debug_volume(placement.position, self.rotation)?,
+ 110             desired_endpoint: placement.desired,
+ 111             final_endpoint: placement.position,
+ 112             collision: placement.hit,
+ 113             soft_occluder,
+ 114             desired_distance: self.profile.distance,
+ 115             limited_distance: placement.limited_distance,
+ 116             focus_velocity: history.focus_velocity,
+ 117             boom_velocity: history.boom.velocity,
+ 118             screen_error,
+ 119             sweet_spot: self.profile.sweet_spot,
+ 120         })
+ 121     }
+ 122 
+ 123     fn prepare_follow(
+ 124         &self,
+ 125         history: &mut CameraPoseHistory,
+ 126         projection: &Projection,
+ 127         config: &CameraRigConfig,
+ 128     ) -> CameraResult<super::super::values::ScreenError> {
+ 129         let sweet_spot = sweet_spot_target(
+ 130             self.anchor,
+ 131             history.focus,
+ 132             self.rotation,
+ 133             history.boom.distance,
+ 134             self.profile.sweet_spot,
+ 135             camera_view_metrics(projection),
+ 136         )?;
+ 137         let focus = damp_focus(
+ 138             history.focus,
+ 139             sweet_spot.target,
+ 140             history.focus_velocity,
+ 141             self.profile,
+ 142             self.elapsed,
+ 143         )?;
+ 144         history.focus = focus.position;
+ 145         history.focus_velocity = focus.velocity;
+ 146         let follow_error = self.anchor.metres() - history.focus.metres();
+ 147         if follow_error.length() > self.profile.maximum_follow_error.metres() {
+ 148             history.focus = Position::from_metres(
+ 149                 self.anchor.metres()
+ 150                     - follow_error.normalize() * self.profile.maximum_follow_error.metres(),
+ 151             )?;
+ 152             history.focus_velocity = SceneVelocity::from_metres_per_second(
+ 153                 history
+ 154                     .focus_velocity
+ 155                     .metres_per_second()
+ 156                     .reject_from_normalized(follow_error.normalize()),
+ 157             )?;
+ 158         }
+ 159         let mut shoulder_velocity = history.shoulder_velocity.metres_per_second();
+ 160         history.shoulder_offset = SignedLength::from_metres(critical_damp_scalar(
+ 161             history.shoulder_offset.metres(),
+ 162             self.profile.shoulder_offset.metres(),
+ 163             &mut shoulder_velocity,
+ 164             config.transition_time,
+ 165             self.elapsed,
+ 166         ))?;
+ 167         history.shoulder_velocity = SignedSpeed::from_metres_per_second(shoulder_velocity)?;
+ 168         Ok(sweet_spot.error)
+ 169     }
+ 170 }

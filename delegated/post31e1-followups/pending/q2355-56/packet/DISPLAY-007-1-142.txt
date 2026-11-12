@@ -1,0 +1,142 @@
+   1 use adventuresim_building_generator::{
+   2     BuildingLodLevel, BuildingLodMaterial, BuildingProgram, LodMesh, compile_building_lod,
+   3     compile_static_building_detail, compile_static_building_lod,
+   4 };
+   5 use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipe, GeneratedBuildingRecipes};
+   6 use bevy::ecs::hierarchy::ChildSpawnerCommands;
+   7 use std::sync::Arc;
+   8 
+   9 use super::ownership::PresentationOwner;
+  10 use super::recipe_mesh::recipe_mesh;
+  11 use super::*;
+  12 pub(in crate::presentation) use focused::queue_focused_city;
+  13 pub(in crate::presentation) use gpu::CityFrame;
+  14 pub(in crate::presentation) use gpu::set_visible as set_city_visible;
+  15 pub(in crate::presentation) use gpu::{CityAssemblyFailure, CityAssemblyPublished};
+  16 
+  17 mod boundaries;
+  18 mod focused;
+  19 mod gpu;
+  20 mod kit;
+  21 mod materials;
+  22 #[cfg(any(target_family = "wasm", test))]
+  23 mod prepared;
+  24 pub(in crate::presentation) mod signs;
+  25 mod strategic;
+  26 mod streaming;
+  27 pub(crate) use materials::TacticalBuildingMaterials;
+  28 pub(in crate::presentation) use materials::setup_tactical_building_materials;
+  29 pub(in crate::presentation) use signs::BuildingPresentationPlugin;
+  30 pub(crate) use signs::PresentedSign;
+  31 pub(crate) use strategic::queue_strategic_city;
+  32 pub(crate) use streaming::PendingCityBuildings;
+  33 
+  34 pub(crate) fn city_gpu_ready(owner: crate::presentation::ownership::PresentationOwner) -> bool {
+  35     gpu::is_ready(owner)
+  36 }
+  37 pub(super) fn reset_gpu(
+  38     world: &mut World,
+  39     owner: crate::presentation::ownership::PresentationOwner,
+  40 ) {
+  41     gpu::reset(world, owner);
+  42 }
+  43 
+  44 pub(super) const DETAIL_LOD_END_START_METRES: f32 = 55.0;
+  45 pub(super) const DETAIL_LOD_END_END_METRES: f32 = 70.0;
+  46 const FACADE_LOD_END_START_METRES: f32 = 150.0;
+  47 const FACADE_LOD_END_END_METRES: f32 = 175.0;
+  48 
+  49 #[derive(Component)]
+  50 pub(crate) struct DistantCityBuildingPresentation;
+  51 
+  52 #[derive(Component)]
+  53 pub(crate) struct PresentedBuildingMesh {
+  54     pub(crate) level: BuildingRenderLevel,
+  55     pub(crate) material: BuildingLodMaterial,
+  56     pub(crate) triangles: usize,
+  57 }
+  58 
+  59 #[derive(Clone, Copy, Debug)]
+  60 pub(crate) enum BuildingRenderLevel {
+  61     Lod0,
+  62     Lod1,
+  63     Lod2,
+  64 }
+  65 
+  66 #[derive(Clone)]
+  67 struct CompiledBuildingBatch {
+  68     material: BuildingLodMaterial,
+  69     mesh: Handle<Mesh>,
+  70     triangles: usize,
+  71     transform: Mat4,
+  72     uv_offset: Vec2,
+  73 }
+  74 
+  75 impl CompiledBuildingBatch {
+  76     fn from_recipe(
+  77         batch: &LodMesh,
+  78         origin: Vec3,
+  79         detail: BuildingDetail,
+  80         meshes: &mut Assets<Mesh>,
+  81     ) -> Self {
+  82         let mut mesh = recipe_mesh(batch, origin);
+  83         if detail != BuildingDetail::Dynamic {
+  84             // GPU assembly owns storage-buffer uploads for these vertices.
+  85             mesh.asset_usage = RenderAssetUsages::MAIN_WORLD;
+  86         }
+  87         Self {
+  88             material: batch.material,
+  89             mesh: meshes.add(mesh),
+  90             triangles: batch.indices.len() / 3,
+  91             transform: Mat4::IDENTITY,
+  92             uv_offset: Vec2::ZERO,
+  93         }
+  94     }
+  95 }
+  96 
+  97 #[derive(Clone, Copy, PartialEq, Eq)]
+  98 enum BuildingDetail {
+  99     Dynamic,
+ 100     Static,
+ 101     Facade,
+ 102 }
+ 103 
+ 104 #[derive(Clone)]
+ 105 struct CompiledBuildingLevels {
+ 106     facade_openings: std::collections::BTreeSet<adventuresim_building_generator::OpeningAssemblyId>,
+ 107     interior: Option<super::interior_lighting::InteriorField>,
+ 108     program: BuildingProgram,
+ 109     detail: BuildingDetail,
+ 110 
+ 111     local_origin: adventuresim_building_generator::spatial_geometry::Position<
+ 112         adventuresim_building_generator::spatial_geometry::Architectural,
+ 113     >,
+ 114     sign_sites: Vec<(
+ 115         adventuresim_building_generator::signs::SignMount,
+ 116         adventuresim_building_generator::signs::SignSite,
+ 117     )>,
+ 118     lod0: Vec<CompiledBuildingBatch>,
+ 119     lod1: Vec<CompiledBuildingBatch>,
+ 120     lod2: Vec<CompiledBuildingBatch>,
+ 121 }
+ 122 
+ 123 #[derive(Default, Resource)]
+ 124 pub(crate) struct TacticalBuildingMeshCache {
+ 125     levels: Vec<Arc<CompiledBuildingLevels>>,
+ 126     components: kit::ComponentCache,
+ 127     pub(crate) recipes: GeneratedBuildingRecipes,
+ 128 }
+ 129 
+ 130 /// Client-generated geometry transferred to the descriptor observer and then
+ 131 /// released. Replicated descriptors instead compile their program on arrival.
+ 132 #[derive(Component)]
+ 133 pub(crate) struct PreparedBuildingGeometry(pub(crate) GeneratedBuildingRecipe);
+ 134 
+ 135 #[derive(bevy::ecs::query::QueryData)]
+ 136 struct BuildingSource {
+ 137     building: &'static SceneBuilding,
+ 138     establishment: Option<&'static SceneEstablishment>,
+ 139     authored_sign: Option<&'static adventuresim_building_generator::signs::ShopSign>,
+ 140     prepared: Option<&'static PreparedBuildingGeometry>,
+ 141 }
+ 142 

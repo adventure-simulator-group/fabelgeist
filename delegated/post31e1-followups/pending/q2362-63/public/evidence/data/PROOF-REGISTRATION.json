@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-12T18:33:40.865165+00:00",
+  "commits": {
+    "95e": "<LOCAL_PATH_0002>",
+    "e275": "<LOCAL_PATH_0003>"
+  },
+  "tree_roots": [
+    "<LOCAL_PATH_0024>",
+    "<LOCAL_PATH_0025>"
+  ],
+  "paths": [
+    "crates/fabelgeist-numpy-storage/src/npz.rs",
+    "crates/fabelgeist-numpy-storage/src/zip.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+    "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+    "crates/fabelgeist-numpy-storage/zip-extents.md",
+    "crates/fabelgeist-numpy-storage/zip-reader-errors.md"
+  ],
+  "historical_sha256": {
+    "crates/fabelgeist-numpy-storage/zip-extents.md": "fddec59dc23c3bf3ee4650daf0cd74200f5c5f740c9656a02f43e7772279fb6b",
+    "crates/fabelgeist-numpy-storage/zip-reader-errors.md": "2250d69f5949ceedadfb81e3c0dfd9ad82c321531d704b5d85b24197e9ae703d",
+    "crates/fabelgeist-numpy-storage/src/npz.rs": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+    "crates/fabelgeist-numpy-storage/src/zip.rs": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+    "crates/fabelgeist-numpy-storage/src/zip/error.rs": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+    "crates/fabelgeist-numpy-storage/src/zip/extent.rs": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649"
+  },
+  "purpose": "verify e275 and 95e path proofs; explicitly reconstruct e275 bodies from matching current bytes, not claim recovery of original objects",
+  "fallback": "read-only git cat-file tree for derived missing IDs"
+}

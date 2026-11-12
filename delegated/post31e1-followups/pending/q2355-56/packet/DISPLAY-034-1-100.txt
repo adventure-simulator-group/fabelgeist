@@ -1,0 +1,100 @@
+   1 //! Camera clearance and close-range composition. Every displayed position is
+   2 //! swept from the subject, including positions modified by framing or recovery.
+   3 
+   4 use adventuresim_building_generator::spatial_geometry::{
+   5     CuboidDimensions, Displacement, GeometryFrame, Position, RigidRotation, SpatialDirection,
+   6 };
+   7 use adventuresim_core::linear_speed::SignedSpeed;
+   8 use adventuresim_tactical_core::{
+   9     animation::{AnimationElapsed, UnitInterval},
+  10     prelude::{Collider, ShapeCastConfig, SpatialQuery, SpatialQueryFilter},
+  11     scene_coordinates::Scene,
+  12 };
+  13 use bevy::prelude::*;
+  14 use fabelgeist_geometry::SignedLength;
+  15 
+  16 use super::{
+  17     CameraRigConfig,
+  18     config::authored_metres,
+  19     smoothing::critical_damp_scalar,
+  20     values::{CameraResult, FramingOffset},
+  21 };
+  22 
+  23 /// Bounds constraint refinement when close framing reveals another obstacle.
+  24 const MAX_FRAMING_SWEEPS: usize = 8;
+  25 
+  26 /// Close framing keeps the subject beside the view without changing manual aim.
+  27 #[derive(Debug, Clone, Copy)]
+  28 pub struct CloseCameraProfile {
+  29     pub start_distance: SignedLength,
+  30     pub full_distance: SignedLength,
+  31     /// Camera-local right and up offsets from the subject focus.
+  32     pub offset: FramingOffset,
+  33 }
+  34 
+  35 /// Render view coordinates; positive Z points behind the eye.
+  36 #[derive(Clone, Copy, Debug, PartialEq, Reflect)]
+  37 enum CameraView {}
+  38 impl GeometryFrame for CameraView {}
+  39 
+  40 /// A conservative box enclosing the eye and all four near-plane corners.
+  41 /// Its orientation and dimensions follow the actual render projection.
+  42 pub(crate) struct CameraVolume {
+  43     pub(crate) shape: Collider,
+  44     local_center: Displacement<CameraView>,
+  45     size: CuboidDimensions,
+  46 }
+  47 
+  48 #[derive(Clone, Copy, Debug)]
+  49 pub(crate) struct CameraVolumeDebug {
+  50     centre: Position<Scene>,
+  51     rotation: RigidRotation,
+  52     size: CuboidDimensions,
+  53 }
+  54 
+  55 #[derive(Clone, Copy, Debug)]
+  56 pub(crate) struct CameraHit {
+  57     pub(crate) entity: Entity,
+  58     pub(crate) normal: SpatialDirection<Scene>,
+  59 }
+  60 
+  61 struct CameraSweep {
+  62     fraction: UnitInterval,
+  63     hit: Option<CameraHit>,
+  64 }
+  65 
+  66 pub(crate) struct CameraFrame {
+  67     /// Controller capsule center: a collision origin independent of focus lag.
+  68     pub(crate) origin: Position<Scene>,
+  69     pub(crate) anchor: Position<Scene>,
+  70     pub(crate) focus: Position<Scene>,
+  71     pub(crate) rotation: RigidRotation,
+  72     pub(crate) shoulder_offset: SignedLength,
+  73     pub(crate) distance: SignedLength,
+  74 }
+  75 
+  76 pub(crate) struct CameraPlacement {
+  77     pub(crate) position: Position<Scene>,
+  78     pub(crate) desired: Position<Scene>,
+  79     pub(crate) hit: Option<CameraHit>,
+  80     pub(crate) limited_distance: SignedLength,
+  81 }
+  82 
+  83 #[derive(Debug, Clone, Copy, Default)]
+  84 pub(crate) struct BoomRecovery {
+  85     pub(crate) distance: SignedLength,
+  86     pub(crate) velocity: SignedSpeed,
+  87     hold_remaining: AnimationElapsed,
+  88 }
+  89 
+  90 impl Default for CloseCameraProfile {
+  91     fn default() -> Self {
+  92         const {
+  93             Self {
+  94                 start_distance: authored_metres(1.8),
+  95                 full_distance: authored_metres(0.65),
+  96                 offset: FramingOffset {
+  97                     right: authored_metres(0.38),
+  98                     up: authored_metres(0.12),
+  99                 },
+ 100             }

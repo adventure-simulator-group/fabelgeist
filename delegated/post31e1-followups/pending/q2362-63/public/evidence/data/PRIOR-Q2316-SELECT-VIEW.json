@@ -1,0 +1,57 @@
+{
+  "author": "<LOCAL_PATH_0023>",
+  "review_status": "Independent current source read and historical reconciliation; this report has not been independently semantically reviewed. Coordinator owns ledger and publication decisions.",
+  "scope": "Bounded source-only investigation of recovered 059 q2316 and current 95e child-crate rawzip/Deflate dependencies. No product execution, tests, repairs, global clearance or unique-defect-count change.",
+  "current_findings": [
+    {
+      "id": "REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY",
+      "classification": "Same historical q2316 connected policy/repair owner, with stronger current source support; no new accepted unique defect count.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/zip.rs:31-48,86-109,151-184",
+        "crates/fabelgeist-numpy-storage/src/zip/extent.rs:1-44",
+        "rawzip 0.5.2 src/archive.rs:176-207,227-241,1073-1174,1222-1250",
+        "crates/fabelgeist-numpy-storage/src/npz.rs:55-86"
+      ],
+      "trace": "The central ZIP header stores uncompressed and compressed declarations separately and carries them into the wayfinder. rawzip explicitly documents uncompressed_size_hint as unvalidated and warns against allocation decisions based on it. The first-party Entry records that value as DeclaredUncompressedByteLength; after a selected Deflate member reaches decoding and rawzip get_entry returns, the application casts the u64 declaration to usize and passes it to Vec::with_capacity before reading the decoder. That operational use conflicts with the upstream warning, even though the bespoke type accurately labels the declaration as unverified.",
+      "limits": "The exact current application path is source-backed. The existence of a supported or attacker-controlled archive reaching this branch, actual selected platform, allocator response, impact, and acceptable resource bound are unproved. No particular panic, exploit, checksum failure or user-visible outcome is claimed. The historical q2316 already recognized declaration-driven reservation, so this is connected corroboration rather than a new defect count."
+    },
+    {
+      "id": "NPZ-ZIP-CRC-AND-SIZE-VERIFICATION-Q2316",
+      "classification": "Separate optional native check versus first-party raw data path; policy still open.",
+      "sources": [
+        "rawzip 0.5.2 src/archive.rs:176-207,227-271,494-526",
+        "rawzip 0.5.2 src/archive/reader.rs:6-23,422-463",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:160-181",
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:70-87",
+        "crates/fabelgeist-numpy-storage/src/npy/metadata.rs:113-143"
+      ],
+      "trace": "rawzip get_entry checks availability of the compressed extent and retains central-directory expected CRC and uncompressed size; data() returns raw bytes. claim_verifier and verifying_reader are separate APIs, and ZipVerification::valid compares both expected decoded size and CRC. ZipVerifier accumulates data on reads and invokes validation when a nonempty-buffer read returns zero or accumulated size reaches/exceeds the declaration; an empty-buffer read returns zero without validation and into_inner bypasses verification. The first-party member path calls data() and a DeflateDecoder or returns stored bytes, without selecting that verifier. The later NPY admission checks its own typed payload prefix length, a separate contract from ZIP CRC or full decoded ZIP length.",
+      "limits": "No native verifier, checksum, NPY parser, archive, or fixture was run. No policy requiring CRC or exact decoded size has been established, and no corrupted asset or real outcome is demonstrated. Do not claim the optional verifier is an unconditional archive-wide certificate; consumer read pattern matters."
+    },
+    {
+      "id": "NPZ-DEFLATE-DECODER-AND-RESOURCE-Q2316",
+      "classification": "Checksum-bound library-source trace and conditional backend relationship; native behavior not validated.",
+      "sources": [
+        "flate2 1.1.10 Cargo.toml:57-103,239-247",
+        "flate2 1.1.10 src/deflate/read.rs:163-181,230-243",
+        "flate2 1.1.10 src/deflate/bufread.rs:166-182,230-245",
+        "flate2 1.1.10 src/mem.rs:399-407,480-492",
+        "flate2 1.1.10 src/zio.rs:124-169",
+        "flate2 1.1.10 src/ffi/mod.rs:62-82",
+        "flate2 1.1.10 src/ffi/miniz_oxide.rs:30-35,64-98",
+        "miniz_oxide 0.9.1 src/inflate/stream.rs:163-205,231-259,300-369"
+      ],
+      "trace": "The flate2 Read DeflateDecoder wraps its bufread decoder; the latter constructs Decompress::new(false) and delegates reading through zio. The displayed zio path translates some incomplete/corrupt stream states into IO errors; it receives compressed bytes and an output slice, not the ZIP central CRC or declared decoded size. Under the miniz backend selection, false selects raw format and stream inflate selects the ignore-Adler32 flag for non-zlib format. The application calls read_to_end on the decoder with no separate application-level decompressed-output cap shown.",
+      "limits": "The miniz backend is conditional on actual unified features and is not established as selected for a particular build. Relevant unregistered library internals, other backends, allocator behavior, actual native decoding, and supported asset trust remain open. These observations do not certify ZIP integrity or a particular failure mode."
+    }
+  ],
+  "open_questions": [
+    "Which real supported model/asset producers can supply these archive headers and compressed contents, and are they trusted or player-controlled?",
+    "What maximum initial reservation, total decoded bytes and archive/member counts are required on each supported platform, and what error behavior should be exposed?",
+    "Must ZIP declared decoded size and CRC be verified for stored and deflated members, and which complete consumption pattern and error owner should enforce that policy?",
+    "What exact current Cargo feature unification and backend are used by the supported application build, and what are the remaining native-library and allocator contracts?",
+    "Do source-recognized inputs reach the selected member and get_entry path in practice? This was not probed.",
+    "The original checkpoint3821 final queue and ledger remain missing; do not promote 059 or reconstructed records into that checkpoint."
+  ],
+  "limitations": "No product build, test, fixture, parser execution, decompression, macro/shader execution, runtime probe, repair, publication or ledger edit, or cleanup."
+}

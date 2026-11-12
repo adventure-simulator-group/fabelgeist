@@ -1,0 +1,42 @@
+SOURCE crates/fabelgeist-numpy-storage/README.md:151-191
+ 151 fallible. Empty shapes additionally admit each native prefix product, so
+ 152 `[usize::MAX, usize::MAX, 0]` remains valid storage but returns a layout error
+ 153 before tensor construction. Float32 upload compares its value count with the
+ 154 admitted layout before handing Burn its native vector. Burn still owns
+ 155 source-cardinality and zero-dimension interpretation during reshape; the layout
+ 156 does not certify a particular source tensor. Corrective imports carry rig joint
+ 157 counts and mesh vertex counts through both native and streamed loading.
+ 158 
+ 159 ## Archive filenames and array keys
+ 160 
+ 161 `ArchiveMemberName` retains an exact parsed archive filename. Serialized names
+ 162 use lossy UTF-8 decoding: two invalid byte spellings can identify the same
+ 163 parsed text. Case, separators, empty text, NUL and path-like spelling remain
+ 164 unchanged; the name validates neither a filesystem path nor membership.
+ 165 
+ 166 `NpzArrayName` carries a NumPy array query. A member matches its full filename
+ 167 or that filename with one trailing `.npy` removed. The first directory match
+ 168 wins, even if a later member is an exact filename match. `keys` returns typed
+ 169 keys in member order, removing one suffix without changing the stored filename.
+ 170 
+ 171 `ZipArchive::bytes` and size queries take `ArchiveMemberName`; `Npz::get` and
+ 172 `Npz::array` take `NpzArrayName`. The distinct types prevent an array key from
+ 173 silently becoming an exact archive lookup. ZIP `contains` is an ordinary
+ 174 predicate.
+ 175 
+ 176 `Npz::get` returns `Option<NpzMember<'_>>`. The handle borrows the selected
+ 177 member and its owning archive, and provides its full `name`, declared
+ 178 `uncompressed_size` and `array` decoder without another lookup. It retains the
+ 179 original query spelling for parsing diagnostics. An absent optional array is
+ 180 `None`; a present member with malformed bytes returns a decoding error.
+ 181 `Npz::array` requires a match and reports absence as a lookup error.
+ 182 
+ 183 ZIP selection returns an internal archive-bound member handle. Only ZIP can
+ 184 construct its archive/entry association, and decoding takes no separate archive
+ 185 argument. NPZ retains that handle with the original query for its suffix policy
+ 186 and parsing diagnostics.
+ 187 
+ 188 ## ZIP reader errors
+ 189 
+ 190 ZIP archive and member operations return concrete errors. See the [error
+ 191 contract](zip-reader-errors.md) for classifications and source chains.

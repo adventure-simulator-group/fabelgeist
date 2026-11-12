@@ -1,0 +1,76 @@
+{
+  "at_utc": "2026-11-12T18:45:17.402653+00:00",
+  "purpose": "corrected pinned source, exact original history, and prospective display ranges",
+  "history": {
+    "root": "<PRIVATE-PATH-0007>",
+    "references": "Every unique receipt, plan, adopter receipt, verification, proposal and prior SOURCE004 record directly referenced in corrected q2366 and q2367 entries. Copy exact bytes exclusively and compare whole-file SHA-256 before displaying registered row selections.",
+    "display_rows": {
+      "parallel-l11-20261029/PLAN-199.json": [
+        6,
+        7
+      ],
+      "parallel-l11-20261029/READ-181.json": [
+        6,
+        7
+      ],
+      "parallel-l11-20261029/PLAN-191.json": [
+        4,
+        6,
+        8
+      ],
+      "parallel-l11-20261029/READ-171.json": [
+        0,
+        2,
+        4
+      ]
+    }
+  },
+  "git_source": {
+    "repo": "<PRIVATE-PATH-0008>",
+    "revisions": [
+      "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "e2755a732c84e67296b5e3441a4259a84f461b2f"
+    ],
+    "paths": [
+      "crates/fabelgeist-numpy-storage/tests/record_kinds.rs",
+      "crates/fabelgeist-numpy-storage/tests/zip_errors.rs",
+      "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "crates/fabelgeist-numpy-storage/src/npz.rs"
+    ],
+    "actions": "Read exact Git commit-to-tree-to-blob paths and current/historical bodies; save source and raw tree objects exclusively; verify SHA-1 object framing and historic SHA-256 against recorded identities; compare per-file current/historical SHA-256."
+  },
+  "displays": {
+    "crates/fabelgeist-numpy-storage/tests/record_kinds.rs": [
+      [
+        1,
+        321
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/tests/zip_errors.rs": [
+      [
+        1,
+        217
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/src/zip/error.rs": [
+      [
+        34,
+        142
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/src/zip.rs": [
+      [
+        64,
+        184
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/src/npz.rs": [
+      [
+        45,
+        85
+      ]
+    ]
+  },
+  "qualification": "No fixture bodies, test execution, parser, product execution, build or runtime probe. e275 source object proven by Git path but not represented as recovered original reviewer body."
+}

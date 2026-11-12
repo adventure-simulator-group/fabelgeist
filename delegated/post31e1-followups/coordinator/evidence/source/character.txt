@@ -1,0 +1,64 @@
+--- crates/adventuresim-stdb-module/src/character.rs:2010-2036 ---
+ 2010 pub(crate) fn insert_persistent_npc_character(
+ 2011     ctx: &ReducerContext,
+ 2012     name: String,
+ 2013     id: u64,
+ 2014     origin_settlement_id: &str,
+ 2015     stable_seed: Seed,
+ 2016     initial_time_minute: Option<StrategicMinute>,
+ 2017     life: &NpcLifeFacts,
+ 2018     personality: &crate::personality::CharacterPersonality,
+ 2019 ) -> Result<(), String> {
+ 2020     insert_character_with_origin(
+ 2021         ctx,
+ 2022         name,
+ 2023         id,
+ 2024         CharacterCreationOptions {
+ 2025             origin_settlement_id: Some(origin_settlement_id),
+ 2026             mode: CharacterCreationMode::PersistentNpc,
+ 2027             create_solo_party: false,
+ 2028             materialize_generated_carry: false,
+ 2029             stable_seed,
+ 2030             initial_time_minute,
+ 2031             field_actor: false,
+ 2032             npc_personality: Some(personality),
+ 2033         },
+ 2034         None,
+ 2035         Some(life),
+ 2036     )
+--- crates/adventuresim-stdb-module/src/character.rs:2192-2214 ---
+ 2192     let character = ctx.db.character().insert(Character {
+ 2193         id,
+ 2194         scan_id: id,
+ 2195         name,
+ 2196         xp: 0,
+ 2197         level: 1,
+ 2198         current_settlement_id: (!options.field_actor).then(|| start_settlement.id.clone()),
+ 2199         party_id: None,
+ 2200         server: Identity::ZERO,
+ 2201         temporary,
+ 2202         age_years: starting.map_or_else(
+ 2203             || npc_life.map_or(25, |facts| facts.age_years),
+ 2204             |spec| spec.age_years,
+ 2205         ),
+ 2206         alive: true,
+ 2207         party_treatment_decision: crate::world_actor::ContextualDecisionState::Allowed,
+ 2208     });
+ 2209     let initial_minute = options.initial_time_minute.unwrap_or(StrategicMinute::ZERO);
+ 2210     crate::relationship::record_character_birth(
+ 2211         ctx,
+ 2212         character.id,
+ 2213         initial_minute.signed_birth_minute_for_age(character.age_years),
+ 2214     );
+--- crates/adventuresim-stdb-module/src/character.rs:2445-2455 ---
+ 2445     crate::time::initialize_character_time(ctx, id)?;
+ 2446     if let Some(minutes) = options.initial_time_minute {
+ 2447         let mut time = ctx
+ 2448             .db
+ 2449             .character_time()
+ 2450             .character_id()
+ 2451             .find(id)
+ 2452             .ok_or("New character time was not initialized")?;
+ 2453         time.minutes = minutes;
+ 2454         ctx.db.character_time().character_id().update(time);
+ 2455     }

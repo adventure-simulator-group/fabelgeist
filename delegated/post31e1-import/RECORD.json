@@ -1,0 +1,28 @@
+{
+  "schema": "726-post31e1-import-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "31e130bfa8f8914f759c7d5cddc3db92962704c7",
+  "catalog_sha256": "baacfc6031c54a0d90689482b90ca2a90fbd79fa5013cb4f79c95b4c356c00a7",
+  "script_sha256": "0082d9dfb6b31a0bb7b5da0d55a8c3817b93aee009d2bd003d8c39c78dd1ed86",
+  "copies": [
+    {
+      "target": "delegated/post31e1-followups",
+      "files": 1138,
+      "bytes": 26846207,
+      "aggregate_sha256": "532e26c2610fb86c786c4d795f005720d81dc16d6a0f6657a8e9b82f3201b79c"
+    },
+    {
+      "target": "delegated/post31e1-preimport-scan",
+      "files": 3,
+      "bytes": 2001,
+      "aggregate_sha256": "ca26ff5abc65226da7a1b9efb249d4ab0b10ae8031efda39f80317c2579b8a3a"
+    },
+    {
+      "target": "delegated/post31e1-standalone",
+      "files": 4,
+      "bytes": 16385,
+      "aggregate_sha256": "78e9a38764dc9052627b06c16b7b056bcc1c378fe2dff30859252c74aa39196c"
+    }
+  ],
+  "qualification": "Exclusive byte-and-mode copies into previously nonexistent audit evidence directories. Full source modes were checked locally; Git transport preserves executable bits. The imported packet includes a documented path-safe correction, pending source work and same-machine encrypted originals."
+}

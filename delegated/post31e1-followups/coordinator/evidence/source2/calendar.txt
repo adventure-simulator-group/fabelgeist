@@ -1,0 +1,79 @@
+--- crates/adventuresim-world-schema/src/calendar.rs:10-21 ---
+   10 pub const MINUTES_PER_DAY: u64 = 24 * 60;
+   11 pub const DAYS_PER_WEEK: u64 = 7;
+   12 const SUNDAY_INDEX: u64 = 6;
+   13 pub const DAYS_PER_YEAR: u64 = 365;
+   14 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+   15 /// Calendar year containing strategic minute zero.
+   16 pub const WORLD_START_YEAR: CalendarYear = CalendarYear { year: 1544 };
+   17 /// August 20 at 00:00 in the shared non-leap strategic calendar.
+   18 pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
+   19 pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
+   20     minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,
+   21 };
+--- crates/adventuresim-world-schema/src/calendar.rs:82-105 ---
+   82 /// Absolute minutes since the strategic calendar's zero minute.
+   83 #[derive(
+   84     Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
+   85 )]
+   86 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+   87 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+   88 #[serde(transparent)]
+   89 pub struct StrategicMinute {
+   90     minutes: u64,
+   91 }
+   92 
+   93 impl fmt::Display for StrategicMinute {
+   94     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+   95         self.minutes.fmt(formatter)
+   96     }
+   97 }
+   98 
+   99 impl StrategicMinute {
+  100     pub const ZERO: Self = Self::new(0);
+  101     pub const MAX: Self = Self::new(u64::MAX);
+  102 
+  103     pub const fn new(minutes: u64) -> Self {
+  104         Self { minutes }
+  105     }
+--- crates/adventuresim-world-schema/src/calendar.rs:189-228 ---
+  189     /// Age in complete years from the signed birth coordinate used by storage.
+  190     pub fn age_years_since_signed_birth(self, birth_minute: i64) -> u16 {
+  191         let years =
+  192             self.elapsed_minutes_since_signed_birth(birth_minute) / (MINUTES_PER_YEAR as u128);
+  193         years.min(u16::MAX as u128) as u16
+  194     }
+  195 
+  196     /// Signed birth coordinate for an age at this instant, capped to storage.
+  197     pub fn signed_birth_minute_for_age(self, age_years: u16) -> i64 {
+  198         let birth = i128::from(self.minutes)
+  199             .saturating_sub(i128::from(age_years) * i128::from(MINUTES_PER_YEAR));
+  200         birth.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64
+  201     }
+  202 
+  203     pub fn elapsed_minutes_since_signed_birth(self, birth_minute: i64) -> u128 {
+  204         (i128::from(self.minutes) - i128::from(birth_minute)).max(0) as u128
+  205     }
+  206 
+  207     /// Progress toward an age threshold in caller-selected integer units.
+  208     pub fn scaled_progress_toward_signed_birth_age(
+  209         self,
+  210         birth_minute: i64,
+  211         target_years: u16,
+  212         whole: u16,
+  213     ) -> u16 {
+  214         if target_years == 0 {
+  215             return whole;
+  216         }
+  217         let elapsed = self.elapsed_minutes_since_signed_birth(birth_minute);
+  218         let target = u128::from(target_years) * u128::from(MINUTES_PER_YEAR);
+  219         elapsed
+  220             .saturating_mul(u128::from(whole))
+  221             .div_euclid(target)
+  222             .min(u128::from(whole)) as u16
+  223     }
+  224 
+  225     /// Whether a stored signed birth coordinate has occurred by this minute.
+  226     pub const fn is_at_or_after_signed_birth(self, birth_minute: i64) -> bool {
+  227         (self.minutes as i128) >= (birth_minute as i128)
+  228     }

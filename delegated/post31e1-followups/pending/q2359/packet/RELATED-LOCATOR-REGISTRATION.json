@@ -1,0 +1,19 @@
+{
+  "registered_utc": "2026-11-12T18:34:31.496555+00:00",
+  "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "streams": [
+    "baseline-059/queue.json",
+    "baseline-059/ledger.json"
+  ],
+  "patterns": [
+    "gpu readiness",
+    "gpu resident",
+    "gpu residency",
+    "render asset",
+    "assetid",
+    "readiness timeout"
+  ],
+  "fields": "top-level contract_id, canonical_owner, first_failed_contract_or_unresolved_question, first_failed_contract, dependencies",
+  "display": "path/index and matched fields only, first 100 per stream, no bodies until separately registered",
+  "qualification": "Bounded case-insensitive navigation; indirect names or nested fields can be missed."
+}

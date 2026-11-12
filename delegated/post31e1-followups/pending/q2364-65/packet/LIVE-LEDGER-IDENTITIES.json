@@ -1,0 +1,24 @@
+{
+  "snapshot_sha256": "9f28019b7891d14538dbad880fcc489616ae5a2b6c47d8d98afc060a03f78597",
+  "snapshot_bytes": 1457605,
+  "rows": [
+    {
+      "selector": "/newly_assessed_ledger/entries/1038",
+      "capture": "LIVE-LEDGER-1038.json",
+      "expected_id": "relationship-npz-member-selection-identity-95e",
+      "qualification": "Reserialized selected object, not exact byte slice of ledger stream."
+    },
+    {
+      "selector": "/newly_assessed_ledger/entries/1039",
+      "capture": "LIVE-LEDGER-1039.json",
+      "expected_id": "relationship-npz-error-context-policy-95e",
+      "qualification": "Reserialized selected object, not exact byte slice of ledger stream."
+    },
+    {
+      "selector": "/newly_assessed_ledger/entries/1040",
+      "capture": "LIVE-LEDGER-1040.json",
+      "expected_id": "relationship-npz-decoded-integrity-budget-95e",
+      "qualification": "Reserialized selected object, not exact byte slice of ledger stream."
+    }
+  ]
+}

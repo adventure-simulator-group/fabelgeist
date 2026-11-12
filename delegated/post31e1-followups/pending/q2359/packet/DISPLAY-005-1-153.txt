@@ -1,0 +1,153 @@
+   1 //! Physical material policy for both playable and distant urban ground.
+   2 
+   3 use super::*;
+   4 use adventuresim_procedural_textures::{FOREST_SOIL_TILE_METRES, ROCK_TILE_METRES};
+   5 
+   6 const CITY_GROUND_SHADER: &str = "shaders/tactical_city_ground.wgsl";
+   7 const FIELDSTONE_SPACING_METRES: f32 = 0.28;
+   8 const GRAVEL_SPACING_METRES: f32 = 0.055;
+   9 
+  10 #[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+  11 pub(super) enum CityGroundKind {
+  12     EarthStreet,
+  13     GravelStreet,
+  14     FieldstoneStreet,
+  15     PackedYard,
+  16     Garden,
+  17 }
+  18 
+  19 impl CityGroundKind {
+  20     pub(super) const ALL: [Self; 5] = [
+  21         Self::EarthStreet,
+  22         Self::GravelStreet,
+  23         Self::FieldstoneStreet,
+  24         Self::PackedYard,
+  25         Self::Garden,
+  26     ];
+  27 
+  28     pub(super) const fn index(self) -> usize {
+  29         self as usize
+  30     }
+  31 
+  32     pub(super) const fn is_yard(self) -> bool {
+  33         matches!(self, Self::PackedYard | Self::Garden)
+  34     }
+  35 
+  36     pub(super) fn material(
+  37         self,
+  38         weather: WeatherSnapshot,
+  39         textures: &ProceduralTextureAssets,
+  40         traffic: &super::traffic::TrafficMask,
+  41     ) -> CityGroundMaterial {
+  42         let (stone_cover, stone_spacing, garden) = match self {
+  43             Self::EarthStreet | Self::PackedYard => (0.0, FIELDSTONE_SPACING_METRES, 0.0),
+  44             Self::GravelStreet => (0.72, GRAVEL_SPACING_METRES, 0.0),
+  45             Self::FieldstoneStreet => (1.0, FIELDSTONE_SPACING_METRES, 0.0),
+  46             Self::Garden => (0.0, FIELDSTONE_SPACING_METRES, 1.0),
+  47         };
+  48         CityGroundMaterial {
+  49             base: StandardMaterial {
+  50                 perceptual_roughness: 0.9,
+  51                 ..default()
+  52             },
+  53             extension: CityGroundExtension {
+  54                 source_from_world: Mat4::IDENTITY,
+  55                 traffic_transform: traffic.transform,
+  56                 traffic_mask: traffic.image.clone(),
+  57                 surface: Vec4::new(stone_cover, stone_spacing, garden, 0.0),
+  58                 weather: Vec4::new(
+  59                     bps(weather.ground_moisture_bps),
+  60                     bps(weather.snow_cover_bps),
+  61                     0.0,
+  62                     0.0,
+  63                 ),
+  64                 texture_scale: Vec4::new(
+  65                     1.0 / FOREST_SOIL_TILE_METRES,
+  66                     1.0 / ROCK_TILE_METRES,
+  67                     0.0,
+  68                     0.0,
+  69                 ),
+  70                 soil_height_ao: textures.forest_soil.height_ao.clone(),
+  71                 stone_albedo: textures.rock.albedo.clone(),
+  72                 stone_arm: textures.rock.arm.clone(),
+  73             },
+  74         }
+  75     }
+  76 }
+  77 
+  78 impl From<CityStreetSurface> for CityGroundKind {
+  79     fn from(surface: CityStreetSurface) -> Self {
+  80         match surface {
+  81             CityStreetSurface::CompactedEarth => Self::EarthStreet,
+  82             CityStreetSurface::Gravel => Self::GravelStreet,
+  83             CityStreetSurface::Fieldstone => Self::FieldstoneStreet,
+  84         }
+  85     }
+  86 }
+  87 
+  88 impl From<CityYardSurface> for CityGroundKind {
+  89     fn from(surface: CityYardSurface) -> Self {
+  90         match surface {
+  91             CityYardSurface::PackedEarth => Self::PackedYard,
+  92             CityYardSurface::KitchenGarden => Self::Garden,
+  93         }
+  94     }
+  95 }
+  96 
+  97 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
+  98 pub(crate) struct CityGroundExtension {
+  99     #[uniform(100)]
+ 100     surface: Vec4,
+ 101     #[uniform(100)]
+ 102     weather: Vec4,
+ 103     #[uniform(100)]
+ 104     texture_scale: Vec4,
+ 105     #[uniform(100)]
+ 106     pub(super) traffic_transform: Vec4,
+ 107     #[uniform(100)]
+ 108     source_from_world: Mat4,
+ 109     #[texture(107)]
+ 110     #[sampler(108)]
+ 111     pub(super) traffic_mask: Handle<Image>,
+ 112     #[texture(101)]
+ 113     #[sampler(102)]
+ 114     soil_height_ao: Handle<Image>,
+ 115     #[texture(103)]
+ 116     #[sampler(104)]
+ 117     stone_albedo: Handle<Image>,
+ 118     #[texture(105)]
+ 119     #[sampler(106)]
+ 120     stone_arm: Handle<Image>,
+ 121 }
+ 122 
+ 123 impl MaterialExtension for CityGroundExtension {
+ 124     fn fragment_shader() -> ShaderRef {
+ 125         CITY_GROUND_SHADER.into()
+ 126     }
+ 127     fn deferred_fragment_shader() -> ShaderRef {
+ 128         CITY_GROUND_SHADER.into()
+ 129     }
+ 130 }
+ 131 
+ 132 pub(crate) type CityGroundMaterial = ExtendedMaterial<StandardMaterial, CityGroundExtension>;
+ 133 
+ 134 impl CityGroundExtension {
+ 135     /// Native material-space adapter; source stones and wear do not slide when
+ 136     /// the geographic window changes its east/up/south render origin.
+ 137     pub(in crate::presentation) fn set_geographic_frame(
+ 138         &mut self,
+ 139         frame: crate::presentation::buildings::CityFrame,
+ 140     ) {
+ 141         self.source_from_world = frame.world_from_city().inverse();
+ 142     }
+ 143     pub(crate) fn texture_ids(&self) -> impl Iterator<Item = AssetId<Image>> {
+ 144         [
+ 145             &self.soil_height_ao,
+ 146             &self.stone_albedo,
+ 147             &self.stone_arm,
+ 148             &self.traffic_mask,
+ 149         ]
+ 150         .into_iter()
+ 151         .map(Handle::id)
+ 152     }
+ 153 }

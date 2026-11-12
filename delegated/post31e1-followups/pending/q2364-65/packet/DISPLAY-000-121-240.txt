@@ -1,0 +1,120 @@
+ 121             bytes: include_bytes!("fixtures/member-count/zip64-9223372036854775808.zip"),
+ 122             names: None,
+ 123         },
+ 124         DirectoryCase {
+ 125             label: "zip64-18446744073709551614",
+ 126             bytes: include_bytes!("fixtures/member-count/zip64-18446744073709551614.zip"),
+ 127             names: None,
+ 128         },
+ 129         DirectoryCase {
+ 130             label: "zip64-18446744073709551615",
+ 131             bytes: include_bytes!("fixtures/member-count/zip64-18446744073709551615.zip"),
+ 132             names: None,
+ 133         },
+ 134         DirectoryCase {
+ 135             label: "zip64-offset-trigger",
+ 136             bytes: include_bytes!("fixtures/member-count/zip64-offset-trigger.zip"),
+ 137             names: None,
+ 138         },
+ 139         DirectoryCase {
+ 140             label: "zip64-offset-trigger-zero-count",
+ 141             bytes: include_bytes!("fixtures/member-count/zip64-offset-trigger-zero-count.zip"),
+ 142             names: None,
+ 143         },
+ 144         DirectoryCase {
+ 145             label: "zip64-ordinary-not-triggered",
+ 146             bytes: include_bytes!("fixtures/member-count/zip64-ordinary-not-triggered.zip"),
+ 147             names: Some(&["values.npy"]),
+ 148         },
+ 149         DirectoryCase {
+ 150             label: "zip64-locator-mismatch",
+ 151             bytes: include_bytes!("fixtures/member-count/zip64-locator-mismatch.zip"),
+ 152             names: None,
+ 153         },
+ 154         DirectoryCase {
+ 155             label: "zip64-end-mismatch",
+ 156             bytes: include_bytes!("fixtures/member-count/zip64-end-mismatch.zip"),
+ 157             names: None,
+ 158         },
+ 159         DirectoryCase {
+ 160             label: "zip64-record-outside",
+ 161             bytes: include_bytes!("fixtures/member-count/zip64-record-outside.zip"),
+ 162             names: None,
+ 163         },
+ 164         DirectoryCase {
+ 165             label: "zip64-disc-count-disagrees",
+ 166             bytes: include_bytes!("fixtures/member-count/zip64-disc-count-disagrees.zip"),
+ 167             names: None,
+ 168         },
+ 169         DirectoryCase {
+ 170             label: "ordinary-disc-count-disagrees",
+ 171             bytes: include_bytes!("fixtures/member-count/ordinary-disc-count-disagrees.zip"),
+ 172             names: Some(&["values.npy", "second.npy"]),
+ 173         },
+ 174         DirectoryCase {
+ 175             label: "duplicate-count-2",
+ 176             bytes: include_bytes!("fixtures/member-count/duplicate-count-2.zip"),
+ 177             names: Some(&["values.npy", "values.npy"]),
+ 178         },
+ 179         DirectoryCase {
+ 180             label: "ordinary-1-local-mismatch",
+ 181             bytes: include_bytes!("fixtures/member-count/ordinary-1-local-mismatch.zip"),
+ 182             names: Some(&["values.npy"]),
+ 183         },
+ 184         DirectoryCase {
+ 185             label: "ordinary-large-central-mismatch",
+ 186             bytes: include_bytes!("fixtures/member-count/ordinary-large-central-mismatch.zip"),
+ 187             names: None,
+ 188         },
+ 189         DirectoryCase {
+ 190             label: "ordinary-large-partial-directory",
+ 191             bytes: include_bytes!("fixtures/member-count/ordinary-large-partial-directory.zip"),
+ 192             names: None,
+ 193         },
+ 194         DirectoryCase {
+ 195             label: "ordinary-zero-invalid-name",
+ 196             bytes: include_bytes!("fixtures/member-count/ordinary-zero-invalid-name.zip"),
+ 197             names: Some(&[]),
+ 198         },
+ 199         DirectoryCase {
+ 200             label: "zero-without-central-directory",
+ 201             bytes: include_bytes!("fixtures/member-count/zero-without-central-directory.zip"),
+ 202             names: None,
+ 203         },
+ 204         DirectoryCase {
+ 205             label: "saturated-without-locator",
+ 206             bytes: include_bytes!("fixtures/member-count/saturated-without-locator.zip"),
+ 207             names: Some(&[]),
+ 208         },
+ 209         DirectoryCase {
+ 210             label: "ordinary-zero-then-later-end",
+ 211             bytes: include_bytes!("fixtures/member-count/ordinary-zero-then-later-end.zip"),
+ 212             names: Some(&[]),
+ 213         },
+ 214     ];
+ 215     for case in cases {
+ 216         let archive = ZipArchive::from_bytes(case.bytes.to_vec())
+ 217             .map(|archive| {
+ 218                 archive
+ 219                     .names()
+ 220                     .map(|name| name.to_string())
+ 221                     .collect::<Vec<_>>()
+ 222             })
+ 223             .map_err(|error| {
+ 224                 matches!(
+ 225                     error,
+ 226                     fabelgeist_numpy_storage::zip::ZipReadError::Archive { .. }
+ 227                 )
+ 228             });
+ 229         assert_eq!(
+ 230             archive,
+ 231             case.names
+ 232                 .map(|names| names
+ 233                     .iter()
+ 234                     .map(|name| name.to_string())
+ 235                     .collect::<Vec<_>>())
+ 236                 .ok_or(true),
+ 237             "{}",
+ 238             case.label
+ 239         );
+ 240         let npz = Npz::from_bytes(case.bytes.to_vec());

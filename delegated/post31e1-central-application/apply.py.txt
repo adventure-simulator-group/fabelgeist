@@ -1,0 +1,37 @@
+from pathlib import Path
+import hashlib,json,os,subprocess,sys,tempfile
+if sys.flags.optimize:raise RuntimeError('assertions must remain enabled')
+R=Path('.');P=R/'delegated/post31e1-followups';S=Path(sys.argv[1]);head='31e130bfa8f8914f759c7d5cddc3db92962704c7';h=lambda b:hashlib.sha256(b).hexdigest();enc=lambda x:(json.dumps(x,indent=2,ensure_ascii=False)+'\n').encode()
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==head
+names=['BASELINE-95E-20261110.json','CONTINUATION-PROGRESS-95E.json','RECONCILIATION-059.json','CONTINUATION.md'];original={}
+for name in names:
+ b=(R/name).read_bytes();assert b==subprocess.check_output(['git','show',head+':'+name]);original[name]=b
+ with (S/(name+'.before')).open('xb') as f:f.write(b)
+cat=(P/'CATALOG.json').read_bytes();assert h(cat)=='baacfc6031c54a0d90689482b90ca2a90fbd79fa5013cb4f79c95b4c356c00a7';catalog=json.loads(cat)
+raw=(Path('../private-originals/next-15a-stage-ykpt6fyo')/'ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json').read_bytes();report=json.loads(raw);assert h(raw)==catalog['central_report_sha256'] and report['parent_published_checkpoint']==head
+assert h((R/'MAIN-RECHECK-20261112-1926.json').read_bytes())=='40c0328b9fab81736e5ff3a17a15c82629074c951b57f76dc39703a436db1c2c'
+base=json.loads(original[names[0]]);ledger=base['newly_assessed_ledger']['entries'];added=report['ledger_relationships'];assert len(ledger)==1072 and len(added)==6 and len({x['id'] for x in added})==6 and not {x['id'] for x in ledger}&{x['id'] for x in added};ledger.extend(added);base['latest_main_recheck']='MAIN-RECHECK-20261112-1926.json'
+progress=json.loads(original[names[1]]);assert (progress['new_current_ledger_candidates'],progress['lens_count'],progress['lenses_complete'],progress['queue_records_semantically_reconciled'])==(1072,13,0,0)
+progress['new_current_ledger_candidates']=len(ledger);progress['central_post31e1_bounded_reconciliation']='ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json';progress['checkpoint_31e1_same_machine_recovery']='delegated/post31e1-followups/checkpoint-31e1-recovery/RECOVERY-RECORD.json';progress['post31e1_pending_delegated_packets']='delegated/post31e1-followups/PENDING-DELEGATES.json';progress['post9e9e_pending_resolution']='The three packet families pending in the 14D snapshot received partial central review in 15A; none is fully reconciled.';progress['post31e1_private_recovery']='delegated/post31e1-followups/encrypted-originals/README.md and privacy-correction/RECORD.json; the same-machine key remains a recovery dependency.';progress['main_recheck_20261112_1926']='MAIN-RECHECK-20261112-1926.json';progress['current_main_qualification']='GitHub connector resolved main to 95e at 2026-11-12 19:26:28 UTC before staged evidence checking; main may advance. See MAIN-RECHECK-20261112-1926.json.'
+queue=json.loads(original[names[2]]);assert len(queue['entries'])==3713
+assert [x['queue_index'] for x in report['assessments']]==[2341,2342,2352,2353,2354]
+for assessment in report['assessments']:
+ i=assessment['queue_index'];x=queue['entries'][i];assert x['contract_id']==assessment['historical_contract_id'] and x['current_reconciliation']=='unassessed'
+ x['current_reconciliation']='partial bounded 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json; historical revision, reader and scope retained; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit'
+text=original[names[3]].decode();needle='`ASSESSMENT-CENTRAL-FOLLOWUPS-14D-95E.json` connects';assert text.count(needle)==1
+insertion=('`delegated/post31e1-followups/checkpoint-31e1-recovery/RECOVERY-RECORD.json`\n' 'records same-machine recovery of checkpoint 31e1 with an identical transcript.\n\n' '`ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json` connects partial journey,\n' 'disclosure and resident-age source assessments to their attributed history.\n' 'The three packet families pending in the 14D snapshot received this partial\n' 'review; no queue record or lens is thereby complete. Eight later delegated\n' 'families remain pending in `delegated/post31e1-followups/PENDING-DELEGATES.json`.\n\n' '`delegated/post31e1-followups/privacy-correction/RECORD.json` records the\n' 'initial scan exposure and path-safe successor. Exact omitted files and scan\n' 'logs are encrypted with the separately held same-machine key.\n\n' 'The following 14D paragraph describes its earlier time-bound snapshot.\n\n')
+text=text.replace(needle,insertion+needle,1)
+indices=[2341,2342,2352,2353,2354];selections=[{'index':i,'contract_id':queue['entries'][i]['contract_id'],'current_reconciliation_at_snapshot':queue['entries'][i]['current_reconciliation']} for i in indices]
+snapshot={'schema':'726-post31e1-time-bound-followup-snapshot-v1','source_revision':report['source_revision'],'parent_published_checkpoint':head,'observed_counts':{'lenses':progress['lens_count'],'lenses_complete':progress['lenses_complete'],'queue_records':len(queue['entries']),'queue_semantically_reconciled':progress['queue_records_semantically_reconciled'],'current_ledger_entries_and_relationships':len(ledger)},'queue_selections':selections,'added_ledger_relationship_ids':[x['id'] for x in added],'central_report_sha256':h(raw),'bundle_catalog_sha256':h(cat),'checkpoint_31e1_recovery_record_sha256':h((P/'checkpoint-31e1-recovery/RECOVERY-RECORD.json').read_bytes()),'encrypted_manifest_sha256':h((P/'encrypted-originals/MANIFEST.json').read_bytes()),'privacy_correction_record_sha256':h((P/'privacy-correction/RECORD.json').read_bytes()),'main_observation_sha256':h((R/'MAIN-RECHECK-20261112-1926.json').read_bytes()),'qualification':'Time-bound counts include planning relationships and conditional candidates, not independent defects. Historical, reconstructed, encrypted and current work retain original attribution. Final checkpoint3821 queue and ledger remain missing.','repair':'not started','product_validation':'not performed'}
+out={names[0]:enc(base),names[1]:enc(progress),names[2]:enc(queue),names[3]:text.encode(),'ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json':raw,'FOLLOWUP-POST31E1-EVIDENCE.json':enc(snapshot)}
+assert all(not (R/n).exists() for n in ['ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json','FOLLOWUP-POST31E1-EVIDENCE.json'])
+for name,b in out.items():
+ with (S/(name+'.after')).open('xb') as f:f.write(b)
+for name,b in original.items():assert (R/name).read_bytes()==b
+for name in names:
+ with tempfile.NamedTemporaryFile(dir=R,prefix='.post31e1-update-',delete=False) as f:f.write(out[name]);tmp=f.name
+ os.replace(tmp,R/name)
+for name in ['ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json','FOLLOWUP-POST31E1-EVIDENCE.json']:
+ with (R/name).open('xb') as f:f.write(out[name])
+for name,b in out.items():assert (R/name).read_bytes()==b
+print('Applied five partial queue relationships and six planning entries; ledger entries/relationships 1078. All lenses and semantic queue records remain open.')

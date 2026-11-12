@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-11-12T18:46:10.956937+00:00",
+  "purpose": "locate checksum-bound source bytes and raw trees after unavailable commit object",
+  "actions": [
+    {
+      "kind": "read prior q2362 current source locator metadata",
+      "paths": [
+        "<PRIVATE-PATH-0013>",
+        "<PRIVATE-PATH-0012>"
+      ],
+      "scope": "locator path and tree routes only"
+    },
+    {
+      "kind": "read anchored commit objects and existing q2362 raw trees, resolve raw tree traversal for the five registered paths",
+      "roots": [
+        "<PRIVATE-PATH-0014>",
+        "<PRIVATE-PATH-0015>"
+      ],
+      "fallback": "git cat-file tree by identified tree IDs, no source body display"
+    }
+  ]
+}

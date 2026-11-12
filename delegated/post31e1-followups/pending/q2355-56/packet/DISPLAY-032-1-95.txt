@@ -1,0 +1,95 @@
+   1 use super::{GeometryError, GeometryRole, error::finite};
+   2 use bevy::{
+   3     math::Vec3,
+   4     reflect::{Reflect, TypePath},
+   5 };
+   6 use serde::{Deserialize, Serialize};
+   7 use std::marker::PhantomData;
+   8 
+   9 /// A finite point in one declared frame; it is not a translation or dimensions.
+  10 ///
+  11 /// ```compile_fail
+  12 /// use adventuresim_building_generator::spatial_geometry::{Architectural, CuboidDimensions, Position};
+  13 /// let point: Position<Architectural> = Position::ORIGIN;
+  14 /// let dimensions: CuboidDimensions = point;
+  15 /// ```
+  16 /// ```compile_fail
+  17 /// use adventuresim_building_generator::spatial_geometry::{Architectural, Displacement, SpatialDirection};
+  18 /// let displacement: Displacement<Architectural> = Displacement::ZERO;
+  19 /// let direction: SpatialDirection<Architectural> = displacement;
+  20 /// ```
+  21 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+  22 #[repr(transparent)]
+  23 #[serde(transparent, bound = "")]
+  24 #[reflect(opaque)]
+  25 pub struct Position<F: GeometryFrame> {
+  26     pub(super) metres: Vec3,
+  27     #[serde(skip)]
+  28     pub(super) frame: PhantomData<F>,
+  29 }
+  30 
+  31 /// A finite signed translation. Zero is valid and does not need a direction.
+  32 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+  33 #[repr(transparent)]
+  34 #[serde(transparent, bound = "")]
+  35 #[reflect(opaque)]
+  36 pub struct Displacement<F: GeometryFrame> {
+  37     pub(super) metres: Vec3,
+  38     #[serde(skip)]
+  39     pub(super) frame: PhantomData<F>,
+  40 }
+  41 /// Signed finite elevation from the declared frame's datum, in metres.
+  42 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
+  43 #[repr(transparent)]
+  44 #[serde(transparent, bound = "")]
+  45 #[reflect(opaque)]
+  46 pub struct Elevation<F: GeometryFrame> {
+  47     metres: f32,
+  48     #[serde(skip)]
+  49     pub(super) frame: PhantomData<F>,
+  50 }
+  51 /// Building-local X/Y/Z, in metres, with architectural ground at Y=0.
+  52 #[derive(Clone, Copy, Debug, Eq, PartialEq, Reflect)]
+  53 pub enum Architectural {}
+  54 /// Implemented by the module owning a coordinate frame, never by native vectors.
+  55 pub trait GeometryFrame:
+  56     Copy + std::fmt::Debug + PartialEq + TypePath + Send + Sync + 'static
+  57 {
+  58 }
+  59 
+  60 impl GeometryFrame for Architectural {}
+  61 
+  62 impl<F: GeometryFrame> Position<F> {
+  63     pub const ORIGIN: Self = Self {
+  64         metres: Vec3::ZERO,
+  65         frame: PhantomData,
+  66     };
+  67     pub fn from_metres(metres: Vec3) -> Result<Self, GeometryError> {
+  68         finite(metres, GeometryRole::Position)?;
+  69         Ok(Self {
+  70             metres,
+  71             frame: PhantomData,
+  72         })
+  73     }
+  74     /// Explicit native representation for owned arithmetic and framework ports.
+  75     pub fn metres(self) -> Vec3 {
+  76         self.metres
+  77     }
+  78     pub fn translated(self, displacement: Displacement<F>) -> Result<Self, GeometryError> {
+  79         Self::from_metres(self.metres + displacement.metres)
+  80     }
+  81     pub fn displacement_to(self, other: Self) -> Result<Displacement<F>, GeometryError> {
+  82         Displacement::from_metres(other.metres - self.metres)
+  83     }
+  84 }
+  85 impl<'de, F: GeometryFrame> Deserialize<'de> for Position<F> {
+  86     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+  87         Self::from_metres(Vec3::deserialize(deserializer)?).map_err(serde::de::Error::custom)
+  88     }
+  89 }
+  90 
+  91 impl<F: GeometryFrame> Displacement<F> {
+  92     pub const ZERO: Self = Self {
+  93         metres: Vec3::ZERO,
+  94         frame: PhantomData,
+  95     };

@@ -1,0 +1,64 @@
+{
+  "at_utc": "2026-11-12T18:47:13.277411+00:00",
+  "purpose": "registered current source and focused historical context displays after proof",
+  "current_source_windows": "REGISTRATION-006.json displays on 95e proof-matched candidate files",
+  "historical_displays": [
+    {
+      "path": "data/history/parallel-l11-20261029/PLAN-199.json",
+      "json_rows": [
+        6,
+        7
+      ]
+    },
+    {
+      "path": "data/history/parallel-l11-20261029/READ-181.json",
+      "json_rows": [
+        6,
+        7
+      ]
+    },
+    {
+      "path": "data/history/parallel-l11-20261029/PLAN-191.json",
+      "json_rows": [
+        4,
+        6,
+        8
+      ]
+    },
+    {
+      "path": "data/history/parallel-l11-20261029/READ-171.json",
+      "json_rows": [
+        0,
+        2,
+        4
+      ]
+    },
+    {
+      "paths": [
+        "data/history/segovb/READ-L11-717.json",
+        "data/history/segovb/VERIFY-L11-717.json",
+        "data/history/segovb/READ-L11-707.json",
+        "data/history/segovb/VERIFY-L11-707.json"
+      ],
+      "scope": "metadata and bounded rows referencing the registered source paths"
+    },
+    {
+      "path": "data/history/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-006.json",
+      "scope": "exact /contract_updates/6 and /contract_updates/7 only"
+    }
+  ],
+  "old_source_locator": {
+    "directory": "<PRIVATE-PATH-0019>",
+    "matching": "recursive regular-file basenames containing one of the two historical 64-hex recorded test-source hashes; filename navigation only, no global absence claim"
+  },
+  "ledger_context": {
+    "snapshot": "<PRIVATE-PATH-0020>",
+    "sha256": "9f28019b7891d14538dbad880fcc489616ae5a2b6c47d8d98afc060a03f78597",
+    "select_ids": [
+      "relationship-npz-member-selection-identity-95e",
+      "relationship-npz-error-context-policy-95e",
+      "relationship-npz-decoded-integrity-budget-95e"
+    ],
+    "scope": "exact row indices and IDs only; no alias assertions"
+  }
+}

@@ -1,0 +1,33 @@
+SOURCE crates/fabelgeist-numpy-storage/src/zip/member_count.rs:61-92
+  61             OrdinaryCase {
+  62                 wire: 65534,
+  63                 capacity: 4096,
+  64             },
+  65             OrdinaryCase {
+  66                 wire: 65535,
+  67                 capacity: 4096,
+  68             },
+  69         ];
+  70         for case in cases {
+  71             let count = ArchiveMemberCount::from(case.wire);
+  72             assert_eq!(count.initial_capacity(), case.capacity);
+  73         }
+  74     }
+  75 
+  76     #[test]
+  77     fn zip64_range_retains_high_bits_and_exclusive_end_despite_capacity_cap() {
+  78         for wire in [4096u64, 4097, 1 << 32, (1 << 32) + 1, 1 << 63, u64::MAX] {
+  79             let count = ArchiveMemberCount::from(wire);
+  80             let mut range = count.native_iteration_range();
+  81             assert_eq!(range.next(), Some(0));
+  82             assert_eq!(range.end, wire);
+  83             assert_eq!(range.next_back(), Some(wire - 1));
+  84             assert_eq!(count.initial_capacity(), 4096);
+  85         }
+  86         let empty = ArchiveMemberCount::from(0u64);
+  87         assert_eq!(empty.native_iteration_range().next(), None);
+  88         let single = ArchiveMemberCount::from(1u64);
+  89         assert_eq!(single.native_iteration_range().collect::<Vec<_>>(), [0]);
+  90         assert_eq!(single.initial_capacity(), 1);
+  91     }
+  92 }

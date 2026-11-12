@@ -1,0 +1,50 @@
+   1 //! Per-establishment signs reuse building anchor geometry; lettering is allocated only nearby.
+   2 use super::*;
+   3 use adventuresim_building_generator::signs::{
+   4     ShopSign, ShopSignRenderCache, SignDetail, SignMount, SignRenderAssets, SignRenderPart,
+   5     SignSite,
+   6 };
+   7 use bevy::ecs::system::SystemParam;
+   8 
+   9 const LETTERING_LOAD_DISTANCE_METRES: f32 = 48.0;
+  10 const LETTERING_RELEASE_DISTANCE_METRES: f32 = 60.0;
+  11 
+  12 pub(in crate::presentation) struct BuildingPresentationPlugin;
+  13 impl Plugin for BuildingPresentationPlugin {
+  14     fn build(&self, app: &mut App) {
+  15         app.init_resource::<ShopSignRenderCache>()
+  16             .add_plugins(super::gpu::CityGpuPlugin)
+  17             .add_observer(super::on_scene_building_added)
+  18             .add_observer(super::on_scene_vista_buildings)
+  19             .add_plugins(super::boundaries::BoundaryPresentationPlugin)
+  20             .add_systems(Update, (super::streaming::present, update_lettering));
+  21     }
+  22 }
+  23 
+  24 #[derive(SystemParam)]
+  25 pub(super) struct SignAssets<'w> {
+  26     cache: ResMut<'w, ShopSignRenderCache>,
+  27     materials: ResMut<'w, Assets<StandardMaterial>>,
+  28     images: ResMut<'w, Assets<Image>>,
+  29 }
+  30 
+  31 #[derive(Component)]
+  32 pub(crate) struct PresentedSign {
+  33     pub(crate) sign: ShopSign,
+  34     pub(crate) site: SignSite,
+  35     origin: Vec3,
+  36     pub(crate) lettering: Option<Entity>,
+  37 }
+  38 
+  39 impl SignAssets<'_> {
+  40     pub(super) fn spawn(
+  41         &mut self,
+  42         parent: &mut ChildSpawnerCommands,
+  43         authored: Option<&ShopSign>,
+  44         compiled: &CompiledBuildingLevels,
+  45         meshes: &mut Assets<Mesh>,
+  46     ) {
+  47         let Some(mut sign) = authored.cloned() else {
+  48             return;
+  49         };
+  50         let Some(&(mount, site)) = compiled

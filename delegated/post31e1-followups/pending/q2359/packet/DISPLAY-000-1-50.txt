@@ -1,0 +1,50 @@
+   1 //! Read back residency from the real render world, including GPU-only textures.
+   2 use bevy::{
+   3     prelude::*,
+   4     render::{
+   5         Render, RenderApp, RenderSystems, mesh::RenderMesh, render_asset::RenderAssets,
+   6         texture::GpuImage,
+   7     },
+   8 };
+   9 use std::{
+  10     collections::HashSet,
+  11     sync::{Arc, Mutex},
+  12 };
+  13 
+  14 #[derive(Resource, Clone, Default)]
+  15 pub(super) struct GpuReadiness(Arc<Mutex<ResidentAssets>>);
+  16 
+  17 #[derive(Default)]
+  18 struct ResidentAssets {
+  19     meshes: HashSet<AssetId<Mesh>>,
+  20     images: HashSet<AssetId<Image>>,
+  21 }
+  22 
+  23 impl GpuReadiness {
+  24     pub(super) fn install(app: &mut App) {
+  25         let readiness = Self::default();
+  26         app.insert_resource(readiness.clone());
+  27         app.sub_app_mut(RenderApp)
+  28             .insert_resource(readiness)
+  29             .add_systems(Render, observe.in_set(RenderSystems::Cleanup));
+  30     }
+  31 
+  32     pub(super) fn contains(
+  33         &self,
+  34         mesh: &Handle<Mesh>,
+  35         mut textures: impl Iterator<Item = AssetId<Image>>,
+  36     ) -> bool {
+  37         let resident = self.0.lock().expect("GPU readiness lock");
+  38         resident.meshes.contains(&mesh.id()) && textures.all(|id| resident.images.contains(&id))
+  39     }
+  40 }
+  41 
+  42 fn observe(
+  43     readiness: Res<GpuReadiness>,
+  44     meshes: Res<RenderAssets<RenderMesh>>,
+  45     images: Res<RenderAssets<GpuImage>>,
+  46 ) {
+  47     let mut resident = readiness.0.lock().expect("GPU readiness lock");
+  48     resident.meshes = meshes.iter().map(|(id, _)| id).collect();
+  49     resident.images = images.iter().map(|(id, _)| id).collect();
+  50 }

@@ -1,0 +1,160 @@
+   1 //! Observe production output; never create replacement render assets here.
+   2 use super::*;
+   3 use crate::presentation::{
+   4     PresentedBuildingMesh, PresentedSign, ProceduralTextureAssets, TacticalBuildingMaterials,
+   5     TacticalGraphicsSettings,
+   6 };
+   7 use crate::tactical_scene_viewer::capture_state::{CapturePhase, SceneCaptureState};
+   8 use adventuresim_building_generator::BuildingLodMaterial;
+   9 use adventuresim_tactical_core::prelude::{SceneBuilding, SceneDoor, SceneWindow};
+  10 use bevy::{ecs::system::SystemParam, render::renderer::RenderAdapterInfo};
+  11 
+  12 const MAX_ASSET_WAIT_SECONDS: f64 = 120.0;
+  13 
+  14 pub(in crate::tactical_scene_viewer) struct BuildingReviewPlugin;
+  15 impl Plugin for BuildingReviewPlugin {
+  16     fn build(&self, app: &mut App) {
+  17         crate::tactical_scene_viewer::gpu_readiness::GpuReadiness::install(app);
+  18         app.add_systems(
+  19             Update,
+  20             (
+  21                 super::lod::select.after(crate::presentation::BuildingClosureVisibility),
+  22                 super::openings::select_pose,
+  23             ),
+  24         );
+  25         app.init_resource::<Readiness>().add_systems(
+  26             Last,
+  27             observe.before(crate::tactical_scene_viewer::capture_views),
+  28         );
+  29     }
+  30 }
+  31 
+  32 #[derive(Resource, Default)]
+  33 pub(in crate::tactical_scene_viewer) struct Readiness {
+  34     ready: bool,
+  35     pending_since: Option<f64>,
+  36     recorded: std::collections::BTreeSet<usize>,
+  37 }
+  38 
+  39 pub(in crate::tactical_scene_viewer) fn ready(
+  40     state: Option<Res<SceneCaptureState>>,
+  41     requirements: Option<Res<ReviewRequirements>>,
+  42     readiness: Option<Res<Readiness>>,
+  43     exposure: Option<Res<crate::presentation::interior_lighting::InteriorExposure>>,
+  44 ) -> bool {
+  45     requirements.is_none()
+  46         || state.is_none_or(|state| state.phase == CapturePhase::Configure)
+  47         || (readiness.is_some_and(|readiness| readiness.ready)
+  48             && exposure.is_none_or(|exposure| exposure.is_settled()))
+  49 }
+  50 
+  51 #[derive(SystemParam)]
+  52 struct Observation<'w, 's> {
+  53     gardens: super::gardens::GardenObservation<'w, 's>,
+  54     boundaries: Query<'w, 's, &'static adventuresim_tactical_core::prelude::SceneBoundary>,
+  55     buildings: Query<'w, 's, &'static SceneBuilding>,
+  56     batches: Query<
+  57         'w,
+  58         's,
+  59         (
+  60             &'static PresentedBuildingMesh,
+  61             &'static ChildOf,
+  62             &'static Mesh3d,
+  63             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  64         ),
+  65     >,
+  66     doors: Query<
+  67         'w,
+  68         's,
+  69         (
+  70             &'static SceneDoor,
+  71             &'static Mesh3d,
+  72             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  73         ),
+  74     >,
+  75     windows: Query<
+  76         'w,
+  77         's,
+  78         (
+  79             &'static SceneWindow,
+  80             &'static Mesh3d,
+  81             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  82         ),
+  83     >,
+  84     signs: Query<
+  85         'w,
+  86         's,
+  87         (
+  88             &'static PresentedSign,
+  89             &'static ChildOf,
+  90             &'static GlobalTransform,
+  91         ),
+  92     >,
+  93     parts: Query<
+  94         'w,
+  95         's,
+  96         (
+  97             &'static Mesh3d,
+  98             &'static crate::presentation::interior_lighting::InteriorMaterialSource,
+  99             &'static ChildOf,
+ 100         ),
+ 101     >,
+ 102     parents: Query<'w, 's, &'static ChildOf>,
+ 103     cameras: Query<'w, 's, (&'static Camera, &'static GlobalTransform), With<Camera3d>>,
+ 104     palette: Res<'w, TacticalBuildingMaterials>,
+ 105     textures: Res<'w, ProceduralTextureAssets>,
+ 106     materials: Res<'w, Assets<StandardMaterial>>,
+ 107     gpu: Res<'w, crate::tactical_scene_viewer::gpu_readiness::GpuReadiness>,
+ 108     adapter: Res<'w, RenderAdapterInfo>,
+ 109     graphics: Res<'w, TacticalGraphicsSettings>,
+ 110 }
+ 111 
+ 112 impl Observation<'_, '_> {
+ 113     fn assets_ready(
+ 114         &self,
+ 115         mesh: &Mesh3d,
+ 116         handle: &crate::presentation::interior_lighting::InteriorMaterialSource,
+ 117     ) -> bool {
+ 118         self.materials.get(&handle.0).is_some_and(|material| {
+ 119             self.gpu.contains(
+ 120                 &mesh.0,
+ 121                 [
+ 122                     &material.base_color_texture,
+ 123                     &material.normal_map_texture,
+ 124                     &material.metallic_roughness_texture,
+ 125                 ]
+ 126                 .into_iter()
+ 127                 .flatten()
+ 128                 .map(Handle::id),
+ 129             )
+ 130         })
+ 131     }
+ 132 
+ 133     fn check(&self, requirements: &ReviewRequirements) -> bool {
+ 134         if self.gardens.check(&self.gpu).is_err()
+ 135             || self.buildings.iter().count() != requirements.buildings
+ 136             || self.boundaries.iter().count() != requirements.boundaries
+ 137             || self.doors.iter().count() != requirements.doors
+ 138             || self.windows.iter().count() != requirements.windows
+ 139         {
+ 140             return false;
+ 141         }
+ 142         if !self
+ 143             .batches
+ 144             .iter()
+ 145             .all(|(_, _, mesh, material)| self.assets_ready(mesh, material))
+ 146             || !self
+ 147                 .doors
+ 148                 .iter()
+ 149                 .all(|(_, mesh, material)| self.assets_ready(mesh, material))
+ 150             || !self
+ 151                 .windows
+ 152                 .iter()
+ 153                 .all(|(_, mesh, material)| self.assets_ready(mesh, material))
+ 154         {
+ 155             return false;
+ 156         }
+ 157         for (mesh, material, parent) in &self.parts {
+ 158             let is_sign = self.signs.contains(parent.parent())
+ 159                 || self
+ 160                     .parents

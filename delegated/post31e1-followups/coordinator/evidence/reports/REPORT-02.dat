@@ -1,0 +1,115 @@
+{
+  "schema": "bounded-q2352-q2353-source-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "created_at_utc": "2026-11-12T18:03:40.039671+00:00",
+  "baseline": {
+    "pinned_current_commit": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "recorded_historical_pr_working_basis": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "separately_compared_e275": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "ledger_commit": "9e9e237c0c3c28278342e831da9f243fc2229e58",
+    "qualification": "Claims concern pinned committed Git blobs, not a working-tree identity. The historical pr-working snapshot had unrelated changes; per-file equalities do not establish whole-tree equality. e275 comparison does not reassign the historic reviewer or snapshot."
+  },
+  "historical_records": {
+    "q2352": {
+      "id": "PL13-263-DISCLOSURE-CLOCK-ERROR-DEFAULT-PENDING",
+      "raw_sha256": "9e206b979d6624b8e02c6018b2929f09a26a9d09476e091cb7f9178bbb3115f0"
+    },
+    "q2353": {
+      "id": "PL13-263-DISCLOSURE-PROVENANCE-OUTER-NONE-PENDING",
+      "raw_sha256": "aabc8991560f1fa5d0870ed8c4f225900b68181f2d4a020e95ffa704f33dee1b"
+    },
+    "status": "Both original 059 entries record open-connected-source-current-alias-qualification, no discovery closure, body credit or runtime pass. No promotion to checkpoint 3821.",
+    "attribution": "PL13-263 records a delegated independent Lens13 reader for historical sites.rs 1–617 and sites/provenance.rs 1–95; the selected evidence does not name the individual. The root adoption records no root personal reread. PL13-272 separately records connected historical clock.rs 1–127 and chronology.rs 1–200 as the delegated reviewer’s actual body work, with no original role credit for the clock connection. Preserve those scopes and 6533 identity.",
+    "granular_qualification": "The later historic PL13-272 source assessment rejected an ordinary missing-clock error witness in the shown producer and retained a conditional future-error policy. It did not assert a runtime incident or close the global queue.",
+    "identity": "Eight directly cited old registration, proposal, read and adoption records match expected whole-file hashes. All four recorded historical site, provenance, clock and chronology blobs individually match their 6533, e275 and 95e objects. Whole queue original and e709 public reconstruction differ, while the two selected objects compare equal."
+  },
+  "observations": [
+    {
+      "id": "DISCLOSURE-CLOCK-DEFAULT",
+      "refs": [
+        "sites-current.rs:456-472",
+        "sites-current.rs:490-550",
+        "sites-current.rs:296-320",
+        "sites-current.rs:323-355",
+        "clock-current.rs:1-31",
+        "support-calendar-current.rs:82-104"
+      ],
+      "detail": "Disclosure calls refresh_clock and converts an Err to StrategicMinute::default, which is zero, before active-lead correction or insertion; the insertion records that minute. The temporal view uses recorded_at as a visibility boundary. A successful existing matching lead can return before insertion, so zero is not invariably retained. The displayed producer first initializes a missing clock row, then returns its explicit Err only if the row is still absent.",
+      "limits": "No ordinary supported Err witness, malformed database, product result or subsequent temporal incident is established. If a supported future error exists, silently inventing time zero is a separate policy question; a deliberate legitimate zero must remain distinct."
+    },
+    {
+      "id": "PROVENANCE-OUTER-NONE",
+      "refs": [
+        "provenance-current.rs:33-95",
+        "sites-current.rs:250-265",
+        "sites-current.rs:323-355",
+        "sites-current.rs:456-469",
+        "sites-current.rs:490-550",
+        "sites-current.rs:561-585"
+      ],
+      "detail": "The provenance validator returns outer None for missing/invalid case-authority or incompatible generated/manual state and returns Some(None) for its valid manual mode. Same-case disclosure accepts the site even when the outer result is None; observer and action lookups use ? and therefore require an outer Some. On the insertion/correction or visited path, the difference can affect retained lead state if invalid provenance is actually admitted.",
+      "limits": "No supported invalid generated/manual writer or stale persisted state has been proven. Some(None) is legitimate manual provenance and must not be conflated with outer None. Other consumers and transaction behavior remain open."
+    },
+    {
+      "id": "SELECTED-CALLER-SAFEGUARDS",
+      "refs": [
+        "support-capabilities-current.rs:901-929",
+        "support-capabilities-current.rs:943-968",
+        "support-bootstrap-current.rs:2157-2189",
+        "support-bootstrap-current.rs:2230-2273",
+        "support-challenges-current.rs:2152-2186",
+        "support-challenges-current.rs:2245-2258",
+        "support-challenges-current.rs:2366-2372"
+      ],
+      "detail": "The selected generated initial-knowledge caller obtains a validated generation authority/manifest, fetches the referenced site and discloses with the manifest public case ID; the selected generated materializer assigns site and generated case the canonical ID. A selected errantry author inserts a manual case with empty generated ID, creates a site for the same case, then discloses it. The manual validator also requires no conflicting generation authorities.",
+      "limits": "These are bounded source safeguards, not proof all callers/writers satisfy them or that a conflicting authority/corrupt site is reachable. The standalone/debug bootstrap site is source text only and is not treated as ordinary generated disclosure reachability."
+    }
+  ],
+  "related_records": [
+    {
+      "record": "059 q940 Q-L12-b4e6cd6c136c3b996b3f",
+      "relation": "Separate open L12 source-locator obligation concerning disclosure clock/provenance; its own metadata explicitly says source context is not identity proof."
+    },
+    {
+      "record": "774 CAM-PROP-F023, transport 05.gz JSONL lines 40 and 45",
+      "relation": "Older CAM-PPS-DIALOGUE-040 and CAM-PPS-CLINICAL-RECEIVERS-045 traces describe missing required clocks/observations and distinguish legitimate epoch zero. The explicit F023 erratum limits its owner claim. These are historical context, not proof of the same disclosure first failure or unique count."
+    },
+    {
+      "record": "Committed ledger row 787 SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+      "relation": "Residence/family presentation clock fallback has related chronology policy but a distinct owner; aliases and reachability remain open."
+    },
+    {
+      "record": "Committed ledger row 743 SEGOVB-L12-STRATEGIC-CASE-SITE-CAUSE-ERASURE",
+      "relation": "Generated site validation error-to-string boundary is a separate conditional error-ownership question."
+    },
+    {
+      "record": "Committed ledger rows 178 and 825",
+      "relation": "Paired-term locator also found quest-coverage trust and owner-keyed site pins; selected row 825 expressly says no disclosure claim. Not inferred aliases."
+    }
+  ],
+  "perspectives": {
+    "type_ownership": "Disclosure, provenance validation and clock initialization have distinct source owners.",
+    "existing_type_owners": "StrategicMinute default and valid manual Some(None) already have concrete meanings.",
+    "magic_strings": "Site IDs and labels appear in selected paths; no exhaustive string audit.",
+    "magic_numbers": "Zero is a valid minute yet also a conditional error default.",
+    "enum_shapes": "Nested Option carries invalid outer None separately from valid manual inner None.",
+    "aggregate_states": "Case, site, generation authority and observer lead must be mutually coherent.",
+    "admission_contracts": "Selected manual and generated writers provide limited safeguards; other writers remain open.",
+    "invariant_operations": "Correction/insertion and visibility depend on recorded chronology.",
+    "producer_propagation": "Trace selected clock, disclosure, retained lead and observer consumer only.",
+    "redundant_authority": "Site case identity and validated provenance overlap but have distinct checks.",
+    "derivability": "No broad derive/serialization investigation.",
+    "type_granularity": "Outer None versus Some(None) distinction is material.",
+    "behavior_preservation": "Historic, e275 and current source objects compare per-file; no runtime comparison."
+  },
+  "open_questions": [
+    "Can an authorized current producer or persisted state reach outer None with a same-case disclosure?",
+    "Can refresh_clock return Err in any supported state after its initializer, and what should callers do for a future fallible producer?",
+    "Which other disclosure callers, generated aliases, and transaction behaviors require independent audit?",
+    "What exact historical owner and alias relationships, if any, should the central ledger adopt?"
+  ],
+  "read_scope": "READ-LIMITS.json and V2 display receipts enumerate actual current windows and all unread complements. Exact historical captures, e275 and unshown chronology bodies do not transfer read credit. Test source, where displayed, was not run.",
+  "locator_qualifications": "UNREGISTERED-LOCATOR-RECEIPT records a truncated, metadata-only publication filename display without source read credit. F023-PARSE-ERROR records that two 774 files are JSONL rather than single JSON documents. F023-JSONL-CORRECTION records the first metadata walker omitted direct list strings (14 matches and zero exact IDs), and the corrected walker found 42 matching scalar strings, including 24 exact IDs.",
+  "proof_scope": "GIT-TREE-PROOFS.json binds 17 per-revision source paths to recorded root trees; independently bind commits using a repository. F023-RECORD-CAPTURE distinguishes stored gzip, decoded JSONL and exact selected line hashes. No raw commit author metadata copied.",
+  "nonclosure": "Bounded source review only: no queue/lens closure, alias decision or unique defect count; no product code, tests, fixtures, builds, probes or repairs executed."
+}

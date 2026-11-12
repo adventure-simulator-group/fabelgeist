@@ -1,0 +1,21 @@
+--- crates/adventuresim-stdb-module/src/relationship/family.rs:94-113 ---
+   94 pub fn effective_age_years(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) -> Option<u16> {
+   95     ctx.db.character().id().find(character_id)?;
+   96     let birth = ctx.db.character_birth().character_id().find(character_id)?;
+   97     Some(minute.age_years_since_signed_birth(birth.birth_minute))
+   98 }
+   99 
+  100 /// Refresh the cached display age from the authoritative birth coordinate.
+  101 /// Calling this at every lifecycle boundary naturally promotes dependents at
+  102 /// their yearly boundary without granting newborn starter equipment.
+  103 pub fn settle_character_age(ctx: &ReducerContext, character_id: u64, minute: StrategicMinute) {
+  104     let Some(mut character) = ctx.db.character().id().find(character_id) else {
+  105         return;
+  106     };
+  107     let Some(age_years) = effective_age_years(ctx, character_id, minute) else {
+  108         return;
+  109     };
+  110     if character.age_years != age_years {
+  111         character.age_years = age_years;
+  112         ctx.db.character().id().update(character);
+  113     }

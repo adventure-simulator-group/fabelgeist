@@ -1,0 +1,110 @@
+--- crates/adventuresim-core/src/strategic_place.rs:17-35 ---
+   17 /// A validated opaque identifier used inside a canonical strategic identity.
+   18 ///
+   19 /// Domain IDs remain opaque: this type prevents delimiters, names, or prefix
+   20 /// conventions from being reinterpreted as additional place structure.
+   21 #[derive(Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+   22 pub struct StrategicIdentityComponent(String);
+   23 
+   24 impl StrategicIdentityComponent {
+   25     pub fn try_new(value: impl Into<String>) -> Result<Self, PlaceIdentityError> {
+   26         let value = value.into();
+   27         if value.is_empty()
+   28             || value.len() > MAX_STRATEGIC_ID_COMPONENT_BYTES
+   29             || !value.bytes().all(|byte| {
+   30                 byte.is_ascii_alphanumeric() || matches!(byte, b':' | b'_' | b'-' | b'.')
+   31             })
+   32         {
+   33             return Err(PlaceIdentityError::InvalidComponent);
+   34         }
+   35         Ok(Self(value))
+--- crates/adventuresim-core/src/strategic_place.rs:214-238 ---
+  214 pub enum StrategicPlaceId {
+  215     Settlement {
+  216         settlement_id: StrategicIdentityComponent,
+  217     },
+  218     SettlementVenue {
+  219         settlement_id: StrategicIdentityComponent,
+  220         kind: SettlementVenueKind,
+  221     },
+  222     ChapterVenue {
+  223         settlement_id: StrategicIdentityComponent,
+  224         organization_id: StrategicIdentityComponent,
+  225         authored_location_id: StrategicIdentityComponent,
+  226     },
+  227     Residence {
+  228         settlement_id: StrategicIdentityComponent,
+  229         holding_id: StrategicIdentityComponent,
+  230     },
+  231     CaseSite {
+  232         site_id: CaseSiteId,
+  233     },
+  234     JourneyCamp {
+  235         party_id: StrategicIdentityComponent,
+  236         departure_minute: StrategicMinute,
+  237         movement_minute: u64,
+  238     },
+--- crates/adventuresim-core/src/strategic_place.rs:286-296 ---
+  286     pub fn journey_camp(
+  287         party_id: impl Into<String>,
+  288         departure_minute: StrategicMinute,
+  289         movement_minute: u64,
+  290     ) -> Result<Self, PlaceIdentityError> {
+  291         Ok(Self::JourneyCamp {
+  292             party_id: StrategicIdentityComponent::try_new(party_id)?,
+  293             departure_minute,
+  294             movement_minute,
+  295         })
+  296     }
+--- crates/adventuresim-core/src/strategic_place.rs:455-505 ---
+  455 impl fmt::Display for StrategicPlaceId {
+  456     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  457         formatter.write_str("place:")?;
+  458         formatter.write_str(FORMAT_VERSION)?;
+  459         match self {
+  460             Self::Settlement { settlement_id } => {
+  461                 write!(formatter, ":settlement:{}", encode(settlement_id.as_str()))
+  462             }
+  463             Self::SettlementVenue {
+  464                 settlement_id,
+  465                 kind,
+  466             } => write!(
+  467                 formatter,
+  468                 ":venue:{}:{}",
+  469                 encode(settlement_id.as_str()),
+  470                 kind.id()
+  471             ),
+  472             Self::ChapterVenue {
+  473                 settlement_id,
+  474                 organization_id,
+  475                 authored_location_id,
+  476             } => write!(
+  477                 formatter,
+  478                 ":chapter:{}:{}:{}",
+  479                 encode(settlement_id.as_str()),
+  480                 encode(organization_id.as_str()),
+  481                 encode(authored_location_id.as_str())
+  482             ),
+  483             Self::Residence {
+  484                 settlement_id,
+  485                 holding_id,
+  486             } => write!(
+  487                 formatter,
+  488                 ":residence:{}:{}",
+  489                 encode(settlement_id.as_str()),
+  490                 encode(holding_id.as_str())
+  491             ),
+  492             Self::CaseSite { site_id } => {
+  493                 write!(formatter, ":case-site:{}", encode(site_id.as_str()))
+  494             }
+  495             Self::JourneyCamp {
+  496                 party_id,
+  497                 departure_minute,
+  498                 movement_minute,
+  499             } => write!(
+  500                 formatter,
+  501                 ":journey-camp:{}:{departure_minute}:{movement_minute}",
+  502                 encode(party_id.as_str())
+  503             ),
+  504         }
+  505     }

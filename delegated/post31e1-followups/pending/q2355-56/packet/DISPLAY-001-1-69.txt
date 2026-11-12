@@ -1,0 +1,69 @@
+   1 //! Lossless storage for committed runtime textures. Mips and samplers are baked once.
+   2 
+   3 use std::io::{self, Read, Write};
+   4 
+   5 use flate2::{Compression, bufread::GzDecoder, write::GzEncoder};
+   6 
+   7 use super::BakedRecipe;
+   8 
+   9 // Bounds one recipe, including eight RGBA 2048-square maps with complete mips.
+  10 const MAX_DECOMPRESSED_BAKE_BYTES: u64 = 192 * 1024 * 1024;
+  11 
+  12 impl BakedRecipe {
+  13     pub fn to_compressed_bytes(&self) -> io::Result<Vec<u8>> {
+  14         let mut encoder = GzEncoder::new(Vec::new(), Compression::default());
+  15         encoder.write_all(&self.to_bytes())?;
+  16         encoder.finish()
+  17     }
+  18 
+  19     pub fn from_compressed_bytes(bytes: &[u8]) -> io::Result<Self> {
+  20         let mut decoder = GzDecoder::new(bytes);
+  21         let mut decoded = Vec::new();
+  22         decoder
+  23             .by_ref()
+  24             .take(MAX_DECOMPRESSED_BAKE_BYTES + 1)
+  25             .read_to_end(&mut decoded)?;
+  26         if decoded.len() as u64 > MAX_DECOMPRESSED_BAKE_BYTES {
+  27             return Err(io::Error::other(
+  28                 "procedural texture bake exceeds size limit",
+  29             ));
+  30         }
+  31         if !decoder.into_inner().is_empty() {
+  32             return Err(io::Error::other("unexpected trailing compressed bake data"));
+  33         }
+  34         Self::from_bytes(&decoded).map_err(io::Error::other)
+  35     }
+  36 }
+  37 
+  38 #[cfg(test)]
+  39 mod tests {
+  40     use super::*;
+  41     use crate::{BakeResolution, PROCEDURAL_TEXTURE_CATALOGUE, TextureParameters};
+  42 
+  43     #[test]
+  44     fn every_recipe_round_trips_pixels_mips_formats_and_samplers() {
+  45         let params = TextureParameters {
+  46             resolution: BakeResolution::Draft,
+  47             ..Default::default()
+  48         };
+  49         for descriptor in PROCEDURAL_TEXTURE_CATALOGUE {
+  50             let source = BakedRecipe::generate(descriptor.id, &params);
+  51             let compressed = source.to_compressed_bytes().unwrap();
+  52             assert_eq!(compressed, source.to_compressed_bytes().unwrap());
+  53             let decoded = BakedRecipe::from_compressed_bytes(&compressed).unwrap();
+  54             assert_eq!(
+  55                 source.to_bytes(),
+  56                 decoded.to_bytes(),
+  57                 "{}",
+  58                 descriptor.id.slug()
+  59             );
+  60             assert!(
+  61                 BakedRecipe::from_compressed_bytes(&compressed[..compressed.len() - 1]).is_err()
+  62             );
+  63             let mut trailing = compressed;
+  64             trailing.push(0);
+  65             assert!(BakedRecipe::from_compressed_bytes(&trailing).is_err());
+  66         }
+  67         assert!(BakedRecipe::from_compressed_bytes(b"not a texture bake").is_err());
+  68     }
+  69 }

@@ -1,0 +1,122 @@
+ 151                     0.0,
+ 152                 ))
+ 153                 .unwrap();
+ 154         }
+ 155         let mut pending = PendingCityBuildings::new(&placements, &[]);
+ 156         pending.prioritize(Vec2::new(200.0, 0.0));
+ 157         assert_eq!(
+ 158             pending.placements.front().unwrap().placement.id,
+ 159             placements[2].id
+ 160         );
+ 161         pending.prioritize(Vec2::ZERO);
+ 162         assert_eq!(
+ 163             pending.placements.front().unwrap().placement.id,
+ 164             placements[0].id
+ 165         );
+ 166     }
+ 167 }
+ 168 
+ 169 #[derive(bevy::ecs::system::SystemParam)]
+ 170 pub(super) struct CityBuildingAssets<'w> {
+ 171     meshes: ResMut<'w, Assets<Mesh>>,
+ 172     materials: Res<'w, TacticalBuildingMaterials>,
+ 173     cache: ResMut<'w, TacticalBuildingMeshCache>,
+ 174     signs: signs::SignAssets<'w>,
+ 175     pub(super) gpu: ResMut<'w, gpu::PendingGpuCities>,
+ 176 }
+ 177 
+ 178 impl CityBuildingAssets<'_> {
+ 179     pub(super) fn spawn(
+ 180         &mut self,
+ 181         commands: &mut Commands,
+ 182         placement: &DistantBuildingPlacement,
+ 183         establishment: Option<&SceneEstablishment>,
+ 184         detail: BuildingDetail,
+ 185     ) -> Result<bool> {
+ 186         let program = placement.occupied_program();
+ 187         let compiled = cached_building_levels(
+ 188             PresentationOwner::Scene,
+ 189             &mut self.cache,
+ 190             &program,
+ 191             detail,
+ 192             &mut self.meshes,
+ 193             None,
+ 194         )?;
+ 195         let transform = Transform::from_xyz(
+ 196             placement.centre_metres.metres().x,
+ 197             placement.base_elevation_metres.metres() + compiled.local_origin.metres().y,
+ 198             placement.centre_metres.metres().y,
+ 199         )
+ 200         .with_rotation(Quat::from_rotation_y(placement.orientation.yaw_radians()));
+ 201         let mut entity = commands.spawn((
+ 202             Name::new(format!("Distant city building {}", placement.id)),
+ 203             DistantCityBuildingPresentation,
+ 204             crate::presentation::ownership::PresentationOwner::Scene,
+ 205             Visibility::default(),
+ 206             transform,
+ 207         ));
+ 208         self.gpu
+ 209             .owners
+ 210             .get_mut(crate::presentation::ownership::PresentationOwner::Scene)
+ 211             .push(
+ 212                 entity.id(),
+ 213                 &transform,
+ 214                 gpu::PlacementAppearance::Distant(*placement),
+ 215                 &compiled,
+ 216             );
+ 217         entity.with_children(|parent| {
+ 218             let sign = establishment.and_then(|establishment| {
+ 219                 establishment.shop_name.clone().and_then(|name| {
+ 220                     adventuresim_building_generator::signs::ShopSign::for_establishment(
+ 221                         adventuresim_building_generator::signs::EstablishmentId(placement.id.0),
+ 222                         establishment.business_id.key.usage,
+ 223                         name,
+ 224                     )
+ 225                 })
+ 226             });
+ 227             self.signs
+ 228                 .spawn(parent, sign.as_ref(), &compiled, &mut self.meshes);
+ 229         });
+ 230         Ok(true)
+ 231     }
+ 232 }
+ 233 
+ 234 pub(super) fn present(
+ 235     mut commands: Commands,
+ 236     pending: Option<ResMut<PendingCityBuildings>>,
+ 237     mut assets: CityBuildingAssets,
+ 238     cameras: Query<&GlobalTransform, With<TacticalGameplayCamera>>,
+ 239 ) {
+ 240     let Some(mut pending) = pending else {
+ 241         return;
+ 242     };
+ 243     if pending.finished() {
+ 244         if !assets.cache.recipes.is_empty() {
+ 245             assets.cache.recipes.clear();
+ 246         }
+ 247         return;
+ 248     }
+ 249     if let Some(camera) = cameras.iter().next() {
+ 250         pending.prioritize(camera.translation().xz());
+ 251     }
+ 252     let detail = BuildingDetail::Facade;
+ 253     pending.advance(|pending| {
+ 254         assets.spawn(
+ 255             &mut commands,
+ 256             &pending.placement,
+ 257             pending.establishment.as_ref(),
+ 258             detail,
+ 259         )
+ 260     });
+ 261     if pending.finished() {
+ 262         // Promoted venues may leave recipes with no remaining facade instance.
+ 263         // Drop those temporary CPU plans once all city meshes are resident.
+ 264         assets.cache.recipes.clear();
+ 265         #[cfg(target_family = "wasm")]
+ 266         if let Err(error) = super::super::generation::release_unused_facades(
+ 267             crate::presentation::ownership::PresentationOwner::Scene,
+ 268         ) {
+ 269             warn!(%error, "Could not release temporary generated facades");
+ 270         }
+ 271     }
+ 272 }

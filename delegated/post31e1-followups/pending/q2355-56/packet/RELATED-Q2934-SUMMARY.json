@@ -1,0 +1,12 @@
+{
+  "contract_id": "SEGOVB-L3-TEXTURE-RECIPE-CHANNEL-ADMISSION",
+  "kind": "retained-conditional-admission-finding",
+  "lens": 3,
+  "canonical_owner": "One TextureRecipeId-owned required/allowed map-channel contract, consumed at BakedRecipe/runtime asset admission and ProceduralTextureAssets::reserve; exact required-versus-allowed sparse map policy remains explicit.",
+  "first_failed_contract_or_unresolved_question": "BakedRecipe::from_bytes validates map shapes and unique channels but does not establish that a channel belongs to its declared recipe before RuntimeTextureLoader admits it as RuntimeTextureRecipe. The installation consumer requires every supplied map channel to have a reserved destination for that same recipe.",
+  "dependencies": [
+    "Choose exact required-versus-allowed channel/subset policy for each recipe, including leaf/glass/surface/bark/ground/Crenellation roles.",
+    "Same own-L3 source proof at current e275 is qualified; global exact alias inventory and other-lens/current obligations remain separate."
+  ],
+  "status_key_present": false
+}

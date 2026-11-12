@@ -1,0 +1,83 @@
+[
+  {
+    "query": {
+      "term": "struct PositiveLength",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/fabelgeist-geometry/src/length.rs",
+        "line": 15
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "struct NonnegativeLength",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "line": 14
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "struct SignedLength",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 1,
+    "retained": [
+      {
+        "path": "crates/fabelgeist-geometry/src/measurement.rs",
+        "line": 21
+      }
+    ],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "struct TextureSize",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "struct PixelSize",
+      "paths": [
+        "crates"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  },
+  {
+    "query": {
+      "term": "fabelgeist-geometry",
+      "paths": [
+        "crates/adventuresim-procedural-textures/Cargo.toml"
+      ]
+    },
+    "total": 0,
+    "retained": [],
+    "omitted": 0
+  }
+]

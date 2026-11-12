@@ -1,0 +1,71 @@
+ 445     let is_client_player = local_character.0 == id.0;
+ 446     if is_client_player {
+ 447         info!(
+ 448             entity = ?event.entity,
+ 449             "New player is assigned to this client. Assuming control...",
+ 450         );
+ 451 
+ 452         commands.entity(event.entity).insert((
+ 453             tactical_character_controller(),
+ 454             ClientPlayer,
+ 455             LocalBodyFacing::default(),
+ 456             LocalQuickstepTrace::default(),
+ 457             GrassInteractor,
+ 458             actions!(Player[
+ 459                 (
+ 460                     Action::<input::Movement>::new(),
+ 461                     DeadZone::default(),
+ 462                     Bindings::spawn((
+ 463                         Cardinal::wasd_keys(),
+ 464                         Axial::left_stick()
+ 465                     ))
+ 466                 ),
+ 467                 (
+ 468                     Action::<input::RotateCamera>::new(),
+ 469                     Bindings::spawn((
+ 470                         Spawn((Binding::mouse_motion(), Scale::splat(0.15))),
+ 471                         Axial::right_stick().with((
+ 472                             Scale::new(Vec3::from_array(
+ 473                                 combat_config.client_input.gamepad_look_scale,
+ 474                             )),
+ 475                             DeadZone::default(),
+ 476                         )),
+ 477                     ))
+ 478                 ),
+ 479             ]),
+ 480         ));
+ 481 
+ 482         #[cfg(feature = "debug")]
+ 483         commands.entity(event.entity).insert(DebugRender::none());
+ 484 
+ 485         commands
+ 486             .entity(camera.into_inner())
+ 487             .insert(CharacterControllerCameraOf::new(event.entity));
+ 488     }
+ 489 
+ 490     commands.entity(event.entity).with_children(|parent| {
+ 491         spawn_fallback_t_pose(
+ 492             parent,
+ 493             event.entity,
+ 494             id.color(),
+ 495             &mut meshes,
+ 496             &mut materials,
+ 497         );
+ 498 
+ 499         if !is_client_player {
+ 500             for hitbox in &combat_config.targeting.body_part_hitboxes {
+ 501                 let half_extents = Vec3::from_array(hitbox.half_extents_metres);
+ 502                 parent.spawn((
+ 503                     LimbHitbox(hitbox.body_part),
+ 504                     Collider::cuboid(
+ 505                         half_extents.x * 2.0,
+ 506                         half_extents.y * 2.0,
+ 507                         half_extents.z * 2.0,
+ 508                     ),
+ 509                     CollisionLayers::new(HITBOX_LAYER, LayerMask::ALL),
+ 510                     Transform::from_translation(Vec3::from_array(hitbox.center_metres)),
+ 511                 ));
+ 512             }
+ 513         }
+ 514     });
+ 515 
