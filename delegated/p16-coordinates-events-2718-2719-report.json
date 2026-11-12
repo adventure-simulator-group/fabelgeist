@@ -1,0 +1,428 @@
+{
+  "schema": "726-delegated-bounded-source-assessment-v1",
+  "created_utc": "2026-11-12T03:23:19.254781+00:00",
+  "author": "/root/mhr_character",
+  "scope": {
+    "roles": [
+      2718,
+      2719
+    ],
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "dirty physical-p16 recorded base a120390947c89b703dc74c4255a13c035d054c50; f82 is evidence transport, not source commit",
+    "entries": [
+      {
+        "original_index": 2718,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "snapshot": "dirty physical-p16 archived object, not clean commit",
+        "revision": null,
+        "path": "crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "source_archive": "source/2718-historical.rs",
+        "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+        "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4",
+        "bytes": 1838,
+        "EOF": 49,
+        "registered_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            49
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7"
+      },
+      {
+        "original_index": 2718,
+        "source_id": "current:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "source_archive": "source/2718-current.rs",
+        "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+        "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4",
+        "bytes": 1838,
+        "EOF": 49,
+        "registered_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            49
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      },
+      {
+        "original_index": 2719,
+        "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+        "snapshot": "dirty physical-p16 archived object, not clean commit",
+        "revision": null,
+        "path": "crates/adventuresim-core/src/world_event.rs",
+        "source_archive": "source/2719-historical.rs",
+        "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+        "git_blob": "416b602e4d44fdf6b09c82cba6f80be216028025",
+        "bytes": 21001,
+        "EOF": 620,
+        "registered_ranges": [
+          [
+            1,
+            151
+          ],
+          [
+            245,
+            398
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            80
+          ],
+          [
+            81,
+            151
+          ],
+          [
+            245,
+            324
+          ],
+          [
+            325,
+            398
+          ]
+        ],
+        "original_material_ranges": [
+          [
+            1,
+            151
+          ],
+          [
+            245,
+            398
+          ]
+        ],
+        "transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4"
+      },
+      {
+        "original_index": 2719,
+        "source_id": "current:crates/adventuresim-core/src/world_event.rs",
+        "snapshot": "pinned current project",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-core/src/world_event.rs",
+        "source_archive": "source/2719-current.rs",
+        "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+        "git_blob": "416b602e4d44fdf6b09c82cba6f80be216028025",
+        "bytes": 21001,
+        "EOF": 620,
+        "registered_ranges": [
+          [
+            1,
+            151
+          ],
+          [
+            245,
+            398
+          ]
+        ],
+        "planned_chunks": [
+          [
+            1,
+            80
+          ],
+          [
+            81,
+            151
+          ],
+          [
+            245,
+            324
+          ],
+          [
+            325,
+            398
+          ]
+        ],
+        "original_material_ranges": null,
+        "transport_path": null
+      }
+    ],
+    "actual_read_scope": "read-scope-summary.json",
+    "receipts": [
+      "personal-read-receipt.json",
+      "support-read-receipt.json",
+      "support2-read-receipt.json",
+      "support3-read-receipt.json",
+      "support4-read-receipt.json",
+      "support5-read-receipt.json",
+      "support6-read-receipt.json"
+    ],
+    "excluded": "Original2719 and this role review both exclude 152\u2013244 and399\u2013620. Several separately registered support windows include test-source text only; no test or fixture executed.",
+    "constraint": "Source/evidence inspection only: no product, tests, fixtures, builds, probes, execution, simulation, implementation or validation."
+  },
+  "identity": {
+    "assigned": "Each original P16 object individually equals recorded clean a120 base, separate 6533 historical file and pinned 95e file; old/current still displayed separately. P16 snapshot remains dirty with 159 statuses.",
+    "patch": "Later recovered tracked patch matches recorded SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, excludes seven untracked objects and does not establish original invocation or uninterrupted custody.",
+    "proof": "git-proofs.json",
+    "registry": "registry-selection-reconstructed.json"
+  },
+  "existing_findings": [
+    {
+      "id": "NATIVE-CONT-WORLD-F001",
+      "classification": "Original 774 producer-propagation finding, independently bounded current-source continuation; no new unique count",
+      "historical": "history-774/native/findings.json.gz preserves original exact identity, original pr-working source references, attribution, and connected Camera scope; CONT-NATIVE-OWNER-F005 is separately retained existing owner-fit support.",
+      "condition": "current_strategic_place returns StrategicPlaceId, food consumption calls place.to_string, and commit_food_water_infection stores the result as raw place_id String. Envelope validate applies generic nonempty/no-control and <=192-byte rule. StrategicIdentityComponent permits <=256 allowed ASCII bytes and settlement display hex-encodes component bytes. Consequently the accepted type-level component and event-key size domains differ, and a sufficiently long otherwise valid typed settlement place encoding would be rejected by the generic event check.",
+      "sources": [
+        "support/foraging_place.rs:414-419",
+        "support/food_consumption.rs:79-96",
+        "support/strategic_place_encoding.rs:11-35",
+        "support/strategic_place.rs:214-246",
+        "support/strategic_place_encoding.rs:455-461",
+        "support/strategic_place_codec.rs:653-660",
+        "support/event_store.rs:957-967",
+        "source/2719-current.rs:306-309",
+        "source/2719-current.rs:359-366"
+      ],
+      "limit": "No actual long place, supported DB state, reducer call, rejected event or production failure witnessed. Generic raw event IDs and typed canonical place identity have different domains; actual source population and policy need independent trace. Earlier 774 work cautions that 192 and canonical 4096 policies are distinct and must not be silently narrowed.",
+      "future_repair_direction": "After full audit and separate authorization, retain an admitted canonical place through the relevant producer/consumer path with explicit raw-input/error and native encoding boundaries, preserving retry identity and place authority.",
+      "unique_count_change": 0
+    },
+    {
+      "id": "SEGOVB-L12-WORLD-EVENT-CONSEQUENCE-TEXT-KEY",
+      "classification": "Original 059 q247 and published 95e revisit; independently checked bounded receiver, no new count",
+      "condition": "Current private consequence_identity maps closed consequence variants to static category strings plus their owned IDs; validate_consequences uses that tuple to detect repeated identities.",
+      "sources": [
+        "support/event_store.rs:156-166",
+        "support/event_store.rs:463-477"
+      ],
+      "limit": "No arbitrary label ingress, category collision, duplicate accepted consequence or product failure proved. Preserve prior report authorship and compare exact alias centrally.",
+      "unique_count_change": 0
+    },
+    {
+      "id": "ROOT-INITIAL04-CONTRACT-017 food floating port",
+      "classification": "Existing historical source-immunity admission observation, with new current caller-path counterevidence; no new unique count",
+      "condition": "The event adapter clamps and casts immunity and prior immunity to milliunits; prior 774 inspection noted NaN-to-zero and infinity-to-endpoint behavior. On the independently inspected current food caller, the same NaN immunity is passed to acquisition_succeeds first: NaN propagates into chance and the ordered less-than comparison is false, so this specific caller does not reach commit with NaN immunity.",
+      "sources": [
+        "support/event_store.rs:941-998",
+        "support/food_consumption.rs:35-98",
+        "support/disease.rs:1519-1529"
+      ],
+      "call_search": "bounded-call-search.json records exact syntactic occurrences in the module source, with indirect/macro/runtime limits.",
+      "limit": "This is source-level floating-point reasoning, not a run. Only the inspected caller path is constrained; raw input provenance, all call forms and whether infinite immunity can be admitted and pass acquisition remain unresolved. Do not claim a current NaN event or make a new duplicate.",
+      "unique_count_change": 0
+    }
+  ],
+  "related_records": [
+    {
+      "id": "ROOT-ADM-F007",
+      "relation": "Prior 774 raw TravelGeometryPoint public/Serde accessor issue, previously independently assessed in prior-terrain/report.json. Different from private Wgs84BoundsE7 corners and axis typed constructors in role2718; coordinate theme alone is not alias or safety guarantee for other products."
+    },
+    {
+      "id": "774 Native REG082 and REG088",
+      "relation": "Original Native recorded P16 exact bounds 1\u201349 and world_event 1\u2013151/245\u2013398. REG082 describes contains/intersects, but the actual full 49-line bounds body defines constructors, degree conversion and intersects, no contains method. Preserve original wording, report actual API."
+    },
+    {
+      "id": "774 CONT-NATIVE-OWNER-F005",
+      "relation": "Original owner-fit support explicitly references NATIVE-CONT-WORLD-F001; no new defect count or automatic wider alias."
+    },
+    {
+      "id": "059 Segovb and Lens12 frontier",
+      "relation": "READ-L11-443 freshly read 2718:1\u201349 and 2719:1\u2013151/245\u2013398. /root/lens12_frontier separate 948 partials independently read these same ranges; proposal948 explicitly requires root adoption, not established by bounded search."
+    },
+    {
+      "id": "Prior current coordinate support chronology",
+      "relation": "prior-terrain/BUNDLE-MANIFEST.json anchors this reviewer\u2019s preceding role2712\u20132714 coordinates 1\u2013140 read. This role independently prospectively re-displayed 55\u2013140 and newly displayed other registered windows; no historical or role credit transfers."
+    },
+    {
+      "id": "059 q896, q248 and q1057",
+      "relation": "Food exposure key/digest receiver, lifecycle policy metrics and privacy/entropy related records remain distinct with no automatic alias; archived original queue selection and prior lifecycle assessment retain original scopes."
+    }
+  ],
+  "nonfindings": [
+    "A touching or degenerate bounds rectangle is admitted by the explicit inclusive ordering/intersection policy; do not infer a positive-area requirement or antimeridian wrap.",
+    "RoadPack intersection returns a line-bounding-box candidate, not proof of a line/window geometric intersection.",
+    "Core quantizer rejects negative or nonfinite dose, while zero is representable there and rejected by the food payload relation; these are distinct local policies.",
+    "An exact duplicate subject reaches the prior >= ordering failure before the later BTreeSet duplicate error; do not claim that DuplicateSubject is the observed error.",
+    "The actual commit source validates both the request and built envelope; do not claim unchecked ordinary commit. Neither a type name nor validation proves membership, rights, privacy or observation.",
+    "Source test text was read as text only; no tests, fixtures, product or database execution."
+  ],
+  "open_questions": [
+    "Can an ordinarily admitted current strategic place encode to more than 192 event bytes, and what should each input boundary accept?",
+    "Are event request fingerprints/replay and consequence binding sufficient for all producers, retries and authorized transaction contexts beyond these selected windows?",
+    "What validates persisted immunity inputs, and can infinity or alternate/direct calls reach an event commit? NaN from the inspected caller is stopped at acquisition comparison.",
+    "What relationship, if any, exists between checked bounds, raw TravelGeometryPoint and other coordinate consumers beyond the qualified paths?",
+    "Should consequence category identity use an existing typed owner and preserve ordering/receipt bytes?",
+    "Original P16 excluded world_event ranges, other producers/callers, all thirteen full lens inventories and missing checkpoint3821 remain open."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "bounded_assessment": "The inspected food producer returns a typed StrategicPlaceId, stringifies it at the event boundary, then stores a generic WorldEventPlace and validates the whole envelope. Existing NATIVE-CONT-WORLD-F001 owns this connected source-to-retention concern.",
+      "references": [
+        "support/foraging_place.rs:414-419",
+        "support/food_consumption.rs:79-96",
+        "support/event_store.rs:941-997",
+        "source/2719-current.rs:56-60",
+        "source/2719-current.rs:245-261"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "bounded_assessment": "Wgs84BoundsE7 retains private checked coordinate corners; the separate event raw String place differs from the existing StrategicPlaceId owner. Do not make all raw ingress strings canonical by assumption.",
+      "references": [
+        "source/2718-current.rs:6-30",
+        "support/coordinates.rs:140-175",
+        "support/strategic_place.rs:207-239",
+        "source/2719-current.rs:56-60"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "bounded_assessment": "Bounds reject reversed corners and axis constructors reject out-of-range coordinates; equality remains admissible. Event serde/public fields are raw and commit explicitly validates request and built envelope before consequences. Authority, membership and knowledge remain distinct.",
+      "references": [
+        "source/2718-current.rs:12-30",
+        "support/coordinates.rs:58-81",
+        "support/coordinates_decode.rs:339-350",
+        "source/2719-current.rs:245-261",
+        "support/event_store.rs:301-340"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "bounded_assessment": "The source validates ordered unique subjects and payload correlation after construction. The historical source-immunity cast observation is qualified by the current acquisition guard for NaN; no bad committed event is witnessed.",
+      "references": [
+        "source/2719-current.rs:284-355",
+        "support/event_store.rs:969-982",
+        "support/food_consumption.rs:45-81",
+        "support/disease.rs:1519-1529"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "bounded_assessment": "Foraging requires matching source/payload and sole actor subject; case requires a matching case subject; food checks carrier, dose ordering, fraction and sole actor subject. Raw public mutation is possible outside the actual commit gate.",
+      "references": [
+        "source/2719-current.rs:284-355"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "bounded_assessment": "The coordinate rectangle, strategic place, event envelope, request fingerprint and consequence identity have different owners and lifetimes. Resolve accepted event/place boundary without broad narrowing of generic raw ingress.",
+      "references": [
+        "source/2718-current.rs:6-30",
+        "support/strategic_place.rs:207-239",
+        "source/2719-current.rs:245-258",
+        "support/event_store.rs:301-335"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "bounded_assessment": "WorldEventEnvelope retains source/actor/subject/payload fields, but validate checks their selected relationships. Core retry helper compares full envelope while actual transaction compares request digest; neither alone establishes every external identity authority.",
+      "references": [
+        "source/2719-current.rs:310-355",
+        "source/2719-current.rs:381-397",
+        "support/event_store.rs:301-325"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "bounded_assessment": "Keep inclusive touching and degenerate rectangle behavior and explicit no-antimeridian contract; preserve event schema/validation order, replay/collision handling, private occurrence versus knowledge, and valid zero dose policy where applicable.",
+      "references": [
+        "source/2718-current.rs:4-5",
+        "source/2718-current.rs:12-18",
+        "source/2718-current.rs:43-48",
+        "source/2719-current.rs:16-23",
+        "source/2719-current.rs:260-305",
+        "support/event_store.rs:310-325"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "bounded_assessment": "Closed event source, actor, place, payload and consequence variants carry their payloads; the validator checks supported combinations. Avoid inventing unrelated enum alternatives or interpreting actor/source as observation.",
+      "references": [
+        "source/2719-current.rs:1-5",
+        "source/2719-current.rs:29-81",
+        "source/2719-current.rs:94-135",
+        "source/2719-current.rs:310-355"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "bounded_assessment": "Bounds derives copy/equality and event types derive Serde/equality; explicit validators and typed correlation carry semantics beyond derive boilerplate. Strict prior-order check precedes duplicate-set error and is observable error order.",
+      "references": [
+        "source/2718-current.rs:6-10",
+        "source/2719-current.rs:245-261",
+        "source/2719-current.rs:287-304"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "bounded_assessment": "Latitude and longitude E7 bounds, WGS84 rectangles, abstract/native geographic pairs and projected geometry are different roles. The existing ROOT-ADM-F007 concerns a separate raw TravelGeometryPoint accessor, not this private checked bounds type.",
+      "references": [
+        "support/coordinates.rs:58-81",
+        "support/coordinates.rs:99-123",
+        "source/2718-current.rs:6-30",
+        "prior-terrain/report.json"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "bounded_assessment": "Consequence identity maps typed variants to private static category strings and IDs for duplicate detection; original 059 q247 remains a related existing key-owner question. String diagnostics and the internal discriminator do not by themselves show collision.",
+      "references": [
+        "support/event_store.rs:156-166",
+        "support/event_store.rs:463-477"
+      ],
+      "closure": "not assessed for the whole lens"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "bounded_assessment": "The event limit 192 bytes differs from StrategicIdentityComponent <=256 byte and hex expansion; 64 subjects and microunit scaling are distinct policies. Bounds equal corners are valid; no blanket positive-area policy is established.",
+      "references": [
+        "source/2719-current.rs:11-23",
+        "source/2719-current.rs:284-285",
+        "support/strategic_place_encoding.rs:11-35",
+        "support/strategic_place_codec.rs:653-660",
+        "source/2718-current.rs:13-18"
+      ],
+      "closure": "not assessed for the whole lens"
+    }
+  ],
+  "historical_qualification": "Recovered historical evidence, reconstructed registry/queue selection, prior current work and this bounded current assessment remain distinct; no promotion to checkpoint3821, proposal948 adoption, complete-lens closure, implementation or validation."
+}

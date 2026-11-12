@@ -1,0 +1,1138 @@
+{
+  "schema": "726-bounded-p16-turn-facing-2716-2717-v1",
+  "author": "/root/rig_identity",
+  "written_utc": "2026-11-12T03:19:40.965004+00:00",
+  "scope": {
+    "original_roles": [
+      2716,
+      2717
+    ],
+    "historic_material": {
+      "2716": [
+        [
+          1,
+          208
+        ]
+      ],
+      "2717": [
+        [
+          1,
+          325
+        ]
+      ]
+    },
+    "historic_unread": {
+      "2716": [
+        [
+          209,
+          432
+        ]
+      ],
+      "2717": [
+        [
+          326,
+          353
+        ]
+      ]
+    },
+    "current_support": {
+      "2716": [
+        [
+          1,
+          208
+        ]
+      ],
+      "2717": [
+        [
+          1,
+          325
+        ]
+      ]
+    },
+    "qualification": "Separate old and 95e displays after prospective registration. Source tests outside original material unread in both; other support is explicitly separate."
+  },
+  "sources": [
+    {
+      "id": "2716-p16",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "archive": "sources/2716-p16.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "lines": [
+        [
+          1,
+          208
+        ]
+      ],
+      "qualification": "Historical P16 snapshot body transported at f82; this is not a dirty project commit."
+    },
+    {
+      "id": "2716-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "archive": "sources/2716-current.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "lines": [
+        [
+          1,
+          208
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "2717-p16",
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "archive": "sources/2717-p16.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "lines": [
+        [
+          1,
+          325
+        ]
+      ],
+      "qualification": "Historical P16 snapshot body transported at f82; this is not a dirty project commit."
+    },
+    {
+      "id": "2717-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "archive": "sources/2717-current.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "lines": [
+        [
+          1,
+          325
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "server-posture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "archive": "support/server-posture.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "lines": [
+        [
+          20,
+          79
+        ],
+        [
+          83,
+          95
+        ],
+        [
+          143,
+          162
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "transitions-config",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+      "archive": "support/transitions-config.rs",
+      "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61",
+      "lines": [
+        [
+          1,
+          25
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "animation-measure",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "archive": "support/animation-measure.rs",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "lines": [
+        [
+          16,
+          20
+        ],
+        [
+          51,
+          59
+        ],
+        [
+          89,
+          107
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "state-wire",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "archive": "support/state-wire.rs",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "lines": [
+        [
+          1134,
+          1162
+        ],
+        [
+          1164,
+          1188
+        ],
+        [
+          1191,
+          1227
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "state-transition-support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "archive": "support/state-wire.rs",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "lines": [
+        [
+          1323,
+          1350
+        ],
+        [
+          1420,
+          1429
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "state-body-support",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "archive": "support/state-wire.rs",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "lines": [
+        [
+          47,
+          55
+        ],
+        [
+          83,
+          85
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "capture-viewer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "archive": "support/capture-viewer.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "lines": [
+        [
+          307,
+          337
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "config-root",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "archive": "support/config-root.src",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "lines": [
+        [
+          417,
+          670
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "config-root-tail",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "archive": "support/config-root.src",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "lines": [
+        [
+          671,
+          700
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "maneuvers-config",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "archive": "support/maneuvers-config.src",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "lines": [
+        [
+          1,
+          19
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "elapsed",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-core/src/elapsed.rs",
+      "archive": "support/elapsed.src",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "lines": [
+        [
+          9,
+          12
+        ],
+        [
+          24,
+          35
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "content/tactical/combat.yaml",
+      "archive": "support/yaml.src",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "lines": [
+        [
+          104,
+          110
+        ],
+        [
+          195,
+          199
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "server-startup",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "archive": "support/server-startup.src",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "lines": [
+        [
+          27,
+          42
+        ],
+        [
+          51,
+          64
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "runtime",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "archive": "support/runtime.src",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "lines": [
+        [
+          11,
+          20
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          36,
+          56
+        ]
+      ],
+      "qualification": "Independently displayed current support; no historical read-credit transfer."
+    },
+    {
+      "id": "native-primitive-docs",
+      "revision": "rust-nightly-2026-07-13 rust-src",
+      "git_path": null,
+      "archive": "support/native-primitive-docs.rs",
+      "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+      "lines": [
+        [
+          1172,
+          1184
+        ],
+        [
+          1223,
+          1233
+        ]
+      ],
+      "qualification": "Native package source; not project revision or evidence of an actual build."
+    },
+    {
+      "id": "native-rust-reference",
+      "revision": "installed nightly-2026-07-13 rust reference HTML",
+      "git_path": null,
+      "archive": "support/native-operator-expr.html",
+      "sha256": "d51cc1160b3f46b63b0189e0bfed536581e30dea52b56b18908ff413b83a758c",
+      "lines": [
+        [
+          1908,
+          1917
+        ]
+      ],
+      "qualification": "Native package source; not project revision or evidence of an actual build."
+    }
+  ],
+  "provenance": {
+    "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "snapshot": "P16 is dirty base plus delta; f82 is 774 evidence transport, not a dirty project commit.",
+    "whole_file_identity": "For each of these two paths, exact P16 f82 blob equals the a120 base file, the 6533 pr-working HEAD file, the 039 recorded catalog-origin file, and the pinned 95e file. This is per-file equality only, and no current or historical worktree cleanliness is asserted.",
+    "recorded_catalog_origin": "059 registrations name git 039329518e264f19206cf5b0b98d177433f40c17; preserve as catalog_origin and verify per-file equality; it is neither the recorded P16 base nor a license to promote historical reads.",
+    "p16_recovery": "history/p16-tracked.patch exactly matches original registry SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, as does later matching recovery; seven untracked paths were not included. Matching reproduction does not prove original invocation, uninterrupted custody, or current worktree status.",
+    "original_059_transport": "21 selected exact extracted records checked against original full recovered transport manifest size, SHA-256 and Git blob. Original 059 payload Git commit path is unavailable in inspected local stores.",
+    "reconstructed_records": "Selected registry and queue files are mechanical reconstructions. Recovered L13 transcript prior-row extracts and proposal are partial: original packet, plan qualification and adoption remain missing. Preserve older root/other reviewers and no additional reread from reconstruction.",
+    "checkpoint": "Old P16/059/774 evidence and new 95e assessment remain distinct; none is checkpoint3821 restoration."
+  },
+  "historical_attribution": [
+    {
+      "reviewer": "774 Native",
+      "registrations": [
+        "NATIVE-ADMISSION03-REG-075",
+        "NATIVE-ADMISSION03-REG-076"
+      ],
+      "effective_material": {
+        "2716": [
+          [
+            1,
+            208
+          ]
+        ],
+        "2717": [
+          [
+            1,
+            325
+          ]
+        ]
+      },
+      "semantic_proof": "NATIVE camera-support/contracts-002.json direct-p16-facing-operands-and-wire-normalization; both old tests excluded, no producer/later-lens credit; normalization records performed no rereads."
+    },
+    {
+      "reviewer": "059 Segovb",
+      "receipt": "segovb/READ-L11-443.json",
+      "snapshot": "physical-p16",
+      "fresh_reads": {
+        "2716": [
+          [
+            1,
+            208
+          ]
+        ],
+        "2717": [
+          [
+            1,
+            325
+          ]
+        ]
+      },
+      "qualification": "Recorded pending native min/max for pause and extreme roll parity/wire producer, not a live witness or 95e finding."
+    },
+    {
+      "reviewer": "059 Adler",
+      "receipts": [
+        "adler/READ-L11-263.json",
+        "adler/READ-L11-264.json"
+      ],
+      "snapshot": "separate pr-working roles 1783,1789; 6533 matching file bytes",
+      "fresh_reads": {
+        "1783": [
+          [
+            1,
+            180
+          ],
+          [
+            181,
+            353
+          ]
+        ],
+        "1789": [
+          [
+            1,
+            200
+          ],
+          [
+            201,
+            400
+          ],
+          [
+            401,
+            432
+          ]
+        ]
+      },
+      "qualification": "Full historical file read includes test text; independent L11, no P16 whole-file or current credit."
+    },
+    {
+      "reviewer": "059 Segovb",
+      "receipts": [
+        "segovb/READ-L12-577.json",
+        "segovb/READ-L12-580.json"
+      ],
+      "snapshot": "separate pr-working roles 1783,1789 at 6533",
+      "fresh_reads": {
+        "1783": [
+          [
+            1,
+            353
+          ]
+        ],
+        "1789": [
+          [
+            1,
+            432
+          ]
+        ]
+      },
+      "qualification": "Full L12 independent historical reads, tests source only; pause native and sector/cast policy remained conditional."
+    },
+    {
+      "reviewer": "059 Root Segovb",
+      "receipt": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-036.json",
+      "snapshot": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "role": "downed_facing.rs fresh [[1,353]]; e275 blob independently equals P16 and 95e",
+      "qualification": "No transferred current/later-lens credit; explicit nonfinite-step sanitation described as current policy."
+    },
+    {
+      "reviewer": "previous root L13 historical reads",
+      "evidence": "history/l13-root-712-prior-row-extracts.json and proposal extract with recovery MANIFEST",
+      "snapshot": "6533 pr-working original1783/1789, transcript extracted full reads; later proposed roles2716/2717 reused old content with zero fresh rereads",
+      "qualification": "Partial recovery: proposal/adoption/packet/qualification not available as complete originals. Do not promote proposed role status or infer 3821."
+    },
+    {
+      "reviewer": "prior current 95e assessment",
+      "evidence": "history/assessment-1781-1786.json and history/assessment-1787-1789.json",
+      "snapshot": "6533 original roles, current 95e byte identity compared",
+      "qualification": "Historical full reads through EOF; current downed full-file equality without separate reread, and current turn only 11–98 independently read in the earlier assessment. Our newly registered 95e 1–208 and 1–325 displays are separate."
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "REVIEW-DOWNED-SECTOR-THRESHOLD-95E",
+      "classification": "New source-derived conditional candidate; authoritative tuning policy and global aliases open.",
+      "source_refs": [
+        {
+          "id": "2717-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+          "archive": "sources/2717-current.rs",
+          "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+          "lines": [
+            [
+              1,
+              325
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "transitions-config",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/state_transitions.rs",
+          "archive": "support/transitions-config.rs",
+          "sha256": "81c141f7ef6eed5eee0d19173709260dc3c91483868e73e7783fe3efbd000f61",
+          "lines": [
+            [
+              1,
+              25
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "config-root",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "archive": "support/config-root.src",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "lines": [
+            [
+              417,
+              670
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "config-root-tail",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "archive": "support/config-root.src",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "lines": [
+            [
+              671,
+              700
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "runtime",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+          "archive": "support/runtime.src",
+          "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              24,
+              28
+            ],
+            [
+              36,
+              56
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "server-startup",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/startup.rs",
+          "archive": "support/server-startup.src",
+          "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+          "lines": [
+            [
+              27,
+              42
+            ],
+            [
+              51,
+              64
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "server-posture",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "archive": "support/server-posture.rs",
+          "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+          "lines": [
+            [
+              20,
+              79
+            ],
+            [
+              83,
+              95
+            ],
+            [
+              143,
+              162
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "yaml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "content/tactical/combat.yaml",
+          "archive": "support/yaml.src",
+          "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+          "lines": [
+            [
+              104,
+              110
+            ],
+            [
+              195,
+              199
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        }
+      ],
+      "first_contract": "If held camera aim is meant to select another downed roll sector, individually admitted tuning values must preserve a reachable switching threshold or explicitly represent an intentional disabled mode.",
+      "trace": "SignedHalfTurns permits any finite sign; state transition config uses it for width and stickiness. Its validator checks only dive handoff order. The displayed full parent validator calls this child and does not directly bound these two fields. Current server passes held aim to the current state kernel and the kernel reads installed runtime state-transition tuning.",
+      "symbolic_case": "For otherwise acceptable config, take width=1.1 and stickiness=0.0, a prone body, no existing downed roll, held aim and a finite camera target +0.5 half-turn. initial=committed=0; target difference is 0.5 and the strict >1.1 test fails; target remains prone, next=0 and lateral motion is rest. The committed 0.25+0.055555556 threshold is below 0.5, for which the helper selects RollRight. A fresh or existing committed sector has nearest-equivalent camera difference bounded near one half-turn, so a threshold above 1 can prevent a switch on the represented bounded camera path.",
+      "limitations": "This is a conditional source trace, not an executed configuration, deserialization, player, camera or runtime. Other validation or policy/entry-point constraints not read may limit supported alternate values. Setting such a width may deliberately disable switching; decide policy before assigning severity or demanding a fix. A single camera-target hypothetical does not prove a persistent live fault.",
+      "relationships": "Related 059 Q-L12-9c0f42671d4d966b6fd9 mentions dynamic tuning and native consumers but first questions the large-coordinate lattice; not automatically identical to this ordinary-sized threshold candidate. Existing ADLER-L11-DOWNED-ROLL-LATTICE-RANGE is about saturating cast/parity, not this control threshold.",
+      "future_repair_direction": "Decide allowed semantic range and whether disabling aim roll is a supported mode, then own/validate the sum and individual meaningful widths in the selected configuration path or represent a deliberate disabled state; preserve unwrapped turn, aim-release and ordinary tuning behavior. No implementation authorized."
+    },
+    {
+      "id": "ADLER-L11-DOWNED-ROLL-LATTICE-RANGE",
+      "classification": "Existing 059 q98, independently traced at 95e; no new unique count.",
+      "source_refs": [
+        {
+          "id": "2717-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+          "archive": "sources/2717-current.rs",
+          "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+          "lines": [
+            [
+              1,
+              325
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "state-wire",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+          "archive": "support/state-wire.rs",
+          "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+          "lines": [
+            [
+              1134,
+              1162
+            ],
+            [
+              1164,
+              1188
+            ],
+            [
+              1191,
+              1227
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "state-transition-support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+          "archive": "support/state-wire.rs",
+          "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+          "lines": [
+            [
+              1323,
+              1350
+            ],
+            [
+              1420,
+              1429
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "state-body-support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+          "archive": "support/state-wire.rs",
+          "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+          "lines": [
+            [
+              47,
+              55
+            ],
+            [
+              83,
+              85
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "native-rust-reference",
+          "revision": "installed nightly-2026-07-13 rust reference HTML",
+          "git_path": null,
+          "archive": "support/native-operator-expr.html",
+          "sha256": "d51cc1160b3f46b63b0189e0bfed536581e30dea52b56b18908ff413b83a758c",
+          "lines": [
+            [
+              1908,
+              1917
+            ]
+          ],
+          "qualification": "Native package source; not project revision or evidence of an actual build."
+        },
+        {
+          "id": "native-primitive-docs",
+          "revision": "rust-nightly-2026-07-13 rust-src",
+          "git_path": null,
+          "archive": "support/native-primitive-docs.rs",
+          "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+          "lines": [
+            [
+              1172,
+              1184
+            ],
+            [
+              1223,
+              1233
+            ]
+          ],
+          "qualification": "Native package source; not project revision or evidence of an actual build."
+        }
+      ],
+      "trace": "Wire conversion admits any finite half-turn coordinate. SkeletonState deserialization maps retained downed-facing state through normalized(); for a Prone target and representable coordinate 2^64, half_turns_near is 2^64, doubling for sector classification gives 2^65, which exceeds i64 range; Rust reference says float-to-int saturates and i64::MAX % 4 = 3 selects RollLeft rather than the mathematically even-period Prone sector. transition_body(Prone) does not clear downed_facing.",
+      "limits": "Only symbolic arithmetic, no deserializer, constructed fixture or runtime; exact supported ingress, source capability and later transitions remain open. Native reference is installed pinned-date documentation, not proof of which compiler built any product. Camera target producer uses a bounded angular difference in normal use; it does not independently generate a 2^64 target.",
+      "future_repair_direction": "Reconcile actual supported state sources; preserve signed unwrapped coordinate and perform range-safe lattice classification or prove/own a justified admissible range, without moving all quantities into a wrapped unit fraction."
+    },
+    {
+      "id": "REVIEW-PAUSED-FACING-SUBNORMAL-DURATION-001",
+      "classification": "Previously assessed 95e conditional turn finding, corroborated only in our owned kernel and type scope, no new count.",
+      "source_refs": [
+        {
+          "id": "2716-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+          "archive": "sources/2716-current.rs",
+          "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+          "lines": [
+            [
+              1,
+              208
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "animation-measure",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "archive": "support/animation-measure.rs",
+          "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+          "lines": [
+            [
+              16,
+              20
+            ],
+            [
+              51,
+              59
+            ],
+            [
+              89,
+              107
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "elapsed",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "archive": "support/elapsed.src",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "server-posture",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "archive": "support/server-posture.rs",
+          "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+          "lines": [
+            [
+              20,
+              79
+            ],
+            [
+              83,
+              95
+            ],
+            [
+              143,
+              162
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "native-primitive-docs",
+          "revision": "rust-nightly-2026-07-13 rust-src",
+          "git_path": null,
+          "archive": "support/native-primitive-docs.rs",
+          "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+          "lines": [
+            [
+              1172,
+              1184
+            ],
+            [
+              1223,
+              1233
+            ]
+          ],
+          "qualification": "Native package source; not project revision or evidence of an actual build."
+        }
+      ],
+      "relationship": "A positive finite 2^-140 duration is not excluded by the displayed type; PI/duration overflows and multiplied by zero yields NaN before min(PI). Prior 95e assessment independently established pinned Rust f32 min/max semantics and traced server/client/report consumers; this packet retains that assessment and native evidence without transferring its reads. The explicit no-direction and two-zero deadline modes remain separate safeguards. Related historical Segovb L12-580 and q1466/q1467 were pending questions, not prior current findings.",
+      "limits": "The pinned native source date is not proof of actual build mode; no paused frame, config, report or result was observed. Actual scheduling and supported extreme config remain open."
+    },
+    {
+      "id": "DOWNED-STEP-OVERFLOW-POLICY-QUESTION-95E",
+      "classification": "Connected conditional question, not a new unique defect; historical q791 and q1461 remain independently open.",
+      "source_refs": [
+        {
+          "id": "2717-current",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+          "archive": "sources/2717-current.rs",
+          "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+          "lines": [
+            [
+              1,
+              325
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "server-posture",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "archive": "support/server-posture.rs",
+          "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+          "lines": [
+            [
+              20,
+              79
+            ],
+            [
+              83,
+              95
+            ],
+            [
+              143,
+              162
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "animation-measure",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "archive": "support/animation-measure.rs",
+          "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+          "lines": [
+            [
+              16,
+              20
+            ],
+            [
+              51,
+              59
+            ],
+            [
+              89,
+              107
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "maneuvers-config",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+          "archive": "support/maneuvers-config.src",
+          "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+          "lines": [
+            [
+              1,
+              19
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "elapsed",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-core/src/elapsed.rs",
+          "archive": "support/elapsed.src",
+          "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "config-root",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "archive": "support/config-root.src",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "lines": [
+            [
+              417,
+              670
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "config-root-tail",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "archive": "support/config-root.src",
+          "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+          "lines": [
+            [
+              671,
+              700
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "yaml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "content/tactical/combat.yaml",
+          "archive": "support/yaml.src",
+          "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+          "lines": [
+            [
+              104,
+              110
+            ],
+            [
+              195,
+              199
+            ]
+          ],
+          "qualification": "Independently displayed current support; no historical read-credit transfer."
+        },
+        {
+          "id": "native-primitive-docs",
+          "revision": "rust-nightly-2026-07-13 rust-src",
+          "git_path": null,
+          "archive": "support/native-primitive-docs.rs",
+          "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+          "lines": [
+            [
+              1172,
+              1184
+            ],
+            [
+              1223,
+              1233
+            ]
+          ],
+          "qualification": "Native package source; not project revision or evidence of an actual build."
+        }
+      ],
+      "trace": "Server passes get_up_seconds into for_frame. For hypothetical admitted 2^-140 positive duration and positive elapsed 1/64, the quotient is 2^134, beyond binary32 finite range, so the stated producer sanitation returns zero. If held aim targets another sector, a zero maximum step keeps the current roll coordinate.",
+      "limits": "The normal committed get-up duration is 0.796875 seconds. 774 Native, 059 Root e275 and L12 explicitly describe nonfinite-to-zero as an existing sanitation policy; whether it intentionally includes tiny but valid configured durations, whether alternate values are supported, and whether a corresponding server call occurs are unresolved. Not asserted to be the same failure as paused yaw or lattice casts."
+    },
+    {
+      "id": "P17-FACING-NONFINITE-TRACKING-ZERO",
+      "classification": "Prior P17/95e report observation, related turn residual but not an automatic alias of paused turn.",
+      "relationship": "Prior report traces nonfinite captured facing direction through max folding; the scoped current turn tracking_residual is shared context but the scenario inputs and first failure differ. Refer to history/assessment-p17-reconciliation9.json for exact peer attribution and ranges."
+    }
+  ],
+  "nonfindings": [
+    "Missing planar desired direction and two zero time intervals explicitly select zero speed in the deadline factory; their existence is not evidence of a legacy compatibility path.",
+    "Downed roll stores checked finite next coordinate before state assignment and clears its optional state when the body is unsupported or posture is transitioning; neither proves every input is valid or that unrelated state updates are atomic.",
+    "Camera-derived roll target wraps to a small angular range, so direct ordinary camera input is not a large finite-coordinate witness.",
+    "Wire sanitation is explicit source policy; comments preserving earlier behavior do not alone establish an obsolete compatibility fallback.",
+    "Current viewer DownedProneLookAt independently supplies fixed 1/84 per frame; server supplies elapsed/get_up_seconds. This demonstrates different source expressions, not proof that the viewer promises production roll timing."
+  ],
+  "open_questions": [
+    "Should sector width and stickiness be nonnegative and jointly below the switching boundary, or is disabling held-aim roll a supported mode? Which settings are allowed through all supported config sources?",
+    "Can extreme finite serialized roll state actually enter a supported deserializer/network path and reach a body/consumer before normalization or transition rules reject it?",
+    "Should valid tiny duration with overflowed frame ratio stop, snap, reject configuration or follow another documented policy?",
+    "Do normal startup and process replication propagate one current configuration consistently into turn and downed roll? What are actual elapsed scheduling and pause paths?",
+    "Does the viewer fixed 1/84 step intentionally test a normalized fixture, or should it derive server duration and selected sample rate?",
+    "Are prior paused turn, tracking residual, P17 facing metrics, 059 lattice and dynamic tuning records exact aliases or distinct? Central must reconcile all source scopes."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "SignedHalfTurns admits all finite signed f32, including large unwrapped coordinates; DownedFacingState custom wire conversion sanitizes nonfinite coordinates and clamps or clears lateral motion, while ordinary scalar TryFrom rejects invalid values. PositiveAnimationDuration requires a checked nonzero elapsed but not a substantive minimum. Do not declare all inputs corrupt or all normalizations obsolete.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Current tuning stores sector width and edge stickiness separately as signed finite half-turn values, and their sum controls reachability of switching sectors; independent finite admission does not enforce a useful aggregate threshold. See conditional sector-policy candidate; whether disabling switching is supported remains open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "The exact P16, a120 per-file base, 6533 pr-working, 039 catalog and 95e blobs match for both files. Preserve aim hold/release, wrap, finite scalar and wire sanitation behavior except where the final authorized policy changes it. File equality does not prove dirty whole-snapshot cleanliness.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "TryFrom/serde and private policy/state fields encode meaningful distinction between checked scalar construction and source-specific wire sanitation; do not remove them simply to reduce code.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "TurnPolicy keeps speed, half-turn duration and deadline operands in distinct variants; DownedFacingAim distinguishes held and released and DownedFacingPose names four sectors. Target sector and interpolated coordinate are different facts, not duplicate enum payloads by themselves.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "SignedHalfTurns owns an intentionally unwrapped coordinate, distinct from nonnegative frame step, signed motion fraction, yaw and duration. It is weaker than the range semantics needed for sector width/stickiness; stronger tuning ownership may be needed without globally narrowing unwrapped roll.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "The turn kernel can overflow a positive tiny quotient, and IEEE NaN multiplied by zero interacts with f32 min/max as already assessed. Finite large unwrapped coordinates can saturate the sector cast, while next coordinate is checked before retaining; their separate failures remain distinct.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "The 1e-5 turn/roll and 1e-4 contact thresholds have distinct tie/deadband roles and may be tuning or numerical policy. Viewer uses 1/84 per-frame for its downed scenario, while server computes elapsed/get-up duration; intended fixture comparability and rate policy remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Scoped source uses typed variants and structured animation errors; unreachable messages correspond to guarded state or mathematically bounded remainder. No magic-string identity defect established within these bodies.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Server facing carries configured get-up duration to per-frame roll and separately obtains camera target; animation tuning comes from installed cached runtime snapshot. Viewer supplies an authored fixed step. Full server/client config installation, scheduling and cross-process agreement remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "No duplicate canonical angle owner follows from target pose and unwrapped interpolation coordinate; they play distinct roles. Configured runtime sector threshold and viewer fixed step are potential distinct policy authorities whose intended relationship requires review.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Unwrapped signed turns, nonnegative step, bounded signed motion, sector threshold, duration, angle and final quaternion are distinct concepts. Any future threshold strengthening must not erase legitimate unwrapped state or measured zero elapsed.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Config owns authored sector policy; turn and downed-state methods own scalar and state updates; server posture projection and viewer own different input/consumer boundaries. Cross-lens ledger, canonical repair and exact aliases remain central.",
+      "whole_lens_completion": false
+    }
+  ],
+  "restrictions": "Static source inspection, retained native documentation and mathematical reasoning only. No code edits, repairs, builds, tests, fixtures, animation, product execution, probes or product validation."
+}

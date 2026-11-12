@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0330.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0349.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -72,8 +72,10 @@ separately bound to the original registry archive manifest.
 nine coordinator source displays.
 `ASSESSMENT-DELEGATED-RECONCILIATION-11A-95E.json` centrally reconciles
 three checkpoint 11 packets.
-`ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json` connects three more; the
-remaining packets, all lenses and the historical semantic queue remain open.
+`ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json` connects three more.
+`ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json` connects the final three
+checkpoint 11 packets in bounded source review; their connected scopes, all
+lenses and the historical semantic queue remain open.
 `RECOVERY-VERIFICATION-30EE4E5C.json` records an earlier same-machine
 recovery check, with its transcript limitations.
 `DELEGATED-EVIDENCE-CHECKPOINT-22.json` preserves thirteen additional
@@ -92,7 +94,13 @@ a common origin as an inference, not a proven label alias. The public catalog
 is redacted and its exact original is retained locally only.
 `CENTRAL-11C-HISTORICAL-REGISTRATION.json` and its receipt record preliminary
 coordinator displays of two recovered pr-working objects. Delegate and
-current-source reads remain separate; central 11C reconciliation is open.
+current-source reads remain separately attributed.
+`RECOVERY-VERIFICATION-E0790A71.json` records the latest same-machine
+recovery check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-24.json` preserves twelve additional source
+packets pending central reconciliation. Their path-redacted public copies are
+reconstructed; exact changed top-level originals are retained locally only.
+The original 2740–2744 snapshot and source labels remain unnormalized.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

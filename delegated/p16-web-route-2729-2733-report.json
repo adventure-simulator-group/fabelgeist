@@ -1,0 +1,165 @@
+{
+  "schema": "726-p16-web-route-2729-2733-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T03:30:18.467245+00:00",
+  "scope": {
+    "original_roles": [
+      2729,
+      2730,
+      2731,
+      2732,
+      2733
+    ],
+    "authoritative_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "physical-p16 dirty frozen snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50; exact objects transported by f82adcabd9d89c4fa2dd7f99253a45297a0681ee; f82 is evidence transport, not project source revision",
+    "per_file_comparison": "All five exact objects equal same-path a120, 6533 and 95e Git blobs; no claim that either historical worktree is clean, no inferred checkout3821. Raw commit/tree proofs in git-proofs.json.",
+    "initial_lookup_correction": "Initial 95e path query erroneously ran in the 7dfd object store, whose 95e commit was unavailable; false absence claim was withdrawn immediately. Rerun through publication object store proves 95e commit and all five paths present.",
+    "actual_display": "personal-read-receipt.json and separate support receipts document personally displayed ranges and unread complements. Source archives preserve exact full bytes; archived bytes are not asserted read. SATS test source 260–540 and support tests shown as text only; no execution."
+  },
+  "findings_and_qualified_observations": [
+    {
+      "key": "existing-059-dateline-pending",
+      "classification": "independent current source confirmation of prior conditional concern, not a new unique finding",
+      "historical_owner": "059 queue entry 1868, Q-L12-70fe8fdc0c143bb1aa06, reports direct longitude interpolation could take long way if actual supported route crosses antimeridian; bounded prior web-map geographic rectangles exclude crossing",
+      "sources": [
+        "support/routes_mod.rs:676–721",
+        "support/route_writer.rs:821–862",
+        "support/validation.rs:137–203",
+        "support/great_circle.rs:291–315",
+        "support/foraging_consumer.rs:390–409",
+        "support/condition_consumer.rs:203–231",
+        "support/vicinity_consumer.rs:80–102"
+      ],
+      "observation": "Both web and server calculate spherical lengths, then interpolate longitude directly. Endpoints near +179.9° and -179.9° at equal latitude represent a short spherical arc but a halfway arithmetic interpolation is near 0° rather than ±180°. This is mathematical reasoning from source, not a runtime fixture. The shown validator checks WGS84, segment and endpoint constraints but no seam check in its inspected body. The server result feeds camp-foraging coordinates and exposure position, and web result feeds camp vicinity or replanning origin.",
+      "condition": "Requires an admitted and persisted route whose actual segment crosses the longitude seam and an intermediate movement minute. Inspect actual regional terrain/producer and supported geography before asserting product reachability; earlier regional-bounds sources explicitly exclude crossing rectangles. No runtime consequence measured.",
+      "future_repair_direction": "Decide supported seam/geodesic policy and coordinate both server and web interpolation owners; if crossing is supported, use a shared correct wrapped interpolation while preserving endpoint order, units, movement timing and native boundary conversions. If excluded, make that invariant explicit at authoritative admission. Do not implement now."
+    },
+    {
+      "key": "existing-774-route-point-expect",
+      "classification": "historical distinct receiver concern with current bounded admission qualification; no new unique count",
+      "historical_owner": "NATIVE-CAMERA-SUPPORT03-F016 in history-774/native/admission03/camera-support/findings.jsonl.gz row 16; explicitly related to but not automatically identical to ROOT-ADM-F007 TravelGeometryPoint; 059 Q-L12-70fe8fdc0c143bb1aa06 also records it",
+      "sources": [
+        "source/2733-current.rs:1–16",
+        "source/2730-current.rs:4–16",
+        "support/routes_mod.rs:590–607,676–702",
+        "support/authority_model.rs:780–784,805–826,829–847",
+        "support/validation.rs:158–175",
+        "support/reducer_validation.rs:247–252,574–580,605–612",
+        "support/route_writer.rs:200–218",
+        "support/route_view.rs:872–882",
+        "support/route_convert.rs:653–685"
+      ],
+      "observation": "Generated JourneyRoutePoint has public raw i32 axes; the first-party route-view conversion carries the vector unchanged. The web reader checks axes and expects success, so a retained invalid point visited by the reader would panic. The shown planned-route validator rejects any out-of-range point and selected reducers invoke it, and this is a material qualification to hypothetical unsafe-input reachability.",
+      "condition": "No malformed retained row, bypassing writer, SDK fault, unchecked product input, or panic has been observed. The full writer and storage-integrity graph remains open; one-point/zero-minute example belongs to the older finding and is not evidence that its normal admission path permits it.",
+      "future_repair_direction": "Trace every authoritative writer and readmission; own checked route coordinate at the accepted boundary or propagate a typed failure through the web reader. Generated SDK bindings are read-only evidence; a future schema change would update schema and generated clients through the repository workflow, not hand-edit this file."
+    },
+    {
+      "key": "existing-774-sats-format",
+      "classification": "prior 774 Root-extra40 F001/F002 as named by Native lower-dependency qualifier, current same-body corroboration only",
+      "sources": [
+        "source/2729-current.rs:96–128,131–177,180–258",
+        "history-774/native/admission03/camera-support/lower-dependency-qualification-036.json.gz"
+      ],
+      "observation": "The sum tag is read as u64 then cast to usize before indexing; on a 32-bit usize, a tag exceeding its representable range can truncate before bounds check. Named row/product fields are inserted into a map without an explicit duplicate-name check, so duplicates can overwrite before the target decoder. The historical qualifier already records these two conditional format gaps; preserve its dedup scope.",
+      "condition": "No proof of a deployed 32-bit strategic-web target, malformed server schema, accepted malformed concrete target row, or runtime failure. The shown production path checks array/product arity and many shapes; target decoder remains a separate owner. Do not claim all SATS/native semantics audited.",
+      "future_repair_direction": "If native contract requires it, validate tag-width and named-field uniqueness at the adapter while preserving native valid option, enum, identity and byte semantics; first-result SQL response policy remains a separate caller question."
+    },
+    {
+      "key": "action-redirect-and-fallback-policy",
+      "classification": "bounded open contracts rather than new count",
+      "sources": [
+        "source/2731-current.rs:8–77,79–110,145–266",
+        "source/2732-current.rs:197–203",
+        "support/routes_mod.rs:209–221,225–316,516–523,631–673",
+        "support/approval.rs:904–930",
+        "support/main_redirect.rs:295–325"
+      ],
+      "observation": "PartyAction is a tagged intent enum with raw IDs, quantities and floats; the web layer branches between immediate dispatch and queued serialized intent, and approval reparses the payload before a planned route. The local redirect predicate admits a single-leading-slash value without backslash and is weaker than a complete native URI/header policy. Missing terrain and planning failures explicitly lead to the unplanned reducer option.",
+      "condition": "No assumption that client intent alone is authority, that returned strings are unique action identity, that unplanned fallback is obsolete compatibility, or that redirect normalization is exploitable. Native authorization/approval, full parser/sink and fallback policy were not comprehensively inspected. 059 queue 493 retains separate query-error cause-erasure context.",
+      "future_repair_direction": "If the owner confirms these are internal contracts rather than native ports, carry existing semantic IDs/errors through intent and invoke one canonical admission at the server. Preserve actual readiness, approval, URI and fallback behavior after design decisions."
+    }
+  ],
+  "nonfindings": [
+    "Coordinate helper uses the existing Wgs84CoordinateE7 constructor and reverses longitude/latitude explicitly where required; no separate geographic owner inferred.",
+    "The two source expects in SATS at 167 and 229 follow nearby all-names-present guards for their respective iterations; no ordinary missing-name panic inferred.",
+    "Empty result first-response behavior and first-result-only decoding require a caller contract, not a defect by themselves.",
+    "PartyAction kind groups two distinct travel actions as category metadata; category non-uniqueness is not itself an authorization defect.",
+    "Source tests illustrate intended behavior only; none were run."
+  ],
+  "open_questions": [
+    "Does any supported terrain package or authoritative writer admit a segment crossing the antimeridian, despite regional rectangle policy?",
+    "Can any other persistence, return-route, migration, view or data-integrity route store an invalid journey point, and where is its final admission?",
+    "What is the exact native SQL multi-result and schema uniqueness contract and which target pointer widths are supported?",
+    "What is the authoritative approval/reducer validation for each PartyAction payload, and how should error identities propagate?",
+    "What are the actual URI parser, header sink and normalization contracts for local_redirect_path and callers?",
+    "Is unplanned travel on missing or failing terrain an explicitly supported product mode, and how should policy be documented?",
+    "Whether aggregate route distance, span and progress projections share a canonical interpolation owner needs cross-lens central reconciliation."
+  ],
+  "historical_relationships": {
+    "registry": "Original Native Admission03 REG-105,109,110,111,112; exact records and qualifications in registry-selection-reconstructed.json and original historical files. REG110 requested 1–267, final material 1–266, 267 blank context, tests 268–355 excluded. REG111 requested 197–205, final material 200–203; other lines context.",
+    "059_l11": "segovb READ-L11-446 plus prospective registrations SEGOVB-1648–1652 and STATE/VERIFY, authored historical scopes only. Its accepted_unique_count_change=0, current_reconciled=false.",
+    "059_l12": "Subagent /root/lens12_frontier proposals 953–955 and identity qualifications; historical personally read scopes 2729 1–540, 2730 1–17, 2731 1–267, 2732 197–205, 2733 1–16. Root adoption required; bounded local and transport-manifest exact-name search found no READ/STATE/VERIFY 953–955, not global absence or proof non-adoption.",
+    "older_774": "Native contracts-062 and findings row 16 explicitly distinguish F016 from Root TravelGeometryPoint F007; Native 036 qualifies existing root SATS width/uniqueness conditions. 774 historical records retain original authors, revisions and scopes; no later-lens or checkpoint3821 credit.",
+    "previous_delegates": "Prior terrain roles 2712–2714 and coordinates/events 2718–2719 were assessed by /root/mhr_character under their own registrations and receipts. Prior web-map report retains its own author; their ranges do not transfer into this ordered-role read."
+  },
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Generated raw route points are copied into view and re-admitted at web use; trace all writers before choosing canonical admitted representation."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Wgs84CoordinateE7 already owns geographic axis checks; web conversion reuses it, while raw native and generated wire shape is a real boundary."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Planned-route validator rejects raw invalid WGS84; a corruption/other-writer route to web expect remains conditional, not established."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Both position functions use shortest spherical lengths yet direct longitude interpolation; seam case is the prior conditional queue item."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Validator relates point count, endpoints, distance, duration, weather and spans; do not infer whole-route invariant enforcement for unread writers."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Route and schema coordinate owners require cross-boundary decisions; generated DTO is not itself an editable owner."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Server and web independently calculate route position; retain shared-contract question without claiming divergent output for ordinary routes."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Keep current route timing, ordering, approved-action routing and explicit missing-terrain/planner fallback policy subject to owner decision; no repair performed."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "PartyAction already pairs variants with payloads; action kind is a coarse category, not the unique authority discriminator."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Generated SATS derives and serde-tagged enum are boundary code; scoped reads do not establish removable boilerplate or macro semantics."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Separate checked WGS84 axes and unbounded abstract coordinates are intentional distinct uses in shown producer; generated raw points remain native wire."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Protocol keys and reducer names are adapter-facing; internal errors/action labels require caller and server-owner tracing before consolidating; 059 queue 493 is existing cause-erasure question."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Geographic scaling, route bounds, minutes and distance are named/validated in shown owners; 32-bit tag narrowing is target-dependent existing qualifier, not blanket literal defect."
+    }
+  ],
+  "limitations": [
+    "A bounded source-family review, not thirteen whole-lens completion.",
+    "No product code, viewer, shader, test, build, generator, fixture, macro, runtime probe or validation executed.",
+    "Original extracted evidence untouched; no product or publication edits.",
+    "Central owner decides aliases, unique counts, connected repair ledger, and checkpoint publication."
+  ]
+}

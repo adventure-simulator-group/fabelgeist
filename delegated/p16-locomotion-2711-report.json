@@ -1,0 +1,503 @@
+{
+  "schema": "726-bounded-physical-p16-locomotion-2711-v1",
+  "author": "/root/rig_identity",
+  "written_utc": "2026-11-12T03:09:46.539048+00:00",
+  "scope": {
+    "original_roles": [
+      2711
+    ],
+    "original_scope": [
+      [
+        88,
+        92
+      ]
+    ],
+    "historical_source": "physical-p16 dirty snapshot transported at f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "current_support_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "current_source_identity": "95e whole file differs from P16; the independently displayed function 88–92 is identical",
+    "boundaries": "No other source role receives credit from support, storage, navigation or earlier reviewer reads."
+  },
+  "source_references": [
+    {
+      "revision": "physical-p16 dirty snapshot transported at f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "archive": "sources/p16-2711.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "lines": [
+        [
+          88,
+          92
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "archive": "sources/95e-locomotion.rs",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "lines": [
+        [
+          88,
+          92
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "archive": "support/rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "lines": [
+        [
+          9,
+          22
+        ],
+        [
+          31,
+          42
+        ],
+        [
+          45,
+          79
+        ],
+        [
+          82,
+          86
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "archive": "support/runtime.rs",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "lines": [
+        [
+          11,
+          20
+        ],
+        [
+          24,
+          28
+        ],
+        [
+          36,
+          56
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "archive": "support/config.rs",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "lines": [
+        [
+          7,
+          20
+        ],
+        [
+          32,
+          65
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "archive": "support/frame-clock.rs",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "lines": [
+        [
+          10,
+          24
+        ],
+        [
+          37,
+          42
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "archive": "support/scenario.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "lines": [
+        [
+          790,
+          815
+        ],
+        [
+          819,
+          839
+        ],
+        [
+          842,
+          859
+        ],
+        [
+          862,
+          872
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "archive": "support/html.rs",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "lines": [
+        [
+          75,
+          83
+        ]
+      ]
+    }
+  ],
+  "provenance": {
+    "p16_registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "p16_dirty_patch_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "later_patch_recovery": "history/p16-patch-recovery.json and history/p16-tracked.patch: reproduced tracked diff exactly matches original registry patch hash; excludes seven untracked paths, and neither the historical invocation nor uninterrupted custody is proven. This supersedes only earlier missing-patch status, not earlier evidence.",
+    "object_equalities": "f82 exact P16 content has SHA 6aef5c... and Git blob f55ac9.... Same individual blob at a120 base, 6533 pr-working head, and 039 catalog_origin; these project per-file identities do not make the two historical snapshots clean or turn f82 into a project commit. P16 is dirty a120+delta; pr-working is recorded 6533 plus separate modifications. Registry role 1767 marks state modified relative to its recorded PR base 3a50 even though its 6533 file matches the P16 object; no contradiction needs to be erased.",
+    "unexplained_revision_conflict": "059 SEGOVB-1630 catalog_origin names 039; preserve this as recorded catalog provenance and the independent path equality, not as the registry P16 base or an assignment to a later 95e review.",
+    "historical_059_transport": "Exact selected 059 extracted bytes checked against original recovered manifest byte size, SHA-256 and Git blob; original 059 payload Git path was unavailable in the inspected object stores.",
+    "checkpoint": "Historical P16/059/774 records and current 95e evidence are distinct; final checkpoint 3821 was not restored or promoted."
+  },
+  "personal_read_scope": {
+    "registration": "registration.json",
+    "support_registration": "support-registration.json",
+    "receipt": "personal-read-receipt.json",
+    "historical_material": [
+      [
+        88,
+        92
+      ]
+    ],
+    "historical_unread": [
+      [
+        1,
+        87
+      ],
+      [
+        93,
+        267
+      ]
+    ],
+    "current_locomotion_support": [
+      [
+        80,
+        100
+      ]
+    ],
+    "current_locomotion_unread": [
+      [
+        1,
+        79
+      ],
+      [
+        101,
+        260
+      ]
+    ],
+    "qualification": "Other support read chunks and unread complements are in the receipt. Previous git-grep output contained only navigation hits and one truncated multi-file result; it gives no body or ordered-role credit."
+  },
+  "historical_reviewer_attribution": [
+    {
+      "who": "774 Native",
+      "record": "NATIVE-ADMISSION03-REG-058; NATIVE-ADM03-FINALQUAL-058; NATIVE-ROOTSUPPORT03-CONTRACTS-001",
+      "revision": "physical-p16 dirty source object, transported at f82",
+      "requested_ranges": [
+        [
+          88,
+          94
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "excluded": "93 blank, 94 next function signature; no other locomotion graph or other lens credit. Final normalization performed zero body rereads. Native separately registered and read P16 sample_rate.rs 1–86 as REG-059; that file has the same exact object as our independently read current rate support, but the historical read belongs to Native."
+    },
+    {
+      "who": "059 Segovb",
+      "record": "segovb/REGISTRATION-SEGOVB-1630.json and READ-L11-442.json",
+      "revision": "physical-p16 dirty snapshot",
+      "fresh_personal_body_reads": [
+        [
+          88,
+          92
+        ]
+      ],
+      "status": "Exact getter returns canonical typed runtime config rate; producer/current were pending; no global closure or new count."
+    },
+    {
+      "who": "059 Adler",
+      "record": "adler/REGISTRATION-ADLER-604.json and READ-L11-259.json",
+      "revision": "separate pr-working role1767, same file bytes as per-path 6533",
+      "fresh_personal_body_reads": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          267
+        ]
+      ],
+      "status": "Historical full-file L11 review; source-only profile/divisor and phase/tuning questions retained. Not P16 role-wide, current or other-lens credit."
+    },
+    {
+      "who": "059 Segovb",
+      "record": "segovb/REGISTRATION-SEGOVB-L12-674.json and READ-L12-571.json",
+      "revision": "separate pr-working role1767, 6533 file",
+      "fresh_personal_body_reads": [
+        [
+          1,
+          267
+        ]
+      ],
+      "status": "Historical full-file independent L12 review; no cross-lens or current transfer. Runtime provider body was explicitly unread in that historical review."
+    }
+  ],
+  "findings_and_relationships": [
+    {
+      "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "classification": "Previously published conditional 95e finding, not a new count; exact aliases remain centrally unresolved.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+          "archive": "sources/95e-locomotion.rs",
+          "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+          "lines": [
+            [
+              88,
+              92
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+          "archive": "support/rate.rs",
+          "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+          "lines": [
+            [
+              9,
+              22
+            ],
+            [
+              31,
+              42
+            ],
+            [
+              45,
+              79
+            ],
+            [
+              82,
+              86
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+          "archive": "support/runtime.rs",
+          "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              24,
+              28
+            ],
+            [
+              36,
+              56
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+          "archive": "support/config.rs",
+          "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+          "lines": [
+            [
+              7,
+              20
+            ],
+            [
+              32,
+              65
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+          "archive": "support/frame-clock.rs",
+          "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+          "lines": [
+            [
+              10,
+              24
+            ],
+            [
+              37,
+              42
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "archive": "support/scenario.rs",
+          "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+          "lines": [
+            [
+              790,
+              815
+            ],
+            [
+              819,
+              839
+            ],
+            [
+              842,
+              859
+            ],
+            [
+              862,
+              872
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+          "archive": "support/html.rs",
+          "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+          "lines": [
+            [
+              75,
+              83
+            ]
+          ]
+        }
+      ],
+      "independent_scope_here": "95e getter, typed frequency, runtime cache, config field, clock boundary and three turn plan bodies as well as HTML are independently displayed. 64-step turn constructors write progress to time_seconds while capture_frame_elapsed obtains the configured interval; HTML names and schedules 64Hz. Source 862–872 independently demonstrates a separate stationary-turn scenario writing frame divided by actual hertz.",
+      "prior_assessment": "history/assessment-scenario-clock-95e.json previously traces actual selected 32Hz config, capture timestamp retention and report consumers and provides the symbolic 64-interval = 2s vs recorded 1s example; this packet does not independently claim those complete producer or report paths.",
+      "conditions": "Assumes supported selected non-64 configuration and that this elapsed field is intended to match logical sampled time; complete input selection and expected report/playback policy remain open. This is mathematical source reasoning only, no actual scenario, rendering, report or runtime observation.",
+      "future_repair_direction": "Resolve normalized progress versus elapsed time and presentation rate authority, then if policy requires it carry the selected typed rate consistently through affected boundaries while preserving intentional 64-step shape and existing timing semantics; implementation and acceptance are deferred."
+    },
+    {
+      "id": "Q-L12-96bf280e7b1c15aac5ae",
+      "classification": "Historical 059 q1245 question, not an independently established exact alias of current timestamp candidate.",
+      "relationship": "Historical 6533 CLI review asks whether non-64-Hz configuration conflicts with fixed-64 HTML and UI labels. Prior current assessment connects that question and current timestamp candidate without merging them. History queue selection is reconstructed from full original 059 summary; historical scope and status retained."
+    },
+    {
+      "id": "ADLER-L11-LOCOMOTION-PROFILE-ADMISSION",
+      "classification": "Historical 059 q97 retained profile admission question, related family but no automatic alias.",
+      "relationship": "Prior Adler 1767 full historical read concerned positive reference/recovery roles weakened into public retained profile fields; this five-line sample-rate getter neither establishes nor eliminates that question. See historical queue and previous 95e gait-profile assessment."
+    },
+    {
+      "id": "P16-PRESENTATION-REJECTED-TICK",
+      "classification": "Prior current source conditional finding by /root/rig_identity; related animation family but distinct first failure.",
+      "relationship": "Prior packet traces source 95e locomotion animation_speed 58–84 plus presentation error/tick ordering, not this 88–92 getter. Earlier personal source credit remains in retained exact prior packet; no ordinary producer, live frame or rendered outcome established."
+    },
+    {
+      "id": "P17-HEIGHT-DOUBLE-WARMUP",
+      "classification": "Prior conditional finding by /root/rig_identity, independently corroborated by /root/hair_ops; distinct report frame filtering policy, not presumed alias to sample-rate question.",
+      "relationship": "Prior report compares 90a report-p17 and 95e metrics; repeated first-wrap filtering may discard a first post-calibration cycle if another wrap occurs. Its previously registered source ranges and author remain in retained exact prior packet. This review does not transfer any P17 read or allege that a rate change causes the condition."
+    }
+  ],
+  "nonfindings": [
+    "Both personal displays of lines 88–92 directly return the runtime config typed field; they contain no extra raw numeric sample source and no local arithmetic or data write.",
+    "Sample rate and frequency are distinct: the frequency alone does not promise the representable reciprocal required by AnimationSampleRate.",
+    "Current native fixed-clock construction can explicitly reject zero or out-of-range Duration; this is a stated boundary, not proof of a crash or that all otherwise accepted rates are suitable.",
+    "Identity of 64-Hz numeric values in different systems is not proof that networking, capture and playback share one rate owner."
+  ],
+  "open_questions": [
+    "What sample_hz values are supported across configured production and viewer contexts, and are all selection/install lifecycles and cross-process snapshots consistent?",
+    "For the turn scenarios, is time_seconds required to be elapsed capture time, or intentionally normalized progress? Does display/playback promise real time or a deliberately fixed reference rate?",
+    "What full native Duration range, downstream error propagation and rejection policy are required for valid AnimationSampleRate values at the capture boundary?",
+    "Which other frame-count thresholds or consumers depend on rate, and do separate tactical/networking rates intentionally remain distinct?",
+    "Resolve historical/current aliases and related gait, phase, report and ownership questions across all lenses centrally; no deduction from this bounded scope."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "The getter returns the existing typed rate; 95e AnimationFrequency admits finite positive hertz and AnimationSampleRate additionally checks a positive reciprocal duration. The native Duration boundary has its own explicit overflow/zero rejection, so leaf admission alone is not a universal guarantee of native clock representability.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Frequency and checked reciprocal are stored together privately by AnimationSampleRate and created together by TryFrom; no independent writable raw pair appears in this bounded type. Selected scenario time, clock interval and report playback are separate consumers whose relationship needs policy.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Historical P16 and current getter lines 88–92 are byte-identical; entire 267-line and 260-line file bodies differ, and unread differences are not characterized. No regression is inferred solely from revision or file hash.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Copy and serde through TryFrom/f32 preserve meaningful admission and source-frequency projection. No blanket claim that this checked serialization can be replaced by a derive-only raw structure.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "No semantic boolean or payload-bearing enum occurs in the five-line getter. State of sample clock or selection across other files remains beyond this bounded read.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "The getter returns AnimationSampleRate, and AnimationFrequency is deliberately weaker because it does not require a representable reciprocal. The native framework clock and report playback are consumers, not evidence for merging distinct rate owners.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Reciprocal and elapsed span conversion are explicit checked boundaries; conversion to native Duration separately rejects zero and overflow. Do not infer guaranteed successful native clock creation from finite positive f32 alone.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "No raw numeric literal occurs in the scoped getter. Three turn scenarios use 64 normalized steps/time and HTML hardcodes 64-Hz playback; these connect to existing timestamp and display-policy questions, not a new counted issue.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "No raw semantic string in the getter. Native clock exposes structured AnimationValueError; nearby report text uses a descriptive 64-Hz string, which is a display-policy question already retained.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "The config stores sample_hz as AnimationSampleRate; runtime getter retrieves a copied animation snapshot and falls back to default initialization when no snapshot exists. The actual whole-system install order, cross-process propagation and every consumer are not demonstrated.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Current scenarios use normalized frame/64 as time for three turns while fixed logical elapsed and other scenario use the runtime rate; HTML uses 64 independently. Whether each is intended must be determined; connect, do not automatically merge, the existing records.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Frequency, sample rate with checked interval, elapsed and frame progress carry distinct contracts. The source makes it unsafe to interpret normalized turn progress as real elapsed at all rates without a policy-specific conversion.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "AnimationSampleRate owns frequency/interval admission; configuration owns selected tuning; scenario and HTML each own a boundary use. Tuning must obey tactical-core AGENTS and the supported explicit runtime config, without assuming fixed-step networking has same rate authority.",
+      "whole_lens_completion": false
+    }
+  ],
+  "restrictions": "Evidence and mathematical reasoning only. No implementation, source edits, builds, tests, animation, viewer, product execution, probes or product validation. Historical findings are not promoted to checkpoint3821."
+}

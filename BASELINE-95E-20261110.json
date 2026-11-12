@@ -19442,7 +19442,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
         ]
       },
       {
@@ -19556,7 +19557,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ]
       },
       {
         "id": "ROOF-CUT-GLOBAL-SOLID-RETENTION-RELATION",
@@ -19601,7 +19605,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ]
       },
       {
         "id": "CURRENT-ROOF-WALL-TOWER-CHILD-OVERWRITE-RELATION",
@@ -20586,10 +20593,218 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+      },
+      {
+        "id": "PR-DEFENSE-LINEAR-JUNCTION-SYMMETRY",
+        "lens": 5,
+        "additional_current_lenses": [
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For two linear walks, the junction predicate checks only the first walk endpoints against the second segment, and the pair loop uses index order once.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "Interior crossings and one-sided T contacts may lack a junction or vary with order. Supported battlement topology, intended connectivity and actual generated results remain open; historical roof and gate queues are contextual, not proven aliases.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine admitted walk topology and required contact symmetry while preserving elevation, width and noncontact policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "PR-PROJECTED-DEFENSE-EXPECT-RULE",
+        "lens": 8,
+        "additional_current_lenses": [
+          3,
+          4
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; source-rule mismatch",
+        "classification": "The projected-defense source uses expect after constructing a two-item vector; the pinned crate rule forbids expect outside tests.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "This is a source-rule mismatch. The immediately preceding successful vector construction does not demonstrate an empty-vector failure or panic.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Choose a rule-compliant representation preserving geometry and first-error behavior after authorization.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "PR-DEFENSE-SUPPORT-CARDINALITY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Private projected_solid indexes support element zero; the inspected linear and projected callers each pass a single support.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "Other callers and private-owner invariant are not exhausted; no empty support or panic was observed. Historical Q-L11-c9251d5314233c9506f5 is related but not a proven alias.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Inventory callers and establish a nonempty support contract or an appropriate error boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-ABUTMENT-CENTRELINE-HOST-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "For finite nonnegative thickness t the tested normal interval includes zero and extends 0.18 metres inside the wall, despite the adjacent exterior-face wording.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "A supported edge station must pass the remaining filters, be selected over competing hosts and survive edge cleanup. Intentional tolerance, actual accepted topology and any incorrect physical contact are unproved. The historical contact approximation question remains independently attributed.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Resolve exterior-face and tolerance policy with actual supported station geometry and deterministic host ranking.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-YAW-BOUNDS-CONTACT-PROXY-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "RoofContacts derives owner contact from overlap of yaw-only axis-aligned bounds, while weathering retains crossfall and the repository also has a fully oriented cuboid envelope.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "Yaw-only overlap can differ from physical oriented intersection; a materially different owner set, surviving edge, later validation result and actual consequence are not established. Historical READ-L11-419 and native TRACE-012 retain their own scope.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine which broad or narrow contact approximation the owner intends, including tolerances and corner multi-owner bonds.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-DORMER-SEAM-FALLBACK-POLICY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A shed requires a seam, while non-shed eave and transverse ridge searches fall back after a bounded search finds no matching parent height.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "Supported inputs that exhaust the search, actual absent contact and the intended fallback policy are unproved. Historical NATIVE-ROOF-PPS-RAW-SOURCE-002 preserves None and fallback semantics without establishing a failure.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace supported parent surfaces and decide whether fallback or an owning diagnostic is correct, preserving intended behavior.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-CHILD-PARENT-HEIGHT-POLICY",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Four child enclosure corners sample parent roof heights and substitute parent_base when no parent face supplies a height.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "A supported child corner missing a parent face, intended perimeter behavior, wrong enclosure and subsequent effect are unproved. Related retained raw points connect to the existing current producer row but do not prove this policy is an alias.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Trace roof recipe admission, parent overlap and consumers before choosing an absent-surface policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-JUNCTION-GUTTER-COLLISION-CLEANUP-RELATION",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Junction flashing and gutter slots use a common tag and low-bit recipe; at matching indices the outlet cleanup filters solids and paired interfaces by ID.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "This continues historical L12-CLOSURE-ROOF-JUNCTION-GUTTER-ID-NAMESPACE and PROPOSAL-L12-862, not a new unique historical finding. The matching edge/face configuration, successful construction and survival through finalization remain unproved.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Establish allowed edge/face indices and final ownership before changing namespace or cleanup semantics.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+      },
+      {
+        "id": "ROOF-CHILD-ID-PRODUCER-RELATION",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Four enclosure slots form IDs by combining a fixed tag, shifted child ID, fixed bits and slot.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
+        ],
+        "relationship_qualification": "The named 059 child-enclosure ID-domain question remains open. Admitted child count, global namespace and downstream acceptance are not established; no collision or alias with abutment and gutter IDs is inferred.",
+        "discovery": "partial; exact alias, applicable policy and supported producer reachability remain open",
+        "connected_repair_direction": "Determine admitted child-ID bounds and global owner/consumer identity before choosing an encoding.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0330.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0349.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

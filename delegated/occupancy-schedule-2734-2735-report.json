@@ -1,0 +1,628 @@
+{
+  "schema": "726-occupancy-schedule-2734-2735-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T03:37:28.526600+00:00",
+  "scope": {
+    "original_roles": [
+      2734,
+      2735
+    ],
+    "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "nature": "Bounded source audit only; thirteen perspectives are limited to displayed source and do not assert whole-lens completion. No source implementation, product builds, tests, fixture execution, simulation, rendering, or runtime probes.",
+    "personal_reads": "registration.json and read-receipt.json preserve independently displayed separate old/current production material ranges; support registrations/receipts separately identify all connected source. Full source bytes in packet are not personal read credit for complements. Navigation text search was path discovery only."
+  },
+  "baseline_and_identity": [
+    {
+      "role": 2734,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "source_sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "source_git_blob": "3c6e177f4eb13800563bbe0011ce9b1a1ab2c47d",
+      "historical": "Frozen pr-working snapshot head 6533e444fa37552927070cc8d8190907fd3b413e and base 3a50b708381ad00c116445c2c999a49c3943088b; four unrelated modified paths including parent character.rs. Exact occupancy file absent from recorded status and equals corresponding 6533 and 95e individual blobs; not evidence that dirty snapshot was clean. f82 transports exact archived source object.",
+      "historical_material": [
+        [
+          1,
+          122
+        ]
+      ],
+      "historical_context_exclusion": "Original REG113 requested 1–123; 123 blank and 124–191 tests excluded. Our independent historical and current displays each cover 1–122, leaving 123–191 personally unread."
+    },
+    {
+      "role": 2735,
+      "source_id": "physical-p16:crates/strategic-web/src/schedule.rs",
+      "source_sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "source_git_blob": "9f2eeab93e7131125349200683bc16abaaabd79b",
+      "historical": "Frozen dirty P16 snapshot recorded base/head a120390947c89b703dc74c4255a13c035d054c50; this individual file absent from recorded status and equals its a120, 6533 and 95e objects. P16 as a whole is dirty. f82 transports the snapshot object; it is neither the P16 revision nor a commit of the dirty state.",
+      "historical_material": [
+        [
+          1,
+          77
+        ]
+      ],
+      "historical_context_exclusion": "Original REG114 requested 1–78; 78 blank and 79–99 preview excluded. Our independently displayed historical and current 1–77, leaving 78–99 personally unread."
+    },
+    {
+      "later_recovery": "P16 independently reproduced 524542-byte tracked patch matches original SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. Seven untracked paths require separate archived objects. Matching patch digest does not prove original invocation, uninterrupted custody, all filesystem metadata, or current historical worktree cleanliness. Earlier missing-patch qualifications remain historically true as recorded, with this later recovery explicitly superseding their then-current status."
+    },
+    {
+      "other_snapshot_caveat": "The parent pr-working character.rs (registry role1079) is dirty archived SHA 806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf; current 95e parent is 71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5. Separate prior 774 and 059 old reads cannot be silently attributed to the current parent."
+    },
+    {
+      "p16_simulation_comparison": "P16 simulation SHA caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c, current 95e SHA 909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60. Separate prospective, personally displayed support 349–390 and 420–480 for each: 420–480 identical; 359 result signature changes from StrategicOperationResult to Result<(), String>. No assertion about unread differences."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "review": "774 Native NATIVE-ADMISSION03-REG-113",
+      "scope": "pr-working occupancy requested 1–123; NATIVE-ADM03-FINALQUAL-113 qualified 1–122, 123 blank; 124–191 excluded. Native camera-support/contracts-065 documents its own historical parent read and consumes Rig contract042 for fit predicate.",
+      "evidence": [
+        "history/774/native/admission03/source-range-registration.jsonl.gz",
+        "history/774/native/admission03/source-qualifications-final-current.jsonl.gz",
+        "history/774/native/admission03/camera-support/source-qualification-066.json.gz",
+        "history/774/native/admission03/camera-support/contracts-065.json.gz"
+      ]
+    },
+    {
+      "review": "774 Native NATIVE-ADMISSION03-REG-114",
+      "scope": "P16 schedule requested 1–78, qualified 1–77, line78 blank, preview79–99 excluded. Native independently registered lower owner REG115 and simulation REG122; their own source roles and personal scopes remain as recorded.",
+      "evidence": [
+        "history/774/native/admission03/source-qualifications-followthrough-current.jsonl.gz",
+        "history/774/native/admission03/camera-lower-followthrough/schedule-contracts-001.json.gz",
+        "history/774/native/admission03/camera-lower-followthrough/findings.jsonl.gz"
+      ]
+    },
+    {
+      "review": "059 Segovb Lens11 READ-L11-446",
+      "scope": "Historical role2734 fresh 1–122, role2735 fresh 1–77, separately registered as SEGOVB-1653/1654. Its state has accepted unique count change 0 and does not claim current reconciliation or validation.",
+      "evidence": [
+        "history/059/segovb/READ-L11-446.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1653.json",
+        "history/059/segovb/REGISTRATION-SEGOVB-1654.json",
+        "history/059/segovb/STATE-L11-446.json",
+        "history/059/segovb/VERIFY-L11-446.json"
+      ]
+    },
+    {
+      "review": "059 Root Lens2/3 and e275 qualified own-lens reuse",
+      "scope": "Root Lens2 personally read 6533 schedule1–99 in READ-ROOT-L2-EXT-055-066 row4, and Lens3 personally read 6533 schedule1–99 in READ-ROOT-L3-EXT-057-061 row1. Subsequent e275 receipts use exact prior same-lens reads and record zero fresh reread; Lens3 says frozen source adoption pending. These are neither P16 2735 original material nor 95e fresh personal reads; each original lens and provenance remains independent.",
+      "evidence": [
+        "history/059/root-l2-extension-20261030/READ-ROOT-L2-EXT-055-066.json",
+        "history/059/root-l2-extension-20261030/READ-ROOT-L2-CURRENT-011.json",
+        "history/059/root-l3-extension-20261030/READ-ROOT-L3-EXT-057-061.json",
+        "history/059/root-l3-extension-20261030/READ-ROOT-L3-CURRENT-007.json"
+      ]
+    },
+    {
+      "review": "059 delegated PL13-238 equipment transaction",
+      "scope": "Lens13 agent recorded pr-working dirty parent role1079 exact object 806a... full 1–3983 through partial-union receipts and final union. Initial outputs marked truncated with eight cumulative checkpoints: do not count cumulative prefixes as multiple full reads. Its proposed q2229 says rollback contract remains open; metadata reused, no new root reread. Historic parent differs from 95e support.",
+      "evidence": [
+        "history/059/parallel-l13-20261029/READ-PL13-238.json",
+        "history/059/parallel-l13-20261029/REGISTRATION-PL13-238.json",
+        "history/059/parallel-l13-20261029/READ-PL13-238-PARTIAL-001.json",
+        "history/059/parallel-l13-20261029/READ-PL13-238-PARTIAL-008.json",
+        "history/059/parallel-l13-20261029/CLOSURE-QUEUE-PROPOSAL-PL13-001-v2.json",
+        "queue-selection-reconstructed.json"
+      ]
+    },
+    {
+      "review": "Other preserved related work",
+      "scope": "774 Rig CONTRACT-042 separately read exact conflict predicate; root ROOT-ADM-F005 is public allocation record/variant bypass. 059 delegated PL13-210 records own partial union and open tuple-correlation question. Earlier current 95e schedule aggregate, role182 P16 and catalog/strategic equipment packets retain their original authors, revisions and personal read scopes. Relationships are not automatic count merges.",
+      "evidence": [
+        "history/774/rig/admission03/contract-groups.jsonl.gz",
+        "history/774/root/admission03/findings.jsonl.gz",
+        "history/assessment-schedule-aggregate-95e.json",
+        "history/assessment-historical-178-184.json",
+        "historical-attribution.json"
+      ]
+    }
+  ],
+  "findings_and_qualified_observations": [
+    {
+      "id": "PL13-238-EQUIPMENT-TRANSACTION-PENDING",
+      "classification": "Existing 059 connected contract and 774 Native sequence; independently reconnected at 95e, no new count or proven committed side effect.",
+      "references": [
+        {
+          "id": "2734-current",
+          "archive": "sources/2734-current.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character/occupancy.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+          "lines": [
+            [
+              1,
+              1
+            ],
+            [
+              63,
+              102
+            ]
+          ]
+        },
+        {
+          "id": "character-reducer-extra",
+          "archive": "support/character-reducer-extra.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "lines": [
+            [
+              2860,
+              2901
+            ]
+          ]
+        },
+        {
+          "id": "character-reducer",
+          "archive": "support/character-reducer.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "lines": [
+            [
+              2921,
+              2952
+            ]
+          ]
+        },
+        {
+          "id": "container-detach",
+          "archive": "support/container-detach.source",
+          "source_path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+          "lines": [
+            [
+              263,
+              271
+            ]
+          ]
+        },
+        {
+          "id": "container-detach-impl",
+          "archive": "support/container-detach-impl.source",
+          "source_path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+          "lines": [
+            [
+              154,
+              172
+            ]
+          ]
+        }
+      ],
+      "trace": "The occupancy module heading describes reservations as validated before reducer mutations. The 95e replace reducer checks authority, then internal equip checks actor/item, calls detach_row_for_action, and only later computes root conflicts and may return an occupied error. The helper looks up the object, checks ancestry and deletes an existing containment edge in detach_if_nested, potentially merging the old parent. The later character.rs comment specifically says before mutating either normalized equipment table; it does not cover containment. This proves order of possible in-transaction operations, not final state.",
+      "condition": "Requires a matching owned nested object, successful detach and applicable later rejection. Uninspected native rollback/commit semantics and actual operation reachability control whether any prefix mutation persists; no runtime or database result shown.",
+      "future_repair_direction": "Resolve native transaction guarantees and intended preflight contract before choosing any remedy; preserve fireplace and custody restrictions, nested-to-equipped behavior, legitimate successful replacement, and error semantics. Adjust misleading broad documentation if appropriate, without assuming missing rollback or inventing a duplicate defect."
+    },
+    {
+      "id": "NATIVE-LOWER-ADM03-F001",
+      "classification": "Existing 774 P16 source finding independently related to 95e; original Native owner and root dedup authority retained, no new unique count.",
+      "references": [
+        {
+          "id": "p16-simulation-writer",
+          "archive": "support/p16-simulation-writer.source",
+          "source_path": "crates/adventuresim-stdb-module/src/simulation.rs",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+          "lines": [
+            [
+              349,
+              359
+            ],
+            [
+              420,
+              435
+            ],
+            [
+              464,
+              474
+            ]
+          ]
+        },
+        {
+          "id": "simulation-writer-source",
+          "archive": "support/simulation-writer-source.source",
+          "source_path": "crates/adventuresim-stdb-module/src/simulation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+          "lines": [
+            [
+              349,
+              359
+            ],
+            [
+              420,
+              435
+            ],
+            [
+              464,
+              474
+            ]
+          ]
+        },
+        {
+          "id": "schedule-allocated",
+          "archive": "support/schedule-allocated.source",
+          "source_path": "crates/adventuresim-stdb-module/src/time/model.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+          "lines": [
+            [
+              75,
+              98
+            ]
+          ]
+        },
+        {
+          "id": "schedule-sum",
+          "archive": "support/schedule-sum.source",
+          "source_path": "crates/adventuresim-core/src/strategic_time.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+          "lines": [
+            [
+              414,
+              417
+            ]
+          ]
+        },
+        {
+          "id": "schedule-day",
+          "archive": "support/schedule-day.source",
+          "source_path": "crates/adventuresim-world-schema/src/calendar.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "lines": [
+            [
+              10,
+              10
+            ]
+          ]
+        },
+        {
+          "id": "schedule-quarter-hour",
+          "archive": "support/schedule-quarter-hour.source",
+          "source_path": "crates/adventuresim-core/src/activity.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+          "lines": [
+            [
+              28,
+              28
+            ]
+          ]
+        },
+        {
+          "id": "schedule-owner",
+          "archive": "support/schedule-owner.source",
+          "source_path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+          "lines": [
+            [
+              19,
+              36
+            ],
+            [
+              177,
+              197
+            ]
+          ]
+        },
+        {
+          "id": "2735-current",
+          "archive": "sources/2735-current.source",
+          "source_path": "crates/strategic-web/src/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+          "lines": [
+            [
+              42,
+              48
+            ],
+            [
+              64,
+              76
+            ]
+          ]
+        },
+        {
+          "id": "schedule-preview",
+          "archive": "support/schedule-preview.source",
+          "source_path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+          "lines": [
+            [
+              2103,
+              2112
+            ]
+          ]
+        },
+        {
+          "id": "schedule-writer",
+          "archive": "support/schedule-writer.source",
+          "source_path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+          "lines": [
+            [
+              195,
+              225
+            ],
+            [
+              227,
+              261
+            ]
+          ]
+        }
+      ],
+      "trace": "Both displayed P16 and 95e simulation writer ranges 420–480 check only the sum of all ten downtime minutes against the day limit before assigning raw downtime to a saved schedule. With one combat minute and nine zero fields, the sum is 1 and within the 1440-minute limit but the core validated schedule rejects a non-multiple of 15. If that raw row reaches Some(location) preview, schedule::effective returns Err and preview calls expect; None(location) instead clones raw schedule. The normal player reducer independently passes matching activity and organization minutes to the shared validator and calls organization validation before its schedule update.",
+      "condition": "The numerical case is symbolic reasoning from source, not an executed, created or validated fixture. The writer additionally requires an owned run, fresh eligible character, matching profile IDs, valid attributes/skills, settlement and solo leader plus other conditions and downstream operations. No successful transaction, retained malformed row, UI display or panic is established. Preview and DB authorization, complete writers and rollback remain open.",
+      "future_repair_direction": "Coordinate accepted saved-allocation admission across actual authorized writers and preview/effective readers, with error propagation or a durable checked token as appropriate. Preserve zero allocations, quarter-hour/day and seeded redistribution semantics, membership authorization, actual simulation isolation, and legitimate location-none behavior. No implementation or validation here."
+    },
+    {
+      "id": "ROOT-ADM-F005",
+      "classification": "Existing 774 public allocation/variant admission finding, separately confirmed in bounded current core owner; no automatic alias with alternate writer or parallel-field mismatch.",
+      "references": [
+        {
+          "id": "schedule-owner",
+          "archive": "support/schedule-owner.source",
+          "source_path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+          "lines": [
+            [
+              7,
+              17
+            ],
+            [
+              19,
+              36
+            ],
+            [
+              39,
+              59
+            ],
+            [
+              104,
+              132
+            ],
+            [
+              177,
+              197
+            ]
+          ]
+        }
+      ],
+      "trace": "ActivityMinutes accepts zero when it is a 15-minute multiple. The public Scheduled variant holds a checked value plus raw String, so direct construction can represent zero minutes with an empty organization although parse rejects that combination. DailySchedulePlan exposes its independently constructible array and organization allocations. ValidatedSchedule is a separate private wrapper around a raw DailySchedule, checked for numeric day total and increments.",
+      "condition": "No actual direct malformed caller, membership bypass, or product incident was demonstrated. Standalone zero minutes and raw transport are intentional separate concepts; no blanket positivity or day maximum on ActivityMinutes follows.",
+      "future_repair_direction": "If accepted plan/organization state promises these invariants, own validated payload construction and mutation while retaining raw rejected inputs and separate authoritative membership checks."
+    },
+    {
+      "id": "REVIEW-SCHEDULE-PARALLEL-ALLOCATION-001",
+      "classification": "Existing 95e aggregate API question, separately reconnected; no new unique count and no normal web/native mismatch shown.",
+      "references": [
+        {
+          "id": "schedule-owner",
+          "archive": "support/schedule-owner.source",
+          "source_path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+          "lines": [
+            [
+              104,
+              132
+            ]
+          ]
+        },
+        {
+          "id": "2735-current",
+          "archive": "sources/2735-current.source",
+          "source_path": "crates/strategic-web/src/schedule.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+          "lines": [
+            [
+              11,
+              38
+            ]
+          ]
+        },
+        {
+          "id": "schedule-writer",
+          "archive": "support/schedule-writer.source",
+          "source_path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+          "lines": [
+            [
+              204,
+              225
+            ],
+            [
+              227,
+              247
+            ]
+          ]
+        }
+      ],
+      "trace": "The public helper takes ten activity minutes and separately supplied apprenticeship/practice tuple minutes without comparing corresponding values. Selected web and native callers each pass matching underlying numeric fields. The native path rebuilds those fields from parsed organization allocations; the web path retains the matching transport minutes while storing parsed IDs.",
+      "condition": "Prior current assessment contains a symbolic inconsistent direct-call plan; this is neither an observed direct caller nor a demonstrated ordinary saved schedule. Whether DailySchedulePlan must certify consistency for all public callers remains an owner contract decision.",
+      "future_repair_direction": "Decide the aggregate contract and derive or check duplicated values at one owner if needed; preserve current matching adapters, zero/blank normalization and independent organization authorization."
+    },
+    {
+      "id": "OCCUPANCY-CANONICAL-AND-UI-RELATION",
+      "classification": "Corroboration and distinct open cross-owner question, not a new finding.",
+      "references": [
+        {
+          "id": "2734-current",
+          "archive": "sources/2734-current.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character/occupancy.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+          "lines": [
+            [
+              7,
+              25
+            ],
+            [
+              28,
+              52
+            ],
+            [
+              63,
+              120
+            ]
+          ]
+        },
+        {
+          "id": "occupancy-fit",
+          "archive": "support/occupancy-fit.source",
+          "source_path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+          "lines": [
+            [
+              35,
+              45
+            ]
+          ]
+        },
+        {
+          "id": "character-reducer-extra",
+          "archive": "support/character-reducer-extra.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "lines": [
+            [
+              2997,
+              3007
+            ]
+          ]
+        },
+        {
+          "id": "character-reducer",
+          "archive": "support/character-reducer.source",
+          "source_path": "crates/adventuresim-stdb-module/src/character.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+          "lines": [
+            [
+              3010,
+              3025
+            ],
+            [
+              3083,
+              3110
+            ]
+          ]
+        }
+      ],
+      "trace": "Attachment requirement uses the parent chain with a visited set and checks required location. The reducer first checks that selected parent is equipped by the same character; that immediate safeguard does not itself certify every ancestor or raw retained row. Root conflicts resolve each currently equipped item through its inventory and persisted placement, failing when missing, and use the shared catalog conflict predicate. Replacement gathers a set and later checks displaced item ownership and childlessness.",
+      "condition": "No malformed/cross-owner ancestor graph, stale catalog, actual player replacement or denial was observed. Prior current DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E concerns UI displaying one of multiple potential displacements, while EQUIPMENT-FIT-CATALOG-SOURCE-QUESTION-95E concerns compiled-vs-persisted catalog identity; no automatic alias with this source owner.",
+      "future_repair_direction": "Keep authoritative conflict/identity checks and related presentation synchronized; trace actual lifecycle, transaction, catalog identity and parent graph only as needed. Preserve original 059 q513–516, q548, q1557 and q1749 distinctions."
+    },
+    {
+      "id": "SCHEDULE-WEIGHTED-EXPECT-RULE-OBSERVATION",
+      "classification": "Previously recorded 774 ROOT-ADM-SCHEDULE-021 rule concern; not an independently established reachable panic.",
+      "references": [
+        {
+          "id": "schedule-owner",
+          "archive": "support/schedule-owner.source",
+          "source_path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+          "lines": [
+            [
+              217,
+              255
+            ]
+          ]
+        }
+      ],
+      "trace": "The numeric redistribution branch calls weighted_index(...).expect after ensuring some selected weight is positive; admitted daily totals constrain the inputs. This is an explicit expect in production and the pinned crates guide prohibits it. The exact downstream weighted-index implementation and whole preconditions are not independently re-established here.",
+      "condition": "No failure, random sample, execution or intended distribution behavior tested. An expect rule violation does not establish a reachable panic.",
+      "future_repair_direction": "Review a fallible or otherwise invariant-preserving selection boundary while retaining exact RNG stream and distribution semantics; coordinate with original ROOT-ADM-SCHEDULE-021 rather than add an automatic unique count."
+    }
+  ],
+  "nonfindings": [
+    "The 95e web and native selected schedule validators pass matching numeric organization values; the generic helper mismatch is not itself an observed selected-caller inconsistency.",
+    "Core OrganizationAllocation::parse trims nonblank IDs; web maps blank optional IDs to None before parse. Blank normalization is an intentional input policy observation, not automatically a compatibility defect.",
+    "Visited-set traversal prevents revisiting an item indefinitely; this does not establish global graph correctness or prove untrusted cross-owner access.",
+    "The reducer checks target immediate parent owner, point identity, requirement, cycle, capacity and displaced-item ownership in the displayed direct paths; it does not prove all ancestors or storage writes valid.",
+    "The 2734 string occupancy key uses fixed prefixes and three numeric component slots; no collision or alternative identity authority established from this local function alone.",
+    "The effective adapter clones non-minute transport fields and validates numeric schedule separately; any organization-ID coherence or unavailable-location effect is a separate policy/caller question.",
+    "Source tests and preview body beyond assigned role2735 line77 and occupancy 123–191 were personally unread in these role displays, and no test, fixture or product was executed."
+  ],
+  "open_questions": [
+    "What atomicity, rollback and reducer error behavior does the applicable native SpacetimeDB contract guarantee for pre-conflict detachment and subsequent error paths?",
+    "Which approved simulation writer invocations can supply the identified non-quarter-hour payload, can a transaction commit such a row through all later calls, and can a supported preview observe it?",
+    "What guarantees accepted schedule-plan aggregate correlation and organization membership across all raw, generated, imported and future producer paths?",
+    "Which authority owns synchronization/versioning between compiled catalog and persisted placement, and what is the intended treatment of missing fit data?",
+    "Are all retained equipment ancestors guaranteed to belong to the same actor, and which actual writer validates raw graph shape? No exploit or corruption was observed.",
+    "How should all displaced equipment identities be presented under the existing player-legibility requirement? Existing UI observation remains separately attributed.",
+    "How do historic ROOT-ADM-F005, NATIVE-LOWER-ADM03-F001, REVIEW-SCHEDULE-PARALLEL-ALLOCATION-001 and 059 q2229 relate in the authoritative ledger? Preserve distinct first-failure claims; central reconciliation decides aliases."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "admission-contracts",
+      "scope": "Selected occupancy graph attachment and core numeric/organization admission; separate raw writer/expect and public variant family remain conditional."
+    },
+    {
+      "lens": "aggregate-states",
+      "scope": "Plan tuple/array correlation and associated ID/minute coherence distinguish direct helper from selected matching callers; occupancy ancestors and table graph remain open."
+    },
+    {
+      "lens": "behavior-preservation",
+      "scope": "Recorded historical and current assigned bodies byte-identical, but their parent reducer and simulation owner differ; preserve normalization, valid redistribution, custody and location-none behavior."
+    },
+    {
+      "lens": "derivability",
+      "scope": "Selected derives and conversions show no concrete safe simplification; third-party and generated transport derivations remain outside role."
+    },
+    {
+      "lens": "enum-shapes",
+      "scope": "OrganizationAllocation None/Scheduled is a meaningful choice yet public Scheduled payload can bypass checked parse; parent occupancy/location variants require broader schema."
+    },
+    {
+      "lens": "existing-type-owners",
+      "scope": "OccupancyRequirement and its conflicts_with, ActivityMinutes/ValidatedSchedule and checked semantic units own observed core operations; do not replace them with parallel UI rules."
+    },
+    {
+      "lens": "invariant-operations",
+      "scope": "A validated day is transformed through canonical effective_at; exact random owner remains separate. Earlier detach can mutate containment in transaction before later checks, with rollback unsettled."
+    },
+    {
+      "lens": "magic-numbers",
+      "scope": "15-minute segment and 1440-minute day resolve to named core owners, not ad-hoc replacements. Raw u64 IDs/index narrowing are boundary questions, not automatic defects."
+    },
+    {
+      "lens": "magic-strings",
+      "scope": "Occupancy key formatting uses fixed textual framing and numeric roles, organization IDs remain native strings until parsed; full grammar and identity admission remain outside."
+    },
+    {
+      "lens": "producer-propagation",
+      "scope": "Web and native validated schedule adapters retain raw transport; simulation writer and preview do not carry numeric checked token throughout. Source flow is not a demonstrated live failure."
+    },
+    {
+      "lens": "redundant-authority",
+      "scope": "Daily plan repeats activity slots and paired organization durations; matching selected call sites qualify an open API-level mismatch, not proof of a conflicting production write."
+    },
+    {
+      "lens": "type-granularity",
+      "scope": "Differentiate numeric validated day from authorized organization membership, selected item identity from ancestor graph, and parent requirement from occupancy conflict."
+    },
+    {
+      "lens": "type-ownership",
+      "scope": "Canonical fit predicate belongs core catalog, actual membership to native DB, preview transport to web, containment lifecycle to native inventory. Cross-owner repair and aliases remain centrally reconciled."
+    }
+  ],
+  "provenance_limitations": [
+    "Full recovered 059 original registry, transport manifest and compressed historical queue/ledger are retained, and selected 059 receipt bytes match original manifest size/SHA/Git blob. 059 payload Git path was unavailable in inspected stores; do not present it as independently commit-path verified.",
+    "Mechanically selected registry/queue rows are reconstructions labeled accordingly. 774 documents and archived historical objects are proven against f82 transport Git tree. Their historical content is not checkpoint3821.",
+    "Prior full local packets are preserved exactly with verified original manifests and authors; any later public redaction produces different, expressly reconstructed bytes and hashes.",
+    "No source edit, repair, generation, product build, test, fixture execution, simulation, runtime probe or validation occurred. Evidence-only integrity scripts do not execute product code."
+  ]
+}

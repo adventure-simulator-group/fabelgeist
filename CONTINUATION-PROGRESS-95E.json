@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 03:30:18–03:30:19 UTC; main may advance. See MAIN-RECHECK-20261112-0330.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 03:49:25–03:49:26 UTC; main may advance. See MAIN-RECHECK-20261112-0349.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 968,
+  "new_current_ledger_candidates": 977,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -496,7 +496,8 @@
     "ASSESSMENT-DELEGATED-BUILDING-P16-2504-2512.json",
     "ASSESSMENT-DELEGATED-CLOSURES-P16-2513-2518.json",
     "ASSESSMENT-DELEGATED-P16-2519-2523.json",
-    "ASSESSMENT-DELEGATED-WINDOWS-2526-2533.json"
+    "ASSESSMENT-DELEGATED-WINDOWS-2526-2533.json",
+    "ASSESSMENT-DELEGATED-ROOFS-2534-2539.json"
   ],
   "qualification": "Partial current trace and historical body read remain distinct; neither closes a lens, historical alias or current scope.",
   "new_nonfinding_assessments": [
@@ -2200,7 +2201,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-FB75928E.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-E0790A71.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2219,7 +2220,8 @@
   },
   "delegated_batch11_partial_reconciliation": [
     "ASSESSMENT-DELEGATED-RECONCILIATION-11A-95E.json",
-    "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json"
+    "ASSESSMENT-DELEGATED-RECONCILIATION-11B-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-11C-95E.json"
   ],
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json",
   "delegated_batch22_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-22.json",
@@ -2228,6 +2230,7 @@
   "central_11c_preliminary_historical_displays": {
     "registration": "CENTRAL-11C-HISTORICAL-REGISTRATION.json",
     "receipt": "CENTRAL-11C-HISTORICAL-RECEIPT.json",
-    "qualification": "Coordinator displays of recovered pr-working roles 2536 and 2537 are preliminary; the earlier delegate 6533 and current reads remain separate, and central 11C reconciliation is open."
-  }
+    "qualification": "Coordinator historical displays of recovered pr-working roles 2536 and 2537 were separately recorded and used in bounded 11C reconciliation; delegate 6533 and current reads remain distinct."
+  },
+  "delegated_batch24_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-24.json"
 }
