@@ -1,0 +1,67 @@
+{
+  "schema": "726-15-correction-independent-privacy-scan-v1",
+  "author": "/root/hair_ops",
+  "stats": {
+    "files": 21,
+    "string_views": 32747
+  },
+  "hits": [],
+  "classified": [
+    {
+      "file": "CROSSWALK.json",
+      "pointer": "/author",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "PROPOSAL.json",
+      "pointer": "/author",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "PROPOSAL.json",
+      "pointer": "/historical_attribution",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "PROPOSAL.json",
+      "pointer": "/scope/corpus",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "successor/delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+      "pointer": "/earlier_involvement",
+      "category": "recorded-agent-identity",
+      "count": 2
+    },
+    {
+      "file": "successor/delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+      "pointer": "/reviewer",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "successor/delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+      "pointer": "/author",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "successor/delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+      "pointer": "/author",
+      "category": "recorded-agent-identity",
+      "count": 1
+    },
+    {
+      "file": "successor/delegated/qualified-059-successors/verification/captured-reconstruction.json",
+      "pointer": "/author",
+      "category": "recorded-agent-identity",
+      "count": 1
+    }
+  ],
+  "errors": [],
+  "qualification": "Bounded JSON-string and source-text scan of frozen stage; recognized reviewer IDs in attribution are not local path disclosures, including a typographic possessive. Unknown encodings, names and secrets remain open; no token values or individual-value digests are emitted."
+}

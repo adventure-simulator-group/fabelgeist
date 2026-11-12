@@ -1,0 +1,77 @@
+{
+  "schema": "726-hair-collider-followup-support-registration-v1",
+  "author": "/root/mhr_character",
+  "registered_utc": "2026-11-12T10:08:06.639385+00:00",
+  "entries": [
+    {
+      "tag": "cap-constants",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-character-creator/src/hair/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "git_blob": "737fb48a583b15cfb8915dfa90210ef525a84453",
+      "bytes": 10064,
+      "eof": 256,
+      "registered_ranges": [
+        [
+          20,
+          39
+        ]
+      ],
+      "archive": "source/cap-constants.rs",
+      "role": null
+    },
+    {
+      "tag": "surface-admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "git_blob": "a0830bbc0894b1701a1991a2a79ef7078a4851cc",
+      "bytes": 8315,
+      "eof": 233,
+      "registered_ranges": [
+        [
+          26,
+          89
+        ]
+      ],
+      "archive": "source/surface-admission.rs",
+      "role": null
+    },
+    {
+      "tag": "field-admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "git_blob": "67254fb943711878a827255dabacf128f1903fe5",
+      "bytes": 18399,
+      "eof": 545,
+      "registered_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "archive": "source/field-admission.rs",
+      "role": null
+    },
+    {
+      "tag": "bvh-nearest",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "git_blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+      "bytes": 16479,
+      "eof": 462,
+      "registered_ranges": [
+        [
+          380,
+          458
+        ]
+      ],
+      "archive": "source/bvh-nearest.rs",
+      "role": null
+    }
+  ],
+  "locator": "LOCATOR.json",
+  "qualification": "Source registration precedes displays; saved full bytes provide identity but do not expand read windows. Locator only reported filenames, EOF and identifier line numbers; it grants no read credit."
+}

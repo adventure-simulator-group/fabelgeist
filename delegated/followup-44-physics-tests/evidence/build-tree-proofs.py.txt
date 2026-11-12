@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Build raw tree-only membership proofs; no product execution."""
+import gzip,hashlib,json,subprocess,sys
+from pathlib import Path
+p=Path(__file__).resolve().parent;repo=sys.argv[1];h=lambda b:hashlib.sha256(b).hexdigest();git=lambda *a:subprocess.check_output(['git','-C',repo,'--no-replace-objects',*a]);blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+r=json.loads((p/'REGISTRATION.json').read_bytes());hist=json.loads((p/'history/HISTORY-INDEX.json').read_bytes());spec=[{'revision':x['revision'],'path':x['git_path'],'archive':x['archive'],'encoding':'identity'} for x in r['entries']]
+for role in (2650,2651):
+ x=next(z for z in r['entries'] if z['tag']==str(role)+'-historical-f82');spec.append({'revision':'6533e444fa37552927070cc8d8190907fd3b413e','path':x['project_path'],'archive':x['archive'],'encoding':'identity'})
+for x in [hist['registry'],*hist['source_774'].values()]:spec.append({'revision':x['revision'],'path':x['git_path'],'archive':x['archive'],'encoding':'gzip'})
+objects={};roots={};proof=[];(p/'trees').mkdir(exist_ok=False)
+def tree(oid):
+ if oid not in objects:
+  b=git('cat-file','tree',oid);assert hashlib.sha1(b'tree '+str(len(b)).encode()+b'\0'+b).hexdigest()==oid;enc=gzip.compress(b,mtime=0);name='trees/'+oid+'.tree.gz'
+  with (p/name).open('xb') as f:f.write(enc)
+  objects[oid]={'archive':name,'bytes':len(b),'sha256':h(b),'stored_sha256':h(enc)}
+ else:b=gzip.decompress((p/objects[oid]['archive']).read_bytes())
+ out={};i=0
+ while i<len(b):
+  sp=b.index(b' ',i);z=b.index(b'\0',sp);out[b[sp+1:z].decode()]=(b[i:sp].decode(),b[z+1:z+21].hex());i=z+21
+ return out
+for x in spec:
+ rev=x['revision'];root=git('rev-parse',rev+'^{tree}').decode().strip();roots[rev]=root;cur=root;chain=[]
+ for part in x['path'].split('/'):
+  mode,child=tree(cur)[part];chain.append({'tree':cur,'name':part,'mode':mode,'object':child});cur=child
+ data=(p/x['archive']).read_bytes();data=gzip.decompress(data) if x['encoding']=='gzip' else data;assert cur==blob(data);proof.append({**x,'root_tree':root,'chain':chain,'bytes':len(data),'sha256':h(data),'git_blob':cur})
+with (p/'TREE-PROOFS.json').open('x') as f:json.dump({'schema':'726-physics-test-tree-proof-v1','roots':roots,'objects':objects,'proofs':proof,'qualification':'Tree-only raw membership; revision-to-root needs independently trusted Git or retained published checkpoint20. f82 transports historical evidence. Archived support outside registered read windows is not a personal read.'},f,indent=2);f.write('\n')
+print('Created',len(proof),'tree membership proofs across',len(roots),'revisions; no commit author objects copied.')

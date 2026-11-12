@@ -1,0 +1,106 @@
+{
+  "schema": "726-15-digest-correction-proposal-manifest-v2",
+  "files": [
+    {
+      "path": "CROSSWALK.json",
+      "bytes": 528680,
+      "sha256": "86061e719695baf67fdfd4128c5739820405b9f64836ec1c6b846f1aa7dd816b"
+    },
+    {
+      "path": "DEPENDENCY-INVENTORY.json",
+      "bytes": 59897,
+      "sha256": "5138cb195100637b9564ae8131ac844fa49d2b8c4a57a62268de89be0adc19cb"
+    },
+    {
+      "path": "OLDER-TEXT-MANIFEST.json",
+      "bytes": 15912,
+      "sha256": "83d4741a7db3a8651cf62ccd0b7994de9af87672d6a1b76ae55767b4a0b19ec2"
+    },
+    {
+      "path": "PROPOSAL.json",
+      "bytes": 5705,
+      "sha256": "83d3384579125c996c5559dc98707b24fb6c425bad26fd80d6ddfe0caf71490f"
+    },
+    {
+      "path": "successor/delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+      "bytes": 34654,
+      "sha256": "d617f06affa2ddcd2132193a17cd6ba7c9b9f83b675c4980a2e48f9190862115"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+      "bytes": 23622,
+      "sha256": "5df9d57a416650ee1b1cfb321249e73e09751c06980e40d3474733d45a0d1cab"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+      "bytes": 7193,
+      "sha256": "07ed165bd36fa51bb5a764592f6fbde02a7700a39adc5c899c4e5266b9c5d064"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+      "bytes": 20088,
+      "sha256": "c6aa3d6fbcae6183b17d39252dce98e1dfe854f87c9162808b15d477225d83a1"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+      "bytes": 14357,
+      "sha256": "6cf772b7568d3c54f25439340f4c481d3fd3da73c45512da21bf91dda0c486d8"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+      "bytes": 129966,
+      "sha256": "319b48a78056220960e8b41d9555f46a623f60984f23f783eb1efaa5b755cb6f"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+      "bytes": 55815,
+      "sha256": "aaf61788544bb91ee42b717d484c9d89756d2942f1739be3bed87346fcbba54c"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+      "bytes": 78322,
+      "sha256": "3ea88ed4e69b7fd7dcf6b6dbe53940b290e814636bb6e1391f4e7c6d2c7e5b03"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+      "bytes": 87376,
+      "sha256": "5405d05a8ec9b1cc5747eeee3a75428d0190df13086a63498d08ff83d1032dc8"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+      "bytes": 7193,
+      "sha256": "07ed165bd36fa51bb5a764592f6fbde02a7700a39adc5c899c4e5266b9c5d064"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+      "bytes": 20088,
+      "sha256": "c6aa3d6fbcae6183b17d39252dce98e1dfe854f87c9162808b15d477225d83a1"
+    },
+    {
+      "path": "successor/delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+      "bytes": 14357,
+      "sha256": "6cf772b7568d3c54f25439340f4c481d3fd3da73c45512da21bf91dda0c486d8"
+    },
+    {
+      "path": "successor/delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+      "bytes": 11359,
+      "sha256": "a3ffa7bd22c5823f388022e1438ad96b76904fc493a7d5a8bd6e131b22cf8517"
+    },
+    {
+      "path": "successor/delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+      "bytes": 11359,
+      "sha256": "a3ffa7bd22c5823f388022e1438ad96b76904fc493a7d5a8bd6e131b22cf8517"
+    },
+    {
+      "path": "successor/delegated/qualified-059-successors/verification/captured-reconstruction.json",
+      "bytes": 11359,
+      "sha256": "a3ffa7bd22c5823f388022e1438ad96b76904fc493a7d5a8bd6e131b22cf8517"
+    },
+    {
+      "path": "verify-reconstruction-only.py",
+      "bytes": 3466,
+      "sha256": "6b3480d82fb1b7df65a4ad429ce859b3d7792b7c071de8e60a8d92d33f1de868"
+    }
+  ],
+  "qualification": "Additive proposal only. Existing manifests refer to original bytes; successor checks require the qualified crosswalk. This is not a legacy verifier replacement."
+}

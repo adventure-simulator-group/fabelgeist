@@ -1,0 +1,135 @@
+{
+  "schema": "726-checkpoint42-independent-packaging-review-v1",
+  "reviewer": "/root/mhr_character",
+  "reviewer_prior_involvement": "I authored the collider role 2645 reconciliation and its privacy-reviewed public transport included here. This is not an independent review of my original source analysis. The other two source-family packets retain the separate authorship in the catalog.",
+  "reviewed_stage": {
+    "stage_manifest_sha256": "c6a849084f746adbcc392e46937928b624dbec52f8626aba3f6464527361e8b0",
+    "catalog_sha256": "ce5fb80fc53bd7fc472ea15c743cc258ebcd2b8f458eb38ca730b248856ef6d7",
+    "stage_files_including_manifest": 11,
+    "archive_members_total": 368,
+    "review_mode": "Read-only evidence and packaging inspection. No files in the stage, user extraction, publication, or product source were modified."
+  },
+  "disposition": "Public transport identities and required qualifications are preserved, subject to the attribution wording correction and privacy/custody limits below. No implementation, product validation, alias decision, unique count or lens closure.",
+  "attribution_qualification": {
+    "issue": "The packet report labels the earlier receipt Segovb root Lens11, but the retained receipt and relevant source rows do not name an individual reader. The Segovb collection and receipt attribution and personal read ranges are supported; a particular person is not established by these fields alone. Carry an additive clarification without overwriting the frozen historical report.",
+    "archive": "archives/hair-surface-grid.tar.gz",
+    "report_member": "bundle/REPORT.json",
+    "report_pointer": "/historical_attribution/2/original_author",
+    "report_label": "Segovb root Lens11",
+    "receipt_member": "bundle/historical/prior-059--segovb--READ-L11-432.json",
+    "receipt_pointers": [
+      {
+        "pointer": "/sources/6",
+        "original_role": 2643,
+        "fresh_personal_body_reads": [
+          [
+            1,
+            146
+          ],
+          [
+            215,
+            244
+          ]
+        ]
+      },
+      {
+        "pointer": "/sources/7",
+        "original_role": 2644,
+        "fresh_personal_body_reads": [
+          [
+            1,
+            156
+          ]
+        ]
+      }
+    ],
+    "reader_fields": "No individual reader field in the retained receipt top level or either cited source row; this observation does not rule out separately documented evidence elsewhere.",
+    "related_collider_qualification": {
+      "archive": "archives/hair-collider.tar.gz",
+      "member": "evidence/REPORT.json",
+      "pointer": "/historical_relations/2/attribution"
+    }
+  },
+  "archives": [
+    {
+      "id": "hair-surface-grid",
+      "roles": [
+        2643,
+        2644
+      ],
+      "author": "/root/hair_ops",
+      "member_count": 112,
+      "sha256": "295e4befc019c7e9dcd21bfb849804d8fa57113a12230e32803f8b25cb601adc",
+      "manifest_sha256": "bb3e8acbb2dde7fb8e7388a5cc0b3da14960154f337bbe48724c769324e9e5cd",
+      "qualification": "Seven reconstructed members and 57 recorded substitutions; the 98cc queue Git-leaf original assertion remains crosswalk-qualified. Prior 774/059 reads and report author remain separately attributed. Full per-file equality is not a clean historical tree or an extra 6533 personal display."
+    },
+    {
+      "id": "hair-collider",
+      "roles": [
+        2645
+      ],
+      "author": "/root/mhr_character",
+      "member_count": 119,
+      "sha256": "a9ca45795178d31f1d5f83b05c70e4fea862fe423da1496de35d69468f0ef4b4",
+      "manifest_sha256": "a52cc19904a8c85019709b8a431c533d9af9e43902bb029fbdb460b96b40a65e",
+      "qualification": "Two inert reconstructed helper scripts have three path substitutions. CONTRACT-628 already records negative BVH radius; F054 covers raw BVH topology. Earlier field assessment already records normals before filtering. This packet keeps independent corroboration and source-read ranges distinct; no additional count is assigned."
+    },
+    {
+      "id": "shell-mesh",
+      "roles": [
+        2646,
+        2647
+      ],
+      "author": "/root/rig_identity",
+      "member_count": 137,
+      "sha256": "0039c4eabace8d2d9b896c69c1ca9977d10bb785c69e200ae00227f85e3dab37",
+      "manifest_sha256": "9307df69407b543426cd2485977c05dfce4a4837138369ade82e3fa035c8f2d8",
+      "qualification": "Two reconstructed members have 16 path substitutions. Historical mesh material was 1\u2013139, lib 1\u201356; historical lib 57\u201358 is separately labeled support. F003/F083, q437, later observations and proposed aliases retain their own scopes."
+    }
+  ],
+  "queue_identity_and_baseline": {
+    "original_059": {
+      "decoded_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "stored_transport_gzip_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "check": "Exact decoded bytes match user extraction and local 98cc/56f Git objects. A compressed wrapper hash is not a Git blob identity."
+    },
+    "grid_public_reconstruction": {
+      "stored_sha256": "fc4f90ec4355b284bc8446645362231dd5099723e426127a4e7bc6b62f7d9110",
+      "decoded_sha256": "f152abba04afaaf396752904009f16f0be19a71cf521b7361c8f0d4175c948fc"
+    },
+    "shell_public_reconstruction": {
+      "stored_sha256": "5c8f780934a87449dd59fb5eda4e16ba00d955178fd942ab0c86c8ef0335f58b",
+      "decoded_sha256": "6e8eb5826be050eec393a4dccc9495e23136643dae473e0dac28977294d8cc9f"
+    },
+    "d7_public_queue": {
+      "grid_stored_sha256": "301d2350a741e6aa24647a891e6aaa58ad00b8de89f7be63e0582cd70dab5cd4",
+      "decoded_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "check": "Decoded bytes equal the local d7 commit; full bytes differ from original and both public reconstructions."
+    },
+    "semantic_comparison": "Against original parsed JSON, each of the grid, shell and d7 representations differs at 12 string leaves, with no other key, type or list-length change. Seven named grid selected values, six named shell values and three selected collider values retain their separately qualified comparisons; selected equality is not full-file equality.",
+    "registry": "Shell original gzip SHA-256 246584f551eb77f70f02fef9ac1cb984c8532bee636c75e00caecc766e4cf228 decodes to d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f. Shell and collider decoded bytes equal the user extraction. Different gzip wrappers do not imply different decoded registry bytes.",
+    "committed_ledger": "d7 local commit decoded SHA-256 36115b9bc3ebb3dec1ae87ef5a3f2431195665ab611a4b1e995e15cb9548a77f",
+    "observed_working_ledger": "Time-bound captured decoded SHA-256 4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c, not a commit or current-worktree claim. The packet selections compare equal but the full baseline hashes differ.",
+    "recovery_limit": "Original checkpoint3821 queue and ledger remain unrecovered; none of these earlier or reconstructed records is promoted."
+  },
+  "privacy_review": {
+    "stage_scan": "PRIVACY-RESULT.json",
+    "statistics": "11 top-level files, 526 raw/decoded views, 147 gzip members, 368 tar members and 19,554 Git tree entry names; no exceptions.",
+    "selected_path_and_credential_candidates": 0,
+    "email_candidates": 18,
+    "classification": "All 18 are author/committer email-pattern lines in nine retained raw commit-object copies corresponding to 6533, 95e and f82. Across the grid and shell packets, 12 raw commit-object copies represent five distinct commits 6533, 95e, f82, 98cc and d7. The two other commits also retain disclosed author/committer metadata even though the selected email regex did not match them. Values are intentionally not reproduced here; earlier packet reports disclose these objects and qualify their public status. No independent live-remote check was performed.",
+    "gzip_header": "One inner gzip header carried a 32-byte filename with no slash or backslash and no selected candidate; the other 146 gzip members had zero flags.",
+    "limits": "Selected Unix/Windows/escaped paths, email, private-key and credential patterns only; UTF-8 textual views, gzip and recognized ustar tar, depth 18, 128 MiB per view, tree names and gzip/tar metadata. Non-UTF-8 text, unknown roots, encodings, credentials, archive types and personally identifying content not matching the patterns remain unassessed. This is not complete privacy clearance."
+  },
+  "temporary_name_custody": {
+    "qualification_member": "TEMPORARY-CUSTODY-QUALIFICATION.json",
+    "qualification_sha256": "229727e64d319c5ddd204d22bafb31f36c1917e094e42c734a6665eae120ae81",
+    "issue": "Two coordinator helper paths, 23 coordinator log paths and one delegate registration-builder path were written without observed prior-existence checks. Earlier bytes are unknown; there is no evidence that a prior file actually existed or was overwritten.",
+    "capture_manifest_sha256": "dfd4d543b50aa2bee613be76e570fc060d663e30e6f3bc23b456a8c898cddbda",
+    "capture_verified": "All 26 retained post-write file copies match the local capture manifest and owner-only file permissions. This verifies present retained bytes only, not earlier contents or uninterrupted custody.",
+    "retention_manifest_sha256": "da8dc1d5c5d06da19ceb72fd92b1053a627bd534162333b4c84a855d86af3d36",
+    "retention_verified": "All 124 listed private-retention files match their local manifest and owner-only file permissions; this is a bounded same-machine check, not proof of global completeness or independent custody."
+  },
+  "verification": "VERIFICATION-RESULT.json; the independent read-only verifier checks all stage/member hashes, public crosswalks, local Git/extraction identities, selected comparisons and the two local restricted manifests. It does not replay every script substitution from restricted originals or check source behavior. Same-machine receipt logs are attributed to their original operators, not independent-machine attestations."
+}

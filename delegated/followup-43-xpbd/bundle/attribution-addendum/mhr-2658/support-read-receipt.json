@@ -1,0 +1,114 @@
+{
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T01:55:19.534721+00:00",
+  "registration_sha256": "d16c55d8b59344450d6bcaa650c7e134840fa7c640963e36a15bb8618d3a48cd",
+  "reads": [
+    {
+      "path": "crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/0.rs",
+      "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+      "eof": 215,
+      "actual_ranges": [
+        [
+          1,
+          103
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/1.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "eof": 408,
+      "actual_ranges": [
+        [
+          20,
+          40
+        ],
+        [
+          140,
+          180
+        ],
+        [
+          340,
+          380
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/2.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "eof": 623,
+      "actual_ranges": [
+        [
+          72,
+          105
+        ],
+        [
+          370,
+          445
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/3.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "eof": 462,
+      "actual_ranges": [
+        [
+          65,
+          90
+        ],
+        [
+          320,
+          365
+        ],
+        [
+          388,
+          462
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/4.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "eof": 171,
+      "actual_ranges": [
+        [
+          21,
+          34
+        ],
+        [
+          87,
+          120
+        ],
+        [
+          139,
+          167
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/5.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "eof": 178,
+      "actual_ranges": [
+        [
+          127,
+          130
+        ]
+      ]
+    }
+  ],
+  "qualification": "Only displayed windows count; surface_contact 370-445 and cpu/mod.rs 461-462 are test source/declaration read only, not executed."
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "726-followup4041-coordinator-private-replay-observation-v1",
+  "stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "private_capture_sha256": "07328d64107c7f554d54d99f4caeaac2f31b79b014207f956a6a8c73aff1308b",
+  "private_replay_receipt_sha256": "f4bb82119c9f12584967759ce59baa69fb31b2fc5f8c219bb832f3061b04fa35",
+  "observation": "The coordinator extracted the public GPU successor into a fresh owner-restricted scratch directory and ran the retained read-only replay against the copied private capture. It reported PASS for 154 source members, 47 original transformations and the recorded digest-field omissions. The same-machine copy and replay are not independent custody or proof of all sensitive content.",
+  "failed_probe_qualification": "Before that replay, the coordinator invoked the evidence script with --help. It accepts a positional public-directory path rather than a help option, so it interpreted --help as a directory and failed when that path was absent. Static inspection found no file-writing call in the script; no product code ran. This failed invocation is not evidence that the replay passed.",
+  "capture_handoff_qualification": "QUALIFICATION-FOLLOWUP4041-CAPTURE-HASH.json records the separately confirmed transcription discrepancy in the earlier handoff spelling. No alternate capture identity is asserted.",
+  "public_limit": "The public verifier checks the qualified record and public stage only. It cannot reproduce private replay without the separately retained originals."
+}

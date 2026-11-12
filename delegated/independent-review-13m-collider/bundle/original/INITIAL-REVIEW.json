@@ -1,0 +1,69 @@
+{
+  "schema": "726-independent-13m-original-draft-review-v1",
+  "reviewer": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T10:52:14.996543+00:00",
+  "reviewed_assessment": {
+    "path": "coordinator/ASSESSMENT.json",
+    "sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106"
+  },
+  "scope": "Independent bounded source, arithmetic, receipt, historical attribution and observed ledger-link review; not whole-lens completion or product validation.",
+  "timeline_qualification": "The initial critique was sent to the coordinator before the corrected assessment was shown. The corrected assessment was displayed before this initial review packet was formally frozen; this record retains only findings about the original draft and does not claim otherwise. Corrected review is a separately frozen successor.",
+  "prior_involvement": "This reviewer previously inspected the historical READ-L11-432 summary while reviewing surface/grid; a bounded search of available own collider-relevant receipts found no earlier personal collider body read. This is not an exhaustive search of all possible prior work. Prior /root/mhr_character checkpoint19 and followup42 are independently attributed.",
+  "review_results": [
+    {
+      "id": "13M-INITIAL-POSITIVE-PASS-PRECONDITION",
+      "severity": "clarification needed",
+      "finding": "The sphere example must assume passes > 0 before stating that the endpoint bound and interior samples are evaluated. keep_clear wraps both operations in for _ in 0..passes. The initial draft omitted this precondition; zero passes never evaluates the guard or samples.",
+      "source": "95e:crates/fabelgeist-hair/src/collider.rs:49–55,67–85",
+      "historical_attribution": "Checkpoint19 /root/mhr_character original candidate expressly included a positive pass budget. No source execution or new count."
+    },
+    {
+      "id": "13M-INITIAL-PREPARE-TRACE-CITATION",
+      "severity": "source-evidence scope clarification",
+      "finding": "The creator constructors at groom.rs:116–125,131–137 reach ScalpCap::fit through prepare at 164–176. Those intermediate lines were outside the coordinator original registered/displayed ranges and its original source_references. Earlier checkpoint19 /root/mhr_character separately read groom.rs:155–233; I separately registered/read 156–185. Cite either with exact attribution or independently register/display the missing support; do not claim the coordinator read it in the original receipt.",
+      "source": "95e:crates/adventuresim-character-creator/src/hair/groom.rs:116–125,131–137,164–176",
+      "historical_attribution": "Checkpoint19 prior19/report.json support_reads entry 9 is /root/mhr_character; current review REGISTRATION-SUPPORT.json / READ-RECEIPT.json is /root/hair_ops."
+    },
+    {
+      "id": "13M-INITIAL-UP-AND-NOCOLLIDER-SUPPORT",
+      "severity": "source-evidence scope clarification",
+      "finding": "The initial coordinator receipt did not include vec3.rs:20–27 for the direction of Vec3::up or collider.rs:161–171 for the no-obstacle sentinel. My independently registered support confirms up=(0,1,0) and NoCollider returns (+infinity,up). Historical rig REGISTER-101, 059 READ-L11-432 and checkpoint19 /root/mhr_character also include NoCollider in their respective recorded ranges. Retain those readers and avoid transferring their source credit.",
+      "source": "95e:crates/fabelgeist-math/src/vector/vec3.rs:20–27; 95e:crates/fabelgeist-hair/src/collider.rs:161–171"
+    },
+    {
+      "id": "13M-LEDGER-SNAPSHOT-QUALIFICATION",
+      "severity": "publication-state clarification",
+      "finding": "At this review registration, candidate entries 1026 and 1027 exist in the working baseline but not the locally committed baseline at a0d09cdb; the pre-existing mixed-infinity entry 676 matches in both. This is a time-specific capture, not a claim about a later final checkpoint or live remote.",
+      "evidence": "ledger/working.json.gz, ledger/committed.json.gz and REGISTRATION.json selected_ledger"
+    }
+  ],
+  "confirmed_reasoning": [
+    "For the intended positive pass budget in ideal real arithmetic, sphere interval 0.006–0.014 m lies between sample positions 0 and 0.02 m. Endpoint minimum 0.006 minus half segment 0.04 is below 0.0015 clearance, so it is not culled; samples at 0.02,0.04,0.06 give signed distances 0.006,0.026,0.046, all above clearance. No float run, fixture or actual hairstyle.",
+    "For a query miss with positive reach 0.1 m, MeshCollider returns (0.1,up); cap first projection carried − up*(0.1−0.0004) is approximately 0.0996 m downward. Later clear_skin and actual supported placement are unresolved.",
+    "Negative reach is squared by BVH traversal yet returned unsquared on a miss; if an allowed negative-reach query keeps missing, push_out at offset zero can move upward up to six iterations. This is conditional and preserves the distinct no-obstacle sentinel."
+  ],
+  "historical_and_ledger_checks": [
+    "774 rig CONTRACT-628 names BVH CPU source and describes negative radius squaring; F054 names BVH topology admission. Original rig collider REGISTER-101 covers 1–111 and 165–171 and explicitly excludes MeshCollider 112–164.",
+    "059 Segovb READ-L11-432 explicitly noted sampled clearance uncertainty and NoCollider infinity; original /root/lens12_frontier READ-L12-912 had own registered ranges with root adoption and no personal reread.",
+    "q1843 identifies broader Collider/push_out admission; q1844 and q1845 are separate broader obligations. The selected q values match between the retained older 98cc and later d7 snapshots; no independent alias or closure follows.",
+    "Working entries 1026/1027 point to the two prior local candidate IDs, preserve checkpoint19 and followup42 authorship, and do not establish additional defect counts. Existing mixed-infinite entry 676 concerns another conditional first input and consumer."
+  ],
+  "limits": [
+    "No supported negative reach, interior miss, actual input layout, complete creator precondition, continuous clearance requirement or runtime outcome established.",
+    "Source scopes and other consumers remain bounded; no new cross-lens completion, duplicate count, checkpoint3821 promotion or repair decision.",
+    "No simulation, fixture, geometry, shader, product, tests, builds, runtime probes, repairs or publication edits."
+  ],
+  "evidence": {
+    "registration": "REGISTRATION.json",
+    "receipt": "READ-RECEIPT.json",
+    "coordinator_original_registration": "coordinator/REGISTRATION.json",
+    "coordinator_original_display": "coordinator/DISPLAY.txt",
+    "coordinator_original_receipt": "coordinator/READ-RECEIPT.json",
+    "source_proofs": "git-proofs.json",
+    "prior19_manifest_sha256": "a3be43882f82cadc568e77039954192c400571d3806a636bcb62409ad5c698ed",
+    "prior42_manifest_sha256": "1dbb895c8b5415cd6c8ea0c9a5ba8f75de96eeb419fc86f400bef3846ba9360c",
+    "working_sha256": "248101872c282431111a8ab5eec90779c7eda20a43b83d036fd83c36248102e2",
+    "committed_sha256": "4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c",
+    "qualification": "Raw Git commit metadata and local path references require privacy review before external publication."
+  }
+}

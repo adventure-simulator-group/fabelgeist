@@ -1,0 +1,33 @@
+{
+  "schema": "726-followup-private-value-digest-exposure-v1",
+  "qualification": "The two cloth marker values differ, established by local private comparison. This output intentionally contains neither value nor either value digest. The public GPU map contains original-value digest fields distinct from whole-file integrity hashes. Matching digests enable equality correlation and may permit guessing of low-entropy paths; evaluate for public release.",
+  "same_marker_distinct_original_values": true,
+  "cloth_members": [
+    "build-git-proofs.py",
+    "reference/language.json"
+  ],
+  "gpu_map_original_value_hash_fields": 45,
+  "gpu_map_original_value_digest_entries": 47,
+  "matching_locations": [
+    {
+      "archive": "gpu-reflection.tar.gz",
+      "member": "RECONSTRUCTION-MAP.json",
+      "source_placeholder_member": "build-git-proofs.py",
+      "json_pointer": "/records/4/transformations/0/original_value_sha256/0"
+    },
+    {
+      "archive": "gpu-reflection.tar.gz",
+      "member": "RECONSTRUCTION-MAP.json",
+      "source_placeholder_member": "build-git-proofs.py",
+      "json_pointer": "/records/88/transformations/0/original_value_sha256/0"
+    },
+    {
+      "archive": "gpu-reflection.tar.gz",
+      "member": "RECONSTRUCTION-MAP.json",
+      "source_placeholder_member": "build-git-proofs.py",
+      "json_pointer": "/records/109/transformations/0/original_value_sha256/0"
+    }
+  ],
+  "second_cloth_value_hash_observed_in_scanned_members": false,
+  "scope": "Search covered uncompressed stored or gzip-decoded members of the eight outer archives; it is not a global absence claim or a scan of arbitrary nested encodings."
+}

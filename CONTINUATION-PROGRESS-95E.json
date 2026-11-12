@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 10:05:12 UTC; main may advance. See MAIN-RECHECK-20261112-1005.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 11:51:11–11:51:12 UTC while preparing this checkpoint; main may advance. See MAIN-RECHECK-20261112-1151.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1025,
+  "new_current_ledger_candidates": 1028,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2214,7 +2214,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-D7B14A15.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-A0D09CDB.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2311,5 +2311,25 @@
   "public_059_early_link_correction": "delegated/qualified-059-early-links/INVENTORY.json; the initial 15-script inventory omitted five earlier direct-link verifiers with 22 059 references. Historical verifiers remain unchanged; separately named successors use the qualified original/public crosswalk.",
   "delegated_batch39_pending_central_reconciliation": "delegated/checkpoint39-stage/REPORT.json",
   "checkpoint39_independent_review": "QUALIFICATION-CHECKPOINT39-INDEPENDENT-REVIEW.json",
-  "d7b14_privacy_independent_review": "delegated/independent-privacy-d7b14/REPORT.json"
+  "d7b14_privacy_independent_review": "delegated/independent-privacy-d7b14/REPORT.json",
+  "central_cloth_13l_bounded_reconciliation": "ASSESSMENT-CENTRAL-CLOTH-13L-95E.json",
+  "delegated_followups_40_41_pending_central_reconciliation": "delegated/followup-40-41-qualified/CATALOG.json; fourteen historical roles and separately attributed source observations; central 13L reconnects only the named cloth count candidate.",
+  "delegated_followups_42_pending_central_reconciliation": "delegated/followup-42/CATALOG.json; five historical roles and conditional observations await central review.",
+  "temporary_name_custody_qualification": "delegated/followup-42/TEMPORARY-CUSTODY-QUALIFICATION.json",
+  "followup_private_originals_qualification": "Two restricted same-machine collections retain private originals and context; their manifests are committed by hash in the public catalogs. Public checks do not prove private transformations or independent-machine custody.",
+  "cloth_placeholder_scope": "QUALIFICATION-CLOTH-PLACEHOLDER-SCOPE.json",
+  "central_collider_13m_bounded_reconciliation": "ASSESSMENT-CENTRAL-COLLIDER-13M-95E.json",
+  "followup42_059_attribution_qualification": "QUALIFICATION-FOLLOWUP42-059-ATTRIBUTION.json",
+  "followup_packaging_independent_reviews": [
+    "delegated/independent-review-followup40-41-original/REPORT.json",
+    "delegated/independent-review-followup42/REPORT.json"
+  ],
+  "delegated_followup_43_pending_central_reconciliation": "delegated/followup-43-xpbd/REPORT.json; roles 2648–2649 and separate prior-reader attribution addendum, private originals and reconstructed public bytes separately qualified in FOLLOWUP-43-PRIVATE-RETENTION.json.",
+  "independent_review_13m": "delegated/independent-review-13m-collider/REPORT.json; corrected assessment separately reviewed, prior draft and verifier failure preserved; restricted originals and reconstructed public bytes qualified in INDEPENDENT-REVIEW-13M-PRIVATE-RETENTION.json.",
+  "published_path_digest_independent_review": "delegated/published-path-digest-independent-review/REPORT.json; 15 prior-public text paths, bounded recursive findings and unread archive members, current-tip correction pending; prior history remains.",
+  "followup4041_safe_successor_review": "delegated/followup-40-41-qualified/DIGEST-OMISSION-QUALIFICATION.json; unpublished draft privately retained, separately sealed scan and handoff qualification; no private replay claim from public checks.",
+  "delegated_followup_44_pending_central_reconciliation": "delegated/followup-44-physics-tests/PUBLIC-REPORT.json; roles 2650–2651 were inspected as source text only, with original bytes and inert script-name changes qualified in FOLLOWUP-44-PHYSICS-RETENTION.json.",
+  "independent_review_followup4041_successor": "delegated/independent-review-followup4041-successor/REPORT.json; exact successor and prior private stage independently checked on the same machine, with corpus and archive limits.",
+  "path_digest_correction_unapplied_proposal": "PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json; 15 separately reconstructed files, 795 identified digest fields, exact private originals, recorded optional-check mismatch and legacy adapter review pending.",
+  "checkpoint_privacy_prescan": "delegated/checkpoint-privacy-prescan/REPORT.json; a bounded point-in-time staged-input receipt, not a scan of later files or old Git history."
 }

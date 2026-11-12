@@ -1,0 +1,95 @@
+{
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T01:45:31.717811+00:00",
+  "purpose": "GPU buffer implementation and byte upload, inverse mass admission, shell constructor and solver consumer; bounded current support only.",
+  "navigation_qualification": "Filename grep and metadata keyword line number lookup occurred before registration without printing source bodies.",
+  "rows": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "bytes": 6193,
+      "eof": 178,
+      "prospective_ranges": [
+        [
+          15,
+          83
+        ],
+        [
+          120,
+          164
+        ]
+      ],
+      "file": "support/0.rs"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+      "blob": "c11849a3d5faf4db1432e4b58c28bfd9c1655bd3",
+      "bytes": 4809,
+      "eof": 162,
+      "prospective_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "file": "support/1.rs"
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "bytes": 14245,
+      "eof": 408,
+      "prospective_ranges": [
+        [
+          65,
+          110
+        ]
+      ],
+      "file": "support/2.rs"
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "blob": "5fdd6b99bd496b05199ae7c816aeec514cc28e15",
+      "bytes": 9493,
+      "eof": 280,
+      "prospective_ranges": [
+        [
+          130,
+          155
+        ],
+        [
+          193,
+          210
+        ],
+        [
+          222,
+          280
+        ]
+      ],
+      "file": "support/3.rs"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "blob": "d01b5ec7a10f45da81f1ebb8835554bd671aa1c2",
+      "bytes": 1655,
+      "eof": 58,
+      "prospective_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "file": "support/4.rs"
+    }
+  ]
+}

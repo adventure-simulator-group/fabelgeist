@@ -1,0 +1,150 @@
+{
+  "schema": "726-independent-13m-review-registration-v1",
+  "reviewer": "/root/hair_ops",
+  "registered_utc": "2026-11-12T10:47:36.098384+00:00",
+  "assessment_sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106",
+  "coordinator_registration_sha256": "54efa8473528db37760422dd92d860ff9caf77867b1beb8ae9b8157fbac8c078",
+  "coordinator_receipt_sha256": "abd54c14747f372a4d0a53f58bf5d03f65d9e61aae5284623618adbdf81f2bda",
+  "coordinator_display_sha256": "164f2e7c97c6797abcdef24fddc584dc0597db4751ce8d44d70c9084f535089e",
+  "prior19_manifest_sha256": "a3be43882f82cadc568e77039954192c400571d3806a636bcb62409ad5c698ed",
+  "prior42_manifest_sha256": "1dbb895c8b5415cd6c8ea0c9a5ba8f75de96eeb419fc86f400bef3846ba9360c",
+  "earlier_own_historical_review": "Previously reviewed READ-L11-432 historical summary while reconciling surface/grid; no personal collider source read identified in bounded receipt search. Earlier historical receipt remains separately attributed.",
+  "sources": [
+    {
+      "tag": "collider",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-hair/src/collider.rs",
+      "file": "source/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "git_blob": "653df570a4cb0ce007a7e1925886aeb5b519b08d",
+      "eof": 171,
+      "prospective_ranges": [
+        [
+          15,
+          38
+        ],
+        [
+          41,
+          106
+        ],
+        [
+          108,
+          160
+        ]
+      ],
+      "qualification": "Fresh reviewer bounded display after this registration; coordinator and previous agent reads retain separate attribution."
+    },
+    {
+      "tag": "bvh",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "file": "source/bvh.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "git_blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+      "eof": 462,
+      "prospective_ranges": [
+        [
+          297,
+          324
+        ],
+        [
+          422,
+          439
+        ]
+      ],
+      "qualification": "Fresh reviewer bounded display after this registration; coordinator and previous agent reads retain separate attribution."
+    },
+    {
+      "tag": "groom",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "file": "source/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "git_blob": "a0830bbc0894b1701a1991a2a79ef7078a4851cc",
+      "eof": 233,
+      "prospective_ranges": [
+        [
+          19,
+          21
+        ],
+        [
+          103,
+          137
+        ]
+      ],
+      "qualification": "Fresh reviewer bounded display after this registration; coordinator and previous agent reads retain separate attribution."
+    },
+    {
+      "tag": "cap",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/hair/cap.rs",
+      "file": "source/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "git_blob": "737fb48a583b15cfb8915dfa90210ef525a84453",
+      "eof": 256,
+      "prospective_ranges": [
+        [
+          30,
+          32
+        ],
+        [
+          68,
+          87
+        ],
+        [
+          175,
+          218
+        ]
+      ],
+      "qualification": "Fresh reviewer bounded display after this registration; coordinator and previous agent reads retain separate attribution."
+    }
+  ],
+  "historical_774_fresh_display": [
+    {
+      "file": "prior42/historical-774/contract-groups.jsonl.gz",
+      "line": 628
+    },
+    {
+      "file": "prior42/historical-774/findings.jsonl.gz",
+      "line": 57
+    },
+    {
+      "file": "prior42/historical-774/source-range-registration.jsonl.gz",
+      "line": 101
+    },
+    {
+      "file": "prior42/historical-774/additional-contracts.jsonl.gz",
+      "line": 87
+    }
+  ],
+  "historical_059_selected_queue": [
+    1843,
+    1844,
+    1845
+  ],
+  "working_baseline_sha256": "248101872c282431111a8ab5eec90779c7eda20a43b83d036fd83c36248102e2",
+  "committed_baseline_sha256": "4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c",
+  "committed_revision": "a0d09cdb771c526f42df398da2ad57d7c6e10520",
+  "working_vs_committed_equal": false,
+  "selected_ledger": [
+    {
+      "id": "local-candidate-mesh-reach-no-hit-semantics",
+      "working_index": 1026,
+      "committed_index": null,
+      "selected_equal": false
+    },
+    {
+      "id": "local-candidate-keep-clear-between-samples",
+      "working_index": 1027,
+      "committed_index": null,
+      "selected_equal": false
+    },
+    {
+      "id": "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E",
+      "working_index": 676,
+      "committed_index": 676,
+      "selected_equal": true
+    }
+  ],
+  "qualification": "Registration precedes this reviewer source display; prior/coordinator source receipts do not grant reviewer credit. No fixture, geometry, shader, tests or product execution."
+}

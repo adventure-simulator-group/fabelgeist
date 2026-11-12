@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "stage_sha256": "c6a849084f746adbcc392e46937928b624dbec52f8626aba3f6464527361e8b0",
+  "archives": {
+    "hair-surface-grid": 112,
+    "hair-collider": 119,
+    "shell-mesh": 137
+  },
+  "members_total": 368,
+  "changed_members": {
+    "surface": [
+      7,
+      57
+    ],
+    "collider": [
+      2,
+      3
+    ],
+    "shell": [
+      2,
+      16
+    ]
+  },
+  "selected_queue_rows": {
+    "surface": 7,
+    "shell": 6,
+    "collider": 3
+  },
+  "selected_baseline_rows": {
+    "surface": 4,
+    "shell": 8,
+    "collider": 3
+  },
+  "external": {
+    "checked": "local read-only Git objects, not a live remote or independent custody",
+    "changed_string_leaf_counts": {
+      "surface_reconstruction": 12,
+      "shell_reconstruction": 12,
+      "d7_queue": 12
+    }
+  },
+  "extraction": "059 original queue and registry bytes matched; no claim of 3821 recovery",
+  "private_local": {
+    "captured_current_bytes": 26,
+    "retention_manifest_files": 124
+  },
+  "qualification": "Private captures concern post-write current bytes, not unknown earlier contents. No product behavior, runtime or complete privacy verified. Historical rows and current selections remain distinct; checkpoint3821 remains unrecovered."
+}

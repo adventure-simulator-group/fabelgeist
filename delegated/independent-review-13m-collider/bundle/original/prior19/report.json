@@ -1,0 +1,691 @@
+{
+  "schema": "726-bounded-hair-collider-2645-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T01:43:37.320943+00:00",
+  "status": "Source-only bounded assessment; central owns ledger, aliases, count and publication. No whole-lens completion, checkpoint3821 promotion or product validation.",
+  "source_authority": {
+    "historical": "Pr-working recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e plus unrelated dirty changes. The assigned source separately matches 6533 per file, not a clean-tree claim.",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009; assigned bytes equal 6533 and were separately registered/displayed.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee carries recovered evidence, not a product source revision.",
+    "p16": "Registry lookup by this assigned file SHA returns only pr-working role2645; it does not exclude differently hashed P16 same-path sources. Dirty P16 recorded base a120390947c89b703dc74c4255a13c035d054c50 and later tracked patch remain separately attributed: RECOVERY-PHYSICAL-P16-PATCH-20261111.json SHA-256 30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007; tracked.patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked files separately preserved.",
+    "checkpoint3821": "No historical receipt, reconstruction or current assessment is promoted into checkpoint3821."
+  },
+  "roles": [
+    {
+      "original_index": 2645,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "source_sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-hair/src/collider.rs",
+          "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+          "git_blob": "653df570a4cb0ce007a7e1925886aeb5b519b08d",
+          "bytes": 5730,
+          "eof": 171,
+          "prospective_ranges": [
+            [
+              1,
+              171
+            ]
+          ],
+          "local_file": "source/2645-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-hair/src/collider.rs",
+          "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+          "git_blob": "653df570a4cb0ce007a7e1925886aeb5b519b08d",
+          "bytes": 5730,
+          "eof": 171,
+          "prospective_ranges": [
+            [
+              1,
+              171
+            ]
+          ],
+          "local_file": "source/2645-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2645,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+          "actual_display_ranges": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              171
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 171,
+          "source_file": "source/2645-historical.rs"
+        },
+        {
+          "original_index": 2645,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+          "actual_display_ranges": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              171
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 171,
+          "source_file": "source/2645-current.rs"
+        }
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-hair/src/head.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "actual_ranges": [
+        [
+          230,
+          285
+        ]
+      ],
+      "eof": 475,
+      "source_file": "support/0.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          229
+        ],
+        [
+          286,
+          475
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/cards.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+      "actual_ranges": [
+        [
+          100,
+          145
+        ]
+      ],
+      "eof": 375,
+      "source_file": "support/1.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          99
+        ],
+        [
+          146,
+          375
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/lod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "actual_ranges": [
+        [
+          135,
+          175
+        ]
+      ],
+      "eof": 557,
+      "source_file": "support/2.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          134
+        ],
+        [
+          176,
+          557
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "actual_ranges": [
+        [
+          90,
+          145
+        ]
+      ],
+      "eof": 233,
+      "source_file": "support/3.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          89
+        ],
+        [
+          146,
+          233
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/shrinkwrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "a2e81f30ca8aae925d31d5e2f99faf151775a528a0ac09105a1e9155c27b8ae5",
+      "actual_ranges": [
+        [
+          30,
+          99
+        ]
+      ],
+      "eof": 99,
+      "source_file": "support/4.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          29
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "actual_ranges": [
+        [
+          215,
+          250
+        ]
+      ],
+      "eof": 283,
+      "source_file": "support/5.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          214
+        ],
+        [
+          251,
+          283
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "actual_ranges": [
+        [
+          20,
+          70
+        ],
+        [
+          380,
+          440
+        ]
+      ],
+      "eof": 462,
+      "source_file": "support/6.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          19
+        ],
+        [
+          71,
+          379
+        ],
+        [
+          441,
+          462
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "actual_ranges": [
+        [
+          15,
+          25
+        ]
+      ],
+      "eof": 233,
+      "source_file": "support/7.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          14
+        ],
+        [
+          26,
+          233
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "actual_ranges": [
+        [
+          295,
+          345
+        ]
+      ],
+      "eof": 462,
+      "source_file": "support/8.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          294
+        ],
+        [
+          346,
+          462
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "actual_ranges": [
+        [
+          155,
+          233
+        ]
+      ],
+      "eof": 233,
+      "source_file": "support/9.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          154
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/cap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "actual_ranges": [
+        [
+          60,
+          100
+        ],
+        [
+          170,
+          220
+        ]
+      ],
+      "eof": 256,
+      "source_file": "support/10.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          59
+        ],
+        [
+          101,
+          169
+        ],
+        [
+          221,
+          256
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair/cap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "actual_ranges": [
+        [
+          20,
+          39
+        ]
+      ],
+      "eof": 256,
+      "source_file": "support/11.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          19
+        ],
+        [
+          40,
+          256
+        ]
+      ]
+    }
+  ],
+  "support_qualification": "95e support only and separately prospectively registered; unread complements per registration. surface.rs 245–250 is incidental test source, not executed. Exact old cap Git object identity is metadata/membership only and does not transfer the Lens13 reviewer or personal historical read credit.",
+  "historical_records": [
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L11-432.json",
+      "file": "history-059/READ-L11-432.json",
+      "sha256": "a36bcc33bd025be8daa99515729fc6803bcec9227698427fa2b731d6ae274765",
+      "bytes": 12224,
+      "git_blob": "84486760be5069c270bb3e084cc70514c319ddd4"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1561.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1561.json",
+      "sha256": "56f733a5ff4d475d5a10edfc1e6a42071ded144c9468b9481f3894600100a3e6",
+      "bytes": 710,
+      "git_blob": "56d8f43ba6fec295251d9b7f6a684951ce266a6c"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-912.json",
+      "file": "history-059/READ-L12-912.json",
+      "sha256": "41a084a94e9f94d6d7d54dbeba930eaa70b19ca2528499e6832ead4649e43978",
+      "bytes": 16994,
+      "git_blob": "bdee529abbcb297bdb691da087f86f092db29076"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-912.json",
+      "file": "history-059/PROPOSAL-L12-912.json",
+      "sha256": "355088aacdca5f6a190ca7fed667b60535b0e1689c39a7b8af545ce2ecc10efb",
+      "bytes": 16737,
+      "git_blob": "1298bb71f79a2e5e2ea721a2050e1cb0fcecc22f"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-710.json",
+      "file": "history-059/REGISTRATION-PAR-L12-710.json",
+      "sha256": "b998b495603781f33119cb41845038a65ab46728259fb7b2ce554552585deb4d",
+      "bytes": 3702,
+      "git_blob": "58597ce5a361b680cccdff05e563de0a02be1108"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-710-ORIGINAL2645.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-710-ORIGINAL2645.json",
+      "sha256": "a223c54e010d58479d924d793f763931a2e34e86a00d39141d0a976180061aa0",
+      "bytes": 1229,
+      "git_blob": "d626bdea4d8801d4c7fc47ef4e03fd213dda27bf"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L13-PARALLEL-105.json",
+      "file": "history-059/READ-L13-PARALLEL-105.json",
+      "sha256": "f10448f0de9d8b1d639185d803f4b9dc4fe153ffa89ef3eb8f3e424d11c40868",
+      "bytes": 12899,
+      "git_blob": "ed21ec721278ca623f0196636807b319bab73226"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l13-20261029/READ-PL13-107.json",
+      "file": "history-059/READ-PL13-107.json",
+      "sha256": "6e1bed00b560107ba5ba7e62e9585f03ec169c52206433ea715e92e2a8a19ce0",
+      "bytes": 9289,
+      "git_blob": "3f52b12b197ba94f320e9297367677fe0b539914"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l13-20261029/REGISTRATION-PL13-107.json",
+      "file": "history-059/REGISTRATION-PL13-107.json",
+      "sha256": "a923f1c47f0b86b49e20637e18a520a00e7a9622710c466962984edac733df64",
+      "bytes": 3265,
+      "git_blob": "0cc6e33ae28b40e7b8487191c21f9a7699c2cef7"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "adler/READ-L11-369.json",
+      "file": "history-059/READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140",
+      "bytes": 18712,
+      "git_blob": "f7d428e287cb89eb4b3ace7942987d3c3b11f33a"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "adler/REGISTRATION-ADLER-1165.json",
+      "file": "history-059/REGISTRATION-ADLER-1165.json",
+      "sha256": "1cce818c79002ace3c83879d7ed2cffe84753a35e3e411f035a7878a73c28852",
+      "bytes": 898,
+      "git_blob": "414d02810e0792032e2a1526bc21025972aa37c1"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "file": "history-774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "bytes": 126879,
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "file": "history-774/additional-contracts.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "bytes": 111211,
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/contract-groups.jsonl",
+      "file": "history-774/contract-groups.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "bytes": 1319065,
+      "git_blob": "ecdb74ed7aca240980d954a5a975f9152575f82e"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/findings.jsonl",
+      "file": "history-774/findings.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "bytes": 120871,
+      "git_blob": "ab07e3119387e62a2ecd36d88084d704549f1592"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/contracts-027.json",
+      "file": "history-774/contracts-027.json.gz",
+      "encoding": "gzip",
+      "sha256": "4959476b17586f72d972ef22ae6a0a696065a24ab86ccd2dc704c311ab95d72d",
+      "bytes": 3384,
+      "git_blob": "7fe362daeed34fd6a417487b275fd3d89545760c"
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-101 / ADDITIONAL-101",
+      "attribution": "774 rig, historical pr-working collider 1–111 and 165–171 only",
+      "relation": "Describes signed query protocol, bounded correction and legitimate NoCollider infinity. MeshCollider 112–164 explicitly excluded; fresh personal historical 1–171 display here does not retroactively amend that reviewer."
+    },
+    {
+      "id": "RIG-INITIAL06-GROUP-027 signed-query-interface-versus-physics-state",
+      "attribution": "774 rig, historical collider 1–111/165–171 only",
+      "relation": "Distinguishes hair signed-query interface from physics collision state and preserves no-obstacle infinity; excluded MeshCollider and lower normals remain uncredited in that record."
+    },
+    {
+      "id": "RIG-ADMISSION03-F054 / CONTRACT-628",
+      "attribution": "774 rig, historical TriangleBvh topology and constructor sources, not the excluded historical MeshCollider body",
+      "relation": "Existing shared raw mesh/index admission contract. Current MeshCollider delegates first to vertex_normals, which can encounter an invalid index before the existing BVH constructor; this is related topology admission, not assigned a duplicate count."
+    },
+    {
+      "id": "READ-L11-432 / REGISTRATION-SEGOVB-1561",
+      "attribution": "Original 059 segovb reviewer, historical 6533 collider 1–111/165–171",
+      "relation": "Explicitly leaves MeshCollider unread and strict clearance versus three samples unresolved. Earlier reviewer credit is not expanded."
+    },
+    {
+      "id": "READ-L12-912 / PROPOSAL-L12-912 / REGISTRATION-PAR-L12-710 and exact source qualification",
+      "attribution": "Original 059 /root/lens12_frontier, historical 6533 collider 1–111/165–171; root adoption no root personal rereads",
+      "relation": "NoCollider sentinel and bounded query source review; MeshCollider explicitly excluded, no other-lens/current credit transferred."
+    },
+    {
+      "id": "READ-L13-PARALLEL-105 / READ-PL13-107 / REGISTRATION-PL13-107",
+      "attribution": "Original 059 delegated independent Lens13 reviewer, historical 6533 creator hair/cap.rs 1–256, root adoption no root personal rereads",
+      "relation": "Cap fit and sampled clear_skin inspected as source; exact MeshCollider query and continuous-clearance policy explicitly pending. Old cap source matches 95e per-file by independent Git metadata/membership only; no personal old cap read credited here."
+    },
+    {
+      "id": "ADLER READ-L11-369 / REGISTRATION-ADLER-1165",
+      "attribution": "Original 059 Adler reviewer, historical shrinkwrap 1–99; Collider definition not personally read in that scope",
+      "relation": "Noted conditional mixed-infinite distance and zero-weight motion issue. NoCollider alone produces all infinity and early no-motion return; preserve existing distinct condition."
+    },
+    {
+      "id": "ASSESSMENT-SHRINKWRAP-COLLIDER-95E.json",
+      "sha256": "4c8dffd00c004ed3f36de510669dbc83fa8a76e083686d80b2af93c1b2854922",
+      "attribution": "Earlier published current 95e assessment personally registered collider 1–171 and bounded shrinkwrap/Vec3 support",
+      "relation": "Existing REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E elaborates Adler mixed-infinity case. It does not settle finite mesh reach no-hit sign or cap projection; do not duplicate its count or transfer source credit."
+    },
+    {
+      "id": "baseline-059 queue1845 Q-L12-5f59effce492b9fe0424",
+      "attribution": "Reconstructed historical revisit, not source-body receipt",
+      "relation": "Keeps Collider, native buffers and numeric obligations open; topic overlap does not establish exact alias or closure."
+    }
+  ],
+  "existing_findings": [
+    {
+      "id": "RIG-ADMISSION03-F054",
+      "status": "Historical shared raw topology admission issue; current first caller is related evidence, not automatically a new count.",
+      "current_evidence": "At collider.rs:121–125 MeshCollider::new calls surface::vertex_normals before TriangleBvh::new. Current surface.rs:216–225 indexes positions for each triangle directly. A raw empty positions list paired with a triangle index 0 is a conceptual invalid-input example that reaches the first index before BVH; no actual malformed body, runtime or product failure is shown. Creator groom.rs:103–125 passes BodySurface arrays after BodyField sampling, so earlier upstream success/admission is required.",
+      "future_direction": "Reconcile first applicable topology boundary with F054 and actual BodySurface validation, preserving legitimate empty representations where supported; central decides exact aliases and implementation."
+    },
+    {
+      "id": "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E",
+      "status": "Prior current candidate and 059 Adler conditional history, not a new unique finding.",
+      "current_evidence": "shrinkwrap.rs:60–76 computes motion even when locked/clear weight is zero and returns early only if no point has positive weight. NoCollider reports infinity for all points, so NoCollider alone has any=false and does not witness the mixed case. A shipped mixed-infinity producer remains unestablished."
+    }
+  ],
+  "candidate_findings": [
+    {
+      "id": "local-candidate-mesh-reach-no-hit-semantics",
+      "status": "Source-backed conditional no-hit contract and consumer question; central owns alias, count and supported placement policy.",
+      "trigger_and_source": "MeshCollider::query at collider.rs:134–137 returns (reach, Vec3::up()) if TriangleBvh::closest_point finds nothing within reach. bvh/cpu/mod.rs:302–324 bounds distances by reach squared; creator groom.rs:19–21,103–125 passes reach=0.1 m to a mesh built from body faces and positions.",
+      "inside_reasoning": "For a valid closed cube centered at the origin with faces 0.2 m from its center, a center point is inside and its nearest surface is 0.2 m away. With reach 0.1 m no triangle qualifies; the no-hit tuple is positive 0.1 m. push_out with offset below 0.1 returns without correction despite the deep interior point. This is geometric reasoning only, not an instantiated fixture or runtime result.",
+      "cap_consumer_reasoning": "Creator groom.rs:164–176 passes this CPU MeshCollider to ScalpCap::fit, not to the separate GPU LOD body field. cap.rs:68–87 always computes carried − out*(distance−CAP_LIFT); CAP_LIFT is 0.0004 m. On any no-hit, it uses synthetic up and 0.1 m as if measured, producing a 0.0996 m downward displacement even if the actual nearest surface is elsewhere. clear_skin is bounded sampled postprocessing and is not proven to repair that condition. A cap vertex missing the search radius in any ordinary model has not been demonstrated.",
+      "impact_and_policy": "The tuple loses whether a real signed measurement was obtained. The current code explicitly documents no-hit as far outside; correctness therefore depends on a caller placement/reach precondition or explicit no-hit handling. No final visual geometry, actual user impact or runtime result is claimed.",
+      "future_direction": "Specify and check the supported query domain and no-hit semantics end to end; a consumer that must project may require an actual closest point or a structured miss. Preserve deliberate no-obstacle behavior and native fast paths where their preconditions hold. Implementation and alias decisions remain central.",
+      "historical_qualification": "059 Lens13 cap read left MeshCollider/query proof pending; earlier rig/059 collider reviewers excluded this body. Prior current shrinkwrap mixed-infinity candidate is related through tuple semantics but is a different conditional input and operation; no automatic alias or new count."
+    },
+    {
+      "id": "local-candidate-keep-clear-between-samples",
+      "status": "Concrete source-math elaboration of 059 unresolved sampled versus continuous clearance; no automatically separate count.",
+      "condition": "For a first 0.08 m straight segment on x-axis from x=0 to x=0.08, exact signed distance to a sphere centered at x=0.01 of radius 0.004 m, and clearance 0.0015 m. Root x=0 is outside with signed distance 0.006 m. No collider or polyline fixture is constructed or run.",
+      "reasoning": "The sphere intersects the segment over x=0.006–0.014. Endpoint minimum 0.006 minus half-segment reach 0.04 is below clearance, so the segment is sampled. Samples at x=0.02,0.04,0.06 have signed distances 0.006,0.026,0.046 m, all above 0.0015; any stays false and the function returns with the crossing unchanged, regardless of a positive pass budget. The argument assumes exact sphere signed-distance values and concerns the trait-permitted geometric class, not a demonstrated generated hairstyle.",
+      "connected_callers": "Current cards.rs:131–133 calls keep_clear with 0.0015 m and 4 passes when body is present; lod.rs:157–163 uses it for resampled host strand levels. The creator groom.rs:173–176 uses GPU LOD body field and CPU mesh collider for cap, so no claim that that creator passes MeshCollider into the host cards/LOD paths.",
+      "future_direction": "Decide whether the public comment and consuming product require continuous segment clearance or an explicit sampled approximation with bounded error. If stricter, address interval/contact admission and residual reporting while preserving the fixed root and legitimate no-collider sentinel.",
+      "historical_qualification": "059 READ-L11-432 already recorded that three samples do not prove full clearance; 059 READ-L13-PARALLEL-105 separately raises sampled cap triangles, not the same function. Exact ledger alias and distinctness are centrally owned."
+    }
+  ],
+  "new_findings_count": 0,
+  "nonfindings": [
+    "NoCollider returns (+infinity, up) intentionally; a no-obstacle sentinel is not by itself a malformed finite-distance input.",
+    "keep_clear returns for fewer than two points and fixes index0 during its pushes; a zero-pass call is a bounded no-op, whose policy must be interpreted in context.",
+    "All-NoCollider shrinkwrap points give zero weights and early return before movement is applied; this does not witness the earlier mixed-distance condition.",
+    "MeshCollider stores its copied mesh and BVH privately with no mutation method in the assigned source; no stale-cache mutation is demonstrated.",
+    "Clipping at finite reach may be valid for callers that have established outside/near-surface preconditions; no universally supported inside or far placement is assumed."
+  ],
+  "open_questions": [
+    "What precondition proves every creator carried cap point lies within the 0.1 m mesh query reach, and how should a genuine miss be reported or handled?",
+    "What continuous clearance guarantee versus sampled tolerance is required by cards, host strand LOD, and scalp cap consumers, and are their actual geometric bounds sufficient?",
+    "What BodySurface, normals, winding, degeneracy and index admission occurs before MeshCollider construction on each real route?",
+    "Are there shipped Collider implementations producing mixed finite and infinite distances, and how do prior shrinkwrap/F054/F074 candidates alias or differ?",
+    "What are complete GPU field, shader, render and final image effects? These were not executed or validated."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Creator GroomedHair::place constructs MeshCollider from body positions/faces and 0.1 m reach and sends it to ScalpCap::fit; GPU LOD instead uses a separate body-field buffer. Separately inspected host cards/LOD call generic keep_clear."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "Hair Collider represents a CPU signed-query interface and NoCollider absence; shared TriangleBvh stores mesh acceleration, while creator BodyField serves a separate native representation. Identical collider names alone do not establish interchangeable authorities."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "MeshCollider::new passes raw positions/triangles first into vertex_normals indexing; no local index-membership guard is seen. Existing F054 covers connected mesh/BVH topology admission. Finite reach has an explicit no-hit fallback that cannot decide deep inside versus far outside."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "push_out uses at most six corrections; keep_clear uses a caller-supplied number of passes, endpoint shortcut and three internal samples. Bounded iterations ensure termination for finite passes but do not certify continuous clearance or residual absence."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "Mesh indices require position and normal membership, BVH must correspond to stored triangles, and positive reach/no-hit must be understood by each query consumer. No proof of ordinary inconsistent producer state or actual no-hit cap occurrence is claimed."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "MeshCollider owns private positions/normals/triangles/BVH and a signed query; body-field, GPU collider and NoCollider absence have differing semantics. F054 topology and finite-reach query outcomes require connected but distinct context."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "Private MeshCollider carries source geometry alongside a BVH cloned from it; with no mutation API in assessed body the copies begin associated. No stale-cache witness is established for this private type; separate mutable TriangleBvh and Surface concerns remain existing F054/F074."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Assigned source bytes match 6533 and 95e per file, with independently displayed full bodies. Original historical reviewer scopes excluded MeshCollider lines112–164; our new historical display does not retroactively expand theirs."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "NoCollider deliberately represents no obstacle as +infinity/up. A mesh search miss and a measured signed surface point currently share one tuple representation; whether to expose an explicit no-hit outcome is an open API decision."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "Assigned Collider trait and private-state mesh struct contain no manual serializer or trait boilerplate shown to be safely derivable."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Signed distance, nonnegative reach, clearance, signed position, outward unit direction and unbounded absence sentinel carry distinct contracts. Positive infinity is intentional NoCollider behavior, not automatically invalid."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "No business-string selector or string-valued API appears in collider.rs. Error and native binding families remain in their own producer/consumer scopes."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Six push-out attempts, three segment samples, four host passes and 0.1 m reach are different operational tolerances/limits. Name or wrap them only with preserved geometric meaning; they do not themselves prove continuous clearance or no-hit validity."
+    }
+  ],
+  "limitations": [
+    "No product code edits, implementation, builds, tests, rendering, fixture generation, simulation, browser, runtime probes, GPU/shader execution or product validation.",
+    "All geometric examples are source-level math without constructing or executing test fixtures.",
+    "Prior rig and 059 collider scope 1–111/165–171 remains distinct from new separately displayed complete 6533 and current source.",
+    "Thirteen perspectives cover only assigned source and listed support; no whole-lens, queue, audit, ledger or checkpoint3821 completion."
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2340–2342, connected current support as separately registered; no ordered support credit or lens completion",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope_qualification": "All three historical/current body pairs are byte-identical; separate exact copies, prospective registrations and personal read receipts are present. This does not promote the original 6533 reviews to checkpoint 3821, grant other-lens credit, prove product behavior, or close an audit lens. Parent owns reconciliation and publication.",
+  "original_role_paths": [
+    {
+      "index": 2340,
+      "path": "crates/fabelgeist-shell/src/ccd.rs",
+      "sha256": "bd0f3a309967fdd9399aaf5eb558944b9e0c0059b35ae7e143922be675bd0047",
+      "lines": 394
+    },
+    {
+      "index": 2341,
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "lines": 408
+    },
+    {
+      "index": 2342,
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "lines": 623
+    }
+  ],
+  "findings": [
+    {
+      "id": "SHELL-CONTACT-FIXED-SURFACE-FLAG",
+      "status": "source-established behavior; intended coupling remains an owner policy question",
+      "producer_to_consumer": "Public Shell::set_collision_surface installs obstacle positions/faces/clearance solely into private SurfaceContacts. In positive-interval interleaved stepping, project_host_contacts calls that entire solver only if public self_collision.enabled is true. Therefore an installed fixed triangle-surface route is skipped when that self-collision flag is false.",
+      "conditions": "Installed fixed surface, a positive host interval and iterations, self_collision.enabled false. Separate Collisions GPU/outer-layer routes may be configured and remain available; this trace does not claim all collision is absent or decide whether coupling is intended.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              19,
+              30
+            ],
+            [
+              33,
+              48
+            ],
+            [
+              147,
+              175
+            ],
+            [
+              253,
+              290
+            ],
+            [
+              344,
+              370
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              68,
+              86
+            ],
+            [
+              95,
+              102
+            ],
+            [
+              123,
+              140
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+          "lines": [
+            [
+              19,
+              48
+            ],
+            [
+              160,
+              174
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Q-L12-a6453dca0eb01ea0a5da already records no-self-collision as a legitimate mode and preserves the host schedule; the interaction with separately installed fixed triangles is a specific conditional owner/policy question, not an automatic distinct global finding. Earlier RIG-PPS-023 traces the static clearance producer through Shell/SurfaceContacts. No source change in the three ordered bodies.",
+      "future_repair_direction": "Decide explicit authority for fixed obstacle processing versus cloth self-collision; if independent, route/control the fixed-surface path separately while preserving zero host interval, optional outer layer, prescribed masses, and separately configured GPU colliders. Verify caller expectations later."
+    },
+    {
+      "id": "SHELL-CONTACT-STATIC-MASS-EXTENT",
+      "status": "source-established conditional aggregate admission gap",
+      "producer_to_consumer": "With nonempty static_positions, public solve copies the caller inverse masses, appends static positions, then resizes the mass vector to the combined length using PINNED before solve_inner asserts lengths. A missing dynamic mass is padded as prescribed; extra supplied masses up to the obstacle count are interpreted as dynamic masses for static vertices, and still more are truncated. Thus the inner equal-length check sees the transformed vector rather than the input mismatch.",
+      "conditions": "Malformed direct-public solve call with inverse_masses length unequal to dynamic positions length and at least one static position; actual input validity and impact depend on caller. Dynamic entries supplied by the ordinary ShellMesh construction route are already length-checked. No runtime or native-buffer mismatch claimed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              15,
+              21
+            ],
+            [
+              68,
+              86
+            ],
+            [
+              157,
+              190
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              16,
+              34
+            ],
+            [
+              50,
+              57
+            ],
+            [
+              74,
+              96
+            ],
+            [
+              238,
+              276
+            ],
+            [
+              300,
+              305
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              115
+            ],
+            [
+              131,
+              133
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              75,
+              89
+            ],
+            [
+              147,
+              164
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION, READ-L12-774 and Q-L12-ecc1905cee4fdbdbbfa9: these record the inner equal-length assertion. The pre-assert static-surface resize is a distinct first-failure facet, not proof of an unrelated canonical owner; reconcile centrally rather than duplicate automatically.",
+      "future_repair_direction": "At the public dynamic aggregate boundary, check positions, previous, masses, retained topology and representable static extent before appending exactly prescribed static masses; preserve intentional static zero mass, ordinary valid mode, and direct API invalid-input policy. Check all producers and error ownership later."
+    },
+    {
+      "id": "SHELL-TOPOLOGY-EXPOSED-AFTER-ADMISSION",
+      "status": "source-established conditional public-state divergence, historically recorded",
+      "producer_to_consumer": "Shell::new validates mesh then clones triangles into both public Shell.triangles and private SurfaceContacts. Public mutation or replacing public particles can break their relation; read_mesh directly indexes read-back positions with current public triangle indices, and outer-layer projection consumes that public list while surface contacts retain original faces.",
+      "conditions": "After successful construction, caller mutates/replaces public state. Out-of-range triangle can panic if the readback succeeds; a valid changed list can be inconsistent with retained solver topology. No unsupported claim that canonical constructor admits invalid indices.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              33,
+              52
+            ],
+            [
+              75,
+              89
+            ],
+            [
+              147,
+              164
+            ],
+            [
+              303,
+              330
+            ],
+            [
+              344,
+              367
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              15,
+              42
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              115
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Explicitly recorded in READ-L12-772 and Q-L12-a6453dca0eb01ea0a5da. Our bounded read supplies the previously requested actual mesh validator: its initial face and seam membership checks protect Shell::new. Preserve history and connect this retained-state mutation facet, rather than inventing a duplicate.",
+      "future_repair_direction": "Assign one authoritative admitted topology/particle extent or a coordinated mutation operation that rebuilds all affected retained consumers; preserve mesh export and collision behavior for valid topology."
+    },
+    {
+      "id": "SHELL-CCD-NONZERO-SPEED-CUTOFF",
+      "status": "source-level mathematical counterexample to internal sweep contract; actual end-to-end impact remains open",
+      "producer_to_consumer": "Internal CCD first samples initial separation, then returns None when maximum relative displacement is at most 1e-15, even when nonzero movement closes the initial clearance gap. All inputs and clearance in the example below are finite f32; ShellMaterial permits any positive finite thickness, and the surface solve admits positive finite thickness.",
+      "symbolic_example": "For a stationary triangle with vertices (-1,-1,0), (1,-1,0), (0,1,0), move its interior point vertically from z=3·2^-53 to z=−3·2^-53. Let clearance be 2·2^-53 (thickness 4·2^-53). The initial distance is 3·2^-53 > clearance, relative travel is 6·2^-53 < 1e-15, and the point passes through z=0; the stated branch returns None. This is mathematical source reasoning, not a constructed/run fixture.",
+      "conditions": "Very small representable world-space scale, unrestricted by the examined local finite/positive admission. It establishes a missed private sweep event, not an observed missed surface collision: resolve deliberately falls back to end proximity after None and can still project. Actual allowed physical scale, broad-phase and full-consumer policy require further review.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/ccd.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              64,
+              79
+            ],
+            [
+              129,
+              145
+            ],
+            [
+              175,
+              212
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              25,
+              34
+            ],
+            [
+              238,
+              264
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/lib.rs",
+          "lines": [
+            [
+              18,
+              48
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Q-L12-a6453dca0eb01ea0a5da names exact zero speed as intentional and says no numerical proof was established. A nonzero movement under the hard cutoff is not the same as exact zero; do not overwrite that historical claim or assert a historical reviewer ran this example. Earlier RIG-PPS-023 preserved CCD safe-budget behavior and precision requirements.",
+      "future_repair_direction": "Either prove and enforce an admitted scale-relative/no-crossing speed bound tied to the actual gap, or maintain conservative sweep behavior for any representable nonzero displacement; preserve true zero speed, finite budgets returning Some(last safe contact), degenerate geometry and proximity policy."
+    },
+    {
+      "id": "SHELL-CCD-NEAR-PARALLEL-PROXIMITY",
+      "status": "source-level conditional numerical under-resolution; geometric-domain policy open",
+      "producer_to_consumer": "For nonzero nearly parallel edges, the determinant threshold forces the first segment parameter s=0. That endpoint-only selection can overestimate the true separation when the closest points lie inside both segments. The resulting estimate is also the CCD initial distance.",
+      "symbolic_example": "Let e=2^-48, z=2^-60; edges A=(0,0,0) to B=(1,0,0) and C=(0,-e/2,z) to D=(1,e/2,z). All components are f32-representable. Their true closest distance is z at their midpoints. The source determinant is e²=2^-96 < 1e-28·aa·cc with aa≈cc≈1, so it sets s=0 and obtains separation approximately e/2, much larger than z. With stationary edges and clearance 2^-55, the sample exceeds clearance and the zero-speed branch returns None, though true separation is below clearance. Mathematical reasoning only; no fixture or numeric program was run.",
+      "conditions": "Extremely near-parallel nondegenerate geometry; no general claim that a physically supported garment can or does reach this regime. Geometric centerlines do not intersect, but configured contact shells overlap initially; the SurfaceContacts untangled-start policy may restrict intended use. The endpoint fallback and coupled contacts need separate consumer proof.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/ccd.rs",
+          "lines": [
+            [
+              100,
+              126
+            ],
+            [
+              129,
+              145
+            ],
+            [
+              175,
+              212
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              157,
+              161
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              238,
+              264
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Older Q-L12-a6453dca0eb01ea0a5da preserves explicit degenerate-edge and finite-fallback modes but does not prove nearest-point accuracy for nonzero near-parallel edges; no whole-family conclusion or evidence transfer.",
+      "future_repair_direction": "Prove or constrain an acceptable scale/angle/contact error bound and ensure an overestimate cannot invalidate conservative advancement; preserve legitimate degenerate and parallel cases."
+    }
+  ],
+  "historical_admission_dispositions": [
+    {
+      "historical_ids": [
+        "SEGOVB-L12-SHELL-NO-PARTICLES-REASON"
+      ],
+      "disposition": "First-failure correction already recorded in historical READ-L12-912 and QUALIFICATION-PAR-L12-912-SHELL-FIRST-FAILED-CONTRACT: ShellMesh.validate rejects count=0 before Shell::new reaches its later empty check. Current support confirms this exact condition. Do not retain the downstream branch as independent reachable repair.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              90
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              75,
+              86
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "historical_ids": [
+        "SEGOVB-L12-SHELL-CONTACT-INTERVAL-COUNT-REASON",
+        "SEGOVB-L12-CONNECTED-SURFACE-CONTACT-FACE-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-CONTACT-SEAM-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-CONTACT-CLEARANCE-ADMISSION"
+      ],
+      "disposition": "Current direct public boundaries still contain the recorded ensure/assert or unchecked indexing. Mesh.validate protects face and seam inputs on the normal Shell::new path. SurfaceContacts can be used directly and static obstacle inputs have their own boundary. Error representation and actual producer requirements remain for central reconciliation.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              24,
+              31
+            ],
+            [
+              45,
+              52
+            ],
+            [
+              68,
+              81
+            ],
+            [
+              95,
+              108
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              75,
+              82
+            ],
+            [
+              147,
+              175
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "historical_ids": [
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-TOPOLOGY-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-PREVIOUS-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-VALIDITY-ADMISSION",
+        "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-POSITION-FINITE-ADMISSION"
+      ],
+      "disposition": "The inner solve still asserts the recorded conditions; the static mass preprocessing described above qualifies whether malformed original mass length reaches its check. Previous position and topology assertions are retained. No claim of unsafe native readback without its own source evidence.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "lines": [
+            [
+              16,
+              34
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              157,
+              190
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Static clearance remains raw through Shell setter and SurfaceContacts to sweep; earlier RIG-PPS-023 distinguished missing owner from observed checked-value stripping. Contact masses are typed but the aggregate length is not protected before static resize. No full producer inventory."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "Earlier RIG-PPS-023 names a possible shared NonnegativeLength owner for static clearance; its zero/removal mode differs from positive-finite runtime thickness. Verify exact current owner and rejection behavior rather than assuming one checked owner fits both."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "ShellMesh validates initial particle count, face/seam membership and masses. Public SurfaceContacts boundaries retain documented assertions and lack dynamic mass precheck in static branch; historical direct-API errors remain distinct from normal constructor."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "CCD nonzero speed threshold and near-parallel approximation have symbolic conditional counterexamples; their surface-consumer consequences and admitted physical scales remain unproved. Budget exhaustion returns Some and is not a miss."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Public topology and particle replacement can diverge from private contact faces; static solve changes mass lengths before the aggregate assertion. Initial mesh validation does not protect later public mutation."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "SurfaceContacts owns retained geometry and separate static clearance, Shell exposes contact policy through SelfCollision.enabled; resolve policy and actor ownership before assigning repair. Supplier rig was an audit source assignment, not a transfer of product ownership."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Public Shell.triangles and private SurfaceContacts.faces are independent stored copies after construction. Static fixed bounds are intentionally rebuilt on replacement; no automatic stale-cache finding for a valid replacement."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Preserve zero host interval GPU-only path, optional outer layer, zero static clearance/removal, finite-budget conservative result, exact zero/prescribed inverse mass and valid degenerate geometry; no runtime parity conclusion."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "A public self-collision boolean also gates fixed-surface host processing; decide whether these are independent policy states. An enum alone does not repair ignored or divergent state."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "HostContactSchedule already derives ordinary equality/copy traits. No necessary manual-boilerplate elimination established in this bounded scope."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Static nonnegative clearance (including zero) and positive finite simulated thickness have different policies; count/index/extent relate across topology and state. Avoid conflating those concepts or f64 arithmetic internals with admitted owner invariants."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Retain the 059 distinct interval count and admission-reason findings; Shell no-particles error is downstream unreachable at the current mesh validator. Do not treat every prose error as a new unique cause."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "The 1e-15 and 1e-28 numerical thresholds are equation-specific and their bounds are unresolved; schedule counts intentionally include zero/max policies, geometric vectors are native math operands. No blanket literal replacement."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "A fixed surface replacement reconstructs and commits the cached bounds; no unqualified stale-obstacle-on-replacement finding. Source tests show intent only and were not run.",
+    "Zero host interval explicitly selects GPU-only contact scheduling; zero iterations and nonpositive/nonfinite thickness have defined no-contact behavior at the inspected boundary. Whether these policies are correct for each actual producer remains open.",
+    "CCD budget exhaustion returns the last conservative contact as Some, not None; exact zero relative speed is distinct from the positive threshold example.",
+    "Positions/velocities GPU writes are sequential in project_particles; native write failure behavior and retry policy were not inspected, so do not claim a partial-commit defect.",
+    "Checked huge particle count, offset representability, finite fixed obstacle input, cross-particle input membership, execution domains, real scales, WGSL behavior and all native error consumers require separate registered inspection. No runtime, numerical execution or shader behavior was checked.",
+    "No physical intersection/tunneling assertion follows solely from the internal sweep counterexample because resolve calls proximity. No ordinary invalid face/seam claim follows for Shell::new because mesh.validate checks them first."
+  ],
+  "historical_provenance": {
+    "old_059_readers": "READ-L11-375 source entries 2340 and 2341: full fresh 1–394 / 1–408 with original REGISTRATION-ADLER-1205/1206; READ-L11-376 source entry 2342: full fresh 1–623 with REGISTRATION-ADLER-1207. Their reported revision is pr-working; original registry/identity maps to 6533, and exact hashes are checked. Do not infer another lens or current credit.",
+    "old_059_l12": "READ-L12-772/773 attribute full personal reads to /root/lens12_frontier, respectively 1–394, 1–408, 1–623 at 6533. Root adoption records explicitly list root_personal_rereads=[]; registrations PAR-L12-308/309/310 and original proposals retained. READ-L12-774 describes support solve source and its own attribution. Historical support reads do not become fresh ordered-role credit.",
+    "old_774": "Original supplier rig additional-sources.jsonl records 0-based rows 75 (surface 1–623), 90 (ccd 1–394), 117 (shell 200–330), 205 (shell 1–408). Original producer RIG-PPS-023 in traces.jsonl records independent scope and identifies raw clearance and preserving zero, associated owner RIG-OWNER-SURFACE-CONTACT-027 and RIG-OWNER-CLOTH-MEASUREMENT-SOLVER-086. Historical assignment supplies scoped source accounting only, not repair ownership or later-lens closure. Original and path-normalized records are separate verified bytes in older-774.",
+    "recovery_limit": "Complete original 3821 ledger/queue are missing. 059 source records are recovered evidence at original attribution and revision; historical queue and registry subsets are derived navigation records. No later checkpoint adoption or validation inferred."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-registry-subset.json",
+    "historical-queue-subset.json",
+    "historical-059-index.json",
+    "older-774/INDEX.json"
+  ],
+  "work_restriction": "Source inspection, exact byte extraction and evidence-only verification. No product implementation, build, test, runtime probe, simulation, fixture, shader execution or product validation."
+}

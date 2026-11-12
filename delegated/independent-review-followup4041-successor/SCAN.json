@@ -1,0 +1,14 @@
+{
+  "schema": "726-successor-independent-digest-scan-v1",
+  "stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "recovered_private_value_count": 112,
+  "candidate_digest_encodings": 681,
+  "findings": [],
+  "exceptions": [],
+  "statistics": {
+    "views": 4787,
+    "bytes": 371555717,
+    "duplicate_views": 3287
+  },
+  "qualification": "Search compares 112 independently recovered private values and 681 raw/prefix/JSON encoded MD5, SHA-1 and SHA-256 identifiers, in hexadecimal and raw digest bytes. Gzip/tar are traversed recursively with stated bounds; raw tar, gzip, filenames and metadata are searched too. Unknown values, hashes, encodings and formats remain outside scope. No private values or individual digests are reported; no product code executed."
+}

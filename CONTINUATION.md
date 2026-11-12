@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-1005.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-1151.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -291,18 +291,70 @@ independent integrity reviews, separately identifying redacted copies,
 reviewed versions and externally retained private dependencies.
 `delegated/independent-review-13k-rig/` preserves the earlier draft
 review and corrected alias, read-scope and registration-name qualifications.
+`delegated/followup-40-41-qualified/CATALOG.json` and
+`delegated/followup-42/CATALOG.json` preserve separately attributed source
+packets for roles 2629–2647. Their
+public reconstructions, same-machine private originals, historical identities
+and open scopes remain distinct. `QUALIFICATION-CLOTH-PLACEHOLDER-SCOPE.json`
+records two file-local redaction markers that do not imply equal original paths.
+The former is a separately identified successor to an unpublished draft whose
+GPU map and scan reports contained hashes of redacted path values. The frozen
+draft and earlier coordinator wrappers are retained in restricted local
+captures; staging its files also left local Git objects. The prior draft was
+not committed or pushed by this checkpoint, and the successor's public checks
+do not replay private redactions. See its `DIGEST-OMISSION-QUALIFICATION.json`.
+`ASSESSMENT-CENTRAL-CLOTH-13L-95E.json`
+reconnects one conditional cloth count candidate; related q614 and all lenses
+remain open. `delegated/followup-42/TEMPORARY-CUSTODY-QUALIFICATION.json`
+records the temporary filenames whose earlier contents are unknown.
+`QUALIFICATION-FOLLOWUP42-059-ATTRIBUTION.json` narrows one frozen
+historical-reader label to the attribution supported by the cited receipt.
+`ASSESSMENT-CENTRAL-COLLIDER-13M-95E.json` reconnects two earlier conditional
+collider proposals and records related historical scopes without assuming an
+alias. `delegated/independent-review-13m-collider/` preserves the
+original draft review and a separate review of the corrected assessment.
+`delegated/independent-review-followup42/` records the review of checkpoint 42;
+the reviewer previously authored its collider packet.
+`delegated/independent-review-followup40-41-original/` preserves the review of
+the earlier unpublished eight-archive draft, including its path-digest finding.
+That review's author had prior involvement with two of the source packets;
+its checked original draft is retained privately, not identified with a
+corrected public successor.
+`delegated/independent-review-followup4041-successor/REPORT.json` separately
+records the successor review, its private replay and the limits of the portable
+scan transcript.
+`delegated/followup-43-xpbd/REPORT.json` and its separate attribution addendum
+preserve the XPBD roles 2648–2649 follow-up pending central reconciliation.
+Its public Git commit headers and one queue leaf are reconstructed; the
+same-machine originals, prototype verifier correction and their limits are
+recorded in `FOLLOWUP-43-PRIVATE-RETENTION.json`.
+`delegated/followup-44-physics-tests/PUBLIC-REPORT.json` preserves two
+physics contact test-source reviews pending central reconciliation. Tests and
+fixtures were read as text only; the original archive and inert script-name
+changes are qualified in `FOLLOWUP-44-PHYSICS-RETENTION.json`.
 `delegated/checkpoint39-stage/REPORT.json` preserves three additional
 source-family packets pending central reconciliation. The independent review
 and the earlier temporary-original permission limitation are recorded in
 `QUALIFICATION-CHECKPOINT39-INDEPENDENT-REVIEW.json`.
 `delegated/independent-privacy-d7b14/REPORT.json` records a bounded review of
 the changed public blobs, including retained Git author metadata and its limits.
+`RECOVERY-VERIFICATION-A0D09CDB.json` records the next same-machine recovery
+check, with its transcript and prior-history limitations.
 `RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
 fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine
 current-tree path-redacted reconstructions from the prior public bytes.
 Prior Git history and copies can still contain paths. Exact earlier blobs are
 retained locally; the checksum-bound public upstream crate remains unchanged.
+`delegated/published-path-digest-independent-review/REPORT.json` records
+individual path-value and prefix digest exposures already present in older
+public evidence, with 15 observed current text paths and unread archive limits.
+`PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json` links an unapplied reconstruction
+of those 15 files. Its independently reviewed legacy verifier adapters remain
+pending; the earlier history cannot be erased by a forward commit.
+`delegated/checkpoint-privacy-prescan/REPORT.json` records a bounded scan
+of the then-staged evidence and its separate same-machine script identity;
+it does not cover later files or remove earlier Git history.
 `delegated/privacy-56f-scan/REPORT.json` preserves the bounded scan, draft
 candidates and corrections; its candidates are distinct from the selected
 current-tree representations. The public verifier cannot prove the retained

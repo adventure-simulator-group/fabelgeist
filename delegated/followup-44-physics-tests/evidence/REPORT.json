@@ -1,0 +1,308 @@
+{
+  "schema": "726-physics-test-source-followup-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T11:09:10.895850+00:00",
+  "status": "Bounded source-only reconciliation; no tests, fixture or product execution, build, runtime probe, repair, alias/count decision or full-lens closure.",
+  "scope": {
+    "original_roles": [
+      2650,
+      2651
+    ],
+    "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recovered per-file pr-working objects transported through f82; recorded project HEAD 6533 and four unrelated dirty paths. Each selected object equals its individual 6533 and 95e Git body; this does not make the snapshot clean. f82 is evidence transport, not product revision.",
+    "actual_personal_reads": "REGISTRATION and READ-RECEIPT independently record both historical/current bodies 1\u201354 and 1\u201319 plus six bounded current support windows. Unread complements are explicit. Archiving whole support files does not constitute a full personal read. Test/fixture sources are text only.",
+    "prior_scope": "Checkpoint20 reviewer /root/rig_identity separately displayed both role bodies by revision, contact 1\u2013132, count 1\u201355, collider 1\u201390 and 210\u2013218, fixture 1\u201311; no prior historical fixture personal read. That prior work and this follow-up do not transfer read credit.",
+    "p16": "Separate dirty snapshot based on a120. Later matching tracked patch excludes seven untracked paths and does not establish original invocation or uninterrupted custody. Neither prior P16 nor this pr-working review gains cross-snapshot read credit.",
+    "checkpoint3821": "Original queue and ledger remain unrecovered. Recovered 059, 774, reconstructed selections and new current review are not promoted."
+  },
+  "observations": [
+    {
+      "id": "PHYSICS-TEST-COUNT-NARROWING",
+      "classification": "Independent corroboration of existing q479 and 774 F073 supplement, not a new count.",
+      "trace": [
+        {
+          "tag": "2651-current-95e",
+          "ranges": [
+            [
+              3,
+              17
+            ]
+          ]
+        },
+        {
+          "tag": "capacity-fixture",
+          "ranges": [
+            [
+              1,
+              11
+            ]
+          ]
+        },
+        {
+          "tag": "count",
+          "ranges": [
+            [
+              5,
+              10
+            ],
+            [
+              25,
+              45
+            ]
+          ]
+        },
+        {
+          "tag": "contact",
+          "ranges": [
+            [
+              71,
+              88
+            ]
+          ]
+        },
+        {
+          "tag": "gpu-buffer",
+          "ranges": [
+            [
+              127,
+              129
+            ]
+          ]
+        }
+      ],
+      "analysis": "The 64-bit-only test calculates capacity from fixture input and asserts the expected capacity and byte length. Fixture text explicitly names 4294967295 -> zero slots/bytes and 4294967296 and 4294967312 -> retained 16 slots/1024 bytes. The count fits after a u32 cast and growth rounds the host count before a u32 cast. For a representable 64-bit host count of 4294967296, the shown fit retains the initial capacity even though the original host count exceeds it; the subsequent upload call is a source-level condition, not proof that such a vector or a device write is reachable.",
+      "limits": "Fixture source is neither executed nor an admission proof. Supported maximum count, host memory, buffer/device limits and native queue behavior are open. No fixture or test run occurred.",
+      "future_direction": "Reconcile full host count, native count, buffer capacity and byte bounds before mutation; preserve legitimate empty and representable growth cases. No implementation."
+    },
+    {
+      "id": "PHYSICS-TEST-EARLY-REJECT-VS-GROWTH-ERROR",
+      "classification": "Independent corroboration and support of earlier q480; not a separate count.",
+      "trace": [
+        {
+          "tag": "2650-current-95e",
+          "ranges": [
+            [
+              34,
+              54
+            ]
+          ]
+        },
+        {
+          "tag": "contact",
+          "ranges": [
+            [
+              71,
+              88
+            ],
+            [
+              92,
+              115
+            ]
+          ]
+        },
+        {
+          "tag": "count",
+          "ranges": [
+            [
+              25,
+              45
+            ]
+          ]
+        },
+        {
+          "tag": "gpu-buffer",
+          "ranges": [
+            [
+              22,
+              37
+            ],
+            [
+              127,
+              150
+            ]
+          ]
+        },
+        {
+          "tag": "gpu-definition",
+          "ranges": [
+            [
+              119,
+              133
+            ]
+          ]
+        }
+      ],
+      "analysis": "The mismatch test asserts a length-mismatch error and unchanged host list and buffer bytes. Source returns before writing or updating the host list in this case. A different set_colliders growth path assigns the capacity before Buffer::new; on a 64-bit symbolic count of 2^31+1 its next-power-of-two truncates to zero, and the shown Buffer::new returns an error on zero bytes before native allocation. Thus if such an input reaches that path the old buffer and host list remain while the stored capacity becomes zero.",
+      "limits": "Huge supported producer reachability is unproved. The inspected native allocator returns a buffer rather than a Result; no claim is made about panic, device errors, later overrun, or capacity larger than the old buffer. A scalar mathematical trace is not a constructed product vector or runtime result. Prior independently attributed /root/rig_identity work already identified this narrowed branch.",
+      "future_direction": "Determine the intended aggregate transition and handle relevant fallible construction before committing coupled fields, separately from native count admission."
+    },
+    {
+      "id": "PHYSICS-TEST-DIAGNOSTIC-AND-PACK-ORACLE",
+      "classification": "Related to q435 and prior checkpoint20 testing limits; no new unique count.",
+      "trace": [
+        {
+          "tag": "2650-current-95e",
+          "ranges": [
+            [
+              17,
+              22
+            ],
+            [
+              34,
+              54
+            ]
+          ]
+        },
+        {
+          "tag": "contact",
+          "ranges": [
+            [
+              92,
+              115
+            ]
+          ]
+        },
+        {
+          "tag": "packer",
+          "ranges": [
+            [
+              211,
+              218
+            ]
+          ]
+        }
+      ],
+      "analysis": "The test matches the exact displayed count-mismatch prose and calculates expected uploaded words using the same pack_colliders producer as the implementation. This expresses test intent but independently establishes neither the desired binary packing schema nor a runtime pass. Human diagnostic wording is not by itself a compatibility mandate.",
+      "limits": "Actual error taxonomy and downstream native word schema are untraced beyond these windows. No product, shader or test is run.",
+      "future_direction": "Clarify semantic mismatch/error ownership and independent packing specification when later authorized work begins."
+    }
+  ],
+  "nonfindings": [
+    "Ordinary empty-list replacement and retained buffer capacity have explicit test-source assertions and may be intentional; do not treat empty input as invalid by default.",
+    "ColliderCapacityFit already separates Retained and GrowthRequired; no enum-shape defect follows from this source alone.",
+    "The tests do not demonstrate GPU execution, safe allocation, absence of consumer errors, or continuous source-wide coverage."
+  ],
+  "historical_relationships": [
+    {
+      "record": "774 rig REGISTER-106/107 and ADDITIONAL-106/107",
+      "source": "history/HISTORY-INDEX.json selected_774",
+      "qualification": "Original supplier reads 2650 1\u201354 and 2651 1\u201319; ADD107 explicitly leaves fixture direct registration/read pending. These records are not this reviewer\u2019s reads."
+    },
+    {
+      "record": "774 RIG-ADMISSION03-F073-SUPPLEMENT-001",
+      "source": "history/HISTORY-INDEX.json selected_774",
+      "qualification": "Earlier raw count/capacity/native boundary finding; preserve supplier attribution and do not presume a unique alias."
+    },
+    {
+      "record": "059 READ-L11-433 and REGISTRATION-SEGOVB-1567/1568",
+      "source": "history/059/segovb/READ-L11-433.json",
+      "qualification": "Records historical 1\u201354 and 1\u201319 source reads; the relevant rows name no individual reader."
+    },
+    {
+      "record": "059 READ-L12-914 / PROPOSAL-L12-914 and registrations 715/716",
+      "source": "history/059/segovb/READ-L12-914.json",
+      "qualification": "Delegated /root/lens12_frontier personal 1\u201354 and 1\u201319; root adoption reports zero personal rereads; included fixture and count implementation were not thereby read. Proposal and adoption remain distinct."
+    },
+    {
+      "record": "059 q435, q479, q480",
+      "source": "history/QUEUE-SELECTION.json",
+      "qualification": "Open historical reconstructed selection with original 059 and later committed queue hashes separate. No checkpoint3821 or new unique finding credit."
+    },
+    {
+      "record": "Checkpoint20 physics-contact-test-source",
+      "source": "prior/PRIOR-INDEX.json",
+      "qualification": "Earlier independently attributed /root/rig_identity personal role and support reads and findings; original seven selected records equal their published variants, not a transfer of authorship or read credit."
+    }
+  ],
+  "baseline": {
+    "committed_revision": "a0d09cdb771c526f42df398da2ad57d7c6e10520",
+    "committed_sha256": "4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c",
+    "working_observed_sha256": "329937fc1a7b087edf57ef6762d09fecee20cc0cae0d7f1cb01bc21b0ad394b6",
+    "qualification": "Three selected ledger rows agree at capture, while full committed and separately observed working files differ. Working state is time-bound, not committed, live-remote or checkpoint3821 proof."
+  },
+  "thirteen_lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer-propagation",
+      "assessment": "Host list length flows through ColliderCount, fit/growth, packing and upload; actual supported high-count producer and native consumer remain open."
+    },
+    {
+      "lens": 2,
+      "name": "existing-type-owners",
+      "assessment": "ColliderCount and ColliderCapacity exist, but their separate types alone do not prove a checked host-to-native boundary."
+    },
+    {
+      "lens": 3,
+      "name": "admission-contracts",
+      "assessment": "From<usize> admits host count and fit casts before comparison; q479 covers native representability, subject to actual producer reachability."
+    },
+    {
+      "lens": 4,
+      "name": "invariant-operations",
+      "assessment": "Host next-power-of-two and native narrowing can yield zero; scalar reasoning does not prove a feasible oversized list."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate-states",
+      "assessment": "q480 concerns capacity, buffer and host list on growth error; mismatch rejection is a different early-return test."
+    },
+    {
+      "lens": 6,
+      "name": "type-ownership",
+      "assessment": "Count, capacity and byte length have different existing owners and conversion responsibilities; shared native API policy remains open."
+    },
+    {
+      "lens": 7,
+      "name": "redundant-authority",
+      "assessment": "Test expected words use the same packer as upload and are not an independent word-schema oracle; the capacity/buffer pairing is separately stored state."
+    },
+    {
+      "lens": 8,
+      "name": "behavior-preservation",
+      "assessment": "Individual role bodies are byte-identical between recorded old objects and 95e; preserve supported empty and mismatch semantics without preserving invalid wrap or exact prose by assumption."
+    },
+    {
+      "lens": 9,
+      "name": "enum-shapes",
+      "assessment": "Retained and GrowthRequired are explicit variants; no additional enum defect established from these windows."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "No needless manual trait or serialization implementation is established in these test sources or bounded support."
+    },
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "assessment": "Host count, native slot capacity and byte length are different domains; individual types do not establish their relationship or valid device limits."
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "assessment": "Exact user-facing mismatch prose is asserted by the test; determine semantic error ownership without making wording a backward-compatibility requirement."
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "assessment": "Initial capacity, collider-byte unit and 64-bit fixture thresholds communicate distinct policies; fixture literals alone do not prove acceptable native limits."
+    }
+  ],
+  "open_questions": [
+    "Which real supported collider producers and host/device limits can approach or exceed native u32 count and capacity boundaries?",
+    "Does any supported consumer observe a capacity/buffer mismatch after the specified zero-byte error? Actual runtime, GPU queue behavior, panics and allocation were not tested.",
+    "Which independent authoritative collider packing schema and diagnostic classification should later validation target?",
+    "How should q435, q479, q480, F073 supplement and shared GPU ownership be reconciled without merging distinct conditions or double counting?"
+  ],
+  "evidence": {
+    "registration": "REGISTRATION.json",
+    "personal_receipt": "READ-RECEIPT.json",
+    "display": "DISPLAY.txt",
+    "tree_membership": "TREE-PROOFS.json",
+    "historical_059_and_774": "history/HISTORY-INDEX.json",
+    "registry": "history/registry-original.json.gz",
+    "queue_selection": "history/QUEUE-SELECTION.json",
+    "prior_reviewer": "prior/PRIOR-INDEX.json",
+    "commit_anchor": "Raw tree objects only; revision-to-root link relies on independently trusted Git or prior checkpoint20 archive. No raw commit author object copied.",
+    "limitations": "No build, test, fixture execution, product, renderer, simulation, shader, device, runtime probe, repair or publication edit."
+  }
+}

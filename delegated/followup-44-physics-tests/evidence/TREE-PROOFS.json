@@ -1,0 +1,955 @@
+{
+  "schema": "726-physics-test-tree-proof-v1",
+  "roots": {
+    "f82adcabd9d89c4fa2dd7f99253a45297a0681ee": "500ca728b94674afda6b91f8f01b4ed084825a28",
+    "95e63628f9d70b8dd6e6fede64334696c6995009": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "6533e444fa37552927070cc8d8190907fd3b413e": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8"
+  },
+  "objects": {
+    "500ca728b94674afda6b91f8f01b4ed084825a28": {
+      "archive": "trees/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz",
+      "bytes": 1669,
+      "sha256": "402652e824220cc3d8bf45a5eb4a04e04f7de1b22b29f0f023ec0ffcbf0be90d",
+      "stored_sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64"
+    },
+    "91a77f1fdceefea3dd01dfde76fd19949c588083": {
+      "archive": "trees/91a77f1fdceefea3dd01dfde76fd19949c588083.tree.gz",
+      "bytes": 30,
+      "sha256": "6446b39d664738f70ad891eced0025ec382b0ad4437915ffcbf0a5e33ca0637a",
+      "stored_sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7"
+    },
+    "70cda9939284355c2264b601322aacba9399e65e": {
+      "archive": "trees/70cda9939284355c2264b601322aacba9399e65e.tree.gz",
+      "bytes": 747,
+      "sha256": "18fdca2da204876544183c88e442ff0630a7efe5afc983d96bc00fd22371993c",
+      "stored_sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14"
+    },
+    "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90": {
+      "archive": "trees/79de33d1c5bd4d34616391d9be6fc06f9d6d6c90.tree.gz",
+      "bytes": 2093,
+      "sha256": "91c26a4cd0c2b6aaf8d16fb4eb346b112a5389afea01f9320c4b7498de1222b4",
+      "stored_sha256": "52f211b8ba1bb83ae0b23b5eafadf6113d5bb39c140edf314e938a4e212c7ab7"
+    },
+    "9830cd8a4c7f759ee6bd8708505f611598ec9634": {
+      "archive": "trees/9830cd8a4c7f759ee6bd8708505f611598ec9634.tree.gz",
+      "bytes": 1236,
+      "sha256": "7d21811b4e2369a69b5ce33c0fb9faf5b1eeb356153600f2ca1db1b3d4125f82",
+      "stored_sha256": "319eb6d9e1163cbacf2e910a0e4ff7365eade4e2fb6a655ad2bfb76b9d4611e0"
+    },
+    "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d": {
+      "archive": "trees/a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d.tree.gz",
+      "bytes": 74,
+      "sha256": "bebf2b7a7c08597e884ec87b3c4e97195f37304739008f3e6b1c90b0645246cb",
+      "stored_sha256": "094fc6df01268bc4a46c05cbfa6e91cfcd171b310326a757280b44d496635038"
+    },
+    "ccf8e1553b451a49f1cd5509af329888b2690c4a": {
+      "archive": "trees/ccf8e1553b451a49f1cd5509af329888b2690c4a.tree.gz",
+      "bytes": 231472,
+      "sha256": "33c6fab32aa9797c87cfc05e4be37886f8a52e9e7cb56a58672f85af0dc865cb",
+      "stored_sha256": "89879b8e5643b4acac0ae19c1de15ddcda6745b0f0e3ff30cd3685e9a062fa0c"
+    },
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "archive": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1635,
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "stored_sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "archive": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 2434,
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "stored_sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73"
+    },
+    "b420a3db1c058190290c93e53f1d377fa61cddca": {
+      "archive": "trees/b420a3db1c058190290c93e53f1d377fa61cddca.tree.gz",
+      "bytes": 137,
+      "sha256": "16136087844884eb01d74435b864abc1cb39e16c7e409d572aec40d67ef558b6",
+      "stored_sha256": "618fbcafedbffd4956c4fa76166e03bf9aab784ce6889eb091f760d009e6e5bc"
+    },
+    "264fb7ef49560331c0f347725fd149bc838b4523": {
+      "archive": "trees/264fb7ef49560331c0f347725fd149bc838b4523.tree.gz",
+      "bytes": 247,
+      "sha256": "2e4808f82fb24f0c298a8fb337375679cf69efffce787ab4456fa57dd8d2852b",
+      "stored_sha256": "fc95dfa197a9ee1beec8d0b80c8aa74376cff510227fae69c56f12c7bc90add5"
+    },
+    "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7": {
+      "archive": "trees/ca3986b7a17eff38062c9d50c6101df2ce5ca9b7.tree.gz",
+      "bytes": 104,
+      "sha256": "34d27eb4171525ef28441265475c18fcf4f3955307f5d699da3e3ca7ab33c490",
+      "stored_sha256": "04c27d6ba22316965edf4cad0105d9845544fe13b338a617959a7b79aaacb1cb"
+    },
+    "2fad61e3dc862c89588a62cd196bd4290dab96a3": {
+      "archive": "trees/2fad61e3dc862c89588a62cd196bd4290dab96a3.tree.gz",
+      "bytes": 36,
+      "sha256": "2dc34a722788ad45f097dc79a3aba2705975d62bbb02d659f7bb726e4d6f32d0",
+      "stored_sha256": "61ca1a032fda6c8de242959d2b653e8101dbd5672ebe48f4f60082fc21739101"
+    },
+    "d11139eef6b6779e4eacaa5a1202017b49091755": {
+      "archive": "trees/d11139eef6b6779e4eacaa5a1202017b49091755.tree.gz",
+      "bytes": 35,
+      "sha256": "62072a3e5ee25090bd5210a2b3ff2cd40a1a95fc696f09c69722190c6b5c0b9e",
+      "stored_sha256": "2686a36d8d59fbd9c2b06eaa36dac9d258dd5d3fac01147afc77507fc42db905"
+    },
+    "518610e4aee07d7230b94ac95a830bbcae63737e": {
+      "archive": "trees/518610e4aee07d7230b94ac95a830bbcae63737e.tree.gz",
+      "bytes": 49,
+      "sha256": "6e3e4b493a580448186c7ebe3f2fadf409326a842a3f00e8cbf61a35382be36b",
+      "stored_sha256": "8e7b3d544522d7e0cb066d5e869f5235d6b67983d8aecb6284d918a4941fe62c"
+    },
+    "bb6e3964d67309b57fe7f316e7866adb7e94ef3f": {
+      "archive": "trees/bb6e3964d67309b57fe7f316e7866adb7e94ef3f.tree.gz",
+      "bytes": 181,
+      "sha256": "f8c0c697f51c57f29f8c4ee200034aa199a33dee901b3bd98ac0f6d71a6efb58",
+      "stored_sha256": "cbbfa47863a7872ae297fe067f59c55da4ded2260f9010a6b1dce53c6ce7fa96"
+    },
+    "8fd83ad489459acbbc8dda549bb81e54ad04ac13": {
+      "archive": "trees/8fd83ad489459acbbc8dda549bb81e54ad04ac13.tree.gz",
+      "bytes": 137,
+      "sha256": "6603f06ab694efe17315ac69ce30b40642f0633cb20b3d02f247e14b052c9525",
+      "stored_sha256": "e0606e9c5cc5dc342f1b4cd90576eaa3308272458d97f58973a58ea44eb1fbfb"
+    },
+    "481a3448a1e746f5bbbc51918fd4139826b0129f": {
+      "archive": "trees/481a3448a1e746f5bbbc51918fd4139826b0129f.tree.gz",
+      "bytes": 64,
+      "sha256": "c47806761684c26fcd6214c264c143c3685da1a2108df9dddce25dedb2792ce1",
+      "stored_sha256": "ea0b436e5f4eaf8af1f34052da70cc69cc8560ba6cc0be5955970d2616729954"
+    },
+    "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905": {
+      "archive": "trees/6bf7fdedb04b270f10e1b05fa49e47cdc6f21905.tree.gz",
+      "bytes": 323,
+      "sha256": "596ebe34a38928b9b5512134801d6d863ba0e343f511a59a07cad680bd9d9850",
+      "stored_sha256": "df098f66ffcce499f5d23295edaccaa6c4a166731622c2d5658ae9b0827268e5"
+    },
+    "38ec2782f1d8391271a5ff83ad9e0335b63602af": {
+      "archive": "trees/38ec2782f1d8391271a5ff83ad9e0335b63602af.tree.gz",
+      "bytes": 297,
+      "sha256": "f9dc96365a23443ddc498d2030ffabfbbe6b86100e9af5641a999929e7ec670b",
+      "stored_sha256": "d671a514bd01267814425f0930ec6d3db4bf01c9a09a4ff07a15186bf753eb53"
+    },
+    "849ec1e8faca2236c7021893cda7a3f7cb5c72e8": {
+      "archive": "trees/849ec1e8faca2236c7021893cda7a3f7cb5c72e8.tree.gz",
+      "bytes": 1635,
+      "sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+      "stored_sha256": "6502aead335f2e1f71e5fdca379ce119beb4f698af42777e0c24363803536470"
+    },
+    "a115d05f403ea5edbb02128dc773d2e3dcb51c2d": {
+      "archive": "trees/a115d05f403ea5edbb02128dc773d2e3dcb51c2d.tree.gz",
+      "bytes": 2434,
+      "sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+      "stored_sha256": "077300b1353b89a71e7599b9677b1a37641d0fc510e3fac2c85a17ff729325b0"
+    },
+    "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba": {
+      "archive": "trees/3a2b6d01672fbc0d98280b96c7a8c52e757e0aba.tree.gz",
+      "bytes": 296,
+      "sha256": "2537ebedad69449870784cd86ec2a5f61995de8b534e3b5833caf5018f98ca0f",
+      "stored_sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8"
+    },
+    "4600136a2483a4cb86c1f24ad935526bc0f3d53b": {
+      "archive": "trees/4600136a2483a4cb86c1f24ad935526bc0f3d53b.tree.gz",
+      "bytes": 241,
+      "sha256": "888d2f827fbf811c6d28626063f83919aa0653b1f2391937ed2ed5d073a84fed",
+      "stored_sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2"
+    },
+    "ab7156f6d023931ad3d64952611ae14d1bdcab5a": {
+      "archive": "trees/ab7156f6d023931ad3d64952611ae14d1bdcab5a.tree.gz",
+      "bytes": 10490,
+      "sha256": "44d8136c2441e912c404c413dacc971c0b96c9ab7c12587ed194bd880ebaf22f",
+      "stored_sha256": "f7c167196a2857c67fa47f206a4966b6fec52800311e8971042bd4a7531b42a9"
+    },
+    "e4d47f7f252598ca10955b542385c8dbcc50f02f": {
+      "archive": "trees/e4d47f7f252598ca10955b542385c8dbcc50f02f.tree.gz",
+      "bytes": 2302,
+      "sha256": "ade3b0e4e8e69a0e0913963066680d2e201e1beb2c901d18cebf8c5f2d96a8ee",
+      "stored_sha256": "47255c55560a291a23f3ebfbe73f44e7dc364c9a1ec4d6c0de1386f956b27c00"
+    },
+    "582e8db0e2fa71b625f0f68b3d76c9362c187068": {
+      "archive": "trees/582e8db0e2fa71b625f0f68b3d76c9362c187068.tree.gz",
+      "bytes": 2558,
+      "sha256": "92072bbb2649dcb1a6778519f5325fcccdb1c467b93f435a7740d957020b9114",
+      "stored_sha256": "a0cfbdbbdc3403fd18f00bbd0e1e27d732dd0608cb047382d14ed4da019dacf6"
+    }
+  },
+  "proofs": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "archive": "source/2650-historical-f82.rs",
+      "encoding": "identity",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "audit",
+          "mode": "40000",
+          "object": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90"
+        },
+        {
+          "tree": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+          "name": "reconcile-adler-20261023",
+          "mode": "40000",
+          "object": "9830cd8a4c7f759ee6bd8708505f611598ec9634"
+        },
+        {
+          "tree": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+          "name": "recovered-sources",
+          "mode": "40000",
+          "object": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d"
+        },
+        {
+          "tree": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+          "name": "objects",
+          "mode": "40000",
+          "object": "ccf8e1553b451a49f1cd5509af329888b2690c4a"
+        },
+        {
+          "tree": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+          "name": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "mode": "100644",
+          "object": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+        }
+      ],
+      "bytes": 2314,
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "git_blob": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/contact/tests.rs",
+      "archive": "source/2650-current-95e.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact",
+          "mode": "40000",
+          "object": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7"
+        },
+        {
+          "tree": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7",
+          "name": "tests.rs",
+          "mode": "100644",
+          "object": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+        }
+      ],
+      "bytes": 2314,
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "git_blob": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "archive": "source/2651-historical-f82.rs",
+      "encoding": "identity",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "audit",
+          "mode": "40000",
+          "object": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90"
+        },
+        {
+          "tree": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+          "name": "reconcile-adler-20261023",
+          "mode": "40000",
+          "object": "9830cd8a4c7f759ee6bd8708505f611598ec9634"
+        },
+        {
+          "tree": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+          "name": "recovered-sources",
+          "mode": "40000",
+          "object": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d"
+        },
+        {
+          "tree": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+          "name": "objects",
+          "mode": "40000",
+          "object": "ccf8e1553b451a49f1cd5509af329888b2690c4a"
+        },
+        {
+          "tree": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+          "name": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "mode": "100644",
+          "object": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+        }
+      ],
+      "bytes": 761,
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "git_blob": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "archive": "source/2651-current-95e.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact",
+          "mode": "40000",
+          "object": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7"
+        },
+        {
+          "tree": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7",
+          "name": "count",
+          "mode": "40000",
+          "object": "2fad61e3dc862c89588a62cd196bd4290dab96a3"
+        },
+        {
+          "tree": "2fad61e3dc862c89588a62cd196bd4290dab96a3",
+          "name": "tests.rs",
+          "mode": "100644",
+          "object": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+        }
+      ],
+      "bytes": 761,
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "git_blob": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/contact.rs",
+      "archive": "source/contact.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact.rs",
+          "mode": "100644",
+          "object": "e433eefec37485a3b5e26e9f4047525cb1c97e4d"
+        }
+      ],
+      "bytes": 8967,
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "git_blob": "e433eefec37485a3b5e26e9f4047525cb1c97e4d"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "archive": "source/count.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact",
+          "mode": "40000",
+          "object": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7"
+        },
+        {
+          "tree": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7",
+          "name": "count.rs",
+          "mode": "100644",
+          "object": "b5629d9376c26e346a90399a617e91f2d33eb205"
+        }
+      ],
+      "bytes": 1836,
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "git_blob": "b5629d9376c26e346a90399a617e91f2d33eb205"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/src/collider.rs",
+      "archive": "source/packer.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "collider.rs",
+          "mode": "100644",
+          "object": "51bb1d16a3089f5187a857fb35c6b316c1349db1"
+        }
+      ],
+      "bytes": 7409,
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "git_blob": "51bb1d16a3089f5187a857fb35c6b316c1349db1"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt",
+      "archive": "source/capacity-fixture.txt",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "tests",
+          "mode": "40000",
+          "object": "d11139eef6b6779e4eacaa5a1202017b49091755"
+        },
+        {
+          "tree": "d11139eef6b6779e4eacaa5a1202017b49091755",
+          "name": "fixtures",
+          "mode": "40000",
+          "object": "518610e4aee07d7230b94ac95a830bbcae63737e"
+        },
+        {
+          "tree": "518610e4aee07d7230b94ac95a830bbcae63737e",
+          "name": "collider-capacity.txt",
+          "mode": "100644",
+          "object": "11fe465f612b0da3c4f1ab96b6241d9fafda6ef7"
+        }
+      ],
+      "bytes": 140,
+      "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+      "git_blob": "11fe465f612b0da3c4f1ab96b6241d9fafda6ef7"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "archive": "source/gpu-buffer.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "object": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "object": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "object": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "object": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "buffer",
+          "mode": "40000",
+          "object": "38ec2782f1d8391271a5ff83ad9e0335b63602af"
+        },
+        {
+          "tree": "38ec2782f1d8391271a5ff83ad9e0335b63602af",
+          "name": "mod.rs",
+          "mode": "100644",
+          "object": "4c1982bd2804730df56574d30429cd3a17adab17"
+        }
+      ],
+      "bytes": 6193,
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "archive": "source/gpu-definition.rs",
+      "encoding": "identity",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-gpu",
+          "mode": "40000",
+          "object": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f"
+        },
+        {
+          "tree": "bb6e3964d67309b57fe7f316e7866adb7e94ef3f",
+          "name": "src",
+          "mode": "40000",
+          "object": "8fd83ad489459acbbc8dda549bb81e54ad04ac13"
+        },
+        {
+          "tree": "8fd83ad489459acbbc8dda549bb81e54ad04ac13",
+          "name": "data",
+          "mode": "40000",
+          "object": "481a3448a1e746f5bbbc51918fd4139826b0129f"
+        },
+        {
+          "tree": "481a3448a1e746f5bbbc51918fd4139826b0129f",
+          "name": "gpu",
+          "mode": "40000",
+          "object": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905"
+        },
+        {
+          "tree": "6bf7fdedb04b270f10e1b05fa49e47cdc6f21905",
+          "name": "buffer",
+          "mode": "40000",
+          "object": "38ec2782f1d8391271a5ff83ad9e0335b63602af"
+        },
+        {
+          "tree": "38ec2782f1d8391271a5ff83ad9e0335b63602af",
+          "name": "definition.rs",
+          "mode": "100644",
+          "object": "cfcb7405a863ce860abc2eba4b5faecc29898845"
+        }
+      ],
+      "bytes": 3925,
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "git_blob": "cfcb7405a863ce860abc2eba4b5faecc29898845"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-physics/src/contact/tests.rs",
+      "archive": "source/2650-historical-f82.rs",
+      "encoding": "identity",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "object": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact",
+          "mode": "40000",
+          "object": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7"
+        },
+        {
+          "tree": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7",
+          "name": "tests.rs",
+          "mode": "100644",
+          "object": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+        }
+      ],
+      "bytes": 2314,
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "git_blob": "47ddefe6fac2d57386a8a83a698c84266cbb4f23"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "archive": "source/2651-historical-f82.rs",
+      "encoding": "identity",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "object": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-physics",
+          "mode": "40000",
+          "object": "b420a3db1c058190290c93e53f1d377fa61cddca"
+        },
+        {
+          "tree": "b420a3db1c058190290c93e53f1d377fa61cddca",
+          "name": "src",
+          "mode": "40000",
+          "object": "264fb7ef49560331c0f347725fd149bc838b4523"
+        },
+        {
+          "tree": "264fb7ef49560331c0f347725fd149bc838b4523",
+          "name": "contact",
+          "mode": "40000",
+          "object": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7"
+        },
+        {
+          "tree": "ca3986b7a17eff38062c9d50c6101df2ce5ca9b7",
+          "name": "count",
+          "mode": "40000",
+          "object": "2fad61e3dc862c89588a62cd196bd4290dab96a3"
+        },
+        {
+          "tree": "2fad61e3dc862c89588a62cd196bd4290dab96a3",
+          "name": "tests.rs",
+          "mode": "100644",
+          "object": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+        }
+      ],
+      "bytes": 761,
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "git_blob": "d2f4f6d41726d0126d9b654f20afc37eafeaa4b2"
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/adler-original/audit/continuation/cumulative-source-scope-parallel-072.json",
+      "archive": "history/registry-original.json.gz",
+      "encoding": "gzip",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "adler-original",
+          "mode": "40000",
+          "object": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+        },
+        {
+          "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+          "name": "audit",
+          "mode": "40000",
+          "object": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+        },
+        {
+          "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+          "name": "continuation",
+          "mode": "40000",
+          "object": "ab7156f6d023931ad3d64952611ae14d1bdcab5a"
+        },
+        {
+          "tree": "ab7156f6d023931ad3d64952611ae14d1bdcab5a",
+          "name": "cumulative-source-scope-parallel-072.json",
+          "mode": "100644",
+          "object": "676b73c3d63cd01cab63ca8f6cda7da56c772b17"
+        }
+      ],
+      "bytes": 18302620,
+      "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "git_blob": "676b73c3d63cd01cab63ca8f6cda7da56c772b17"
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "archive": "history/774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "adler-original",
+          "mode": "40000",
+          "object": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+        },
+        {
+          "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+          "name": "audit",
+          "mode": "40000",
+          "object": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+        },
+        {
+          "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+          "name": "continuation",
+          "mode": "40000",
+          "object": "ab7156f6d023931ad3d64952611ae14d1bdcab5a"
+        },
+        {
+          "tree": "ab7156f6d023931ad3d64952611ae14d1bdcab5a",
+          "name": "rig",
+          "mode": "40000",
+          "object": "e4d47f7f252598ca10955b542385c8dbcc50f02f"
+        },
+        {
+          "tree": "e4d47f7f252598ca10955b542385c8dbcc50f02f",
+          "name": "admission03",
+          "mode": "40000",
+          "object": "582e8db0e2fa71b625f0f68b3d76c9362c187068"
+        },
+        {
+          "tree": "582e8db0e2fa71b625f0f68b3d76c9362c187068",
+          "name": "source-range-registration.jsonl",
+          "mode": "100644",
+          "object": "7666160672c27040c65e39e4d526726e6a4f1719"
+        }
+      ],
+      "bytes": 126879,
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719"
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "archive": "history/774/additional-contracts.jsonl.gz",
+      "encoding": "gzip",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "adler-original",
+          "mode": "40000",
+          "object": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+        },
+        {
+          "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+          "name": "audit",
+          "mode": "40000",
+          "object": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+        },
+        {
+          "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+          "name": "continuation",
+          "mode": "40000",
+          "object": "ab7156f6d023931ad3d64952611ae14d1bdcab5a"
+        },
+        {
+          "tree": "ab7156f6d023931ad3d64952611ae14d1bdcab5a",
+          "name": "rig",
+          "mode": "40000",
+          "object": "e4d47f7f252598ca10955b542385c8dbcc50f02f"
+        },
+        {
+          "tree": "e4d47f7f252598ca10955b542385c8dbcc50f02f",
+          "name": "admission03",
+          "mode": "40000",
+          "object": "582e8db0e2fa71b625f0f68b3d76c9362c187068"
+        },
+        {
+          "tree": "582e8db0e2fa71b625f0f68b3d76c9362c187068",
+          "name": "additional-contracts.jsonl",
+          "mode": "100644",
+          "object": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+        }
+      ],
+      "bytes": 111211,
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/adler-original/audit/continuation/rig/admission03/findings.jsonl",
+      "archive": "history/774/findings.jsonl.gz",
+      "encoding": "gzip",
+      "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "object": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "object": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "adler-original",
+          "mode": "40000",
+          "object": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+        },
+        {
+          "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+          "name": "audit",
+          "mode": "40000",
+          "object": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+        },
+        {
+          "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+          "name": "continuation",
+          "mode": "40000",
+          "object": "ab7156f6d023931ad3d64952611ae14d1bdcab5a"
+        },
+        {
+          "tree": "ab7156f6d023931ad3d64952611ae14d1bdcab5a",
+          "name": "rig",
+          "mode": "40000",
+          "object": "e4d47f7f252598ca10955b542385c8dbcc50f02f"
+        },
+        {
+          "tree": "e4d47f7f252598ca10955b542385c8dbcc50f02f",
+          "name": "admission03",
+          "mode": "40000",
+          "object": "582e8db0e2fa71b625f0f68b3d76c9362c187068"
+        },
+        {
+          "tree": "582e8db0e2fa71b625f0f68b3d76c9362c187068",
+          "name": "findings.jsonl",
+          "mode": "100644",
+          "object": "ab07e3119387e62a2ecd36d88084d704549f1592"
+        }
+      ],
+      "bytes": 120871,
+      "sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "git_blob": "ab07e3119387e62a2ecd36d88084d704549f1592"
+    }
+  ],
+  "qualification": "Tree-only raw membership; revision-to-root needs independently trusted Git or retained published checkpoint20. f82 transports historical evidence. Archived support outside registered read windows is not a personal read."
+}

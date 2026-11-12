@@ -1,0 +1,21 @@
+{
+  "schema": "726-13m-independent-privacy-review-v1",
+  "source_manifests": {
+    "original": "b3a09e212700d250c45fd17cc8f779c078e453b0fe07201eab6dd02b59e094ec",
+    "corrected": "147412c14d05e79a8c73855d079da4c76d502dcd01fc6a2e6ebba64c20c2d3c7",
+    "verifier-addendum": "44a30f9753160a88e8c63ddbdbe4d8543931c7d6eda38b29e099e4315f7ddd3e"
+  },
+  "stats": {
+    "members": 167,
+    "json_strings": 1691558,
+    "semantic_json_members": 83,
+    "text_members": 30,
+    "git_tree_names": 1500,
+    "git_commit_email_lines": 0,
+    "semantic_jsonl_members": 8,
+    "generated_metadata_members": 5
+  },
+  "hits": [],
+  "errors": [],
+  "qualification": "Independent bounded review of packet members and decoded JSON strings. Matching sensitive values are never printed. It does not detect every secret, encoding, named person, or undisclosed path; all four retained copies of Git commit author/committer headers are reconstructed and exact originals retained privately."
+}

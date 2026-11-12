@@ -1,0 +1,8 @@
+{
+  "schema": "726-13m-final-verifier-addendum-v1",
+  "author": "/root/hair_ops",
+  "subject_manifest_sha256": "147412c14d05e79a8c73855d079da4c76d502dcd01fc6a2e6ebba64c20c2d3c7",
+  "original_failure": "Frozen verifier excluded every basename MANIFEST.json when enumerating top-level members, while the frozen manifest correctly includes initial/MANIFEST.json. This causes a set comparison assertion; frozen bytes are unchanged.",
+  "correction": "Successor excludes only each verified root manifest and checks the complete frozen file list, including the nested manifest.",
+  "result": "PASS on both full manifests, seven explicitly bound hashes, extension registration/receipt chronology and exact 35-line transcript, registered final source ranges and selected 059 rows. Evidence integrity and bounded reasoning only; not product validation."
+}

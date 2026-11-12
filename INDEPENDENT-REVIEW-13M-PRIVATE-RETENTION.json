@@ -1,0 +1,14 @@
+{
+  "schema": "726-independent-review-13m-private-retention-v1",
+  "author": "/root/hair_ops",
+  "public_stage": "delegated/independent-review-13m-collider",
+  "public_manifest_sha256": "6221807cee4af7240841b2ed0a883d3e9f262071c4b65a93cb5b8b6cf77b7fcf",
+  "public_archive": "delegated/independent-review-13m-collider-archive.tar.gz",
+  "public_archive_sha256": "d8da60338a80ea33ef40ffedf41acf780a548195b4d8769d86a01c757308ee8e",
+  "private_original_manifest_sha256": "a6e85391c76750909ff1a01e142857625736f77a5a8ffdfa2ec59ce8c551f39f",
+  "safety_receipt_manifest_sha256": "d83978aea2932bc08b04dbe31cf66eb6c0e055b6fbceef0e8493139ceb04f7ca",
+  "safety_handoff_qualification": "delegated/independent-review-13m-handoff-qualification/",
+  "qualification": "The coordinator copied the restricted same-machine originals byte for byte with owner-only modes. The public reconstruction and separate safety receipts identify 11 reconstructed members, 29 path and eight Git-header substitutions. Commit roots remain qualified, and the public check cannot replay private bytes or prove independent custody.",
+  "chronology": "The reviewer sent the initial critique before seeing the corrected draft, but froze that review after seeing it. The separately frozen follow-up reviewed the corrected assessment; the original and corrected identities are distinct. The initial public verifier's nested-manifest failure and separately identified successful successor are preserved.",
+  "scope": "Evidence checks and source review only; no product execution, complete privacy clearance, historical credit transfer or lens closure."
+}

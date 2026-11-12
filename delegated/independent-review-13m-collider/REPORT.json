@@ -1,0 +1,25 @@
+{
+  "schema": "726-13m-review-public-transport-v1",
+  "author": "/root/hair_ops",
+  "packets": [
+    "original",
+    "corrected",
+    "verifier-addendum"
+  ],
+  "original_review_sha256": "e3136dc3ff3c8ab89c87909f47b36b241769e9f4718ab0c626e8fdbc2b2bb576",
+  "original_assessment_sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106",
+  "corrected_assessment_sha256": "ac429433dd7c22ab6d0db209a410bd867c48e87a76516c4734841471fe9ad68f",
+  "corrected_review_sha256": "6ad953cb1f1bef162a16a0f9605a827072e8595c14843b2976b2a8c42d5bea16",
+  "findings": "Corrected assessment resolves positive-pass precondition, creator handoff, up-vector, and no-obstacle sentinel references. Conditional reachability, negative reach producers, policy, aliases and other consumers remain open.",
+  "chronology": "Original critique was sent before seeing the corrected draft but the original packet was formally frozen after seeing it. Corrected assessment and separate follow-up retain distinct hashes and reader credits.",
+  "historical": "059 q1843-1845 selected exact values compare equal in two different queues; 774 records, checkpoint19 and checkpoint42 retain original authors and scopes. Time-specific working-only entries are not asserted to reflect later committed or remote state. No alias/count, checkpoint3821 promotion, lens closure, or product-validation claim.",
+  "verifier_correction": "The corrected review original manifest verifier erroneously excluded the nested initial manifest by basename. Frozen failure preserved; separately identified successor checks both manifests. Reconstructed evidence scripts are historical text, not this public verifier.",
+  "privacy": "Local paths and Git author/committer values are reconstructed; per-file original/public whole hashes and offset crosswalks are present, not individual private-value digests. No assurance covers arbitrary unknown encodings or undiscovered sensitive values.",
+  "replay": "Exact originals and full original Git chains are available only in an owner-restricted same-machine capture. Public proof checks reconstructed identities and registered scopes; private replay requires those restricted originals and this stage. Neither reproduces historical cognition, remote state or runtime behavior.",
+  "source_members": 167,
+  "reconstructed_members": 11,
+  "redaction_counts": {
+    "local-path": 29,
+    "git-identity": 8
+  }
+}

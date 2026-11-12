@@ -1,0 +1,93 @@
+{
+  "schema": "726-individual-private-value-digest-review-v1",
+  "reviewer": "/root/rig_identity",
+  "subject": "Static inventory of unsalted digests of individual redacted private values and path prefixes in 11 unpublished followup archives, ancillary metadata, and a pinned older committed evidence tree.",
+  "input_identities": {
+    "followup_40_41_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+    "followup_42_stage_manifest_sha256": "c6a849084f746adbcc392e46937928b624dbec52f8626aba3f6464527361e8b0",
+    "followup_40_41_private_retention_manifest_sha256": "57ab22c864cfc41e3404e6dc5cdea4631961e817a8ced736fd8a8d23d2e0139e",
+    "followup_42_private_retention_manifest_sha256": "da8dc1d5c5d06da19ceb72fd92b1053a627bd534162333b4c84a855d86af3d36",
+    "older_publication_committed_revision": "a0d09cdb771c526f42df398da2ad57d7c6e10520"
+  },
+  "distinct_recovered_private_values": 112,
+  "staged_scope": {
+    "archive_count": 11,
+    "stage_stored_or_decoded_views": 1691,
+    "stage_view_bytes": 557079078,
+    "exceptions": 0,
+    "actionable_field_occurrences": 94,
+    "distinct_identifier_encodings": 29,
+    "affected_packet": "followup-40-41 / gpu-reflection",
+    "affected_members": [
+      {
+        "member": "RECONSTRUCTION-MAP.json",
+        "original_value_sha256_entries": 47
+      },
+      {
+        "member": "ORIGINAL-PRIVACY-SCAN.json",
+        "matched_prefix_sha256_entries": 47,
+        "user_home_prefix": 46,
+        "temporary_path_prefix": 1
+      }
+    ],
+    "followup_42_matches": 0,
+    "qualification": "No match to recovered values and checked encodings in followup 42; undiscovered values and encodings remain outside scope. This does not imply a universal privacy clearance."
+  },
+  "older_committed_scope": {
+    "revision": "a0d09cdb771c526f42df398da2ad57d7c6e10520",
+    "tracked_paths": 22382,
+    "unique_blobs": 14847,
+    "first_pass_views": 198817,
+    "first_pass_view_bytes": 27970733613,
+    "distinct_top_level_matching_paths": 15,
+    "tracked_path_occurrences": 522,
+    "unique_blob_occurrences": 346,
+    "observed_nested_occurrences": 0,
+    "staged_fields_sharing_older_identifiers": 85,
+    "staged_fields_not_observed_in_scanned_older_views": 9,
+    "distinct_shared_identifier_encodings": 24,
+    "whole_file_inventory": "evidence/OLDER-TEXT-MANIFEST.json",
+    "per_occurrence_locations": "evidence/OVERLAP-TEXT.json",
+    "qualification": "The zero nested matches apply only to decoded views. Because 4,188 ZIP members remain unread, nine not-observed fields are not proven absent from the full historical tree."
+  },
+  "exception_revisit": {
+    "initial_limits": 154,
+    "named_branches_reached": 93,
+    "masked_direct_blob_candidates_reached": 61,
+    "additional_views": 9298,
+    "additional_view_bytes": 5017200546,
+    "additional_matches": 0,
+    "false_zip_signatures": 13,
+    "unread_nested_member_occurrences": 4188,
+    "affected_top_level_paths": 46,
+    "categories": {
+      "ZIP member RuntimeError": 12,
+      "ZIP member BadZipFile": 4174,
+      "ZIP member NotImplementedError": 1,
+      "ZIP member error": 1
+    },
+    "whole_file_inventory": "evidence/EXCEPTION-MANIFEST.json",
+    "nested_locations": "evidence/EXCEPTION-RESCAN.json"
+  },
+  "distinct_nonprivate_categories": {
+    "queue_record_hash_occurrences": 1701,
+    "queue_copies": 7,
+    "queue_entries_per_copy": 243,
+    "queue_distinct_referenced_objects": 3,
+    "explanation": "These 1,701 fields hash whole queue objects, not individual paths; the 243 reference sequences agree across seven copies, and the three referenced shell queue objects were unchanged between its restricted original and reconstructed version.",
+    "public_placeholder_value_hash_occurrences": 2,
+    "nonpath_reconstruction_hash_occurrences": 1,
+    "binary_pattern_hash_occurrences": 13,
+    "qualification": "The binary pattern occurrences were detected in gzip stored bytes and are not established individual private path values."
+  },
+  "attribution_and_limits": [
+    "The reviewer authored the previously published independent 13K review, one of the 15 affected top-level files; this is prior involvement, not an independent re-review of that assessment.",
+    "Two cloth files used the same file-local placeholder for two different private values, established by restricted original comparison.",
+    "Exact original/private bytes remain separately retained under the two input retention manifests; stage/public or reconstructed bytes must not be represented as originals.",
+    "The older comparison is the committed a0d09 tree, not the current working tree or an assertion about later remote state.",
+    "Hashes and field comparisons cover recovered values, normalized prefixes and raw/JSON-string representations under SHA-256, SHA-1 and MD5; unknown values, algorithms, encodings and unread members remain outside scope.",
+    "No product execution, implementation, build, tests, runtime probes, publication edits or changes to the frozen input packets.",
+    "The successor transport review is a separate review; this inventory describes the earlier two staged inputs."
+  ],
+  "private_value_disclosure": "No individual private values or their digest encodings are included. Whole-file and Git identities are retained as evidence identities."
+}

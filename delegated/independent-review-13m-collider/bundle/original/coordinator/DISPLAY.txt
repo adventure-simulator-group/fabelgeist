@@ -1,0 +1,304 @@
+--- collider 15-38 ---
+  15 pub trait Collider: Sync {
+  16     /// Signed distance to the surface (negative inside) and the outward
+  17     /// direction at the closest point.
+  18     fn query(&self, p: Vec3) -> (f32, Vec3);
+  19 
+  20     /// Signed distance alone, where that is cheaper.
+  21     fn distance(&self, p: Vec3) -> f32 {
+  22         self.query(p).0
+  23     }
+  24 }
+  25 
+  26 /// Move `p` until it is at least `offset` outside, stepping along the
+  27 /// outward direction. A distance field built from smooth unions is only a
+  28 /// bound inside, and where two parts meet (an ear on the head) its gradient
+  29 /// can point into the other part, so a single step is not always enough.
+  30 pub fn push_out(collider: &(impl Collider + ?Sized), mut p: Vec3, offset: f32) -> Vec3 {
+  31     for _ in 0..6 {
+  32         if collider.distance(p) >= offset {
+  33             break;
+  34         }
+  35         let (distance, out) = collider.query(p);
+  36         p += out * (offset - distance + 1e-5);
+  37     }
+  38     p
+--- collider 41-106 ---
+  41 /// Keep a coarse polyline -- a strand drawn with a few points, a card's
+  42 /// spine -- off the body. Its points lie on the fine strand, which is off
+  43 /// the body, but the straight segments between them cut the corners of a
+  44 /// strand wrapping a curved scalp and sink into it: at a distance the hair
+  45 /// there disappears, and the head looks bald. Wherever a segment comes
+  46 /// nearer than `clearance`, its ends are pushed out until it does not; the
+  47 /// root stays where it is, so a first segment is cleared by lifting its far
+  48 /// end.
+  49 pub fn keep_clear(
+  50     collider: &(impl Collider + ?Sized),
+  51     polyline: &mut [Vec3],
+  52     clearance: f32,
+  53     passes: usize,
+  54 ) {
+  55     let n = polyline.len();
+  56     if n < 2 {
+  57         return;
+  58     }
+  59     let mut push = vec![Vec3::default(); n];
+  60     let longer = |a: Vec3, b: Vec3| {
+  61         if b.length_squared() > a.length_squared() {
+  62             b
+  63         } else {
+  64             a
+  65         }
+  66     };
+  67     for _ in 0..passes {
+  68         push.iter_mut().for_each(|p| *p = Vec3::default());
+  69         let mut any = false;
+  70         let mut near = collider.distance(polyline[0]);
+  71         for i in 0..n - 1 {
+  72             let (a, b) = (polyline[i], polyline[i + 1]);
+  73             let far = collider.distance(b);
+  74             let reach = 0.5 * (b - a).length();
+  75             // A distance field changes no faster than distance: a segment
+  76             // whose ends are well clear cannot come near in between.
+  77             let closest = near.min(far);
+  78             near = far;
+  79             if closest - reach >= clearance {
+  80                 continue;
+  81             }
+  82             for t in [0.25, 0.5, 0.75] {
+  83                 let q = a.lerp(b, t);
+  84                 let d = collider.distance(q);
+  85                 if d >= clearance {
+  86                     continue;
+  87                 }
+  88                 any = true;
+  89                 let (_, out) = collider.query(q);
+  90                 let need = clearance - d;
+  91                 if i == 0 {
+  92                     push[1] = longer(push[1], out * (need / t).min(0.01));
+  93                 } else {
+  94                     push[i] = longer(push[i], out * need);
+  95                     push[i + 1] = longer(push[i + 1], out * need);
+  96                 }
+  97             }
+  98         }
+  99         if !any {
+ 100             break;
+ 101         }
+ 102         for (p, d) in polyline.iter_mut().zip(&push).skip(1) {
+ 103             *p += *d;
+ 104         }
+ 105     }
+ 106 }
+--- collider 108-160 ---
+ 108 /// A closed triangle mesh as a collider: distance to its closest triangle,
+ 109 /// signed by the side of that triangle the point is on (by the
+ 110 /// angle-weighted pseudo-normal of its closest feature, approximated by the
+ 111 /// interpolated vertex normals).
+ 112 pub struct MeshCollider {
+ 113     bvh: TriangleBvh,
+ 114     positions: Vec<Vec3>,
+ 115     normals: Vec<Vec3>,
+ 116     triangles: Vec<[u32; 3]>,
+ 117     /// Queries further than this report "far outside".
+ 118     reach: f32,
+ 119 }
+ 120 
+ 121 impl MeshCollider {
+ 122     pub fn new(positions: Vec<Vec3>, triangles: Vec<[u32; 3]>, reach: f32) -> Self {
+ 123         let normals = vertex_normals(&positions, &triangles);
+ 124         Self {
+ 125             bvh: TriangleBvh::new(positions.clone(), triangles.clone()),
+ 126             positions,
+ 127             normals,
+ 128             triangles,
+ 129             reach,
+ 130         }
+ 131     }
+ 132 }
+ 133 
+ 134 impl Collider for MeshCollider {
+ 135     fn query(&self, p: Vec3) -> (f32, Vec3) {
+ 136         let Some((t, closest, distance)) = self.bvh.closest_point(p, self.reach) else {
+ 137             return (self.reach, Vec3::up());
+ 138         };
+ 139         let [a, b, c] = self.triangles[t as usize];
+ 140         let w = crate::surface::barycentric(
+ 141             closest,
+ 142             self.positions[a as usize],
+ 143             self.positions[b as usize],
+ 144             self.positions[c as usize],
+ 145         );
+ 146         let normal = (self.normals[a as usize] * w[0]
+ 147             + self.normals[b as usize] * w[1]
+ 148             + self.normals[c as usize] * w[2])
+ 149             .normalize();
+ 150         let outside = (p - closest).dot(normal) >= 0.0;
+ 151         let away = if distance > 1e-7 {
+ 152             (p - closest) * (1.0 / distance)
+ 153         } else {
+ 154             normal
+ 155         };
+ 156         if outside {
+ 157             (distance, away)
+ 158         } else {
+ 159             (-distance, -away)
+ 160         }
+--- bvh 297-324 ---
+ 297     /// Nearest primitive to `point`, by whatever `distance_squared` measures.
+ 298     ///
+ 299     /// The callback returns the true squared distance to primitive `i`; the
+ 300     /// traversal prunes on box distance, so the callback is only asked about
+ 301     /// primitives that could still win.
+ 302     pub fn closest(
+ 303         &self,
+ 304         point: Vec3,
+ 305         max_distance: f32,
+ 306         mut distance_squared: impl FnMut(u32) -> f32,
+ 307     ) -> Option<(u32, f32)> {
+ 308         let mut best: Option<(u32, f32)> = None;
+ 309         // Both closures need the limit, one to read and one to tighten, so it
+ 310         // lives in a `Cell` rather than being captured mutably twice.
+ 311         let limit = std::cell::Cell::new(max_distance * max_distance);
+ 312 
+ 313         self.walk(
+ 314             |node| node.bounds.distance_squared(point) <= limit.get(),
+ 315             |index| {
+ 316                 let d = distance_squared(index);
+ 317                 if d <= limit.get() {
+ 318                     limit.set(d);
+ 319                     best = Some((index, d));
+ 320                 }
+ 321             },
+ 322         );
+ 323 
+ 324         best.map(|(index, d)| (index, d.sqrt()))
+--- bvh 422-439 ---
+ 422     /// Closest point on the mesh surface, with the triangle it lies on and the
+ 423     /// distance to it.
+ 424     pub fn closest_point(&self, point: Vec3, max_distance: f32) -> Option<(u32, Vec3, f32)> {
+ 425         let result = self.bvh.closest(point, max_distance, |index| {
+ 426             let (a, b, c) = self.triangle(index);
+ 427             (crate::aabb::closest_point_on_triangle(point, a, b, c) - point).length_squared()
+ 428         });
+ 429         // The traversal reports which triangle won, not where on it; one more
+ 430         // evaluation against that triangle is cheaper than carrying the point
+ 431         // through every candidate.
+ 432         result.map(|(index, distance)| {
+ 433             let (a, b, c) = self.triangle(index);
+ 434             (
+ 435                 index,
+ 436                 crate::aabb::closest_point_on_triangle(point, a, b, c),
+ 437                 distance,
+ 438             )
+ 439         })
+--- groom 19-21 ---
+  19 /// How far the scalp cap's collider answers, metres: further from the skin
+  20 /// than this is outside and needs no exact distance.
+  21 const BODY_REACH: f32 = 0.1;
+--- groom 103-137 ---
+ 103     pub fn place(
+ 104         &self,
+ 105         gpu: &HairGpu,
+ 106         placement: &HeadPlacement,
+ 107         body: &BodySurface<'_>,
+ 108     ) -> Result<PlacedHair> {
+ 109         let field = BodyField::sample(gpu, body, self.carried_bounds(placement))?;
+ 110         let draping = Draping {
+ 111             bust: &self.head,
+ 112             placement,
+ 113             drapes: self.drapes,
+ 114         };
+ 115         let placed = draping.place(gpu, &self.on_gpu, &field)?;
+ 116         let collider = MeshCollider::new(
+ 117             body.positions
+ 118                 .iter()
+ 119                 .copied()
+ 120                 .map(Vec3::from_array)
+ 121                 .collect(),
+ 122             body.faces.to_vec(),
+ 123             BODY_REACH,
+ 124         );
+ 125         self.prepare(gpu, &placed, placement, field.buffer, &collider)
+ 126     }
+ 127 
+ 128     /// This hair left on its own bust, as the hair crate grew it, with every
+ 129     /// level of detail prepared against the bust: what drawing it on a
+ 130     /// character is measured against. The bust's surface comes beside it.
+ 131     pub fn on_bust(&self, gpu: &HairGpu) -> Result<(PlacedHair, Surface)> {
+ 132         let bust = self.head.mesh(SCALP_CELL);
+ 133         let collider =
+ 134             MeshCollider::new(bust.positions.clone(), bust.triangles.clone(), BODY_REACH);
+ 135         let shape = super::gpu::upload(gpu.context(), &head_shape(&self.head), "hair bust shape")?;
+ 136         let placement = HeadPlacement::identity(fabelgeist_rig::RigJointOrdinal::from(0usize));
+ 137         let placed = self.prepare(gpu, &self.on_gpu, &placement, shape, &collider)?;
+--- cap 30-32 ---
+  30 /// How far over the skin the cap lies, metres: under the hair's roots,
+  31 /// clear of the skin's own triangles.
+  32 const CAP_LIFT: f32 = 0.0004;
+--- cap 68-87 ---
+  68 impl ScalpCap {
+  69     /// The scalp of the bust `head`, mapped onto its texture by `map`,
+  70     /// carried onto a character by `placement` and laid over its `body`.
+  71     pub(super) fn fit(
+  72         scalp: &Surface,
+  73         head: &Head,
+  74         map: &ScalpMap,
+  75         placement: &HeadPlacement,
+  76         body: &MeshCollider,
+  77     ) -> Self {
+  78         let mut positions: Vec<Vec3> = scalp
+  79             .positions
+  80             .par_iter()
+  81             .map(|&point| {
+  82                 let carried = Vec3::from_array(placement.point(point.to_array()));
+  83                 let (distance, out) = body.query(carried);
+  84                 carried - out * (distance - CAP_LIFT)
+  85             })
+  86             .collect();
+  87         clear_skin(&mut positions, &scalp.triangles, body);
+--- cap 175-218 ---
+ 175 /// Lift every triangle of the cap whose `positions` dip under `body`'s skin
+ 176 /// between its corners, until each point of it lies [`CAP_LIFT`] off the
+ 177 /// skin.
+ 178 fn clear_skin(positions: &mut [Vec3], triangles: &[[u32; 3]], body: &MeshCollider) {
+ 179     let samples: Vec<[f32; 3]> = (0..=DIP_STEPS)
+ 180         .flat_map(|i| (0..=DIP_STEPS - i).map(move |j| [i, j, DIP_STEPS - i - j]))
+ 181         .filter(|steps| steps.iter().all(|&step| step < DIP_STEPS))
+ 182         .map(|steps| steps.map(|step| step as f32 / DIP_STEPS as f32))
+ 183         .collect();
+ 184     for _ in 0..DIP_PASSES {
+ 185         let dips: Vec<f32> = triangles
+ 186             .par_iter()
+ 187             .map(|&[a, b, c]| {
+ 188                 let corners = [a, b, c].map(|corner| positions[corner as usize]);
+ 189                 samples
+ 190                     .iter()
+ 191                     .map(|weights| {
+ 192                         let point = corners[0] * weights[0]
+ 193                             + corners[1] * weights[1]
+ 194                             + corners[2] * weights[2];
+ 195                         CAP_LIFT - body.distance(point)
+ 196                     })
+ 197                     .fold(0.0, f32::max)
+ 198             })
+ 199             .collect();
+ 200         let mut lifts = vec![0.0f32; positions.len()];
+ 201         for (&dip, triangle) in dips.iter().zip(triangles) {
+ 202             for &corner in triangle {
+ 203                 let lift = &mut lifts[corner as usize];
+ 204                 *lift = lift.max(dip);
+ 205             }
+ 206         }
+ 207         if lifts.iter().all(|&lift| lift <= 0.0) {
+ 208             break;
+ 209         }
+ 210         positions
+ 211             .par_iter_mut()
+ 212             .zip(&lifts)
+ 213             .filter(|(_, lift)| **lift > 0.0)
+ 214             .for_each(|(position, &lift)| {
+ 215                 let (_, out) = body.query(*position);
+ 216                 *position += out * lift;
+ 217             });
+ 218     }

@@ -1,0 +1,33 @@
+{
+  "schema": "726-15-value-digest-correction-proposal-v2",
+  "author": "/root/hair_ops",
+  "status": "Additive reconstruction proposal; original tracked files, historical manifests, older commits, archives and publication checkout have not been modified. This is not a replacement for any original evidence verifier.",
+  "scope": {
+    "historical_commit": "a0d09cdb771c526f42df398da2ad57d7c6e10520",
+    "tracked_files": 15,
+    "removed_individual_digest_occurrences": 795,
+    "observed_corpus_matches": 522,
+    "additional_semantic_digest_fields_removed": 273,
+    "corpus": "112 recovered values, raw/JSON/prefix forms under SHA-256/SHA-1/MD5, 681 observed encodings; collection and original inventory attributed to /root/rig_identity. Additional fields are identified by names and source context, not asserted to match that corpus.",
+    "full_file_crosswalk": "CROSSWALK.json",
+    "frozen_exact_originals": "Owner-restricted same-machine capture bound by its whole-file manifest SHA; not included in public packet."
+  },
+  "privacy": "The marker replaces per-value/path/prefix digest content while leaving all other source bytes intact. Whole-file and Git blob hashes are retained as historical source identities, not hashes of private values. Public verification checks successor identities, markers, historical whole-file inventory bindings, and pointers; optional restricted replay establishes every changed byte, with no individual value or digest output. This does not establish absence of unknown representations, unpublished private inputs, or disclosure in prior commits and archives.",
+  "historical_attribution": "Preserve the exact /root/rig_identity 13K review as a separately identified historical source; its redacted successor is a reconstruction. Original 059, 56f and checkpoint records retain their own original reviewers, revisions and recovery qualifications. Do not promote earlier 059 evidence to checkpoint3821.",
+  "dependencies": {
+    "inventory": "DEPENDENCY-INVENTORY.json",
+    "scope": "Observed working-tree text literal path/basename/whole-file-hash search; 44 candidate text files, 6 direct-name verifier/script candidates plus the manifest-driven qualified-059 verifier. Basename hits and identical original SHA identities can be ambiguous; scripts and manifests may have changed after capture. Binary, compressed and unobserved dependencies are not covered.",
+    "historical_bindings": "Original manifests and hash-named references are historical assertions of original bytes. Keep them as such; a future integrated verifier must independently verify each successor full hash and bind each original full hash/length to its untouched manifest through this crosswalk. Never report redacted bytes as byte-identical to the originals.",
+    "review_13k": "delegated/independent-review-13k-rig/verify-public.py manifest loop binds the review index. Preserve all its other archive, attribution, source proof and semantic assertions; its optional original-dir path-value-hash comparisons require the exact restricted index or must be explicitly qualified as not independently checked in a public-only run.",
+    "baseline_059": "delegated/privacy-baseline059-proposal/verify.py and delegated/privacy-baseline059-inventory-supplement/verify.py bind two reconstruction copies; qualified-059-successors/verify_stage.py binds a third by its manifest. Preserve public queue/ledger, marker/pointer, transport, semantic, source adaptation and optional external checks. The private path-value digest comparisons must be recomputed only from restricted original metadata; public output must state they were not independently checked. All three original reconstruction objects are byte-identical; their manifest references are distinct and must each be checked.",
+    "privacy_56f": "delegated/privacy-56f-scan/verify-public-transport.py binds 11 affected members through PUBLIC-MANIFEST.json and transport-map.json, and original nested BUNDLE-MANIFEST assertions remain historical. Preserve its 69 transport entries, 11 prior scratch redactions, five gzip candidates, 56 public marker assertions, eight further redactions, native package/lock identities and scan limits; insert path-specific original/public crosswalk checks rather than suppressing old hash assertions.",
+    "other": "verify_public_evidence_privacy_56f.py semantically reads the 059 proposal; preserve its nine-object and historical transport checks. delegated/sanitizer-additive-corrections/verify-reconstruction.py appeared only through an ambiguous shared basename and requires contextual confirmation, not an assumed dependency. Other fixed-hash catalogs such as independent-privacy-d7b14/CHANGED-BLOBS.json retain original-byte historical identities.",
+    "blocker": "No adapted replacement of these legacy verifiers has yet been produced or shown to preserve every unaffected assertion. The accompanying verifier checks only this proposal and is not a substitute; do not overlay/replace the 15 tracked files or claim the prior verifiers pass with successors until independently reviewed adaptations are complete."
+  },
+  "limitations": [
+    "Original user-extraction evidence and publication checkout were not written.",
+    "The previously generated 522-only scratch reconstruction is retained restricted and is not safe to publish; it failed to remove semantically identified unmatched digest fields.",
+    "Broader earlier recursive scan reports 4,188 unread ZIP members in 46 top-level blobs; unknown sensitive values, encodings, historical remotes and archived copies remain outside this correction.",
+    "No product execution, implementation, builds, tests, fixtures or runtime probes."
+  ]
+}

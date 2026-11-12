@@ -1,0 +1,17 @@
+{
+  "schema": "726-followup4041-sealed-scan-receipt-v1",
+  "reviewer": "/root/mhr_character",
+  "status": "PASS under stated bounded static-evidence scan; no product execution",
+  "stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "previous_unpublished_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "successor_gpu_archive_sha256": "30e96dc71f14e961a1a2f48c7d9756bb513be61a83e19c696c6e54d2a5b518df",
+  "successor_gpu_public_manifest_sha256": "99a1029538205f6e6b71bf609ba32f83dd75e09dd2f35cbd1e48c8b4b449748b",
+  "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+  "scan_result_sha256": "7ceede2eb360afdaa4428d08b309982b91bc2ef3b988c26bdfbbac5dc3747c79",
+  "scan": "The scanner derived 40 distinct known individual-value and prefix digests from the locally restricted original GPU archive and found zero matches. It inspected 23 stage files, 1,170 views, 243 gzip streams, 904 tar members and 21,735 Git tree entry names; no exceptions. The scan result matches the frozen stage receipt. No digest or private path values are reproduced.",
+  "distinct_count_methods": "The earlier review reported 45 original map fields containing 47 values and one matching scan-prefix occurrence. Expanded review additionally covered two public-value fields and all 60 scan-prefix fields: 47 map fields containing 49 values plus 60 prefix fields, with overlaps giving 40 distinct forbidden digests. On the original candidate the expanded corpus appeared 109 times in three GPU files; no matches occurred in the other seven archives or ancillary files under that bounded scan.",
+  "privacy": "Thirty email-pattern occurrences are author/committer metadata in 15 exact copies of three Git commits across five archives. All 15 copies matched the three copies of the earlier GPU archive in the local d7 Git commit; no live remote or independent-machine check is claimed. No selected local path or credential candidates were identified. Git admin data/history, other encodings, roots, archive types and arbitrary sensitive strings remain outside scope.",
+  "unchanged_archives": "All seven non-GPU archive bytes match the previous candidate exactly. The central assessment and previously reviewed revision have SHA-256 4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479 and 7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052 respectively, preserving their distinct wording.",
+  "private_replay": "A same-machine private-input replay of all 154 original GPU files and the original 47 field transformations passed. Removed-map and scan fields were compared separately. The private receipt and original candidate are owner-restricted; public verification cannot independently replay these private transformations.",
+  "limits": "No original checkpoint3821 ledger or queue was recovered; no historical attribution, lens closure, unique defect count or alias was inferred. The original user extraction and publication were not changed."
+}

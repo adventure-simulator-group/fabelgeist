@@ -1,0 +1,39 @@
+{
+  "schema": "726-followup-independent-review-v1",
+  "reviewer": "/root/rig_identity",
+  "scope": "Independent evidence-integrity, crosswalk, attribution and bounded privacy review of the eight-archive follow-up stage; no product or macro execution.",
+  "prior_involvement": "I authored the earlier cloth 2631/2633/2634 and hairstyle/tied 2639/2640 source packets and their public reconstructions. This review independently checks the assembled transport and retained bytes, but is not an independent source verdict on my earlier work. The separate 13L reviewer is /root/hair_ops, who disclosed prior triangulation involvement; the central source displays belong to /root.",
+  "input_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "findings": [
+    {
+      "id": "FOLLOWUP-GPU-REDACTED-VALUE-DIGESTS",
+      "classification": "Privacy issue for publication decision",
+      "observation": "The public gpu-reflection archive's RECONSTRUCTION-MAP.json includes 47 original-value digest entries across 45 fields. These are hashes of redacted values, not merely whole-file integrity hashes. Three entries correlate to the private value hidden by the cloth build-git-proofs.py placeholder; matching hashes can reveal equality and can permit guessing of low-entropy paths.",
+      "locations": ["gpu-reflection.tar.gz!RECONSTRUCTION-MAP.json#/records/4/transformations/0/original_value_sha256/0", "gpu-reflection.tar.gz!RECONSTRUCTION-MAP.json#/records/88/transformations/0/original_value_sha256/0", "gpu-reflection.tar.gz!RECONSTRUCTION-MAP.json#/records/109/transformations/0/original_value_sha256/0"],
+      "recommended_disposition": "Before wider publication, decide whether original-value digests are permitted. If not, preserve the frozen transport and exact originals locally, and publish a separately identified privacy-safe reconstruction and original-to-public crosswalk. Whole-file and Git object identities can remain separately bound.",
+      "qualification": "The independent check does not disclose either original value or its digest. No matching digest for the second cloth marker value was observed in stored or gzip-decoded members of the eight outer archives; this is not a global absence or arbitrary nested-encoding claim."
+    },
+    {
+      "id": "FOLLOWUP-CLOTH-FILE-LOCAL-PLACEHOLDER",
+      "classification": "Attribution and crosswalk qualification",
+      "observation": "The same literal <LOCAL_PATH_0> appears in the reconstructed cloth build-git-proofs.py and reference/language.json. Private original comparison establishes that the two original path values differ. The existing INDEX describes substitutions by member; the marker must be interpreted per file, not as a global value identity.",
+      "recommended_disposition": "Add a separate file-local placeholder qualification while retaining the frozen public archive and exact private originals. Do not include the original values or their hashes.",
+      "qualification": "Each file's individual substitution was independently replayed against its retained original; no mismatch of member bytes was found."
+    }
+  ],
+  "verified": {
+    "stage_and_archives": "The supplied stage manifest matches, covers all 19 other stage files, and all eight archive sizes, SHA-256 values, member manifests, normalized tar metadata and 867 member bytes match. The 14 assigned source role identities are distinct and cover 2629–2642; this is an inventory, not lens clearance.",
+    "central_13l_source_and_git": "Five central 95e source copies exactly match the cloth archive source copies and the asserted blob SHA-1 and SHA-256 values. Their full five commit/tree/path membership chains were independently checked against the retained Git object bytes. The sixth crosswalk row is an identical decoded local Rust Reference capture, not a project Git source or proof of a toolchain version.",
+    "central_display_receipts": "Base and extension registrations, receipt reader and row IDs, ranges, exact reconstructed transcript text, receipt hashes, per-registration unread complements and referenced assessment ranges match. This verifies recorded identities and attested text; reconstructing a transcript cannot itself prove an actual personal display or independently establish semantic correctness.",
+    "reviewed_vs_final": "The archived reviewer actually assessed the revision with SHA-256 7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052. Final ASSESSMENT.json has SHA-256 4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479 and differs only at /historical_attribution/1 and /review_qualification. The final accurately states that q614 is a reconstructed selection of recovered 059 queue and that this later wording was not separately peer reviewed. The source review does not automatically approve the later wording.",
+    "original_public_replay": "The restricted same-machine manifest and all 681 listed members match their original identities, with no group/world mode violations observed. Independently replayed reconstructions: garment-pattern 71 path substitutions across seven members; cloth two across two; hair-style seven across four; hair-head 49 across five; review-13L two across two. The GPU reflection 47 recorded transformations match original/public script or JSON structure, and hair-GPU has 125 byte-identical original payloads with 12 inert script path renames. The coordinator archive is independently hash-bound. Original historical records, reconstructed selections and current assessments remain separately attributed.",
+    "generic_verifier": "The generic archive verifier checks archive/manifests, selected Git chains and transcript reconstruction; its own final message expressly leaves private replay, semantic replay, history and product behavior separately qualified. It binds the reviewed revision without claiming the later final wording was reviewed. It does not itself replay private reconstructions or prove source semantics. It pairs receipt rows positionally without explicitly asserting receipt IDs match registration IDs; those IDs were separately checked and do match in this frozen stage.",
+    "privacy_scan": "An independent bounded scan inspected 2,067 stored/gzip/tar representations and nine tar archives, including the nested native crate. Four raw path-pattern hits are duplicates of two literal regex definitions in the hair-GPU privacy checker source; no additional unclassified path/account/credential pattern was found. Email-pattern matches in decoded leaf text were confined to preserved commit-object metadata. Three additional email-pattern matches appeared only in compressed binary views. Raw Git author/committer fields remain disclosed and were not edited."
+  },
+  "limitations": [
+    "The archive and private original checks are same-machine evidence checks and do not prove uninterrupted custody, independent-machine retention or live remote availability.",
+    "The privacy scan uses specified path, local-account and credential patterns, gzip/tar recursion with a depth and decoded-size bound, and known semantic/regex exemptions. It cannot rule out all sensitive values, encodings, low-entropy value digests or personal metadata.",
+    "A source/hash/receipt check does not validate source arithmetic, reviewer approval, feature resolution, product behavior, completed lenses, aliases or unique defect counts. Missing checkpoint3821 evidence remains unrecovered here.",
+    "The reviewed stage, publication checkout and source packets were not modified. No build, test, runtime probe, shader, fixture, simulation or product execution was performed."
+  ]
+}

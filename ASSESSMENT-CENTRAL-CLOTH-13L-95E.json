@@ -1,0 +1,141 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Independent bounded reconciliation of the earlier cloth subdivision count candidate, the selected creator resolution guard and the related historical count obligation.",
+  "central_display_evidence": {
+    "registration": "REGISTRATION.json",
+    "receipt": "READ-RECEIPT.json",
+    "extension_registration": "EXT-REGISTRATION.json",
+    "extension_receipt": "EXT-READ-RECEIPT.json",
+    "conversion_registration": "EXT2-REGISTRATION.json",
+    "conversion_receipt": "EXT2-READ-RECEIPT.json"
+  },
+  "source_references": [
+    {
+      "id": "2631-current",
+      "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+      "lines": [
+        [
+          213,
+          249
+        ],
+        [
+          250,
+          270
+        ],
+        [
+          271,
+          277
+        ]
+      ]
+    },
+    {
+      "id": "2634-current",
+      "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "lines": [
+        [
+          104,
+          123
+        ],
+        [
+          124,
+          138
+        ],
+        [
+          161,
+          184
+        ],
+        [
+          185,
+          205
+        ]
+      ]
+    },
+    {
+      "id": "creator-selection",
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "lines": [
+        [
+          155,
+          156
+        ],
+        [
+          207,
+          212
+        ]
+      ]
+    },
+    {
+      "id": "creator-drape",
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "lines": [
+        [
+          37,
+          45
+        ],
+        [
+          94,
+          116
+        ],
+        [
+          267,
+          272
+        ]
+      ]
+    },
+    {
+      "id": "fit-settings",
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "lines": [
+        [
+          30,
+          32
+        ],
+        [
+          226,
+          231
+        ],
+        [
+          322,
+          327
+        ]
+      ]
+    },
+    {
+      "id": "rust-reference-cast",
+      "source": "captured local installed Rust Reference, operator expressions",
+      "lines": [
+        [
+          335,
+          347
+        ],
+        [
+          1908,
+          1917
+        ]
+      ]
+    }
+  ],
+  "observation": "For a conceptual direct call on an x86_64 usize target with a nonempty simple finite triangular panel whose first edge has computed f32 length exactly 1.0, no seams, an otherwise admissible density and target_edge=f32::MIN_POSITIVE, the visible guard accepts the positive finite target. The first-edge ratio is 2^126, beyond usize::MAX; the captured Rust Reference specifies saturation for the float-to-integer cast. The resulting usize::MAX count reaches segments + 1 in boundary resampling. If the code reaches this addition with integer overflow checks enabled, it overflows before Vec::with_capacity receives its argument and before a structured mesh result. Earlier allocation/resource failure is possible. With checks disabled, later effects are not established.",
+  "direct_triangulate_relationship": "The public direct triangulation path also permits a positive finite target and computes a fallback segment count in the same resampler. Its actual supported caller, input and complete execution are unproved.",
+  "safeguards": [
+    "An empty panel slice returns an empty mesh before target validation; preserve that distinct behavior pending policy.",
+    "The selected creator drape run validates selection resolution as finite and between 2.5 and 6 cm before its sewn simulation. The shown fit conversion multiplies that resolution by the displayed 0.01 centimetre-to-metre constant, excluding the conceptual minimum-normal target on this selected route. It does not establish global panel-size or work bounds, or govern every raw public caller.",
+    "Seam references are checked before the shown count updates; the conceptual no-seam case does not depend on seam iteration."
+  ],
+  "historical_attribution": [
+    "The earlier checkpoint18 /root/mhr_character packet proposed local-candidate-cloth-subdivision-count-overflow. /root/hair_ops had separately displayed the historical pr-working object and current triangulation source in checkpoint18, and /root/rig_identity later independently reconciled cloth roles 2631, 2633 and 2634. This coordinator displayed only the newly registered 95e and local-reference windows; historical and delegate readers retain their own revisions, ranges and attribution.",
+    "Historical 059 READ-L11-430 role_dispositions/5 explicitly left huge counts, u32 vertex narrowing and segments+1 as a resource contract. A reconstructed selection of the recovered 059 queue, q614, includes broader cloth point-count and solver-admission work; this bounded observation is related evidence, not a proven alias or closure.",
+    "The existing REVIEW-CLOTH-POSITIVE-RESOLUTION-95E entry concerns positive-infinity admission and the resolution owner. The finite tiny-target arithmetic has a distinct first operation; a shared owner or repair is undecided. F003 shell ownership is separate."
+  ],
+  "proposed_ledger_identity": "local-candidate-cloth-subdivision-count-overflow",
+  "ledger_qualification": "Reconnect the prior candidate by its original identity as a conditional ledger relationship, with no assertion of a unique defect count or an exact alias to the existing infinity entry or q614.",
+  "open": [
+    "Supported public callers, finite resolution and panel extent, permitted work and integer-width limits, actual compiler overflow-check configuration, and precise error/transaction policy.",
+    "The exact relationship among count, allocation, native narrowing, shell admission and historical q614; all broader source scopes, thirteen lenses and the missing checkpoint3821 ledger and queue remain open."
+  ],
+  "repair_direction_for_later": "After policy is determined and implementation is separately authorized, consider checked subdivision and aggregate work admission before count increments, allocation and narrowing, preserving valid resolutions, seam correspondence and the explicit empty-panel behavior.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "The original reviewed draft, interim corrected draft and later reviewed revision are separately preserved. The independently reviewed revision has SHA-256 7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052. After that review, the coordinator clarified that q614 is in a reconstructed selection of the recovered 059 queue; this final wording was not separately peer reviewed. The reviewer had prior triangulation involvement and independently read local float documentation; these source-read credits remain separate."
+}

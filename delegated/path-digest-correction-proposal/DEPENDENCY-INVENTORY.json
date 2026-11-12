@@ -1,0 +1,2023 @@
+{
+  "schema": "726-15-digest-working-tree-text-dependency-inventory-v1",
+  "captured_utc": "2026-11-12T11:04:14.631696+00:00",
+  "source_files": 15,
+  "candidate_files": 44,
+  "references": [
+    {
+      "path": "verify_public_evidence_privacy_56f.py",
+      "bytes": 2841,
+      "sha256": "1eb5d4efa3dfc19a5677e8b151cac82d7b881bd5e7619b6a820fca18bfcb348b",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "path": "CONTINUATION-PROGRESS-95E.json",
+      "bytes": 115330,
+      "sha256": "e567eeb18cc0df520bb3affebf97c1b160c81575a878ac08dbdd73255e4f4c00",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2306
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "basename",
+          "lines": [
+            2306
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-proposal/README.md",
+      "bytes": 1968,
+      "sha256": "6d696e0e28acc1b5c1daf32db37c4644e7bdca916e616dd2128c04344a5a90b2",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-proposal/verify.py",
+      "bytes": 6220,
+      "sha256": "59d4fe09cad38ed26365ebd04091ff2c202d191b4b7a334da3bb9586acfaa1e4",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-inventory-supplement/MANIFEST.json",
+      "bytes": 2834,
+      "sha256": "6ea6dc7b7698271acd06828fca55678dd5458d90d76f487f8a473a108d8ed9af",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            38
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            39
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            38
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            39
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-inventory-supplement/verify.py",
+      "bytes": 5052,
+      "sha256": "114b5d360a01495184c38e95dcf339864933c353e33ec4808563dac34b760427",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            11
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/independent-privacy-d7b14/CHANGED-BLOBS.json",
+      "bytes": 199427,
+      "sha256": "56ffbcc7804a0bdfddb8d55cdd07fdf7bd141ccd40fd33182659451356cb3a7b",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "source_path",
+          "lines": [
+            1823
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "basename",
+          "lines": [
+            1823
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            1827
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2087
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            2087
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2091,
+            2475
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2135
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2135
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2139
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2143
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            2143,
+            2303
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2147,
+            2307
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2151
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            2151,
+            2311
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2155,
+            2315
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2231
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            2231
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2235
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2247
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            2247
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2251
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2263
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2263
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2267
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2271
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2271
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2275
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2303
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            2143,
+            2303
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2147,
+            2307
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2311
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            2151,
+            2311
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2155,
+            2315
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2471
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            2023,
+            2079,
+            2087,
+            2471
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2091,
+            2475
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2591
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            2591
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2595,
+            2723,
+            3523
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "source_path",
+          "lines": [
+            2719
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            2591,
+            2719,
+            3959
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2595,
+            2723,
+            3523
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "source_path",
+          "lines": [
+            3519
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "basename",
+          "lines": [
+            3519
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            2595,
+            2723,
+            3523
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-proposal/LOOSE-REFERENCE-INVENTORY.json",
+      "bytes": 1145337,
+      "sha256": "3ee721c295aa9ffd20f5861a176aa42e79b7af20be1efae506e4da8570c3c65e",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "source_path",
+          "lines": [
+            34105
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "basename",
+          "lines": [
+            34105
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            34106
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            34642
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-proposal/MANIFEST.json",
+      "bytes": 3010,
+      "sha256": "c50805f017b3d985b976d4670d9114dfff1b9db1f2a2a07558af8c53220aaa23",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            31
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            30
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            31
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/independent-review-13k-rig/MANIFEST.json",
+      "bytes": 1021,
+      "sha256": "4c74fe06a62d8a78ab39914b118d7d711a9b250cad7ec438ce006ababdef2a0e",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "basename",
+          "lines": [
+            6
+          ]
+        },
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/independent-review-13k-rig/verify-public.py",
+      "bytes": 9995,
+      "sha256": "2f3472cf553ccb2eba7a535402e1854800fd10af69fdc06a7f13feb5cdb81775",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/independent-review-13k-rig/INDEPENDENT-REVIEW-13K-RIG-IDENTITY.json",
+          "reference_kind": "basename",
+          "lines": [
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/qualified-059-successors/MANIFEST.json",
+      "bytes": 12936,
+      "sha256": "dd630f69011f3f0fc14726b219cbef2609eaca82bd67b13531d41795704c80bd",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-inventory-supplement/REFERENCE-RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            251
+          ]
+        },
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            251
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "basename",
+          "lines": [
+            250
+          ]
+        },
+        {
+          "target": "delegated/qualified-059-successors/verification/captured-reconstruction.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            251
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-historical-objects-proposal/DEPENDENCY-INVENTORY.json",
+      "bytes": 35019,
+      "sha256": "318a3ae57c340085003a92bcd3a6cf4afab935d5f7ab9b1e1056ff3fc5ebeef6",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            481,
+            977
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/PUBLIC-MANIFEST.json",
+      "bytes": 13799,
+      "sha256": "f9d81b3c76cb1c87a709a7438567c0b367ad2ce2dae4a88e1183c8112395fffe",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            172
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            174,
+            349
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            132
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            134
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            137,
+            242
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            139,
+            244
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            142,
+            247
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            144,
+            249
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            197
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            199
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            207
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            209
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            217
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            219
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            222
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            224
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            137,
+            242
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            139,
+            244
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            142,
+            247
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            144,
+            249
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            67,
+            102,
+            172,
+            347
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            174,
+            349
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruct.py.txt",
+      "bytes": 3045,
+      "sha256": "565ac2ee6047f83fe8de10c5c7c79eba5e4afacb72c8d77259a7aadf83b38c51",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            21,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/json-candidates/verify-public.py.txt",
+      "bytes": 1065,
+      "sha256": "f132943e936979e6514914e1288478fb3bf67dfd7277d8aa4f8905be884befa8",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/json-candidates/BUNDLE-MANIFEST.json",
+      "bytes": 2138,
+      "sha256": "69a714390a54c9ac2c9fd47adef1fa4ac4dbaa2ba8011088aa069abc6b0282b3",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            49
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            47
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/json-candidates/verify-reconstruction.py.txt",
+      "bytes": 1631,
+      "sha256": "5ee86f3afca029fb932a34334c324d19d9b5dac1c5e9d5cc0686441787f42b37",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/verify-public-transport.py",
+      "bytes": 5260,
+      "sha256": "752572ea2fbcd27d1e1374647eb0d9e3486e201feff2a952648a228c753d50cf",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            22,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/json-candidates/README.md",
+      "bytes": 941,
+      "sha256": "9633932fd946ade2ae263a3f1dec58a93e52e05fa415fe93d9ce38929a723744",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/transport-map.json",
+      "bytes": 41485,
+      "sha256": "b0b831efd7c7f50dca6d9fe72d3d7a04982b5b99fcc41d1ee76862f12739673c",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            233,
+            236
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            235,
+            238,
+            810,
+            813
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            133,
+            136
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            135,
+            138
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            143,
+            146,
+            393,
+            396
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            145,
+            148,
+            395,
+            398
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            153,
+            156,
+            403,
+            406
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            155,
+            158,
+            405,
+            408
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            283,
+            286
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            285,
+            288
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            303,
+            306
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            305,
+            308
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            323,
+            326
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            325,
+            328
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            333,
+            336
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            335,
+            338
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            143,
+            146,
+            393,
+            396
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            145,
+            148,
+            395,
+            398
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            153,
+            156,
+            403,
+            406
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            155,
+            158,
+            405,
+            408
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            53,
+            56,
+            233,
+            236,
+            643,
+            646,
+            808,
+            811
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            235,
+            238,
+            810,
+            813
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/README.md",
+      "bytes": 2888,
+      "sha256": "5c163dd1f4d233dd91b918bfc569a7bda5efc726c998a786c836790e50e51748",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/assemble-report.py.txt",
+      "bytes": 11631,
+      "sha256": "c3ce913bb4cbada20717b078218cf74f12d60745e21f5ad7cdc50df86cc803f8",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            9
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            26
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            5,
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            5,
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            9
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            27,
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/report.json",
+      "bytes": 15776,
+      "sha256": "6826ad8dbb08f2a71910cf3ecf972f1e256944ce427fbd9e7d2212a8ca217d8e",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            277
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            279
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            256
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            265
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            261
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            277,
+            283
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            279
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+      "bytes": 133872,
+      "sha256": "648172b01bed1f08760f8e94e2c32fc6a2643fff4a031f4f011e9397dee6e8e9",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            36,
+            60,
+            84,
+            108,
+            132,
+            156,
+            180,
+            204,
+            228,
+            252,
+            276,
+            300,
+            324,
+            348,
+            372,
+            396,
+            420,
+            444,
+            468,
+            492,
+            516,
+            540,
+            564,
+            588,
+            612,
+            636,
+            1834,
+            1858,
+            1882,
+            1906,
+            1930,
+            1954,
+            1978,
+            2002,
+            2026,
+            2050,
+            2074,
+            2098,
+            2122,
+            2146,
+            2170,
+            2194,
+            2218,
+            2242,
+            2266,
+            2290,
+            2314,
+            2338,
+            2362,
+            2386,
+            2410,
+            2434,
+            2458,
+            2482,
+            2506,
+            2530
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            36,
+            60,
+            84,
+            108,
+            132,
+            156,
+            180,
+            204,
+            228,
+            252,
+            276,
+            300,
+            324,
+            348,
+            372,
+            396,
+            420,
+            444,
+            468,
+            492,
+            516,
+            540,
+            564,
+            588,
+            612,
+            636,
+            1834,
+            1858,
+            1882,
+            1906,
+            1930,
+            1954,
+            1978,
+            2002,
+            2026,
+            2050,
+            2074,
+            2098,
+            2122,
+            2146,
+            2170,
+            2194,
+            2218,
+            2242,
+            2266,
+            2290,
+            2314,
+            2338,
+            2362,
+            2386,
+            2410,
+            2434,
+            2458,
+            2482,
+            2506,
+            2530
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/verify-evidence.py.txt",
+      "bytes": 5524,
+      "sha256": "63e77629fc4abc21ce6df5d13b590688712403b4c8f921603f71aae58e368367",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            40,
+            40
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            5
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            40,
+            40,
+            40,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/extras/BUNDLE-MANIFEST.json",
+      "bytes": 2148,
+      "sha256": "49ea3e759aec5216a60b9401566da9dfde2c09834797e3c619c43f1b54d8e06f",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/verify-reconstruction.py",
+      "bytes": 12695,
+      "sha256": "1a189dae3c92127c8769b9899440a8d100ba15ebe6acf0589c7d5ec80342a670",
+      "class": "verifier_or_script",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/extras/prepare-extra.py.txt",
+      "bytes": 5524,
+      "sha256": "8cdc5b539e76d12767d6b56a7e39bb49b02a4bbec51f187b02ab0b79506e7597",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            17,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/MANIFEST.json",
+      "bytes": 9775,
+      "sha256": "73670c086cadd3f2beed2d8be9d5bbbbc81e5d18b4bed07e8c5c894afea7b05d",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/extras/README.md",
+      "bytes": 1317,
+      "sha256": "2160ef1420b32202b76876ff3c1e5b1413f961bced0bf97544098b19af993d8a",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/scan/examine-suffix-candidates.py.txt",
+      "bytes": 2913,
+      "sha256": "125bb7c449864bf9a047d8cc386fe2d0b8cfbd05c17a7900fcc6fe356b2bf080",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/extras/verify-candidates.py.txt",
+      "bytes": 3577,
+      "sha256": "fa715bdead77b463575efb3b4c6ba851806fddc123964d040cf9778cac204d22",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/scan/scan-archives-tail-container.py.txt",
+      "bytes": 7860,
+      "sha256": "605f65fb47ec1412b806c1156363ab8d3118f12fd7c58ddb84001a2f0ad7b4aa",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            78,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/BUNDLE-MANIFEST.json",
+      "bytes": 7286,
+      "sha256": "27da1ee918b3a1e10cc204b632e6f03ad81ff434706ecfc297430f684e3f3c67",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            92
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass-reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            94
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            52
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            54
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            57,
+            162
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            59,
+            164
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            62,
+            167
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            64,
+            169
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "basename",
+          "lines": [
+            117
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/occurrences-classified.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            119
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            127
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            129
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            137
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            139
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            142
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-tail-container-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            144
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            57,
+            162
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            59,
+            164
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            62,
+            167
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            64,
+            169
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "basename",
+          "lines": [
+            22,
+            92
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/json-candidates/reconstruction-index.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/scan/classify-targeted.py.txt",
+      "bytes": 2928,
+      "sha256": "67cb45141d1d7b8626f6c364fef2447cd8152c256e52e4c02b53a0da4cad47ff",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-suffix-2501-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/scan/revisit-budget.py.txt",
+      "bytes": 5183,
+      "sha256": "4ef8624eeb3d22c2dce9415de6d1537749e92f48adb97fe3989b647c48ac1214",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/archives-prefix-2000.json",
+          "reference_kind": "basename",
+          "lines": [
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/README.md",
+      "bytes": 1900,
+      "sha256": "b6084515087d2f173d5e5f82a84328fc83e2287f73fe9a28db501db469d3e586",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+          "reference_kind": "basename",
+          "lines": [
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/report.json",
+      "bytes": 4093,
+      "sha256": "b1684fc5e3b5303af22caf34c4ba25c781f1e684696ea82c4a83cfebe99a8a2e",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/scan-firstpass.py.txt",
+      "bytes": 3847,
+      "sha256": "c6037c5eef3d2f99cd4a777c4eeeaf7e64c8554bc2d9acac3ae6044b1e5cac12",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            38,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/BUNDLE-MANIFEST.json",
+      "bytes": 2111,
+      "sha256": "2e2433064430430838332a9ad3965c747730d8d55e37fd019847a79170092a60",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            29
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            32
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            34
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            37
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            39
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            32
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            34
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            37
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "whole_file_sha256",
+          "lines": [
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/classify-raw-json.py.txt",
+      "bytes": 2413,
+      "sha256": "150eba5e6904eb19ea31523b61f3e67d033b43a946cd5c8eba9e86d1e701b35d",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            2
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            18,
+            18
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/select-json-pointers.py.txt",
+      "bytes": 1516,
+      "sha256": "0619529baa7a5441f66c26cab796c97b4da2f040e2089be540e0aee518262bdb",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            14,
+            14
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/json-pointers.json",
+          "reference_kind": "basename",
+          "lines": [
+            14,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/privacy-56f-scan/evidence/inventory/firstpass/verify-firstpass.py.txt",
+      "bytes": 2293,
+      "sha256": "c69fbeca60da51cb1f3b8f8f86464a5afe5d6394415fbd927bb0913ccde4f402",
+      "class": "text_record",
+      "matches": [
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/firstpass-results.json",
+          "reference_kind": "basename",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/firstpass/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "target": "delegated/privacy-56f-scan/evidence/inventory/scan/raw-json-classification.json",
+          "reference_kind": "basename",
+          "lines": [
+            3
+          ]
+        }
+      ]
+    }
+  ],
+  "method": "Current working-tree nonbinary text searched with ripgrep for every original relative path, basename and full-file SHA-256; this script recorded matching lines and full referencing-file hashes without matched text or individual private-value digests.",
+  "qualification": "Only rg-visible text in the working checkout at capture time. Gzip, tar, zip, pack, bundle, binary and ignored symlink targets were excluded, as were indirect computations with no literal path/basename/full-file hash. Basename references may be ambiguous. This is a candidate inventory, not proof of complete dependencies; staged files may change."
+}

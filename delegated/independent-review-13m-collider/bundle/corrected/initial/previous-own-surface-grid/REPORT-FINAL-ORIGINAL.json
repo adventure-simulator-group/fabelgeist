@@ -1,0 +1,210 @@
+{
+  "schema": "726-hair-surface-grid-reconciliation-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T10:11:30.409873+00:00",
+  "scope": {
+    "roles": [
+      2643,
+      2644
+    ],
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recovered pr-working registry objects individually match project 6533 and 95e; the pr-working snapshot records unrelated modifications. Original rig material 2643:1–146,215–244; 2644:1–156. Historical 6533 equality is proof, not an independent 6533 display or a clean-tree claim. f82 transports historical evidence, not product baseline. No recovered record is promoted to checkpoint 3821.",
+    "fresh_read_scope": "See personal-read-receipt.json for exact prospective registrations, separately displayed historical/current ranges, supports and complements. This packet is a bounded follow-up, not added role/lens credit.",
+    "previous_full_personal_displays": "Frozen reference/prior-REPORT.json and reference/prior-read-receipt.json separately record /root/hair_ops full old/current role displays at pr-working and 95e, not a separate 6533 display."
+  },
+  "source_references": {
+    "surface": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/surface.rs",
+    "grid": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/grid.rs",
+    "bvh": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-bvh/src/cpu/mod.rs",
+    "rng": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/rng.rs",
+    "hairdo": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/hairdo.rs",
+    "interpolate": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/interpolate.rs",
+    "ops": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/mod.rs",
+    "gpu": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/gpu/mod.rs",
+    "ply": "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/export/ply.rs"
+  },
+  "historical_attribution": [
+    {
+      "record": "774 rig admission03 REGISTER-099/100 and ADDITIONAL-099/100",
+      "original_author": "rig supplier; no individual name asserted",
+      "revision": "pr-working",
+      "source": "historical/774-rig-range-registration.jsonl.gz lines 99–100; historical/774-rig-additional-contracts.jsonl.gz lines 85–86",
+      "qualification": "Original range exclusions and no assigned802/later-lens credit preserved."
+    },
+    {
+      "record": "774 rig RIG-ADMISSION03-F054, F074, F075, F054-SUPPLEMENT-001",
+      "original_author": "rig supplier; no individual name asserted",
+      "revision": "pr-working",
+      "source": "historical/774-rig-findings.jsonl.gz lines 57,79–80,92",
+      "qualification": "Exact full original finding stream newly bound via f82; prior frozen packet recorded references rather than full finding bodies. F054 records CPU TriangleBvh, F075 PointGrid. F074 names gpu/mod.rs, hairdo.rs and ops/interpolate.rs in its original source_ids while describing Surface coherence; Surface ranges are separately registered by original REGISTER-099. The supplement historically describes a distinct GPU MeshCollider initial validation; that GPU implementation was not freshly inspected here."
+    },
+    {
+      "record": "059 Segovb READ-L11-432 and REGISTRATION-SEGOVB-1559/1560",
+      "original_author": "Segovb root Lens11",
+      "revision": "pr-working objects, 6533 per-file comparison",
+      "source": "historical/prior-059--segovb--READ-L11-432.json and original registrations",
+      "qualification": "Original 2643 material 1–146,215–244, 2644 1–156. No source exclusions or later/current credit transferred."
+    },
+    {
+      "record": "059 READ-L12-911/912 and REGISTRATION-PAR-L12-708/709 plus partial receipts",
+      "original_author": "/root/lens12_frontier; root adoption without personal rereads",
+      "revision": "6533",
+      "source": "historical/prior-059--segovb--READ-L12-911.json and -912.json, plus retained parallel-l12 records",
+      "qualification": "Final delegated read covers original material, no excluded PLY/transformed/test tail or later lens credit."
+    },
+    {
+      "record": "parallel-l11 READ-077 and Segovb READ-L11-613",
+      "original_author": "parallel lens11_reconcile; root adopted with zero personal reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source": "historical/prior-059--parallel-l11-20261029--READ-077.json and historical/prior-059--segovb--READ-L11-613.json",
+      "qualification": "Grid 1–189, other linked producer/consumer ranges exactly as receipt; prior historic finite-radius example and safeguards are not this author’s earlier personal read or checkpoint3821 evidence."
+    },
+    {
+      "record": "prior surface/grid packet and hair-operations/primitives supports",
+      "original_author": "/root/hair_ops",
+      "revision": "95e and recovered pr-working as separately registered in frozen packet",
+      "source": "reference/prior-REPORT.json; reference/prior-read-receipt.json; reference/prior-historical-manifest.json",
+      "qualification": "Retain individual frozen attribution; no transferred credit. Earlier report records zero-area and boundary-floor questions; they are not established additional unique findings here."
+    }
+  ],
+  "observations": [
+    {
+      "id": "HISTORICAL-774-SURFACE-AUTHORITY-RELATION",
+      "status": "Reconnected historical F074, conditional current source support; no count or alias decision",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/surface.rs:16–24,36–63,65–105,137–140",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-bvh/src/cpu/mod.rs:394–419,422–438",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/gpu/mod.rs:420–459"
+      ],
+      "trace": "Surface::new derives an area CDF and passes cloned positions/triangles into a private BVH while retaining public geometry/channels. If callers mutate fields after successful construction, cached area and BVH need not describe the new fields; closest queries the BVH’s internal triangle then combines its result with the current public triangle/positions. Independently, the GPU consumer sizes neighbors by current positions and indexes by triangle members.",
+      "relationships": "774 F074 and 059 q619 already capture Surface aggregate/stale-derived-state policy. Current ledger entry 639 (prior delegate753 via ASSESSMENT-HAIR-GPU-MODULE-95E) concerns a particular later head-mesh adjacency index. Do not automatically merge first failures or add a new unique defect. Historical F054 is the separate CPU BVH raw-construction/mutation question; supplement describes a distinct GPU MeshCollider input guard.",
+      "safeguards": "Surface::from_ply checks nonempty generated face triangles and position index bounds before new; default normals/UV handling is an explicit policy. set_head_mesh returns Result, but its adjacency indexing precedes uploads. These checks do not by themselves prove all public post-construction mutations supported.",
+      "open": "Which callers may mutate Surface, when must caches be synchronized, can malformed channels/geometry reach downstream, and what is exact owner/alias policy? No mutation, geometry or GPU ran."
+    },
+    {
+      "id": "REVIEW-HAIR-SURFACE-ZERO-AREA-SHARE-95E",
+      "status": "Earlier /root/hair_ops conditional current candidate, not matched by exact ID in either captured baseline; no unique count",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/surface.rs:39–54,65–89,92–105,147–191",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/rng.rs:16–35,123–125",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/hairdo.rs:176–198",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/interpolate.rs:240–259",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/export/ply.rs:170–245"
+      ],
+      "trace": "Assume construction succeeds with valid index/attribute arrays, first triangle zero area, second positive finite area A, and CDF [0,A]. Documented share=0 gives target=0; the c<target partition selects index 0, so a zero-area face is selected. From PLY after successful parse, face existence and indices are checked, but the selected body does not reject degeneracy. The selected RNG API has zero within its stated numerical range, and Hairdo and Interpolate call the sampler.",
+      "relationships": "F074 and q619 concern broader aggregate admission. Ledger 491 addresses a separate BVH closest-point branch for degenerate triangles; neither establishes automatic identity with CDF sampling. Prior candidate and prior author are retained; do not count twice.",
+      "open": "Actual seed and supported data reachability, normal behavior, input policy and user-visible effects remain unproved; no mesh, RNG, PLY parser or geometry executed. Decide admissible face policy and endpoint/zero-weight semantics only as future repair direction after authorization."
+    },
+    {
+      "id": "QUESTION-HAIR-SURFACE-BOUNDARY-STEP-FLOOR-95E",
+      "status": "Earlier /root/hair_ops public contract/policy question, no accepted unique finding",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/surface.rs:108–135",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/hairdo.rs:205–219"
+      ],
+      "trace": "The public boundary documentation promises steps no further apart than step, while subdivision divides by step.max(1e-5). For a conceptual open edge near 0.001 m and requested positive step near 0.000001 m, the implied subdivisions use the larger floor; actual float rounding was not evaluated.",
+      "safeguards": "Edges are sorted for deterministic traversal; the selected Hairdo call requests 0.002 m, above the floor.",
+      "open": "Supported tiny resolutions, resource policy, actual float/output and any other caller remain unproved; document/validate desired minimum rather than assume floor is wrong."
+    },
+    {
+      "id": "SEGOVB-L11-POINT-GRID-MAX-RADIUS",
+      "status": "Existing historical and current ledger entry 666, no new unique count",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/grid.rs:38–49,63–78,113–154",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/interpolate.rs:267–276",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/mod.rs:221–258"
+      ],
+      "trace": "nearest_k can return at the distance-to-ring threshold before its final max-radius filter. Original Segovb q642 and parallel-l11_reconcile e275 READ-077 illustrated cell 1, query at origin, point distance 0.6, k=1, radius 0.5. The early result is a source-level contract counterexample under that documented API.",
+      "safeguards": "Prior READ-077 recorded that inspected edge interpolation maps missing/out-of-radius distance through clamped smoothstep to the same saturated result; current bounded view confirms the nearest and mapping, and the earlier support receipt owns its smoothstep read. nearest passes k=1; Interpolate clamps k to at least 1. Infinite radius is an intentional query mode.",
+      "relationships": "q618/q642 and current entry 666 share this recorded radius first contract. q164 GuideMap’s unrestricted second search has a different group authorization question; GPU group fallback is another distinct record. No assumed alias with F075 or 667.",
+      "open": "Supported finite-radius caller and outcome-distinguishing product case, all actual producers/consumers, and alias closure remain open; no grid or output was run."
+    },
+    {
+      "id": "REVIEW-HAIR-NEAREST-UNDERFILLED-SEARCH-95E",
+      "status": "Existing current ledger entry 667; earlier /root/hair_ops conditional source candidate, no new count",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/grid.rs:63–78,115–145",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/interpolate.rs:290–320"
+      ],
+      "trace": "When fewer than k eligible guides are found for an infinite-radius query, the k-count early exit is not met; subject to successful iteration and key arithmetic, the search can reach the one-million-ring cap. visit_shell loops all cube offsets and filters interior offsets; empty result is checked only after the search.",
+      "open": "Reachable guide populations, actual elapsed cost, supported input policy, overflow/allocation interruptions and a live hang are not established. It is related to but not automatically the same first contract as finite-radius entry 666."
+    },
+    {
+      "id": "HISTORICAL-774-GRID-ARITHMETIC-F075",
+      "status": "Historical rig F075 reconnected; current arithmetic conditions independently read, no count or automatic alias",
+      "source_refs": [
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/grid.rs:21–23,38–49,63–73,115–135",
+        "95e63628f9d70b8dd6e6fede64334696c6995009:crates/fabelgeist-hair/src/ops/interpolate.rs:307–319"
+      ],
+      "trace": "Float-to-i32 key conversion can saturate at integer extrema and shell offsets use i32 addition. nearest_k reserves k+8 and indexes found[k-1] after a length check; k=0 and very large k require explicit admitted-input policies.",
+      "safeguards": "Cell size is floored at 1e-6; nearest calls with k=1 and inspected Interpolate clamps neighbors at 1. Infinite radius is expressly useful, so do not require all radii finite by inference.",
+      "open": "Actual supported coordinate and count extents, overflow configuration and producer reachability are unknown. q618 covers k0 policy and radius work; exact relationship to other arithmetic records is unresolved."
+    }
+  ],
+  "ledger_and_queue_snapshot_identity": {
+    "working_baseline_decoded_sha256": "4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c",
+    "committed_baseline_decoded_sha256": "36115b9bc3ebb3dec1ae87ef5a3f2431195665ab611a4b1e995e15cb9548a77f",
+    "committed_local_revision": "d7b14a15ef132422eca86e7d898b47423af92779",
+    "selected_current_entries": [
+      {
+        "id": "SEGOVB-L11-POINT-GRID-MAX-RADIUS",
+        "working_pointer": "/newly_assessed_ledger/entries/666",
+        "committed_pointer": "/newly_assessed_ledger/entries/666",
+        "selected_entry_equal": true
+      },
+      {
+        "id": "REVIEW-HAIR-NEAREST-UNDERFILLED-SEARCH-95E",
+        "working_pointer": "/newly_assessed_ledger/entries/667",
+        "committed_pointer": "/newly_assessed_ledger/entries/667",
+        "selected_entry_equal": true
+      },
+      {
+        "id": "REVIEW-HAIR-HEAD-MESH-INDEX-95E",
+        "working_pointer": "/newly_assessed_ledger/entries/639",
+        "committed_pointer": "/newly_assessed_ledger/entries/639",
+        "selected_entry_equal": true
+      },
+      {
+        "id": "REVIEW-BVH-DEGENERATE-TRIANGLE-CLOSEST-95E",
+        "working_pointer": "/newly_assessed_ledger/entries/491",
+        "committed_pointer": "/newly_assessed_ledger/entries/491",
+        "selected_entry_equal": true
+      }
+    ],
+    "qualification": "Four selected entry values are equal, while full working and local committed baselines differ. No live remote verification at capture. Current candidate IDs above were absent as exact IDs in both captures; no claim that their semantic duplicates are absent.",
+    "queue_comparison": "selected-queue-comparison.json verifies only seven selected values between 98cc and d7; full 059 queues differ and no 3821 is implied."
+  },
+  "thirteen_lens_perspectives": {
+    "magic numbers": "CDF boundary/step floor, ring cap, native key/count bounds need explicit contracts and supported input policy.",
+    "magic strings": "PLY attribute spellings are a bounded file-format boundary; no general string inventory or owner closure.",
+    "admission contracts": "Surface channels, face indices, finite geometry and query parameters remain conditional; from_ply has initial face/index safeguards.",
+    "invariant operations": "Public mutation can desynchronize derived data; grid arithmetic and sampled zero weights need actual admission policy.",
+    "producer propagation": "Selected sampler and guide/neighbor callers traced only in registered windows; seed, mesh, mutation producers and native recipients remain incomplete.",
+    "type ownership": "Potential owner is Surface aggregate for geometry/cache, PointGrid for query semantics; downstream GPU boundary remains independently scoped.",
+    "existing type owners": "Vec3, PartingGroup and private PointGrid structure are existing owners, but no exhaustive replacement or complete callers review.",
+    "type granularity": "Unbounded nearest radius is intentional, k=0 and malformed public geometry remain separate policy choices.",
+    "enum shapes": "No bounded evidence establishes an enum redesign; group and optional attributes require their existing semantics.",
+    "aggregate states": "Surface fields and cached CDF/BVH require coherent lifecycle; PointGrid maintains private point/cell tables after insert.",
+    "redundant authority": "Retained BVH/CDF are derived authorities and can become stale under exposed mutation; no supported-mutation assumption.",
+    "behavior preservation": "Sorted edge traversal, optional defaults, unbounded-radius behavior and group filtering are existing policies to consider in any future change.",
+    "derivability": "No source evidence supports a mechanical derive/serialization change or whole-lens conclusion."
+  },
+  "open_questions": [
+    "Which source and PLY/procedural callers produce valid zero-area faces or post-construction mutation?",
+    "What surface area/cache/BVH authority and empty-geometry policy is intended, including native consumers?",
+    "What grid coordinate, count and memory bounds are actually admitted; does selected guide population underfill occur?",
+    "Do prior q619/F074/entry639 and degenerate reports share any exact identity, and what separately owns each first failure?",
+    "Are the original uninspected 2643 lines 192–202,245–283 and 2644 lines 157–189 relevant beyond earlier separately credited personal reads?",
+    "All independent lens, producer/native, current/alias and full baseline reconciliation remains centrally open."
+  ],
+  "proof_and_limits": {
+    "git_proofs": "git-proofs.json",
+    "queue_old": "historical/baseline-059-queue-committed-2e1f.json.gz",
+    "queue_later": "historical/baseline-059-queue-committed-d7.json.gz",
+    "registry": "historical/original-registry.json.gz",
+    "prior_manifest": "reference/prior-MANIFEST.json",
+    "proof_note": "Five raw commit and associated tree objects bind source/transport, registry and locally committed baselines; exact commit objects may contain author/committer metadata. Earlier publication counterparts for f82/6533/95e are listed in publication-metadata.json. The local d7/98cc counterparts have not been independently checked live. This packet is restricted/local and requires privacy review before any publication.",
+    "custody_note": "This task wrote <PRIVATE_PATH_0010> outside the fresh packet before copying its present bytes to registration-builder.py; no prior existence check was made. Both present files have SHA-256 2fc7f12d58290c738bce7a68e70768375672b0b4807b43b7af5d6a945ae6ac2b. Their prior state is unknown and cannot be inferred; both retained. All subsequent outputs within this packet. No publication, product source or user extraction modified."
+  },
+  "constraints": "Source/evidence inspection only. No implementation, product/geometry/fixture/shader execution, builds, tests, runtime probes or validation. Central owner controls ledger reconciliation, aliases, counts and publication."
+}

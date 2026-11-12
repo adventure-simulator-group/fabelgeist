@@ -1,0 +1,7 @@
+{
+  "schema": "726-successor-scan-source-provenance-v1",
+  "executed_scanner_whole_file_sha256": "7992d7dd9864ebfe7c5af61619c08fdbd5952e0cd14afa53b3deeacb0f27b4c0",
+  "portable_scanner_whole_file_sha256": "3a1ea9ffa31b36f99c43284a00fb595caba0de9982b8ffeeaf068bbc65e93a78",
+  "portable_difference": "The portable copy takes the already hash-checked successor path as an argument instead of embedding a local temporary path. The scan algorithm is otherwise byte-identical.",
+  "qualification": "The exact original scanner source and its restricted inputs remain locally retained; the portable copy was not rerun to completion. The saved scan result derives from the exact original scanner bound above."
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "726-followup4041-safe-successor-qualification-v1",
+  "source_candidate_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "source_candidate_gpu_archive_sha256": "acacafaaa2607b0c5e4acbf829cd1b12f96edfd8a58d890142bb6eada980b106",
+  "successor_gpu_archive_sha256": "30e96dc71f14e961a1a2f48c7d9756bb513be61a83e19c696c6e54d2a5b518df",
+  "successor_gpu_manifest_sha256": "99a1029538205f6e6b71bf609ba32f83dd75e09dd2f35cbd1e48c8b4b449748b",
+  "unchanged_archives": [
+    {
+      "id": "garment-pattern",
+      "sha256": "74c964604125ae4b3c19234a430d117bd92b057d02b956662c85eaabb67c55f7"
+    },
+    {
+      "id": "cloth",
+      "sha256": "cab8a5cd0d63709cb697f1882cdf27e20a69fd9a0ce0d5fccfa7d1ce2d3f460b"
+    },
+    {
+      "id": "hair-style",
+      "sha256": "32a60627b7f25ebbb42b30aa85d2b67b1001c7cfb728e0d0710a886922cc3d9b"
+    },
+    {
+      "id": "hair-gpu",
+      "sha256": "e39def6c8620ec80647a465af36e25fac9358c726b95ea773463cc30de196f2c"
+    },
+    {
+      "id": "hair-head",
+      "sha256": "06daf0d89ae58dec36aef5be4ede5ee5918997015d72dcf5e1e62a665dca191b"
+    },
+    {
+      "id": "central-13l",
+      "sha256": "e26f56184f877f31bcab545612596e88467952486842e4aba74713212cd86dd7"
+    },
+    {
+      "id": "review-13l",
+      "sha256": "e47cf64518f32e261deec4197fbf85b78b39d3b685d5f3d2d51e2ba9431324b4"
+    }
+  ],
+  "digest_counts": {
+    "original_value_fields": 45,
+    "original_value_entries": 47,
+    "additional_public_value_fields": 2,
+    "additional_public_value_entries": 2,
+    "expanded_map_fields": 47,
+    "expanded_map_value_entries": 49,
+    "original_scan_prefix_fields": 53,
+    "public_scan_prefix_fields": 7,
+    "unique_restricted_digest_values": 40
+  },
+  "count_qualification": "The prior reviewer counted 47 original values in 45 fields. Two additional public-value fields bring the expanded map total to 49 values in 47 fields. The 60 scan-prefix fields are separately counted, with overlaps in the 40-value combined corpus. No individual digest or underlying path value is published.",
+  "identity_qualification": "Source, original/public whole-file and stored/decoded identities remain distinct. The old unsafe GPU archive, original candidate stage, original verifier, source originals and local private replay receipt are owner-restricted. Public-only checks cannot replay transformations, and same-machine private verification is not independent custody.",
+  "commit_metadata": "The GPU archive retains three disclosed raw Git commit objects with author/committer metadata; their exact copies match the earlier local d7-published archive, not a live-remote check.",
+  "scope": "Eight attributed archives; original and working revisions, recovered records, 059/774/P16 qualifications, central 13L reviewed/final distinction, and open aliases/counts remain unchanged. Checkpoint3821 and full-lens closure remain unresolved. No product execution.",
+  "stage_commit_metadata": "The bounded whole-stage scan found 30 email-pattern occurrences in 15 raw commit-object copies across five archives. They represent three distinct commits, each copy byte-identical to the GPU counterpart previously matched to the local d7 historical archive. Author and committer values are not reproduced in this qualification. Their presence is disclosed; no live-remote or complete personal-data check is claimed."
+}

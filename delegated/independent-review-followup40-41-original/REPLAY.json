@@ -1,0 +1,37 @@
+{
+  "schema": "726-followup-reconstruction-replay-v1",
+  "results": {
+    "garment-pattern": {
+      "members": 118,
+      "changed_members": 7,
+      "path_substitutions_replayed": 71
+    },
+    "hair-head": {
+      "members": 92,
+      "changed_members": 5,
+      "path_substitutions_replayed": 49
+    },
+    "review-13l": {
+      "members": 48,
+      "changed_members": 2,
+      "path_substitutions_replayed": 2
+    },
+    "gpu-reflection": {
+      "members": 154,
+      "changed_members": 7,
+      "transformation_counts": {
+        "path-literal-redaction": 5,
+        "existing-public-variant": 2,
+        "reconstructed-gzip-transport": 26,
+        "json-path-redaction": 14
+      },
+      "qualification": "Gzip and JSON comparisons are structural for field-only transformations; literal script substitutions are byte replayed."
+    },
+    "hair-gpu": {
+      "members": 125,
+      "byte_identical": 125,
+      "inert_script_renames": 12
+    }
+  },
+  "qualification": "Original/private input versus public bytes and declared transformations only. Paths and their value digests are intentionally not output. No product code executed."
+}

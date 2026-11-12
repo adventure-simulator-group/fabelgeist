@@ -1,0 +1,110 @@
+{
+  "schema": "726-followup-independent-input-check-v1",
+  "stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "stage_bound_files": 19,
+  "archive_count": 8,
+  "archive_members": {
+    "garment-pattern": 126,
+    "cloth": 120,
+    "gpu-reflection": 161,
+    "hair-style": 148,
+    "hair-gpu": 133,
+    "hair-head": 101,
+    "central-13l": 21,
+    "review-13l": 57
+  },
+  "original_roles": [
+    2629,
+    2630,
+    2631,
+    2632,
+    2633,
+    2634,
+    2635,
+    2636,
+    2637,
+    2638,
+    2639,
+    2640,
+    2641,
+    2642
+  ],
+  "source_git_paths": [
+    {
+      "id": "2631-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+      "blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6"
+    },
+    {
+      "id": "2634-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "blob": "609ded333fbdbf4f86f68e2e49cc1c2eca58507b",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b"
+    },
+    {
+      "id": "creator-selection",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "blob": "b20be4510393559df429ca9307545474ee9555c4",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7"
+    },
+    {
+      "id": "creator-drape",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "blob": "753031e1c18fdb2720429f321bc7b7593db74263",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421"
+    },
+    {
+      "id": "fit-settings",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "blob": "833060e83af63f490cbdea7f82582edc7dee7246",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b"
+    }
+  ],
+  "source_git_objects_checked": 32,
+  "coordinator_display_line_counts": {
+    "base": 321,
+    "extension": 124,
+    "single": 10
+  },
+  "coordinator_assessment_cites_within_receipts": true,
+  "reviewed_assessment_sha256": "7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052",
+  "final_assessment_sha256": "4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479",
+  "reviewed_to_final_changed_json_paths": [
+    "/historical_attribution/1",
+    "/review_qualification"
+  ],
+  "private_retention_manifest_sha256": "57ab22c864cfc41e3404e6dc5cdea4631961e817a8ced736fd8a8d23d2e0139e",
+  "private_members_checked": 681,
+  "private_groups": {
+    "garment-pattern": 11,
+    "cloth": 229,
+    "gpu-reflection": 7,
+    "hair-head": 100,
+    "hair-style": 276,
+    "hair-gpu": 2,
+    "central-13l-review": 56
+  },
+  "private_mode_violations": 0,
+  "authored_packet_original_public_replay": {
+    "cloth": {
+      "original_members": 112,
+      "changed_members": 2,
+      "replayed_substitutions": 2,
+      "original_manifest_sha256": "7ea0779b008517a3a4363309e5df516079dff9d9f636b96df0e78f613d42c315",
+      "same_marker_distinct_original_values": 2
+    },
+    "hair-style": {
+      "original_members": 134,
+      "changed_members": 4,
+      "replayed_substitutions": 7,
+      "original_manifest_sha256": "5f259a4df3c3ac59e3bd7567007bd1d33b8f0f2c6106774a2ad04a74d9878981"
+    }
+  },
+  "qualification": "Evidence identities and source-display receipts only. Transcript reproduction does not prove a human/model actually read the text, semantic correctness, original reviewer approval of later wording, global privacy or product behavior. Same-machine receipts for other packets are retained assertions, not rerun by this checker."
+}

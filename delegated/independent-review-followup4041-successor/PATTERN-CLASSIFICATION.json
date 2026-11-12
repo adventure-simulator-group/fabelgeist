@@ -1,0 +1,36 @@
+{
+  "schema": "726-successor-pattern-classification-v1",
+  "stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "raw_pattern_scan_candidates": 5,
+  "source_code_regex_literal_occurrences": 3,
+  "tar_stream_duplicate_occurrences": 2,
+  "source_locations": [
+    {
+      "file": "hair-gpu/evidence/privacy-scan.py.txt",
+      "line": 4,
+      "classification": "pattern bytes literal in source code"
+    },
+    {
+      "file": "hair-gpu/privacy-check.py",
+      "line": 14,
+      "classification": "pattern bytes literal in source code"
+    },
+    {
+      "file": "scan-private-digests.py",
+      "line": 44,
+      "classification": "pattern bytes literal in source code"
+    }
+  ],
+  "binary_email_pattern_views": 3,
+  "binary_email_unique_streams": 2,
+  "binary_email_qualification": "One pattern occurs in the outer gzip stored bytes; another occurs in an inner gzip stored member and is repeated in its enclosing tar view. Binary matches are not established email addresses.",
+  "disclosed_commit_objects": {
+    "copies": 15,
+    "distinct_objects": 3,
+    "archive_count": 5,
+    "project_commit_objects_match_locally_retained_d7": true,
+    "local_prior_revision": "d7b14a15ef132422eca86e7d898b47423af92779",
+    "qualification": "Exact Git commit bytes include author/committer metadata. The local d7 archive was inspected, with no live-remote check or claim of full personal-data clearance."
+  },
+  "qualification": "Pattern classification only; no matched value, address or individual-value digest is output. Unknown patterns or encodings remain outside scope."
+}

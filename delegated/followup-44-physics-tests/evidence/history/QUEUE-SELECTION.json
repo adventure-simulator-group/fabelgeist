@@ -1,0 +1,1401 @@
+{
+  "schema": "726-physics-tests-059-selection-v1",
+  "original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "original_queue_bytes": 21632843,
+  "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+  "later_committed_revision": "d7b14a15ef132422eca86e7d898b47423af92779",
+  "later_queue_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+  "selected_equal": true,
+  "entries": [
+    {
+      "index_zero_based": 435,
+      "entry": {
+        "contract_id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+        "kind": "retained-finding-or-question",
+        "lens": 12,
+        "lens_resolution_required": false,
+        "status": "open-reconciliation",
+        "canonical_owner": "Collision-list update admission error with typed held/provided ColliderCount",
+        "first_failed_contract_or_unresolved_question": "update_colliders rejects provided count != retained count101 with prose103",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/Cargo.toml",
+            "source_sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/Cargo.toml",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                21
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/rows/0",
+            "receipt": {
+              "path": "segovb/READ-L12-769.json",
+              "sha256": "02a9a5dbb6227ea4228ed43444b9c7144cbd3de4f32c573db5e54a0a912f43ea"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+            "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                261
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/rows/1",
+            "receipt": {
+              "path": "segovb/READ-L12-769.json",
+              "sha256": "02a9a5dbb6227ea4228ed43444b9c7144cbd3de4f32c573db5e54a0a912f43ea"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+            "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/wgsl.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                385
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/rows/2",
+            "receipt": {
+              "path": "segovb/READ-L12-769.json",
+              "sha256": "02a9a5dbb6227ea4228ed43444b9c7144cbd3de4f32c573db5e54a0a912f43ea"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-rig/Cargo.toml",
+            "source_sha256": "bfc8f1cdfedc5b57930f84fa5d33fba192fb4d30053794b50dafaef512336a43",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-rig/Cargo.toml",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                17
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/rows/3",
+            "receipt": {
+              "path": "segovb/READ-L12-769.json",
+              "sha256": "02a9a5dbb6227ea4228ed43444b9c7144cbd3de4f32c573db5e54a0a912f43ea"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "declared_source_identity_navigation": [
+          {
+            "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+            "original_registry_identity_candidates": [
+              {
+                "original_role": 2328,
+                "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+                "snapshot": "pr-working",
+                "registry_pointer": "/files/2328"
+              }
+            ],
+            "source_key_and_ranges_as_recorded": null,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "historical_receipt": "../../segovb/READ-L12-769.json",
+        "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+        "remaining_evidence": [
+          "Actual public callers, canonical all-family/current and exactaliases"
+        ],
+        "dependencies": [
+          "Actual public callers, canonical all-family/current and exactaliases"
+        ],
+        "closure_condition": [
+          "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+        ],
+        "later_repair_acceptance_requirements": [
+          "Structured held/provided count available until finaldiagnostic; valid update samecount and replacementcount modes remain explicit; no old prose/Boxdowncast/API preservation"
+        ],
+        "existing_alias_applications_as_recorded": [],
+        "body_or_population_credit": 0,
+        "runtime_validation": "Not run",
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "index_zero_based": 479,
+      "entry": {
+        "contract_id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+        "kind": "retained-finding-or-question",
+        "lens": 12,
+        "lens_resolution_required": false,
+        "status": "open-reconciliation",
+        "canonical_owner": "Collider native-count and capacity conversion policy",
+        "first_failed_contract_or_unresolved_question": "Fullusize ColliderCount feeds truncating asu32 fit37/next_power_of_two truncation34/nativebind21 without representability admission",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+            "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact/count.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                55
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                133
+              ],
+              [
+                212,
+                218
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                134,
+                211
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+            "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/mesh.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                205
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+            "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/wgsl.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                386,
+                413
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/4",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+            "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                75
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/5",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls/patterns.rs",
+            "source_sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls/patterns.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                148
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/6",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/organization.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                531,
+                561
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/7",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                128,
+                210
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/8",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/organization.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                29
+              ],
+              [
+                91,
+                129
+              ],
+              [
+                226,
+                251
+              ],
+              [
+                430,
+                449
+              ],
+              [
+                487,
+                494
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/9",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                15
+              ],
+              [
+                120,
+                127
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/10",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                16,
+                119
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/11",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                421,
+                453
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/12",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                23
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/13",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1031,
+                1102
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/14",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                63,
+                174
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/15",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1103,
+                1121
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/16",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1259,
+                1319
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/17",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1236,
+                1258
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/18",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+            "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact/count.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                55
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                133
+              ],
+              [
+                212,
+                218
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                134,
+                211
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+            "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/mesh.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                205
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+            "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                261
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+            "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                76,
+                208
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/data.rs",
+            "source_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/data.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                308
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                24,
+                62
+              ],
+              [
+                175,
+                387
+              ],
+              [
+                392,
+                423
+              ],
+              [
+                939,
+                1030
+              ],
+              [
+                1320,
+                1897
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "declared_source_identity_navigation": [
+          {
+            "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+            "original_registry_identity_candidates": [
+              {
+                "original_role": 2481,
+                "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+                "snapshot": "pr-working",
+                "registry_pointer": "/files/2481"
+              }
+            ],
+            "source_key_and_ranges_as_recorded": null,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "historical_receipt": "../../segovb/READ-L12-CONNECTED-TEAM-006.json",
+        "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+        "remaining_evidence": [
+          "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+        ],
+        "dependencies": [
+          "Root exact canonical aliases/all20/current source, actual native GPU/BVH consumer and cross-lens queues with no coverage transfer"
+        ],
+        "closure_condition": [
+          "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+        ],
+        "later_repair_acceptance_requirements": [
+          "Admittedcount/allocation/dispatch represent samecardinality; unrepresentable counts rejected before mutation; no demand preserve truncation"
+        ],
+        "existing_alias_applications_as_recorded": [],
+        "body_or_population_credit": 0,
+        "runtime_validation": "Not run",
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "index_zero_based": 480,
+      "entry": {
+        "contract_id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+        "kind": "retained-finding-or-question",
+        "lens": 12,
+        "lens_resolution_required": false,
+        "status": "open-reconciliation",
+        "canonical_owner": "Collisions live analytic buffer/capacity aggregate transition",
+        "first_failed_contract_or_unresolved_question": "set_colliders75 stores newcapacity before Buffer::new76 may Err; buffer replacement79..80 doesnot occur on error, retainedcapacitycan describe largerallocation than oldbuffer",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+            "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact/count.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                55
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                133
+              ],
+              [
+                212,
+                218
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                134,
+                211
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+            "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/mesh.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                205
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+            "source_sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/wgsl.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                386,
+                413
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/4",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+            "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                75
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/5",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls/patterns.rs",
+            "source_sha256": "cbe71f461a1ace891f293e332766a0d8028bbe81d0e8b9e2051fe74763ab7b78",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls/patterns.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                148
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/6",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/organization.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                531,
+                561
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/7",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                128,
+                210
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/8",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/organization.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                29
+              ],
+              [
+                91,
+                129
+              ],
+              [
+                226,
+                251
+              ],
+              [
+                430,
+                449
+              ],
+              [
+                487,
+                494
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/9",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                15
+              ],
+              [
+                120,
+                127
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/10",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                16,
+                119
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/11",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/adventuresim-core/src/strategic_place.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                421,
+                453
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/12",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                23
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/13",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1031,
+                1102
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/14",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                63,
+                174
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/15",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1103,
+                1121
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/16",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1259,
+                1319
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/17",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1236,
+                1258
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/checked_rows/18",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+            "source_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact/count.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                55
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                133
+              ],
+              [
+                212,
+                218
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+            "source_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/collider.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                134,
+                211
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+            "source_sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/mesh.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                205
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated connected read",
+            "proof_pointer": "/qualified_future_original_proofs/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+            "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/fabelgeist-physics/src/contact.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                261
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/0",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+            "source_sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/location_urls.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                76,
+                208
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/1",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/data.rs",
+            "source_sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/data.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                308
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/2",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+            "source_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+            "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "git_path_as_recorded": "crates/strategic-web/src/routes/dialogue.rs",
+            "assessed_ranges_as_recorded": [
+              [
+                24,
+                62
+              ],
+              [
+                175,
+                387
+              ],
+              [
+                392,
+                423
+              ],
+              [
+                939,
+                1030
+              ],
+              [
+                1320,
+                1897
+              ]
+            ],
+            "attribution_as_recorded": "Subagent /root/lens12_frontier personal prospective bounded untruncated read",
+            "proof_pointer": "/primary_source_proofs/3",
+            "receipt": {
+              "path": "segovb/READ-L12-CONNECTED-TEAM-006.json",
+              "sha256": "4f9906568225ab5e8dd9181e52548c00e70bda968d3acf2ce0b7dbc909c70ef7"
+            },
+            "lens_context": 12,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "declared_source_identity_navigation": [
+          {
+            "source_sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+            "original_registry_identity_candidates": [
+              {
+                "original_role": 2328,
+                "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+                "snapshot": "pr-working",
+                "registry_pointer": "/files/2328"
+              }
+            ],
+            "source_key_and_ranges_as_recorded": null,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "historical_receipt": "../../segovb/READ-L12-CONNECTED-TEAM-006.json",
+        "ledger_pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+        "remaining_evidence": [
+          "ActualnativeBuffer::new failure contract/caller retry policy/current/canonical alias; count doc25 explicitly notprooflivebuffer"
+        ],
+        "dependencies": [
+          "ActualnativeBuffer::new failure contract/caller retry policy/current/canonical alias; count doc25 explicitly notprooflivebuffer"
+        ],
+        "closure_condition": [
+          "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+        ],
+        "later_repair_acceptance_requirements": [
+          "Any returnederror leaves internallyconsistentoldstate or explicitnonusable state; successfulreplacement commitslivebuffer/capacity/list together; no runtime acceptance claimed"
+        ],
+        "existing_alias_applications_as_recorded": [],
+        "body_or_population_credit": 0,
+        "runtime_validation": "Not run",
+        "implementation_gate_complete": false
+      }
+    }
+  ],
+  "qualification": "Newly reconstructed selected records only, not an original whole queue, no promotion to 3821; whole queue bytes differ."
+}

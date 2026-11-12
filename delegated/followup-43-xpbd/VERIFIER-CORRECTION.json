@@ -1,0 +1,8 @@
+{
+  "schema": "726-xpbd-public-verifier-prototype-correction-v1",
+  "initial_stage_manifest_sha256": "91eb6e16e26dbc8446ce31fc0c72a85e2836b3974a98b1f2f4f0ed4d135a9849",
+  "initial_public_verifier_sha256": "158e7aaa59f35945af14e20139ae4bc0044384cfe1c482830972296be5a48167",
+  "retained_initial_verifier": "historical-verifier/initial-public-verifier.py",
+  "reason": "Initial verifier decompressed every gzip leaf, including the registry Git proof whose actual leaf is the stored gzip bytes, and therefore failed an equality check. No evidence bytes were changed. This successor respects each proof compression field, preserving stored and decoded identities.",
+  "qualification": "Initial prototype and its manifest remain separate and unchanged. This note describes evidence verification only, not product behavior."
+}

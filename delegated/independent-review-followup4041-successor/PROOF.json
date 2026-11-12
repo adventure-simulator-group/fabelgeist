@@ -1,0 +1,66 @@
+{
+  "schema": "726-followup-successor-independent-proof-v1",
+  "reviewer": "/root/rig_identity",
+  "old_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "successor_stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "archive_count": 8,
+  "archive_members": {
+    "garment-pattern": 126,
+    "cloth": 120,
+    "gpu-reflection": 163,
+    "hair-style": 148,
+    "hair-gpu": 133,
+    "hair-head": 101,
+    "central-13l": 21,
+    "review-13l": 57
+  },
+  "seven_unchanged_archives": [
+    "central-13l",
+    "cloth",
+    "garment-pattern",
+    "hair-gpu",
+    "hair-head",
+    "hair-style",
+    "review-13l"
+  ],
+  "gpu_transport_status_counts": {
+    "reconstructed": 6,
+    "replaced-manifest": 1,
+    "exact-copy": 154
+  },
+  "gpu_map_omitted_counts": {
+    "original_value_sha256_fields": 45,
+    "original_value_sha256_values": 47,
+    "public_value_sha256_fields": 2,
+    "public_value_sha256_values": 2
+  },
+  "scan_prefix_field_counts": {
+    "ORIGINAL-PRIVACY-SCAN.json": 53,
+    "PUBLIC-PRIVACY-SCAN.json": 7
+  },
+  "restricted_gpu_source_files_replayed": 154,
+  "restricted_gpu_changed_files": 7,
+  "replayed_transform_counts": {
+    "path-literal-redaction": 5,
+    "existing-public-variant": 2,
+    "reconstructed-gzip-transport": 26,
+    "json-path-redaction": 14
+  },
+  "13l_project_git_membership_paths": [
+    "2631-current",
+    "2634-current",
+    "creator-selection",
+    "creator-drape",
+    "fit-settings"
+  ],
+  "13l_reference_qualification": "Sixth source is a separately identified decoded language reference; it is not a project Git blob.",
+  "13l_reviewed_assessment_sha256": "7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052",
+  "13l_final_assessment_sha256": "4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479",
+  "13l_changes_since_review": [
+    "/historical_attribution/1",
+    "/review_qualification"
+  ],
+  "restricted_custody_qualification": "Restricted predecessor and source bytes were compared on the same machine and the containing directory and seven sensitive files have owner-only modes. This is not independent custody. Nine sanitized scan receipt files have group/other file mode bits, but their ancestor directory is owner-only; ACLs were not inspected.",
+  "reviewer_prior_involvement": "This reviewer authored the earlier cloth and hair-style packets and independently reviewed the earlier candidate stage; these activities are not independent authorship.",
+  "scope_limit": "Evidence byte identity, transformations, Git membership and assessment revision relationships only; this does not replay semantic reasoning, credit other reviewers as new reads, establish live-remote state, prove complete privacy or validate product behavior."
+}

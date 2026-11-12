@@ -1,0 +1,13 @@
+{
+  "schema": "726-followup43-private-retention-v1",
+  "public_stage": "delegated/followup-43-xpbd",
+  "public_manifest_sha256": "c03037de5aeb0fe309ca630f038fe7621b7d0860242593f290d1b0b817a49b6e",
+  "public_archive": "delegated/followup-43-xpbd-archive.tar.gz",
+  "public_archive_sha256": "0723cea0ee1e0eb83f85293701dce68e7f28141b097a1c8c446ab04410e9cbd3",
+  "private_original_manifest_sha256": "7c3fdeff0e11d87dab08b9c4d99be178ab17a688373bfe125795798b61f63c75",
+  "private_supplemental_manifest_sha256": "f10de67eec2ba510d4b3587b4a58d67fecd7dfdfd05921aa1fe7b229961d1c5f",
+  "same_machine_capture": "The exact original packet files and supplemental private records were copied into an owner-restricted local capture and compared byte for byte. The private verifier then checked 128 original members, 13 path and 12 Git-header substitutions, 23 original Git proofs and 12 supplemental files against the public stage and original temporary inputs.",
+  "public_qualification": "The public check verifies stored and decoded public identities, tree links and qualified commit/leaf crosswalks. It cannot verify the redacted original bytes or the six original Git commit IDs without the restricted inputs. Captured copies and the verifier run do not establish independent-machine custody or historical source-read credit.",
+  "prototype_qualification": "An earlier public verifier prototype used the wrong stored-versus-decoded form for one gzip Git leaf and failed; VERIFIER-CORRECTION.json preserves the failure and the separately identified successor. No evidence bytes changed in that failure.",
+  "scope": "The XPBD source reconciliation and attribution addendum remain delegated observations pending central reconciliation. No implementation, product execution, lens closure or unique-finding count follows."
+}

@@ -1,0 +1,457 @@
+{
+  "schema": "726-bounded-hair-collider-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T10:12:31.041780+00:00",
+  "status": "Bounded source-only follow-up; central owns ledger, alias decisions, unique counts and publication. No independent complete lens, checkpoint3821 promotion, implementation or product validation.",
+  "scope": {
+    "original_role": 2645,
+    "path": "crates/fabelgeist-hair/src/collider.rs",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_snapshot": "The distinct recovered pr-working snapshot records HEAD 6533 and unrelated dirty changes. Registry role2645 and f82 historical recovered object have SHA-256 a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021; that object individually equals Git 6533 and 95e. Equality does not make the entire snapshot clean.",
+    "historical_transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee; evidence transport, not product revision.",
+    "p16": "Separate dirty P16 snapshot has recorded a120 base; later recovered matching tracked patch excludes seven untracked files and does not prove its invocation or uninterrupted custody. Nothing here assigns this pr-working source to P16.",
+    "checkpoint3821": "Original ledger and queue for checkpoint3821 remain unrecovered; no old receipts or this new review are promoted.",
+    "coverage": "Both 171-line role bodies personally re-displayed after new registration, independently by revision. Thirteen other registered support tags have exact displayed chunks and unread complements in receipts; metadata-only locators grant no body-read credit. Full archived support bytes are identity evidence, not full-body reads.",
+    "previous_scope": "prior/selected-index.json binds checkpoint19 /root/mhr_character previous role and support receipts; earlier 059/774 attribution and exclusions are unchanged. This follow-up does not transfer other authors read credit."
+  },
+  "fresh_observations": [
+    {
+      "id": "COLLIDER-NEGATIVE-REACH-SIGNED-MISS",
+      "status": "New bounded consumer elaboration of an existing historical negative-radius contract; supported ingress and unique alias/count unresolved.",
+      "trace": [
+        {
+          "tag": "current-role",
+          "ranges": [
+            [
+              15,
+              23
+            ],
+            [
+              26,
+              38
+            ],
+            [
+              108,
+              137
+            ]
+          ]
+        },
+        {
+          "tag": "bvh",
+          "ranges": [
+            [
+              297,
+              324
+            ]
+          ]
+        },
+        {
+          "tag": "bvh-nearest",
+          "ranges": [
+            [
+              422,
+              439
+            ]
+          ]
+        },
+        {
+          "tag": "groom",
+          "ranges": [
+            [
+              19,
+              21
+            ],
+            [
+              103,
+              125
+            ],
+            [
+              131,
+              137
+            ]
+          ]
+        }
+      ],
+      "analysis": "MeshCollider.new publicly stores raw reach. Closest traversal squares max_distance, but the hair collider returns the unsquared reach and synthetic up on a miss. For an otherwise valid closed mesh near the origin, a point far above it, reach -1 m and offset 0, the point remains outside the 1 m search radius while push_out can execute all six roughly 1 m upward corrections. This follows source control flow and real-number/ordinary finite-f32 reasoning; no geometry fixture, product code or runtime has been executed.",
+      "safeguards_and_limits": "The ordinary creator paths shown pass positive BODY_REACH=0.1 m; no supported caller accepting negative reach was established. A positive bounded search miss and intentional NoCollider infinity are distinct states. The trait admits custom query implementations, and actual GPU/native numeric behavior is unobserved.",
+      "historical_relationship": "774 rig RIG-ADMISSION03-CONTRACT-628 explicitly observed that negative BVH radius is squared and a nonnegative admission was not shown; that reviewer did not read hair MeshCollider lines112\u2013164. This follow-up adds the conditional hair no-hit/push-out consequence, not automatic unique credit or an alias decision.",
+      "future_direction": "Decide supported reach/sign and no-hit contracts at the owning boundary and trace actual producers; preserve intentional unlimited or no-obstacle states. No repair or validation has begun."
+    },
+    {
+      "id": "COLLIDER-SURFACE-INDEX-FIRST-ROUTE",
+      "status": "Fresh independent corroboration and consumer ordering refinement of the earlier 95e hair-field assessment and historical F054 topology admission; no duplicate count asserted.",
+      "trace": [
+        {
+          "tag": "surface-admission",
+          "ranges": [
+            [
+              46,
+              50
+            ]
+          ]
+        },
+        {
+          "tag": "groom",
+          "ranges": [
+            [
+              101,
+              125
+            ],
+            [
+              131,
+              137
+            ]
+          ]
+        },
+        {
+          "tag": "field-admission",
+          "ranges": [
+            [
+              78,
+              100
+            ]
+          ]
+        },
+        {
+          "tag": "near-mesh",
+          "ranges": [
+            [
+              152,
+              176
+            ]
+          ]
+        },
+        {
+          "tag": "surface",
+          "ranges": [
+            [
+              216,
+              225
+            ]
+          ]
+        },
+        {
+          "tag": "current-role",
+          "ranges": [
+            [
+              121,
+              125
+            ]
+          ]
+        },
+        {
+          "tag": "bvh-nearest",
+          "ranges": [
+            [
+              394,
+              401
+            ],
+            [
+              450,
+              458
+            ]
+          ]
+        }
+      ],
+      "analysis": "BodySurface exposes public position and face slices. GroomedHair.place first calls BodyField.sample; its NearMesh.upload copies positions and calls vertex_normals on raw faces before GPU uploads and before the later CPU MeshCollider.new. vertex_normals indexes positions before any visible local index-membership check. If prior field setup reaches that call with an empty positions list and a face containing index 0, that index is the first demonstrated operation on that route; no actual malformed body or runtime failure was demonstrated. The later MeshCollider constructor separately calls the same normals helper before TriangleBvh.new. On-bust construction uses a generated head mesh and is a distinct route.",
+      "safeguards_and_limits": "Some preceding field setup and external GPU objects must be available before NearMesh.upload; inspect upstream body producers and successful body-field admission rather than assuming they permit malformed inputs. No actual vertex/face validation policy or device behavior is inferred from this window.",
+      "historical_relationship": "774 rig RIG-ADMISSION03-F054 and CONTRACT-628 previously identified invalid raw TriangleBvh indices, not the excluded hair MeshCollider body. Earlier ASSESSMENT-L01-HAIR-FIELD-95E.json (SHA-256 d17fc988a142cf3ff5b65f0ed64259e8ff11db41a55a44c1c06f0e12358035c1) already reported that vertex normals are computed before face filtering and require valid face indices, without certifying topology; it records earlier current field.rs reads 1\u2013280 and 282\u2013545, separately attributed. This follow-up independently establishes the shown ordering before CPU MeshCollider and does not transfer that prior read credit. Current REVIEW-HAIR-HEAD-MESH-INDEX-95E concerns another head-mesh boundary; REVIEW-HAIR-FIELD-PACKED-TRIANGLE-CAPACITY-001 concerns packed filtered counts, not an automatically identical index condition. Central decides connected ownership and aliases.",
+      "future_direction": "Trace real BodySurface producers and choose the earliest authoritative topology admission shared by actual consumers; distinguish legitimate empty data, native limits and diagnostics. No implementation or validation has started."
+    },
+    {
+      "id": "COLLIDER-POSITIVE-REACH-NOHIT-AND-CAP",
+      "status": "Independent fresh corroboration and reconciliation of prior checkpoint19 no-hit question; no additional count.",
+      "trace": [
+        {
+          "tag": "current-role",
+          "ranges": [
+            [
+              108,
+              118
+            ],
+            [
+              134,
+              160
+            ]
+          ]
+        },
+        {
+          "tag": "bvh",
+          "ranges": [
+            [
+              302,
+              324
+            ]
+          ]
+        },
+        {
+          "tag": "bvh-nearest",
+          "ranges": [
+            [
+              422,
+              439
+            ]
+          ]
+        },
+        {
+          "tag": "groom",
+          "ranges": [
+            [
+              19,
+              21
+            ],
+            [
+              103,
+              125
+            ],
+            [
+              162,
+              176
+            ]
+          ]
+        },
+        {
+          "tag": "cap-constants",
+          "ranges": [
+            [
+              30,
+              32
+            ]
+          ]
+        },
+        {
+          "tag": "cap",
+          "ranges": [
+            [
+              68,
+              87
+            ],
+            [
+              175,
+              218
+            ]
+          ]
+        }
+      ],
+      "analysis": "With positive reach, an interior point farther than reach from every triangle can return a positive synthetic outside distance, because the closest query finds no triangle inside its radius. A closed cube whose center is 0.2 m from each face, queried at the center with reach 0.1 m, is a geometric counterexample; no model or fixture is built. ScalpCap.fit treats a miss as a real distance and normal, so before clear_skin a returned (0.1,up) shifts a carried point down by approximately 0.0996 m. Later sampled correction might change it; no final geometry or actual ordinary-body miss is established.",
+      "safeguards_and_limits": "The documented implementation intentionally reports a miss as far outside; a producer guarantee that all projection points are within 0.1 m could make the intended route safe. Clear-skin passes inspect only selected samples. Creator GPU strand LOD uses a separate field buffer, while cap fitting receives the CPU MeshCollider.",
+      "relationship": "The checkpoint19 prior report already raised the same conditional no-hit and cap projection question. Original 059 Lens13 read cap.rs but explicitly left MeshCollider query proof pending; other original collider reviewers excluded lines112\u2013164. Distinct from the mixed-infinite shrinkwrap observation; alias remains central.",
+      "future_direction": "Establish supported point/reach placement contract and miss handling through projection without changing legitimate no-obstacle semantics; compare implementations only after separate authorization."
+    },
+    {
+      "id": "COLLIDER-SEGMENT-SAMPLED-CLEARANCE",
+      "status": "Fresh corroboration of prior checkpoint19 and 059 open sampled-versus-continuous question; no additional count.",
+      "trace": [
+        {
+          "tag": "current-role",
+          "ranges": [
+            [
+              41,
+              106
+            ]
+          ]
+        },
+        {
+          "tag": "cards",
+          "ranges": [
+            [
+              121,
+              133
+            ]
+          ]
+        },
+        {
+          "tag": "lod",
+          "ranges": [
+            [
+              150,
+              164
+            ]
+          ]
+        }
+      ],
+      "analysis": "For a straight 0.08 m first segment on x, an exact sphere signed-distance function centered at x=0.01 m with radius 0.004 m and clearance 0.0015 m yields an intersecting interval 0.006\u20130.014 m. Its first endpoint signed distance 0.006 m makes the early endpoint/reach skip inapplicable, but quarter, half and three-quarter sample distances 0.006, 0.026 and 0.046 m all exceed clearance; the loop can exit without moving the crossing. This is mathematical reasoning about a trait-permitted sphere, not an instantiated fixture or evidence of a shipped generated hairstyle.",
+      "safeguards_and_limits": "Fewer than two points return, the root is intentionally fixed, and passes are bounded. Four-pass cards and host LOD callers are shown, but neither establishes which concrete collider reaches them or that continuous clearance is required; the scalp-cap triangle sampler is a different function.",
+      "relationship": "059 READ-L11-432 already recorded that three samples do not establish continuous segment clearance. The checkpoint19 report has the same counterexample; original Lens13 cap sampling is related but not presumed identical.",
+      "future_direction": "Decide continuous-clearance versus sampled approximation policy, allowable error and fixed-root behavior; preserve intended finite work bounds."
+    },
+    {
+      "id": "COLLIDER-SHRINKWRAP-INFINITY",
+      "status": "Existing current ledger and original Adler conditional observation, no additional count.",
+      "trace": [
+        {
+          "tag": "current-role",
+          "ranges": [
+            [
+              15,
+              23
+            ],
+            [
+              164,
+              171
+            ]
+          ]
+        },
+        {
+          "tag": "shrinkwrap",
+          "ranges": [
+            [
+              19,
+              28
+            ],
+            [
+              44,
+              76
+            ],
+            [
+              78,
+              94
+            ]
+          ]
+        }
+      ],
+      "analysis": "Shrinkwrap computes a displacement even when a locked or clear point gets zero weight; if another point makes any true, a mixed finite/infinite query result can propagate nonfinite motion. If NoCollider alone supplies infinity for every point, every weight is zero and the early return prevents applying the computed moves. No mixed-distance producer was established.",
+      "relationship": "Current REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E and original 059 adler/READ-L11-369 own this bounded question. A finite positive or negative MeshCollider miss is not the same input by assumption."
+    }
+  ],
+  "historical_relations": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-101 / ADDITIONAL-101",
+      "attribution": "774 rig; original collider source 1\u2013111 and 165\u2013171 only; excludes MeshCollider 112\u2013164."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-628 / F054",
+      "attribution": "774 rig; distinct historical CPU TriangleBvh 270\u2013462 and F054 source ranges, including negative radius squared and topology admission. No original reviewer credit for excluded hair MeshCollider body."
+    },
+    {
+      "id": "READ-L11-432 / REGISTRATION-SEGOVB-1561",
+      "attribution": "Original 059 receipt records fresh historical collider reads 1\u2013111 and 165\u2013171; an individual reader is not named in that source row."
+    },
+    {
+      "id": "READ-L12-912 / REGISTRATION-PAR-L12-710 / PROPOSAL-L12-912",
+      "attribution": "Original 059 /root/lens12_frontier fresh collider reads 1\u2013111 and 165\u2013171; root_personal_rereads empty, current_source_reconciled false. Batch-level 3 new original roles are not all attributable to this row."
+    },
+    {
+      "id": "READ-L13-PARALLEL-105 / READ-PL13-107",
+      "attribution": "Original 059 delegated Lens13 fresh cap.rs 1\u2013256 at 6533; adoption records no root personal rereads/current transfer. Cap reader did not establish hair MeshCollider query body."
+    },
+    {
+      "id": "READ-L11-369 / REGISTRATION-ADLER-1165",
+      "attribution": "Original 059 Adler reviewer fresh historical shrinkwrap.rs 1\u201399; not a direct original personal read of hair collider body."
+    },
+    {
+      "id": "baseline-059 queue indices 1843, 1844, 1845",
+      "attribution": "Historical reconstructed revisit records, not source-body receipts. Scope, canonical owners, other lenses and exact aliases remain open."
+    },
+    {
+      "id": "ASSESSMENT-L01-HAIR-FIELD-95E / 059 audit11-segovb-173-800-complete",
+      "attribution": "Earlier current assessment records field.rs 1\u2013280 and 282\u2013545 at 95e and notes normals before filtering. Original 059 Lens11 role800 receipt records a separate full 1\u2013545 personal historical pr-working read and zero unique findings; its root adoption explicitly reports no source access. The receipt names no individual reader. Historical/current byte equality does not transfer read credit, current reconciliation or checkpoint3821 status."
+    }
+  ],
+  "committed_and_working_evidence": {
+    "ledger": "history/ledger-selection.json captures three selected current rows from commit d7b14a15ef132422eca86e7d898b47423af92779 (full SHA 36115b9bc3ebb3dec1ae87ef5a3f2431195665ab611a4b1e995e15cb9548a77f) and separately observed modified working ledger (full SHA 4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c) at capture time. Selected rows match; full files do not. Earlier one-row observation remains ledger-selection-first.json.",
+    "queue": "history/queue-selection.json distinguishes 56f committed original 059 queue, d7 committed privacy reconstruction and observed working bytes. The three selected rows agree; this does not make the full files identical or prove checkpoint3821.",
+    "774_variant": "historical-774/VARIANT-COMPARISON.json preserves original gzip and prior published reconstructed gzip identities, independently proves one CP35 documented semantic false-positive substitution and exact selected CONTRACT-628 line equality. They are not the same byte stream."
+  },
+  "nonfindings": [
+    "NoCollider reports positive infinity with up as an intentional no-obstacle sentinel; all-NoCollider shrinkwrap exits before applying its computed moves.",
+    "Assigned MeshCollider stores its copied positions, normals, triangles and BVH in private fields; no stale mutation of that private state was shown.",
+    "A positive finite reach fallback may be intentional for bounded near-surface inputs; no universally valid projection condition or actual miss was proved.",
+    "The current physics MeshCollider records are not automatically about the unrelated fabelgeist-hair MeshCollider despite the name."
+  ],
+  "open_questions": [
+    "Which public or decoded paths can construct negative, zero, nonfinite or extreme positive reach, and what policy should each query and consumer use?",
+    "Do supported creator placements guarantee every scalp cap point and every required query is within 0.1 m of a valid closed body surface?",
+    "Which BodySurface producers establish vertex/face membership, finite geometry, winding, nondegeneracy and normals before NearMesh upload or CPU construction, and what invalid/empty behavior is intended?",
+    "Which host cards/LOD paths actually receive which Collider, and do their callers require continuous clearance, bounded-error sampling or a different result?",
+    "Can a supported Collider return a mixture of finite and infinite distances? What actual rendering, native GPU and full geometry consequences would follow? None were executed or validated.",
+    "Exact repair owner, relationship to F054/CONTRACT-628/current head index/field capacity, unique count and all broader historical/other-lens obligations remain centrally unresolved."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer-propagation",
+      "finding": "Trace public BodySurface \u2192 BodyField/NearMesh \u2192 vertex_normals and CPU MeshCollider \u2192 scalp cap; host cards/LOD use generic collider. Untraced producers remain open."
+    },
+    {
+      "lens": 2,
+      "name": "existing-type-owners",
+      "finding": "Shared TriangleBvh raw query, hair Collider signed query and separate GPU body field have different contracts; identify a shared topology/reach owner only after caller policy is traced."
+    },
+    {
+      "lens": 3,
+      "name": "admission-contracts",
+      "finding": "Raw reach and body face indices have no shown local domain gate, but known creator BODY_REACH is positive; determine supported boundary and preserve intentional sentinels."
+    },
+    {
+      "lens": 4,
+      "name": "invariant-operations",
+      "finding": "Negative squared search bound versus negative miss, capped push iterations and mixed infinite weighted motion are conditional operation-level issues; exact producer reach remains open."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate-states",
+      "finding": "Face indices must match positions; stored triangles, normals and private BVH need coherent origin; no stale private mutation is shown."
+    },
+    {
+      "lens": 6,
+      "name": "type-ownership",
+      "finding": "Hair collider, physics collider and native buffers are distinct owners despite names; avoid automatic aliases."
+    },
+    {
+      "lens": 7,
+      "name": "redundant-authority",
+      "finding": "CPU mesh and GPU sampled field are separate representations for distinct consumers; no synchronization defect is established from these windows."
+    },
+    {
+      "lens": 8,
+      "name": "behavior-preservation",
+      "finding": "Old and current assigned bytes equal by object identity and were separately displayed; preserve original reviewer exclusions and legitimate absence and fixed-root semantics."
+    },
+    {
+      "lens": 9,
+      "name": "enum-shapes",
+      "finding": "A true signed hit, bounded no-hit and no-obstacle sentinel share a tuple channel; whether they need distinct states is a policy question."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "finding": "No reviewed hair collider trait or private mesh implementation supplies handwritten serialization boilerplate warranting a derive conclusion."
+    },
+    {
+      "lens": 11,
+      "name": "type-granularity",
+      "finding": "Signed distance, nonnegative search reach, clearance and unbounded absence have different possible domains; no universal finite-only rule is established."
+    },
+    {
+      "lens": 12,
+      "name": "magic-strings",
+      "finding": "No business string API appears in collider.rs; native field parameter strings are shown only as adapter-support context."
+    },
+    {
+      "lens": 13,
+      "name": "magic-numbers",
+      "finding": "Reach 0.1 m, cap lift 0.0004 m, six corrections, three quarter-point samples and four host passes express different policies; their required error bounds remain open."
+    }
+  ],
+  "evidence_and_limits": {
+    "registration": [
+      "REGISTRATION.json",
+      "REGISTRATION-MORE.json",
+      "REGISTRATION-THIRD.json"
+    ],
+    "personal_receipts": [
+      "READ-RECEIPT.json",
+      "READ-RECEIPT-MORE.json",
+      "READ-RECEIPT-THIRD.json"
+    ],
+    "locator": [
+      "LOCATOR.json",
+      "LOCATOR-MORE.json"
+    ],
+    "historical": "historical-059/ORIGINAL-VERIFICATION.json; historical-774/SELECTED.json; prior/selected-index.json; historical-059/FIELD-VERIFICATION.json; history/hair-field-assessment.json",
+    "git": "TREE-PROOFS.json contains tree-only objects; commit-to-tree anchors require independently available checkpoint19 archive or a trusted repository, with no raw Git commit author bytes copied.",
+    "constraints": "Source inspection and evidence checks only; no edits to publication or product, repair, builds, tests, fixture or shader execution, simulation, runtime probe or product validation."
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "schema": "726-collider-current-ledger-selection-v2",
+  "observed_utc": "2026-11-12T10:10:53.819111+00:00",
+  "committed": {
+    "revision": "d7b14a15ef132422eca86e7d898b47423af92779",
+    "path": "BASELINE-95E-20261110.json",
+    "sha256": "36115b9bc3ebb3dec1ae87ef5a3f2431195665ab611a4b1e995e15cb9548a77f",
+    "git_blob": "e806085c04392be1a0c7c8daa2735535d6d1f161",
+    "bytes": 1381941,
+    "entries": {
+      "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E": {
+        "id": "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationships only; no independent lens or producer closure.",
+        "severity": "unassigned; conditional public collider input",
+        "classification": "A mixed finite/infinite Collider response can turn an intentionally zero-weight locked point into a nonfinite movement when another point activates Shrinkwrap.",
+        "historical_related_records": [
+          "adler/READ-L11-369.json via ASSESSMENT-HAIR-NATIVE-OPERATIONS-95E.json",
+          "baseline-059/queue.json#/entries/1845"
+        ],
+        "relationship_qualification": "Adler previously identified the conditional mixed-distance arithmetic question; the actual Collider/Vec3/blur trace is newly bounded. No actual shipped producer, runtime or globally unique bug is asserted.",
+        "discovery": "partial; registered source and IEEE control flow connected, caller reachability and distance policy remain open",
+        "connected_repair_direction": "Avoid evaluating or applying displacement for points whose intended weight is zero, and define allowed collider no-hit distances while preserving root locking and finite behavior.",
+        "future_acceptance": "After audit and authorization, cover all-infinite no-hit, mixed finite/infinite, locked/unlocked roots and ordinary finite collision paths.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHRINKWRAP-COLLIDER-95E.json"
+      },
+      "REVIEW-HAIR-HEAD-MESH-INDEX-95E": {
+        "id": "REVIEW-HAIR-HEAD-MESH-INDEX-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A mutated Surface can supply triangle indices outside its positions to set_head_mesh, which indexes a neighbors vector sized from positions.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Delegate753 already raised this conditional public-input admission question; normal Surface.new initial indices and actual producer mutations remain open.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Admit coherent vertex, normal and triangle data at the head mesh boundary.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      "REVIEW-HAIR-FIELD-PACKED-TRIANGLE-CAPACITY-001": {
+        "id": "REVIEW-HAIR-FIELD-PACKED-TRIANGLE-CAPACITY-001",
+        "severity": "P3 conditional public-library input; oversized supported body, device acceptance and player impact unestablished",
+        "classification": "bounded 95e Lens 1 admission trace of a capacity gap already retained as a qualified historical Lens 11 observation; not a new unique historical finding",
+        "historical_related_candidates": [
+          "SEGOVB-CONT11-173-800-COMPLETE:packed-filtered-triangle-capacity"
+        ],
+        "relationship_qualification": "The 2026-10-27 root-adopted Lens 11 receipt records the same exact frozen source bytes and symbolic capacity gap with zero accepted unique-finding increment; current source is independently Git-bound. Historical current-family and root M24 aliases, device behavior and checkpoint 3821 remain unresolved.",
+        "discovery": "partial; complete producers, filtered counts, supported mesh sizes, device limits, independent lenses and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-HAIR-FIELD-95E.json"
+      }
+    }
+  },
+  "working_observed": {
+    "head_at_capture": "d7b14a15ef132422eca86e7d898b47423af92779",
+    "path": "BASELINE-95E-20261110.json",
+    "sha256": "4a8956e6adb9103355075bb9267fc86e73b837ecc0c1bd7e2d4e5a718b6fbe0c",
+    "git_blob_of_observed_bytes": "ac37264e8f37bb15bfed5f1800c65a5bd0611eb8",
+    "bytes": 1381941,
+    "entries": {
+      "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E": {
+        "id": "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationships only; no independent lens or producer closure.",
+        "severity": "unassigned; conditional public collider input",
+        "classification": "A mixed finite/infinite Collider response can turn an intentionally zero-weight locked point into a nonfinite movement when another point activates Shrinkwrap.",
+        "historical_related_records": [
+          "adler/READ-L11-369.json via ASSESSMENT-HAIR-NATIVE-OPERATIONS-95E.json",
+          "baseline-059/queue.json#/entries/1845"
+        ],
+        "relationship_qualification": "Adler previously identified the conditional mixed-distance arithmetic question; the actual Collider/Vec3/blur trace is newly bounded. No actual shipped producer, runtime or globally unique bug is asserted.",
+        "discovery": "partial; registered source and IEEE control flow connected, caller reachability and distance policy remain open",
+        "connected_repair_direction": "Avoid evaluating or applying displacement for points whose intended weight is zero, and define allowed collider no-hit distances while preserving root locking and finite behavior.",
+        "future_acceptance": "After audit and authorization, cover all-infinite no-hit, mixed finite/infinite, locked/unlocked roots and ordinary finite collision paths.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHRINKWRAP-COLLIDER-95E.json"
+      },
+      "REVIEW-HAIR-HEAD-MESH-INDEX-95E": {
+        "id": "REVIEW-HAIR-HEAD-MESH-INDEX-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A mutated Surface can supply triangle indices outside its positions to set_head_mesh, which indexes a neighbors vector sized from positions.",
+        "historical_related_records": [
+          "segovb/READ-L12-753.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "adler/READ-L11-365.json via ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "baseline-059/queue.json#/entries/1838"
+        ],
+        "relationship_qualification": "Delegate753 already raised this conditional public-input admission question; normal Surface.new initial indices and actual producer mutations remain open.",
+        "discovery": "partial; current source and original reviewer scope traced; supported inputs and exact aliases remain open",
+        "connected_repair_direction": "Admit coherent vertex, normal and triangle data at the head mesh boundary.",
+        "future_acceptance": "After audit and authorization, cover the supported boundary and its distinct error or empty cases.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GPU-MODULE-95E.json"
+      },
+      "REVIEW-HAIR-FIELD-PACKED-TRIANGLE-CAPACITY-001": {
+        "id": "REVIEW-HAIR-FIELD-PACKED-TRIANGLE-CAPACITY-001",
+        "severity": "P3 conditional public-library input; oversized supported body, device acceptance and player impact unestablished",
+        "classification": "bounded 95e Lens 1 admission trace of a capacity gap already retained as a qualified historical Lens 11 observation; not a new unique historical finding",
+        "historical_related_candidates": [
+          "SEGOVB-CONT11-173-800-COMPLETE:packed-filtered-triangle-capacity"
+        ],
+        "relationship_qualification": "The 2026-10-27 root-adopted Lens 11 receipt records the same exact frozen source bytes and symbolic capacity gap with zero accepted unique-finding increment; current source is independently Git-bound. Historical current-family and root M24 aliases, device behavior and checkpoint 3821 remain unresolved.",
+        "discovery": "partial; complete producers, filtered counts, supported mesh sizes, device limits, independent lenses and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-HAIR-FIELD-95E.json"
+      }
+    }
+  },
+  "selected_entries_equal": true,
+  "qualification": "Full working bytes are an observed mutable state and are not represented as committed. Selection equality applies only to the captured rows. Earlier single-row observation is retained separately."
+}

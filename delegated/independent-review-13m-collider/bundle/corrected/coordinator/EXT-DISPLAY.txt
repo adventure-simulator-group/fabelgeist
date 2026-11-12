@@ -1,0 +1,35 @@
+--- groom 164-176 ---
+ 164     fn prepare(
+ 165         &self,
+ 166         gpu: &HairGpu,
+ 167         strands: &GpuGroom,
+ 168         placement: &HeadPlacement,
+ 169         body: Buffer,
+ 170         skin: &MeshCollider,
+ 171     ) -> Result<PlacedHair> {
+ 172         let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
+ 173         let lods =
+ 174             gpu.groomer()
+ 175                 .lods_against(strands, center, &LodSettings::default(), Some(&body))?;
+ 176         let cap = ScalpCap::fit(&self.scalp, &self.head, &self.scalp_map, placement, skin);
+--- vec3 20-27 ---
+  20 impl Vec3 {
+  21     pub fn new(x: f32, y: f32, z: f32) -> Vec3 {
+  22         Self { x, y, z }
+  23     }
+  24 
+  25     pub fn up() -> Self {
+  26         Self::new(0.0, 1.0, 0.0)
+  27     }
+--- collider 161-171 ---
+ 161     }
+ 162 }
+ 163 
+ 164 /// Nothing to collide with.
+ 165 pub struct NoCollider;
+ 166 
+ 167 impl Collider for NoCollider {
+ 168     fn query(&self, _: Vec3) -> (f32, Vec3) {
+ 169         (f32::INFINITY, Vec3::up())
+ 170     }
+ 171 }

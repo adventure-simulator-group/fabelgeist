@@ -1,0 +1,20 @@
+{
+  "schema": "726-xpbd-public-transport-report-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T10:41:07.401951+00:00",
+  "source_manifests": {
+    "reconciliation": "d9becd55d048de80fe1a5eb5f2a62151397e0c3b656a7ee22e83b221bb56146c",
+    "attribution-addendum": "8ebbdcbe91673d5ffcb8e21d33546c6cc0200b7cf71812049df57c8c7000ce8c"
+  },
+  "private_original_manifest_sha256": "7c3fdeff0e11d87dab08b9c4d99be178ab17a688373bfe125795798b61f63c75",
+  "source_members": 128,
+  "reconstructed_members": 8,
+  "path_redactions": 13,
+  "git_author_committer_redactions": 12,
+  "credential_pattern_matches": 0,
+  "raw_commit_objects_disclosed": 0,
+  "source_observations": "See PROVENANCE.json. F082/F073 supplement/F065, q3138 and selected related records retain original provenance and conditional reachability; no alias/count or lens closure decision.",
+  "privacy": "All 128 originals, 55 single-layer gzip decodes, Git tree entry names and commit text inspected. No tar/nested gzip silently accepted. Public commit author/committer values and local paths are removed. Bounded scans cannot prove absence of every personal identifier, secret or encoded path. No digest of an individual redacted path is included.",
+  "replay_limitation": "Exact originals are retained separately in an owner-restricted same-machine capture. A private verifier checks each original-to-public substitution byte-for-byte and deterministic gzip representation; it needs that restricted collection and this stage. Neither public nor private check recreates external source state, historical readings, remote publication or product behavior. The public source scripts are evidence text and are not the transport verifier.",
+  "constraints": "No source/publication/input edits, implementation, product/shader/fixture execution, builds, tests, probes or repairs."
+}

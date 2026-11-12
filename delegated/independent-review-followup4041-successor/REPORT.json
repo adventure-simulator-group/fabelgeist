@@ -1,0 +1,95 @@
+{
+  "schema": "726-followup-successor-independent-review-v1",
+  "reviewer": "/root/rig_identity",
+  "reviewed_stage_manifest_sha256": "5dfe0bfe427cf9089f636ac8e52ae1a7e479e5ce0372e2fa8d884cd3f6c07e15",
+  "predecessor_stage_manifest_sha256": "aa2f8364932cc2bc3ca00e9d71501392dd301002d7ea1dfd9964d4aa8a6dd413",
+  "verdict": "Evidence integrity and bounded privacy checks passed, with the explicit custody, historical exposure and coverage limits below.",
+  "evidence_integrity": {
+    "archives": 8,
+    "unchanged_archives": [
+      "central-13l",
+      "cloth",
+      "garment-pattern",
+      "hair-gpu",
+      "hair-head",
+      "hair-style",
+      "review-13l"
+    ],
+    "archive_member_counts": {
+      "garment-pattern": 126,
+      "cloth": 120,
+      "gpu-reflection": 163,
+      "hair-style": 148,
+      "hair-gpu": 133,
+      "hair-head": 101,
+      "central-13l": 21,
+      "review-13l": 57
+    },
+    "gpu_transport_status_counts": {
+      "reconstructed": 6,
+      "replaced-manifest": 1,
+      "exact-copy": 154
+    },
+    "gpu_source_members_replayed_from_restricted_originals": 154,
+    "gpu_original_value_digest_entries_omitted": 47,
+    "gpu_public_value_digest_entries_also_omitted": 2,
+    "prior_scan_prefix_digest_fields_omitted": 60,
+    "qualification": "The 47 original map values include the previously identified private-value digests. Of the 60 prior scan prefix fields, 47 represented private home/temp prefixes and 13 were compressed-binary scanner hits; the two additional public-value fields described placeholder values. Omission of all 109 entries is separately recorded from whole-file identities."
+  },
+  "central_13l": {
+    "project_git_membership_paths": [
+      "2631-current",
+      "2634-current",
+      "creator-selection",
+      "creator-drape",
+      "fit-settings"
+    ],
+    "reference_qualification": "Sixth source is a separately identified decoded language reference; it is not a project Git blob.",
+    "registered_display_line_counts": {
+      "base": 321,
+      "extension": 124,
+      "single": 10
+    },
+    "citations_within_recorded_ranges": true,
+    "reviewed_assessment_sha256": "7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052",
+    "final_assessment_sha256": "4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479",
+    "changed_fields_since_review": [
+      "/historical_attribution/1",
+      "/review_qualification"
+    ],
+    "qualification": "The final 059 q614 wording and review qualification changed after the prior independent review; the final wording is not separately peer reviewed. The source is the pinned working revision; locally committed and observed working baselines remain distinct."
+  },
+  "bounded_privacy": {
+    "recovered_private_values_compared": 112,
+    "digest_encodings_compared": 681,
+    "known_value_or_digest_matches": 0,
+    "scanner_views": 4787,
+    "scanner_exceptions": 0,
+    "pattern_candidates": 5,
+    "pattern_candidate_classification": "Three scanner source regex literals and two enclosing tar-stream duplicates.",
+    "binary_email_pattern_views": 3,
+    "binary_email_qualification": "One pattern occurs in the outer gzip stored bytes; another occurs in an inner gzip stored member and is repeated in its enclosing tar view. Binary matches are not established email addresses.",
+    "disclosed_commit_objects": {
+      "copies": 15,
+      "distinct_objects": 3,
+      "archive_count": 5,
+      "project_commit_objects_match_locally_retained_d7": true,
+      "local_prior_revision": "d7b14a15ef132422eca86e7d898b47423af92779",
+      "qualification": "Exact Git commit bytes include author/committer metadata. The local d7 archive was inspected, with no live-remote check or claim of full personal-data clearance."
+    },
+    "qualification": "Raw private values and normalized prefix or JSON forms under SHA-256, SHA-1 and MD5 were compared in hexadecimal and raw digest representations. The scans are bounded; unknown values, credentials, encodings and alternative archive formats are not cleared.",
+    "scanner_source_qualification": "The saved scan was performed using the locally retained original script. The public portable copy differs only in accepting the successor path as an argument and was not rerun to completion; whole-file source identities and this distinction are in SCAN-PROVENANCE.json."
+  },
+  "prior_public_exposure": "The separate prior-publication inventory records 15 observed committed top-level files containing matching identifiers and explicitly retains 4,188 unread archive-member limitations. Rebuilding this unpublished stage does not change prior public history.",
+  "custody_and_attribution": [
+    "Restricted predecessor and source bytes were compared on the same machine and the containing directory and seven sensitive files have owner-only modes. This is not independent custody. Nine sanitized scan receipt files have group/other file mode bits, but their ancestor directory is owner-only; ACLs were not inspected.",
+    "This reviewer authored the earlier cloth and hair-style packets and independently reviewed the earlier candidate stage; these activities are not independent authorship.",
+    "The preceding exact source packet, older records and prior reviewer receipts retain their original reader and revision. No role or checkpoint3821 credit is transferred.",
+    "The pattern scanner is this reviewer\u2019s prior read-only scanner, reused from the earlier stage review; the value corpus and successor proof were independently checked on this machine."
+  ],
+  "limitations": [
+    "Evidence byte identity, transformations, Git membership and assessment revision relationships only; this does not replay semantic reasoning, credit other reviewers as new reads, establish live-remote state, prove complete privacy or validate product behavior.",
+    "The data is compared with locally retained staged and Git bytes; there is no fresh remote custody check or complete personal-data clearance.",
+    "No source repairs, product builds, tests, fixtures, runtime probes, product execution, publication edits or user-extraction writes were performed."
+  ]
+}

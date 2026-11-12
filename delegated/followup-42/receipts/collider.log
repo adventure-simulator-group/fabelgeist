@@ -1,0 +1,17 @@
+PASS: evidence manifest, 15 separately registered source scopes, 26 tree paths with qualified external commit anchors, original 059/774 provenance, two distinct 774 representations, selected committed/working states and 13 bounded perspectives; Git and prior archive identities checked; original 059 extraction bytes checked. No product behavior validated.
+{
+  "schema": "726-hair-public-privacy-candidate-scan-v1",
+  "stats": {
+    "top_files": 119,
+    "views": 154,
+    "text_views": 91,
+    "binary_views": 63,
+    "gzip_views": 35,
+    "gzip_members": 35,
+    "gzip_flag_0": 35,
+    "git_tree_entry_names": 3966
+  },
+  "hits": [],
+  "exceptions": [],
+  "limits": "Selected Unix/Windows path, email and credential signatures only; UTF-8 text views; gzip and ustar tar recursion at most 128 MiB/member and depth 18. Binary Git trees are not scanned as prose; tree entry names, gzip header fields, and tar metadata are checked. Unknown roots, encodings, credentials, and archive formats are outside scope. Hashes of candidates do not establish sensitivity or provenance."
+}

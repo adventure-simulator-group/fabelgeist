@@ -1,0 +1,59 @@
+{
+  "schema": "726-central-13l-cloth-source-crosswalk-v1",
+  "central_manifest_sha256": "96324134cf8920ca628d1709228e3b7115eaa4c6ba7cb7f763fe7c019b56a029",
+  "cloth_public_manifest_sha256": "f7c2fcedd3a79aa93009a4bf83878313f193d4835ea978f2b643f0974bd9429b",
+  "rows": [
+    {
+      "id": "2631-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+      "git_blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "cloth_packet_path": "reconstructed/sources/2631-current.rs",
+      "qualification": "Exact source bytes and identities match; source-read credit remains separate."
+    },
+    {
+      "id": "2634-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "git_blob": "609ded333fbdbf4f86f68e2e49cc1c2eca58507b",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+      "cloth_packet_path": "reconstructed/sources/2634-current.rs",
+      "qualification": "Exact source bytes and identities match; source-read credit remains separate."
+    },
+    {
+      "id": "creator-selection",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "git_blob": "b20be4510393559df429ca9307545474ee9555c4",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "cloth_packet_path": "reconstructed/sources/support-creator-selection.rs",
+      "qualification": "Exact source bytes and identities match; source-read credit remains separate."
+    },
+    {
+      "id": "creator-drape",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "git_blob": "753031e1c18fdb2720429f321bc7b7593db74263",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "cloth_packet_path": "reconstructed/sources/support-creator-drape.rs",
+      "qualification": "Exact source bytes and identities match; source-read credit remains separate."
+    },
+    {
+      "id": "fit-settings",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "git_blob": "833060e83af63f490cbdea7f82582edc7dee7246",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "cloth_packet_path": "reconstructed/sources/support-fit-settings.rs",
+      "qualification": "Exact source bytes and identities match; source-read credit remains separate."
+    },
+    {
+      "id": "rust-reference-cast",
+      "central_decoded_sha256": "e4972eee8ba7f06a76ce7fd4aee0dedb25b0f341aff1d7602f1b2e6979837b85",
+      "cloth_packet_path": "reconstructed/reference/rust-reference-operator-expr.html.gz",
+      "qualification": "Same decoded local reference; neither a toolchain execution nor a universal version claim."
+    }
+  ],
+  "qualification": "The separate cloth public verifier supplies the Git path-membership proofs. Equality ties the coordinator source bytes to those proofs but does not transfer either reader\u2019s credit or prove a clean historical snapshot."
+}

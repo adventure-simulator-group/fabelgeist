@@ -1,0 +1,20 @@
+{
+  "schema": "726-followup42-059-attribution-qualification-v1",
+  "scope": "Additive clarification of a frozen historical attribution; no historical or reconstructed packet is overwritten.",
+  "archive": "delegated/followup-42/archives/hair-surface-grid.tar.gz",
+  "archive_sha256": "295e4befc019c7e9dcd21bfb849804d8fa57113a12230e32803f8b25cb601adc",
+  "report_member": "bundle/REPORT.json",
+  "report_sha256": "26f700f93a713e7ebeebe7a44075d0a406d2a350bfcea2d34abca5379a22183b",
+  "report_pointer": "/historical_attribution/2/original_author",
+  "report_label": "Segovb root Lens11",
+  "receipt_member": "bundle/historical/prior-059--segovb--READ-L11-432.json",
+  "receipt_sha256": "a36bcc33bd025be8daa99515729fc6803bcec9227698427fa2b731d6ae274765",
+  "rows": [
+    {"pointer": "/sources/6", "role": 2643, "fresh_personal_body_reads": [[1, 146], [215, 244]]},
+    {"pointer": "/sources/7", "role": 2644, "fresh_personal_body_reads": [[1, 156]]}
+  ],
+  "qualification": "The retained 059 receipt and the two cited rows establish the Segovb collection, receipt and personal-read scopes. They do not themselves name an individual reader. Other evidence may establish one; none is inferred or transferred here. Original 059 historical scopes remain distinct from the later packet author's and current-source reads.",
+  "related_collider": "The frozen collider packet's evidence/REPORT.json /historical_relations/2/attribution already qualifies the related collider source row in this way.",
+  "review": "Identified by /root/mhr_character in the checkpoint42 packaging review; the reviewer authored the collider packet. /root independently checked the frozen report and receipt fields.",
+  "limits": "This field check is not a proof that no separate reader attribution exists, a source-semantic review, an alias decision, a queue closure, or product validation."
+}

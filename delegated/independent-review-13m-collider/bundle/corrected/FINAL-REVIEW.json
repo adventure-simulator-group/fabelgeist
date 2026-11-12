@@ -1,0 +1,61 @@
+{
+  "schema": "726-independent-13m-corrected-assessment-review-v1",
+  "reviewer": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T10:55:21.977352+00:00",
+  "verdict": "The exact corrected 13M assessment resolves the previously reported source-range and positive-pass precondition issues within this bounded review. No remaining error was identified in the inspected source reasoning or the cited 059/774 relationships.",
+  "reviewed_final": {
+    "path": "coordinator/FINAL-ASSESSMENT.json",
+    "sha256": "ac429433dd7c22ab6d0db209a410bd867c48e87a76516c4734841471fe9ad68f"
+  },
+  "original_draft_review": {
+    "path": "initial/INITIAL-REVIEW.json",
+    "sha256": "e3136dc3ff3c8ab89c87909f47b36b241769e9f4718ab0c626e8fdbc2b2bb576",
+    "frozen_manifest_sha256": "b3a09e212700d250c45fd17cc8f779c078e453b0fe07201eab6dd02b59e094ec",
+    "original_assessment_sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106",
+    "chronology": "Initial critique was sent before the final assessment was shown, but its complete original review packet was formally frozen after the final was displayed; this successor review began after the original packet was frozen."
+  },
+  "corrected_items": [
+    {
+      "initial_id": "13M-INITIAL-POSITIVE-PASS-PRECONDITION",
+      "resolution": "Final sphere example explicitly states a positive pass budget. The ideal-real endpoint bound and sample signed-distance arithmetic remain correct within that condition."
+    },
+    {
+      "initial_id": "13M-INITIAL-PREPARE-TRACE-CITATION",
+      "resolution": "Final adds groom.rs:164–176 to the source refs and separately captured coordinator extension. This confirms the handoff from CPU MeshCollider to ScalpCap::fit; earlier checkpoint19 /root/mhr_character and reviewer support credits remain separate."
+    },
+    {
+      "initial_id": "13M-INITIAL-UP-AND-NOCOLLIDER-SUPPORT",
+      "resolution": "Final adds vec3.rs:20–27 and collider.rs:161–171 with separately registered coordinator extension. They support Vec3::up=(0,1,0) and the intentional (+infinity,up) NoCollider sentinel. Reviewer and historical read credits remain distinct."
+    }
+  ],
+  "source_and_receipt_checks": {
+    "coordinator_initial_registration_sha256": "54efa8473528db37760422dd92d860ff9caf77867b1beb8ae9b8157fbac8c078",
+    "coordinator_initial_display_sha256": "164f2e7c97c6797abcdef24fddc584dc0597db4751ce8d44d70c9084f535089e",
+    "coordinator_extension_registration_sha256": "7958fb0ef04d9ac510c23021d865624b24478ae4878c43556f2d9d5690db6284",
+    "coordinator_extension_display_sha256": "87dcbe985eb8e22ff6489b6dbb42a41424e069a967d73394a809ebfe8fa5d17f",
+    "coordinator_extension_receipt_sha256": "b1eee0036e30018336024e83617c9d599f4b35d622a4e6c898afe9c02227439b",
+    "qualification": "Both coordinator transcripts exactly reconstruct from the retained separately verified current source bytes and their registered ranges; reconstructed text alone cannot prove personal display. All final source-reference lines fall within coordinator original or extension registered ranges. The reviewer’s personal ranges are independently recorded in initial/READ-RECEIPT.json."
+  },
+  "historical_and_ledger_qualification": [
+    "774 rig CONTRACT-628 independently recorded negative-radius squaring at the CPU BVH; F054 concerns raw topology, and rig REGISTER-101 excluded MeshCollider 112–164. 059 READ-L11-432 had already left sampled versus continuous clearance open.",
+    "q1843 mentions Collider/push_out within broader obligations; q1844/q1845 remain distinct. The earlier reviewer’s source read is not transferred to the reconstructed queue selection.",
+    "Checkpoint19 /root/mhr_character originated the two named candidates; followup42 by the same reviewer separately re-read and elaborated negative reach. The mixed-infinite shrinkwrap ledger record is a different conditional source/consumer; no automatic alias or count is decided.",
+    "At the initial review registration, the two proposed entries 1026 and 1027 were present in the captured working ledger and absent from the captured committed ledger at local a0d09cdb. Entry 676 matched in both. The final assessment does not itself identify a committed checkpoint; this capture must not be presented as a later publication or live remote observation."
+  ],
+  "remaining_limits": [
+    "No real creator placement, supported negative reach, exact continuous-clearance obligation, downstream geometry or product effect has been established.",
+    "The reviewer and coordinator inspected bounded source windows; broader producer/native paths, complete lenses, cross-record aliases, ledger counts and checkpoint3821 remain open.",
+    "No implementation, simulation, fixture, geometry, shader or product execution, test, build, runtime probe, repair or publication modification occurred.",
+    "The final assessment’s statement that it had not yet received a separate semantic review was accurate before this review and is retained as historical text in the exact reviewed bytes."
+  ],
+  "evidence": {
+    "initial_packet_manifest": "initial/MANIFEST.json",
+    "initial_read_receipt": "initial/READ-RECEIPT.json",
+    "initial_git_proofs": "initial/git-proofs.json",
+    "root_extension_registration": "coordinator/EXT-REGISTRATION.json",
+    "root_extension_receipt": "coordinator/EXT-READ-RECEIPT.json",
+    "root_extension_display": "coordinator/EXT-DISPLAY.txt",
+    "qualification": "Initial packet and exact prior review are embedded as read-only evidence. Raw Git objects and local historical data require privacy review before publication."
+  },
+  "staging_qualification": "The first review-writer script stopped on an overly specific string assertion before producing a review file. Its unchanged source is retained separately; this successor writer checks the actual prior wording. No source, finding, or prior packet was modified."
+}

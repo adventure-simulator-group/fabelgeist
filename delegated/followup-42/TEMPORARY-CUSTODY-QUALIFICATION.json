@@ -1,0 +1,11 @@
+{
+  "schema": "726-temporary-name-custody-qualification-v1",
+  "actors": {
+    "coordinator": "Two task-specific temporary helper paths and 23 task-specific log paths were written without an observed prior-existence check.",
+    "delegate": "One temporary registration-builder path was written without an observed prior-existence check before its present bytes were copied into the review packet."
+  },
+  "outcome": "Any prior contents of those 26 named temporary paths are unknown; the available evidence does not establish whether a preexisting file was actually replaced or what it contained. Current bytes were separately captured after the writes and are not a reconstruction of earlier contents.",
+  "private_same_machine_capture_manifest_sha256": "dfd4d543b50aa2bee613be76e570fc060d663e30e6f3bc23b456a8c898cddbda",
+  "custody": "Current captured copies were written into an owner-restricted same-machine directory. The supplied original extracted evidence directory was read only and was not restored onto or overwritten.",
+  "qualification": "This record does not claim uninterrupted custody or original contents for the temporary names; source audits, historical attribution and checkpoint3821 remain separate."
+}

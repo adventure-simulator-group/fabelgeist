@@ -1,0 +1,365 @@
+{
+  "schema": "726-xpbd-particle-reconcile-personal-receipt-v1",
+  "reviewer": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T10:30:16.017893+00:00",
+  "registrations": [
+    {
+      "path": "registration.json",
+      "sha256": "0d56e052d9e0c92f5e0cf8164af0eec57d0fcca56d542740f87cb10d5c85bbf6"
+    },
+    {
+      "path": "support-extension-registration.json",
+      "sha256": "000c7911b8d841f42e2d31df030f8cdf41e41d587f86b8d186a3ba8df9136944"
+    },
+    {
+      "path": "queue-registration.json",
+      "sha256": "b09c100b74a31dc87f3b7d7f5b969ca0696bccfacb173ef263ecfdd12b4e25eb"
+    }
+  ],
+  "source_displays": [
+    {
+      "kind": "assigned-followup",
+      "file": "source/2648-pr-working.rs",
+      "revision_or_identity": "Recovered pr-working registry object transported by f82; recorded base 6533",
+      "actual_display_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "unread_complement": [
+        [
+          170,
+          171
+        ]
+      ],
+      "qualification": "Separate pr-working/current displays after registration. 6533 per-file identity only, no separate 6533 read, no whole-tree cleanliness or historical reviewer transfer."
+    },
+    {
+      "kind": "assigned-followup",
+      "file": "source/2648-95e.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "unread_complement": [
+        [
+          170,
+          171
+        ]
+      ],
+      "qualification": "Separate pr-working/current displays after registration. 6533 per-file identity only, no separate 6533 read, no whole-tree cleanliness or historical reviewer transfer."
+    },
+    {
+      "kind": "assigned-followup",
+      "file": "source/2649-pr-working.rs",
+      "revision_or_identity": "Recovered pr-working registry object transported by f82; recorded base 6533",
+      "actual_display_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "unread_complement": [],
+      "qualification": "Separate pr-working/current displays after registration. 6533 per-file identity only, no separate 6533 read, no whole-tree cleanliness or historical reviewer transfer."
+    },
+    {
+      "kind": "assigned-followup",
+      "file": "source/2649-95e.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "unread_complement": [],
+      "qualification": "Separate pr-working/current displays after registration. 6533 per-file identity only, no separate 6533 read, no whole-tree cleanliness or historical reviewer transfer."
+    },
+    {
+      "kind": "current-support-only",
+      "file": "support/buffer.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          15,
+          83
+        ],
+        [
+          120,
+          164
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          14
+        ],
+        [
+          84,
+          119
+        ],
+        [
+          165,
+          178
+        ]
+      ],
+      "qualification": "Fresh bounded independent support after registration; no ordered role credit."
+    },
+    {
+      "kind": "current-support-only",
+      "file": "support/upload.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "unread_complement": [],
+      "qualification": "Fresh bounded independent support after registration; no ordered role credit."
+    },
+    {
+      "kind": "current-support-only",
+      "file": "support/mass.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "unread_complement": [
+        [
+          111,
+          162
+        ]
+      ],
+      "qualification": "Fresh bounded independent support after registration; no ordered role credit."
+    },
+    {
+      "kind": "current-support-only",
+      "file": "support/shell.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          65,
+          110
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          64
+        ],
+        [
+          111,
+          408
+        ]
+      ],
+      "qualification": "Fresh bounded independent support after registration; no ordered role credit."
+    },
+    {
+      "kind": "current-support-only",
+      "file": "support/solver.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          130,
+          155
+        ],
+        [
+          193,
+          210
+        ],
+        [
+          222,
+          280
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          129
+        ],
+        [
+          156,
+          192
+        ],
+        [
+          211,
+          221
+        ]
+      ],
+      "qualification": "Fresh bounded independent support after registration; no ordered role credit."
+    },
+    {
+      "kind": "support-extension",
+      "file": "support/outer-layer.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          75,
+          115
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          74
+        ],
+        [
+          116,
+          196
+        ]
+      ],
+      "qualification": "Bounded support only. Navigation beforehand printed filename and line numbers, not source lines. No ordered-role credit."
+    },
+    {
+      "kind": "support-extension",
+      "file": "support/surface-contact.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          100,
+          155
+        ],
+        [
+          355,
+          430
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          99
+        ],
+        [
+          156,
+          354
+        ],
+        [
+          431,
+          623
+        ]
+      ],
+      "qualification": "Bounded support only. Navigation beforehand printed filename and line numbers, not source lines. No ordered-role credit."
+    },
+    {
+      "kind": "support-extension",
+      "file": "support/garment-drape.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          160,
+          185
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          159
+        ],
+        [
+          186,
+          334
+        ]
+      ],
+      "qualification": "Bounded support only. Navigation beforehand printed filename and line numbers, not source lines. No ordered-role credit."
+    },
+    {
+      "kind": "support-extension",
+      "file": "support/garment-placement.rs",
+      "revision_or_identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_display_ranges": [
+        [
+          35,
+          65
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          34
+        ],
+        [
+          66,
+          76
+        ]
+      ],
+      "qualification": "Bounded support only. Navigation beforehand printed filename and line numbers, not source lines. No ordered-role credit."
+    }
+  ],
+  "historical_displays": [
+    {
+      "file": "historical/history-774/findings.jsonl.gz",
+      "stored_sha256": "09371b8278be1c30b578dfd7e95de0e0fd64a818452776b82e2bb168e95c65be",
+      "decoded_sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "eof": 103,
+      "prospective_ranges": [
+        [
+          69,
+          69
+        ],
+        [
+          78,
+          78
+        ],
+        [
+          89,
+          89
+        ],
+        [
+          91,
+          91
+        ]
+      ],
+      "identity": "774 rig original stream via f82; supplier attribution retained"
+    },
+    {
+      "file": "historical/history-774/source-range-registration.jsonl.gz",
+      "stored_sha256": "3aab433578f35f0c43c9b271a3ac6087cc88c12523335df18ab8289ee0b8019b",
+      "decoded_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "eof": 145,
+      "prospective_ranges": [
+        [
+          104,
+          105
+        ]
+      ],
+      "identity": "774 rig original stream via f82; supplier attribution retained"
+    },
+    {
+      "file": "historical/history-774/additional-contracts.jsonl.gz",
+      "stored_sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b",
+      "decoded_sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "eof": 124,
+      "prospective_ranges": [
+        [
+          90,
+          91
+        ]
+      ],
+      "identity": "774 rig original stream via f82; supplier attribution retained"
+    },
+    {
+      "file": "historical/history-774/contracts-012.json.gz",
+      "stored_sha256": "191d82a9074c0d03e34212bbfe28c55d221b22fb404dca9ba78a7175d7ea55b8",
+      "decoded_sha256": "37bc2d7222e7fbea72ff4637bb17bb6781d81bc974441ba69752842379e8b81c",
+      "prospective_json_pointer": "/groups/xpbd-particle-packing-and-shared-gpu-boundary",
+      "identity": "774 rig initial06 source, historical relationship only"
+    }
+  ],
+  "historical_queue_values_examined": [
+    3138,
+    445,
+    625,
+    1856,
+    1859
+  ],
+  "history_059_receipts": "Selected matching fields and dispositions inspected; complete original records retained without claiming their whole bodies personally re-read.",
+  "qualification": "Every source display followed prospective registration. Separate old/current bodies were displayed. Tests/doctests were read as source only, never executed. Source 2648 lines 170–171 unread by this reviewer in this packet. 6533 is a per-file equality proof, not a distinct personal display."
+}

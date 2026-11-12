@@ -1,0 +1,25 @@
+{
+  "schema": "726-followup-private-retention-receipt-v1",
+  "collections": [
+    {
+      "name": "followups-40-41",
+      "manifest_sha256": "57ab22c864cfc41e3404e6dc5cdea4631961e817a8ced736fd8a8d23d2e0139e",
+      "files": 681,
+      "bytes": 43441202
+    },
+    {
+      "name": "followups-42",
+      "manifest_sha256": "da8dc1d5c5d06da19ceb72fd92b1053a627bd534162333b4c84a855d86af3d36",
+      "files": 124,
+      "bytes": 9352431
+    }
+  ],
+  "temporary_custody": {
+    "name": "temporary-file-custody-20261112",
+    "manifest_sha256": "dfd4d543b50aa2bee613be76e570fc060d663e30e6f3bc23b456a8c898cddbda",
+    "current_files": 26
+  },
+  "observation": "The coordinator copied each retained private file into an owner-restricted same-machine collection and compared its bytes to the respective separately retained source. Packet-specific evidence replays and their differing input limitations are preserved in the public follow-up transports.",
+  "qualification": "The public receipt binds manifest hashes but cannot by itself prove the private files, transformations, prior temporary contents, uninterrupted custody or independent-machine recovery. The user-supplied extracted evidence was only read.",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "726-checkpoint-privacy-prescan-v1",
+  "digest_result_sha256": "936f852962540c5d3e762e1ced981a40646405172ddf25781406f403ad794b0e",
+  "pattern_result_sha256": "cd25fdd17d85f1fe794ccd72343681a4ca401b6ba9be1afa331090379a59a2b3",
+  "input_manifest_sha256": "0581b2bcecd8655c0f29988467f95ec1ee447436e6632f537c86d231e1d1ac61",
+  "input_files": 578,
+  "digest_scan": "The successor scanner used the separately retained GPU private input to derive 40 digest identifiers; it examined 2970 stored or decoded views, found zero matches and no scan exceptions. Forty-eight email-pattern occurrences in 24 retained commit-object copies were classified as disclosed author/committer metadata; values are not reproduced here.",
+  "pattern_scan": "The separately retained same-machine pattern scanner examined 2273 stored or decoded streams, 1695 tar entries and 697 gzip streams and reported zero selected path or credential issues. Its exact script whole-file identity is recorded separately.",
+  "pattern_scanner_sha256": "0e3188a98d8b6f6e1eb6e1862dbc69310ad47fd3cf444a52818cbff287568606",
+  "qualification": "This prescan preceded later receipt files and the final bracketed main observation. It excludes Git administrative data and history, has bounded formats, sizes, recursion and selected patterns, and does not establish complete privacy or remove older public exposures. The input manifest binds file identities, not an independent copy of every earlier scanned byte.",
+  "product_validation": "not performed"
+}

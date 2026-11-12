@@ -1,0 +1,761 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "created_utc": "2026-11-12T01:47:03.306996+00:00",
+  "scope": "Original roles 2648-2649, independently registered old/current full source displays and five bounded current-only support displays. Thirteen scoped perspectives, not whole-lens completion.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_recorded_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "historical_snapshot_qualification": "Historical pr-working snapshot had unrelated modifications; only each registered file has been proved equal to its 6533 Git object and 95e Git object. f82 is archival transport, not a source revision.",
+  "roles": [
+    {
+      "original_index": 2648,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles.rs",
+        "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+        "bytes": 5979,
+        "actual_line_count": 171,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            169
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 104,
+            "registration_id": "RIG-ADMISSION03-REGISTER-104",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-104",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles.rs",
+              "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+              "actual_EOF": 171,
+              "material_ranges": [
+                [
+                  1,
+                  169
+                ]
+              ],
+              "reason": "Actual retained Particles constructor/count/write/read admission directly called by original Shell/Solver/Collisions. Exclude externaltestmodule170+.",
+              "exclusions": "Exact direct admission only; no runtime/new tests/unrelated helper graph.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:29:12.521137+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                169
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles.rs",
+            "actual_EOF": 171,
+            "bytes": 5979
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+          "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+          "bytes": 5979,
+          "eof": 171,
+          "prospective_ranges": [
+            [
+              1,
+              171
+            ]
+          ],
+          "local_file": "source/2648-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+          "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+          "bytes": 5979,
+          "eof": 171,
+          "prospective_ranges": [
+            [
+              1,
+              171
+            ]
+          ],
+          "local_file": "source/2648-current.rs"
+        }
+      ]
+    },
+    {
+      "original_index": 2649,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles\\packed.rs",
+        "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+        "bytes": 3317,
+        "actual_line_count": 100,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            100
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 105,
+            "registration_id": "RIG-ADMISSION03-REGISTER-105",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-105",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles\\packed.rs",
+              "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+              "actual_EOF": 100,
+              "material_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "reason": "Actual direct native packed position/velocity definitions, byte-to-record/count admission called by Particles.",
+              "exclusions": "Exact direct admission only; no runtime/new tests/unrelated helper graph.",
+              "status": "registered_before_bounded_actual_admission_analysis",
+              "at": "2026-10-22T11:29:12.523632+00:00"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                100
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\particles\\packed.rs",
+            "actual_EOF": 100,
+            "bytes": 3317
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+          "git_blob": "cf331079b7d721d4894378112552b5273571233d",
+          "bytes": 3317,
+          "eof": 100,
+          "prospective_ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "local_file": "source/2649-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+          "git_blob": "cf331079b7d721d4894378112552b5273571233d",
+          "bytes": 3317,
+          "eof": 100,
+          "prospective_ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "local_file": "source/2649-current.rs"
+        }
+      ]
+    }
+  ],
+  "actual_read_receipt": "read-receipt.json",
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "eof": 178,
+      "actual_ranges": [
+        [
+          15,
+          83
+        ],
+        [
+          120,
+          164
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          14
+        ],
+        [
+          84,
+          119
+        ],
+        [
+          165,
+          178
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+      "blob": "c11849a3d5faf4db1432e4b58c28bfd9c1655bd3",
+      "eof": 162,
+      "actual_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          111,
+          162
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "eof": 408,
+      "actual_ranges": [
+        [
+          65,
+          110
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          64
+        ],
+        [
+          111,
+          408
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "blob": "5fdd6b99bd496b05199ae7c816aeec514cc28e15",
+      "eof": 280,
+      "actual_ranges": [
+        [
+          130,
+          155
+        ],
+        [
+          193,
+          210
+        ],
+        [
+          222,
+          280
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          129
+        ],
+        [
+          156,
+          192
+        ],
+        [
+          211,
+          221
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "blob": "d01b5ec7a10f45da81f1ebb8835554bd671aa1c2",
+      "eof": 58,
+      "actual_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "unread_for_this_registration": [],
+      "support_only": true
+    }
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "source_integrity": "git-proofs.json includes full raw commit/tree chains for project, support and f82 transport objects; historical-index.json records 059 and 774 originals, original registry entries archived in registration.json.",
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F082",
+      "kind": "previous historical finding reconnected by independent current source",
+      "condition": "A public positions, previous, or velocities Buffer or its mutable logical fields is replaced or modified independently of the private particle count, capacity or cached masses; native acceptance and actual callers are not established.",
+      "trace": "Particles exposes all three buffers while retaining private count, capacity and inverse_masses. Buffer exposes native handle, size and usage; Buffer::write takes &self, so a separately constructed upload may mutate public positions without updating the host mass cache. Solver binds those buffers with the retained count. On successful device write and readback, cached inverse_masses() and read_inverse_masses() may disagree; write_positions reuploads the cached mass words. If a shorter replacement produces successful readback, read_positions takes at most count rather than checking exact length, and the solver still dispatches that count. No native acceptance, real call path, data race, runtime result or panic is asserted.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              21,
+              33
+            ],
+            [
+              86,
+              115
+            ],
+            [
+              118,
+              145
+            ],
+            [
+              157,
+              166
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              15,
+              20
+            ],
+            [
+              40,
+              63
+            ],
+            [
+              127,
+              130
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+          "lines": [
+            [
+              21,
+              31
+            ],
+            [
+              50,
+              57
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/solver.rs",
+          "lines": [
+            [
+              236,
+              259
+            ],
+            [
+              263,
+              277
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 rig/admission03/findings.jsonl line 89 F082",
+        "774 rig/admission03/additional-contracts.jsonl lines 90-91 ADDITIONAL-104/105",
+        "774 rig/initial06-type-ownership/contracts-012.json xpbd-particle-packing-and-shared-gpu-boundary"
+      ],
+      "direction": "Resolve aggregate ownership and checked whole-buffer/count/mass correspondence, including explicit native views and checked replacement/readback; preserve intentional raw words, zero-particle state and pinned inverse mass.",
+      "dedup": "This conditional current source observation and cached-mass consequence belong to the prior F082 relationship; no new accepted count is proposed."
+    },
+    {
+      "id": "RIG-ADMISSION03-F073-SUPPLEMENT-001",
+      "kind": "previous historical finding reconnected by independent current source",
+      "condition": "On a host permitting a position slice length at least 2^32 and sufficient resources to reach the operation, positions.len() as u32 wraps before the capacity comparison and before count assignment; earlier allocation or native failure may stop the path.",
+      "trace": "For hypothetical length 2^32, the narrowing becomes 0; from_positions asks new for 0 capacity, which is raised to 1; write sees equal slice lengths and the narrowed capacity check does not reject 0 > 1, before attempting huge packing and native upload. No huge allocation, upload or fixture was attempted; native behavior and real production reachability are unknown. write_positions also narrows for its equality check but then calls write, whose full host-length mass comparison is a separate gate.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              37,
+              39
+            ],
+            [
+              67,
+              75
+            ],
+            [
+              86,
+              114
+            ],
+            [
+              123,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "lines": [
+            [
+              23,
+              43
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 rig/admission03/findings.jsonl line 91 F073-SUPPLEMENT-001, extending F073",
+        "059 segovb/READ-L11-433.json particle disposition"
+      ],
+      "direction": "Check host-to-native executable count and bytes before narrowing and before native allocations; preserve legitimate zero, exact host diagnostics and normal supported layouts.",
+      "dedup": "Same particle length-admission boundary as F073-SUPPLEMENT-001; do not count anew."
+    },
+    {
+      "id": "L12-CLOSURE-PARTICLE-UPLOAD-REASON-FACETS",
+      "kind": "059 historical open connected contract; independently traced 95e",
+      "condition": "Caller-facing error taxonomy is undecided; producer and native consumers outside selected windows remain open.",
+      "trace": "write first checks full position/mass lengths, then narrowed capacity; write_positions first checks narrowed count and then delegates to write. Public ParticlePositions::new separately checks equal lengths, but when nested under write its equal-length gate follows an equivalent outer check. Identical diagnostic text does not establish common owner or identical first failure. Shell::new invokes mesh and material validation, rejects empty mesh, derives inverse masses and invokes from_positions; selected source does not establish other callers or full native error classification.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              67,
+              75
+            ],
+            [
+              86,
+              114
+            ],
+            [
+              123,
+              136
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "lines": [
+            [
+              25,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              75,
+              89
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "baseline-059/queue.json zero-based entry 3138",
+        "parallel-l12-20261029/PROPOSAL-L12-913.json contract L12-CLOSURE-PARTICLE-UPLOAD-REASON-FACETS",
+        "segovb/READ-L12-913.json root adoption, delegate /root/lens12_frontier"
+      ],
+      "direction": "Keep separate first-gate predicates and trace real API/error consumers before deciding a shared or separate typed reason owner; do not preserve current literal prose as a compatibility constraint.",
+      "dedup": "Historical open contract; neither closure nor new unique count proposed."
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "write_positions takes the cache temporarily and restores it after write returns, including normal Result::Err. It does not by itself establish loss of the host masses on an ordinary Err; panic/unwinding behavior has not been assessed.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              123,
+              136
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The wrapper Buffer::write immediately calls BufferUpload::write_to and then returns Ok(()); this body supplies no ordinary Err branch. Thus earlier concern that its ? alone proves a later returned Err after an earlier upload is not established. Native queue validation, panics, device errors, and loss of transactional consistency are unproved, not ruled out.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              108,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              127,
+              130
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+          "lines": [
+            [
+              50,
+              57
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Position/mass and velocity records are intentionally distinct nominal types, even though the native records have similar-sized word layouts. Position construction enforces equal lengths before zip; at_rest derives the velocity count from positions; packed source does not promise valid finite state and is not proof the compile-fail doctest passes.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "lines": [
+            [
+              7,
+              24
+            ],
+            [
+              25,
+              43
+            ],
+            [
+              62,
+              75
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "ParticleInverseMass explicitly preserves arbitrary native float words; validity is a separate classification and +/- zero is intentionally prescribed. Rejecting NaNs or zeros at every native readback would impose an unproven policy.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "lines": [
+            [
+              22,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "lines": [
+            [
+              7,
+              13
+            ],
+            [
+              47,
+              59
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "On successful write the previous position buffer is reset and velocities are uploaded at rest; this supports the prior bounded pose-reset rejection, without establishing device execution.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              86,
+              115
+            ],
+            [
+              123,
+              136
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles/packed.rs",
+          "lines": [
+            [
+              69,
+              75
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What concrete consumer or supported extension replaces buffers or uploads particle mass words directly, and does that producer require host/device coherence?",
+    "What exact policy should govern externally constructed particle positions and inverse masses, including numerical validity and native readback?",
+    "Can valid supported host populations exceed native u32 count or native byte/dispatch limits after real allocation boundaries, and where should each limit be admitted?",
+    "What native queue validation, failure, panic and publication semantics apply for sequential writes; may any successfully submitted first write coexist with later failure? This remains outside source-only proof.",
+    "What is the appropriate error taxonomy for each distinct first predicate, and which actual callers consume it?",
+    "Do all alternate consumers, previous buffer mutability and retained capacity changes share the same aggregate authority? No full call graph was attempted."
+  ],
+  "historical_recovery": {
+    "source_059": "history-059/ exact original files checked against published original transport manifest, indexed in historical-index.json",
+    "l11": "segovb/READ-L11-433.json: historical personal reads 2648 1-169 and 2649 1-100, original prospective registrations 1565 and 1566; 2648 170-171 excluded",
+    "l12": "segovb/READ-L12-913.json root adoption recorded no root personal rereads; actual personal reader /root/lens12_frontier, 2648 1-169 and 2649 1-100 with registrations 713/714, partial receipts 002/003 and original qualification files",
+    "rig_774": "REGISTER-104/105 and ADDITIONAL-104/105, F082, F073-SUPPLEMENT-001, related F065 generic GPU logical/native boundary and INITIAL06-GROUP-012 retained in exact f82 transport bytes; preserve historical adjudication and authorship",
+    "queue": "queue-entry-3138.json is a reconstructed structured extract from baseline-059/queue.json, whose original status remains open-source-reconciliation and body_or_population_credit 0",
+    "attribution": "Do not transfer any historical body reads, findings, work or later root adoption into checkpoint3821, another lens or another reviewer."
+  },
+  "previous_current_separate": [
+    {
+      "path": "ASSESSMENT-GARMENT-FIT-95E.json",
+      "sha256": "dee9866a5c7b74847fa7baaacaf81cf4c6100642c770051931ccfee548453502",
+      "actual_source_scope": "prior centrally published current support particles.rs 65-136 only; no ordered-role credit transferred",
+      "relationship": "Its successful write_positions rest reset is consistent; it did not decide partial device writes."
+    },
+    {
+      "path": "delegated/xpbd-solver-evidence.tar.gz",
+      "sha256": "c05836fc02c2ada48438a626b0c90c767f5af2d6d34fb27f57cee96f62634fe6",
+      "report_path": "delegated/xpbd-solver-report.json",
+      "report_sha256": "e95700ad5fb5f39ce9342b6bcbd4da42fb236d6b3e9007c8fe671ce4ed4dae13",
+      "internal_manifest_sha256": "24b4a14773fdd59b5b901d1e0dca4a0f3935e4f7d24b40d8e88f38900a90b5df",
+      "actual_source_scope": "prior /root/mhr_character roles 2352-2353 and separately registered support",
+      "relationship": "Solver effects are related consumer context; no propagation of findings or source-read credit to current roles."
+    }
+  ],
+  "p16_and_checkpoint_qualification": "P16 was a separate dirty snapshot, a120 recorded base rather than dirty bytes; full tracked patch later recovered and hash-linked in verifier with seven untracked files separately preserved. These pr-working roles are not attributed to P16. No checkpoint3821 provenance inferred.",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Shell::new derives inverse masses and passes positions to Particles; the solver consumes retained count and separate public buffers. Further producers and external writes are not exhaustively traced.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "ParticleInverseMass and distinct position/velocity records are existing owners; no assumption that generic BufferUpload owns particle membership.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "Pair cardinality is checked; host length narrowing precedes native count fit, and complete public buffer/count/mass coherence remains unsealed. F073-SUPPLEMENT-001 and F082 apply conditionally.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "Sequential writes precede metadata updates. Buffer::write has no ordinary Result::Err branch, so do not claim demonstrated post-first-write error; external writes can conditionally stale cache.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "Private count, capacity, host mass cache and three public Buffer values are separately held; a replacement or independent write can violate their correspondence.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "XPBD owns position/mass and velocity record meanings; shared GPU owns generic byte upload and Buffer; actual membership and coherent aggregate remain a connected owner question.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "Host inverse mass cache and device position w words may diverge under external native writes; read_inverse_masses and inverse_masses read different copies. Actual accepted/native readback behavior remains conditional.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Preserve raw float-word semantics, signed zero and pinned state, legal empty generic particles and successful rest-reset behavior; no compatibility shims or validated outcome inferred.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "MassValidity and ParticleMobility encode different classification questions; invalid mass maps to Dynamic by a zero test, not proof of accepted valid dynamics. No enum remodeling finding established.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "Pod/Zeroable derives and explicit type-specific packing carry separate semantics; no safe blanket derive or omission established in these bounded files.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Records separate position/mass and velocity; host usize and executable u32 counts have distinct boundary meanings. Mere matching byte shapes does not imply a common semantic owner.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "GPU labels and per-entry diagnostics are output ports. Historical L12 queue 3138 distinguishes exact first gates and keeps error-owner policy open; identical text alone does not prove alias or defect.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "16 bytes per particle describes four native f32 words; min capacity 1 supports an empty retained count, and zero inverse mass pins. Do not generalize these quantities into one undifferentiated primitive owner.",
+      "status": "bounded source assessment, not lens closure"
+    }
+  ],
+  "no_product_validation": "No product, solver, GPU, shader, simulation, fixture, test, build, probe, implementation, repair or product/publication edit. Source-only doctest and test declarations are not executed."
+}

@@ -1,0 +1,1034 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "created_utc": "2026-11-12T01:57:41.400327+00:00",
+  "scope": "Original role 2658, independently registered historical/current full source displays plus 14 current support registrations in five batches. Thirteen bounded perspectives, not whole-lens completion.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_recorded_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "historical_snapshot_qualification": "Historical pr-working snapshot contained unrelated modifications. This one file is individually equal to 6533 and 95e Git objects; f82 is evidence transport only, not a project revision.",
+  "roles": [
+    {
+      "original_index": 2658,
+      "registry_entry": {
+        "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-shell\\src\\outer_layer.rs",
+        "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+        "bytes": 6993,
+        "actual_line_count": 196,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            116
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 121,
+            "registration_id": "RIG-ADMISSION03-REG-121",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-121",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-shell\\src\\outer_layer.rs",
+              "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+              "actual_eof": 196,
+              "ranges": [
+                [
+                  1,
+                  116
+                ]
+              ],
+              "material_caller": "q697 actual Shell outer-layer new/reset/record native received bounds",
+              "reason": "Direct current admitted input/constructor/native boundary was explicitly pending in scoped source comparison; register exact body before analysis.",
+              "exclusions": "Only named bounded direct helper/routes; unrelated feature, foreign package, test execution and later-lens credit excluded.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                116
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-shell\\src\\outer_layer.rs",
+            "actual_EOF": 196,
+            "bytes": 6993
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+          "git_blob": "c02101e64b29447ac9e38213ea5d579f7c50cfb1",
+          "bytes": 6993,
+          "eof": 196,
+          "prospective_ranges": [
+            [
+              1,
+              196
+            ]
+          ],
+          "local_file": "source/2658-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+          "git_blob": "c02101e64b29447ac9e38213ea5d579f7c50cfb1",
+          "bytes": 6993,
+          "eof": 196,
+          "prospective_ranges": [
+            [
+              1,
+              196
+            ]
+          ],
+          "local_file": "source/2658-current.rs"
+        }
+      ]
+    }
+  ],
+  "actual_read_receipt": "read-receipt.json",
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+      "blob": "bc437c41e965d094b5c54dcc010d0ca127532c95",
+      "eof": 215,
+      "actual_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          104,
+          215
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "eof": 408,
+      "actual_ranges": [
+        [
+          20,
+          40
+        ],
+        [
+          140,
+          180
+        ],
+        [
+          340,
+          380
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          19
+        ],
+        [
+          41,
+          139
+        ],
+        [
+          181,
+          339
+        ],
+        [
+          381,
+          408
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "blob": "93e604bf608e15c26f6381ea00d941a42e7fc25b",
+      "eof": 623,
+      "actual_ranges": [
+        [
+          72,
+          105
+        ],
+        [
+          370,
+          445
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          71
+        ],
+        [
+          106,
+          369
+        ],
+        [
+          446,
+          623
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+      "eof": 462,
+      "actual_ranges": [
+        [
+          65,
+          90
+        ],
+        [
+          320,
+          365
+        ],
+        [
+          388,
+          462
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          64
+        ],
+        [
+          91,
+          319
+        ],
+        [
+          366,
+          387
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "eof": 171,
+      "actual_ranges": [
+        [
+          21,
+          34
+        ],
+        [
+          87,
+          120
+        ],
+        [
+          139,
+          167
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          20
+        ],
+        [
+          35,
+          86
+        ],
+        [
+          121,
+          138
+        ],
+        [
+          168,
+          171
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "eof": 178,
+      "actual_ranges": [
+        [
+          127,
+          130
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          126
+        ],
+        [
+          131,
+          178
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "blob": "93e604bf608e15c26f6381ea00d941a42e7fc25b",
+      "eof": 623,
+      "actual_ranges": [
+        [
+          89,
+          155
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          88
+        ],
+        [
+          156,
+          623
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "eof": 408,
+      "actual_ranges": [
+        [
+          245,
+          299
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          244
+        ],
+        [
+          300,
+          408
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "blob": "f94653afff5eb8c6566d6d0039cfa4fab8e4c679",
+      "eof": 263,
+      "actual_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          60,
+          90
+        ],
+        [
+          205,
+          220
+        ],
+        [
+          225,
+          263
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          26,
+          59
+        ],
+        [
+          91,
+          204
+        ],
+        [
+          221,
+          224
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "4b334efe0db52e6a31df92442575d17d2b7a9bfc9e0fcdd494d097213556b18d",
+      "blob": "1f13738fe9ffe489b7aec495aec5a24db8ac9eef",
+      "eof": 11,
+      "actual_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "unread_for_this_registration": [],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-math/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "blob": "a0fa7f12afce66f5b94331b96d00f187c2c492cd",
+      "eof": 17,
+      "actual_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "unread_for_this_registration": [],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "eof": 408,
+      "actual_ranges": [
+        [
+          41,
+          55
+        ],
+        [
+          75,
+          90
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          40
+        ],
+        [
+          56,
+          74
+        ],
+        [
+          91,
+          408
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "blob": "863d291efb94baac32dd6b322393629d2838360b",
+      "eof": 139,
+      "actual_ranges": [
+        [
+          85,
+          130
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          84
+        ],
+        [
+          131,
+          139
+        ]
+      ],
+      "support_only": true
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/aabb.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "blob": "7f7a1244cff913e35856533911abaf28d72cf8f5",
+      "eof": 299,
+      "actual_ranges": [
+        [
+          159,
+          205
+        ],
+        [
+          273,
+          299
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          158
+        ],
+        [
+          206,
+          272
+        ]
+      ],
+      "support_only": true
+    }
+  ],
+  "support_read_receipts": [
+    "support-read-receipt.json",
+    "support-read-receipt-02.json",
+    "support-read-receipt-03.json",
+    "support-read-receipt-04.json",
+    "support-read-receipt-05.json"
+  ],
+  "navigation_and_actual_read_qualification": "Filename grep and keyword line-number metadata only before registration, without source bodies. The initially planned surface_contact 370-445 display turned out to be tests and remains explicitly recorded; the actual production range was independently registered later. No tests executed.",
+  "source_integrity": "git-proofs.json preserves raw commit/tree chains; historical-index.json records exact 059 and 774 originals. Full archived support bytes do not imply whole-file personal reads.",
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F090",
+      "kind": "historical admission finding reconnected by current source",
+      "trace": "Constructor checks inward components finite and computed length > 0, then divides by that length. Vec3 length squares and sums f32 components before sqrt. For a finite component near f32::MAX, the square can overflow to +infinity under ordinary IEEE arithmetic, making the length check pass and normalization yield a zero vector. Separately, clearance is public and can later be assigned negative or nonfinite values despite the constructor gate. No normalization, ray or product was executed.",
+      "conditions": "A huge finite direction or subsequent invalid public clearance assignment must reach this API; ordinary producers, numerical range policy and native effects remain unestablished.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              10,
+              24
+            ],
+            [
+              30,
+              35
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+          "lines": [
+            [
+              15,
+              22
+            ],
+            [
+              61,
+              63
+            ],
+            [
+              73,
+              82
+            ],
+            [
+              214,
+              216
+            ],
+            [
+              231,
+              235
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 ADDITIONAL-121 and F090; original segovb READ-L11-434 already identified this conditional concern",
+        "059 q622 and q630 retain producer, frame and admission questions"
+      ],
+      "direction": "Determine supported directional magnitude and clearance policy, validate completed normalization and all updates as one coherent admitted outer-layer state; preserve zero clearance and inward orientation.",
+      "dedup": "Same historical F090, no added count."
+    },
+    {
+      "id": "RIG-ADMISSION03-F054",
+      "kind": "historical BVH topology boundary, reconnected through current outer-layer constructor",
+      "trace": "OuterLayer::new forwards supplied positions and faces directly to TriangleBvh::new. TriangleBvh constructs triangle bounds by indexing every provided vertex index. An empty positions vector with a triangle containing index 0 passes the outer direction/clearance checks if those are valid and reaches an out-of-range indexed access before BVH construction. This is a source-only symbolic case, not a run or actual caller.",
+      "conditions": "Caller supplies a mesh whose face indices do not belong to its positions; actual producers and desired empty/degenerate policy remain open.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              17,
+              24
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+          "lines": [
+            [
+              394,
+              402
+            ],
+            [
+              450,
+              458
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 F054, ADDITIONAL-121 and CONTRACT-712 retain separate topology/cache and caller obligations"
+      ],
+      "direction": "Own mesh topology and member index admission before indexed construction, preserving any intentionally supported empty triangle set.",
+      "dedup": "Reconnection to F054, no new count."
+    },
+    {
+      "id": "RIG-ADMISSION03-F083 / RIG-ADMISSION03-ADDITIONAL-132",
+      "kind": "related retained-shell topology and direct outer-layer face membership boundaries",
+      "trace": "Shell::new invokes ShellMesh::validate, which verifies triangle indices against the initial position count. Shell.triangles is public, and later host-contact projection passes it directly to OuterLayer. OuterLayer::project validates position/velocity/mass cardinality but its child project_surface indexes each supplied face into positions without a local membership check; surface_residual does the same. A caller can independently supply an out-of-range face to these public operations, or replace Shell.triangles after initial validation and run the host-contact path.",
+      "conditions": "Invalid face supplied directly or via post-construction mutation, plus a reachable host-contact projection or residual; no panic, product execution or malformed ordinary producer was observed. The direct method and Shell retained topology are distinct first sites; F054 is a separate upstream outer-surface BVH constructor.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              41,
+              51
+            ],
+            [
+              75,
+              89
+            ],
+            [
+              350,
+              376
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/mesh.rs",
+          "lines": [
+            [
+              85,
+              115
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              62,
+              84
+            ],
+            [
+              88,
+              101
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer/surface.rs",
+          "lines": [
+            [
+              16,
+              24
+            ],
+            [
+              45,
+              57
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 ADDITIONAL-132 already records direct face indexing and explicitly relates public Shell mutation F083",
+        "059 q622/q630/q1856 and prior shell contact packet remain separately attributed"
+      ],
+      "direction": "Resolve admission/ownership for both direct cloth-face APIs and retained shell topology, with coherent revalidation or replacement as appropriate. Preserve initial ShellMesh validation and legal topology/empty semantics.",
+      "dedup": "Related to F083 and ADDITIONAL-132; central decides whether direct API and retained-shell repair aliases coincide, no new count."
+    },
+    {
+      "id": "OUTER-LAYER-FIRST-HIT-ORIENTATION-POLICY",
+      "kind": "conditional current source observation, documented precondition and alias open",
+      "trace": "OuterLayer documents that all plate triangles must face inward but its constructor does not check winding. Ray/triangle intersection tests abs(determinant), admitting either facing, and BVH retains only the nearest hit. correction checks its selected triangle normal alignment afterward and returns None if alignment <= 1e-5. Thus, if a closer hit has opposing orientation and a farther aligned face also intersects within the search, the point correction does not continue to that farther face. A one-point residual can accordingly report no point correction. The child triangle-surface projection is separate and may still find or correct an overlap.",
+      "conditions": "The caller supplied a mesh violating the documented all-faces-inward precondition and a suitably placed nearer hit; no mesh, ray, BVH or projection executed. Input producers, actual reachability and whether to reject malformed winding or search differently are unestablished.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              17,
+              24
+            ],
+            [
+              27,
+              49
+            ],
+            [
+              54,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/aabb.rs",
+          "lines": [
+            [
+              273,
+              298
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+          "lines": [
+            [
+              327,
+              350
+            ],
+            [
+              442,
+              446
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer/surface.rs",
+          "lines": [
+            [
+              16,
+              39
+            ],
+            [
+              42,
+              57
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "Original segovb READ-L11-434 recorded ray-first/alignment policy and left actual direction/plate producer and query proof open",
+        "059 q622/q630 retain frame/outer-layer admission; related F090 orientation owner but no exact alias assumed"
+      ],
+      "direction": "Make the documented winding precondition enforceable or define the admissible nearest-facing query behavior, while preserving one-sided, finite open plate and overlap semantics.",
+      "dedup": "Candidate requires central reconciliation and policy decision; no unique count asserted."
+    },
+    {
+      "id": "RIG-ADMISSION03-F082",
+      "kind": "related previously identified particle aggregate, connected current outer-layer use",
+      "trace": "project_particles reads device positions and velocities but supplies host cached inverse_masses to project, then directly uploads positions and velocities on change. Public particle buffers may be independently replaced or written while count and cached masses stay private. If such an external native mass change succeeds, the projection can use and reupload cached rather than device mass words; readback length discrepancies can also encounter equal-length assertions.",
+      "conditions": "Requires independent public buffer mutation/replacement and any relevant successful native read/write, whose actual use and device behavior are unknown.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              62,
+              84
+            ],
+            [
+              88,
+              112
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "lines": [
+            [
+              21,
+              33
+            ],
+            [
+              108,
+              120
+            ],
+            [
+              139,
+              166
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              127,
+              130
+            ]
+          ]
+        }
+      ],
+      "historical_links": [
+        "774 F082 and separately published /root/mhr_character xpbd-particles report retain original aggregate finding and attribution"
+      ],
+      "direction": "Reconcile native particle buffers, count and host-mass provenance at the aggregate boundary.",
+      "dedup": "Related consequence of F082, not a new count."
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "The three particle-array lengths are asserted equal before the per-point loop, and zero mass intentionally skips prescribed particles. This does not prove face indices, numeric finiteness, or cache/device identity.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              62,
+              84
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Outer projection changes current positions and velocities without resetting previous positions; subsequent SurfaceContacts uses an interval start or previous buffer for swept contact, and Shell alternates outer/surface contacts. The source provides a plausible intentional reason, not proof that phase scheduling is complete or wrong.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              88,
+              112
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              89,
+              126
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "lines": [
+            [
+              253,
+              289
+            ],
+            [
+              344,
+              376
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Buffer::write forwards to native queue and returns Ok in its body. Sequential writes do not alone prove a later ordinary wrapper Err after an earlier success; native validation, device errors and panic semantics remain open.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              102,
+              112
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "lines": [
+            [
+              127,
+              130
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Body tests at 117-196 were personally displayed as text at both revisions but never executed. They state expectations, not product-validation results; the original 059/774 reviews excluded these lines.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "lines": [
+            [
+              117,
+              196
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "text": "The supplemental surface_contact.rs 370-445 window was prospectively registered but turned out to be test-source text; it was read and is preserved separately, never executed. The production 89-155 window has its own later registration.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "lines": [
+            [
+              89,
+              155
+            ],
+            [
+              370,
+              445
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which actual producer establishes inward unit direction, finite clearance, consistent oriented plate winding and outer-surface topology?",
+    "Are backwards-facing plate inputs rejected as invalid, or should point projection continue to farther acceptable faces? Surface projection and residual have separate roles.",
+    "Which callers invoke direct project/surface_residual with arbitrary faces, or mutate public Shell.triangles or particle buffers after validation?",
+    "Does host/device mass coherence hold for every supported native write, and what are device error/panic/publication semantics?",
+    "Which F054, F083, F090, F082 and 059 queue records are exact repair aliases versus related first sites? Central decides."
+  ],
+  "historical_recovery": {
+    "source_059": "history-059/ exact original files verified against published original transport manifest",
+    "l11": "segovb/READ-L11-434 and registration SEGOVB-1575: historical personal read lines 1-116, tests 117-196 excluded",
+    "l12": "segovb/READ-L12-919 root adoption states no root personal reread; /root/lens12_frontier personal registered read 1-116, registration PAR-L12-723 and partial receipt 919-001; 117-196 excluded",
+    "rig_774": "REG-121, ADDITIONAL-121, F090, F054, F082, F083, ADDITIONAL-132 and INITIAL06-GROUP-014 retained in exact f82 evidence transport; historical ranges and authors remain unchanged",
+    "queue": "queue-related-extract.json is a reconstructed subset of original baseline-059 queue entries 622,630,1856, not original separate records or closure",
+    "attribution": "No historical work or current support transfers to checkpoint3821, another reviewer or other-lens credit."
+  },
+  "previous_current_separate": [
+    {
+      "path": "ASSESSMENT-BVH-CLOTH-95E.json",
+      "sha256": "e655e9b3b4de0755f03a95a9b15fc30650f7ebc23ef98a6fb9b8d54290e19d4b",
+      "actual_source_scope": "previous central current support outer_layer.rs 1-70 only, no future ordered-role credit",
+      "relationship": "Existing ray endpoint, ray cache and boundary analyses are related generic BVH concerns, not assumed exact aliases."
+    },
+    {
+      "agent": "/root/mhr_character",
+      "path": "delegated/xpbd-particles-evidence.tar.gz",
+      "sha256": "cf1c7a386bc8bc97e1f7147985a3e8f0e232f620aed04cede82e28ffb5daf5c1",
+      "report_path": "delegated/xpbd-particles-report.json",
+      "report_sha256": "566417a3182f41910045d1190fbe5dca6929cf5949fb10915fbb97c4aa7393c7",
+      "relationship": "Earlier F082 source trace and independently registered particle full body are separately attributed; no current role read credit transfers."
+    },
+    {
+      "agent": "/root/mhr_character",
+      "path": "delegated/shell-contact-evidence.tar.gz",
+      "sha256": "824d7328963f0cc80c572eb85ca87daa1ccab05d10fe7040731c334f1896093f",
+      "report_path": "delegated/shell-contact-report.json",
+      "report_sha256": "7f4d2c1b20e54bb2011ebe8ed7125c7e4527bfec2b7d1161e75a4441c2cce186",
+      "relationship": "Prior shell/contact roles and findings, separate historical and current read attribution."
+    }
+  ],
+  "p16_and_checkpoint_qualification": "P16 is a separate dirty snapshot; a120 is recorded base and tracked patch later recovered with seven untracked files separately preserved. These pr-working records are not attributed to P16; no checkpoint3821 inferred.",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Shell host schedule invokes optional outer layer with the retained triangle list and particles, then optional surface contacts; later interval zero deliberately disables host contacts.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "OuterLayer owns fixed one-sided outer surface, XPBD owns inverse mass and GPU particle records, TriangleBvh owns generic ray query and triangle geometry.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "F090 leaves direction normalization and mutable clearance unsealed; F054 topology and direct cloth-face indexing require separate qualified admission.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "Finite vector components do not guarantee finite squared length; independently mutable clearance and public particle buffers can diverge from retained claims.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "Shell validates initial triangles, yet public topology and particles can later diverge from private prior arrays and surface contact state; F083/F082 remain connected.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "Fixed outer-layer orientation/clearance differs from dynamic surface contacts and generic BVH ownership; clipped barycentric values use existing XPBD owners.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "Cached host inverse masses and GPU position mass words may diverge under public buffer writes; no guarantee of successful device operation or real caller inferred.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Preserve pinned vertices, sliding velocity, supported zero clearance, finite open and overlapping plates, and intentional host-contact schedule choices.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "ParticleMobility::Prescribed represents pinned mode explicitly; one-sided normal direction is geometric data, not evidence of an enum change.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "No useful derive-only simplification established for retained BVH/normal/clearance state; avoid altering constructor semantics without evidence.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Distance clearance/tolerance, finite direction, barycentric weights and particle mass have distinct contracts; shared f32 storage does not merge owners.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "No semantic string selector exists in the assessed source; named array-shape assertions and forwarded native errors are distinct contracts.",
+      "status": "bounded source assessment, not lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "0.0005 m clearance tolerance, 0.1 projection factor, normal-degeneracy and alignment thresholds have distinct roles and cannot be merged from identical representation.",
+      "status": "bounded source assessment, not lens closure"
+    }
+  ],
+  "no_product_validation": "No product, simulation, GPU, shader, geometry query, test, fixture, build, probe, implementation, repair or publication edit. Test text was not executed."
+}

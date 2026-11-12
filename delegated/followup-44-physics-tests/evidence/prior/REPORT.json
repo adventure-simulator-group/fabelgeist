@@ -1,0 +1,675 @@
+{
+  "schema": "726-physics-contact-test-source-review-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:53:56.315307+00:00",
+  "scope": {
+    "roles": [
+      2650,
+      2651
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e had four unrelated modifications; each selected source object individually equals 6533 and 95e. f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not the product revision.",
+    "personal_reads": "Both old and current test bodies independently displayed after registration: role2650 1\u201354 and role2651 1\u201319. Current contact 1\u2013132, count 1\u201355, collider 1\u201390 and 210\u2013218, and fixture text 1\u201311 are separately registered support only. Read receipts explicitly give unread complements. Fixture 6533/95e Git bytes match, but no historical fixture personal read is claimed.",
+    "p16": "Separate dirty P16 snapshot based on a120, not a dirty commit. Later recovered tracked patch matches recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, with seven untracked separately. Matching does not prove original diff invocation or uninterrupted custody.",
+    "checkpoint3821": "This packet does not recover original checkpoint3821 ledger or queue and promotes no historical record to it."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "classification": "Existing 059 q479 and prior current physics-contact/collider-count finding; independently assessed current test-source relationship, zero new unique delta.",
+      "observation": "The 64-bit-only test calculates fit before growth and asserts fixture capacities and byte lengths. Current fixture explicitly expects 4294967295 -> 0 capacity/0 bytes and 4294967296 or 4294967312 -> retained 16 capacity/1024 bytes. The count type stores usize; fit truncates to u32 and next-power-of-two capacity truncates to u32. On a 64-bit host these expectations encode the same pre-existing narrowing behavior, not a safe-allocation or admission proof. The fixture is source text, not a run.",
+      "first_failed_contract": "Before this behavior reaches allocation, the full host count is not proven representable in the native count and capacity. Actual huge list reachability, hardware limits and queue consequences remain open.",
+      "future_repair_direction": "Preserve valid representable growth and empty-list semantics while deciding supported count/byte/device limits and rejecting unsupported extents before mutation; revisit invalid-wrap fixture expectations as part of any later repair. Do not mandate preserving invalid values under backward compatibility. No test or repair is performed here.",
+      "related_history": "774 RIG-ADMISSION03-ADDITIONAL-107 noted test text only, with fixture explicitly unread. RIG-ADMISSION03-F073-SUPPLEMENT-001 independently recorded native count/capacity boundary. 059 q479 and previous /root/rig_identity current physics packets retain their own authors, sources and scopes; do not automatically alias or increment counts.",
+      "sources": [
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            18
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            11
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            22
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            45
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            67,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "classification": "Existing 059 q480, earlier /root/rig_identity physics-contact narrowing; test coverage qualification only, zero new unique delta.",
+      "observation": "The test preserving host and uploaded words checks a count mismatch in update_colliders. The mismatched call returns before the write and host update. Separately set_colliders stores new capacity before a fallible Buffer::new, which is the source condition recorded by q480. Neither source assertion reaches or proves an allocation failure path; this inspection did not allocate, inject a fault or run a test.",
+      "first_failed_contract": "Conditional failure of buffer construction after assigning a changed capacity can leave retained capacity and old buffer out of step; actual fallibility and reachability require the prior packet\u2019s qualifications and later validation.",
+      "prior_narrowing": "Earlier independently attributed physics-collider-count report symbolically traced host count 2^31+1 to zero capacity and a separately read Buffer::new zero-length returned error, after assignment; this would leave capacity an underestimate. The original 059 hypothetical capacity larger than the old live allocation is not established by that branch. No product vector or allocation was made, and this packet did not re-read the buffer body.",
+      "future_repair_direction": "Reconcile construction and replacement as one aggregate transition, preserve old state if the relevant fallible operation returns, and retain q479 as a separate earlier count admission concern.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            34,
+            54
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            88
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            92,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+      "classification": "Existing 059 q435 and previous current question, zero new unique delta.",
+      "observation": "The test compares the exact current Display error string after the count mismatch; implementation constructs that message with both counts. The human text assertion is historical/current test source, not a runtime pass and not a requirement to preserve prose, invalid behavior, or compatibility.",
+      "future_repair_direction": "Keep semantic mismatch and observed state transition legible through the owning error; future tests or callers may need updating when the diagnostic is represented structurally.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            34,
+            53
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            92,
+            115
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_test_limits": [
+    {
+      "observation": "The ordinary growth test expects initial 16 slots, growth to 32 for 17 ground colliders, retained buffer bytes after empty replacement and unchanged tail after smaller replacement. These are source assertions about a normal case, not evidence of successful GPU allocation, queue write, readback or execution. Empty replacement and retained capacity are intentional cases to assess independently from oversized narrowing.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            4,
+            31
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            44
+          ]
+        },
+        {
+          "archive": "support/collider.rs",
+          "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            13
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            45,
+            56
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The expected packed bytes are generated by pack_colliders itself and compared with uploaded readback. This can check the chosen source-level transfer assertion if later executed, but cannot independently establish the intended collider word schema if the same packer is wrong. This is a bounded test-oracle observation, not a demonstrated defect or new separate finding.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        },
+        {
+          "archive": "support/collider.rs",
+          "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            211,
+            218
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Fixture 64-bit targeting excludes 32-bit test coverage and includes literal zero as an ordinary count; literal values and path strings in these fixture/test boundaries are not automatically semantic type defects. Raw f32 grounds in the test are authored inputs, not evidence of arbitrary collider shape admission.",
+      "sources": [
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            17
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            11
+          ]
+        },
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            18
+          ]
+        },
+        {
+          "archive": "support/collider.rs",
+          "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            64,
+            70
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774 admission03",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REGISTER-106",
+        "RIG-ADMISSION03-REGISTER-107",
+        "RIG-ADMISSION03-ADDITIONAL-106",
+        "RIG-ADMISSION03-ADDITIONAL-107",
+        "RIG-ADMISSION03-F073-SUPPLEMENT-001"
+      ],
+      "qualification": "Original independent test source reads 1\u201354/1\u201319 and F073 native boundary. ADD107 explicitly leaves fixture body unregistered and unread; neither ADD grants later-lens credit. Exact original records and f82 Git proofs hash-linked; selected published members verified."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical-059/segovb/READ-L11-433.json",
+      "qualification": "Records fresh historical 2650 1\u201354 and 2651 1\u201319; does not name an individual reader."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipt": "historical-059/segovb/READ-L12-914.json",
+      "qualification": "/root/lens12_frontier personal prospective untruncated read of original 2650 1\u201354 and 2651 1\u201319; root adoption has zero personal rereads. Explicitly does not read fixture body or count implementation by inclusion."
+    },
+    {
+      "origin": "earlier current reviews",
+      "records": [
+        "delegated/physics-contact-report.json",
+        "delegated/physics-collider-count-report.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      ],
+      "qualification": "Prior source reviews by /root/rig_identity and central conclusions are separately attributed. Role2482 original material is 1\u2013133 and 212\u2013218; 134\u2013211 is separately registered support. This packet independently displays its bounded support and does not transfer ordered credit."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "The mismatch test asserts exact human error text. It relates to q435; fixture include path is a compiler file boundary, not a domain classification.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            43,
+            49
+          ]
+        },
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Test ground and growth values and fixture values are literal examples; the latter express unsafe expected narrowing, already q479, not per-literal semantic-type findings.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            21
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Full host count and native capacity already have distinct owners in the count module; a checked executable boundary remains q479.",
+      "sources": [
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Test calls existing ColliderCount, ColliderCapacity and fit variants rather than proving other consumers are migrated.",
+      "sources": [
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            17
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Host count versus native capacity separation is meaningful but does not itself prove representability; no broad replacement or unique defect proposed.",
+      "sources": [
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            7
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            28
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "u32 casts in fit/growth and fixture wrap expectations are q479; exact device/allocator outcome is unobserved.",
+      "sources": [
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            44
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "q480 concerns capacity, buffer and host list across failed growth; the read update mismatch assertion is a separate early return.",
+      "sources": [
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            88
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            94,
+            115
+          ]
+        },
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            34,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Count construction admits host usize without checking native bounds, and the fixture does not establish safe allocation.",
+      "sources": [
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            10
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            44
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "ColliderCapacityFit already distinguishes retained/growth variants; no semantic enum defect established within this test source.",
+      "sources": [
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            15
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            48,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Pack-based expected output shares its implementation with upload payload; the test is not an independent specification of packing. q480 separately concerns stored capacity versus live buffer.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            22
+          ]
+        },
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            71,
+            80
+          ]
+        },
+        {
+          "archive": "support/collider.rs",
+          "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            211,
+            218
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Ordinary empty replacement, retained allocation and mismatch state assertions express specific intended cases. Oversized wrap expectations and exact old prose are not compatibility mandates.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            23,
+            31
+          ]
+        },
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            43,
+            53
+          ]
+        },
+        {
+          "archive": "support/collider-capacity.txt",
+          "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Source traces host Vec length into count, capacity, upload and retained list in the shown range; native consumers outside registered support require prior separately attributed evidence.",
+      "sources": [
+        {
+          "archive": "support/contact.rs",
+          "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            67,
+            88
+          ]
+        },
+        {
+          "archive": "support/count.rs",
+          "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No unnecessary handwritten trait or serialization boilerplate is established by the two test source bodies and bounded supporting definitions.",
+      "sources": [
+        {
+          "archive": "sources/2650-current-95e.rs",
+          "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            6
+          ]
+        },
+        {
+          "archive": "sources/2651-current-95e.rs",
+          "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            19
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What supported maximum collider count and buffer byte/device limits apply, and which actual producers could approach them?",
+    "Can the actual Buffer::new error path leave capacity and buffer mismatched under supported inputs? The prior report narrows known source cases; execution remains deferred.",
+    "What independent native packing contract and error taxonomy should later validation use?",
+    "How should the existing oversized fixture values be changed when checked admission is chosen, while preserving valid empty, growth and count-mismatch semantics?",
+    "How do F073 supplement, q479, q480 and shared native buffer questions map to exact owners and unique counts? Do not infer aliases from shared components."
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "git_proofs": "git-proofs.json",
+    "original_059": "historical-attribution.json",
+    "reconstructed_selected_registry": "registry-selection-reconstructed.json",
+    "reconstructed_selected_queue": "queue-selection-reconstructed.json",
+    "earlier_evidence_hash_links": "evidence-links.json",
+    "selected_published_archive_links": "published-prior-packet-links.json"
+  },
+  "limits": "Text inspection, mathematical reasoning and evidence verification only. No test, fixture, product, shader, allocation, simulation, build or runtime probe was run; no implementation or publication edit."
+}

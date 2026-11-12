@@ -1,0 +1,239 @@
+{
+  "schema": "726-xpbd-particle-support-attribution-addendum-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T10:32:54.095580+00:00",
+  "subject_report_sha256": "327855e181383304277ae1048e05d8d14d6176e6ff79d04235d9edb485c2a1f4",
+  "qualification": "Additive correction only; no frozen earlier report, receipt, product source or publication changed. New 2648–2649 support reads remain individually registered repeats, not a first-read claim, ordered-role credit or transferred earlier authorship. Tests displayed in previous receipts are source text, not execution.",
+  "earlier_reads": [
+    {
+      "reviewer": "/root/hair_ops",
+      "record": "hair-2668/read-receipt.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "scope": [
+        {
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "ranges": [
+            [
+              1,
+              116
+            ]
+          ],
+          "kind": "support only"
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "ranges": [
+            [
+              30,
+              55
+            ],
+            [
+              75,
+              90
+            ],
+            [
+              340,
+              385
+            ]
+          ],
+          "kind": "support only"
+        },
+        {
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "ranges": [
+            [
+              1,
+              115
+            ]
+          ],
+          "kind": "support only"
+        }
+      ]
+    },
+    {
+      "reviewer": "/root/mhr_character",
+      "record": "mhr-2658/read-receipt.json",
+      "scope": [
+        {
+          "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+          "original_role": 2658,
+          "revision_identities": [
+            "historical",
+            "95e current"
+          ],
+          "ranges": [
+            [
+              1,
+              196
+            ]
+          ],
+          "kind": "prior ordered-role full personal displays; original revision qualifiers in cited packet"
+        }
+      ]
+    },
+    {
+      "reviewer": "/root/mhr_character",
+      "record": "mhr-2658/support-read-receipt.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "scope": [
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "ranges": [
+            [
+              72,
+              105
+            ],
+            [
+              370,
+              445
+            ]
+          ],
+          "kind": "support only"
+        },
+        {
+          "path": "crates/fabelgeist-xpbd/src/particles.rs",
+          "ranges": [
+            [
+              21,
+              34
+            ],
+            [
+              87,
+              120
+            ],
+            [
+              139,
+              167
+            ]
+          ],
+          "kind": "support only"
+        }
+      ]
+    },
+    {
+      "reviewer": "/root/mhr_character",
+      "record": "mhr-2341-2342/read-receipt.json",
+      "scope": [
+        {
+          "path": "crates/fabelgeist-shell/src/shell.rs",
+          "original_role": 2341,
+          "revisions": [
+            "6533e444fa37552927070cc8d8190907fd3b413e",
+            "95e63628f9d70b8dd6e6fede64334696c6995009"
+          ],
+          "ranges": [
+            [
+              1,
+              408
+            ]
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+          "original_role": 2342,
+          "revisions": [
+            "6533e444fa37552927070cc8d8190907fd3b413e",
+            "95e63628f9d70b8dd6e6fede64334696c6995009"
+          ],
+          "ranges": [
+            [
+              1,
+              623
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": "No automatic finding alias or count is decided; the source traces and historical reviewer scopes remain separate. Additional earlier readers or findings may exist beyond this bounded addendum.",
+  "packets": [
+    {
+      "name": "main",
+      "manifest_file": "main/MANIFEST.json",
+      "manifest_sha256": "d9becd55d048de80fe1a5eb5f2a62151397e0c3b656a7ee22e83b221bb56146c",
+      "members": [
+        {
+          "source_name": "REPORT-FINAL.json",
+          "file": "main/REPORT-FINAL.json",
+          "sha256": "327855e181383304277ae1048e05d8d14d6176e6ff79d04235d9edb485c2a1f4",
+          "bytes": 20595
+        },
+        {
+          "source_name": "read-receipt.json",
+          "file": "main/read-receipt.json",
+          "sha256": "42f9b582e8c0cecbbf3844a88df5a8b3b3d8ebe50863d1bf1f3e0aeafcde829e",
+          "bytes": 10003
+        }
+      ]
+    },
+    {
+      "name": "hair-2668",
+      "manifest_file": "hair-2668/MANIFEST.json",
+      "manifest_sha256": "1f9656566604af02a4aff1f848431d8438b198fdc2aac3021ea4674af1277c2b",
+      "members": [
+        {
+          "source_name": "REPORT.json",
+          "file": "hair-2668/REPORT.json",
+          "sha256": "aae363ce15ffad2da3870210e735a7f52ae6da1cad38284d2d9ca0edd77f4068",
+          "bytes": 13922
+        },
+        {
+          "source_name": "read-receipt.json",
+          "file": "hair-2668/read-receipt.json",
+          "sha256": "4e98f0c09b95e6d0f1463db147f69e10993c4f7b1a8f2a67e13be340538aa846",
+          "bytes": 7443
+        }
+      ]
+    },
+    {
+      "name": "mhr-2658",
+      "manifest_file": "mhr-2658/BUNDLE-MANIFEST.json",
+      "manifest_sha256": "9010b0371a9d87767a0f2da8f076e49fb760b6a36e17f907f422933e79f30b08",
+      "members": [
+        {
+          "source_name": "report.json",
+          "file": "mhr-2658/report.json",
+          "sha256": "61d2d3491f3116f918c3f7e361ba460cb6acfeccbe604bc7cdc542cc5cc261fa",
+          "bytes": 37086
+        },
+        {
+          "source_name": "read-receipt.json",
+          "file": "mhr-2658/read-receipt.json",
+          "sha256": "8a62387d93a9c20b4c9ac2a658cfa4aacb16bb1bf6a3be4ca46cb31063b7751e",
+          "bytes": 866
+        },
+        {
+          "source_name": "support-read-receipt.json",
+          "file": "mhr-2658/support-read-receipt.json",
+          "sha256": "dad02687fc92e723f00b3720371c21dd2316be82eb49a2437c61ea66ffdf2ac6",
+          "bytes": 2823
+        }
+      ]
+    },
+    {
+      "name": "mhr-2341-2342",
+      "manifest_file": "mhr-2341-2342/BUNDLE-MANIFEST.json",
+      "manifest_sha256": "8e049f1a483cb8c9ec8634f2d9ec0dfe35444950e5732d5ce26345152128ba70",
+      "members": [
+        {
+          "source_name": "report.json",
+          "file": "mhr-2341-2342/report.json",
+          "sha256": "7f4d2c1b20e54bb2011ebe8ed7125c7e4527bfec2b7d1161e75a4441c2cce186",
+          "bytes": 27548
+        },
+        {
+          "source_name": "read-receipt.json",
+          "file": "mhr-2341-2342/read-receipt.json",
+          "sha256": "788b940ba3aaef2df2ffaf02ed51c8a6c5a50d5d946e137d382bf12facc411f1",
+          "bytes": 2601
+        },
+        {
+          "source_name": "registration.json",
+          "file": "mhr-2341-2342/registration.json",
+          "sha256": "e6ae499b33eae84c6e98d3680a0459682b2daa8be47b244ceb6c9c8cd0486592",
+          "bytes": 3543
+        }
+      ]
+    }
+  ]
+}

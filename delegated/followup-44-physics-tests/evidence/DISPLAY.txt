@@ -1,0 +1,374 @@
+=== 2650-historical-f82 ===
+   1 use super::*;
+   2 use crate::collider::COLLIDER_BYTES;
+   3 
+   4 async fn bytes(collision: &Collisions, context: &WgpuContext) -> Vec<u8> {
+   5     collision.collider_buffer.read(context).await.unwrap()
+   6 }
+   7 
+   8 #[tokio::test]
+   9 async fn growth_and_empty_replacement_keep_native_packing_and_retained_capacity() {
+  10     let context = WgpuContext::new().await.unwrap();
+  11     let cache = KernelCache::new();
+  12     let mut collision = Collisions::new(&context, &cache).unwrap();
+  13     assert_eq!(
+  14         u64::from(collision.collider_buffer.size),
+  15         (16 * COLLIDER_BYTES) as u64
+  16     );
+  17     let colliders: Vec<_> = (0..17).map(|i| Collider::ground(i as f32)).collect();
+  18     let expected = bytemuck::cast_slice::<f32, u8>(&pack_colliders(&colliders)).to_vec();
+  19     collision.set_colliders(&context, colliders).unwrap();
+  20     let uploaded = bytes(&collision, &context).await;
+  21     assert_eq!(uploaded.len(), 32 * COLLIDER_BYTES);
+  22     assert_eq!(&uploaded[..expected.len()], &expected);
+  23     collision.set_colliders(&context, vec![]).unwrap();
+  24     assert!(collision.colliders().is_empty());
+  25     assert_eq!(bytes(&collision, &context).await, uploaded);
+  26     collision
+  27         .set_colliders(&context, vec![Collider::ground(1.25)])
+  28         .unwrap();
+  29     let smaller = bytes(&collision, &context).await;
+  30     assert_eq!(smaller.len(), uploaded.len());
+  31     assert_eq!(&smaller[COLLIDER_BYTES..], &uploaded[COLLIDER_BYTES..]);
+  32 }
+  33 
+  34 #[tokio::test]
+  35 async fn rejected_update_keeps_host_list_and_uploaded_words() {
+  36     let context = WgpuContext::new().await.unwrap();
+  37     let cache = KernelCache::new();
+  38     let mut collision = Collisions::new(&context, &cache).unwrap();
+  39     collision
+  40         .set_colliders(&context, vec![Collider::ground(0.5)])
+  41         .unwrap();
+  42     let before = bytes(&collision, &context).await;
+  43     let error = collision
+  44         .update_colliders(&context, &[Collider::ground(1.0), Collider::ground(2.0)])
+  45         .unwrap_err();
+  46     assert_eq!(
+  47         error.to_string(),
+  48         "Collisions::update_colliders: holds 1 colliders, given 2; use `set_colliders` to change the count"
+  49     );
+  50     assert_eq!(collision.colliders().len(), 1);
+  51     assert_eq!(bytes(&collision, &context).await, before);
+  52     let held = bytemuck::cast_slice::<f32, u8>(&pack_colliders(collision.colliders())).to_vec();
+  53     assert_eq!(&before[..held.len()], &held);
+  54 }
+=== 2650-current-95e ===
+   1 use super::*;
+   2 use crate::collider::COLLIDER_BYTES;
+   3 
+   4 async fn bytes(collision: &Collisions, context: &WgpuContext) -> Vec<u8> {
+   5     collision.collider_buffer.read(context).await.unwrap()
+   6 }
+   7 
+   8 #[tokio::test]
+   9 async fn growth_and_empty_replacement_keep_native_packing_and_retained_capacity() {
+  10     let context = WgpuContext::new().await.unwrap();
+  11     let cache = KernelCache::new();
+  12     let mut collision = Collisions::new(&context, &cache).unwrap();
+  13     assert_eq!(
+  14         u64::from(collision.collider_buffer.size),
+  15         (16 * COLLIDER_BYTES) as u64
+  16     );
+  17     let colliders: Vec<_> = (0..17).map(|i| Collider::ground(i as f32)).collect();
+  18     let expected = bytemuck::cast_slice::<f32, u8>(&pack_colliders(&colliders)).to_vec();
+  19     collision.set_colliders(&context, colliders).unwrap();
+  20     let uploaded = bytes(&collision, &context).await;
+  21     assert_eq!(uploaded.len(), 32 * COLLIDER_BYTES);
+  22     assert_eq!(&uploaded[..expected.len()], &expected);
+  23     collision.set_colliders(&context, vec![]).unwrap();
+  24     assert!(collision.colliders().is_empty());
+  25     assert_eq!(bytes(&collision, &context).await, uploaded);
+  26     collision
+  27         .set_colliders(&context, vec![Collider::ground(1.25)])
+  28         .unwrap();
+  29     let smaller = bytes(&collision, &context).await;
+  30     assert_eq!(smaller.len(), uploaded.len());
+  31     assert_eq!(&smaller[COLLIDER_BYTES..], &uploaded[COLLIDER_BYTES..]);
+  32 }
+  33 
+  34 #[tokio::test]
+  35 async fn rejected_update_keeps_host_list_and_uploaded_words() {
+  36     let context = WgpuContext::new().await.unwrap();
+  37     let cache = KernelCache::new();
+  38     let mut collision = Collisions::new(&context, &cache).unwrap();
+  39     collision
+  40         .set_colliders(&context, vec![Collider::ground(0.5)])
+  41         .unwrap();
+  42     let before = bytes(&collision, &context).await;
+  43     let error = collision
+  44         .update_colliders(&context, &[Collider::ground(1.0), Collider::ground(2.0)])
+  45         .unwrap_err();
+  46     assert_eq!(
+  47         error.to_string(),
+  48         "Collisions::update_colliders: holds 1 colliders, given 2; use `set_colliders` to change the count"
+  49     );
+  50     assert_eq!(collision.colliders().len(), 1);
+  51     assert_eq!(bytes(&collision, &context).await, before);
+  52     let held = bytemuck::cast_slice::<f32, u8>(&pack_colliders(collision.colliders())).to_vec();
+  53     assert_eq!(&before[..held.len()], &held);
+  54 }
+=== 2651-historical-f82 ===
+   1 use super::*;
+   2 
+   3 #[test]
+   4 #[cfg(target_pointer_width = "64")]
+   5 fn preserves_main_host_growth_before_native_narrowing() {
+   6     for line in include_str!("../../../tests/fixtures/collider-capacity.txt").lines() {
+   7         let values: Vec<u64> = line
+   8             .split_whitespace()
+   9             .map(|v| v.parse().unwrap())
+  10             .collect();
+  11         let count = ColliderCount::from(values[0] as usize);
+  12         let capacity = match ColliderCapacity::INITIAL.fit(count) {
+  13             ColliderCapacityFit::Retained => ColliderCapacity::INITIAL,
+  14             ColliderCapacityFit::GrowthRequired => ColliderCapacity::for_count(count),
+  15         };
+  16         assert_eq!(capacity.0 as u64, values[1]);
+  17         assert_eq!(u64::from(capacity.byte_length()), values[2]);
+  18     }
+  19 }
+=== 2651-current-95e ===
+   1 use super::*;
+   2 
+   3 #[test]
+   4 #[cfg(target_pointer_width = "64")]
+   5 fn preserves_main_host_growth_before_native_narrowing() {
+   6     for line in include_str!("../../../tests/fixtures/collider-capacity.txt").lines() {
+   7         let values: Vec<u64> = line
+   8             .split_whitespace()
+   9             .map(|v| v.parse().unwrap())
+  10             .collect();
+  11         let count = ColliderCount::from(values[0] as usize);
+  12         let capacity = match ColliderCapacity::INITIAL.fit(count) {
+  13             ColliderCapacityFit::Retained => ColliderCapacity::INITIAL,
+  14             ColliderCapacityFit::GrowthRequired => ColliderCapacity::for_count(count),
+  15         };
+  16         assert_eq!(capacity.0 as u64, values[1]);
+  17         assert_eq!(u64::from(capacity.byte_length()), values[2]);
+  18     }
+  19 }
+=== contact ===
+  45 impl Collisions {
+  46     pub fn new(context: &WgpuContext, cache: &KernelCache) -> Result<Self> {
+  47         Ok(Self {
+  48             analytic_kernel: cache.get(context, &wgsl::analytic_source())?,
+  49             mesh_kernel: cache.get(context, &MeshCollider::kernel_source())?,
+  50             colliders: Vec::new(),
+  51             collider_buffer: Buffer::new(
+  52                 context,
+  53                 ColliderCapacity::INITIAL.byte_length(),
+  54                 BufferDefinition::storage().with_label(("colliders").into()),
+  55             )?,
+  56             collider_capacity: ColliderCapacity::INITIAL,
+  57             mesh: None,
+  58             particle_radius: 0.0,
+  59             enabled: true,
+  60         })
+  61     }
+  62 
+  63     pub fn colliders(&self) -> &[Collider] {
+  64         &self.colliders
+  65     }
+  66 
+  67     fn collider_count(&self) -> ColliderCount {
+  68         ColliderCount::from(self.colliders.len())
+  69     }
+  70 
+  71     /// Replace the analytic collider list and upload it.
+  72     pub fn set_colliders(&mut self, context: &WgpuContext, colliders: Vec<Collider>) -> Result<()> {
+  73         let count = ColliderCount::from(colliders.len());
+  74         if self.collider_capacity.fit(count) == ColliderCapacityFit::GrowthRequired {
+  75             self.collider_capacity = ColliderCapacity::for_count(count);
+  76             self.collider_buffer = Buffer::new(
+  77                 context,
+  78                 self.collider_capacity.byte_length(),
+  79                 BufferDefinition::storage().with_label(("colliders").into()),
+  80             )?;
+  81         }
+  82         if !colliders.is_empty() {
+  83             self.collider_buffer.write(
+  84                 context,
+  85                 BufferUpload::from_elements(&pack_colliders(&colliders)),
+  86             )?;
+  87         }
+  88         self.colliders = colliders;
+  89         Ok(())
+  90     }
+  91 
+  92     /// Move the shapes without changing how many there are -- an animated
+  93     /// skeleton driving a set of capsules, frame by frame.
+  94     pub fn update_colliders(
+  95         &mut self,
+  96         context: &WgpuContext,
+  97         colliders: &[Collider],
+  98     ) -> Result<()> {
+  99         let held = self.collider_count();
+ 100         let provided = ColliderCount::from(colliders.len());
+ 101         if provided != held {
+ 102             return Err(anyhow!(
+ 103                 "Collisions::update_colliders: holds {} colliders, given {}; use `set_colliders` to change the count",
+ 104                 held,
+ 105                 provided
+ 106             ));
+ 107         }
+ 108         if !colliders.is_empty() {
+ 109             self.collider_buffer.write(
+ 110                 context,
+ 111                 BufferUpload::from_elements(&pack_colliders(colliders)),
+ 112             )?;
+ 113         }
+ 114         self.colliders = colliders.to_vec();
+ 115         Ok(())
+ 116     }
+ 117 
+ 118     pub fn set_mesh(&mut self, mesh: Option<MeshCollider>) {
+ 119         self.mesh = mesh;
+ 120     }
+ 121 
+ 122     /// Record the resolve passes for one substep.
+ 123     pub fn record(&self, batch: &mut KernelBatch, particles: &Particles) -> Result<()> {
+ 124         if !self.enabled {
+ 125             return Ok(());
+ 126         }
+ 127         let count = particles.count();
+ 128         if count == 0 {
+ 129             return Ok(());
+ 130         }
+ 131 
+ 132         if self.collider_count() != ColliderCount::EMPTY {
+=== count ===
+   1 //! Full host list cardinality and native allocation targets retain distinct roles.
+   2 use crate::collider::COLLIDER_BYTES;
+   3 use fabelgeist_gpu::prelude::{BufferByteLength, PassParameters};
+   4 
+   5 /// Full host length, retained through update admission and its diagnostics.
+   6 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+   7 pub(super) struct ColliderCount(usize);
+   8 impl From<usize> for ColliderCount {
+   9     fn from(colliders: usize) -> Self {
+  10         Self(colliders)
+  11     }
+  12 }
+  13 impl std::fmt::Display for ColliderCount {
+  14     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+  15         self.0.fmt(f)
+  16     }
+  17 }
+  18 impl ColliderCount {
+  19     pub(super) const EMPTY: Self = Self(0);
+  20     pub(super) fn bind(self, parameters: &mut PassParameters) {
+  21         parameters.insert("collider_count", self.0 as u32);
+  22     }
+  23 }
+  24 
+  25 /// Native capacity selected by allocation policy, without proving a live buffer.
+  26 /// Growth retains host rounding followed by unsigned-word truncation.
+  27 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  28 pub(super) struct ColliderCapacity(u32);
+  29 impl ColliderCapacity {
+  30     // Reserve 16 collider slots (1 KiB). Larger lists grow the buffer
+  31     // to the next power of two.
+  32     pub(super) const INITIAL: Self = Self(16);
+  33     pub(super) fn for_count(count: ColliderCount) -> Self {
+  34         Self(count.0.next_power_of_two() as u32)
+  35     }
+  36     pub(super) fn fit(self, count: ColliderCount) -> ColliderCapacityFit {
+  37         if count.0 as u32 > self.0 {
+  38             ColliderCapacityFit::GrowthRequired
+  39         } else {
+  40             ColliderCapacityFit::Retained
+  41         }
+  42     }
+  43     pub(super) fn byte_length(self) -> BufferByteLength {
+  44         (u64::from(self.0) * COLLIDER_BYTES as u64).into()
+  45     }
+  46 }
+  47 
+  48 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  49 pub(super) enum ColliderCapacityFit {
+  50     Retained,
+  51     GrowthRequired,
+  52 }
+  53 
+  54 #[cfg(test)]
+  55 mod tests;
+=== packer ===
+ 210 
+ 211 /// Pack a whole list for upload.
+ 212 pub fn pack_colliders(colliders: &[Collider]) -> Vec<f32> {
+ 213     let mut packed = Vec::with_capacity(colliders.len() * 16);
+ 214     for collider in colliders {
+ 215         packed.extend_from_slice(&collider.pack());
+ 216     }
+ 217     packed
+ 218 }
+=== capacity-fixture ===
+   1 0 16 1024
+   2 1 16 1024
+   3 16 16 1024
+   4 17 32 2048
+   5 32 32 2048
+   6 33 64 4096
+   7 64 64 4096
+   8 65 128 8192
+   9 4294967295 0 0
+  10 4294967296 16 1024
+  11 4294967312 16 1024
+=== gpu-buffer ===
+  22 impl Buffer {
+  23     pub fn new(
+  24         context: &WgpuContext,
+  25         bytes: BufferByteLength,
+  26         definition: BufferDefinition,
+  27     ) -> Result<Buffer> {
+  28         if u64::from(bytes) == 0 {
+  29             return Err(anyhow!("Buffer size must be greater than 0"));
+  30         }
+  31         let buffer = definition.allocate_native(context, bytes);
+  32         let usage = buffer.usage();
+  33         Ok(Buffer {
+  34             buffer: Arc::new(buffer),
+  35             size: bytes,
+  36             usage,
+  37         })
+ 127     pub fn write(&self, context: &WgpuContext, data: BufferUpload<'_>) -> Result<()> {
+ 128         data.write_to(context, &self.buffer, BufferByteOffset::START);
+ 129         Ok(())
+ 130     }
+ 131 
+ 132     /// Write one host upload at a checked byte address within this buffer.
+ 133     pub fn write_at(
+ 134         &self,
+ 135         context: &WgpuContext,
+ 136         at: BufferByteOffset,
+ 137         data: BufferUpload<'_>,
+ 138     ) -> Result<()> {
+ 139         let end = at
+ 140             .checked_after(data.length())
+ 141             .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
+ 142         if u64::from(end) > u64::from(self.size) {
+ 143             return Err(anyhow!(
+ 144                 "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
+ 145                 data.length(),
+ 146                 self.size
+ 147             ));
+ 148         }
+ 149         data.write_to(context, &self.buffer, at);
+ 150         Ok(())
+=== gpu-definition ===
+ 119     pub(super) fn allocate_native(
+ 120         &self,
+ 121         context: &WgpuContext,
+ 122         length: BufferByteLength,
+ 123     ) -> wgpu::Buffer {
+ 124         let usage = match self.usage {
+ 125             UsageSelection::Unspecified => GENERAL_USAGE,
+ 126             UsageSelection::Explicit(flags) => flags,
+ 127         };
+ 128         context.device.create_buffer(&wgpu::BufferDescriptor {
+ 129             label: self.label.as_ref().map(<&str>::from),
+ 130             size: u64::from(length),
+ 131             usage,
+ 132             mapped_at_creation: false,
+ 133         })

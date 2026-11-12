@@ -1,0 +1,861 @@
+{
+  "schema": "726-13m-review-public-manifest-v1",
+  "files": [
+    {
+      "path": "EVIDENCE-IDENTITIES.json",
+      "bytes": 144589,
+      "sha256": "ea57dd62b3660addc07f5da803dd665bd007622bb161bb5fa30be190e49656d0"
+    },
+    {
+      "path": "GIT-PROOF-QUALIFICATION.json",
+      "bytes": 21727,
+      "sha256": "6dee852877f73ae965ab77d52e7ff68be8771b7165bb5475fe424d43626dba2f"
+    },
+    {
+      "path": "REPORT.json",
+      "bytes": 2410,
+      "sha256": "268e18a5fcb3df96595f63755b5810bf4c3bef0f6eac2497120b8bc7809599c8"
+    },
+    {
+      "path": "bundle/corrected/FINAL-REVIEW.json",
+      "bytes": 5896,
+      "sha256": "6ad953cb1f1bef162a16a0f9605a827072e8595c14843b2976b2a8c42d5bea16"
+    },
+    {
+      "path": "bundle/corrected/MANIFEST.json",
+      "bytes": 15742,
+      "sha256": "147412c14d05e79a8c73855d079da4c76d502dcd01fc6a2e6ebba64c20c2d3c7"
+    },
+    {
+      "path": "bundle/corrected/coordinator/EXT-DISPLAY.txt",
+      "bytes": 1082,
+      "sha256": "87dcbe985eb8e22ff6489b6dbb42a41424e069a967d73394a809ebfe8fa5d17f"
+    },
+    {
+      "path": "bundle/corrected/coordinator/EXT-READ-RECEIPT.json",
+      "bytes": 1660,
+      "sha256": "b1eee0036e30018336024e83617c9d599f4b35d622a4e6c898afe9c02227439b"
+    },
+    {
+      "path": "bundle/corrected/coordinator/EXT-REGISTRATION.json",
+      "bytes": 1935,
+      "sha256": "7958fb0ef04d9ac510c23021d865624b24478ae4878c43556f2d9d5690db6284"
+    },
+    {
+      "path": "bundle/corrected/coordinator/FINAL-ASSESSMENT.json",
+      "bytes": 7974,
+      "sha256": "ac429433dd7c22ab6d0db209a410bd867c48e87a76516c4734841471fe9ad68f"
+    },
+    {
+      "path": "bundle/corrected/freeze.py",
+      "bytes": 800,
+      "sha256": "58d1dfe0f68db647b6ef01097eb76fe2166f0ac5c1c053c05e64b2e1c938cc55"
+    },
+    {
+      "path": "bundle/corrected/initial/INITIAL-REVIEW.json",
+      "bytes": 7271,
+      "sha256": "e3136dc3ff3c8ab89c87909f47b36b241769e9f4718ab0c626e8fdbc2b2bb576"
+    },
+    {
+      "path": "bundle/corrected/initial/MANIFEST.json",
+      "bytes": 13510,
+      "sha256": "b3a09e212700d250c45fd17cc8f779c078e453b0fe07201eab6dd02b59e094ec"
+    },
+    {
+      "path": "bundle/corrected/initial/READ-RECEIPT.json",
+      "bytes": 5038,
+      "sha256": "41a7b91eec05939ade4e10228d2ebf12ec6ee865f28ccc10dbcee155c79bc87c"
+    },
+    {
+      "path": "bundle/corrected/initial/REGISTRATION-NO-COLLIDER.json",
+      "bytes": 783,
+      "sha256": "368b3b338584977395f471ce76125bf06f3ac4e276b5db8dc78f52d8ec7a6400"
+    },
+    {
+      "path": "bundle/corrected/initial/REGISTRATION-SUPPORT.json",
+      "bytes": 866,
+      "sha256": "9c173b2df62430c6a3e58db21e182999857b71271d23ddc4e3950ba7a3e33a3f"
+    },
+    {
+      "path": "bundle/corrected/initial/REGISTRATION-VEC3.json",
+      "bytes": 692,
+      "sha256": "3e5d77c6b533b64243765e96aa3b597ae69757f99c901a9cf58e15fbdb55671b"
+    },
+    {
+      "path": "bundle/corrected/initial/REGISTRATION.json",
+      "bytes": 5184,
+      "sha256": "8289a0946847b23ce1d51a9685348ddbbfa08839100fe4d9bd4cc7ac9b49f250"
+    },
+    {
+      "path": "bundle/corrected/initial/SELECTED-059-QUEUE.json",
+      "bytes": 6668,
+      "sha256": "eecd7db270116f774570d85be07fba603ba276df78417ad4818829dd6bed3827"
+    },
+    {
+      "path": "bundle/corrected/initial/build-git-proofs.py",
+      "bytes": 3417,
+      "sha256": "2386c07c4aef5a88db722e9585befc366a7e63d391582262de0aeaf0699961e7"
+    },
+    {
+      "path": "bundle/corrected/initial/coordinator/ASSESSMENT.json",
+      "bytes": 6582,
+      "sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106"
+    },
+    {
+      "path": "bundle/corrected/initial/coordinator/DISPLAY.txt",
+      "bytes": 12984,
+      "sha256": "164f2e7c97c6797abcdef24fddc584dc0597db4751ce8d44d70c9084f535089e"
+    },
+    {
+      "path": "bundle/corrected/initial/coordinator/READ-RECEIPT.json",
+      "bytes": 2731,
+      "sha256": "abd54c14747f372a4d0a53f58bf5d03f65d9e61aae5284623618adbdf81f2bda"
+    },
+    {
+      "path": "bundle/corrected/initial/coordinator/REGISTRATION.json",
+      "bytes": 2775,
+      "sha256": "54efa8473528db37760422dd92d860ff9caf77867b1beb8ae9b8157fbac8c078"
+    },
+    {
+      "path": "bundle/corrected/initial/freeze.py",
+      "bytes": 868,
+      "sha256": "b371a4062c375cd6285e2b1722ac2c6cfecb256541a0b71e191503a3bf6ef84d"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 1570,
+      "sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1342,
+      "sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/23df7f4ab0311795012eaabc5ec6b1c41d4c7138.tree.gz",
+      "bytes": 123,
+      "sha256": "2170ef2226c9d89f6eaca22cb083946004f84203106d9c47f7abe4de1f221569"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/24058ea041b7fd4511c1c03aa139632b2b567766.tree.gz",
+      "bytes": 85,
+      "sha256": "4596d87640e504142dcaa8aeb5dd55cbdca95f565744885a8bca1d95ae12abfe"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/3a2b6d01672fbc0d98280b96c7a8c52e757e0aba.tree.gz",
+      "bytes": 274,
+      "sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/4600136a2483a4cb86c1f24ad935526bc0f3d53b.tree.gz",
+      "bytes": 230,
+      "sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz",
+      "bytes": 1375,
+      "sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/582e8db0e2fa71b625f0f68b3d76c9362c187068.tree.gz",
+      "bytes": 1603,
+      "sha256": "a0cfbdbbdc3403fd18f00bbd0e1e27d732dd0608cb047382d14ed4da019dacf6"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/6a4ef721af8c0227d9b600a51b78df9571fb9569.tree.gz",
+      "bytes": 209,
+      "sha256": "52cc760d4afc9044ef88fe56ea91f214d660b3aa7c28eb5667981985e0e2b8e6"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/70cda9939284355c2264b601322aacba9399e65e.tree.gz",
+      "bytes": 651,
+      "sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/7423337fc37ec3b8a37050eeb1f356399d509c02.tree.gz",
+      "bytes": 88,
+      "sha256": "1f4327c03ea01cde061dd4119c3b91c6e3ff3d704e5da75a289c27e9aab4645e"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/90ebd59b3dd61e8e0513f8036527b843b2af36d8.tree.gz",
+      "bytes": 198,
+      "sha256": "4ce0d40679b236034d86c804a1e2a88f0a43db398764c5b795469ded104887cf"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/91a77f1fdceefea3dd01dfde76fd19949c588083.tree.gz",
+      "bytes": 49,
+      "sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/922b8f36699af8b53b9a2c17f40ce5fd1a5a870a.tree.gz",
+      "bytes": 88,
+      "sha256": "2d63a7e1dc539e4a5357eeb231d0f911285d0236534ff5579aef9ff4d7d80744"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+      "bytes": 817,
+      "sha256": "0204e3abaa8a219f27381796c6961ef06195784cc98b364817b38f3cf4941000"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/aa429781cfab78d01cfec365dd9477cfaf305c2f.tree.gz",
+      "bytes": 199,
+      "sha256": "e36f03c88a37486e5c3645dfd228b285a18219c766092503a800a58fca1fcb29"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/ab7156f6d023931ad3d64952611ae14d1bdcab5a.tree.gz",
+      "bytes": 3844,
+      "sha256": "f7c167196a2857c67fa47f206a4966b6fec52800311e8971042bd4a7531b42a9"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/af71accb661b13ba145fc8723f0dfa048046ada8.tree.gz",
+      "bytes": 967,
+      "sha256": "fd5c53dc835d64e8371f8afd295834454518c672797134d84885db8d15ec3233"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/bb54fa4e2f032f8451aafa8cd6a5349dcd6cbd95.tree.gz",
+      "bytes": 321,
+      "sha256": "af68425eb23d9c8d5edcf0d9d1b3c1699405c43ffade0473e5bd69c36afedf85"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/e4d47f7f252598ca10955b542385c8dbcc50f02f.tree.gz",
+      "bytes": 1353,
+      "sha256": "47255c55560a291a23f3ebfbe73f44e7dc364c9a1ec4d6c0de1386f956b27c00"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/f52f5a9194bd3808ec5279289319b9a2d12033d6.tree.gz",
+      "bytes": 7825,
+      "sha256": "12499e3c98b787487e2f3be8808b568ca0ff361255e6fdb50d24a0ec024bf651"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/f6f23d2487f4ab81878c07bc174a4dd917d1b3c2.tree.gz",
+      "bytes": 243,
+      "sha256": "3aa94b55817f4aa897ba6c5076bf4807e8400744c4bd9761155cab421658e69e"
+    },
+    {
+      "path": "bundle/corrected/initial/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+      "bytes": 345,
+      "sha256": "a5870156da38d6230d62faef62dbbdf5f6fbf91ba56d645c66df474c1c86f1cd"
+    },
+    {
+      "path": "bundle/corrected/initial/git-proofs.json",
+      "bytes": 22255,
+      "sha256": "dea62fe1461380fdf0243b32317c0253bd900683b12c4ef12c5561e246208789"
+    },
+    {
+      "path": "bundle/corrected/initial/history/baseline-059-queue-committed-2e1f.json.gz",
+      "bytes": 1438711,
+      "sha256": "8c56a5c61dd2f658ec737b10ba6af08bcd4090d5c54fdede43db0879044f0b88"
+    },
+    {
+      "path": "bundle/corrected/initial/history/baseline-059-queue-committed-d7.json.gz",
+      "bytes": 1438715,
+      "sha256": "301d2350a741e6aa24647a891e6aaa58ad00b8de89f7be63e0582cd70dab5cd4"
+    },
+    {
+      "path": "bundle/corrected/initial/ledger/committed.json.gz",
+      "bytes": 198205,
+      "sha256": "1fdade20173a009e268989f96351547ad37a01b660534fc7782726665cfeae1d"
+    },
+    {
+      "path": "bundle/corrected/initial/ledger/working.json.gz",
+      "bytes": 199691,
+      "sha256": "e43ef12da6bc65ce4d77b3ea0c55d95e0747097724e42f94ca159ff6f89605e8"
+    },
+    {
+      "path": "bundle/corrected/initial/previous-own-surface-grid/MANIFEST.json",
+      "bytes": 18029,
+      "sha256": "a630eef1c5146230b2a8a299b6e7af632f51d5271a2d10bfa1e5b0e570370a45"
+    },
+    {
+      "path": "bundle/corrected/initial/previous-own-surface-grid/REPORT-FINAL-ORIGINAL.json",
+      "bytes": 20128,
+      "sha256": "2d4183fe4d94cd197391370212aea3ec3ab081b9be6418d163de947496d1d2e6"
+    },
+    {
+      "path": "bundle/corrected/initial/previous-own-surface-grid/read-receipt.json",
+      "bytes": 11958,
+      "sha256": "2831032c5aad09dbc647796f8834c82f7d8ff09c78339b3a97f48d369cc356a0"
+    },
+    {
+      "path": "bundle/corrected/initial/prior19/MANIFEST.json",
+      "bytes": 15480,
+      "sha256": "a3be43882f82cadc568e77039954192c400571d3806a636bcb62409ad5c698ed"
+    },
+    {
+      "path": "bundle/corrected/initial/prior19/historical-index.json",
+      "bytes": 6302,
+      "sha256": "26276d99dc3b7901ef60d21715909986282bca669523258b91bc4c395fd5686a"
+    },
+    {
+      "path": "bundle/corrected/initial/prior19/read-receipt.json",
+      "bytes": 1279,
+      "sha256": "82f614e31eb7802137dcf53f6ba0481a4460d9124e10f0a6d9ccc1a68a22b05c"
+    },
+    {
+      "path": "bundle/corrected/initial/prior19/registration.json",
+      "bytes": 4420,
+      "sha256": "6cca729689eecb910922cb7c7e17909cba91eca9060dc3caf050284a1854de39"
+    },
+    {
+      "path": "bundle/corrected/initial/prior19/report.json",
+      "bytes": 32566,
+      "sha256": "5ab0a61ae4eed56dfaa66588d28f8da97d50221545a8913a194b682671ab5bde"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/BUNDLE-MANIFEST.json",
+      "bytes": 19078,
+      "sha256": "1dbb895c8b5415cd6c8ea0c9a5ba8f75de96eeb419fc86f400bef3846ba9360c"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/READ-RECEIPT-MORE.json",
+      "bytes": 2158,
+      "sha256": "e14d62cb485e679b5d204350e8a450bfe0c19fcf1641f2ed251a42c8d61d2f96"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/READ-RECEIPT-THIRD.json",
+      "bytes": 923,
+      "sha256": "e984a90e014ac8b58e74dcce3dcd33f9657558e49e0f0ebf4815c4e596671366"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/READ-RECEIPT.json",
+      "bytes": 4830,
+      "sha256": "77c8d185ab873fad9cd9877c9630deef25deb9a14fa05e1cbf75d82467ca7ae2"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/REGISTRATION-MORE.json",
+      "bytes": 2483,
+      "sha256": "6ccd1708775925825a392611817223bdaa71da2c6310ff6fd792274559274040"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/REGISTRATION-THIRD.json",
+      "bytes": 858,
+      "sha256": "44659f88eda79fd82e57c81caee19580d87c276552fa002794cc821a301d2732"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/REGISTRATION.json",
+      "bytes": 5562,
+      "sha256": "249f29cbbbd4af34432cf1852947ca2ec5866d662574e9785c713d0ee7cb41cc"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/REPORT.json",
+      "bytes": 23829,
+      "sha256": "b7dfaa292f523a9cc9392657a942d8d4ea970eb2e594a762dd26cc923ae81a14"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-059/READ-L11-432.json",
+      "bytes": 12224,
+      "sha256": "a36bcc33bd025be8daa99515729fc6803bcec9227698427fa2b731d6ae274765"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-059/READ-L12-912.json",
+      "bytes": 16994,
+      "sha256": "41a084a94e9f94d6d7d54dbeba930eaa70b19ca2528499e6832ead4649e43978"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-059/REGISTRATION-PAR-L12-710.json",
+      "bytes": 3702,
+      "sha256": "b998b495603781f33119cb41845038a65ab46728259fb7b2ce554552585deb4d"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-059/REGISTRATION-SEGOVB-1561.json",
+      "bytes": 710,
+      "sha256": "56f733a5ff4d475d5a10edfc1e6a42071ded144c9468b9481f3894600100a3e6"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-774/additional-contracts.jsonl.gz",
+      "bytes": 32962,
+      "sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-774/contract-groups.jsonl.gz",
+      "bytes": 324271,
+      "sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-774/findings.jsonl.gz",
+      "bytes": 36945,
+      "sha256": "09371b8278be1c30b578dfd7e95de0e0fd64a818452776b82e2bb168e95c65be"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/historical-774/source-range-registration.jsonl.gz",
+      "bytes": 24085,
+      "sha256": "3aab433578f35f0c43c9b271a3ac6087cc88c12523335df18ab8289ee0b8019b"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/history/ledger-selection.json",
+      "bytes": 9811,
+      "sha256": "afd349aa6693ffcd975fc6babad51186685f48491b61e7f4927f433d03156196"
+    },
+    {
+      "path": "bundle/corrected/initial/prior42/history/queue-selection.json",
+      "bytes": 19170,
+      "sha256": "684d59d4d4b044691a838c0bf1ce1f872face8c958981798d2e0a55bb8349412"
+    },
+    {
+      "path": "bundle/corrected/initial/rules/character-creator-AGENTS.md",
+      "bytes": 556,
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7"
+    },
+    {
+      "path": "bundle/corrected/initial/rules/crates-AGENTS.md",
+      "bytes": 12051,
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "bundle/corrected/initial/source/bvh.rs",
+      "bytes": 16479,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2"
+    },
+    {
+      "path": "bundle/corrected/initial/source/cap.rs",
+      "bytes": 10064,
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8"
+    },
+    {
+      "path": "bundle/corrected/initial/source/collider.rs",
+      "bytes": 5730,
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021"
+    },
+    {
+      "path": "bundle/corrected/initial/source/groom.rs",
+      "bytes": 8315,
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9"
+    },
+    {
+      "path": "bundle/corrected/initial/source/vec3.rs",
+      "bytes": 5816,
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143"
+    },
+    {
+      "path": "bundle/corrected/initial/verify-initial-review.py",
+      "bytes": 5463,
+      "sha256": "470e1b593c4247fe7c29476bd3fad9b5e2f6cfca55db0c36012e5e09c110527c"
+    },
+    {
+      "path": "bundle/corrected/initial/write-initial-review.py",
+      "bytes": 9860,
+      "sha256": "ea6b27d227b533b846b9b0bcc7c6baf934ed570211f2162e798c38792a554938"
+    },
+    {
+      "path": "bundle/corrected/verify-final-review.py",
+      "bytes": 3603,
+      "sha256": "b5db5cafa73a60d1a8c5ca8ebbdac60c1cc9a73c5f0c888cbdd4a2beab15c254"
+    },
+    {
+      "path": "bundle/corrected/write-final-review-v2.py",
+      "bytes": 7241,
+      "sha256": "0567a8e2b0f2765221f9bc1500fef50ad4900caed5593dd19fa38a0fb1e2a9d1"
+    },
+    {
+      "path": "bundle/corrected/write-final-review.py",
+      "bytes": 6945,
+      "sha256": "6a3886f7b7acb30078f3d6a4bd6ef279b7e39a17ac5005e6bf8b5eeef77ec702"
+    },
+    {
+      "path": "bundle/original/INITIAL-REVIEW.json",
+      "bytes": 7271,
+      "sha256": "e3136dc3ff3c8ab89c87909f47b36b241769e9f4718ab0c626e8fdbc2b2bb576"
+    },
+    {
+      "path": "bundle/original/MANIFEST.json",
+      "bytes": 13510,
+      "sha256": "b3a09e212700d250c45fd17cc8f779c078e453b0fe07201eab6dd02b59e094ec"
+    },
+    {
+      "path": "bundle/original/READ-RECEIPT.json",
+      "bytes": 5038,
+      "sha256": "41a7b91eec05939ade4e10228d2ebf12ec6ee865f28ccc10dbcee155c79bc87c"
+    },
+    {
+      "path": "bundle/original/REGISTRATION-NO-COLLIDER.json",
+      "bytes": 783,
+      "sha256": "368b3b338584977395f471ce76125bf06f3ac4e276b5db8dc78f52d8ec7a6400"
+    },
+    {
+      "path": "bundle/original/REGISTRATION-SUPPORT.json",
+      "bytes": 866,
+      "sha256": "9c173b2df62430c6a3e58db21e182999857b71271d23ddc4e3950ba7a3e33a3f"
+    },
+    {
+      "path": "bundle/original/REGISTRATION-VEC3.json",
+      "bytes": 692,
+      "sha256": "3e5d77c6b533b64243765e96aa3b597ae69757f99c901a9cf58e15fbdb55671b"
+    },
+    {
+      "path": "bundle/original/REGISTRATION.json",
+      "bytes": 5184,
+      "sha256": "8289a0946847b23ce1d51a9685348ddbbfa08839100fe4d9bd4cc7ac9b49f250"
+    },
+    {
+      "path": "bundle/original/SELECTED-059-QUEUE.json",
+      "bytes": 6668,
+      "sha256": "eecd7db270116f774570d85be07fba603ba276df78417ad4818829dd6bed3827"
+    },
+    {
+      "path": "bundle/original/build-git-proofs.py",
+      "bytes": 3417,
+      "sha256": "2386c07c4aef5a88db722e9585befc366a7e63d391582262de0aeaf0699961e7"
+    },
+    {
+      "path": "bundle/original/coordinator/ASSESSMENT.json",
+      "bytes": 6582,
+      "sha256": "3b03e72fb781089e7974fe20c2e96ce66ceaa505963f281af61f6d3056f02106"
+    },
+    {
+      "path": "bundle/original/coordinator/DISPLAY.txt",
+      "bytes": 12984,
+      "sha256": "164f2e7c97c6797abcdef24fddc584dc0597db4751ce8d44d70c9084f535089e"
+    },
+    {
+      "path": "bundle/original/coordinator/READ-RECEIPT.json",
+      "bytes": 2731,
+      "sha256": "abd54c14747f372a4d0a53f58bf5d03f65d9e61aae5284623618adbdf81f2bda"
+    },
+    {
+      "path": "bundle/original/coordinator/REGISTRATION.json",
+      "bytes": 2775,
+      "sha256": "54efa8473528db37760422dd92d860ff9caf77867b1beb8ae9b8157fbac8c078"
+    },
+    {
+      "path": "bundle/original/freeze.py",
+      "bytes": 868,
+      "sha256": "b371a4062c375cd6285e2b1722ac2c6cfecb256541a0b71e191503a3bf6ef84d"
+    },
+    {
+      "path": "bundle/original/git-objects/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 1570,
+      "sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73"
+    },
+    {
+      "path": "bundle/original/git-objects/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1342,
+      "sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c"
+    },
+    {
+      "path": "bundle/original/git-objects/23df7f4ab0311795012eaabc5ec6b1c41d4c7138.tree.gz",
+      "bytes": 123,
+      "sha256": "2170ef2226c9d89f6eaca22cb083946004f84203106d9c47f7abe4de1f221569"
+    },
+    {
+      "path": "bundle/original/git-objects/24058ea041b7fd4511c1c03aa139632b2b567766.tree.gz",
+      "bytes": 85,
+      "sha256": "4596d87640e504142dcaa8aeb5dd55cbdca95f565744885a8bca1d95ae12abfe"
+    },
+    {
+      "path": "bundle/original/git-objects/3a2b6d01672fbc0d98280b96c7a8c52e757e0aba.tree.gz",
+      "bytes": 274,
+      "sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8"
+    },
+    {
+      "path": "bundle/original/git-objects/4600136a2483a4cb86c1f24ad935526bc0f3d53b.tree.gz",
+      "bytes": 230,
+      "sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2"
+    },
+    {
+      "path": "bundle/original/git-objects/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz",
+      "bytes": 1375,
+      "sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64"
+    },
+    {
+      "path": "bundle/original/git-objects/582e8db0e2fa71b625f0f68b3d76c9362c187068.tree.gz",
+      "bytes": 1603,
+      "sha256": "a0cfbdbbdc3403fd18f00bbd0e1e27d732dd0608cb047382d14ed4da019dacf6"
+    },
+    {
+      "path": "bundle/original/git-objects/6a4ef721af8c0227d9b600a51b78df9571fb9569.tree.gz",
+      "bytes": 209,
+      "sha256": "52cc760d4afc9044ef88fe56ea91f214d660b3aa7c28eb5667981985e0e2b8e6"
+    },
+    {
+      "path": "bundle/original/git-objects/70cda9939284355c2264b601322aacba9399e65e.tree.gz",
+      "bytes": 651,
+      "sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14"
+    },
+    {
+      "path": "bundle/original/git-objects/7423337fc37ec3b8a37050eeb1f356399d509c02.tree.gz",
+      "bytes": 88,
+      "sha256": "1f4327c03ea01cde061dd4119c3b91c6e3ff3d704e5da75a289c27e9aab4645e"
+    },
+    {
+      "path": "bundle/original/git-objects/90ebd59b3dd61e8e0513f8036527b843b2af36d8.tree.gz",
+      "bytes": 198,
+      "sha256": "4ce0d40679b236034d86c804a1e2a88f0a43db398764c5b795469ded104887cf"
+    },
+    {
+      "path": "bundle/original/git-objects/91a77f1fdceefea3dd01dfde76fd19949c588083.tree.gz",
+      "bytes": 49,
+      "sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7"
+    },
+    {
+      "path": "bundle/original/git-objects/922b8f36699af8b53b9a2c17f40ce5fd1a5a870a.tree.gz",
+      "bytes": 88,
+      "sha256": "2d63a7e1dc539e4a5357eeb231d0f911285d0236534ff5579aef9ff4d7d80744"
+    },
+    {
+      "path": "bundle/original/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+      "bytes": 817,
+      "sha256": "0204e3abaa8a219f27381796c6961ef06195784cc98b364817b38f3cf4941000"
+    },
+    {
+      "path": "bundle/original/git-objects/aa429781cfab78d01cfec365dd9477cfaf305c2f.tree.gz",
+      "bytes": 199,
+      "sha256": "e36f03c88a37486e5c3645dfd228b285a18219c766092503a800a58fca1fcb29"
+    },
+    {
+      "path": "bundle/original/git-objects/ab7156f6d023931ad3d64952611ae14d1bdcab5a.tree.gz",
+      "bytes": 3844,
+      "sha256": "f7c167196a2857c67fa47f206a4966b6fec52800311e8971042bd4a7531b42a9"
+    },
+    {
+      "path": "bundle/original/git-objects/af71accb661b13ba145fc8723f0dfa048046ada8.tree.gz",
+      "bytes": 967,
+      "sha256": "fd5c53dc835d64e8371f8afd295834454518c672797134d84885db8d15ec3233"
+    },
+    {
+      "path": "bundle/original/git-objects/bb54fa4e2f032f8451aafa8cd6a5349dcd6cbd95.tree.gz",
+      "bytes": 321,
+      "sha256": "af68425eb23d9c8d5edcf0d9d1b3c1699405c43ffade0473e5bd69c36afedf85"
+    },
+    {
+      "path": "bundle/original/git-objects/e4d47f7f252598ca10955b542385c8dbcc50f02f.tree.gz",
+      "bytes": 1353,
+      "sha256": "47255c55560a291a23f3ebfbe73f44e7dc364c9a1ec4d6c0de1386f956b27c00"
+    },
+    {
+      "path": "bundle/original/git-objects/f52f5a9194bd3808ec5279289319b9a2d12033d6.tree.gz",
+      "bytes": 7825,
+      "sha256": "12499e3c98b787487e2f3be8808b568ca0ff361255e6fdb50d24a0ec024bf651"
+    },
+    {
+      "path": "bundle/original/git-objects/f6f23d2487f4ab81878c07bc174a4dd917d1b3c2.tree.gz",
+      "bytes": 243,
+      "sha256": "3aa94b55817f4aa897ba6c5076bf4807e8400744c4bd9761155cab421658e69e"
+    },
+    {
+      "path": "bundle/original/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+      "bytes": 345,
+      "sha256": "a5870156da38d6230d62faef62dbbdf5f6fbf91ba56d645c66df474c1c86f1cd"
+    },
+    {
+      "path": "bundle/original/git-proofs.json",
+      "bytes": 22255,
+      "sha256": "dea62fe1461380fdf0243b32317c0253bd900683b12c4ef12c5561e246208789"
+    },
+    {
+      "path": "bundle/original/history/baseline-059-queue-committed-2e1f.json.gz",
+      "bytes": 1438711,
+      "sha256": "8c56a5c61dd2f658ec737b10ba6af08bcd4090d5c54fdede43db0879044f0b88"
+    },
+    {
+      "path": "bundle/original/history/baseline-059-queue-committed-d7.json.gz",
+      "bytes": 1438715,
+      "sha256": "301d2350a741e6aa24647a891e6aaa58ad00b8de89f7be63e0582cd70dab5cd4"
+    },
+    {
+      "path": "bundle/original/ledger/committed.json.gz",
+      "bytes": 198205,
+      "sha256": "1fdade20173a009e268989f96351547ad37a01b660534fc7782726665cfeae1d"
+    },
+    {
+      "path": "bundle/original/ledger/working.json.gz",
+      "bytes": 199691,
+      "sha256": "e43ef12da6bc65ce4d77b3ea0c55d95e0747097724e42f94ca159ff6f89605e8"
+    },
+    {
+      "path": "bundle/original/previous-own-surface-grid/MANIFEST.json",
+      "bytes": 18029,
+      "sha256": "a630eef1c5146230b2a8a299b6e7af632f51d5271a2d10bfa1e5b0e570370a45"
+    },
+    {
+      "path": "bundle/original/previous-own-surface-grid/REPORT-FINAL-ORIGINAL.json",
+      "bytes": 20128,
+      "sha256": "2d4183fe4d94cd197391370212aea3ec3ab081b9be6418d163de947496d1d2e6"
+    },
+    {
+      "path": "bundle/original/previous-own-surface-grid/read-receipt.json",
+      "bytes": 11958,
+      "sha256": "2831032c5aad09dbc647796f8834c82f7d8ff09c78339b3a97f48d369cc356a0"
+    },
+    {
+      "path": "bundle/original/prior19/MANIFEST.json",
+      "bytes": 15480,
+      "sha256": "a3be43882f82cadc568e77039954192c400571d3806a636bcb62409ad5c698ed"
+    },
+    {
+      "path": "bundle/original/prior19/historical-index.json",
+      "bytes": 6302,
+      "sha256": "26276d99dc3b7901ef60d21715909986282bca669523258b91bc4c395fd5686a"
+    },
+    {
+      "path": "bundle/original/prior19/read-receipt.json",
+      "bytes": 1279,
+      "sha256": "82f614e31eb7802137dcf53f6ba0481a4460d9124e10f0a6d9ccc1a68a22b05c"
+    },
+    {
+      "path": "bundle/original/prior19/registration.json",
+      "bytes": 4420,
+      "sha256": "6cca729689eecb910922cb7c7e17909cba91eca9060dc3caf050284a1854de39"
+    },
+    {
+      "path": "bundle/original/prior19/report.json",
+      "bytes": 32566,
+      "sha256": "5ab0a61ae4eed56dfaa66588d28f8da97d50221545a8913a194b682671ab5bde"
+    },
+    {
+      "path": "bundle/original/prior42/BUNDLE-MANIFEST.json",
+      "bytes": 19078,
+      "sha256": "1dbb895c8b5415cd6c8ea0c9a5ba8f75de96eeb419fc86f400bef3846ba9360c"
+    },
+    {
+      "path": "bundle/original/prior42/READ-RECEIPT-MORE.json",
+      "bytes": 2158,
+      "sha256": "e14d62cb485e679b5d204350e8a450bfe0c19fcf1641f2ed251a42c8d61d2f96"
+    },
+    {
+      "path": "bundle/original/prior42/READ-RECEIPT-THIRD.json",
+      "bytes": 923,
+      "sha256": "e984a90e014ac8b58e74dcce3dcd33f9657558e49e0f0ebf4815c4e596671366"
+    },
+    {
+      "path": "bundle/original/prior42/READ-RECEIPT.json",
+      "bytes": 4830,
+      "sha256": "77c8d185ab873fad9cd9877c9630deef25deb9a14fa05e1cbf75d82467ca7ae2"
+    },
+    {
+      "path": "bundle/original/prior42/REGISTRATION-MORE.json",
+      "bytes": 2483,
+      "sha256": "6ccd1708775925825a392611817223bdaa71da2c6310ff6fd792274559274040"
+    },
+    {
+      "path": "bundle/original/prior42/REGISTRATION-THIRD.json",
+      "bytes": 858,
+      "sha256": "44659f88eda79fd82e57c81caee19580d87c276552fa002794cc821a301d2732"
+    },
+    {
+      "path": "bundle/original/prior42/REGISTRATION.json",
+      "bytes": 5562,
+      "sha256": "249f29cbbbd4af34432cf1852947ca2ec5866d662574e9785c713d0ee7cb41cc"
+    },
+    {
+      "path": "bundle/original/prior42/REPORT.json",
+      "bytes": 23829,
+      "sha256": "b7dfaa292f523a9cc9392657a942d8d4ea970eb2e594a762dd26cc923ae81a14"
+    },
+    {
+      "path": "bundle/original/prior42/historical-059/READ-L11-432.json",
+      "bytes": 12224,
+      "sha256": "a36bcc33bd025be8daa99515729fc6803bcec9227698427fa2b731d6ae274765"
+    },
+    {
+      "path": "bundle/original/prior42/historical-059/READ-L12-912.json",
+      "bytes": 16994,
+      "sha256": "41a084a94e9f94d6d7d54dbeba930eaa70b19ca2528499e6832ead4649e43978"
+    },
+    {
+      "path": "bundle/original/prior42/historical-059/REGISTRATION-PAR-L12-710.json",
+      "bytes": 3702,
+      "sha256": "b998b495603781f33119cb41845038a65ab46728259fb7b2ce554552585deb4d"
+    },
+    {
+      "path": "bundle/original/prior42/historical-059/REGISTRATION-SEGOVB-1561.json",
+      "bytes": 710,
+      "sha256": "56f733a5ff4d475d5a10edfc1e6a42071ded144c9468b9481f3894600100a3e6"
+    },
+    {
+      "path": "bundle/original/prior42/historical-774/additional-contracts.jsonl.gz",
+      "bytes": 32962,
+      "sha256": "4697454b16671aec5924190a66b5d9e064d0b7289ebb93f1651d24e5e287fa5b"
+    },
+    {
+      "path": "bundle/original/prior42/historical-774/contract-groups.jsonl.gz",
+      "bytes": 324271,
+      "sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1"
+    },
+    {
+      "path": "bundle/original/prior42/historical-774/findings.jsonl.gz",
+      "bytes": 36945,
+      "sha256": "09371b8278be1c30b578dfd7e95de0e0fd64a818452776b82e2bb168e95c65be"
+    },
+    {
+      "path": "bundle/original/prior42/historical-774/source-range-registration.jsonl.gz",
+      "bytes": 24085,
+      "sha256": "3aab433578f35f0c43c9b271a3ac6087cc88c12523335df18ab8289ee0b8019b"
+    },
+    {
+      "path": "bundle/original/prior42/history/ledger-selection.json",
+      "bytes": 9811,
+      "sha256": "afd349aa6693ffcd975fc6babad51186685f48491b61e7f4927f433d03156196"
+    },
+    {
+      "path": "bundle/original/prior42/history/queue-selection.json",
+      "bytes": 19170,
+      "sha256": "684d59d4d4b044691a838c0bf1ce1f872face8c958981798d2e0a55bb8349412"
+    },
+    {
+      "path": "bundle/original/rules/character-creator-AGENTS.md",
+      "bytes": 556,
+      "sha256": "b222ba01455443717c807738e311b12d8ded9a33cd95084b35870943357898a7"
+    },
+    {
+      "path": "bundle/original/rules/crates-AGENTS.md",
+      "bytes": 12051,
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23"
+    },
+    {
+      "path": "bundle/original/source/bvh.rs",
+      "bytes": 16479,
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2"
+    },
+    {
+      "path": "bundle/original/source/cap.rs",
+      "bytes": 10064,
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8"
+    },
+    {
+      "path": "bundle/original/source/collider.rs",
+      "bytes": 5730,
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021"
+    },
+    {
+      "path": "bundle/original/source/groom.rs",
+      "bytes": 8315,
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9"
+    },
+    {
+      "path": "bundle/original/source/vec3.rs",
+      "bytes": 5816,
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143"
+    },
+    {
+      "path": "bundle/original/verify-initial-review.py",
+      "bytes": 5463,
+      "sha256": "470e1b593c4247fe7c29476bd3fad9b5e2f6cfca55db0c36012e5e09c110527c"
+    },
+    {
+      "path": "bundle/original/write-initial-review.py",
+      "bytes": 9860,
+      "sha256": "ea6b27d227b533b846b9b0bcc7c6baf934ed570211f2162e798c38792a554938"
+    },
+    {
+      "path": "bundle/verifier-addendum/MANIFEST.json",
+      "bytes": 391,
+      "sha256": "44a30f9753160a88e8c63ddbdbe4d8543931c7d6eda38b29e099e4315f7ddd3e"
+    },
+    {
+      "path": "bundle/verifier-addendum/REPORT.json",
+      "bytes": 847,
+      "sha256": "dafe4226db044b0ff6fff5d580a43f7a5f563964052fd523ff8263e28210e71c"
+    },
+    {
+      "path": "bundle/verifier-addendum/verify-final-review-successor.py",
+      "bytes": 3623,
+      "sha256": "f7e6e2d811d976d2f19687a75b6d0303c4e9c6fdff54080b9144762fd90198c8"
+    },
+    {
+      "path": "verify-public-evidence.py",
+      "bytes": 7345,
+      "sha256": "59953ad89a6f23a3d6f6024de8782585a12f88ef332d538e52795f6c4b937d1d"
+    }
+  ],
+  "qualification": "Original manifests remain historical assertions; reconstructed path and Git identity bytes require crosswalk. Evidence checks only."
+}

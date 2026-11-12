@@ -1,0 +1,48 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Coordinator reconciliation of the previously proposed hair mesh no-hit and sampled-clearance questions, including the later negative-reach elaboration. This is not a whole-lens review.",
+  "central_display_evidence": {
+    "registration": "delegated/central-13m-collider/REGISTRATION.json",
+    "display": "delegated/central-13m-collider/DISPLAY.txt",
+    "receipt": "delegated/central-13m-collider/READ-RECEIPT.json"
+  },
+  "source_references": [
+    {"path": "crates/fabelgeist-hair/src/collider.rs", "lines": [[15, 38], [41, 106], [108, 160]]},
+    {"path": "crates/fabelgeist-bvh/src/cpu/mod.rs", "lines": [[297, 324], [422, 439]]},
+    {"path": "crates/adventuresim-character-creator/src/hair/groom.rs", "lines": [[19, 21], [103, 137]]},
+    {"path": "crates/adventuresim-character-creator/src/hair/cap.rs", "lines": [[30, 32], [68, 87], [175, 218]]}
+  ],
+  "observations": [
+    {
+      "candidate": "local-candidate-mesh-reach-no-hit-semantics",
+      "trace": "The public mesh constructor retains reach as supplied. Its bounded closest-point query squares that value for traversal, while a miss returns the original reach and a synthetic upward direction. On a conceptual valid closed mesh, an interior point farther from every triangle than positive reach receives that same positive miss tuple; no supported placement producing such a miss is established.",
+      "consumer": "The selected creator passes 0.1 m for its shown body and bust mesh colliders. ScalpCap::fit treats the tuple as a measured distance and projects the carried point along its supplied direction. For a positive 0.1 m miss, the first projection uses the synthetic upward vector and 0.0004 m lift, shifting downward by approximately 0.0996 m before later sampled clear_skin work. No final geometry or actual model result is established.",
+      "negative_reach": "If a supported direct caller supplies negative reach and a query remains beyond its magnitude, the squared search radius can miss while returning a negative distance. With offset zero, push_out can then repeatedly move in the synthetic upward direction, at most six iterations. This later consumer elaboration does not establish a supported negative input or a separate unique finding.",
+      "safeguard": "The two selected creator constructions shown supply positive reach. The documented no-hit fallback may be intentional under a proved near-surface caller precondition; no such complete precondition or global caller population is established here."
+    },
+    {
+      "candidate": "local-candidate-keep-clear-between-samples",
+      "trace": "keep_clear fixes the root, first applies an endpoint-distance bound, then samples only quarter, half and three-quarter points of a segment. Its bounded passes do not alone establish continuous clearance between those samples.",
+      "conceptual_geometry": "In ideal real arithmetic, a first segment from x=0 to 0.08 m and a sphere centered at x=0.01 m with radius 0.004 m intersect over x=0.006 to 0.014 m. With clearance 0.0015 m, the endpoint bound does not skip the segment, but its three sample signed distances are 0.006, 0.026 and 0.046 m; each exceeds the clearance. This is a trait-permitted mathematical illustration, not an instantiated fixture, an observed float run, or an actual generated hairstyle.",
+      "safeguard": "Fewer than two points return, work is pass-bounded, and the root is deliberately fixed. Whether these consumers require continuous clearance or a specified sampled approximation remains a policy question."
+    }
+  ],
+  "historical_relationships": [
+    "Checkpoint19 /root/mhr_character proposed both named candidates with separately registered historical and 95e displays. The later followup42 collider packet by the same author independently re-displayed its declared ranges and added the negative-reach consumer elaboration; repeated reads do not transfer author credit.",
+    "Recovered 774 rig CONTRACT-628 already records the negative-radius-squared admission question, and F054 covers related raw topology; that review excluded the later hair MeshCollider body. Recovered 059 READ-L11-432 records sampled-versus-continuous clearance as an open question. Preserve their distinct source scopes and attribution.",
+    "The reconstructed public selection of recovered 059 queue q1843 includes Collider and push_out admission among broader unresolved work. This assessment is related and partial; it neither proves a precise historical alias nor closes the queue entry. q1844 and q1845 are broader and remain separately open.",
+    "The existing REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E concerns a different mixed finite/infinite input and consumer. A finite mesh miss is not assumed to witness it. The prior hair-field topology assessment and F054 retain their own first-operation and producer questions."
+  ],
+  "ledger_qualification": "Reconnect the two previously proposed local candidate identities as conditional ledger relationships. This changes neither historical counts nor the number of independent defects; exact aliases and common repair ownership are unresolved.",
+  "open": [
+    "Trace supported constructors, negative and nonfinite reach producers, actual carried cap placement and no-hit preconditions; decide when a projection requires a true signed hit.",
+    "Resolve continuous versus sampled clearance expectations and allowable error for actual callers; retain deliberate no-obstacle, fixed-root and bounded-work behavior.",
+    "Trace BodySurface producers, topology and native admission; decide relationships to F054, CONTRACT-628, q1843–q1845 and the existing mixed-infinite question without assuming aliases.",
+    "All broader source scopes, thirteen lenses, semantic queue obligations and the missing original checkpoint3821 ledger and queue remain open."
+  ],
+  "repair_direction_for_later": "After policy and separate implementation authorization, define query reach and no-hit ownership across consumers and specify clearance/error guarantees without conflating a miss, a signed hit and the intentional no-obstacle state.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "Coordinator source reconciliation has not yet received a separate independent semantic review. The referenced checkpoint19 and followup42 source packets were authored by /root/mhr_character; historical readers remain separately attributed."
+}

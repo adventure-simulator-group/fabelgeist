@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""Recover and bind history without editing source, publication, or extraction."""
+import gzip,hashlib,io,json,subprocess,sys,tarfile
+from pathlib import Path
+p=Path(__file__).resolve().parent;repo,extract,prior=map(Path,sys.argv[1:]);h=lambda b:hashlib.sha256(b).hexdigest();blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();git=lambda *a:subprocess.check_output(['git','-C',str(repo),'--no-replace-objects',*a]);cur='95e63628f9d70b8dd6e6fede64334696c6995009';f82='f82adcabd9d89c4fa2dd7f99253a45297a0681ee';pub='d7b14a15ef132422eca86e7d898b47423af92779'
+def put(name,b):
+ q=p/name;q.parent.mkdir(parents=True,exist_ok=True)
+ with q.open('xb') as f:f.write(b)
+def js(name,x):put(name,(json.dumps(x,indent=2,ensure_ascii=True)+'\n').encode())
+def gz(b):return gzip.compress(b,compresslevel=9,mtime=0)
+prior_index=git('show',pub+':DELEGATED-EVIDENCE-CHECKPOINT-20.json');idx=json.loads(prior_index);packet=next(x for x in idx['bundles'] if x['bundle_id']=='physics-contact-test-source');archive=git('show',pub+':'+packet['archive']);assert (len(archive),h(archive))==(packet['archive_bytes'],packet['archive_sha256'])
+prior_manifest=(prior/'MANIFEST.json').read_bytes();manifest=json.loads(prior_manifest);orig={x['path']:x for x in manifest['files']};names=['REPORT.json','registration.json','support-registration.json','personal-read-receipt.json','historical-attribution.json','registry-selection-reconstructed.json','queue-selection-reconstructed.json'];selected=[]
+with tarfile.open(fileobj=io.BytesIO(archive),mode='r:gz') as t:
+ members={m.name:m for m in t.getmembers()};pubindex={x['path']:x for x in packet['members']}
+ for name in names:
+  raw=(prior/name).read_bytes();assert (len(raw),h(raw))==(orig[name]['bytes'],orig[name]['sha256']);published=t.extractfile(members[name]).read();item=pubindex[name];assert h(raw)==item['original_sha256'] and h(published)==item['published_sha256'];put('prior/'+name,raw)
+  if raw!=published:put('prior/published-'+name,published)
+  selected.append({'path':name,'original_sha256':h(raw),'published_sha256':h(published),'equal':raw==published,'original_archive':'prior/'+name,'published_archive':None if raw==published else 'prior/published-'+name})
+put('prior/MANIFEST.json',prior_manifest);put('prior/checkpoint20-index.json',prior_index)
+js('prior/PRIOR-INDEX.json',{'schema':'726-physics-tests-prior-binding-v1','author':'/root/rig_identity','checkpoint_revision':pub,'checkpoint_index_sha256':h(prior_index),'published_archive_path':packet['archive'],'published_archive_sha256':h(archive),'original_manifest_sha256':h(prior_manifest),'selected_members':selected,'qualification':'Previous reviewer, source scope and current read credit stay separate. Published variants and original bytes have distinct identities if changed. Complete prior archive is externally hash-linked, not copied.'})
+transport=git('show',pub+':recovered/original-transport-manifest.json.gz');mi=json.loads(gzip.decompress(transport));lookup={x['path']:x for x in mi['entries']};put('history/059-transport-manifest.json.gz',transport)
+hist=json.loads((prior/'historical-attribution.json').read_bytes());records=[]
+for x in hist['records_059']:
+ d=(extract/x['original_path']).read_bytes();prior_data=(prior/x['preserved_bytes']).read_bytes();assert d==prior_data and (len(d),h(d),blob(d))==(x['bytes'],x['sha256'],x['git_blob']);z=lookup[x['original_path']];assert (z['bytes'],z['sha256'],z['git_blob'])==(len(d),h(d),blob(d));n='history/059/'+x['original_path'];put(n,d);records.append({'original_path':x['original_path'],'archive':n,'bytes':len(d),'sha256':h(d),'git_blob':blob(d)})
+registry=(extract/'evidence/audit05/original-scope-072.json').read_bytes();assert h(registry)=='d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f';registry_path='handoff/774/adler-original/audit/continuation/cumulative-source-scope-parallel-072.json';assert git('show',f82+':'+registry_path)==registry;put('history/registry-original.json.gz',gz(registry));r=json.loads(registry);assert [r['files'][i]['material_ranges'] for i in (2650,2651)]==[[[1,54]],[[1,19]]];pr=next(x for x in r['snapshots'] if x['id']=='pr-working');assert pr['head']=='6533e444fa37552927070cc8d8190907fd3b413e' and len(pr['status_porcelain'])==4
+queue=(extract/'workflow-20261030/CLOSURE-QUEUE-100.json').read_bytes();assert h(queue)=='2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08';q=json.loads(queue);later=git('show',pub+':baseline-059/queue.json');q2=json.loads(later);entries=[]
+for i in (435,479,480):assert q['entries'][i]==q2['entries'][i];entries.append({'index_zero_based':i,'entry':q['entries'][i]})
+js('history/QUEUE-SELECTION.json',{'schema':'726-physics-tests-059-selection-v1','original_queue_sha256':h(queue),'original_queue_bytes':len(queue),'original_git_blob':blob(queue),'later_committed_revision':pub,'later_queue_sha256':h(later),'selected_equal':True,'entries':entries,'qualification':'Newly reconstructed selected records only, not an original whole queue, no promotion to 3821; whole queue bytes differ.'})
+ref={'roles':{str(i):r['files'][i] for i in (2650,2651)},'pr_working':pr,'p16':next(x for x in r['snapshots'] if x['id']=='physical-p16')};js('history/REGISTRY-SELECTION.json',ref)
+base='handoff/774/adler-original/audit/continuation/rig/admission03/';sourcefiles={}
+for name in ['source-range-registration.jsonl','additional-contracts.jsonl','findings.jsonl']:
+ raw=git('show',f82+':'+base+name);enc=gz(raw);dst='history/774/'+name+'.gz';put(dst,enc);sourcefiles[name]={'revision':f82,'git_path':base+name,'archive':dst,'encoding':'gzip','bytes':len(raw),'sha256':h(raw),'git_blob':blob(raw),'stored_sha256':h(enc)}
+reg=[json.loads(x) for x in gzip.decompress((p/sourcefiles['source-range-registration.jsonl']['archive']).read_bytes()).splitlines()];adds=[json.loads(x) for x in gzip.decompress((p/sourcefiles['additional-contracts.jsonl']['archive']).read_bytes()).splitlines()];find=[json.loads(x) for x in gzip.decompress((p/sourcefiles['findings.jsonl']['archive']).read_bytes()).splitlines()];select=[]
+for collection,doc,ids in [('registration',reg,['RIG-ADMISSION03-REGISTER-106','RIG-ADMISSION03-REGISTER-107']),('additional',adds,['RIG-ADMISSION03-ADDITIONAL-106','RIG-ADMISSION03-ADDITIONAL-107']),('findings',find,['RIG-ADMISSION03-F073-SUPPLEMENT-001'])]:
+ for id in ids:
+  hits=[(i,x) for i,x in enumerate(doc,1) if x.get('id')==id];assert len(hits)==1;select.append({'collection':collection,'row_1based':hits[0][0],'id':id,'record':hits[0][1]})
+js('history/HISTORY-INDEX.json',{'schema':'726-physics-tests-history-v1','transport_manifest_sha256':h(transport),'records_059':records,'registry':{'revision':f82,'git_path':registry_path,'archive':'history/registry-original.json.gz','encoding':'gzip','bytes':len(registry),'sha256':h(registry),'git_blob':blob(registry)},'source_774':sourcefiles,'selected_774':select,'qualification':'Original 059 bytes compared with user extraction and transport tuples; old 774 supplier bytes from f82 and rows separately attributed. f82 is evidence transport. Fixture read omission and 3821/P16 scope remain open.'})
+head=git('rev-parse','HEAD').decode().strip();path='BASELINE-95E-20261110.json';committed=git('show',head+':'+path);working=(repo/path).read_bytes();c=json.loads(committed);w=json.loads(working);ids=['SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION','SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE','SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON'];rows={}
+for id in ids:
+ def row(x):return next((e for e in x['newly_assessed_ledger']['entries'] if e['id']==id),None)
+ rows[id]={'committed':row(c),'working_observed':row(w)}
+assert git('rev-parse','HEAD').decode().strip()==head and (repo/path).read_bytes()==working
+js('history/BASELINE-SELECTION.json',{'schema':'726-physics-tests-baseline-selection-v1','committed_revision':head,'committed_sha256':h(committed),'committed_git_blob':blob(committed),'committed_bytes':len(committed),'working_sha256':h(working),'working_git_blob':blob(working),'working_bytes':len(working),'rows':rows,'qualification':'Selections are reconstructed; working capture is time-bound and not the committed tree. Whole-file equality is not assumed. No live-remote or 3821 claim.'})
+print('Recovered',len(records),'original 059 records, 3 selected queue records, 5 exact supplier rows and separate current committed/working selections; prior matched',sum(x['equal'] for x in selected),'/',len(selected),'selected published variants.')

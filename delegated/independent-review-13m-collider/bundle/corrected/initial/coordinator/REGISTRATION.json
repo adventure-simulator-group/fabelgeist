@@ -1,0 +1,97 @@
+{
+  "schema": "726-central-13m-prospective-registration-v1",
+  "reader": "/root",
+  "registered_utc": "2026-11-12T10:39:50.345032+00:00",
+  "scope": "Bounded current collider reach, no-hit, sampling and selected creator consumers; distinct from all historical and delegate reads.",
+  "entries": [
+    {
+      "tag": "collider",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-hair/src/collider.rs",
+      "git_blob": "653df570a4cb0ce007a7e1925886aeb5b519b08d",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "bytes": 5730,
+      "eof": 171,
+      "registered_ranges": [
+        [
+          15,
+          38
+        ],
+        [
+          41,
+          106
+        ],
+        [
+          108,
+          160
+        ]
+      ],
+      "capture": "sources/collider.rs"
+    },
+    {
+      "tag": "bvh",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "git_blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "bytes": 16479,
+      "eof": 462,
+      "registered_ranges": [
+        [
+          297,
+          324
+        ],
+        [
+          422,
+          439
+        ]
+      ],
+      "capture": "sources/bvh.rs"
+    },
+    {
+      "tag": "groom",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "git_blob": "a0830bbc0894b1701a1991a2a79ef7078a4851cc",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "bytes": 8315,
+      "eof": 233,
+      "registered_ranges": [
+        [
+          19,
+          21
+        ],
+        [
+          103,
+          137
+        ]
+      ],
+      "capture": "sources/groom.rs"
+    },
+    {
+      "tag": "cap",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-character-creator/src/hair/cap.rs",
+      "git_blob": "737fb48a583b15cfb8915dfa90210ef525a84453",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "bytes": 10064,
+      "eof": 256,
+      "registered_ranges": [
+        [
+          30,
+          32
+        ],
+        [
+          68,
+          87
+        ],
+        [
+          175,
+          218
+        ]
+      ],
+      "capture": "sources/cap.rs"
+    }
+  ],
+  "qualification": "Capture and registration precede display. Full source copies support identity, not unregistered whole-file read credit. Repository object lookup observes the selected commit and path on this machine; it is not an independent-machine custody claim. No product execution."
+}
