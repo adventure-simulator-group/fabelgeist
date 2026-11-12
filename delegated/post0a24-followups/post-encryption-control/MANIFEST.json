@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "post-encryption-control",
+      "ciphertext": "post-encryption-control.aesgcm",
+      "ciphertext_sha256": "29906e1d1740b5d531ed7354fe347715f451b54be0ee9b4212c56789c72a2c88",
+      "ciphertext_bytes": 3684,
+      "plaintext_archive_sha256": "a29ffd272151edfdeeba6330b3bb52fa8345c3e95616d426633ebacd27ec55aa",
+      "plaintext_archive_bytes": 3656,
+      "regular_files": 13,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:post-encryption-control:v1"
+    }
+  ],
+  "key_custody": "Same separately held same-machine key; fresh nonce checked against 43 preceding ciphertexts.",
+  "qualification": "Exact encryption scripts, private mapping and replay logs authenticated in memory; ciphertext is opaque to public scans. No independent custody or product behavior is established."
+}

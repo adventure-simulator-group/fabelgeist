@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 19:31:22–19:31:23 UTC before staged evidence checking; main may advance. See MAIN-RECHECK-20261112-1931.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 20:30:32–20:30:33 UTC before staged evidence checking; main may advance. See MAIN-RECHECK-20261112-2030.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1078,
+  "new_current_ledger_candidates": 1084,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2383,5 +2383,15 @@
   "post9e9e_pending_resolution": "The three packet families pending in the 14D snapshot received partial central review in 15A; none is fully reconciled.",
   "post31e1_private_recovery": "delegated/post31e1-followups/encrypted-originals/README.md and privacy-correction/RECORD.json; the same-machine key remains a recovery dependency.",
   "main_recheck_20261112_1926": "MAIN-RECHECK-20261112-1926.json",
-  "main_recheck_20261112_1931": "MAIN-RECHECK-20261112-1931.json"
+  "main_recheck_20261112_1931": "MAIN-RECHECK-20261112-1931.json",
+  "central_post0a24_bounded_reconciliations": [
+    "ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json",
+    "ASSESSMENT-CENTRAL-FOLLOWUPS-15C-95E.json"
+  ],
+  "checkpoint_0a24_same_machine_recovery": "delegated/post0a24-followups/checkpoint-0a24/recovery/RECOVERY-RECORD.json",
+  "post0a24_pending_delegated_packets": "delegated/post0a24-followups/PENDING-DELEGATES.json",
+  "post31e1_pending_resolution": "The eight packet families pending in the 15A snapshot received bounded central review in 15B/15C; none is fully reconciled.",
+  "post0a24_independent_review": "delegated/post0a24-followups/INDEPENDENT-REVIEWS.json and REVIEW-CORRECTIONS.json; exact private inputs remain encrypted.",
+  "post0a24_private_recovery": "delegated/post0a24-followups/encrypted-originals/README.md; the same-machine key remains a recovery dependency.",
+  "main_recheck_20261112_2030": "MAIN-RECHECK-20261112-2030.json"
 }

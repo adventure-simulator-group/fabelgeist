@@ -1,0 +1,108 @@
+{
+  "schema": "726-post0a24-independent-review-corrections-v1",
+  "reviewer": "/root/wrapped_scope",
+  "reviewed_final_hashes": {
+    "15b": "fb41f3bc5dc1d6d350509b2e016d2a781ec26d17026151dbda269f03cdfdda4a",
+    "15c": "3975f196476039f96fa53b60de044992f24a2e054944b68cc90d4a99bf8c9f6b"
+  },
+  "private_review_manifest_sha256": "69586e288fc5cb702a4d6a8499cb7eec3c19c1ec5acf3198fc475e0b64c8a0db",
+  "reports": {
+    "15b": {
+      "initial_final_sha256": "fb41f3bc5dc1d6d350509b2e016d2a781ec26d17026151dbda269f03cdfdda4a",
+      "corrected_sha256": "cd935867e1cc185bf0970c896c304e2281c5268059094c342141d7a4097cd9f1",
+      "source_draft_sha256": "8a299991d0e6a895674220649bbaaac07fa7bb91dc395d4f3fa977db08322e2a",
+      "draft_patches": [
+        {
+          "pointer": "/assessments/1/delegated_source_refs",
+          "old_present": false,
+          "old": null,
+          "new": [
+            "crates/adventuresim-tactical-client/src/camera.rs:48-56,89-110",
+            "crates/adventuresim-tactical-client/src/camera/rig.rs:19-97",
+            "crates/adventuresim-tactical-client/src/camera/rig/observation.rs:17-120",
+            "crates/adventuresim-tactical-client/src/camera/collision.rs:66-81",
+            "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:9-29,62-76",
+            "delegated/post31e1-followups/pending/q2355-56/packet/REPORT-v3.md (delegated source reading; no root body credit transfer)"
+          ]
+        },
+        {
+          "pointer": "/assessments/2/delegated_source_refs",
+          "old_present": false,
+          "old": null,
+          "new": [
+            "bevy_mesh 0.19.1 src/mesh.rs:905-950, lock-checksum-matched in delegated q2357-58 evidence (not a new root native-source read)",
+            "delegated/post31e1-followups/pending/q2357-58/public/evidence.tar.gz:REPORT.json"
+          ]
+        },
+        {
+          "pointer": "/assessments/3/current_related_records",
+          "old_present": false,
+          "old": null,
+          "new": [
+            "REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001",
+            "REVIEW-REGIONAL-MAP-READY-COVERAGE-POLICY-95E"
+          ]
+        },
+        {
+          "pointer": "/assessments/3/history",
+          "old_present": true,
+          "old": "Original 059 scoped field classification was closed only within its named scope; it did not settle current source, consumer chains or aliases. Original and reconstructed selected bytes match while whole queues differ; selected file identity does not establish whole-tree equivalence. Distinct source readers and 774 recovery limits remain preserved; no checkpoint3821 promotion.",
+          "new": "Original 059 scoped field classification was closed only within its named scope; it did not settle current source, consumer chains or aliases. Original and reconstructed selected bytes match while whole queues differ; selected file identity does not establish whole-tree equivalence. Distinct source readers and 774 recovery limits remain preserved; no checkpoint3821 promotion. The related prior assessment uses normalized 774 exports; the older raw pre-export originals were not recovered."
+        },
+        {
+          "pointer": "/recovery_qualification",
+          "old_present": true,
+          "old": "Final 3821 queue and ledger remain missing. Earlier 059/774 evidence, reconstructed 440 and new source work cannot restore their authority.",
+          "new": "Final 3821 queue and ledger remain missing. Earlier 059/774 evidence, reconstructed 440 and new source work cannot restore their authority. The standing 73 nontext/no-positive-EOF contracts remain open; that global qualification is not a claim that these five records concern those contracts."
+        }
+      ]
+    },
+    "15c": {
+      "initial_final_sha256": "3975f196476039f96fa53b60de044992f24a2e054944b68cc90d4a99bf8c9f6b",
+      "corrected_sha256": "d9df2da0f9d5c872d471b031074fd2f6ca03c7eccfbb4269842c8385dddfe197",
+      "source_draft_sha256": "00405e4981c11bebfb5259bf0491f8082f9dec5c7920138d111ced206c6a345d",
+      "draft_patches": [
+        {
+          "pointer": "/assessments/1/assessment",
+          "old_present": true,
+          "old": "The authored count contract and selected source retain a u64 request bound and cap only initial vector capacity at 4096. Clean iterator exhaustion stops early, a selected error rejects construction, and records beyond the declared bound are not requested.",
+          "new": "The authored count contract and selected source retain a u64 request bound and cap only the initial Vec::with_capacity reservation request at 4096. Clean iterator exhaustion stops early, a selected error rejects construction, and records beyond the declared bound are not requested."
+        },
+        {
+          "pointer": "/assessments/4/assessment",
+          "old_present": true,
+          "old": "Selected test text expresses expectations for 4097 members beyond the initial allocation cap, duplicate selection and malformed name rejection. These assertions and fixture names were inspected only.",
+          "new": "Selected test text expresses expectations for 4097 members beyond the initial reservation request cap, duplicate selection and malformed name rejection. These assertions and fixture names were inspected only."
+        },
+        {
+          "pointer": "/assessments/4/history",
+          "old_present": true,
+          "old": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads.",
+          "new": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The original e275 personal test-source read belongs to lens11_reconcile; Root strictly adopted it in the segovb/READ-L11-707.json and segovb/READ-L11-717.json records. Only the named test-source-owner disposition was closed within that exact historical scope. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads."
+        },
+        {
+          "pointer": "/assessments/5/history",
+          "old_present": true,
+          "old": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads.",
+          "new": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The original e275 personal test-source read belongs to lens11_reconcile; Root strictly adopted it in the segovb/READ-L11-707.json and segovb/READ-L11-717.json records. Only the named test-source-owner disposition was closed within that exact historical scope. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads."
+        },
+        {
+          "pointer": "/assessments/9/history",
+          "old_present": true,
+          "old": "Historical root personally read selected 6533 binding and admission bodies; e275 same-lens reuse added no fresh personal lines. Selected per-file blobs match 6533/e275/95e but the 6533 working tree had unrelated changes. q1491, q1494 and q3125 retain their original scope; existing foundation-volume arithmetic concerns a different operation. No new accepted count or checkpoint3821 promotion.",
+          "new": "Historical root personally read selected 6533 binding and admission bodies; e275 same-lens reuse added no fresh personal lines. Selected per-file blobs match 6533/e275/95e but the 6533 working tree had unrelated changes. q1491, q1494 and q3125 retain their original scope; existing foundation-volume arithmetic concerns a different operation. No new accepted count or checkpoint3821 promotion. The related foundation-volume assessment uses normalized 774 exports; older raw pre-export originals were not recovered."
+        },
+        {
+          "pointer": "/assessments/9/current_related_records",
+          "old_present": false,
+          "old": null,
+          "new": [
+            "ADLER-L11-FOUNDATION-VOLUME-ARITHMETIC",
+            "Q-L12-f9b80782d86542a3c6de"
+          ]
+        }
+      ]
+    }
+  },
+  "qualification": "The independent review checked bounded source and ledger identity, selected historical records and reported wording gaps. The initial finalized bytes are retained privately and the original drafts are in the central archive. Corrections preserve original attribution; no product behavior, complete alias search or checkpoint3821 recovery is established."
+}

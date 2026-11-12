@@ -1,0 +1,211 @@
+{
+  "schema": "726-central-followups-15c-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "0a2466a7485388575ef272e0a8355b9714204a37",
+  "assessments": [
+    {
+      "queue_index": 2360,
+      "historical_contract_id": "REVIEW-L11-NUMPY-README-CONTRACT-CONTEXT",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "The selected README distinguishes an unverified decoded-size declaration from a measured result and separates rawzip structure from application query and decompression responsibilities. The selected adapter uses the declared length for initial Deflate allocation and does not show a CRC or decoded-length check in that path.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/README.md:16-19,29-56",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86-109,151-184"
+      ],
+      "open_questions": "Input trust, allocation and output ceilings, checksum and size verification policy, callers and actual native outcomes remain open.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate."
+    },
+    {
+      "queue_index": 2361,
+      "historical_contract_id": "REVIEW-L11-ZIP-MEMBER-COUNT-AUTHORED-CONTRACT",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "The authored count contract and selected source retain a u64 request bound and cap only the initial Vec::with_capacity reservation request at 4096. Clean iterator exhaustion stops early, a selected error rejects construction, and records beyond the declared bound are not requested.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/member-count.md:3-16,32-35",
+        "crates/fabelgeist-numpy-storage/src/zip/member_count.rs:7-25",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86-109"
+      ],
+      "open_questions": "Declared-versus-actual equality, native locator behavior, unrequested records, supported archives and resource policies remain separate open questions.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate."
+    },
+    {
+      "queue_index": 2362,
+      "historical_contract_id": "REVIEW-L11-ZIP-EXTENT-AUTHORED-CONTRACT",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "DeclaredUncompressedByteLength is an unverified full-width u64, including zero, and its native allocation projection uses an as usize cast. The selected Deflate path reserves from that declaration and reads into owned output.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/zip-extents.md:3-14,25-43",
+        "crates/fabelgeist-numpy-storage/src/zip/extent.rs:5-42",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:151-181"
+      ],
+      "open_questions": "Platform allocation effects, trusted inputs, decoded-output budgets, CRC/size policy and actual native results remain open.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate."
+    },
+    {
+      "queue_index": 2363,
+      "historical_contract_id": "REVIEW-L11-ZIP-ERROR-AUTHORED-CONTRACT",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "The selected source retains parser causes on archive and member variants and I/O causes on native and inflate variants; missing-end is a unit classification, and formatting varies by variant and alternate mode. These source branches do not prove caller or user-facing presentation.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/zip-reader-errors.md:17-49",
+        "crates/fabelgeist-numpy-storage/src/zip/error.rs:34-69,71-142"
+      ],
+      "open_questions": "Actual caller chains, diagnostic policy, native error reachability and presentation remain open; do not infer blanket cause erasure.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate."
+    },
+    {
+      "queue_index": 2364,
+      "historical_contract_id": "REVIEW-L11-ZIP-MEMBER-COUNT-SOURCE-TEST-OWNER",
+      "reviewer": "/root/verifier_scope",
+      "assessment": "Selected test text expresses expectations for 4097 members beyond the initial reservation request cap, duplicate selection and malformed name rejection. These assertions and fixture names were inspected only.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/tests/member_counts.rs:322-361",
+        "crates/fabelgeist-numpy-storage/src/zip/member_count.rs:7-25",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86-109"
+      ],
+      "open_questions": "Binary fixture contents, observed counts, rawzip behavior, policy and test outcomes were not established.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The original e275 personal test-source read belongs to lens11_reconcile; Root strictly adopted that test-source read in segovb/READ-L11-717.json. The separate segovb/READ-L11-707.json record adopted the application-owner reads with their original attribution. Only the named test-source-owner disposition was closed within that exact historical scope. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads."
+    },
+    {
+      "queue_index": 2365,
+      "historical_contract_id": "REVIEW-L11-ZIP-EXTENT-SOURCE-TEST-OWNER",
+      "reviewer": "/root/verifier_scope",
+      "assessment": "Selected test text describes patching named extent fields in a seed archive and expresses borrowed versus owned and duplicate selection expectations. Neither seed bytes nor resulting fixtures were examined or executed.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/tests/zip_extents.rs:7-70,193-234",
+        "crates/fabelgeist-numpy-storage/src/zip/extent.rs:5-42",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:151-181"
+      ],
+      "open_questions": "Fixture structure, platform allocation, decoded integrity, policy and test outcomes remain open.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The original e275 personal test-source read belongs to lens11_reconcile; Root strictly adopted that test-source read in segovb/READ-L11-717.json. The separate segovb/READ-L11-707.json record adopted the application-owner reads with their original attribution. Only the named test-source-owner disposition was closed within that exact historical scope. The report records matching historical e275 file hashes and current 95e bytes; it does not claim independent recovery of original reviewer source objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. Historical root strict adoptions and their original readers remain separately attributed; their verifier records are metadata rather than fresh body reads."
+    },
+    {
+      "queue_index": 2366,
+      "historical_contract_id": "REVIEW-L11-ZIP-RECORD-KIND-SOURCE-TEST-OWNER",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "Selected test text expresses expected duplicate selection and central/local header behavior. Application source is separately attributed and binary fixtures were not opened.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/tests/record_kinds.rs:261-313",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86-109,151-181"
+      ],
+      "open_questions": "Native record parsing, fixture bytes, matching policy, supported inputs and test outcomes remain open.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. A failed queue hash transcription and an initial one-based extraction that displayed entry 2365 under the q2366 label are retained; corrected zero-based original and reconstructed selections were separately verified before source registration."
+    },
+    {
+      "queue_index": 2367,
+      "historical_contract_id": "REVIEW-L11-ZIP-ERROR-SOURCE-TEST-OWNER",
+      "reviewer": "/root/wrapped_scope",
+      "assessment": "Selected test text expresses missing-end versus missing-member and structural-error-before-unsupported-method expectations. Source retains relevant parser causes, but assertions and fixture mutations were not run.",
+      "source_refs": [
+        "crates/fabelgeist-numpy-storage/tests/zip_errors.rs:18-101",
+        "crates/fabelgeist-numpy-storage/src/zip/error.rs:34-69,71-142",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:160-181"
+      ],
+      "open_questions": "Actual fixture, OS, downstream chain, user presentation and test outcomes remain open.",
+      "history": "The original 059 selected entry and reconstructed 26e entry match in their selected bytes while whole queue streams differ. The historical e275 personal source read belongs to lens11_reconcile and later adoption to segovb; the named authored scope only was closed. Source bodies for e275 in this packet were reconstructed from individually matching 95e bytes and historical hashes, not recovered as original reviewer objects. SOURCE004 native qualifications, 73 nontext/no-positive-EOF contracts, fixtures, global aliases and missing checkpoint3821 remain separate. The q2366/2367 packet preserves its failed queue hash transcription, mistaken first extraction and corrected zero-based verification; no source display was credited before correction."
+    },
+    {
+      "queue_index": 2368,
+      "historical_contract_id": "L2-EXT-ENCLOSURE-BINDING-OWNER-CLASSIFICATION",
+      "reviewer": "/root/mhr_character",
+      "assessment": "BoundaryOwnerBinding retains property, members, gate, descriptor digest and elements; selected checks validate owner, fixed element identities, descriptor digest and cell membership. The projection binds the same gate it returns. Those checks do not independently prove full cell geometry and material correspondence to the descriptor.",
+      "source_refs": [
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs:6-72,109-172",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:4-63"
+      ],
+      "open_questions": "Supported producers and wire trust, geometric/material correspondence, later consumers and exact aliases remain open.",
+      "history": "Historical root personally read selected 6533 binding and admission bodies; e275 same-lens reuse added no fresh personal lines. Selected per-file blobs match 6533/e275/95e but the 6533 working tree had unrelated changes. Original 059 selected records and reconstructed selections match while whole streams differ; no checkpoint3821 promotion."
+    },
+    {
+      "queue_index": 2369,
+      "historical_contract_id": "L2-EXT-SUPPORT-PRISM-NATIVE-REPRESENTATION",
+      "reviewer": "/root/mhr_character",
+      "assessment": "The selected public prism constructor checks finite coordinates and a finite vector sum, paired plan coordinates, heights, topology and ownership. The collider then subtracts the finite f32 centroid from each vertex before passing vertices to a native convex mesh. The delegated symbolic f32::MAX case has finite admitted inputs and sum but a nonfinite centered component; no operation, fixture or native backend was run.",
+      "source_refs": [
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs:1-58",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:84-124,146-169,176-203,225-243",
+        "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:62-87",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs:21-45"
+      ],
+      "open_questions": "Whether extreme direct API inputs are supported or reachable, native response, feature/target selection, exact aliases and a suitable finite-centering policy remain open.",
+      "history": "Historical root personally read selected 6533 binding and admission bodies; e275 same-lens reuse added no fresh personal lines. Selected per-file blobs match 6533/e275/95e but the 6533 working tree had unrelated changes. q1491, q1494 and q3125 retain their original scope; existing foundation-volume arithmetic concerns a different operation. No new accepted count or checkpoint3821 promotion. The related foundation-volume assessment uses normalized 774 exports; older raw pre-export originals were not recovered.",
+      "current_related_records": [
+        "ADLER-L11-FOUNDATION-VOLUME-ARITHMETIC",
+        "Q-L12-f9b80782d86542a3c6de"
+      ]
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-enclosure-descriptor-cell-owner-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The selected binding checks descriptor and element identity but do not by themselves prove geometric and material correspondence of every cell.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2368",
+        "baseline-059/queue.json#/entries/1493"
+      ],
+      "current_related_records": [
+        "ADLER-L11-SUPPORT-BINDING-ERROR-ROLE"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15C-95E.json",
+      "connected_repair_direction": "Trace supported descriptor, cell and consumer producers while retaining separate diagnostic-role ownership.",
+      "future_acceptance": "After audit and authorization, assess supported enclosure inputs for descriptor, cell and gate correspondence with typed owner context."
+    },
+    {
+      "id": "relationship-prism-centering-finite-input-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Finite admitted prism inputs and finite sum can symbolically yield a nonfinite centered f32 vertex before the native collider boundary.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2369",
+        "baseline-059/queue.json#/entries/1491",
+        "baseline-059/queue.json#/entries/1494",
+        "baseline-059/queue.json#/entries/3125"
+      ],
+      "current_related_records": [
+        "ADLER-L11-FOUNDATION-VOLUME-ARITHMETIC",
+        "Q-L12-f9b80782d86542a3c6de"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15C-95E.json",
+      "connected_repair_direction": "Determine supported input bounds and native admission, preserving zero-area contact and winding behavior; compare but do not merge the separate volume and empty-foundation operations.",
+      "future_acceptance": "After audit and authorization, assess supported extreme cells for finite centered native data or explicit typed rejection while preserving intentional contact and winding semantics."
+    }
+  ],
+  "central_corroboration": "/root read prospectively registered bounded current source, documentation, test text and nine selected 0a ledger rows. Delegated native and historical readings retain original authorship.",
+  "existing_archive_relationships": [
+    "relationship-npz-end-record-selection-policy-95e",
+    "relationship-npz-count-zip64-policy-95e",
+    "relationship-npz-member-selection-identity-95e",
+    "relationship-npz-error-context-policy-95e",
+    "relationship-npz-decoded-integrity-budget-95e"
+  ],
+  "evidence_classes": {
+    "recovered": "Original 059 selected bytes and cited records only where the delegated packet verifies recovery.",
+    "reconstructed": "Historical e275 bodies expressly identified as reconstructed in the delegated packets, 26e queue selections and reserialized objects remain separate from recovered originals.",
+    "historical_summaries": "Original named readers, adopters, limited dispositions, SOURCE004, nontext contracts and corrections retain their own attribution.",
+    "newly_assessed": "Bounded delegated 95e reviews and /root registered source and ledger displays; no runtime results."
+  },
+  "recovery_qualification": "Final 3821 queue and ledger remain missing. Earlier 059/774 evidence, reconstructed 440 and new source work cannot restore their authority.",
+  "counts": "Proposed ten partial current reconciliations and two planning relationships; no closed lens, fully reconciled queue record or proven unique defect is asserted.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Bounded current source reconciliation and planning relationships only; all lens, producer, policy, outcome and global alias limits remain open.",
+  "created_utc": "2026-11-12T19:56:29.717704+00:00",
+  "supersedes_private_draft_sha256": "d491c4a42c225d143ac9f45b9bd5c0eb0964bde2c1642fb78b9b60bae2db8bf6",
+  "draft_revision_qualification": "Narrows q2364–q2365 source-body provenance to the supporting report: matching historical hashes and current bytes, without asserting how an original body was recovered. Original draft retained unchanged.",
+  "source_draft_sha256": "00405e4981c11bebfb5259bf0491f8082f9dec5c7920138d111ced206c6a345d",
+  "finalized_utc": "2026-11-12T20:34:18.435824+00:00",
+  "independent_review": "delegated/post0a24-followups/REVIEW-CORRECTIONS.json",
+  "spotcheck_review": "delegated/post0a24-followups/SPOTCHECK-CORRECTION.json"
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "726-post0a24-replay-dependencies-v1",
+  "entries": [
+    {
+      "scope": "q2750",
+      "encrypted_collection": "q2750",
+      "replay_manifest_sha256": "18c45d4bb37b6d137b7ecd79f3f255c14d2db73db36ba850e68aacc7cf31f003",
+      "qualification": "Selected Git objects, original packet and scanner corpora are preserved. Original Git packs, full history, tool binaries/libraries and account database are not; privacy replay depends on effective home/account."
+    },
+    {
+      "scope": "q2799",
+      "encrypted_collection": "q2799",
+      "replay_manifest_sha256": "4171e83490e290d5f953cd011a7f21e49cee8f5ccbe51696b4ed4a71151f972d",
+      "qualification": "Limited 661-object Git store, historical snapshots and five locked Bevy archives are preserved; unrelated history, host tools and independent custody are not."
+    },
+    {
+      "scope": "q2812 and q2884",
+      "encrypted_collections": [
+        "q2812",
+        "q2884"
+      ],
+      "anchor_manifest_sha256": "e3262991171c1b8279952062621c01b95803d573fbb4a20cd05cb8b2cc794a2d",
+      "selection_manifest_sha256": "564683ed26dd840fed18c2ca6ee44d86a5d05aa2ff2136687ca7053feb7156a7",
+      "qualification": "Seven q2812 anchors and the q2884 selection evidence are retained privately; q2884 also retains the exact 0a reconciliation anchor. They do not recover missing checkpoint3821."
+    },
+    {
+      "scope": "independent 15B/15C review",
+      "encrypted_collections": [
+        "independent-reviews",
+        "q2812"
+      ],
+      "review_manifest_sha256": "69586e288fc5cb702a4d6a8499cb7eec3c19c1ec5acf3198fc475e0b64c8a0db",
+      "dependency_manifest_sha256": "30cb141a1f774fd2d8f41bd7c39c3c5e3da10f7ba7535e60fd480c8efcb91ab1",
+      "qualification": "Relocatable review replay uses the sealed review, dependency seal and four q2812 anchors. Historical/native assertions outside its personal reading retain delegated packet attribution."
+    },
+    {
+      "scope": "independent q2369 symbolic review",
+      "encrypted_collection": "independent-reviews",
+      "review_manifest_sha256": "e5d234150ac668bc062eed9905bdefc28b17035212faf33754ca50e62da7ff57",
+      "dependency_inventory_sha256": "c6076ea5dd7324b6fdc10edbf63614162cc4e269d9011b52a8e78aafe3382412",
+      "qualification": "Commit/tree proofs are retained privately; the published 0a checkpoint supplies the exact delegated archive, locked package archives and parent ledger. Remote availability and predecessor-key custody were not independently proven."
+    }
+  ],
+  "qualification": "All encrypted objects require the separate same-machine key. None of the replay receipts establishes independent custody, complete privacy, product behavior or missing checkpoint3821 evidence."
+}

@@ -1,0 +1,21 @@
+from pathlib import Path,PurePosixPath
+import hashlib,json,os,stat,subprocess,sys
+if sys.flags.optimize:raise RuntimeError('assertions must remain enabled')
+R=Path('.');S=Path('../private-originals/next-15bc-stage-3s45ohgx/public');P=R/'delegated/post0a24-followups';H=lambda b:hashlib.sha256(b).hexdigest();head='0a2466a7485388575ef272e0a8355b9714204a37'
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==head and not subprocess.check_output(['git','status','--porcelain=v1','--untracked-files=all'])
+raw=(S/'CATALOG.json').read_bytes();assert H(raw)=='81a66485087c1e26d6a280fb817b991c9bf0f84f06bd7f9fb6a5106018b8b909';cat=json.loads(raw);assert cat['parent_checkpoint']==head
+assert not P.exists();P.mkdir();rows=[]
+for kind,items in [('bundle',cat['bundle_files']),('root',cat['root_files'])]:
+ for row in items:
+  n=PurePosixPath(row['path']);assert not n.is_absolute() and '..' not in n.parts;src=S/n;dst=(P/n if kind=='bundle' else R/n);assert src.is_file() and not src.is_symlink() and not dst.exists();b=src.read_bytes();assert (len(b),H(b))==(row['bytes'],row['sha256'])
+  dst.parent.mkdir(parents=True,exist_ok=True)
+  with dst.open('xb') as f:f.write(b)
+  os.chmod(dst,int(row['mode'],8));assert dst.read_bytes()==b and bool(dst.stat().st_mode&0o111)==bool(int(row['mode'],8)&0o111)
+  rows.append({'kind':kind,'path':row['path'],'sha256':row['sha256'],'bytes':row['bytes'],'mode':row['mode']})
+with (P/'CATALOG.json').open('xb') as f:f.write(raw)
+assert (P/'CATALOG.json').read_bytes()==raw
+D=R/'delegated/post0a24-import';assert not D.exists();D.mkdir();driver=Path('../private-originals/next-15bc-stage-3s45ohgx/IMPORT.py').read_bytes()
+with (D/'IMPORT.py.txt').open('xb') as f:f.write(driver)
+rec={'schema':'726-post0a24-import-v1','parent_checkpoint':head,'catalog_sha256':H(raw),'files':rows,'import_driver_sha256':H(driver),'qualification':'Exact staged bytes copied without overwriting; file executable bits verified. This same-machine import does not establish privacy beyond separate bounded scans or product behavior.'}
+with (D/'RECORD.json').open('x') as f:json.dump(rec,f,indent=2);f.write('\n')
+print('Imported',len(cat['bundle_files']),'bundle files and',len(cat['root_files']),'root files; source bytes and executable bits matched.')

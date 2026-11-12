@@ -1,0 +1,24 @@
+{
+  "schema": "726-post0a24-independent-reviews-v1",
+  "reviewed_source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "reviews": [
+    {
+      "scope": "15B/15C draft source, ledger and historical attribution",
+      "reviewer": "/root/wrapped_scope",
+      "review_manifest_sha256": "69586e288fc5cb702a4d6a8499cb7eec3c19c1ec5acf3198fc475e0b64c8a0db",
+      "reviewed_report_sha256": [
+        "fb41f3bc5dc1d6d350509b2e016d2a781ec26d17026151dbda269f03cdfdda4a",
+        "3975f196476039f96fa53b60de044992f24a2e054944b68cc90d4a99bf8c9f6b"
+      ],
+      "outcome": "Bounded source and ledger identities and selected historical bytes checked. Corrections are applied and explicitly recorded; corrected successors were not the initially reviewed bytes."
+    },
+    {
+      "scope": "q2369 symbolic prism admission and centering",
+      "reviewer": "/root/verifier_scope",
+      "review_manifest_sha256": "e5d234150ac668bc062eed9905bdefc28b17035212faf33754ca50e62da7ff57",
+      "outcome": "Independent paper reasoning found no arithmetic or admission error under ordinary IEEE f32 round-to-nearest semantics. Supported producer reachability, target features and native backend response remain open. An initial source-object lookup failed in another checkout; the later pinned commit/tree binding was verified."
+    }
+  ],
+  "encrypted_collection": "independent-reviews",
+  "qualification": "Review packets and precise dependencies are preserved in encrypted same-machine evidence; no reviewer credit is transferred, no numerical witness or product operation was run, and independent custody and checkpoint3821 recovery remain unproved."
+}

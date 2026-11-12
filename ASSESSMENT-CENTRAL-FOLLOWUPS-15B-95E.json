@@ -1,0 +1,197 @@
+{
+  "schema": "726-central-followups-15b-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "0a2466a7485388575ef272e0a8355b9714204a37",
+  "assessments": [
+    {
+      "queue_index": 2355,
+      "historical_contract_id": "L2-EXT-TEXTURE-MAP-NATIVE-OWNER-FIT",
+      "reviewer": "/root/verifier_scope",
+      "assessment": "The decoded bake path admits a nonempty bounded unique-channel map list, finite positive tile metres and finite nonnegative height range, framing, size and mip constraints. PositiveLength admits the same positive finite f32 metre leaf and is a candidate for tile scale; height range admits zero and is not that candidate. Public BakedMap and BakedRecipe fields and infallible native Image conversion leave alternate producer contracts separate from the decoder. Installation expects a reserved destination for each decoded channel, but recipe/channel policy and supported mismatched inputs are unproved.",
+      "source_refs": [
+        "crates/adventuresim-procedural-textures/src/bake/wire.rs:60-123",
+        "crates/adventuresim-procedural-textures/src/bake.rs:79-95",
+        "crates/fabelgeist-geometry/src/length.rs:1-40",
+        "crates/adventuresim-procedural-textures/src/runtime.rs:84-105,117-174"
+      ],
+      "open_questions": "Tile-scale semantic ownership and dependency direction; alternate constructors and producers; required versus permitted channels and sparse maps; supported mismatch reachability, native behavior and exact aliases.",
+      "history": "Original 059 selected record and reconstructed 26e selection have matching selected bytes while their whole streams differ. The named historical reader and later e275 same-lens adoption retain their own attribution; e275 adoption had zero fresh personal body lines. Per-file identity is not whole-tree identity or recovered checkpoint3821 authority. Historical q2701 relates to q2934 SEGOVB-L3-TEXTURE-RECIPE-CHANNEL-ADMISSION; the loss-of-load-failure context in ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE is a different first operation."
+    },
+    {
+      "queue_index": 2356,
+      "historical_contract_id": "L2-EXT-STREAMING-FOCUS-OWNER-FIT",
+      "reviewer": "/root/verifier_scope",
+      "assessment": "City streaming retains an Option<Vec2>, samples the first gameplay camera global translation x/z and sorts placements relative to their typed centres. ScenePlanPoint admits finite scene-local coordinates and is a candidate only if the sampled value has those semantics. The delegated source trace finds a checked final endpoint in one third-person camera path, not every possible camera hierarchy or mode.",
+      "source_refs": [
+        "crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs:17-22,62-77,178-207,234-251",
+        "crates/adventuresim-tactical-core/src/scene_coordinates.rs:1-64,93-104"
+      ],
+      "open_questions": "Supported camera modes, parent/global transform conversion and sampling timing; finite admission, intended scene frame, and owner migration; policy, observable consequences and aliases.",
+      "history": "Original 059 selected record and reconstructed 26e selection have matching selected bytes while their whole streams differ. The named historical reader and later e275 same-lens adoption retain their own attribution; e275 adoption had zero fresh personal body lines. Per-file identity is not whole-tree identity or recovered checkpoint3821 authority. Retained streaming failure ownership and Vista placement-frame records concern different first operations; a shared frame question does not establish an alias.",
+      "delegated_source_refs": [
+        "crates/adventuresim-tactical-client/src/camera.rs:48-56,89-110",
+        "crates/adventuresim-tactical-client/src/camera/rig.rs:19-97",
+        "crates/adventuresim-tactical-client/src/camera/rig/observation.rs:17-120",
+        "crates/adventuresim-tactical-client/src/camera/collision.rs:66-81",
+        "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:9-29,62-76",
+        "delegated/post31e1-followups/pending/q2355-56/packet/REPORT-v3.md (delegated source reading; no root body credit transfer)"
+      ]
+    },
+    {
+      "queue_index": 2357,
+      "historical_contract_id": "L2-EXT-PREPARED-NATIVE-MESH-OWNER-FIT",
+      "reviewer": "/root/mhr_character",
+      "assessment": "The canonical recipe mesh builds position, normal and UV columns from one vertex iterator. PreparedBatch stores separate packed columns and indices; the selected packed deserializer rejects partial elements but does not compare columns or index membership. The worker receive path verifies ticket ownership, product kind and matching program. The delegated report separately cites checksum-matched Bevy 0.19.1 source documenting shortest-column truncation when packed vertex data is formed; no supported mismatched product or native outcome has been shown.",
+      "source_refs": [
+        "crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs:40-85",
+        "crates/adventuresim-tactical-client/src/presentation/generation/venue.rs:52-77,117-161",
+        "crates/adventuresim-tactical-client/src/presentation/generation.rs:1-22",
+        "crates/adventuresim-tactical-core/src/geometry_transport/binary.rs:1-33",
+        "crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs:4-65"
+      ],
+      "open_questions": "Supported trust and transfer boundaries, producer geometry coherence and identity, index/tangent invariants, allowed empty-tangent mode, native consumer behavior and exact alias with other mesh contracts.",
+      "history": "The historical 6533 pr-working snapshot had unrelated dirty changes. Five selected source files have individually identical 6533/e275/95e objects; this does not prove whole-tree equivalence. The earlier root read and e275 reuse are separately attributed. Selected 059 and reconstructed queue bytes match; their full streams differ. Earlier related assessment display was truncated and a later selected projection was read. No checkpoint3821 credit.",
+      "delegated_source_refs": [
+        "bevy_mesh 0.19.1 src/mesh.rs:905-950, lock-checksum-matched in delegated q2357-58 evidence (not a new root native-source read)",
+        "delegated/post31e1-followups/pending/q2357-58/public/evidence.tar.gz:REPORT.json"
+      ]
+    },
+    {
+      "queue_index": 2358,
+      "historical_contract_id": "L2-EXT-REGIONAL-SURFACE-OWNERS",
+      "reviewer": "/root/mhr_character",
+      "assessment": "The selected presented surface retains typed source, request, weather and elevations with explicit Empty or Drawn coverage. The bounded current reading found no existing-owner substitution in these fields. Its reuse predicate compares source, request, weather and grass; the distinct content-identity question remains conditional, as does the separate readiness/empty-coverage policy.",
+      "source_refs": [
+        "crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs:19-100,104-151"
+      ],
+      "open_questions": "Same-key product immutability across supported producers and lifetimes, other cache consumers, invalidation, empty-coverage readiness and global aliases.",
+      "history": "Original 059 scoped field classification was closed only within its named scope; it did not settle current source, consumer chains or aliases. Original and reconstructed selected bytes match while whole queues differ; selected file identity does not establish whole-tree equivalence. Distinct source readers and 774 recovery limits remain preserved; no checkpoint3821 promotion. The related prior assessment uses normalized 774 exports; the older raw pre-export originals were not recovered.",
+      "current_related_records": [
+        "REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001",
+        "REVIEW-REGIONAL-MAP-READY-COVERAGE-POLICY-95E"
+      ]
+    },
+    {
+      "queue_index": 2359,
+      "historical_contract_id": "L2-EXT-GPU-READINESS-NATIVE-IDENTITIES",
+      "reviewer": "/root/verifier_scope",
+      "assessment": "One shared locked snapshot separately retains AssetId<Mesh> and AssetId<Image>; contains requires the supplied mesh ID and all supplied image IDs. The selected garden branch passes no texture IDs, making the image all predicate vacuously true while still requiring its mesh. This bounded reading supports native identity ownership in the selected predicate, not complete GPU, temporal, material or capture readiness.",
+      "source_refs": [
+        "crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs:14-50",
+        "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs:78-110",
+        "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs:112-155"
+      ],
+      "open_questions": "Required material/image roles and capture profiles, source and native timing, lifetime/content revisions, failure propagation, timeout policy, producer coverage and exact aliases.",
+      "history": "Original 059 selected record and reconstructed 26e selection have matching selected bytes while their whole streams differ. The named historical reader and later e275 same-lens adoption retain their own attribution; e275 adoption had zero fresh personal body lines. Per-file identity is not whole-tree identity or recovered checkpoint3821 authority. Original 059 named 50-line field classification was closed in its limited scope, with zero new accepted count; global and native chains remained reserved. The e275 reuse was metadata-only and did not supply a fresh source read."
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-texture-wire-scale-owner-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "The positive finite tile-scale leaf has a candidate bespoke owner; recipe/channel agreement remains a separate conditional admission question.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2355",
+        "baseline-059/queue.json#/entries/2701",
+        "baseline-059/queue.json#/entries/2934"
+      ],
+      "current_related_records": [
+        "ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json",
+      "connected_repair_direction": "Resolve scale meaning and dependency direction, complete producer admission, recipe/channel policy and failure propagation while retaining distinct first operations.",
+      "future_acceptance": "After audit and authorization, assess accepted tile scales and supported map/channel combinations, and preserve explicit load failure context."
+    },
+    {
+      "id": "relationship-streaming-focus-scene-owner-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "A raw camera-derived focus is compared to typed scene building centres; full frame and finite admission remain unproved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2356"
+      ],
+      "current_related_records": [
+        "ADLER-L11-CITY-STREAMING-FAILURE-OWNERSHIP",
+        "ADLER-L11-VISTA-TREE-PLACEMENT-FRAME",
+        "ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+        "ADLER-L11-CAMERA-SEGMENT-ADMISSION"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json",
+      "connected_repair_direction": "Establish the actual supported camera-to-global-to-scene relation and sampled admission, keeping retained failures and independent tree or collision frame paths distinct.",
+      "future_acceptance": "After audit and authorization, assess supported camera modes and nonzero scene origins against the selected scene-point contract and failure policy."
+    },
+    {
+      "id": "relationship-prepared-mesh-column-coherence-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Separate decoded mesh columns and indices lack a shown aggregate comparison at the selected transport boundary.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2357"
+      ],
+      "current_related_records": [
+        "CURRENT-LOD-MESH-INDEX-NATIVE-BOUNDARY-RELATION"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json",
+      "connected_repair_direction": "Classify supported worker transport and geometry identity, then relate its aggregate column/index contract to the separate LOD public-index boundary without assuming an alias.",
+      "future_acceptance": "After audit and authorization, assess supported producers and any admitted transfers for column, tangent and index coherence before native application."
+    },
+    {
+      "id": "relationship-gpu-readiness-identity-scope-95e",
+      "lens": 2,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported reachability, effect and policy remain open",
+      "classification": "Typed native mesh and image IDs classify the selected snapshot; selected asset coverage, temporal completion and failure outcomes are separate.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2359",
+        "baseline-059/queue.json#/entries/1214",
+        "baseline-059/queue.json#/entries/2303"
+      ],
+      "current_related_records": [
+        "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+        "ADLER-L11-CITY-GPU-PREPARATION-OUTCOME",
+        "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION"
+      ],
+      "relationship_qualification": "Related records retain original revision, reader, scope and disposition. This relationship is not a proven global alias, unique-defect count or checkpoint3821 restoration.",
+      "discovery": "partial; selected source only, producers, policy, native outcomes and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json",
+      "connected_repair_direction": "Trace supported requirements, typed identity lifetimes, status propagation and completion policy across the distinct capture and failure boundaries.",
+      "future_acceptance": "After audit and authorization, assess the applicable required asset sets, timing and failure cases for each supported capture profile."
+    }
+  ],
+  "central_corroboration": "/root read prospectively registered selected current source and thirteen selected 0a ledger rows; delegated source, external Bevy and historical readings retain original authorship.",
+  "evidence_classes": {
+    "recovered": "Original 059 selected bytes and cited historical objects only where the published delegated packets verify recovery.",
+    "reconstructed": "26e reconstructed selections and any reserialized ledger objects remain separately identified from original exact bytes.",
+    "historical_summaries": "Delegated reports describe original readers, 6533/e275 chronology and narrow dispositions without transferring body-read credit.",
+    "newly_assessed": "Delegated bounded 95e reviews and /root registered source and ledger displays; not product execution."
+  },
+  "recovery_qualification": "Final 3821 queue and ledger remain missing. Earlier 059/774 evidence, reconstructed 440 and new source work cannot restore their authority. The standing 73 nontext/no-positive-EOF contracts remain open; that global qualification is not a claim that these five records concern those contracts.",
+  "counts": "Proposed five partial current reconciliations and four planning relationships; no closed lens, fully reconciled queue record or proven unique defect is asserted.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Bounded current source reconciliation and planning relationships only; all lens, producer, policy, outcome and global alias limits remain open.",
+  "created_utc": "2026-11-12T19:49:53.988461+00:00",
+  "supersedes_private_draft_sha256": "3860865ff956a320acd10d6e7c0e3f8c5f01deb49f904de2f047add405ff0128",
+  "draft_revision_qualification": "Corrects the q2357–q2358 delegated author from an incorrect draft attribution. Original draft retained unchanged; no read credit transferred.",
+  "source_draft_sha256": "8a299991d0e6a895674220649bbaaac07fa7bb91dc395d4f3fa977db08322e2a",
+  "finalized_utc": "2026-11-12T20:28:39.253519+00:00",
+  "independent_review": "delegated/post0a24-followups/REVIEW-CORRECTIONS.json"
+}

@@ -31,6 +31,19 @@ records same-machine recovery of the preceding published checkpoint.
 `delegated/post31e1-followups/checkpoint-31e1-recovery/RECOVERY-RECORD.json`
 records same-machine recovery of checkpoint 31e1 with an identical transcript.
 
+`delegated/post0a24-followups/checkpoint-0a24/recovery/RECOVERY-RECORD.json`
+records same-machine recovery of checkpoint 0a24 with an identical transcript.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json` and
+`ASSESSMENT-CENTRAL-FOLLOWUPS-15C-95E.json` connect fifteen bounded source
+assessments to their separately attributed historical records. Independent
+review corrections and the symbolic prism qualification are preserved in
+`delegated/post0a24-followups/`. Eleven later delegated records remain pending
+central reconciliation; none of these partial records closes a lens.
+
+The following 15A paragraph describes its earlier time-bound snapshot. Its
+eight pending packet families have since received partial 15B/15C review.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-15A-95E.json` connects partial journey,
 disclosure and resident-age source assessments to their attributed history.
 The three packet families pending in the 14D snapshot received this partial
