@@ -1,0 +1,35 @@
+{
+  "schema": "726-postb111-final-custody-public-scan-v1",
+  "files": [
+    {
+      "name": "MANIFEST.json",
+      "bytes": 14872,
+      "sha256": "582d3a09a922a155ff35091c69b9ec53a9dda211e1facc9bc4a78a4d7a7875f2"
+    },
+    {
+      "name": "VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9"
+    },
+    {
+      "name": "README.md",
+      "bytes": 714,
+      "sha256": "f150f8d8224a4c099b6244b70617825b3cb57ca36cf087b260a8eda27f89bd1a"
+    },
+    {
+      "name": "FINAL-RESTORATION.json",
+      "bytes": 1626,
+      "sha256": "2c72247abc525ad0d4d3016ccaf8033ebfe1303ae80e73abf7febcfdb45d3ef5"
+    }
+  ],
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "private_source_literal_hits": 0,
+  "positive_controls_pass": true,
+  "qualification": "Finite scan of ciphertext metadata, verifier, readme and public restoration receipt; ciphertext payloads are opaque and were not privacy-scanned. Individual private-path values or their digests are not published."
+}

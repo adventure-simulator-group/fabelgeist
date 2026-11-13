@@ -1,0 +1,24 @@
+{
+  "schema": "726-postb111-review-prescan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "b7478a825097fa70c0e7031321e57a99a26b9f91b00121a57102732b5634d611",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "1b363693baaaf00aec494c3661801f9996e5e2968122324e7548268040d51862",
+      "stderr_bytes": 0
+    }
+  ],
+  "capture_sha256": "5efc0f4b3ea5b5a6f4fc2f5dafe0d68ab0b0f79e4ff0ba1ab118716fd669141f",
+  "scanned_paths": 26,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Preliminary finite scan of captured review and draft-chain files. Later additions, unknown values and encodings, ciphertext and Git history remain outside scope; raw logs are restricted."
+}

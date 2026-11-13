@@ -1,0 +1,57 @@
+{
+  "schema": "726-postb111-privacy-restoration-v1",
+  "ciphertext_manifest_sha256": "7f5ad3f7bc9d2e495015c3db1908162aee97ea263e0f167a861559cfd9ee377e",
+  "restore_exit": 0,
+  "collections": 14,
+  "matched_file_bytes_and_modes": 151,
+  "matched_directory_modes": 18,
+  "selected_replay_exits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "selected_replay_checks": [
+    {
+      "label": "requested-inventory-comparison",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "custody-control-comparison",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "restored-control-manifest-replay",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "nonce-uniqueness",
+      "exit": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "requested_scope": {
+    "collections": 13,
+    "files": 139,
+    "directories_including_roots": 17,
+    "final_control": "Only the named control-delivery directory and PRIVATE-CONTROL-VERIFY.json were included from the selected parent."
+  },
+  "added_custody_control": {
+    "collections": 1,
+    "files": 12,
+    "directories_including_root": 1
+  },
+  "nonce_scope": {
+    "tracked_b111": 420,
+    "staged_primary": 42,
+    "supplemental": 48,
+    "earlier_final": 26,
+    "new": 14,
+    "all_distinct": true
+  },
+  "point_in_time": "Inputs were registered and matched byte/mode inventories before and after capture. Later additions and the separate after-cutoff source review are excluded. This is not a claim about changes between those checks.",
+  "qualification": "Same-machine restoration authenticated every ciphertext and compared file bytes, file modes, contained directory modes and included source-root modes. Ownership, ACLs and timestamps were normalized or not preserved. The quarantined evidence-tool bytecode was preserved as opaque bytes and never executed. The primary AES key, earlier 420 tracked and 42 primary plus 48 supplemental and 26 final ciphertexts, Git objects, history anchors and nested keys remain separately held dependencies. This is not independent custody, 3821 recovery, product validation, implementation or audit closure."
+}

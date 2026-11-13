@@ -1,0 +1,920 @@
+{
+  "schema": "726-postb111-peer-transports-v1",
+  "parent_checkpoint": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "reconciliation-review",
+      "file": "reconciliation-review.tar.gz",
+      "source_manifest_sha256": "914f79f90fbc65dd5dc8beff9a3e7bc5a39d7d16bc41455d2ce4f5adf8f70680",
+      "manifest_member": "reconciliation-review/MANIFEST.json",
+      "archive_bytes": 23636,
+      "archive_sha256": "31bef48a161aa90f0e99df4011978e364c1d61b5ba53a80781ded65a3a869786",
+      "members": [
+        {
+          "path": "reconciliation-review/CAPTURE.json",
+          "type": "file",
+          "bytes": 3656,
+          "sha256": "4cd62be1612fe8ac2ead8c8a2e70e9de895d0d829c213053bd3c1a7cdbe57e49",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/CHECK.py",
+          "type": "file",
+          "bytes": 3876,
+          "sha256": "5e5e03eef889a9a64378ef31e008336db3a7100c152a048d01061da6ebc5d609",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-CORRECTION-v2.json",
+          "type": "file",
+          "bytes": 601,
+          "sha256": "57fa294452e0ba330e7cc7f4568d956a5743cf377191eeac4f7a6800d30871d8",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-CORRECTION-v3.json",
+          "type": "file",
+          "bytes": 719,
+          "sha256": "76fade86243b287a4b96ea69639f4e71e6801a79ddeb56ebe64e50a61033f5ff",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-CORRECTION-v4.json",
+          "type": "file",
+          "bytes": 554,
+          "sha256": "e6503266bc5f8b8638fd253dffc0efdc770c7c7e7c752d189a9ece6dd66a95e7",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-RECURSIVE-DIFF-v3.json",
+          "type": "file",
+          "bytes": 5213,
+          "sha256": "fd536ee1579cf73aef4562d532eaf72d250f62a1a67312ec9a01532f891f9c69",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-RECURSIVE-DIFF-v4.json",
+          "type": "file",
+          "bytes": 2645,
+          "sha256": "76199bca9eb416d4c10a77145fc55b8befeed967022f92af7ff8a0fd1a0d4b38",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-RECURSIVE-DIFF.json",
+          "type": "file",
+          "bytes": 7558,
+          "sha256": "9157d57e2a01a6ad94d4d5d2aa36e43f2ae320ad7fcfefd444108f66ba2e384b",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-v2.json",
+          "type": "file",
+          "bytes": 16505,
+          "sha256": "3da8b74f6f80481c4e5c4ef153d2da5adceef930d4ff11b75696aea18d54e7de",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-v3.json",
+          "type": "file",
+          "bytes": 18522,
+          "sha256": "f35225aaabd5412603d259e1302e5221af144e33904940dfe8ba51641816c74a",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT-v4.json",
+          "type": "file",
+          "bytes": 18898,
+          "sha256": "08722589f73bfddd7df95e77e0183558b7fb2a9120b1a3bfa19d2e2d1c9854db",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/DRAFT.json",
+          "type": "file",
+          "bytes": 15093,
+          "sha256": "35c6367cf525f0919968c71873ba6c76804eaf2644da47189699862dae5f83b3",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/FRESH-SOURCE-CAPTURE.json",
+          "type": "file",
+          "bytes": 1044,
+          "sha256": "ff9dec42e9a05cf5ea0f746a833f606ba72c5dbc00e030fbfb2d191b2f1ed67c",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/HISTORY-COMPARISON.json",
+          "type": "file",
+          "bytes": 1460,
+          "sha256": "bce4bc653a56479ff94988291bb049ed003f1cfb28802659cabbe7f01d46c8cb",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 6127,
+          "sha256": "914f79f90fbc65dd5dc8beff9a3e7bc5a39d7d16bc41455d2ce4f5adf8f70680",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/ORDINARY-LEAF-CAPTURE.json",
+          "type": "file",
+          "bytes": 320,
+          "sha256": "6dad5de716d81448cdb1cab3b84171939662e93934c6e1e027d635a12052e7f3",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/Q0-ORIGINAL-CAPTURE.json",
+          "type": "file",
+          "bytes": 503,
+          "sha256": "85f5c0ebac2a7c9cc34eb4247c1761a730180d7bea69fa058c9f27d64d9c4533",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/Q0-REGISTRATION.json",
+          "type": "file",
+          "bytes": 506,
+          "sha256": "29ef395397df3a45c87b1d555b4572614e00183b6df2ca82bd7ba7cf891564fd",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/READ-CHRONOLOGY-017.json",
+          "type": "file",
+          "bytes": 284,
+          "sha256": "774dba0ac57a497b6fa41d5fe0f01befe8bbd76b769ef376da862bb753a3e313",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/READ-CHRONOLOGY-024.json",
+          "type": "file",
+          "bytes": 279,
+          "sha256": "9b4fb4f0b774cd111d5e8e504ddb072bb30fa6846abbeae423207aa2954a9261",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/READ-CHRONOLOGY-027.json",
+          "type": "file",
+          "bytes": 517,
+          "sha256": "aaea8e67da0618212c2be106dcb9f825e43f64dc80cc3c917fc7bdee7467c0f5",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/READ-CHRONOLOGY.json",
+          "type": "file",
+          "bytes": 798,
+          "sha256": "85fcfa9e305ff4f313a9af5e2b99f0525739c1324a3c35be28fb40854050becf",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REG-008-PRODUCT-SOURCE.json",
+          "type": "file",
+          "bytes": 731,
+          "sha256": "8aa02015d53d9d72162036db33357309d8c3ea9f7e99340c15a2239fb22d5079",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REG-017-WEDDING-SOURCE.json",
+          "type": "file",
+          "bytes": 347,
+          "sha256": "a99ee559b79e231f433250085ba78cc718fcb41a48f9aa38242dae9ef34ea38a",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REG-024-ORDINARY-LEAF.json",
+          "type": "file",
+          "bytes": 501,
+          "sha256": "a7a68a17463f46e250b0dd6617b1d4ffded3342fc7b88dcde4febe724475433f",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REG-027-VALIDATOR-CONDITIONS.json",
+          "type": "file",
+          "bytes": 518,
+          "sha256": "7af4936d01efe2bf5efcfe0a6b00ee53feea4425c621823ac7201d2b5bc4a9ca",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REGISTRATION.json",
+          "type": "file",
+          "bytes": 946,
+          "sha256": "29dccef03e87e95b681900e66119f5161cd6feacdea8eca700ccb842d8e40fe4",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/REPORT.md",
+          "type": "file",
+          "bytes": 5454,
+          "sha256": "0b2df6bad92f13d7e49bb16f5135a8dca226358ac872a08af1d5ec5ad8c433b0",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/SUCCESSOR.json",
+          "type": "file",
+          "bytes": 291,
+          "sha256": "8845e5109ff5709035a2712b09e90a44a76d9b55858af2f3187965071f5a702a",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/VALIDATOR-CONDITIONS-CAPTURE.json",
+          "type": "file",
+          "bytes": 713,
+          "sha256": "f733a43f2ed505c8d5cbd80b42e5f632b8c172d06cd194c1619d0b22bc0defbe",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/WEDDING-SOURCE-CAPTURE.json",
+          "type": "file",
+          "bytes": 329,
+          "sha256": "0a09f1e515d876d28c7572f2d8ced1a90f58b5d259356023a231af1d6dab7c21",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "reconciliation-review/views/0-132-174.txt",
+          "type": "file",
+          "bytes": 2370,
+          "sha256": "40692669f96274274bc7ac4a17d7da374559a4da846fd2545c4d0f7c2e6f679e",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/0-584-653.txt",
+          "type": "file",
+          "bytes": 3689,
+          "sha256": "ab95588ba310074e2fe7e95a7dd8b090d62b5d547a166669eefbf56ff28f3af5",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/0-657-674.txt",
+          "type": "file",
+          "bytes": 581,
+          "sha256": "c0fd290c1f43a0eabb9e1bb1953212340b866b16bb6112807cb3e2c383ae8c37",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/1-140-170.txt",
+          "type": "file",
+          "bytes": 1408,
+          "sha256": "61b46e1aa1885bf61247e31614770ad7e6c74453d4ccf22fdf8fe7e7a75babc2",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/1-171-189.txt",
+          "type": "file",
+          "bytes": 1326,
+          "sha256": "c92ee4bba244a158a37509337da040b1c3c84d96950f846e6428ac768b6655a3",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/1-190-225.txt",
+          "type": "file",
+          "bytes": 1353,
+          "sha256": "70b6ccab8ceafc59b0dcb8da43565d0637b2daa6c2e7940cdca368d8a346c9ca",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-review/views/2-145-230.txt",
+          "type": "file",
+          "bytes": 3638,
+          "sha256": "a76ab95c9d13690a5398586e0736a03008a1beaa3b54a7e57998156c54716fba",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "reconciliation-receipt",
+      "file": "reconciliation-receipt.tar.gz",
+      "source_manifest_sha256": "80f0d460925f5ddf14e41ce70bfaeac4c2b74a86f48ddba3a30ca8878cd854d0",
+      "manifest_member": "reconciliation-receipt/MANIFEST.json",
+      "archive_bytes": 2172,
+      "archive_sha256": "8df180ffc315ff09d41fec1480d74dd7e98a50e0326d32e17bea83c542ea5ec6",
+      "members": [
+        {
+          "path": "reconciliation-receipt/CHECK.py",
+          "type": "file",
+          "bytes": 1473,
+          "sha256": "7c6fc8ce8c79ad3f9f1c9cd26260b7ce024115c99fa493f04543507053254ecf",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-receipt/DELIVERY-SCAN.json",
+          "type": "file",
+          "bytes": 562,
+          "sha256": "03923cc27e0c2ff99ec852774e82ab230dbdcc88166d81fc1eedd480fb315c58",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-receipt/IDENTITIES.json",
+          "type": "file",
+          "bytes": 574,
+          "sha256": "28c21ca5c26f755c26f9e9e263b9c1e517df3fa7298cf5b788b1f441e187c50d",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 838,
+          "sha256": "80f0d460925f5ddf14e41ce70bfaeac4c2b74a86f48ddba3a30ca8878cd854d0",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-receipt/PUBLIC-SCAN.json",
+          "type": "file",
+          "bytes": 563,
+          "sha256": "9fc7ae999894528f950e9c2ad6c27b7a4e9ac49487d6d2640fe136b5a4feb551",
+          "mode": "0o664"
+        },
+        {
+          "path": "reconciliation-receipt/REPLAY-RESULT.json",
+          "type": "file",
+          "bytes": 893,
+          "sha256": "9285ab5f34879a1e0ac5ad2fca38939d6770ff9ddac0083650aa5a5fdb4ef8f4",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "organization-review",
+      "file": "organization-review.tar.gz",
+      "source_manifest_sha256": "4fb4e0830ea7360b6a318d117079a4b60be056c0c288e1fa83d83f4a208e9e67",
+      "manifest_member": "organization-review/MANIFEST.json",
+      "archive_bytes": 145654,
+      "archive_sha256": "a1ae36aadb8d87b5f4d3e9c70868b6e50b7d86306e2b07999f7027e965139f93",
+      "members": [
+        {
+          "path": "organization-review/CAPTURE-RESULT.json",
+          "type": "file",
+          "bytes": 3385,
+          "sha256": "e3ea8faf482e11f150a442fb502727379291a0947d70d25553e60d1a4cd7f4e7",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/LOCATOR-FAILURES.json",
+          "type": "file",
+          "bytes": 431,
+          "sha256": "27322cbebf26a39b109e6b4ba0aba1ded6d2783c6538f1d6c8c2f5b7d052356b",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 14135,
+          "sha256": "4fb4e0830ea7360b6a318d117079a4b60be056c0c288e1fa83d83f4a208e9e67",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/NATIVE-CAPTURE.json",
+          "type": "file",
+          "bytes": 2212,
+          "sha256": "33bdfe260ecba8ffbf7de2aa8164cf613187bf15b10b77fe7a8e994ae447c6fa",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/NATIVE-REGISTRATION.json",
+          "type": "file",
+          "bytes": 1349,
+          "sha256": "499e4fbef52ff710c8049aca81b62aed0c34a8c556abc17fb3f398470ad5bc0e",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/PROCESS-METADATA-OUTPUT.json",
+          "type": "file",
+          "bytes": 282,
+          "sha256": "5450f4a050208457a025453a59a1f7ecf36d1ed72239c775cca57bdf76af23cf",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/PROCESS-SCOPE-QUALIFICATION.json",
+          "type": "file",
+          "bytes": 508,
+          "sha256": "1c8f31d05f43172a593885b3189f106a34d6d9adab785dae06b265d59d328945",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/README.md",
+          "type": "file",
+          "bytes": 631,
+          "sha256": "6d3638cbb7040d7348a4e7b06fb93f645e4a7e6150839728b0b658130c5fe7f2",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/RECONSTRUCTION.json",
+          "type": "file",
+          "bytes": 1979,
+          "sha256": "a356c3d2b8815bfc3013c5494692df76047028fc817f77fa753c0ac0d11eab23",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/REPORT.md",
+          "type": "file",
+          "bytes": 5653,
+          "sha256": "b5a6a14265e29e2883a3a92467d750a62bfb610c83520356b6897f1fe336896b",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/SELECTION-REGISTRATION.json",
+          "type": "file",
+          "bytes": 677,
+          "sha256": "63a2984f0d7b1521d26e92f89e2ea582dfde63e0841df0c02061c93622736b45",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/SOURCE-READ-RECEIPT.json",
+          "type": "file",
+          "bytes": 12812,
+          "sha256": "12e6d7b0182d23ad48436d0189e9b57049be8747deb43f14ee9581854cf20a50",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/SOURCE-REGISTRATION.json",
+          "type": "file",
+          "bytes": 2227,
+          "sha256": "d4b56a10ba06430ecfde050b9821597d3ef58592ef84c89bde605836f175e5ca",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/SUCCESSOR-REGISTRATION.json",
+          "type": "file",
+          "bytes": 346,
+          "sha256": "accff83e5f8928b5dddb25673583a52a09db6d2296ce6b020d002a270a957437",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/V4-REGISTRATION.json",
+          "type": "file",
+          "bytes": 322,
+          "sha256": "0c41139986b52a5a4b3f97af5c5f58a9a5e90790f4049074061df4e5a5e5e2af",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/VERIFY.py",
+          "type": "file",
+          "bytes": 7949,
+          "sha256": "3eb9dadbdbeb3e6b019ca94c1d8158389f22c04e63419482e19ad5abc6a9aa04",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "organization-review/evidence/B111-LEDGER-SUMMARY.json",
+          "type": "file",
+          "bytes": 991,
+          "sha256": "d7143ca6a7f341ad61fea47886023e51810e080b0237cd56f236c6bfb3b8637e",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/CITED-ARCHIVES.json",
+          "type": "file",
+          "bytes": 2694,
+          "sha256": "54f6e4e00d1081f19b89a6c3ddf0ad1587d338a74238c5cca558cf586316fcb4",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/ORGANIZATION-COMPARE.json",
+          "type": "file",
+          "bytes": 12738,
+          "sha256": "95721aa1f7b4bf153c91a8c3ec7978a53c6bdb8ae1373b3f4ab3fc2bb976048d",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/ORGANIZATION-v3-v4.json",
+          "type": "file",
+          "bytes": 13281,
+          "sha256": "db2a360abf0bdbd13ea4088fb760ead495ff491150c6a294459448f70ff1b870",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/QUEUE-ELEMENT-COMPARISON.json",
+          "type": "file",
+          "bytes": 2740,
+          "sha256": "c5c4dc99218433251fdc5ec8bd2c02c56601c21e392ce57aef4b4f4be8f7a43d",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2497-delegate.md",
+          "type": "file",
+          "bytes": 6999,
+          "sha256": "5981971d0737450cd154dc22f2b89f7ca96418b970b2e4e26e825f51eb5c7ffb",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2497-peer.md",
+          "type": "file",
+          "bytes": 4739,
+          "sha256": "9e71e357fd841e87ae17702e2458063bf4ccdc9c5f277699fb735a8f7f0d7e02",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2501-l7.md",
+          "type": "file",
+          "bytes": 2692,
+          "sha256": "d334e2eb54755708644e9b0a522898aae9c58521f1e71ded8496454af0738e29",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2501-peer.md",
+          "type": "file",
+          "bytes": 5012,
+          "sha256": "697b2f8ca43e140beea56f939ba8a9d1ba87360479e100e514cafc6cb9acb488",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2503-l9.md",
+          "type": "file",
+          "bytes": 2476,
+          "sha256": "1fa0b311dd4a0c0c67aa69ced7769af25dcb4ecaca941cf185df249822188c41",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/evidence/q2504-l10.md",
+          "type": "file",
+          "bytes": 1483,
+          "sha256": "2ba5fba11855281ebabe795014abf3090e41aba387ebe38fca3bebd632f8486f",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/native",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "organization-review/native/serde_core-1.0.229__src__de__impls.rs",
+          "type": "file",
+          "bytes": 97134,
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/native/serde_derive-1.0.229__src__de__struct_.rs",
+          "type": "file",
+          "bytes": 24472,
+          "sha256": "7b26982ce59504a9bb5a18c3ab56eee2d75e70fd465774ff035d15c50452c118",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/native/serde_json-1.0.151__src__de.rs",
+          "type": "file",
+          "bytes": 86840,
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-core__build.rs",
+          "type": "file",
+          "bytes": 19279,
+          "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-core__src__life_simulation.rs",
+          "type": "file",
+          "bytes": 18778,
+          "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-core__src__organization.rs",
+          "type": "file",
+          "bytes": 45348,
+          "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-core__src__organization_catalog_validation.rs",
+          "type": "file",
+          "bytes": 35810,
+          "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-core__src__starting_character.rs",
+          "type": "file",
+          "bytes": 70536,
+          "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__adventuresim-stdb-module__src__organization.rs",
+          "type": "file",
+          "bytes": 23187,
+          "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/source/crates__strategic-web__src__templates__settlement__character_skills.rs",
+          "type": "file",
+          "bytes": 159242,
+          "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__build.rs__0389-0448.txt",
+          "type": "file",
+          "bytes": 2636,
+          "sha256": "58f72b6190b82cc347f2e97a2b6fa4f2694263d00eed48c7fcf97184e9819f7a",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__build.rs__0449-0455.txt",
+          "type": "file",
+          "bytes": 234,
+          "sha256": "360222a1d543cf7f0ff67ca23a10395faf8a6b13268169225b7b058abddeaf50",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__build.rs__0481-0501.txt",
+          "type": "file",
+          "bytes": 865,
+          "sha256": "4a7bd99bea1538a452bdd4be6794883f3c5dac7de89bab85ca2df43a664946b5",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__life_simulation.rs__0104-0125.txt",
+          "type": "file",
+          "bytes": 880,
+          "sha256": "afdaeb1ed8240f9e8f962890aa437e7e5e79b8a4a489fb121cd11e11d3b226f4",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__life_simulation.rs__0240-0258.txt",
+          "type": "file",
+          "bytes": 668,
+          "sha256": "55ddb27510def40a332e2a69a37085771f3b8035f277809f7f69d5884d537b19",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__life_simulation.rs__0302-0334.txt",
+          "type": "file",
+          "bytes": 1135,
+          "sha256": "1463d274fa4c09f6034cbb30e99f28398ff86818625dbdce8d469fa9b625db91",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0001-0060.txt",
+          "type": "file",
+          "bytes": 2297,
+          "sha256": "b1ea7c9680cf4e5e87682f7a031e417fc2e64c13803fdda6f5498be18c93f549",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0061-0120.txt",
+          "type": "file",
+          "bytes": 2372,
+          "sha256": "fe452405527f9e0c3cdb36dc91358df15d1d30a54cfabe1188a2e8371aa93a6c",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0121-0180.txt",
+          "type": "file",
+          "bytes": 2463,
+          "sha256": "aeea9116dee6c5ce9e5feefff50676712f2f5ea8625487c1b18b7c6dbc506029",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0181-0240.txt",
+          "type": "file",
+          "bytes": 2416,
+          "sha256": "eed8b46afca7eb92f1e8220a3d4e9be9928060b5c2f3ab406f9972fe3c86c2b6",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0241-0300.txt",
+          "type": "file",
+          "bytes": 1931,
+          "sha256": "970f074805138efd8f552d999d13033539822850749febe711620dbe4536de25",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0301-0360.txt",
+          "type": "file",
+          "bytes": 1975,
+          "sha256": "198af170138e7813677011faa404fced3d3baa86c9034d5996803559a173e9f2",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0361-0420.txt",
+          "type": "file",
+          "bytes": 1657,
+          "sha256": "84d9b83b369a229e184c4dd74573b0d5161de7dc53881f7af918b509a65b9ef4",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0421-0480.txt",
+          "type": "file",
+          "bytes": 2297,
+          "sha256": "cdc7a8effa2e6bbb6531bd73baa187109d254e60230869ed1cdba81e5b2503e1",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization.rs__0481-0498.txt",
+          "type": "file",
+          "bytes": 646,
+          "sha256": "e84c0b3c0ff3e99bd53f8a79b260ea90fcf2453b30a8160a328ff72a58c192ab",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0120-0179.txt",
+          "type": "file",
+          "bytes": 3056,
+          "sha256": "35189089df434da9eab0457343e05d523b3c76b51c5b514e5dfdf4fe612c9fcb",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0180-0180.txt",
+          "type": "file",
+          "bytes": 45,
+          "sha256": "3da1b32aebfa9ec665a81981ee8af5dda3871aa1928d40e671c0d0ad7411ac2b",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0347-0365.txt",
+          "type": "file",
+          "bytes": 1069,
+          "sha256": "cf2aafa1e9e300aa0ef2ae90bfca2a23d97e27f8af777b54d88f339a59eeb0c1",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0389-0416.txt",
+          "type": "file",
+          "bytes": 1145,
+          "sha256": "74e303b5d22af17601e6ef39839b2bb70952ffaa85024b179558d25e6cdb0a82",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0584-0643.txt",
+          "type": "file",
+          "bytes": 3253,
+          "sha256": "b33c6fc8d22b7e2571a020fdee2e32e8f435af3f1a5fe8c3ef420b31907149ac",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0644-0653.txt",
+          "type": "file",
+          "bytes": 436,
+          "sha256": "d40669b634ec003d35830d96439785ebb7c141623fa969a10b7f6e353e41c4f0",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__organization_catalog_validation.rs__0657-0674.txt",
+          "type": "file",
+          "bytes": 581,
+          "sha256": "c0fd290c1f43a0eabb9e1bb1953212340b866b16bb6112807cb3e2c383ae8c37",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-core__src__starting_character.rs__0035-0059.txt",
+          "type": "file",
+          "bytes": 803,
+          "sha256": "5ee6af5f9f77dd27d630d196dfbd05a612e74798efd62193c31bbb2bbdf5449b",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-stdb-module__src__organization.rs__0130-0189.txt",
+          "type": "file",
+          "bytes": 3175,
+          "sha256": "10df82dd780de4ae45f7f8fff7d7a7dff26785475a1ab6a46535e9b3a53a43f0",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__adventuresim-stdb-module__src__organization.rs__0190-0225.txt",
+          "type": "file",
+          "bytes": 1353,
+          "sha256": "70b6ccab8ceafc59b0dcb8da43565d0637b2daa6c2e7940cdca368d8a346c9ca",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__strategic-web__src__templates__settlement__character_skills.rs__0528-0569.txt",
+          "type": "file",
+          "bytes": 1645,
+          "sha256": "9a22168422ac0caaf7261f8b8995bdcb9145291b27189b597ae64e3b8a2bfe99",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__strategic-web__src__templates__settlement__character_skills.rs__0806-0865.txt",
+          "type": "file",
+          "bytes": 3012,
+          "sha256": "1772cc60e6117f60f897c7404b668e09b52b22f585d6c37b6c9f6eaaa5a5912b",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__strategic-web__src__templates__settlement__character_skills.rs__0866-0866.txt",
+          "type": "file",
+          "bytes": 66,
+          "sha256": "dad40dcc23b7f887ec5a0b26dca0932a6300913c3b875e95bc9a596e2d0a65d3",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/crates__strategic-web__src__templates__settlement__character_skills.rs__1240-1245.txt",
+          "type": "file",
+          "bytes": 1234,
+          "sha256": "7b106ecbd4b7d99432a4cf1376eec2813dbe92cff287bbf6f347a8e3b653f6c6",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_core-1.0.229__src__de__impls.rs__0129-0151.txt",
+          "type": "file",
+          "bytes": 924,
+          "sha256": "b27d5ecb03e5694ff41ec1c2c9e90cee09ce1c55bbb12ead6363c5c4ee5e2f31",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_core-1.0.229__src__de__impls.rs__0222-0242.txt",
+          "type": "file",
+          "bytes": 704,
+          "sha256": "b637fffc5fe6dab330832161bb593fc7f998a387b41197f99928ef9e7e378938",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_core-1.0.229__src__de__impls.rs__0450-0456.txt",
+          "type": "file",
+          "bytes": 304,
+          "sha256": "b73bd5676e14c768370f4192e906a3ccaba668d5ffe17b623ed78015226aa2f3",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_derive-1.0.229__src__de__struct_.rs__0236-0272.txt",
+          "type": "file",
+          "bytes": 1857,
+          "sha256": "193672b17d34fb44f95de6b1f222555a0d42bf719a2f78f3a344180a1a3a5a52",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_json-1.0.151__src__de.rs__0109-0128.txt",
+          "type": "file",
+          "bytes": 720,
+          "sha256": "c5f111d5339b67f4a82f700da46db65fa68de834967ede1e1ba9024bc5f09dc7",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_json-1.0.151__src__de.rs__0319-0354.txt",
+          "type": "file",
+          "bytes": 1281,
+          "sha256": "4371839a5acbaa4e5ec2ab017c8a9061dbea46d8ccd9aa2da7f37be15e6eb620",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_json-1.0.151__src__de.rs__1335-1353.txt",
+          "type": "file",
+          "bytes": 728,
+          "sha256": "d59599e19b81b56d5262afc63ec823c96219095b06fbc56915e686202cac8180",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-review/views/native__serde_json-1.0.151__src__de.rs__1500-1513.txt",
+          "type": "file",
+          "bytes": 636,
+          "sha256": "d81523c8dd59d240ee923323aee68f9390f55b67f0bee83d4a673acd7ea5c86a",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "organization-receipt",
+      "file": "organization-receipt.tar.gz",
+      "source_manifest_sha256": "53f8f319da62a6b279d9a21eb4489a6097f59990ec18089aef7da9f2101ad0ff",
+      "manifest_member": "organization-receipt/MANIFEST.json",
+      "archive_bytes": 1757,
+      "archive_sha256": "26894ba97dc67a87eb04fa32d9ab2fc0339cb2155db5a2d1df0460dbd74d1e6c",
+      "members": [
+        {
+          "path": "organization-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 320,
+          "sha256": "53f8f319da62a6b279d9a21eb4489a6097f59990ec18089aef7da9f2101ad0ff",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-receipt/RECEIPT.json",
+          "type": "file",
+          "bytes": 1686,
+          "sha256": "4fe26a6cdea6eb799a3fcdf66cf8d0c80759654d113da4ba76048f18336870fe",
+          "mode": "0o664"
+        },
+        {
+          "path": "organization-receipt/VERIFY.py",
+          "type": "file",
+          "bytes": 902,
+          "sha256": "377f8050655679a311b923e969da2823ebf110da91aa130ced073d3bfcb8151f",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact separately attributed public review bytes and contained modes. Historical source, conditional reach, prior versions and same-machine dependencies remain separately qualified; no queue or lens closure is established."
+}

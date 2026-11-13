@@ -1,0 +1,126 @@
+{
+  "schema": "726-postb111-peer-transports-v1",
+  "parent_checkpoint": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "navigation-review",
+      "file": "navigation-review.tar.gz",
+      "source_manifest_sha256": "e5b34729bc62896fd6c076f9ed0f83936ecbadc9cc914f5d7f29fbece6ec6baa",
+      "manifest_member": "navigation-review/MANIFEST.json",
+      "archive_bytes": 9886,
+      "archive_sha256": "4905191344649f6811adeb56098ee07674ccca1bd371560cb97dd5421550a578",
+      "members": [
+        {
+          "path": "navigation-review/CHECK.py",
+          "type": "file",
+          "bytes": 2733,
+          "sha256": "2f2b0feff5c3273fa5e28fc085da3476c2be14da56a3389508a68c0ed96101d4",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/CORRECTION.json",
+          "type": "file",
+          "bytes": 490,
+          "sha256": "d5909a2d5bfd18a6cadb6d20c09606a5d1c833dd8ad23f2a3fac0b0f4d16548b",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/DRAFT-v4.json",
+          "type": "file",
+          "bytes": 18898,
+          "sha256": "08722589f73bfddd7df95e77e0183558b7fb2a9120b1a3bfa19d2e2d1c9854db",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/DRAFT-v5.json",
+          "type": "file",
+          "bytes": 19076,
+          "sha256": "1212f4f29a5dbf2ed6d4faff7788d9df13ed744a69b7c7c1262548d3899d1fef",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 1136,
+          "sha256": "e5b34729bc62896fd6c076f9ed0f83936ecbadc9cc914f5d7f29fbece6ec6baa",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/PRIOR-ANCHOR.json",
+          "type": "file",
+          "bytes": 362,
+          "sha256": "6e9d4dbc92ea9d1d6056edcffec2872a1bc8937692871f3829d9916c016124fa",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/RECURSIVE-DIFF.json",
+          "type": "file",
+          "bytes": 2004,
+          "sha256": "4d7ae96b4cd3c9d0f517f43b411d1927f9d0a8217c9c356fef7e65c4f9e933a6",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-review/REPORT.md",
+          "type": "file",
+          "bytes": 1879,
+          "sha256": "5ad8bcdc3945906245162ed6b2ca0003fe912f3ad318d335b8e1580f0e04ed5b",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "navigation-receipt",
+      "file": "navigation-receipt.tar.gz",
+      "source_manifest_sha256": "1d72119bb515eb6f1b342ac200575f9dd502717b467c892ab8399471b576e9df",
+      "manifest_member": "navigation-receipt/MANIFEST.json",
+      "archive_bytes": 2129,
+      "archive_sha256": "c87e4894bcb9408a099e2852bd9ca0024a71754f3c4b47ea2a513d709462f9ff",
+      "members": [
+        {
+          "path": "navigation-receipt/CHECK.py",
+          "type": "file",
+          "bytes": 1464,
+          "sha256": "c9369669fa95030d994eeb05907574eaaef53b79595769f3aaa865b7146cc0f3",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-receipt/DELIVERY-SCAN.json",
+          "type": "file",
+          "bytes": 562,
+          "sha256": "27fd649cdffeb5a5717e67c3f48e8c4fe2cfc350bc4e257db369a29df99eca19",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-receipt/IDENTITIES.json",
+          "type": "file",
+          "bytes": 515,
+          "sha256": "ea8753f350bc447ede505b42b2a356fe1b7dd754080cf5991477adb9a69d168f",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 834,
+          "sha256": "1d72119bb515eb6f1b342ac200575f9dd502717b467c892ab8399471b576e9df",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-receipt/PUBLIC-SCAN.json",
+          "type": "file",
+          "bytes": 562,
+          "sha256": "4a63efe07d82ac960a7b4c66349bdc39b03e67ab6df1e9c6d876c8d29016437b",
+          "mode": "0o664"
+        },
+        {
+          "path": "navigation-receipt/REPLAY-RESULT.json",
+          "type": "file",
+          "bytes": 891,
+          "sha256": "f8d3b36a0cfb46ecb4f8b2de3d416bdc7cb1161659a62fef8b44f2819c4c9ad4",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact separately attributed public review bytes and contained modes. Historical source, conditional reach, prior versions and same-machine dependencies remain separately qualified; no queue or lens closure is established."
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "726-postb111-supplemental-process-replay-receipt-v1",
+  "checks": [
+    {
+      "label": "transform-v1",
+      "exit": 0,
+      "stdout_bytes": 353,
+      "stdout_sha256": "8c8fc5c0de30e1c466db287d9f845ce51972be409c055f4c8ab908353af17378",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "transform-successor",
+      "exit": 0,
+      "stdout_bytes": 429,
+      "stdout_sha256": "df28a5d5f81f1e2a0e7d590b6cfab4ba951165fe5447ea0b45f4eb8b409df1ee",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "nine-private",
+      "exit": 0,
+      "stdout_bytes": 198,
+      "stdout_sha256": "89e6cfde989891b601dc959ad2033011efe65f5794f2e09766ef81856419dcc3",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "nine-public",
+      "exit": 0,
+      "stdout_bytes": 207,
+      "stdout_sha256": "37629df47d8c9a302fae861069e0f786e17d22535ae2233219f465d02f361393",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "nine-receipt",
+      "exit": 0,
+      "stdout_bytes": 139,
+      "stdout_sha256": "63a8bddf3115dcec36599a14ca7fbeff015928c86b703ff2f5f4c3d65cc89c23",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "navigation-private",
+      "exit": 0,
+      "stdout_bytes": 204,
+      "stdout_sha256": "ffe9780883ba86c0db89edc0b22370ac812ec6233b5c039c643afda46a9f7fcc",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "navigation-receipt",
+      "exit": 0,
+      "stdout_bytes": 132,
+      "stdout_sha256": "b44c3e34faaa150a4264fde437814832bc0935fbf408c68dbb6f330a2de75ccf",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "organization-full",
+      "exit": 0,
+      "stdout_bytes": 269,
+      "stdout_sha256": "a363177a71d04ea0b7de3dfbe110576942eb5d245109d51fc0f5bda23df64556",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "organization-receipt",
+      "exit": 0,
+      "stdout_bytes": 52,
+      "stdout_sha256": "13a3b184636f1ccc4fabe7bbf1af457605bfe0a53d2a95589f960745b4e0720a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Evidence-only checks against same-machine restored collections; the organization full replay used prior primary-restored history and the restored locked source archives. Full commands and logs remain restricted."
+}

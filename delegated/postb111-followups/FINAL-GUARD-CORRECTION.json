@@ -1,0 +1,36 @@
+{
+  "schema": "726-postb111-final-guard-correction-v2",
+  "predecessor_sha256": "86b3caedf92c8a0bb3d837cd298f7cf1f1f63a2b6ff13539fcaa30df136679a5",
+  "successor_sha256": "0a4c62a4facb7a547076f6a7403520f6ffc9f44d405fbb1a826f4f20b3f714ac",
+  "final_ciphertext_manifest_sha256": "582d3a09a922a155ff35091c69b9ec53a9dda211e1facc9bc4a78a4d7a7875f2",
+  "final_restoration_receipt_sha256": "2c72247abc525ad0d4d3016ccaf8033ebfe1303ae80e73abf7febcfdb45d3ef5",
+  "final_verifier_sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9",
+  "selected_replay_checks": [
+    [
+      "application-review",
+      0,
+      0
+    ],
+    [
+      "structural-review",
+      0,
+      0
+    ],
+    [
+      "structural-public",
+      0,
+      0
+    ],
+    [
+      "guard-v1-review",
+      0,
+      0
+    ],
+    [
+      "guard-v1-public",
+      0,
+      0
+    ]
+  ],
+  "qualification": "Adds exact receipt member and final custody bindings, requires the named nonempty evidence replays, and checks the captured installed stage. The capture/status pair alone is a consistency check; the separately captured closing snapshot and commit anchor its identity. No-key checks remain identity-only."
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "726-postb111-stage-privacy-correction-v1",
+  "prior_capture_sha256": "d29e8186fa91a8a6299502ee303ec6278d6fb52779a2ba1f134d85206bdb834c",
+  "prior_capture_files": 222,
+  "prior_capture_directories": 15,
+  "prior_scan_tar_pattern_issues": 1,
+  "classification": "A generated evidence-tool Python bytecode cache contained a local filesystem path. The cache and the prior staged capture were moved to restricted custody, not deleted. A fresh stage capture and scan are separate.",
+  "prior_capture_wrapper_qualification": "The original wrapper encountered an existing output file; its traceback was tool-visible only and the original process exit and stderr were not independently saved. A separate same-machine comparison matched the prior capture before this correction.",
+  "qualification": "This correction concerns evidence packaging only. Original audit evidence, product files, source semantics, audit closure and independent custody are not changed."
+}

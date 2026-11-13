@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 05:36:20 UTC and 2026-11-13 05:36:20 UTC; this is a point-in-time observation and main may advance. See MAIN-RECHECK-20261113-0536.json.",
+  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 06:55:18 UTC and 2026-11-13 06:55:19 UTC; this is point-in-time and main may advance. See MAIN-RECHECK-20261113-0655.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1106,
+  "new_current_ledger_candidates": 1115,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2421,5 +2421,10 @@
   "post5f6a_queue_snapshot": "3,713 indexed: 1,370 partial and 2,343 unassessed; all remain semantically unreconciled.",
   "post5f6a_prior_pending_qualification": "Earlier pending indexes are time-bound: q10, q13, q3447, q3448, q3450 and q3451 now have partial assessments; no historical index bytes were changed.",
   "checkpoint_5f6a_same_machine_recovery": "delegated/post5f6a-followups/REMOTE-RECOVERY.json; 179 captured path identities matched in a separate same-machine checkout and evidence guards passed.",
-  "main_recheck_20261113_0536": "MAIN-RECHECK-20261113-0536.json"
+  "main_recheck_20261113_0536": "MAIN-RECHECK-20261113-0536.json",
+  "central_postb111_bounded_reconciliations": "ASSESSMENT-CENTRAL-FOLLOWUPS-21-95E.json; nine partial assessments, nine planning relationships, no semantic closure or accepted unique-defect increment.",
+  "postb111_queue_snapshot": "3,713 indexed: 1,379 partial and 2,334 unassessed; all remain semantically unreconciled.",
+  "postb111_prior_pending_qualification": "Earlier pending indexes are time-bound: q0, q19, q2497, q2501, q2503, q2504, q2510, q2521 and q2534 now have partial assessments; historical index bytes remain unchanged.",
+  "checkpoint_b111_same_machine_recovery": "delegated/postb111-followups/REMOTE-RECOVERY.json; 141 captured path identities matched after predecessor checks and remote fetch into the same-machine recovery checkout.",
+  "main_recheck_20261113_0655": "MAIN-RECHECK-20261113-0655.json"
 }

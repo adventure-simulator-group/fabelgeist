@@ -1,0 +1,163 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; original included root, directory and regular-file modes and bytes",
+  "objects": [
+    {
+      "label": "postb111-privacy-privacy-correction",
+      "ciphertext": "postb111-privacy-privacy-correction.aesgcm",
+      "ciphertext_sha256": "02e67bad3889f5f5cfb77a2dc48c40605aad36a4069ee54f4851867315385686",
+      "ciphertext_bytes": 28729,
+      "plaintext_archive_sha256": "3fe8373205f6dd94cabcb4bd37e10184f14b764a072e25c1d7a4c531945cf858",
+      "plaintext_archive_bytes": 28701,
+      "regular_files": 4,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-privacy-correction:v1"
+    },
+    {
+      "label": "postb111-privacy-preinstall-stage",
+      "ciphertext": "postb111-privacy-preinstall-stage.aesgcm",
+      "ciphertext_sha256": "22a2b5893ce0f8393e66f518f7ce9d4aeacb0f836362816fad4c33a980dd756f",
+      "ciphertext_bytes": 33036,
+      "plaintext_archive_sha256": "798c5f898648ca2c5ec5a526536c76777f8f613f9d4a521e8889f05b1f2fa082",
+      "plaintext_archive_bytes": 33008,
+      "regular_files": 34,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-preinstall-stage:v1"
+    },
+    {
+      "label": "postb111-privacy-capture-recovery",
+      "ciphertext": "postb111-privacy-capture-recovery.aesgcm",
+      "ciphertext_sha256": "f1e08b6b717e9b2144840dcae2d4afd254c536fe1928802ccc64621a4783c622",
+      "ciphertext_bytes": 5781,
+      "plaintext_archive_sha256": "db179777bc308dc6535217b0ca58ed04a7369bb3fd27b905f3d6d3a61c6529cf",
+      "plaintext_archive_bytes": 5753,
+      "regular_files": 10,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-capture-recovery:v1"
+    },
+    {
+      "label": "postb111-privacy-install-v1",
+      "ciphertext": "postb111-privacy-install-v1.aesgcm",
+      "ciphertext_sha256": "afd95ec224cc52dda0cd286941f62c0be682cf495bfdca159ba1f5b36ab3bcb7",
+      "ciphertext_bytes": 2660,
+      "plaintext_archive_sha256": "7ed3841fd30b257b1306b7dd28116fa7ce24c231bcbd319487c3974c5d72c135",
+      "plaintext_archive_bytes": 2632,
+      "regular_files": 1,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-install-v1:v1"
+    },
+    {
+      "label": "postb111-privacy-install-v2",
+      "ciphertext": "postb111-privacy-install-v2.aesgcm",
+      "ciphertext_sha256": "e0f5e03371ad7ae2d4007a43e11ca1d3a0c371c5d4c1c0da447df8ed5219624d",
+      "ciphertext_bytes": 4265,
+      "plaintext_archive_sha256": "19dbbe822221c94e89a0e9467e92b4b9b7fa366109ebda0a79d49abfd03f9d0c",
+      "plaintext_archive_bytes": 4237,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-install-v2:v1"
+    },
+    {
+      "label": "postb111-privacy-preinstall-public-scan",
+      "ciphertext": "postb111-privacy-preinstall-public-scan.aesgcm",
+      "ciphertext_sha256": "41af5a10e7fc26a90b855f61eb6c8a619780b88f1ed0df36fc74a86a2731b91e",
+      "ciphertext_bytes": 2376,
+      "plaintext_archive_sha256": "3f269d410cc334237c016e4c7b3ddcb18f97e1ca4938d15606262e3123b318a4",
+      "plaintext_archive_bytes": 2348,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-preinstall-public-scan:v1"
+    },
+    {
+      "label": "postb111-privacy-preinstall-evidence",
+      "ciphertext": "postb111-privacy-preinstall-evidence.aesgcm",
+      "ciphertext_sha256": "93fd0b06c0b44c71ff4e40cfc76ab7fb8365901504783c977f11c30fc8fe41f5",
+      "ciphertext_bytes": 2595,
+      "plaintext_archive_sha256": "71f91dfe906564676c4a35d765f01378fd7fdff2c8efce0f7c70e7c61a3baf06",
+      "plaintext_archive_bytes": 2567,
+      "regular_files": 15,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-preinstall-evidence:v1"
+    },
+    {
+      "label": "postb111-privacy-staged-capture",
+      "ciphertext": "postb111-privacy-staged-capture.aesgcm",
+      "ciphertext_sha256": "ad14bbfdaf0dcc46faa8cb746a51a89551e010aab3ba5cdf49a1790dc9654d08",
+      "ciphertext_bytes": 2302,
+      "plaintext_archive_sha256": "fe5c6bd8a422d56f7dddd01d2eb3a1db2ddf0ce7a45555fdffa19ecdb78ed11f",
+      "plaintext_archive_bytes": 2274,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-staged-capture:v1"
+    },
+    {
+      "label": "postb111-privacy-staged-scan",
+      "ciphertext": "postb111-privacy-staged-scan.aesgcm",
+      "ciphertext_sha256": "fc5dcb500bdbdd08c93ea665ac380a3a6c502ac6589d7a42bb50af0679d65635",
+      "ciphertext_bytes": 1287,
+      "plaintext_archive_sha256": "c3838abe5f998d6eec0e38811a28e24ed8a8344d2c3375dce0ca1a911ec6462a",
+      "plaintext_archive_bytes": 1259,
+      "regular_files": 1,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-staged-scan:v1"
+    },
+    {
+      "label": "postb111-privacy-closing-template",
+      "ciphertext": "postb111-privacy-closing-template.aesgcm",
+      "ciphertext_sha256": "d4aa4c3e0fda045630989cc056df236bf7d6cda8dc4afff4645f069dcd719689",
+      "ciphertext_bytes": 2685,
+      "plaintext_archive_sha256": "cae5df5d3b7c85afaf2d5bb9d5e370684bd72f439179fed5f95bdf2757da5900",
+      "plaintext_archive_bytes": 2657,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-closing-template:v1"
+    },
+    {
+      "label": "postb111-privacy-final-capture",
+      "ciphertext": "postb111-privacy-final-capture.aesgcm",
+      "ciphertext_sha256": "0d90c81de0d467ee056eefbd306bb725717b767b63034eed79bcc45c4bdbf2e8",
+      "ciphertext_bytes": 1762,
+      "plaintext_archive_sha256": "144a862281c36dd63ae789d1b690d324aa780be01fa3224daf6586c902bff46b",
+      "plaintext_archive_bytes": 1734,
+      "regular_files": 1,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-final-capture:v1"
+    },
+    {
+      "label": "postb111-privacy-closing-scan",
+      "ciphertext": "postb111-privacy-closing-scan.aesgcm",
+      "ciphertext_sha256": "b69e0ec73b68d630c9ca93f87728d7416c6421bd2656f480997db64e6ffb8e2b",
+      "ciphertext_bytes": 1275,
+      "plaintext_archive_sha256": "0da521d08ea2069f172a05116f12a43e496f5625f317887c9d20ffd5fbdebf4e",
+      "plaintext_archive_bytes": 1247,
+      "regular_files": 1,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-closing-scan:v1"
+    },
+    {
+      "label": "postb111-privacy-final-control-selected",
+      "ciphertext": "postb111-privacy-final-control-selected.aesgcm",
+      "ciphertext_sha256": "83aa350b2a078dc0d0bf2ceecab422a11050dbc96dd98f18e389b9dd0dcea3ed",
+      "ciphertext_bytes": 36922,
+      "plaintext_archive_sha256": "9cb2c3e3d5d473d85fd761290c8de9f1555687a1830c5288a0f51752377a1181",
+      "plaintext_archive_bytes": 36894,
+      "regular_files": 54,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-final-control-selected:v1"
+    },
+    {
+      "label": "postb111-privacy-custody-control",
+      "ciphertext": "postb111-privacy-custody-control.aesgcm",
+      "ciphertext_sha256": "36f9e5413666cb68b9c11e68f52ccbfd0bf9bf991c56b1017e81ee21390dc201",
+      "ciphertext_bytes": 53593,
+      "plaintext_archive_sha256": "91af1910f2905d3bfd30ce34458846b101477198c2031faa769038d97b65bf5d",
+      "plaintext_archive_bytes": 53565,
+      "regular_files": 12,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:postb111-privacy-custody-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier primary, supplemental and final ciphertexts, historical Git objects and other nested keys remain separate dependencies.",
+  "qualification": "Thirteen requested point-in-time source collections plus a separate encrypted custody-control collection. Selected final-control parent preserves only the two expressly named members. No product, source mutation, semantic closure, missing checkpoint3821 recovery or independent custody is implied."
+}

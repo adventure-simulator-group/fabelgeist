@@ -1,0 +1,83 @@
+{
+  "schema": "726-postb111-central-followups-capture-v1",
+  "checkpoint": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "registration_sha256": "29dccef03e87e95b681900e66119f5161cd6feacdea8eca700ccb842d8e40fe4",
+  "reports": [
+    {
+      "label": "q19-source",
+      "archive": "delegated/post5f6a-followups/transport/q19-source.tar.gz",
+      "archive_sha256": "846ff83c79f1b35772d865aba355c11204bce521f0f67ad8b26eb9da20b68461",
+      "member": "q19-source/REPORT.md",
+      "report_sha256": "046673c78885c7518a9ff53b318f01a2129ee2a8f3a36f59d196db74e4fb2580",
+      "report_bytes": 2077
+    },
+    {
+      "label": "q19-peer",
+      "archive": "delegated/post5f6a-followups/transport/q19-independent.tar.gz",
+      "archive_sha256": "6aeb9ff6d011f2fc3f6f0548f57ae7a5164edef77fc3204b1a5f953a4a6c9d77",
+      "member": "q19-independent/REPORT.md",
+      "report_sha256": "5c265ccb80034671dfc7f036dadce5317449f97c2cdfa59bfb6b86bc4830984a",
+      "report_bytes": 4802
+    },
+    {
+      "label": "q2510-peer",
+      "archive": "delegated/post5f6a-followups/transport/q2510-independent.tar.gz",
+      "archive_sha256": "f437144407c9ccfd666943b39634bf1853ec9f2e0631c6f188ef2513054646ef",
+      "member": "q2510-independent/REPORT.md",
+      "report_sha256": "bfc8f8cb81f1688e5f92579e68eb6c2ee5f319b86c99d50282f571895edf4c6f",
+      "report_bytes": 4852
+    },
+    {
+      "label": "q2521-peer",
+      "archive": "delegated/post5f6a-followups/transport/q2521-independent.tar.gz",
+      "archive_sha256": "33def58a312884027cd6811ca4c654a23b4ab596049a3e7a71e1f4460034200b",
+      "member": "q2521-independent/REPORT.md",
+      "report_sha256": "fb868845de2526224419c10021c0d7c6490795a15235cdc9e8001d2decf1abb4",
+      "report_bytes": 6188
+    },
+    {
+      "label": "q2534-peer",
+      "archive": "delegated/post5f6a-followups/transport/q2534-independent.tar.gz",
+      "archive_sha256": "8bc6f2a830ba4204c59db62c2c3314bfc5a99f7ae6d49952b7bcaf578ad178cb",
+      "member": "q2534-independent/REPORT.md",
+      "report_sha256": "cdefef6c0d2db0e3a87edd9622a2643463876a1e16f6a20a580291fe24581ec5",
+      "report_bytes": 5419
+    },
+    {
+      "label": "q0-peer",
+      "archive": "delegated/post5f6a-followups/late-transport/q0-independent.tar.gz",
+      "archive_sha256": "71b8821062b4dd84843e33a8b5985ad5a4f437bad51c847293513edc6663a0c3",
+      "member": "q0-independent/REPORT.md",
+      "report_sha256": "54594dd2ed31c95826ff66de0eec7208c5d4f1280c0ae2808e04e413d6cca9a4",
+      "report_bytes": 5527
+    },
+    {
+      "label": "q2497-peer",
+      "archive": "delegated/post5f6a-followups/late-transport/q2497-independent.tar.gz",
+      "archive_sha256": "86550e09cb93dea60c1754456579f2358d514fd88136155ea71ab6e5afa4c833",
+      "member": "q2497-independent/REPORT.md",
+      "report_sha256": "9e71e357fd841e87ae17702e2458063bf4ccdc9c5f277699fb735a8f7f0d7e02",
+      "report_bytes": 4739
+    },
+    {
+      "label": "q2501-04-peer",
+      "archive": "delegated/post5f6a-followups/later-transport/q2501-2504-independent.tar.gz",
+      "archive_sha256": "5938d3323779d53cf45956d245822c6316b55a2b343428186b289da38ab6fb53",
+      "member": "q2501-2504-independent/REPORT.md",
+      "report_sha256": "697b2f8ca43e140beea56f939ba8a9d1ba87360479e100e514cafc6cb9acb488",
+      "report_bytes": 5012
+    }
+  ],
+  "selected_queue_indices": [
+    0,
+    19,
+    2497,
+    2501,
+    2503,
+    2504,
+    2510,
+    2521,
+    2534
+  ],
+  "qualification": "Captured report bytes and selected overlay rows from the published checkpoint. Full reconstructed 059 and selected original historical records remain separately identified. Report reads do not grant source-read credit."
+}

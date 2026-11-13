@@ -1,0 +1,42 @@
+{
+  "schema": "726-postb111-privacy-custody-public-scan-v1",
+  "files": [
+    {
+      "name": "public/MANIFEST.json",
+      "bytes": 8336,
+      "sha256": "7f5ad3f7bc9d2e495015c3db1908162aee97ea263e0f167a861559cfd9ee377e"
+    },
+    {
+      "name": "public/VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9"
+    },
+    {
+      "name": "public/README.md",
+      "bytes": 712,
+      "sha256": "8239aed7e607a774ef057a57580090b38f06f6c0857e744742dabfbfeb482b0c"
+    },
+    {
+      "name": "receipt/RESTORATION.json",
+      "bytes": 2125,
+      "sha256": "4e051d691b003e01ea574517fe933af2ffe02705296ddc95fcb19f58a81c90dd"
+    },
+    {
+      "name": "receipt/VERIFY-CUSTODY.py",
+      "bytes": 1855,
+      "sha256": "a4e6e4bf6ab3a7251fb4829a6038496bde973c1c92facb76f4f3105a3cb430d7"
+    }
+  ],
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "private_source_literal_hits": 0,
+  "private_source_or_prefix_digest_hits": 0,
+  "positive_controls_pass": true,
+  "qualification": "Finite exact metadata scan of ciphertext manifest, verifier, README, restoration receipt and receipt verifier; ciphertext contents remain opaque. Individual private-path values, prefixes and their digests are never emitted. Unknown encodings, patterns and omitted inputs remain outside scope."
+}

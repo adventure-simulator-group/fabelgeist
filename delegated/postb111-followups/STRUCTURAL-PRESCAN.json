@@ -1,0 +1,24 @@
+{
+  "schema": "726-postb111-structural-prescan-v1",
+  "checks": [
+    {
+      "name": "structural-digests",
+      "exit": 0,
+      "stdout_sha256": "083c22309de8493d239e94b6ef064c71862ce9ce9f1e1c663e54b92a4962b13a",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "structural-patterns",
+      "exit": 0,
+      "stdout_sha256": "a2d97d784466a0af18715862ceb872c559661c7ba4ab5e41e67fe0c384b41ef1",
+      "stderr_bytes": 0
+    }
+  ],
+  "transport_manifest_sha256": "2068ae4cb5fb7c19d10e5a996e61da2bb71921bb5f309583a2ce244f18b2b427",
+  "scanned_paths": 8,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Bounded preliminary scan of six public repackings and their transport metadata. Later additions, unknown values and encodings, ciphertext and Git history remain outside scope."
+}

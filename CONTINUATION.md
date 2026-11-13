@@ -13,6 +13,25 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-21-95E.json` connects nine bounded partial
+assessments and nine planning relationships. The working queue has 1,379 partial
+and 2,334 unassessed records, all semantically unreconciled; the ledger has
+1,115 entries and relationships, not unique defects. No queue record or lens is
+closed and no unique-defect increment is accepted.
+
+The selected original and reconstructed 059 queue objects match as parsed while
+their complete streams differ. Historical records, normalized 774, missing
+pre-export originals, SOURCE004, the 73 nontext/no-positive-EOF obligations and
+missing checkpoint 3821 retain their separate qualifications. Older pending
+indexes retain their historical snapshot counts.
+
+`delegated/postb111-followups/REMOTE-RECOVERY.json` records same-machine
+recovery of the preceding checkpoint, and `MAIN-RECHECK-20261113-0655.json`
+records a later point-in-time main observation. Main may advance. The
+predecessor checks require an exact b111 checkout;
+`delegated/postb111-followups/application/README.md` documents evidence-only
+replay.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-20-95E.json` connects six bounded partial
 assessments and three planning relationships. The working queue now has 1,370
 partial and 2,343 unassessed records, all semantically unreconciled; the ledger

@@ -1,0 +1,24 @@
+{
+  "schema": "726-postb111-supplemental-process-restoration-v2",
+  "collections": 48,
+  "files": 1289,
+  "directories_including_collection_roots": 103,
+  "all_captured_files_and_modes_match": true,
+  "all_captured_directories_and_root_modes_match": true,
+  "nonce_scope": {
+    "tracked_prior": 420,
+    "staged_primary": 42,
+    "staged_supplemental": 0,
+    "new": 48,
+    "all_distinct": true
+  },
+  "qualification": "Restored independently with the existing generic AES-GCM evidence verifier in a fresh directory. UID, GID and timestamps were normalized in the archive. The three named large roots contain top-level regular files only except the separately captured primary receipt-scan subtree; their remaining omitted trees require the separately held primary ciphertext and staged public archives. The separately held same-machine primary key, prior q2812 anchors, source Git objects, nested keys and older ciphertext remain dependencies. No independent custody, checkpoint3821 restoration, product validation or audit closure is established.",
+  "ciphertext_manifest_sha256": "4474472c6cb737e104aeccd414f2fe0fc9ebf0cec0f80b85a73f463283197883",
+  "predecessor_ciphertext_manifest_sha256": "7b669176b039ca6f42e2ec28ff5461466362127f9d58b81535f3b83d9c8f4aae",
+  "predecessor_ciphertexts_preserved": 46,
+  "separately_added_collections": [
+    "primary receipt-scan",
+    "checksum-pinned archive replicas"
+  ],
+  "scope": "Receipt of a completed same-machine verification, not a fresh restore or independent custody."
+}

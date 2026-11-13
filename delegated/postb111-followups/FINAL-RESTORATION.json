@@ -1,0 +1,50 @@
+{
+  "schema": "726-postb111-final-restoration-v1",
+  "ciphertext_manifest_sha256": "582d3a09a922a155ff35091c69b9ec53a9dda211e1facc9bc4a78a4d7a7875f2",
+  "restore_exit": 0,
+  "collections": 26,
+  "matched_file_bytes_and_modes": 361,
+  "matched_directory_modes": 35,
+  "selected_replay_exits": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "selected_replay_checks": [
+    {
+      "label": "application-review",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "structural-review",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "structural-public",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "guard-v1-review",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "guard-v1-public",
+      "exit": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "nonce_scope": {
+    "tracked_b111": 420,
+    "staged_primary": 42,
+    "supplemental": 48,
+    "new": 26,
+    "all_distinct": true
+  },
+  "qualification": "Fresh same-machine restoration authenticated all included files, contained directories and included source-root modes. Archive ownership and timestamps were normalized. Final coordination is frozen at its stated cutoff; the evolving public final guard and ongoing source-audit work were excluded. A failed README locator was tool-visible but not separately captured byte-for-byte. The primary key, previous primary and supplemental ciphertext, q2812 and prior history anchors, historical Git objects and nested keys remain separate dependencies. No independent custody, checkpoint3821 recovery, product validation or semantic closure is established."
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "726-postb111-same-machine-recovery-v1",
+  "commit": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "tree": "84668f9ace2a06e346564f2185d5e57747403363",
+  "prior_commit": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "captured_paths_matched": 141,
+  "checks": [
+    {
+      "name": "predecessor-0",
+      "exit": 0,
+      "stdout_sha256": "c93bf3a41af0a64f9d70654b722bed8fcc80be361309650b27e8109a5dddc298",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "predecessor-1",
+      "exit": 0,
+      "stdout_sha256": "c28eb7e97551d0cc4051598a3d94d117bc4bfdef21de16a954a0906b004729ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "predecessor-2",
+      "exit": 0,
+      "stdout_sha256": "cf5626825e6b4f0a0dc79a707ff6e792f4d0431ef5ba291e7f57c1559a48a3cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "fetch",
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "69601c1e0a1d43982b5c41b17b57f44d164972b7366d58b55d29da9e6ccb7235"
+    },
+    {
+      "name": "checkout",
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "71a138f7dd14239f2d4ea1f3e1143a126698a8c96ba070d10b4bb7a49344f450"
+    },
+    {
+      "name": "successor-final-guard",
+      "exit": 0,
+      "stdout_sha256": "5754b50587dc999742384d234b0d7d7cf69608ac2c119aa826136158d4b550fc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "successor-checkpoint",
+      "exit": 0,
+      "stdout_sha256": "d7e7c4bc60cee6e75b7d7db42346085d4c0c41de5f7b263f07da928aacd53382",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "successor-closing",
+      "exit": 0,
+      "stdout_sha256": "6d0a5830b59ecd59eb04fe420d321de1814fc20b7ca5ea429f78b790ee041246",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "The existing separate same-machine recovery checkout first replayed three predecessor checks while clean at 5f6a, then fetched and checked out the remote successor. All captured files, Git blobs and executable bits matched; three successor evidence checks passed. To avoid a second full checkout, the recovery checkout now holds the successor. The predecessor commit remains in its Git object store, but replaying its snapshot-specific checks again requires a separate clean 5f6a checkout or a later checkout change. Git does not preserve non-executable mode bits or directory modes. This is not independent custody, checkpoint3821 recovery, product validation or semantic closure. Exact logs are held for the next checkpoint."
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "726-postb111-root-candidate-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "5387fb41ee7a5d8c6b5979e0d75952b5e1a9036a240b4cf3b5586b895b12b86e",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "43417f5ce522debc5f6db04636d81b0e4de7e70cbdc593dd1876ef50c2f84793",
+      "stderr_bytes": 0
+    }
+  ],
+  "capture_sha256": "0664f3064ee85dd24101cb8468f9382b994c595962ab0637d6576ee28923cbfd",
+  "scanned_paths": 7,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite scan of seven captured prospective root files. Unknown private values, encodings, Git history and later additions remain outside scope."
+}

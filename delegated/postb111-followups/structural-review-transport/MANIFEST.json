@@ -1,0 +1,208 @@
+{
+  "schema": "726-postb111-peer-transports-v1",
+  "parent_checkpoint": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "transform-v1",
+      "file": "transform-v1.tar.gz",
+      "source_manifest_sha256": "505e7fe18747f284ec49ecd98947cdaac086c2de270bba5681e856504bf9c3cf",
+      "manifest_member": "transform-v1/MANIFEST.json",
+      "archive_bytes": 4580,
+      "archive_sha256": "e2a5db0a6ac8886a41817894c238b5e9f3550a9529dfc231f90f8f563ec03f09",
+      "members": [
+        {
+          "path": "transform-v1/MANIFEST.json",
+          "type": "file",
+          "bytes": 472,
+          "sha256": "505e7fe18747f284ec49ecd98947cdaac086c2de270bba5681e856504bf9c3cf",
+          "mode": "0o664"
+        },
+        {
+          "path": "transform-v1/REPORT.md",
+          "type": "file",
+          "bytes": 3623,
+          "sha256": "640e5fdc5cc6b90aad15bab455a61f3eee37164d58af99118a8620dea9050aa8",
+          "mode": "0o664"
+        },
+        {
+          "path": "transform-v1/VERIFY.py",
+          "type": "file",
+          "bytes": 6258,
+          "sha256": "5954903ea2a8e4c19c947f464183c721e098c6e2ce45c71a683af28623b49d10",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "transform-successor",
+      "file": "transform-successor.tar.gz",
+      "source_manifest_sha256": "c1480788bf00a7bcf2583ba504696d7ceab7130a7f8875eda1167be5a7cfdda8",
+      "manifest_member": "transform-successor/MANIFEST.json",
+      "archive_bytes": 5046,
+      "archive_sha256": "606d49df39c0b599bfec0b6abb46d137934338f5da50c4b434f060bf7d2d0500",
+      "members": [
+        {
+          "path": "transform-successor/MANIFEST.json",
+          "type": "file",
+          "bytes": 582,
+          "sha256": "c1480788bf00a7bcf2583ba504696d7ceab7130a7f8875eda1167be5a7cfdda8",
+          "mode": "0o664"
+        },
+        {
+          "path": "transform-successor/REPORT.md",
+          "type": "file",
+          "bytes": 3658,
+          "sha256": "42f4c1e513af825d023886fb3d426beb04c64ce1e020604d6838cee612beaf5e",
+          "mode": "0o664"
+        },
+        {
+          "path": "transform-successor/VERIFY.py",
+          "type": "file",
+          "bytes": 7318,
+          "sha256": "eda51918c4c8b0d07d0b9874ed2804d4f6c1e4a73367d91c8b2d57d0fe70f353",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "application-review",
+      "file": "application-review.tar.gz",
+      "source_manifest_sha256": "5b01ab727bdd752ed66c5c9caa84629f3b3325fef38d2b898f59c88b17df1cbd",
+      "manifest_member": "application-review/MANIFEST.json",
+      "archive_bytes": 6494,
+      "archive_sha256": "d4c25dbdc9187496c807d53667787bde87e77498a5ad052c63f4a09ab4e986d3",
+      "members": [
+        {
+          "path": "application-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 701,
+          "sha256": "5b01ab727bdd752ed66c5c9caa84629f3b3325fef38d2b898f59c88b17df1cbd",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/REPORT.md",
+          "type": "file",
+          "bytes": 2322,
+          "sha256": "d98c5c1196c4a7038bfa521da0356e28d2b52af062a45d2f2ecf29eb1f5a90ad",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/RESULTS.json",
+          "type": "file",
+          "bytes": 7404,
+          "sha256": "5b553be86f3b0d4e26159a50aac0429eb2b41a9a14bac5440f4034e02c9fc691",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/VERIFY.py",
+          "type": "file",
+          "bytes": 5380,
+          "sha256": "f41a468fc492df44a2068478f38ade41842f9ed670f52859bf6e433c215e90e3",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "application-receipt",
+      "file": "application-receipt.tar.gz",
+      "source_manifest_sha256": "44f9cde49ac2f778e60271441de14032724f7a05bde58df60ac670247122101b",
+      "manifest_member": "application-receipt/MANIFEST.json",
+      "archive_bytes": 1418,
+      "archive_sha256": "ea26a07df9535a3cf624d73418cc953c140ddb802281a491590ff624ea5e5255",
+      "members": [
+        {
+          "path": "application-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 740,
+          "sha256": "44f9cde49ac2f778e60271441de14032724f7a05bde58df60ac670247122101b",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-receipt/REPLAY.json",
+          "type": "file",
+          "bytes": 405,
+          "sha256": "b13c42c9aee9f43655d46dbbfd8dd82411ba9ce0ab9c362017b9f1dcb1e08218",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-receipt/REPLAY.stderr",
+          "type": "file",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-receipt/REPLAY.stdout",
+          "type": "file",
+          "bytes": 312,
+          "sha256": "6bb942afd286ba1577682b2cc6ccd45cb0f0d38b86d2033b660a54ce7f08ef6f",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-receipt/SCAN-SUMMARY.json",
+          "type": "file",
+          "bytes": 1166,
+          "sha256": "f9aed8ba70b738d243d3a66a27deab2f4256f098ae00849b6a4c2a9af4236e8e",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "nextguard-review",
+      "file": "nextguard-review.tar.gz",
+      "source_manifest_sha256": "ef54454019ba3cbc956d00c21a4d3ac736d348b2df5641d5a1b5fed20879a8b0",
+      "manifest_member": "nextguard-review/MANIFEST.json",
+      "archive_bytes": 2969,
+      "archive_sha256": "78bac58407f3dc9d14b5570e44cb4e61af0bd381b03030347f9cc62ed31dd373",
+      "members": [
+        {
+          "path": "nextguard-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 734,
+          "sha256": "ef54454019ba3cbc956d00c21a4d3ac736d348b2df5641d5a1b5fed20879a8b0",
+          "mode": "0o664"
+        },
+        {
+          "path": "nextguard-review/REPORT.md",
+          "type": "file",
+          "bytes": 4044,
+          "sha256": "4365141daaed9d253bf18b13b79f29e29771ea9863cc89fe6cbd142b3bd50f05",
+          "mode": "0o664"
+        },
+        {
+          "path": "nextguard-review/VERIFY.py",
+          "type": "file",
+          "bytes": 945,
+          "sha256": "3746a3d31915f8d6a45f9af44eff34edbed247d57c27180b425d8228d29a2189",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "nextguard-receipt",
+      "file": "nextguard-receipt.tar.gz",
+      "source_manifest_sha256": "170546b19a2d1081e1fc661730815ab6d80514d95ac39894308d8c0d31ecb111",
+      "manifest_member": "nextguard-receipt/MANIFEST.json",
+      "archive_bytes": 752,
+      "archive_sha256": "0fe0ea272339e7ceb50cc6a214b9c4bf45308c61958b0cae1cf7eba499b7302c",
+      "members": [
+        {
+          "path": "nextguard-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 454,
+          "sha256": "170546b19a2d1081e1fc661730815ab6d80514d95ac39894308d8c0d31ecb111",
+          "mode": "0o664"
+        },
+        {
+          "path": "nextguard-receipt/SCAN.json",
+          "type": "file",
+          "bytes": 687,
+          "sha256": "623f9c39fcdcc8a21a181b66f6301ccfc2f8f2195df521b23e689195463f5649",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Separately attributed public structural reviews and receipts. Repacked archives retain source manifest identities, not the earlier delivery archive byte identity. Restricted originals, same-machine dependencies and later guard successors remain separate."
+}

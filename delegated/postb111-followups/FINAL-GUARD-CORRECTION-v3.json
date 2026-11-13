@@ -1,0 +1,31 @@
+{
+  "schema": "726-postb111-final-guard-correction-v3",
+  "predecessor_sha256": "0a4c62a4facb7a547076f6a7403520f6ffc9f44d405fbb1a826f4f20b3f714ac",
+  "successor_sha256": "09da14af0792869aeb77c7592d2c1bb49a478b3015a396f1ec73523a607bac68",
+  "privacy_manifest_sha256": "7f5ad3f7bc9d2e495015c3db1908162aee97ea263e0f167a861559cfd9ee377e",
+  "privacy_restoration_sha256": "4e051d691b003e01ea574517fe933af2ffe02705296ddc95fcb19f58a81c90dd",
+  "privacy_scan_sha256": "404096ebec788cfcf68f9773597ccf68c9960f907dabf484072c2d3e2528d378",
+  "selected_replay_checks": [
+    [
+      "requested-inventory-comparison",
+      0,
+      0
+    ],
+    [
+      "custody-control-comparison",
+      0,
+      0
+    ],
+    [
+      "restored-control-manifest-replay",
+      0,
+      0
+    ],
+    [
+      "nonce-uniqueness",
+      0,
+      0
+    ]
+  ],
+  "qualification": "Adds the privacy-correction custody and prior-capture provenance. Capture/status self-consistency still needs the separate closing and commit anchor; no-key checks do not decrypt. Guard and correction installation are sequential, not transactional."
+}

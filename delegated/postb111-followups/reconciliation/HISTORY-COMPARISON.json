@@ -1,0 +1,47 @@
+{
+  "schema": "726-postb111-history-comparison-v1",
+  "rows": [
+    {
+      "index": 0,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 19,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2497,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2501,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2503,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2504,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2510,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2521,
+      "parsed_objects_equal": true
+    },
+    {
+      "index": 2534,
+      "parsed_objects_equal": true
+    }
+  ],
+  "original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "reconstructed_queue_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+  "whole_stream_bytes_equal": false,
+  "original_selected_reconstruction_sha256": "09d46870197e960e5d51a104888cd8850b5c8ec526240a840b1e84dbfa1c6c62",
+  "reconstructed_selected_reconstruction_sha256": "09d46870197e960e5d51a104888cd8850b5c8ec526240a840b1e84dbfa1c6c62",
+  "qualification": "The selected output documents are newly serialized parsed selections, not exact original stream bytes. The original checkpoint 059 Git object and reconstructed public stream retain separate hashes and historical meaning; neither is missing checkpoint3821. No source-reading credit follows."
+}

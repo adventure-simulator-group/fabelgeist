@@ -1,0 +1,30 @@
+{
+  "schema": "726-postb111-navigation-prescan-v1",
+  "checks": [
+    {
+      "name": "nav-transport",
+      "exit": 0,
+      "stdout_sha256": "f63bb79dd831ff0c8b3810a6625478d841e43560a0b9503acea959df0d94d212",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "nav-private-digests",
+      "exit": 0,
+      "stdout_sha256": "ce946b9dab8cce693fe91124b8f8f081f56b5c69b5fe5c43df2389317a71a946",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "nav-tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "7b02a658bdc6d21deea914a3db7f727c4338f1dd09356881024ac8b2f96dcdc2",
+      "stderr_bytes": 0
+    }
+  ],
+  "transport_manifest_sha256": "97841572d4cbcf2c8424b280074826492e5561f29328ee3577b3163186a95b86",
+  "scanned_paths": 4,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Preliminary finite scan of the navigation-review transport. Later additions, unknown values and encodings, ciphertext and Git history remain outside scope; exact outputs are restricted."
+}

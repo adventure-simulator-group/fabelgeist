@@ -1,0 +1,62 @@
+{
+  "scope": "Finite scan of ciphertext manifest/verifier/readme and receipt text only; encrypted binary payloads are opaque and not privacy-scanned. Literal private-source paths were checked without publishing values or their individual digests.",
+  "files": [
+    {
+      "kind": "ciphertext-metadata",
+      "name": "MANIFEST.json",
+      "bytes": 27127,
+      "sha256": "4474472c6cb737e104aeccd414f2fe0fc9ebf0cec0f80b85a73f463283197883"
+    },
+    {
+      "kind": "ciphertext-metadata",
+      "name": "VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9"
+    },
+    {
+      "kind": "ciphertext-metadata",
+      "name": "README.md",
+      "bytes": 954,
+      "sha256": "66c80fb3660e88c358ab3fddd47eab6f0b47950891d79973445805d80302fc9e"
+    },
+    {
+      "kind": "public-receipt",
+      "name": "MANIFEST.json",
+      "bytes": 672,
+      "sha256": "f61c307ec53e620a1c4851c66de2d157fcc41281a42f0c394a07b50d2757829b"
+    },
+    {
+      "kind": "public-receipt",
+      "name": "README.md",
+      "bytes": 927,
+      "sha256": "9356ffabbc15bd436ed84d50ad107a0be11454513ac8f0e3c68d580fb8ea4c12"
+    },
+    {
+      "kind": "public-receipt",
+      "name": "REPLAYS.json",
+      "bytes": 2998,
+      "sha256": "53a381ee7837a238db1918d29d07733041fa0e04cbc7b6034d19a2e68652afd7"
+    },
+    {
+      "kind": "public-receipt",
+      "name": "RESTORATION.json",
+      "bytes": 1525,
+      "sha256": "fb2506142b79a96bd9a8645a875277524490f1ec1a79557b8de69d65370aa6e0"
+    },
+    {
+      "kind": "public-receipt",
+      "name": "VERIFY.py",
+      "bytes": 2675,
+      "sha256": "ee5d26a4a16293d6233b0508dfef11019f7e4739fa92cd1d7d9da0fd7af25c69"
+    }
+  ],
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "private_source_literal_hits": 0,
+  "positive_controls_pass": true
+}

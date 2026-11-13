@@ -1,0 +1,10 @@
+{
+  "schema": "726-postb111-recovery-process-correction-v1",
+  "status_at_recording": "original bytes and mode restored; later publication remains separate",
+  "incident": "A later preparation command overwrote the local script used for the previously published same-machine b111 recovery after an attempted directory creation failed and the shell continued.",
+  "restoration": "The earlier authenticated primary restoration contained the original script. Its bytes and mode matched both the sealed source-selection record and a separately captured earlier reviewer copy. The original was restored and all 18 selected files in that recovery group were compared for bytes and modes.",
+  "replacement": "The accidentally written successor script was moved to a newly created private directory before the original was restored. It had not been executed at the time of this record.",
+  "limits": "The original modification time was not recovered. The copies and authenticated restoration are on the same machine, not independent off-machine custody. The key and earlier ciphertext remain dependencies. Later incident and process records are held for the next custody cutoff. The earlier capture and its published receipts are not changed.",
+  "review_scope": "A read-only reviewer search was truncated and displayed unrelated captured source snippets; no source or lens credit is claimed. A separate temporary-directory inventory encountered permission-denied directories. Neither changed the directly verified recovery path.",
+  "product_scope": "No product code was executed or changed."
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "726-postb111-peer-transports-v1",
+  "parent_checkpoint": "b111f7444ab7e3b13b2099d5ce9d59f08faf9424",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "guard-v1-review",
+      "file": "guard-v1-review.tar.gz",
+      "source_manifest_sha256": "3cd1e5192b6853260078fd520e0ef6b7a70faf54a846678c34f0233e811ea616",
+      "manifest_member": "guard-v1-review/MANIFEST.json",
+      "archive_bytes": 2019,
+      "archive_sha256": "5a2882e04708c5737c9f9450511e242e57616aa49e6a5c9ee18e42f2bcfb9048",
+      "members": [
+        {
+          "path": "guard-v1-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 702,
+          "sha256": "3cd1e5192b6853260078fd520e0ef6b7a70faf54a846678c34f0233e811ea616",
+          "mode": "0o664"
+        },
+        {
+          "path": "guard-v1-review/REPORT.md",
+          "type": "file",
+          "bytes": 2321,
+          "sha256": "a6f83b8a5de7fbf215f0bc8ec0bcf5c64e4f68edd5e8c2a50c43d511e39517db",
+          "mode": "0o664"
+        },
+        {
+          "path": "guard-v1-review/VERIFY.py",
+          "type": "file",
+          "bytes": 631,
+          "sha256": "60fb6c4027e15dfa70bb9c374bcbe537120d85505f6b32e89cfa10bf32cea589",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "guard-v1-receipt",
+      "file": "guard-v1-receipt.tar.gz",
+      "source_manifest_sha256": "276d82fcf5b81ed2443cb61597ab1fd97bf343fd79883e12fca599ab45dabd6f",
+      "manifest_member": "guard-v1-receipt/MANIFEST.json",
+      "archive_bytes": 587,
+      "archive_sha256": "e5e0b75dad93488af0446a63e19d45d0cdbcec37ab952912ba1436dcaf6c5878",
+      "members": [
+        {
+          "path": "guard-v1-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 407,
+          "sha256": "276d82fcf5b81ed2443cb61597ab1fd97bf343fd79883e12fca599ab45dabd6f",
+          "mode": "0o664"
+        },
+        {
+          "path": "guard-v1-receipt/SCAN.json",
+          "type": "file",
+          "bytes": 406,
+          "sha256": "07aa63db5b12242a4e2ffb64c85469a91c5a7330ec9322c36be9acf12fe59f19",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Separately attributed public structural reviews and receipts. Repacked archives retain source manifest identities, not the earlier delivery archive byte identity. Restricted originals, same-machine dependencies and later guard successors remain separate."
+}

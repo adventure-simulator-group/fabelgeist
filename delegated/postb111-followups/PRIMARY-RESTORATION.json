@@ -1,0 +1,113 @@
+{
+  "ciphertext_manifest_sha256": "b4c2a318ebbaef4772b9a5fbf0f4647e29bc6bf0356f9f3f44b37d001e1edaaf",
+  "collections": 42,
+  "matched_directory_modes": 459,
+  "matched_file_bytes_and_modes": 4363,
+  "public_archive_directories": 14,
+  "public_archive_files": 255,
+  "public_archives_extracted": 12,
+  "qualification": "All primary collections were authenticated into a new private same-machine destination; every contained file byte, file mode and directory mode matched the pre-existing mapped source. Source-root modes were omitted from archives and adjusted only after all contained comparisons. The separate earlier encrypted delegate was restored and compared in the same way. Archive ownership and timestamps are normalized. Selected public peer, restricted-original and receipt replays used the restored evidence, locally retained pinned Git objects, and separately held q2812 anchors. The earlier ciphertext and separately held key remain dependencies; these same-machine checks do not establish independent custody. The restoring reviewer authored the q3356 and q3368 peer and projection reviews, so their replay is not independent authorship. Earlier original records, reconstructed streams and historical summaries retain their own revision and reader attribution; original checkpoint 3821 queue and ledger remain missing. No product execution, build, test, runtime probe, implementation or semantic closure is established. Direct replay interpreters were unoptimized; nested interpreter flags are not independently recorded.",
+  "restore_exit": 0,
+  "schema": "726-postb111-primary-restoration-v1",
+  "selected_replay_checks": [
+    {
+      "exit": 0,
+      "name": "q3462-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3462-original",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3462-receipt",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3356-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3344-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3344-receipt",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3353-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3353-original",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3353-receipt",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3353-correction",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3354-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3354-receipt",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3368-peer",
+      "stderr_bytes": 0
+    },
+    {
+      "exit": 0,
+      "name": "q3368-projection",
+      "stderr_bytes": 0
+    }
+  ],
+  "selected_replay_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "separate_earlier_delegate_restoration": {
+    "ciphertext_sha256": "807c05dfbcf54a25ffd87130459de0a919427b8aed99bd80472f6c6048b8c987",
+    "counted_in_primary_42": false,
+    "label": "character-details-original",
+    "matched_directory_modes": 70,
+    "matched_file_bytes_and_modes": 495,
+    "source_root_mode_adjusted_after_comparison": true,
+    "source_root_mode_transition": "0775 to 0700"
+  },
+  "source_map_sha256": "f226014b9b74e43b13c9405eb7b578406b2d4b748697fc2c378de2c96d929ef0",
+  "source_root_mode_adjustments_after_comparison": 42,
+  "source_root_mode_transition": "0775 to 0700",
+  "source_root_modes_compared": 42
+}

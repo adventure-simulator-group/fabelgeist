@@ -1,0 +1,20 @@
+{
+  "schema": "726-postb111-remote-log-binding-v1",
+  "receipt_sha256": "bcef93fe7b3087b99fdbe91122a7d2c459d6162f90371f904c2bb71fe0df15ba",
+  "primary_manifest_sha256": "b4c2a318ebbaef4772b9a5fbf0f4647e29bc6bf0356f9f3f44b37d001e1edaaf",
+  "primary_restoration_sha256": "4975f54dc05a89d75d3dd36db6a649b24c3d65c74aec81619eed4df7d6fb36ef",
+  "ciphertext_label": "process-selection",
+  "ciphertext_sha256": "04e8b42bf650bf5554c0e0c12f03da7f3d6db10f6517fe96fac475cc4fb19224",
+  "matched_log_files": 16,
+  "check_names": [
+    "checkout",
+    "fetch",
+    "predecessor-0",
+    "predecessor-1",
+    "predecessor-2",
+    "successor-checkpoint",
+    "successor-closing",
+    "successor-final-guard"
+  ],
+  "qualification": "The exact public receipt and its 16 log hashes matched the authenticated same-machine restored process selection. Reading the encrypted logs requires the separately held key and earlier documented dependencies. This receipt is not independent custody or proof of historical completeness or product behavior."
+}

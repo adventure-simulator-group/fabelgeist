@@ -1,0 +1,30 @@
+{
+  "schema": "726-postb111-public-prescan-v1",
+  "checks": [
+    {
+      "name": "transport",
+      "exit": 0,
+      "stdout_sha256": "0bc7740aa3a35d1d431ba8d4cbe89aa5cf8c057b70c3f44e3fe7c0aed326a2d2",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "3be72edeac713301b1f102714ec6307cdd0d2b4b9c04ad764a5293ae7fb47138",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "c59ad7e6247d30411300af4c2d29a8383180a92b852e17344549322ca2f380df",
+      "stderr_bytes": 0
+    }
+  ],
+  "transport_manifest_sha256": "ad5da344c316c2ed6198e90b2d6ba036137a25becadbb262a920cc1ddae49331",
+  "scanned_paths": 11,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Preliminary finite scan of the first public transport group; later additions, unknown values and encodings, ciphertext and Git history remain outside scope. Raw outputs are restricted."
+}
