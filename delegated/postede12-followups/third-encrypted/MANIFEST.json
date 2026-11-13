@@ -1,0 +1,42 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "service-quests-restricted",
+      "ciphertext": "service-quests-restricted.aesgcm",
+      "ciphertext_sha256": "3392464ec56e110d107412e3429278e18264879e9a6e4b8dca477b59c982267d",
+      "ciphertext_bytes": 4310266,
+      "plaintext_archive_sha256": "a97ae31252962ec36a930abe615dd0323afb422fe664adff428f4322989da953",
+      "plaintext_archive_bytes": 4310238,
+      "regular_files": 261,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:service-quests-restricted:v1"
+    },
+    {
+      "label": "service-quests-replay",
+      "ciphertext": "service-quests-replay.aesgcm",
+      "ciphertext_sha256": "9c419a0a795dbdb1a8aff03e878b1e52d530c021b32ae72399d6076d7a5fb259",
+      "ciphertext_bytes": 1185,
+      "plaintext_archive_sha256": "670d8e4d90ac90831edf8ce636b952a98a4cdab760e1708c40d568d2d2c2d9eb",
+      "plaintext_archive_bytes": 1157,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:service-quests-replay:v1"
+    },
+    {
+      "label": "third-control",
+      "ciphertext": "third-control.aesgcm",
+      "ciphertext_sha256": "5bb93023e14678c3a1a1d43d649a91e5c2fbc1195b04b2cb78f5ffe28cc38112",
+      "ciphertext_bytes": 7907,
+      "plaintext_archive_sha256": "e4c6b08b05628352b35d69fdc3e8126b2b87f69adbcac077b7123ec6405a3465",
+      "plaintext_archive_bytes": 7879,
+      "regular_files": 15,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:third-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

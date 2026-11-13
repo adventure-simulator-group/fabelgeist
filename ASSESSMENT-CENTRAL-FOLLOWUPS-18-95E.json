@@ -1,0 +1,150 @@
+{
+  "schema": "726-postede12-central-draft-v2",
+  "created_utc": "2026-11-13T01:15:08.364007+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "ede12d3f9f19d284abbc669b5ae38b814a585f77",
+  "status": "Two bounded partial assessments and two planning relationships centrally adopted in this checkpoint; open questions, historical qualifications and no semantic closure remain.",
+  "partial_queue_assessments": [
+    {
+      "source_group": "terminal-v3",
+      "record": {
+        "queue_index": 3064,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0030-LENS-01",
+        "historical_lens": 1,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "The selected terminal producer stores the native TacticalMissionResolution and TacticalConsequenceReceipt together in FrozenTerminal through enqueue and rejection retries. The standalone path locally accepts; the database-backed path distinguishes queued submission from callback acceptance. Numeric CharacterId extraction is visible at the native generated receipt boundary, not by itself an unfinished internal migration. No uninspected adapter, callback scheduling or runtime behavior is established.",
+        "source_refs": [
+          "crates/adventuresim-tactical-server/src/mission/terminal.rs:8-127,195-203",
+          "crates/adventuresim-tactical-server/src/mission/systems.rs:52-109",
+          "crates/adventuresim-tactical-server/src/mission/receipt.rs:21-74",
+          "crates/adventuresim-tactical-server/src/stdb.rs:96-115",
+          "crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs:1-65"
+        ],
+        "history": "Original 059 q3064 has zero own-lens body/population credit and requires an own-lens qualification or read for the historical scope. The delegate separately registered and personally displayed the full file at 6533, e275 and 95e under producer propagation. Root independently displayed only the current 95e selected windows in the recorded receipts. Original and reconstructed selected historical entries compare equal as parsed objects while the full streams retain distinct identities. Historical Root Lens3 and other delegate Lens12 reviews retain their own attributions and do not transfer credit. The separately reported historical same-Lens 1 role has no named reader in the selected metadata; do not infer one. No record is checkpoint 3821.",
+        "open_questions": [
+          "Trace remaining supported producer and non-native consumer paths and determine whether any owner propagation remains missing.",
+          "Establish callback ordering, cancellation, retry correlation and native acceptance policy without inferring a stale callback from source alone.",
+          "Trace all roster and accumulator producers, supported inputs, exact aliases and remaining same-lens historical scope."
+        ]
+      }
+    },
+    {
+      "source_group": "hair-v4",
+      "record": {
+        "queue_index": 3207,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0040-LENS-01",
+        "historical_lens": 1,
+        "delegate": "/root/verifier_scope",
+        "central_reviewer": "/root",
+        "summary": "The selected 187-line hair facade declares modules and reexports and contains no local producer implementation. Its no_run example was source text only. In connected current source, Look::guides casts a signed HairSeed word to u64 before calling Hairdo::guides. The optional GPU host route places the same cast in Guides::Hairdo, and its record_guide_roots path calls the shared guide_key separately. Hairdo accepts the wider u64 domain and its guide key mixes both 32-bit halves. HairSeed::from_word separately stores the low 32-bit pattern zero-extended in Seed, while casting a negative i32 directly to u64 sign-extends it. The high hash input therefore differs if the canonical stored word replaces that cast for a negative seed; whether a typed owner should propagate, adapter placement, all callers and actual behavior are open.",
+        "source_refs": [
+          "crates/fabelgeist-hair/src/lib.rs:1-187",
+          "crates/fabelgeist-hair/src/look.rs:95-110,450-467",
+          "crates/fabelgeist-hair/src/hairdo.rs:179-193,538-545",
+          "crates/fabelgeist-hair/src/parameters.rs:21-25,75-92",
+          "crates/fabelgeist-hair/src/rng.rs:107-115",
+          "crates/fabelgeist-hair/src/gpu/grow.rs:96-110,120-170",
+          "crates/fabelgeist-hair/src/gpu/guides.rs:147-160",
+          "crates/fabelgeist-determinism/src/seed.rs:49-78"
+        ],
+        "history": "Original 059 q3207 is an own-Lens1 proof/read obligation with no historical body credit. The delegate separately registered and displayed the entire facade at 6533, e275 and 95e and selected connected sources; Root independently displayed the current 95e facade and the exact support views recorded here. Historical q2407 Lens2 facade documentation and q3144 Lens3 source/admission retain their own reader and scope and do not become Lens1 credit. q161 and d7 immutable ledger rows 646 and 647 address signed operation-seed arithmetic, a different first operation; d7 row 669 records a related retained-operation owner escape. Selected original/reconstructed entries compare equal as parsed objects while their whole streams differ. No earlier record is checkpoint 3821. The first coordinator history registration mislabeled the staged successor baseline as d7. A separately registered correction captured exact d7 and dac7 baseline blobs; selected rows 633, 645, 646, 647 and 669 compare equal as parsed values across dac7, d7 and staged successor, while the full baseline hashes differ. The original incorrect registration and selected staged values remain preserved.",
+        "open_questions": [
+          "Trace the complete public u64 seed domain, other guide producers, all CPU/GPU adapters and consumer policy before deciding typed ownership.",
+          "Preserve the currently selected signed-to-u64 bit pattern where behavior preservation is required; decide whether any intended semantic change is separately authorized.",
+          "Determine global aliases and whether related operation-seed arithmetic shares a repair without equating its first operation."
+        ]
+      }
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "source_group": "terminal-v3",
+      "record": {
+        "id": "relationship-terminal-receipt-roster-contact-95e",
+        "lens": 1,
+        "classification": "The selected producer adds equipment-contact owners to party, sorts and truncates party to sixteen, but retains equipment contacts independently. The native validator rejects a retained contact whose owner is absent from the retained party if earlier checks pass. A validated roster is nonempty, unique and at most sixteen, yet these displayed accumulator and enrollment windows do not establish that every possible contact owner belongs to that roster. Supported reachability and native outcomes remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3064",
+          "baseline-059/queue.json#/entries/3127",
+          "baseline-059/queue.json#/entries/3128"
+        ],
+        "relationship_qualification": "q3128 already records the sort/truncate versus retained-contact first operation under Root Lens3; this is connected 95e producer support, not a newly counted independent defect. q3127 addresses lifecycle/native callback admission separately. Do not infer a shared alias, infinite retry or observed participant loss.",
+        "connected_repair_direction": "Trace actual authorized roster, every party/contact accumulator writer, validation and retry semantics before deciding how the same receipt contract should be owned or preserved.",
+        "future_acceptance": "Only after audit and separate authorization, preserve authorized consequences, contact ownership, native receipt bounds and frozen retry semantics.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/adventuresim-tactical-server/src/mission/receipt.rs:21-74",
+          "crates/adventuresim-core/src/mission.rs:9-15",
+          "crates/adventuresim-core/src/mission/roster.rs:35-48",
+          "crates/adventuresim-stdb-module/src/tactical.rs:1037-1073",
+          "crates/adventuresim-tactical-server/src/mission/enrollment.rs:19-94",
+          "crates/adventuresim-tactical-server/src/combat/consequence.rs:16-60,78-110,176-210,243-268"
+        ]
+      }
+    },
+    {
+      "source_group": "hair-v4",
+      "record": {
+        "id": "relationship-hair-guide-seed-widening-95e",
+        "lens": 1,
+        "classification": "A signed i32 HairSeed is cast directly to u64 for selected CPU and GPU host guide calls, while its canonical Seed storage zero-extends the i32 bit pattern via u32. For negative words these representations have different high 32-bit halves, which guide_key feeds into the hash. Public Hairdo::guides accepts arbitrary u64; replacing this boundary with the canonical seed word would alter an input to the key, so a future owner propagation decision needs an explicit bit-preservation policy.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3207",
+          "baseline-059/queue.json#/entries/2407",
+          "baseline-059/queue.json#/entries/3144",
+          "baseline-059/queue.json#/entries/161"
+        ],
+        "current_related_records": [
+          "dac7d newly_assessed_ledger.entries[669]",
+          "dac7d newly_assessed_ledger.entries[646]",
+          "dac7d newly_assessed_ledger.entries[647]"
+        ],
+        "relationship_qualification": "Bounded source-derived behavior-preservation question related to existing hair seed owners, not an established wrong product result or an accepted unique-defect count. Operation seed-offset arithmetic has a distinct first operation; alias and repair grouping remain open.",
+        "connected_repair_direction": "Trace all guide entry points, owner and public-domain constraints before selecting an adapter; preserve signed widening and distinct 64-bit callers unless a separately authorized policy changes them.",
+        "future_acceptance": "Only after audit and authorization, assess CPU/GPU and public boundary seed representation and deterministic key semantics without assuming these source paths have executed.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-hair/src/look.rs:450-456",
+          "crates/fabelgeist-hair/src/gpu/grow.rs:100-106",
+          "crates/fabelgeist-hair/src/gpu/guides.rs:147-160",
+          "crates/fabelgeist-hair/src/hairdo.rs:179-188,538-540",
+          "crates/fabelgeist-hair/src/parameters.rs:75-80",
+          "crates/fabelgeist-determinism/src/seed.rs:72-78"
+        ]
+      }
+    }
+  ],
+  "source_drafts": [
+    {
+      "label": "terminal-v3",
+      "sha256": "ca1fac879c65de7c94312e8efd13ab658cd3bf0e8778c5771dc6c5659b7b5cfd",
+      "recovery_and_process_qualification": "Original final checkpoint 3821 queue and ledger remain missing. Original 059 selected evidence, separately reconstructed 059 queues and 440 state, historical summaries, normalized recovered 774 catalog versus missing pre-export originals, SOURCE004 and newly assessed 95e work retain distinct identities, revision and attribution. All 73 nontext/no-positive-EOF contracts and all thirteen lenses remain open; older evidence is not promoted to checkpoint 3821. The local shared Git object store could not resolve 95e in an earlier metadata-only cat-file request. Registered displays used exact sealed delegate-packet captures; their packet verifier and separately held Git proof remain required for revision binding. A later source-registration locator attempt failed with AttributeError on a string entry before yielding output; a guarded metadata-only retry succeeded. Its traceback was visible in the tool result but not separately saved. Two historical selected-object displays were deliberately bounded, so only displayed portions are credited.",
+      "delegate_process_qualification": "The delegate packet separately records an unregistered source glimpse caused by a metadata locator parsing Rust double colons, an initially incorrect reconstructed q3128 filename followed by correction, and an absent attempted view filename that produced no display. These are distinct from the central reviewer metadata locator failure; no glimpse or failed lookup supplies read credit."
+    },
+    {
+      "label": "hair-v4",
+      "sha256": "964c14d562ab2f7eee4b06df700af1c64274a96220c174acf2ba364e2aca2b9a",
+      "recovery_and_process_qualification": "The original final checkpoint 3821 queue and ledger remain missing. Original 059 selections, distinct reconstructed queues and 440 state, historical summaries, normalized recovered 774 versus missing pre-export originals, SOURCE004 and newly assessed 95e work retain distinct identities and attribution. All 73 nontext/no-positive-EOF contracts and all thirteen lenses remain open. A metadata-only attempt to open a presumed separate SUPPORT5-DISPLAY-PLAN file failed because that name did not exist; its tool-visible traceback was not separately saved. The correct planned view was embedded in SUPPORT5-IDENTITY and was subsequently registered and displayed. One registered GPU module window is test-module text only and was not executed. The delegate packet separately retains its own truncated navigation and proof-output limitations. The initial coordinator history registration used the staged successor while labeling it d7. The original registration was retained and corrected by a new prospective exact-d7/dac7 comparison; no whole-ledger identity is claimed."
+    }
+  ],
+  "independent_review_qualification": "The terminal v3 draft was independently reviewed by a reviewer separate from its delegate. The hair v4 draft was independently reviewed against the central draft by the delegate who authored its underlying q3207 packet, so it is not independent-author corroboration of that packet. Their source displays, reviewers and exact scopes remain distinct.",
+  "counts": {
+    "new_partial_queue_assessments": 2,
+    "semantic_queue_closures": 0,
+    "new_planning_relationships": 2,
+    "accepted_unique_defect_increment": 0,
+    "lens_completions": 0
+  },
+  "comparison_sha256": "d9fb85cbcb3cbd7bd335648d86ca9a946e39641be1c155472fbbe3efa11e2652",
+  "recovery_qualification": "Original final checkpoint 3821 queue and ledger remain missing. Original 059 selected records, reconstructed full queues and 440 state, historical summaries, normalized recovered 774 versus missing pre-export originals, SOURCE004 and newly assessed 95e work retain separate revision and attribution. All 73 nontext/no-positive-EOF contracts and thirteen lenses remain open. Same-machine keys and earlier q2812 anchors remain dependencies.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "comparison_process_qualification": "A metadata-only navigation display of the selected ede statuses preceded the prospective comparison registration. It is navigation only and does not grant source or historical read credit.",
+  "predecessor_draft_sha256": "30e21d6aa0759a3964e00c90d44ae93199bc01967fb656c0dd3910c09288a76e",
+  "adopted_from_draft_sha256": "51f6948e954ed9caf794e342631a74491366b60a1202fe4556f8ddb37e38f269",
+  "combined_independent_review": "delegated/postede12-followups/late-transport/combined-draft-review.tar.gz",
+  "adoption_qualification": "The records and source qualifications match the reviewed draft as parsed values. The same-author limitation for the underlying hair packet remains explicit; no global alias or unique defect is established."
+}

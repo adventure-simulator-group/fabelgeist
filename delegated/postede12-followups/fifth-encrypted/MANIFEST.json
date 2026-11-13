@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "final-checkpoint-control",
+      "ciphertext": "final-checkpoint-control.aesgcm",
+      "ciphertext_sha256": "c29759b4c40f5f866baa3a65fb4fcf9a9e065d2fe14e7e5b990fdf09b5895928",
+      "ciphertext_bytes": 21211,
+      "plaintext_archive_sha256": "13e2b8d3679177722884a026351c0ac415ec680d6d3568536fc323e5e0747989",
+      "plaintext_archive_bytes": 21183,
+      "regular_files": 18,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:final-checkpoint-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

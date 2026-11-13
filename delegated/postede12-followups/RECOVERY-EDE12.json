@@ -1,0 +1,13 @@
+{
+  "schema": "726-ede12-recovery-check-v1",
+  "checkpoint": "ede12d3f9f19d284abbc669b5ae38b814a585f77",
+  "checkout": "separate same-machine detached clone",
+  "paths_matched": 167,
+  "full_evidence_driver_exit": 0,
+  "full_transcript_bytes": 182201,
+  "full_transcript_lines": 2055,
+  "full_transcript_sha256": "b4ff3dc778a03a2fb2bf1a5eaff3e4de159a2277ed86ae696baddd3b500ce9f8",
+  "same_bytes_as_prepublication_transcript": true,
+  "additional_checks": "The published scan-qualification and navigation-review evidence verifiers passed; four bounded scan hits are generic scanner literals, not actual paths. Clean, detached HEAD was confirmed after replay.",
+  "qualification": "The full original driver was run on 139 frozen staged paths; the recovered checkout contains 28 later additive scan/process evidence files. The recovered driver transcript matches exactly, but that does not make the old driver a semantic review of the additions. The captured 167 path identities were separately verified. Same-machine only; direct-child assertions were checked, nested interpreter flags remain qualified, and missing checkpoint 3821, key custody, privacy scan scope, all lenses and product behavior remain open."
+}

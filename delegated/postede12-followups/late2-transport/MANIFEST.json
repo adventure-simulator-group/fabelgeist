@@ -1,0 +1,42 @@
+{
+  "schema": "726-postede12-public-transports-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "ede12d3f9f19d284abbc669b5ae38b814a585f77",
+  "bundles": [
+    {
+      "label": "service-quests-four-lens",
+      "file": "service-quests-four-lens.tar.gz",
+      "source_manifest_sha256": "133ee6e1a063c2cc1486901dd5dfdfb3baaa7715b0861a3793e899ecf43e9016",
+      "manifest_member": "service-quests-four-lens/MANIFEST.json",
+      "archive_bytes": 8052,
+      "archive_sha256": "a3ff38b887d4b11565e40c15c35f02280eb57983b7ed7f5a1486aa7b19a6d5b6",
+      "members": [
+        {
+          "path": "service-quests-four-lens/MANIFEST.json",
+          "bytes": 696,
+          "sha256": "133ee6e1a063c2cc1486901dd5dfdfb3baaa7715b0861a3793e899ecf43e9016",
+          "mode": "0o600"
+        },
+        {
+          "path": "service-quests-four-lens/REPORT.md",
+          "bytes": 7023,
+          "sha256": "5b4b28d2cc512af8d320c0d2f0ef86b28896ee0a8fc84f1cf76a0554efd7351c",
+          "mode": "0o600"
+        },
+        {
+          "path": "service-quests-four-lens/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "service-quests-four-lens/VERIFY.py",
+          "bytes": 8708,
+          "sha256": "5dc5ac9b21227a1a0fd4727c875a0aa99e773e06d1d7199def1ead6d670c7b5c",
+          "mode": "0o600"
+        }
+      ]
+    }
+  ],
+  "qualification": "Role 0048 source packet remains pending central reconciliation; restricted original and replay receipt are separately authenticated."
+}

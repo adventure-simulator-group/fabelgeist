@@ -1,0 +1,12 @@
+{
+  "schema": "726-postede12-evidence-replay-failure-v1",
+  "exit": 1,
+  "first_failing_evidence_check": "verify_artillery_route_trace.py",
+  "first_failure": "KeyError: 'method'",
+  "cause": "The initial new main-observation JSON omitted the verifier-required method field. The captured connector response supports the added GitHub branches/main API method.",
+  "transcript_bytes": 4796,
+  "transcript_lines": 51,
+  "transcript_sha256": "dc55443add8145060fdc5f74b2464012ff171cdf5fdec7d77523a07c4836017e",
+  "followup": "The original observation and application remain preserved; the observation successor adds only the method field and the application successor changes only that archived input. The exact original transcript is retained restricted.",
+  "qualification": "Evidence-only replay; no product build, test, runtime probe or repair ran. The failure is not an audit closure or product-behavior finding."
+}

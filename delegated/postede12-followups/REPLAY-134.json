@@ -1,0 +1,23 @@
+{
+  "schema": "726-postede12-full-evidence-replay-v1",
+  "stage_capture_count": 134,
+  "stage_capture_sha256": "008b6554977b7e5feac8b7c5a7e6a3561f6013632a28a69a867730a5dd52186d",
+  "strict_diff_check_exit": 0,
+  "evidence_driver_exit": 0,
+  "started_utc": "2026-11-13T02:19:11.491077+00:00",
+  "finished_utc": "2026-11-13T02:29:39.833571+00:00",
+  "transcript_bytes": 184729,
+  "transcript_lines": 2074,
+  "transcript_sha256": "86222ada0fc8e90a5678821481510dd52e986777862c3f153a016edfba26b880",
+  "direct_child_assertion_preflight": {
+    "assertions_enabled": true,
+    "optimization_level": 0
+  },
+  "scan_summary": {
+    "known_forbidden_digest_matches": 0,
+    "other_candidate_counts": {},
+    "exceptions": 0,
+    "tar_aware_selected_pattern_issues": 0
+  },
+  "qualification": "The full driver and these bounded scans covered the frozen 134-file staged snapshot. Subsequent additive review/transport and process-evidence files must be separately checked; this is not a claim that the full driver ran on them. Ciphertext is opaque to privacy scans. Nested interpreter flags, independently held custody, missing historical recovery, semantic queue closure and product behavior remain open."
+}

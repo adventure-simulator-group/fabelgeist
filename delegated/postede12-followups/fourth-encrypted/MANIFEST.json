@@ -1,0 +1,141 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "application-review-restricted",
+      "ciphertext": "application-review-restricted.aesgcm",
+      "ciphertext_sha256": "9c69e9d58796039cf94c233de44a0f8610df22fd025954af05b437af67191907",
+      "ciphertext_bytes": 3241404,
+      "plaintext_archive_sha256": "9c8723bcc48106a0f1fca3de1b75aa5bee7ec3b637415b541d2e1fd2189daffc",
+      "plaintext_archive_bytes": 3241376,
+      "regular_files": 118,
+      "directories": 12,
+      "associated_data": "726-audit-private-evidence:application-review-restricted:v1"
+    },
+    {
+      "label": "application-review-replay",
+      "ciphertext": "application-review-replay.aesgcm",
+      "ciphertext_sha256": "b15bcdfdba50eddeb3b9ba3b461dc5d6d220f891f74ffd09ca9e4ea5329373d8",
+      "ciphertext_bytes": 1201,
+      "plaintext_archive_sha256": "5d9a8d0c304913439a1981481444d2662272b66553df32fad8b52f9d5870df5f",
+      "plaintext_archive_bytes": 1173,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:application-review-replay:v1"
+    },
+    {
+      "label": "wrapping-review-restricted",
+      "ciphertext": "wrapping-review-restricted.aesgcm",
+      "ciphertext_sha256": "edee6e8dfa6595736baf770ba0894f90645a4688dc89d6bcfceaef4e4e6599fa",
+      "ciphertext_bytes": 4854445,
+      "plaintext_archive_sha256": "374e51ba0ebc4cca978cc0c1fd7e9db7564a4ec3fc8896d82e0ad62392a50cd0",
+      "plaintext_archive_bytes": 4854417,
+      "regular_files": 183,
+      "directories": 21,
+      "associated_data": "726-audit-private-evidence:wrapping-review-restricted:v1"
+    },
+    {
+      "label": "wrapping-review-replay",
+      "ciphertext": "wrapping-review-replay.aesgcm",
+      "ciphertext_sha256": "a009ccc2693f854fe9c31ae3bf0bd82a83851a678e18c45ca2601f6c740f9fdc",
+      "ciphertext_bytes": 1139,
+      "plaintext_archive_sha256": "35c0648eaa0afa731b4d23fcf1a429c456fdd5c51c9e5a4d0012d61e341b0515",
+      "plaintext_archive_bytes": 1111,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:wrapping-review-replay:v1"
+    },
+    {
+      "label": "observation-review-restricted",
+      "ciphertext": "observation-review-restricted.aesgcm",
+      "ciphertext_sha256": "79579c269f5c024a16d28aa7326de435486d3f8c896287d74d8b9d3315e998fa",
+      "ciphertext_bytes": 6536064,
+      "plaintext_archive_sha256": "ba4921d37c9fb6c136469f01cd487a917195b1cddb8084fe5120e98fa5c6d1ac",
+      "plaintext_archive_bytes": 6536036,
+      "regular_files": 268,
+      "directories": 32,
+      "associated_data": "726-audit-private-evidence:observation-review-restricted:v1"
+    },
+    {
+      "label": "observation-review-replay",
+      "ciphertext": "observation-review-replay.aesgcm",
+      "ciphertext_sha256": "0f34a56e95980debc1b53f559a024b79497fecd95375466ac17cb159c5035e3c",
+      "ciphertext_bytes": 1158,
+      "plaintext_archive_sha256": "ae278a6928bc8707f986161f34607fba4af20cc8be306455e74bfde30788b5d7",
+      "plaintext_archive_bytes": 1130,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:observation-review-replay:v1"
+    },
+    {
+      "label": "candidate-failed-replay",
+      "ciphertext": "candidate-failed-replay.aesgcm",
+      "ciphertext_sha256": "777629f54e85c7fb30cede80f68da72f40bcc8a9b44a83840e75b3ce2b76173e",
+      "ciphertext_bytes": 1692,
+      "plaintext_archive_sha256": "9771802a587b4168f3c70dcd4ead013c11cc085580f57fd5c8f508ef00816d23",
+      "plaintext_archive_bytes": 1664,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:candidate-failed-replay:v1"
+    },
+    {
+      "label": "staged-failed-replay",
+      "ciphertext": "staged-failed-replay.aesgcm",
+      "ciphertext_sha256": "8835f6b846fef3acfb8e30d961762d8594db9e1059d688ef857412e8c5bc6e01",
+      "ciphertext_bytes": 2360,
+      "plaintext_archive_sha256": "767cf2445f0d56934dafc2731f57ed7445f155265718a76f0e167f2cc87c184f",
+      "plaintext_archive_bytes": 2332,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:staged-failed-replay:v1"
+    },
+    {
+      "label": "staged-passing-replay",
+      "ciphertext": "staged-passing-replay.aesgcm",
+      "ciphertext_sha256": "8d0138f130b937b6a366994cdb77d1e9109e60516347ca8301603116dc3a9d7d",
+      "ciphertext_bytes": 34286,
+      "plaintext_archive_sha256": "1eed2af775373a9caa192557b04140f1ec9e21b588464d34182dfa49feb9d455",
+      "plaintext_archive_bytes": 34258,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:staged-passing-replay:v1"
+    },
+    {
+      "label": "scan-121",
+      "ciphertext": "scan-121.aesgcm",
+      "ciphertext_sha256": "9d4c4f3b188c0857e3fce69a3e89084c2b73ac3bba4a8b47d6e35bc72296e9fd",
+      "ciphertext_bytes": 1032,
+      "plaintext_archive_sha256": "b9f799b3b97b52b4a67dbda3292b20d92444d4e79f8427d9fd208daea528e0ea",
+      "plaintext_archive_bytes": 1004,
+      "regular_files": 5,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:scan-121:v1"
+    },
+    {
+      "label": "scan-134",
+      "ciphertext": "scan-134.aesgcm",
+      "ciphertext_sha256": "c66f3a1378ef29e9a8a26429308d8be6077288fe1d62c5ec5143d3998f406329",
+      "ciphertext_bytes": 1028,
+      "plaintext_archive_sha256": "115347202185dbb92f2adca05a73d7dccd13ff4d6d0f8007b6c7ef2060f517b2",
+      "plaintext_archive_bytes": 1000,
+      "regular_files": 5,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:scan-134:v1"
+    },
+    {
+      "label": "fourth-control",
+      "ciphertext": "fourth-control.aesgcm",
+      "ciphertext_sha256": "1238758d2935254f0cd325765dabe17abcf813733222a32bc836b0d429682334",
+      "ciphertext_bytes": 32871,
+      "plaintext_archive_sha256": "3babf3c81a416c5b403b040c340ecb46f421b5fa6d4402f88930b07d569b0ab3",
+      "plaintext_archive_bytes": 32843,
+      "regular_files": 28,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:fourth-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "726-postede12-transport-attempt-v1",
+  "result": "The initial exact-member check failed after preserving the first archive because the builder expected a top-level directory that the supplied original archive does not contain. No source or existing evidence was overwritten.",
+  "tool_output": "The traceback and AssertionError were tool-visible but not separately captured.",
+  "retained_archive_sha256": "e562e078cd1b88a01f6d7eb99644b346691f296363c91e09715085035e52ce15",
+  "correction": "A fresh successor will compare the original archive with its actual root-level member names and preserve the first attempt."
+}

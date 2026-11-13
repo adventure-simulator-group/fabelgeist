@@ -1,0 +1,80 @@
+{
+  "schema": "726-postede12-replay-receipts-v1",
+  "files": [
+    {
+      "name": "CANDIDATE-verify_postd7a5_application.py.stdout",
+      "bytes": 3014,
+      "sha256": "8ff55b7f85568e158405dcd8d06e7aad1b0443d0aa5a1d0f177049f046e662ed"
+    },
+    {
+      "name": "CANDIDATE-verify_postd7a5_application.py.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "CANDIDATE-verify_postede12_application.py.stdout",
+      "bytes": 1141,
+      "sha256": "8054d357aead6f6e6a30a632310114d7e2c4457b980d8ff387133ef09e83ac19"
+    },
+    {
+      "name": "CANDIDATE-verify_postede12_application.py.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "THIRD-identities.stdout",
+      "bytes": 148,
+      "sha256": "af42f637ca0af0a7c22ecc17778799498238862a065afb3295f5a80dee61a239"
+    },
+    {
+      "name": "THIRD-identities.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "THIRD-authenticated.stdout",
+      "bytes": 212,
+      "sha256": "e755e9946a07c5b9d2d95a569ac4b23b98d855e93757cd1540e37471686ad83b"
+    },
+    {
+      "name": "THIRD-authenticated.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "THIRD-service-quests.stdout",
+      "bytes": 308,
+      "sha256": "f7b320930778400a56b7f27e2729eb4e64aae13ec8ab66e5e8cefe1cac33fc5b"
+    },
+    {
+      "name": "THIRD-service-quests.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "candidate_results": [
+    {
+      "script": "predecessor bridge",
+      "exit": 0
+    },
+    {
+      "script": "successor application",
+      "exit": 0
+    }
+  ],
+  "third_group_results": [
+    {
+      "check": "identity",
+      "exit": 0
+    },
+    {
+      "check": "authenticated recovery",
+      "exit": 0
+    },
+    {
+      "check": "service-quests restored evidence",
+      "exit": 0
+    }
+  ],
+  "qualification": "Exact safe output from same-machine candidate and authenticated restoration checks. Restricted destination, raw control and separately held keys remain separate. Bounded path/credential check is not a full privacy guarantee."
+}

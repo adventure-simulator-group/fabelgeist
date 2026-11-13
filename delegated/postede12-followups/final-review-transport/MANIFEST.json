@@ -1,0 +1,110 @@
+{
+  "schema": "726-postede12-public-transports-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "ede12d3f9f19d284abbc669b5ae38b814a585f77",
+  "bundles": [
+    {
+      "label": "application-review",
+      "file": "application-review.tar.gz",
+      "source_manifest_sha256": "e8d4811095c9cf501076466ee31e24f9d467939de373f2bf847750f50cb0f78a",
+      "manifest_member": "application-review/MANIFEST.json",
+      "archive_bytes": 6315,
+      "archive_sha256": "86a2e6076e697cedd61a11aadc5b9053278e3420eb859be657948bd2366f0ef1",
+      "members": [
+        {
+          "path": "application-review/MANIFEST.json",
+          "bytes": 680,
+          "sha256": "e8d4811095c9cf501076466ee31e24f9d467939de373f2bf847750f50cb0f78a",
+          "mode": "0o600"
+        },
+        {
+          "path": "application-review/REPORT.md",
+          "bytes": 3905,
+          "sha256": "6c9ce45c65bf2ee9fc5a42a57ba2e1a022c54528b48b61fc35f5b2ecfa6756e9",
+          "mode": "0o600"
+        },
+        {
+          "path": "application-review/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "application-review/VERIFY.py",
+          "bytes": 9213,
+          "sha256": "fe8c2ef286517870baebf97c5d1123a34fb463d09e7f6cd17e77f3f53618f726",
+          "mode": "0o600"
+        }
+      ]
+    },
+    {
+      "label": "wrapping-review",
+      "file": "wrapping-review.tar.gz",
+      "source_manifest_sha256": "c7c5d2063127f5f81b63be3d484a85df7527ff3ce1e2e0d6f469ef4f89c91ed3",
+      "manifest_member": "wrapping-review/MANIFEST.json",
+      "archive_bytes": 5163,
+      "archive_sha256": "56dd27842c074236296700ed214448d07106ae461aaac1926823f2fe57235809",
+      "members": [
+        {
+          "path": "wrapping-review/MANIFEST.json",
+          "bytes": 668,
+          "sha256": "c7c5d2063127f5f81b63be3d484a85df7527ff3ce1e2e0d6f469ef4f89c91ed3",
+          "mode": "0o600"
+        },
+        {
+          "path": "wrapping-review/REPORT.md",
+          "bytes": 3557,
+          "sha256": "10c378f4ef4d87df5227f021694e0d5e3e91d996b309077dde50e64a446ead19",
+          "mode": "0o600"
+        },
+        {
+          "path": "wrapping-review/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "wrapping-review/VERIFY.py",
+          "bytes": 6155,
+          "sha256": "e47f31abc041d3eac0befab968638068db83ab9797178f4c9d0d3ff168b47313",
+          "mode": "0o600"
+        }
+      ]
+    },
+    {
+      "label": "observation-review",
+      "file": "observation-review.tar.gz",
+      "source_manifest_sha256": "2144c639989d8d0b7319d5d5040f7c658474e6574bbbe8e6fecbf6dc230deeed",
+      "manifest_member": "observation-review/MANIFEST.json",
+      "archive_bytes": 5682,
+      "archive_sha256": "dc268e3a95074fab0678974e0ecbe77728bf51a8ed1b9d6fe70ab01bab8754de",
+      "members": [
+        {
+          "path": "observation-review/MANIFEST.json",
+          "bytes": 682,
+          "sha256": "2144c639989d8d0b7319d5d5040f7c658474e6574bbbe8e6fecbf6dc230deeed",
+          "mode": "0o600"
+        },
+        {
+          "path": "observation-review/REPORT.md",
+          "bytes": 3313,
+          "sha256": "5080fb5841bebc0e70bb5b8a45120b09b5c78a8be3d99ba89e74aeb18783441b",
+          "mode": "0o600"
+        },
+        {
+          "path": "observation-review/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "observation-review/VERIFY.py",
+          "bytes": 7797,
+          "sha256": "c0d6f4e9db9f4ff20a7410cf1649e728ef0b7f87470c9baf3125423f377b8ea5",
+          "mode": "0o600"
+        }
+      ]
+    }
+  ],
+  "qualification": "Three independent application, wrapping and observation review public packets; restricted original review chain and replay receipts are authenticated separately. Same-author limits remain explicit."
+}

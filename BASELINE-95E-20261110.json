@@ -23623,10 +23623,64 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-17-95E.json"
+      },
+      {
+        "id": "relationship-terminal-receipt-roster-contact-95e",
+        "lens": 1,
+        "classification": "The selected producer adds equipment-contact owners to party, sorts and truncates party to sixteen, but retains equipment contacts independently. The native validator rejects a retained contact whose owner is absent from the retained party if earlier checks pass. A validated roster is nonempty, unique and at most sixteen, yet these displayed accumulator and enrollment windows do not establish that every possible contact owner belongs to that roster. Supported reachability and native outcomes remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3064",
+          "baseline-059/queue.json#/entries/3127",
+          "baseline-059/queue.json#/entries/3128"
+        ],
+        "relationship_qualification": "q3128 already records the sort/truncate versus retained-contact first operation under Root Lens3; this is connected 95e producer support, not a newly counted independent defect. q3127 addresses lifecycle/native callback admission separately. Do not infer a shared alias, infinite retry or observed participant loss.",
+        "connected_repair_direction": "Trace actual authorized roster, every party/contact accumulator writer, validation and retry semantics before deciding how the same receipt contract should be owned or preserved.",
+        "future_acceptance": "Only after audit and separate authorization, preserve authorized consequences, contact ownership, native receipt bounds and frozen retry semantics.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/adventuresim-tactical-server/src/mission/receipt.rs:21-74",
+          "crates/adventuresim-core/src/mission.rs:9-15",
+          "crates/adventuresim-core/src/mission/roster.rs:35-48",
+          "crates/adventuresim-stdb-module/src/tactical.rs:1037-1073",
+          "crates/adventuresim-tactical-server/src/mission/enrollment.rs:19-94",
+          "crates/adventuresim-tactical-server/src/combat/consequence.rs:16-60,78-110,176-210,243-268"
+        ],
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-18-95E.json"
+      },
+      {
+        "id": "relationship-hair-guide-seed-widening-95e",
+        "lens": 1,
+        "classification": "A signed i32 HairSeed is cast directly to u64 for selected CPU and GPU host guide calls, while its canonical Seed storage zero-extends the i32 bit pattern via u32. For negative words these representations have different high 32-bit halves, which guide_key feeds into the hash. Public Hairdo::guides accepts arbitrary u64; replacing this boundary with the canonical seed word would alter an input to the key, so a future owner propagation decision needs an explicit bit-preservation policy.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3207",
+          "baseline-059/queue.json#/entries/2407",
+          "baseline-059/queue.json#/entries/3144",
+          "baseline-059/queue.json#/entries/161"
+        ],
+        "current_related_records": [
+          "dac7d newly_assessed_ledger.entries[669]",
+          "dac7d newly_assessed_ledger.entries[646]",
+          "dac7d newly_assessed_ledger.entries[647]"
+        ],
+        "relationship_qualification": "Bounded source-derived behavior-preservation question related to existing hair seed owners, not an established wrong product result or an accepted unique-defect count. Operation seed-offset arithmetic has a distinct first operation; alias and repair grouping remain open.",
+        "connected_repair_direction": "Trace all guide entry points, owner and public-domain constraints before selecting an adapter; preserve signed widening and distinct 64-bit callers unless a separately authorized policy changes them.",
+        "future_acceptance": "Only after audit and authorization, assess CPU/GPU and public boundary seed representation and deterministic key semantics without assuming these source paths have executed.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-hair/src/look.rs:450-456",
+          "crates/fabelgeist-hair/src/gpu/grow.rs:100-106",
+          "crates/fabelgeist-hair/src/gpu/guides.rs:147-160",
+          "crates/fabelgeist-hair/src/hairdo.rs:179-188,538-540",
+          "crates/fabelgeist-hair/src/parameters.rs:75-80",
+          "crates/fabelgeist-determinism/src/seed.rs:72-78"
+        ],
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-18-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261113-0033.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261113-0140.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

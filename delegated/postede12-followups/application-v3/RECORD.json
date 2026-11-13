@@ -1,0 +1,87 @@
+{
+  "schema": "726-postede12-application-v1",
+  "parent_checkpoint": "ede12d3f9f19d284abbc669b5ae38b814a585f77",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "archive": "APPLICATION-EVIDENCE.tar.gz",
+  "archive_bytes": 777692,
+  "archive_sha256": "24d42a0419c135e15e413f2b009207a7b424425fe9d5f92302fa31553e0fa1a9",
+  "scripts": {
+    "TRANSFORM.py": "30f4e2531cf4cb29dc9c5da75d1411e9c26f1f447f34207a3d6c1d5f793a6cce",
+    "PREDECESSOR-WRAPPER.py": "98a48f4e231d278ed9c5885401cbcf979f10531067256e6f33de7da5d1d73f36"
+  },
+  "members": [
+    {
+      "path": "after/BASELINE-95E-20261110.json",
+      "bytes": 1507068,
+      "sha256": "03139868163e3fb86b50956a6c33b5eab9812d1b42f528b3a7a17c0a397cf041",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 126407,
+      "sha256": "30ff27178bdec75d32b7bd3311be43d62ab16a788a61e0b40e4af41de5aef7db",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/CONTINUATION.md",
+      "bytes": 121762,
+      "sha256": "008fb29b943b15c579e08e6807deeaff63856392c9cb9fab362b174a0823b947",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/RECONCILIATION-059.json",
+      "bytes": 1256065,
+      "sha256": "73bc3864944276b88944163257e3cfc67dde6141b2dc3f82588af66621003945",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/BASELINE-95E-20261110.json",
+      "bytes": 1502472,
+      "sha256": "a402d49eb6dab3cd9182e16db92d2ea91896c761d02c87b2fcdad9d50efa7276",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 125522,
+      "sha256": "e9bbab670b9bc24a36ecb48b4665782b22362d32f75313948b64177030a9ef0c",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/CONTINUATION.md",
+      "bytes": 121031,
+      "sha256": "fb0bbf36a3d05a91a2edb49180e48e2f3446a5694d4530b1392c11b78e872a0c",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/RECONCILIATION-059.json",
+      "bytes": 1255325,
+      "sha256": "be6acb889cb51b645d03e861715895c9efcf0f47e970cc8fa12f1d03404a9f94",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/draft-v2.json",
+      "bytes": 15373,
+      "sha256": "51f6948e954ed9caf794e342631a74491366b60a1202fe4556f8ddb37e38f269",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/main-observation.json",
+      "bytes": 611,
+      "sha256": "f2293502325549b0037839b9a6cbcbcb69f9209eb4254f80775b60aa4067b065",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/pending.json",
+      "bytes": 13968,
+      "sha256": "aa35b0b6b1fbdd5e9268d3f7f5da4d221cf62806c2f57b573524f3f08d907bcb",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/report.json",
+      "bytes": 15848,
+      "sha256": "10d80b68db5ef93e3460cf08de13130067abcb30d5373e8b44289105c996dfc9",
+      "mode": "0o644"
+    }
+  ],
+  "qualification": "Exact before/after transform of the predecessor; 28 later pending obligations remain unassessed and all recovery, attribution and repair limits remain open."
+}

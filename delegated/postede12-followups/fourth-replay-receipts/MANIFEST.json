@@ -1,0 +1,41 @@
+{
+  "schema": "726-postede12-fourth-replay-output-v1",
+  "files": [
+    {
+      "file": "FOURTH-identities.stdout",
+      "bytes": 148,
+      "sha256": "af42f637ca0af0a7c22ecc17778799498238862a065afb3295f5a80dee61a239"
+    },
+    {
+      "file": "FOURTH-identities.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "FOURTH-authenticated.stdout",
+      "bytes": 212,
+      "sha256": "e755e9946a07c5b9d2d95a569ac4b23b98d855e93757cd1540e37471686ad83b"
+    },
+    {
+      "file": "FOURTH-authenticated.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "FOURTH-review-chain.stdout",
+      "bytes": 277,
+      "sha256": "5ff42fe1cdeb0b42bd4bba6e73e6e19dcf5d2d51a0fc47dc20485b29ed8cfc35"
+    },
+    {
+      "file": "FOURTH-review-chain.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "checks": [
+    "ciphertext identities",
+    "authenticated same-machine restore",
+    "restored nested observation/wrapping/application review replay"
+  ],
+  "qualification": "Exact safe output from evidence verification. Bounded path/credential checks do not establish full privacy; the separate primary key and historical anchors remain required."
+}

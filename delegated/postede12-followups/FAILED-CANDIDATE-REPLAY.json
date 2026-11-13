@@ -1,0 +1,12 @@
+{
+  "schema": "726-postede12-candidate-replay-failure-v1",
+  "exit": 1,
+  "first_failing_evidence_check": "verify_delta_sources.py",
+  "first_failure": "source reference escapes checkpoint",
+  "cause": "The constructed candidate used symbolic links to prior evidence directories; resolving a selected source reference left the candidate root. The first three checks passed before this containment failure.",
+  "transcript_bytes": 2762,
+  "transcript_lines": 23,
+  "transcript_sha256": "93bb3c25efe51e038a3ebac2b5ba3609e2fcd65593b9fa9f94dc9f7679aae794",
+  "followup": "Replay the evidence driver from the actual staged publication checkout. The exact original transcript and candidate construction record are restricted and authenticated separately.",
+  "qualification": "Candidate evidence verification only; no product code, build, test or runtime probe was executed. This result does not establish or refute product behavior, independent custody, historical recovery or audit closure."
+}
