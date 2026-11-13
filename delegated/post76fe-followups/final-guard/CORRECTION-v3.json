@@ -1,0 +1,6 @@
+{
+  "schema": "726-post76fe-final-guard-correction-v3",
+  "predecessor_sha256": "062b7c078c4e8428ed64a7c837dc6b50ae9fde5c3e612a8d2f73c0baac788224",
+  "successor_sha256": "b699d18c1afd8cf7b44ec0cefb5e2fc1485c67befbb8395c754030b48cfe4953",
+  "reason": "The independent static reviewer identified that the prior guard checked seven unique root rows but did not explicitly name the required paths. This successor asserts the exact set before reading root candidates; the earlier guard and reviewer attribution are retained. The existing installer already asserted the same set."
+}

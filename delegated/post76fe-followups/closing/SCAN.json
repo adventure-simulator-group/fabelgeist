@@ -1,0 +1,24 @@
+{
+  "schema": "726-post76fe-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "5e07c2c4897aa2ce1b14caf869d0af35900acde737e8fb207c03fab4261eceeb",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "e6a28a244de86559f04cfd3527d6c9109c04050019b9c63b2c23fd03ebeb92cf",
+      "stderr_bytes": 0
+    }
+  ],
+  "capture_sha256": "4131c02d57b8a3cd2cba51be9341d70ca284d7154eeb90687998f10e36c50bca",
+  "scanned_paths": 312,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite scan of exact staged evidence before closing metadata. Unknown private values and encodings, opaque ciphertext and Git history are outside scope. Exact logs remain restricted."
+}

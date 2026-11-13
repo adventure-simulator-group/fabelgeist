@@ -1,0 +1,12 @@
+{
+  "schema": "726-post76fe-independent-peer-public-v1",
+  "reviewer": "wrapped_scope",
+  "prior_v3_review_manifest_sha256": "d4e87996f843a4b3d74769ee0efd62a917e07187bf4bf1b95721c82d7981ba40",
+  "prior_v4_review_manifest_sha256": "9b20fb76b4ef4b8f40cba09d3670c01c4ea8b3b9167050a758d49b41f56ebf66",
+  "projection_sha256": "5efb924e75f648cea61ee5c76ce3b80117ebbfabcb047214519f9a7da35204c9",
+  "draft_sha256": "18b09d57c077abc9f302c79d23eec0678c6d9ef4927ae5aaf1db2624db5d6c6e",
+  "restricted_review_manifest_sha256": "5c5bc57b6e64e93021fe24c57f50536e97e20e607a961f81f28d1f3f346d5ee5",
+  "restricted_replay_manifest_sha256": "ce15fd437a12b2fed3534ab17fe8106df75b581c8fc128192e58efa2465edfed",
+  "restricted_failed_predecessor_manifest_sha256": "873c796d6c4ad1366f209d2026474e3079810a06519fc18fcc5a823c4bc24020",
+  "qualification": "The v3 and v4 reviews and their failed predecessors remain separate. Full replay additionally needs committed Git objects, staged archives and the separately held source-group key. This is a bounded projection check; no public recovery of private originals without separately held copies."
+}

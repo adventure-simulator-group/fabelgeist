@@ -1,0 +1,47 @@
+{
+  "schema": "726-post76fe-central-public-scan-v1",
+  "files": [
+    {
+      "name": "ciphertexts/MANIFEST.json",
+      "bytes": 18119,
+      "sha256": "e5367d4a9530c81a4ba2392759f495c7db1cd9f33869a052dbb4e3d0565ed59b"
+    },
+    {
+      "name": "ciphertexts/README.md",
+      "bytes": 838,
+      "sha256": "d7d518c0a8562563378dd4cddf72d2d17381ac9a42afad40fac7e40b3baa11d8"
+    },
+    {
+      "name": "ciphertexts/VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9"
+    },
+    {
+      "name": "receipt/RESTORATION.json",
+      "bytes": 911,
+      "sha256": "af05b6516dc6f783f8e4460329a6ac513ced71185239cc9aacd8bb02ca5ed1c5"
+    },
+    {
+      "name": "receipt/CUTOFF.json",
+      "bytes": 1649,
+      "sha256": "c7cdc05d899a07fbcb6c17111ed22400bc6c4a533aea0beafbca117e49e07820"
+    },
+    {
+      "name": "receipt/VERIFY-CUSTODY.py",
+      "bytes": 2581,
+      "sha256": "7286276a4f0472d657d9abf1f4841e7127261cce8f899a3eb5a0b85fb8e092ea"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Generated scan and receipt manifest also scanned before writing.",
+  "qualification": "Finite scan of named plaintext metadata against private local path/key values and nontrivial prefixes plus raw and hex SHA-256/SHA-1/MD5 digests and selected path/credential patterns. Values and their digests are not output. Ciphertexts, unknown encodings and unspecified inputs are outside scope."
+}

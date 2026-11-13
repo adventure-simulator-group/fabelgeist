@@ -1,0 +1,17 @@
+{
+  "schema": "post76fe-application-custody-finite-scan-v1",
+  "scanned_public_metadata_files": 4,
+  "positive_controls_passed": true,
+  "pattern_hit_counts": {
+    "unix_home_or_temp": 0,
+    "windows_user": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key_marker": 0,
+    "credential_assignment": 0
+  },
+  "known_path_candidates": 25,
+  "known_path_value_hits": 0,
+  "known_individual_path_digest_hits": 0,
+  "qualification": "Finite scan of public manifest, verifier, README and restoration receipt; private path candidates were derived from registered source collections. Individual path values and digests are not emitted or stored. Ciphertexts are opaque and excluded from regex scans. Unknown secrets, paths, encodings and later-cutoff controls are outside scope; this is not a proof of privacy."
+}

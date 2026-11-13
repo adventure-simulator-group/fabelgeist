@@ -1,0 +1,107 @@
+{
+  "schema": "726-after-b111-binding-archive-map-v1",
+  "created_utc": "2026-11-13T10:46:20.386342+00:00",
+  "archives": [
+    {
+      "id": "post76fe-binding-corrected",
+      "author": "separately attributed coordinator custody evidence",
+      "source_manifest_name": "MANIFEST.json",
+      "source_manifest_sha256": "6c761df8a28c7ea378febf46640029de40d346efcdfb0ffec2e3a8d693a1dd77",
+      "archive": "archives/post76fe-binding-corrected.tar.gz",
+      "archive_bytes": 3137,
+      "archive_sha256": "05f9bda970c3261a7923c0aecc917002a86ed6c7c32ed7082f0a7c790fa86a27",
+      "members": [
+        {
+          "path": "BINDING.json",
+          "bytes": 2041,
+          "sha256": "5f9b328f6f7b3cfb71c864bdeeb7c0baa3409548e73834e17328291fd603aac3",
+          "mode": "0o664"
+        },
+        {
+          "path": "MANIFEST.json",
+          "bytes": 674,
+          "sha256": "6c761df8a28c7ea378febf46640029de40d346efcdfb0ffec2e3a8d693a1dd77",
+          "mode": "0o664"
+        },
+        {
+          "path": "PUBLIC-SCAN.json",
+          "bytes": 1017,
+          "sha256": "8ec91cfe8be5a97478468d4697c883870e9e68bcc077889b292e8ad79dd83fdb",
+          "mode": "0o664"
+        },
+        {
+          "path": "VERIFY-BINDING.py",
+          "bytes": 3817,
+          "sha256": "864ab0ffda5f5ba7a83c90f26aa78acf64bf2b887593a49585d4b03d3c1b3ad5",
+          "mode": "0o664"
+        }
+      ],
+      "directories": [
+        {
+          "path": "",
+          "mode": "0o700"
+        }
+      ]
+    },
+    {
+      "id": "post76fe-binding-replay",
+      "author": "separately attributed coordinator custody evidence",
+      "source_manifest_name": "MANIFEST.json",
+      "source_manifest_sha256": "9c26f6207c05fb3db6fcf5a98365fdd0ea9efd9e84fbf3055ef572069a098ec9",
+      "archive": "archives/post76fe-binding-replay.tar.gz",
+      "archive_bytes": 1331,
+      "archive_sha256": "96db53a28efcd817281632396b7c4a3537af63ac1f92893e7439a4a362bdec01",
+      "members": [
+        {
+          "path": "MANIFEST.json",
+          "bytes": 968,
+          "sha256": "9c26f6207c05fb3db6fcf5a98365fdd0ea9efd9e84fbf3055ef572069a098ec9",
+          "mode": "0o664"
+        },
+        {
+          "path": "PUBLIC-SCAN.json",
+          "bytes": 1276,
+          "sha256": "9f82e0a13601fd6a6989ff012a73fb9dcbbcebe136e5caf543e06109b7774f56",
+          "mode": "0o664"
+        },
+        {
+          "path": "RESULT.json",
+          "bytes": 873,
+          "sha256": "a8802444ac6157b6b99ca64526c6b7155bb5ecd7e29b9c054afa0a9617ff1d57",
+          "mode": "0o664"
+        },
+        {
+          "path": "anchored.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mode": "0o664"
+        },
+        {
+          "path": "anchored.stdout",
+          "bytes": 369,
+          "sha256": "d897e2e8d6c03b6e7d0ca4e95c788f3c0a94ad753ae0d2cc3f14e6d3d2afa8c4",
+          "mode": "0o664"
+        },
+        {
+          "path": "self.stderr",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mode": "0o664"
+        },
+        {
+          "path": "self.stdout",
+          "bytes": 214,
+          "sha256": "234d54aba7fb6afb27c4ec18c20a31f06bf1366a4b237f7dc2b8c5d965fe27f8",
+          "mode": "0o664"
+        }
+      ],
+      "directories": [
+        {
+          "path": "",
+          "mode": "0o700"
+        }
+      ]
+    }
+  ],
+  "qualification": "Transport preserves source member bytes and modes; tar timestamps and owner metadata are normalized."
+}

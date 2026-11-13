@@ -1,0 +1,56 @@
+{
+  "schema": "726-post76fe-distinct-replay-records-v1",
+  "records": [
+    {
+      "label": "first",
+      "result_sha256": "373135c8842591c6667d989cb8db576ea5ff0e9811c1fb791cebca89fb1f932f",
+      "captured_paths_matched": 263,
+      "checks": [
+        {
+          "name": "predecessor-checkpoint",
+          "exit": 0
+        },
+        {
+          "name": "predecessor-final-guard",
+          "exit": 0
+        },
+        {
+          "name": "predecessor-closing",
+          "exit": 0
+        },
+        {
+          "name": "fetch",
+          "exit": 0
+        },
+        {
+          "name": "checkout",
+          "exit": 0
+        },
+        {
+          "name": "successor-final-guard",
+          "exit": 1
+        }
+      ]
+    },
+    {
+      "label": "supplement",
+      "result_sha256": "431631b789a5463af4a68d337f4939819b4b61ef7e123b8be94e7614b4f84e9a",
+      "captured_paths_matched": 263,
+      "checks": [
+        {
+          "name": "successor-final-guard",
+          "exit": 0
+        },
+        {
+          "name": "successor-checkpoint",
+          "exit": 0
+        },
+        {
+          "name": "successor-closing",
+          "exit": 0
+        }
+      ]
+    }
+  ],
+  "qualification": "Existing receipt and log byte identities only. First failed after 263 file matches; later success depended on a separately held same-machine publication Git object-store alternate. No replay was rerun by this reviewer."
+}

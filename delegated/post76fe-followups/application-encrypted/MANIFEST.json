@@ -1,0 +1,141 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce, authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; preserved included roots, contained directory modes and regular-file bytes and modes",
+  "objects": [
+    {
+      "label": "post76fe-app-application-v1",
+      "ciphertext": "post76fe-app-application-v1.aesgcm",
+      "ciphertext_sha256": "bb016d837c8d8c4acc062c4c6353e061605e0bd451440c0724ef035d0eea5c1d",
+      "ciphertext_bytes": 798224,
+      "plaintext_archive_sha256": "bd434544e820e6994cbbbaf9adbd89bd65f19a2a5bf72059a9654aaa5c8e1633",
+      "plaintext_archive_bytes": 798196,
+      "regular_files": 13,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-v1:v1"
+    },
+    {
+      "label": "post76fe-app-application-replay-v1",
+      "ciphertext": "post76fe-app-application-replay-v1.aesgcm",
+      "ciphertext_sha256": "eab9e0afcc90ee5876029946edf2e28485fb84cc531668c3a561ce8d175a33e8",
+      "ciphertext_bytes": 2993,
+      "plaintext_archive_sha256": "5c2f730edbcc91d71fbd962d36e3b5ce7ee356cfb829924d2b27f403c8ea5d7f",
+      "plaintext_archive_bytes": 2965,
+      "regular_files": 5,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-replay-v1:v1"
+    },
+    {
+      "label": "post76fe-app-application-replay-v2",
+      "ciphertext": "post76fe-app-application-replay-v2.aesgcm",
+      "ciphertext_sha256": "13c0fec98036b61c09e9d5093d6a57a6d4bda76193af20a3b32661a6b6de6c39",
+      "ciphertext_bytes": 2758,
+      "plaintext_archive_sha256": "1ecf3bfa24471df8f75ebd623d4f0e27f4c8e971e01c8302b90fa2c2a5a611fd",
+      "plaintext_archive_bytes": 2730,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-replay-v2:v1"
+    },
+    {
+      "label": "post76fe-app-application-peer",
+      "ciphertext": "post76fe-app-application-peer.aesgcm",
+      "ciphertext_sha256": "1f80b3d06c8ac4cfdf0bf557481c80edb9196e841f242f7e52a9c88a8e0a6c06",
+      "ciphertext_bytes": 818359,
+      "plaintext_archive_sha256": "35b8c15ed3841998bce18f5efa25615133c7774839ff9e5c02b096788c384937",
+      "plaintext_archive_bytes": 818331,
+      "regular_files": 31,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-peer:v1"
+    },
+    {
+      "label": "post76fe-app-application-peer-replay",
+      "ciphertext": "post76fe-app-application-peer-replay.aesgcm",
+      "ciphertext_sha256": "fcc18eb0caf4fc6f8a5fbb09d7717d8664b46b10406a5b20a8208f080b61fb1f",
+      "ciphertext_bytes": 1388,
+      "plaintext_archive_sha256": "334424a2eae9455be50db8cd9399f9d4e8abc98f156f52eeebea7497b16e1ba3",
+      "plaintext_archive_bytes": 1360,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-peer-replay:v1"
+    },
+    {
+      "label": "post76fe-app-application-public-builder",
+      "ciphertext": "post76fe-app-application-public-builder.aesgcm",
+      "ciphertext_sha256": "cc2c6746c6224590ac8d812c2de11f5d05de137a0b5b2f6e923f31a504400357",
+      "ciphertext_bytes": 5390,
+      "plaintext_archive_sha256": "db7b1bddca62a49c9f95d370b23572f7d1097b129aa1a6ce3f29ce79214fa2a3",
+      "plaintext_archive_bytes": 5362,
+      "regular_files": 9,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-public-builder:v1"
+    },
+    {
+      "label": "post76fe-app-application-public-peer",
+      "ciphertext": "post76fe-app-application-public-peer.aesgcm",
+      "ciphertext_sha256": "464e996f342ad1cbe552e90f45a2fcc210a7c3aa39a8554fbd7322675fd279c5",
+      "ciphertext_bytes": 3604,
+      "plaintext_archive_sha256": "31fb70cb586474e6d8a8343c8fab72e3dab34213c21728d7189f3d5e6174b405",
+      "plaintext_archive_bytes": 3576,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-public-peer:v1"
+    },
+    {
+      "label": "post76fe-app-application-public-replay",
+      "ciphertext": "post76fe-app-application-public-replay.aesgcm",
+      "ciphertext_sha256": "08a288d3e7a176bac768c7024a881186e36e655e8e9153b0b7e24a6f582c3ff9",
+      "ciphertext_bytes": 1147,
+      "plaintext_archive_sha256": "3397ea37cb4e0c97dc079857064e73b45d2cf6bf50caa4186e3c4acae8943139",
+      "plaintext_archive_bytes": 1119,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-application-public-replay:v1"
+    },
+    {
+      "label": "post76fe-app-stage-application",
+      "ciphertext": "post76fe-app-stage-application.aesgcm",
+      "ciphertext_sha256": "f39116425f0fbbaf0e235d711093bdab63a0172674851c8c1a25c4748cb6b413",
+      "ciphertext_bytes": 801078,
+      "plaintext_archive_sha256": "feed92eb23ef168b996cf17f5d1725f1e6b8925141e45f1f3ad9170998b0046d",
+      "plaintext_archive_bytes": 801050,
+      "regular_files": 10,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-stage-application:v1"
+    },
+    {
+      "label": "post76fe-app-stage-peer-application",
+      "ciphertext": "post76fe-app-stage-peer-application.aesgcm",
+      "ciphertext_sha256": "96591ce27572e008e6a849f6c8e0c0784d4d9b2ff9b80e2dbb8926c33368e7b9",
+      "ciphertext_bytes": 3604,
+      "plaintext_archive_sha256": "31fb70cb586474e6d8a8343c8fab72e3dab34213c21728d7189f3d5e6174b405",
+      "plaintext_archive_bytes": 3576,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-stage-peer-application:v1"
+    },
+    {
+      "label": "post76fe-app-stage-peer-application-replay",
+      "ciphertext": "post76fe-app-stage-peer-application-replay.aesgcm",
+      "ciphertext_sha256": "fa3cdae7db690b16d281754a5b7f59b2d8fd0456c7afc1eae596d07eb38288ca",
+      "ciphertext_bytes": 1147,
+      "plaintext_archive_sha256": "3397ea37cb4e0c97dc079857064e73b45d2cf6bf50caa4186e3c4acae8943139",
+      "plaintext_archive_bytes": 1119,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-stage-peer-application-replay:v1"
+    },
+    {
+      "label": "post76fe-app-embedded-control",
+      "ciphertext": "post76fe-app-embedded-control.aesgcm",
+      "ciphertext_sha256": "20ef5ca80bcf270963e8507781e931ee72a46a81e919029f1679391cb6897e35",
+      "ciphertext_bytes": 32058,
+      "plaintext_archive_sha256": "1f234287bc1714090ef6b09c1e782627c1899ba584011a2b2d0ec05aaefc8015",
+      "plaintext_archive_bytes": 32030,
+      "regular_files": 9,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-app-embedded-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key; not independent custody. Prior ciphertext, Git objects, source historical anchors and separately controlled nested keys may be required for full replay.",
+  "qualification": "The embedded-control object contains the restricted source inventory and pre-encryption nonce registration. All inputs were compared before and after capture. Later encryption, restore, comparison, replay, privacy and delivery controls are separate later-cutoff dependencies; this group does not recursively include them. No checkpoint3821 recovery, product validation, semantic closure or implementation is claimed."
+}

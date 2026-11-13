@@ -1,0 +1,8 @@
+{
+  "schema": "726-post76fe-application-replay-qualification-v1",
+  "candidate_record_sha256": "173ba24fc775e7e2cfee5d28b87eccd67a578e9681f8fb44050298ae243a5384",
+  "application_archive_sha256": "851724b71acb3ddb5ad9f9a7f0accc5b385484b848c3e8e53dd3cc1c9bea9ad2",
+  "initial_attempt": "The first candidate replay omitted the required Git alternate and stopped at the optional predecessor guard's original 059 lookup. Its tool-visible output was truncated and was not independently saved as a raw transcript.",
+  "successor_attempt": "A separate invocation supplied the restored minimal object database as a process-local alternate; candidate application and the clean 76fe predecessor evidence guard passed with exit zero and empty stderr.",
+  "qualification": "This is same-machine evidence replay, not independent custody, full Git closure, checkpoint3821 recovery or product validation. The original queue, earlier ciphertext and key, and minimal object subset remain dependencies. Later process logs are retained for the next custody cutoff."
+}

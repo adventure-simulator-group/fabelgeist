@@ -1,0 +1,20 @@
+{
+  "schema": "726-post76fe-additive-binding-v1",
+  "identities": {
+    "ciphertext_manifest_sha256": "95d3598ea237ef7406f0fb0bc6ead661ce14d7bb687269047611c2531e24e8da",
+    "receipt_manifest_sha256": "850e087aac816b1ecacb3ff79f0c5f5826ab3ec6265ffed570a7ef1263aa09f0",
+    "separately_held_restricted_control_manifest_sha256": "8b5c5288bd65b05529dc3d19e4faa2089aaea1c0ed0f55e78aeb33504d084f77",
+    "separately_held_control_replay_manifest_sha256": "b78a7507c37ddd3894a65e2f02e6ee80d8cfe01409dce3fd8623b91d646d857e"
+  },
+  "contents": "Sixteen post-cutoff process collections and an earlier twelve-file control snapshot are encrypted as seventeen collections. The complete restricted control and its later replay are separately held; the earlier snapshot cannot recover them.",
+  "verification": "The independently recorded same-machine authenticated restoration matched 17 collections, 198 regular-file bytes and modes, and 22 directory/root modes. Control replay separately matched those and 258 omitted-tree blobs against the committed Git object store.",
+  "recovery_dependencies": [
+    "Separately held same-machine AES key for decryption",
+    "Separately held complete restricted control and replay for full control custody",
+    "Commit 76fe Git objects for the omitted copied tree; full file and directory modes additionally remain in the restricted control",
+    "Prior ciphertexts and prior nonce inventory for original provenance and cross-scope uniqueness",
+    "Required history Git objects, prior handoff material, and any separately wrapped nested keys"
+  ],
+  "history": "The first successor replay failed on missing Git history after matching 263 paths; the later same-machine replay succeeded using a process-local Git object-store alternate. These remain distinct events.",
+  "qualification": "Finite path-safe metadata scan and evidence-only replay; ciphertexts and unspecified encodings are outside scan scope. No independent-custody, checkpoint 3821, audit closure, product execution, or product-validation claim."
+}

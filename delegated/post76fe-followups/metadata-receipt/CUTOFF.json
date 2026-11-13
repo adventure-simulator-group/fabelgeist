@@ -1,0 +1,13 @@
+{
+  "schema": "726-post76fe-metadata-custody-cutoff-v1",
+  "source_collections": 3,
+  "control_snapshot_collections": 1,
+  "source_control_files": 50,
+  "restored_files": 71,
+  "restored_directories_including_roots": 4,
+  "prior_nonce_count": 622,
+  "new_nonces": 4,
+  "scope": "The later source-group metadata-binding private control, public binding and finite scan are preserved as a distinct cutoff.",
+  "recovery_dependencies": "Earlier source, process and central ciphertext groups, same-machine key, original and reconstructed history, Git objects, source archives and nested keys remain separately held as applicable. The encrypted control contains only named pre-build files; later restoration and receipt controls remain separately held for a later checkpoint.",
+  "limits": "No further encryption layer is asserted here. Same-machine restore and finite scans do not establish independent custody, full history, checkpoint 3821, product behavior or audit closure."
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "726-post76fe-preinstall-scan-v1",
+  "stage_files": 275,
+  "root_files": 7,
+  "scanned_paths": 282,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "checks": [
+    {
+      "label": "digest",
+      "exit": 0,
+      "stdout_sha256": "56e5a8f4d55b8ccbc96ed59ffeae7845bee11ff79f9b866be7c8d52c9fe85d62",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "pattern",
+      "exit": 0,
+      "stdout_sha256": "91582ecf5109be79131e99e5f1b75dc71f602fdaf7034bab673eba16ee90912b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Finite scan of an exact local copy of the then-current stage and seven candidate roots. Unknown values and encodings, opaque ciphertext, unselected Git history and later additions are outside scope. Raw logs and local paths are held separately."
+}

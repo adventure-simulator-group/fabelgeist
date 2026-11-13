@@ -1,0 +1,27 @@
+{
+  "schema": "726-post76fe-final-custody-restoration-v1",
+  "ciphertext_manifest_sha256": "118b43640fa2d345ce6cf86f146821ec0e41c1af362be3ed32383485e863e07c",
+  "identity_exit": 0,
+  "nonce_replay_exit": 0,
+  "restore_exit": 0,
+  "compare_exit": 0,
+  "collections": 8,
+  "frozen_source_collections": 7,
+  "source_files": 504,
+  "source_directory_modes_including_roots": 44,
+  "embedded_control_files": 10,
+  "matched_file_bytes_and_modes": 514,
+  "matched_directory_modes_including_roots": 45,
+  "prior_nonces_checked": 638,
+  "prior_nonce_duplicates": 0,
+  "new_distinct_nonces": 8,
+  "random_nonce_collisions_retried": 0,
+  "application_control_manifest_listed_files": 39,
+  "application_control_files_including_manifest": 40,
+  "verification_arguments": {
+    "identity": "python3 -B VERIFY.py",
+    "authenticated_restore": "python3 -B VERIFY.py --key <separately-held-key> --restore-root <new-directory>"
+  },
+  "scope": "Seven fixed original evidence roots, including the captured preinstallation scan tree, and an embedded pre-capture control; every restored file was compared directly to its still-frozen source.",
+  "qualification": "Authenticated same-machine restoration is not independent custody. Included root, file and directory modes and exact bytes matched; ownership and timestamps were normalized. The pre-capture inventory and prior nonce records are inside the encrypted control; full build, restoration, scan and delivery controls are a separate later-cutoff dependency, as are future installation, closing, commit and recovery logs. Earlier ciphertext, historical Git objects, source anchors and the separately held key may be needed. No full Git closure, checkpoint 3821 recovery, implementation, audit closure or product validation is established."
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; original included root, directory and regular-file modes and bytes",
+  "objects": [
+    {
+      "label": "post76fe-metadata-metadata-control",
+      "ciphertext": "post76fe-metadata-metadata-control.aesgcm",
+      "ciphertext_sha256": "0e6dfeaa300ac04ce5d30e25a3d83e967b26f19e994b54bc5b454ddbe743f947",
+      "ciphertext_bytes": 13464,
+      "plaintext_archive_sha256": "b3a903a921d5a1c584fb588dbb851701382806edfe98582cd4e9c4136892a255",
+      "plaintext_archive_bytes": 13436,
+      "regular_files": 51,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-metadata-metadata-control:v1"
+    },
+    {
+      "label": "post76fe-metadata-metadata-public-binding",
+      "ciphertext": "post76fe-metadata-metadata-public-binding.aesgcm",
+      "ciphertext_sha256": "b365894dbd6de984adb32837c7f5c350ce30bebb280505a9fa5b13c031c496ee",
+      "ciphertext_bytes": 2896,
+      "plaintext_archive_sha256": "61cc1cb1a35a7ba01d044404a72186fca5e9c78cd9a45fb7b1a663b8e5fe722b",
+      "plaintext_archive_bytes": 2868,
+      "regular_files": 5,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-metadata-metadata-public-binding:v1"
+    },
+    {
+      "label": "post76fe-metadata-metadata-public-scan",
+      "ciphertext": "post76fe-metadata-metadata-public-scan.aesgcm",
+      "ciphertext_sha256": "5f2426bfe52a1d44d659d4772b8e4ad0121189314bc9fe921710138f99fe7ef9",
+      "ciphertext_bytes": 1832,
+      "plaintext_archive_sha256": "f5fc9b083ca73acb1776f8a009bb2b5930e23fa6bbe87e0da96b969ba281c6c4",
+      "plaintext_archive_bytes": 1804,
+      "regular_files": 3,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-metadata-metadata-public-scan:v1"
+    },
+    {
+      "label": "post76fe-metadata-custody-control",
+      "ciphertext": "post76fe-metadata-custody-control.aesgcm",
+      "ciphertext_sha256": "39774936cc810da268bb2e7d53beff068e3fb7573eea07af2cc7c32c7acbc435",
+      "ciphertext_bytes": 54535,
+      "plaintext_archive_sha256": "728b4be12fb84af559ba329f0f7abe82ba7423cbb4179b455bc2f929b3c7cf89",
+      "plaintext_archive_bytes": 54507,
+      "regular_files": 12,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-metadata-custody-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier ciphertexts, source Git objects, history anchors and nested keys remain separate dependencies.",
+  "qualification": "Three separately sealed metadata-binding control, public binding and scan collections plus one encrypted control snapshot. Earlier ciphertext groups, key, Git objects, source archives and nested keys remain separately held. No independent custody, 3821 recovery, product validation or semantic closure is implied."
+}

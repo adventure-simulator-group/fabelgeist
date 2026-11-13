@@ -1,0 +1,139 @@
+{
+  "schema": "726-after-b111-custody-metadata-scan-v1",
+  "at_utc": "2026-11-13T11:02:56.282510+00:00",
+  "ciphertext_manifest_sha256": "0fbcb4b4ae7d87030e935dd44db311c13d45590f2259a5936dffc280b1ed6fcf",
+  "restoration_receipt_manifest_sha256": "6bfe613c10d5edcc8134a010fb90b0eaf5c4feb558b4874ee4dbf2c657382419",
+  "pattern_counts": {
+    "home_path": 0,
+    "temporary_path": 0,
+    "windows_user_path": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "github_token": 0,
+    "aws_access_key": 0,
+    "credential_assignment": 0
+  },
+  "private_source_literal_hits": {
+    "059": 0,
+    "q2332": 0,
+    "gpu-ciphertext-metadata": 0,
+    "gpu-restoration-receipt": 0
+  },
+  "positive_controls_pass": true,
+  "finite_stats": {
+    "top_files": 7,
+    "leaf_views": 7,
+    "gzip_views": 0,
+    "tar_views": 0,
+    "tar_members": 0,
+    "metadata_views": 0
+  },
+  "finite_exceptions": 0,
+  "finite_whole_result_sha256": "248a214f592e63dc932b5c412888fee8cde6db0fc420d896346bbe1e48f676cd",
+  "known_private_corpus_summaries": [
+    {
+      "corpus": "059",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "59914baa5490ec5dd19ce6d846213be2a1cd9ae66493797f66a79beebc64de11",
+      "views": 7
+    },
+    {
+      "corpus": "q2332",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "8644bb6a17df5c7d6f26380a0ae5f61816de73ef14746d8dbb4f663efd775321",
+      "views": 7
+    },
+    {
+      "corpus": "gpu-ciphertext-metadata",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "b1b09f383a2ff7767a6e87e10991313d48bd1ab653cbd2a7985a7c7ec4ac211a",
+      "views": 3
+    },
+    {
+      "corpus": "gpu-restoration-receipt",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "c2bfa0f59fc8f60316025e245d327ca94c4b96a9bf042d7607b6a9d597424db1",
+      "views": 4
+    }
+  ],
+  "binding_addendum": {
+    "manifest_sha256": "df1d140e90e9ba5ab0b75f86d7bf073baa35c5ff498864ad97d8ca07828fba9e",
+    "pattern_counts": {
+      "home_path": 0,
+      "temporary_path": 0,
+      "windows_user_path": 0,
+      "file_url": 0,
+      "email": 0,
+      "private_key": 0,
+      "github_token": 0,
+      "aws_access_key": 0,
+      "credential_assignment": 0
+    },
+    "positive_controls_pass": true,
+    "finite_stats": {
+      "top_files": 6,
+      "leaf_views": 15,
+      "gzip_views": 2,
+      "tar_views": 2,
+      "tar_members": 13,
+      "metadata_views": 13
+    },
+    "finite_exceptions": 0,
+    "whole_result_sha256": "76145200ddb633ac129f48a7a1b2d0a8f186c98b36f03ebfb4b4d0ed2f9f9f15"
+  },
+  "recovery_addendum": {
+    "manifest_sha256": "778d82afb5dda0fb5498bc08dee68452a5f234e35fc30412b248312a8d43796f",
+    "finite_scan": "Eight explicit path and credential patterns, zero matches; credential-assignment pattern not included in that raw two-file scope.",
+    "whole_result_sha256": "54777cc51a692be77ce5a001e9da0f288f7514c30e7e1f62d6009e532fd389e1"
+  },
+  "additional_private_corpus_summaries": [
+    {
+      "scope": "binding",
+      "corpus": "059",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "73dd41a3cf8ad18ef7b0c9b8242484512876dc91ed6cb1a8cc48902a1ebdd84a"
+    },
+    {
+      "scope": "binding",
+      "corpus": "q2332",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "1e847a8e9c90f57449d67d7ec4069150d8cf675cd67b5eec1b7c47d4779404e6"
+    },
+    {
+      "scope": "binding",
+      "corpus": "gpu",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "0a28c3019ac85dbe838ff2db9ca21793ecaeabe76717ed1f67e31e57925cff4f"
+    },
+    {
+      "scope": "recovery-summary",
+      "corpus": "059",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "10779c774636c99fec0134923d427eb22b3ca813d328fb48ea32898b015a491c"
+    },
+    {
+      "scope": "recovery-summary",
+      "corpus": "q2332",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "4ac16c6cccde727f995eb977edb071f6e77c3579fd9b8593ab4a37ca21453041"
+    },
+    {
+      "scope": "recovery-summary",
+      "corpus": "gpu",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "7351193682843c9e010bee25f28df19f8f876263b726b4d6bf07ace5c256dfeb"
+    }
+  ],
+  "limits": "Exactly seven public ciphertext/receipt metadata files were scanned using nine finite patterns and separately bounded 059, q2332 and GPU private-derived corpora. Opaque ciphertext bytes are excluded from content scanning; their lengths and hashes are checked by the receipt verifier. Binding archives and recovery summary were scanned separately as identified. Unknown encodings, unsupported archives, unlisted patterns and Git history remain outside scope. No private values or individual path-value digests are disclosed. A zero result is not a universal privacy proof."
+}

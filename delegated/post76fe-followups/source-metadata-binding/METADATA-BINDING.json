@@ -1,0 +1,99 @@
+{
+  "schema": "726-after-b111-public-metadata-binding-v1",
+  "at_utc": "2026-11-13T11:06:06.690618+00:00",
+  "files": [
+    {
+      "group": "ciphertext",
+      "path": "MANIFEST.json",
+      "bytes": 13296,
+      "sha256": "0fbcb4b4ae7d87030e935dd44db311c13d45590f2259a5936dffc280b1ed6fcf",
+      "mode": "0o664"
+    },
+    {
+      "group": "ciphertext",
+      "path": "README.md",
+      "bytes": 943,
+      "sha256": "d9c4575f2c53d55490d7b6478421c840b1fb83faa490a53db00885e79fccb798",
+      "mode": "0o664"
+    },
+    {
+      "group": "ciphertext",
+      "path": "VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9",
+      "mode": "0o664"
+    },
+    {
+      "group": "restoration",
+      "path": "MANIFEST.json",
+      "bytes": 613,
+      "sha256": "6bfe613c10d5edcc8134a010fb90b0eaf5c4feb558b4874ee4dbf2c657382419",
+      "mode": "0o664"
+    },
+    {
+      "group": "restoration",
+      "path": "README.md",
+      "bytes": 582,
+      "sha256": "c49cbb16125e091865dd6a88bd65ab544c124380c65f204a69a9c45556f4084f",
+      "mode": "0o664"
+    },
+    {
+      "group": "restoration",
+      "path": "RESTORATION.json",
+      "bytes": 1871,
+      "sha256": "cd5a1ad21cb25254113bc090b2e0abb220db7f6cf3bffb36ae317822dd2ab90a",
+      "mode": "0o664"
+    },
+    {
+      "group": "restoration",
+      "path": "VERIFY.py",
+      "bytes": 1617,
+      "sha256": "d13c059b9366f59b0ed6ac0009acbca03ff12920d0ca131ca6c316dff3aca4af",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-predecessor",
+      "path": "MANIFEST.json",
+      "bytes": 450,
+      "sha256": "912b3e48e709eee4444107d17099fd28adb88735e200f8b19e575bb04eb37501",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-predecessor",
+      "path": "SCAN-RECEIPT.json",
+      "bytes": 4803,
+      "sha256": "6367898c19fa6f12227a543498f69775226bb0963dfcfd969a0e53495824cf56",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-predecessor",
+      "path": "VERIFY.py",
+      "bytes": 1356,
+      "sha256": "edfc62338ae1aeb1dbdd76c0d05f50561521563e511351d1bbc79d4e9fbe7f0a",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-successor",
+      "path": "MANIFEST.json",
+      "bytes": 450,
+      "sha256": "f0dc8c8df6b99022ccf5989c3cd94b5052d25aeb1a74181a9e3e3daa3ea53137",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-successor",
+      "path": "SCAN-RECEIPT.json",
+      "bytes": 4803,
+      "sha256": "d2590a695eef041f1bd22254f8955b26fde2d6226449b4da592307043e83077b",
+      "mode": "0o664"
+    },
+    {
+      "group": "scan-successor",
+      "path": "VERIFY.py",
+      "bytes": 1356,
+      "sha256": "edfc62338ae1aeb1dbdd76c0d05f50561521563e511351d1bbc79d4e9fbe7f0a",
+      "mode": "0o664"
+    }
+  ],
+  "scope": "Exact metadata bytes and modes for encrypted group, restoration receipt and both scan-receipt versions. The 24 opaque ciphertexts are bound separately by the encrypted-group manifest and restoration receipt.",
+  "limits": "Metadata identities and finite scans do not establish product behavior, universal privacy, independent custody or full Git closure."
+}

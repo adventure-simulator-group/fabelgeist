@@ -1,0 +1,196 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; original included root, directory and regular-file modes and bytes",
+  "objects": [
+    {
+      "label": "post76fe-preinstall-stage-v2",
+      "ciphertext": "post76fe-preinstall-stage-v2.aesgcm",
+      "ciphertext_sha256": "49586252daa00d0121fdfc740c450e2c1b1ebd55386b9785048d7fd0971eddb8",
+      "ciphertext_bytes": 35551,
+      "plaintext_archive_sha256": "541a5e7dfe0758575a4e07543354d739af1bc0c40189f3ef506da3fdba66a43c",
+      "plaintext_archive_bytes": 35523,
+      "regular_files": 29,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-preinstall-stage-v2:v1"
+    },
+    {
+      "label": "post76fe-evidence-rerun-v2",
+      "ciphertext": "post76fe-evidence-rerun-v2.aesgcm",
+      "ciphertext_sha256": "5319dfc84306a9547254728ea40682555f5c9c0b27fc58733814c753167ec6b3",
+      "ciphertext_bytes": 4011,
+      "plaintext_archive_sha256": "5dbb5c68afedb5bf3fea966744e0631a2893e68d705d7ca8003a547d74bba2a2",
+      "plaintext_archive_bytes": 3983,
+      "regular_files": 20,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-evidence-rerun-v2:v1"
+    },
+    {
+      "label": "post76fe-install-v5",
+      "ciphertext": "post76fe-install-v5.aesgcm",
+      "ciphertext_sha256": "4473554c70f513e984bfd84163e341206c944d2d081cba2faf32941a1ef6bcec",
+      "ciphertext_bytes": 4957,
+      "plaintext_archive_sha256": "d1cfb776c0fe17b2ce85b550a75e384a465103926faf1e5d36487566c6465626",
+      "plaintext_archive_bytes": 4929,
+      "regular_files": 8,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-install-v5:v1"
+    },
+    {
+      "label": "post76fe-install-derive-run-v5",
+      "ciphertext": "post76fe-install-derive-run-v5.aesgcm",
+      "ciphertext_sha256": "1519c17559d119bc36340b17be0c8a679c6e2430c4675f895d1b896ad074b484",
+      "ciphertext_bytes": 768,
+      "plaintext_archive_sha256": "26b2b395c6ae63e38b9331bd2e3132cec3b4045016dc94012796a158a344fbb5",
+      "plaintext_archive_bytes": 740,
+      "regular_files": 3,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-install-derive-run-v5:v1"
+    },
+    {
+      "label": "post76fe-installed-check-v1",
+      "ciphertext": "post76fe-installed-check-v1.aesgcm",
+      "ciphertext_sha256": "f1b01162ce3160e794a326ad94c37d3b0d185a4a5cbce1a04cda8ca0d2c638ec",
+      "ciphertext_bytes": 3462,
+      "plaintext_archive_sha256": "653a850af75c797ea091843d2ec86ab1a7f53d12858feaedec746143b0af1927",
+      "plaintext_archive_bytes": 3434,
+      "regular_files": 10,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-installed-check-v1:v1"
+    },
+    {
+      "label": "post76fe-staged-capture-v1",
+      "ciphertext": "post76fe-staged-capture-v1.aesgcm",
+      "ciphertext_sha256": "15d3e505d067313a1028476c4d1b84a8b3242a95416697fa6fed40c302f6a718",
+      "ciphertext_bytes": 24886,
+      "plaintext_archive_sha256": "fb33b079dbf07b5b101edbc051528caf03ccbdf587ea4ced03c035baa051467e",
+      "plaintext_archive_bytes": 24858,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-staged-capture-v1:v1"
+    },
+    {
+      "label": "post76fe-staged-scan-v1",
+      "ciphertext": "post76fe-staged-scan-v1.aesgcm",
+      "ciphertext_sha256": "dd28a002defe22c2392b52e7edd320b6c5b324d05e936b697e7e8dcb3ad40b76",
+      "ciphertext_bytes": 2257,
+      "plaintext_archive_sha256": "90358fb0ca0f7215354544c2978b74df81cf432f07d94681f64c86e7c487ff92",
+      "plaintext_archive_bytes": 2229,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-staged-scan-v1:v1"
+    },
+    {
+      "label": "post76fe-closing-process-v1",
+      "ciphertext": "post76fe-closing-process-v1.aesgcm",
+      "ciphertext_sha256": "a9faa8ee91388a86d1aa4ca3414f7212a769d3990b1c6f1c8badfe3de48ecbe1",
+      "ciphertext_bytes": 3875,
+      "plaintext_archive_sha256": "253b3afa945c00d6c4aa54040c155b58a4f84a15998b04e451fbdc31b05c7022",
+      "plaintext_archive_bytes": 3847,
+      "regular_files": 14,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-closing-process-v1:v1"
+    },
+    {
+      "label": "post76fe-closing-template-v1",
+      "ciphertext": "post76fe-closing-template-v1.aesgcm",
+      "ciphertext_sha256": "0a0d912799cc7217b84d89134c63cf38dcd8b9d66512276faf0e55faff068d68",
+      "ciphertext_bytes": 3046,
+      "plaintext_archive_sha256": "7dd56f5b0268cacbd28a9804205f88f5c209b04bbb039913634a18dff67158bc",
+      "plaintext_archive_bytes": 3018,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-closing-template-v1:v1"
+    },
+    {
+      "label": "post76fe-closing-scan-v1",
+      "ciphertext": "post76fe-closing-scan-v1.aesgcm",
+      "ciphertext_sha256": "9255314c15f592f2c0858fe96fd58952da488bbbf2693b0183f5d920f353e6fd",
+      "ciphertext_bytes": 2143,
+      "plaintext_archive_sha256": "7e24bb35baf1b12bd1a6c3ecad6c87c657e052040637416f3781fa0dabbb0c7d",
+      "plaintext_archive_bytes": 2115,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-closing-scan-v1:v1"
+    },
+    {
+      "label": "post76fe-final-capture-v1",
+      "ciphertext": "post76fe-final-capture-v1.aesgcm",
+      "ciphertext_sha256": "6487734297416ac71e423c16549854389bcf5f3b7fd0499dbcfc30f2324010dd",
+      "ciphertext_bytes": 45404,
+      "plaintext_archive_sha256": "aaf52df819f3139434d01d9b3fc9eb520a4f5f3d45fe5f6c90fbf7f960e9b77f",
+      "plaintext_archive_bytes": 45376,
+      "regular_files": 8,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:post76fe-final-capture-v1:v1"
+    },
+    {
+      "label": "post76fe-final-capture-v2",
+      "ciphertext": "post76fe-final-capture-v2.aesgcm",
+      "ciphertext_sha256": "2d796e5446a8dcdc53b4d2f8fcaaf214ed5bc50cf020aed7168ba9b5ca70befc",
+      "ciphertext_bytes": 23619,
+      "plaintext_archive_sha256": "61b079a21d9c93b1ec5157fb8efb8ad98df631133c3cb25f3133f773f68e53d1",
+      "plaintext_archive_bytes": 23591,
+      "regular_files": 3,
+      "directories": 2,
+      "associated_data": "726-audit-private-evidence:post76fe-final-capture-v2:v1"
+    },
+    {
+      "label": "post76fe-incident-scan-v1",
+      "ciphertext": "post76fe-incident-scan-v1.aesgcm",
+      "ciphertext_sha256": "4602ef77949749681797f1eafb22683f2eddda3cccabcd6ac76d6d81782bd6f1",
+      "ciphertext_bytes": 2398,
+      "plaintext_archive_sha256": "92836a6e2a8c37607eda48e42e4fa2066b6550cbcb041e51531a5df2bf0ddf11",
+      "plaintext_archive_bytes": 2370,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-incident-scan-v1:v1"
+    },
+    {
+      "label": "post76fe-publication-process-v1",
+      "ciphertext": "post76fe-publication-process-v1.aesgcm",
+      "ciphertext_sha256": "b92aec8d3057b30a82c002803eb3249ab7ded64ee4d79b053bca899c1ef1c406",
+      "ciphertext_bytes": 8575,
+      "plaintext_archive_sha256": "2c1af7c2716a423456b20eefb3eb3215832ad53b1035c94939328958dbe3563c",
+      "plaintext_archive_bytes": 8547,
+      "regular_files": 22,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-publication-process-v1:v1"
+    },
+    {
+      "label": "post76fe-successor-recovery-v1",
+      "ciphertext": "post76fe-successor-recovery-v1.aesgcm",
+      "ciphertext_sha256": "905d628a4a33e98ab2d62f21faab3b0b21a6d87e6f887ea1130897e5a72bcbec",
+      "ciphertext_bytes": 6319,
+      "plaintext_archive_sha256": "4a4108f43b7260d8650a786bb7cf21fd48b805fb0a18b09ebd5d7a1da0165fbc",
+      "plaintext_archive_bytes": 6291,
+      "regular_files": 22,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-successor-recovery-v1:v1"
+    },
+    {
+      "label": "post76fe-alternate-replay-v1",
+      "ciphertext": "post76fe-alternate-replay-v1.aesgcm",
+      "ciphertext_sha256": "84ebb20386d3e49c710cace71bced8a222287e13d00d65e4ba262e2a0e893149",
+      "ciphertext_bytes": 5456,
+      "plaintext_archive_sha256": "700bbb3606735413642e746975619ff618a112c2ba630860542325ec215dc5f2",
+      "plaintext_archive_bytes": 5428,
+      "regular_files": 14,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-alternate-replay-v1:v1"
+    },
+    {
+      "label": "post76fe-custody-control",
+      "ciphertext": "post76fe-custody-control.aesgcm",
+      "ciphertext_sha256": "20c64d853f09e663d808a253321bf63fb0f0f59e3a2c6ad876d669a9208891f9",
+      "ciphertext_bytes": 77470,
+      "plaintext_archive_sha256": "2499bbfa1828e6364310b4dbf8e267e46f8c8e3eb0976dc03ad061d81e0db936",
+      "plaintext_archive_bytes": 77442,
+      "regular_files": 12,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-custody-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier ciphertexts, source Git objects, history anchors and nested keys remain separate dependencies.",
+  "qualification": "Sixteen registered process collections and one encrypted custody-control collection. The staged-capture copied tree is excluded and depends on the 76fe Git commit and restricted mode inventory. Failed original recovery and later alternate-dependent same-machine replay remain distinct. No independent custody, 3821 recovery, product validation or semantic closure is implied."
+}

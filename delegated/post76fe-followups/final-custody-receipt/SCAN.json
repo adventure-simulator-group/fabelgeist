@@ -1,0 +1,18 @@
+{
+  "schema": "726-post76fe-final-custody-finite-scan-v1",
+  "ciphertext_manifest_sha256": "118b43640fa2d345ce6cf86f146821ec0e41c1af362be3ed32383485e863e07c",
+  "scanned_public_metadata_files": 5,
+  "positive_controls_passed": true,
+  "pattern_hit_counts": {
+    "unix_home_or_temp": 0,
+    "windows_user": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key_marker": 0,
+    "credential_assignment": 0
+  },
+  "known_path_candidates": 1258,
+  "known_path_value_hits": 0,
+  "known_individual_path_digest_hits": 0,
+  "qualification": "Finite scan of the stated public metadata against positive-controlled patterns and known source, nonce-source and key-locator paths. Individual path values and digests are not emitted. Ciphertexts and unknown private values, encodings and later-cutoff controls remain outside scope; this is not a privacy proof."
+}

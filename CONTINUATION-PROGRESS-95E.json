@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 06:55:18 UTC and 2026-11-13 06:55:19 UTC; this is point-in-time and main may advance. See MAIN-RECHECK-20261113-0655.json.",
+  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 10:12:07 UTC and 2026-11-13 10:12:08 UTC; this is point-in-time and main may advance. See MAIN-RECHECK-20261113-1012.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1115,
+  "new_current_ledger_candidates": 1128,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2426,5 +2426,10 @@
   "postb111_queue_snapshot": "3,713 indexed: 1,379 partial and 2,334 unassessed; all remain semantically unreconciled.",
   "postb111_prior_pending_qualification": "Earlier pending indexes are time-bound: q0, q19, q2497, q2501, q2503, q2504, q2510, q2521 and q2534 now have partial assessments; historical index bytes remain unchanged.",
   "checkpoint_b111_same_machine_recovery": "delegated/postb111-followups/REMOTE-RECOVERY.json; 141 captured path identities matched after predecessor checks and remote fetch into the same-machine recovery checkout.",
-  "main_recheck_20261113_0655": "MAIN-RECHECK-20261113-0655.json"
+  "main_recheck_20261113_0655": "MAIN-RECHECK-20261113-0655.json",
+  "central_post76fe_bounded_reconciliations": "ASSESSMENT-CENTRAL-FOLLOWUPS-22-95E.json; 21 partial assessments and 13 planning relationships, with no semantic closure or accepted unique-defect increment.",
+  "post76fe_queue_snapshot": "3,713 indexed: 1,400 partial and 2,313 unassessed; all remain semantically unreconciled.",
+  "post76fe_prior_pending_qualification": "Earlier pending snapshots retain their original counts; q3344, q3353, q3354, q3356, q3368 and q3462 now have partial current assessments.",
+  "post76fe_same_machine_recovery": "delegated/post76fe-followups/minimal-recovery/RECOVERY-SUMMARY.json; first successor guard failed, then two separately qualified alternate-dependent replays passed.",
+  "main_recheck_20261113_1012": "MAIN-RECHECK-20261113-1012.json"
 }

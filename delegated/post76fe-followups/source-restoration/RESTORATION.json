@@ -1,0 +1,32 @@
+{
+  "schema": "726-after-b111-restoration-v1",
+  "at_utc": "2026-11-13T11:00:16.129083+00:00",
+  "ciphertext_manifest_sha256": "0fbcb4b4ae7d87030e935dd44db311c13d45590f2259a5936dffc280b1ed6fcf",
+  "restore_exit": 0,
+  "restore_stderr_bytes": 0,
+  "collections": 24,
+  "matched_file_bytes_and_modes": 1594,
+  "matched_directory_modes": 83,
+  "root_modes_included": true,
+  "selected_replay_exits": [
+    0
+  ],
+  "selected_replay_checks": [
+    {
+      "label": "q2823-peer-offline-restored",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "qualification": "Published peer verifier replayed its registered source and historical proofs against authenticated restored private evidence; no product execution."
+    }
+  ],
+  "nonce_scope": {
+    "prior_inventory_entries": 550,
+    "additional_prior_ciphertexts": 17,
+    "verified_distinct_prior_nonces": 567,
+    "new_ciphertexts_and_unique_nonces": 24,
+    "new_nonce_collisions_after_reroll": 0,
+    "nonce_values_emitted": false
+  },
+  "cutoff": "23 selected source/process collections plus fixed custody control. The 28 named central reconciliation files were captured before the later v4 draft, correction, checks and independent reviews, which are excluded. replay-odb and later additions are excluded.",
+  "dependencies_and_limits": "The separately held same-machine primary key, earlier ciphertexts and original queue, named Git objects and public peer verifier remain required for their corresponding recovery and replay. Seven captured Git objects are a minimal subset, not full closure or a durable checkout. Bytes and regular-file/directory/root modes matched at capture and restore; timestamps, ACLs and hardlink identity were not preserved. The key, originals, ciphertext and restore are on one machine, not independent custody. This evidence does not prove 3821 recovery, product behavior or lens closure."
+}

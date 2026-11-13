@@ -1,0 +1,52 @@
+{
+  "schema": "726-post76fe-bounded-public-scan-v1",
+  "files": [
+    {
+      "name": "ciphertexts/MANIFEST.json",
+      "bytes": 9691,
+      "sha256": "95d3598ea237ef7406f0fb0bc6ead661ce14d7bb687269047611c2531e24e8da"
+    },
+    {
+      "name": "ciphertexts/README.md",
+      "bytes": 759,
+      "sha256": "287a1766c672429017fd20f0012bf1a3575747535403596a5636bb2c3782b69f"
+    },
+    {
+      "name": "ciphertexts/VERIFY.py",
+      "bytes": 4013,
+      "sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9"
+    },
+    {
+      "name": "receipt/RESTORATION.json",
+      "bytes": 1043,
+      "sha256": "c8c14d93a60c5a1b30262cb6b05abe8f3222636a19baa827d9b5dd542ad6474b"
+    },
+    {
+      "name": "receipt/REPLAY-RECORDS.json",
+      "bytes": 1426,
+      "sha256": "923aab23d3d7917449a17e565cc87159d7da04e5c805c0dcbcf72dd85ee40145"
+    },
+    {
+      "name": "receipt/DIAGNOSIS.md",
+      "bytes": 2012,
+      "sha256": "f2ee0f649b8e4f2403b23c1d98369aee5f5231bdb32fb0be93ffa1b27f8e7ca8"
+    },
+    {
+      "name": "receipt/VERIFY-CUSTODY.py",
+      "bytes": 2738,
+      "sha256": "1d65b9675e24e3de4fc8a85f9960d3dc639d6535cda326f4740c516ba9b074ec"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "receipt_manifest_self_scan": "zero hits asserted after both generated metadata files were constructed",
+  "qualification": "Finite scan of named plaintext metadata and receipt, using private path/key values and nontrivial prefixes plus raw and hexadecimal SHA-256/SHA-1/MD5 digests and selected patterns. Individual values and digests are not output. Ciphertexts, unknown encodings, unspecified inputs and Git history remain outside scope."
+}

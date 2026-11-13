@@ -1,0 +1,8 @@
+{
+  "schema": "726-after-b111-metadata-scan-correction-v1",
+  "predecessor_manifest_sha256": "912b3e48e709eee4444107d17099fd28adb88735e200f8b19e575bb04eb37501",
+  "successor_manifest_sha256": "f0dc8c8df6b99022ccf5989c3cd94b5052d25aeb1a74181a9e3e3daa3ea53137",
+  "failure": "The predecessor builder wrote its candidate but failed during the final status print when a file handle shadowed a finite-scan variable. Its separate verifier passed. The traceback was visible to the author but was not separately byte-captured; this account is an attributed reconstruction.",
+  "correction": "A distinct successor builder reloaded the scan result before printing status and wrote exclusively into a new directory. Parsed scan receipt content differs only in the creation timestamp; the predecessor and successor verifier bytes are identical.",
+  "scope": "The ciphertext and restoration receipts remained unchanged. The first candidate is preserved, not overwritten."
+}

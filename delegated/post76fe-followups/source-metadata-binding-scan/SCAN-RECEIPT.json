@@ -1,0 +1,60 @@
+{
+  "schema": "726-after-b111-metadata-binding-scan-v1",
+  "at_utc": "2026-11-13T11:07:26.894959+00:00",
+  "binding_manifest_sha256": "5aac378152dc555458a193c3f9c1f3f13e492851440d9d1bbe75a3faacd6f1d0",
+  "pattern_counts": {
+    "home_path": 0,
+    "temporary_path": 0,
+    "windows_user_path": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "github_token": 0,
+    "aws_access_key": 0,
+    "credential_assignment": 0
+  },
+  "private_source_literal_hits": {
+    "059": 0,
+    "q2332": 0,
+    "gpu-binding": 0,
+    "gpu-predecessor": 0
+  },
+  "positive_controls_pass": true,
+  "finite_stats": {
+    "top_files": 8,
+    "leaf_views": 8,
+    "gzip_views": 0,
+    "tar_views": 0,
+    "tar_members": 0,
+    "metadata_views": 0
+  },
+  "finite_exceptions": 0,
+  "finite_whole_result_sha256": "e0f74c78cc8f6b8db56896e1522f6dd306452ae6076b37120f7de9b01789d344",
+  "private_corpus_summaries": [
+    {
+      "label": "059",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "ecb42b44eda1dd0bc3d260735319f7b344c3952a75ecd0738067124d29e1ab3d"
+    },
+    {
+      "label": "q2332",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "1c45c572a93f78870029284bdf8b122fdbbb16548f64134ea6a3434ba92ca769"
+    },
+    {
+      "label": "gpu-binding",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "7b2211b70fd37e191f58a83dade12bb1909d700d45f935c19b8ff882329f985c"
+    },
+    {
+      "label": "gpu-predecessor",
+      "matches": 0,
+      "exceptions": 0,
+      "whole_result_sha256": "b1b09f383a2ff7767a6e87e10991313d48bd1ab653cbd2a7985a7c7ec4ac211a"
+    }
+  ],
+  "limits": "Finite 128 MiB per view and depth 18 scan of eight public files comprising the metadata binding and predecessor scan receipt, plus bounded 059, q2332 and GPU private-derived corpora. Unknown encodings, unsupported archives, unlisted patterns and Git history are excluded. Opaque ciphertext was not scanned. Zero findings do not prove universal privacy."
+}

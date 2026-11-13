@@ -1,0 +1,37 @@
+{
+  "schema": "726-post76fe-application-receipt-v1",
+  "ciphertext_manifest_sha256": "1688428dda599a34fdca64f418d45f552cb2bdb223b3508dceb539cf04c79433",
+  "ciphertext_readme_sha256": "904eb07f7af97feb602ae307c5e14a24bb53c072def24d5614f749ead8560e41",
+  "ciphertext_verifier_sha256": "50502589301e23919b0e1904101df4418de2fc4a2e9cfee6a3c60e62faa96de9",
+  "files": {
+    "CORRECTION-v2.json": {
+      "bytes": 847,
+      "sha256": "621cd9783ac8b58662bc05b4f7e19e6f5207d85d01ed5cfc2526b54a41a7e777"
+    },
+    "MANIFEST-v1.json": {
+      "bytes": 1179,
+      "sha256": "7a7ae51108d5fefe075824d79acf04e5513c7636c773c2e2390465bafebf688d"
+    },
+    "RESTORATION.json": {
+      "bytes": 2047,
+      "sha256": "4c0237817b60562531be8f0f9d1b44d0bb3e32c43af08094d8bf1448a6ee50f9"
+    },
+    "SCAN-v2.json": {
+      "bytes": 889,
+      "sha256": "2a8f6d9e17f5b6123a9dd521bea3af933c6e06b76d6ac78ff5660a0e7c4f1a41"
+    },
+    "SCAN.json": {
+      "bytes": 812,
+      "sha256": "53693ba537eb4951ab2e69a4537f16874e8ec54ff0ae11a1a523e8e1656264b0"
+    },
+    "VERIFY-CUSTODY-v1.py": {
+      "bytes": 3259,
+      "sha256": "e32c0d2609a68f563060f047474718a9a590ff65cccc7b20846fc2385043a510"
+    },
+    "VERIFY-CUSTODY.py": {
+      "bytes": 3701,
+      "sha256": "d43bb73ae07bb6a298e900e058f7a2a7be5fd2deff8d4a5f601ac84133043165"
+    }
+  },
+  "qualification": "The restored collections, supplied nonce inventory and later controls remain separately qualified. This successor corrects the optional inventory field and binds the retained predecessor; the no-key wrapper does not independently repeat authenticated restoration or establish prior-inventory provenance."
+}

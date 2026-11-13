@@ -1,0 +1,27 @@
+{
+  "schema": "726-post76fe-binding-scan-v1",
+  "files": [
+    {
+      "name": "BINDING.json",
+      "bytes": 2041,
+      "sha256": "5f9b328f6f7b3cfb71c864bdeeb7c0baa3409548e73834e17328291fd603aac3"
+    },
+    {
+      "name": "VERIFY-BINDING.py",
+      "bytes": 3817,
+      "sha256": "864ab0ffda5f5ba7a83c90f26aa78acf64bf2b887593a49585d4b03d3c1b3ad5"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Scan report and manifest bytes also scanned before writing.",
+  "qualification": "Finite scan of named plaintext and generated metadata against privately derived local path and key values, nontrivial prefixes and raw and hexadecimal SHA-256/SHA-1/MD5 digests, plus selected path and credential patterns. Values and digests are not emitted; ciphertexts, unknown encodings and unspecified inputs are outside scope."
+}

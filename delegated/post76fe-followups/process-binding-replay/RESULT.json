@@ -1,0 +1,21 @@
+{
+  "schema": "726-post76fe-binding-replay-v1",
+  "binding_manifest_sha256": "6c761df8a28c7ea378febf46640029de40d346efcdfb0ffec2e3a8d693a1dd77",
+  "checks": [
+    {
+      "name": "self",
+      "exit": 0,
+      "stdout_sha256": "234d54aba7fb6afb27c4ec18c20a31f06bf1366a4b237f7dc2b8c5d965fe27f8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "anchored",
+      "exit": 0,
+      "stdout_sha256": "d897e2e8d6c03b6e7d0ca4e95c788f3c0a94ad753ae0d2cc3f14e6d3d2afa8c4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Evidence-only identity checks; optional anchored invocation used same-machine sources. No new decryption, independently trusted custody, or product behavior verified."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "726-post76fe-application-receipt-correction-v2",
+  "predecessor_verifier_sha256": "e32c0d2609a68f563060f047474718a9a590ff65cccc7b20846fc2385043a510",
+  "predecessor_manifest_sha256": "7a7ae51108d5fefe075824d79acf04e5513c7636c773c2e2390465bafebf688d",
+  "successor_verifier_sha256": "d43bb73ae07bb6a298e900e058f7a2a7be5fd2deff8d4a5f601ac84133043165",
+  "reason": "The independent reviewer reproduced a failure when the optional prior-inventory argument was supplied: the first wrapper requested nonce_hex, while the registered inventory uses nonce. The default no-key identity check had passed. This successor accepts the actual field and checks the two recorded replay labels; supplying an inventory does not by itself establish its provenance. The failed isolated replay and its private transcript remain later-cutoff evidence."
+}

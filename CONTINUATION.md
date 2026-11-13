@@ -13,6 +13,22 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-22-95E.json` records 21 bounded partial
+assessments and 13 planning relationships. The working queue has 1,400 partial
+and 2,313 unassessed records, all semantically unreconciled; the ledger has
+1,128 entries and relationships, not unique defects. No queue record or lens is
+closed and no unique-defect increment is accepted.
+
+`delegated/post76fe-followups/INDEX.md` locates the separately attributed source
+packets, custody evidence, failed and successful recovery replays, and minimal
+Git-object dependencies. The original 059 and reconstructed selected records
+agree as parsed while their full streams differ. Missing checkpoint 3821,
+SOURCE004 and the 73 nontext/no-positive-EOF contracts remain open.
+
+`MAIN-RECHECK-20261113-1012.json` records a point-in-time main observation; main
+may advance. The earlier paragraphs below retain their historical snapshot
+counts.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-21-95E.json` connects nine bounded partial
 assessments and nine planning relationships. The working queue has 1,379 partial
 and 2,334 unassessed records, all semantically unreconciled; the ledger has

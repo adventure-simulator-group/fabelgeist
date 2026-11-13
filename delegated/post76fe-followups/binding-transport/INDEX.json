@@ -1,0 +1,13 @@
+{
+  "schema": "726-after-b111-binding-proposal-v1",
+  "status": "unpublished additive candidate; no encryption or ledger change",
+  "relationship": "Corrected public binding anchors a separately held later control; it does not retroactively include that control in earlier ciphertext.",
+  "correction_chain": {
+    "failed_candidate_manifest_sha256": "775144fa6835b985508b8f4969d74709abe0a028ef31b3694490479d68d25703",
+    "predecessor_builder_manifest_sha256": "e8900158eaceb7694015101721ad25bc06d1b15d99803df9a9f576f3d9cf65be",
+    "successor_builder_manifest_sha256": "3fd4d2341bd0857b2d95bb370e8fc0193cbaff4e3ab4b621b4faf6dd637d419d",
+    "failed_anchored_stderr_sha256": "91affe385d0ff2b446d49ce9d9184105e6fc879b07135e8cd8747b138d8b4617",
+    "issue": "First anchored replay failed when integer modes were compared with octal strings; self replay passed. A separately retained corrected successor compares like representations and both evidence-only replays passed. The original encrypted custody group is unaffected."
+  },
+  "limitations": "Public binding and replay do not include the restricted later control or keys; source builders, failed candidate, failed replay and raw local-path-bearing logs remain separately restricted. Same-machine verification is not independent custody. No product execution or checkpoint3821 recovery."
+}

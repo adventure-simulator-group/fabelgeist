@@ -1,0 +1,10 @@
+{
+  "schema": "726-post76fe-independent-peer-public-v1",
+  "reviewer": "wrapped_scope",
+  "prior_v3_review_manifest_sha256": "d4e87996f843a4b3d74769ee0efd62a917e07187bf4bf1b95721c82d7981ba40",
+  "draft_sha256": "18b09d57c077abc9f302c79d23eec0678c6d9ef4927ae5aaf1db2624db5d6c6e",
+  "restricted_review_manifest_sha256": "1f4fa44bb2896518b8b0585772c38af9e36838b99b9bb9ab17533ba883d65711",
+  "restricted_replay_manifest_sha256": "cdb81e79a84069d4404afd5593c4764150083af73039d63f811e825170064ab6",
+  "restricted_failed_predecessor_manifest_sha256": "9550dbc2466cf58ce34620a4460b5fe6b86dbc03178e4948942ca9c92eb096ed",
+  "qualification": "The earlier v3 review and its failed count-check predecessor are separate evidence. Full historical replay additionally requires separately held Git objects, source archives, process inputs and keys. This successor is a bounded structural check; no public recovery of private originals without separately held copies."
+}

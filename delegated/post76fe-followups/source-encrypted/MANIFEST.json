@@ -1,0 +1,273 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; original included root, directory and regular-file modes and bytes",
+  "objects": [
+    {
+      "label": "post76fe-url-3471-private",
+      "ciphertext": "post76fe-url-3471-private.aesgcm",
+      "ciphertext_sha256": "48a0829142292edf20ebf22d975b5fa5fe374307eebb037e0fdc35a44770759f",
+      "ciphertext_bytes": 66763,
+      "plaintext_archive_sha256": "4a8db950fd8ab2c77b40151ad2e846e182fc470724ec99901d2d425cc14c8f32",
+      "plaintext_archive_bytes": 66735,
+      "regular_files": 49,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3471-private:v1"
+    },
+    {
+      "label": "post76fe-url-3471-replay",
+      "ciphertext": "post76fe-url-3471-replay.aesgcm",
+      "ciphertext_sha256": "2a886ae11c47dae0ac87ccbfb99e1d9c816c813205e3aaeb6386817b506a64fb",
+      "ciphertext_bytes": 839,
+      "plaintext_archive_sha256": "e7589e10b2d753672a84d74260086691375b3f23963d0a5336ffcbaa7f6c92f7",
+      "plaintext_archive_bytes": 811,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3471-replay:v1"
+    },
+    {
+      "label": "post76fe-url-3471-scan",
+      "ciphertext": "post76fe-url-3471-scan.aesgcm",
+      "ciphertext_sha256": "b5aaa17fabf05dfb0995392c05f9a64ab2a400b39bee36360e9fbbd27965aa0f",
+      "ciphertext_bytes": 2440,
+      "plaintext_archive_sha256": "783d50d772b231296310b381c573074aacc0de940c429e2da11ad870d53f23e7",
+      "plaintext_archive_bytes": 2412,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3471-scan:v1"
+    },
+    {
+      "label": "post76fe-url-3471-receipt-check",
+      "ciphertext": "post76fe-url-3471-receipt-check.aesgcm",
+      "ciphertext_sha256": "0da2e978aa63815b216d103ff930bab9d8849badc2c54c8a814afa475e0c9a91",
+      "ciphertext_bytes": 935,
+      "plaintext_archive_sha256": "7b361ae503b562cc4dcce65bb1a9610ae7c5ec6b05146aaa88f286164150c287",
+      "plaintext_archive_bytes": 907,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3471-receipt-check:v1"
+    },
+    {
+      "label": "post76fe-url-3297-private",
+      "ciphertext": "post76fe-url-3297-private.aesgcm",
+      "ciphertext_sha256": "6411ab341f9495707b09922e615c6f0a9d7c747e3b4a5d5c121f6d800daa6189",
+      "ciphertext_bytes": 127961,
+      "plaintext_archive_sha256": "d8c6f99ca1393aaa13b16bcb965d6643a70ae072246f485b133b5a3f73192ceb",
+      "plaintext_archive_bytes": 127933,
+      "regular_files": 64,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3297-private:v1"
+    },
+    {
+      "label": "post76fe-url-3297-replay",
+      "ciphertext": "post76fe-url-3297-replay.aesgcm",
+      "ciphertext_sha256": "84a7f1f92ec850b019f63bea696958d8d68c53da5b60ff2605a776f18afac458",
+      "ciphertext_bytes": 810,
+      "plaintext_archive_sha256": "11056189f3969f3407e716e50a1572c545ffb61d82c45343cd14b309ca0397d2",
+      "plaintext_archive_bytes": 782,
+      "regular_files": 4,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3297-replay:v1"
+    },
+    {
+      "label": "post76fe-url-3297-scan",
+      "ciphertext": "post76fe-url-3297-scan.aesgcm",
+      "ciphertext_sha256": "f6cbf7191ea3828c203f5d53c0a23fbcda2e149366c6a654be87751b12934c42",
+      "ciphertext_bytes": 2441,
+      "plaintext_archive_sha256": "8eee0c6772952174ae64afc5d3f4a0fdf19e107ea3aa9e7fac19d679b52f3de4",
+      "plaintext_archive_bytes": 2413,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3297-scan:v1"
+    },
+    {
+      "label": "post76fe-url-3297-receipt-check",
+      "ciphertext": "post76fe-url-3297-receipt-check.aesgcm",
+      "ciphertext_sha256": "6a5be86e007de32297442e41f25e4dd61f5637ae25ac90eca780df4b5e66657b",
+      "ciphertext_bytes": 933,
+      "plaintext_archive_sha256": "b5fbd16e5f6ff8d92fe4ef56637302b99d50b7996517bf4349c26489c38ce1b5",
+      "plaintext_archive_bytes": 905,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3297-receipt-check:v1"
+    },
+    {
+      "label": "post76fe-url-3475-private",
+      "ciphertext": "post76fe-url-3475-private.aesgcm",
+      "ciphertext_sha256": "ebc09c63e3a7f24364f260d6a7076f34deaca72149b8e61c32a328922f8977ca",
+      "ciphertext_bytes": 4102762,
+      "plaintext_archive_sha256": "6c7a27aefa8441b0eea08cd4ccd741d5b8d35faa95e81d3b27a18195f632fa65",
+      "plaintext_archive_bytes": 4102734,
+      "regular_files": 246,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3475-private:v1"
+    },
+    {
+      "label": "post76fe-url-3475-replay",
+      "ciphertext": "post76fe-url-3475-replay.aesgcm",
+      "ciphertext_sha256": "54dad9eba0772e5f0c5e5cc702cdddf260b77cda13855791c55378a626d4747d",
+      "ciphertext_bytes": 5748,
+      "plaintext_archive_sha256": "9b993f29cd9dfa5b6dc85a5c1d0b1b43025899cb15b5a6925bfd68420bf205f1",
+      "plaintext_archive_bytes": 5720,
+      "regular_files": 34,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3475-replay:v1"
+    },
+    {
+      "label": "post76fe-url-3479-private",
+      "ciphertext": "post76fe-url-3479-private.aesgcm",
+      "ciphertext_sha256": "75b1118b39556468b5ca8f61881533dc9b6054410cee771d65b5c5babad8b525",
+      "ciphertext_bytes": 344654,
+      "plaintext_archive_sha256": "beabcb3dd2dfd4bd17b8b386ad832a0962ada76615c7e7d150d6fd2e57fce4fc",
+      "plaintext_archive_bytes": 344626,
+      "regular_files": 117,
+      "directories": 8,
+      "associated_data": "726-audit-private-evidence:post76fe-url-3479-private:v1"
+    },
+    {
+      "label": "post76fe-q2823-author-private",
+      "ciphertext": "post76fe-q2823-author-private.aesgcm",
+      "ciphertext_sha256": "7ffeb96caca464d83d6a02560b8f6a58bd2b49e9c50f3ed90e849bab643fc18f",
+      "ciphertext_bytes": 154115,
+      "plaintext_archive_sha256": "c93ecf4b6ad2912c2bac4a6862a5f8e42f4a454a0c7a6088d2d3e87bdb1263e1",
+      "plaintext_archive_bytes": 154087,
+      "regular_files": 73,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:post76fe-q2823-author-private:v1"
+    },
+    {
+      "label": "post76fe-q2823-author-scan",
+      "ciphertext": "post76fe-q2823-author-scan.aesgcm",
+      "ciphertext_sha256": "df09c03fd8f3ce92eb91e22ad31b17dd80f0c987d894d5461376657b1390effc",
+      "ciphertext_bytes": 4126,
+      "plaintext_archive_sha256": "fc861bc7fa75c7c725561bb6ffef465a68e5b6662c68011859eec5e9b1b37307",
+      "plaintext_archive_bytes": 4098,
+      "regular_files": 34,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q2823-author-scan:v1"
+    },
+    {
+      "label": "post76fe-q2823-peer-private",
+      "ciphertext": "post76fe-q2823-peer-private.aesgcm",
+      "ciphertext_sha256": "d28ab9df0c5a60ded916cb643a846e3606acd85534da9fd0391d95bcdf288ee7",
+      "ciphertext_bytes": 4302979,
+      "plaintext_archive_sha256": "41ea1a8498ca0abb46d7a6eda459492c4214b6782b81200a80b2bfeff7677ea4",
+      "plaintext_archive_bytes": 4302951,
+      "regular_files": 338,
+      "directories": 18,
+      "associated_data": "726-audit-private-evidence:post76fe-q2823-peer-private:v1"
+    },
+    {
+      "label": "post76fe-q2823-peer-replay",
+      "ciphertext": "post76fe-q2823-peer-replay.aesgcm",
+      "ciphertext_sha256": "219e4df58718b190e4c006117acc7e1d760a64aeb636767fd46d8c5c41f9f7a0",
+      "ciphertext_bytes": 3460,
+      "plaintext_archive_sha256": "0452e86bfbc9c178bcc1a50ef0d48eaf85e09124126dd220c3dda5d85c7d204a",
+      "plaintext_archive_bytes": 3432,
+      "regular_files": 21,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q2823-peer-replay:v1"
+    },
+    {
+      "label": "post76fe-q3569-author-private",
+      "ciphertext": "post76fe-q3569-author-private.aesgcm",
+      "ciphertext_sha256": "60e39087d3e174905319e228fe98a2fb4f044695e2fced60a808fde9182425cc",
+      "ciphertext_bytes": 3971201,
+      "plaintext_archive_sha256": "f2a1af74fe23c3858ec1db69dc41675bc3910fd0fb82929b5c321e1d08beb20a",
+      "plaintext_archive_bytes": 3971173,
+      "regular_files": 197,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-author-private:v1"
+    },
+    {
+      "label": "post76fe-q3569-author-replay",
+      "ciphertext": "post76fe-q3569-author-replay.aesgcm",
+      "ciphertext_sha256": "1a90d253239c34a8175a6bc27cddbf8d223fa4a2a6e9722f661163e5f510ab96",
+      "ciphertext_bytes": 4305,
+      "plaintext_archive_sha256": "080abc0b552c9eb2179a17d6194840e4324a7a91e240c6ab35592d68e96222d6",
+      "plaintext_archive_bytes": 4277,
+      "regular_files": 25,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-author-replay:v1"
+    },
+    {
+      "label": "post76fe-q3569-correction-private",
+      "ciphertext": "post76fe-q3569-correction-private.aesgcm",
+      "ciphertext_sha256": "f98e4115694af0c93f370f0475aa0a061809f6adbe0e02e4d21c94863c6de8f9",
+      "ciphertext_bytes": 5308,
+      "plaintext_archive_sha256": "baf2752a06fbf887ea1f6668b6d3be682f372b6e0981ce97423779e8d23b457e",
+      "plaintext_archive_bytes": 5280,
+      "regular_files": 8,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-correction-private:v1"
+    },
+    {
+      "label": "post76fe-q3569-correction-replay",
+      "ciphertext": "post76fe-q3569-correction-replay.aesgcm",
+      "ciphertext_sha256": "395e74360cf5cad4152a9a094bd34d7af32e5730e21a5a49ab8b09ee083e8a4c",
+      "ciphertext_bytes": 2781,
+      "plaintext_archive_sha256": "1842b47ecf9b5f852f3182118e1c73e86591c1427ad27e2bbc9e1e66fcf71498",
+      "plaintext_archive_bytes": 2753,
+      "regular_files": 15,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-correction-replay:v1"
+    },
+    {
+      "label": "post76fe-q3569-peer-private",
+      "ciphertext": "post76fe-q3569-peer-private.aesgcm",
+      "ciphertext_sha256": "af9db180528662726f04afd653feda36272e388278f6c7fd5eff507efdfddac0",
+      "ciphertext_bytes": 67385,
+      "plaintext_archive_sha256": "f1948585e6ddb5af602cee4c91bd3458a3c02cb03c1cd49d23b2eb08ac42be3c",
+      "plaintext_archive_bytes": 67357,
+      "regular_files": 62,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-peer-private:v1"
+    },
+    {
+      "label": "post76fe-q3569-peer-scan",
+      "ciphertext": "post76fe-q3569-peer-scan.aesgcm",
+      "ciphertext_sha256": "1b3b37fea0fd59b73d6425542a0e135321760f7c9f935fc2053cf71d7fdd8f1e",
+      "ciphertext_bytes": 3121,
+      "plaintext_archive_sha256": "f602d04707c70baf7438ca20d9dccb97b1d2a569765c801d130ef0a4a2f62a50",
+      "plaintext_archive_bytes": 3093,
+      "regular_files": 22,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-q3569-peer-scan:v1"
+    },
+    {
+      "label": "post76fe-proposal-raw-scans",
+      "ciphertext": "post76fe-proposal-raw-scans.aesgcm",
+      "ciphertext_sha256": "49c98a9bbba46a64d20711ec08eb55de4890ce0a271bcc461c4981a5102de0e6",
+      "ciphertext_bytes": 5080,
+      "plaintext_archive_sha256": "c5c1c5e38a54ac415e28334279da11ac2a64d8dee8fbfc5d314a1c7c1ea13b82",
+      "plaintext_archive_bytes": 5052,
+      "regular_files": 51,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-proposal-raw-scans:v1"
+    },
+    {
+      "label": "post76fe-custody-inventory",
+      "ciphertext": "post76fe-custody-inventory.aesgcm",
+      "ciphertext_sha256": "1c5d94081a102ee1a8295bac0df15e1e71b8b0c54e4986cd30120c093abbba1c",
+      "ciphertext_bytes": 167603,
+      "plaintext_archive_sha256": "5fb00f4f90bf98070577707206e13a4db0f673e2fc09d80d4a98c0527cc86268",
+      "plaintext_archive_bytes": 167575,
+      "regular_files": 188,
+      "directories": 16,
+      "associated_data": "726-audit-private-evidence:post76fe-custody-inventory:v1"
+    },
+    {
+      "label": "post76fe-custody-control",
+      "ciphertext": "post76fe-custody-control.aesgcm",
+      "ciphertext_sha256": "69d903e5f8bc304a566833836736bb45bdf8d6968498488cf46b381af696f5db",
+      "ciphertext_bytes": 128076,
+      "plaintext_archive_sha256": "be07152e98ef2ce187c5a495c0c252188da73683daa5ec500f7754ca0c3f529d",
+      "plaintext_archive_bytes": 128048,
+      "regular_files": 18,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:post76fe-custody-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier ciphertexts, original queue, source Git objects, history anchors and any nested keys remain separate dependencies.",
+  "qualification": "Twenty-three fixed registered source and process collections plus one custody-control collection. Later central draft/review additions and replay-odb are excluded. No independent custody, complete Git closure, 3821 recovery, product validation or semantic closure is implied."
+}

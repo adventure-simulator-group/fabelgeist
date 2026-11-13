@@ -1,0 +1,97 @@
+{
+  "schema": "726-post76fe-minimal-recovery-summary-v1",
+  "created_utc": "2026-11-13T10:43:18.503991+00:00",
+  "attribution": "Separately recorded coordinator evidence; this summary independently inventories and checks recorded identities and logs, not the author of the earlier runs.",
+  "minimal_object_manifest_sha256": "f619eabd1b15a4332acd48d81d2fad1ff21824375ea9d5f4d0820584fe1f1e37",
+  "captured_objects": [
+    {
+      "type": "commit",
+      "git_oid": "eb407672813424d64ec31f208193969f5a62620c",
+      "bytes": 486,
+      "sha256": "ff0230529a89e53458fbeaa2672f51b7567a89ba701fc2677f64a6706577af97"
+    },
+    {
+      "type": "commit",
+      "git_oid": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "bytes": 1078,
+      "sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722"
+    },
+    {
+      "type": "tree",
+      "git_oid": "55d548cb537a998d2f2f8575b38a8092ce0e5669",
+      "bytes": 1669,
+      "sha256": "44250a75f9859e631d54c993191f8bf5ca9fcf1eaf1fc4c67fd4e923c659ec4e"
+    },
+    {
+      "type": "tree",
+      "git_oid": "ec1f0ecadad6bc08de63bc32413a1ac5d13b5873",
+      "bytes": 154,
+      "sha256": "41f1135882b8c59ecaa82b24ba35fe50b84f364f115934ba74b32cc63b6d6d69"
+    },
+    {
+      "type": "tree",
+      "git_oid": "a1c0e07a30e84f2b1f851bf917322d6e8091ecbe",
+      "bytes": 883,
+      "sha256": "a8113a55e9faa016eb27ae1e7e7a230d03e7c0855f1b813a5555f8624448381d"
+    },
+    {
+      "type": "tree",
+      "git_oid": "21f9ebb0c2e27537ba13a6e648d022c834a4ebe1",
+      "bytes": 196,
+      "sha256": "a2677fb5432bb63779a4d66e596e588c4f53001c0589d36fc9b273cbcc329d37"
+    },
+    {
+      "type": "tree",
+      "git_oid": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "bytes": 1635,
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    }
+  ],
+  "separately_required_original_queue": {
+    "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "included_in_seven_object_collection": false
+  },
+  "recorded_recovery_sequence": [
+    {
+      "step": "prior successor recovery",
+      "captured_path_identities": 263,
+      "predecessor_guard_exits": [
+        0,
+        0,
+        0
+      ],
+      "successor_final_guard_exit": 1,
+      "qualification": "First successor attempt failed at the final guard; preserve its logs and exact result."
+    },
+    {
+      "step": "publication-store-alternate supplement",
+      "captured_path_identities": 263,
+      "successor_guard_exits": [
+        0,
+        0,
+        0
+      ],
+      "qualification": "Process-local alternate used the live publication Git object store on the same machine."
+    },
+    {
+      "step": "minimal-object-alternate supplement",
+      "captured_path_identities": 263,
+      "successor_guard_exits": [
+        0,
+        0,
+        0
+      ],
+      "qualification": "Process-local alternate used the separately restored seven-object database plus the separately authenticated original queue blob."
+    }
+  ],
+  "minimal_bare_database_receipt": {
+    "objects_restored": 7,
+    "external_queue_blob_restored": true,
+    "historical_show_hash_matches": true,
+    "pinned_commit_tree_identity_matches": true,
+    "alternate_required_for_initial_restoration": false
+  },
+  "independent_inventory_check": "The recorded object bytes and Git identities, registration binding, derivation hashes and available process output hashes were checked against the captured records; no recovery command was rerun for this summary.",
+  "limitations": "The seven-object collection is not full Git closure, complete source checkout, durable refs, or independent custody. The prior original queue, its earlier ciphertext/key, published checkout and separately held evidence objects remain dependencies. No product execution, product validation or missing checkpoint 3821 recovery is implied. Raw commit payloads and restricted process logs are not included here."
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "726-post76fe-central-custody-cutoff-v1",
+  "source_collections": 30,
+  "control_snapshot_collections": 1,
+  "selected_central_files": 5,
+  "source_group_postbuild_control_files": 102,
+  "restored_files": 423,
+  "restored_directories_including_roots": 36,
+  "prior_nonce_scope": [
+    550,
+    17,
+    24
+  ],
+  "new_nonces": 31,
+  "generic_public_replay_qualification": "Earlier v3 and v4 public replay logs are byte-identical and their manifests do not by themselves bind the package supplied. Their separately retained builders and full replays record the distinct invocations; the later projection replay manifest explicitly binds its package.",
+  "source_group_control_qualification": "The source group encrypted an earlier 18-file control snapshot. Its later 102-file post-build control and scan candidate/correction chain are included in this group.",
+  "post_cutoff": "The subsequently created source-group metadata-binding control and its public binding and scan are outside this group and require separate custody. The later application candidate and q689 are outside this cutoff.",
+  "recovery_dependencies": "This group needs the separately held same-machine key; prior ciphertext groups, original and reconstructed history, source archives, Git objects and nested keys remain separate as applicable. The encrypted control snapshot contains only its named pre-build files; full later control and restoration outputs remain separately held.",
+  "limits": "Same-machine authenticated restore and finite metadata scans do not establish independent custody, full history, checkpoint 3821, product behavior or audit closure."
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "post76fe-guard-review-finite-scan-v1",
+  "public_review_sha256": "099876ee05a0fe0d694e9e75c87e56d7067c3b4d47fe129e6faab3df4473e96d",
+  "patterns": {
+    "unix_home_or_temp": 0,
+    "windows_user": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key_marker": 0,
+    "credential_assignment": 0
+  },
+  "positive_controls_passed": true,
+  "private_path_candidates": 21,
+  "private_value_hits": 0,
+  "private_path_digest_hits": 0,
+  "qualification": "Finite check against observed registered private paths and positive-controlled patterns, not a general privacy proof. Values and individual path digests are not emitted."
+}

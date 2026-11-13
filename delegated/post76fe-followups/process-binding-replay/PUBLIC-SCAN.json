@@ -1,0 +1,42 @@
+{
+  "schema": "726-post76fe-binding-replay-scan-v1",
+  "files": [
+    {
+      "name": "self.stdout",
+      "bytes": 214,
+      "sha256": "234d54aba7fb6afb27c4ec18c20a31f06bf1366a4b237f7dc2b8c5d965fe27f8"
+    },
+    {
+      "name": "self.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "anchored.stdout",
+      "bytes": 369,
+      "sha256": "d897e2e8d6c03b6e7d0ca4e95c788f3c0a94ad753ae0d2cc3f14e6d3d2afa8c4"
+    },
+    {
+      "name": "anchored.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "RESULT.json",
+      "bytes": 873,
+      "sha256": "a8802444ac6157b6b99ca64526c6b7155bb5ecd7e29b9c054afa0a9617ff1d57"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Scan report and replay manifest were scanned before writing.",
+  "qualification": "Same finite private path/key/prefix/digest corpus and pattern controls as the binding scan. Unknown encodings and unspecified inputs are outside scope."
+}

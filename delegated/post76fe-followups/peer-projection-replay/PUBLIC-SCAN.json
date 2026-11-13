@@ -1,0 +1,37 @@
+{
+  "schema": "726-post76fe-peer-public-replay-scan-v1",
+  "files": [
+    {
+      "name": "self.stdout",
+      "bytes": 210,
+      "sha256": "d7f69daae7ce1a1ecdb2fd9aee7bfa40d2d01dfd94ff2f5083db509875699d62"
+    },
+    {
+      "name": "self.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "anchored.stdout",
+      "bytes": 311,
+      "sha256": "a62eaa41f0c357431c30e17ad6b3f128ad3f3f32bb664ab7c70376fe4b828ca6"
+    },
+    {
+      "name": "anchored.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Scan and manifest also scanned in memory before creation.",
+  "qualification": "Finite private local-path/key/prefix corpus and raw and hex SHA-256/SHA-1/MD5 digests plus selected path/credential patterns; values and digests are not disclosed. Unknown encodings and unspecified inputs are outside scope."
+}

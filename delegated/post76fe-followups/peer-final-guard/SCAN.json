@@ -1,0 +1,21 @@
+{
+  "schema": "726-post76fe-final-guard-peer-finite-scan-v1",
+  "scope": [
+    "REPORT.md",
+    "VERIFY.py"
+  ],
+  "report_sha256": "adc0b59f26a3a0dcda4f2d5ea71fbe8907139f32ef3d7d82442b21be4d45f766",
+  "positive_controls_passed": true,
+  "known_path_candidates": 25,
+  "pattern_hits": {
+    "unix_home_or_temp": 0,
+    "windows_user": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key_marker": 0,
+    "credential_assignment": 0
+  },
+  "known_path_value_hits": 0,
+  "known_path_digest_hits": 0,
+  "qualification": "Finite scan of the stated files against observed local paths and positive-controlled patterns; no assertion about unknown private values or ciphertext."
+}
