@@ -1,0 +1,48 @@
+{
+  "schema": "726-post5f6a-adopted-candidate-v1",
+  "status": "candidate only; not installed or published",
+  "draft_sha256": "5e5d9f9f91a5bacfdd09b75aaa9c775164a65bcd519a11e35eb3d97ca65ce43a",
+  "report_sha256": "a53bfc0bea9e03633631057e871c6cd3396fcff7e3a2c6d626e341e7cc0a9a0e",
+  "v4_transform_sha256": "ba5e3d360e27fc195f283062a37a73d0961055f0450c7922aa3975ff0340cf7b",
+  "targets": {
+    "ASSESSMENT-CENTRAL-FOLLOWUPS-20-95E.json": {
+      "bytes": 27167,
+      "sha256": "a53bfc0bea9e03633631057e871c6cd3396fcff7e3a2c6d626e341e7cc0a9a0e"
+    },
+    "MAIN-RECHECK-20261113-0536.json": {
+      "bytes": 773,
+      "sha256": "d54a66274a8d64235cc64d2cfe09b27ae735c4c50d5d91579b6e3cd9065caf25"
+    },
+    "delegated/post5f6a-followups/REMOTE-RECOVERY.json": {
+      "bytes": 1610,
+      "sha256": "212b45adf7673c3a346b1a15ae99ddde39ba047b901141de0af8788532315563"
+    },
+    "delegated/post5f6a-followups/application/README.md": {
+      "bytes": 1324,
+      "sha256": "23a91c17fa10758f105a96b37bf9a35542abf620fb6ad56358ec1408bbd50373"
+    },
+    "delegated/post5f6a-followups/application/review-transport/application-review.tar.gz": {
+      "bytes": 16805,
+      "sha256": "25f14426fab2725bafb671e9be37b778442c202fd4a8d9d24290c1ec84687f4c"
+    }
+  },
+  "after": {
+    "BASELINE-95E-20261110.json": {
+      "bytes": 1516627,
+      "sha256": "b096f8ba4026bef13c736686b2eb39ad014fc59ab4c1e118c8e2ff4908e8cf46"
+    },
+    "CONTINUATION-PROGRESS-95E.json": {
+      "bytes": 128216,
+      "sha256": "1a365fbfc1a446a1ee7eed980d9722ed61fdbfb6a7675fbb78d96b1a41cb68d9"
+    },
+    "RECONCILIATION-059.json": {
+      "bytes": 1262605,
+      "sha256": "b220155ea237ecfa8d7f8c628b52fd3daa051e2ab7c3105d8ccfa6b1886af1cb"
+    },
+    "CONTINUATION.md": {
+      "bytes": 123845,
+      "sha256": "0956406688fe829bc2b1badbe506692aaac4584a4e8292a25d1958bffb127b94"
+    }
+  },
+  "qualification": "The separately identified adopted-report candidate differs from the independently reviewed draft only in schema/status and explicit adoption metadata; pure-transform after-images match the reviewed v4 preview. All five cited public targets exist in private staging, not yet in the publication tree. A separate final review, exact staged target checks, custody and publication remain pending."
+}

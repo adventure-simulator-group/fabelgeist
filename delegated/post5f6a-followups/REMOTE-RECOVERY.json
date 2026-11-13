@@ -1,0 +1,33 @@
+{
+  "schema": "726-post5f6a-same-machine-recovery-v1",
+  "commit": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "tree": "84c63be7bd8e5b00b33bd63f480fe8ebb7b900c7",
+  "captured_paths_matched": 179,
+  "checks": [
+    {
+      "name": "fetch",
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "8660b17a8fa2ccd3a22c37dde02be4c5aec6f7997a679b3f7bd7e0a89e36bd03"
+    },
+    {
+      "name": "checkout",
+      "exit": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e995850b953faca41d5a55bd33771585c968c68274820c78ffe83727962b00cd"
+    },
+    {
+      "name": "verify-0",
+      "exit": 0,
+      "stdout_sha256": "c28eb7e97551d0cc4051598a3d94d117bc4bfdef21de16a954a0906b004729ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "verify-1",
+      "exit": 0,
+      "stdout_sha256": "cf5626825e6b4f0a0dc79a707ff6e792f4d0431ef5ba291e7f57c1559a48a3cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "A separate same-machine checkout fetched the remote branch and matched every captured file byte, Git blob and executable bit. Git does not preserve other mode bits or directory modes. Evidence-only verifiers passed. This is not independent custody, restoration of checkpoint3821, product validation or semantic audit closure. Exact fetch, checkout and verifier outputs and capture remain locally held for the next checkpoint."
+}

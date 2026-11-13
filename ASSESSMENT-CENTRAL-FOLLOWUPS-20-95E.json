@@ -1,0 +1,274 @@
+{
+  "schema": "726-post5f6a-central-assessment-v1",
+  "status": "adopted as six bounded partial assessments and three planning relationships; no semantic closure",
+  "parent_checkpoint": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "proposal_sha256": {
+    "delegated/posta422-followups/proposals/Q10-Q13-v2.json": "1e4f8bc88f7de6bc3fd0d6e4994349255caa1e5a984c39b350caa00591650b7d",
+    "delegated/posta422-followups/proposals/ROLE0057-v3.json": "c13804d0db9a6b655a5847436a73561e90f21ba3f98c02290161ae1a196c24e1"
+  },
+  "partial_queue_assessments": [
+    {
+      "record": {
+        "queue_index": 10,
+        "historical_lens": 13,
+        "historical_contract_id": "LENS13-DURABILITY-TIER-INTERMEDIATE-OVERFLOW",
+        "delegate": "reviewer-q10-role0057",
+        "coordinator": "central-coordinator",
+        "proposed_status": "partial; no semantic queue or lens closure",
+        "assessment": "With quality 1, authored fracture threshold 100 and the 0.65 quality multiplier, a finite stress of 10000 exceeds the u8 range after doubled overload and saturating float-to-u8 conversion. The addition 3 + 255 occurs before min(5); overflow-check-enabled arithmetic can fail before producing a DamageEvent. Unchecked wrapping yields tier 2 there, but the selected apply_impact consumer clamps it to quality 1, so this buckler witness alone does not establish a changed stored damage bin.",
+        "source_refs": [
+          "crates/adventuresim-core/src/durability.rs:196-265",
+          "content/items/catalog.yaml:1124-1188",
+          "crates/adventuresim-core/src/item_catalog_validation.rs:1148-1215",
+          "crates/adventuresim-core/src/mission.rs:9-15",
+          "crates/adventuresim-stdb-module/src/tactical.rs:1037-1129,1142-1183,1190-1223,1246-1275",
+          "crates/adventuresim-stdb-module/src/repair.rs:558-600"
+        ],
+        "conditions": "The receipt accepts finite stress through 10000 only subject to separate participant, custody and equipment-role checks; application also needs the matching stored definition and condition. The selected authored item meets displayed local validation predicates, but full catalog build/deployment, actual producer reach, overflow-check settings and product outcomes remain unproved.",
+        "historical_relationship": "Original 059 q10 and its original ledger finding already describe this same operation. The separately attributed PL13-163 canonical-alias qualification, physical-p16 read, historical premature zero-credit read, corrected reread and EOF prose, and nested pending-root-adoption language remain as recorded. Current ledger row 390 concerns contact-role retention and is related, not an automatic alias. No additional unique defect count. The physical-p16 source is a recovered dirty snapshot, not a clean a120 tree. The normalized 774 transport, missing pre-export originals, SOURCE004 and the 73 nontext/no-positive-EOF contracts retain their separate recovery limits.",
+        "delegate_public_manifest_sha256": "2d13f6380ece1a5d580bb05056d79bf0c8c7e35d9173cdff1203075686042cd6",
+        "custody_qualification": "The delegate’s separately sealed additive custody correction has manifest SHA-256 15c0150f1690cd72ab06baf25cc5d41ce141294160d29d9bb7af22f6c29f6a6f. Its earlier public-v1 preflight failed on a transcribed historical-ledger hash, and its original private attachment verifier later failed on a transcribed replay-manifest hash; both unchanged failures and corrections are retained. Their initial tool-visible tracebacks were not separately captured byte-for-byte.",
+        "independent_review_manifest_sha256": "37b32431c78f847cfd78e9ce444492d7fa7510da2445635d0ee861b5131a5489"
+      },
+      "proposal": "delegated/posta422-followups/proposals/Q10-Q13-v2.json",
+      "proposal_pointer": "/partial_queue_assessments/0"
+    },
+    {
+      "record": {
+        "queue_index": 13,
+        "historical_lens": 12,
+        "historical_contract_id": "LENS12-PROJECTILE-ID-SUBSTRING",
+        "delegate": "reviewer-q13",
+        "coordinator": "central-coordinator",
+        "proposed_status": "partial; no semantic queue or lens closure",
+        "assessment": "The selected strategic equipment path picks a held ranged weapon and chooses Ball when its open item ID contains the case-sensitive substring arquebus, otherwise Arrowhead. Two selected authored ranged arquebus IDs match the predicate; no wrong stock result or admitted alternative with different intended projectile is established. The selected kind can flow to ranged battle logging under the applicable attack conditions.",
+        "source_refs": [
+          "crates/adventuresim-stdb-module/src/capability.rs:278-296,347-380,510-530",
+          "crates/adventuresim-core/src/projectile.rs:1-10",
+          "crates/adventuresim-stdb-module/src/item.rs:77-109,140-150,221-251",
+          "crates/adventuresim-core/src/item_catalog_validation.rs:362-370,1447-1453",
+          "content/items/catalog.yaml:2381-2442,4008-4069",
+          "crates/adventuresim-core/src/autoresolve.rs:780-814,995-1031",
+          "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs:155-178"
+        ],
+        "conditions": "The related exact arrow ammunition count and consumption have separate first operations. The delegate traced generic allied retained-injury and corpse projection paths but did not establish that this specific item-derived kind reaches an allied retained injury; the selected post_combat_body mapping stores presence, not kind. Supported catalog alternatives, projectile policy and end-to-end reach remain open.",
+        "historical_relationship": "Original q13 itself has no recorded source identity, range or reader. Its separately recovered historical Lens12 receipt records a full physical-p16 read and different earlier projection file; the original ledger names the receipt path without a recorded receipt digest. q1009/q1011, partially assessed q1872, and current ledger rows 388/394 have separate first questions and attributions, not automatic aliases. Normalized 774 is not a pre-export original.",
+        "delegate_public_manifest_sha256": "34bb95f97afda3dc67c0121de54227fbc7e7d5d3cd86f845e84a9c920581996b",
+        "delegated_support_refs": {
+          "attribution": "The q13 delegate and independent q13 reviewer separately registered and displayed the relevant support windows. These references do not extend the coordinator’s own listed source-display credit.",
+          "refs": [
+            "crates/adventuresim-stdb-module/src/capability/combatant.rs:43-81",
+            "crates/adventuresim-stdb-module/src/strategic/encounters.rs:976-1000,1018-1055",
+            "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:198-234",
+            "crates/adventuresim-stdb-module/src/surgery.rs:257-273,312-326",
+            "crates/adventuresim-core/src/autopsy.rs:104-123"
+          ]
+        },
+        "related_unassessed_question": "The independent q13 reviewer separately noted that the selected exact-arrow count excludes fireplace-rooted rows while the selected exact-arrow consumption lookup has no displayed ancestry filter. The character/item index has no location component, but supported such rows, iteration order and any consumption outcome remain unproved. This is adjacent work with a distinct first operation, not an accepted alias or count.",
+        "related_question_delegated_refs": [
+          "crates/adventuresim-stdb-module/src/item.rs:40-57",
+          "crates/adventuresim-stdb-module/src/inventory_container.rs:124-151",
+          "crates/adventuresim-stdb-module/src/capability.rs:366-380",
+          "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs:155-178"
+        ]
+      },
+      "proposal": "delegated/posta422-followups/proposals/Q10-Q13-v2.json",
+      "proposal_pointer": "/partial_queue_assessments/1"
+    },
+    {
+      "record": {
+        "queue_index": 3447,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0057-LENS-01",
+        "historical_lens": 1,
+        "delegate": "reviewer-q10-role0057",
+        "central_reviewer": "central-coordinator",
+        "summary": "The selected builder creates a source entry for each parsed organization document, invokes catalog validation, checks promotion endpoints and embeds the original documents. The catalog later deserializes the embedded JSON. Representative drafts derive identity from settlement and organization strings, and the selected dialogue consumer rechecks identity and related fields. These are bounded producer-to-consumer traces; alternate callers, failure paths and complete identity admission remain open.",
+        "source_refs": [
+          "crates/adventuresim-core/build.rs:389-455,466-511",
+          "crates/adventuresim-core/src/organization.rs:487-492,604-625",
+          "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs:400-438",
+          "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs:220-263"
+        ],
+        "history": "The delegate registered 6533, e275 and 95e source objects with matching per-file bytes and personally displayed the assigned 1–633 range once in seven chunks under four registered lenses; 634–1251 remained unread in that role. Per-file equality does not establish clean historical worktrees. The coordinator separately registered and displayed only its stated 95e windows and later catalog-wiring supplement. Display events are reader attestations; registrations, transcript bytes and object bindings are checkable. Older Root Lens3 6533 fresh read and e275 qualified same-lens reuse remain separate, despite abbreviated q3446 wording; no other-lens or checkpoint3821 credit transfers. The original e275 own-Lens3 receipt states fresh_personal_ranges was empty, qualified reuse covered 1–633, and frozen_source_adoption_pending was true; the frozen source must first be adopted before accepting that reuse. The delegate historical read receipt records truncated initial combined displays and a subsequent truncated q542 full-selected display and a separate truncated older-774 combined display; historical personal viewing is limited to its named completed short redisplays. Its registration records unrelated historical pr-working changes as that delegate’s attestation, not this coordinator’s independent dirty-tree determination.",
+        "open_questions": [
+          "Trace alternate catalog construction and all representative identity consumers.",
+          "Keep optional-field schema fidelity and supported malformed inputs connected to q3446 without assuming an alias."
+        ]
+      },
+      "proposal": "delegated/posta422-followups/proposals/ROLE0057-v3.json",
+      "proposal_pointer": "/partial_queue_assessments/0/record"
+    },
+    {
+      "record": {
+        "queue_index": 3448,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0057-LENS-02",
+        "historical_lens": 2,
+        "delegate": "reviewer-q10-role0057",
+        "central_reviewer": "central-coordinator",
+        "summary": "OrganizationKind, StartingProfession, Recognition, Requirement, TrainingTarget and ActivityReward own distinct variant choices, some carrying separately admitted string selectors, and WrittenLanguage is already a world-schema owner for literacy and written training. Organization, role, settlement and service identifiers remain strings in the selected windows; their separate admitted sets and dependency direction are not established as interchangeable.",
+        "source_refs": [
+          "crates/adventuresim-core/src/organization.rs:89-165,248-395",
+          "crates/adventuresim-world-schema/src/lib.rs:3873-3880"
+        ],
+        "history": "The delegate registered 6533, e275 and 95e source objects with matching per-file bytes and personally displayed the assigned 1–633 range once in seven chunks under four registered lenses; 634–1251 remained unread in that role. Per-file equality does not establish clean historical worktrees. The coordinator separately registered and displayed only its stated 95e windows and later catalog-wiring supplement. Display events are reader attestations; registrations, transcript bytes and object bindings are checkable. Older Root Lens3 6533 fresh read and e275 qualified same-lens reuse remain separate, despite abbreviated q3446 wording; no other-lens or checkpoint3821 credit transfers. The original e275 own-Lens3 receipt states fresh_personal_ranges was empty, qualified reuse covered 1–633, and frozen_source_adoption_pending was true; the frozen source must first be adopted before accepting that reuse. The delegate historical read receipt records truncated initial combined displays and a subsequent truncated q542 full-selected display and a separate truncated older-774 combined display; historical personal viewing is limited to its named completed short redisplays. Its registration records unrelated historical pr-working changes as that delegate’s attestation, not this coordinator’s independent dirty-tree determination.",
+        "open_questions": [
+          "Trace compatible existing ID owners, authored admission and dependency boundaries before selecting any reuse.",
+          "Do not collapse open catalog identifiers or labels into unrelated closed enums."
+        ]
+      },
+      "proposal": "delegated/posta422-followups/proposals/ROLE0057-v3.json",
+      "proposal_pointer": "/partial_queue_assessments/1/record"
+    },
+    {
+      "record": {
+        "queue_index": 3450,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0057-LENS-05",
+        "historical_lens": 5,
+        "delegate": "reviewer-q10-role0057",
+        "central_reviewer": "central-coordinator",
+        "summary": "A public alternate OrganizationDefinition with a catalog organization ID and an existing matching global edge, but missing that edge target, can make promotion_targets omit that role while can_transition still matches the global edge. The selected canonical build checks unique role IDs and validates both edge endpoints against the authored organization; it does not establish a supported alternate caller or runtime discrepancy. The validator also requires positive practice cadence when permitted and zero when forbidden, narrowing the earlier canonical zero-divisor suspicion.",
+        "source_refs": [
+          "crates/adventuresim-core/src/organization.rs:89-126,429-483",
+          "crates/adventuresim-core/src/organization_catalog_validation.rs:320-387",
+          "crates/adventuresim-core/build.rs:449-493"
+        ],
+        "history": "The delegate registered 6533, e275 and 95e source objects with matching per-file bytes and personally displayed the assigned 1–633 range once in seven chunks under four registered lenses; 634–1251 remained unread in that role. Per-file equality does not establish clean historical worktrees. The coordinator separately registered and displayed only its stated 95e windows and later catalog-wiring supplement. Display events are reader attestations; registrations, transcript bytes and object bindings are checkable. Older Root Lens3 6533 fresh read and e275 qualified same-lens reuse remain separate, despite abbreviated q3446 wording; no other-lens or checkpoint3821 credit transfers. The original e275 own-Lens3 receipt states fresh_personal_ranges was empty, qualified reuse covered 1–633, and frozen_source_adoption_pending was true; the frozen source must first be adopted before accepting that reuse. The delegate historical read receipt records truncated initial combined displays and a subsequent truncated q542 full-selected display and a separate truncated older-774 combined display; historical personal viewing is limited to its named completed short redisplays. Its registration records unrelated historical pr-working changes as that delegate’s attestation, not this coordinator’s independent dirty-tree determination.",
+        "open_questions": [
+          "Trace supported alternate construction, mutation and transition consumers before selecting an authority boundary.",
+          "Keep q3300 cadence and q3446 schema admission distinct until their first operations are compared."
+        ]
+      },
+      "proposal": "delegated/posta422-followups/proposals/ROLE0057-v3.json",
+      "proposal_pointer": "/partial_queue_assessments/2/record"
+    },
+    {
+      "record": {
+        "queue_index": 3451,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0057-LENS-06",
+        "historical_lens": 6,
+        "delegate": "reviewer-q10-role0057",
+        "central_reviewer": "central-coordinator",
+        "summary": "Catalog and instance roles, chapters and global transition edges have related responsibilities; the selected source alone does not establish a canonical owner for every supported alternate instance. For validated organization IDs, the final colon separates the organization component from the settlement component because allowed organization IDs exclude colons. This rejects that delimiter ambiguity only for the selected validated path; finite hash collisions, settlement ID admission and unvalidated callers remain open.",
+        "source_refs": [
+          "crates/adventuresim-core/src/organization.rs:89-126,429-483,604-625",
+          "crates/adventuresim-core/src/organization_catalog_validation.rs:110-115,258-265",
+          "crates/adventuresim-world-schema/src/lib.rs:3873-3880"
+        ],
+        "history": "The delegate registered 6533, e275 and 95e source objects with matching per-file bytes and personally displayed the assigned 1–633 range once in seven chunks under four registered lenses; 634–1251 remained unread in that role. Per-file equality does not establish clean historical worktrees. The coordinator separately registered and displayed only its stated 95e windows and later catalog-wiring supplement. Display events are reader attestations; registrations, transcript bytes and object bindings are checkable. Older Root Lens3 6533 fresh read and e275 qualified same-lens reuse remain separate, despite abbreviated q3446 wording; no other-lens or checkpoint3821 credit transfers. The original e275 own-Lens3 receipt states fresh_personal_ranges was empty, qualified reuse covered 1–633, and frozen_source_adoption_pending was true; the frozen source must first be adopted before accepting that reuse. The delegate historical read receipt records truncated initial combined displays and a subsequent truncated q542 full-selected display and a separate truncated older-774 combined display; historical personal viewing is limited to its named completed short redisplays. Its registration records unrelated historical pr-working changes as that delegate’s attestation, not this coordinator’s independent dirty-tree determination.",
+        "open_questions": [
+          "Trace identity types, collision handling and alternate producers without assuming canonical IDs cover all callers.",
+          "Determine whether instance/global transition consistency belongs at construction or API use."
+        ]
+      },
+      "proposal": "delegated/posta422-followups/proposals/ROLE0057-v3.json",
+      "proposal_pointer": "/partial_queue_assessments/3/record"
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "record": {
+        "id": "relationship-durability-tier-intermediate-95e",
+        "lens": 13,
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/10",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/LENS13-DURABILITY-TIER-INTERMEDIATE-OVERFLOW",
+          "READ-PL13-163 canonical-alias qualification"
+        ],
+        "current_related_records": [
+          "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/390"
+        ],
+        "classification": "The pinned pre-cap addition can overflow for the specified admitted numeric bounds and authored profile, conditional on supported receipt, stored item and condition. The quality-1 witness does not prove a changed stored bin.",
+        "connected_repair_direction": "Trace supported contact generation and receipt admission, then decide the intended bounded tier arithmetic and quality-cap behavior while preserving existing condition semantics.",
+        "relationship_qualification": "Historical exact-operation evidence retained; ledger390 is separate contact-role context. No new unique finding or product outcome is accepted.",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      "proposal": "delegated/posta422-followups/proposals/Q10-Q13-v2.json",
+      "proposal_pointer": "/ledger_relationships/0"
+    },
+    {
+      "record": {
+        "id": "relationship-projectile-item-name-classification-95e",
+        "lens": 12,
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/13",
+          "baseline-059/queue.json#/entries/1009",
+          "baseline-059/queue.json#/entries/1011",
+          "baseline-059/queue.json#/entries/1872"
+        ],
+        "current_related_records": [
+          "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/388",
+          "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/394"
+        ],
+        "classification": "A selected ranged weapon ID substring chooses a typed projectile kind; displayed stock IDs match the branch and no incorrect supported outcome is established.",
+        "connected_repair_direction": "Determine the authored projectile and ammunition contract, supported item admission and consumers before selecting a capability owner or changing behavior.",
+        "relationship_qualification": "Adjacent exact ammunition ID and historical projectile records are related but separate first questions; no alias or unique count is inferred.",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      "proposal": "delegated/posta422-followups/proposals/Q10-Q13-v2.json",
+      "proposal_pointer": "/ledger_relationships/1"
+    },
+    {
+      "record": {
+        "id": "relationship-organization-instance-global-transition-95e",
+        "lens": 5,
+        "classification": "An alternate same-ID organization instance can omit the target of an existing matching global promotion edge while can_transition still sees that edge; the selected canonical builder validates both endpoints against the authored roles. Supported alternate instances and impact are unproved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3446",
+          "baseline-059/queue.json#/entries/3300"
+        ],
+        "current_related_records": [],
+        "relationship_qualification": "q3446 concerns schema-fidelity admission and q3300 concerns practice cadence; shared source or policy does not prove an exact alias. No unique defect or runtime failure is accepted.",
+        "connected_repair_direction": "Trace supported instance construction and consumers, then decide where to enforce consistency between global edges and the instance’s roles.",
+        "future_acceptance": "Only after audit and authorization, assess canonical and any supported alternate catalog instances against agreed transition semantics.",
+        "repair": "not started",
+        "validation": "not performed"
+      },
+      "proposal": "delegated/posta422-followups/proposals/ROLE0057-v3.json",
+      "proposal_pointer": "/ledger_relationships/0/record"
+    }
+  ],
+  "review_evidence": {
+    "q10_v1_source_review_manifest_sha256": "37b32431c78f847cfd78e9ce444492d7fa7510da2445635d0ee861b5131a5489",
+    "q10_v2_structural_review_manifest_sha256": "491475d39faed33f34351db149b9be800e1f00f51729512b5bc06a4a63b82d7c",
+    "q13_v2_successor_review_manifest_sha256": "4144156e8492b30b828bf1f93ae5e7072afbf38b15a1706f986f6a7ebe07b039",
+    "role0057_v3_review_manifest_sha256": "0f320c9ccd8c85f87b6cc168e611dac228da9f302af7ced841e39d60012890fe",
+    "projection_review_manifest_sha256": "37ed3337be5054389f644ac90dbf6c5133a55fbca3fd47db893bb60aba8ccbcc"
+  },
+  "historical_provenance": {
+    "original_059_record": "BASELINE-20261110.json#/historical_checkpoint_059",
+    "original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "original_ledger_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+    "reconstructed_queue_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    "reconstructed_ledger_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+    "qualification": "Public baseline-059 pointers identify reconstructed stream bytes; selected six queue objects match separately recovered original 059 objects as parsed, not whole-stream bytes. The original record and its separately preserved custody retain their own revision and attribution. Neither stream is the missing checkpoint3821."
+  },
+  "counts": {
+    "queue_records": 3713,
+    "partial_before": 1364,
+    "unassessed_before": 2349,
+    "new_partial_assessments": 6,
+    "partial_after": 1370,
+    "unassessed_after": 2343,
+    "ledger_before": 1103,
+    "new_planning_relationships": 3,
+    "ledger_after": 1106,
+    "semantic_queue_closures": 0,
+    "accepted_unique_defect_increment": 0,
+    "lens_completions": 0
+  },
+  "qualification": "Conditional source-only assessments, not semantic closure or proof of supported product outcomes. Earlier pending indexes and draft-time review statements are historical snapshots. Later q10 v2, q13 v2 and role0057 v3 reviews are separately attributed; the q10 successor recheck is structural only. Delegate-only source windows do not become coordinator reads. All 13 lenses and 73 nontext/no-positive-EOF obligations remain open. Recovered evidence, reconstructed streams, historical summaries and fresh work retain separate identities; checkpoint3821 remains missing.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "adopted_from_draft_sha256": "5e5d9f9f91a5bacfdd09b75aaa9c775164a65bcd519a11e35eb3d97ca65ce43a",
+  "independent_application_review": {
+    "public_manifest_sha256": "3fecc064492e45fa2a39c91eca43856988465877b405c946611160c9fff85c69",
+    "public_transport": "delegated/post5f6a-followups/application/review-transport/application-review.tar.gz",
+    "scope": "Independent review of the coordinator application and v1-v4 correction chain; reviewer authored the underlying q10 and role0057 delegate packets and previously reviewed q13. It does not transfer source-read credit.",
+    "review_time_preconditions": "The review required a separately worded adopted successor and four public targets; this candidate supplies them, subject to final independent and publication verification."
+  },
+  "adoption_qualification": "The exact reviewed draft remains preserved. Only schema/status and the explicitly identified adoption metadata differ. This adoption records partial source assessments and planning relationships, not supported product behavior, semantic closure, a unique defect increment, implementation or product validation."
+}

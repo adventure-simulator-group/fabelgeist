@@ -1,0 +1,73 @@
+{
+  "schema": "726-post5f6a-pending-source-reviews-v1",
+  "assessed_against_checkpoint": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "queue_indices": [
+    0,
+    19,
+    2497,
+    2501,
+    2503,
+    2504,
+    2510,
+    2521,
+    2534
+  ],
+  "qualification": "These historical queue entries were unassessed in the 5f6a snapshot. Newly sealed source and independent peer packets remain separately attributed and pending central reconciliation; q19 corroborates existing current ledger row 9 rather than adding a finding. The q0 retained-fit, q2510 first-insert, q2521 canonical producer and q2534 notification refinements retain their conditional reach and policy limits. Earlier and later source packets, recovered originals, reconstructed streams, historical summaries and newly assessed work remain distinct. The q2501/q2503/q2504 independent review preserves a separately recorded StartingAgeTier method-name correction.",
+  "rows": [
+    {
+      "queue_index": 0,
+      "historical_lens": 8,
+      "historical_contract_id": "ADLER-CONT08-CANDIDATE-001",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 19,
+      "historical_lens": 11,
+      "historical_contract_id": "CONT-WEDDING-CAPACITY-POSTWRITE-ERROR",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2497,
+      "historical_lens": 3,
+      "historical_contract_id": "EXTENSION-L3-ROOT-L2-EXT-0055",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2501,
+      "historical_lens": 7,
+      "historical_contract_id": "EXTENSION-L7-ROOT-L2-EXT-0055",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2503,
+      "historical_lens": 9,
+      "historical_contract_id": "EXTENSION-L9-ROOT-L2-EXT-0055",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2504,
+      "historical_lens": 10,
+      "historical_contract_id": "EXTENSION-L10-ROOT-L2-EXT-0055",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2510,
+      "historical_lens": 4,
+      "historical_contract_id": "EXTENSION-L4-ROOT-L2-EXT-0056",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2521,
+      "historical_lens": 3,
+      "historical_contract_id": "EXTENSION-L3-ROOT-L2-EXT-0057",
+      "central_state_at_5f6a": "unassessed"
+    },
+    {
+      "queue_index": 2534,
+      "historical_lens": 4,
+      "historical_contract_id": "EXTENSION-L4-ROOT-L2-EXT-0058",
+      "central_state_at_5f6a": "unassessed"
+    }
+  ]
+}

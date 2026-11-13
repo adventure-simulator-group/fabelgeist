@@ -13,6 +13,28 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-20-95E.json` connects six bounded partial
+assessments and three planning relationships. The working queue now has 1,370
+partial and 2,343 unassessed records, all semantically unreconciled; the ledger
+has 1,106 entries and relationships, not unique defects. No lens or queue record
+is closed and no unique-defect increment is accepted. Older pending indexes and
+the post-a422 progress records retain their historical snapshot counts.
+
+The six assessments use reconstructed public projections of separately preserved
+originals. Public `baseline-059` pointers identify reconstructed streams; their
+selected queue objects match the recovered originals as parsed. Original
+checkpoint 3821 remains missing, and the 73 nontext/no-positive-EOF contracts
+remain open. Attribution and later review qualifications remain in the
+assessment and the preserved source packets.
+
+`delegated/post5f6a-followups/REMOTE-RECOVERY.json` records same-machine
+recovery of the preceding checkpoint. `MAIN-RECHECK-20261113-0536.json` records
+a later point-in-time main observation; main may advance.
+
+Snapshot-specific predecessor verifiers must run against an exact 5f6a checkout;
+their old counts and after-images do not describe this successor.
+`delegated/post5f6a-followups/application/README.md` records the replay.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-19-95E.json` connects eight bounded partial
 assessments and two planning relationships. They do not close a queue
 record or lens or add a unique-defect count. Eight color obligations in

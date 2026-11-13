@@ -1,0 +1,24 @@
+{
+  "schema": "726-post5f6a-additional-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "bfd3cead1a2312d9b2f7800cd14d377a0fa644f097e1e47dd8cefd79dcdaaea7",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "28488b14416a3f1760eadbac9ba3b87b65c4753f3069405d3d13bc2caf8f276f",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 7,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite bounded scan of the seven captured later and application-review transport files. Unknown private values, encodings, Git history and later additions remain outside scope.",
+  "capture_sha256": "5829f0becf7d86d4b00eb89c1080ac7df869471f7a1478114e7e65f4c10722b7"
+}

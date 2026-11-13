@@ -1,0 +1,46 @@
+{
+  "schema": "726-post5f6a-peer-transports-v1",
+  "parent_checkpoint": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "q2501-2504-independent",
+      "file": "q2501-2504-independent.tar.gz",
+      "source_manifest_sha256": "4a5f8fdd2c3b4f37b2f6ba7f72ff8991bf4a4af07550f8fc1345986e229e0e7f",
+      "manifest_member": "q2501-2504-independent/MANIFEST.json",
+      "archive_bytes": 7150,
+      "archive_sha256": "5938d3323779d53cf45956d245822c6316b55a2b343428186b289da38ab6fb53",
+      "members": [
+        {
+          "path": "q2501-2504-independent/MANIFEST.json",
+          "type": "file",
+          "bytes": 593,
+          "sha256": "4a5f8fdd2c3b4f37b2f6ba7f72ff8991bf4a4af07550f8fc1345986e229e0e7f",
+          "mode": "0o600"
+        },
+        {
+          "path": "q2501-2504-independent/REPORT.md",
+          "type": "file",
+          "bytes": 5012,
+          "sha256": "697b2f8ca43e140beea56f939ba8a9d1ba87360479e100e514cafc6cb9acb488",
+          "mode": "0o600"
+        },
+        {
+          "path": "q2501-2504-independent/SCAN.py",
+          "type": "file",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "q2501-2504-independent/VERIFY.py",
+          "type": "file",
+          "bytes": 8487,
+          "sha256": "bedb3d8c793dea72f7287a3f7ad43b9f04ef6dcd2e25acfcf8171dd8eec97009",
+          "mode": "0o600"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact public file bytes and contained file/directory modes. Independently attributed source and peer reviews retain their historical and conditional limits; restricted originals, previous candidates, same-machine keys and anchors remain separate. The independently attributed three-lens review corrects one roster method name; source semantics, conditional limits and historical attributions remain separately recorded."
+}

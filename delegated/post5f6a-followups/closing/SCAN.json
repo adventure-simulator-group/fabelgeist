@@ -1,0 +1,27 @@
+{
+  "schema": "726-post5f6a-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "0f5370f7aa108ff33cbc594de5a6f3ab2fd7a65fb901280189640dbbfcb9034f",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "d5c3ddf927e43e1b05e3291c6352c0c7947949c582c217b8182ffbbe5804df1d",
+      "stderr_bytes": 0
+    }
+  ],
+  "capture_sha256": "86087394b71ae4e482daa8a5b41adaa91a0a304ab44bf5d197d27d048d8e867a",
+  "scanned_paths": 137,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {
+    "email": 4
+  },
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "classification": "The four candidates match the previously classified checksum-pinned upstream SDK example at the same archive locations after accounting for the staged path prefix. They are duplicated occurrences of one reserved example-domain address.",
+  "qualification": "Finite scan of captured staged evidence before closing metadata. Unknown values and encodings, opaque ciphertext and Git history remain outside scope. Exact scan logs remain restricted for the next custody cutoff."
+}

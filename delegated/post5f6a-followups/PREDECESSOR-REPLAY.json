@@ -1,0 +1,31 @@
+{
+  "schema": "726-post5f6a-predecessor-replay-v1",
+  "commit": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "checks": [
+    {
+      "script": "verify_postf2ec_checkpoint.py",
+      "exit": 0,
+      "stdout_sha256": "c93bf3a41af0a64f9d70654b722bed8fcc80be361309650b27e8109a5dddc298",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2936,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "delegated/posta422-followups/final-guard/VERIFY.py",
+      "exit": 0,
+      "stdout_sha256": "c28eb7e97551d0cc4051598a3d94d117bc4bfdef21de16a954a0906b004729ef",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2475,
+      "stderr_bytes": 0
+    },
+    {
+      "script": "delegated/posta422-followups/closing/VERIFY.py",
+      "exit": 0,
+      "stdout_sha256": "cf5626825e6b4f0a0dc79a707ff6e792f4d0431ef5ba291e7f57c1559a48a3cc",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 148,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Evidence-only predecessor replay in the clean same-machine published checkout. The separately held Git history and custody keys remain dependencies; this does not prove independent custody, complete historical recovery, product behavior or semantic closure. Child interpreters run unoptimized; nested flags are not independently recorded."
+}

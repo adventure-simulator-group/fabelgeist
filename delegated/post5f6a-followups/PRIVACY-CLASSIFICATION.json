@@ -1,0 +1,14 @@
+{
+  "schema": "726-post5f6a-preliminary-scan-classification-v1",
+  "preliminary_wrapper_exit": 1,
+  "forbidden_digest_total": 0,
+  "scan_exceptions": 0,
+  "other_candidate_counts": {
+    "email": 4
+  },
+  "classification": "All four email-pattern occurrences are two occurrences of one reserved example-domain address in the checksum-pinned upstream SDK source, duplicated in its exact extracted member and original crate. The crate member and separately copied member are byte-identical. This is a disclosed non-secret example; no other candidate class was reported.",
+  "sdk_crate_sha256": "b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15",
+  "member_sha256": "b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00",
+  "transport_manifest_sha256": "6687709576c930d6d9f4bfa03c8f304c4279ca05bf3f5e1c8a05582e31740377",
+  "qualification": "This classifies only the finite preliminary scan. Unknown secrets, encodings, unsupported archives, Git history and later additions remain outside scope; exact raw scan output is restricted and will be authenticated separately."
+}

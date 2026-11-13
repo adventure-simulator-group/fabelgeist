@@ -1,0 +1,16 @@
+{
+  "schema": "726-post5f6a-supplement-restoration-v1",
+  "restore_exit": 0,
+  "collections": 17,
+  "matched_file_bytes_and_modes": 2137,
+  "matched_directory_modes": 272,
+  "selected_replay_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "qualification": "Authenticated fresh same-machine restore compared every contained file byte and file/directory mode. One new restored review root was chmod 0700 after that comparison because its verifier requires the source-root mode, omitted from archives. The q2497 and three-lens replays require separately held q2812 anchors; the application review and candidate replay require the pinned Git store and clean 5f6a predecessor checkout. Archive uid/gid/mtime are normalized. Direct replay interpreters are unoptimized; nested flags are not independently recorded. No independent custody, checkpoint3821 recovery, product validation or semantic closure is established."
+}

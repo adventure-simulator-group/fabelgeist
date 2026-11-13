@@ -1,0 +1,187 @@
+{
+  "schema": "726-post5f6a-peer-transports-v1",
+  "parent_checkpoint": "5f6a6e829dca0f8b2a5efff9b6f17fab5db71ae0",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "application-review",
+      "file": "application-review.tar.gz",
+      "source_manifest_sha256": "3fecc064492e45fa2a39c91eca43856988465877b405c946611160c9fff85c69",
+      "manifest_member": "application-review/MANIFEST.json",
+      "archive_bytes": 16805,
+      "archive_sha256": "25f14426fab2725bafb671e9be37b778442c202fd4a8d9d24290c1ec84687f4c",
+      "members": [
+        {
+          "path": "application-review/MANIFEST.json",
+          "type": "file",
+          "bytes": 2161,
+          "sha256": "3fecc064492e45fa2a39c91eca43856988465877b405c946611160c9fff85c69",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/REPORT.json",
+          "type": "file",
+          "bytes": 3207,
+          "sha256": "d027bf671fe4690a20d295b8f990d0b5cff925b5ee083fcd5154c45402901871",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/REPORT.md",
+          "type": "file",
+          "bytes": 1316,
+          "sha256": "f2ff1f324d18f3e9936869968a68382776143a1def164e3319c4275aaa894005",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/STRUCTURE-CHECK.json",
+          "type": "file",
+          "bytes": 2016,
+          "sha256": "182f0867b666dab5962efb088514429d84c3515f121d33463325c5dc95c96381",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/V4-CHECK.json",
+          "type": "file",
+          "bytes": 491,
+          "sha256": "36eaa8e95ae086cf48ac1948f58d0700d131f6f0320678d3ce7392ce6893a1b0",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/VERIFY.py",
+          "type": "file",
+          "bytes": 1348,
+          "sha256": "67253f4e91dc6ac85f8e8466bec968cd7b0ff69486fb86c770ff6b1abdfc46aa",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4",
+          "type": "directory",
+          "mode": "0o775"
+        },
+        {
+          "path": "application-review/captured-v4/CORRECTION.json",
+          "type": "file",
+          "bytes": 1332,
+          "sha256": "87a237e818374f8a0110e8a15248076fcec39aee1f1b3daa6061d15b26df4da4",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/DRAFT.json",
+          "type": "file",
+          "bytes": 26000,
+          "sha256": "5e5d9f9f91a5bacfdd09b75aaa9c775164a65bcd519a11e35eb3d97ca65ce43a",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/INPUTS.json",
+          "type": "file",
+          "bytes": 1523,
+          "sha256": "8b8afd448f9b270dc4118fbfa980d291ed32efec1faaabe71d86a01f959846b7",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/MAIN-RECHECK-20261113-0536.json",
+          "type": "file",
+          "bytes": 773,
+          "sha256": "d54a66274a8d64235cc64d2cfe09b27ae735c4c50d5d91579b6e3cd9065caf25",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/PREPARE.py",
+          "type": "file",
+          "bytes": 6557,
+          "sha256": "77ed663764ece8c467831dc3b74af635b9d07c60f3e79b7fe8c9d4dff61fbfa0",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/PREVIEW.json",
+          "type": "file",
+          "bytes": 1471,
+          "sha256": "f1ff95d2b5a527c6b0af25f91232ebf7d555330da6c322418119a9749d176662",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/PREVIEW.py",
+          "type": "file",
+          "bytes": 1637,
+          "sha256": "6c7e23b6dd2cccf3ded443f852c76ced7cf704eae73fc1eed29274858c6107e7",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review/captured-v4/TRANSFORM.py",
+          "type": "file",
+          "bytes": 8854,
+          "sha256": "ba5e3d360e27fc195f283062a37a73d0961055f0450c7922aa3975ff0340cf7b",
+          "mode": "0o664"
+        }
+      ]
+    },
+    {
+      "label": "application-review-receipt",
+      "file": "application-review-receipt.tar.gz",
+      "source_manifest_sha256": "e061916776239b399c1774d087feb49b6b3c239b7b285b94fe713d43d60068ea",
+      "manifest_member": "application-review-receipt/MANIFEST.json",
+      "archive_bytes": 2725,
+      "archive_sha256": "3c22865582e7f15aa01e732fb4eeec0d7d074011c9b91d8464d6489fa32a1565",
+      "members": [
+        {
+          "path": "application-review-receipt/059-SCAN.json",
+          "type": "file",
+          "bytes": 862,
+          "sha256": "67d7893cd109961f757dae45912d6e09e8090f01e3bd04f75b0970230a55ff6f",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/GPU-SCAN.json",
+          "type": "file",
+          "bytes": 1037,
+          "sha256": "5cdb796dbc103f89a114622a5ed3c82b8f13dc1f9da5bb20a4f429a8373f488e",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 1145,
+          "sha256": "e061916776239b399c1774d087feb49b6b3c239b7b285b94fe713d43d60068ea",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/PUBLIC-REPLAY.json",
+          "type": "file",
+          "bytes": 166,
+          "sha256": "184e23ac4ff59e64e568d4a724e3d340973b2503c545be9d45ea5a069575e104",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/Q2332-SCAN.json",
+          "type": "file",
+          "bytes": 851,
+          "sha256": "ed948c95b0122c4e52eeb901a48daf939904c90bd18a53963e20e2ccdb0de588",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/REPORT.json",
+          "type": "file",
+          "bytes": 381,
+          "sha256": "8c2637e07b3b7d163cce9dab44375c278299fab1ffb27e922407300b00c2e2ca",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/SCAN-RESULT.json",
+          "type": "file",
+          "bytes": 320,
+          "sha256": "478280a88291db5ed8f74d937ce9b0e8e39b645ecbd97ef122d7dc150d2702c2",
+          "mode": "0o664"
+        },
+        {
+          "path": "application-review-receipt/VERIFY.py",
+          "type": "file",
+          "bytes": 1258,
+          "sha256": "139fe4a6f16bac7de0d9cb0fa0069b98a0441634d19050a193b0d03abc26091e",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact public file bytes and contained file/directory modes. Independently attributed source and peer reviews retain their historical and conditional limits; restricted originals, previous candidates, same-machine keys and anchors remain separate. The review assesses the private v4 application preview, with its four public-target and adopted-status preconditions still pending at review time."
+}

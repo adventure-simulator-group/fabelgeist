@@ -1,0 +1,24 @@
+{
+  "schema": "726-post5f6a-late-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "4841005b2ea486e080f3fed303a327c5dc81e5836b99e3e89c22b0ee0ba1d4db",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "524c064ed009e7f4508c0e579564d9fb83ac1c674de2ed5fe7acd4a8dae29950",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 5,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite bounded scan of three later public archive transports and their metadata. Unknown private values, encodings, Git history and later additions are outside scope.",
+  "transport_manifest_sha256": "dae95a821cccdfb98dd2f4ab7ff7a7044a018bf03d913088430747d276028339"
+}
