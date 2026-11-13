@@ -1,0 +1,53 @@
+{
+  "schema": "726-posta422-peer-transports-v1",
+  "parent_checkpoint": "a4223bf23487b5872bc5efe5b272d40f859456f2",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "bundles": [
+    {
+      "label": "projection-final-receipt",
+      "file": "projection-final-receipt.tar.gz",
+      "source_manifest_sha256": "e5a470772e532a9f79a99e2fba41ea9b643bfaf80e0c979ea3c874253ecd3a63",
+      "manifest_member": "projection-final-receipt/MANIFEST.json",
+      "archive_bytes": 1027,
+      "archive_sha256": "4a30a7af7a4aef9493099d2dc0bb883f13a87fe91f20c73dbae06bb181363500",
+      "members": [
+        {
+          "path": "projection-final-receipt/MANIFEST.json",
+          "type": "file",
+          "bytes": 786,
+          "sha256": "e5a470772e532a9f79a99e2fba41ea9b643bfaf80e0c979ea3c874253ecd3a63",
+          "mode": "0o664"
+        },
+        {
+          "path": "projection-final-receipt/RESULT.json",
+          "type": "file",
+          "bytes": 713,
+          "sha256": "11b734ba4552b067e9bd0cfe85a37dc9dcd9c9612d79b9c4320159f735186733",
+          "mode": "0o664"
+        },
+        {
+          "path": "projection-final-receipt/SCAN.json",
+          "type": "file",
+          "bytes": 285,
+          "sha256": "e2e741a00c0f0f13764a6c7e5ead789c1b2725fb21c2f802f6f1808cbdd12d54",
+          "mode": "0o664"
+        },
+        {
+          "path": "projection-final-receipt/scan.stderr",
+          "type": "file",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mode": "0o664"
+        },
+        {
+          "path": "projection-final-receipt/scan.stdout",
+          "type": "file",
+          "bytes": 285,
+          "sha256": "e2e741a00c0f0f13764a6c7e5ead789c1b2725fb21c2f802f6f1808cbdd12d54",
+          "mode": "0o664"
+        }
+      ]
+    }
+  ],
+  "qualification": "Exact public file bytes and contained file/directory modes. Independently attributed reviews, restricted originals, q2812 anchors and same-machine key custody remain separate. The independent projection review receipt does not update the central ledger or transfer source-read credit."
+}

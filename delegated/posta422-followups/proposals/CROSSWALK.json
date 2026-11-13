@@ -1,0 +1,34 @@
+{
+  "schema": "726-posta422-proposal-reconstruction-v1",
+  "rows": [
+    {
+      "public_file": "Q10-Q13-v2.json",
+      "restricted_original_sha256": "61fd2079860f8b6f0bc2a975d7ee6f2f1c1747dd7207a8deb5d513bc91f63eb9",
+      "public_sha256": "1e4f8bc88f7de6bc3fd0d6e4994349255caa1e5a984c39b350caa00591650b7d",
+      "reconstructed_fields": [
+        "/partial_queue_assessments/0/delegate",
+        "/partial_queue_assessments/0/coordinator",
+        "/partial_queue_assessments/1/delegate",
+        "/partial_queue_assessments/1/coordinator"
+      ],
+      "qualification": "Only attribution labels are reconstructed for public safety; exact original values and bytes remain in authenticated restricted custody. The same pseudonym denotes the same original delegate across these two records."
+    },
+    {
+      "public_file": "ROLE0057-v3.json",
+      "restricted_original_sha256": "7526a7280d08ebddcca91471961dc1604e627b655f3cce8526524e7c5d277bab",
+      "public_sha256": "c13804d0db9a6b655a5847436a73561e90f21ba3f98c02290161ae1a196c24e1",
+      "reconstructed_fields": [
+        "/partial_queue_assessments/0/record/delegate",
+        "/partial_queue_assessments/0/record/central_reviewer",
+        "/partial_queue_assessments/1/record/delegate",
+        "/partial_queue_assessments/1/record/central_reviewer",
+        "/partial_queue_assessments/2/record/delegate",
+        "/partial_queue_assessments/2/record/central_reviewer",
+        "/partial_queue_assessments/3/record/delegate",
+        "/partial_queue_assessments/3/record/central_reviewer"
+      ],
+      "qualification": "Only attribution labels are reconstructed for public safety; exact original values and bytes remain in authenticated restricted custody. The same pseudonym denotes the same original delegate across these two records."
+    }
+  ],
+  "qualification": "Path-safe parsed-value projections, not byte-identical originals. No queue or ledger adoption, new unique count, product repair or validation is claimed."
+}

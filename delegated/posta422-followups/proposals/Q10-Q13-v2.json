@@ -1,0 +1,127 @@
+{
+  "schema": "726-posta422-q10-q13-central-proposal-v1",
+  "created_utc": "2026-11-13T04:36:19.865891+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "a4223bf23487b5872bc5efe5b272d40f859456f2",
+  "status": "Corrected proposal only; independent q13 successor review and later reconciliation required.",
+  "partial_queue_assessments": [
+    {
+      "queue_index": 10,
+      "historical_lens": 13,
+      "historical_contract_id": "LENS13-DURABILITY-TIER-INTERMEDIATE-OVERFLOW",
+      "delegate": "reviewer-q10-role0057",
+      "coordinator": "central-coordinator",
+      "proposed_status": "partial; no semantic queue or lens closure",
+      "assessment": "With quality 1, authored fracture threshold 100 and the 0.65 quality multiplier, a finite stress of 10000 exceeds the u8 range after doubled overload and saturating float-to-u8 conversion. The addition 3 + 255 occurs before min(5); overflow-check-enabled arithmetic can fail before producing a DamageEvent. Unchecked wrapping yields tier 2 there, but the selected apply_impact consumer clamps it to quality 1, so this buckler witness alone does not establish a changed stored damage bin.",
+      "source_refs": [
+        "crates/adventuresim-core/src/durability.rs:196-265",
+        "content/items/catalog.yaml:1124-1188",
+        "crates/adventuresim-core/src/item_catalog_validation.rs:1148-1215",
+        "crates/adventuresim-core/src/mission.rs:9-15",
+        "crates/adventuresim-stdb-module/src/tactical.rs:1037-1129,1142-1183,1190-1223,1246-1275",
+        "crates/adventuresim-stdb-module/src/repair.rs:558-600"
+      ],
+      "conditions": "The receipt accepts finite stress through 10000 only subject to separate participant, custody and equipment-role checks; application also needs the matching stored definition and condition. The selected authored item meets displayed local validation predicates, but full catalog build/deployment, actual producer reach, overflow-check settings and product outcomes remain unproved.",
+      "historical_relationship": "Original 059 q10 and its original ledger finding already describe this same operation. The separately attributed PL13-163 canonical-alias qualification, physical-p16 read, historical premature zero-credit read, corrected reread and EOF prose, and nested pending-root-adoption language remain as recorded. Current ledger row 390 concerns contact-role retention and is related, not an automatic alias. No additional unique defect count. The physical-p16 source is a recovered dirty snapshot, not a clean a120 tree. The normalized 774 transport, missing pre-export originals, SOURCE004 and the 73 nontext/no-positive-EOF contracts retain their separate recovery limits.",
+      "delegate_public_manifest_sha256": "2d13f6380ece1a5d580bb05056d79bf0c8c7e35d9173cdff1203075686042cd6",
+      "custody_qualification": "The delegate’s separately sealed additive custody correction has manifest SHA-256 15c0150f1690cd72ab06baf25cc5d41ce141294160d29d9bb7af22f6c29f6a6f. Its earlier public-v1 preflight failed on a transcribed historical-ledger hash, and its original private attachment verifier later failed on a transcribed replay-manifest hash; both unchanged failures and corrections are retained. Their initial tool-visible tracebacks were not separately captured byte-for-byte.",
+      "independent_review_manifest_sha256": "37b32431c78f847cfd78e9ce444492d7fa7510da2445635d0ee861b5131a5489"
+    },
+    {
+      "queue_index": 13,
+      "historical_lens": 12,
+      "historical_contract_id": "LENS12-PROJECTILE-ID-SUBSTRING",
+      "delegate": "reviewer-q13",
+      "coordinator": "central-coordinator",
+      "proposed_status": "partial; no semantic queue or lens closure",
+      "assessment": "The selected strategic equipment path picks a held ranged weapon and chooses Ball when its open item ID contains the case-sensitive substring arquebus, otherwise Arrowhead. Two selected authored ranged arquebus IDs match the predicate; no wrong stock result or admitted alternative with different intended projectile is established. The selected kind can flow to ranged battle logging under the applicable attack conditions.",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/capability.rs:278-296,347-380,510-530",
+        "crates/adventuresim-core/src/projectile.rs:1-10",
+        "crates/adventuresim-stdb-module/src/item.rs:77-109,140-150,221-251",
+        "crates/adventuresim-core/src/item_catalog_validation.rs:362-370,1447-1453",
+        "content/items/catalog.yaml:2381-2442,4008-4069",
+        "crates/adventuresim-core/src/autoresolve.rs:780-814,995-1031",
+        "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs:155-178"
+      ],
+      "conditions": "The related exact arrow ammunition count and consumption have separate first operations. The delegate traced generic allied retained-injury and corpse projection paths but did not establish that this specific item-derived kind reaches an allied retained injury; the selected post_combat_body mapping stores presence, not kind. Supported catalog alternatives, projectile policy and end-to-end reach remain open.",
+      "historical_relationship": "Original q13 itself has no recorded source identity, range or reader. Its separately recovered historical Lens12 receipt records a full physical-p16 read and different earlier projection file; the original ledger names the receipt path without a recorded receipt digest. q1009/q1011, partially assessed q1872, and current ledger rows 388/394 have separate first questions and attributions, not automatic aliases. Normalized 774 is not a pre-export original.",
+      "delegate_public_manifest_sha256": "34bb95f97afda3dc67c0121de54227fbc7e7d5d3cd86f845e84a9c920581996b",
+      "delegated_support_refs": {
+        "attribution": "The q13 delegate and independent q13 reviewer separately registered and displayed the relevant support windows. These references do not extend the coordinator’s own listed source-display credit.",
+        "refs": [
+          "crates/adventuresim-stdb-module/src/capability/combatant.rs:43-81",
+          "crates/adventuresim-stdb-module/src/strategic/encounters.rs:976-1000,1018-1055",
+          "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:198-234",
+          "crates/adventuresim-stdb-module/src/surgery.rs:257-273,312-326",
+          "crates/adventuresim-core/src/autopsy.rs:104-123"
+        ]
+      },
+      "related_unassessed_question": "The independent q13 reviewer separately noted that the selected exact-arrow count excludes fireplace-rooted rows while the selected exact-arrow consumption lookup has no displayed ancestry filter. The character/item index has no location component, but supported such rows, iteration order and any consumption outcome remain unproved. This is adjacent work with a distinct first operation, not an accepted alias or count.",
+      "related_question_delegated_refs": [
+        "crates/adventuresim-stdb-module/src/item.rs:40-57",
+        "crates/adventuresim-stdb-module/src/inventory_container.rs:124-151",
+        "crates/adventuresim-stdb-module/src/capability.rs:366-380",
+        "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs:155-178"
+      ]
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-durability-tier-intermediate-95e",
+      "lens": 13,
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/10",
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/LENS13-DURABILITY-TIER-INTERMEDIATE-OVERFLOW",
+        "READ-PL13-163 canonical-alias qualification"
+      ],
+      "current_related_records": [
+        "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/390"
+      ],
+      "classification": "The pinned pre-cap addition can overflow for the specified admitted numeric bounds and authored profile, conditional on supported receipt, stored item and condition. The quality-1 witness does not prove a changed stored bin.",
+      "connected_repair_direction": "Trace supported contact generation and receipt admission, then decide the intended bounded tier arithmetic and quality-cap behavior while preserving existing condition semantics.",
+      "relationship_qualification": "Historical exact-operation evidence retained; ledger390 is separate contact-role context. No new unique finding or product outcome is accepted.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "relationship-projectile-item-name-classification-95e",
+      "lens": 12,
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/13",
+        "baseline-059/queue.json#/entries/1009",
+        "baseline-059/queue.json#/entries/1011",
+        "baseline-059/queue.json#/entries/1872"
+      ],
+      "current_related_records": [
+        "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/388",
+        "BASELINE-95E-20261110.json#/newly_assessed_ledger/entries/394"
+      ],
+      "classification": "A selected ranged weapon ID substring chooses a typed projectile kind; displayed stock IDs match the branch and no incorrect supported outcome is established.",
+      "connected_repair_direction": "Determine the authored projectile and ammunition contract, supported item admission and consumers before selecting a capability owner or changing behavior.",
+      "relationship_qualification": "Adjacent exact ammunition ID and historical projectile records are related but separate first questions; no alias or unique count is inferred.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "central_registration_sha256": "ee6681ef4771b8a384b254a4ee94a378a367eafe249fb1f895d79ffbd61a39d5",
+  "central_supplement_registration_sha256": "883baa63455f47bb40cc2a822f1c2f336dc1838eb8f9a918206aecc1bd81b928",
+  "central_read_receipt_sha256": "3d9b9c0dfbb55679e2870da90884b2a781eea27b7654d0b93a06fc7e524ff182",
+  "counts": {
+    "queue_records": 3713,
+    "partial_before": 1364,
+    "unassessed_before": 2349,
+    "proposed_partial_additions": 2,
+    "proposed_planning_relationships": 2,
+    "accepted_unique_defect_increment": 0,
+    "semantic_queue_closures": 0,
+    "lens_completions": 0
+  },
+  "qualification": "Source-only bounded proposals. Original 059 and reconstructed full streams differ; q10 and q13 selected entries match as parsed per independently attributed delegate evidence. Historical source identities and reader credits remain distinct. Missing checkpoint3821 and 73 nontext/no-positive-EOF contracts remain open. No product execution, repair, build, test or runtime probe.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "predecessor_sha256": "d78774d4c9bb446ca83d0ae2e410af71653539bff56b5dfdbe0bde91404ef6ba",
+  "corrected_created_utc": "2026-11-13T04:54:58.787458+00:00",
+  "timestamp_qualification": "The earlier created_utc remains predecessor metadata, not this corrected successor creation time.",
+  "review_qualification": "An independently attributed q10 review is sealed under public manifest 37b32431c78f847cfd78e9ce444492d7fa7510da2445635d0ee861b5131a5489 and found no material source correction to v1 while identifying custody and history qualifications. An independent q13 v1 review reported no blocking contradiction and requested citation and scope refinements; its final sealed identity and review of this successor remain pending."
+}

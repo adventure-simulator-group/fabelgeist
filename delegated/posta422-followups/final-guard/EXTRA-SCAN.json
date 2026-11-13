@@ -1,0 +1,24 @@
+{
+  "schema": "726-posta422-staged-extra-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "fa4bc5445f0978c8265b80ca7b0bf7d18fd6c3be26bf7ac418cf2a09ac5883f1",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "dc214bf12f8a769a401b8da5dd229b0d158827a09d49923a764cea01c8b654ad",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 8,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite bounded scan of the eight separately captured staged additions. Ciphertext is opaque; unknown private values, encodings, Git history and later additions are outside scope.",
+  "capture_sha256": "c675ba9ad6ff60652f2ce6b3eb30ccc096153a5aaa256c89b91ab936fb328e8e"
+}

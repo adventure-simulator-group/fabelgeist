@@ -1,0 +1,24 @@
+{
+  "schema": "726-posta422-frozen-public-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "c1dac214db71b9d977cea99645350f9edb479b4d735af70b618763fbe4c3adb9",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "76a287e00a572b7bf1b4a24b49c072960a9c97dc10019710b1af6dda2d64f81d",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 135,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Finite bounded scan of the exact 135-file captured public snapshot. Ciphertext is opaque; unknown private values, encodings, Git history and later additions are outside scope.",
+  "capture_sha256": "4f33aeb5ee4ebce930de41795bc6cd724219d6a4991832250f4b0e47ebbd740d"
+}

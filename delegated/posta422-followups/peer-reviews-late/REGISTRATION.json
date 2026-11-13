@@ -1,0 +1,25 @@
+{
+  "schema": "726-posta422-late-peer-registration-v1",
+  "created_utc": "2026-11-13T05:03:44.156473+00:00",
+  "parent_checkpoint": "a4223bf23487b5872bc5efe5b272d40f859456f2",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "packets": [
+    {
+      "label": "q13-successor-review",
+      "manifest_sha256": "4144156e8492b30b828bf1f93ae5e7072afbf38b15a1706f986f6a7ebe07b039"
+    },
+    {
+      "label": "q13-successor-receipt",
+      "manifest_sha256": "7e6c6a1fe9b746dd1f8d1e7724a02839256ccfb5c2c4af346dd6c7da3c4d9b4e"
+    },
+    {
+      "label": "role0057-v3-review",
+      "manifest_sha256": "0f320c9ccd8c85f87b6cc168e611dac228da9f302af7ced841e39d60012890fe"
+    },
+    {
+      "label": "role0057-v3-receipt",
+      "manifest_sha256": "40c9c353b83cdf0a43e459da4ed21fec79f36dd2975a1613d29816fb57fee4b4"
+    }
+  ],
+  "qualification": "Independent successor reviews were sealed after the earlier peer-review cutoff; their queue records remain unassessed until central reconciliation. Recovered originals, reconstructed records, historical summaries and new assessments remain distinct; checkpoint3821 is missing."
+}

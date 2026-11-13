@@ -1,0 +1,16 @@
+{
+  "schema": "726-a422-remote-evidence-replay-v1",
+  "exit": 0,
+  "started_utc": "2026-11-13T04:30:23.206918+00:00",
+  "finished_utc": "2026-11-13T04:40:57.704144+00:00",
+  "transcript_bytes": 198521,
+  "transcript_lines": 2175,
+  "transcript_sha256": "c17a90cdf69460cf23080fb8ca83df0cc93310af83c93787e8d15049c1a9a429",
+  "direct_child_assertion_preflight": {
+    "assertions_enabled": true,
+    "optimization_level": 0
+  },
+  "qualification": "Evidence-only driver on the separately fetched a422 checkout; root verifier discovery now includes later additions, so its transcript need not equal the earlier 173-path run. Direct-child assertion preflight does not establish nested interpreter flags, full privacy, independent custody, checkpoint3821 recovery, product behavior or audit closure.",
+  "prior_173_transcript_sha256": "512eb65c50fca29d1bd4fc40d285635fc22b37f151770ffd12f4566fe5f3b665",
+  "byte_identical_to_prior_173_transcript": false
+}

@@ -1,0 +1,6 @@
+{
+  "schema": "726-posta422-landing-correction-v1",
+  "predecessor_sha256": "44745ecd9c30b197dd01630fa6dadc3b681fa2c35a92153fa0d8a72fc90572f0",
+  "successor_sha256": "b720bb4904c1466cfadc3699062bac4cc2f913b5724270d5ee6533ae04e52104",
+  "qualification": "Replaces an incorrect pointer to undocumented commands with actual evidence-only commands. The initial attempt created an exact predecessor copy then failed its line-width assertion before changing the landing; its traceback was tool-visible but not separately captured. No baseline, ledger, queue, repair or validation claim changes."
+}

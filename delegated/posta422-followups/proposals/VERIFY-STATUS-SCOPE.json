@@ -1,0 +1,6 @@
+{
+  "schema": "726-posta422-review-status-verifier-scope-v1",
+  "verifier": "VERIFY-STATUS.py",
+  "verifier_sha256": "e57c61805bef21fd7982ce9e7077e78a8888a2b3a0d063f8306dd785a985a7f5",
+  "qualification": "The preserved verifier checks proposal and public-review manifest identity bindings; despite its original success text, it does not itself establish chronological ordering. The ordering described in REVIEW-STATUS.json comes from separately captured local filesystem metadata and reviewer records, whose times are not independently trusted. This clarification changes no proposal, source assessment, ledger count, queue state, repair or validation claim."
+}
