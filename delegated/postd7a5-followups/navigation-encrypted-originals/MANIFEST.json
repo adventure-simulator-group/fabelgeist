@@ -1,0 +1,31 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "navigation-review-and-recovery-logs",
+      "ciphertext": "navigation-review-and-recovery-logs.aesgcm",
+      "ciphertext_sha256": "de6d9f0516791fc6ecaf8851c60c10517690abb085703a5ec3a7c89220d73393",
+      "ciphertext_bytes": 6730811,
+      "plaintext_archive_sha256": "67e47aa868e4c0c1bc863255b9014f50980c929cf00ca115d937b49cd951b078",
+      "plaintext_archive_bytes": 6730783,
+      "regular_files": 141,
+      "directories": 20,
+      "associated_data": "726-audit-private-evidence:navigation-review-and-recovery-logs:v1"
+    },
+    {
+      "label": "navigation-encryption-control",
+      "ciphertext": "navigation-encryption-control.aesgcm",
+      "ciphertext_sha256": "6af4e9137af1f6ac32402d02df4bb04089533a06e7e0cf942653b320f55bb6c5",
+      "ciphertext_bytes": 2625,
+      "plaintext_archive_sha256": "01db94a3963f9073324dd12eaec58b7e26973a4e90ad96ebe888f11c66b5c6ec",
+      "plaintext_archive_bytes": 2597,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:navigation-encryption-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and original nested packet keys remain separately documented dependencies.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

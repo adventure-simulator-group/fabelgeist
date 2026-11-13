@@ -1,0 +1,34 @@
+{
+  "schema": "726-postd7a5-scan-candidate-classification-v1",
+  "captured_staged_files": 139,
+  "staged_capture_sha256": "32dfb31245ae82c1a71a362e0a9edaf81d4cfe742de3a3c062bbfbe439248ad1",
+  "digest_scan_sha256": "94fc85795ca33d9d0c7778446e6f9bee378629af0906c949027c9f6bb72f710b",
+  "tar_scan_sha256": "d4ff40f01da449e339a2be56200c30cd82f588d19fb55a8eb6833f17c66fb079",
+  "forbidden_digest_matches": 0,
+  "other_path_pattern_candidates": 4,
+  "scanner_literal_candidates": [
+    {
+      "path": "delegated/postd7a5-followups/application-review/SCAN.py",
+      "sha256": "4c6d1373e812f71ff22ff8178d4bf0800f4732a27b79f1ba9f565a47e4fc2720",
+      "classification": "The single match is the generic temporary-path prefix used in this scanner's own regular expression, not an actual local path."
+    },
+    {
+      "path": "delegated/postd7a5-followups/navigation-review-v1/SCAN.py",
+      "sha256": "fe55b9d76a50cbaa91802a1ead197b785b6e4964446721104481e502b0b7d834",
+      "classification": "The single match is the generic temporary-path prefix used in this scanner's own regular expression, not an actual local path."
+    },
+    {
+      "path": "delegated/postd7a5-followups/navigation-review/SCAN.py",
+      "sha256": "54186336d677749beaeff34e1a0b977fc903276d9a753990dd4493cbd90d4ad7",
+      "classification": "The single match is the generic temporary-path prefix used in this scanner's own regular expression, not an actual local path."
+    },
+    {
+      "path": "delegated/postd7a5-followups/package-review/SCAN.py",
+      "sha256": "79d6de6b99e268e55831499ffc3e799d27575b9af84b2cbe2b540ad19c09290d",
+      "classification": "The single match is the generic temporary-path prefix used in this scanner's own regular expression, not an actual local path."
+    }
+  ],
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "The original scan output is retained unchanged. This classification is limited to the four exact scanner-source matches in the captured 139-file snapshot; ciphertext is opaque and unknown private values, encodings and unscanned history remain outside the scan. Later evidence additions require their own staged scan."
+}

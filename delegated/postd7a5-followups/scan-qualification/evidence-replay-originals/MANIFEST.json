@@ -1,0 +1,31 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "driver-evidence",
+      "ciphertext": "driver-evidence.aesgcm",
+      "ciphertext_sha256": "e9b1576f6a149260cabaccda3632c33760b7b5e1711d6364095e9fd8d0f61b67",
+      "ciphertext_bytes": 46850,
+      "plaintext_archive_sha256": "ef5fc4c3484c4f6f483e3d42e41fdb136062e698d4b10a7475ee69b258e3f2b2",
+      "plaintext_archive_bytes": 46822,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:driver-evidence:v1"
+    },
+    {
+      "label": "driver-encryption-control",
+      "ciphertext": "driver-encryption-control.aesgcm",
+      "ciphertext_sha256": "ba0173efa69d2fc50d2a7a180559a12aedc50383d06bd40a005ff64400e691de",
+      "ciphertext_bytes": 2641,
+      "plaintext_archive_sha256": "65964747de483c34ff7d022b0421d93b464470577ee3606b3a197dd34c4990de",
+      "plaintext_archive_bytes": 2613,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:driver-encryption-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and original nested packet keys remain separately documented dependencies.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

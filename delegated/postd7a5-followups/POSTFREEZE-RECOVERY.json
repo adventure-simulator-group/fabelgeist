@@ -1,0 +1,17 @@
+{
+  "schema": "726-postd7a5-postfreeze-restoration-v1",
+  "encrypted_originals": "postfreeze-encrypted-originals/",
+  "same_machine_keyless_identity_exit": 0,
+  "same_machine_authenticated_restore_exit": 0,
+  "restored_physics_private_replay_exit": 0,
+  "restored_color_private_replay_with_prior_anchors_exit": 0,
+  "restored_application_review_retry_exit": 0,
+  "physics_root_mode_adjustment": "The archive preserves contained paths and modes but not the top source directory mode. In the fresh private restore, the physics evidence root was set to 0700 before its verifier checked root and contained directory modes.",
+  "application_review_first_attempt": {
+    "exit": 1,
+    "reason": "The invocation omitted the required --public argument; the verifier reported that --public, --stage and --repo must be supplied together.",
+    "stderr_sha256": "9dc481241258caf2b977f3cba15732f631f329d101470e232f55d4daa12cd01c",
+    "retry": "The successor invocation supplied all three arguments and passed; original stderr and retry outputs remain restricted."
+  },
+  "qualification": "Restoration and evidence replay used the separately held same-machine key and prior authenticated q2812 anchors. This is not independent custody, full history or privacy, checkpoint 3821 recovery, product behavior, or audit closure."
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "726-postdac7-precommit-v4",
+  "parent": "dac7d0055716053f245139971eb67ddfd87fa462",
+  "staged_files": 417,
+  "aggregate_names_modes_and_sha256": "a6fe86f9da57a53edc555ccdd6430232395612a71d23d43df1e0946e48d62983",
+  "staged_capture_sha256": "fd2c1a02022baffcda18242dd5dd993c80ed7876720ec979a8d621c4481346c5",
+  "index_capture_worktree_match": true,
+  "unstaged_or_untracked_files": false,
+  "strict_diff_check_exit": 2,
+  "strict_diff_stdout_sha256": "d8e49d3a318d0d0cfb57c05bc455fe6685eece1c78e1751a3e4c0b11740bf5c2",
+  "recorded_exact_exception_files": 25,
+  "excluded_remainder_exit": 0,
+  "driver_exit": 0,
+  "driver_transcript_sha256": "3815a8d5a4ab65f42c3cba201ac928e6e9482ecf8cc01441cef75f57907564cb",
+  "direct_child_assertion_preflight": {
+    "assertions_enabled": true,
+    "optimization_level": 0
+  },
+  "staged_scans_exit_zero": true,
+  "main_observation": {
+    "schema": "726-main-observation-v1",
+    "ref": "refs/heads/main",
+    "method": "GitHub connector fetch branches/main API",
+    "before_utc": "2026-11-12 23:54:15 UTC",
+    "after_utc": "2026-11-12 23:54:16 UTC",
+    "observed_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "observed_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "qualification": "Time-bounded connector observation; not a claim that main remains unchanged afterward."
+  },
+  "qualification": "Time-bound same-machine evidence integrity only. Strict diff check did not pass; 25 unchanged source/receipt files have recorded whitespace. Ciphertext opacity, nested-child flags, independent custody, full privacy, product behavior and audit closure remain qualified."
+}

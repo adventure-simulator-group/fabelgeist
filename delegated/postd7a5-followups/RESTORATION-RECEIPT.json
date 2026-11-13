@@ -1,0 +1,39 @@
+{
+  "schema": "726-postd7a5-restoration-receipt-v1",
+  "checkpoint_parent": "d7a5e77ebdbd44a05cde30881493d6fc22ef025d",
+  "authenticated_collections": 17,
+  "regular_files": 5426,
+  "directories": 405,
+  "steps": [
+    {
+      "stage": "keyless ciphertext identity",
+      "exit": 0
+    },
+    {
+      "stage": "same-machine primary-key authenticated restoration into a new destination",
+      "exit": 0
+    },
+    {
+      "stage": "prior primary-key authenticated restoration into a different new destination",
+      "exit": 0
+    },
+    {
+      "stage": "restored current raw Git proof",
+      "exit": 0
+    },
+    {
+      "stage": "34 captured source views and selected historical queue membership against both restored earlier full queue anchors",
+      "exit": 0
+    },
+    {
+      "stage": "q3207 restored inner-key packet authentication and evidence replay",
+      "exit": 0
+    },
+    {
+      "stage": "consolidated review restored inner-key packet authentication and evidence replay",
+      "exit": 0
+    }
+  ],
+  "failed_initial_command": "The shell could not find python (exit 127) before the restoration wrapper started. No restoration path was created by that command; its tool-visible output was not separately saved. The successor used python3.",
+  "qualification": "Same-machine evidence recovery using separately held primary key, earlier q2812 anchors and wrapped nested keys. This does not establish independent custody, complete historical recovery, product behavior, universal privacy, checkpoint 3821 recovery, or lens and queue closure. Ciphertexts are opaque to privacy scans. Exact current command outputs remain restricted."
+}

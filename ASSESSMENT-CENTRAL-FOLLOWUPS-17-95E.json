@@ -1,0 +1,402 @@
+{
+  "schema": "726-postd7a5-central-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "d7a5e77ebdbd44a05cde30881493d6fc22ef025d",
+  "created_utc": "2026-11-13T00:05:19.388113+00:00",
+  "status": "Independently reviewed bounded source assessments and planning relationships for the d7a5 successor. Six records are partial, two observations are context only, and every related semantic queue obligation remains open.",
+  "partial_queue_assessments": [
+    {
+      "source_group": "owner",
+      "record": {
+        "queue_index": 2945,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0020-LENS-02",
+        "historical_lens": 2,
+        "delegated_reviewer": "/root/wrapped_scope",
+        "central_reviewer": "/root",
+        "assessment": "The selected binding retains CityPropertyId, PropertyMembers, SupportElevation, a descriptor-specific digest, typed elements and contextual typed causes. Its selected constructor and wire admission validate owner shape; scene validation compares property/front, fixed element order and descriptor digest, while cell validation imposes an upper bound and checks element presence in both directions; it does not establish an exact cell count or per-element multiplicity. These checks do not prove every supported cell geometrically or materially corresponds to its descriptor. No new existing-owner mismatch or actual reachable failure is established in this bounded source scope.",
+        "source_refs": [
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs:6-15,17-48,51-124,134-172,175-209",
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs:21-50",
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:4-63"
+        ],
+        "history": "Original 059 q2945 is pending with zero historical own-lens body/population credit. Hash-cited q2368, original READ-ROOT-L2-EXT-021-033 rows 0 and READ-ROOT-L2-CURRENT-008 row 0 record Root fresh 6533 lines 1-209 and qualified e275 same-lens reuse with no fresh e275 personal range. These are a same-lens qualification candidate, not checkpoint3821 or another reviewer’s credit. The q2945 delegate separately displayed all 209 lines at 6533, e275 and 95e; root displayed only selected 95e ranges. Same file blob is not whole-tree identity. The delegate retracted an initial path-absence inference after finding the local Git objects unavailable; failed lookups, truncated metadata and a proof-metadata read before separate registration remain qualified in its packet.",
+        "relations": "q2368 scoped no-owner-mismatch disposition and dac7d relationship-enclosure-descriptor-cell-owner-95e are related; q1493 descriptor/gate and ADLER-L11-SUPPORT-BINDING-ERROR-ROLE retain their original scopes. dac7d immutable ledger row 320 contact-only aggregate is a distinct question; 320 is a ledger-row index, not queue entry 320. No automatic global alias or unique count.",
+        "open_questions": [
+          "Supported descriptor-to-cell geometry/material correspondence and producers",
+          "Native outcomes, policy and exact aliases",
+          "Remaining own-lens population and cross-lens queue obligations"
+        ]
+      }
+    },
+    {
+      "source_group": "owner",
+      "record": {
+        "queue_index": 2957,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0021-LENS-02",
+        "historical_lens": 2,
+        "delegated_reviewer": "/root/wrapped_scope",
+        "central_reviewer": "/root",
+        "assessment": "The frame-neutral prism helper checks finite individual points and finite sum, exact paired plan coordinates, and ordered noncollapsed height. Its face selection preserves zero-area contact as no solid and reverses negative winding. The enclosure caller retains Position<GateRelative> until its native port. The foundation caller admits Position<Scene> but converts and retains positions and cut faces as native Vec3; a selected internal projection consumes retained positions to form GroundTriangle before the collider boundary. This is a bounded owner/propagation question because Position<Scene> exists upstream, while the mesh explicitly documents native scene-metre storage and exposes native-vector APIs. No incorrect state, supported failure, global migration gap or new unique defect is established.",
+        "source_refs": [
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs:5-58",
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs:24-62,227-252",
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:73-124,133-188",
+          "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:25-34",
+          "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:9-29,54-88",
+          "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs:20-42"
+        ],
+        "history": "Original 059 q2957 is pending with zero historical own-lens body/population credit. The hash-cited Root Lens2 6533 read of admission.rs 1-58 and e275 qualified same-lens reuse, with no fresh e275 range, are a same-lens qualification candidate. The delegate independently displayed all 58 lines at all three revisions and root independently displayed the 95e body; identical file blobs do not imply identical trees. The delegate read one proof-metadata row before separate registration and retains that limitation; its unrun verifier candidate was corrected before replay.",
+        "relations": "q2369 classifies selected six/eight native arrays and zero/contact winding, while q3125, q1491/q1494 and the existing relationship-prism-centering-finite-input-95e address separate admission/native or centered-f32 first operations. The retained-scene owner question is not automatically their alias.",
+        "open_questions": [
+          "All foundation producers and consumers, native port boundaries and storage policy",
+          "Whether frame ownership should persist in retained mesh data",
+          "Preservation of finite sum, exact pairing, height, topology, zero contact and winding in any later design",
+          "Supported inputs, native outcomes and global aliases"
+        ]
+      }
+    },
+    {
+      "source_group": "language-bestiary",
+      "record": {
+        "queue_index": 3040,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0028-LENS-01",
+        "historical_lens": 1,
+        "lens_name": "producer propagation",
+        "delegated_reviewer": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "assessment": "SettlementLanguageProfile exposes four raw u16 basis-point fields while its validity predicate separately requires a 10000 vernacular total and incidence at most 1000. Geographic inference constructs the profile and the selected importer checks both validity and equality to inference. The initializer widens the three weights to the u64 required by weighted_index and retains incidence for its comparison. The existing UnitBasisPoints may be a suitable semantic leaf through some internal profile paths, but its individual bound cannot enforce the aggregate or stricter incidence rule, and its derived deserialization and required integration contracts require separate assessment. Supported alternate producers, persistence and native admission remain open; no ordinary failure, global migration gap or new defect count is established.",
+        "source_refs": [
+          "crates/adventuresim-world-schema/src/language.rs:495-512,524-562",
+          "crates/adventuresim-world-schema/src/language/initialization.rs:1-54",
+          "crates/adventuresim-world-schema/src/basis_points.rs:1-35,64-72",
+          "crates/fabelgeist-determinism/src/stream.rs:98-120",
+          "crates/adventuresim-stdb-module/src/strategic/world_import.rs:620-645"
+        ],
+        "history": "The original 059 q3040 requires Lens1 and remains pending. The delegate separately registered and displayed the complete 54-line target at 6533/e275/95e with the correct producer-propagation skill; root independently displayed the selected 95e windows recorded here. Historical Root Lens3 fresh 6533 and qualified e275 reuse retain their own attribution and do not become Lens1 credit. q3132 is a separate Lens3 raw/default zero-weight precondition; its historical type name and the current SettlementLanguageProfile naming remain distinct. Selected original/reconstructed entries match byte-for-byte while whole queue streams differ.",
+        "relations": "q3132 addresses admission to the sampler; a possible typed leaf is a separate propagation/ownership question with aggregate rules and exact aliases open. No automatic alias or new unique count.",
+        "open_questions": [
+          "Trace all supported profile producers, storage and native deserialization",
+          "Assess the type owner and framework/serialization constraints without assuming deserialization validates it",
+          "Preserve the total and stricter incidence constraints, deterministic stream identities, seed bits, and draw and weight order if future changes are authorized"
+        ]
+      }
+    },
+    {
+      "source_group": "enums",
+      "record": {
+        "queue_index": 3011,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0025-LENS-09",
+        "historical_lens": 9,
+        "lens_name": "enum shapes",
+        "delegated_reviewer": "/root/wrapped_scope",
+        "central_reviewer": "/root",
+        "assessment": "The selected region refinement uses local predicates for subresolution, curvature and edge limits, and produces exactly three optional edge midpoints per triangle. In the nonzero match arms the count establishes the selected present or absent option cases; this reasoning does not validate the map indices or geometry. The inspected PlateCell separates Ridge and Profile payloads using CellBand. No substantive new enum-shape defect is established in these selected source boundaries. Callback preconditions, topology/index validity, supported reachability and other callers remain open.",
+        "source_refs": [
+          "crates/adventuresim-weapon-model/src/construction/surface_refinement.rs:1-112,114-182,193-219",
+          "crates/adventuresim-weapon-model/src/construction/polygon.rs:9-14,190-221",
+          "crates/adventuresim-weapon-model/src/model/contoured_plate/cell.rs:3-42"
+        ],
+        "history": "Original 059 q3011 remains pending. The delegate independently displayed the full historical target at 6533/e275/95e under Lens9; root independently displayed only the selected 95e ranges. q3129 is the separately attributed Lens3 callback-admission question, q2372 is Lens2 metres/control ownership, and q1784 is an earlier reviewer Lens12 string scope. None of those foreign-lens records gives this assessment historical read credit. The selected original/reconstructed entries match while the complete streams differ.",
+        "relations": "The midpoint option-count argument is distinct from topology, numerical callback admission and error handling. q3129, q2372 and q1784 keep their own first operations and unresolved scope; no global alias or unique count.",
+        "open_questions": [
+          "Actual callback and geometry admission for supported producers",
+          "Region point/index/boundary aggregate and native numerical policy",
+          "Remaining own-lens source, current and exact alias obligations"
+        ]
+      }
+    },
+    {
+      "source_group": "enums",
+      "record": {
+        "queue_index": 3059,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0029-LENS-09",
+        "historical_lens": 9,
+        "lens_name": "enum shapes",
+        "delegated_reviewer": "/root/wrapped_scope",
+        "central_reviewer": "/root",
+        "assessment": "PartyEnrollment carries expected count in all variants and seen identities and empty duration in its active variants. Its selected advance may move Enrolling to Sealed and later in the same call return Abandoned; the selected consumer logs only the Sealed effect and commits failure on Abandoned. Whether the return is intended to enumerate all events or prioritize the terminal effect, and whether a supported state reaches the overlap, remain open. No new enum-shape defect or product incident is established in the selected scope.",
+        "source_refs": [
+          "crates/adventuresim-tactical-server/src/mission/enrollment.rs:1-122",
+          "crates/adventuresim-tactical-server/src/mission/systems.rs:191-244",
+          "crates/adventuresim-tactical-server/src/mission/mod.rs:29-50,67-99"
+        ],
+        "history": "Original 059 q3059 remains pending with no own-lens body credit. The delegate independently displayed the full 189-line source at 6533/e275/95e under Lens9; root displayed selected 95e windows only. An older nested Lens9 state identifies its pr-working scope as lines 1-125 but is not shown linked from the map-authenticated root state and names no individual reader. The separately recovered normalized 774 catalog identifies the source as 6533; source recovery alone is not coverage. Root historical Lens3 fresh 6533 and e275 qualified reuse remain foreign-lens, with the original frozen-adoption condition. No checkpoint3821 credit is inferred.",
+        "relations": "q3134 is the separately attributed Lens3 zero-grace source-conditional finding, including the e275 reuse and pending frozen-adoption qualification. A same-call seal/abandon effect-priority question is related but not automatically an alias or an additional unique defect.",
+        "open_questions": [
+          "Whether enrollment effects report every transition or intentionally prioritize abandonment",
+          "Whether supported enrollment and grace states can reach the overlap",
+          "Preserve rejoin, terminal failure and existing zero-grace policy when considering any later change"
+        ],
+        "delegate_limitations": "The delegate preserved an initially unregistered skill print followed by a prospectively registered repeat, a truncated historical display followed by selected rereads, and an exclusively created empty tree-named artifact excluded from proof."
+      }
+    },
+    {
+      "source_group": "helmet",
+      "record": {
+        "queue_index": 3166,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0036-LENS-09",
+        "historical_lens": 9,
+        "lens_name": "enum shapes",
+        "delegated_reviewer": "/root/wrapped_scope",
+        "central_reviewer": "/root",
+        "assessment": "The helmet-local CoordSurface::vertex receives a fieldless VertexKind alongside an independent three-float payload and packs them for shader use. Selected FanPoint and FanCrest callers supply distinct, matching layouts; the interface can represent a mismatched tag and layout but no selected misuse or product failure is shown. A separate cheek path writes raw [v, angle, tab, relief] coordinates and marks CHEEK_SHELL, and the selected shader source dispatches that mode before ordinary kind decoding. Any host-shape decision must account for this alternate layout and shell selector without treating the generic CoordShell API as helmet-specific. Shader and macro text were inspected only.",
+        "source_refs": [
+          "crates/fabelgeist-armor/src/gpu/helmet/surface.rs:18-95,124-170",
+          "crates/fabelgeist-armor/src/gpu/helmet/codes.rs:5-26,121-133",
+          "crates/fabelgeist-armor/src/gpu/helmet/shape.rs:199-226,475-537",
+          "crates/fabelgeist-armor/src/gpu/helmet/burgonet.rs:295-320,335-342",
+          "crates/fabelgeist-armor/src/gpu/coord.rs:31-62,161-190"
+        ],
+        "history": "Original 059 q3166 remains pending. The delegate independently displayed all 235 target lines at 6533/e275/95e under Lens9; root separately displayed only registered 95e windows. Root historical Lens2 and Lens3 and Adler Lens11 reads retain their original attributions and do not confer Lens9 credit. Normalized 774 source recovery and the separately hash-identified nested Lens9 state do not establish an individual historical reader, complete historical range or e275 read; its link to the map-verified root state remains unproved. The earlier root capture requested burgonet lines past EOF and stopped before any source-body display; a fresh corrected registration and complete untruncated displays are separately recorded. The original traceback was visible in the tool result but was not separately captured as an exact byte transcript.",
+        "relations": "q2404 is a separate historical Lens2 native-coordinate owner classification, while q3141 and immutable dac7d ledger row471 retain separate Lens3 paired-ring/fluting topology admission. q1814 is a different unresolved Lens12 scope. No global alias or new unique count is established.",
+        "open_questions": [
+          "Trace every helmet coordinate producer and shader consumer including ordinary kind and cheek-shell modes",
+          "Decide whether host variants and shell/layout coupling improve the owner without disturbing generic CoordShell users",
+          "Preserve generated code ownership, exact numeric slot encoding, side and width meanings, and cheek layout",
+          "Establish whether any mismatched supported construction exists; no GPU behavior or rendering outcome was tested"
+        ]
+      }
+    }
+  ],
+  "context_only_observations": [
+    {
+      "source_group": "owner",
+      "record": {
+        "queue_index": 2968,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0022-LENS-01",
+        "historical_lens": 1,
+        "delegated_reviewer": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "assessment": "The example stores an optional property selector as Option<u64> and strips both CityCompound and CitySingleProperty CityPropertyId fields to u64 for comparison. Omission retains all properties; a supplied value rejects a combined match count other than one. Existing CityPropertyId has the same semantic role and width, making the internal request/filter a bounded reuse candidate. CityPropertyId is a public transparent u64 and does not itself establish nonzero admission. The separate scene input digest String and imported SourcePackageDigest identify different authorities; matching hex representation does not justify substituting one owner for the other. No CLI parsing or product behavior was executed.",
+        "source_refs": [
+          "crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs:23-37,52-103,127-132",
+          "crates/adventuresim-tactical-core/src/city_layout/compound.rs:17-19,76-82",
+          "crates/adventuresim-tactical-core/src/city_layout/compiled/single_support.rs:9-16",
+          "crates/adventuresim-tactical-core/src/scene_input.rs:150-173",
+          "crates/adventuresim-world-schema/src/source_package.rs:1-44"
+        ],
+        "history": "Original 059 q2968 remains pending with zero own-lens body credit. Historical q2370, a separately attributed Root Lens2 record, already names the same selector first operation and leaves native parser adaptation and aliases open; its 6533 personal read and e275 qualified reuse do not grant Lens1 credit. The delegate independently displayed the full assigned file at 6533/e275/95e while applying the type-ownership skill. Historical Lens 1 maps to producer propagation, so that work is preserved as type-ownership analysis and does not automatically establish an independent Lens 1 assessment. Root displayed selected 95e ranges only; any root producer-propagation assessment is bounded to those ranges. q3126 is separate Lens3 admission context, and q2238 is a separate namespace question. Earlier missing-object locators, an out-of-EOF planned capture, a corrected receipt-format assumption and a truncated historical display are preserved. The delegate reported nonexclusive use of a fixed /tmp scratch file; prior existence and possible overwrite remain unknown and are separately recorded.",
+        "relations": "q2370 already records this source-backed owner-reuse candidate with accepted unique count change zero. No new unique count or automatic global alias; do not conflate the distinct scene and source-package digests.",
+        "open_questions": [
+          "Actual native CLI parser and typed-owner adaptation without running it",
+          "Other selector producers/consumers and exact aliases",
+          "Preserve absent-selector all-properties mode, exact-one selection and JSON boundary",
+          "Whether an exact scene-digest owner exists and its distinct authority"
+        ]
+      }
+    },
+    {
+      "source_group": "language-bestiary",
+      "record": {
+        "queue_index": 3016,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0026-LENS-01",
+        "historical_lens": 1,
+        "lens_name": "producer propagation",
+        "delegated_reviewer": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "assessment": "The selected player projection copies thirteen bestiary fields into the tactical Skills component. A selected default construction also copies thirteen fields, and Skills later reconstructs BestiaryHours for its effective category operation. Retaining a shared aggregate through tactical state is a bounded propagation question, conditional on consumer and framework needs. Skills derives Bevy Reflect and serialization while the displayed BestiaryHours declaration does not list Reflect. Actual boundary type identity, required serialization/replication form, other consumers and effective-study semantics need further examination. No value corruption or supported failure is shown.",
+        "source_refs": [
+          "crates/adventuresim-world-schema/src/bestiary.rs:154-185,206-240",
+          "crates/adventuresim-tactical-server/src/player_projection.rs:537-565,579-631",
+          "crates/adventuresim-tactical-core/src/player.rs:277-318,350-365,375-391,433-435"
+        ],
+        "history": "Original 059 q3016 remains pending. The delegate personally displayed the entire 6533/e275/95e target but applied type ownership rather than historical Lens1 producer propagation; preserve that work and its attribution without automatic Lens1 credit. The separate historical ASSESSMENT-L01-HISTORICAL-2157 records a 6533 full-body Lens1 read and identical current bytes but no named reader in selected metadata and no fresh current personal range. Root independently displayed only the selected 95e windows in this packet. q3130 independently records invalid/nonfinite admission; the Adler direct-target NaN gate and its later concrete example retain the delegate correction. No 3821 promotion follows.",
+        "relations": "q2373 is a separate older Lens2 bestiary owner-complement question and q3130 a distinct Lens3 admission question. Their readers, first operations and open native/alias scopes remain distinct; no automatic alias or new unique count.",
+        "open_questions": [
+          "Identify the admitted player boundary type and every retained Skills producer and consumer",
+          "Decide whether Bevy Reflect, serialization, replication or another adapter requires flattening",
+          "Preserve all thirteen category mappings and effective-study semantics",
+          "Complete the actual Lens1 historical and current scope without foreign-reader credit"
+        ],
+        "current_assessment_lens": null,
+        "current_lens_qualification": "Provisional cross-lens source observation only: root registered these windows as a type-ownership follow-up; no automatic producer-propagation credit is asserted.",
+        "delegated_source_context": {
+          "source": "crates/adventuresim-tactical-core/src/player.rs:320-365",
+          "reader": "/root/mhr_character",
+          "qualification": "The delegate separately displayed the default-construction context; root displayed only 350-365 in this registration."
+        }
+      }
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "source_group": "owner",
+      "record": {
+        "id": "relationship-foundation-scene-position-retention-95e",
+        "lens": 2,
+        "classification": "An admitted Position<Scene> is converted to retained Vec3 in PropertyFoundationMesh, with selected retained positions consumed by internal GroundTriangle construction before the native collider port. Native scene-metre storage and getters are explicit, so owner policy and broader consumers remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2957",
+          "baseline-059/queue.json#/entries/2369",
+          "baseline-059/queue.json#/entries/3125",
+          "baseline-059/queue.json#/entries/1491",
+          "baseline-059/queue.json#/entries/1494"
+        ],
+        "current_related_records": [
+          "relationship-prism-centering-finite-input-95e"
+        ],
+        "relationship_qualification": "Distinct first operation from the native optional/contact and centered-f32 questions; no automatic alias or accepted unique-defect count.",
+        "connected_repair_direction": "Trace actual supported producers, retained storage, internal consumers and native ports before deciding frame-owner propagation; retain aggregate prism, topology, contact and winding rules.",
+        "future_acceptance": "After audit and separate authorization, assess those boundaries and preserve finite-sum, exact pair, height, zero-contact and winding semantics.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "source_group": "owner",
+      "record": {
+        "id": "relationship-city-support-cli-property-selector-owner-95e",
+        "lens": null,
+        "classification": "The selected CLI request stores a property selector as Option<u64> and compares it with the unwrapped existing CityPropertyId owners for compound and single properties. Historical q2370 already names this exact owner-reuse operation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2968",
+          "baseline-059/queue.json#/entries/2370",
+          "baseline-059/queue.json#/entries/3126"
+        ],
+        "current_related_records": [],
+        "relationship_qualification": "The q2370 Lens2 evidence, delegate type-ownership source work and root selected 95e source review remain separately attributed. Historical Lens1 producer-propagation work remains open; no automatic foreign-lens credit, global alias, new historical count or checkpoint3821 authority.",
+        "connected_repair_direction": "Decide typed selector ownership across native parser, request, both filters and JSON report; keep source-package and scene-input digest identities distinct.",
+        "future_acceptance": "After audit and separate authorization, assess parser adaptation and preserve omitted all-properties and exact-one selection behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "lens_assignment": "provisional: the existing-owner comparison relates q2370 Lens2 and q2968 Lens1, but the producer-to-parser-to-report Lens1 trace has not been completed by root."
+      }
+    },
+    {
+      "source_group": "language-bestiary",
+      "record": {
+        "id": "relationship-language-profile-leaf-propagation-95e",
+        "lens": 1,
+        "classification": "The geographic producer and selected importer hand a profile containing raw basis-point leaves to an initializer that widens weights to the native sampler type. UnitBasisPoints is a possible individual leaf, subject to admission, serialization and aggregate policies.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3040",
+          "baseline-059/queue.json#/entries/3132"
+        ],
+        "relationship_qualification": "The zero-total sampler precondition is distinct from the proposed leaf and the full profile invariants. No automatic alias, semantic closure or new defect count.",
+        "connected_repair_direction": "Trace supported creation, persistence, deserialization and initialization before deciding leaf propagation; keep aggregate total and incidence constraints explicit and treat numeric sampling conversion as a real boundary.",
+        "future_acceptance": "Only after further audit and authorization, assess all producers and preserve deterministic stream/seed and draw ordering and profile validity semantics.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "source_group": "language-bestiary",
+      "record": {
+        "id": "relationship-bestiary-hours-tactical-propagation-95e",
+        "lens": null,
+        "classification": "Selected tactical producers flatten thirteen bestiary-hour fields into Skills and a consumer reconstructs BestiaryHours. Shared aggregate retention is a conditional candidate; framework representations and all consumers are open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3016",
+          "baseline-059/queue.json#/entries/2373",
+          "baseline-059/queue.json#/entries/3130"
+        ],
+        "relationship_qualification": "Distinct from earlier Lens2 owner-complement and Lens3 finite/admission questions. The delegate applied type ownership and does not acquire Lens1 disposition by label. No automatic alias or unique count.",
+        "connected_repair_direction": "Trace actual projected/default sources, tactical component requirements and category consumers before deciding representation; preserve per-category values and effective-study behavior.",
+        "future_acceptance": "Only after further audit and authorization, assess all supported producers, adapter, framework and retained-state constraints.",
+        "repair": "not started",
+        "validation": "not performed",
+        "lens_assignment": "Provisional cross-lens propagation question; a separately registered producer-propagation assessment remains necessary."
+      }
+    },
+    {
+      "source_group": "enums",
+      "record": {
+        "id": "relationship-enrollment-seal-abandon-effect-priority-95e",
+        "lens": 9,
+        "classification": "The selected advance can set Sealed and return Abandoned in the same call; its selected caller logs only Sealed and commits terminal failure for Abandoned. Event-reporting contract and supported reachability are unresolved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3059",
+          "baseline-059/queue.json#/entries/3134"
+        ],
+        "current_related_records": [
+          "dac7d newly_assessed_ledger.entries[406]"
+        ],
+        "relationship_qualification": "The zero-grace conditional finding is separately attributed and is not automatically the same first operation. This is a bounded policy question, not an established defect or unique-count increment.",
+        "connected_repair_direction": "Determine intended terminal-versus-transition reporting and supported lifecycle states before deciding whether a shape or behavior change is necessary; preserve enrollment and reconnect semantics.",
+        "future_acceptance": "Only after further audit and authorization, assess relevant event visibility and supported state transitions without assuming the current source trace was executed.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "source_group": "helmet",
+      "record": {
+        "id": "relationship-helmet-host-coordinate-shape-95e",
+        "lens": 9,
+        "classification": "A helmet-local host API accepts a fieldless vertex tag and independent three-float payload, while a cheek shell uses a distinct raw four-float layout selected separately. The selected callers match their expected layouts; representable mismatches are source-level possibilities rather than established product failures.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3166",
+          "baseline-059/queue.json#/entries/2404",
+          "baseline-059/queue.json#/entries/3141"
+        ],
+        "current_related_records": [
+          "dac7d newly_assessed_ledger.entries[471]"
+        ],
+        "relationship_qualification": "Distinct from the recorded native scalar-owner and topology-admission questions; no automatic alias or accepted unique-defect increment.",
+        "connected_repair_direction": "Trace all producers, shell selection and device decoding; consider helmet-specific payload-bearing host variants and an explicit cheek-layout relationship only if warranted, with conversion at the existing numeric boundary and no forced generic-shell semantics.",
+        "future_acceptance": "Only after further audit and authorization, assess variant-specific construction, generated wire constants, slot order, crest side/base encoding and cheek-shell mapping before separate product validation.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    }
+  ],
+  "draft_provenance": [
+    {
+      "group": "owner",
+      "selected_draft": "drafts/owner/DRAFT-v4.json",
+      "sha256": "6c1bb7189e458273b016a9dfe1746a50a4ebfeeea32bfd1ba5d081b08353356d",
+      "preserved_predecessors": [
+        "drafts/owner/DRAFT-v2-CORRECTION.json",
+        "drafts/owner/DRAFT-v2.json",
+        "drafts/owner/DRAFT-v3-CORRECTION.json",
+        "drafts/owner/DRAFT-v3.json",
+        "drafts/owner/DRAFT-v4-CORRECTION.json",
+        "drafts/owner/DRAFT.json"
+      ]
+    },
+    {
+      "group": "language-bestiary",
+      "selected_draft": "drafts/language-bestiary/DRAFT-v2.json",
+      "sha256": "bb68b6e2c8d447e3ce87f6ca79ac42683efcc5d617e6dca39accf013b4a2bc6f",
+      "preserved_predecessors": [
+        "drafts/language-bestiary/DRAFT-v2-CORRECTION.json",
+        "drafts/language-bestiary/DRAFT.json"
+      ]
+    },
+    {
+      "group": "enums",
+      "selected_draft": "drafts/enums/DRAFT-v2.json",
+      "sha256": "4098c0fa82c177b39a2f997c35e1169e89fb9c22665493833dc4ab48f6944b8a",
+      "preserved_predecessors": [
+        "drafts/enums/DRAFT-v2-CORRECTION.json",
+        "drafts/enums/DRAFT.json"
+      ]
+    },
+    {
+      "group": "helmet",
+      "selected_draft": "drafts/helmet/DRAFT-v2.json",
+      "sha256": "c7525bdcadc2260cc400106dca7cff552062c8ca9c9a729e008036d7f354c2cf",
+      "preserved_predecessors": [
+        "drafts/helmet/DRAFT-v2-CORRECTION.json",
+        "drafts/helmet/DRAFT.json"
+      ]
+    }
+  ],
+  "independent_review_qualification": "The original four drafts were independently checked by /root/verifier_scope, with exact successor corrections retained. q3011 and q3059 were both reviewed at source by the same delegate /root/wrapped_scope; the independent central-draft reviewer is separate. The reviewer withdrew only the q2968 endorsement insofar as it implied Lens1 producer-propagation qualification. q2968 and q3016 remain unassessed in the Lens1 queue; their type-ownership observations are context only.",
+  "pending_history": "The eight selected historical entries were all unassessed at published d7a5. Six receive scoped partial status in this successor; q2968 and q3016 remain unassessed for historical Lens 1. No semantic queue record or lens is closed.",
+  "counts": {
+    "new_partial_queue_assessments": 6,
+    "context_only_observations": 2,
+    "semantic_queue_closures": 0,
+    "new_planning_relationships": 6,
+    "accepted_unique_defect_increment": 0,
+    "lens_completions": 0
+  },
+  "recovery_qualification": "Original final checkpoint3821 ledger and queue remain missing. Recovered checkpoint059 selected objects, reconstructed queue/440, historical summaries, normalized 774 vs missing pre-export originals, SOURCE004, 73 nontext/no-positive-EOF contracts and newly assessed 95e work retain their separate attribution and qualifications. Equality of selected queue entries does not make their full streams equal. No earlier record is promoted into 3821.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "consolidated_draft_sha256": "b219670ab6043c9917dfe1034eb3f9d7834465d8a93e1a2868cbc8a888d20587",
+  "consolidated_draft_evidence": "delegated/postd7a5-followups/central/CENTRAL-EVIDENCE.tar.gz",
+  "independent_consolidated_review": "delegated/postd7a5-followups/batch-transport/consolidated-independent-review.tar.gz",
+  "public_transport_index": "delegated/postd7a5-followups/PENDING-DELEGATES.json"
+}

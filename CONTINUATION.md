@@ -13,6 +13,29 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-17-95E.json` connects six bounded partial
+assessments and six planning relationships. Two other observations are
+context only: q2968 and q3016 remain unassessed for historical Lens 1.
+No semantic queue record or lens is closed, and no unique-defect count
+is added. `delegated/postd7a5-followups/PENDING-DELEGATES.json` indexes
+20 separately qualified pending obligations and context records.
+
+`delegated/postd7a5-followups/checkpoint-d7a5-recovery/README.md`
+records the same-machine recovery of d7a5. Its captured files and
+evidence transcript matched; independent custody and product behavior
+remain unproved. The later encrypted originals and recovery receipt
+preserve separately held key and earlier-anchor dependencies.
+
+`delegated/postd7a5-followups/INDEX.md` locates the independent
+reviews, the successor wording correction and later pending packets.
+
+`MAIN-RECHECK-20261113-0033.json` records a point-in-time
+connector observation of main at 95e. Main may have moved since.
+
+The following earlier checkpoint paragraphs retain their historical
+snapshot counts; q2945 now has the partial assessment above, and the
+q3016 context-only packet is preserved in this successor.
+
 `delegated/checkpointc7dc-verification/RECOVERY-RECORD.json` records the
 same-machine recovery of the preceding published checkpoint.
 

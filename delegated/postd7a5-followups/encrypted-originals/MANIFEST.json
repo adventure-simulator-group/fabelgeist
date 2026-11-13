@@ -1,0 +1,196 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "central-root",
+      "ciphertext": "central-root.aesgcm",
+      "ciphertext_sha256": "40ebed5c56e234134bcabb29a687bf4477b0f25dfad9c3e9b9b1f7bae4f6b0ef",
+      "ciphertext_bytes": 3403493,
+      "plaintext_archive_sha256": "f87e13182e54a1aa3b3b81d330d8239b66da99bf05a584eddb81211695302e3d",
+      "plaintext_archive_bytes": 3403465,
+      "regular_files": 311,
+      "directories": 17,
+      "associated_data": "726-audit-private-evidence:central-root:v1"
+    },
+    {
+      "label": "checkpoint-d7a5-recovery",
+      "ciphertext": "checkpoint-d7a5-recovery.aesgcm",
+      "ciphertext_sha256": "c304ace3358f9ebe8f8ad148d164b8ce234bbd1ca6343e1610e82de64207cff7",
+      "ciphertext_bytes": 108206,
+      "plaintext_archive_sha256": "fe5e4f3d01133497073800ccd6e9e2633640392f7e0771653ad51ac4325d388b",
+      "plaintext_archive_bytes": 108178,
+      "regular_files": 19,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:checkpoint-d7a5-recovery:v1"
+    },
+    {
+      "label": "q3207-inner-key",
+      "ciphertext": "q3207-inner-key.aesgcm",
+      "ciphertext_sha256": "f083cc961adce0090f2705c4a9ab85ede465afc1ea383be4e8b888448ed39da8",
+      "ciphertext_bytes": 187,
+      "plaintext_archive_sha256": "9ba8e8bd358eb1c299d0585f8a131f73e8772efd6d3b76fe7384432a66e7e5f5",
+      "plaintext_archive_bytes": 159,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q3207-inner-key:v1"
+    },
+    {
+      "label": "postd7-review-inner-key",
+      "ciphertext": "postd7-review-inner-key.aesgcm",
+      "ciphertext_sha256": "3602d3ea75338be51ed5583de897a2c5a5176f2b9fafd0110a923814140357cd",
+      "ciphertext_bytes": 195,
+      "plaintext_archive_sha256": "5cf13c98a4834cb2c7668158628329bbf4db50b8d8331d318bc19b3c06b35fe4",
+      "plaintext_archive_bytes": 167,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:postd7-review-inner-key:v1"
+    },
+    {
+      "label": "q2957-recovered",
+      "ciphertext": "q2957-recovered.aesgcm",
+      "ciphertext_sha256": "8aa15fbe6561845c352db27e9e7741618d31e2373a90c42cc8731cc837a53611",
+      "ciphertext_bytes": 286957,
+      "plaintext_archive_sha256": "6781026904574c1e63612eb2021923849370adf4190b59105c832fb5a282b900",
+      "plaintext_archive_bytes": 286929,
+      "regular_files": 247,
+      "directories": 15,
+      "associated_data": "726-audit-private-evidence:q2957-recovered:v1"
+    },
+    {
+      "label": "delegate-owner-and-bestiary",
+      "ciphertext": "delegate-owner-and-bestiary.aesgcm",
+      "ciphertext_sha256": "9f7fcaaeff6fb4786233a21f8b8fdbb30c34f796e5dcf56ba11db1ddaf9d3311",
+      "ciphertext_bytes": 8182590,
+      "plaintext_archive_sha256": "d4a853495f37d7fe93e5c359b230e7cfa9b49927d479fe31394bde0f2b0a4659",
+      "plaintext_archive_bytes": 8182562,
+      "regular_files": 1217,
+      "directories": 87,
+      "associated_data": "726-audit-private-evidence:delegate-owner-and-bestiary:v1"
+    },
+    {
+      "label": "delegate-language-enrollment",
+      "ciphertext": "delegate-language-enrollment.aesgcm",
+      "ciphertext_sha256": "c1a4a70a717770f758ce534ce992a3c70e04f5b7e6bb206021fd049d0d562897",
+      "ciphertext_bytes": 4167914,
+      "plaintext_archive_sha256": "54aa45da1ec828b4c96a3f2c8b8daa6bbfb4092f23a992372c99475f72aa6ae8",
+      "plaintext_archive_bytes": 4167886,
+      "regular_files": 463,
+      "directories": 33,
+      "associated_data": "726-audit-private-evidence:delegate-language-enrollment:v1"
+    },
+    {
+      "label": "delegate-helmet-withdrawal",
+      "ciphertext": "delegate-helmet-withdrawal.aesgcm",
+      "ciphertext_sha256": "bff6f85fd0aa281c87b2bd1a06c4edea83cd97255a6eadc7e2fda3bfbf96fe5b",
+      "ciphertext_bytes": 1044711,
+      "plaintext_archive_sha256": "7d61ce945e75ee9dec4907b4733e4caf4e4a84369484465395f94bb888682998",
+      "plaintext_archive_bytes": 1044683,
+      "regular_files": 345,
+      "directories": 25,
+      "associated_data": "726-audit-private-evidence:delegate-helmet-withdrawal:v1"
+    },
+    {
+      "label": "delegate-terminal",
+      "ciphertext": "delegate-terminal.aesgcm",
+      "ciphertext_sha256": "38f9952bd8fc3a376a5b6f65d45df29d4b3362e636feb83543bafe86739b7682",
+      "ciphertext_bytes": 3682126,
+      "plaintext_archive_sha256": "ec86eac6d1b1d4e27c1439e311d40705e7b8164150c3a6fa009fbe72b7607a03",
+      "plaintext_archive_bytes": 3682098,
+      "regular_files": 390,
+      "directories": 14,
+      "associated_data": "726-audit-private-evidence:delegate-terminal:v1"
+    },
+    {
+      "label": "delegate-color-language-review",
+      "ciphertext": "delegate-color-language-review.aesgcm",
+      "ciphertext_sha256": "882ca9eed8f03ff73511f3c5d44b272bccca911dc394b7813cf81981d85809d3",
+      "ciphertext_bytes": 4235101,
+      "plaintext_archive_sha256": "31bef7edd5d591cc9034fad5e3fb1c2e98a0547f4dc988771cef66ed041bcdf1",
+      "plaintext_archive_bytes": 4235073,
+      "regular_files": 356,
+      "directories": 32,
+      "associated_data": "726-audit-private-evidence:delegate-color-language-review:v1"
+    },
+    {
+      "label": "v4-and-enums-review",
+      "ciphertext": "v4-and-enums-review.aesgcm",
+      "ciphertext_sha256": "7234813856f8808bb662737b195fdb6bdb4d5b66896d326e7abc0dee0ea43f08",
+      "ciphertext_bytes": 3780845,
+      "plaintext_archive_sha256": "1efc4fd506e88ca783e0d4f037cf20146d11252f598c781eac823caca308ea1f",
+      "plaintext_archive_bytes": 3780817,
+      "regular_files": 200,
+      "directories": 16,
+      "associated_data": "726-audit-private-evidence:v4-and-enums-review:v1"
+    },
+    {
+      "label": "enums-helmet-review-successors",
+      "ciphertext": "enums-helmet-review-successors.aesgcm",
+      "ciphertext_sha256": "b19ee13f9355cd77192cc431c01f597d4132f737c4bc414ddab4ade45f6f5849",
+      "ciphertext_bytes": 3575783,
+      "plaintext_archive_sha256": "45aeeceb232e082091c3040506d4e2377a06282291abedfbfb0e4a277919c96f",
+      "plaintext_archive_bytes": 3575755,
+      "regular_files": 206,
+      "directories": 24,
+      "associated_data": "726-audit-private-evidence:enums-helmet-review-successors:v1"
+    },
+    {
+      "label": "delegate-sort",
+      "ciphertext": "delegate-sort.aesgcm",
+      "ciphertext_sha256": "1762ddd75acbbef6b35ee509ac905835857964b0bcf4d2a0a34f61b6967f67ba",
+      "ciphertext_bytes": 869181,
+      "plaintext_archive_sha256": "2f7c0fdb4d75a4a48f20e437a8d8d4fc371b629e8151b8f7734724c593d510f1",
+      "plaintext_archive_bytes": 869153,
+      "regular_files": 205,
+      "directories": 17,
+      "associated_data": "726-audit-private-evidence:delegate-sort:v1"
+    },
+    {
+      "label": "delegate-hair-physics",
+      "ciphertext": "delegate-hair-physics.aesgcm",
+      "ciphertext_sha256": "25bbedb40ca8f43ea02924330a4a5c864449086028068e7871921fe779f0ffed",
+      "ciphertext_bytes": 23261904,
+      "plaintext_archive_sha256": "0d834b2279ef8f84d0f3e603a473684cbb8f14d986962b3d0d5d4ec9205e6391",
+      "plaintext_archive_bytes": 23261876,
+      "regular_files": 789,
+      "directories": 42,
+      "associated_data": "726-audit-private-evidence:delegate-hair-physics:v1"
+    },
+    {
+      "label": "sort-and-consolidated-review",
+      "ciphertext": "sort-and-consolidated-review.aesgcm",
+      "ciphertext_sha256": "91d9858ec3a106e5df6bb79cd2e800e362d1826394f043c6a7accad9dacb261c",
+      "ciphertext_bytes": 7877674,
+      "plaintext_archive_sha256": "8690e87f25c9ff4a6050e8d81e47228cf192ddd91139ff60cb65090a67c8f2f9",
+      "plaintext_archive_bytes": 7877646,
+      "regular_files": 627,
+      "directories": 78,
+      "associated_data": "726-audit-private-evidence:sort-and-consolidated-review:v1"
+    },
+    {
+      "label": "sort-dispatch-support",
+      "ciphertext": "sort-dispatch-support.aesgcm",
+      "ciphertext_sha256": "dab2e8572c64dfdbb98d38dc4cfb2b3c3a0b12b8bf439ad69479335b296c4112",
+      "ciphertext_bytes": 47514,
+      "plaintext_archive_sha256": "b6c6349577177661f7a7ff6d33d9b577e898fcb24bd584c9ce4379088c371a3a",
+      "plaintext_archive_bytes": 47486,
+      "regular_files": 47,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:sort-dispatch-support:v1"
+    },
+    {
+      "label": "encryption-control",
+      "ciphertext": "encryption-control.aesgcm",
+      "ciphertext_sha256": "feb5ef4fe85896fb05acefa0e6c4216914907222909b976922c01e84d00e204c",
+      "ciphertext_bytes": 3099,
+      "plaintext_archive_sha256": "7340642b6de6b476a9c8713681c55ff60c46a364b681264637d03fea68a72089",
+      "plaintext_archive_bytes": 3071,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:encryption-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Two separately generated inner keys are individually wrapped in this collection. Earlier q2812 anchors and original nested packet keys remain separately documented dependencies.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

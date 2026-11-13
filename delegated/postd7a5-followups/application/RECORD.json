@@ -1,0 +1,77 @@
+{
+  "schema": "726-postd7a5-application-v1",
+  "parent": "d7a5e77ebdbd44a05cde30881493d6fc22ef025d",
+  "archive": "APPLICATION-EVIDENCE.tar.gz",
+  "archive_bytes": 776278,
+  "archive_sha256": "e54364e4947dc4d3c87baca82e09b16538a57bd00e6e7904423dc0c331844be4",
+  "transform_sha256": "0cbb8819fbd27b88950c593046e039bfa2f36dd5eb934cd2cebd1be41d915c78",
+  "members": [
+    {
+      "path": "after/BASELINE-95E-20261110.json",
+      "bytes": 1502472,
+      "sha256": "a402d49eb6dab3cd9182e16db92d2ea91896c761d02c87b2fcdad9d50efa7276",
+      "mode": "0644"
+    },
+    {
+      "path": "after/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 125522,
+      "sha256": "e9bbab670b9bc24a36ecb48b4665782b22362d32f75313948b64177030a9ef0c",
+      "mode": "0644"
+    },
+    {
+      "path": "after/CONTINUATION.md",
+      "bytes": 120897,
+      "sha256": "d8f39d4af8143845b591cc7126ea7511b6415ea138107ea4ffa32deeacfed459",
+      "mode": "0644"
+    },
+    {
+      "path": "after/RECONCILIATION-059.json",
+      "bytes": 1255325,
+      "sha256": "be6acb889cb51b645d03e861715895c9efcf0f47e970cc8fa12f1d03404a9f94",
+      "mode": "0644"
+    },
+    {
+      "path": "before/BASELINE-95E-20261110.json",
+      "bytes": 1493423,
+      "sha256": "a44137624c56f7567ff936137294289f762228408bada87be81476877a6d595e",
+      "mode": "0644"
+    },
+    {
+      "path": "before/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 124360,
+      "sha256": "6fdecd13f48f5662f3dcf269517a03b3b6b1c908a088e51fd96926e1e169859b",
+      "mode": "0644"
+    },
+    {
+      "path": "before/CONTINUATION.md",
+      "bytes": 119821,
+      "sha256": "ac40926c518a9de334e543def2716f343da8891e292a6cde586fbb505a8f9351",
+      "mode": "0644"
+    },
+    {
+      "path": "before/RECONCILIATION-059.json",
+      "bytes": 1253609,
+      "sha256": "f1adf87fc903946fae9e7e4aa7833852f359a392148efb257ff02d924a798ccc",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/main-observation.json",
+      "bytes": 450,
+      "sha256": "299f28577f7ee26052cd1d154903300e9cd91282f085381a2878709cbc28593b",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/pending.json",
+      "bytes": 13350,
+      "sha256": "ad0b59f8ff5ab17b6baa932e6dda353cdd113a34ace8ad999fb7519afdd48732",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/report.json",
+      "bytes": 36564,
+      "sha256": "ad943356944acf0771d853a02d584f3ee2005bfcf50e7d943b69afddbfa11632",
+      "mode": "0644"
+    }
+  ],
+  "qualification": "Exact source-only before/after application; six partial records remain semantically open, context-only observations do not transfer lens credit, and all original recovery qualifications remain in force."
+}

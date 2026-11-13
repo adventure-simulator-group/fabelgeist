@@ -1,0 +1,86 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "color-four-lens-restricted",
+      "ciphertext": "color-four-lens-restricted.aesgcm",
+      "ciphertext_sha256": "02ea4674123d0ba056382d2ef5d7e8e2af3a8ec9378f0bdba5175c8418ed9823",
+      "ciphertext_bytes": 1121712,
+      "plaintext_archive_sha256": "e1f52b9732baf9b71ba125cc86a6d812228a7b8f56e040da226cd812bd375c21",
+      "plaintext_archive_bytes": 1121684,
+      "regular_files": 171,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:color-four-lens-restricted:v1"
+    },
+    {
+      "label": "color-four-lens-private-replay",
+      "ciphertext": "color-four-lens-private-replay.aesgcm",
+      "ciphertext_sha256": "4248519b9db163bc6b2f37f307144985664ace4e7100060fcfa15d1b1409a32d",
+      "ciphertext_bytes": 960,
+      "plaintext_archive_sha256": "866290239f88f91f2e3409e77b3e87e380049af5c7ddaf3d051fca570f4dde8b",
+      "plaintext_archive_bytes": 932,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:color-four-lens-private-replay:v1"
+    },
+    {
+      "label": "physics-four-lens-restricted",
+      "ciphertext": "physics-four-lens-restricted.aesgcm",
+      "ciphertext_sha256": "15a230186d12d0a105f3f24744c66236e0a935893d5549f377967d9e67ac89d4",
+      "ciphertext_bytes": 24653975,
+      "plaintext_archive_sha256": "0229cef52ee3fc3f2a0f46f45cd7a98e94448f863ec3816bf7f5a6fbd8367103",
+      "plaintext_archive_bytes": 24653947,
+      "regular_files": 425,
+      "directories": 85,
+      "associated_data": "726-audit-private-evidence:physics-four-lens-restricted:v1"
+    },
+    {
+      "label": "physics-four-lens-final-replay",
+      "ciphertext": "physics-four-lens-final-replay.aesgcm",
+      "ciphertext_sha256": "188949d085525e4af2f9f4bdd6574516a6e62c6bdb26afaa928c9f5e59987e1d",
+      "ciphertext_bytes": 1463,
+      "plaintext_archive_sha256": "9cf9c74daf3b4adac652c285d337fa5c12f1bf9bbd4349d8ea3c9d154f6cf8ac",
+      "plaintext_archive_bytes": 1435,
+      "regular_files": 8,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:physics-four-lens-final-replay:v1"
+    },
+    {
+      "label": "application-review-restricted",
+      "ciphertext": "application-review-restricted.aesgcm",
+      "ciphertext_sha256": "70a02c35f2f78dabc716280b0670db95edfe525a61840916ef58d3b9f69a26d4",
+      "ciphertext_bytes": 956382,
+      "plaintext_archive_sha256": "60a550cc283e1a298f90c515b328d9e6685f3db442e9915fcb6cda11ac8f8fca",
+      "plaintext_archive_bytes": 956354,
+      "regular_files": 60,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:application-review-restricted:v1"
+    },
+    {
+      "label": "application-review-replay",
+      "ciphertext": "application-review-replay.aesgcm",
+      "ciphertext_sha256": "ab9ec3a02b36a2b07f5cd1cf68c2774860013f503e70bfe0f66335148c8edaf3",
+      "ciphertext_bytes": 1130,
+      "plaintext_archive_sha256": "621bdac3117d43a48c39efdd295dbd7f8f67bf710faa71f135d36f2e6464c54e",
+      "plaintext_archive_bytes": 1102,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:application-review-replay:v1"
+    },
+    {
+      "label": "postfreeze-encryption-control",
+      "ciphertext": "postfreeze-encryption-control.aesgcm",
+      "ciphertext_sha256": "1eb1822d4d5dc267ae4e2a5cd480015c5aec646495bd9e49bc481e6f892d8655",
+      "ciphertext_bytes": 2746,
+      "plaintext_archive_sha256": "5b7c215227c1e82778813c07e7cb500314c678864cdf4ec69bf6f3a652918f12",
+      "plaintext_archive_bytes": 2718,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:postfreeze-encryption-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and original nested packet keys remain separately documented dependencies.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

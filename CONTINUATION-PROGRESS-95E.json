@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 21:01:35 UTC; this is a point-in-time observation and main may advance. See MAIN-RECHECK-20261112-2101.json.",
+  "current_main_qualification": "GitHub connector observed main at 95e at 2026-11-13 00:33:20–00:33:21 UTC; this is a point-in-time observation and main may advance. See MAIN-RECHECK-20261113-0033.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1093,
+  "new_current_ledger_candidates": 1099,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2399,5 +2399,11 @@
   "postdac7_pending_delegated_packets": "delegated/postdac7-followups/PENDING-DELEGATES.json; 10 packets remain pending central reconciliation at this snapshot.",
   "post0a24_pending_resolution": "Seven of the eleven prior pending packets now have partial assessment; four remain pending. The historical index is retained unchanged and does not imply closure.",
   "postdac7_private_recovery": "delegated/postdac7-followups/encrypted-originals/README.md; separately held same-machine primary key and named prior dependencies remain required.",
-  "main_recheck_20261112_2101": "MAIN-RECHECK-20261112-2101.json"
+  "main_recheck_20261112_2101": "MAIN-RECHECK-20261112-2101.json",
+  "central_postd7a5_bounded_reconciliations": "ASSESSMENT-CENTRAL-FOLLOWUPS-17-95E.json; six partial assessments, two context-only observations and six planning relationships; no queue or lens closure or accepted unique count increment.",
+  "checkpoint_d7a5_same_machine_recovery": "delegated/postd7a5-followups/checkpoint-d7a5-recovery/README.md; 417 captured files and identical evidence transcript in a separate same-machine checkout.",
+  "postd7a5_pending_delegated_packets": "delegated/postd7a5-followups/PENDING-DELEGATES.json; 20 distinct queue obligations include nine inherited packets, nine later packets and two context-only producer-propagation obligations.",
+  "postdac7_pending_resolution": "One of ten prior pending packets now has partial central assessment; nine remain pending. Earlier index remains a historical snapshot and no queue record is closed.",
+  "postd7a5_private_recovery": "delegated/postd7a5-followups/encrypted-originals/README.md and RESTORATION-RECEIPT.json; same-machine primary key, earlier q2812 anchors and named nested keys are dependencies.",
+  "main_recheck_20261113_0033": "MAIN-RECHECK-20261113-0033.json"
 }
