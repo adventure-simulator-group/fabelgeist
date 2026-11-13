@@ -1,0 +1,22 @@
+{
+  "schema": "726-post8ca-pending-transport-replay-v1",
+  "checks": [
+    {
+      "label": "q2913",
+      "manifest_sha256": "9212e4ef25acb487cebeead469f3977bfcd89afed3ba1082631b7ec36fe739e5",
+      "verifier_sha256": "72d009db927b6fa7bb0a6b9dd89c935e2a551b163319dce90034ab32bc548173",
+      "exit": 0,
+      "stdout_sha256": "6d9de7f88c4091c32fe4d3a8922b878d81ec90d89f3974d8f7ca3e0b3103e0ba",
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2962",
+      "manifest_sha256": "69fd1d627d8bbb6b047d6306e910a19afcc2344701aed1d9f826c5655d0ea47d",
+      "verifier_sha256": "72d009db927b6fa7bb0a6b9dd89c935e2a551b163319dce90034ab32bc548173",
+      "exit": 0,
+      "stdout_sha256": "4b4019adcf37854a6e88de6efb54f800fc7c92a65d8d9e99a67f8c841540550a",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Evidence-only archived-member identity replays. Their prior standalone runs were tool-visible but their complete raw envelopes were not separately saved. These replays do not adopt either source assessment, prove source semantics, transfer reader credit, establish independent custody or validate product behavior. Private logs and later controls remain separately held."
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "726-post8ca-source-mode-review-qualification-v1",
+  "original_wrapper_manifest_sha256": "e772e571c1ae6cdc18d987433db0f52246245d4495142303ad64a73943929f96",
+  "independent_review_manifest_sha256": "749fa174d44a50345e9fb60b1ae7a631830831daf31d694f2c25707f77a75543",
+  "review": "source-mode-peer-review/REVIEW.md",
+  "earlier_challenge": "SOURCE-CUSTODY-MODE-CHECK.json",
+  "correction": "The unchanged wrapper compares whether any execute bit is present (mode & 0o111) for the three receipt-manifest members. Its description as generally matching Git executable-bit semantics is too broad. Under the Git 2.43.0 regular-file mode-change logic cited by the review, with executable-bit trust enabled, the owner execute bit is checked. A group-only execute bit can therefore make this wrapper stricter than that Git comparison. Checkout and Git configuration can also affect modes.",
+  "scope": "The wrapper compares bytes and any-execute status only for the three receipt members. It hashes the receipt manifest, the four ciphertexts and final scan, but does not compare their modes or the modes of directories, wrapper files, encrypted README or verifier. The encrypted README and verifier are checked for expected names, not hashed by this wrapper. Other separately sealed checks retain their own scope.",
+  "challenge": "The saved 0664-to-0644 challenge has no execute bits in either mode, so the recorded original-verifier failure and wrapper success remain valid. The independent review checked the saved records rather than rerunning either checker or authenticated restoration.",
+  "custody": "The supplied 646-value nonce inventory was compared with four new nonce prefixes; that bounded comparison does not establish inventory provenance or completeness. The key, original evidence, prior inventories and Git objects remain separately held on the same machine. This correction does not change the sealed original receipt or wrapper and makes no independent-backup, product-behavior or audit-closure claim."
+}

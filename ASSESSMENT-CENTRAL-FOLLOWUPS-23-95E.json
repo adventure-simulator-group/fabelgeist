@@ -1,0 +1,248 @@
+{
+  "schema": "726-post8ca-central-assessment-v1",
+  "status": "adopted as four bounded partial assessments and seven planning relationships; no semantic closure",
+  "published_checkpoint": "8caeb2003d10d08320566206817aa0c694231778",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "assessments": [
+    {
+      "index": 24,
+      "contract_id": "ADLER-L11-TEMPORARY-STAKE-SETTLEMENT",
+      "historical_lens": 11,
+      "original_status_member_present": true,
+      "historical_status_projection": "open-reconciliation",
+      "reports": [
+        "q24-author",
+        "q24-peer"
+      ],
+      "review_state": "independently reviewed; central existing-ledger relationship newly identified",
+      "summary": "For a selected temporary-member removal, the settlement helper selects the first matching stake row when one exists and returns without a transfer if that row is zero. A nonzero selected amount calls a party-to-personal currency transfer with no direct stake-row debit; a transfer error exits before the guard. After the helper returns successfully, if any matching stake remains positive, the following guard rejects before membership removal. Supported multiple rows, indirect insertion effects and transaction results remain open.",
+      "references": [
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1799-1832,3000-3066,3093-3109",
+        "crates/adventuresim-stdb-module/src/strategic/authority_model.rs:1079-1104",
+        "crates/adventuresim-stdb-module/src/item.rs:351-407,429-445",
+        "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:10-69"
+      ],
+      "history": "Original q24 is Lens 11, open-reconciliation, with null recorded source revision, Git-path and attribution and zero queue body credit; its separate recovered Adler receipt retains historical reading evidence. The original and reconstructed selected records agree as parsed, not as whole streams. Existing q16 is inherited Lens 13 with its first historical failure unresolved; q240 and current ledger 147 separately record the overlapping helper-to-removal chain under Lens 12.",
+      "open_questions": "Supported temporary-member and positive-stake production, pair uniqueness, indirect effects, policy, insufficient liquidity, transaction/rollback behavior and exact global aliases. The original author had no prospectively registered personal display for the tactical-creation locator; the peer independently registered and read that source without transferring author credit.",
+      "disposition": "proposed partial assessment only; no semantic closure, unique-defect increment or checkpoint3821 attribution"
+    },
+    {
+      "index": 185,
+      "contract_id": "ADLER-L11-TRAVEL-PLAN-FAILURE-TO-UNPLANNED",
+      "historical_lens": 11,
+      "original_status_member_present": true,
+      "historical_status_projection": "open-reconciliation",
+      "reports": [
+        "q185-author-v1",
+        "q185-author-v2",
+        "q185-peer"
+      ],
+      "review_state": "independently reviewed; original v1 and corrected v2 author reports retained",
+      "summary": "On selected travel paths, a planner error is logged and mapped to an absent planned call, which can conditionally lead to an unplanned protocol. On approval, decode failure or Ok(None) falls through to ordinary approval, while a propagated helper Err exits early. Native case-site and settlement unplanned entries have different guards and route behavior. With terrain present, character and profile lookup can fail before the non-travel absence branch. Ordinary native approval independently decodes and checks kind, so a web decode failure alone does not establish the native outcome.",
+      "references": [
+        "crates/strategic-web/src/routes/mod.rs:291-316,516-567,589-657,904-928",
+        "crates/strategic-web/src/routes/travel.rs:205-257",
+        "crates/strategic-web/src/routes/party_actions.rs:145-154",
+        "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:1-19,247-285,471-491,550-655",
+        "crates/adventuresim-stdb-module/src/strategic/governance.rs:169-202,216-257",
+        "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs:51-127,530-549"
+      ],
+      "history": "Original q185 is Lens 11 and open-reconciliation; revision, Git-path and attribution fields are null and queue body credit is zero. The separately recovered Adler receipt records fresh ranges and qualifies the requested 935-line view to its actual 930-line EOF. The corrected report narrows its earlier approval-fallthrough wording; original and correction remain distinct.",
+      "open_questions": "Supported planner-error reach, no-terrain versus failed-plan policy, direct and approved caller authorization, native admission and committed outcomes; q186 and ledger 442/798-802 concern adjacent but distinct first operations. The peer separately registered 17 current source windows and preserved its initial over-EOF registration failure and corrected view.",
+      "disposition": "proposed partial assessment only; no semantic closure, unique-defect increment or checkpoint3821 attribution"
+    },
+    {
+      "index": 689,
+      "contract_id": "Q-L1-60bcf5d97b4a6a1b87d1",
+      "historical_lens": 1,
+      "original_status_member_present": true,
+      "historical_status_projection": "open-evidence-or-disposition",
+      "reports": [
+        "q689-author",
+        "q689-peer"
+      ],
+      "review_state": "independently reviewed; source-level findings only",
+      "summary": "The selected response paths separately construct half-second work and readiness durations. If the inspected authored configuration is used, weapon-work energy clamps the work span to 0.35 seconds, while active work takes the maximum of its prior value and the original span. For a nonempty attempted effective shield block with a positive shield bonus during committed attack, a retained attack-power factor is clamped individually and multiplied into an accumulated field; four near-0.6 factors before reset would yield about 0.1296, conditionally.",
+      "references": [
+        "crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs:142-204",
+        "crates/adventuresim-core/src/autoresolve.rs:249-266",
+        "crates/adventuresim-core/src/combat/fatigue.rs:24-58",
+        "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs:207-251,357-373,427-450",
+        "content/tactical/combat.yaml:10-21"
+      ],
+      "history": "Original q689 and related q677 remain open; separately recovered e275 Lens 1 receipts attribute historical reads to Root Segovb. Per-file equality with 95e does not equate whole trees or transfer personal read credit. Current ledger 70, 71 and 77 have distinct ranged or empty-hand fatigue first operations.",
+      "open_questions": "Actual configuration path, whether tuning requires a shared authored owner, scheduler-supported multiplication sequences, finite/non-finite admissions, reset timing, policy and observed outcomes. Matching numbers do not establish a shared semantic role.",
+      "disposition": "proposed partial assessment only; no semantic closure, unique-defect increment or checkpoint3821 attribution"
+    },
+    {
+      "index": 3100,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0033-LENS-01",
+      "historical_lens": 1,
+      "original_status_member_present": true,
+      "historical_status_projection": "own-lens-proof-qualification-or-read-pending",
+      "reports": [
+        "q3100-author",
+        "q3100-correction",
+        "q3100-peer"
+      ],
+      "review_state": "independently reviewed; author historical-attribution correction and peer reference correction retained",
+      "summary": "Selected tactical timing paths extract seconds from AnimationElapsed bounds, use the generic f32 sampler and readmit elapsed values; the initiative path scales before readmission. Separate contact and defense-alignment unit samples are retained as raw f32 values. A fixture-derived count is copied through argument and mission state, while the no-fixture path retains its CLI value. These are distinct producer and retention questions, not established failures. The existing UnitInterval accepts the closed endpoint 1 and therefore alone does not express the selected generator's half-open bound.",
+      "references": [
+        "crates/adventuresim-tactical-server/src/bot.rs:44-90",
+        "crates/adventuresim-tactical-server/src/bot/defense.rs:230-243",
+        "crates/adventuresim-tactical-server/src/bot/offense/phase.rs:329-353",
+        "crates/adventuresim-tactical-server/src/bot/offense/tactics.rs:3-12",
+        "crates/adventuresim-tactical-server/src/combat/contact.rs:52-90",
+        "crates/adventuresim-tactical-server/src/combat/protocol.rs:35-65",
+        "crates/adventuresim-tactical-server/src/mission/mod.rs:30-57,165-202",
+        "crates/fabelgeist-determinism/src/stream.rs:90-94",
+        "crates/adventuresim-core/src/unit_interval.rs:9-34",
+        "crates/fabelgeist-determinism/src/lib.rs:12-19",
+        "crates/adventuresim-tactical-server/src/main.rs:66-89,119-120,168-175"
+      ],
+      "history": "Original q3100 is Lens 1 at recorded revision 6533, required lines 1-90, EOF 1248 and empty assessed ranges; that row names no reader. A separate Root Lens 3 receipt and e275 receipts retain their own attribution. The correction makes e275 1-62 reuse conditional on frozen-source adoption and 63-90 a mixed fresh/inherited basis; neither historical e275 receipt claims a fresh personal reread or transfers Lens 1 credit. The current author separately reports personal views of 6533, e275 and 95e during this assessment. Original q3134 lacks a status member although its wrapper projects null.",
+      "open_questions": "Suitable typed owners, all producers and readers, draw order, numeric rounding and error order, sample interval distinctions, selected config validation and supported caller reach, fixture/mission correspondence and policy. Historical q662 concerns a distinct extreme opposite-sign range-span question; q1688, q3134 and ledger 377-379 have separate first operations. The peer separately registered source windows and did not independently attest the author's 52 displays; its two over-EOF attempts and correction are retained.",
+      "disposition": "proposed partial assessment only; no semantic closure, unique-defect increment or checkpoint3821 attribution"
+    }
+  ],
+  "proposed_relationships": [
+    {
+      "id": "REL-STAKE-THREE-LENSES-95E",
+      "queue": [
+        16,
+        24,
+        240
+      ],
+      "ledger": [
+        147
+      ],
+      "direction": "Connect the independently assessed q24 helper-to-removal chain to existing ledger 147 and historical q16/q240 while preserving their Lens 13, 11 and 12 identities and the unresolved inherited q16 first-failure scope.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-TRAVEL-PLAN-ABSENCE-95E",
+      "queue": [
+        185,
+        186
+      ],
+      "ledger": [
+        442,
+        798,
+        799,
+        800,
+        801,
+        802
+      ],
+      "direction": "Trace planner error, absence and direct/approved dispatch together while keeping route-progress, road-inference and individual planner-cause records as distinct first operations.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-DEFENSE-WORK-READINESS-95E",
+      "queue": [
+        677,
+        689
+      ],
+      "ledger": [
+        70,
+        71,
+        77
+      ],
+      "direction": "Trace the separate work and readiness producers and authored owners without equating equal literals or different ranged and empty-hand workloads.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-DEFENSE-RETAINED-POWER-95E",
+      "queue": [
+        689
+      ],
+      "ledger": [],
+      "direction": "Trace per-factor clamping, accumulation and reset along supported scheduler sequences before deciding an owner or policy.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-TYPED-ELAPSED-SAMPLING-95E",
+      "queue": [
+        662,
+        3100
+      ],
+      "ledger": [],
+      "direction": "Preserve numeric sampling, draw order, rounding and error order while assessing typed elapsed propagation; the selected timing ranges do not establish q662 extreme-bound reach.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-CONTACT-UNIT-SAMPLES-95E",
+      "queue": [
+        3100
+      ],
+      "ledger": [],
+      "direction": "Trace two distinct half-open unit samples through pending contact and consumers before choosing an owner or asserting an alias.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    },
+    {
+      "id": "REL-FIXTURE-COUNT-PROPAGATION-95E",
+      "queue": [
+        1688,
+        3100,
+        3134
+      ],
+      "ledger": [
+        377,
+        378,
+        379
+      ],
+      "direction": "Trace fixture admission and count propagation while keeping the path helper, direct deserialization, count conversion and zero-grace enrollment as distinct first operations.",
+      "classification": "proposed planning relationship only; no accepted unique-defect increment or repair",
+      "qualification": "Historical source identities and readers remain separate. Shared paths do not resolve global aliases, supported reach, policy, uninspected complements or semantic closure."
+    }
+  ],
+  "counts_if_adopted": {
+    "queue_records": 3713,
+    "partial_before": 1400,
+    "unassessed_before": 2313,
+    "partial_after": 1404,
+    "unassessed_after": 2309,
+    "ledger_before": 1128,
+    "proposed_relationships": 7,
+    "ledger_after": 1135,
+    "queue_closures": 0,
+    "lens_completions": 0,
+    "accepted_unique_defect_increment": 0
+  },
+  "history_binding": "reconciliation/HISTORY-SELECTION.json",
+  "source_report_binding": "reconciliation/SOURCE-MAP.json",
+  "independent_synthesis_reviews": [
+    {
+      "path": "central-peer-review/",
+      "manifest_sha256": "ca717aea84e0bffb4c743421f7ae1a90f87e13aa21fcf6759419fa6dab8d56eb"
+    },
+    {
+      "path": "central-v4-peer-review/",
+      "manifest_sha256": "a6f814b434d04082f69ab39d8c978283cd208f5c1c988d7b12fb6c8bf8ed3559"
+    },
+    {
+      "path": "central-v5-peer-review/",
+      "manifest_sha256": "14294047b4079c8b4f8125e84a45819b6d89199d5c11065828dd83dfa25b7fe4"
+    },
+    {
+      "path": "central-v6-peer-review/",
+      "manifest_sha256": "7c8ffab1865707de835d1ec02cc70041f1f015f2dc263c9ee1693b31f62b1ece"
+    }
+  ],
+  "qualification": "A planning draft, not a modified queue or ledger. The original and reconstructed full 059 streams differ. Missing checkpoint3821, SOURCE004, the 73 nontext/no-positive-EOF contracts, historical reader qualifications, Git-object/key custody and all thirteen incomplete lenses remain open. Evidence-only work; no product repair, build, test or runtime probe.",
+  "recovery_qualification": "The selected recovered original and reconstructed 059 rows agree as parsed, while their complete streams differ. Neither is the missing original checkpoint 3821 queue or ledger. Normalized 774 and earlier historical receipts retain their own revisions and reader attribution. Source reports and their peers are separate attestations. Encrypted evidence, prior ciphertext, Git objects, the same-machine key and later custody controls remain separate dependencies; this is not independent backup, whole-tree equivalence, new read credit, a lens closure, an accepted defect increment or product validation.",
+  "independent_projection_review": {
+    "reviewer": "final_guard_peer",
+    "public_manifest_sha256": "20a3a77379b270c00f6aa828cc66860a19e58c41da611e070ff8ab6f9e4fb74d",
+    "public_evidence": "delegated/post8ca-followups/projection-peer-review/",
+    "reviewer_qualification": "The four successive central synthesis packets and this projection review are by the same reviewer, independent of the coordinator; they are not five independent people. Source authors and their independent source peers retain their own attribution. The reviewer did not display product source in these synthesis checks. The review packet preserves its initial binding-field label error and correction.",
+    "additive_qualification": "delegated/post8ca-followups/reconciliation/REVIEWER-QUALIFICATION.json"
+  },
+  "adoption_qualification": "This report is generated as an uninstalled candidate; its adopted status becomes operative only after later exact installation. It records partial evidence and planning relationships, not semantic queue or lens closure, accepted unique-defect increments, repairs or product validation. Original checkpoint3821 remains missing. The inherited qualification beginning \"A planning draft, not a modified queue or ledger\" describes the source projection before application; it does not describe the installed after-images once this candidate is exactly installed."
+}

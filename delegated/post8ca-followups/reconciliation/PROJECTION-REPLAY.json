@@ -1,0 +1,80 @@
+{
+  "schema": "726-post8ca-projection-replay-v1",
+  "projection_sha256": "a847dde050ef1d02f24b6e04658aa31a8ab061b86220007c5eda84dc83d67d66",
+  "checks": [
+    {
+      "label": "history",
+      "exit": 0,
+      "stdout_bytes": 239,
+      "stdout_sha256": "529dcd4293c7dae436f398766a03a1cd7ca55afa5360e3ee8c702bc082615a51",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "transport",
+      "exit": 0,
+      "stdout_bytes": 331,
+      "stdout_sha256": "ba682cb6994071f9c806928b860beb8bc01b5fcbe176342ef6b28ce5817b2d65",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "central-peer-review",
+      "exit": 0,
+      "stdout_bytes": 205,
+      "stdout_sha256": "eeee325e27a3f7f3c2e66aeb3664399a7f945eee8a9dba760d0c182f6dc30835",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "central-v4-peer-review",
+      "exit": 0,
+      "stdout_bytes": 115,
+      "stdout_sha256": "75a99af3b6c463607bc55b51bc7d095f9edfae003a702ac8ce8c959d5fe42386",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "central-v5-peer-review",
+      "exit": 0,
+      "stdout_bytes": 115,
+      "stdout_sha256": "75a99af3b6c463607bc55b51bc7d095f9edfae003a702ac8ce8c959d5fe42386",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "central-v6-peer-review",
+      "exit": 0,
+      "stdout_bytes": 115,
+      "stdout_sha256": "75a99af3b6c463607bc55b51bc7d095f9edfae003a702ac8ce8c959d5fe42386",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-mode-peer-review",
+      "exit": 0,
+      "stdout_bytes": 98,
+      "stdout_sha256": "a10345d2188a22b995ed6f7bc75a7042cf2293ce8c76156b5c80138ef43042f7",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-custody-default",
+      "exit": 0,
+      "stdout_bytes": 396,
+      "stdout_sha256": "bb33719377dd92be11b031311d9b26732ae899bbc3e4e2fb8cf48329b224017a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "source-custody-prior",
+      "exit": 0,
+      "stdout_bytes": 396,
+      "stdout_sha256": "b849752952970428d6fcb706bc026143d01a30301ab0d42253ae27d714a6ed5f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "prior_inventory_supplied_for_named_check": true,
+  "qualification": "Evidence-only same-machine checks of selected history, archives, public review bytes, wrapper identities and recorded restore/scan results. The absolute minimal Git alternate was supplied; it is not a full object closure. The wrapper uses an any-execute test for its three receipt members, not a general Git-mode equivalence. These checks do not authenticate the source observations, repeat encrypted restoration, establish inventory provenance, independently back up the key, adopt the draft or validate product behavior. Earlier standalone source-transport and public-review passes were tool-visible but their full raw output was not separately saved."
+}

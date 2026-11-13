@@ -1,0 +1,38 @@
+{
+  "schema": "726-post8ca-guard-v2-peer-public-replay-scan-v1",
+  "files": [
+    {
+      "name": "self.stdout",
+      "bytes": 231,
+      "sha256": "b6f76cf817fd2388ee7c9b53083b51de4fa4a25dcfdc61090802583ad6698780"
+    },
+    {
+      "name": "self.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "anchored.stdout",
+      "bytes": 298,
+      "sha256": "6ad498a5119fd56431d49fce42df79d456ae393b45798e9ce903eb2e9e989e4c"
+    },
+    {
+      "name": "anchored.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Scan and manifest also scanned in memory before writing.",
+  "qualification": "Finite selected plaintext scan using privately held path and key values and nontrivial prefixes plus raw and hexadecimal SHA-256, SHA-1 and MD5 digests and path/credential patterns. Values and digests are not emitted. Unknown encodings and unspecified inputs remain outside scope."
+}

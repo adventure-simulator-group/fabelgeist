@@ -1,0 +1,29 @@
+{
+  "schema": "726-post8ca-preinstall-scan-v2",
+  "stage_files": 511,
+  "stage_directories_including_root": 56,
+  "root_files": 7,
+  "scanned_paths": 518,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "windows_single_and_doubled_positive_controls": true,
+  "checks": [
+    {
+      "label": "digest",
+      "exit": 0,
+      "stdout_sha256": "a8d77bb0a7cef1f187dbd7cb3a90a4a4b4bd13d22f9b1d17875eb467de334a8a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "pattern",
+      "exit": 0,
+      "stdout_sha256": "fd1066d49813e0db415a53a2b70d58153d14cef899eba5e5074edc963d733b8a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Finite scan of an exact same-machine stage copy and seven prospective roots, including supported nested archive members. The restricted digest corpus is derived from the earlier GPU evidence, not all possible private data. Unknown values and encodings, opaque ciphertext, unselected Git history and additions after this scan remain outside scope. Raw logs and local paths remain separately held. No product code is executed."
+}

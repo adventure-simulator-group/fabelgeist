@@ -1,0 +1,34 @@
+{
+  "schema": "726-post8ca-stage-builder-peer-replay-v1",
+  "checks": [
+    {
+      "label": "static",
+      "exit": 0,
+      "stdout_bytes": 1086,
+      "stdout_sha256": "9fd2c53bfbedae7cb8dd3075921a1293a5147d927467f0a64e3ebfa2dbf412b8",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "later-cipher-no-key",
+      "exit": 0,
+      "stdout_bytes": 243,
+      "stdout_sha256": "ddc17b1188357cd2d9fc1dff34f2b572e0f49e94ef8443f22192875fd79d7cfe",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "later-receipt-no-key",
+      "exit": 0,
+      "stdout_bytes": 319,
+      "stdout_sha256": "dfc711647a6cb7fa1768b265e29c6fb11f4339bf902a511db1781cf0cf13c00c",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "metadata_files": 36,
+  "ciphertexts": 16,
+  "before_mismatches": [],
+  "after_mismatches": [],
+  "qualification": "Evidence-only no-key replay. No decryption, authenticated restoration, prior inventory comparison, installer or product execution. Captured inputs rehashed rather than atomically locked."
+}

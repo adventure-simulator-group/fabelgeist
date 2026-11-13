@@ -1,0 +1,10 @@
+{
+  "schema": "726-post8ca-preinstall-correction-v3",
+  "predecessor_sha256": "0b5fa5689e64ff42035d4d432b8dc02d1506f4dfa7f216e6aeeb88d1b65d1a1e",
+  "successor_sha256": "6a680839d5dc9772a1c9af9d191ba13b44cc97f320d43b267aaeb2996887d1d1",
+  "changes": [
+    "Correct the overlong scan digest using the captured scan bytes.",
+    "Bind the corrected v2 runner and its v2 receipt; the runner now preflights stale output files."
+  ],
+  "qualification": "The predecessor capture and runner were unrun; the peer-detected unconditional preflight blocker and earlier review remain preserved. A first successor-generation assertion failed before creating either destination; its tool-visible-only traceback is separately qualified. This successor is unrun and does not establish scan, installation or product behavior."
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized ownership and timestamps; original included root, directory and regular-file bytes and modes",
+  "objects": [
+    {
+      "label": "post8ca-source-pending-intake",
+      "ciphertext": "post8ca-source-pending-intake.aesgcm",
+      "ciphertext_sha256": "5adf63ee8bfae13fa8352cec7dcfd00526bc8f382323ed5142c61ed8fd527f15",
+      "ciphertext_bytes": 15038597,
+      "plaintext_archive_sha256": "47d4ca0d5bc74904b2b53245ae72dabccf71e81f6a5f302eec07c40a90482174",
+      "plaintext_archive_bytes": 15038569,
+      "regular_files": 1034,
+      "directories": 58,
+      "associated_data": "726-audit-private-evidence:post8ca-source-pending-intake:v1"
+    },
+    {
+      "label": "post8ca-source-q3100-author",
+      "ciphertext": "post8ca-source-q3100-author.aesgcm",
+      "ciphertext_sha256": "b60b571cbc5d85abe8232bddcb77a3ed9ece495153468b162c53a9ed9ce456cc",
+      "ciphertext_bytes": 9832307,
+      "plaintext_archive_sha256": "0b74aab1a4523fe2f70bb548f3b5e56efecddcb2e87bda7db14ac20d579f55a1",
+      "plaintext_archive_bytes": 9832279,
+      "regular_files": 325,
+      "directories": 14,
+      "associated_data": "726-audit-private-evidence:post8ca-source-q3100-author:v1"
+    },
+    {
+      "label": "post8ca-source-q3100-peer",
+      "ciphertext": "post8ca-source-q3100-peer.aesgcm",
+      "ciphertext_sha256": "129d39d8aa6213bfde11c069a35c2410f8ce99257a1af1ea6258b9c6ef854a03",
+      "ciphertext_bytes": 213325,
+      "plaintext_archive_sha256": "29f2dcc2f963bf47e3289a149203e176d8a9913dd9c451f00cdf158dbdb68d08",
+      "plaintext_archive_bytes": 213297,
+      "regular_files": 218,
+      "directories": 8,
+      "associated_data": "726-audit-private-evidence:post8ca-source-q3100-peer:v1"
+    },
+    {
+      "label": "post8ca-source-q185-peer",
+      "ciphertext": "post8ca-source-q185-peer.aesgcm",
+      "ciphertext_sha256": "7d070ac5a60d2d613d8193a1350757ded545cb6eea689a5610a823006838ac63",
+      "ciphertext_bytes": 608523,
+      "plaintext_archive_sha256": "551417a2b0ec0bd31cd82a23d82122fd5406fa43dc2ccf0fe72e2524218bfe94",
+      "plaintext_archive_bytes": 608495,
+      "regular_files": 190,
+      "directories": 14,
+      "associated_data": "726-audit-private-evidence:post8ca-source-q185-peer:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier ciphertexts, prior full queue streams, Git objects and any nested keys remain separately held dependencies.",
+  "qualification": "Exactly four registered source roots, no excluded files or directories. No independent custody, 3821 recovery, product behavior, implementation or semantic closure is implied."
+}

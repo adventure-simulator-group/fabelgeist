@@ -1,0 +1,11 @@
+{
+  "schema": "726-preinstall-peer-scanner-check-v1",
+  "checks": {
+    "scanner_source_identities": true,
+    "all_three_sources_parse_without_execution": true,
+    "current_windows_pattern_ast_equal": true,
+    "local_positive_controls_not_calls_to_pattern_scanner": true,
+    "scan_script_does_not_pin_pattern_or_digest_program_bytes": true
+  },
+  "qualification": "Static source inspection only. The local controls are not scanner invocations, though the captured pattern regex and flags match. Scanner/corpus identities and any later execution are separately dependent."
+}

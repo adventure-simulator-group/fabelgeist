@@ -1,0 +1,27 @@
+{
+  "schema": "726-later-process-finite-public-scan-v1",
+  "scanned_encrypted_metadata_files": 3,
+  "scanned_receipt_plaintext_before_scan_and_manifest": 5,
+  "private_path_candidates": 1870,
+  "encoded_path_and_digest_candidates": 7480,
+  "pattern_classes": [
+    "home_path",
+    "temporary_path",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key_header",
+    "github_token",
+    "api_key"
+  ],
+  "key_forms_checked": [
+    "raw",
+    "hex-lower",
+    "hex-upper",
+    "base64"
+  ],
+  "windows_single_and_double_controls_passed": true,
+  "positive_controls_passed": true,
+  "match_count": 0,
+  "qualification": "Finite same-machine scan of named plaintext metadata, excluding ciphertext, nested encryption, unknown encodings and later files. Final scan including receipt manifest is held separately; this cannot prove complete privacy."
+}

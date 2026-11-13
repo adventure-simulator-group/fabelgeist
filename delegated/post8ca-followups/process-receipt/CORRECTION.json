@@ -1,0 +1,7 @@
+{
+  "schema": "726-process-receipt-scan-correction-v2",
+  "predecessor_manifest_sha256": "75960ffea15d1818e149e9dfc0709b3195306a542310f6ccc4c628dbd90fa16c",
+  "issue": "The predecessor Windows-user path regex and its control used doubled backslashes and did not detect an ordinary single-backslash Windows path.",
+  "correction": "Scan and positively test both ordinary and doubled-backslash forms; rescan predecessor plaintext members and all current plaintext metadata. The predecessor is retained unchanged.",
+  "qualification": "The encryption, authenticated restore and earlier receipt contents were not changed. Finite scans remain incomplete privacy proofs."
+}

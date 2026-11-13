@@ -1,0 +1,8 @@
+{
+  "schema": "726-q2744-peer-history-check-correction-v1",
+  "failed_script_sha256": "8d70b4c76c357f83f71f1983a252527679ae868c80f81407356c2a3f62138452",
+  "failed_result_sha256": "f914a7bbface184b9d8884870566b112a4157c8129657e45370a8e6db0cdbf3c",
+  "issue": "The check sought literal own-lens in three original first-question strings, which actually say same-lens; all three original scopes still require their own lens evidence.",
+  "correction": "Check the exact same-lens wording in a new v2 script and write an additive v2 result; preserve the original script, 16/17 result and logs.",
+  "source_or_assessment_changed": false
+}

@@ -13,6 +13,23 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-23-95E.json` records four bounded partial
+assessments and seven planning relationships. The working queue has 1,404
+partial and 2,309 unassessed records, all semantically unreconciled; the ledger
+has 1,135 entries and relationships, not unique defects. No queue record or lens
+is closed and no unique-defect increment is accepted.
+
+`delegated/post8ca-followups/INDEX.md` locates separately attributed source
+packets, independent reviews, custody and recovery records. Selected original
+and reconstructed 059 records agree as parsed while full streams differ. Missing
+checkpoint 3821, SOURCE004 and the 73 nontext/no-positive-EOF contracts remain
+open.
+
+`MAIN-RECHECK-POST8CA.json` records a point-in-time main observation; main may
+advance. Later q2561, q3044 and q2743 evidence remains separately attributed and
+pending reconciliation. Earlier paragraphs below retain their historical
+snapshot counts.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-22-95E.json` records 21 bounded partial
 assessments and 13 planning relationships. The working queue has 1,400 partial
 and 2,313 unassessed records, all semantically unreconciled; the ledger has

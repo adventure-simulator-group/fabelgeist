@@ -1,0 +1,328 @@
+{
+  "schema": "726-post8ca-history-selection-v1",
+  "published_checkpoint": "8caeb2003d10d08320566206817aa0c694231778",
+  "original_059_commit": "eb407672813424d64ec31f208193969f5a62620c",
+  "original_059_path": "handoff/726-audit-20261030-adler/workflow-20261030/CLOSURE-QUEUE-100.json",
+  "original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+  "reconstructed_queue_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+  "whole_stream_bytes_equal": false,
+  "rows": [
+    {
+      "index": 16,
+      "contract_id": "CONT-TEMP-STAKE-SETTLEMENT-GUARD",
+      "historical_lens": 13,
+      "original_status": {
+        "present": true,
+        "value": "open-reconciliation"
+      },
+      "wrapper_historical_status": "open-reconciliation",
+      "wrapper_current_reconciliation": "partial selected current source trace in ASSESSMENT-INVENTORY-ACTOR-ADMISSION-95E.json; all other callers, native policy, transactions, historical aliases and independent lenses remain open",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 24,
+      "contract_id": "ADLER-L11-TEMPORARY-STAKE-SETTLEMENT",
+      "historical_lens": 11,
+      "original_status": {
+        "present": true,
+        "value": "open-reconciliation"
+      },
+      "wrapper_historical_status": "open-reconciliation",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true,
+      "source_metadata": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "attribution_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              350
+            ],
+            [
+              351,
+              700
+            ],
+            [
+              701,
+              1050
+            ],
+            [
+              1051,
+              1400
+            ],
+            [
+              1401,
+              1750
+            ],
+            [
+              1751,
+              2100
+            ],
+            [
+              2101,
+              2450
+            ],
+            [
+              2451,
+              2800
+            ],
+            [
+              2801,
+              3100
+            ],
+            [
+              3101,
+              3250
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "body_or_population_credit": 0
+    },
+    {
+      "index": 185,
+      "contract_id": "ADLER-L11-TRAVEL-PLAN-FAILURE-TO-UNPLANNED",
+      "historical_lens": 11,
+      "original_status": {
+        "present": true,
+        "value": "open-reconciliation"
+      },
+      "wrapper_historical_status": "open-reconciliation",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true,
+      "source_metadata": [
+        {
+          "source_id": "pr-working:crates/strategic-web/src/routes/missions.rs",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "attribution_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              340
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "attribution_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              930
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+          "revision_as_recorded": null,
+          "git_path_as_recorded": null,
+          "attribution_as_recorded": null,
+          "assessed_ranges_as_recorded": [
+            [
+              187,
+              351
+            ],
+            [
+              440,
+              515
+            ],
+            [
+              904,
+              930
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "body_or_population_credit": 0
+    },
+    {
+      "index": 186,
+      "contract_id": "ADLER-L11-ROUTE-PROGRESS-ARITHMETIC",
+      "historical_lens": 11,
+      "original_status": {
+        "present": true,
+        "value": "open-reconciliation"
+      },
+      "wrapper_historical_status": "open-reconciliation",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 240,
+      "contract_id": "SEGOVB-L12-COND-TEMP-COMPANION-STAKE-SETTLEMENT",
+      "historical_lens": 12,
+      "original_status": {
+        "present": true,
+        "value": "open-reconciliation"
+      },
+      "wrapper_historical_status": "open-reconciliation",
+      "wrapper_current_reconciliation": "partial selected current source trace in ASSESSMENT-INVENTORY-ACTOR-ADMISSION-95E.json; all other callers, native policy, transactions, historical aliases and independent lenses remain open",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 662,
+      "contract_id": "Q-L1-c356cec832d5514e0721",
+      "historical_lens": 1,
+      "original_status": {
+        "present": true,
+        "value": "open-evidence-or-disposition"
+      },
+      "wrapper_historical_status": "open-evidence-or-disposition",
+      "wrapper_current_reconciliation": "partial original e275 opposite-sign finite range-span question connected to current deterministic range arithmetic and separately selected ordinary bounded callers; see ASSESSMENT-DETERMINISM-95E.json; no full reconciliation or checkpoint3821 attribution",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 677,
+      "contract_id": "Q-L1-d5f80dd0fecdd3a6bac4",
+      "historical_lens": 1,
+      "original_status": {
+        "present": true,
+        "value": "open-evidence-or-disposition"
+      },
+      "wrapper_historical_status": "open-evidence-or-disposition",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 689,
+      "contract_id": "Q-L1-60bcf5d97b4a6a1b87d1",
+      "historical_lens": 1,
+      "original_status": {
+        "present": true,
+        "value": "open-evidence-or-disposition"
+      },
+      "wrapper_historical_status": "open-evidence-or-disposition",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true,
+      "source_metadata": [
+        {
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/combat/incapacitation.rs",
+          "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path_as_recorded": "crates/adventuresim-core/src/combat/incapacitation.rs",
+          "attribution_as_recorded": "Root Segovb personal independent L1 current prospective full untruncated read; no inherited/other-lens read credit",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              115
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+          "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path_as_recorded": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+          "attribution_as_recorded": "Root Segovb personal independent L1 current prospective full untruncated read; no inherited/other-lens read credit",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              226
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/build/combat_resolution.rs",
+          "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path_as_recorded": "crates/adventuresim-core/build/combat_resolution.rs",
+          "attribution_as_recorded": "Root Segovb personal independent L1 current prospective full untruncated read; no inherited/other-lens read credit",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              275
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-core/build.rs",
+          "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path_as_recorded": "crates/adventuresim-core/build.rs",
+          "attribution_as_recorded": "Root Segovb personal independent L1 current prospective full untruncated read; no inherited/other-lens read credit",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              511
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        },
+        {
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:content/tactical/combat.yaml",
+          "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "git_path_as_recorded": "content/tactical/combat.yaml",
+          "attribution_as_recorded": "Root Segovb personal independent L1 current prospective full untruncated read; no inherited/other-lens read credit",
+          "assessed_ranges_as_recorded": [
+            [
+              1,
+              346
+            ]
+          ],
+          "scope_credit_from_queue": 0
+        }
+      ],
+      "body_or_population_credit": 0
+    },
+    {
+      "index": 1688,
+      "contract_id": "Q-L12-c998b898adf11a34d7e4",
+      "historical_lens": 12,
+      "original_status": {
+        "present": true,
+        "value": "open-evidence-or-disposition"
+      },
+      "wrapper_historical_status": "open-evidence-or-disposition",
+      "wrapper_current_reconciliation": "partial scene path wrapper always returns Ok and actual startup caller expects it; enemy fixture loader/parse validates but direct Deserialize is separately public; source rule and admission candidates documented; see ASSESSMENT-BOT-BEHAVIOR-SNAPSHOT-95E.json; no full reconciliation or checkpoint3821 attribution",
+      "original_and_reconstructed_equal_as_parsed": true
+    },
+    {
+      "index": 3100,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0033-LENS-01",
+      "historical_lens": 1,
+      "original_status": {
+        "present": true,
+        "value": "own-lens-proof-qualification-or-read-pending"
+      },
+      "wrapper_historical_status": "own-lens-proof-qualification-or-read-pending",
+      "wrapper_current_reconciliation": "unassessed",
+      "original_and_reconstructed_equal_as_parsed": true,
+      "source_metadata": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot.rs",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "actual_EOF": 1248,
+          "required_ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "assessed_ranges": []
+        }
+      ],
+      "body_or_population_credit": 0
+    },
+    {
+      "index": 3134,
+      "contract_id": "SEGOVB-L3-PARTY-ZERO-GRACE-ABANDONMENT",
+      "historical_lens": 3,
+      "original_status": {
+        "present": false
+      },
+      "wrapper_historical_status": null,
+      "wrapper_current_reconciliation": "partial current source accepts zero reconnect grace as a value, and an enrolling or sealed party with a loaded or loading member resets empty_for to zero then returns Abandoned on the unconditional zero threshold. The selected terminal system maps that effect to a frozen Failed submission; no mission or database ran; see ASSESSMENT-MISSION-ENROLLMENT-95E.json; no full reconciliation or checkpoint3821 attribution",
+      "original_and_reconstructed_equal_as_parsed": true
+    }
+  ],
+  "qualification": "Selected original and reconstructed rows agree as parsed; their whole streams differ. Original missing status differs from a wrapper null. Source metadata preserves recorded nulls and attributions; no reader credit transfer or checkpoint3821 recovery is inferred."
+}

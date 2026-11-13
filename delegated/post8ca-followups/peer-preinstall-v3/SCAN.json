@@ -1,0 +1,26 @@
+{
+  "schema": "726-preinstall-v3-peer-public-scan-v1",
+  "plaintext_files_before_scan_and_manifest": 4,
+  "private_path_candidates": 17,
+  "encoded_path_and_digest_candidates": 68,
+  "pattern_classes": [
+    "home_path",
+    "temporary_path",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key",
+    "github_token",
+    "api_key"
+  ],
+  "key_forms_checked": [
+    "raw",
+    "hex-lower",
+    "hex-upper",
+    "base64"
+  ],
+  "windows_single_and_double_controls_passed": true,
+  "positive_controls_passed": true,
+  "matches": 0,
+  "qualification": "Finite same-machine plaintext metadata scan; unknown encodings and future material excluded. Final manifest is scanned separately."
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "726-q2545-peer-public-scan-v1",
+  "public_plaintext_files": 7,
+  "archive_source_view_members_checked": 17,
+  "private_path_candidates": 21,
+  "encoded_path_and_digest_candidates": 84,
+  "pattern_classes": [
+    "unix_home",
+    "unix_tmp",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key",
+    "github_token",
+    "api_key"
+  ],
+  "windows_single_and_double_controls_passed": true,
+  "positive_controls_passed": true,
+  "matches": 0,
+  "qualification": "Finite scan of named public plaintext metadata and unpacked source views; unknown encodings and future material are excluded. Complete privacy is not proven. Final manifest and scan receipt are scanned separately."
+}

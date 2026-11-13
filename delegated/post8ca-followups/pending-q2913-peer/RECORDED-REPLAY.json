@@ -1,0 +1,22 @@
+{
+  "schema": "726-q2913-l5-peer-replay-v1",
+  "checks": [
+    {
+      "label": "self",
+      "exit": 0,
+      "stdout_bytes": 485,
+      "stdout_sha256": "be12ef66d86651c1b16a314a9f4311ace562699036047d5e860eafb31ebbff99",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "anchored",
+      "exit": 0,
+      "stdout_bytes": 597,
+      "stdout_sha256": "2f4b1d31b880504949b8da5fe4498d44bf697eeeb1b1f110a8a6749c31d44c7b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Self-contained selected Git path and native archive proof plus optional read-only same-machine original-stream, reconstructed Git stream and protected receipt anchors. Product behavior, independent custody, historical 3821 and whole lens closure remain open."
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "726-fourth-custody-finite-scan-v1",
+  "encrypted_plaintext_metadata_files": 3,
+  "receipt_files_before_scan_and_manifest": 5,
+  "private_path_values": 1805,
+  "path_and_digest_patterns": 19891,
+  "prior_nonce_forms": 2181,
+  "private_hex_tokens": 10074,
+  "pattern_classes": [
+    "home_path",
+    "temporary_path",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key_header",
+    "github_token",
+    "api_key"
+  ],
+  "key_forms_checked": [
+    "raw",
+    "hex-lower",
+    "hex-upper",
+    "base64",
+    "sha256/sha1/md5 raw and hex"
+  ],
+  "windows_single_double_forward_controls_passed": true,
+  "positive_controls_passed": true,
+  "match_count": 0,
+  "qualification": "Finite metadata plaintext scan against private-derived paths, prefixes, digest forms, earlier nonce forms, key forms and named patterns. Ciphertext and unknown encodings excluded here; separate output-key scan includes ciphertext. No complete privacy proof."
+}

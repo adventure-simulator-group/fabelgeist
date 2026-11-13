@@ -1,0 +1,18 @@
+{
+  "schema": "726-central-v6-peer-public-scan-v1",
+  "members": [
+    "REVIEW.md",
+    "BINDING.json",
+    "VERIFY.py"
+  ],
+  "pattern_classes": [
+    "home_path",
+    "temporary_path",
+    "private_key_header",
+    "github_token",
+    "api_key"
+  ],
+  "positive_controls_passed": true,
+  "match_count": 0,
+  "qualification": "Finite pattern scan only; manifest and scan receipt checked separately after sealing."
+}

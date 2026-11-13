@@ -1,0 +1,15 @@
+{
+  "schema": "726-final-process-ciphertext-binding-v1",
+  "ciphertext_manifest_sha256": "5a445df120024173f7df156c9c249c718735f4c163e0579e389ea759dbaa4dde",
+  "auxiliary_metadata": {
+    "README.md": {
+      "bytes": 1157,
+      "sha256": "b5f3e4dc690acb876684148f866bee00eb1c13f608341ef41d4defd14ce28595"
+    },
+    "VERIFY.py": {
+      "bytes": 4537,
+      "sha256": "a32d4688ca3c99ef14263add54f1c81d0dce7a206faa6b5c2d3674e230be25fc"
+    }
+  },
+  "qualification": "Binds public ciphertext manifest and verifier/readme bytes; private source paths and digests are not published. Same-machine self-consistency does not establish external authenticity or independent backup."
+}

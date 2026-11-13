@@ -1,0 +1,20 @@
+{
+  "schema": "726-preinstall-v3-peer-static-check-v1",
+  "checks": {
+    "registration_and_seven_snapshot_identities": true,
+    "successors_parse_without_execution": true,
+    "runner_derivation_matches_predecessor_and_successor": true,
+    "capture_derivation_matches_predecessor_and_successor": true,
+    "installer_derivation_matches_predecessor_and_successor": true,
+    "both_scripts_pin_actual_three_captured_input_digests": true,
+    "capture_pins_runner_digest_path_and_receipt_schema": true,
+    "runner_exactly_three_bounded_changes": true,
+    "capture_exactly_four_bounded_changes": true,
+    "installer_exactly_one_capture_path_change": true,
+    "runner_preflight_precedes_launch": true,
+    "preflight_absence_uses_exists_not_lstat": true,
+    "capture_preserves_full_stage_and_mode_checks": true,
+    "tool_visible_only_failed_derivation_qualified": true
+  },
+  "qualification": "Static captured-source comparison only; the positive exists-not-lstat check describes a limitation. No reviewed script, scan, placement, product source or runtime executed."
+}

@@ -1,0 +1,22 @@
+{
+  "schema": "726-post8ca-stage-builder-v3-peer-replay-v1",
+  "checks": [
+    {
+      "label": "static",
+      "exit": 0,
+      "stdout_bytes": 1071,
+      "stdout_sha256": "1f2872c7175105977564c9b4da9fc7fa35606e7e6809b3fa92b061c52bb008a9",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "anchors",
+      "exit": 0,
+      "stdout_bytes": 411,
+      "stdout_sha256": "c39385aecaee5a949889de801c9a84cce42a6cf3107fd36ab9659fc3082f1e48",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Static evidence-only replay. No installer, staging action, authentication, product execution or independent backup."
+}

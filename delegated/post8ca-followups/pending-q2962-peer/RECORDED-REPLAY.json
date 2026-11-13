@@ -1,0 +1,17 @@
+{
+  "checks": [
+    {
+      "name": "self",
+      "exit": 0,
+      "stdout_sha256": "fae12a538a6ccab64970aec98a6ad008e34db67ee8106031a1dd0a0f509b9a61",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "anchored",
+      "exit": 0,
+      "stdout_sha256": "ef3adb3ec9743f6118689c059ffbd75bbfadf6c569a98be14eec70216211a562",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Strongest replay uses separately held original queue, Git objects and read-only protected extraction; source and product behavior are not executed."
+}

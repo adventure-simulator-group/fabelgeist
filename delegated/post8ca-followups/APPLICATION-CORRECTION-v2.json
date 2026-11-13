@@ -1,0 +1,17 @@
+{
+  "schema": "726-post8ca-application-correction-v2",
+  "predecessor_manifest_sha256": "d7f5ff93e2824cc075cc261d7739e905b0047c5e2e3670e4c907f1bbdbb2bc50",
+  "successor_manifest_sha256": "b0bf6b55e75c220ca2a5fc7094149b298ecbfbbf146e080a0123f69ba8cb0b54",
+  "predecessor_candidate_sha256": "d2ab983c770ec1fdc182f4cf26dae60f1b2afc4872b8d2c414f9f3105e67b3e8",
+  "successor_candidate_sha256": "7e43fdca893231fef073e8d5b8c83f60a592c54e7303601ea6fc173080606b7f",
+  "predecessor_report_sha256": "da1e5ca8c8dd9bc6ac024351f7b352a5413f5c065e38e7970e193fbfb822f574",
+  "successor_report_sha256": "ee3002a1d8f2e24663b179bf3f6a1fa688509acf3991454689cfdbf12c19597e",
+  "predecessor_verifier_sha256": "ad7f03b194200b74442e778da9112604b2c26b3a374eec0a76fc78e3a2cac789",
+  "successor_verifier_sha256": "f46b09d7a21315d7ca3dc0586b77facec2d515ac543d9d0b24a8357e1a70864a",
+  "changes": [
+    "The successor report explicitly says the inherited draft qualification describes the source projection before application, not an exactly installed after-image.",
+    "The successor verifier checks all four declared control hashes and lengths.",
+    "All four before images, four after images and the main observation remain unchanged; the original application and its review remain intact."
+  ],
+  "qualification": "Both applications are prospective until later exact installation. Outer stage capture is still required for an independently anchored file set; no source semantics, product behavior or audit closure is established."
+}

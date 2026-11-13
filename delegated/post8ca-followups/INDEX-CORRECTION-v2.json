@@ -1,0 +1,10 @@
+{
+  "schema": "726-post8ca-index-correction-v2",
+  "predecessor_sha256": "30a5bd819ac48c263664d92d518c690b67038d768e5216218d284b6594ee697c",
+  "successor_sha256": "02decabd5a9d8db18d4b926714a691ed91dbc88b71aa52cff8f9e8388f7ac28a",
+  "changes": [
+    "Add separately pending q2913 and the q2545 original-versus-revisit distinction.",
+    "Explain the guard predecessor/no-key and file-mode limits, removal of the unbound closing path, and the separately verified final custody cutoff."
+  ],
+  "qualification": "The predecessor index is preserved byte-for-byte. These notes do not adopt later source records, establish independent custody or validate product behavior."
+}

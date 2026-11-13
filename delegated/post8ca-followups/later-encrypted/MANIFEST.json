@@ -1,0 +1,187 @@
+{
+  "schema": "726-later-process-encrypted-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar with normalized owners/timestamps; original root, directory and regular-file bytes and modes",
+  "objects": [
+    {
+      "label": "later-01",
+      "ciphertext": "later-01.aesgcm",
+      "ciphertext_sha256": "472414a1262c4c893c1f03e989b017baa83aa287e6f1e7c1182888529bc80007",
+      "ciphertext_bytes": 1597732,
+      "plaintext_archive_sha256": "10314050921eaa2b8b191bb076ac12fb59b5f85bb16a4649778232fb3a38963d",
+      "plaintext_archive_bytes": 1597704,
+      "regular_files": 36,
+      "directories_including_root": 9,
+      "associated_data": "726-audit-private-evidence:later-01:v1"
+    },
+    {
+      "label": "later-02",
+      "ciphertext": "later-02.aesgcm",
+      "ciphertext_sha256": "f766b8d3f46f792277d6171ebc973c9202a4694a3f1d8183d8fbcd3206f0e78d",
+      "ciphertext_bytes": 3431,
+      "plaintext_archive_sha256": "f570ca115d3b06f5354f91ed8cef96ee8256a7777b0a4f311f0df9e4141d16be",
+      "plaintext_archive_bytes": 3403,
+      "regular_files": 10,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-02:v1"
+    },
+    {
+      "label": "later-03",
+      "ciphertext": "later-03.aesgcm",
+      "ciphertext_sha256": "150f801a47917a79428205a94a260a58841e1c5f8c0aaf4d2d04486d48013ffb",
+      "ciphertext_bytes": 3829,
+      "plaintext_archive_sha256": "7686dd7eba59fab578d3c9f92e30a2c4b25c20382ca92dcf1ecccc950024dfca",
+      "plaintext_archive_bytes": 3801,
+      "regular_files": 12,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-03:v1"
+    },
+    {
+      "label": "later-04",
+      "ciphertext": "later-04.aesgcm",
+      "ciphertext_sha256": "e5b36e5853656beb61790e2e3038946c476fc6e207cad94fd8302840fbcc5107",
+      "ciphertext_bytes": 2019,
+      "plaintext_archive_sha256": "8988117ef08bb9336e8b73fc8bd92da0537a6d00398ab5f5b5e0fd46bfecf838",
+      "plaintext_archive_bytes": 1991,
+      "regular_files": 3,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:later-04:v1"
+    },
+    {
+      "label": "later-05",
+      "ciphertext": "later-05.aesgcm",
+      "ciphertext_sha256": "4b74566a78e37afb3f8ff3142095fe54b3c2ce5a7af1640fd9c649133da7635b",
+      "ciphertext_bytes": 307110,
+      "plaintext_archive_sha256": "d861c1c6ece3cd16c8f038ec82959f1381f29888a967c20111726f9b03cdf45e",
+      "plaintext_archive_bytes": 307082,
+      "regular_files": 84,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:later-05:v1"
+    },
+    {
+      "label": "later-06",
+      "ciphertext": "later-06.aesgcm",
+      "ciphertext_sha256": "4d4e195bfa384a075938f7bedb4a4d1b4ba83294cedea33adadcaa84b12f75c8",
+      "ciphertext_bytes": 8718,
+      "plaintext_archive_sha256": "874154f5b856c9b60732f81178aeeddfbec49bd09faf3374f555d9354a5f91f2",
+      "plaintext_archive_bytes": 8690,
+      "regular_files": 5,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:later-06:v1"
+    },
+    {
+      "label": "later-07",
+      "ciphertext": "later-07.aesgcm",
+      "ciphertext_sha256": "5c9e38e78ae1fc8842824696f862e866d81429a9be0c68f23d7bb6968942227b",
+      "ciphertext_bytes": 2114,
+      "plaintext_archive_sha256": "2fccd2e29f21607995e824597e13b81d2fda33dd956f8548168457b003666240",
+      "plaintext_archive_bytes": 2086,
+      "regular_files": 10,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-07:v1"
+    },
+    {
+      "label": "later-08",
+      "ciphertext": "later-08.aesgcm",
+      "ciphertext_sha256": "6f32a802527635ba244a46ecc7f3892d89eb06dbd6a490a992a1100eb0ec81bc",
+      "ciphertext_bytes": 217304,
+      "plaintext_archive_sha256": "36dc19fdb17bc0d1e31c160f19c1b4dddeef07019e15ca6c1231cd607a876867",
+      "plaintext_archive_bytes": 217276,
+      "regular_files": 175,
+      "directories_including_root": 6,
+      "associated_data": "726-audit-private-evidence:later-08:v1"
+    },
+    {
+      "label": "later-09",
+      "ciphertext": "later-09.aesgcm",
+      "ciphertext_sha256": "9847d3b66feb5407b3940f86c15e21715eac5663cf95cac4fd058d0e868c5b53",
+      "ciphertext_bytes": 414824,
+      "plaintext_archive_sha256": "78acd63c368c24e65ed6be280e03906b974fd804b7f75c44c2b6682a296cd5ba",
+      "plaintext_archive_bytes": 414796,
+      "regular_files": 313,
+      "directories_including_root": 14,
+      "associated_data": "726-audit-private-evidence:later-09:v1"
+    },
+    {
+      "label": "later-10",
+      "ciphertext": "later-10.aesgcm",
+      "ciphertext_sha256": "1d24df4292dec22a19580f1ffce0ccc0e25fcf4bff173534b19b77c68f7db571",
+      "ciphertext_bytes": 795542,
+      "plaintext_archive_sha256": "e656cc07c53230ed8aa1abd13a01efd1ec7537f9b2ed92a39fb47b169c112d0c",
+      "plaintext_archive_bytes": 795514,
+      "regular_files": 256,
+      "directories_including_root": 10,
+      "associated_data": "726-audit-private-evidence:later-10:v1"
+    },
+    {
+      "label": "later-11",
+      "ciphertext": "later-11.aesgcm",
+      "ciphertext_sha256": "0f7223194cab1fac6aa2107dd5210eb924d19d5a158d8c8e432cd690237cae0e",
+      "ciphertext_bytes": 3776,
+      "plaintext_archive_sha256": "aca77c069a7221a44b1024384c447ef57684022599f29cc51a3d604a8c2fdccb",
+      "plaintext_archive_bytes": 3748,
+      "regular_files": 7,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-11:v1"
+    },
+    {
+      "label": "later-12",
+      "ciphertext": "later-12.aesgcm",
+      "ciphertext_sha256": "96db92fda614d28ca600e939e36cb9f7b1936916d497e237eae6957597a99c16",
+      "ciphertext_bytes": 3859,
+      "plaintext_archive_sha256": "cb70af58ee54fcdf84cdb1317e55073526cb5eebf8865c636568b5ae7dc72663",
+      "plaintext_archive_bytes": 3831,
+      "regular_files": 4,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-12:v1"
+    },
+    {
+      "label": "later-13",
+      "ciphertext": "later-13.aesgcm",
+      "ciphertext_sha256": "08f218a74cafcc9c0e8a4b1d2f21e76a4c95e619ad54d988e31e5a8d8b1afedb",
+      "ciphertext_bytes": 1773954,
+      "plaintext_archive_sha256": "186785464b67c7f9a6736c0234f664fcf02b24dcb80835cdcc7b51a462229d44",
+      "plaintext_archive_bytes": 1773926,
+      "regular_files": 170,
+      "directories_including_root": 7,
+      "associated_data": "726-audit-private-evidence:later-13:v1"
+    },
+    {
+      "label": "later-14",
+      "ciphertext": "later-14.aesgcm",
+      "ciphertext_sha256": "8775e0db14f9eefd84ae1b970b9877ac787d90941c0dea2b7e0b864fd13f1545",
+      "ciphertext_bytes": 3228187,
+      "plaintext_archive_sha256": "6dacb6e2b96abdb0abf9e1b43584d74d26e98c2e7e5031cd7ac1da31dd268e0d",
+      "plaintext_archive_bytes": 3228159,
+      "regular_files": 99,
+      "directories_including_root": 7,
+      "associated_data": "726-audit-private-evidence:later-14:v1"
+    },
+    {
+      "label": "later-15",
+      "ciphertext": "later-15.aesgcm",
+      "ciphertext_sha256": "e3bf328a96ba2a2f8f0d961019953cf8b9dc4827d04e7e010638bdc1c09a5b0e",
+      "ciphertext_bytes": 12999,
+      "plaintext_archive_sha256": "de36d9fb68d860497d75b2bc0f65ebf231c7f108a7090e9781c7e55fe764d96e",
+      "plaintext_archive_bytes": 12971,
+      "regular_files": 18,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:later-15:v1"
+    },
+    {
+      "label": "later-16",
+      "ciphertext": "later-16.aesgcm",
+      "ciphertext_sha256": "2e75792ecdbbd17bba727b8b823a5f186834f8100aa2a9efce462d9fc657d804",
+      "ciphertext_bytes": 83182,
+      "plaintext_archive_sha256": "ec5c883abf895dc2b86d5ae734e2e35a4cf7da03972813ab4788c07eb6358f03",
+      "plaintext_archive_bytes": 83154,
+      "regular_files": 7,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:later-16:v1"
+    }
+  ],
+  "prior_nonce_count": 687,
+  "new_nonce_count": 16,
+  "control_object_label": "later-16",
+  "qualification": "15 fixed later process roots plus one pre-capture control/inventory root. Guard, installation, publication and any subsequent source work remain separate. Key and earlier ciphertexts remain separately held on the same machine; no independent backup, full Git closure, checkpoint 3821 recovery or product/source validation is established."
+}

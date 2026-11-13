@@ -1,0 +1,30 @@
+{
+  "schema": "726-post8ca-newest-peer-replay-v1",
+  "checks": [
+    {
+      "label": "preinstall-v2",
+      "manifest_sha256": "42867a32cdda25fde608672d74807af934959905b2469e36c0ed60ca9ce37547",
+      "verifier_sha256": "8045c95234f69f738a206a38bb7460829e9e835f6387cebae0f77abf76935542",
+      "exit": 0,
+      "stdout_sha256": "04666884669af5b1ffa0b4a5936d4c3ddbc6957fdf3d6bb392ec79e6b9c3d399",
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2952-author",
+      "manifest_sha256": "7ba3790807079d5a62ac424e89bf4535a94fb221c1205147eef18c2c8f561aec",
+      "verifier_sha256": "13c6ed491a51ce2b71f88941af7953a11494a7f1ffc76ce49904b4bc49c46189",
+      "exit": 0,
+      "stdout_sha256": "cbff3d147e248827996c6c8fbc06e0e4b862e25191d3f501b9245c153f48675d",
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2561-draft-peer",
+      "manifest_sha256": "40355b8955f7358ab00948ce1f5bd813a51cbb8c2e92e5c20a781a2edb312a76",
+      "verifier_sha256": "72d009db927b6fa7bb0a6b9dd89c935e2a551b163319dce90034ab32bc548173",
+      "exit": 0,
+      "stdout_sha256": "be20abbb41af149b027b8ce49fa0c4ece2c1a54af48e2efc0c17e533ae1ed2af",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Same-machine public member identity checks only. The v2 preinstallation review reports a blocker, not approval; q2952 and the q2561 draft remain unadopted. Restricted controls and strongest historical anchors are separate; no source semantics, independent custody or product behavior is established."
+}

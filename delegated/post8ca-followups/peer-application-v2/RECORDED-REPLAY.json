@@ -1,0 +1,39 @@
+{
+  "schema": "726-post8ca-application-v2-peer-replay-v1",
+  "before": {
+    "head": "8caeb2003d10d08320566206817aa0c694231778",
+    "tree": "246d1442c001f653da8f2ea3094620473aae1c32",
+    "status_empty": true,
+    "status_exit": 0
+  },
+  "after": {
+    "head": "8caeb2003d10d08320566206817aa0c694231778",
+    "tree": "246d1442c001f653da8f2ea3094620473aae1c32",
+    "status_empty": true,
+    "status_exit": 0
+  },
+  "captured_inputs": 52,
+  "shared_dependencies": 27,
+  "before_mismatches": [],
+  "after_mismatches": [],
+  "checks": [
+    {
+      "label": "private-candidate-v2",
+      "exit": 0,
+      "stdout_bytes": 305,
+      "stdout_sha256": "c0f402314050d3c0ac73b0f90b9aa16d4446cd692e804118d022411ee759da32",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "public-application-v2",
+      "exit": 0,
+      "stdout_bytes": 186,
+      "stdout_sha256": "733035adf16f2c9a741e40741b15442fe3f4381472aaeb8dee0305875bedf9cf",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "optional_predecessor_guard_rerun": false,
+  "qualification": "Independent evidence-only replay; minimal Git alternate and original evidence remain same-machine dependencies, not full closure or independent custody. Inputs were rehashed, not atomically captured. No product execution."
+}

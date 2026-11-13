@@ -1,0 +1,106 @@
+{
+  "schema": "726-post8ca-pending-later-transport-map-v1",
+  "published_checkpoint": "8caeb2003d10d08320566206817aa0c694231778",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "collections": [
+    {
+      "label": "q2913-author",
+      "archive": "q2913-author.tar.gz",
+      "archive_bytes": 8052,
+      "archive_sha256": "2c835a63364acbb977d248619ee712788134105b304a591c13c3b86f9ad54e4e",
+      "original_manifest_sha256": "95ed9e9e07e73c790c8650677d554a19d71f580581fcc2833b6316aa5687a863",
+      "members": [
+        {
+          "path": "q2913-author",
+          "kind": "directory",
+          "mode": "0o700"
+        },
+        {
+          "path": "q2913-author/ASSESSMENT.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1239,
+          "sha256": "44bc5402c95684ec160baf5073c69cb60f60685fbad7e785b68ed5e5f1866957"
+        },
+        {
+          "path": "q2913-author/BINDING.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 902,
+          "sha256": "6caf0fb1eea8dec01b6d069ecce4103b5a3eeb1c3907995459048aadc58ae6dc"
+        },
+        {
+          "path": "q2913-author/MANIFEST.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1323,
+          "sha256": "95ed9e9e07e73c790c8650677d554a19d71f580581fcc2833b6316aa5687a863"
+        },
+        {
+          "path": "q2913-author/PERSONAL-DISPLAY-RECEIPT.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 14058,
+          "sha256": "28416779b5c3de26b25dff503d534f58f6d1dd82ec1a48f358dc60309096d841"
+        },
+        {
+          "path": "q2913-author/PROCESS-QUALIFICATIONS.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1149,
+          "sha256": "26ca5525306430fa720827207d67f6ed96faa2ebb3bcdd91f38746e940f0ba1c"
+        },
+        {
+          "path": "q2913-author/REPORT.md",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 6060,
+          "sha256": "0f3898c921a7c4c64e6bde94307266150f13604334b57d425b4a9dc67cf652e8"
+        },
+        {
+          "path": "q2913-author/VERIFY.py",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 2325,
+          "sha256": "ddfe6c6db03a8df39d6f959f14edebafcd8a1e338ec8520d5ba4d57dfadc20c7"
+        }
+      ]
+    },
+    {
+      "label": "q2913-receipt",
+      "archive": "q2913-receipt.tar.gz",
+      "archive_bytes": 1282,
+      "archive_sha256": "5c53101970ede4afc74a89f36087d9ae8411f9090f7699d600b3566be926061b",
+      "original_manifest_sha256": "4afd644f7a68f02a16bb2b13a467655ae349fa0056de03e05c402217f0c234b8",
+      "members": [
+        {
+          "path": "q2913-receipt",
+          "kind": "directory",
+          "mode": "0o700"
+        },
+        {
+          "path": "q2913-receipt/MANIFEST.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 610,
+          "sha256": "4afd644f7a68f02a16bb2b13a467655ae349fa0056de03e05c402217f0c234b8"
+        },
+        {
+          "path": "q2913-receipt/REPLAY.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 596,
+          "sha256": "112044710293d3b9b881fb23ba549039ef1744e787f1959957bd0b32823f8037"
+        },
+        {
+          "path": "q2913-receipt/SCAN.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1045,
+          "sha256": "ad5f86bb666f845e592f1c6a50180e03d9bfe6b918c3f908afdf62cfaeb6580b"
+        }
+      ]
+    }
+  ],
+  "qualification": "Later q2913 author and receipt preserve their own source views, per-file historical identity and e275 adoption condition; they remain unadopted and are not checkpoint3821 evidence. Archive ownership and timestamps are normalized; original member modes and bytes are recorded."
+}

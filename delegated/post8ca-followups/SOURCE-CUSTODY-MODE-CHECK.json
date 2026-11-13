@@ -1,0 +1,24 @@
+{
+  "schema": "726-post8ca-source-mode-challenge-v1",
+  "receipt_manifest_sha256": "cc7a61edda16c75fbfdc2ec58e39d75ff1e5cc9409d5df19e60196c395f4af2d",
+  "recorded_mode": "0664",
+  "challenge_mode": "0644",
+  "byte_identities_preserved": true,
+  "checks": [
+    {
+      "label": "original-full-mode",
+      "exit": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 681,
+      "stderr_sha256": "02db00a0f35130a31c46b5e14965a6de09387322f1f8654c9501bac54dac7e26"
+    },
+    {
+      "label": "git-compatible",
+      "exit": 0,
+      "stdout_sha256": "bb33719377dd92be11b031311d9b26732ae899bbc3e4e2fb8cf48329b224017a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "A separate 0644 copy reproduces the original receipt verifier mode failure while the additive Git-compatible checker passes. The sealed original receipt, its original verifier and original authenticated restore remain unchanged; Git does not preserve non-executable mode bits. This does not establish independent custody or product behavior."
+}

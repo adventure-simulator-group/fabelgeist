@@ -1,0 +1,8 @@
+{
+  "schema": "726-q2545-peer-receipt-correction-v2",
+  "predecessor_receipt_manifest_sha256": "fa7af1b43d6b4c9fc9d92354b32d1b9b48efd79a3dde6c9e7d2bb428e3339b69",
+  "replay_manifest_sha256": "527a3ad5bc10b1d86edb037a491a3da710d7506f2665f3432579b8524d81c149",
+  "moved_builder_sha256": "c430b6a6489fcf1935589e276809bc2e9bcff0784c08cce87499d83d6f8860ed",
+  "replay_manifest_reverified": true,
+  "qualification": "A receipt builder was added after replay sealing, then moved unchanged into separate delivery controls; no sealed member was changed. The original exact file-set/mode manifest and first receipt were reverified. The complete predecessor is retained; the builder first-run message was tool-visible and not separately captured."
+}

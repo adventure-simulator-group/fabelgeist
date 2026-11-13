@@ -1,0 +1,49 @@
+{
+  "schema": "726-post8ca-application-replay-v2",
+  "application_manifest_sha256": "b0bf6b55e75c220ca2a5fc7094149b298ecbfbbf146e080a0123f69ba8cb0b54",
+  "correction_sha256": "cfbfe13a5160178f107d93a3796f13d981a9b3ac7e1146a4b6f1a4fa5bf3af0e",
+  "predecessor_replay_sha256": "7b07fca6ff9a426db34dc8d4a1ef04ebac672cbbf58bfec4af4c2b62c8e2ec06",
+  "checks": [
+    {
+      "label": "candidate-v2",
+      "exit": 0,
+      "stdout_bytes": 305,
+      "stdout_sha256": "c0f402314050d3c0ac73b0f90b9aa16d4446cd692e804118d022411ee759da32",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "public-v2-and-predecessor",
+      "exit": 0,
+      "stdout_bytes": 5772,
+      "stdout_sha256": "f459397734b499e1ab96f71ac765702dfff55905200770ec57b93cd1bc83a4f8",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "pending-source",
+      "exit": 0,
+      "stdout_bytes": 243,
+      "stdout_sha256": "7001062e1ec79bbe7adcf6e54c2892fa9c79a96800f9c78f0fd08d8bac56f1c2",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "projection-peer",
+      "exit": 0,
+      "stdout_bytes": 116,
+      "stdout_sha256": "08d5626f93fb3bb4b3ecf98245ce6697449bb9002751f790f9ed5b2a24010016",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "history-projection",
+      "exit": 0,
+      "stdout_bytes": 239,
+      "stdout_sha256": "529dcd4293c7dae436f398766a03a1cd7ca55afa5360e3ee8c702bc082615a51",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Evidence-only corrected candidate, public archive/control hashes, pending public packets, clean 8ca predecessor guard, peer packet and selected history. The absolute minimal Git-object alternate is not full closure. The earlier standalone pending-source and candidate-v2 checks were tool-visible without separate raw transcripts. No installation, independent custody, source-semantic proof, audit closure or product validation is established."
+}

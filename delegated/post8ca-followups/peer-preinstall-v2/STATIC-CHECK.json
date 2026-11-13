@@ -1,0 +1,22 @@
+{
+  "schema": "726-preinstall-v2-peer-static-check-v1",
+  "checks": {
+    "captured_five_inputs_match_registered_snapshot": true,
+    "successor_sources_parse_without_execution": true,
+    "derivation_CAPTURE.py": true,
+    "derivation_INSTALL-TEMPLATE.py": true,
+    "eleven_fixed_hashes_match_prior_captured_stage": true,
+    "fixed_pins_receipt_predecessor_bindings": true,
+    "exact_twenty_six_pin_names_match_captured_pins": true,
+    "capture_and_runner_match_each_other_but_bad_scan_pin_is_blocker": true,
+    "capture_binds_reviewed_runner": true,
+    "peer_members_and_correction_checks_present": true,
+    "two_named_scans_counts_control_and_log_bindings_present": true,
+    "all_seven_scanned_root_bytes_bound_to_rows_and_candidates": true,
+    "capture_full_snapshot_and_mode_handling_present": true,
+    "runner_pins_inputs_before_and_after_subprocess": true,
+    "runner_does_not_preflight_own_log_files": true,
+    "installer_is_exactly_the_described_six_substitutions": true
+  },
+  "qualification": "Captured bytes, AST and source-string checks only; no target script or scan execution, future placement, independent telemetry or product behavior."
+}

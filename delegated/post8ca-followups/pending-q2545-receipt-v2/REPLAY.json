@@ -1,0 +1,56 @@
+{
+  "schema": "726-q2545-peer-public-replay-v1",
+  "reviewer": "final_guard_peer",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "queue_ledger_snapshot": "8caeb2003d10d08320566206817aa0c694231778",
+  "author_public_manifest_sha256": "fc5ada93866ee63a5c333fe8d623cd86d6c3dd5478043b09643e6c4d788dd6f7",
+  "author_private_manifest_sha256": "e820bc19d811d17f6815c0702873435e04386c958ed8dd1c8f8ddf5dbeb3ccf9",
+  "public_manifest_sha256": "aa59acad624d5a4c8b9fe5d215f8a70371463a8188d55ee45c08ad4acd59c571",
+  "private_manifest_sha256": "004138ebfd70f1bcd862e882373b7b94e8980c49f6dc8cd500dc85270fb50ecb",
+  "replay_manifest_sha256": "527a3ad5bc10b1d86edb037a491a3da710d7506f2665f3432579b8524d81c149",
+  "checks": [
+    {
+      "label": "author-public",
+      "exit": 0,
+      "stdout_bytes": 326,
+      "stdout_sha256": "f79d8ffb573bb33526093c0004da8f8fd7505de1c4fa477aa0b319411083787e",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "author-restricted-anchored",
+      "exit": 0,
+      "stdout_bytes": 943,
+      "stdout_sha256": "250c94237ff0069c739809dcf3d6b74b51a1156b0f1d2e68f457096f234c8ce4",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "peer-source-identity",
+      "exit": 0,
+      "stdout_bytes": 379,
+      "stdout_sha256": "fdb141079a35c733a42923c05c0041d87c7de9423b91efe2e5da4e46981661c0",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "postseal_checks": [
+    {
+      "label": "postseal-public",
+      "exit": 0,
+      "stdout_bytes": 196,
+      "stdout_sha256": "53ea09479f61e2c95229dd4a0ab35aceb767cdfb4be685c1f629fcc2b7ab4a81",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "postseal-private",
+      "exit": 0,
+      "stdout_bytes": 129,
+      "stdout_sha256": "f65d5a50d128eaa8ab093bb0828cf76970b228f619dcb6919a1490f4a038fac9",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Recorded same-machine evidence-only checks; complete original queue, protected extraction and Git objects are separately held. Display is reviewer-attested, e275 adoption remains pending, and there is no product validation or independent backup."
+}

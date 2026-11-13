@@ -1,0 +1,73 @@
+{
+  "schema": "726-post8ca-source-restoration-v1",
+  "ciphertext_manifest_sha256": "c76c4dbfdf3c9ea8ec905ff7e44a153e9a4aabc38dd82e8eb7a3113d7f1c8755",
+  "restore_exit": 0,
+  "collections": [
+    {
+      "label": "post8ca-source-pending-intake",
+      "regular_files": 1034,
+      "directories_including_root": 58,
+      "matched_file_bytes_and_modes": true,
+      "matched_directory_modes": true
+    },
+    {
+      "label": "post8ca-source-q3100-author",
+      "regular_files": 325,
+      "directories_including_root": 14,
+      "matched_file_bytes_and_modes": true,
+      "matched_directory_modes": true
+    },
+    {
+      "label": "post8ca-source-q3100-peer",
+      "regular_files": 218,
+      "directories_including_root": 8,
+      "matched_file_bytes_and_modes": true,
+      "matched_directory_modes": true
+    },
+    {
+      "label": "post8ca-source-q185-peer",
+      "regular_files": 190,
+      "directories_including_root": 14,
+      "matched_file_bytes_and_modes": true,
+      "matched_directory_modes": true
+    }
+  ],
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_modes": true,
+  "matched_root_modes": true,
+  "source_inventory_before_and_after_matches": true,
+  "source_root_count": 4,
+  "matched_regular_files": 1767,
+  "matched_directories_including_roots": 94,
+  "prior_unique_nonce_count": 646,
+  "new_unique_nonce_count": 4,
+  "all_nonces_distinct": true,
+  "selected_replay_exits": {
+    "q185-peer-strong": 0,
+    "q3100-author-strong": 0,
+    "q3100-peer-strong": 0
+  },
+  "selected_replay_checks": [
+    {
+      "label": "q185-peer-strong",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q3100-author-strong",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q3100-peer-strong",
+      "exit": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": [
+    "The restored bytes and root, directory and file modes match the frozen preflight inventory; source identity was checked before and after capture.",
+    "The authenticated restore and selected evidence-only replays use the same machine. The separately held key, previous ciphertexts, original extraction and Git objects remain dependencies.",
+    "Hardlinks, owners, ACLs, timestamps, future source changes and uninterrupted identity between checks are not preserved or proven.",
+    "The ciphertext group does not establish independent custody, full Git closure, checkpoint 3821 recovery, product behavior, implementation, defect count or lens closure."
+  ]
+}

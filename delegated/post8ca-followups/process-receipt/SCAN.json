@@ -1,0 +1,28 @@
+{
+  "schema": "726-post8ca-process-finite-public-scan-v2",
+  "scanned_encrypted_metadata_files": 3,
+  "scanned_predecessor_plaintext_files": 6,
+  "scanned_current_plaintext_before_scan_and_manifest": 5,
+  "private_path_candidates": 2988,
+  "encoded_path_and_digest_candidates": 11952,
+  "pattern_classes": [
+    "home_path",
+    "temporary_path",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key_header",
+    "github_token",
+    "api_key"
+  ],
+  "key_forms_checked": [
+    "raw",
+    "hex-lower",
+    "hex-upper",
+    "base64"
+  ],
+  "windows_single_and_double_controls_passed": true,
+  "positive_controls_passed": true,
+  "match_count": 0,
+  "qualification": "Finite scan of plaintext metadata including separately read predecessor members. Ciphertext, compressed bytes, nested encrypted content, unknown encodings and future files are excluded; this cannot prove complete privacy. Final scan including receipt manifest is held separately."
+}

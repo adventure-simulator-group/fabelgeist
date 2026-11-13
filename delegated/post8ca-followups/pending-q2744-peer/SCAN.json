@@ -1,0 +1,27 @@
+{
+  "schema": "726-q2744-peer-public-scan-v1",
+  "public_plaintext_files": 10,
+  "archive_source_view_members_checked": 29,
+  "private_path_candidates": 28,
+  "encoded_path_and_digest_candidates": 112,
+  "pattern_classes": [
+    "unix_home",
+    "unix_tmp",
+    "file_url",
+    "windows_user",
+    "email",
+    "private_key",
+    "github_token",
+    "api_key"
+  ],
+  "key_forms_checked": [
+    "raw",
+    "hex-lower",
+    "hex-upper",
+    "base64"
+  ],
+  "windows_single_and_double_controls_passed": true,
+  "positive_controls_passed": true,
+  "matches": 0,
+  "qualification": "Finite same-machine scan of named public plaintext metadata and unpacked source views; unknown encodings and later material are excluded. Complete privacy is not proven. Final manifest and scan receipt are scanned separately."
+}

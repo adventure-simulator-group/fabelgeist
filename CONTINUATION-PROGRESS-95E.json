@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 10:12:07 UTC and 2026-11-13 10:12:08 UTC; this is point-in-time and main may advance. See MAIN-RECHECK-20261113-1012.json.",
+  "current_main_qualification": "GitHub connector observed main at 95e between 2026-11-13 13:12:51 UTC and 2026-11-13 13:12:51 UTC; this is point-in-time and main may advance. See MAIN-RECHECK-POST8CA.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1128,
+  "new_current_ledger_candidates": 1135,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2431,5 +2431,10 @@
   "post76fe_queue_snapshot": "3,713 indexed: 1,400 partial and 2,313 unassessed; all remain semantically unreconciled.",
   "post76fe_prior_pending_qualification": "Earlier pending snapshots retain their original counts; q3344, q3353, q3354, q3356, q3368 and q3462 now have partial current assessments.",
   "post76fe_same_machine_recovery": "delegated/post76fe-followups/minimal-recovery/RECOVERY-SUMMARY.json; first successor guard failed, then two separately qualified alternate-dependent replays passed.",
-  "main_recheck_20261113_1012": "MAIN-RECHECK-20261113-1012.json"
+  "main_recheck_20261113_1012": "MAIN-RECHECK-20261113-1012.json",
+  "central_post8ca_bounded_reconciliations": "ASSESSMENT-CENTRAL-FOLLOWUPS-23-95E.json; four partial assessments and seven planning relationships, with no semantic closure or accepted unique-defect increment.",
+  "post8ca_queue_snapshot": "3,713 indexed: 1,404 partial and 2,309 unassessed; all remain semantically unreconciled.",
+  "post8ca_later_evidence_qualification": "Later q2561, q3044 and q2743 source evidence remains separately attributed and pending central reconciliation; its capture does not update these four queue records or create historical checkpoint3821 authority.",
+  "checkpoint_8ca_same_machine_recovery": "delegated/post8ca-followups/INDEX.md describes the separately preserved successor recovery, point-in-time observations, minimal Git alternate and later custody cutoffs.",
+  "main_recheck_post8ca": "MAIN-RECHECK-POST8CA.json"
 }

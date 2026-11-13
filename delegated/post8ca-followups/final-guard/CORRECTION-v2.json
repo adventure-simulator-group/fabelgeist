@@ -1,0 +1,17 @@
+{
+  "schema": "726-post8ca-final-guard-correction-v2",
+  "predecessor_guard_sha256": "5f425dcb153b83fa34877690cb7da2f63080efcb6e5e69c09da118d14c906214",
+  "successor_guard_sha256": "58f3a7710c40874504b6a1f757fc8629f96bc2760f1abb4c4c0748e08a4964fe",
+  "predecessor_root_wrapper_sha256": "4daa586011b91cb5dc354261b312d526eeead47a419447aac1a27df3954acd36",
+  "successor_root_wrapper_sha256": "b52a3c6d3f20d94dcae073a8a4fad7c2851066fc96665c19d64276d9cbfebf94",
+  "root_capture_v2_sha256": "b5ecef917573fb438a92a160c46aec2362b2ac75c540af6b6bc137215f17ceb2",
+  "root_capture_v3_sha256": "b64936bcb597b42f114a50543b3a4e035df501601b0abef73182c37c468edf9c",
+  "reviewer_v1_manifest_sha256": "4fcb3f5795c9bf88c650937219e681636347528ada74e4b064e4012ded902d3d",
+  "changes": [
+    "Require exactly captured stage files plus capture and installation status; do not admit later unbound closing files.",
+    "Remove the root wrapper execution of a later unbound closing verifier.",
+    "Bind and check all three prospective root-capture generations, with only the report then the wrapper changed.",
+    "Explicitly report whether the nested predecessor guard was supplied and that ciphertext checks are no-key identity checks."
+  ],
+  "qualification": "Stage directory modes, key-authenticated restoration, prior inventory provenance, external authenticity and later Git-index/publication/recovery records remain separate. This draft is not installed and does not validate product behavior. The staged guard is not an independently trusted outer anchor."
+}

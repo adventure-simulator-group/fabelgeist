@@ -1,0 +1,16 @@
+{
+  "schema": "726-later-process-ciphertext-binding-v1",
+  "ciphertext_manifest_sha256": "c2dfcb5e313bf3e94488ec8c3a335247ae68676fbc3cc9c59c27e88c3cd45a35",
+  "prior_inventory_sha256": "adfe3c9419ba22d96c7758510b7b25ab0a83377ba527ad6645a42fb5c80b505e",
+  "auxiliary_metadata": {
+    "README.md": {
+      "bytes": 912,
+      "sha256": "eed84a556ff6a118704113e9ea26920ceb894f033b33a4c230714086e026b702"
+    },
+    "VERIFY.py": {
+      "bytes": 4270,
+      "sha256": "e639ad6c979ccdd0fa9a022fdf639060e76231374b2edafb2302d7c44d1e85de"
+    }
+  },
+  "qualification": "Binds the ciphertext manifest, prior inventory identity, and named verifier/readme bytes. Same-machine self-consistency does not establish external authenticity or independent backup."
+}

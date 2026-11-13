@@ -1,0 +1,19 @@
+{
+  "schema": "726-post8ca-source-finite-metadata-scan-v1",
+  "ciphertext_manifest_sha256": "c76c4dbfdf3c9ea8ec905ff7e44a153e9a4aabc38dd82e8eb7a3113d7f1c8755",
+  "scanned_public_metadata_files": 5,
+  "source_files_examined_for_private_candidates": 1767,
+  "known_path_candidates": 5199,
+  "positive_controls_pass": true,
+  "pattern_counts": {
+    "unix_home_or_temp": 0,
+    "windows_user": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key_marker": 0,
+    "credential_assignment": 0
+  },
+  "private_source_literal_hits": 0,
+  "individual_path_digest_hits": 0,
+  "qualification": "Finite scan of named public metadata against positive-controlled patterns and candidate values/digests derived from restored source files, source and nonce paths and held-key locator. Candidate values and individual digests are not emitted. Ciphertexts, recursive compressed-source content, unknown encodings and future files are excluded; this is not a general privacy proof."
+}

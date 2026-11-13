@@ -1,0 +1,11 @@
+{
+  "schema": "726-post8ca-stage-installer-correction-v3",
+  "predecessor_sha256": "9459ee789c521cbddfd421880dd7b64310c69d108dee96a4f6c27fe175ff16f1",
+  "successor_sha256": "8954da36222e676237619339448f37e05f32aa7a12cfa33b7b0e5d3a6d3dd0ba",
+  "changes": [
+    "Hard-pin the independently reviewed guard, root wrapper and guard-v2 peer manifest; check the root capture binds the wrapper.",
+    "Place an explicitly pre-rename staging receipt and this correction inside the prepared directory before NOREPLACE rename, avoiding a required post-rename result write.",
+    "Preserve preflight rechecks, prepared-directory failure evidence and separate final placement verification."
+  ],
+  "qualification": "Pre-rename failures can leave a prepared directory; post-rename directory fsync can still fail with a complete final directory present. The receipt alone does not prove rename or fsync success. No product behavior or external authenticity is established."
+}

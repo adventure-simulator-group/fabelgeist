@@ -1,0 +1,22 @@
+{
+  "schema": "726-post8ca-new-peer-replay-v1",
+  "checks": [
+    {
+      "label": "preinstall-v1",
+      "manifest_sha256": "a0565eeaacedac673bb0ce9fdb873d181d1cb502deea1619a37bad8f450a0e12",
+      "verifier_sha256": "b3cf2dbd1f6c93419c62b086ee0dcbe8a164c7662cb5a6e7786e6f69d2b8fe99",
+      "exit": 0,
+      "stdout_sha256": "6f18cd4442850044648438d1d5558159a302b3f7250c3b1ce32e742ce35e9137",
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2962-peer",
+      "manifest_sha256": "c0b1437f056953b4bd83f47936c2ade6bf6bbe61e01f3410ef6ec9399af68eb8",
+      "verifier_sha256": "6f3df6c4c529f8d81b6b1acb6353de0ef5fd5b305e0aac028b86b9dd8ad565df",
+      "exit": 0,
+      "stdout_sha256": "cbff3d147e248827996c6c8fbc06e0e4b862e25191d3f501b9245c153f48675d",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Public member checks and, for preinstall v1, reviewed script identities only. Static findings, source semantics, final scan and installation are not rerun or proved by these checks. Restricted post-cutoff controls and strongest same-machine source anchors remain separate."
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "726-post8ca-application-replay-v1",
+  "application_manifest_sha256": "d7f5ff93e2824cc075cc261d7739e905b0047c5e2e3670e4c907f1bbdbb2bc50",
+  "checks": [
+    {
+      "label": "candidate",
+      "exit": 0,
+      "stdout_bytes": 305,
+      "stdout_sha256": "c0f402314050d3c0ac73b0f90b9aa16d4446cd692e804118d022411ee759da32",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "public-and-predecessor",
+      "exit": 0,
+      "stdout_bytes": 5772,
+      "stdout_sha256": "f459397734b499e1ab96f71ac765702dfff55905200770ec57b93cd1bc83a4f8",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "projection-peer",
+      "exit": 0,
+      "stdout_bytes": 116,
+      "stdout_sha256": "08d5626f93fb3bb4b3ecf98245ce6697449bb9002751f790f9ed5b2a24010016",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "history-projection",
+      "exit": 0,
+      "stdout_bytes": 239,
+      "stdout_sha256": "529dcd4293c7dae436f398766a03a1cd7ca55afa5360e3ee8c702bc082615a51",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Evidence-only candidate, public archive, clean 8ca predecessor guard, peer packet and selected history. The absolute minimal Git-object alternate is required and is not full closure. Earlier standalone candidate verification was tool-visible without a separately saved raw transcript. No installation, independent custody, source-semantic proof, audit closure or product validation is established."
+}

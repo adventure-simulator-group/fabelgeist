@@ -1,0 +1,15 @@
+{
+  "schema": "726-fourth-custody-ciphertext-binding-v1",
+  "ciphertext_manifest_sha256": "b789a93408b1ca635f31a8166de15ee1e08b6704db128e3cf6a7538368798830",
+  "auxiliary_metadata": {
+    "README.md": {
+      "bytes": 1038,
+      "sha256": "776965b14be389b9beb3890b99837b637f891cf3e777f72592ea9dac148e2400"
+    },
+    "VERIFY.py": {
+      "bytes": 4541,
+      "sha256": "1814acce78f6db7b836a99ebbd6a5c0fd2ef6f8aa8a4eee7af7ee494e890b0b2"
+    }
+  },
+  "qualification": "Binds ciphertext manifest and verifier/readme. Plaintext paths and archive digests are not public. Same-machine identity is not independently trusted custody."
+}

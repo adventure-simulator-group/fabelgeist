@@ -1,0 +1,59 @@
+{
+  "schema": "726-q2744-peer-public-replay-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "metadata_checkpoint": "8caeb2003d10d08320566206817aa0c694231778",
+  "author_public_manifest_sha256": "4828252d86dc948b16ba37f3af657d4fbb8b9462a0221b9f8ddbbd20f9ef23c8",
+  "author_private_manifest_sha256": "593c034d2c337b118ae749b6e20cc86e662093ca47c75a247b7de8ba960a68c1",
+  "public_manifest_sha256": "8edd5e85b5b79bbf9a3dc037e8b8dbb7d44db262da6724af42ea5f803441d5a5",
+  "private_manifest_sha256": "f25b2b2b56efd227cc1f90d8bbc7401d0dc699f14cd8d5bb2befebcae577bef7",
+  "replay_manifest_sha256": "60c7f7b456094b548de9f98794a3c49883549d0da3faf231c8e50e7c354b569e",
+  "registered_source_windows": 29,
+  "source_files": 20,
+  "checks": [
+    {
+      "label": "author-complete-anchored",
+      "exit": 0,
+      "stdout_bytes": 124,
+      "stdout_sha256": "3e9d01f7ba8edc6ab113637b5141054c54120f8ab9f73313e5b005e5db9f0e6b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "author-restricted-v3",
+      "exit": 0,
+      "stdout_bytes": 180,
+      "stdout_sha256": "cac669229679a02ae684b0adb94e1eb3c8dd83f9e6a6f109955a9e0dd98bba8b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "peer-source-identity",
+      "exit": 0,
+      "stdout_bytes": 388,
+      "stdout_sha256": "b9a939a19a93dfc9e2c59459db321198f897209958ea20b8212b89f642382021",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "postseal_checks": [
+    {
+      "label": "postseal-private",
+      "exit": 0,
+      "stdout_bytes": 130,
+      "stdout_sha256": "b9dcdc158d5d1579778006efa198923abe0903b6b205d92f50769ba864e548a6",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "postseal-public",
+      "exit": 0,
+      "stdout_bytes": 197,
+      "stdout_sha256": "ed88a70dc6ba7c541ce14d912aba8b6a4ce8751ecb98337a8506472e93b4d861",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "private_raw_files_key_scanned": 368,
+  "key_form_hits": 0,
+  "qualification": "Recorded same-machine evidence-only replay; full original/reconstructed streams, protected extraction and Git objects remain separately held. Source display is reviewer-attested. No original checkpoint3821 recovery, independent backup, full Git closure, product execution, source-credit transfer, adoption or runtime outcome."
+}

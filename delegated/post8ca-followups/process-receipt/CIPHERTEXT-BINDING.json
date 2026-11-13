@@ -1,0 +1,15 @@
+{
+  "schema": "726-post8ca-process-ciphertext-binding-v1",
+  "ciphertext_manifest_sha256": "c485336e58947bfcdfa0064bbd41eb7aa1932cf328ced978167f0d5eedc550a3",
+  "auxiliary_metadata": {
+    "README.md": {
+      "bytes": 1028,
+      "sha256": "a4c158d18e7287a0584a1a8b097d2fe7f0cbdd3a10b05f72ce6042d0d0c6fb7f"
+    },
+    "VERIFY.py": {
+      "bytes": 4272,
+      "sha256": "ae271ff6be4dabc135ae97f9edf39db5f9b9fad35e51dbfe37df3619039793d4"
+    }
+  },
+  "qualification": "Binds the ciphertext manifest and named verifier/readme bytes. Self-consistency and same-machine identities do not establish external authenticity or independent backup."
+}

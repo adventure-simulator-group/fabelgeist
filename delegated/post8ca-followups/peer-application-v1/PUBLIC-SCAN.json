@@ -1,0 +1,43 @@
+{
+  "schema": "726-post8ca-application-peer-public-scan-v1",
+  "files": [
+    {
+      "name": "REPORT.md",
+      "bytes": 5038,
+      "sha256": "08846197c0adc7ad9f0ee3585330eb827027e6141e832723dc3236dc9c4b649f"
+    },
+    {
+      "name": "RECORDED-REPLAY.json",
+      "bytes": 2600,
+      "sha256": "bcf3631c95add259106d36a360f891e843fdc9fdd39b8925868f0a5d20d12ce2"
+    },
+    {
+      "name": "STRUCTURAL-CHECK.json",
+      "bytes": 1125,
+      "sha256": "8b2b29534a1609efeebed24ac92f3b97f56227efb7a131893ec54f63b4f711a6"
+    },
+    {
+      "name": "BINDING.json",
+      "bytes": 1276,
+      "sha256": "7cc47a16fdc0e40974aded6928562137f4abff5265e9dfed7368072c6a608196"
+    },
+    {
+      "name": "VERIFY.py",
+      "bytes": 1985,
+      "sha256": "7a579333ef65c7b9c9e6e2017cfa2505adcd15bbbb3468e40ba3fa21c2a12be2"
+    }
+  ],
+  "private_value_or_digest_hits": 0,
+  "pattern_counts": {
+    "home_path": 0,
+    "temp_path": 0,
+    "windows_home": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "credential": 0
+  },
+  "positive_controls_pass": true,
+  "self_metadata": "Scan and manifest also scanned in memory before writing.",
+  "qualification": "Finite selected plaintext scan using privately held path and key values and nontrivial prefixes plus raw and hexadecimal SHA-256, SHA-1 and MD5 digests and path/credential patterns. Values and digests are not emitted. Unknown encodings and unspecified inputs remain outside scope."
+}

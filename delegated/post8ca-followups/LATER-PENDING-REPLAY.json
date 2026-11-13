@@ -1,0 +1,22 @@
+{
+  "schema": "726-post8ca-later-pending-replay-v1",
+  "checks": [
+    {
+      "label": "q2913-peer",
+      "manifest_sha256": "2dadec75978363601bd7e25eb54e2df3285b0903212f8389b340296fd9cd2c89",
+      "verifier_sha256": "bc7767a1e00ad4468ce495c203e52312ab4326bbebcb322ddf6eb6697800478f",
+      "exit": 0,
+      "stdout_sha256": "cbff3d147e248827996c6c8fbc06e0e4b862e25191d3f501b9245c153f48675d",
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q3083-author",
+      "manifest_sha256": "0418b62d39945c8132ae96bda5cdac158ab3f2ee2f058c7cf5e9879a855a7b14",
+      "verifier_sha256": "72d009db927b6fa7bb0a6b9dd89c935e2a551b163319dce90034ab32bc548173",
+      "exit": 0,
+      "stdout_sha256": "be20abbb41af149b027b8ce49fa0c4ece2c1a54af48e2efc0c17e533ae1ed2af",
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Same-machine no-key public evidence member checks only. The q2913 peer restricted replay and q3083 author process controls were produced after the third custody cutoff and remain separately held. Neither assessment is adopted; source semantics, whole-tree equality, independent custody and product behavior are not established."
+}

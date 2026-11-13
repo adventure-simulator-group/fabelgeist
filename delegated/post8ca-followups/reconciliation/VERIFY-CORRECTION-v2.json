@@ -1,0 +1,6 @@
+{
+  "schema": "726-post8ca-reconciliation-verifier-correction-v2",
+  "predecessor_sha256": "2a321c102cdd9f49901e8e59739fbed1d58971305bbcb9fd6948d4256cc30637",
+  "successor_sha256": "448d22f6516c6dfb65970fa93499e96dfbd39a2b176843d641c9f75ec5db4d9a",
+  "reason": "Check the original public manifest member inside each report archive in addition to its archive and report identities. Earlier standalone replay checked report bytes but did not perform this manifest-member assertion."
+}

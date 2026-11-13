@@ -1,0 +1,40 @@
+{
+  "schema": "726-post8ca-process-stage-replay-v1",
+  "ciphertext_manifest_sha256": "c485336e58947bfcdfa0064bbd41eb7aa1932cf328ced978167f0d5eedc550a3",
+  "receipt_manifest_sha256": "fc8dc6deec6d92d052158cdd76e954d0cb9354a552b659b5608eaa0d36260a18",
+  "checks": [
+    {
+      "label": "encrypted-default",
+      "exit": 0,
+      "stdout_bytes": 243,
+      "stdout_sha256": "6959f5b30629312d89cb8bdb1695011835329e7498dce6a9cd608809a91916c8",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "encrypted-prior",
+      "exit": 0,
+      "stdout_bytes": 262,
+      "stdout_sha256": "8929b61de3de0342783eebec996b22389b5b40612830dc4720a6f782ead104f5",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "receipt-default",
+      "exit": 0,
+      "stdout_bytes": 318,
+      "stdout_sha256": "994f724c193ca340382d9a30cda0385273d8a0eddb97b1631ca38d9c4816c99f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "receipt-bound-prior",
+      "exit": 0,
+      "stdout_bytes": 338,
+      "stdout_sha256": "16c0b43925450071c5e45de701725f3461271a0176e8f3b5be23d93faf711780",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "qualification": "Same-machine no-key identity and supplied-650 nonce comparison only; the separately recorded authenticated restoration was not repeated here. Prior inventory provenance, independent backup, later controls, complete Git closure, checkpoint3821 and product behavior remain open."
+}

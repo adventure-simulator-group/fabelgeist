@@ -1,0 +1,41 @@
+{
+  "schema": "726-final-process-restoration-receipt-v1",
+  "ciphertext_manifest_sha256": "5a445df120024173f7df156c9c249c718735f4c163e0579e389ea759dbaa4dde",
+  "source_root_count": 23,
+  "control_root_count": 1,
+  "source_regular_files": 1535,
+  "source_directories_including_roots": 90,
+  "source_regular_file_bytes": 20486653,
+  "control_regular_files": 8,
+  "control_directories_including_root": 1,
+  "prior_unique_nonce_count": 703,
+  "prior_group_sizes": [
+    650,
+    37,
+    16
+  ],
+  "new_unique_nonce_count": 24,
+  "source_inventory_before_after_matches": true,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_modes": true,
+  "matched_root_modes": true,
+  "authenticated_prior_object_key_identity": true,
+  "verification_checks": [
+    {
+      "label": "no-key",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "no-key-with-prior",
+      "exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "authenticated-restore",
+      "exit": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Recorded same-machine no-key checks, authenticated fresh restore and source/control file/mode comparison. Hardlinks, owners, ACLs, timestamps, independent custody, prior inventory completeness/provenance, full Git closure, checkpoint 3821 recovery and product/source validation are not established."
+}

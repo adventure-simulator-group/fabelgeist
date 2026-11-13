@@ -1,0 +1,45 @@
+{
+  "schema": "726-post8ca-process-restoration-receipt-v1",
+  "ciphertext_manifest_sha256": "c485336e58947bfcdfa0064bbd41eb7aa1932cf328ced978167f0d5eedc550a3",
+  "source_root_count": 36,
+  "control_root_count": 1,
+  "source_regular_files": 2303,
+  "source_directories_including_roots": 208,
+  "control_regular_files": 6,
+  "control_directories_including_root": 1,
+  "prior_unique_nonce_count": 650,
+  "new_unique_nonce_count": 37,
+  "source_inventory_before_after_matches": true,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_modes": true,
+  "matched_root_modes": true,
+  "authenticated_prior_source_key_identity": true,
+  "prior_source_observation": {
+    "matching_saved_size_time_nonce": 646,
+    "missing": 0,
+    "changed": 0,
+    "published_hash_matches": 8,
+    "published_hash_mismatches": 0
+  },
+  "verification_checks": [
+    {
+      "label": "no-key",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "6959f5b30629312d89cb8bdb1695011835329e7498dce6a9cd608809a91916c8"
+    },
+    {
+      "label": "no-key-with-prior",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "8929b61de3de0342783eebec996b22389b5b40612830dc4720a6f782ead104f5"
+    },
+    {
+      "label": "authenticated-restore",
+      "exit": 0,
+      "stderr_bytes": 0,
+      "stdout_sha256": "54366942bc604903989b3a63dcb30acda4e5c6a7349ca469a030357518b33331"
+    }
+  ],
+  "qualification": "Recorded same-machine no-key checks, authenticated fresh restore and file/mode comparison. Hardlinks, owners, ACLs, timestamps, independently held custody, prior inventory completeness/provenance, full Git closure, checkpoint3821 recovery and product/source validation are not established. Later application/installation controls and future source work remain separate."
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "726-post8ca-pending-later-transport-map-v1",
+  "published_checkpoint": "8caeb2003d10d08320566206817aa0c694231778",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "collections": [
+    {
+      "label": "q3083-author",
+      "archive": "q3083-author.tar.gz",
+      "archive_bytes": 7844,
+      "archive_sha256": "8b50efefb65aff4be854f484806df2163e4b33892119d70e69629a0c107c72b1",
+      "original_manifest_sha256": "6900a4f743dfa42b1efb4c8c1efe42199df88f7f44d7e9aa8b1ccfe9c4c7e24c",
+      "members": [
+        {
+          "path": "q3083-author",
+          "kind": "directory",
+          "mode": "0o700"
+        },
+        {
+          "path": "q3083-author/ASSESSMENT.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1393,
+          "sha256": "07997eac4dabcc0d870c22ef407ce0cb76d93aefe1db573078e5e2441db77e6d"
+        },
+        {
+          "path": "q3083-author/BINDING.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1078,
+          "sha256": "563cc148bf49798e29ef11e4bf46e703a2783188742fbd972a8ebb37bc9a4532"
+        },
+        {
+          "path": "q3083-author/MANIFEST.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1689,
+          "sha256": "6900a4f743dfa42b1efb4c8c1efe42199df88f7f44d7e9aa8b1ccfe9c4c7e24c"
+        },
+        {
+          "path": "q3083-author/PERSONAL-DISPLAY-RECEIPT.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 12667,
+          "sha256": "c13b256d436595db85badea1b9f026583912a1e85d726ad3897e4c884cf4c1f2"
+        },
+        {
+          "path": "q3083-author/PROCESS-QUALIFICATIONS.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1441,
+          "sha256": "0c410d70cce0d5c0f904a70bb245b37a92f94336735ba3e94a3413d88880b509"
+        },
+        {
+          "path": "q3083-author/REPORT.md",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 4778,
+          "sha256": "94deb1e626c1f32b309fd5117a7b6f68eb8d788a328570263da93274edd4c77e"
+        },
+        {
+          "path": "q3083-author/VERIFIER-CORRECTION-v2.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 207,
+          "sha256": "eed99d2bf4ceeb3ab418e9302501d1558754b96f3a1b54bb8f06659d6bf57ff7"
+        },
+        {
+          "path": "q3083-author/VERIFIER-CORRECTION.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 292,
+          "sha256": "d4b51fd054e4e11a22796f94e013b70b78941182cdff03c223b815b7a47ae6bc"
+        },
+        {
+          "path": "q3083-author/VERIFY.py",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 2328,
+          "sha256": "60b72d627e7fd04678b8383cb7df553d68a063ca88205d5cd5ede027306c28f9"
+        }
+      ]
+    },
+    {
+      "label": "q3083-receipt",
+      "archive": "q3083-receipt.tar.gz",
+      "archive_bytes": 1292,
+      "archive_sha256": "ce7ed985d3b7245f763a9be8dc58da2a92b53ada8915fdba2ee76e011cbce25a",
+      "original_manifest_sha256": "87e4983573791c4007609cfd82139cdfa52ab32c327d353a813af677533ed493",
+      "members": [
+        {
+          "path": "q3083-receipt",
+          "kind": "directory",
+          "mode": "0o700"
+        },
+        {
+          "path": "q3083-receipt/MANIFEST.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 610,
+          "sha256": "87e4983573791c4007609cfd82139cdfa52ab32c327d353a813af677533ed493"
+        },
+        {
+          "path": "q3083-receipt/REPLAY.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 625,
+          "sha256": "1b6fc6d6a70f8adc241fb58b18a9ab8529cdd94955a7304a2bef223b65fca11a"
+        },
+        {
+          "path": "q3083-receipt/SCAN.json",
+          "kind": "file",
+          "mode": "0o664",
+          "bytes": 1035,
+          "sha256": "7080ee0fa74dd6a1e6a3a0d81fd4d50850b98a2d04b3f2482ba54fc0dc15b57b"
+        }
+      ]
+    }
+  ],
+  "qualification": "Later q3083 author and receipt retain historical attribution and the q1712/ledger 390 relationship; they remain unadopted and pending independent review, and are not checkpoint 3821 evidence. Archive ownership and timestamps are normalized; original member modes and bytes are recorded."
+}

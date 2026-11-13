@@ -1,0 +1,10 @@
+{
+  "schema": "726-post8ca-scan-runner-correction-v2",
+  "predecessor_sha256": "a73e508113a3d9b84078df67ffa73baf95328e5ae9244ab4a26dafe52ed1f593",
+  "successor_sha256": "db40c05a0f689595a3ca8e960bfc2502b825fa385eef809c3319c9757d73ec54",
+  "changes": [
+    "Replace the erroneous 66-character scan digest with the actual 64-character captured scan digest.",
+    "Preflight that this runner directory contains only its script and derivation, and that named scanner outputs do not exist before launching."
+  ],
+  "qualification": "The earlier runner was never executed. The successor remains unrun; execution and later scan results require separate evidence."
+}
