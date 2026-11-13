@@ -1,0 +1,36 @@
+{
+  "schema": "726-post8b-pending-calendar-aggregate-synthesis-v1",
+  "status": "unadopted central draft; independent assembly review pending",
+  "published_checkpoint": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "assessment": {
+    "index": 3594,
+    "contract_id": "OBLIGATION-ROOT-L3-EXT-0069-LENS-05",
+    "lens": 5,
+    "original_status_member_present": false,
+    "checkpoint_historical_status_projection": null,
+    "checkpoint_status": "unassessed",
+    "author": "wrapped_scope",
+    "author_public_manifest_sha256": "8605f12e9296324017e05d6ab2044d1b202c04232ea7fce1c31fe88537d49ae9",
+    "author_process_correction_manifest_sha256": "ce1368d495c7a7b3b1d85a9eab0dcd0f3242228ca89bb3141c9cfc7e01a115a1",
+    "peer": "final_guard_peer",
+    "peer_public_manifest_sha256": "a38a31a6c5d1f2ddf0d6ddd79b1f08c9870b3c1af5af65d7c4f0f6511da212bd",
+    "summary": "The selected exact-target epoch helper saturates elapsed time for an admitted pre-start zero target and returns the supplied current instant; the selected official-minute formula at that instant gives world-start minute 332640, not zero. A tracked literal-name search found no other production-file occurrence, but supported callers and policy remain open. Separately, the documented calendar-year cap makes two representable, very distant minutes share max year and day 1 in a selected wedding-date presentation. The selected official i64 clock conversion's calculated upper bound lies below the cap; alternate date ingress, policy and user impact remain open.",
+    "references": [
+      "crates/adventuresim-world-schema/src/calendar.rs:10-49,82-109,148-150,253-255,380-399",
+      "crates/adventuresim-core/src/strategic_time.rs:13-17,381-411",
+      "crates/adventuresim-stdb-module/src/time/mod.rs:8-10",
+      "crates/adventuresim-stdb-module/src/time/clock.rs:2-30",
+      "crates/strategic-web/src/routes/settlements/residences.rs:28-31,229-240"
+    ],
+    "history_and_credit": "Original 059 q3594 has no status member, requires 6533 calendar.rs:1-28 and has no own-Lens 5 assessed range; its 8b wrapper is unassessed. Root's later 6533 Lens 3 receipt records a fresh untruncated read; its e275 same-lens row records qualified reuse with frozen-source adoption pending and no fresh e275 read. File blobs match across 6533/e275/95e, but trees differ and no reader or lens credit transfers. The author and peer each registered 13 current views. The author's additive correction distinguishes full blobs read internally from test bodies personally displayed or executed; none was executed. Earlier q3598 roles remain separate.",
+    "relationships": [
+      "q132 and ledger28/446 concern a separate extreme daily-share operation; ledger66 concerns Sunday workload policy.",
+      "q192/ledger781 and q517/ledger787 concern missing-clock zero projection, not this helper's below-start target.",
+      "q2354 concerns age eligibility and q3304 wedding countdown; no alias or supported reach follows."
+    ],
+    "open_questions": ["Supported pre-start helper callers", "Policy for targets before world start", "Alternative minute and wedding-date ingress", "Intended year-cap presentation behavior", "Transactions, user impact and broader calendar consumers"]
+  },
+  "qualification": "Separate from the five-row application and earlier fixed custody groups. The selected original/reconstructed 059 row matches as parsed and selected bytes; full streams differ. Arithmetic is static, source displays are reviewer-attested rather than independently telemetered, and no product function ran. No queue/ledger edit, unique defect increment, semantic closure or checkpoint 3821 attribution is asserted. SOURCE004, 73 nontext/no-positive-EOF obligations, reconstructed 440 and normalized 774/missing pre-export qualifications remain open."
+}

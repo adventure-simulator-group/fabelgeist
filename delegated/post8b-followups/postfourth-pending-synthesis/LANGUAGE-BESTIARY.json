@@ -1,0 +1,61 @@
+{
+  "schema": "726-post8b-pending-language-bestiary-synthesis-v1",
+  "status": "unadopted central draft; independent assembly review pending",
+  "published_checkpoint": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "assessments": [
+    {
+      "index": 3033,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0027-LENS-07",
+      "lens": 7,
+      "original_status": "own-lens-proof-qualification-or-read-pending",
+      "checkpoint_status": "unassessed",
+      "author": "final_guard_peer",
+      "author_public_manifest_sha256": "1d516c0de953b6c46bb1992d2a4b55f7cb9b9700d7b794fc0ee5a991d6cc781f",
+      "peer": "wrapped_scope",
+      "peer_public_manifest_sha256": "35fae24481372a78112b581b6891a648a46653371985b69339020d4b06dff4a7",
+      "summary": "The selected oral and written enum variants, separately authored ALL lists, indices and matrix dimensions presently agree. Potential omission, collision or matrix-coordinate drift is conditional, with no current mismatch established. The selected written-language icon reads a descriptor from the typed language; shared monograms alone do not establish reverse identity lookup. Separate oral and written policies need not coincide.",
+      "references": [
+        "crates/adventuresim-world-schema/src/language.rs:27-51,110-135,177-193,256-305,340-370,379-390,417-428,466-481",
+        "crates/strategic-web/src/templates/settlement/character_skills.rs:386-421",
+        "crates/strategic-web/src/templates/components.rs:163-179"
+      ],
+      "history_and_credit": "Original 059 requires 6533 language.rs:1-756 with no own-Lens 7 assessed range. Root's earlier Lens 3 partial marked that range unread; its later 6533 receipt records a fresh full-range read. The e275 Lens 3 record is qualified reuse of the adopted earlier receipt, with no fresh personal e275 read. Adler's separate Lens 11 pr-working receipt reports a full-range read and a range union without a standalone revision in that selected record. Equal file blobs across 6533/e275/95e do not make the trees equal or transfer reader/lens credit. The author registered seven current displays; the independent peer registered ten. The peer authored separate q3044/q3051 work, and the author peer-reviewed q3051; those roles are separate.",
+      "relationships": [
+        "q2374 is a partially reconciled language-owner complement; no alias has been established.",
+        "q3131/ledger452 concerns duplicate speaker identity; ledger451 concerns a written-language nonfinite gate.",
+        "q3132/ledger450 concerns initialization weights; q3040/ledger1095 concerns profile-leaf propagation."
+      ],
+      "open_questions": ["All descriptor and list consumers", "Intended matrix values and ordering", "Owner or explicit consistency contract", "Supported future states and policy", "Historical aliases and full-file scope"]
+    },
+    {
+      "index": 3023,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0026-LENS-09",
+      "lens": 9,
+      "original_status": "own-lens-proof-qualification-or-read-pending",
+      "checkpoint_status": "unassessed",
+      "author": "wrapped_scope",
+      "author_public_manifest_sha256": "c50e9b0bc0b403f9211d0e89ec707deb2878f3eca5a4c0072ad89d7d67fe9e3e",
+      "peer": "final_guard_peer",
+      "peer_public_manifest_sha256": "7d5e96b55c153549166095f314dd46d472ed72907735e75f04193c0a3e2eab7d",
+      "summary": "The selected category enum and simultaneous category-hour state do not themselves demonstrate a boolean/payload shape defect. A directly constructed SkillRating requirement can name bestiary without a leaf; the selected authored validator rejects it. If such a value is supplied, the selected starting-character check returns false, the native check reports an unknown requirement when a skills row exists, and life simulation constructs a FixedSkill target. Supported bypass and later outcomes are unproved. The direct-hours gate tests <= 0.0; nonfinite admission is a separate question.",
+      "references": [
+        "crates/adventuresim-world-schema/src/bestiary.rs:15-29,154-228",
+        "crates/adventuresim-core/src/organization.rs:340-352",
+        "crates/adventuresim-core/src/organization_catalog_validation.rs:47-61,132-174",
+        "crates/adventuresim-core/build.rs:389-429,449-455",
+        "crates/adventuresim-core/src/starting_character.rs:789-882",
+        "crates/adventuresim-stdb-module/src/organization.rs:145-167,195-220",
+        "crates/adventuresim-core/src/life_simulation.rs:274-299"
+      ],
+      "history_and_credit": "Original 059 requires 6533 bestiary.rs:1-330 with no own-Lens 9 assessed range. Root's earlier Lens 3 partial marked it unread; the later 6533 receipt records a fresh full-range read. Its e275 Lens 3 row records qualified reuse from the adopted prior receipt, no fresh e275 read and no pending-adoption field. Adler's separate Lens 11 pr-working receipt reports a full-range read with no standalone revision in that selected record. Equal file blobs do not transfer historical or other-lens credit. The author registered 19 current views and the independent peer 13; previous q2503, q3019 and q3021 roles remain separate. The peer and the q3033 peer were sealed after the fourth cutoff.",
+      "relationships": [
+        "The trace corroborates the existing q2503/ledger1110 requirement-shape relationship; it does not add a unique finding.",
+        "q2373/ledger445 and q3021 address category/training authority; q3016/ledger1096 concerns tactical propagation; q3019 and q3130/ledger444 concern aggregate and admission behavior. Their first operations and reach remain distinct."
+      ],
+      "open_questions": ["Supported malformed ingress and all constructors", "Life-simulation downstream outcome", "Policy and transaction reach", "Nonfinite admission", "Historical aliases and full-file scope"]
+    }
+  ],
+  "qualification": "This draft is separate from the prospective five-row application and from all fixed custody groups. Selected original and reconstructed 059 records match as parsed; full streams differ. Source displays are reviewer-attested, not independently telemetered. No queue or ledger was changed, no unique defect increment or semantic closure is asserted, and checkpoint 3821 remains unrecovered. SOURCE004, 73 nontext/no-positive-EOF obligations, reconstructed 440 qualifications and the normalized 774 versus missing pre-export originals remain open. No product validation, execution or repair."
+}

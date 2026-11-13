@@ -1,0 +1,271 @@
+{
+  "schema": "726-post8b-five-synthesis-proposal-v5",
+  "status": "unadopted; independent review and application pending",
+  "published_checkpoint": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "input_bindings": {
+    "registration_sha256": "5aa3c3f48f3e0eb52be04af3b11bc1d165f137a07e5a6f7b5292370aee4fe289",
+    "next_draft_v4_sha256": "748612a439ab988e8ee06bb6656629c3da642c153cb4aa1688625c28074c15c1",
+    "additional_draft_v8_sha256": "c4c5aac2460f7ba000d4ab74712dcae88317e6b78e1b1c48ee222b15c3fdb3d8",
+    "post8b_snapshot_sha256": "265d201d51681d630dadd4abeafa7cd281a74ccefb1e78ee63074211111571d6"
+  },
+  "assessments": [
+    {
+      "index": 2561,
+      "contract_id": "EXTENSION-L7-ROOT-L2-EXT-0060",
+      "historical_lens": 7,
+      "original_status_member_present": true,
+      "historical_status_projection": "pending-independent-lens-qualification",
+      "source_packets": [
+        "delegated/post8ca-followups/pending-source/q2561-author.tar.gz",
+        "delegated/post8ca-followups/pending-source/q2561-peer.tar.gz"
+      ],
+      "summary": "The two independently written rank tables assign the same maximum to each of 21 skill names, while the separate ordinary-skill mapping names the same 21 skills. The two terrain predicates and the schedule mapping enumerate the same six terrain names. Catalog and book shape predicates differ in scope; the catalog also checks settlement allowlist entries and duplicates. A directly constructed Book with a cooking target, quality one and an allowlist containing one empty string passes the selected book predicate and fails the selected catalog empty-ID check; an empty vector is distinct and the selected bookstore path treats it as unrestricted. Conditional future drift or a stale supplied rank can alter the selected API or selection path, but supported mismatches and outcomes are unproved.",
+      "references": [
+        "crates/adventuresim-core/src/book.rs:19-65,83-145,265-313",
+        "crates/adventuresim-core/src/item_catalog_validation.rs:1360-1445",
+        "crates/adventuresim-core/src/item_catalog_schema.rs:498-529",
+        "crates/adventuresim-stdb-module/src/time/schedule.rs:429-438,477-515,518-638,641-714",
+        "crates/adventuresim-core/src/skill.rs:90-107,831-889,1098-1125",
+        "crates/adventuresim-core/build.rs:39-50,74-80,222-262"
+      ],
+      "history": "Selected original and reconstructed 059 rows match as parsed; full streams differ. The 6533 book file is identical to the selected 95e file; the compared item-schema objects differ. Original Lens 2 supplier evidence is inherited in that lens, and Root reinspection is separately recorded; it transfers no Lens 7 read credit. Original checkpoint 3821 remains unrecovered.",
+      "credit": "final_guard_peer authored and personally registered 17 windows; wrapped_scope independently reviewed 18 smaller windows. The coordinator captured reports, not product-source reads; peer and author scopes are not interchangeable.",
+      "open_questions": [
+        "All callers and direct-hours mappings",
+        "Supported catalog ingress, current drift and policy intent",
+        "Parser and macro expansion",
+        "Exhaustive historical aliases and independent custody"
+      ],
+      "disposition": "unadopted proposal for a partial source assessment only; no semantic closure, unique-defect increment or checkpoint 3821 attribution"
+    },
+    {
+      "index": 3044,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0028-LENS-06",
+      "historical_lens": 6,
+      "original_status_member_present": true,
+      "historical_status_projection": "own-lens-proof-qualification-or-read-pending",
+      "source_packets": [
+        "delegated/post8ca-followups/pending-source/q3044-author.tar.gz",
+        "delegated/post8ca-followups/pending-source/q3044-peer-v2.tar.gz"
+      ],
+      "summary": "Selected native consumers use shared world-schema language profile and hours owners; generated client types are wire forms. The selected character row ID crosses raw initialization, a private native name wrapper and a tactical ECS wrapper. A shared identity leaf is a conditional ownership question: wire, strategic and tactical lifecycles and authority remain distinct, and no supported identity error or required merger is established. UnitBasisPoints may represent individual leaves but does not alone enforce the three-weight sum or the smaller incidence cap.",
+      "references": [
+        "crates/adventuresim-world-schema/src/language/initialization.rs:4-54",
+        "crates/adventuresim-world-schema/src/language.rs:138-175,431-465,495-562",
+        "crates/adventuresim-stdb-module/src/strategic/world_import.rs:625-640,690-705",
+        "crates/adventuresim-stdb-module/src/character.rs:2166-2208,2259-2263,2537-2539",
+        "crates/adventuresim-stdb-module/src/character/name_types.rs:55-77",
+        "crates/adventuresim-stdb-module/src/tactical.rs:328-370",
+        "crates/adventuresim-tactical-server/src/player_projection.rs:729-739",
+        "crates/adventuresim-tactical-core/src/player.rs:98-114",
+        "crates/adventuresim-world-schema/src/basis_points.rs:1-32"
+      ],
+      "history": "Selected original and reconstructed 059 rows match as parsed; complete streams differ. The assigned file is identical as an individual Git blob at 6533, e275 and 95e, not proof of identical trees. Root personally read 6533 under Lens 3; the e275 receipt records qualified reuse and does not claim a fresh e275 read. Neither supplies Lens 6 credit. Original checkpoint 3821 remains unrecovered. The original q3044 status is own-lens-proof-qualification-or-read-pending; its 8ca wrapper records current reconciliation as unassessed.",
+      "credit": "wrapped_scope authored 38 personally registered source displays; mhr_character independently peer-reviewed 37, including three assigned-file windows at 6533, e275 and 95e. Their separate attribution and the peer’s corrected process history remain attached; the coordinator captured reports, not product-source reads.",
+      "open_questions": [
+        "All identity producers and distinct lifetimes",
+        "Native, wire, schema and reflection admission",
+        "Shared owner and adapter boundary policy",
+        "Actual supported ingress and user-visible reach",
+        "Exhaustive aliases and independent custody"
+      ],
+      "disposition": "unadopted proposal for a partial source assessment only; no semantic closure, unique-defect increment or checkpoint 3821 attribution"
+    },
+    {
+      "index": 2545,
+      "contract_id": "EXTENSION-L3-ROOT-L2-EXT-0059",
+      "historical_lens": 3,
+      "original_status_member_present": true,
+      "historical_status_projection": "pending-independent-lens-qualification",
+      "source_packets": [
+        "delegated/post8ca-followups/pending-source/q2545-author.tar.gz",
+        "delegated/post8ca-followups/pending-q2545-peer/REPORT.md"
+      ],
+      "summary": "The public Scheduled variant can directly hold zero minutes and an empty organization string although its parser rejects the pair; valid zero time with no organization remains distinct. The selected web and native writers validate numeric values and organization pairs. A separate simulation writer checks the day total before assigning a raw schedule; a one-minute reading example can pass that total check but fail the later numeric validator. Commitment and either the selected non-camp stationary path or Some(location) preview error remain conditional on all other gates and transaction behavior. Numeric-only effective validation and a temporarily filtered clone serve a distinct contract and are not by themselves defects.",
+      "references": [
+        "crates/adventuresim-core/src/strategic_schedule/allocation.rs:7-75,104-131,157-195",
+        "crates/strategic-web/src/schedule.rs:11-39",
+        "crates/adventuresim-stdb-module/src/simulation.rs:253-263,349-493",
+        "crates/adventuresim-stdb-module/src/time/stationary.rs:68-85,195-262",
+        "crates/adventuresim-stdb-module/src/time/schedule.rs:71-89,155-192",
+        "crates/strategic-web/src/templates/settlement/character_skills.rs:2103-2112",
+        "crates/adventuresim-stdb-module/src/npc_causal.rs:195-250",
+        "crates/adventuresim-core/src/npc_policy.rs:123-135"
+      ],
+      "history": "Original and reconstructed selected 059 records match as parsed, not whole streams. The row records 6533 lines 1-99 with no own-Lens range. Root Lens 2 and the separate Root 6533 Lens 3 receipt retain their own readers and lens; the e275 same-lens reuse receipt claims no fresh personal e275 reread and remains conditional on frozen-source adoption. q3301 original row names the Some(location) preview expect; a separately qualified later historical revisit identifies the simulation writer. Neither supplies this author or peer current read credit or checkpoint 3821 recovery.",
+      "credit": "wrapped_scope author registered 24 current windows; final_guard_peer independently registered 17. The peer corrected its first five-versus-six display-batch count; later builder relocation and replay context remain separately qualified.",
+      "open_questions": [
+        "Other supported constructors and writers",
+        "Simulation guards, commit and rollback",
+        "Preview location and runtime reach",
+        "Frozen e275 adoption and global aliases",
+        "Saved versus temporary policy, valid default and NPC modes"
+      ],
+      "disposition": "unadopted proposal for a partial source assessment only; no semantic closure, unique-defect increment or checkpoint 3821 attribution"
+    },
+    {
+      "index": 2743,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0004-LENS-02",
+      "historical_lens": 2,
+      "original_status_member_present": true,
+      "historical_status_projection": "own-lens-proof-qualification-or-read-pending",
+      "source_packets": [
+        "delegated/post8ca-followups/pending-source/q2743-author.tar.gz",
+        "delegated/post8ca-followups/pending-source/q2743-peer.tar.gz"
+      ],
+      "summary": "The assigned current 40-line material registration file groups typed plugins and has no directly declared domain-valued primitive field, parameter, return or retained value for an existing-owner substitution. This is a scoped nonfinding. ChunkSize and InstanceReach represent different roles; their shared float representation does not prove bounds or interchangeability. A selected Vec4 contains RGB plus an ambient scale, not established alpha.",
+      "references": [
+        "crates/adventuresim-tactical-client/src/presentation/materials.rs:1-40",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing.rs:34-44,63-77",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs:16-38,61-65",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs:59-108",
+        "crates/adventuresim-tactical-client/src/presentation/vista/tree_cards.rs:32-70"
+      ],
+      "history": "The selected original/reconstructed records match as parsed; whole streams differ. Original q2743 status is own-lens-proof-qualification-or-read-pending; its 8ca wrapper is unassessed. Original 6533 and e275 files match at EOF35; current 95e differs and has EOF40. Root fresh 6533 Lens 3 and Adler fresh connected Lens 11 reads remain separate. The e275 Root receipt records qualified reuse without claiming a fresh personal reread; its selected source_adoption_pending_for_frozen18_19 field is false, while its reuse basis separately mentions an unresolved condition for other sources 18/19. None transfers Lens 2 credit or establishes checkpoint 3821.",
+      "credit": "mhr_character author personally displayed 11 registered windows including the assigned historical and current views; wrapped_scope independently displayed nine current windows. The peer also authored q2747 Lens 7; no credit transfers.",
+      "open_questions": [
+        "Other material definitions and producers",
+        "ChunkSize and reach admission/operation",
+        "Shader layout and framework activation",
+        "Supported reach and global aliases"
+      ],
+      "disposition": "unadopted proposal for a partial source assessment only; no semantic closure, unique-defect increment or checkpoint 3821 attribution"
+    },
+    {
+      "index": 2744,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0004-LENS-04",
+      "historical_lens": 4,
+      "original_status_member_present": true,
+      "historical_status_projection": "own-lens-proof-qualification-or-read-pending",
+      "source_packets": [
+        "delegated/post8ca-followups/pending-source/q2744-author.tar.gz",
+        "delegated/post8ca-followups/pending-q2744-peer/REPORT.md"
+      ],
+      "summary": "The assigned current registration file itself contains no numeric transformation. The selected pebble and vista producers use positive fixed chunk sizes and positive-width fade-outs. A separately installed grass path has endpoint ordering checks that allow equal fade endpoints, subject to decoding and its other validation. For example, decoded fade-in [0.0, 0.001] and fade-out [1.0, 1.0] pass those endpoint checks if other fields pass, and the constructor retains the equal fade-out. A second example uses fade-in [32768.0, 32768.0] and fade-out [32769.0, 32770.0]: under ordinary round-to-nearest f32, the constructor’s 0.001 increment can round away and retain equal fade-in endpoints. The selected shader source divides by band width. Decoding, other validation, nonempty drawable visible grass and the relevant camera branch must all hold for a zero-width expression to be reached; backend result and intended hard-cut policy remain open. These examples share one denominator question and are not separately accepted defects.",
+      "references": [
+        "crates/adventuresim-tactical-client/src/presentation/materials.rs:1-40",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs:27-77",
+        "crates/adventuresim-tactical-client/src/presentation/config.rs:207-212,242-373",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs:28-65",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/draw.rs:163-197",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/chunk_instancing.wgsl:62-67",
+        "assets/shaders/tactical_grass_instanced.wgsl:218-220",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/batches.rs:20-22,100-115",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs:144-165",
+        "crates/adventuresim-tactical-client/src/presentation/vista/tree_cards.rs:32-35,118-160",
+        "crates/adventuresim-tactical-client/src/presentation/vista/details.rs:272-292",
+        "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs:455-468",
+        "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/pipeline.rs:74-90",
+        "crates/adventuresim-tactical-client/src/presentation/mod.rs:227-233"
+      ],
+      "history": "The selected original/reconstructed records match as parsed; whole streams differ. Original q2744 names 6533, requires lines 1-35 and has no assessed own-Lens 4 range; its status is own-lens-proof-qualification-or-read-pending and both 8ca and 8b wrappers are unassessed. Historical 6533/e275 file identity and changed 95e file are per-file only. Root personally read 6533 lines 1-35 in Lens 3; its e275 receipt records qualified reuse, no fresh personal reread and source_adoption_pending_for_frozen18_19: false. Its condition concerning other sources does not settle their adoption. Adler’s historical Lens 11 reading remains separately attributed; q2701 original status is absent, not null. No credit transfers to this Lens 4 work and checkpoint 3821 remains missing.",
+      "credit": "mhr_character author registered 39 windows including historic assigned files; final_guard_peer independently registered 29 current windows. Their correction and failed metadata lookup histories are retained.",
+      "open_questions": [
+        "Config decoding and all validation conditions",
+        "Nonempty visible grass, camera branch and backend outcome",
+        "Hard-cut versus rejection policy",
+        "All producers and semantic aliases"
+      ],
+      "disposition": "unadopted proposal for a partial source assessment only; no semantic closure, unique-defect increment or checkpoint 3821 attribution"
+    }
+  ],
+  "proposed_relationships": [
+    {
+      "id": "POST8B-PLAN-BOOK-AUTHORITY",
+      "classification": "planning relationship; not a unique-defect count",
+      "queue": [
+        2561,
+        2492,
+        2573,
+        2681
+      ],
+      "ledger": [
+        451,
+        859
+      ],
+      "direction": "Book target policy, selected book predicates, ordinary-skill mapping and reading selection are connected; the nonfinite language gate and preview omission have distinct first operations. Preserve catalog allowlist behavior and build-script dependency boundaries in any future owner proposal. Conditional rank/direct-hours mismatch needs all callers and support policy before acceptance.",
+      "qualification": "Contextual connection only; supported reach, first operations, policy and exact aliases remain open."
+    },
+    {
+      "id": "POST8B-PLAN-LANGUAGE-IDENTITY",
+      "classification": "planning relationship; not a unique-defect count",
+      "queue": [
+        3044,
+        3040,
+        3132,
+        131,
+        2374
+      ],
+      "ledger": [
+        1095,
+        450,
+        451,
+        452,
+        18,
+        856
+      ],
+      "direction": "The character ID ownership question crosses selected initialization, durable name, wire and ECS adapters. Leaf propagation, zero-weight sampler admission, basis-point wire admission, ambient language, nonfinite language, duplicate speaker and browser-number precision are separately attributed first operations, not proven aliases. Preserve the strategic/tactical authority boundary and profile aggregate constraints.",
+      "qualification": "Contextual connection only; supported reach, first operations, policy and exact aliases remain open."
+    },
+    {
+      "id": "POST8B-PLAN-SCHEDULE-ADMISSION",
+      "classification": "planning relationship; not a unique-defect count",
+      "queue": [
+        2545,
+        628,
+        3301,
+        3444,
+        2494,
+        3462
+      ],
+      "ledger": [
+        89,
+        1120
+      ],
+      "direction": "Connect saved organization-pair admission, separately supplied parallel duration arrays and the writer-to-preview/numeric-consumer chain while preserving the original q3301 preview question and later writer revisit. Distinguish temporary filtered numeric schedules, direct identity normalization, valid zero/default and NPC modes. No unique count or exhaustive alias is asserted.",
+      "qualification": "Contextual connection only; supported reach, first operations, policy and exact aliases remain open."
+    },
+    {
+      "id": "POST8B-PLAN-MATERIAL-OPERATIONS",
+      "classification": "planning relationship; not a unique-defect count",
+      "queue": [
+        2743,
+        2744,
+        49,
+        2701,
+        2747,
+        2748,
+        2750
+      ],
+      "ledger": [
+        201,
+        251,
+        1084,
+        1088
+      ],
+      "direction": "Keep the assigned plugin-registration scopes separate from connected chunk size and fade-band consumers, texture residency, recipe channels, celestial material lifecycle and RenderApp startup. A future policy decision must connect equal-endpoint admission, finite precision construction and shader source without treating contextual questions as aliases or observing a render outcome.",
+      "qualification": "Contextual connection only; supported reach, first operations, policy and exact aliases remain open.",
+      "historical_status_qualification": "Original q2701 has no status member; its 8ca wrapper projects null. At 8ca q2747 and q2750 are partial, while q2748 is unassessed. These statuses are not aliases or semantic closure."
+    }
+  ],
+  "counts_if_adopted": {
+    "queue_records": 3713,
+    "partial_before": 1404,
+    "unassessed_before": 2309,
+    "partial_after": 1409,
+    "unassessed_after": 2304,
+    "ledger_before": 1135,
+    "proposed_relationships": 4,
+    "ledger_after": 1139,
+    "queue_closures": 0,
+    "lens_completions": 0,
+    "accepted_unique_defect_increment": 0
+  },
+  "qualification": "Unadopted assembly of earlier central drafts and separately attributed source packets; it is not a coordinator product-source reread, independent proof of source semantics, repaired state, unique-defect count, lens closure or checkpoint 3821 recovery. Original and reconstructed selected 059 objects match as parsed while complete streams differ. Bounded lexical navigation is not an exhaustive alias inventory. Later review, remote recovery and custody evidence must be preserved separately with their actual chronology.",
+  "pending_reviews": [
+    "q3044 attribution correction and assembly successor review",
+    "evidence application and installation review"
+  ]
+}

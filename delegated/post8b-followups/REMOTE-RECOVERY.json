@@ -1,0 +1,75 @@
+{
+  "schema": "726-post8b-remote-recovery-public-v1",
+  "commit": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "tree": "552bb7853c70fea3c124eb0096d53e3e99b9439a",
+  "parent": "8caeb2003d10d08320566206817aa0c694231778",
+  "changed_paths_matched": 521,
+  "checks": [
+    {
+      "label": "clone",
+      "exit": 0
+    },
+    {
+      "label": "set-origin",
+      "exit": 0
+    },
+    {
+      "label": "fetch",
+      "exit": 0
+    },
+    {
+      "label": "checkout",
+      "exit": 0
+    },
+    {
+      "label": "guard",
+      "exit": 0
+    },
+    {
+      "label": "final-ciphertexts",
+      "exit": 0
+    },
+    {
+      "label": "final-receipt",
+      "exit": 0
+    },
+    {
+      "label": "fourth-ciphertexts",
+      "exit": 0
+    },
+    {
+      "label": "fourth-receipt",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2913-author",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2913-peer",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2962-author",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2962-peer",
+      "exit": 0
+    },
+    {
+      "label": "pending-q3083-author",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2952-author",
+      "exit": 0
+    },
+    {
+      "label": "pending-q2561-draft-peer",
+      "exit": 0
+    }
+  ],
+  "restricted_result_sha256": "3a4d4da496141ae6bf7381c284cb1493c17b67daa51f212f1b5ed8fcd1717ed2",
+  "qualification": "Separate same-machine checkout seeded by a shared-object clone of the 8ca predecessor, followed by a remote fetch. It depends on that shared object store and the separately held minimal historical Git alternate. File bytes and Git owner-executable modes match; Git does not restore full directory or POSIX modes. No-key identity checks do not repeat authenticated restoration or prove prior inventory provenance. This is not an independent backup, complete Git closure, original checkpoint 3821 recovery, audit completion or product validation."
+}

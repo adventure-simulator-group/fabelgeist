@@ -1,0 +1,8 @@
+{
+  "schema": "726-post8b-automatic-maintenance-public-v1",
+  "commit": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "commit_child_exit": 0,
+  "standard_auto_pack_notice": true,
+  "restricted_result_sha256": "3d354acd02cea895834fe327858a20547fff317e707bbdd61b6086a0827d5f30",
+  "qualification": "The commit succeeded although the earlier wrapper stopped on a standard Git background-packing notice. Automatic maintenance was invoked; no prior complete object inventory was recorded, so whether any unreachable objects were changed or pruned is not established. A subsequent process listing saw no matching maintenance process and no gc.log or gc.pid; these observations are point-in-time. Later Git commands disable automatic maintenance. The evidence guard uses a separately held minimal Git-object alternate; no full object closure, independent backup, checkpoint 3821 recovery, product validation or audit closure is inferred."
+}

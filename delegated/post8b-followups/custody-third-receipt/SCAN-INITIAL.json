@@ -1,0 +1,29 @@
+{
+  "schema": "726-post8b-third-public-metadata-scan-initial-v1",
+  "pattern_counts": {
+    "home_path": 0,
+    "temporary_path": 0,
+    "windows_user_path": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "github_token": 0,
+    "aws_access_key": 0,
+    "credential_assignment": 0
+  },
+  "private_derived_matches": {
+    "private_path_or_digest": 0,
+    "key_form": 0,
+    "nonce_form": 0
+  },
+  "ciphertext_key_form_matches": 0,
+  "match_count": 0,
+  "positive_controls_pass": true,
+  "source_text_files_scanned": 10545,
+  "source_text_bytes_scanned": 198864059,
+  "source_files_skipped_large": 3,
+  "source_files_skipped_binary": 153,
+  "metadata_files": 3,
+  "ciphertexts_key_scanned": 96,
+  "scope": "Initial public ciphertext metadata only; final separately retained inspection also covers this receipt. Source seeds exclude files over 2 MiB, binary and nested compressed contents. Unknown encodings, prior Git history and full secret coverage remain outside scope."
+}

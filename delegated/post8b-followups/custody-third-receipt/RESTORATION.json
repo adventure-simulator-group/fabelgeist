@@ -1,0 +1,90 @@
+{
+  "schema": "726-post8b-third-restoration-v1",
+  "ciphertext_manifest_sha256": "ce93d85fe26d0a1caefa1300ba07f1024f78373a842e73b6d8580fb28a85ebe4",
+  "no_key_verifier_sha256": "2b73aca6657692ecef6345ef580ea6051fb88e46dda4c5d5b3f7d3508c76c93d",
+  "public_readme_sha256": "5d759ee1728a0108daf8219f93f64185a74e72aa05f3ceb494780877d6aabcc0",
+  "prior_nonce_inventory_sha256": "9c3adf9f64cb2c2c2622510e8015a425d54b404fb64a4d3d252bd5f05602d18b",
+  "restore_exit": 0,
+  "collections": {
+    "source_trees": 93,
+    "immediate_file_snapshots": 2,
+    "pre_capture_controls": 1,
+    "authenticated_objects": 96
+  },
+  "source_regular_files": 10701,
+  "source_directories_including_roots": 859,
+  "control_regular_files": 43,
+  "control_directories_including_roots": 1,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_and_root_modes": true,
+  "source_before_after_equal": true,
+  "prior_unique_nonces": 871,
+  "new_unique_nonces": 96,
+  "cumulative_unique_nonces": 967,
+  "selected_replay_checks": [
+    {
+      "label": "SNAPSHOT",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "METADATA",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "INVENTORY",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "BUILD",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "IMMEDIATEAFTER",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "NOKEY",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "AUTH",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "COMPARE",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "NONCES",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "tool_exit": 0,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Authenticated fresh same-machine restore and exact captured byte/full-mode comparison. The key, earlier ciphertexts, published checkout and historical Git/object-store dependencies remain separately held. Prior nonce provenance is incomplete; no independent backup, full Git closure, product validation or audit closure is asserted."
+}

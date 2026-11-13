@@ -1,0 +1,146 @@
+{
+  "schema": "726-post8b-fifth-restoration-v1",
+  "ciphertext_manifest_sha256": "68debf4c91600cc4a617912f9cacea4f688e364c52b36e7a2593b7c9d2de98a4",
+  "no_key_verifier_sha256": "a8147e5a5a78e1d40eb2eb63748ef816e75e36ccbc29d29fd0215b1ce5667296",
+  "public_readme_sha256": "53f1c8d6f3cd3ebe949a9c041ab9d43d21cc16a9c39cff42ff86eadaa7ae4176",
+  "fixed_scope_sha256": "ace84039c2a4dca0ebddb3aa7721d815581ea862f009e3c9fb254d0e1986bf24",
+  "prior_nonce_inventory_sha256": "3bfd697266db85683c031858b7ec5b5cac9ded398d39a49a87ce154353542b7e",
+  "restore_exit": 0,
+  "collections": {
+    "source_trees": 98,
+    "immediate_file_snapshots": 2,
+    "pre_capture_controls": 1,
+    "authenticated_objects": 101
+  },
+  "source_regular_files": 5857,
+  "source_directories_including_roots": 368,
+  "control_regular_files": 75,
+  "control_directories_including_root": 1,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_and_root_modes": true,
+  "source_before_after_equal": true,
+  "immediate_source_recheck_passed": true,
+  "prior_unique_nonces": 999,
+  "new_unique_nonces": 101,
+  "cumulative_unique_nonces": 1100,
+  "selected_replay_checks": [
+    {
+      "label": "REGISTER",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "DERIVE",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "SNAPSHOT",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "METADATA",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "INVENTORY",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "PRECAPTURE",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "BUILD",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "IMMEDIATEAFTER",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "NOKEY",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "AUTH",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "COMPARE",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "NONCES",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    },
+    {
+      "label": "FINITEINITIAL",
+      "child_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_exit": 0,
+      "outer_stderr_bytes": 0,
+      "tool_exit": 0,
+      "tool_stderr_bytes": 0
+    }
+  ],
+  "qualification": "Authenticated fresh same-machine restore and exact selected source byte/full-mode comparison. Key, earlier ciphertexts, published checkout and historical Git/object-store dependencies remain separate. Prior nonce completeness, independent backup, full Git closure, product validation and audit closure are not established."
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "726-post8b-pending-fixture-error-synthesis-v1",
+  "status": "unadopted central draft; independent assembly review pending",
+  "published_checkpoint": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "assessment": {
+    "index": 6,
+    "contract_id": "CONT08-P16-FIXTURE-ERROR-ERASURE",
+    "lens": 8,
+    "original_status": "open-reconciliation",
+    "checkpoint_status": "unassessed",
+    "author": "final_guard_peer",
+    "author_public_manifest_sha256": "b1c7bc0f1c021e5611abdf259a4c7ac41d4e6c7d0110d4c04ebfc3f302b6d251",
+    "author_order_correction_manifest_sha256": "7cb0c0e54d372382a8ac175b0f1ccf7cbc7b9e4cd4b6e70a366ae15df1fbb232",
+    "peer": "wrapped_scope",
+    "peer_public_manifest_sha256": "c4dced6ffe620141460fe4e44ebe768ac76227300adeab9ab70b52385f6a87bc",
+    "peer_order_check_manifest_sha256": "bd50d3ba692a0bccbadf65b9aa605bc09ddc45f9713674a1c062829226855b8c",
+    "summary": "The selected current grant wrapper discards a checked cause. The fixture's loadout replacement returns a generic error if no eligible existing item is found and the grant wrapper returns None. Basic clothing follows successful loadout, directly calls the wrapper when requested, and reports a separate generic error on None without that matching-row prerequisite. Supported checked failures, fixture reach, transaction behavior and user impact remain open. The reducer reuses an existing mission when present; snapshot insertion is conditional on the other branch, and request insertion requires reaching it after later fallible work.",
+    "references": [
+      "crates/adventuresim-core/src/tactical_fixture.rs:16-29,49-56",
+      "crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs:9-43",
+      "crates/adventuresim-stdb-module/src/world_actor.rs:320-347",
+      "crates/adventuresim-stdb-module/src/item.rs:351-408,429-437",
+      "crates/adventuresim-stdb-module/src/character.rs:3195-3230,3237-3266",
+      "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs:498-529,534-550,581-642,716-789"
+    ],
+    "history_and_credit": "The original Lens 8 record is open-reconciliation; its selected completion receipt compares historical base a120390947c89b703dc74c4255a13c035d054c50 and head 039329518e264f19206cf5b0b98d177433f40c17 and does not individually identify a reader. The current item file equals the historical base per file, while the 039 grant path is fallible. The selected fixture helper is byte-identical at base, head and 95e and uses direct question-mark propagation; the historical receipt instead describes a per-enemy map_err. The 039 conversion or compilation context is not established. A reversed historical source range was rejected by its successor and supplies no credit. The author registered 16 views and the independent peer 19; incidental pre-registration source-diff exposure is process-only. The additive source-order correction and peer check remain distinct.",
+    "relationships": [
+      "Ledger8 and ledger109 already record the shared grant-wrapper error-erasure family and separately conditional inventory false-success paths; the selected fixture callers return generic errors. No global alias or extra unique count follows.",
+      "Ledger145 concerns a distinct party grant wrapper; ledger378/379 and planning relationship1134 concern fixture admission, count and propagation. Historical q218/q946/q947/q1688/q3100/q3134 remain related context, not assumed aliases."
+    ],
+    "open_questions": ["Supported fixture and catalog routes to checked failure", "Intended error boundary and context", "Native transaction and rollback semantics", "Roster ordering on equal ordinals", "Historical P16 conversion discrepancy and aliases"]
+  },
+  "qualification": "Separate from the five-row application and fourth custody cutoff. Selected original/reconstructed 059 row slices match; full streams differ. Displays are reviewer-attested, not independently telemetered. No product build, test, fixture execution, repair, runtime probe, queue or ledger edit, unique defect increment, semantic closure or checkpoint 3821 attribution is asserted. SOURCE004, 73 nontext/no-positive-EOF obligations, reconstructed 440 and normalized 774/missing pre-export qualifications remain open."
+}

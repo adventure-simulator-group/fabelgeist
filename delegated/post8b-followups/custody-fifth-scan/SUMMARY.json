@@ -1,0 +1,46 @@
+{
+  "schema": "726-post8b-fifth-privacy-summary-v1",
+  "finite_metadata_scan": {
+    "pattern_counts": {
+      "home_path": 0,
+      "temporary_path": 0,
+      "windows_user_path": 0,
+      "file_url": 0,
+      "email": 0,
+      "private_key": 0,
+      "github_token": 0,
+      "aws_access_key": 0,
+      "credential_assignment": 0
+    },
+    "private_derived_matches": {
+      "private_path_or_digest": 0,
+      "key_form": 0,
+      "nonce_form": 0
+    },
+    "ciphertext_key_form_matches": 0,
+    "match_count": 0,
+    "positive_controls_pass": true,
+    "source_text_files_scanned": 5851,
+    "source_text_bytes_scanned": 27527382,
+    "source_files_skipped_large": 1,
+    "source_files_skipped_binary": 5,
+    "metadata_files": 8,
+    "ciphertexts_key_scanned": 101
+  },
+  "private_059_and_q2332": {
+    "059_matching_occurrences": 0,
+    "q2332_matching_occurrences": 0,
+    "exceptions": 0,
+    "max_view_mib": 128,
+    "max_depth": 18,
+    "views_may_overlap": true
+  },
+  "gpu_private_digest": {
+    "public_forbidden_occurrences": 0,
+    "receipt_forbidden_occurrences": 0,
+    "other_candidates": 0,
+    "exceptions": 0,
+    "opaque_public_binary_views": 101
+  },
+  "qualification": "Finite scans of the encrypted group metadata and receipt; ciphertexts are opaque and checked only for known key forms, not decrypted or recursively inspected as public content. Source-derived text seeds skip files above 2 MiB, binary-classified files and unexpanded nested compressed contents. Unknown encodings, arbitrary secrets, Git history, omitted roots and complete prior nonce history are not cleared. This is not independent custody or a product check."
+}

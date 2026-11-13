@@ -1,0 +1,7 @@
+{
+  "schema": "726-post8b-candidate-public-correction-v2",
+  "predecessor_manifest_sha256": "cf32269711cb4fa46865f532acebf1f0c97d1fa4287a59873e9d03d33968b03b",
+  "finding": "The predecessor replay checked review manifest ID strings but did not precheck the sibling verifier and could run from a stage while checking only the installed manifest.",
+  "successor": "This replay pins and prechecks each sibling file and requires its own directory to be the supplied publication's candidate directory. Transform and candidate images are unchanged.",
+  "qualification": "This binds bytes only when the successor package is itself anchored; independent candidate, connector, installer and predecessor checks remain separate."
+}

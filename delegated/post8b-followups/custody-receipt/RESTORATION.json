@@ -1,0 +1,58 @@
+{
+  "schema": "726-post8b-custody-restoration-v1",
+  "ciphertext_manifest_sha256": "f2025256d1b1024b9cc27db445745e68bdc42e21995f76ac9af11cd7c7a3b04c",
+  "source_root_count": 44,
+  "stage_snapshot_root_count": 1,
+  "control_root_count": 1,
+  "source_regular_files": 2584,
+  "source_directories_including_roots": 201,
+  "source_regular_file_bytes": 290211584,
+  "control_regular_files": 74,
+  "control_directories_including_root": 1,
+  "prior_unique_nonce_count": 772,
+  "new_unique_nonce_count": 46,
+  "source_inventory_before_after_final_matches": true,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_modes": true,
+  "matched_root_modes": true,
+  "prior_control_object_authenticated": true,
+  "authentication_verifier_child_exit": 0,
+  "verification_checks": [
+    {
+      "label": "NOKEY",
+      "child_exit": 0,
+      "outer_wrapper_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "PRIOR",
+      "child_exit": 0,
+      "outer_wrapper_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "AUTH",
+      "child_exit": 0,
+      "outer_wrapper_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "COMPARE",
+      "child_exit": 0,
+      "outer_wrapper_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "RECHECK",
+      "child_exit": 0,
+      "outer_wrapper_exit": 0,
+      "child_stderr_bytes": 0,
+      "outer_stderr_bytes": 0
+    }
+  ],
+  "qualification": "Recorded same-machine no-key, prior, authenticated restore and byte/mode checks. Owners, timestamps, ACLs, hardlinks, full Git closure, prior nonce completeness and independent custody are not established."
+}

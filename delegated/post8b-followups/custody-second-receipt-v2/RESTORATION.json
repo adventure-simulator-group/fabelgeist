@@ -1,0 +1,103 @@
+{
+  "schema": "726-post8b-second-restoration-v1",
+  "ciphertext_manifest_sha256": "ea2c15520d6a4dfdb89d4823111e5791b2c28128a3ce3821d7297e2e984aef9f",
+  "cumulative_nonce_inventory_sha256": "9c3adf9f64cb2c2c2622510e8015a425d54b404fb64a4d3d252bd5f05602d18b",
+  "prior_nonce_inventory_sha256": "d03fc7d7445e9ac6a28520ec543d1749275fe89ef6c433ffa2111c9f792d8d36",
+  "restore_exit": 0,
+  "collections": 53,
+  "source_trees": 49,
+  "immediate_snapshots": 3,
+  "control_collections": 1,
+  "matched_file_bytes_and_modes": true,
+  "matched_directory_and_root_modes": true,
+  "source_before_after_equal": true,
+  "source_regular_files": 4786,
+  "source_directories_including_roots": 226,
+  "control_regular_files": 16,
+  "control_directories_including_roots": 1,
+  "prior_nonce_count": 818,
+  "new_nonce_count": 53,
+  "cumulative_nonce_count": 871,
+  "prior_nonces_disjoint_checked_without_key": true,
+  "checks": [
+    {
+      "label": "nonce",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 76,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "snapshot",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 78,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "metadata",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 79,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "inventory",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 80,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "precontrol",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 80,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "build",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 76,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "auth",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 74,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "nokey",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 76,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "recheck",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 78,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "compare2",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 79,
+      "outer_stderr_bytes": 0
+    },
+    {
+      "label": "noncefinal",
+      "child_exit": 0,
+      "outer_exit": 0,
+      "outer_stdout_bytes": 81,
+      "outer_stderr_bytes": 0
+    }
+  ],
+  "prior_comparator_failure": "The first comparison stopped on an extra schema metadata field in the final control object. Its predecessor, exact streams and corrected full comparison are preserved separately; no encrypted or source bytes changed.",
+  "qualification": "Authenticated fresh same-machine restore compared against captured source bytes and modes. Key, prior ciphertexts and inventory, historical Git objects, originals and later process controls remain separately held. Supplied nonce provenance/completeness, independent custody and full Git closure are not established. Owners, timestamps, ACLs, hardlink topology, public stage, and later work are outside the claim."
+}

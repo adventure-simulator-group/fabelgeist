@@ -1,0 +1,6 @@
+{
+  "schema": "726-post8b-second-receipt-correction-v1",
+  "predecessor_manifest_sha256": "6da82b30105b3087671c2e1d3523b0206685ad2a47cf05a4d721230b97672665",
+  "reason": "The predecessor receipt verifier used a nested verifier subprocess and discarded its captured streams. Its receipt and passing outer logs remain separately preserved. This successor performs equivalent no-key checks in the receipt verifier process, so the separately captured child and outer streams are complete.",
+  "unchanged": "Ciphertext, source, authenticated restoration and comparison results are unchanged."
+}

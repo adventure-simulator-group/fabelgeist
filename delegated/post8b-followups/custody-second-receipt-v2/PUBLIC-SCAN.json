@@ -1,0 +1,27 @@
+{
+  "schema": "726-post8b-second-public-scan-v2",
+  "pattern_counts": {
+    "home_path": 0,
+    "temporary_path": 0,
+    "windows_user_path": 0,
+    "file_url": 0,
+    "email": 0,
+    "private_key": 0,
+    "github_token": 0,
+    "aws_access_key": 0,
+    "credential_assignment": 0
+  },
+  "private_source_literal_or_digest_hits": 0,
+  "key_form_hits_in_metadata": 0,
+  "nonce_form_hits_in_metadata": 0,
+  "ciphertext_key_form_hits": 0,
+  "baseline059_private_digest_hits": 0,
+  "q2332_private_digest_hits": 0,
+  "gpu_path_or_prefix_digest_hits": 0,
+  "positive_controls_pass": true,
+  "source_text_files_scanned": 4734,
+  "source_files_skipped_large": 0,
+  "source_files_skipped_binary": 52,
+  "ciphertexts_key_scanned": 53,
+  "qualification": "Ciphertext bodies are opaque and are not parsed for path or credential patterns; source-corpus extraction skips files larger than 2 MiB, files with a NUL in the first 8192 bytes, nested compressed content, unknown encodings, unknown hash algorithms and source paths not found by the finite regular expression. The scan does not prove absence of unknown secrets. Public no-key verification, authenticated restore, and source comparison are distinct checks. The separate 059, q2332 and GPU corpus scans are bounded to 128 MiB per view and 18 nested gzip/tar levels; unsupported formats, encodings and digests remain outside scope. A final separately retained rescan follows receipt sealing."
+}

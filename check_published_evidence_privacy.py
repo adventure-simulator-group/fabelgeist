@@ -5,8 +5,10 @@ historical evidence. This driver uses separately preserved successor scripts
 for the redacted current tree; a public crosswalk is not an original-byte match.
 No product build, test, shader, macro, fixture or runtime probe is invoked.
 """
-import json,subprocess,sys
+import json,os,subprocess,sys
 from pathlib import Path
+if sys.flags.optimize:raise RuntimeError('Evidence assertions require an unoptimized interpreter')
+env=os.environ.copy();env.pop('PYTHONOPTIMIZE',None);env['PYTHONDONTWRITEBYTECODE']='1';env['PYTHONNOUSERSITE']='1'
 root=Path(__file__).resolve().parent
 stage=root/'delegated/qualified-059-successors'
 plan=json.loads((stage/'DRIVER-INTEGRATION.json').read_text())
@@ -19,9 +21,12 @@ replacements.update({x['original']:early/x['successor'] for x in early_plan['row
 assert len(replacements)==20
 city='verify_city_streaming_readiness_95e.py'
 first=['verify_recovered.py','verify_selected_states.py','verify_lock_inventory.py','verify_delta_sources.py','verify_role_worklist.py']
-optional={'verify_local_checkpoint_059.py','verify_recovered_public_redacted_plus2.py'}
+optional={'verify_local_checkpoint_059.py','verify_recovered_public_redacted_plus2.py','verify_post8ca_checkpoint.py'}
 remaining=sorted(p.name for p in root.glob('verify_*.py') if p.name not in first and p.name not in optional)
+successor=root/'verify_post8b_checkpoint.py'
+assert successor.is_file() and not successor.is_symlink() and remaining.count(successor.name)==1
 native=sorted(p.relative_to(root).as_posix() for p in (root/'native-evidence').glob('*/verify.py'))
+print('CHECK verify_post8ca_checkpoint.py -> skipped at successor root; use verify_post8b_checkpoint.py with separate --predecessor and --ancestor for the exact older guards',flush=True)
 for name in first+remaining+native:
  args=[];script=root/name
  if name=='verify_recovered.py':
@@ -34,5 +39,5 @@ for name in first+remaining+native:
   script=root/'delegated/city-streaming-privacy-proposal/candidate/verify_city_streaming_readiness_redacted_95e.py';args=['--publication',str(root)]
   print('CHECK',name,'-> qualified city registration reconstruction successor',flush=True)
  else:print('CHECK',name,flush=True)
- subprocess.run([sys.executable,str(script),*args],cwd=root,check=True)
+ subprocess.run([sys.executable,'-B',str(script),*args],cwd=root,env=env,check=True)
 print('Published evidence checks passed for the qualified public reconstructions; retained private originals and previous Git history are separate. No product build, test or probe ran.')

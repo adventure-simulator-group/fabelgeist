@@ -1,0 +1,425 @@
+{
+  "schema": "726-post8b-custody-encrypted-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip tar, normalized owners and timestamps; original regular-file bytes and full file/directory/root modes",
+  "objects": [
+    {
+      "label": "post8b-01",
+      "ciphertext": "post8b-01.aesgcm",
+      "ciphertext_sha256": "d23ae2171c529492ab2534780496f75a40f47d2ec2233f08341183a11d41bbce",
+      "ciphertext_bytes": 6193688,
+      "regular_files": 194,
+      "directories_including_root": 7,
+      "associated_data": "726-audit-private-evidence:post8b-01:v1"
+    },
+    {
+      "label": "post8b-02",
+      "ciphertext": "post8b-02.aesgcm",
+      "ciphertext_sha256": "143a6134c072d68a625bc00052ac2177a6b7318cf3d1533a6112bd096f319aa4",
+      "ciphertext_bytes": 10597,
+      "regular_files": 6,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:post8b-02:v1"
+    },
+    {
+      "label": "post8b-03",
+      "ciphertext": "post8b-03.aesgcm",
+      "ciphertext_sha256": "bfc1d0be3cc0ab55fa1d323a229035bd782844597d88aaaa8f2b6e4c8eb9356a",
+      "ciphertext_bytes": 2317,
+      "regular_files": 11,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-03:v1"
+    },
+    {
+      "label": "post8b-04",
+      "ciphertext": "post8b-04.aesgcm",
+      "ciphertext_sha256": "63a77c1f7e2d5da3f1961a3d5af9692914eaa80f523cf2a78101b3cd046cb2a4",
+      "ciphertext_bytes": 1905,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-04:v1"
+    },
+    {
+      "label": "post8b-05",
+      "ciphertext": "post8b-05.aesgcm",
+      "ciphertext_sha256": "62b50ce510cc314cefc29f1715b22e5e08cdc1cac93d88e0d398ee10d813696c",
+      "ciphertext_bytes": 2016,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-05:v1"
+    },
+    {
+      "label": "post8b-06",
+      "ciphertext": "post8b-06.aesgcm",
+      "ciphertext_sha256": "f20aa07680f3bbc142afbdecdd33424f733bd67db6dabf7a495d0c90772fca94",
+      "ciphertext_bytes": 1816,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-06:v1"
+    },
+    {
+      "label": "post8b-07",
+      "ciphertext": "post8b-07.aesgcm",
+      "ciphertext_sha256": "5c4d7489f9f1ecd9f7f3f6ec9c4af4163bcccdcb5dcb709c1896202a0c7997ba",
+      "ciphertext_bytes": 1834,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-07:v1"
+    },
+    {
+      "label": "post8b-08",
+      "ciphertext": "post8b-08.aesgcm",
+      "ciphertext_sha256": "11433c584f3fed51b287053aa8e8e9b3d65ef752e07132a7da5f4941a09fd0da",
+      "ciphertext_bytes": 2170,
+      "regular_files": 3,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-08:v1"
+    },
+    {
+      "label": "post8b-09",
+      "ciphertext": "post8b-09.aesgcm",
+      "ciphertext_sha256": "3233d5917de952a6a131f9731a1dfd042cd41a2a3c082908fe6815d9e4b07014",
+      "ciphertext_bytes": 1934,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-09:v1"
+    },
+    {
+      "label": "post8b-10",
+      "ciphertext": "post8b-10.aesgcm",
+      "ciphertext_sha256": "6899a54d1b2ad75b9fea6170e7614c92581ae8c0e73639590b37807ec4bd1b74",
+      "ciphertext_bytes": 1937,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-10:v1"
+    },
+    {
+      "label": "post8b-11",
+      "ciphertext": "post8b-11.aesgcm",
+      "ciphertext_sha256": "c66164eb163ff20773ce8ec79cf6fc9e8050766288ce7a8e1da93bbed006bc48",
+      "ciphertext_bytes": 2453,
+      "regular_files": 7,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-11:v1"
+    },
+    {
+      "label": "post8b-12",
+      "ciphertext": "post8b-12.aesgcm",
+      "ciphertext_sha256": "229dbb5b9f624e3633958ecb698e4758334573db00017a53cdbdb8cbbf31fa90",
+      "ciphertext_bytes": 1747,
+      "regular_files": 5,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-12:v1"
+    },
+    {
+      "label": "post8b-13",
+      "ciphertext": "post8b-13.aesgcm",
+      "ciphertext_sha256": "a24f9acd29fbc09916194ae2c06fee7a61382b3a721a496dd7005cbce4a1f40b",
+      "ciphertext_bytes": 4284,
+      "regular_files": 6,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-13:v1"
+    },
+    {
+      "label": "post8b-14",
+      "ciphertext": "post8b-14.aesgcm",
+      "ciphertext_sha256": "3518b604ab09e2ee3e4dc9a0059e72836e1909e150f9bf69bf64d0e3c5f08670",
+      "ciphertext_bytes": 4873,
+      "regular_files": 38,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-14:v1"
+    },
+    {
+      "label": "post8b-15",
+      "ciphertext": "post8b-15.aesgcm",
+      "ciphertext_sha256": "0edbb5081dc3454dfbbecda9e76d20f5646ce75a9ec9a09d3305c68679259765",
+      "ciphertext_bytes": 125167084,
+      "regular_files": 97,
+      "directories_including_root": 9,
+      "associated_data": "726-audit-private-evidence:post8b-15:v1"
+    },
+    {
+      "label": "post8b-16",
+      "ciphertext": "post8b-16.aesgcm",
+      "ciphertext_sha256": "c4b0ecb5946171596359a02d3018b17fed1c74b0b8c31c6b82cb17c92caf8d1c",
+      "ciphertext_bytes": 5325,
+      "regular_files": 4,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-16:v1"
+    },
+    {
+      "label": "post8b-17",
+      "ciphertext": "post8b-17.aesgcm",
+      "ciphertext_sha256": "68da06063c2f6f30fded08aeb479b5b51fc10895cada34427ace2c257ed9ad26",
+      "ciphertext_bytes": 4604,
+      "regular_files": 5,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-17:v1"
+    },
+    {
+      "label": "post8b-18",
+      "ciphertext": "post8b-18.aesgcm",
+      "ciphertext_sha256": "9919b1a3822255fdbb293bca82279bb9147b4e2d095de14685401c01f5dd6935",
+      "ciphertext_bytes": 2068,
+      "regular_files": 5,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-18:v1"
+    },
+    {
+      "label": "post8b-19",
+      "ciphertext": "post8b-19.aesgcm",
+      "ciphertext_sha256": "1c1bbcf49c72d9c7783775218ca05dd7f14477293f6a2d5515a8a7ebf570865b",
+      "ciphertext_bytes": 2707,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-19:v1"
+    },
+    {
+      "label": "post8b-20",
+      "ciphertext": "post8b-20.aesgcm",
+      "ciphertext_sha256": "f70ecffb83161157afe043e0e883c89b195e47c953ad113a3937568e0d415b83",
+      "ciphertext_bytes": 2704,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-20:v1"
+    },
+    {
+      "label": "post8b-21",
+      "ciphertext": "post8b-21.aesgcm",
+      "ciphertext_sha256": "a766c8d75083ec9b16c4d54ae7a0a349a7b6c64bfc07c299ef9944dc600638c4",
+      "ciphertext_bytes": 2700,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-21:v1"
+    },
+    {
+      "label": "post8b-22",
+      "ciphertext": "post8b-22.aesgcm",
+      "ciphertext_sha256": "88f30e792cd4bbb5190db22b7c56c2f4d84132afe3c0bb366fb756fd826649c4",
+      "ciphertext_bytes": 2596,
+      "regular_files": 3,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-22:v1"
+    },
+    {
+      "label": "post8b-23",
+      "ciphertext": "post8b-23.aesgcm",
+      "ciphertext_sha256": "5bb9e6bb88d5c5af755b6125a8f927f755bed21a645e436b60bdbccc481722af",
+      "ciphertext_bytes": 7195,
+      "regular_files": 50,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-23:v1"
+    },
+    {
+      "label": "post8b-24",
+      "ciphertext": "post8b-24.aesgcm",
+      "ciphertext_sha256": "a5a68395eba2e39e4bef207a8eda0b329257e10fd316128761c1e5af0e509fe7",
+      "ciphertext_bytes": 289,
+      "regular_files": 3,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-24:v1"
+    },
+    {
+      "label": "post8b-25",
+      "ciphertext": "post8b-25.aesgcm",
+      "ciphertext_sha256": "72dd141cecd305563d5507665e4cc3c688862d576f1f19f8eaea46dc2c033b12",
+      "ciphertext_bytes": 124490314,
+      "regular_files": 526,
+      "directories_including_root": 59,
+      "associated_data": "726-audit-private-evidence:post8b-25:v1"
+    },
+    {
+      "label": "post8b-26",
+      "ciphertext": "post8b-26.aesgcm",
+      "ciphertext_sha256": "c7faae6b1d4314ed4b6d3869538c2552281a6677a6ac4263039e837b209c0632",
+      "ciphertext_bytes": 1643,
+      "regular_files": 2,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-26:v1"
+    },
+    {
+      "label": "post8b-27",
+      "ciphertext": "post8b-27.aesgcm",
+      "ciphertext_sha256": "f59713a63f41dbe1aa9cdc6064029b1985a4eee3823a24f81eb8d736146d2b4d",
+      "ciphertext_bytes": 42334,
+      "regular_files": 12,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:post8b-27:v1"
+    },
+    {
+      "label": "post8b-28",
+      "ciphertext": "post8b-28.aesgcm",
+      "ciphertext_sha256": "596c0a14f7b3cc75803286cb85243042d675dad61744d23ce5f8e9404ffbcfd4",
+      "ciphertext_bytes": 43252,
+      "regular_files": 3,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-28:v1"
+    },
+    {
+      "label": "post8b-29",
+      "ciphertext": "post8b-29.aesgcm",
+      "ciphertext_sha256": "83163d8ba383a30c2da7f393e32a5535bf7e12f62a89c86f193d5650ac6fc308",
+      "ciphertext_bytes": 2268,
+      "regular_files": 6,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-29:v1"
+    },
+    {
+      "label": "post8b-30",
+      "ciphertext": "post8b-30.aesgcm",
+      "ciphertext_sha256": "60dfb1bf829067faec815a0de901c0b49b6e4328ebfbb75996b9541922859ea1",
+      "ciphertext_bytes": 635138,
+      "regular_files": 230,
+      "directories_including_root": 9,
+      "associated_data": "726-audit-private-evidence:post8b-30:v1"
+    },
+    {
+      "label": "post8b-31",
+      "ciphertext": "post8b-31.aesgcm",
+      "ciphertext_sha256": "4026610209f2827404209c4af10a7830220f479f858a52afcfde288ae39a3f24",
+      "ciphertext_bytes": 250154,
+      "regular_files": 183,
+      "directories_including_root": 12,
+      "associated_data": "726-audit-private-evidence:post8b-31:v1"
+    },
+    {
+      "label": "post8b-32",
+      "ciphertext": "post8b-32.aesgcm",
+      "ciphertext_sha256": "a6a7f95942163dfc974f49ae4a121245302769074de2f0085a9f0e6422f2e4c2",
+      "ciphertext_bytes": 21502,
+      "regular_files": 59,
+      "directories_including_root": 6,
+      "associated_data": "726-audit-private-evidence:post8b-32:v1"
+    },
+    {
+      "label": "post8b-33",
+      "ciphertext": "post8b-33.aesgcm",
+      "ciphertext_sha256": "44617813339f63eb617e9d72de66eb0dba0ae45c1e4b238128b894e57020868a",
+      "ciphertext_bytes": 597636,
+      "regular_files": 147,
+      "directories_including_root": 10,
+      "associated_data": "726-audit-private-evidence:post8b-33:v1"
+    },
+    {
+      "label": "post8b-34",
+      "ciphertext": "post8b-34.aesgcm",
+      "ciphertext_sha256": "f07697249cefcbaed79c6afd4232e3b4e3634e1309d9e578dc04fa29165aa83e",
+      "ciphertext_bytes": 267545,
+      "regular_files": 273,
+      "directories_including_root": 11,
+      "associated_data": "726-audit-private-evidence:post8b-34:v1"
+    },
+    {
+      "label": "post8b-35",
+      "ciphertext": "post8b-35.aesgcm",
+      "ciphertext_sha256": "0984538bab5a1f48fb09cff2d7e59dea4ba03efd605fee81d8a5ac4fd2af04a7",
+      "ciphertext_bytes": 730,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-35:v1"
+    },
+    {
+      "label": "post8b-36",
+      "ciphertext": "post8b-36.aesgcm",
+      "ciphertext_sha256": "3c512b67f5ab4e963c607bc79bfc268364d1fbb9145e6794620e5747b6a3670c",
+      "ciphertext_bytes": 233502,
+      "regular_files": 205,
+      "directories_including_root": 10,
+      "associated_data": "726-audit-private-evidence:post8b-36:v1"
+    },
+    {
+      "label": "post8b-37",
+      "ciphertext": "post8b-37.aesgcm",
+      "ciphertext_sha256": "e726a8f8780d69e6643fee50eafe4edad549fac262b49f1f78f120d0258912d9",
+      "ciphertext_bytes": 680,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-37:v1"
+    },
+    {
+      "label": "post8b-38",
+      "ciphertext": "post8b-38.aesgcm",
+      "ciphertext_sha256": "1b2f7de5deb8db236dbc4bb9d4a7cb121608189a78b1cceb2bbfe8466fa04f8f",
+      "ciphertext_bytes": 21687,
+      "regular_files": 55,
+      "directories_including_root": 6,
+      "associated_data": "726-audit-private-evidence:post8b-38:v1"
+    },
+    {
+      "label": "post8b-39",
+      "ciphertext": "post8b-39.aesgcm",
+      "ciphertext_sha256": "fb0e68ae9ce61d8471eceb0c3bcc0f72107c9f44e67f01d70f3187c907a96eab",
+      "ciphertext_bytes": 931,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-39:v1"
+    },
+    {
+      "label": "post8b-40",
+      "ciphertext": "post8b-40.aesgcm",
+      "ciphertext_sha256": "398a35d288a48291f805fe50eb8a3ccdf773897b7ceb42278461d574b01365bc",
+      "ciphertext_bytes": 609754,
+      "regular_files": 186,
+      "directories_including_root": 16,
+      "associated_data": "726-audit-private-evidence:post8b-40:v1"
+    },
+    {
+      "label": "post8b-41",
+      "ciphertext": "post8b-41.aesgcm",
+      "ciphertext_sha256": "cc493ca69b808176c587829d45886eddce4590e73ed85feb4a729633edfabe52",
+      "ciphertext_bytes": 820,
+      "regular_files": 1,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-41:v1"
+    },
+    {
+      "label": "post8b-42",
+      "ciphertext": "post8b-42.aesgcm",
+      "ciphertext_sha256": "faedc19b352e044dd7a2b776861d606f4e7f4b35a3e8cf44a2142980ca52ad31",
+      "ciphertext_bytes": 576003,
+      "regular_files": 178,
+      "directories_including_root": 10,
+      "associated_data": "726-audit-private-evidence:post8b-42:v1"
+    },
+    {
+      "label": "post8b-43",
+      "ciphertext": "post8b-43.aesgcm",
+      "ciphertext_sha256": "24cee14f217c2c5e295094bce991ada986d2ccf2b196b5802d3c0ea19a3b0634",
+      "ciphertext_bytes": 4206,
+      "regular_files": 7,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-43:v1"
+    },
+    {
+      "label": "post8b-44",
+      "ciphertext": "post8b-44.aesgcm",
+      "ciphertext_sha256": "46d7c58f1a000492508fff1a0b0f005d454419b2e829b2d0381d4d9b55fef21e",
+      "ciphertext_bytes": 47799,
+      "regular_files": 18,
+      "directories_including_root": 2,
+      "associated_data": "726-audit-private-evidence:post8b-44:v1"
+    },
+    {
+      "label": "post8b-45",
+      "ciphertext": "post8b-45.aesgcm",
+      "ciphertext_sha256": "100ec46ee2d6640bef96b134023b108247d0dcc9b5895bd3c08baf454bfeacb0",
+      "ciphertext_bytes": 27743,
+      "regular_files": 38,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-45:v1"
+    },
+    {
+      "label": "post8b-46",
+      "ciphertext": "post8b-46.aesgcm",
+      "ciphertext_sha256": "ba0a84b06469bc38b8fa214a927fab61c257eb439cfa715c73b1a6c644c68dbf",
+      "ciphertext_bytes": 287287,
+      "regular_files": 74,
+      "directories_including_root": 1,
+      "associated_data": "726-audit-private-evidence:post8b-46:v1"
+    }
+  ],
+  "prior_nonce_count": 772,
+  "new_nonce_count": 46,
+  "control_object_label": "post8b-46",
+  "qualification": "44 selected roots plus one immediate stage-builder snapshot and one pre-capture control. Supplied prior nonce completeness and provenance are unproved. Key, prior ciphertexts, Git objects and originals remain separately held on the same machine. Git automatic packing and unknown effects on unreachable objects remain disclosed."
+}

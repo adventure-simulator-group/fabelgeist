@@ -1,0 +1,155 @@
+{
+  "schema": "726-post8b-three-central-draft-v4",
+  "status": "unadopted draft for independent review; no queue or ledger changed",
+  "published_checkpoint": "8b4b9b9aae3b9d9821418fa3ad5cff4a21e5384b",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "capture_sha256": "575f3546e3bc46266c190c50d7ce708efbaa5872d85e64696441288211d1c973",
+  "supplement_sha256": "455870056e873f40531c2a7fed2c1085249d0324f0a506394662cbdca1f4bfe2",
+  "assessments": [
+    {
+      "index": 2913,
+      "lens": 5,
+      "finding": "The selected reservation associates four surface channels with a recipe while installation writes each supplied map and then marks the recipe installed. Wire admission checks a nonempty unique set and payload shape but does not require all expected channels in the displayed path. Subject to successful framing, admission, reservation and loader operations, a nonempty Rock input containing only valid Albedo could leave other reserved images unreplaced while marked installed. Separately, a new terrain blood mask is allocated on each reservation; if a supported later replacement occurs while an old terrain material remains retained and unrefreshed, its mask and the current writer's mask can differ. The selected startup setup registers one call and a terrain refresh path exists. Neither supported scenario, product outcome nor policy violation is established. The selected forest-soil aggregate intentionally combines two recipes, so type-correct mixed handles do not by themselves establish a universal same-recipe violation.",
+      "source_basis": [
+        "crates/adventuresim-procedural-textures/src/runtime/handles.rs:10-13,25-34,63-65,88-110",
+        "crates/adventuresim-procedural-textures/src/runtime.rs:35-57,71-105",
+        "crates/adventuresim-procedural-textures/src/bake/wire.rs:60-122",
+        "crates/adventuresim-procedural-textures/src/bake/compressed.rs:19-34",
+        "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs:343-365",
+        "crates/adventuresim-tactical-client/src/presentation/terrain/material.rs:91-100",
+        "crates/adventuresim-tactical-client/src/presentation/vista/focused.rs:64-88",
+        "crates/adventuresim-tactical-client/src/combat_effects.rs:259-303",
+        "crates/adventuresim-tactical-client/src/presentation/procedural_texture_setup.rs:11-28",
+        "crates/adventuresim-tactical-client/src/presentation/terrain.rs:80-165",
+        "crates/adventuresim-tactical-client/src/presentation/mod.rs:227-256",
+        "checksum-bound dependency bevy_asset 0.19.1 src/assets.rs:390-405"
+      ],
+      "history": "Original q2913 names 6533 and requires 1-110, with no assessed ranges or Lens 5 reader; its 8b wrapper is unassessed. The selected original/reconstructed rows match as parsed while whole streams differ. Root's 6533 Lens 3 fresh read and e275 qualified same-lens reuse are distinct; the e275 selected frozen-source adoption flag is true and its named condition remains pending. The 6533/e275/95e file objects match per file, not as trees. Neither history grants Lens 5 credit or establishes checkpoint 3821. The original q2701 summary has frozen_named_scope_discovery_complete false and later named_scope_discovery_complete true, while its separately recovered v2 proposal records root adoption pending and authority_mutation false. Its global alias inventory and current reconciliation remain false; this chronology is separate from the e275 source-adoption condition.",
+      "readers": "mhr_character authored the Lens 5 assessment and personally displayed the assigned file at 6533, e275 and 95e; wrapped_scope independently reviewed current source and selected historical identities, with prior q2734 Lens 6 involvement disclosed. The peer's first metadata capture failure and corrected successor remain in that peer packet. The author's unsaved filename locator and preflight-control correction remain in the author packet.",
+      "open": [
+        "Supported sparse inputs, loader admission and required channels",
+        "Supported re-reservation, retention, refresh and visible result",
+        "Lifecycle and failure policy",
+        "Other consumers and global aliases"
+      ],
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0018-LENS-05",
+      "original_status_member_present": true,
+      "original_status": "own-lens-proof-qualification-or-read-pending",
+      "disposition": "unadopted partial-source candidate; no semantic closure, unique count or checkpoint 3821 attribution"
+    },
+    {
+      "index": 2962,
+      "lens": 8,
+      "finding": "The selected pre-refactor producer admitted individually finite positions and filled public fields; 95e also applies aggregate cell admission. Symbolic finite coordinates can overflow its six-point f32 sum, causing an earlier rejection; the old collider also summed before the native call. Separately, distinct heights can round equal when each is offset by a large gate datum, allowing the new aggregate height check to reject if the other conditions hold. The old selected colliders sent fixed faces to native convex_mesh and expected a shape; the new path skips exact-zero plan area, reverses negative winding and returns typed errors for other native rejection. Supported inputs, old native results, policy and product effects remain unproved; comments describe contact-only cells as valid.",
+      "source_basis": [
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs:25-58",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:177-229,238-272",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs:24-57,227-252",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:176-203",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/collider.rs:35-60",
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs:87-120",
+        "crates/adventuresim-tactical-server/src/boundaries.rs:4-29",
+        "historical 58ea2ca: crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:166-219,228-262",
+        "historical 58ea2ca: crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs:20-25,122-143",
+        "historical 58ea2ca: crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:73-96",
+        "historical 58ea2ca: crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs:42-53"
+      ],
+      "history": "Original q2962 names 6533, requires 1-58 and records no Lens 8 assessed range; its 8b wrapper remains unassessed. Selected original/reconstructed rows match as parsed but whole streams differ. Root's Lens 2 and Lens 3 6533 personal reads are separately attributed; the e275 Lens 3 receipt records adopted prior-source reuse with no fresh e275 personal read, and its Lens 2 receipt separately records qualified reuse with no fresh e275 personal read; Adler's fresh connected Lens 11 read concerns source registry index 2708, not queue q2708. The assigned object matches per file at 6533, e275, 95e and introduction 5a; the selected pre-refactor parent has no admission.rs path. This does not equate whole trees or grant Lens 8 credit.",
+      "readers": "mhr_character authored this Lens 8 comparison, displaying the assigned file separately at 6533, e275 and 95e plus selected earlier/current callers. wrapped_scope independently reviewed selected windows and added the symbolic relative-height rounding question; their prior q2957 Lens 2 work is separate. The author's metadata and locator corrections remain in the author packet. The peer separately retains the unavailable-python retry, truncated pre-registration metadata display and scratch shell-redirection limitations.",
+      "open": [
+        "Supported extreme, zero-area and equal-relative-height inputs",
+        "Native old/new outcomes and all callers",
+        "Admission, contact and winding policy",
+        "Global aliases and user-visible effects"
+      ],
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0021-LENS-08",
+      "original_status_member_present": true,
+      "original_status": "own-lens-proof-qualification-or-read-pending",
+      "disposition": "unadopted partial-source candidate; no semantic closure, unique count or checkpoint 3821 attribution"
+    },
+    {
+      "index": 2952,
+      "lens": 10,
+      "finding": "The assigned file's handwritten TryFrom<BindingWire> validates the candidate before returning; raw construction would omit the selected local checks. Existing authored derives and serde try_from are present. The checksum-bound serde_derive 1.0.229 source describes a deserialize-then-TryFrom path, but resolved features and macro expansion were not established. The handwritten descriptor digest hashes an explicit ordered representation including f32 bits; no generic derive was shown equivalent. Positive and negative zero have different bit encodings despite numeric equality, a symbolic distinction rather than an observed supported mismatch. No derivability repair is established in this bounded scope.",
+      "source_basis": [
+        "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs:4-72,109-124,134-172,175-209",
+        "crates/adventuresim-tactical-core/src/city_layout/compound.rs:27-73",
+        "checksum-bound dependency serde_derive 1.0.229 src/de.rs:306-312,434-440"
+      ],
+      "history": "Original q2952 names 6533, requires 1-209 and records no assessed Lens 10 range; its 8b wrapper remains unassessed. Selected original/reconstructed records match as parsed, not whole streams. Root Lens 2 and Lens 3 receipts record separate fresh 6533 reads. The e275 Lens 3 receipt records adopted prior-source reuse without a fresh e275 read; the Lens 2 receipt separately records qualified reuse without a fresh e275 read. The assigned file matches at 6533, e275 and 95e per file only; no whole-tree equivalence, Lens 10 credit transfer or checkpoint 3821 recovery follows.",
+      "readers": "wrapped_scope authored the current Lens 10 assessment and separately authored earlier q2945 Lens 2 work. mhr_character independently peer-reviewed seven registered windows, including the checksum-bound dependency; display events remain reviewer attestations. Author locator outputs without separately saved exact transcripts and the author report path correction remain recorded.",
+      "open": [
+        "All callers and other derive alternatives",
+        "Resolved features and macro expansion",
+        "Supported signed-zero or descriptor changes and policy",
+        "Descriptor/cell relationships and global aliases"
+      ],
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0020-LENS-10",
+      "original_status_member_present": true,
+      "original_status": "own-lens-proof-qualification-or-read-pending",
+      "disposition": "unadopted partial-source candidate; no semantic closure, unique count or checkpoint 3821 attribution"
+    }
+  ],
+  "relationships": [
+    {
+      "kind": "planning relationship",
+      "from": [
+        2913,
+        2701,
+        2934,
+        2733,
+        2904
+      ],
+      "ledger": [
+        1084,
+        201
+      ],
+      "summary": "Connect sparse-channel completeness to the existing q2701/q2934 recipe family and distinguish extra-channel expect, residency-failure state and other source scopes. Supported assets, channel policy and exact aliases remain open. q2904 is a separate Lens 8 wire-behavior scope, not a historical mask-lifecycle record.",
+      "historical_qualification": "The original q2701 frozen named-scope completion flag is false and its later named-scope flag true; the separately recovered v2 proposal remains root-adoption-pending with authority_mutation false. Neither settles global aliases or current reconciliation."
+    },
+    {
+      "kind": "planning relationship",
+      "from": [
+        2913
+      ],
+      "ledger": [
+        201,
+        1032,
+        1033
+      ],
+      "summary": "Keep conditional terrain-mask replacement and retained material lifecycle separate from residency-failure handling and the blood timing records; their first operations differ. Re-reservation and retention are unproved."
+    },
+    {
+      "kind": "planning relationship",
+      "from": [
+        2962,
+        2369,
+        2957
+      ],
+      "ledger": [
+        1083,
+        320,
+        321,
+        966,
+        1093
+      ],
+      "summary": "Connect aggregate admission, contact/winding and producer-consumer representation while distinguishing finite-sum overflow, later centering subtraction, contact coverage, foundation volume, gate datum and retained scene positions. No global alias is decided."
+    },
+    {
+      "kind": "planning relationship",
+      "from": [
+        2952,
+        2945,
+        2368,
+        1493
+      ],
+      "ledger": [
+        1082,
+        318
+      ],
+      "summary": "Keep the checked conversion and descriptor digest derivability question connected to descriptor/cell ownership and support-rejection identity without treating local validation as proof of all scene relationships."
+    }
+  ],
+  "qualification": "Coordinator synthesis of separately attributed source reports and selected history, not a product-source reread or independently proved product behavior. Selected original and reconstructed rows match as parsed; complete streams differ. Bounded navigation is not an exhaustive alias search. Missing checkpoint 3821, SOURCE004 and 73 nontext/no-positive-EOF contracts remain open; no unique count, semantic closure, repair or validation is inferred.",
+  "predecessor_sha256": "8d8c89b2031548effeedd3ecaaee177d8c899998c33a01cb374f00457e7a577c"
+}
