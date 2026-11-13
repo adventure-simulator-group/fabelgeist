@@ -1,0 +1,24 @@
+{
+  "schema": "726-postf2ec-closing-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "b44c4ddb18afc90e0d5bd00e9249b5a17e2faa0e3817c10149ba159ffac5b721",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "e1252eecf951b0183c7191d26a078cb9b3cae410848f78048bd406b5480d018d",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 21,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Bounded scans over the separate 21-path closing snapshot; final scan receipt files are outside this scan. Ciphertext is opaque; unknown private values, encodings and unscanned Git history remain outside scope.",
+  "capture_sha256": "b032f1d6ea76c43a93a33858bf024b375d6983abd87791d553a9ad7ef2d3f3fe"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "prepush-process",
+      "ciphertext": "prepush-process.aesgcm",
+      "ciphertext_sha256": "3efe4a7293de7f4ee5552f0428a4a3cd055d969e0f5ad8aefbf5814c587cf195",
+      "ciphertext_bytes": 9624,
+      "plaintext_archive_sha256": "b1d119cc794732477b4ff22ef4ad9b64a25500b17ed69d8284890f02c87373e4",
+      "plaintext_archive_bytes": 9596,
+      "regular_files": 15,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:prepush-process:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "726-postf2ec-application-v1",
+  "parent_checkpoint": "f2ec8cbad7becbcc9a8e9da22ba512f52975768f",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "archive": "APPLICATION-EVIDENCE.tar.gz",
+  "archive_bytes": 783753,
+  "archive_sha256": "523dcad49ff616c172ae5dee94a96345580c4f8b31db1a4633f6c11dfae9a42d",
+  "scripts": {
+    "TRANSFORM.py": "626486a8d2ee9f54d2a24c75ff901534b7d6ab06fffdec530221a2e66cf301ca",
+    "PREDECESSOR-REPLAY.py": "01665721c60ef36153a61808afe25a1217cf8df5fe07a5fdbb68f14a2d46f4d7",
+    "PREDECESSOR-D7.py": "be494f7a75ca6a0c88b9c6342e8505356c899d70cf7c8ede2cde64ddc415c549",
+    "PREDECESSOR-EDE.py": "8036e6d7d9d5599ce50f97b095c34ae5219a4fa3302c30ceb2c4e7c198f93bfb",
+    "VERIFY-v1.py": "46113a381729b8320ab7b0af3a8c0d19690daebb8a318fc7d6d1fb974c75566b",
+    "VERIFY-v2.py": "b11ffef77eca26ce3ace41128a90862685161ddb58e370af11406cd458e3049e",
+    "VERIFY-v3.py": "cfd20fc7b14f45dbf50c2229ff3ead1e5ed97358da7a59c1eda0f8b85f870aee",
+    "VERIFY-v4.py": "e5113d2daa57e135fc42f92bd9f63038428fb3052633837a4b07a5d95a424082",
+    "VERIFY.py": "21aeed6d588aed394a34d00b76780e5be08532ab754c22ba834d007542e5ca14"
+  },
+  "members": [
+    {
+      "path": "after/BASELINE-95E-20261110.json",
+      "bytes": 1509978,
+      "sha256": "0a1a694289c95dbac825e418779265da925c265296cd37740f74221a3847af75",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 127417,
+      "sha256": "b37deb054667e8f7d395d126eb7aca435ea85cfc7b00a770ccef6f960d5f1780",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/CONTINUATION.md",
+      "bytes": 122519,
+      "sha256": "60ced370a69885b890ca767e8396ad2945b31e975ec6c98c0ac8ecceece99d12",
+      "mode": "0o644"
+    },
+    {
+      "path": "after/RECONCILIATION-059.json",
+      "bytes": 1259601,
+      "sha256": "0d9470e4458c44e0ff1137c7f05462ada48b4cfd20041de8e8511913ffd30ebf",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/BASELINE-95E-20261110.json",
+      "bytes": 1507068,
+      "sha256": "03139868163e3fb86b50956a6c33b5eab9812d1b42f528b3a7a17c0a397cf041",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 126407,
+      "sha256": "30ff27178bdec75d32b7bd3311be43d62ab16a788a61e0b40e4af41de5aef7db",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/CONTINUATION.md",
+      "bytes": 121762,
+      "sha256": "008fb29b943b15c579e08e6807deeaff63856392c9cb9fab362b174a0823b947",
+      "mode": "0o644"
+    },
+    {
+      "path": "before/RECONCILIATION-059.json",
+      "bytes": 1256065,
+      "sha256": "73bc3864944276b88944163257e3cfc67dde6141b2dc3f82588af66621003945",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/draft-v4.json",
+      "bytes": 23015,
+      "sha256": "8e02160bd01b6a143333e1a843d7506f5352c85edfbd2769d96b29488b4570bb",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/main-observation.json",
+      "bytes": 686,
+      "sha256": "bd30f4bf8ecd8c94aa43c5be8db180954ef2c3282148b7dfeba1c1d8ff2a81ed",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/pending.json",
+      "bytes": 15411,
+      "sha256": "42d0299d0e89e14e70d944cbd944515037e8ceef6e45aebafae4a40bba42ac89",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/previous-pending.json",
+      "bytes": 13968,
+      "sha256": "aa35b0b6b1fbdd5e9268d3f7f5da4d221cf62806c2f57b573524f3f08d907bcb",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/report.json",
+      "bytes": 23557,
+      "sha256": "ea154c4a4ecac010db73207fe73b8b9ec87bbff718a82bc4fdf77f576daf2185",
+      "mode": "0o644"
+    },
+    {
+      "path": "inputs/review-adoption.json",
+      "bytes": 836,
+      "sha256": "6855964a4acae92ad34009008504094cc3ab92e3ef7e96197a0e35d2c4278f0d",
+      "mode": "0o644"
+    }
+  ],
+  "qualification": "Exact f2ec before/after transform of eight reviewed partial assessments and two planning relationships. Frozen and post-freeze obligations remain unassessed; no semantic closure, accepted unique count, implementation or product validation."
+}

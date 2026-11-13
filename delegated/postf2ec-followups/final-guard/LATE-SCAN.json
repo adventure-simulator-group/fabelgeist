@@ -1,0 +1,24 @@
+{
+  "schema": "726-postf2ec-late-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "1d9222b9a85e1bed3e37a551d56b5cb5e87dfb87acdd25c170acab74ed01b41e",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "f0d35157fff92db23225527732f60a4ce98761eb189ec9d4294e0cafe87f8938",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 9,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Bounded scans over the separate nine-path late staged snapshot; subsequent guard and main-observation files are outside this scan. Ciphertext is opaque; unknown private values, encodings and unscanned Git history remain outside scope.",
+  "capture_sha256": "3d0d2cefa858b3b96395dedce3c3a51cece4032206a57feabea53947c659fee4"
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "726-f2ec-public-recovery-v1",
+  "checkpoint": "f2ec8cbad7becbcc9a8e9da22ba512f52975768f",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "checkout": "separate, clean, detached, same machine",
+  "captured_file_identities_verified": 182,
+  "identity_checks": "bytes, SHA-256, Git blob and executable mode",
+  "evidence_only_driver": {
+    "exit": 0,
+    "transcript_bytes": 184729,
+    "transcript_lines": 2074,
+    "transcript_sha256": "86222ada0fc8e90a5678821481510dd52e986777862c3f153a016edfba26b880",
+    "byte_identical_to_staged_passing_transcript": true,
+    "assertion_qualification": "Direct-child assertion preflight passed; nested interpreter flags are not established."
+  },
+  "qualification": "The restored full checkout matched 182 captured identities; the driver covers its own checks, and selected additional verifiers were run separately. Original staged driver covered a 134-file snapshot before 48 additive files; later checks cover stated identities only. Exact process and transcripts are authenticated restricted evidence. Fetch/push/checkout output was not separately captured byte-for-byte. No independent custody, checkpoint3821 restoration, product behavior or audit closure is established."
+}

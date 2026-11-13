@@ -1,0 +1,229 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "evidence-replay-v1",
+      "ciphertext": "evidence-replay-v1.aesgcm",
+      "ciphertext_sha256": "7749b455837128bd7525229933e38df3a75a598a6e74eeb8e41f0369309fb40b",
+      "ciphertext_bytes": 35228,
+      "plaintext_archive_sha256": "9c55fe495ded7eb0677b8a9dcb8d0b2ec837dc049a07cdc326c33e3dd9ac010a",
+      "plaintext_archive_bytes": 35200,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:evidence-replay-v1:v1"
+    },
+    {
+      "label": "staged-scan-v1",
+      "ciphertext": "staged-scan-v1.aesgcm",
+      "ciphertext_sha256": "d699c8430aa5b44dbcbc54876e3f2439c1ecbb1d058fc6c75cf17638cd2d7e72",
+      "ciphertext_bytes": 1904,
+      "plaintext_archive_sha256": "6c22d4f3a1971c78f95b61277eed1a8d89416547e05ec18cd7819cf908e05ac4",
+      "plaintext_archive_bytes": 1876,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:staged-scan-v1:v1"
+    },
+    {
+      "label": "verifier-preflight-v1",
+      "ciphertext": "verifier-preflight-v1.aesgcm",
+      "ciphertext_sha256": "3f2bfbb36ba116d3cd1f54797f425798dfe002a719d1294b2252992ae9e97ff9",
+      "ciphertext_bytes": 2518,
+      "plaintext_archive_sha256": "d2c88c7df1197518c7b40e9d78c2c7c51cf8cbd97a00bb0fa5a5bb1e5ffe4194",
+      "plaintext_archive_bytes": 2490,
+      "regular_files": 8,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:verifier-preflight-v1:v1"
+    },
+    {
+      "label": "install-control-v1",
+      "ciphertext": "install-control-v1.aesgcm",
+      "ciphertext_sha256": "f31c6dcc837de0a8957899f6fcc674687087355aa0f6667cd0a07520e806784c",
+      "ciphertext_bytes": 1372,
+      "plaintext_archive_sha256": "695a0b037deaaefd82787aded4892f8330eb19ce547207d5458879fd13fb0229",
+      "plaintext_archive_bytes": 1344,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:install-control-v1:v1"
+    },
+    {
+      "label": "wrap-originals-v1",
+      "ciphertext": "wrap-originals-v1.aesgcm",
+      "ciphertext_sha256": "b0a286d2afd31643445645e323ef589a0a38f477970ab0a1878bf113605f38f0",
+      "ciphertext_bytes": 565,
+      "plaintext_archive_sha256": "894d2f71da8fd0d8018cd82004786ad476642ca2156c714525fe8801353a5f51",
+      "plaintext_archive_bytes": 537,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:wrap-originals-v1:v1"
+    },
+    {
+      "label": "rootverify-control-v1",
+      "ciphertext": "rootverify-control-v1.aesgcm",
+      "ciphertext_sha256": "3a17f26efe6ce25b3fca3661c9cca86dc89149ad5f731a9be1819f4c2d68b28d",
+      "ciphertext_bytes": 1126,
+      "plaintext_archive_sha256": "5cb0bfdc188891fff353c7368b47659404af6145d6fba66c1df400e82213393f",
+      "plaintext_archive_bytes": 1098,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:rootverify-control-v1:v1"
+    },
+    {
+      "label": "process-additions-v1",
+      "ciphertext": "process-additions-v1.aesgcm",
+      "ciphertext_sha256": "42614758b0fa9306637940d1d5aa212a75410e79ff820796171be30c45619f55",
+      "ciphertext_bytes": 1128,
+      "plaintext_archive_sha256": "69d8836d33f3097ff138d6c582a73de62951713ccd44be8e92d1791f1dfb1cea",
+      "plaintext_archive_bytes": 1100,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:process-additions-v1:v1"
+    },
+    {
+      "label": "final-control-v1",
+      "ciphertext": "final-control-v1.aesgcm",
+      "ciphertext_sha256": "57dce3485c5ba6bacda5c5430d22e5e91157d0a0bb1d1d7d74b537d86c5d0a8f",
+      "ciphertext_bytes": 2216,
+      "plaintext_archive_sha256": "d9f451bb32ef1e0444cd1bacfd67b2c3ed51fa711261e206a2ffaeecc9eb5d9e",
+      "plaintext_archive_bytes": 2188,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:final-control-v1:v1"
+    },
+    {
+      "label": "final-process-v1",
+      "ciphertext": "final-process-v1.aesgcm",
+      "ciphertext_sha256": "817820ddd573d81d6f03e7492ce5642c91a5504253dff31bae47d752501dcd65",
+      "ciphertext_bytes": 20530,
+      "plaintext_archive_sha256": "bdf6db282128f78603f497d7ddf3d88bcada253011d5a15f9a063367b05487d8",
+      "plaintext_archive_bytes": 20502,
+      "regular_files": 31,
+      "directories": 3,
+      "associated_data": "726-audit-private-evidence:final-process-v1:v1"
+    },
+    {
+      "label": "final-install-v1",
+      "ciphertext": "final-install-v1.aesgcm",
+      "ciphertext_sha256": "ab710df62dd8db098cfeb11bb8bac0b95310a24f260f266de3006d5cb9f7f251",
+      "ciphertext_bytes": 1865,
+      "plaintext_archive_sha256": "35dc3617e54b7fa3837c8e3409fec95789cdc6730b754c825f97e672db1b8b0a",
+      "plaintext_archive_bytes": 1837,
+      "regular_files": 4,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:final-install-v1:v1"
+    },
+    {
+      "label": "final-transport-v1",
+      "ciphertext": "final-transport-v1.aesgcm",
+      "ciphertext_sha256": "533f66e72a278d53650873530af7c42f5d24424d503d673eaf66be0dd29004fb",
+      "ciphertext_bytes": 1887,
+      "plaintext_archive_sha256": "b9982b793f56cf0ce6f0a6761602c6a533d05d7a79e00e3f5a991d1ae2c97a99",
+      "plaintext_archive_bytes": 1859,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:final-transport-v1:v1"
+    },
+    {
+      "label": "final-replays-v1",
+      "ciphertext": "final-replays-v1.aesgcm",
+      "ciphertext_sha256": "4af3f23bcf9c40932110ea2f831e0ffab66520e196d981ce73428ccd11d68fca",
+      "ciphertext_bytes": 159196,
+      "plaintext_archive_sha256": "0a9e886dc947f61fa951c38070f40c3d103a561646bdae53f0e69c13299391e9",
+      "plaintext_archive_bytes": 159168,
+      "regular_files": 106,
+      "directories": 17,
+      "associated_data": "726-audit-private-evidence:final-replays-v1:v1"
+    },
+    {
+      "label": "application-review-original",
+      "ciphertext": "application-review-original.aesgcm",
+      "ciphertext_sha256": "f83b56bffeaafc0d5d38ecb3381acab44f14b58e2918471ce6b0ec25c6e3f2f6",
+      "ciphertext_bytes": 15320090,
+      "plaintext_archive_sha256": "ff10be97aeb26929dc64c09915458521667007eb81be488c5816980bb3333805",
+      "plaintext_archive_bytes": 15320062,
+      "regular_files": 269,
+      "directories": 100,
+      "associated_data": "726-audit-private-evidence:application-review-original:v1"
+    },
+    {
+      "label": "application-review-replay",
+      "ciphertext": "application-review-replay.aesgcm",
+      "ciphertext_sha256": "8ee5eb0620f7cb22ed88f54c28f594d3d3cb81a45a8371596eb0977daff486c4",
+      "ciphertext_bytes": 1182,
+      "plaintext_archive_sha256": "ef60ec429533fc8341de89e1e97fa1c7b787e8c7784e444eb75bd91e5b18f864",
+      "plaintext_archive_bytes": 1154,
+      "regular_files": 6,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:application-review-replay:v1"
+    },
+    {
+      "label": "q2501-original",
+      "ciphertext": "q2501-original.aesgcm",
+      "ciphertext_sha256": "497e5e8a3db99132687d17f36cb80e2a94859235e19035865b33d3468f1e970c",
+      "ciphertext_bytes": 826738,
+      "plaintext_archive_sha256": "08b54e38eef4ba4438e0b29eef6f3c4e817b5ecbd49c0762b269837909ca54b0",
+      "plaintext_archive_bytes": 826710,
+      "regular_files": 278,
+      "directories": 23,
+      "associated_data": "726-audit-private-evidence:q2501-original:v1"
+    },
+    {
+      "label": "q2501-builder",
+      "ciphertext": "q2501-builder.aesgcm",
+      "ciphertext_sha256": "b644ab6955af35e2f76bbfb4d524ad86ba8395626c1ef0336eab97f223dd7e1b",
+      "ciphertext_bytes": 141176,
+      "plaintext_archive_sha256": "f171c9498d0240d7a911ab7aae6bb3079f2096178c13a4308a3ac52bc7f8a2c8",
+      "plaintext_archive_bytes": 141148,
+      "regular_files": 95,
+      "directories": 15,
+      "associated_data": "726-audit-private-evidence:q2501-builder:v1"
+    },
+    {
+      "label": "q2501-preseal",
+      "ciphertext": "q2501-preseal.aesgcm",
+      "ciphertext_sha256": "43566138455266b2445a57c96a7bd2ce395c1cfcf6b3208e5cde47f366482cb2",
+      "ciphertext_bytes": 902,
+      "plaintext_archive_sha256": "9429c7fe453c9a8de55e35fa9faff03d802856aa3bda9bc7ca2755a0290bfcda",
+      "plaintext_archive_bytes": 874,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2501-preseal:v1"
+    },
+    {
+      "label": "q2501-public-preseal",
+      "ciphertext": "q2501-public-preseal.aesgcm",
+      "ciphertext_sha256": "f37a516cff5a3a39b642ba00ac805dec10363ed66b79cef5f0868bb2f7a75b61",
+      "ciphertext_bytes": 1106,
+      "plaintext_archive_sha256": "e9ab29210980568d54ebd50ecc570ce6ca163d936698a041528c225bdfb6fda4",
+      "plaintext_archive_bytes": 1078,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2501-public-preseal:v1"
+    },
+    {
+      "label": "q2501-full-replay",
+      "ciphertext": "q2501-full-replay.aesgcm",
+      "ciphertext_sha256": "105e7935223868eb2775efe0a4cfbfb913096b4e0eae74b649d6e12959cecff6",
+      "ciphertext_bytes": 934,
+      "plaintext_archive_sha256": "26c4cbc0acd7ed45e7ad655c90305593b01c21466b7f4f731b7caabc86e2a8ce",
+      "plaintext_archive_bytes": 906,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2501-full-replay:v1"
+    },
+    {
+      "label": "q2501-public-replay",
+      "ciphertext": "q2501-public-replay.aesgcm",
+      "ciphertext_sha256": "2d56252ad716131545c2ab4f3cccc2348ed8159412c3590f9a6b26e07cf1c3f6",
+      "ciphertext_bytes": 1207,
+      "plaintext_archive_sha256": "fd393a7332afd865466d2a40bea6c6518af32bc7416eb50e75f77fb8335e4517",
+      "plaintext_archive_bytes": 1179,
+      "regular_files": 5,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q2501-public-replay:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

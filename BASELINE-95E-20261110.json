@@ -23677,10 +23677,55 @@
           "crates/fabelgeist-determinism/src/seed.rs:72-78"
         ],
         "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-18-95E.json"
+      },
+      {
+        "id": "relationship-yuv-odd-plane-row-stride-95e",
+        "lens": 5,
+        "classification": "The symbolic 3x3 NV12 case refines existing floor-sized YUV plane admission and highlights a separate possible odd-row overlap when stride equals width. The supported layout and caller reachability are open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3145",
+          "baseline-059/queue.json#/entries/147"
+        ],
+        "current_related_records": [
+          "ede12 newly_assessed_ledger.entries[495]",
+          "ede12 newly_assessed_ledger.entries[493]"
+        ],
+        "relationship_qualification": "A planning relationship to existing q3145/ledger495, not a new accepted unique defect or automatic alias to same-format admission. No image, mutation or conversion executed.",
+        "connected_repair_direction": "Trace producers and define supported dimensions, plane extents and stride before selecting a shared admission boundary.",
+        "future_acceptance": "Only after audit and authorization, assess odd/even YUV layouts, short storage and explicit partial-write behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:86-94,147-168,183-223,251-327,332-414",
+          "crates/fabelgeist-color/src/conversion.rs:175-245,377-403"
+        ],
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-19-95E.json"
+      },
+      {
+        "id": "relationship-color-encoded-origin-95e",
+        "lens": 1,
+        "classification": "The selected Bt709-to-linear-to-gamma composition chooses Srgb; differing transfer functions mean encoded origin cannot be recovered from LinearSrgb alone. Whether this composition promises reversibility remains an open caller-policy question.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3255"
+        ],
+        "current_related_records": [
+          "ede12 newly_assessed_ledger.entries[496]"
+        ],
+        "relationship_qualification": "Related to but not established identical with ledger496 DCI-P3/Adobe linear-variant question; no observed color outcome or accepted unique count.",
+        "connected_repair_direction": "Trace caller expectations and choose explicit encoded-origin ownership or canonicalization before changing the public mapping.",
+        "future_acceptance": "Only after audit and authorization, assess transfer/identity policy across named standard spaces and supported callers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:231-310",
+          "crates/fabelgeist-color/src/conversion.rs:107-149",
+          "crates/fabelgeist-color/src/transfer.rs:120-164"
+        ],
+        "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-19-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261113-0140.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261113-0314.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

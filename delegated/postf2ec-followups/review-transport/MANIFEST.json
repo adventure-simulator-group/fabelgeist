@@ -1,0 +1,42 @@
+{
+  "schema": "726-postf2ec-color-review-transport-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "f2ec8cbad7becbcc9a8e9da22ba512f52975768f",
+  "bundles": [
+    {
+      "label": "color-owner-review",
+      "file": "color-owner-review.tar.gz",
+      "source_manifest_sha256": "aadcf9768ba5abc97738d9d4ff4f5afab5c7496b75130c1a0aa0b6418f90a498",
+      "manifest_member": "color-owner-review/MANIFEST.json",
+      "archive_bytes": 8897,
+      "archive_sha256": "d75da477f9633767985600fafb4d77cbc2ceaebd0b3a5a08e3ffba2ccf934e66",
+      "members": [
+        {
+          "path": "color-owner-review/MANIFEST.json",
+          "bytes": 475,
+          "sha256": "aadcf9768ba5abc97738d9d4ff4f5afab5c7496b75130c1a0aa0b6418f90a498",
+          "mode": "0o600"
+        },
+        {
+          "path": "color-owner-review/REPORT.md",
+          "bytes": 6337,
+          "sha256": "cce07a6cbcd7641838c0ed02308f5c25312616bbdb03edca2e3992418447e868",
+          "mode": "0o600"
+        },
+        {
+          "path": "color-owner-review/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "color-owner-review/VERIFY.py",
+          "bytes": 13244,
+          "sha256": "80e398b3824e636d0692bdac7143e3d6f1107c0f52a4ca935cb6e48ef1debbcc",
+          "mode": "0o600"
+        }
+      ]
+    }
+  ],
+  "qualification": "The independent color review assesses the corrected v4 draft; its bounded conclusions, original corrections and source-reader qualifications remain separate. Earlier histories are not promoted into checkpoint3821."
+}

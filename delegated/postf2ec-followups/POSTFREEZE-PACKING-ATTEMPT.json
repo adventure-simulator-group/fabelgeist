@@ -1,0 +1,5 @@
+{
+  "schema": "726-postfreeze-encryption-preflight-failure-v1",
+  "cause": "The first configuration looked for MANIFEST.json in the role0056 private replay directory; its actual filename is MANIFEST-PRIVATE.json. The manifest bytes have the expected previously reported hash. No ciphertext was created because the source map was not written. The subsequent encryption invocation failed on that absent map.",
+  "capture_qualification": "The configuration traceback was tool-visible but not separately saved byte-for-byte. The exact encryption invocation output and exit were separately captured in the predecessor run directory. The inline configuration command survives in the tool-call transcript, not in a separate script."
+}

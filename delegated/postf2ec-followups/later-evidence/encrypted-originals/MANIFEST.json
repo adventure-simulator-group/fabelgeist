@@ -1,0 +1,163 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "role0060-original",
+      "ciphertext": "role0060-original.aesgcm",
+      "ciphertext_sha256": "2239df847f198dd8f69e4caed4c5190d3dc03e26b9a30f9ee2aeed7625b20a56",
+      "ciphertext_bytes": 836296,
+      "plaintext_archive_sha256": "c574a51947ba9087a136e58acbe394cbd357e210cc3b54941d5f4a9c04fbcae2",
+      "plaintext_archive_bytes": 836268,
+      "regular_files": 313,
+      "directories": 18,
+      "associated_data": "726-audit-private-evidence:role0060-original:v1"
+    },
+    {
+      "label": "role0060-full-replay",
+      "ciphertext": "role0060-full-replay.aesgcm",
+      "ciphertext_sha256": "2409304b25643c01e2928a936037deafff4a84fdd1e942d219f5e2080e947053",
+      "ciphertext_bytes": 837,
+      "plaintext_archive_sha256": "8451216122cccd1c996d233635357c98e11aff388101d6db5866bcf9eaf3c01d",
+      "plaintext_archive_bytes": 809,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0060-full-replay:v1"
+    },
+    {
+      "label": "role0060-public-replay",
+      "ciphertext": "role0060-public-replay.aesgcm",
+      "ciphertext_sha256": "7199a00f6e7cd6d85d9372a5099f3d73e6ad58df54f75bf0df4e608caa40881c",
+      "ciphertext_bytes": 1102,
+      "plaintext_archive_sha256": "07da20d444d50efcd85d82974333f039175a1c2b329b01c7fc9ff353e01e0348",
+      "plaintext_archive_bytes": 1074,
+      "regular_files": 5,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0060-public-replay:v1"
+    },
+    {
+      "label": "role0060-builder",
+      "ciphertext": "role0060-builder.aesgcm",
+      "ciphertext_sha256": "e8044df44f5d499f50d79b1125dffd263a87fd8f294587f021f47e9ed1a905d8",
+      "ciphertext_bytes": 170537,
+      "plaintext_archive_sha256": "72e3f8083d458e579242e411fcda485ff4703236c4dae11b1d4d70ad51585a44",
+      "plaintext_archive_bytes": 170509,
+      "regular_files": 91,
+      "directories": 10,
+      "associated_data": "726-audit-private-evidence:role0060-builder:v1"
+    },
+    {
+      "label": "role0060-private-preseal",
+      "ciphertext": "role0060-private-preseal.aesgcm",
+      "ciphertext_sha256": "8daf7e9d31d233e1ae1d4ef932450836d6b49b83e979310ea1a431adb9600e43",
+      "ciphertext_bytes": 800,
+      "plaintext_archive_sha256": "2e9db852f70afff3fe056fdb9c0f8020feb6b55213ebe3bfd40ea846feb9d51d",
+      "plaintext_archive_bytes": 772,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0060-private-preseal:v1"
+    },
+    {
+      "label": "role0060-public-preseal",
+      "ciphertext": "role0060-public-preseal.aesgcm",
+      "ciphertext_sha256": "ff777de3efbeea782e0dc10009e767a4efceacf4d8f51deb6c3af392f04a3409",
+      "ciphertext_bytes": 1008,
+      "plaintext_archive_sha256": "062fc8e3de7a99cf6db45173056e826a8f0b7086603759bace22ddc8e90bc3e8",
+      "plaintext_archive_bytes": 980,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0060-public-preseal:v1"
+    },
+    {
+      "label": "role0061-original",
+      "ciphertext": "role0061-original.aesgcm",
+      "ciphertext_sha256": "687ec61b8a79f926bf1ab83d3cf223759ab0a3bf3e5fd51b893d0fd3979f8fe5",
+      "ciphertext_bytes": 20091803,
+      "plaintext_archive_sha256": "1228ab9db8868d644dcc2a6419f3d07abecfc96a52a9669c8bdb2754c37e9610",
+      "plaintext_archive_bytes": 20091775,
+      "regular_files": 540,
+      "directories": 99,
+      "associated_data": "726-audit-private-evidence:role0061-original:v1"
+    },
+    {
+      "label": "role0061-replay",
+      "ciphertext": "role0061-replay.aesgcm",
+      "ciphertext_sha256": "db991a867255885c15d1d988debea7de30c1f0463d3bca056922dce36792b349",
+      "ciphertext_bytes": 3429,
+      "plaintext_archive_sha256": "43687df4c3030593dec87df3d503d298dbbd1d9d5a045fc81bfa08da3eaf8dca",
+      "plaintext_archive_bytes": 3401,
+      "regular_files": 20,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0061-replay:v1"
+    },
+    {
+      "label": "role0062-original",
+      "ciphertext": "role0062-original.aesgcm",
+      "ciphertext_sha256": "67faa0aa96d20170fd6b60ebe9321ae8b0ae5f4b05d9ea76a72772385fc94879",
+      "ciphertext_bytes": 4680583,
+      "plaintext_archive_sha256": "d3b70b18139f70a2d7ad2e4bb5c709976f2ed98facd5343e29308de2476588a4",
+      "plaintext_archive_bytes": 4680555,
+      "regular_files": 201,
+      "directories": 3,
+      "associated_data": "726-audit-private-evidence:role0062-original:v1"
+    },
+    {
+      "label": "role0062-replay",
+      "ciphertext": "role0062-replay.aesgcm",
+      "ciphertext_sha256": "4c67fd2964f9f1f3d3bf1934d75963c22c363e279c4c1d0737a96a51f2045edc",
+      "ciphertext_bytes": 1116,
+      "plaintext_archive_sha256": "59d87676036b09555145b0953cfdd93709b3dbc9566710e943a13ae743ea7a46",
+      "plaintext_archive_bytes": 1088,
+      "regular_files": 7,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0062-replay:v1"
+    },
+    {
+      "label": "role0056-central-verifier",
+      "ciphertext": "role0056-central-verifier.aesgcm",
+      "ciphertext_sha256": "01c927db1a3ca84fc52144b8a06a5a54577861ee56951f81b2b60cd76f0f6d39",
+      "ciphertext_bytes": 2271,
+      "plaintext_archive_sha256": "bbecb34da5aed7b5f0b5aa8211f768544cf646ede7745f3db4bebe2adeaf752f",
+      "plaintext_archive_bytes": 2243,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0056-central-verifier:v1"
+    },
+    {
+      "label": "role0057-central-proposal",
+      "ciphertext": "role0057-central-proposal.aesgcm",
+      "ciphertext_sha256": "ae88925eb8fe199d2c80d7a287b48e1038ae318631c02edd0a40dde6c0f2a039",
+      "ciphertext_bytes": 526236,
+      "plaintext_archive_sha256": "d5579474fa242b8291c1c9ca5c9964533ddca9febd6d0a5537461b7bcdf79d7b",
+      "plaintext_archive_bytes": 526208,
+      "regular_files": 71,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:role0057-central-proposal:v1"
+    },
+    {
+      "label": "role0057-central-verifier",
+      "ciphertext": "role0057-central-verifier.aesgcm",
+      "ciphertext_sha256": "fb1ab8897337a723f542ef197105b7f3b84f3b6abc8cdb643b369ef75da91e9d",
+      "ciphertext_bytes": 2173,
+      "plaintext_archive_sha256": "e5067ecaa1452fe243fab3b619bcae0019e9c9f176cbd8913f8801b6e39106ae",
+      "plaintext_archive_bytes": 2145,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:role0057-central-verifier:v1"
+    },
+    {
+      "label": "later-controls",
+      "ciphertext": "later-controls.aesgcm",
+      "ciphertext_sha256": "f30ad972ba2e961b62184a5b0797b4933e5a2d70cfa0fd3f8a5e8a407e662648",
+      "ciphertext_bytes": 6685,
+      "plaintext_archive_sha256": "4fe997469b4e64bf086b62fbe9981752b8272b8b4058e8347cb8e6a25b0ae752",
+      "plaintext_archive_bytes": 6657,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:later-controls:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "726-postf2ec-restricted-recovery-v1",
+  "collections": 34,
+  "files_compared_byte_for_byte": 3733,
+  "directory_modes_compared": 402,
+  "selected_evidence_verifiers": 8,
+  "selected_verifier_exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "qualification": "Fresh separate destination, same machine and separately held key. All contained bytes and modes compared with source at replay; archive normalizes uid/gid/mtime. Does not establish independent custody, checkpoint3821 recovery, product behavior or audit completion. Evidence-only replays on authenticated restored originals, with separately held q2812 059 anchors for the three anchor-aware verifiers. The four named roots were fresh restore roots chmod 0700 for their private verifiers; contained bytes and modes were unchanged. Dialogue client uses exact public v2 verifier with restored private packet. Display occurrence remains reader attestation; same-machine custody, prior/partial histories, missing 3821 and no product validation remain qualified. Encrypted controls were captured before the later pending-index builder; that builder and exact run records are in the supplemental restricted collection."
+}

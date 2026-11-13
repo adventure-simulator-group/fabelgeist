@@ -1,0 +1,262 @@
+{
+  "schema": "726-postf2ec-central-color-combined-v1",
+  "created_utc": "2026-11-13T02:55:27.484005+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "f2ec8cbad7becbcc9a8e9da22ba512f52975768f",
+  "status": "Eight bounded partial assessments and two planning relationships centrally adopted in this checkpoint; open questions, historical qualifications and no semantic closure remain.",
+  "partial_queue_assessments": [
+    {
+      "source_group": "color-v3",
+      "record": {
+        "queue_index": 3243,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0043-LENS-01",
+        "historical_lens": 1,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "ChromaSubsampling exposes ceil-divided chroma dimensions, but convert_pixels separately calculates floor-based plane lengths from width times height, passes primitive dimensions/slices and fixes Bt709/Full for shown conversion paths. This establishes a related extent/metadata authority question, not by itself extraction of an already validated bespoke owner. Supported producer, stride and standard/range policy remain open.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:54-94,147-168,196-223",
+          "crates/fabelgeist-color/src/conversion.rs:166-246,377-403"
+        ],
+        "history": "The delegate /root/mhr_character independently registered and displayed the complete selected source at 6533, e275 and 95e under the four named lenses. Root separately registered and displayed only the selected 95e windows in this record. Matching file bytes do not establish a clean historical tree. The original 059 and reconstructed full queue streams differ; their selected parsed values match in the delegate packet. Historical Root Lens3 6533 personal read and qualified e275 reuse remain that reader/lens history, not these Lens1/5 reads or checkpoint3821.",
+        "open_questions": [
+          "Trace actual image/layout and metadata producers, existing extent owners, odd-width support and external callers.",
+          "Determine whether a typed checked extent or metadata authority exists outside this bounded scope."
+        ]
+      }
+    },
+    {
+      "source_group": "color-v3",
+      "record": {
+        "queue_index": 3246,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0043-LENS-05",
+        "historical_lens": 5,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "For symbolic 3x3 NV12, the wrapper accepts a YUV buffer of exactly 13 bytes, with a sufficiently sized RGBA buffer: 9 Y and 4 UV. The shown decoder first reaches UV index 4 at y=2,x=0 after earlier output assignments; the shown encoder writes UV index 3 before attempting index 4. Width-byte UV row stride also makes row 0 final V and row 1 first U both offset 3 if odd widths are supported. I420 uses ceil-divided low-level chroma width against floor-based wrapper planes. This refines existing q3145/ledger495; no image or conversion executed.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:86-94,147-168,183-223,251-327,332-414",
+          "crates/fabelgeist-color/src/conversion.rs:175-245,377-403"
+        ],
+        "history": "The delegate /root/mhr_character independently registered and displayed the complete selected source at 6533, e275 and 95e under the four named lenses. Root separately registered and displayed only the selected 95e windows in this record. Matching file bytes do not establish a clean historical tree. The original 059 and reconstructed full queue streams differ; their selected parsed values match in the delegate packet. Historical Root Lens3 6533 personal read and qualified e275 reuse remain that reader/lens history, not these Lens1/5 reads or checkpoint3821. Existing q3145/ledger495 already own the first chroma-extent family; q147/ledger493 concern same-format success and a distinct first operation.",
+        "open_questions": [
+          "Establish supported odd-size and padding/stride policy, all caller paths and checked extent arithmetic.",
+          "Decide whether source/destination partial-write semantics require a unified admission boundary."
+        ]
+      }
+    },
+    {
+      "source_group": "color-v3",
+      "record": {
+        "queue_index": 3255,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0044-LENS-01",
+        "historical_lens": 1,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "ColorSpace supplies primaries and transfer enums to a ColorTransform that retains its matrix and source/destination transfer functions. Bt709.to_linear_space().to_gamma_space() returns Srgb, while direct Bt709.to_gamma_space() returns Bt709; the named Bt709 and Srgb transfer functions differ. Encoded-origin identity is not retained through that composition if a caller expects a round trip; whether canonicalization is intentional and whether any supported caller depends on it are open.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:231-310",
+          "crates/fabelgeist-color/src/conversion.rs:107-149",
+          "crates/fabelgeist-color/src/transfer.rs:120-164"
+        ],
+        "history": "The delegate /root/mhr_character independently registered and displayed the complete selected source at 6533, e275 and 95e under the four named lenses. Root separately registered and displayed only the selected 95e windows in this record. Matching file bytes do not establish a clean historical tree. The original 059 and reconstructed full queue streams differ; their selected parsed values match in the delegate packet. Historical Root Lens3 6533 personal read and qualified e275 reuse remain that reader/lens history, not these Lens1/5 reads or checkpoint3821. Ledger496 addresses DCI-P3 and Adobe RGB linear-variant behavior; shared color-space policy does not prove an exact alias with encoded-origin identity.",
+        "open_questions": [
+          "Trace supported callers and whether conversion guarantees encoded-origin reversibility.",
+          "Determine whether a retained owner, explicit choice or documented canonicalization owns this policy."
+        ]
+      }
+    },
+    {
+      "source_group": "color-v3",
+      "record": {
+        "queue_index": 3258,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0044-LENS-05",
+        "historical_lens": 5,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "For the concrete symbolic custom primaries red=green=blue=(0.25,0.25), public ColorPrimaries produces identical finite basis columns and a singular matrix. The shown inversion returns None and to_xyz_matrix substitutes identity for the basis inverse p_inv; that does not mean the final computed matrix is necessarily identity. The separate from_xyz_matrix inversion has its own identity fallback. This is the existing q148/ledger494 family, not a newly counted defect. Nonfinite, zero-y, near-singular and supported custom input policies remain open; listed ACES blue y is negative.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:1-27,72-95,145-228",
+          "crates/fabelgeist-color/src/conversion.rs:107-128"
+        ],
+        "history": "The delegate /root/mhr_character independently registered and displayed the complete selected source at 6533, e275 and 95e under the four named lenses. Root separately registered and displayed only the selected 95e windows in this record. Matching file bytes do not establish a clean historical tree. The original 059 and reconstructed full queue streams differ; their selected parsed values match in the delegate packet. Historical Root Lens3 6533 personal read and qualified e275 reuse remain that reader/lens history, not these Lens1/5 reads or checkpoint3821. Original q148 and ledger494 preserve Adler's singular-primary attribution and separate recorded revision qualification. The original q148 space row records revision_as_recorded, git_path_as_recorded and attribution_as_recorded as null. Its separate Adler READ-L11-356 /sources/1 receipt records a fresh 1–356 read; matching later Git file bytes do not fill the null fields or prove a clean original worktree.",
+        "open_questions": [
+          "Trace supported custom primaries and native consumers and decide finite/invertibility policy.",
+          "Preserve legitimate listed negative coordinates when evaluating admission."
+        ]
+      }
+    },
+    {
+      "source_group": "owners-v2",
+      "record": {
+        "queue_index": 3244,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0043-LENS-02",
+        "historical_lens": 2,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "YuvStandard owns coefficient choice, YuvRange owns quantization, ChromaSubsampling owns sampling factors, and PixelFormat/ChannelLayout identify related but distinct byte layouts. NV12 versus NV21 and I420 versus YV12 differ in ordering despite shared layout projections. The shown public RGBA Color has alpha and unchecked fields; it is not established as an owner of a YCbCr triplet or checked plane extent.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:4-94,97-140",
+          "crates/fabelgeist-color/src/pixel.rs:4-79,143-146,215-231,288-292,470-482",
+          "crates/fabelgeist-color/src/color.rs:4-14,36-54"
+        ],
+        "history": "Delegate /root/mhr_character separately registered and displayed the full assigned file at 6533, e275 and 95e under four named lenses. Root separately registered and displayed the stated current 95e windows under lenses 2 and 6; this display event is coordinator-reported, and the captured text and registration can be independently checked. Earlier Root Lens3 reads and e275 same-lens reuse retain their own attribution; no other-lens or checkpoint3821 credit transfers. Original 059 and reconstructed full queue streams differ, although the selected parsed records match in the delegate packet.",
+        "open_questions": [
+          "Search remaining image owners for a compatible checked combination of dimensions, subsampling, order, strides and backing extents.",
+          "Determine channel normalization and transfer policy without conflating RGBA with YCbCr."
+        ]
+      }
+    },
+    {
+      "source_group": "owners-v2",
+      "record": {
+        "queue_index": 3247,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0043-LENS-06",
+        "historical_lens": 6,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "The shown standards, quantization range, sampling factors, byte format and channel layout carry related but distinct responsibilities. The same BT.709 label in a YUV coefficient enum and a color-space enum does not by itself make them interchangeable or demonstrate duplicate authority. The wrapper’s fixed Bt709/Full choice and supported producer metadata remain a policy question.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:4-94",
+          "crates/fabelgeist-color/src/pixel.rs:4-79,215-231,288-292",
+          "crates/fabelgeist-color/src/space.rs:231-291",
+          "crates/fabelgeist-color/src/conversion.rs:184-212,215-245,377-403"
+        ],
+        "history": "Delegate /root/mhr_character separately registered and displayed the full assigned file at 6533, e275 and 95e under four named lenses. Root separately registered and displayed the stated current 95e windows under lenses 2 and 6; this display event is coordinator-reported, and the captured text and registration can be independently checked. Earlier Root Lens3 reads and e275 same-lens reuse retain their own attribution; no other-lens or checkpoint3821 credit transfers. Original 059 and reconstructed full queue streams differ, although the selected parsed records match in the delegate packet.",
+        "open_questions": [
+          "Trace supported producers and ownership of format, range, matrix and plane extent together.",
+          "Keep actual caller expectations and any layer/dependency decision open."
+        ]
+      }
+    },
+    {
+      "source_group": "owners-v2",
+      "record": {
+        "queue_index": 3256,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0044-LENS-02",
+        "historical_lens": 2,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "Chromaticity owns paired f64 CIE coordinates, ColorPrimaries owns three coordinates and a white point, and ColorSpace names a primary/transfer combination. The existing Ratio is an unchecked f32 dimensionless unit, not a demonstrated f64 chromaticity contract; the independent reviewer’s full color manifest read found no direct fabelgeist-math dependency, while transitive dependencies remain unassessed. A listed ACES2065-1 primary has negative y, so unconditional [0,1] admission would exclude a listed standard.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:6-17,31-68,72-95,145-150,231-291",
+          "crates/fabelgeist-math/src/units.rs:1-20,62-69",
+          "crates/fabelgeist-color/Cargo.toml:1-25"
+        ],
+        "history": "Delegate /root/mhr_character separately registered and displayed the full assigned file at 6533, e275 and 95e under four named lenses. Root separately registered and displayed the stated current 95e windows under lenses 2 and 6; this display event is coordinator-reported, and the captured text and registration can be independently checked. Earlier Root Lens3 reads and e275 same-lens reuse retain their own attribution; no other-lens or checkpoint3821 credit transfers. Original 059 and reconstructed full queue streams differ, although the selected parsed records match in the delegate packet. The independent reviewer separately registered and displayed the full color manifest at 95e; the coordinator’s own manifest display covered only lines 8–12.",
+        "open_questions": [
+          "Search for compatible f64 owners and decide precision, finite-value, virtual-primary and dependency policy.",
+          "Keep singular/near-singular validation connected to existing q148/ledger494."
+        ]
+      }
+    },
+    {
+      "source_group": "owners-v2",
+      "record": {
+        "queue_index": 3259,
+        "historical_contract_id": "OBLIGATION-ROOT-L3-EXT-0044-LENS-06",
+        "historical_lens": 6,
+        "delegate": "/root/mhr_character",
+        "central_reviewer": "/root",
+        "summary": "Chromaticity, WhitePoint, ColorPrimaries and ColorSpace expose distinct coordinate, illuminant, aggregate and named-space roles. YuvStandard describes matrix coefficients, while ColorSpace also selects transfer behavior; shared BT.709 names alone do not prove a duplicate owner. The generic ColorTransform retains a matrix and transfer functions but does not itself establish policy for arbitrary custom primaries.",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:6-17,31-68,72-95,207-228,231-291",
+          "crates/fabelgeist-color/src/yuv.rs:4-24",
+          "crates/fabelgeist-color/src/conversion.rs:107-149"
+        ],
+        "history": "Delegate /root/mhr_character separately registered and displayed the full assigned file at 6533, e275 and 95e under four named lenses. Root separately registered and displayed the stated current 95e windows under lenses 2 and 6; this display event is coordinator-reported, and the captured text and registration can be independently checked. Earlier Root Lens3 reads and e275 same-lens reuse retain their own attribution; no other-lens or checkpoint3821 credit transfers. Original 059 and reconstructed full queue streams differ, although the selected parsed records match in the delegate packet.",
+        "open_questions": [
+          "Trace custom-primary admission and supported transform consumers before choosing an authority layer.",
+          "Keep encoded-origin behavior and existing ledger496 policy related but not automatically aliased."
+        ]
+      }
+    }
+  ],
+  "ledger_relationships": [
+    {
+      "source_group": "color-v3",
+      "record": {
+        "id": "relationship-yuv-odd-plane-row-stride-95e",
+        "lens": 5,
+        "classification": "The symbolic 3x3 NV12 case refines existing floor-sized YUV plane admission and highlights a separate possible odd-row overlap when stride equals width. The supported layout and caller reachability are open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3145",
+          "baseline-059/queue.json#/entries/147"
+        ],
+        "current_related_records": [
+          "ede12 newly_assessed_ledger.entries[495]",
+          "ede12 newly_assessed_ledger.entries[493]"
+        ],
+        "relationship_qualification": "A planning relationship to existing q3145/ledger495, not a new accepted unique defect or automatic alias to same-format admission. No image, mutation or conversion executed.",
+        "connected_repair_direction": "Trace producers and define supported dimensions, plane extents and stride before selecting a shared admission boundary.",
+        "future_acceptance": "Only after audit and authorization, assess odd/even YUV layouts, short storage and explicit partial-write behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-color/src/yuv.rs:86-94,147-168,183-223,251-327,332-414",
+          "crates/fabelgeist-color/src/conversion.rs:175-245,377-403"
+        ]
+      }
+    },
+    {
+      "source_group": "color-v3",
+      "record": {
+        "id": "relationship-color-encoded-origin-95e",
+        "lens": 1,
+        "classification": "The selected Bt709-to-linear-to-gamma composition chooses Srgb; differing transfer functions mean encoded origin cannot be recovered from LinearSrgb alone. Whether this composition promises reversibility remains an open caller-policy question.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3255"
+        ],
+        "current_related_records": [
+          "ede12 newly_assessed_ledger.entries[496]"
+        ],
+        "relationship_qualification": "Related to but not established identical with ledger496 DCI-P3/Adobe linear-variant question; no observed color outcome or accepted unique count.",
+        "connected_repair_direction": "Trace caller expectations and choose explicit encoded-origin ownership or canonicalization before changing the public mapping.",
+        "future_acceptance": "Only after audit and authorization, assess transfer/identity policy across named standard spaces and supported callers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "source_refs": [
+          "crates/fabelgeist-color/src/space.rs:231-310",
+          "crates/fabelgeist-color/src/conversion.rs:107-149",
+          "crates/fabelgeist-color/src/transfer.rs:120-164"
+        ]
+      }
+    }
+  ],
+  "source_drafts": [
+    {
+      "label": "color-v3",
+      "sha256": "d19326f6a57ba35765c90695138ab6534a5fa6d7add438e2c765a0d8f8115f26",
+      "custody": "authenticated restricted source collection; exact locator retained privately"
+    },
+    {
+      "label": "owners-v2",
+      "sha256": "a9de1944023f17f26c4b818dbbbec2a76a782576a43c67e0ce98aacf74c55925",
+      "custody": "authenticated restricted source collection; exact locator retained privately"
+    }
+  ],
+  "comparison_sha256": "d61f21461acebd036da1cf964186f165356c5ef84014eaaa71c13e5f0a501279",
+  "review_qualification": "The color-v3 correction and its source/attribution limits were independently reviewed by /root/wrapped_scope. The owners-v2 assessments combine /root/mhr_character's separately registered full-source review and /root's own separately registered current windows; at the owners-v2 draft stage no independent combined review of those records was yet claimed; the later v4 review is recorded in combined_independent_review. Coordinator display events are coordinator-reported; exact registrations and display-file bytes can be independently verified. The independent preliminary reviewer separately registered and displayed the full color manifest. Coordinator display credit remains limited to its own stated windows; the independent v4 review was completed before adoption; see combined_independent_review.",
+  "process_qualification": "Color v1, v2 and v3 preserve the encoder-signature reread, concrete inverse-fallback example, exact-sized YUV buffer wording and q148 null-field attribution. Owner v1 and v2 preserve the separately registered own-lens wrapper reread. Prior original and reconstructed records, revisions and readers are not promoted to checkpoint3821. An independent preliminary review identified the v2 status-change omission, checked direct versus composed Bt709 gamma mapping, and separately displayed the full color manifest; the independent v4 review was subsequently completed before adoption. Inherited created_utc fields in earlier successors do not establish their creation or read chronology; see chronology_qualification.",
+  "counts": {
+    "new_partial_queue_assessments": 8,
+    "semantic_queue_closures": 0,
+    "new_planning_relationships": 2,
+    "accepted_unique_defect_increment": 0,
+    "lens_completions": 0
+  },
+  "recovery_qualification": "Original final checkpoint3821 queue and ledger remain missing. Original 059 selections, distinct reconstructed full queues and 440 state, historical summaries, normalized 774 versus missing pre-export originals, SOURCE004 and newly assessed 95e work retain separate identity and attribution. All 73 nontext/no-positive-EOF contracts and thirteen lenses remain open. Same-machine keys and prior q2812 anchors remain dependencies.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "predecessor_draft_sha256": "a298f5ecb6ecee3cceb2a8ebbfb4d98bab55bb31b24f2bfe88d43af9f70cd594",
+  "sanitization_qualification": "Relative to the initial combined draft, v2 replaced restricted absolute source locators with custody labels, additionally clarified that combined independent review was pending, and added predecessor and sanitization metadata. It retained assessment and relationship values and source hashes. The inaccurate v2 correction and both earlier versions remain preserved.",
+  "successor_created_utc": "2026-11-13T03:19:47.821035+00:00",
+  "chronology_qualification": "Owner v2 retains owner v1 created_utc 2026-11-13T02:54:15.631Z, earlier than the separately registered wrapper read at 02:54:32.433Z; its correction is timestamped 02:54:44.893Z. Central color v2/v3 retain v1 created_utc 01:48:47.851Z, before the 02:04 signature registration and the 02:04/02:11 corrections. Treat those fields as inherited predecessor metadata, not successor-creation times or proof of earlier reads. Registrations, corrected drafts and reviewer-qualified display attestations retain their own timing.",
+  "adopted_from_draft_sha256": "8e02160bd01b6a143333e1a843d7506f5352c85edfbd2769d96b29488b4570bb",
+  "combined_independent_review": "delegated/postf2ec-followups/review-transport/color-owner-review.tar.gz",
+  "adoption_qualification": "The records and source qualifications match independently reviewed v4 as parsed values. The reviewer separately displayed the full color manifest; coordinator display events remain coordinator-reported. Earlier correction errors, inherited timestamps, missing checkpoint3821 and all stated policy/reachability limits remain explicit; no global alias or unique defect is established.",
+  "predecessor_report_sha256": "ea154c4a4ecac010db73207fe73b8b9ec87bbff718a82bc4fdf77f576daf2185",
+  "clarification_qualification": "Only three inherited pending-review statements are clarified as draft-time history and superseded for v4 by the completed independent review already linked in the adopted report. Source assessments, relationships, queue and ledger statuses, historic attribution, open policies, repair and product-validation limits are unchanged. The exact predecessor and its archived application remain intact.",
+  "predecessor_clarification_sha256": "517a6ecc4921a052cf1a5eadbc7f85aac059887f00d82226d61a9276a1222a5d",
+  "wording_qualification": "The v3 successor corrects capitalization after a semicolon; v2 and its substantive correction are unchanged and retained."
+}

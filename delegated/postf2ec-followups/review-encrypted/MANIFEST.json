@@ -1,0 +1,163 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "independent-color-review",
+      "ciphertext": "independent-color-review.aesgcm",
+      "ciphertext_sha256": "f68edeffbec4e67aa5005ed7879c040765899b69ad9fde637848c336a9e1539e",
+      "ciphertext_bytes": 5242036,
+      "plaintext_archive_sha256": "889cb1c9f7577c9b5d817da51ad86fe7ae09998ec3679db7d7227336bcb76295",
+      "plaintext_archive_bytes": 5242008,
+      "regular_files": 258,
+      "directories": 17,
+      "associated_data": "726-audit-private-evidence:independent-color-review:v1"
+    },
+    {
+      "label": "independent-color-replay",
+      "ciphertext": "independent-color-replay.aesgcm",
+      "ciphertext_sha256": "d7b124e8f82f80cc51960bc57939ed957af5add0d3fe01c7352e684e436214df",
+      "ciphertext_bytes": 1015,
+      "plaintext_archive_sha256": "e64998f810c82f386e1a51d3a1d36f5e155bcfe8e0b00f8f1b58ce20a8e55d00",
+      "plaintext_archive_bytes": 987,
+      "regular_files": 7,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:independent-color-replay:v1"
+    },
+    {
+      "label": "combined-correction-v3",
+      "ciphertext": "combined-correction-v3.aesgcm",
+      "ciphertext_sha256": "93a12c635e6bb9b96eca97061041a3a8863c62a1dfc033bfcdddb79dae190e6d",
+      "ciphertext_bytes": 7316,
+      "plaintext_archive_sha256": "633aaaa43fe1a3c6c11185eb458e143a4953a78184774937790ba4487448661e",
+      "plaintext_archive_bytes": 7288,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:combined-correction-v3:v1"
+    },
+    {
+      "label": "combined-correction-v4",
+      "ciphertext": "combined-correction-v4.aesgcm",
+      "ciphertext_sha256": "4a6bce79103f0e207cc5e96f16176c1a2fa021edb0e0862e9f75d5a24f05af9b",
+      "ciphertext_bytes": 6895,
+      "plaintext_archive_sha256": "527f3c239b559d719884364f0a4d0c7a261dc7f7f1a50a8687870fcee48402c0",
+      "plaintext_archive_bytes": 6867,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:combined-correction-v4:v1"
+    },
+    {
+      "label": "main-observation-0314",
+      "ciphertext": "main-observation-0314.aesgcm",
+      "ciphertext_sha256": "20e42c5abc8425562139e9eb28fe171b3b61fd4bbf6b2bb78bf1d7df354bf953",
+      "ciphertext_bytes": 2166,
+      "plaintext_archive_sha256": "e8a7ef563aad8f0ea3bedb9669bf65527e012e05451629717578d1e9a637721c",
+      "plaintext_archive_bytes": 2138,
+      "regular_files": 1,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:main-observation-0314:v1"
+    },
+    {
+      "label": "transform-preflight-v1",
+      "ciphertext": "transform-preflight-v1.aesgcm",
+      "ciphertext_sha256": "6abe0025fc96a4612b05c62d36a586b70303d8d4f16d1d14c7c5b4980b629161",
+      "ciphertext_bytes": 386191,
+      "plaintext_archive_sha256": "657b7403f9f59ef0b0278191ed93e88ad70dbbe3057e8c536520e6795cdc3dbc",
+      "plaintext_archive_bytes": 386163,
+      "regular_files": 6,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:transform-preflight-v1:v1"
+    },
+    {
+      "label": "transform-preflight-v2",
+      "ciphertext": "transform-preflight-v2.aesgcm",
+      "ciphertext_sha256": "a2489d746e1785912c5b25727b724d8206f62dc16373abfe06717316f2dba720",
+      "ciphertext_bytes": 386297,
+      "plaintext_archive_sha256": "acac9418e90d3902d19c6ca6227ad6ecece6607b3f645cd65cdb4bba12046f4d",
+      "plaintext_archive_bytes": 386269,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:transform-preflight-v2:v1"
+    },
+    {
+      "label": "transform-preflight-v3",
+      "ciphertext": "transform-preflight-v3.aesgcm",
+      "ciphertext_sha256": "da2ad797c5b8c730d058a52f16b81382655c63dfdca850cb583d3aedeba90a2a",
+      "ciphertext_bytes": 386295,
+      "plaintext_archive_sha256": "624fd4ac769ca3f843326052770c0ca223a72523e3ea563baaefb5d64fd77a1f",
+      "plaintext_archive_bytes": 386267,
+      "regular_files": 7,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:transform-preflight-v3:v1"
+    },
+    {
+      "label": "late-controls",
+      "ciphertext": "late-controls.aesgcm",
+      "ciphertext_sha256": "63ef1744602195cc744bab9e144d79061684a3c1dd94c842265e88c2265d4808",
+      "ciphertext_bytes": 11085,
+      "plaintext_archive_sha256": "14e9fd56307c6d4c68d7a54bdb37f1145ce6157a11b3126ac630f3aabe9e3102",
+      "plaintext_archive_bytes": 11057,
+      "regular_files": 13,
+      "directories": 1,
+      "associated_data": "726-audit-private-evidence:late-controls:v1"
+    },
+    {
+      "label": "postfreeze-custody-process",
+      "ciphertext": "postfreeze-custody-process.aesgcm",
+      "ciphertext_sha256": "696f7769551d6316ed9924594b103a8942606d579f21ae6521ab8807d5896e2b",
+      "ciphertext_bytes": 3698,
+      "plaintext_archive_sha256": "60cc661d0a1be4e270f12b5694d4551da2858019bc155cfe9a905586e6c5de16",
+      "plaintext_archive_bytes": 3670,
+      "regular_files": 15,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:postfreeze-custody-process:v1"
+    },
+    {
+      "label": "supplement-custody-process",
+      "ciphertext": "supplement-custody-process.aesgcm",
+      "ciphertext_sha256": "579b4d9156c0738632b43ecc9f0f5acb6c99fd34f93025052180f8635846c575",
+      "ciphertext_bytes": 10319,
+      "plaintext_archive_sha256": "ad73c43569033f4079381e8601b9b12cc8ec91337f01342c05d764bef5ba5fff",
+      "plaintext_archive_bytes": 10291,
+      "regular_files": 32,
+      "directories": 6,
+      "associated_data": "726-audit-private-evidence:supplement-custody-process:v1"
+    },
+    {
+      "label": "application-builder",
+      "ciphertext": "application-builder.aesgcm",
+      "ciphertext_sha256": "7f0545cefd1fbfe072f832b0bea979cad6da4c800d5078e7d84c086921fbc8a8",
+      "ciphertext_bytes": 2887,
+      "plaintext_archive_sha256": "9b80a7bc94b274f0274e4367a391f515f61afd578cbbdc90f3eee98a84494599",
+      "plaintext_archive_bytes": 2859,
+      "regular_files": 3,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:application-builder:v1"
+    },
+    {
+      "label": "checkpoint-controls-late",
+      "ciphertext": "checkpoint-controls-late.aesgcm",
+      "ciphertext_sha256": "3bf08c44780e2dd8392e85ff1665dabb509aa7b0b315e22e16f210747567e0ec",
+      "ciphertext_bytes": 12540,
+      "plaintext_archive_sha256": "190d66d09f029e57b8d169ffc4e5c67a068812137f8b04f8dcbf93c3783286a0",
+      "plaintext_archive_bytes": 12512,
+      "regular_files": 17,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:checkpoint-controls-late:v1"
+    },
+    {
+      "label": "review-controls",
+      "ciphertext": "review-controls.aesgcm",
+      "ciphertext_sha256": "7aee15442b11dd93089dd66b4adbcb1b4ce7e9f420e778a9b91ef0c8bf5d182d",
+      "ciphertext_bytes": 3079,
+      "plaintext_archive_sha256": "d7dc909cb3a16a6fc457ca4c119fc2cbda8b1030851a3138acd0892149652e0c",
+      "plaintext_archive_bytes": 3051,
+      "regular_files": 2,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:review-controls:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

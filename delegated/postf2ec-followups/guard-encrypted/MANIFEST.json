@@ -1,0 +1,53 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "final-guard-process",
+      "ciphertext": "final-guard-process.aesgcm",
+      "ciphertext_sha256": "a4f9614a9dd2d8614ff36176ae493d1188f56bc6c940806c95108edec603c443",
+      "ciphertext_bytes": 39217,
+      "plaintext_archive_sha256": "2b67b40350291608af3cb06e71bc1fee2f6f8bca64eec8d5bbf8aec32edb1734",
+      "plaintext_archive_bytes": 39189,
+      "regular_files": 46,
+      "directories": 11,
+      "associated_data": "726-audit-private-evidence:final-guard-process:v1"
+    },
+    {
+      "label": "q0-original",
+      "ciphertext": "q0-original.aesgcm",
+      "ciphertext_sha256": "30b22e950dbeada81e74a91b9abab13abb4d24b9ca42679b57601103cf5cb3d3",
+      "ciphertext_bytes": 5890204,
+      "plaintext_archive_sha256": "e39946c09d6a7af125bfd95c6825860247d0f369af04da7b2bdb784a642d0ee1",
+      "plaintext_archive_bytes": 5890176,
+      "regular_files": 300,
+      "directories": 4,
+      "associated_data": "726-audit-private-evidence:q0-original:v1"
+    },
+    {
+      "label": "q0-first-replay",
+      "ciphertext": "q0-first-replay.aesgcm",
+      "ciphertext_sha256": "1e45e64934c1b9f1adbea8d2bba1c029afa158c018ef5a0619a6fdb577bdf2ab",
+      "ciphertext_bytes": 1097,
+      "plaintext_archive_sha256": "95873ce709863fa4fb30373d1f33bb3aed2226b58d281df4f21ffd171f46ee0c",
+      "plaintext_archive_bytes": 1069,
+      "regular_files": 7,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q0-first-replay:v1"
+    },
+    {
+      "label": "q0-successor-replay",
+      "ciphertext": "q0-successor-replay.aesgcm",
+      "ciphertext_sha256": "dc12ff872a0c7516631e5dcffff079860ff8e5dad6b2a9a962fa1071ea02ce18",
+      "ciphertext_bytes": 1096,
+      "plaintext_archive_sha256": "fd64825dceefcd8306d9a4c297d5bc2998957660367695e5aeb0c446d975b0d4",
+      "plaintext_archive_bytes": 1068,
+      "regular_files": 7,
+      "directories": 0,
+      "associated_data": "726-audit-private-evidence:q0-successor-replay:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine primary key. Earlier q2812 anchors and separately held or previously wrapped nested packet keys remain dependencies; this collection does not itself add those keys.",
+  "qualification": "Each archive was checked against exact source bytes/modes and authenticated round-trip in memory. Ciphertext is opaque to public scans. No independent custody, complete Git history, missing checkpoint3821 recovery, product behavior or audit closure is established."
+}

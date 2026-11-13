@@ -1,0 +1,72 @@
+{
+  "schema": "726-postf2ec-late-staged-capture-v1",
+  "prior_capture_sha256": "aabac1ec81175881f11cb90f64285a695f445b8e7d78ee8be9562ab45a3766e5",
+  "unchanged_prior_paths": 256,
+  "new_rows": [
+    {
+      "path": "delegated/postf2ec-followups/final-guard/CAPTURE.json",
+      "bytes": 74311,
+      "sha256": "aabac1ec81175881f11cb90f64285a695f445b8e7d78ee8be9562ab45a3766e5",
+      "git_blob": "2d869f713eaae70806954fda1c2299950b402533",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/final-guard/SCAN.json",
+      "bytes": 877,
+      "sha256": "f4bb55e0a45c45f53c0934a3f7c7cc7843b9ff3eab081004e9df32003415a1d2",
+      "git_blob": "f5fb17b7b2af9df84d1340038114cf3d07242263",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-evidence/INDEX.md",
+      "bytes": 1180,
+      "sha256": "14e5b28f2dd250dfe5516b6f921ffbe96192e4829c15ed496e04125da53e45a7",
+      "git_blob": "aa1cc6187fb91889079bfec4b08a9ebb3ed87f8e",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-evidence/VERIFY.py",
+      "bytes": 1375,
+      "sha256": "4b23104abcb13650f5190970f9456379334fa49da6cd738b807d429bb2ea8a57",
+      "git_blob": "50e0e91b8711d569ecac10012df10af1d1eb20c8",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-transport/MANIFEST.json",
+      "bytes": 3135,
+      "sha256": "6e3ef052fa6652130ac6ade75129487c8b9aa2fc60488c5a12e3d975e4e05f0c",
+      "git_blob": "4deb35a4919d32190677d2939ce08c2df26716ba",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-transport/VERIFY.py",
+      "bytes": 1662,
+      "sha256": "b10ab203bd903905c90451ec6d73ff84f422f0917947e0a74ddc0aac7fd9b48b",
+      "git_blob": "ebb267405e41b1a7c976cae0a9a3f604d204fa95",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-transport/q0-behavior-v1.tar.gz",
+      "bytes": 9368,
+      "sha256": "9c7a4cb173ab3086d347c412afc61e190613c3499e3aa0bd7e1914450132af82",
+      "git_blob": "5ad84c059b226a1de1ad2d2dcfbdb8eb94d92eaa",
+      "mode": "100644"
+    },
+    {
+      "path": "delegated/postf2ec-followups/late-transport/q0-behavior-v2.tar.gz",
+      "bytes": 10302,
+      "sha256": "312442e1294cfc405cbde54f3b4b9c1d48d8d0d3403068fa2bf16662f079e76b",
+      "git_blob": "4a03e907b4aaa98c1cad957d50333f3a579a3f53",
+      "mode": "100644"
+    },
+    {
+      "path": "verify_postf2ec_complete_evidence.py",
+      "bytes": 578,
+      "sha256": "7c0ef6e66601c8470455686eaa82aa20d931ace10d02047ceb0d1fc36be242ea",
+      "git_blob": "986331239263d518d9dd071816244fb8f0756359",
+      "mode": "100644"
+    }
+  ],
+  "strict_diff_check_exit": 0,
+  "qualification": "Separate additive snapshot after the 256 paths; later guard and main-observation files remain outside this snapshot. Evidence-only; no product validation."
+}

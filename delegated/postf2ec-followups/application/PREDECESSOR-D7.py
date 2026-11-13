@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+"""Replay the predecessor checkpoint against its archived exact after-image."""
+import os,shutil,subprocess,sys,tarfile,tempfile
+from pathlib import Path
+if sys.flags.optimize:raise RuntimeError('Assertions required')
+root=Path(__file__).resolve().parent;app=root/'delegated/postede12-followups/application-v3'
+subprocess.run([sys.executable,'-B',str(app/'VERIFY.py'),'--published',str(root)],check=True)
+shadow=Path(tempfile.mkdtemp(prefix='audit-predecessor-evidence-'))
+with tarfile.open(app/'APPLICATION-EVIDENCE.tar.gz','r:gz') as t:
+ for n in ['BASELINE-95E-20261110.json','CONTINUATION-PROGRESS-95E.json','RECONCILIATION-059.json','CONTINUATION.md']:
+  (shadow/n).write_bytes(t.extractfile('before/'+n).read())
+for n in ['ASSESSMENT-CENTRAL-FOLLOWUPS-17-95E.json','MAIN-RECHECK-20261113-0033.json']:
+ shutil.copy2(root/n,shadow/n)
+shutil.copy2(app/'PREDECESSOR-WRAPPER.py',shadow/'verify_postd7a5_application.py')
+(shadow/'delegated').symlink_to(root/'delegated',target_is_directory=True)
+env=dict(os.environ);env['PYTHONDONTWRITEBYTECODE']='1';env['PYTHONNOUSERSITE']='1';env.pop('PYTHONOPTIMIZE',None)
+subprocess.run([sys.executable,'-B',str(shadow/'verify_postd7a5_application.py')],check=True,env=env)
+print('Replayed the exact predecessor application in an isolated same-machine shadow using the archived predecessor after-image; current successor is checked separately.')

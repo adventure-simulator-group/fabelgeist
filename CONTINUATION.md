@@ -13,6 +13,20 @@ reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
 
+`ASSESSMENT-CENTRAL-FOLLOWUPS-19-95E.json` connects eight bounded partial
+assessments and two planning relationships. They do not close a queue
+record or lens or add a unique-defect count. Eight color obligations in
+the older 28-row pending snapshot are now partial; its other 20 remain
+unassessed. The older index retains its historical snapshot.
+
+`delegated/postf2ec-followups/PENDING-DELEGATES.json` indexes 28 later,
+separately attributed source/lens obligations awaiting reconciliation.
+`delegated/postf2ec-followups/INDEX.md` locates checkpoint evidence,
+same-machine predecessor recovery and restricted custody dependencies.
+
+`MAIN-RECHECK-20261113-0314.json` records a point-in-time connector
+observation of main at 95e. Main may have moved since.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-18-95E.json` connects two bounded partial
 assessments and two planning relationships. They do not close a queue
 record or lens or add a unique-defect count.

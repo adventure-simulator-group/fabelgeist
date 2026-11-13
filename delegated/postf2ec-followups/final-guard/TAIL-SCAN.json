@@ -1,0 +1,24 @@
+{
+  "schema": "726-postf2ec-tail-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "1d0f1d35ba6d38161392c1b2a5e8eff7a3e53ee9057a533d7f0d50d128348cbe",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "eb06796cf91e27c378ccb1e360a2f3c07124432bc72a8f1e311d3c81b363d091",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 22,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Bounded scans over the separate 22-path guard snapshot; later receipt files remain outside this scan. Ciphertext is opaque; unknown private values, encodings and unscanned Git history remain outside scope.",
+  "capture_sha256": "ee3bd56b5c07b2225643def755b367e1dfff5e5295c57c084de6d781109e75cb"
+}

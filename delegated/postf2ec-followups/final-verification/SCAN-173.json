@@ -1,0 +1,23 @@
+{
+  "schema": "726-postf2ec-staged-scan-v1",
+  "checks": [
+    {
+      "name": "private-digests",
+      "exit": 0,
+      "stdout_sha256": "ab92698c6c0eee5f9709b76fba0153701ef4db3ded7fba9d48f409cbe2eaaec9",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "tar-patterns",
+      "exit": 0,
+      "stdout_sha256": "c372535e94f8709de49e655581a18149f66e93c52a028a53f2ce9a9274ecd44d",
+      "stderr_bytes": 0
+    }
+  ],
+  "scanned_paths": 173,
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": 0,
+  "tar_pattern_issues": 0,
+  "qualification": "Bounded scans over the 173 captured staged paths. Ciphertext is opaque; unknown private values, encodings and unscanned Git history remain outside scope."
+}

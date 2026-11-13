@@ -1,0 +1,82 @@
+{
+  "schema": "726-postf2ec-late-transports-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_checkpoint": "f2ec8cbad7becbcc9a8e9da22ba512f52975768f",
+  "bundles": [
+    {
+      "label": "q0-behavior-v1",
+      "file": "q0-behavior-v1.tar.gz",
+      "source_manifest_sha256": "70012be8c55e22ea93af963b63cd3406a0cda87b51320d4630d0cc741e530b08",
+      "manifest_member": "q0-behavior-v1/MANIFEST.json",
+      "archive_bytes": 9368,
+      "archive_sha256": "9c7a4cb173ab3086d347c412afc61e190613c3499e3aa0bd7e1914450132af82",
+      "members": [
+        {
+          "path": "q0-behavior-v1/MANIFEST.json",
+          "bytes": 520,
+          "sha256": "70012be8c55e22ea93af963b63cd3406a0cda87b51320d4630d0cc741e530b08",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v1/REPORT.md",
+          "bytes": 8747,
+          "sha256": "47daa64d7fbf77458469a265291244adfada0f971c68823d0a2b99befcb10cca",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v1/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v1/VERIFY.py",
+          "bytes": 11705,
+          "sha256": "0bcba8b37c3432c89afc21be6eacdd383c796488a91f9bd153932c4fbe46ef52",
+          "mode": "0o600"
+        }
+      ]
+    },
+    {
+      "label": "q0-behavior-v2",
+      "file": "q0-behavior-v2.tar.gz",
+      "source_manifest_sha256": "d3d4c911d65bcdeff79b48f21c16b2749feb516e4be39cb19fdef0c24edea214",
+      "manifest_member": "q0-behavior-v2/MANIFEST.json",
+      "archive_bytes": 10302,
+      "archive_sha256": "312442e1294cfc405cbde54f3b4b9c1d48d8d0d3403068fa2bf16662f079e76b",
+      "members": [
+        {
+          "path": "q0-behavior-v2/CORRECTION-v2.json",
+          "bytes": 1031,
+          "sha256": "e4a0c0b86d8aac52f2c7c3d0ad0901b8bec46964259e24804b3e333a1b00471d",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v2/MANIFEST.json",
+          "bytes": 681,
+          "sha256": "d3d4c911d65bcdeff79b48f21c16b2749feb516e4be39cb19fdef0c24edea214",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v2/REPORT.md",
+          "bytes": 9142,
+          "sha256": "e28c2424522bfb8885145ed1f0f484790c25ef49580a659052c62294c309596f",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v2/SCAN.py",
+          "bytes": 1124,
+          "sha256": "4251401fcdd9bb8ede7448ec22b3e3b56f57635418696f5359814c34f4295d46",
+          "mode": "0o600"
+        },
+        {
+          "path": "q0-behavior-v2/VERIFY.py",
+          "bytes": 12813,
+          "sha256": "9f115b1d65ff0211b6e5f3c6e7b5a1bd8e404b87b37a0d8c3e88827f0e17f48c",
+          "mode": "0o600"
+        }
+      ]
+    }
+  ],
+  "qualification": "The q0 Lens8 public v1 and corrected v2 retain distinct exact identities. Both require the separately held restricted collection for full replay and remain pending central reconciliation. Historical revisions, attribution and missing checkpoint3821 remain distinct."
+}

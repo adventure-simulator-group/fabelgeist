@@ -1,0 +1,7 @@
+{
+  "schema": "726-postf2ec-transport-failure-v1",
+  "attempt": "First public transport builder",
+  "result": "Failed while checking the pre-existing rest transport because its members use the public/ prefix. The builder incorrectly assumed pre-existing transports always had no prefix. The pre-existing color review transport uses the same public/ prefix.",
+  "successor": "The v2 builder recognizes both prefix forms and verifies every archive member against source bytes and modes. The failed partial output and original builder are retained in restricted authenticated originals.",
+  "capture_qualification": "Tool-visible failure text was transcribed in the restricted process record; it was not separately saved byte-for-byte at execution. The failure is a packaging issue, not product behavior."
+}
