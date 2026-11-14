@@ -1,0 +1,11 @@
+{
+  "schema": "726-party-enrollment-private-envelope-v1",
+  "algorithm": "AES-256-GCM",
+  "format": "12-byte nonce, ciphertext and authentication tag",
+  "associated_data": "726-party-enrollment-slice-private-v1",
+  "ciphertext_bytes": 13954,
+  "ciphertext_sha256": "15e27909f052320897421fd2e13986fa4d7495eaebaa5238086d679d2862f5c9",
+  "entries": 18,
+  "source_collections": 1,
+  "qualification": "No-key verification checks ciphertext identity only. The key is separately held on the same machine. Authentication and comparison of a restored copy are separate checks."
+}

@@ -1,0 +1,309 @@
+{
+  "schema": "726-type-slice-ledger-v3",
+  "slice": "PartyEnrollment and the tightly coupled mission admission, timeout, configuration and outcome interfaces",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "parent_handoff_checkpoint": "f2c6d28a48bfa72c0801e9f33387eb6e448f9a18",
+  "status": "thirteen bounded slice reviews and post-repair reviews completed; zero-grace repair committed and draft PR opened; no whole-repository lens or historical queue closure",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer propagation",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "wrapped_scope",
+      "finding": "CLI f32 seconds -> Duration -> MissionState retained grace -> system -> PartyEnrollment; the selected path passes the retained value unchanged.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "wrapped_scope"
+    },
+    {
+      "number": 2,
+      "name": "existing type owners",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "wrapped_scope",
+      "finding": "NonZeroU32, CharacterId and Duration own expected threshold, identity and nonnegative timing. Compared positive strategic and animation duration owners have different contracts; no drop-in owner established.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "wrapped_scope"
+    },
+    {
+      "number": 3,
+      "name": "admission contracts",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "pre-fix system regression failed as expected",
+      "reviewer": "wrapped_scope",
+      "finding": "Zero is a source-supported input to Duration and no positive range is authored on the CLI option; startup/scheduler/connected backend were not executed.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "wrapped_scope"
+    },
+    {
+      "number": 4,
+      "name": "invariant operations",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "pre-fix system regression failed as expected",
+      "reviewer": "wrapped_scope",
+      "finding": "Presence resets empty_for to zero, after which an unconditional zero threshold returns Abandoned. The same first operation is historical q3134/ledger406.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "wrapped_scope"
+    },
+    {
+      "number": 5,
+      "name": "aggregate states",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "mhr_character",
+      "finding": "Seen distinct identities, loaded entity count and pending loading requests are different facts. Roster membership policy, duplicate reach and independent combat snapshot consistency remain open.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "mhr_character"
+    },
+    {
+      "number": 6,
+      "name": "type ownership",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "mhr_character",
+      "finding": "PartyEnrollment is transient tactical-server mission state; CharacterId remains the character identity owner. No demonstrated misplaced owner in the selected paths.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "mhr_character"
+    },
+    {
+      "number": 7,
+      "name": "redundant authority",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "mhr_character",
+      "finding": "One retained grace value is passed back as an argument; a mismatch is API-representable but no mismatched caller is established. Potential facade strengthening is separate from the demonstrated zero defect.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "mhr_character"
+    },
+    {
+      "number": 8,
+      "name": "behavior preservation",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "pre-fix system regression failed as expected",
+      "reviewer": "final_guard_peer",
+      "finding": "The stated grace concerns an empty party. A normalized zero should expire immediately when empty while loaded/loading must keep the mission running. Separate 10s mission and 30s reconnect snapshot roles require distinct policy analysis.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "final_guard_peer"
+    },
+    {
+      "number": 9,
+      "name": "enum shapes",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "mhr_character",
+      "finding": "Existing Awaiting/Enrolling/Sealed variants hold state-specific data. Sealing and abandonment can coincide; ledger1097 effect-priority policy remains separate.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "mhr_character"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "final_guard_peer",
+      "finding": "No handwritten trait or serialization implementation requiring a derive was found in the bounded enrollment file.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "final_guard_peer"
+    },
+    {
+      "number": 11,
+      "name": "type granularity",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "mhr_character",
+      "finding": "Expected is a positive threshold; loaded count legitimately permits zero, loading is distinct, and no semantic need for a new wrapper was demonstrated in selected use.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "mhr_character"
+    },
+    {
+      "number": 12,
+      "name": "magic strings",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "source review only",
+      "reviewer": "final_guard_peer",
+      "finding": "The enrollment unreachable text and selected system messages are diagnostics, not observed control flow based on prose; the adjacent network and CLI text surface remains bounded.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "final_guard_peer"
+    },
+    {
+      "number": 13,
+      "name": "magic numbers",
+      "discovery": "bounded type-slice review completed at 95e; open questions remain",
+      "repair": "zero-grace repair committed locally; PR #1005 is draft and unmerged",
+      "validation": "pre-fix system regression failed as expected",
+      "reviewer": "final_guard_peer",
+      "finding": "A Duration can be zero; the native f32 option may normalize a tiny positive value to zero. The loaded count and loading flag determine presence; input parsing and policy for other floats remain separate.",
+      "closure": "not asserted for repository-wide lens or historical queue",
+      "post_repair_review": "bounded source re-review found no new issue in the selected change; connected questions remain open",
+      "post_repair_reviewer": "final_guard_peer"
+    }
+  ],
+  "initial_observation": {
+    "summary": "When an enrolled party is loaded or still loading and reconnect grace is zero, the selected operation resets the empty duration to zero, then returns Abandoned because zero is greater than or equal to zero. The selected caller maps abandonment to a failed terminal resolution. CLI source documents grace for an empty party and has an f32 argument without a local positive-range validator; supported invocation and end-to-end reach require independent confirmation.",
+    "source": [
+      "crates/adventuresim-tactical-server/src/mission/enrollment.rs:70-110",
+      "crates/adventuresim-tactical-server/src/mission/systems.rs:180-232",
+      "crates/adventuresim-tactical-server/src/main.rs:102-106,168-175"
+    ],
+    "historical_relationship": "q3134 and ledger 406 already record a related zero-grace question; postf2c q2982 is an unadopted historical/current synthesis with its own attribution. No new defect count or alias is assumed."
+  },
+  "recovery_qualification": "Original checkpoint 3821 ledger and queue remain missing. 95e is the source revision of this slice, not a recovered 3821 authority. Reconstructed 440, normalized 774, SOURCE004 and nontext/no-positive-EOF obligations retain their prior qualifications. Existing reports and new personal source readings remain attributed separately.",
+  "publication_qualification": "Local successor; checkpoint publication and full lint results are separate steps.",
+  "process_qualification": "The first isolated-clone command attempt failed before process creation; a separately invoked clone and branch checkout then succeeded. A source search named a missing crate README; the missing file was not treated as read evidence.",
+  "predecessor_sha256": "bc024a204c9607a9e30ad7d0b4d5b8c16fdf7fc8282451079d91bec669a44369",
+  "scope_and_limits": [
+    "PartyEnrollment enrollment.rs production implementation and selected MissionState, CLI, system, player-projection and reconnect consumer windows at 95e.",
+    "Searches and selected call-site traces are bounded; unreviewed upstream admission, authoritative roster policy and broader repository obligations remain open.",
+    "The review does not imply original checkpoint3821 was recovered or any full historical queue/lens was reconciled."
+  ],
+  "review_evidence": [
+    {
+      "lenses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "author": "wrapped_scope",
+      "manifest_sha256": "af8c844016c0d1d8cb8b9b4a731b36cb90ef8d5335cf6349f20ca220704d13cd",
+      "report_sha256": "f4d350b54c4c4f34eecf83500f28e6f87e7246a1d988c66cc7d69afc2c67e772",
+      "qualification": "Initial finite scan had failed Windows positive controls; corrected separate scan retained. Initial manifest hash message omitted a character; agent confirmed it and the stopped intake is retained."
+    },
+    {
+      "lenses": [
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "author": "mhr_character",
+      "manifest_sha256": "04bffca6b5885d02aeb815d79fb78fe0cb84f82e55b4354bc4502626c5d7a997",
+      "report_sha256": "7c4ef5646f87f97ab9affeeb14574cda4f42918a0afd04972315656670371eae",
+      "qualification": "Source and historical metadata reviewed; failed prior-reader locator and incidental test text retained; no product execution in review."
+    },
+    {
+      "lenses": [
+        8,
+        10,
+        12,
+        13
+      ],
+      "author": "final_guard_peer",
+      "manifest_sha256": "dba26dd79b5fb63231277a21beae04c97bdf0faa766c2021a5a888e3336ddd46",
+      "restricted_manifest_sha256": "01d58efb9e72a840e1c8794ca36773d7bb480eb2c22f4673d0790f8b90d0f90b",
+      "qualification": "Source-only review, current and historical file identity are per-file only; toolchain documentation and prior author credits remain separate."
+    }
+  ],
+  "repair_plan": {
+    "finding": "Existing q3134/ledger406; zero grace incorrectly abandons a party that is loaded or loading.",
+    "change": "Check whether empty_for has reached reconnect_grace only in the branch where no member is loaded and no player is loading; reset duration and retain any sealing effect otherwise.",
+    "acceptance": [
+      "A loading party and a loaded party remain active at zero grace.",
+      "After enrollment has begun, a truly empty party fails immediately at zero grace.",
+      "Existing positive-grace boundaries, reset behavior, admission and sealing behavior remain intact."
+    ],
+    "related_open_questions": [
+      "q3059/ledger1097 effect priority when sealing and actually empty remains policy-dependent.",
+      "The facade grace argument can differ from the retained value in principle; its sole found production caller does not do so.",
+      "Cumulative seen roster versus currently loaded entities, strategic authority and duplicate-character reach remain open.",
+      "Other CLI float values, Duration conversion errors and independent reconnect-snapshot lifetime remain separate."
+    ]
+  },
+  "validation_evidence": {
+    "baseline_build_exit": 0,
+    "baseline_build_log_sha256": "b897dbfcd20d43a67d9ae2f56cdf361c8acc3c7614b3b11509b3c618b81669db",
+    "first_filter": "An --exact filter omitted the module prefix and selected zero tests; this is not validation and its log is retained.",
+    "first_filter_log_sha256": "771ba5e92fb0969fba864723de45dc02d979179fbca9c8c5b318d79437bd1009",
+    "regression_before_fix": "Corrected filter selected one system test and exited 101 at the loading-player running-state assertion. No server process or database was run.",
+    "regression_before_fix_log_sha256": "075d57f3ee4a7a632e5e1f0cee04eff3fd05a39a4010d2c76bbe55f6a40e153b",
+    "post_fix": "Corrected filter selected one standalone system regression; exit 0, one passed.",
+    "post_fix_log_sha256": "563886400294b7bcb51927a47cf9df19058cb2ccdcdc31209649cbdfba2d6f96",
+    "mission_tests": "mission:: filter, 16 passed, exit 0",
+    "mission_log_sha256": "b9e88939342d3a015e53c7ddcffb695f89e965fd6d5b46776bb84a91f373ba36",
+    "format": "just fmt-check exit 0 in separate non-nested checkout with byte-identical diff; plain launcher first failed Snap capability check",
+    "full_lint": "running at this cutoff, no completion claim"
+  },
+  "qualification": "Thirteen bounded source reviews and a targeted standalone system test do not establish repository-wide lens closure, checkpoint 3821 recovery, real player or connected database execution. Earlier records retain their own source revision and reader attribution.",
+  "predecessor_v2_sha256": "4f57c7734898ff25f431409545303dff2f1ce23b46ab840af4ad4b3c781ab8ca",
+  "repair": {
+    "commit": "d276139b62e62bcbd1ed766433146c686765aab7",
+    "parent": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "tree": "f1365c1a68b93b58aafa8ce8beae813a1092904d",
+    "diff_sha256": "c811f160152ec3b83b397e1fb3979a889ec7360a91269d85bafa69a0f94e35ef",
+    "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/1005",
+    "status": "draft; unmerged",
+    "disposition": "Existing q3134 / ledger 406 defect is repaired in this branch, not a new defect count or a claim of merged closure."
+  },
+  "post_repair_review": [
+    {
+      "lenses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reviewer": "wrapped_scope",
+      "qualification": "Source-only re-review of the exact committed diff; no whole-repository closure."
+    },
+    {
+      "lenses": [
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "reviewer": "mhr_character",
+      "qualification": "Source-only re-review of the exact committed diff; no whole-repository closure."
+    },
+    {
+      "lenses": [
+        8,
+        10,
+        12,
+        13
+      ],
+      "reviewer": "final_guard_peer",
+      "qualification": "Source-only re-review of the exact committed diff; no whole-repository closure."
+    }
+  ],
+  "post_repair_report_sha256": {
+    "lenses_1_4_report": "883f9ca8f619435333fd65c6cfff52130244d78e31971cb113ef8b25243be94b",
+    "lenses_1_4_checks": "f3a101b200c107bf1a6ac004d26deec4b9d087e8e99fb142869d5bdfe1b4c851",
+    "lenses_5_6_7_9_11_report": "e555a3e34dff910ca391220750594282722cc5117538e31254f67908b482e896",
+    "lenses_8_10_12_13_report": "c53f6e789afb63c4357677b0f26416f55e312adf8d0b1b8bdd3488b7dd731f01"
+  },
+  "open_questions": [
+    "Ledger 1097: sealing and abandonment may coincide for an actually empty party; reach and effect priority policy remain open.",
+    "MissionState retains a grace value and accepts a grace argument; the selected production caller passes the retained value, so no mismatch is observed.",
+    "Seen identity history, current entity counts, authoritative roster, duplicate reach and expected-count policy need separate work.",
+    "Other CLI float inputs, conversion error behavior and reconnect-snapshot lifetime remain separate.",
+    "Original checkpoint 3821 queue and ledger, SOURCE004 and nontext/no-positive-EOF obligations remain unresolved."
+  ]
+}
