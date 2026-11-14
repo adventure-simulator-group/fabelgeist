@@ -1,0 +1,92 @@
+diff --git a/crates/adventuresim-core/src/quest_generation/mod.rs b/crates/adventuresim-core/src/quest_generation/mod.rs
+index ad018a16a..1bfe76790 100644
+--- a/crates/adventuresim-core/src/quest_generation/mod.rs
++++ b/crates/adventuresim-core/src/quest_generation/mod.rs
+@@ -8,6 +8,7 @@
+ //! intentionally share this module scope so public paths, declaration order,
+ //! privacy, and macro-generated SpacetimeDB names remain unchanged.
+ 
++mod open_catalog_id_syntax;
+ include!("model.rs");
+ mod sampling;
+ use sampling::{canonical_context, canonicalize, choose, weighted_order};
+diff --git a/crates/adventuresim-core/src/quest_generation/model.rs b/crates/adventuresim-core/src/quest_generation/model.rs
+index 848dadf55..47ed024db 100644
+--- a/crates/adventuresim-core/src/quest_generation/model.rs
++++ b/crates/adventuresim-core/src/quest_generation/model.rs
+@@ -99,7 +99,7 @@ impl CanonicalCause {
+ macro_rules! open_catalog_id {
+     ($name:ident { $($constant:ident => $value:literal),+ $(,)? }) => {
+         #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+-        pub struct $name { len: u8, bytes: [u8; 63] }
++        pub struct $name { len: u8, bytes: [u8; open_catalog_id_syntax::MAX_BYTES] }
+         impl $name {
+             $(#[allow(
+                 non_upper_case_globals,
+@@ -108,8 +108,8 @@ macro_rules! open_catalog_id {
+             pub const $constant: Self = Self::from_static($value);)+
+             pub const fn from_static(value: &str) -> Self {
+                 let source = value.as_bytes();
+-                assert!(!source.is_empty() && source.len() <= 63);
+-                let mut bytes = [0; 63];
++                assert!(open_catalog_id_syntax::is_valid(value));
++                let mut bytes = [0; open_catalog_id_syntax::MAX_BYTES];
+                 let mut index = 0;
+                 while index < source.len() {
+                     bytes[index] = source[index];
+@@ -118,13 +118,10 @@ macro_rules! open_catalog_id {
+                 Self { len: source.len() as u8, bytes }
+             }
+             pub fn try_new(value: &str) -> Result<Self, &'static str> {
+-                if value.is_empty() || value.len() > 63 || !value.bytes().all(|byte|
+-                    byte.is_ascii_lowercase() || byte.is_ascii_digit()
+-                        || matches!(byte, b'_' | b'-' | b'.' | b':'))
+-                {
++                if !open_catalog_id_syntax::is_valid(value) {
+                     return Err("invalid open catalog ID");
+                 }
+-                let mut bytes = [0; 63];
++                let mut bytes = [0; open_catalog_id_syntax::MAX_BYTES];
+                 bytes[..value.len()].copy_from_slice(value.as_bytes());
+                 Ok(Self { len: value.len() as u8, bytes })
+             }
+diff --git a/crates/adventuresim-core/src/quest_generation/open_catalog_id_syntax.rs b/crates/adventuresim-core/src/quest_generation/open_catalog_id_syntax.rs
+new file mode 100644
+index 000000000..c2ba16299
+--- /dev/null
++++ b/crates/adventuresim-core/src/quest_generation/open_catalog_id_syntax.rs
+@@ -0,0 +1,21 @@
++pub(super) const MAX_BYTES: usize = 63;
++
++pub(super) const fn is_valid(value: &str) -> bool {
++    let bytes = value.as_bytes();
++    if bytes.is_empty() || bytes.len() > MAX_BYTES {
++        return false;
++    }
++
++    let mut index = 0;
++    while index < bytes.len() {
++        let byte = bytes[index];
++        if !(byte.is_ascii_lowercase()
++            || byte.is_ascii_digit()
++            || matches!(byte, b'_' | b'-' | b'.' | b':'))
++        {
++            return false;
++        }
++        index += 1;
++    }
++    true
++}
+diff --git a/rust-quality-baseline.toml b/rust-quality-baseline.toml
+index c0db7a6f1..d6d707965 100644
+--- a/rust-quality-baseline.toml
++++ b/rust-quality-baseline.toml
+@@ -152,7 +152,7 @@ ceiling = 1439
+ 
+ [[files]]
+ path = "crates/adventuresim-core/src/quest_generation/model.rs"
+-ceiling = 1083
++ceiling = 1080
+ 
+ [[files]]
+ path = "crates/adventuresim-core/src/quest_generation/solver.rs"
