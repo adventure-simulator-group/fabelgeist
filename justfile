@@ -369,6 +369,14 @@ client-release id=env_var_or_default("TACTICAL_CHARACTER_ID", "0") port=env_var_
 client-headless id=env_var_or_default("TACTICAL_CHARACTER_ID", "0") port=env_var_or_default("TACTICAL_PORT", tactical_port) brp_port=env_var_or_default("TACTICAL_CLIENT_BRP_PORT", "15703"):
     @cargo run --package adventuresim-tactical-client --bin adventuresim-tactical-client --features "debug" -- --id {{ quote(id) }} --server-addr "127.0.0.1:{{ port }}" --headless --brp-port {{ brp_port }}
 
+# The netahoy tactical game's server (ws :5000, wt :5001, offer :5002; BOTS=<n>).
+tactical-game-server:
+    @cargo run --package adventuresim-tactical-game --example tactical_server
+
+# A native client of the netahoy tactical game (SERVER_URL for another server).
+tactical-game-client:
+    @cargo run --package adventuresim-tactical-game --example tactical_client
+
 # Start an isolated SpacetimeDB seeded with a standalone tactical mission.
 # No strategic layer, no WASM build - just the DB plus a mission. Writes
 # .env.tactical so a bare `just tactical` / `just client` (no arguments) in
