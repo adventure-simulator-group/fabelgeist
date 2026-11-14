@@ -278,10 +278,69 @@ pub(crate) fn check_mission_timeout(
 
 #[cfg(test)]
 mod standalone_resolution_tests {
+    use adventuresim_tactical_netcode::message::TacticalOutcome;
     use adventuresim_tactical_netcode::prelude::AdventureSimulatorNetPlugins;
     use bevy::ecs::system::RunSystemOnce;
 
     use super::*;
+
+    #[test]
+    fn zero_grace_keeps_a_loading_or_present_party_until_it_is_empty() {
+        let mut app = App::new();
+        app.add_plugins(MinimalPlugins);
+        app.add_plugins(AdventureSimulatorNetPlugins);
+        app.insert_resource(MissionState::new(
+            None,
+            1,
+            std::num::NonZeroU32::new(1).unwrap(),
+            Duration::ZERO,
+        ));
+        app.insert_resource(TacticalConsequenceAccumulator::default());
+
+        let check_outcome = |app: &mut App| {
+            let result: Result = app
+                .world_mut()
+                .run_system_once(check_terminal_combat_outcome)
+                .expect("running the mission system should not fail");
+            result.expect("checking the mission outcome should not fail");
+        };
+
+        let loading = app
+            .world_mut()
+            .spawn(LoadingPlayer {
+                requested_character: CharacterId(1),
+            })
+            .id();
+        check_outcome(&mut app);
+        assert!(app.world().resource::<MissionState>().terminal_is_running());
+
+        app.world_mut().entity_mut(loading).despawn();
+        let player = app
+            .world_mut()
+            .spawn((
+                Player::default(),
+                CharacterId(1),
+                TacticalCombatSide::Party,
+                TacticalCombatState::default(),
+            ))
+            .id();
+        check_outcome(&mut app);
+        assert!(app.world().resource::<MissionState>().terminal_is_running());
+        assert!(
+            app.world()
+                .resource::<MissionState>()
+                .enrollment_ready(false)
+        );
+
+        app.world_mut().entity_mut(player).despawn();
+        check_outcome(&mut app);
+        assert_eq!(
+            app.world_mut()
+                .resource_mut::<MissionState>()
+                .advance_terminal_presentation(TERMINAL_PRESENTATION_DELAY),
+            Some(TacticalOutcome::Defeat)
+        );
+    }
 
     #[test]
     fn mission_timeout_resolves_immediately_without_spacetimedb() {
