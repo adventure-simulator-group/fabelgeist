@@ -98,11 +98,11 @@ impl PartyEnrollment {
             Self::Awaiting { .. } => return effect,
             Self::Enrolling { empty_for, .. } | Self::Sealed { empty_for, .. } => empty_for,
         };
-        if loaded_party == 0 && !has_loading_player {
-            *empty_for = empty_for.saturating_add(delta);
-        } else {
+        if loaded_party != 0 || has_loading_player {
             *empty_for = Duration::ZERO;
+            return effect;
         }
+        *empty_for = empty_for.saturating_add(delta);
         if *empty_for >= reconnect_grace {
             EnrollmentEffect::Abandoned
         } else {
