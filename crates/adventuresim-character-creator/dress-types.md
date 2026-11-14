@@ -2,9 +2,9 @@
 
 Preview materials and exported surface maps share
 `surface_alpha::SurfaceAlpha`. `TextileMaps` carries this enum directly;
-`SurfaceTextures` retains it when packaging the maps. The Bevy conversion owns
-the cutout threshold. Export formats the enum as glTF alpha modes at its
-serialization boundary.
+`SurfaceTextures` retains it when packaging the maps. Preview and export reuse
+the shared alpha owner's cutout threshold. Export formats the enum as glTF alpha
+modes at its serialization boundary.
 
 Skin transfer returns `skin_transfer::SkinTransferError` through the garment,
 cloth-source and panel-skin producers. Callers can distinguish malformed native

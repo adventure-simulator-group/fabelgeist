@@ -1,6 +1,6 @@
 //! Surface maps embedded in standalone characters or shared by equipment files.
 use super::*;
-use crate::surface_alpha::SurfaceAlpha;
+use crate::surface_alpha::{MASK_ALPHA_CUTOFF, SurfaceAlpha};
 use std::{collections::BTreeMap, fs, io::ErrorKind};
 
 #[cfg(test)]
@@ -188,7 +188,7 @@ impl TextureImages {
             }
             SurfaceAlpha::Mask => {
                 material["alphaMode"] = "MASK".into();
-                material["alphaCutoff"] = 0.5.into();
+                material["alphaCutoff"] = MASK_ALPHA_CUTOFF.into();
             }
             SurfaceAlpha::Blend => {
                 material["alphaMode"] = "BLEND".into();

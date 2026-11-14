@@ -1,7 +1,8 @@
 //! Shared opacity modes for preview materials and exported surface maps.
 use bevy::prelude::AlphaMode;
 
-const MASK_ALPHA_CUTOFF: f32 = 0.5;
+/// Preview and glTF export admit the same cutout coverage.
+pub(crate) const MASK_ALPHA_CUTOFF: f32 = 0.5;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum SurfaceAlpha {
