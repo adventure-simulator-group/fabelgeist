@@ -380,7 +380,8 @@ fn orient_faces(
 pub fn transfer_skin(
     input: &DrapeInput,
     positions: &[[f32; 3]],
-) -> Result<crate::skin_transfer::SkinWeights> {
+) -> std::result::Result<crate::skin_transfer::SkinWeights, crate::skin_transfer::SkinTransferError>
+{
     let source = crate::skin_transfer::SkinSource {
         positions: &input.positions,
         faces: &input.faces,

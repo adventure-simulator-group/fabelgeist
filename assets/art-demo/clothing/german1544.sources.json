@@ -1,0 +1,121 @@
+{
+  "source_revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "scope": "Static canonical generated pose; no animation",
+  "body_triangles": 4918,
+  "articles": [
+    {
+      "generator_version": 33,
+      "triangles": 7956
+    }
+  ],
+  "outfit": [
+    {
+      "placement": "worn",
+      "design": {
+        "Gown": {
+          "bodice": {
+            "neckline": {
+              "shape": "SoftSquare",
+              "width": 850,
+              "front_drop": 110,
+              "back_drop": 70
+            },
+            "armhole_width": 50,
+            "armhole_depth": 110,
+            "hem_rise": 200,
+            "opening": "Closed",
+            "clearance": 1,
+            "thickness": 1,
+            "fabric": {
+              "color": [
+                82,
+                19,
+                29
+              ],
+              "finish": "Wool",
+              "opacity": 1000,
+              "layers": [],
+              "chart_boundary": "CyclicAcross"
+            },
+            "lining": null,
+            "interlining": null
+          },
+          "skirt": {
+            "bodice": null,
+            "pleats": {
+              "count": 12,
+              "depth": 70,
+              "style": "Knife",
+              "front_style": null,
+              "rotation": 0,
+              "front_depth": 1000,
+              "waist_depth": 6,
+              "waist_count": 32,
+              "gather_falloff": 300,
+              "gather_retention": 350,
+              "front_panel": 0
+            },
+            "support": null,
+            "waist_rise": 200,
+            "length": 1080,
+            "fitted_fraction": 70,
+            "profile": {
+              "Flared": {
+                "width": 1050,
+                "depth": 1150
+              }
+            },
+            "clearance": 4,
+            "thickness": 1,
+            "puff_and_slash": null,
+            "fabric": {
+              "color": [
+                82,
+                19,
+                29
+              ],
+              "finish": "Wool",
+              "opacity": 1000,
+              "layers": [],
+              "chart_boundary": "CyclicAcross"
+            }
+          },
+          "waist_band": 15,
+          "transition": 60,
+          "body_fit": "Fitted",
+          "lacing": null,
+          "waist_support": null,
+          "dressing_slit": null,
+          "sleeves": {
+            "length": 980
+          }
+        }
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "file": "body.json",
+      "sha256": "945a19bcb9d2cfd260f86294fed31eb252b234e292fda9cf096fbf7f63a002c3"
+    },
+    {
+      "file": "outfit.json",
+      "sha256": "3248b5755d1d5835d38abf009e64aa65ee41a47a7cdb0c5560a2c358b392a6a0"
+    },
+    {
+      "file": "article-0.json",
+      "sha256": "eb632defc54e76fe2c31ebebb2a0b82a4bb7c1adec4e1f4e419ecfc5f714cf34"
+    },
+    {
+      "file": "article-0-textile-0-color.png",
+      "sha256": "3ceda03c4a40f6d56286c4bd04ab7397c1717c1a6e7d360d8e4b9a0e5a5f2359"
+    },
+    {
+      "file": "article-0-textile-0-normal.png",
+      "sha256": "6d58198a2803a3db7f2ff156cfe4af803b54f492182e84f215f4b4667d65c91c"
+    }
+  ],
+  "output_sha256": "efe5cb4a0aecbc5d61ae443a56e764e792bfe92fc1bf01320b67ee438c2760bf",
+  "geometry": "Native Y-up metres; positions, normals and indices unchanged",
+  "textures": "Embedded native color and tangent-normal PNGs, unchanged; native UVs"
+}

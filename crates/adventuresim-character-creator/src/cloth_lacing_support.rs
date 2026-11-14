@@ -1,7 +1,7 @@
 //! Taut lacing follows final visible backing, with frozen triangle ownership.
+use crate::cloth_closure_error::{ClothClosureError, Result};
 use crate::cloth_fastener_mesh::ClosureFrame;
 use crate::device_fit::DevicePiece;
-use anyhow::{Result, ensure};
 use fabelgeist_armor::{BuiltPart, PlateFace};
 use fabelgeist_bvh::{Ray, TriangleBvh};
 use fabelgeist_math::Vec3;
@@ -48,9 +48,13 @@ impl LacingSupport {
     }
     /// Native closure adapter: outward metre height above the ring-center
     /// chord at its midpoint. One sample does not certify all cord facets.
-    pub fn height_metres(&self, frame: &ClosureFrame, part: &BuiltPart) -> Result<f32> {
+    pub fn height(
+        &self,
+        frame: &ClosureFrame,
+        part: &BuiltPart,
+    ) -> Result<fabelgeist_math::units::Metres> {
         if self.faces.is_empty() {
-            return Ok(0.);
+            return Ok(fabelgeist_math::units::Metres::from_metres(0.));
         }
         let points = part
             .positions
@@ -67,10 +71,9 @@ impl LacingSupport {
         let height = tree
             .raycast(&ray, f32::MAX)
             .map_or(0., |(_, distance)| distance);
-        ensure!(
-            height.is_finite() && height >= 0.,
-            "lacing backing support is invalid"
-        );
-        Ok(height)
+        if !height.is_finite() || height < 0. {
+            return Err(ClothClosureError::InvalidBackingSupport);
+        }
+        Ok(fabelgeist_math::units::Metres::from_metres(height))
     }
 }

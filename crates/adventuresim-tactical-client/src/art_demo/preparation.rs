@@ -23,8 +23,8 @@ pub(super) enum ArtDemoPreparationError {
     CloudSceneMismatch { baked: &'static str, scene: String },
     #[error("woodland fixture contains no oak specimen")]
     MissingOak,
-    #[error("armor exhibit requires an asset")]
-    MissingArmorAsset,
+    #[error("model exhibit requires an asset")]
+    MissingModelAsset,
     #[error("weapon exhibit requires a chassis")]
     MissingWeaponAsset,
     #[error("unknown weapon chassis {chassis}")]

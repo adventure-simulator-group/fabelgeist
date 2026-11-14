@@ -1,5 +1,5 @@
 //! Frozen physical edge stations; material seams are not dressing openings.
-use anyhow::{Context, Result, ensure};
+use crate::cloth_closure_error::{ClothClosureError, Result};
 use fabelgeist_armor::{BuiltPart, Permille};
 use fabelgeist_math::Vec3;
 
@@ -41,9 +41,11 @@ impl ClothOpening {
             let pair = stations
                 .windows(2)
                 .find(|p| p[0].progress <= at.unit() && at.unit() <= p[1].progress)
-                .context("closure lies outside its physical opening edges")?;
+                .ok_or(ClothClosureError::OutsideOpening)?;
             let span = pair[1].progress - pair[0].progress;
-            ensure!(span > 0., "closure edge stations must advance");
+            if span.partial_cmp(&0.) != Some(std::cmp::Ordering::Greater) {
+                return Err(ClothClosureError::NonAdvancingEdge);
+            }
             Ok(ClothSurfaceSample {
                 vertices: [
                     pair[0].vertex + first,
@@ -87,9 +89,7 @@ impl ClothSurfaceSample {
     }
     pub fn interpolate(&self, points: &[[f32; 3]]) -> Result<Vec3> {
         let point = |i| -> Result<Vec3> {
-            let &[x, y, z] = points
-                .get(i)
-                .context("closure edge source is absent from fitted cloth")?;
+            let &[x, y, z] = points.get(i).ok_or(ClothClosureError::MissingSource)?;
             Ok(Vec3::new(x, y, z))
         };
         Ok(point(self.vertices[0])? * self.weights[0]

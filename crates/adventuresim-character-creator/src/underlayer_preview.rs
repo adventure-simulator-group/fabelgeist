@@ -90,11 +90,7 @@ impl EquipmentMaps {
             result.base_color_texture = Some(maps.color.clone());
             result.normal_map_texture = Some(maps.normal.clone());
             result.occlusion_texture = maps.occlusion.clone();
-            result.alpha_mode = match textures.alpha {
-                adventuresim_character_creator::export::SurfaceAlpha::Opaque => AlphaMode::Opaque,
-                adventuresim_character_creator::export::SurfaceAlpha::Mask => AlphaMode::Mask(0.5),
-                adventuresim_character_creator::export::SurfaceAlpha::Blend => AlphaMode::Blend,
-            };
+            result.alpha_mode = textures.alpha.into();
             result.cull_mode = match textures.sides {
                 adventuresim_character_creator::export::SurfaceSides::Front => {
                     Some(bevy::render::render_resource::Face::Back)

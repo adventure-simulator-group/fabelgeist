@@ -17,7 +17,7 @@ pub fn textures(design: Option<&ParametricDesign>) -> Option<SurfaceTextures> {
                     include_bytes!("../../../assets_src/equipment/materials/mail-occlusion.png")
                         .to_vec(),
                 ),
-                alpha: crate::export::SurfaceAlpha::Mask,
+                alpha: crate::surface_alpha::SurfaceAlpha::Mask,
                 sides: crate::export::SurfaceSides::Both,
                 sampling: crate::export::SurfaceSampling::Tile,
             })

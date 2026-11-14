@@ -33,10 +33,13 @@ impl DevicePiece {
                     .positions
                     .iter()
                     .map(|&at| opening.sample(at, first))
-                    .collect::<Result<Vec<_>>>()?;
+                    .collect::<crate::cloth_closure_error::Result<Vec<_>>>()?;
                 for anchors in &stations {
                     self.attach_edge_solid(anchors, |part| {
-                        FastenerMesh::lacing_rings(design, edge_frame(part, anchors)?)
+                        Ok(FastenerMesh::lacing_rings(
+                            design,
+                            edge_frame(part, anchors)?,
+                        )?)
                     })?;
                 }
                 stations
@@ -64,7 +67,7 @@ impl DevicePiece {
             self.attach_edge_solid(&anchors, |part| {
                 let a = edge_frame(part, &span.start.pair)?;
                 let b = edge_frame(part, &span.end.pair)?;
-                FastenerMesh::lacing_cord(
+                Ok(FastenerMesh::lacing_cord(
                     design,
                     FastenerFrame {
                         left: lace_center(
@@ -81,7 +84,7 @@ impl DevicePiece {
                     },
                     part,
                     &support,
-                )
+                )?)
             })?;
         }
         Ok(())
@@ -148,7 +151,7 @@ fn lace_center(
     design: &ClothLacing,
     frame: FastenerFrame,
     side: ClosureSide,
-) -> Result<fabelgeist_math::Vec3> {
+) -> crate::cloth_closure_error::Result<fabelgeist_math::Vec3> {
     match design.eyelet {
         fabelgeist_armor::LacingEyelet::Metal { .. } => ring_center(design, frame, side),
         fabelgeist_armor::LacingEyelet::Sewn { .. } => Ok(match side {

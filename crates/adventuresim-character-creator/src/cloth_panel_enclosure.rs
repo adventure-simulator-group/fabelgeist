@@ -62,7 +62,7 @@ pub(super) fn fit(
 pub(super) fn target_skin(
     domain: &super::domain::PanelDomain,
     body: &Wearer<'_>,
-) -> Result<SkinWeights> {
+) -> std::result::Result<SkinWeights, crate::skin_transfer::SkinTransferError> {
     let carrier = domain.carrier_skin(body)?;
     crate::skin_transfer::interpolate_sources(
         &domain
