@@ -1,0 +1,458 @@
+{
+  "schema": "726-terrain-pack-bounded-ledger-v8",
+  "product_revision": "29ecf3ca12e3dfbfacb36b72a56ae130d4fc48fd",
+  "product_tree": "06a79b077db5283ba95bb1801141a60c21482ac0",
+  "scope": "TerrainPack addressed-cell lookup and its coupled Manifest/Entry dimensions, decoded Cell, builder, and selected direct consumers needed to establish the contract. This is not a repository-wide or entire terrain subsystem review.",
+  "discovery": "Thirteen focused lenses have bounded reports at the pinned revision. Additional producer, geographic, fraction and resource-accounting reviews and two independent bounded cross-checks narrow decisions but do not establish all supported external ingress, aliases, policies or remaining terrain scope. Discovery and the implementation gate remain incomplete; no global lens is claimed clear.",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "unfinished producers",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "final_guard_peer",
+      "report": "producer-ownership-behavior-2en3zs4a/REPORT.md",
+      "trace": "The builder emits selected whole chunks and final-edge remainders; the public loader is not restricted to that producer. Direct consumers have different error handling."
+    },
+    {
+      "number": 2,
+      "name": "existing type owners",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "final_guard_peer",
+      "report": "producer-ownership-behavior-2en3zs4a/REPORT.md",
+      "trace": "NativeTerrainCoordinate, ElevationMeters and SourcePackageDigest are possible existing owners; precision, semantic roles and admission timing constrain reuse."
+    },
+    {
+      "number": 3,
+      "name": "admission",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "wrapped_scope",
+      "report": "wrapped-l3-l4-l5-l7-khfolzr4/REPORT.md",
+      "trace": "Load checks metadata, digest, byte ranges, duplicate keys and tile-size consistency, but not per-position chunk geometry; decoded canopy byte bounds remain a separate question."
+    },
+    {
+      "number": 4,
+      "name": "invariant operations",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "wrapped_scope",
+      "report": "wrapped-l3-l4-l5-l7-khfolzr4/REPORT.md",
+      "trace": "Per-axis bounds are not established by an in-range flat index. A separate extreme-south input can overflow south + 1 before chunk lookup."
+    },
+    {
+      "number": 5,
+      "name": "aggregate states",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "wrapped_scope",
+      "report": "wrapped-l3-l4-l5-l7-khfolzr4/REPORT.md",
+      "trace": "Entry extents, tile placement and coverage are related facts; full coverage and crop policies must be distinguished from false-cell prevention."
+    },
+    {
+      "number": 6,
+      "name": "type ownership",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "final_guard_peer",
+      "report": "producer-ownership-behavior-2en3zs4a/REPORT.md",
+      "trace": "TerrainPack owns private indexes derived during load; selected owner-propagation opportunities do not establish a duplicate authoritative coordinate or digest owner."
+    },
+    {
+      "number": 7,
+      "name": "redundant authority",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "wrapped_scope",
+      "report": "wrapped-l3-l4-l5-l7-khfolzr4/REPORT.md",
+      "trace": "Entry dimensions and recomputed tile coordinates can disagree; selected indexes are derived once, not shown as independently mutable authorities."
+    },
+    {
+      "number": 8,
+      "name": "behavior preservation",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "final_guard_peer",
+      "report": "producer-ownership-behavior-2en3zs4a/REPORT.md",
+      "trace": "None, Err and a wrong Some reach routing, tactical capture, forage, cultivation and road inference differently; decode-before-axis-check affects corruption precedence."
+    },
+    {
+      "number": 9,
+      "name": "enum shapes",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "trace": "Surface wire mapping matches current enum order but depends on separately maintained encoding and decoding; no present mismatch was shown."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "trace": "The reviewed manual deserializers and serializers retain validation or wire shape; an equivalent derive was not established in the selected scope."
+    },
+    {
+      "number": 11,
+      "name": "type granularity",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "trace": "Tile identity, chunk ordinal, local axes and extents have distinct roles; typed coordinates must preserve continuous offset precision."
+    },
+    {
+      "number": 12,
+      "name": "magic strings",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "trace": "Package, source and feature digests have distinct meanings despite shared syntax. Selected diagnostics and CRS strings are boundary vocabulary."
+    },
+    {
+      "number": 13,
+      "name": "magic numbers",
+      "discovery": "bounded source report completed; remaining scope unassessed",
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "trace": "Chunk sizes, byte flags, offsets, percentage and basis-point scales have distinct meanings. The canopy and geometry cases need explicit contracts."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-L11-TERRAIN-CHUNK-GEOMETRY-ADMISSION",
+      "kind": "existing related conditional finding; selected current source witness",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:438-474",
+        "crates/adventuresim-terrain/src/lib.rs:948-993",
+        "crates/adventuresim-terrain/src/builder.rs:84-110"
+      ],
+      "trace": "For an otherwise self-consistent tile, a 1-by-2 entry and local coordinate (1,0) flatten to index 1 and can return the (0,1) cell. The selected 95e assessment and reconstructed q120 already describe this first operation; this is not an executed package.",
+      "historical_relationship": "Reconstructed 059 q120 and f2c ledger 411 record the same first contract. The selected q120 pr-working source rows retain their own null recorded revision, Git path and named reader fields; f2c row 411 separately links q120 to the attributed 95e assessment. No new unique historical count or checkpoint 3821 recovery is asserted.",
+      "connected_repair": "Decide an explicit geometry contract before repair. Exact full-or-native-edge extents and in-range ordinals match the tracked compiler and reject underfilled, padded-edge and unreachable entries; permit omitted whole crop chunks. That is a policy tightening for public external encoders and changes validation timing. A post-decode local-axis error prevents row substitution with narrower admission scope, but leaves malformed extents admitted and changes some prior None outcomes. Preserve and assess affected consumers, cache effects and fixture intents; no option is selected.",
+      "acceptance": "Under the selected policy, an out-of-extent x or y cannot return a different cell. Higher-level behavior evidence should cover an in-extent neighbor, valid full/interior/true-edge geometry, omitted whole chunks, missing/outside cases, integrity and discriminant precedence, geographic edges and an affected consumer. These are proposed checks, not executed results.",
+      "discovery": "Selected compiler writers, documentation, exact ordinal formula and fixture consequences reviewed; external format, absence/error policy, exact crop boundary ownership and complete aliases remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-CELL-GEOGRAPHIC-OVERFLOW-CANDIDATE",
+      "kind": "separate conditional source question",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:438-459",
+        "crates/adventuresim-terrain/src/lib.rs:948-993"
+      ],
+      "trace": "Finite ordered bounds and a matching i16::MAX south tile can lead public cell lookup to evaluate south + 1 outside i16 range. Checked tactical origins and fixed transects differ from an API that accepts finite arbitrary offsets. Actual supported extreme input remains unproved.",
+      "historical_relationship": "Related by geographic bounds to f2c ledger 417, which instead traces the builder and i16::MIN tile-label arithmetic; equivalence is not established.",
+      "connected_repair": "Decide the package geographic contract at both public builder and loader. Runtime-bundle construction enforces strict non-antimeridian WGS84 bounds, but verify/install paths and arbitrary public loaders are not shown to rerun that check. Any chosen package bound must preserve continuous intermediate samples outside the package and their current missing-coverage semantics.",
+      "acceptance": "Valid geographic edges retain intended mapping and invalid/extreme inputs do not overflow; exact policy remains open.",
+      "discovery": "bounded conditional source case; supported reach, policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-DECODED-CANOPY-CANDIDATE",
+      "kind": "separate conditional source question",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:492-543",
+        "crates/adventuresim-terrain/src/builder.rs:114-124",
+        "crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs:6-12",
+        "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs:350-394",
+        "crates/adventuresim-tactical-core/src/scene_input.rs:454-466"
+      ],
+      "trace": "A digest-consistent decoded canopy byte 101 passes the selected chunk checks; the builder instead maps source values above 100 to zero. Dispatcher conversion produces 10100 basis points and a later tactical grid validator rejects fields above 10000, if the selected path and prerequisites are reached.",
+      "historical_relationship": "Corrects v3's limited no-match search: reconstructed 059 q1668 asks the same percent-to-basis-point and regional admission question, with raw 255 -> 25500 as its own symbolic example. F2c ledger 280 reconnects the question to the separately identified 95e regional assessment, whose conditional finding 0 expressly uses the same 101 -> 10100 example as this source follow-up. No new historical unique count is added. Q1668 itself retains empty source/receipt arrays, zero body/population credit and no named reader or revision; do not insert the separate assessment's 6533 Segovb READ672 and role-2006 locator qualifications into that row. Earlier source credit does not transfer.",
+      "connected_repair": "Choose the finished-pack byte contract and raw-source no-data policy separately. The selected TCD preparation uses 255 for no data and the terrain builder maps all source bytes above 100 to zero. Cell public fields and regional wire samples expose separate fraction-admission routes; decoder-only, regional-only or adapter-only checks do not by themselves close all of them. Preserve native percentage granularity, independent hilly/wetland averages and water/crossing; decide what source no-data provenance, if any, is required rather than assuming the current builder retains it.",
+      "acceptance": "Admitted native cover and downstream units agree on the chosen bound, without weakening existing integrity checks.",
+      "discovery": "Bounded conditional source case; historical relationship corrected, but byte policy, real packages, supported producers, complete aliases and outcomes remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-PLAN-WINDOW-SIZE-OVERFLOW-CANDIDATE",
+      "kind": "separate conditional source question",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:629-710",
+        "crates/adventuresim-terrain/src/lib.rs:782-805",
+        "crates/adventuresim-terrain/src/lib.rs:948-993"
+      ],
+      "trace": "With an otherwise admitted, digest-consistent manifest bounded approximately [-2e24, 0, 2e24, 1] and finite endpoints (0.5, -1e24) and (0.5, 1e24), the first expanded longitude window spans about 3e24. The ceil-to-usize conversion can saturate at usize::MAX, and the following +1 occurs before checked node-count multiplication. With overflow checks this can panic; behavior without them depends on the build. This is source reasoning, not a constructed package, executed route or observed incident.",
+      "historical_relationship": "Reconstructed 059 q603 broadly leaves terrain coordinate, window and bounds admission open; it does not identify this exact operation in its row. Its source and receipt arrays remain empty with zero population credit. This operation is distinct from cell south + 1 and f2c ledger 417 builder tile-label negation; complete historical alias review and supported extreme ingress remain open.",
+      "connected_repair": "A strict WGS84 package-bound invariant at both producer and loader would preclude the selected extreme dimension saturation on 32-bit-or-wider usize targets under the source argument. Broader finite bounds would require their own finite intermediate, conversion and coarsening policy. The deadline check occurs before the window call but imposes no arithmetic bound. Policy, reach and other operations remain open.",
+      "acceptance": "For the chosen supported range, route-window dimension calculation cannot overflow before its bound check; ordinary valid routing retains its intended behavior.",
+      "discovery": "Conditional source question; reach, policy, aliases and disposition remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+      "kind": "existing historical contract; new conditional current-source trace",
+      "sources": [
+        "crates/strategic-web/src/routes/travel.rs:127-149",
+        "crates/strategic-web/src/routes/travel.rs:205-267",
+        "crates/adventuresim-terrain/src/lib.rs:629-658"
+      ],
+      "trace": "Two starts at longitudes 11.199999 and 11.200001 fall on opposite sides of the fixed 11.200 east bound yet round to the same cache coordinate. If other key fields match and an inside route remains cached, a warm hit returns without invoking native admission. A cold miss can reach native NoRoute after prior profile/weather, permit and worker prerequisites. No route, cache hit or actual input was observed.",
+      "historical_relationship": "Reconstructed 059 q194 and f2c ledger 782 already record this first cache-key/admission contract; no unique historical count is added. Selected q194 pr-working rows retain null recorded revision, Git path and named reader, and zero body/population credit. Adler READ-L11-386 and separately attributed 95e delegated observation 19 remain separate; observation 38 is an adjacent endpoint question. Q194 source_id strings contain path text even though git_path_as_recorded is null; do not replace the recorded null with an inference.",
+      "connected_repair": "Reconcile warm/cold admission, key equivalence, valid sub-metre normalization and profile/weather identity; do not assume all quantization is defective.",
+      "acceptance": "Under the selected policy invalid coordinates cannot be admitted solely by a warm cache; valid normalized cases retain intended behavior.",
+      "discovery": "Conditional source trace; caller reach, policy and remaining aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-INCLUSIVE-UPPER-EDGE-CANDIDATE",
+      "kind": "separate conditional boundary-policy question",
+      "sources": [
+        "crates/adventuresim-terrain/src/builder.rs:26-42",
+        "crates/adventuresim-terrain/src/lib.rs:438-466"
+      ],
+      "trace": "For a hypothetical build bounded [10,50,11,51], the builder visits tile (50,10). An exact east- or north-bound lookup is admitted by bounds comparison but selects an adjacent omitted tile and can return None. No package or lookup was run; the fixed playable bounds are not claimed to exercise this example.",
+      "historical_relationship": "Q603 broadly mentions coordinate/window/bounds admission but does not identify this first operation. It is not automatically q120 row alias or a new historical unique count; complete alias review remains open.",
+      "connected_repair": "Decide inclusive edge ownership and distinguish legitimate cropped absence from a present-tile missing-chunk error.",
+      "acceptance": "Under the chosen policy exact and neighboring boundaries agree with builder coverage and affected consumer semantics.",
+      "discovery": "Conditional source arithmetic; supported bounds, intent, aliases and policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-CACHE-ACCOUNTING-UNIT-CANDIDATE",
+      "kind": "separate conditional resource-contract question",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:26-33",
+        "crates/adventuresim-terrain/src/lib.rs:82-99",
+        "crates/adventuresim-terrain/src/lib.rs:314-319",
+        "crates/adventuresim-terrain/src/lib.rs:476-573",
+        "crates/strategic-web/regional-terrain.md:44-48"
+      ],
+      "trace": "The 32 MiB counter charges five decoded wire bytes per retained cell, while the cached Arc contains typed Cell values and excludes Arc/map overhead, in-flight clones and temporary allocations. The charge is bounded; it is not a 32 MiB resident-memory ceiling. No actual cache fill, allocation size or memory pressure was measured.",
+      "historical_relationship": "F2c row 782 and q194 concern route-key admission, a different first operation. Finite selected-term history searches do not establish global absence, aliases or a unique historical count.",
+      "connected_repair": "Decide whether the budget is a logical wire-equivalent charge or a resident allocation target, including concurrent and evicted in-flight references.",
+      "acceptance": "Document and enforce the selected accounting unit and assess observable cache capacity and concurrency effects.",
+      "discovery": "Bounded source question; intended policy, measurement, supported workload and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-COMPRESSED-CHUNK-ALLOCATION-CANDIDATE",
+      "kind": "separate conditional resource-admission question",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:332-395",
+        "crates/adventuresim-terrain/src/lib.rs:492-523"
+      ],
+      "trace": "A digest-consistent 1 GiB pack and full-sized entry can pass selected metadata, range and geometry checks. On a matching cache miss the declared decoded size is checked first, then the code attempts an allocation for the entire compressed range before actual DEFLATE output length, digest and discriminant checks. The loader rejects an observed pack metadata size above 2 GiB and bounds entries by that earlier size; it does not unconditionally cap bytes subsequently read if the file changes. No pack, allocation, decoder or call was executed.",
+      "historical_relationship": "Distinct from q194 route-cache admission and q120 flattened geometry. The metadata/read race is separately connected in f2c ledger 408 and 95e terrain admission observation 3; it is not this compressed-allocation operation. Finite history searches do not prove novelty or an absent alias.",
+      "connected_repair": "Assess a compressed-entry bound or streaming decoder against valid encoding overhead, trailing bytes, integrity/error order and concurrency; exact geometry alone does not address this operation.",
+      "acceptance": "The chosen resource contract bounds supported compressed-input work and preserves required content validation and behavior.",
+      "discovery": "Conditional source witness; supported malformed ingress, policy, resource impact and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-STARTUP-INPUT-UNBOUNDED-READ-001",
+      "kind": "existing 95e conditional finding with a separately recorded terrain connection",
+      "sources": [
+        "crates/adventuresim-terrain/src/lib.rs:332-365",
+        "crates/adventuresim-terrain/src/digest.rs:17-27",
+        "crates/adventuresim-terrain/src/road_pack.rs:264-275"
+      ],
+      "trace": "The terrain loader checks manifest path metadata before a separate whole-file read; pack path metadata is checked before opening and hashing the opened file to EOF. Replacement or growth between these operations can make the consumed bytes exceed the earlier observed cap. Entry ranges are compared to the earlier pack size. No file interleaving, product execution or exploit was observed.",
+      "historical_relationship": "F2c ledger 408 records the existing 95e startup input-bound finding and links ASSESSMENT-TERRAIN-ADMISSION-95E.json observation 3 as a separate terrain connection. This is not a new historical count or the same first operation as a large compressed-entry allocation.",
+      "connected_repair": "Assess bounded reads on the actual opened inputs, identity and integrity semantics, preserving distinct terrain and road contracts.",
+      "acceptance": "Under the selected input contract, actual consumed bytes honor the applicable bound and valid packages retain intended behavior.",
+      "discovery": "Previously recorded conditional connection; current supported interleavings, policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "cross_lens_questions": [
+    "Routing maps None to water and propagates Err; tactical required samples reject missing while optional peaks skip None but propagate errors. Regional capture retains holes. Strategic forage suppresses neighbor errors and absence but not center errors. Cultivation relief and road inference have separate error-erasure operations.",
+    "Reconstructed q128 and f2c ledger 441 concern relief-sample error handling; q130 and f2c ledger 442 concern road-plan omission. Ledger 441 also relates q283, whose recorded first operation is separate worker/CLI error formatting. Do not treat q128 and q283 as automatic aliases.",
+    "Cropped or undersized chunks, integral east/north boundary ownership, supported geographic limits, canopy byte policy and error precedence require decisions.",
+    "The surface enum and native byte decoder agree today; their independent numeric mappings are a future-change hazard, not a demonstrated current mismatch.",
+    "Coordinate, elevation and digest owner reuse requires separate policy, unit, wire and admission-timing review; it is not an observed wrong value by itself.",
+    "Selected same-file blob identity does not transfer historical reader credit or prove whole-tree identity. The selected pr-working source rows of q120, q128 and q130 retain null revision, path and named reader fields. Separately, q283 records revision 6533e444fa37552927070cc8d8190907fd3b413e, Git path crates/adventuresim-world-import/src/bin/build-strategic-map.rs, and reader Subagent /root/lens12_frontier personal prospective bounded untruncated read; preserve that distinct credit.",
+    "Builder-selected full/edge extents do not establish that all loader-admitted external packs are invalid; choose a partial-coverage and missing/error policy before repair.",
+    "A loader-level geometry rule can change error timing and fixture admission; an after-decode axis guard has narrower scope. Exact upper-bound ownership is a separate conditional question.",
+    "Q1668 is the earlier broad canopy conversion question; its 255 example differs from the 95e assessment's matching 101 example. Its own empty attribution arrays and zero credit remain unchanged.",
+    "Plan-window +1, cell south +1 and builder i16::MIN negation are distinct first operations; geographic support and aliases remain unresolved.",
+    "The bundle-build bounds check is not a check automatically rerun by every verify/install command or public loader.",
+    "If exact geometry validation is added inside validate_manifest, it would run after manifest file reading and before pack-file access; a post-decode guard also retains cache clock and possible insertion/eviction effects before error.",
+    "The native raster no-data marker, finished-pack byte admission, public Cell fractions, environmental sample wire and regional/tactical validation are distinct connected contracts.",
+    "Route-key admission, decoded cache accounting and compressed-vector allocation are separate first operations even though all involve terrain and cache paths.",
+    "The pack metadata/read race and compressed-entry allocation are distinct operations: an earlier observed size bounds ranges but not necessarily the bytes later hashed."
+  ],
+  "recovery_qualification": "Original checkpoint 3821 queue and ledger remain missing; SOURCE004 and the 73 historical nontext/no-positive-EOF contracts remain open. Earlier records are not promoted into checkpoint 3821.",
+  "next_step": "Publish the new recoverable source-only policy evidence. Keep the three existing PRs for review; finish selected-lens discovery and resolve connected geometry, resource and boundary policies before a terrain repair when the stack has room.",
+  "reports": [
+    {
+      "reader": "final_guard_peer",
+      "report": "producer-ownership-behavior-2en3zs4a/REPORT.md",
+      "sha256": "c85b41d2b3147e184f869ea00501f2b649e83cbf1db455191c83f1acf3474b32",
+      "lenses": [
+        1,
+        2,
+        6,
+        8
+      ]
+    },
+    {
+      "reader": "wrapped_scope",
+      "report": "wrapped-l3-l4-l5-l7-khfolzr4/REPORT.md",
+      "sha256": "d9dd6d744eacfb1f980a694ecfc602ac73884ab2d3d74770238ef1030e4c9a41",
+      "lenses": [
+        3,
+        4,
+        5,
+        7
+      ]
+    },
+    {
+      "reader": "mhr_character",
+      "report": "l9-l10-l11-l12-l13-p0gqrti9/REPORT.md",
+      "sha256": "900c31319792227a3a555a73846a62f2c2da686086c812dc6ba858194a4b9827",
+      "lenses": [
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    }
+  ],
+  "record_corrections": "LEDGER-v1 named the dispatcher scene_input.rs:454-466 as the grid validator; the selected validator is tactical-core/src/scene_input.rs:454-466. The prior ledger is retained unchanged. Historical source rows and first-operation relationships were not rewritten. LEDGER-v2 also overgeneralized null queue attribution across selected rows; q283 has its own recorded revision, Git path and reader, retained above and in HISTORY-SUPPLEMENT.json. Its worker-error first operation is distinct. V2 is retained unchanged. Its phrase valid-but-undersized is corrected to currently admitted undersized, without settling crop policy. V4 corrects v3's limited literal canopy search with the reconstructed q1668 and separately attributed f2c/95e assessment relationship; v3 remains unchanged. The reconstructed row and historical assessment have different example values and attribution; neither is a checkpoint 3821 recovery. V5 applies the v4 peer correction: f2c ledger 280 links the historical question to the 95e assessment, while that assessment rather than the ledger row expressly contains the 101 example. V5 also resolves the inherited report base and binds follow-up reports to readers and hashes. V4 is retained unchanged. V6 preserves the unchanged policy reports and records their peer wording corrections: a geometry check placed in validate_manifest would follow manifest reading and precede pack-file access; a late guard retains cache side effects; bundle-bound validation is performed in bundle construction; a warm cache hit bypasses native admission; and the deadline check precedes the window call without bounding arithmetic. V7 corrects the v6 peers' identified overstatements: the 2 GiB limit is an earlier metadata observation and entry-range bound, not an unconditional cap on subsequently read bytes; q120 null fields belong to its selected reconstructed rows; and current source no-data provenance is a policy question. It records the separately identified existing 95e terrain metadata/read connection. The v6 ledger and source reports remain unchanged. V8 clarifies that inherited v5 follow-up paths resolve in the prior restored archive, not the current policy collection. V7 remains unchanged; the finding dispositions and substantive claims are unchanged.",
+  "prior_ledger": {
+    "sha256": "f671ad876d5447f90ce6dce94706afeb63caa76fb37f9143fb9c37df3ed22dad",
+    "immutable_checkpoint": "a74e83de2726beefbaf5e99bc7b5ce6565482ce8",
+    "relationship": "Additive follow-up; v3 and its historical cutoff remain unchanged."
+  },
+  "followup_evidence": {
+    "revision": "29ecf3ca12e3dfbfacb36b72a56ae130d4fc48fd",
+    "tree": "06a79b077db5283ba95bb1801141a60c21482ac0",
+    "geometry_and_crop": "The selected builder emits full ordinal-derived chunks or true tile-edge remainders and omits whole nonintersecting chunks. This is not proof that no external producer exists. Inclusive lookup versus exclusive tile iteration leaves an exact integral upper-edge question; no shipped crop or runtime case was established.",
+    "fixture_and_precedence": "The selected corrupt-surface test and road-write placeholder have 1-by-1 entries. Eager strict geometry admission would alter their load behavior; a post-decode axis guard preserves the current selected decode-before-lookup precedence. Neither fixture defines a production partial-coverage policy.",
+    "consumer_census": "A repository-wide textual search identified 13 direct non-test cell call expressions in six source modules. It is not a compiler-resolved or external-call graph. Routing converts None to water and propagates errors; tactical required samples reject missing and errors while optional peaks skip None; regional capture keeps holes and propagates errors; forage and import paths treat center and optional samples differently. Travel preview, execution and road inference have distinct later handling of plan errors. The three public diagnostic capture calls have example call sites located, not proven production requests.",
+    "history": "Reconstructed q1657 is broadly related to regional native holes/errors and projection; its source and receipt arrays are empty and population credit is zero. Selected q128 relief handling, q130 road-plan omission and q283 worker/CLI error formatting are separate operations; preserve each record's own attribution."
+  },
+  "reviewed_draft": {
+    "file": "LEDGER-v4.json",
+    "sha256": "39a29dff11334830f9b70b486152de714b4b8dfe34d50445ae55282c49d853b0",
+    "qualification": "Retained unchanged; the v4 peer report and corrections are recorded separately."
+  },
+  "inherited_report_resolution": {
+    "checkpoint": "a74e83de2726beefbaf5e99bc7b5ce6565482ce8",
+    "archive": "delegated/iterative/terrain-pack-20261114/discovery/custody/evidence.aesgcm",
+    "restored_collection_label": "terrain-source-audit",
+    "interpretation": "Each inherited reports[].report path is relative to the restored terrain-source-audit collection, not this ledger directory. Authenticated restoration requires the separately held prior key and earlier dependencies; same-machine custody is not an independent backup."
+  },
+  "followup_reports": [
+    {
+      "collection_label": "terrain-followup",
+      "path": "wrapped-crop-policy-DwHxQ3um/REPORT.md",
+      "sha256": "4400094c0a6c9109573a94f0e0af31437766a93a101c27814bcb56eded72f485",
+      "reader": "wrapped_scope",
+      "role": "bounded geometry, crop, fixture and consumer review"
+    },
+    {
+      "collection_label": "terrain-followup",
+      "path": "cell-consumer-trace-tmlgmez6/REPORT.md",
+      "sha256": "aee072353e82d5df5952312aba1d3d1f22f9468b761ec8e654d5a9819e633385",
+      "reader": "final_guard_peer",
+      "role": "bounded textual direct-consumer census and handling"
+    },
+    {
+      "collection_label": "terrain-followup",
+      "path": "canopy-geographic-h2spre9b/REPORT.md",
+      "sha256": "7a2f7c835c39d63c1301ca936e5bc8aba75912bdc11db8ecb70bd244d5081632",
+      "reader": "mhr_character",
+      "role": "bounded canopy and geographic historical/source review"
+    },
+    {
+      "collection_label": "terrain-followup",
+      "path": "ledger-v4-peer-l2a3u3l5/REPORT.md",
+      "sha256": "a99c203af4f2661f6a278fb1e69745d8633b4e2851826cd5e08cd846281a5ddb",
+      "reader": "final_guard_peer",
+      "role": "independent v4 synthesis check; consumer work overlaps the reviewer's own report"
+    },
+    {
+      "collection_label": "terrain-followup",
+      "path": "COORDINATOR-SOURCE-NOTES.md",
+      "sha256": "67c802819bec7f139f3c354423dbf5958c3a8a52498d0c15481d5ec9b8989982",
+      "reader": "root",
+      "role": "central bounded source and recovery notes"
+    }
+  ],
+  "historical_selection_evidence": [
+    {
+      "collection_label": "terrain-followup",
+      "path": "HISTORICAL-SELECTED.json",
+      "sha256": "89bd7d8cb27e2c069873947454a2c4e6a09f3a07bd87f110c709813980889c16",
+      "reader": "root",
+      "role": "exact selected reconstructed queue rows"
+    },
+    {
+      "collection_label": "terrain-followup",
+      "path": "REGIONAL-HISTORY-SELECTED.json",
+      "sha256": "e4ba445934934de256b50f83fe0192b651af2c796e5648cb981a8e0bf7361141",
+      "reader": "root",
+      "role": "exact separately attributed f2c/95e selections"
+    }
+  ],
+  "preceding_ledger": {
+    "sha256": "e00325a9197f293f4471e2df8dc9dcbd3358f426880167734cda662b03ae4f41",
+    "immutable_checkpoint": "016c74c51f8e86a8f50400d062e67954fe90ea62",
+    "relationship": "V5 remains unchanged; this is a new source-only continuation."
+  },
+  "preceding_followup_report_resolution": {
+    "checkpoint": "016c74c51f8e86a8f50400d062e67954fe90ea62",
+    "archive": "delegated/iterative/terrain-pack-20261114/followup/custody/evidence.aesgcm",
+    "restored_collection_label": "terrain-followup",
+    "interpretation": "V5 followup_reports and historical_selection_evidence paths are relative to this prior restored collection, not the current policy collection. Its prior key and the earlier v3 source collection and key remain dependencies; custody is same-machine."
+  },
+  "policy_followup_reports": [
+    {
+      "collection_label": "geometry-contract",
+      "path": "REPORT.md",
+      "sha256": "67f6f52805f764d9dc56072eeb1b596d3fd21d2450b242337857b218cb67c217",
+      "reader": "terrain_contract",
+      "role": "producer and geometry policy"
+    },
+    {
+      "collection_label": "fraction-contract",
+      "path": "REPORT.md",
+      "sha256": "9c1cb826f66479aed8c4bde6ca8a669f899678a2c8dfb95dfad6ed9c366d081a",
+      "reader": "terrain_canopy_contract",
+      "role": "fraction and no-data paths"
+    },
+    {
+      "collection_label": "geographic-contract",
+      "path": "REPORT.md",
+      "sha256": "3ad8813e63fe73efe79a13e3bb06eb7d1a47456f8f28aa1f1dd3b43d593b9f15",
+      "reader": "geographic_contract",
+      "role": "bounds, route windows and q194"
+    },
+    {
+      "collection_label": "cache-contract",
+      "path": "REPORT.md",
+      "sha256": "110948d11f0c1766f8592ce1d15835071e0b3bf0a9bfa45f9e357e262422d0e7",
+      "reader": "terrain_contract",
+      "role": "cache charge and compressed input"
+    },
+    {
+      "collection_label": "geometry-peer",
+      "path": "REPORT.md",
+      "sha256": "4bdee3e81d49e97d76a0454e33ff3e5d9f1ce71334bc6213bcca771efb6c04da",
+      "reader": "geographic_contract",
+      "role": "geometry peer; geographic-edge overlap disclosed"
+    },
+    {
+      "collection_label": "geographic-peer",
+      "path": "REPORT.md",
+      "sha256": "999bd2ab76626d29e589d7fc36795ee161a99b62312b4baa68aac512ef694d67",
+      "reader": "terrain_canopy_contract",
+      "role": "q194 and bundle-build peer; source overlap disclosed"
+    }
+  ],
+  "reviewed_policy_draft": {
+    "path": "LEDGER-v6.json",
+    "sha256": "51957f7fe3f69de748871d84c0416ea1959775bc5b25880c5dca5e6c1de5d4aa",
+    "qualification": "Retained unchanged with the attributed v6 peer reviews and correction notes."
+  },
+  "reviewed_successor_draft": {
+    "path": "LEDGER-v7.json",
+    "sha256": "fa4d320fe7f9b295d2c5142da774340845e4d821c49230602e1e23445e6eba1b",
+    "qualification": "Retained unchanged with its bounded peer review."
+  }
+}
