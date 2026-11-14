@@ -1,0 +1,11 @@
+{
+  "schema": "726-quest-id-discovery-private-envelope-v1",
+  "algorithm": "AES-256-GCM",
+  "format": "12-byte nonce, ciphertext and authentication tag",
+  "associated_data": "726-quest-id-discovery-slice-private-v1",
+  "ciphertext_bytes": 361147,
+  "ciphertext_sha256": "87f4f4c22af0c63c6758d71ed8747b020b05045ae32726724433874483f765be",
+  "entries": 156,
+  "source_collections": 2,
+  "qualification": "No-key verification checks ciphertext identity only. The key is separately held on the same machine. Authentication and comparison of a restored copy are separate checks."
+}
