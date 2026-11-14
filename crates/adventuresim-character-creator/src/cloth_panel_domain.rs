@@ -75,10 +75,17 @@ impl PanelDomain {
             clearance,
             banks,
         )?;
-        PanelSurface::from_fitted_carrier(points, self.cut.faces.clone(), skin.clone())
+        Ok(PanelSurface::from_fitted_carrier(
+            points,
+            self.cut.faces.clone(),
+            skin.clone(),
+        )?)
     }
 
-    pub(super) fn carrier_skin(&self, body: &Wearer<'_>) -> Result<SkinWeights> {
+    pub(super) fn carrier_skin(
+        &self,
+        body: &Wearer<'_>,
+    ) -> std::result::Result<SkinWeights, crate::skin_transfer::SkinTransferError> {
         crate::skin_transfer::interpolate_sources(
             &self.carrier.source_table(body.faces, body.faces),
             body.joint_indices,

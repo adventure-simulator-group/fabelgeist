@@ -22,7 +22,10 @@ impl DevicePiece {
         for &position in &design.positions {
             let anchors = opening.sample(position, first)?;
             self.attach_edge_solid(&anchors, |part| {
-                FastenerMesh::new(&design.fastener, edge_frame(part, &anchors)?)
+                Ok(FastenerMesh::new(
+                    &design.fastener,
+                    edge_frame(part, &anchors)?,
+                )?)
             })?;
         }
         Ok(())
@@ -84,7 +87,10 @@ impl DevicePiece {
 }
 
 /// Native actual cloth samples in canonical metres, used for every realization.
-pub(crate) fn edge_frame(part: &BuiltPart, anchors: &ClosureAnchors) -> Result<FastenerFrame> {
+pub(crate) fn edge_frame(
+    part: &BuiltPart,
+    anchors: &ClosureAnchors,
+) -> crate::cloth_closure_error::Result<FastenerFrame> {
     Ok(FastenerFrame {
         left: anchors.left.position(part)?,
         right: anchors.right.position(part)?,

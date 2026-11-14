@@ -3,12 +3,11 @@
 //! by its coverage.
 use super::*;
 use crate::hair_preview;
-use adventuresim_character_creator::export::{
-    SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
-};
+use adventuresim_character_creator::export::{SurfaceSampling, SurfaceSides, SurfaceTextures};
 use adventuresim_character_creator::hair::{
     GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, HairGpu, PlacedHair,
 };
+use adventuresim_character_creator::surface_alpha::SurfaceAlpha;
 use fabelgeist_hair::lod::Form;
 use image::ImageEncoder;
 use std::sync::OnceLock;

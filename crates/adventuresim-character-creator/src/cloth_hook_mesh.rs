@@ -1,9 +1,9 @@
 //! Shared low-poly hook solids, with paired eyes or a separate ring target.
+use crate::cloth_closure_error::{ClothClosureError, Result};
 use crate::cloth_fastener_mesh::{
     ClosureFrame, ClosureMaterial, CordEnds, CordPath, FastenerFrame, FastenerMesh,
 };
 use crate::cloth_opening::ClosureSide;
-use anyhow::{Result, ensure};
 use fabelgeist_armor::{ArmorComponentMaterial, ClothFastener};
 use fabelgeist_math::Vec3;
 use std::f32::consts::{PI, TAU};
@@ -25,7 +25,7 @@ pub(crate) struct HookDimensions {
 impl FastenerMesh {
     pub(crate) fn eye_sewing_footprint(design: &ClothFastener) -> Result<EyeSewingFootprint> {
         let ClothFastener::HookEye { length, wire, .. } = design else {
-            anyhow::bail!("eye footprint requires a hook and eye");
+            return Err(ClothClosureError::EyeRequiresHook);
         };
         let radius = length.metres() * EYE_RADIUS_REACH_SHARE;
         let center = length.metres() * EYE_CENTER_REACH_SHARE;
@@ -45,12 +45,12 @@ impl FastenerMesh {
         let reach = dimensions.reach;
         let width = dimensions.width;
         let gauge = dimensions.gauge;
-        ensure!(
-            frame.gap < reach,
-            "hook cannot bridge this cloth opening: gap={}mm reach={}mm",
-            frame.gap * 1000.,
-            reach * 1000.
-        );
+        if frame.gap.partial_cmp(&reach) != Some(std::cmp::Ordering::Less) {
+            return Err(ClothClosureError::InsufficientHookReach {
+                gap: fabelgeist_math::units::Metres::from_metres(frame.gap),
+                reach: fabelgeist_math::units::Metres::from_metres(reach),
+            });
+        }
         let eye = (0..ClothFastener::HOOK_CURVE_SEGMENTS)
             .map(|i| {
                 let t = TAU * i as f32 / ClothFastener::HOOK_CURVE_SEGMENTS as f32;
@@ -89,7 +89,12 @@ impl FastenerMesh {
             width,
             gauge,
         } = dimensions;
-        ensure!(frame.gap < reach, "hook cannot reach its ring target");
+        if frame.gap.partial_cmp(&reach) != Some(std::cmp::Ordering::Less) {
+            return Err(ClothClosureError::InsufficientHookReach {
+                gap: fabelgeist_math::units::Metres::from_metres(frame.gap),
+                reach: fabelgeist_math::units::Metres::from_metres(reach),
+            });
+        }
         let mut hook = vec![Vec3::new(-reach * HOOK_TAIL_SETBACK_SHARE, 0., gauge)];
         hook.extend((0..ClothFastener::HOOK_CURVE_SEGMENTS).map(|i| {
             let t = PI + PI * 1.5 * i as f32 / (ClothFastener::HOOK_CURVE_SEGMENTS - 1) as f32;
@@ -121,7 +126,7 @@ impl FastenerMesh {
             roughness,
         } = design
         else {
-            anyhow::bail!("return attachment requires a hook");
+            return Err(ClothClosureError::ReturnRequiresHook);
         };
         let frame = ClosureFrame::new(frame)?;
         let material = ClosureMaterial {

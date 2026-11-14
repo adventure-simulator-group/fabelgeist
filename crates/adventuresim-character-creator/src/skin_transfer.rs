@@ -4,11 +4,16 @@
 //! Joint rows retain the native eight-influence mesh representation for upload;
 //! rig names remain typed through anatomical lookup.
 
-use anyhow::{Context, Result, ensure};
+pub use error::SkinTransferError;
+
 use fabelgeist_bvh::TriangleBvh;
 use fabelgeist_math::Vec3;
 use fabelgeist_rig::{PackedRigSkin, RigJointName, RigJointOrdinal, RigJointTable};
 use std::collections::BTreeMap;
+
+mod error;
+
+type Result<T> = std::result::Result<T, SkinTransferError>;
 
 /// Prevent a nearly coincident hip pair from making the blend singular.
 const MINIMUM_HIP_HALF_SPAN_M: f32 = 0.025;
@@ -51,13 +56,12 @@ impl SkinSource<'_> {
             weights: Vec::with_capacity(positions.len()),
         };
         for &position in positions {
-            ensure!(
-                position.iter().all(|v| v.is_finite()),
-                "non-finite skin query"
-            );
+            if !position.iter().all(|v| v.is_finite()) {
+                return Err(SkinTransferError::NonFiniteQuery { position });
+            }
             let (triangle, point, _) = tree
                 .closest_point(vector(position), f32::MAX)
-                .context("no body surface for garment skin transfer")?;
+                .ok_or(SkinTransferError::MissingBodySurface { position })?;
             let face = self.faces[triangle as usize];
             let [a, b, c] = face.map(|i| vector(self.positions[i as usize]));
             let bary = barycentric(a, b, c, point);
@@ -89,7 +93,9 @@ impl SkinSource<'_> {
         let center = (left + right) * 0.5;
         let span = Vec3::new(right.x - left.x, 0.0, right.z - left.z);
         let half_span = span.length() * 0.5;
-        ensure!(half_span > 0.0, "skirt hip landmarks coincide");
+        if half_span.partial_cmp(&0.0) != Some(std::cmp::Ordering::Greater) {
+            return Err(SkinTransferError::CoincidentHips);
+        }
         let axis = span / span.length();
         let half_span = half_span.max(MINIMUM_HIP_HALF_SPAN_M);
         let mut skin = self.transfer(positions)?;
@@ -97,7 +103,9 @@ impl SkinSource<'_> {
             + self.landmark(&RigJointName::R_LOWLEG)?)
             * 0.5;
         let thigh_height = center.y - knee_center.y;
-        ensure!(thigh_height > 0.0, "skirt knees must be below its hips");
+        if thigh_height.partial_cmp(&0.0) != Some(std::cmp::Ordering::Greater) {
+            return Err(SkinTransferError::KneesAboveHips);
+        }
         // Spread ownership over the cloth's own width. A hip-width transition
         // on a wide hem creates a narrow strip of extreme animation shear.
         let cloth_half_span = positions
@@ -139,48 +147,55 @@ impl SkinSource<'_> {
 
     fn landmark(&self, name: &RigJointName) -> Result<Vec3> {
         let slot = name.require_in(self.names)?;
-        let state = self.joints.get(slot).context("missing hip transform")?;
-        ensure!(
-            state[..3].iter().all(|v| v.is_finite()),
-            "non-finite hip landmark"
-        );
+        let state = self
+            .joints
+            .get(slot)
+            .ok_or_else(|| SkinTransferError::MissingLandmark {
+                joint: name.clone(),
+            })?;
+        if !state[..3].iter().all(|v| v.is_finite()) {
+            return Err(SkinTransferError::NonFiniteLandmark {
+                joint: name.clone(),
+            });
+        }
         Ok(Vec3::new(state[0], state[1], state[2]))
     }
 
     fn validate(&self) -> Result<()> {
-        ensure!(
-            self.names.len() == self.joints.len()
-                && self.indices.joint_count() == self.names.joint_count()
-                && self
-                    .indices
-                    .iter()
-                    .zip(self.weights)
-                    .all(|(indices, weights)| {
-                        indices
-                            .iter()
-                            .zip(weights)
-                            .all(|(&joint, _)| usize::from(joint) < self.names.len())
-                    }),
-            "body skin references a missing rig joint"
-        );
-        ensure!(
-            self.indices.len() == self.positions.len()
-                && self.weights.len() == self.positions.len(),
-            "body skin arrays do not match its vertices"
-        );
-        ensure!(
-            self.faces
+        if !(self.names.len() == self.joints.len()
+            && self.indices.joint_count() == self.names.joint_count()
+            && self
+                .indices
+                .iter()
+                .zip(self.weights)
+                .all(|(indices, weights)| {
+                    indices
+                        .iter()
+                        .zip(weights)
+                        .all(|(&joint, _)| usize::from(joint) < self.names.len())
+                }))
+        {
+            return Err(SkinTransferError::InvalidRigBinding);
+        }
+        if !(self.indices.len() == self.positions.len()
+            && self.weights.len() == self.positions.len())
+        {
+            return Err(SkinTransferError::MismatchedVertexArrays);
+        }
+        if !(self
+            .faces
+            .iter()
+            .flatten()
+            .all(|&i| (i as usize) < self.positions.len())
+            && self.positions.iter().flatten().all(|v| v.is_finite())
+            && self
+                .weights
                 .iter()
                 .flatten()
-                .all(|&i| (i as usize) < self.positions.len())
-                && self.positions.iter().flatten().all(|v| v.is_finite())
-                && self
-                    .weights
-                    .iter()
-                    .flatten()
-                    .all(|v| v.is_finite() && *v >= 0.0),
-            "invalid body surface for garment skin transfer"
-        );
+                .all(|v| v.is_finite() && *v >= 0.0))
+        {
+            return Err(SkinTransferError::InvalidBodySurface);
+        }
         Ok(())
     }
 }
@@ -193,10 +208,9 @@ pub(crate) fn interpolate_sources(
     weights: &[[f32; 8]],
 ) -> Result<SkinWeights> {
     let words = crate::surface_cut::POINT_WORDS;
-    ensure!(
-        table.len().is_multiple_of(words) && indices.len() == weights.len(),
-        "invalid cloth skin source table"
-    );
+    if !(table.len().is_multiple_of(words) && indices.len() == weights.len()) {
+        return Err(SkinTransferError::InvalidSourceTable);
+    }
     let mut output = SkinWeights {
         indices: PackedRigSkin::empty(indices.joint_count()),
         weights: Vec::new(),
@@ -206,15 +220,16 @@ pub(crate) fn interpolate_sources(
         for corner in 0..3 {
             let vertex = source[corner] as usize;
             let factor = f32::from_bits(source[6 + corner]);
-            ensure!(factor.is_finite(), "invalid cloth source weight");
-            ensure!(
-                vertex < indices.len(),
-                "cloth skin source uses another surface's indices"
-            );
+            if !factor.is_finite() {
+                return Err(SkinTransferError::NonFiniteSourceWeight);
+            }
+            if vertex >= indices.len() {
+                return Err(SkinTransferError::SourceVertexOutsideSurface { vertex });
+            }
             let indices = indices.vertex(vertex);
             let weights = *weights
                 .get(vertex)
-                .context("cloth skin source has no weights")?;
+                .ok_or(SkinTransferError::MissingSourceWeights { vertex })?;
             accumulate(&mut influences, indices, weights, factor.max(0.));
         }
         let row = normalized(influences)?;
@@ -229,10 +244,9 @@ fn normalized(influences: BTreeMap<RigJointOrdinal, f32>) -> Result<SkinRow> {
     influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
     influences.truncate(8);
     let sum: f32 = influences.iter().map(|(_, w)| w).sum();
-    ensure!(
-        sum.is_finite() && sum > 0.0,
-        "garment vertex has no skin weights"
-    );
+    if !sum.is_finite() || sum <= 0.0 {
+        return Err(SkinTransferError::MissingInfluences);
+    }
     let mut row = SkinRow {
         indices: [RigJointOrdinal::from(0usize); 8],
         weights: [0.0; 8],

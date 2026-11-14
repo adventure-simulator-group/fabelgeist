@@ -22,7 +22,10 @@ impl WaistSupportPlan {
         let sources = WaistFastenerSources::new(self, piece, join)?;
         for anchors in sources.parallel {
             piece.attach_edge_solid(&anchors, |part| {
-                FastenerMesh::new(&design.closures.fastener, edge_frame(part, &anchors)?)
+                Ok(FastenerMesh::new(
+                    &design.closures.fastener,
+                    edge_frame(part, &anchors)?,
+                )?)
             })?;
         }
         if let Some(sources) = sources.return_sources {
@@ -32,11 +35,11 @@ impl WaistSupportPlan {
                 .as_ref()
                 .context("waist return has no hook")?;
             piece.attach_edge_solid(&sources.ring, |part| {
-                FastenerMesh::single_lacing_ring(
+                Ok(FastenerMesh::single_lacing_ring(
                     lacing,
                     edge_frame(part, &sources.ring)?,
                     ClosureSide::Left,
-                )
+                )?)
             })?;
             let anchors = ClosureAnchors {
                 left: sources.hook,

@@ -1,7 +1,7 @@
 //! Small closed solids appended after the garment's GPU fitting and skinning.
+use crate::cloth_closure_error::{ClothClosureError, Result};
 use crate::cloth_hook_mesh::{HOOK_TAIL_SETBACK_SHARE, HookDimensions};
 use crate::cloth_opening::ClosureSide;
-use anyhow::{Result, ensure};
 use fabelgeist_armor::{
     ArmorComponent, ArmorComponentMaterial, ArmorComponentRole, BuiltPart, ClothFastener,
     PlateFace, TextileAppearance,
@@ -350,14 +350,15 @@ impl ClosureFrame {
     pub(crate) fn new(frame: FastenerFrame) -> Result<Self> {
         let delta = frame.right - frame.left;
         let gap = delta.x.hypot(delta.y).hypot(delta.z);
-        ensure!(gap > 0. && gap.is_finite(), "cloth closure edges coincide");
+        if !gap.is_finite() || gap <= 0. {
+            return Err(ClothClosureError::CoincidentEdges);
+        }
         let x = delta / gap;
         let y = frame.normal.cross(x).normalize();
         let z = x.cross(y).normalize();
-        ensure!(
-            y.length_squared() > 0.5 && z.length_squared() > 0.5,
-            "degenerate cloth closure frame"
-        );
+        if !(y.length_squared() > 0.5 && z.length_squared() > 0.5) {
+            return Err(ClothClosureError::DegenerateFrame);
+        }
         Ok(Self {
             origin: frame.left,
             x,

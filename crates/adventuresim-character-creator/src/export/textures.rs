@@ -1,5 +1,6 @@
 //! Surface maps embedded in standalone characters or shared by equipment files.
 use super::*;
+use crate::surface_alpha::SurfaceAlpha;
 use std::{collections::BTreeMap, fs, io::ErrorKind};
 
 #[cfg(test)]
@@ -41,13 +42,6 @@ pub enum SurfaceSampling {
     Tile,
     WrappedGarment,
     OpenGarment,
-}
-
-#[derive(Clone, Copy)]
-pub enum SurfaceAlpha {
-    Opaque,
-    Mask,
-    Blend,
 }
 
 #[derive(Clone, Copy)]
