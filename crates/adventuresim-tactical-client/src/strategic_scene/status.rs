@@ -1,6 +1,10 @@
 //! Bounded readiness and timing telemetry consumed by the browser benchmark.
 use super::{RetainedScene, protocol::StrategicView};
-use crate::presentation::ownership::PresentationOwner;
+use crate::presentation::{
+    is_required_scene_asset,
+    ownership::PresentationOwner,
+    pipeline_readiness::{SETTLED_RENDER_FRAMES, waiting_pipelines},
+};
 use adventuresim_procedural_textures::{PROCEDURAL_TEXTURE_CATALOGUE, ProceduralTextureResidency};
 use bevy::prelude::*;
 use characters::CharacterReadiness;
@@ -10,7 +14,6 @@ use std::sync::{Mutex, OnceLock};
 mod characters;
 
 static STATUS: OnceLock<Mutex<String>> = OnceLock::new();
-const SETTLED_RENDER_FRAMES: usize = 4;
 
 #[derive(Resource, Default)]
 pub(super) struct SceneAssetsReady(pub bool);
@@ -81,10 +84,7 @@ fn capture_asset_failures(
 ) {
     for event in events.read() {
         let path = event.path.path();
-        if path.starts_with("textures/procedural")
-            || path.ends_with("unarmed/base.glb")
-            || path.ends_with("unarmed/idle_relaxed.glb")
-        {
+        if is_required_scene_asset(path) {
             failure.0 = Some(format!("Could not load scene asset {}", path.display()));
         }
     }
@@ -122,7 +122,7 @@ fn update_status(
     settings: Res<crate::presentation::TacticalGraphicsSettings>,
     lighting: super::lighting_diagnostics::LightingDiagnostics,
 ) {
-    let waiting = crate::presentation::pipeline_readiness::waiting_pipelines();
+    let waiting = waiting_pipelines();
     let equipment_state = equipment.check(items.iter());
     let equipment_ready = equipment_state == Ok(true);
     let counts = characters.counts(view.as_deref(), &scene);

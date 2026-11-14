@@ -77,19 +77,24 @@ def main(argv: list[str] | None = None) -> int:
         started = time.perf_counter()
         common = ["cargo", "build", "--package", "adventuresim-tactical-client",
                   "--target", "wasm32-unknown-unknown"]
-        # Preserve the ordinary tactical client's release build exactly. Build
-        # the demo separately so Cargo cannot unify gameplay-only features into
-        # its size-oriented binary.
-        run([*common, "--bin", "adventuresim-tactical-client", "--release"])
+        # The shipped client leaves out `debug` (BRP, avian debug rendering
+        # and the bevy_ui that bevy_remote links). Build the demo separately
+        # so Cargo cannot unify gameplay-only features into its size-oriented
+        # binary.
+        run([*common, "--bin", "adventuresim-tactical-client", "--release",
+             "--no-default-features", "--features", "gameplay"])
         run([*common, "--bin", "art-demo", "--profile", "wasm-release",
              "--no-default-features"])
         build_seconds = time.perf_counter() - started
         WASM_DIR.mkdir(parents=True, exist_ok=True)
         print("Generating JS bindings...")
+        # Cargo configuration may redirect the target directory away from ./target.
+        target_dir = Path(json.loads(subprocess.check_output(
+            ["cargo", "metadata", "--format-version", "1", "--no-deps"], cwd=ROOT,
+        ))["target_directory"])
         for binary in ("adventuresim-tactical-client", "art-demo"):
             profile = "wasm-release" if binary == "art-demo" else "release"
-            source = (ROOT / "target" / "wasm32-unknown-unknown" /
-                      profile / f"{binary}.wasm")
+            source = target_dir / "wasm32-unknown-unknown" / profile / f"{binary}.wasm"
             bindgen = [
                 wasm_bindgen, "--out-dir", str(WASM_DIR), "--target", "web", "--no-typescript",
             ]

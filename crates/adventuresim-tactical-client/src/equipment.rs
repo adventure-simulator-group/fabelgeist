@@ -26,9 +26,7 @@ use bevy::{
         skinning::{SkinnedMesh, SkinnedMeshInverseBindposes},
     },
     prelude::*,
-    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
 };
-use bevy_egui::{EguiContexts, EguiPrimaryContextPass, EguiTextureHandle, egui};
 use bevy_mod_outline::{OutlineMode, OutlinePlugin, OutlineVolume};
 use grab_world::*;
 use icons::*;
@@ -43,6 +41,8 @@ pub(crate) use runtime_equipment::RuntimeEquipmentBodyCache;
 use runtime_equipment::RuntimeEquipmentPresentation;
 use runtime_equipment::generate_runtime_equipment_models;
 use skin::sync_procedural_equipment_skins;
+#[cfg(target_family = "wasm")]
+pub(crate) use slot_hud::SlotHudPress;
 use std::{
     collections::{BTreeMap, HashMap},
     sync::LazyLock,
@@ -58,79 +58,15 @@ mod preview;
 pub(crate) mod readiness;
 mod render_binding;
 pub(crate) mod runtime_equipment;
+pub(crate) mod settlement;
 mod skin;
+mod slot_hud;
 mod slot_selection;
 pub(crate) mod visuals;
 
 const PICKUP_RANGE_M: f32 = 2.0;
 
 const INVALID_FLASH_SECS: f32 = 0.18;
-
-const TACTICAL_WEAPON_ICON_SIZE: u16 = 64;
-
-const TACTICAL_WEAPON_ICON_SUPERSAMPLING: u8 = 4;
-
-const EQUIPMENT_ICON_COLUMNS: usize = 8;
-const EQUIPMENT_ICON_ROWS: usize = 7;
-
-const EQUIPMENT_ICON_SLUGS: [&str; 56] = [
-    "ancient-sword",
-    "arm-bandage",
-    "armor-cuisses",
-    "armor-vest",
-    "barbute",
-    "belt-armor",
-    "bo",
-    "bordered-shield",
-    "bow-arrow",
-    "bowie-knife",
-    "bracer",
-    "breastplate",
-    "broad-dagger",
-    "broadsword",
-    "brodie-helmet",
-    "chain-mail",
-    "chest-armor",
-    "crested-helmet",
-    "crossbow",
-    "daggers",
-    "flanged-mace",
-    "greaves",
-    "halberd",
-    "heavy-helm",
-    "helmet",
-    "knapsack",
-    "layered-armor",
-    "light-helm",
-    "mailed-fist",
-    "mail-shirt",
-    "metal-skirt",
-    "musket",
-    "piercing-sword",
-    "plain-dagger",
-    "pocket-bow",
-    "pteruges",
-    "relic-blade",
-    "rifle",
-    "roman-shield",
-    "round-shield",
-    "saber-slash",
-    "shield",
-    "shirt",
-    "skirt",
-    "sleeveless-jacket",
-    "spear-hook",
-    "spears",
-    "stiletto",
-    "sword-hilt",
-    "templar-shield",
-    "trousers",
-    "two-handed-sword",
-    "visored-helm",
-    "warhammer",
-    "wood-axe",
-    "wood-club",
-];
 
 static PROCEDURAL_EQUIPMENT_ASSETS: LazyLock<EquipmentAssets> = LazyLock::new(|| {
     // This is a committed build input, not gameplay admission. Invalid embedded data is an invariant failure.
@@ -173,27 +109,15 @@ struct WeaponMeshCache {
     materials: HashMap<WeaponMaterial, Handle<StandardMaterial>>,
 }
 
-#[derive(Resource, Default)]
-struct WeaponIconCache {
-    icons: HashMap<WeaponIconCacheKey, Handle<Image>>,
-    armor: HashMap<String, Handle<Image>>,
-}
-
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
 struct WeaponMeshCacheKey {
     generator_version: u16,
     design_hash: [u8; 32],
 }
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
-struct WeaponIconCacheKey {
-    source: IconSource,
-    generator_version: u16,
-    renderer_version: u16,
-    design_hash: [u8; 32],
-    size: u16,
-    supersampling: u8,
-}
+/// Equipment overlays, which the game holds back while a scene is loading.
+#[derive(SystemSet, Clone, Copy, Debug, Eq, Hash, PartialEq)]
+pub(crate) struct EquipmentHudSet;
 
 #[derive(Component)]
 pub(crate) struct ItemPlaceholder(pub(crate) Entity);
@@ -222,12 +146,6 @@ enum GrabSelection {
     Window(Entity),
 }
 
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
-enum IconSource {
-    Weapon,
-    Holder,
-}
-
 impl Plugin for TacticalEquipmentPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(EquipmentVisualPlugin)
@@ -237,28 +155,15 @@ impl Plugin for TacticalEquipmentPlugin {
                 PreUpdate,
                 update_grab_input.after(bevy::input::InputSystems),
             )
-            .add_systems(Update, update_pickup_outlines)
-            .add_systems(EguiPrimaryContextPass, draw_slot_hud);
+            .add_systems(
+                Update,
+                (
+                    update_pickup_outlines,
+                    slot_hud::push_slot_hud.in_set(EquipmentHudSet),
+                ),
+            )
+            .add_observer(slot_hud::apply_slot_hud_press);
     }
-}
-
-fn icon_uv(slug: &str) -> egui::Rect {
-    let index = EQUIPMENT_ICON_SLUGS
-        .iter()
-        .position(|candidate| *candidate == slug)
-        .unwrap_or(0);
-    let column = (index % EQUIPMENT_ICON_COLUMNS) as f32;
-    let row = (index / EQUIPMENT_ICON_COLUMNS) as f32;
-    egui::Rect::from_min_max(
-        egui::pos2(
-            column / EQUIPMENT_ICON_COLUMNS as f32,
-            row / EQUIPMENT_ICON_ROWS as f32,
-        ),
-        egui::pos2(
-            (column + 1.0) / EQUIPMENT_ICON_COLUMNS as f32,
-            (row + 1.0) / EQUIPMENT_ICON_ROWS as f32,
-        ),
-    )
 }
 
 fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Option<&'static str> {
@@ -268,18 +173,6 @@ fn procedural_equipment_file(item_id: &str, placement_id: Option<&str>) -> Optio
     match placement_id {
         Some(id) => PROCEDURAL_EQUIPMENT_ASSETS.file_for(item.placement(id)?),
         None => PROCEDURAL_EQUIPMENT_ASSETS.default_file_for(item),
-    }
-}
-
-fn procedural_equipment_asset_path(file: &str) -> String {
-    let path = format!("equipment/procedural/{file}");
-    #[cfg(not(target_family = "wasm"))]
-    {
-        format!("workspace://{path}")
-    }
-    #[cfg(target_family = "wasm")]
-    {
-        path
     }
 }
 
@@ -394,298 +287,6 @@ fn update_grab_input(
         action,
     });
     (session.active, session.selection, session.repeated_input) = (None, None, None);
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "Bevy injects HUD contexts, icon stores, player equipment, appearances, and grab state independently"
-)]
-fn draw_slot_hud(
-    mut contexts: EguiContexts,
-    asset_server: Res<AssetServer>,
-    mut icon_atlas: Local<Option<Handle<Image>>>,
-    mut weapon_icon_cache: ResMut<WeaponIconCache>,
-    mut images: ResMut<Assets<Image>>,
-    player: Single<Entity, With<ClientPlayer>>,
-    items: Query<(
-        Entity,
-        &ItemOf,
-        Option<&EquipSlot>,
-        &ItemProperties,
-        &EquipmentTopology,
-    )>,
-    scene_items: Query<(Entity, &ItemProperties), With<TacticalSceneItem>>,
-    weapon_appearances: Query<(Entity, &WeaponAppearance)>,
-    holder_appearances: Query<(Entity, &WeaponHolderAppearance)>,
-    mut session: ResMut<GrabSession>,
-) {
-    let Some(hand) = session.active else { return };
-    let actor = *player;
-    let held = items.iter().find(|(_, owner, slot, _, _)| {
-        owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())
-    });
-    let atlas = icon_atlas.get_or_insert_with(|| asset_server.load("tactical-equipment-icons.png"));
-    let atlas_texture = contexts.add_image(EguiTextureHandle::Weak(atlas.id()));
-    let mut procedural_textures = procedural_textures(
-        &mut contexts,
-        &mut weapon_icon_cache,
-        &mut images,
-        &weapon_appearances,
-        &holder_appearances,
-    );
-    procedural_textures.extend(weapon_icon_cache.armor_textures(
-        &items,
-        &scene_items,
-        &asset_server,
-        &mut contexts,
-    ));
-    let Ok(context) = contexts.ctx_mut() else {
-        return;
-    };
-    let invalid = session.invalid_flash_remaining > 0.0;
-    egui::Window::new(match hand {
-        EquipmentHand::Left => "Left-hand grab",
-        EquipmentHand::Right => "Right-hand grab",
-    })
-    .anchor(egui::Align2::CENTER_BOTTOM, egui::vec2(0.0, -20.0))
-    .title_bar(false)
-    .resizable(false)
-    .frame(egui::Frame::NONE)
-    .show(context, |ui| {
-        let size = egui::vec2(64.0, 48.0);
-        let mut joined_cells = Vec::new();
-        egui::Grid::new("tactical-slot-qwerty")
-            .num_columns(7)
-            .spacing(egui::vec2(5.0, 5.0))
-            .show(ui, |ui| {
-                for row in 0..4 {
-                    for column in 0..7 {
-                        if let Some(mapping) = INPUT_ADDRESS_MAPPINGS.iter().find(|mapping| {
-                            mapping.keyboard_row == row && mapping.keyboard_column == column
-                        }) {
-                            let slot = slot_selection::hud_slot(&session, mapping, HeldPreviewItem::from(held.map(|(_, _, _, properties, _)| properties)), |location| hud_layers(actor, location, &items));
-                            let location = slot.map_or(mapping.locations[0], |slot| slot.location);
-                            let layers = hud_layers(actor, location, &items);
-                            let outermost = outermost_occupied_depth(&layers)
-                                .and_then(|depth| Some((depth, *layers.get(depth)?)));
-                            let selection_depth = slot.map(|slot| usize::from(slot.depth));
-                            let eligible = selection_depth.is_some();
-                            let selected = matches!(
-                                session.selection,
-                                Some(GrabSelection::Slot { location: found, .. }) if found == location
-                            );
-                            let fill = if selected {
-                                egui::Color32::from_rgba_unmultiplied(45, 105, 170, 105)
-                            } else if eligible {
-                                egui::Color32::from_white_alpha(22)
-                            } else {
-                                egui::Color32::from_black_alpha(90)
-                            };
-                            let stroke = if invalid && !eligible {
-                                egui::Stroke::new(2.0_f32, egui::Color32::from_rgb(190, 45, 45))
-                            } else if selected {
-                                egui::Stroke::new(
-                                    2.0_f32,
-                                    egui::Color32::from_rgb(105, 175, 255),
-                                )
-                            } else if eligible {
-                                egui::Stroke::new(1.5_f32, egui::Color32::from_white_alpha(180))
-                            } else {
-                                egui::Stroke::new(1.0_f32, egui::Color32::from_white_alpha(28))
-                            };
-                            let frame = egui::Frame::NONE
-                                .fill(fill)
-                                .stroke(stroke)
-                                .corner_radius(5.0)
-                                .inner_margin(4.0)
-                                .show(ui, |ui| {
-                                    ui.set_min_size(size);
-                                    ui.label(
-                                        egui::RichText::new(mapping.input.to_uppercase())
-                                            .small()
-                                            .strong()
-                                            .color(if eligible {
-                                                egui::Color32::WHITE
-                                            } else {
-                                                egui::Color32::from_white_alpha(75)
-                                            }),
-                                    );
-                                    let Some((_, layer)) = outermost else {
-                                        return;
-                                    };
-                                    let Ok((_, _, _, item, topology)) = items.get(layer.addressed_entity())
-                                    else {
-                                        return;
-                                    };
-                                    let icon = item_catalog::definition(&item.id)
-                                        .map(|definition| definition.presentation.icon.as_str())
-                                        .unwrap_or("help");
-                                    let response = ui.add(
-                                        equipment_icon_image(
-                                            Some(layer.addressed_entity()),
-                                            icon,
-                                            egui::vec2(27.0, 27.0),
-                                            &procedural_textures,
-                                            atlas_texture,
-                                        )
-                                        .tint(if eligible {
-                                            egui::Color32::WHITE
-                                        } else {
-                                            egui::Color32::from_white_alpha(75)
-                                        }),
-                                    );
-                                    let multi = topology
-                                        .occupancies
-                                        .iter()
-                                        .filter(|occupancy| {
-                                            matches!(
-                                                occupancy.anchor,
-                                                TacticalEquipmentAnchor::CharacterLocation(_)
-                                            )
-                                        })
-                                        .count()
-                                        > 1;
-                                    if multi {
-                                        joined_cells.push((response.rect, layer.addressed_entity()));
-                                    }
-                                });
-                            let tooltip = if let Some((_, _, _, held, _)) = held {
-                                if eligible {
-                                    format!(
-                                        "{}: place or swap {}",
-                                        mapping.input.to_uppercase(),
-                                        held.id
-                                    )
-                                } else {
-                                    format!(
-                                        "{}: {} cannot be placed here",
-                                        mapping.input.to_uppercase(),
-                                        held.id
-                                    )
-                                }
-                            } else if let Some((_, layer)) = outermost {
-                                if let Ok((_, _, _, item, _)) = items.get(layer.addressed_entity()) {
-                                    format!(
-                                        "{}: draw {}",
-                                        mapping.input.to_uppercase(),
-                                        item.id
-                                    )
-                                } else {
-                                    mapping.input.to_uppercase()
-                                }
-                            } else {
-                                format!("{}: empty", mapping.input.to_uppercase())
-                            };
-                            let response = ui
-                                .interact(
-                                    frame.response.rect,
-                                    egui::Id::new(("tactical-slot", mapping.input)),
-                                    egui::Sense::click(),
-                                )
-                                .on_hover_text(tooltip);
-                            if response.clicked()
-                                && let Some(slot) = slot
-                            {
-                                slot_selection::apply_slot(&mut session, mapping, slot);
-                            }
-                        } else {
-                            ui.allocate_space(size);
-                        }
-                    }
-                    ui.end_row();
-                }
-            });
-        for (index, (left, entity)) in joined_cells.iter().enumerate() {
-            for (right, other) in joined_cells.iter().skip(index + 1) {
-                if entity != other { continue; }
-                let horizontally_adjacent = (left.center().y - right.center().y).abs() < 8.0
-                    && (left.right() - right.left()).abs().min((right.right() - left.left()).abs()) < 16.0;
-                let vertically_adjacent = (left.center().x - right.center().x).abs() < 8.0
-                    && (left.bottom() - right.top()).abs().min((right.bottom() - left.top()).abs()) < 16.0;
-                if horizontally_adjacent || vertically_adjacent {
-                    let segment = if horizontally_adjacent {
-                        let (first, second) = if left.center().x < right.center().x { (left, right) } else { (right, left) };
-                        [egui::pos2(first.right(), first.center().y), egui::pos2(second.left(), second.center().y)]
-                    } else {
-                        let (first, second) = if left.center().y < right.center().y { (left, right) } else { (right, left) };
-                        [egui::pos2(first.center().x, first.bottom()), egui::pos2(second.center().x, second.top())]
-                    };
-                    context.layer_painter(egui::LayerId::new(egui::Order::Foreground, egui::Id::new("equipment-cell-joins")))
-                        .line_segment(segment, egui::Stroke::new(5.0_f32, egui::Color32::from_rgb(75, 115, 165)));
-                }
-            }
-        }
-        ui.horizontal(|ui| {
-            let active_entity = held.map(|(entity, _, _, _, _)| entity);
-            let active_icon = held
-                .and_then(|(_, _, _, item, _)| item_catalog::definition(&item.id))
-                .map_or("mailed-fist", |definition| {
-                    definition.presentation.icon.as_str()
-                });
-            ui.add(
-                equipment_icon_image(
-                    active_entity,
-                    active_icon,
-                    egui::vec2(28.0, 28.0),
-                    &procedural_textures,
-                    atlas_texture,
-                ),
-            )
-            .on_hover_text(match hand {
-                EquipmentHand::Left => "Active left hand",
-                EquipmentHand::Right => "Active right hand",
-            });
-
-            let other = match hand {
-                EquipmentHand::Left => EquipmentHand::Right,
-                EquipmentHand::Right => EquipmentHand::Left,
-            };
-            let other_item = items
-                .iter()
-                .find(|(_, owner, slot, _, _)| {
-                    owner.0 == actor && slot.is_some_and(|slot| *slot == other.slot())
-                });
-            let other_entity = other_item.map(|(entity, _, _, _, _)| entity);
-            let other_icon = other_item
-                .and_then(|(_, _, _, item, _)| item_catalog::definition(&item.id))
-                .map_or("mailed-fist", |definition| definition.presentation.icon.as_str());
-            let other_button = egui::Button::image(
-                equipment_icon_image(
-                    other_entity,
-                    other_icon,
-                    egui::vec2(24.0, 24.0),
-                    &procedural_textures,
-                    atlas_texture,
-                ),
-            )
-            .min_size(egui::vec2(32.0, 32.0))
-            .fill(egui::Color32::TRANSPARENT);
-            if ui
-                .add(other_button)
-                .on_hover_text("Move or swap with the other hand")
-                .clicked()
-            {
-                session.selection = Some(GrabSelection::Hand(other));
-            }
-
-            if held.is_none()
-                && let Some(GrabSelection::SceneItem(entity)) = session.selection
-                && let Ok((_, item)) = scene_items.get(entity)
-            {
-                let icon = item_catalog::definition(&item.id)
-                    .map(|definition| definition.presentation.icon.as_str())
-                    .unwrap_or("help");
-                ui.add(equipment_icon_image(
-                    Some(entity),
-                    icon,
-                    egui::vec2(24.0, 24.0),
-                    &procedural_textures,
-                    atlas_texture,
-                ))
-                .on_hover_text(format!("Release to pick up {}", item.id));
-            }
-        });
-    });
 }
 
 fn weapon_material(
@@ -1298,41 +899,30 @@ mod tests {
     }
 
     #[test]
-    fn identical_weapon_recipes_share_cached_tactical_icon_handles() {
+    fn identical_weapon_recipes_share_one_tactical_icon() {
         let appearance = longsword_appearance();
         let mut cache = WeaponIconCache::default();
-        let mut images = Assets::<Image>::default();
-        let first = cached_weapon_icon(&appearance, &mut cache, &mut images).unwrap();
-        let second = cached_weapon_icon(&appearance, &mut cache, &mut images).unwrap();
+        let first = cached_weapon_icon(&appearance, &mut cache).unwrap();
+        let second = cached_weapon_icon(&appearance, &mut cache).unwrap();
         assert_eq!(first, second);
-        assert_eq!(cache.icons.len(), 1);
-        let image = images.get(&first).unwrap();
-        assert_eq!(
-            image.texture_descriptor.size,
-            Extent3d {
-                width: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-                height: u32::from(TACTICAL_WEAPON_ICON_SIZE),
-                depth_or_array_layers: 1,
-            }
-        );
+        assert_eq!(cache.len(), 1);
     }
 
     #[test]
     fn tactical_icon_cache_reauthenticates_recipe_before_a_warm_hit() {
         let valid = longsword_appearance();
         let mut cache = WeaponIconCache::default();
-        let mut images = Assets::<Image>::default();
-        assert!(cached_weapon_icon(&valid, &mut cache, &mut images).is_some());
+        assert!(cached_weapon_icon(&valid, &mut cache).is_some());
 
         let mut borrowed_hash = valid;
         let other = adventuresim_weapon_model::default_design("rondel_dagger").unwrap();
         borrowed_hash.recipe = adventuresim_weapon_model::encode(&other).unwrap();
-        assert!(cached_weapon_icon(&borrowed_hash, &mut cache, &mut images).is_none());
-        assert_eq!(cache.icons.len(), 1);
+        assert!(cached_weapon_icon(&borrowed_hash, &mut cache).is_none());
+        assert_eq!(cache.len(), 1);
     }
 
     #[test]
-    fn distinct_weapon_designs_get_distinct_tactical_icon_handles() {
+    fn distinct_weapon_designs_get_distinct_tactical_icons() {
         let longsword = longsword_appearance();
         let rondel = adventuresim_weapon_model::default_design("rondel_dagger").unwrap();
         let rondel = WeaponAppearance {
@@ -1341,11 +931,10 @@ mod tests {
             recipe: adventuresim_weapon_model::encode(&rondel).unwrap(),
         };
         let mut cache = WeaponIconCache::default();
-        let mut images = Assets::<Image>::default();
-        let longsword = cached_weapon_icon(&longsword, &mut cache, &mut images).unwrap();
-        let rondel = cached_weapon_icon(&rondel, &mut cache, &mut images).unwrap();
+        let longsword = cached_weapon_icon(&longsword, &mut cache).unwrap();
+        let rondel = cached_weapon_icon(&rondel, &mut cache).unwrap();
         assert_ne!(longsword, rondel);
-        assert_eq!(cache.icons.len(), 2);
+        assert_eq!(cache.len(), 2);
     }
 
     fn longsword_holder_appearance() -> WeaponHolderAppearance {
@@ -1359,26 +948,24 @@ mod tests {
     }
 
     #[test]
-    fn identical_holder_recipes_share_cached_tactical_icon_handles() {
+    fn identical_holder_recipes_share_one_tactical_icon() {
         let appearance = longsword_holder_appearance();
         let mut cache = WeaponIconCache::default();
-        let mut images = Assets::<Image>::default();
-        let first = cached_holder_icon(&appearance, &mut cache, &mut images).unwrap();
-        let second = cached_holder_icon(&appearance, &mut cache, &mut images).unwrap();
+        let first = cached_holder_icon(&appearance, &mut cache).unwrap();
+        let second = cached_holder_icon(&appearance, &mut cache).unwrap();
         assert_eq!(first, second);
-        assert_eq!(cache.icons.len(), 1);
+        assert_eq!(cache.len(), 1);
     }
 
     #[test]
     fn tactical_holder_icon_cache_reauthenticates_before_a_warm_hit() {
         let valid = longsword_holder_appearance();
         let mut cache = WeaponIconCache::default();
-        let mut images = Assets::<Image>::default();
-        assert!(cached_holder_icon(&valid, &mut cache, &mut images).is_some());
+        assert!(cached_holder_icon(&valid, &mut cache).is_some());
         let mut tampered = valid;
         tampered.recipe[5] ^= 0x3c;
-        assert!(cached_holder_icon(&tampered, &mut cache, &mut images).is_none());
-        assert_eq!(cache.icons.len(), 1);
+        assert!(cached_holder_icon(&tampered, &mut cache).is_none());
+        assert_eq!(cache.len(), 1);
     }
 
     #[test]

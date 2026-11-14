@@ -989,11 +989,11 @@ const fn traversal_view(slug: &'static str, label: &'static str, distance: f32) 
     .vista()
 }
 
-// Ordered temporal evidence for demand-driven tree residency. The first pass
-// starts with only the distant whole-tree card warm, crosses every production
+// Ordered temporal evidence for tree residency. A variant's first request
+// makes every tier resident, so the first pass, which crosses every production
 // LOD and leaf-representation handoff, retreats, then repeats the exact inward
-// path with the generated assets resident. Non-warmup views intentionally use
-// no settle frames or disposable readbacks in the capture driver.
+// path, should show no generation on approach. Non-warmup views intentionally
+// use no settle frames or disposable readbacks in the capture driver.
 pub(super) const TREE_COLD_TRAVERSAL_VIEWS: [CaptureViewSpec; 41] = [
     CaptureViewSpec::new(
         "warmup",

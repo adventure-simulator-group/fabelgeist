@@ -26,75 +26,44 @@ pub(in crate::presentation::ground_scatter) fn spawn(
         billboard_material,
     } = PatchAssets::new(meshes, pebble_materials, billboard_materials, half_extent);
 
+    // One batch per patch mesh and LOD instead of two or three entities per
+    // qualifying ground sample. Instances carry yaw and uniform scale only, so
+    // a patch stands plumb rather than tilting into the terrain normal; at a
+    // 3--8 cm diameter that tilt is below one pixel well before the hero band
+    // ends, and the slope rejection in `PatchPlacement` already keeps patches
+    // off ground steep enough for it to read.
+    let mut per_variant: Vec<Vec<ChunkInstance>> =
+        vec![Vec::new(); PebbleDensity::ALL.len() * MESH_VARIANTS as usize];
     for (index, sample) in ground.samples().iter().enumerate() {
         let Some(PatchPlacement {
             variant,
-            woodland,
+            woodland: _,
             transform,
         }) = PatchPlacement::new(ground, terrain, index, *sample, base_seed, half_extent)
         else {
             continue;
         };
-        commands.spawn((
-            Name::new(if woodland {
-                "Tactical woodland hero pebble patch"
-            } else {
-                "Tactical loose-stone hero pebble patch"
-            }),
-            GroundScatterLayer::LooseStone,
-            LooseStonePebblePatch::hero(pebble_counts[variant]),
-            NotShadowCaster,
-            Mesh3d(hero_meshes[variant].clone()),
-            MeshMaterial3d(if woodland {
-                woodland_stone_material.clone()
-            } else {
-                stone_material.clone()
-            }),
-            pebble_lod_visibility(PebbleMeshLod::Hero),
-            transform,
-        ));
-        commands.spawn((
-            Name::new(if woodland {
-                "Tactical woodland near pebble patch"
-            } else {
-                "Tactical loose-stone near pebble patch"
-            }),
-            GroundScatterLayer::LooseStone,
-            LooseStonePebblePatch {
-                physical_pebbles: 0,
-            },
-            NotShadowCaster,
-            Mesh3d(near_meshes[variant].clone()),
-            MeshMaterial3d(if woodland {
-                woodland_stone_material.clone()
-            } else {
-                stone_material.clone()
-            }),
-            pebble_lod_visibility(PebbleMeshLod::Near),
-            transform,
-        ));
-        if !woodland {
-            commands.spawn((
-                Name::new("Tactical loose-stone billboard pebble patch"),
-                GroundScatterLayer::LooseStone,
-                LooseStonePebblePatch {
-                    physical_pebbles: 0,
-                },
-                // The shader yaws each pebble quad toward the camera, so the
-                // mesh's static bounds would mis-cull; this rotation-safe box
-                // restores frustum culling for off-screen patches.
-                bevy::camera::primitives::Aabb {
-                    center: bevy::math::Vec3A::new(0.0, 0.1, 0.0),
-                    half_extents: bevy::math::Vec3A::new(half_extent + 0.3, 0.4, half_extent + 0.3),
-                },
-                NotShadowCaster,
-                Mesh3d(billboard_meshes[variant].clone()),
-                MeshMaterial3d(billboard_material.clone()),
-                pebble_lod_visibility(PebbleMeshLod::Billboard),
-                transform,
-            ));
-        }
+        per_variant[variant].push(ChunkInstance {
+            position: transform.translation,
+            scale: transform.scale.x,
+            rotation: transform.rotation.to_euler(bevy::math::EulerRot::YXZ).0,
+            seed: (streams::INSTANCE.seed(base_seed, &[index as u64]).to_u64() & 0xffff_ffff)
+                as u32,
+        });
     }
+    super::batches::spawn(
+        commands,
+        super::batches::PebbleBatchAssets {
+            hero: &hero_meshes,
+            near: &near_meshes,
+            billboard: &billboard_meshes,
+            pebble_counts: &pebble_counts,
+            stone: stone_material,
+            woodland_stone: woodland_stone_material,
+            billboard_material,
+        },
+        per_variant,
+    );
 }
 
 struct PatchAssets {

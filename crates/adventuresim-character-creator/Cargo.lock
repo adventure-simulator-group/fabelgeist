@@ -172,6 +172,7 @@ dependencies = [
  "enumflags2",
  "fabelgeist-determinism",
  "fabelgeist-geometry",
+ "fabelgeist-math",
  "serde",
  "serde-saphyr",
  "serde_json",
@@ -5042,6 +5043,7 @@ dependencies = [
  "anyhow",
  "async-lock",
  "bytemuck",
+ "derive_more 2.1.1",
  "fabelgeist-color",
  "fabelgeist-math",
  "fabelgeist-timer",
@@ -5109,6 +5111,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "burn",
+ "derive_more 2.1.1",
  "fabelgeist-fbx",
  "fabelgeist-fs",
  "fabelgeist-numpy-storage",
@@ -5121,8 +5124,10 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "burn",
+ "derive_more 2.1.1",
  "flate2",
  "memmap2",
+ "rawzip",
 ]
 
 [[package]]
@@ -8713,6 +8718,12 @@ name = "rawpointer"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60a357793950651c4ed0f3f52338f53b2f809f32d83a07f72909fa13e4c6c1e3"
+
+[[package]]
+name = "rawzip"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
 
 [[package]]
 name = "rayon"

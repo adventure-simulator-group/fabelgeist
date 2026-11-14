@@ -26,9 +26,16 @@ pub mod prelude {
     };
     #[cfg(feature = "server")]
     pub use crate::server::AdventureSimulatorServer;
+    #[cfg(feature = "client")]
+    pub use aeronet::io::connection::{DisconnectReason, Disconnected};
 }
 
-const FIXED_TIMESTEP_HZ: f64 = 64.0;
+/// Fixed simulation tick shared by the tactical server and client. Matches the
+/// 30 Hz ceiling of the netahoy transport the tactical layer is moving to.
+/// Locomotion samples stay at their own rate (`locomotion.sample_hz`); the
+/// server derives the sample tick from elapsed time, so a tick spans several
+/// samples.
+pub const TACTICAL_TICK_HZ: u32 = 30;
 pub const DEFAULT_SERVER_ADDR: std::net::SocketAddr =
     std::net::SocketAddr::new(std::net::IpAddr::V4(std::net::Ipv4Addr::LOCALHOST), 6000);
 pub const DEFAULT_SERVER_URL: &str = "ws://127.0.0.1:6000";

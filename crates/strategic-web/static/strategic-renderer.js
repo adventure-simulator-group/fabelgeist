@@ -1,4 +1,5 @@
 import { installStrategicScene } from "./strategic-scene.js?v=regional-map-1";
+import { installTacticalHud } from "/tactical/tactical-hud.js";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;
@@ -163,6 +164,8 @@ const forgeHostContains = (event) => {
 };
 
 if (surface && canvas) {
+  // The HUD must exist before the client's first frame calls into it.
+  installTacticalHud({ container: surface, command });
   runtimePromise = import("/tactical/wasm/adventuresim-tactical-client.js")
     .then(async (runtime) => {
       const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");
@@ -251,11 +254,14 @@ if (surface && canvas) {
       character_id: Number(link.dataset.characterId),
     });
   });
-  window.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !document.body.hasAttribute("data-tactical-active")) return;
+  window.exitTactical = () => {
+    if (!document.body.hasAttribute("data-tactical-active")) return;
     document.body.removeAttribute("data-tactical-active");
     command({ type: "exit-tactical" });
     mount();
     document.dispatchEvent(new Event("strategic-tactical-ended"));
+  };
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") window.exitTactical();
   });
 }

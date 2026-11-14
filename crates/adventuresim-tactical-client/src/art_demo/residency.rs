@@ -312,7 +312,19 @@ mod tests {
 
     #[test]
     fn studio_cache_evicts_the_least_recent_inactive_exhibit() {
-        let mut world = World::new();
+        use bevy::asset::{AssetApp, AssetPlugin};
+        use bevy::prelude::{App, TaskPoolPlugin};
+
+        let mut app = App::new();
+        app.add_plugins((
+            TaskPoolPlugin::default(),
+            AssetPlugin::default(),
+            adventuresim_procedural_textures::BakedTexturesPlugin,
+        ))
+        .init_asset::<WorldAsset>()
+        .init_asset::<Image>()
+        .init_resource::<crate::presentation::PreparedTreeImpostorAssets>();
+        let world = app.world_mut();
         world.init_resource::<ExhibitCache>();
         world.init_resource::<OrbitView>();
         world.init_resource::<Assets<Mesh>>();
@@ -326,7 +338,7 @@ mod tests {
             ExhibitId::Dagger,
             ExhibitId::Henry,
         ] {
-            show(&mut world, id);
+            show(world, id);
         }
         let cache = world.resource::<ExhibitCache>();
         assert_eq!(cache.studio.len(), STUDIO_CACHE_CAPACITY);

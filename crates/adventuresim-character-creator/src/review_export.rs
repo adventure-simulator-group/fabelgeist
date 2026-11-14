@@ -35,7 +35,7 @@ pub(super) fn export(
             "positions":body.positions,"normals":body.normals,"faces":character.mesh.faces,"recipe":recipe,
             "texcoords":character.mesh.texcoords,"texcoord_faces":character.mesh.texcoord_faces,
             "joint_names":character.skeleton.names,"joints":body.global_joint_states,
-            "joint_indices":character.skin_weights.index.native_words(),"joint_weights":character.skin_weights.weight,
+            "joint_indices":character.skin_weights.indices().native_words(),"joint_weights":character.skin_weights.weights().as_native_slice(),
             "generator_version":fabelgeist_armor::GENERATOR_VERSION
         }))?,
     )?;

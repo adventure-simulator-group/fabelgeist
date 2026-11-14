@@ -1,6 +1,5 @@
 //! Presentation-only browser boundary. Rectangles are physical canvas pixels.
-use crate::camera::viewport::CanvasRect;
-use bevy::prelude::Resource;
+use bevy::prelude::*;
 use serde::Deserialize;
 
 pub(crate) const FORGE_LAYER: usize = 1;
@@ -8,6 +7,7 @@ pub(crate) const COMPOSITOR_LAYER: usize = 2;
 use crate::presentation::ownership::REGIONAL_MAP_LAYER;
 pub(crate) const FIRST_PERSON_LAYER: usize = REGIONAL_MAP_LAYER + 1;
 
+pub(crate) use crate::presentation::canvas_view::CanvasRect;
 pub(crate) use crate::presentation::venues::{Place, PlaceId, PlaceKind, PortraitId};
 
 #[derive(Clone, Debug, Deserialize)]

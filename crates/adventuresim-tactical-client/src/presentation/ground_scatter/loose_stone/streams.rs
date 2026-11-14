@@ -5,6 +5,7 @@ pub(super) const CLUSTER_X: StreamId = StreamId::new("visual.ground-scatter.loos
 pub(super) const CLUSTER_Z: StreamId = StreamId::new("visual.ground-scatter.loose-stone.cluster-z");
 pub(super) const FACET: StreamId = StreamId::new("visual.ground-scatter.loose-stone.facet");
 pub(super) const HEIGHT: StreamId = StreamId::new("visual.ground-scatter.loose-stone.height");
+pub(super) const INSTANCE: StreamId = StreamId::new("visual.ground-scatter.loose-stone.instance");
 pub(super) const JITTER_X: StreamId = StreamId::new("visual.ground-scatter.loose-stone.jitter-x");
 pub(super) const JITTER_Z: StreamId = StreamId::new("visual.ground-scatter.loose-stone.jitter-z");
 pub(super) const LATERAL_SCALE: StreamId =

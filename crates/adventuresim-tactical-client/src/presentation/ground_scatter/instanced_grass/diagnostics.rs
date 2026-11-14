@@ -2,7 +2,7 @@ use bevy::prelude::*;
 
 use super::{GrassMeshLod, TacticalGrassInstancedMaterial};
 
-#[derive(Component)]
+#[derive(Component, Clone, Copy)]
 pub(crate) struct GrassTriangleCount(pub(crate) usize);
 
 pub(super) fn add_mesh(
@@ -11,18 +11,6 @@ pub(super) fn add_mesh(
 ) -> (Handle<Mesh>, GrassTriangleCount) {
     let triangles = crate::presentation::mesh_triangle_count(&mesh);
     (meshes.add(mesh), GrassTriangleCount(triangles))
-}
-
-pub(super) fn casts_shadows(
-    lod: GrassMeshLod,
-    grass: &crate::presentation::config::GrassConfig,
-) -> bool {
-    match lod {
-        GrassMeshLod::Near => grass.lighting.casts_shadows.near,
-        GrassMeshLod::NearEdge => grass.lighting.casts_shadows.near_edge,
-        GrassMeshLod::Far => grass.lighting.casts_shadows.far,
-        GrassMeshLod::Vista => grass.lighting.casts_shadows.vista,
-    }
 }
 
 pub(super) fn material(

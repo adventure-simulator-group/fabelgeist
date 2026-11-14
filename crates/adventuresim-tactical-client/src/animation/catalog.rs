@@ -62,7 +62,7 @@ pub(crate) enum CatalogError {
     InvalidAssetDirectory(String),
     InvalidMotionStem(String),
     DuplicatePose(SemanticPose),
-    UnknownMotion(String),
+    UnknownMotion(MotionId),
     InvalidPack(PackValidationError),
 }
 
@@ -122,7 +122,7 @@ impl PackBuilder {
         pose: SemanticPose,
     ) -> Result<(), CatalogError> {
         if !self.pack.motions.contains_key(motion) {
-            return Err(CatalogError::UnknownMotion(motion.to_string()));
+            return Err(CatalogError::UnknownMotion(motion.clone()));
         }
         if self
             .pack
@@ -148,7 +148,7 @@ impl PackBuilder {
         pose: SemanticPose,
     ) -> Result<(), CatalogError> {
         if !self.pack.motions.contains_key(motion) {
-            return Err(CatalogError::UnknownMotion(motion.to_string()));
+            return Err(CatalogError::UnknownMotion(motion.clone()));
         }
         self.pack
             .references

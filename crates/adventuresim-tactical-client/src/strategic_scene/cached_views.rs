@@ -2,10 +2,9 @@
 //! The live room, snapshots and HTML-clipped images still share one window canvas.
 use super::{
     RetainedScene,
-    protocol::{PortraitId, StrategicView},
-    views::ViewSpec,
+    protocol::{CanvasRect, PortraitId, StrategicView},
+    views::{StrategicCamera, ViewSpec},
 };
-use crate::{camera::viewport::CanvasRect, presentation::ownership::StrategicCamera};
 use adventuresim_core::equipment_presentation::EquipmentAppearance;
 use bevy::{
     camera::{CameraOutputMode, RenderTarget, visibility::RenderLayers},

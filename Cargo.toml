@@ -119,7 +119,6 @@ bevy_math = "0.19.0"
 bevy_enhanced_input = { version = "0.26.0", default-features = false, features = [
   "reflect",
 ] }
-bevy_flair = "0.8.0"
 bevy_egui = { version = "0.40.1", default-features = false, features = [
   "bevy_ui",
   "default_fonts",
@@ -127,7 +126,6 @@ bevy_egui = { version = "0.40.1", default-features = false, features = [
 bevy_mod_outline = { version = "0.13", default-features = false, features = [
   "flood",
 ] }
-bevy_eidolon = { version = "0.5" }
 bevy_panorbit_camera = { version = "0.35", features = ["bevy_egui"] }
 bytemuck = { version = "1", features = ["extern_crate_alloc"] }
 ciborium = "0.2"
@@ -190,16 +188,6 @@ adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
 adventuresim-core = { path = "crates/adventuresim-core" }
 adventuresim-puzzles = { path = "crates/adventuresim-puzzles" }
 adventuresim-strategic-sim = { path = "crates/adventuresim-strategic-sim" }
-# Fork carrying three fixes over 0.5.0: (1) the duplicate CullComputeCamera
-# extraction plugin that panics when more than one InstancedMaterialPlugin
-# registers, (2) skipping instanced meshes whose specialized pipeline hasn't
-# finished compiling, so the GPU-driven indirect draw doesn't fire against a
-# stale pipeline during runtime view-layout switches (atmosphere ->
-# environment_map at sky-bake freeze), and (3) the WebGPU draw path that loops
-# draw_indexed_indirect with a per-batch vertex offset where the native backend
-# issues multi_draw_indexed_indirect - the whole browser sward depends on it
-# (upstream PR NicoZweifel/bevy_eidolon#19). Consumed from our fork until merged.
-bevy_eidolon = { git = "https://github.com/barsoosayque/bevy_eidolon", branch = "fablegeist-0.19" }
 
 [profile.win-dev]
 inherits = "dev"
@@ -209,6 +197,8 @@ opt-level = 3
 
 [profile.dev]
 opt-level = 1
+debug = "none"
+incremental = false
 strip = "debuginfo"
 
 # Keep the ordinary release profile unchanged. The art demo pays the longer

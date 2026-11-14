@@ -33,8 +33,8 @@ pub(super) fn clothing(
         &generated.positions,
         &generated.normals,
         &character.mesh.faces,
-        &character.skin_weights.index,
-        &character.skin_weights.weight,
+        character.skin_weights.indices(),
+        character.skin_weights.weights().as_native_slice(),
         &character.skeleton.names,
         &generated.global_joint_states,
     )

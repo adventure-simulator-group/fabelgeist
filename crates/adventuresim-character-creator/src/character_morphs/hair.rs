@@ -1,6 +1,7 @@
 //! Hair placed again on every sampled head, for the body's morph channels.
 use super::*;
 use adventuresim_character_creator::hair::{GroomedHair, HairGeometry, HeadPlacement, HeadSkin};
+use fabelgeist_mhr::character::MeshVertexIndex;
 
 impl CharacterMorphs {
     /// One target per body channel: `base`, the hair as `placement` puts it
@@ -20,8 +21,8 @@ impl CharacterMorphs {
             .map(|sample| {
                 let skin = HeadSkin {
                     positions: &sample.positions,
-                    joint_indices: &character.skin_weights.index,
-                    joint_weights: &character.skin_weights.weight,
+                    joint_indices: character.skin_weights.indices(),
+                    joint_weights: character.skin_weights.weights().as_native_slice(),
                     joint_names: &character.skeleton.names,
                     global_joint_states: &sample.global_joint_states,
                 };
@@ -46,7 +47,12 @@ impl CharacterMorphs {
                     sample,
                     &self.reference_joints,
                     &joints,
-                    &vec![skin.weights; count],
+                    (0..count).map(|vertex| {
+                        (
+                            MeshVertexIndex::from_native_vertex_index(vertex),
+                            skin.weights,
+                        )
+                    }),
                 );
                 Ok(delta)
             })

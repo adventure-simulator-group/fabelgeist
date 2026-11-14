@@ -23,8 +23,6 @@ mod rig;
 mod rig_history;
 mod smoothing;
 mod values;
-#[cfg(any(target_family = "wasm", test))]
-pub(crate) mod viewport;
 
 pub struct TacticalCameraPlugin;
 
@@ -144,6 +142,7 @@ fn toggle_camera_debug(
 ) {
     if keyboard.just_pressed(KeyCode::F6) {
         enabled.0 = !enabled.0;
+        info!(enabled = enabled.0, "Camera rig debug toggled");
     }
 }
 

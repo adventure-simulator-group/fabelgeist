@@ -10,6 +10,16 @@ They preserve character travel limits and authored movement parameters.
 
 See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
 
+## rawzip ZIP structure parser
+
+The NumPy archive reader uses Nick Babcock's unmodified `rawzip` 0.5.2 registry
+dependency under the MIT license. Rawzip owns ZIP record framing and ZIP64
+interpretation; Fabelgeist retains archive lookup and decompression policy.
+
+- Source: <https://github.com/nickbabcock/rawzip>
+- Published version: <https://crates.io/crates/rawzip/0.5.2>
+- License: <https://docs.rs/crate/rawzip/0.5.2/source/LICENSE.txt>
+
 ## microlp bounded city packing solver
 
 The shared city compiler uses the pinned `microlp` 0.6.0 Cargo dependency for

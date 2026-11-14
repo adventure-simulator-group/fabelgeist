@@ -1,6 +1,10 @@
 //! Multiple clipped camera views, all targeting the single game canvas.
-use super::{RetainedScene, buildings::ROOM_LAYER, protocol::StrategicView};
-use crate::{camera::viewport::CanvasRect, presentation::ownership::StrategicCamera};
+use super::{
+    RetainedScene,
+    buildings::ROOM_LAYER,
+    protocol::{CanvasRect, StrategicView},
+};
+pub(crate) use crate::presentation::canvas_view::StrategicCamera;
 use adventuresim_building_generator::spatial_geometry::Position;
 use adventuresim_tactical_core::scene_coordinates::Scene;
 use bevy::{camera::visibility::RenderLayers, prelude::*};

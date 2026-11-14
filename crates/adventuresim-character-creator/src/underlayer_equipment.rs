@@ -67,11 +67,11 @@ fn with_body(
         positions: &generated.positions,
         normals: &generated.normals,
         joints: &generated.global_joint_states,
-        joint_indices: &character.skin_weights.index,
-        joint_weights: &character.skin_weights.weight,
+        joint_indices: character.skin_weights.indices(),
+        joint_weights: character.skin_weights.weights().as_native_slice(),
         joint_names: &character.skeleton.names,
     };
-    let static_samples = proportions::samples(model, generated);
+    let static_samples = proportions::samples(model, generated)?;
     let proportions = static_samples.iter().map(shape).collect::<Vec<_>>();
     let shapes = morphs
         .iter()

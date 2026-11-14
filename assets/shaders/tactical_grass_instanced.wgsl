@@ -1,4 +1,4 @@
-// GPU-instanced grass tufts on bevy_eidolon's instanced-material pipeline.
+// Chunk-instanced grass tufts.
 //
 // This is the instanced port of the grass path in `tactical_foliage.wgsl`.
 // One instance is a multi-blade tuft; per-blade shape, pigment, and age are
@@ -18,9 +18,9 @@
     shadows,
 }
 
-#import bevy_eidolon::render::utils
-#import bevy_eidolon::render::bindings::instance_uniforms
-#import bevy_eidolon::render::io_types::Vertex
+#import fablegeist::chunk_instancing::{
+    Vertex, chunk_band, instance_world_matrix, visibility_range_dither_level,
+}
 
 struct TacticalGrassInstancedUniform {
     // Wind direction xy, strength, and time scale.
@@ -47,18 +47,12 @@ struct GrassVertexOutput {
     @location(2) world_normal: vec3<f32>,
     @location(3) uv: vec2<f32>,
     @location(4) color: vec4<f32>,
-    @location(5) @interpolate(flat) i_batch_id: u32,
 }
 
 @vertex
 fn vertex(vertex: Vertex) -> GrassVertexOutput {
     var out: GrassVertexOutput;
-    let batch = instance_uniforms[vertex.i_batch_id];
-    let instance_matrix = utils::calc_instance_world_matrix(
-        vertex.i_pos_scale,
-        vertex.i_rotation,
-        batch.world_from_local,
-    );
+    let instance_matrix = instance_world_matrix(vertex.i_pos_scale, vertex.i_rotation);
 
     var blade_root_local = vec3<f32>(0.0, 0.0, 0.0);
     var blade_threshold = 0.0;
@@ -217,16 +211,12 @@ fn vertex(vertex: Vertex) -> GrassVertexOutput {
     ));
     out.uv = vertex.uv;
 #ifdef VERTEX_COLORS
-    out.color = vec4<f32>(vertex.color.rgb, 1.0) * batch.color;
+    out.color = vec4<f32>(vertex.color.rgb, 1.0);
 #else
-    out.color = batch.color;
+    out.color = vec4<f32>(1.0);
 #endif
-    out.i_batch_id = vertex.i_batch_id;
 #ifdef VISIBILITY_RANGE_DITHER
-    out.visibility_range_dither = utils::get_visibility_range_dither_level(
-        batch.visibility_range,
-        vec4<f32>(root_world, 1.0),
-    );
+    out.visibility_range_dither = visibility_range_dither_level(chunk_band.visibility_range, root_world);
 #endif
     return out;
 }

@@ -704,10 +704,14 @@ pub(in crate::presentation) fn stream_tree_lod_children(
             .get_mut(&presentation.cache_key)
             .expect("streamed tree cache entry remains resident");
         let prepared = prepared.get();
+        // A variant's first request builds every tier and both leaf forms. The
+        // scene's trees all make that request while the loading screen is up,
+        // so walking towards a tree later only spawns children; generating a
+        // tier on approach stalled the frame by tens of milliseconds.
         ensure_tree_assets_resident(
             cached,
-            mask,
-            selected_leaf,
+            EVERY_TREE_TIER,
+            None,
             prepared,
             &mut meshes,
             &mut tree_materials,
@@ -746,6 +750,9 @@ fn tree_streamed_leaf_representation(scaled_distance: f32) -> Option<TreeLeafRep
         None
     }
 }
+
+/// Residency mask with the trunk, detailed crown and all four card tiers.
+const EVERY_TREE_TIER: u8 = 0b11_1111;
 
 fn tree_streaming_mask(scaled_distance: f32) -> u8 {
     // Generate each incoming crown tier one full outgoing LOD band before it
@@ -1206,9 +1213,9 @@ mod tests {
         );
 
         assert!(cached.aggregate_branch_meshes.iter().all(Option::is_some));
-        assert_eq!(diagnostics.aggregate_branch_vertices_by_lod, [4_810, 462]);
-        assert_eq!(diagnostics.aggregate_branch_triangles_by_lod, [7_099, 700]);
-        assert_eq!(diagnostics.aggregate_branch_vertices, 5_272);
+        assert_eq!(diagnostics.aggregate_branch_vertices_by_lod, [4_630, 462]);
+        assert_eq!(diagnostics.aggregate_branch_triangles_by_lod, [6_811, 700]);
+        assert_eq!(diagnostics.aggregate_branch_vertices, 5_092);
     }
 
     #[test]
