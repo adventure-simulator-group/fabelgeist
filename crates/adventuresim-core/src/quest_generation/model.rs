@@ -99,7 +99,7 @@ impl CanonicalCause {
 macro_rules! open_catalog_id {
     ($name:ident { $($constant:ident => $value:literal),+ $(,)? }) => {
         #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-        pub struct $name { len: u8, bytes: [u8; 63] }
+        pub struct $name { len: u8, bytes: [u8; open_catalog_id_syntax::MAX_BYTES] }
         impl $name {
             $(#[allow(
                 non_upper_case_globals,
@@ -108,8 +108,8 @@ macro_rules! open_catalog_id {
             pub const $constant: Self = Self::from_static($value);)+
             pub const fn from_static(value: &str) -> Self {
                 let source = value.as_bytes();
-                assert!(!source.is_empty() && source.len() <= 63);
-                let mut bytes = [0; 63];
+                assert!(open_catalog_id_syntax::is_valid(value));
+                let mut bytes = [0; open_catalog_id_syntax::MAX_BYTES];
                 let mut index = 0;
                 while index < source.len() {
                     bytes[index] = source[index];
@@ -118,13 +118,10 @@ macro_rules! open_catalog_id {
                 Self { len: source.len() as u8, bytes }
             }
             pub fn try_new(value: &str) -> Result<Self, &'static str> {
-                if value.is_empty() || value.len() > 63 || !value.bytes().all(|byte|
-                    byte.is_ascii_lowercase() || byte.is_ascii_digit()
-                        || matches!(byte, b'_' | b'-' | b'.' | b':'))
-                {
+                if !open_catalog_id_syntax::is_valid(value) {
                     return Err("invalid open catalog ID");
                 }
-                let mut bytes = [0; 63];
+                let mut bytes = [0; open_catalog_id_syntax::MAX_BYTES];
                 bytes[..value.len()].copy_from_slice(value.as_bytes());
                 Ok(Self { len: value.len() as u8, bytes })
             }
