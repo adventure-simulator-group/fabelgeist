@@ -1,4 +1,5 @@
 //! One textile rasterizer for preview materials and portable exported textures.
+use crate::surface_alpha::SurfaceAlpha;
 use anyhow::Result;
 use bevy::{
     asset::RenderAssetUsages,
@@ -11,7 +12,7 @@ use image::ImageEncoder;
 pub struct TextileMaps {
     pub base_color_png: Vec<u8>,
     pub normal_png: Vec<u8>,
-    pub translucent: bool,
+    pub alpha: SurfaceAlpha,
     pub chart_boundary: TextileChartBoundary,
 }
 
@@ -31,11 +32,7 @@ pub fn material(
         metallic: surface.metallic,
         perceptual_roughness: surface.roughness,
         reflectance: 0.5 * fabric.finish.specular_factor(),
-        alpha_mode: if fabric.is_translucent() {
-            AlphaMode::Blend
-        } else {
-            AlphaMode::Opaque
-        },
+        alpha_mode: alpha_mode(fabric).into(),
         // A closed thin shell renders its outward-facing wall once. Rendering
         // both sides would accumulate the same cloth opacity twice.
         cull_mode: Some(bevy::render::render_resource::Face::Back),
@@ -92,7 +89,7 @@ pub fn textures(fabric: &TextileAppearance) -> Result<Option<TextileMaps>> {
         } else {
             encode(&[128, 128, 255, 255], 1, 1)?
         },
-        translucent: fabric.is_translucent(),
+        alpha: alpha_mode(fabric),
         chart_boundary: fabric.chart_boundary,
     }))
 }
@@ -104,11 +101,7 @@ impl From<TextileMaps> for crate::export::SurfaceTextures {
             base_color_png: Some(maps.base_color_png),
             normal_png: maps.normal_png,
             occlusion_png: None,
-            alpha: if maps.translucent {
-                crate::export::SurfaceAlpha::Blend
-            } else {
-                crate::export::SurfaceAlpha::Opaque
-            },
+            alpha: maps.alpha,
             sides: crate::export::SurfaceSides::Front,
             sampling: match maps.chart_boundary {
                 TextileChartBoundary::CyclicAcross => {
@@ -117,6 +110,14 @@ impl From<TextileMaps> for crate::export::SurfaceTextures {
                 TextileChartBoundary::Open => crate::export::SurfaceSampling::OpenGarment,
             },
         }
+    }
+}
+
+fn alpha_mode(fabric: &TextileAppearance) -> SurfaceAlpha {
+    if fabric.is_translucent() {
+        SurfaceAlpha::Blend
+    } else {
+        SurfaceAlpha::Opaque
     }
 }
 

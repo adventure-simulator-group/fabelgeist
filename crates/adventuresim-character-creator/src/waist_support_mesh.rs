@@ -93,7 +93,7 @@ impl WaistSupportPlan {
         let points = samples
             .iter()
             .map(|p| p.source.position(part))
-            .collect::<Result<Vec<_>>>()?;
+            .collect::<crate::cloth_closure_error::Result<Vec<_>>>()?;
         ensure!(points.len() >= 2, "waist support has no fitted span");
         let columns = points.len();
         let count = columns * 2;

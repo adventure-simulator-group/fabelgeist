@@ -1,7 +1,7 @@
 //! Observable garment binding across the leg boundary and fitting orientation.
 use adventuresim_character_creator::{
     garment::{DrapeInput, GarmentSelection, pattern::shapes, transfer_skin},
-    skin_transfer::SkinWeights,
+    skin_transfer::{SkinTransferError, SkinWeights},
 };
 use fabelgeist_rig::RigJointName;
 
@@ -123,16 +123,25 @@ fn opposing_leg_rotations_do_not_split_the_garment_center() {
 fn malformed_binding_inputs_fail_before_surface_queries() {
     let mut input = body();
     input.weights.pop();
-    assert!(transfer_skin(&input, &[[0., 0.5, 0.1]]).is_err());
+    assert!(matches!(
+        transfer_skin(&input, &[[0., 0.5, 0.1]]),
+        Err(SkinTransferError::MismatchedVertexArrays)
+    ));
     let input = body();
-    assert!(transfer_skin(&input, &[[f32::NAN, 0.5, 0.1]]).is_err());
+    assert!(matches!(
+        transfer_skin(&input, &[[f32::NAN, 0.5, 0.1]]),
+        Err(SkinTransferError::NonFiniteQuery { .. })
+    ));
     let input = body();
     let mut words = input.indices.native_words().to_vec();
     words[0][0] = u32::MAX;
     assert!(fabelgeist_rig::PackedRigSkin::from_native(words, input.names.joint_count()).is_err());
     let mut input = body();
     input.joints = input.joints.iter().take(4).copied().collect();
-    assert!(transfer_skin(&input, &[[0., 0.5, 0.1]]).is_err());
+    assert!(matches!(
+        transfer_skin(&input, &[[0., 0.5, 0.1]]),
+        Err(SkinTransferError::InvalidRigBinding)
+    ));
 }
 
 #[test]

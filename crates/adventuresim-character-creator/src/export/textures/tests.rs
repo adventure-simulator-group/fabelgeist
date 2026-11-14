@@ -13,7 +13,7 @@ fn maps() -> SurfaceTextures {
             include_bytes!("../../../../../assets_src/equipment/materials/mail-occlusion.png")
                 .to_vec(),
         ),
-        alpha: crate::export::SurfaceAlpha::Mask,
+        alpha: crate::surface_alpha::SurfaceAlpha::Mask,
         sides: crate::export::SurfaceSides::Both,
         sampling: crate::export::SurfaceSampling::Tile,
     }
@@ -85,7 +85,7 @@ fn normal_only_material_preserves_its_authored_metal_properties() {
     let mut normal_only = maps();
     normal_only.base_color_png = None;
     normal_only.occlusion_png = None;
-    normal_only.alpha = crate::export::SurfaceAlpha::Opaque;
+    normal_only.alpha = crate::surface_alpha::SurfaceAlpha::Opaque;
     normal_only.sampling = SurfaceSampling::WrappedGarment;
     export_equipment_with_maps(&path, normal_only, [0.25, 0.5, 0.75, 1.0], 0.8, 0.2).unwrap();
 

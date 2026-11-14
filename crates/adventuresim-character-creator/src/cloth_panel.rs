@@ -2,7 +2,6 @@
 //! Carrier positions are the innermost cloth face; material gauges add outward.
 use crate::armor_frames::Wearer;
 use crate::skin_transfer::SkinWeights;
-use anyhow::Result;
 use bevy::math::Vec3;
 
 #[path = "cloth_panel_anatomical.rs"]
@@ -18,6 +17,9 @@ mod fit_plan;
 #[path = "cloth_panel_normals.rs"]
 mod normal_field;
 pub use fit_plan::PanelPlan;
+pub use normal_field::PanelNormalError;
+
+type Result<T> = std::result::Result<T, PanelNormalError>;
 
 /// Minimum authored resting separation, matching the bodice clearance range.
 /// Canonical metres at the native fitting boundary. Sampled contacts and

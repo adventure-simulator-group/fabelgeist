@@ -1,15 +1,27 @@
 //! Material-side construction coordinates at sewn physical boundaries.
-use anyhow::{Context, Result};
 use fabelgeist_armor::ArmorComponentRole;
 use std::collections::BTreeMap;
+use thiserror::Error;
 
 use crate::device_fit::DevicePiece;
 use crate::skirt_join::SkirtJoinPlan;
+
+type Result<T> = std::result::Result<T, SewnChartError>;
 
 /// Native exact-position keys survive material duplication, including both
 /// shell sides. Chart copies may differ; physical positions and skin may not.
 pub(crate) struct SewnCharts {
     body: Option<BTreeMap<[u32; 3], [f32; 2]>>,
+}
+
+#[derive(Debug, Error)]
+pub(crate) enum SewnChartError {
+    #[error("loose body has no cloth chart")]
+    MissingLooseBodyChart,
+    #[error("sewn cloth has no chart")]
+    MissingSewnChart,
+    #[error("sewn material lost a construction coordinate")]
+    LostConstructionCoordinate,
 }
 
 impl SewnCharts {
@@ -20,7 +32,7 @@ impl SewnCharts {
                 .base
                 .texcoords
                 .as_ref()
-                .context("loose body has no cloth chart")?;
+                .ok_or(SewnChartError::MissingLooseBodyChart)?;
             let mut release = plan
                 .release_weights
                 .iter()
@@ -71,7 +83,7 @@ impl SewnCharts {
             .base
             .texcoords
             .as_mut()
-            .context("sewn cloth has no chart")?;
+            .ok_or(SewnChartError::MissingSewnChart)?;
         for component in &piece.base.components {
             let chart = match component.role {
                 ArmorComponentRole::BodiceFabric => self.body.as_ref(),
@@ -83,7 +95,7 @@ impl SewnCharts {
             for vertex in component.vertices.clone() {
                 coordinates[vertex] = *chart
                     .get(&piece.base.positions[vertex].map(f32::to_bits))
-                    .context("sewn material lost a construction coordinate")?;
+                    .ok_or(SewnChartError::LostConstructionCoordinate)?;
             }
         }
         Ok(())

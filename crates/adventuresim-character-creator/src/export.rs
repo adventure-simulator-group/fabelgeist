@@ -11,9 +11,7 @@ use serde_json::{Value, json};
 #[cfg(test)]
 use std::fs;
 use std::path::Path;
-pub use textures::{
-    GlbOutput, ShellTextures, SurfaceAlpha, SurfaceSampling, SurfaceSides, SurfaceTextures,
-};
+pub use textures::{GlbOutput, ShellTextures, SurfaceSampling, SurfaceSides, SurfaceTextures};
 use validation::validate;
 
 mod assembly;

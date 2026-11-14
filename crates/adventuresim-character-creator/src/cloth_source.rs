@@ -72,7 +72,10 @@ impl ClothSource {
         &self,
         table: &[u32],
         anatomy: &Wearer<'_>,
-    ) -> Result<crate::skin_transfer::SkinWeights> {
+    ) -> std::result::Result<
+        crate::skin_transfer::SkinWeights,
+        crate::skin_transfer::SkinTransferError,
+    > {
         let (indices, weights) = match self {
             Self::AnatomicalSurface { .. } => (anatomy.joint_indices, anatomy.joint_weights),
             Self::TailoredPanels { plan, .. } => {

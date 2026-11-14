@@ -386,7 +386,7 @@ fn sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels() -> 
         let portable: adventuresim_character_creator::export::SurfaceTextures = maps.into();
         assert!(matches!(
             portable.alpha,
-            adventuresim_character_creator::export::SurfaceAlpha::Blend
+            adventuresim_character_creator::surface_alpha::SurfaceAlpha::Blend
         ));
         assert!(matches!(
             portable.sides,

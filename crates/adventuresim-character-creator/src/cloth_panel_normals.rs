@@ -1,10 +1,22 @@
 //! Shared shell directions must point outside every incident source face.
 //! Numerical kernel: unit face planes and native unposed metre positions.
-use anyhow::{Context, Result, ensure};
 use bevy::math::{DVec3, Vec3};
+use thiserror::Error;
+
+type Result<T> = std::result::Result<T, PanelNormalError>;
 
 /// One part per million bounds roundoff in the small face-plane solves.
 const PLANE_SOLVE_ROUNDING: f64 = 0.000001;
+
+#[derive(Debug, Error)]
+pub enum PanelNormalError {
+    #[error("panel refit folded triangle {vertices:?}")]
+    FoldedTriangle { vertices: [u32; 3] },
+    #[error("panel vertex {vertex} has no outward shell direction")]
+    MissingOutwardDirection { vertex: usize },
+    #[error("invalid panel shell direction at vertex {vertex}")]
+    NonFiniteDirection { vertex: usize },
+}
 
 pub(super) fn outward(points: &[Vec3], faces: &[[u32; 3]]) -> Result<Vec<Vec3>> {
     Ok(clearance_vectors(points, faces)?
@@ -22,7 +34,7 @@ pub(super) fn clearance_vectors(points: &[Vec3], faces: &[[u32; 3]]) -> Result<V
         let normal = (b - a)
             .cross(c - a)
             .try_normalize()
-            .context("panel refit folded a triangle")?;
+            .ok_or(PanelNormalError::FoldedTriangle { vertices: *face })?;
         for &vertex in face {
             incident[vertex as usize].push(normal);
         }
@@ -60,9 +72,11 @@ pub(super) fn clearance_vectors(points: &[Vec3], faces: &[[u32; 3]]) -> Result<V
                 }
             }
             let direction = best
-                .with_context(|| format!("panel vertex {vertex} has no outward shell direction"))?
+                .ok_or(PanelNormalError::MissingOutwardDirection { vertex })?
                 .as_vec3();
-            ensure!(direction.is_finite(), "invalid panel shell direction");
+            if !direction.is_finite() {
+                return Err(PanelNormalError::NonFiniteDirection { vertex });
+            }
             Ok(direction)
         })
         .collect()

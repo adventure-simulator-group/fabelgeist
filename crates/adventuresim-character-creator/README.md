@@ -462,6 +462,9 @@ not sent to Bevy as the character's shading normal.
 
 ## Garments
 
+See [dress construction types and failures](dress-types.md) for the shared
+preview/export alpha modes and typed skin, sewing and closure error contracts.
+
 **New cloth** adds a cotton shirt to reshape. Every setting is in its editor,
 and a garment is sewn to the wearer's measurements from a GarmentCode pattern,
 the design space of the GarmentCodeData dataset:

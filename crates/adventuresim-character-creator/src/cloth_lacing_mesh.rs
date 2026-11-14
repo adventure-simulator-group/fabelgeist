@@ -1,9 +1,9 @@
 //! Coarse inner rings and crossing cords reuse the shared closed tube kernel.
+use crate::cloth_closure_error::Result;
 use crate::cloth_fastener_mesh::{
     ClosureFrame, ClosureMaterial, CordEnds, CordPath, FastenerFrame, FastenerMesh,
 };
 use crate::cloth_opening::ClosureSide;
-use anyhow::Result;
 use fabelgeist_armor::{ArmorComponentMaterial, ClothLacing};
 use fabelgeist_math::Vec3;
 
@@ -73,7 +73,7 @@ impl FastenerMesh {
             surface: design.fabric.material(),
             fabric: Some(design.fabric.clone()),
         };
-        let height = support.height_metres(&frame, backing)?;
+        let height = support.height(&frame, backing)?.metres();
         let mut mesh = Self::empty();
         mesh.cord(
             &frame,

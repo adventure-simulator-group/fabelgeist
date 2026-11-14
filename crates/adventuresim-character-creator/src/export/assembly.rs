@@ -122,7 +122,7 @@ mod tests {
                 include_bytes!("../../../../assets_src/equipment/materials/mail-occlusion.png")
                     .to_vec(),
             ),
-            alpha: crate::export::SurfaceAlpha::Mask,
+            alpha: crate::surface_alpha::SurfaceAlpha::Mask,
             sides: crate::export::SurfaceSides::Both,
             sampling: crate::export::SurfaceSampling::Tile,
         };

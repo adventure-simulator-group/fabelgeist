@@ -1,12 +1,15 @@
 //! Frozen cloned-body topology and angular correspondence at a dress waist.
 
-use anyhow::{Context, Result, ensure};
+use crate::armor_frames::Wearer;
+use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, interpolate};
+use error::SkirtJoinError;
 use fabelgeist_armor::gpu::{ClothRingVertex, SkirtAttachment};
 use fabelgeist_armor::{PartFrame, SKIRT_RING_SEGMENTS, SkirtDesign};
 use fabelgeist_rig::RigJointName;
 
-use crate::armor_frames::Wearer;
-use crate::surface_cut::{ConvexRegion, Plane, SurfaceCut, interpolate};
+mod error;
+
+type Result<T> = std::result::Result<T, SkirtJoinError>;
 
 pub(crate) struct SkirtJoinPlan {
     pub source: crate::cloth_source::ClothSource,
@@ -72,18 +75,22 @@ impl SkirtJoinPlan {
             })
             .collect::<Vec<_>>();
         let charts = crate::gown_charts::SewnCharts::new(self, piece)?;
-        piece.partition_first_component(|triangle, _face| {
-            if triangle
-                .iter()
-                .all(|&v| upper.contains(&sources[v as usize]))
-            {
-                ArmorComponentRole::BodiceFabric
-            } else {
-                carrier
-            }
-        })?;
+        piece
+            .partition_first_component(|triangle, _face| {
+                if triangle
+                    .iter()
+                    .all(|&v| upper.contains(&sources[v as usize]))
+                {
+                    ArmorComponentRole::BodiceFabric
+                } else {
+                    carrier
+                }
+            })
+            .map_err(SkirtJoinError::MaterialPartition)?;
         charts.apply(piece)?;
-        piece.normalize_cloth_charts(&[ArmorComponentRole::BodiceFabric, carrier])
+        piece
+            .normalize_cloth_charts(&[ArmorComponentRole::BodiceFabric, carrier])
+            .map_err(SkirtJoinError::ChartNormalization)
     }
 
     pub fn new(
@@ -95,12 +102,14 @@ impl SkirtJoinPlan {
         let bodice = design
             .bodice
             .as_ref()
-            .context("dress has no upper section")?;
+            .ok_or(SkirtJoinError::MissingUpperSection)?;
         let root = RigJointName::ROOT.require_in(body.joint_names)?;
         let chest = RigJointName::C_SPINE3.require_in(body.joint_names)?;
         let waist = body.joints[root][1] + design.waist_rise.metres();
         let top = waist + (body.joints[chest][1] - waist) * bodice.height.unit();
-        ensure!(top > waist, "dress upper opening must be above its waist");
+        if top.partial_cmp(&waist) != Some(std::cmp::Ordering::Greater) {
+            return Err(SkirtJoinError::OpeningBelowWaist);
+        }
         let cut = SurfaceCut::new(
             body.positions,
             body.faces,
@@ -122,7 +131,8 @@ impl SkirtJoinPlan {
             cut,
             &reference,
             [hips.origin[0], waist, hips.origin[2]],
-        )?;
+        )
+        .map_err(SkirtJoinError::SurfaceCut)?;
         let reference = cut
             .points
             .iter()
@@ -133,11 +143,12 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let borders = cut.boundary_loops(&reference)?;
-        ensure!(
-            borders.len() == 2,
-            "dress upper patch must have a waist and upper opening"
-        );
+        let borders = cut
+            .boundary_loops(&reference)
+            .map_err(SkirtJoinError::SurfaceCut)?;
+        if borders.len() != 2 {
+            return Err(SkirtJoinError::InvalidOpeningCount);
+        }
         let mut plan = Self::from_cut(
             cut,
             body,
@@ -178,7 +189,9 @@ impl SkirtJoinPlan {
                 )
             })
             .collect::<Vec<_>>();
-        let mut borders = cut.boundary_loops(&reference)?;
+        let mut borders = cut
+            .boundary_loops(&reference)
+            .map_err(SkirtJoinError::SurfaceCut)?;
         // A cuff can lie below the torso hem in the canonical A-pose. Only a
         // loop enclosing the anatomical pelvis axis can own the skirt seam.
         borders.retain(|border| encloses_axis(border, &reference, seam.anchor, head));
@@ -191,10 +204,9 @@ impl SkirtJoinPlan {
             (height - seam.anchor[1]).abs()
         };
         borders.sort_by(|a, b| distance(a).total_cmp(&distance(b)));
-        ensure!(
-            !borders.is_empty(),
-            "sewn upper has no waist around the pelvis axis"
-        );
+        if borders.is_empty() {
+            return Err(SkirtJoinError::MissingWaist);
+        }
         let mut waist = borders
             .remove(0)
             .into_iter()
@@ -216,12 +228,11 @@ impl SkirtJoinPlan {
             .enumerate()
             .min_by(|a, b| a.1.angle.total_cmp(&b.1.angle))
             .map(|(i, _)| i)
-            .context("dress waist is empty")?;
+            .ok_or(SkirtJoinError::EmptyWaist)?;
         waist.rotate_left(smallest);
-        ensure!(
-            waist.windows(2).all(|p| p[0].angle < p[1].angle),
-            "dress waist is not star-shaped around pelvis"
-        );
+        if !waist.windows(2).all(|p| p[0].angle < p[1].angle) {
+            return Err(SkirtJoinError::NonStarShapedWaist);
+        }
         let samples = angular_samples(&waist);
         Ok(Self {
             source: crate::cloth_source::ClothSource::AnatomicalSurface {

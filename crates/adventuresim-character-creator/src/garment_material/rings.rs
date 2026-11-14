@@ -72,7 +72,7 @@ impl MailMaps {
             base_color_png: Some(self.color_png.clone()),
             normal_png: self.normal_png.clone(),
             occlusion_png: Some(self.occlusion_png.clone()),
-            alpha: crate::export::SurfaceAlpha::Mask,
+            alpha: crate::surface_alpha::SurfaceAlpha::Mask,
             sides: crate::export::SurfaceSides::Both,
             sampling: crate::export::SurfaceSampling::Tile,
         }
