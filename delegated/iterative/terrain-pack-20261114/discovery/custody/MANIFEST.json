@@ -1,0 +1,11 @@
+{
+  "schema": "726-basis-repair-private-envelope-v1",
+  "algorithm": "AES-256-GCM",
+  "format": "12-byte nonce, ciphertext and authentication tag",
+  "associated_data": "726-basis-repair-slice-private-v1",
+  "ciphertext_bytes": 1596179,
+  "ciphertext_sha256": "f14d77c88fa6b868d7ed5f0ac16d56696c28533d3f95b603d93aa27dd2e76807",
+  "entries": 140,
+  "source_collections": 2,
+  "qualification": "No-key verification checks ciphertext identity only. The key is separately held on the same machine. Authentication and comparison of a restored copy are separate checks."
+}
