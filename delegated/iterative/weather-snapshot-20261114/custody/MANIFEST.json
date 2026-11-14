@@ -1,0 +1,11 @@
+{
+  "schema": "726-weather-snapshot-private-envelope-v1",
+  "algorithm": "AES-256-GCM",
+  "format": "12-byte nonce, ciphertext and authentication tag",
+  "associated_data": "726-weather-snapshot-slice-private-v1",
+  "ciphertext_bytes": 287401,
+  "ciphertext_sha256": "e832a7e9087a326f3453da123b34180c5885800ce7034c49572b988784d34e80",
+  "entries": 374,
+  "source_collections": 1,
+  "qualification": "No-key verification checks ciphertext identity only. The key is separately held on the same machine. Authentication and comparison of a restored copy are separate checks."
+}

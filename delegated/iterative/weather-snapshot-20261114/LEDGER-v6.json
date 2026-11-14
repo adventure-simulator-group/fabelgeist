@@ -1,0 +1,226 @@
+{
+  "schema": "726-weather-slice-ledger-v6",
+  "baseline": "d276139b62e62bcbd1ed766433146c686765aab7",
+  "previous_audit_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "baseline_manifest_sha256": "472c6e31910c78b3ecf1850ba16a7e44f24041631c259d6dd04e38d498557d6a",
+  "handoff": "7e921df3d730b09fce4c741296ce37fc72550e85",
+  "status": "repair committed and draft stacked PR opened; bounded post-repair reviews and local validation completed; publication pending at this cutoff",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer propagation",
+      "reviewer": "wrapped_scope",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 2,
+      "name": "existing type owners",
+      "reviewer": "wrapped_scope",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 3,
+      "name": "admission contracts",
+      "reviewer": "wrapped_scope",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 4,
+      "name": "invariant operations",
+      "reviewer": "wrapped_scope",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 5,
+      "name": "aggregate states",
+      "reviewer": "mhr_character",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 6,
+      "name": "type ownership",
+      "reviewer": "mhr_character",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 7,
+      "name": "redundant authority",
+      "reviewer": "mhr_character",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 8,
+      "name": "behavior preservation",
+      "reviewer": "final_guard_peer; bounded recheck wrapped_scope",
+      "status": "bounded source review complete; unreviewed surfaces and questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 9,
+      "name": "enum shapes",
+      "reviewer": "mhr_character",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "reviewer": "final_guard_peer; bounded recheck wrapped_scope",
+      "status": "bounded source review complete; unreviewed surfaces and questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 11,
+      "name": "type granularity",
+      "reviewer": "mhr_character",
+      "status": "bounded source review complete; open questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 12,
+      "name": "magic strings",
+      "reviewer": "final_guard_peer; bounded recheck wrapped_scope",
+      "status": "bounded source review complete; unreviewed surfaces and questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    },
+    {
+      "number": 13,
+      "name": "magic numbers",
+      "reviewer": "final_guard_peer; bounded recheck wrapped_scope",
+      "status": "bounded source review complete; unreviewed surfaces and questions remain",
+      "post_repair": "bounded source recheck found no new actionable issue in this change; wider surfaces and connected questions remain open"
+    }
+  ],
+  "selected_existing_finding": {
+    "id": "REVIEW-SCENE-WEATHER-TEMPERATURE-OVERFLOW-001",
+    "ledger_index": 346,
+    "historical_queue": "q1579",
+    "first_operation": "scene_input.rs:477 adds 5 to i32 temperature before comparison",
+    "observation": "Representable i32 maximum can overflow with checks enabled if the selected earlier file/scene predicates pass; selected explicit scene path reaches loading in source. Actual crafted file, server and parser not executed.",
+    "repair_candidate": "Widen both operands before addition; retain the existing mathematical inequality without adding physical bounds.",
+    "history": "Original q1579 says i16; the selected historical and current WeatherSnapshot owner is i32. Segovb638 and Adler292 retain separate pr-working reader attributions; no historical new count or checkpoint 3821 attribution."
+  },
+  "connected_open_questions": [
+    "Separate extreme-clock correlated-field underflow and raw coordinate multiplication in weather_at: representable source witnesses; supported reach and aliases open.",
+    "Separate extreme direct WeatherSnapshot arithmetic in strategic survival: generated callers were found but no tactical-file-to-survival path established; support and range policy open.",
+    "Rain/snow with zero intensity at a selected strategic route predicate: producer, full request reach and policy open.",
+    "Tactical scene weather provenance: metadata scan observed 32/34 selected weather objects unaligned; no blanket alignment rule warranted without fixture policy.",
+    "Basis point transparent deserialization admission is existing ledger443; replacement owners alone do not establish admission.",
+    "Original q1579 also retains a distinct file metadata/read-size race question.",
+    "Missing checkpoint 3821 ledger and queue, SOURCE004, and other recovery obligations remain open."
+  ],
+  "planned_validation": "A reviewed integration test loads unchanged and minimally edited shipped scene JSON through real file/serde/scene admission, testing threshold and i32 boundaries. It does not claim actual CLI/server or realistic producer reach.",
+  "evidence": {
+    "lenses_1_4_report_sha256": "12829410032bbb50548454b0c57e67a652899689f39d376b67fbe22405bfc70e",
+    "lenses_5_6_7_9_11_report_sha256": "80ec706be9407bb25a5d6f194345143a56f336a9147dd008e5ad43dc72355b93",
+    "fixture_scan_sha256": "794ba42e74a4c89cb566f086274ac49271832b3656032b6d036f0d36ac2c6831",
+    "integration_peer_review_sha256": "c594fa9461567cd14619d9605c9023d3275fe3edb6af816cb6e662ad2228f133",
+    "widening_review_sha256": "d1681ba9541cdeb2f32cbe9c0d89c0f05ad456de969d9341f0b00a7ca7df9265",
+    "four_lens_coordinator_record_sha256": "887d63eb2281379f9590f8d2e230da24e5c5d977e90b440abb0b594804b85e4f",
+    "integration_test_draft_v2_sha256": "e8d701b966619223153c75fc19fa647f0bfd296bbe9ecfcc2a103413e3eed6a7",
+    "corrected_four_lens_recheck_sha256": "deddfc3da334d66df21f4fc8c6ab9d7d760fe369ac4a47eb05351a91d6eff3af"
+  },
+  "qualification": "Thirteen lenses were applied within a bounded type slice. This is not a claim of exhaustive every-caller, every-string or every-primitive review, historical queue reconciliation, repository-wide lens closure, checkpoint3821 recovery, or runtime reach. Earlier records retain their own revision and reader attribution. The recheck corrected an earlier five-label statement to six; the earlier message remains a separate process record. The new integration test is coupled to exact fixture formatting, with explicit uniqueness assertions. It does not establish realistic extreme-temperature producers or run the server.",
+  "predecessor_sha256": "869b77dd7f216314ae2de07280342c013a63ba29ad74ecfacbb3017ff1d9beda",
+  "review_dispositions": {
+    "1": "Selected explicit scene-file source trace; other producers and consumers remain open.",
+    "2": "Existing geographic, basis-point and time owners have distinct admission or semantics; no drop-in physical-temperature owner established.",
+    "3": "Public i32 serde input can reach the selected validator if earlier scene gates pass; actual crafted file and server not run.",
+    "4": "Existing ledger346 plus separate conditional weather generator and survival operations; do not alias without proof.",
+    "5": "Precipitation, intensity and clouds have aggregate relationships; selected boundaries differ, policy and supported noncanonical reach open.",
+    "6": "WeatherSnapshot is shared core data; candidate leaf owners require serialization and native-boundary review.",
+    "7": "Dispatcher samples weather consistently; tactical authored provenance and strategic retained snapshots have different boundaries.",
+    "8": "Widening the comparison preserves all mathematical i32 cases; overflow-dependent prior behavior changes. Physical bounds are separate.",
+    "9": "Enum payload and neighboring intensity/cloud combinations remain a policy and design question.",
+    "10": "Manual defaults encode nonzero values; selected windows do not show a safe derive substitution. Other impls remain open.",
+    "11": "Cell indices, coordinates, temperature, dew point and fractions have distinct roles; no blanket replacement established.",
+    "12": "Selected six labels are display text and snake_case values are wire shape; other text and consumers remain open.",
+    "13": "Thermal fields are i32 deci-C and 5 is a half-degree tolerance; raw-fraction owners do not alone ensure serde admission. Other numeric surfaces remain open."
+  },
+  "repair_plan": {
+    "scope": "Only the existing ledger346 scene weather comparison and an integration regression at the file/serde/scene boundary.",
+    "candidate": "Compare i64::from(dew_point) to i64::from(temperature) + 5.",
+    "acceptance": [
+      "An unchanged shipped scene loads.",
+      "The existing mathematical +5 threshold accepts equality and rejects larger dew points.",
+      "The same comparison is safe across upper and lower i32 extrema.",
+      "No new physical-temperature limit or tactical timestamp policy is introduced."
+    ],
+    "separate_open": "Strategic survival, extreme weather clock/coordinates, fixture provenance and route policies require separate evidence and disposition."
+  },
+  "predecessor_v2_sha256": "e4ad7952843d09cabe64e2ea69206896eaa3f4c7a3270b006c974e56a4717638",
+  "predecessor_v3_sha256": "d9f431c67d033ea19091e79a2196490ebbddeb309d4b55262b054d32315a8856",
+  "validation_before_repair": {
+    "corrected_target_exit": 101,
+    "test_count": 1,
+    "observed": "Scene loader panicked at scene_input.rs:477 attempting i32 addition with overflow.",
+    "log_sha256": "a831a002e162359b6d01757c617f5450180e8e0f402a100b12983733558ec581",
+    "first_attempt": "Test installation used wrong relative path and Cargo selected no test target; preserved separately and not evidence of product behavior."
+  },
+  "predecessor_v4_sha256": "1cce661a98a666c4c93a292221568d9fa802215a29cd6bb83bb3f5cd258d0456",
+  "repair": {
+    "commit": "9591ab3d79485390fd079aefd7e98c5cc088ceca",
+    "parent": "d276139b62e62bcbd1ed766433146c686765aab7",
+    "tree": "4437959479dd8fff02c87ae3db0f8b4f955464de",
+    "patch_sha256": "f3914e0ad025419b26d7d2442b868b659f54e36a872f389456266d1c453133a8",
+    "pull_request": "https://github.com/adventure-simulator-group/fabelgeist/pull/1007",
+    "status": "draft; unmerged",
+    "disposition": "Existing ledger346 first operation repaired on the branch; no new unique defect count or historical queue closure."
+  },
+  "post_repair_reviews": [
+    {
+      "lenses": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reviewer": "wrapped_scope",
+      "report_sha256": "ed04c948beaa7b22ac12be449f72c76dab6a32ed2d353d584a091004e529a67b"
+    },
+    {
+      "lenses": [
+        5,
+        6,
+        7,
+        9,
+        11
+      ],
+      "reviewer": "mhr_character",
+      "report_sha256": "d4a7b62dc5a82064a287477a68e36a13eccc53b4339e4135d82c83295a44cd54"
+    },
+    {
+      "lenses": [
+        8,
+        10,
+        12,
+        13
+      ],
+      "reviewer": "final_guard_peer",
+      "report_sha256": "66900bce8cf76c7536f4bddd848606c6daae75da0d5aeac6b7b44a96e74608a7"
+    }
+  ],
+  "validation_after_repair": {
+    "regression": "One file/serde/scene integration test passed; 9 data cases exercised normal and boundary outcomes.",
+    "regression_exit": 0,
+    "regression_log_sha256": "9920bf90d5ae76d60d37d12936921fe8c996bbf03aa4e2cb14c9ef4055a66d30",
+    "scene_catalog": "The existing committed synthetic fixture catalog test passed; one test selected, 411 filtered.",
+    "scene_catalog_exit": 0,
+    "scene_catalog_log_sha256": "e13cdb4d16149f406a95d7ac376814692a82cdd59a58ea3964dff812cba76a36",
+    "fmt_check": "just fmt-check passed in a non-nested checkout with byte-identical combined diff",
+    "fmt_exit": 0,
+    "full_lint": "just lint passed from the non-nested checkout containing the byte-identical stacked diff",
+    "full_lint_exit": 0,
+    "full_lint_log_sha256": "20a79a38983dd983d36db0ec1a0d1cfbfb36a24117cff8428c28cfdd76e147da",
+    "stacked_diff_sha256": "ff508e22a57195f4c488d2400f44192c8fbcf8a75291379d9fcde776a8c4e823",
+    "qualification": "The authored integration regression uses a shipped JSON fixture and typed scene loader; it does not exercise CLI startup, strategic survival or a realistic producer for the extreme input."
+  },
+  "predecessor_v5_sha256": "d58c9d5550ee85930f21d1ac46ebbd3866ee78057b1db7d2e9dbde065e6a4e59"
+}
