@@ -1,0 +1,11 @@
+{
+  "schema": "726-basis-discovery-private-envelope-v1",
+  "algorithm": "AES-256-GCM",
+  "format": "12-byte nonce, ciphertext and authentication tag",
+  "associated_data": "726-basis-discovery-slice-private-v1",
+  "ciphertext_bytes": 760392,
+  "ciphertext_sha256": "b6eef39811e062299f6f1ddafce4eb6e005dfe5217077aa1751b71c3038bd8fa",
+  "entries": 163,
+  "source_collections": 2,
+  "qualification": "No-key verification checks ciphertext identity only. The key is separately held on the same machine. Authentication and comparison of a restored copy are separate checks."
+}
