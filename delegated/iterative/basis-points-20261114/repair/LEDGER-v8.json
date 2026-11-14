@@ -1,0 +1,322 @@
+{
+  "schema": "726-iterative-type-slice-ledger-v1",
+  "product_revision": "5f84afc713601804ca8f9f096d3781018c59a63d",
+  "product_tree": "8364b9c9f3b65989831943bd8d3da07d5f5b97c9",
+  "stack_base": "89cc57b63215086b11410cc27b8c274944734ad3",
+  "scope": "UnitBasisPoints and the closely coupled SignedUnitBasisPoints, their constructors, operations, Serde and separately qualified native SATS admission, and selected producers and aggregates needed to assess the bounded fraction contract.",
+  "coverage_qualification": "All thirteen lenses have bounded initial source reports. A later locked offline cargo-tree query resolves the world-schema spacetimedb feature for the selected module package. A distinct local feature-enabled macro expansion at 5f84 succeeded and was source-inspected; neither is a runtime decode, a deployed feature graph or proof of supported input. Full producers, consumers, policy and aliases remain incomplete.",
+  "lenses": [
+    {
+      "number": 1,
+      "name": "unfinished producers",
+      "reader": "wrapped_scope",
+      "discovery": "bounded review",
+      "trace": "Selected mitigation storage retains raw u16; selected writers, clamp and disease guard are traced. Carrying a checked owner is a separate migration question; other writers and policy remain open."
+    },
+    {
+      "number": 2,
+      "name": "existing owners",
+      "reader": "wrapped_scope",
+      "discovery": "bounded review",
+      "trace": "Compare unit leaves, role wrappers, floating unit interval and unbounded ratio; representation or shared scale alone does not establish interchangeable semantics."
+    },
+    {
+      "number": 3,
+      "name": "admission",
+      "reader": "wrapped_scope",
+      "discovery": "bounded review",
+      "trace": "Checked constructors coexist with transparent derived Serde and a separate feature-gated native derive. Source traces predict bypass; actual supported ingress and macro expansion remain open."
+    },
+    {
+      "number": 4,
+      "name": "invariant operations",
+      "reader": "wrapped_scope",
+      "discovery": "bounded review",
+      "trace": "Valid complement and widened scaling are bounded; invalid decoded unsigned input violates complement's premise. Selected disease and audio paths have guards."
+    },
+    {
+      "number": 5,
+      "name": "aggregates",
+      "reader": "mhr_character",
+      "discovery": "bounded review",
+      "trace": "LandUseProfile independently enforces four fractions summing to one whole through checked Serde; posterior tie and observation condition/confidence policies are separately unresolved."
+    },
+    {
+      "number": 6,
+      "name": "wrong or duplicate owners",
+      "reader": "mhr_character",
+      "discovery": "bounded review",
+      "trace": "Signed and unsigned unit owners and role wrappers have distinct semantics. Existing floating and unbounded ratio owners are not equivalent substitutes."
+    },
+    {
+      "number": 7,
+      "name": "redundant authority",
+      "reader": "mhr_character",
+      "discovery": "bounded review",
+      "trace": "Common 10000 scale and independent decode routes; observation condition/confidence may be historical snapshots. No automatic consolidation or impact established."
+    },
+    {
+      "number": 8,
+      "name": "behavior preservation",
+      "reader": "final_guard_peer",
+      "discovery": "bounded review",
+      "trace": "Preserve numeric Serde wire shape, valid endpoints, ordering, defaults, saturation and rounding; rejection of formerly accepted out-of-range input is deliberate."
+    },
+    {
+      "number": 9,
+      "name": "enum and state shape",
+      "reader": "mhr_character",
+      "discovery": "bounded review",
+      "trace": "Vegetation posterior, categorical and inferred forms remain distinct; exact sum or nonzero policy not established."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "reader": "final_guard_peer",
+      "discovery": "bounded review",
+      "trace": "Transparent Serde bypasses the checked constructor; pinned derive source rejects transparent plus container try_from/into. Field-level checked decode or separately validated alternatives remain candidates. SATS derive is independent."
+    },
+    {
+      "number": 11,
+      "name": "type granularity",
+      "reader": "mhr_character",
+      "discovery": "bounded review",
+      "trace": "Unsigned/signed and semantic role distinctions remain meaningful; no concrete cross-role misuse established."
+    },
+    {
+      "number": 12,
+      "name": "raw strings",
+      "reader": "final_guard_peer",
+      "discovery": "bounded review",
+      "trace": "No raw domain-string field in the owners. Framework and predicted SATS field names are interface metadata; surrounding strings remain incomplete."
+    },
+    {
+      "number": 13,
+      "name": "raw primitives",
+      "reader": "final_guard_peer",
+      "discovery": "bounded review",
+      "trace": "Private u16/i16 represent intentional quantized boundaries; checked owner invariants and aggregate constraints remain distinct."
+    }
+  ],
+  "findings": [
+    {
+      "id": "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001",
+      "relationship": "Published f2c ledger 27 is the 95e Serde trace in the same first-failure family as recovered 059 q131 / ledger 443. The original Adler337 receipt remains identified; q131’s selected basis_points.rs source row separately records null revision, Git path and reader attribution. No new unique historical count or checkpoint 3821 recovery.",
+      "source": "crates/adventuresim-world-schema/src/basis_points.rs:7-31,67-102,105-121",
+      "evidence": "Locked Serde source and the later local feature-enabled expansion show direct primitive-field construction for both owners, while their new constructors reject values outside the unit bounds. Native generated product visitors and validate paths similarly operate on raw fields. No invalid payload, runtime decode, panic or supported ingress was observed.",
+      "discovery": "bounded; actual input, all consumers, target/deployment feature graphs, native usage, policy and global aliases remain open",
+      "repair": "Implemented in candidate 89061a8623cca1f46fe6de4d7103f9945005db70, parent 5f84afc713601804ca8f9f096d3781018c59a63d. Both Serde and feature-gated native owner decoders call the existing checked constructors. Native default validation routes through the checked owner decoder by source inspection. This is not a claim of global or historical closure.",
+      "validation": "The produced investigation Observation accepted an invalid unsigned confidence before the patch and rejected it after; valid 4500 round-tripped. Feature-on world-schema tests (84), an existing disease behavior test, the existing SATS harness (3 unrelated-owner cases), no-feature check, feature-on compile, fmt-check and full lint passed. Native and signed negative decode/validation and endpoint behavior remain untested. Static expansion comparisons and independent source review support, but do not execute, native schema preservation.",
+      "connected_repair_direction": "Implement checked Serde deserialization and manual SATS owner implementations using derived named-product wire visitors, preserving the original owner TypeIds, names, field names and numeric Serde forms. Route native validation through checked deserialization. Compare the actual feature-enabled expansion and relevant schema construction against the recorded 5f84 baseline; preserve existing checked operations and the independent LandUseProfile sum rule. No compatibility path or migration is proposed under the repository's current policy.",
+      "acceptance": "For both owners and every supported Serde/native decode or validation entry point, valid endpoints preserve numeric Serde shape and the existing named native product, and out-of-range primitive values are rejected before entering the owner. Preserve explicit saturation and LandUseProfile’s independent sum rule. Apply repository test policy and disclose any untested route."
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "NATIVE-SATS-ADMISSION",
+      "detail": "The separately generated local 5f84 feature-enabled expansion shows named basis_points products and native sequence/named visitors that construct raw primitive fields; validate checks primitive/product shape. Cargo-tree resolves the feature for the selected module package. Bounded search found no current exact owner in a table or reducer, while public feature-enabled BSATN decoding is a separate possible admission. Actual malformed input, deployment configuration and subsequent validation remain open; q2332/ledger 1062 are qualified relationships.",
+      "postrepair_status": "The owner source routes native decoding and default validation through new. The compiled expansion and unchanged generated visitor/serializer token comparison were inspected; actual native malformed decoding, validation, ingress and deployed behavior remain untested."
+    },
+    {
+      "id": "LAND-USE-SUM",
+      "detail": "LandUseProfile has an independent exact-sum constructor/Serde invariant; native validation remains separately unproved."
+    },
+    {
+      "id": "POSTERIOR-POLICY",
+      "detail": "All-zero or tied vegetation scores select the first maximum; supported data and intended tie/total policy remain open."
+    },
+    {
+      "id": "OBSERVATION-AUTHORITY",
+      "detail": "Selected generated observations derive confidence from conditions, but public records allow other bounded combinations; snapshot semantics, actual decode and policy remain open."
+    },
+    {
+      "id": "RAW-MITIGATION-PROPAGATION",
+      "detail": "Raw authority mitigation has selected guards and clamping; other writers, supported persisted input, schema and migration policy remain open."
+    },
+    {
+      "id": "SETTLEMENT-ROLE-NATIVE",
+      "detail": "SettlementImport contains distinct raw-backed LandUseFraction, SoilBasisPoints and SuitabilityBasisPoints native owners. Selected guards reconstruct land-use sum but appear to retain soil confidence; authorized malformed native import and all remaining guards are unproved. Separate first operations and historical aliases remain open."
+    },
+    {
+      "id": "SERDE-DESIGN",
+      "detail": "Pinned Serde derive rejects transparent combined with container try_from/into. A checked field decoder, manual Deserialize, or replacing transparent with equivalent conversion derive require separate validation. Serde changes alone do not fix native SATS.",
+      "postrepair_status": "Manual primitive Serde decode plus checked new is implemented for each owner. One produced unsigned Observation path passed a positive/negative regression; signed and endpoint decode cases remain untested."
+    }
+  ],
+  "history": {
+    "original_059": "q131 points to adler/READ-L11-337.json; its selected basis_points.rs pr-working source row records null revision_as_recorded, git_path_as_recorded and attribution_as_recorded, assessed lines 1–151 and zero scope credit. The separate receipt path/hash is retained without filling those null fields. Original status remains open-reconciliation.",
+    "earlier_95e": "ASSESSMENT-L01-BASIS-WIRE-95E.json and ASSESSMENT-CENTRAL-SATS-13G-95E.json have separate readers and bounded scope. Recovered q2332 and f2c ledger 1062 are planning relationships, not an assumed global alias.",
+    "file_identity": "The selected basis_points.rs file has SHA-256 b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84 at selected 6533, 95e and 5f84 paths; that is file identity, not whole-tree equality or transferred reader credit.",
+    "recovery": "Original checkpoint 3821 ledger and queue remain missing; SOURCE004, nontext/no-positive-EOF obligations and other recovery limits remain open.",
+    "ledger_correction": "The coordinator ledger v2 ambiguously attached named attribution to the selected q131 source row. Independent review identified the error; v3 and this successor record that row’s revision, Git path and attribution as null and retain the separate receipt. Earlier ledger bytes remain preserved."
+  },
+  "dependencies": "The previously published f2c baseline and locked Serde/SATS source evidence, b50 identifier repair checkpoint, original evidence collections, selected Git objects and separately held keys remain dependencies; this source inventory is not an independent backup.",
+  "deeper_evidence": {
+    "cargo_tree": {
+      "record": "cargo-tree-world-schema-features.log",
+      "exit": 0,
+      "qualification": "Locked offline cargo-tree for the selected module package resolves the world-schema spacetimedb feature; it is not a macro expansion or deployed runtime observation."
+    },
+    "reports": [
+      {
+        "record": "lenses-1-4/REPORT.md",
+        "sha256": "af5ef5de5a570f8c5617eff6734c390d5b49f873f7b97591439ac9ce1edd9908"
+      },
+      {
+        "record": "lenses-5-6-7-9-11/REPORT.md",
+        "sha256": "f7b7dea993e802398a86a01a212bacd6211c90079a69a4f28d85ba3cfe0400b5"
+      },
+      {
+        "record": "lenses-8-10-12-13/REPORT.md",
+        "sha256": "6a73309dbfc5aa711f5bbf80adc02944ef71f4965a6d6e313fef44af2be837da"
+      },
+      {
+        "record": "serde-design/REPORT.md",
+        "sha256": "a94e98ceea17b63923b3f4972ccdff00666da8f16345a813a53671bd1f8aa6c5"
+      },
+      {
+        "record": "native-ingress/REPORT.md",
+        "sha256": "e09b57d83338486c9869601d1cc11de7709c33ed5f0b0a142b25c43905a959ef"
+      },
+      {
+        "record": "native-deep/REPORT.md",
+        "sha256": "d02a7a94b90710ff6a66a03a87cb046794ada5d2def6bef1611ad66c538d01b5"
+      }
+    ],
+    "expansion": {
+      "record": "EXPANSION-OBSERVATION.json",
+      "artifact": "WORLD-SCHEMA-EXPANDED.rs",
+      "artifact_sha256": "d0e920c22192c0a2dd8f554793abae0c68f5b4241f8d987059181ed6becff1f3",
+      "exit": 0,
+      "qualification": "Later local locked/offline compiler expansion, distinct from cargo-tree and historic reports; not runtime decoding or deployed proof.",
+      "peer_review": "expansion-review/REPORT.md"
+    },
+    "reviews": [
+      {
+        "record": "ledger-v2-review/REPORT.md",
+        "sha256": "2a43f0f408f61ab197ff19d2db9b6ed3f871a987029458736dac5ca78467b183"
+      },
+      {
+        "record": "expansion-review/REPORT.md",
+        "sha256": "3da463ef529ad2b79040148abfeca5fffd5b501fea5b65be6663e7f76acdf48f"
+      },
+      {
+        "record": "custody-helper-review/REPORT.md",
+        "sha256": "350a5ea93497f89d932d36e0407a7efdbb33e9569ce8859e733440da3837804b"
+      },
+      {
+        "record": "native-design/REPORT.md",
+        "sha256": "60e8960735a887a9610c94f9b99de620b75e4a7817725a918c2a1fd9ade0b2ef"
+      }
+    ],
+    "historical_control": {
+      "record": "HISTORICAL-EVIDENCE-CONTROL.json",
+      "sha256": "6979684c3a989f61d05b4f1e06470f6b60afcafb1b250c3068a1f14717b5fa0b",
+      "qualification": "Coordinator-selected parsed row from reconstructed 059 queue; two protected receipts independently hashed read-only. No full-stream identity or 3821 recovery claim."
+    }
+  },
+  "policy": "Under the supplied repository rule that backward compatibility and migration shims are unsupported, the intended clean contract rejects out-of-range values previously admitted by a decoder; no migration or fallback is proposed. Actual stored invalid values and production impact remain unproved.",
+  "pre_repair_disposition": "All thirteen lenses were applied within the recorded bounded scope. Discovery was published at evidence revision ab44f8e201d374dab55ed7410b8e73c97a252bde. The coordinator has selected a checked Serde and native SATS repair, but no code, validation or closure is claimed by this record. For the later candidate and its limitations see post_repair_assessment; the original pre-repair record remains separately preserved.",
+  "repair_checkpoint_plan": {
+    "discovery_evidence_revision": "ab44f8e201d374dab55ed7410b8e73c97a252bde",
+    "discovery_ledger_sha256": "53f0950c3faf26b8dba6f37f2796c5e9c903a97ea57f3fab224811c42d671e1f",
+    "post_cutoff_dependency": "basis-discovery-postcutoff-v1, including restricted controls and key locator, must be incorporated in the next checkpoint",
+    "data_policy": "Clean final admission rejects out-of-range values previously admitted by primitive decoders; existence and effects of persisted invalid values remain unproved.",
+    "review": "After implementation, independently reapply the thirteen lenses to the exact patch in the recorded bounded groups and reconcile findings centrally.",
+    "validation_limits": "Do not add object unit tests; identify any meaningful existing higher-level ingress and disclose any untested negative paths. Compiler expansion is not a runtime decode."
+  },
+  "post_repair_assessment": {
+    "candidate_revision": "89061a8623cca1f46fe6de4d7103f9945005db70",
+    "candidate_parent": "5f84afc713601804ca8f9f096d3781018c59a63d",
+    "candidate_tree": "b325498d3a2ce74d31ba014744a88d52b9115675",
+    "patch_sha256": "405780f1bd91c3ae817b699d5b6ce62915ed0dcb12074c6917ea4bfa75a9fc8e",
+    "validation_checkout_diff_sha256": "405780f1bd91c3ae817b699d5b6ce62915ed0dcb12074c6917ea4bfa75a9fc8e",
+    "reviewers": [
+      {
+        "reader": "wrapped_scope",
+        "lenses": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "report": "postreview-lenses-1-4/REPORT.md",
+        "sha256": "782440b159099f2a28e9f027347f50bd44570abbabfbd66f509a2a9f15cde8e2"
+      },
+      {
+        "reader": "mhr_character",
+        "lenses": [
+          5,
+          6,
+          7,
+          9,
+          11
+        ],
+        "report": "postreview-lenses-5-6-7-9-11/REPORT.md",
+        "sha256": "5f4ccad2659786cd02f424035ebfb11160ef6c7e7f5187945cac7a8f55feb00f"
+      },
+      {
+        "reader": "final_guard_peer",
+        "lenses": [
+          8,
+          10,
+          12,
+          13
+        ],
+        "report": "postreview-lenses-8-10-12-13/REPORT.md",
+        "sha256": "5003ff6e553c31ab0bdef14afe98e8a7b628dee9155e64c20213f47e0bedf4cd"
+      }
+    ],
+    "source_comparison": "SCHEMA-EXPANSION-COMPARISON.json",
+    "expansion_observation": "EXPANSION-AFTER-OBSERVATION.json",
+    "tests": {
+      "pipeline_regression_before": {
+        "exit": 101,
+        "log": "pipeline-regression-before.log"
+      },
+      "pipeline_regression_after": {
+        "exit": 0,
+        "log": "pipeline-regression-after.log"
+      },
+      "world_schema_feature_tests": {
+        "exit": 0,
+        "count": 84,
+        "log": "world-schema-tests.log"
+      },
+      "disease_behavior": {
+        "exit": 0,
+        "count": 1,
+        "log": "disease-behavior-test.log"
+      },
+      "existing_sats_harness": {
+        "exit": 0,
+        "count": 3,
+        "log": "existing-sats-harness.log",
+        "qualification": "No tests for either unit owner."
+      },
+      "fmt_check": {
+        "exit": 0,
+        "log": "fmt-check.log"
+      },
+      "full_lint": {
+        "exit": 0,
+        "log": "just-lint.log"
+      }
+    },
+    "unresolved": [
+      "No executed signed Serde negative or endpoint case and no executed native decode, BSATN validation or schema assertion for either exact owner.",
+      "Actual supported malformed ingress, deployed feature graph and existing invalid persisted values remain unproved.",
+      "Separate role-backed owners, aggregate policies, producer migration, global aliases and historical recovery obligations remain open."
+    ],
+    "qualification": "Thirteen lenses were reapplied only to the bounded slice. The public PR and later review/merge state fall outside this local cutoff. No full repository or recovered historical record closure is claimed.",
+    "independent_expansion_review": {
+      "reader": "wrapped_scope",
+      "report": "expansion-postreview/REPORT.md",
+      "sha256": "6660d73d411476a062cf53b74f448d9cbe2157dd2bf692d481c0a06d2aa0a552",
+      "checks": "expansion-postreview/CHECKS.json",
+      "checks_sha256": "7499b961f91bbd5e19e3f3caabad568b8cbf95e5a0eb22a1d3d3d7fdc53efaf5",
+      "qualification": "Selected registrations, serializers and renamed visitors were inspected independently. The fragment booleans alone cannot prove arity or control flow; compiler-input provenance is reconstructed, not atomic. No runtime or deployment equivalence is claimed."
+    },
+    "status": "Candidate committed locally; checkpoint and PR publication pending at this record's cutoff."
+  }
+}

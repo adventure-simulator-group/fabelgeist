@@ -1,0 +1,44 @@
+{
+  "schema": "726-weather-review-validation-v2",
+  "predecessor": "VALIDATION.json",
+  "final_weather_commit": "6432a845ccc3690f1cbe99dcc11f762754b73ddb",
+  "final_stack_tree": "06a79b077db5283ba95bb1801141a60c21482ac0",
+  "rebase_control": "REBASE-CONTROL-v2.json",
+  "checks": [
+    {
+      "name": "weather-regression-v3",
+      "exit": 0,
+      "log": "weather-regression-v3.log",
+      "sha256": "65c7db5e8151425b3ab7e7026245310e07470238bd1df0350c8460d3a7d85881"
+    },
+    {
+      "name": "fmt-check-v3",
+      "exit": 0,
+      "log": "fmt-check-v3.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "just-lint-v3",
+      "exit": 0,
+      "log": "just-lint-v3.log",
+      "sha256": "ecd20eb29567cb992121254b092ff96fe363a8443781c153cbf0cfed2930b40d"
+    },
+    {
+      "name": "basis-pipeline-after-rebase",
+      "exit": 0,
+      "log": "basis-pipeline-after-rebase.log",
+      "sha256": "23c0b8a53bbdfefe6372bb0f49f6e474fc67b3cdfe15d64cf8d8225559ab62d4"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "patch-review-v3/REPORT.md",
+      "sha256": "eef8b12108bbe83e4509f700a3c0d0394cc30c0a42adf3a2917e41495ddf6a50"
+    },
+    {
+      "path": "patch-peer-v3/REPORT.md",
+      "sha256": "540bf952d9ec393cc65890c11b0b988dd7f06d1432336df6756d3417f03b919f"
+    }
+  ],
+  "qualification": "Weather v3 checks ran in the combined validation checkout; its current tree matched the rebased combined stack. The basis pipeline rerun preceded the v3 test-only adjustment, while its affected source bytes remained unchanged. No direct collision or cross-platform test is claimed."
+}
