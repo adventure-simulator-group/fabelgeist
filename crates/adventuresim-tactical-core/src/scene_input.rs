@@ -85,6 +85,7 @@ const MAX_VISTA_LEVELS: usize = 8;
 const MAX_VISTA_SAMPLES: usize = 2_000_000;
 const MAX_TEMPLATE_BYTES: usize = 128;
 const MAX_SOURCE_ID_BYTES: usize = 128;
+const MAX_DEW_POINT_EXCESS_DECI_C: i32 = 5;
 
 /// Data-only recipe for a client-generated boulder mesh.
 ///
@@ -474,7 +475,10 @@ fn validate_weather(weather: WeatherSnapshot) -> SceneInputResult<()> {
         || weather.ground_moisture_bps > BASIS_POINTS_PER_WHOLE
         || weather.snow_cover_bps > BASIS_POINTS_PER_WHOLE
         || weather.atmosphere.relative_humidity_bps > BASIS_POINTS_PER_WHOLE
-        || weather.atmosphere.dew_point_deci_c > weather.temperature_deci_c + 5
+        || weather.atmosphere.dew_point_deci_c
+            > weather
+                .temperature_deci_c
+                .saturating_add(MAX_DEW_POINT_EXCESS_DECI_C)
         || !(8_700..=10_850).contains(&weather.atmosphere.sea_level_pressure_deci_hpa)
         || weather.atmosphere.wind_direction_degrees >= 360
         || weather.atmosphere.wind_shear_bps > BASIS_POINTS_PER_WHOLE
