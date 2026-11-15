@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fabelgeist tactical</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #11151c;
+            color: #eef3f8;
+            font-family: system-ui, sans-serif;
+        }
+
+        body > canvas {
+            position: fixed;
+            inset: 0;
+            display: block;
+            width: 100vw !important;
+            height: 100vh !important;
+        }
+
+        #status {
+            position: fixed;
+            left: 16px;
+            bottom: 14px;
+            z-index: 10;
+            max-width: min(360px, calc(100vw - 32px));
+            padding: 8px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 6px;
+            background: rgba(17, 21, 28, 0.78);
+            color: #dbe7f1;
+            font-size: 13px;
+            line-height: 1.35;
+            pointer-events: none;
+        }
+
+        #status[hidden] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="status">Starting Fabelgeist tactical: WASD move, left click strike, right click guard, click to look</div>
+    <script type="module">
+        import init from './tactical_client.js';
+
+        // Every WebTransport session drops an upstream datagram that waited 50 ms in the browser
+        // instead of sending it late: the next one repeats the same unacked commands.
+        if (window.WebTransport) {
+            const BrowserWebTransport = window.WebTransport;
+            window.WebTransport = class extends BrowserWebTransport {
+                constructor(url, options) {
+                    super(url, options);
+                    if ('outgoingMaxAge' in this.datagrams) this.datagrams.outgoingMaxAge = 50;
+                }
+            };
+        }
+
+        // winit calls a plain requestPointerLock() (winit#3547), which in Chromium takes the
+        // cursor-derived mouse path: OS acceleration and bogus movementX/Y spikes that throw the
+        // camera (crbug 40547981). Ask for the raw path instead; where it isn't supported, fall
+        // back to the plain lock. A second request while one is pending (winit asks again a frame
+        // later) fails with "pending" and is nobody's error.
+        const plainLock = Element.prototype.requestPointerLock;
+        Element.prototype.requestPointerLock = function (options) {
+            const request = plainLock?.call(this, { unadjustedMovement: true, ...options });
+            return request?.catch((error) => {
+                if (/pending/i.test(error.message)) return;
+                if (error.name !== 'NotSupportedError') throw error;
+                return plainLock.call(this);
+            });
+        };
+
+        const status = document.getElementById('status');
+
+        init()
+            .then(() => {
+                status.hidden = true;
+            })
+            .catch((error) => {
+                console.error('Failed to start the tactical client', error);
+                status.textContent = `Failed to start: ${error?.message || error}`;
+            });
+    </script>
+</body>
+</html>

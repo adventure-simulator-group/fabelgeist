@@ -78,7 +78,7 @@
             rust-analyzer-unwrapped
             just
             pythonWithTestLibs
-            wasm-bindgen-cli_0_2_126
+            wasm-bindgen-cli_0_2_127
             nodejs
             binaryen
             tracy

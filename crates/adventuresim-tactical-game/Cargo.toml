@@ -1,0 +1,65 @@
+[package]
+name = "adventuresim-tactical-game"
+description = "Fabelgeist: the tactical game on bevy_netahoy (fighters, their moves, server and client)"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+# Both sides, so the examples build with no flags; the game client of a bigger app takes
+# `default-features = false, features = ["client"]`.
+default = ["client", "server"]
+# The headless game server: listeners, joins, strike outcomes, bots.
+server = ["bevy_netahoy/transport-server"]
+# The game client: prediction, input, the fighters' models and animation, impacts, camera.
+client = [
+    "bevy_netahoy/transport-client",
+    "bevy/default_app",
+    "bevy/std",
+    "bevy/bevy_animation",
+    "bevy/bevy_camera",
+    "bevy/bevy_color",
+    "bevy/bevy_core_pipeline",
+    "bevy/bevy_gizmos",
+    "bevy/bevy_gizmos_render",
+    "bevy/bevy_gltf",
+    "bevy/bevy_light",
+    "bevy/bevy_mesh",
+    "bevy/bevy_pbr",
+    "bevy/bevy_render",
+    "bevy/bevy_window",
+    "bevy/bevy_winit",
+    "bevy/gltf_animation",
+    "bevy/hdr",
+    "bevy/scene",
+    "bevy/tonemapping_luts",
+    "bevy/ktx2",
+    "bevy/zstd_rust",
+    "bevy/png",
+]
+
+[dependencies]
+aeronet.workspace = true
+avian3d.workspace = true
+bevy = { workspace = true, features = ["bevy_state"] }
+bevy_netahoy.workspace = true
+bevy_replicon.workspace = true
+serde.workspace = true
+
+[target."cfg(not(target_family = \"wasm\"))".dependencies]
+bevy = { workspace = true, features = ["multi_threaded", "x11", "wayland"] }
+
+[target."cfg(target_family = \"wasm\")".dependencies]
+bevy = { workspace = true, features = ["web", "webgpu"] }
+console_error_panic_hook.workspace = true
+web-sys = { version = "0.3", features = ["AnimationTimeline", "Document", "DocumentTimeline", "Performance", "Window"] }
+
+[[example]]
+name = "tactical_server"
+
+[[example]]
+name = "tactical_client"
+
+[lints]
+workspace = true

@@ -666,7 +666,7 @@ fn queue_posture_action(controls: &mut DirectControlState, action: PostureAction
 
 #[cfg(target_family = "wasm")]
 fn websocket_config(_server_url: &str) -> ClientConfig {
-    ClientConfig
+    ClientConfig::default()
 }
 
 #[cfg(not(target_family = "wasm"))]
