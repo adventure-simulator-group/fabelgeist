@@ -1,6 +1,8 @@
 //! Grid-local search identity. Coordinates count cells from the grid origin;
 //! numeric access is for the `RoutingGrid` boundary and the distance kernel.
 
+use std::cmp::Ordering;
+
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
 struct GridRow(u32);
 
@@ -14,6 +16,12 @@ pub(super) struct GridPosition {
     column: GridColumn,
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) struct GridDirection {
+    row: Ordering,
+    column: Ordering,
+}
+
 impl GridPosition {
     pub(super) fn row(self) -> u32 {
         self.row.0
@@ -21,6 +29,13 @@ impl GridPosition {
 
     pub(super) fn column(self) -> u32 {
         self.column.0
+    }
+
+    pub(super) fn direction_to(self, next: Self) -> GridDirection {
+        GridDirection {
+            row: next.row.cmp(&self.row),
+            column: next.column.cmp(&self.column),
+        }
     }
 
     // Offsets are grid-cell steps supplied by the bounded neighbor kernel.

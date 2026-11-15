@@ -45,10 +45,11 @@ pub(super) fn reconstruct<G: RoutingGrid>(
     profile: TerrainSkillProfile,
     weather: RoutingWeather,
 ) -> Result<RoutePlan> {
-    let nodes = route_nodes(parent, start, goal)?;
+    let mut nodes = route_nodes(parent, start, goal)?;
     let measurements = measure_route(grid, &nodes, profile, weather)?;
     let minutes = measurements.seconds.rounded_minutes()?;
     let mut spans = minute_spans(measurements.spans)?;
+    retain_grid_turns(&mut nodes);
     let mut points = nodes
         .into_iter()
         .map(|position| RoutePoint {
@@ -56,7 +57,6 @@ pub(super) fn reconstruct<G: RoutingGrid>(
             latitude: f64::from(position.row()),
         })
         .collect::<Vec<_>>();
-    retain_grid_turns(&mut points);
     simplify_route(&mut points, MAX_ROUTE_POINTS);
     compact_spans(&mut spans, minutes, MAX_TERRAIN_SPANS);
     Ok(RoutePlan {
@@ -287,25 +287,19 @@ fn surface_index(surface: Surface) -> usize {
     }
 }
 
-fn retain_grid_turns(points: &mut Vec<RoutePoint>) {
-    if points.len() <= 2 {
+fn retain_grid_turns(nodes: &mut Vec<GridPosition>) {
+    if nodes.len() <= 2 {
         return;
     }
-    let mut retained = Vec::with_capacity(points.len());
-    retained.push(points[0].clone());
-    for window in points.windows(3) {
-        let before = (
-            (window[1].longitude - window[0].longitude).signum() as i8,
-            (window[1].latitude - window[0].latitude).signum() as i8,
-        );
-        let after = (
-            (window[2].longitude - window[1].longitude).signum() as i8,
-            (window[2].latitude - window[1].latitude).signum() as i8,
-        );
+    let mut retained = Vec::with_capacity(nodes.len());
+    retained.push(nodes[0]);
+    for window in nodes.windows(3) {
+        let before = window[0].direction_to(window[1]);
+        let after = window[1].direction_to(window[2]);
         if before != after {
-            retained.push(window[1].clone());
+            retained.push(window[1]);
         }
     }
-    retained.push(points[points.len() - 1].clone());
-    *points = retained;
+    retained.push(nodes[nodes.len() - 1]);
+    *nodes = retained;
 }
