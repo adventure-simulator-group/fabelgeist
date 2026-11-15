@@ -1,7 +1,8 @@
 //! Route reconstruction and terrain-span presentation.
 
 use super::{
-    RoutePlan, RoutePoint, RouteSeconds, RoutingGrid, TerrainSpan, step_distance, step_seconds,
+    GridPosition, RoutePlan, RoutePoint, RouteSeconds, RoutingGrid, TerrainSpan, step_distance,
+    step_seconds,
 };
 use crate::{
     BASIS_POINTS_PER_WHOLE, Error, MAX_ROUTE_NODES, MAX_ROUTE_POINTS, MAX_TERRAIN_SPANS, Result,
@@ -38,9 +39,9 @@ pub(crate) fn simplify_route(points: &mut Vec<RoutePoint>, cap: usize) {
 
 pub(super) fn reconstruct<G: RoutingGrid>(
     grid: &G,
-    parent: &HashMap<u32, u32>,
-    start: u32,
-    goal: u32,
+    parent: &HashMap<GridPosition, GridPosition>,
+    start: GridPosition,
+    goal: GridPosition,
     profile: TerrainSkillProfile,
     weather: RoutingWeather,
 ) -> Result<RoutePlan> {
@@ -50,9 +51,9 @@ pub(super) fn reconstruct<G: RoutingGrid>(
     let mut spans = minute_spans(measurements.spans)?;
     let mut points = nodes
         .into_iter()
-        .map(|i| RoutePoint {
-            longitude: f64::from(i % grid.width()),
-            latitude: f64::from(i / grid.width()),
+        .map(|position| RoutePoint {
+            longitude: f64::from(position.column()),
+            latitude: f64::from(position.row()),
         })
         .collect::<Vec<_>>();
     retain_grid_turns(&mut points);
@@ -148,7 +149,11 @@ pub(crate) fn compact_spans(spans: &mut Vec<TerrainSpan>, total_minutes: u64, ca
     *spans = compacted;
 }
 
-fn route_nodes(parent: &HashMap<u32, u32>, start: u32, goal: u32) -> Result<Vec<u32>> {
+fn route_nodes(
+    parent: &HashMap<GridPosition, GridPosition>,
+    start: GridPosition,
+    goal: GridPosition,
+) -> Result<Vec<GridPosition>> {
     let mut nodes = vec![goal];
     let mut current = goal;
     while current != start {
@@ -164,7 +169,7 @@ fn route_nodes(parent: &HashMap<u32, u32>, start: u32, goal: u32) -> Result<Vec<
 
 fn measure_route<G: RoutingGrid>(
     grid: &G,
-    nodes: &[u32],
+    nodes: &[GridPosition],
     profile: TerrainSkillProfile,
     weather: RoutingWeather,
 ) -> Result<RouteMeasurements> {
@@ -172,11 +177,11 @@ fn measure_route<G: RoutingGrid>(
     let mut seconds = RouteSeconds::default();
     let mut spans: Vec<SecondSpan> = Vec::new();
     for pair in nodes.windows(2) {
-        let a = (pair[0] % grid.width(), pair[0] / grid.width());
-        let b = (pair[1] % grid.width(), pair[1] / grid.width());
-        let from = grid.cell(a.0, a.1).ok_or(Error::NoRoute)?;
-        let to = grid.cell(b.0, b.1).ok_or(Error::NoRoute)?;
-        let diagonal = a.0 != b.0 && a.1 != b.1;
+        let a = pair[0];
+        let b = pair[1];
+        let from = grid.cell(a.column(), a.row()).ok_or(Error::NoRoute)?;
+        let to = grid.cell(b.column(), b.row()).ok_or(Error::NoRoute)?;
+        let diagonal = a.column() != b.column() && a.row() != b.row();
         distance_m += step_distance(grid.metres_per_cell(), diagonal);
         let step = step_seconds(from, to, grid.metres_per_cell(), diagonal, profile, weather);
         seconds += step;

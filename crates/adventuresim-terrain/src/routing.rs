@@ -15,8 +15,10 @@ use std::{
 pub(super) use plan::compact_spans;
 use plan::reconstruct;
 pub(super) use plan::simplify_route;
+use position::GridPosition;
 
 mod plan;
+mod position;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct RoutePoint {
@@ -51,7 +53,7 @@ struct RouteSeconds(u128);
 struct Queue {
     f: RouteSeconds,
     g: RouteSeconds,
-    index: u32,
+    position: GridPosition,
 }
 /// Small deterministic A* kernel used by the pack planner and exhaustive fixtures.
 pub trait RoutingGrid {
@@ -89,7 +91,7 @@ impl Ord for Queue {
         self.f
             .cmp(&other.f)
             .then(self.g.cmp(&other.g))
-            .then(self.index.cmp(&other.index))
+            .then(self.position.cmp(&other.position))
     }
 }
 impl PartialOrd for Queue {
@@ -146,26 +148,24 @@ pub(super) fn astar_with_profile_and_deadline<G: RoutingGrid>(
     {
         return Err(Error::NoRoute);
     }
-    let index = |p: (u32, u32)| p.1 * grid.width() + p.0;
-    let point = |i: u32| (i % grid.width(), i / grid.width());
-    let start_i = index(start);
-    let goal_i = index(goal);
+    let start = GridPosition::from(start);
+    let goal = GridPosition::from(goal);
     let mut open = BinaryHeap::new();
     let mut best = HashMap::new();
     let mut parent = HashMap::new();
-    best.insert(start_i, RouteSeconds::default());
+    best.insert(start, RouteSeconds::default());
     open.push(Reverse(Queue {
         f: heuristic(start, goal, grid.metres_per_cell()),
         g: RouteSeconds::default(),
-        index: start_i,
+        position: start,
     }));
     let mut visited = 0;
     while let Some(Reverse(current)) = open.pop() {
-        if best.get(&current.index) != Some(&current.g) {
+        if best.get(&current.position) != Some(&current.g) {
             continue;
         }
-        if current.index == goal_i {
-            return reconstruct(grid, &parent, start_i, goal_i, profile, weather);
+        if current.position == goal {
+            return reconstruct(grid, &parent, start, goal, profile, weather);
         }
         visited += 1;
         if visited % 256 == 0 {
@@ -174,25 +174,22 @@ pub(super) fn astar_with_profile_and_deadline<G: RoutingGrid>(
         if visited > MAX_ROUTE_NODES {
             return Err(Error::NoRoute);
         }
-        let (x, y) = point(current.index);
         for dy in -1_i32..=1 {
             for dx in -1_i32..=1 {
                 if dx == 0 && dy == 0 {
                     continue;
                 }
-                let nx = x as i32 + dx;
-                let ny = y as i32 + dy;
-                if nx < 0 || ny < 0 {
-                    continue;
-                }
-                let next = (nx as u32, ny as u32);
-                if next.0 >= grid.width() || next.1 >= grid.height() {
-                    continue;
-                }
-                let Some(from) = grid.cell(x, y) else {
+                let Some(next) = current.position.offset(dx, dy) else {
                     continue;
                 };
-                let Some(to) = grid.cell(next.0, next.1) else {
+                if next.column() >= grid.width() || next.row() >= grid.height() {
+                    continue;
+                }
+                let Some(from) = grid.cell(current.position.column(), current.position.row())
+                else {
+                    continue;
+                };
+                let Some(to) = grid.cell(next.column(), next.row()) else {
                     continue;
                 };
                 if to.surface == Surface::Water && !to.crossing {
@@ -200,8 +197,12 @@ pub(super) fn astar_with_profile_and_deadline<G: RoutingGrid>(
                 }
                 if dx != 0
                     && dy != 0
-                    && (!grid.cell(next.0, y).is_some_and(passable)
-                        || !grid.cell(x, next.1).is_some_and(passable))
+                    && (!grid
+                        .cell(next.column(), current.position.row())
+                        .is_some_and(passable)
+                        || !grid
+                            .cell(current.position.column(), next.row())
+                            .is_some_and(passable))
                 {
                     continue;
                 }
@@ -214,14 +215,13 @@ pub(super) fn astar_with_profile_and_deadline<G: RoutingGrid>(
                     weather,
                 );
                 let next_g = current.g + step;
-                let next_i = index(next);
-                if best.get(&next_i).is_none_or(|known| next_g < *known) {
-                    best.insert(next_i, next_g);
-                    parent.insert(next_i, current.index);
+                if best.get(&next).is_none_or(|known| next_g < *known) {
+                    best.insert(next, next_g);
+                    parent.insert(next, current.position);
                     open.push(Reverse(Queue {
                         f: next_g + heuristic(next, goal, grid.metres_per_cell()),
                         g: next_g,
-                        index: next_i,
+                        position: next,
                     }));
                 }
             }
@@ -284,9 +284,9 @@ fn minimum_step_seconds(distance: u64) -> RouteSeconds {
     RouteSeconds(seconds)
 }
 
-fn heuristic(a: (u32, u32), b: (u32, u32), metres: u32) -> RouteSeconds {
-    let dx = a.0.abs_diff(b.0);
-    let dy = a.1.abs_diff(b.1);
+fn heuristic(a: GridPosition, b: GridPosition, metres: u32) -> RouteSeconds {
+    let dx = a.column().abs_diff(b.column());
+    let dy = a.row().abs_diff(b.row());
     let diagonal = u128::from(dx.min(dy));
     let straight = u128::from(dx.max(dy) - dx.min(dy));
     let diagonal_cost = minimum_step_seconds(step_distance(metres, true));
