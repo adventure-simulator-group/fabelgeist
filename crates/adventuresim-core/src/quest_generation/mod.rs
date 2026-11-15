@@ -8,6 +8,9 @@
 //! intentionally share this module scope so public paths, declaration order,
 //! privacy, and macro-generated SpacetimeDB names remain unchanged.
 
+use open_catalog_id_syntax::MAX_BYTES;
+
+mod open_catalog_id_syntax;
 include!("model.rs");
 mod sampling;
 use sampling::{canonical_context, canonicalize, choose, weighted_order};
