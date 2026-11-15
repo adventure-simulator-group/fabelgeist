@@ -604,7 +604,7 @@ ceiling = 524
 
 [[files]]
 path = "crates/adventuresim-terrain/src/lib.rs"
-ceiling = 1394
+ceiling = 1365
 
 [[files]]
 path = "crates/adventuresim-world-import/src/bin/build-strategic-map.rs"
@@ -8911,13 +8911,6 @@ path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
 item = "main"
 fingerprint = "string:SPACETIMEDB_TOKEN"
 occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-terrain/src/lib.rs"
-item = "validate_manifest"
-fingerprint = "string:EPSG:3035"
-occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"

@@ -3,7 +3,11 @@
 //! The pack keeps GLO-30 pixels in compressed 256×256 chunks on disk. Runtime
 //! consumers decompress only a bounded LRU and never put the continental grid
 //! in SpacetimeDB or in one allocation.
+//! Each entry asserts the full or true-edge chunk dimensions implied by its
+//! native tile and ordinals. Encoded cells are row-major, with x varying
+//! fastest; cropped packages may omit whole nonintersecting chunks.
 
+use admission::{ChunkGeometry, validate_manifest};
 use adventuresim_world_schema::{BASIS_POINTS_PER_WHOLE, TerrainFeature};
 use digest::{hex_sha, hex_sha_reader, valid_digest};
 use flate2::read::DeflateDecoder;
@@ -19,6 +23,7 @@ use std::{
     time::Instant,
 };
 
+mod admission;
 mod digest;
 pub mod road_pack;
 mod terrain_feature;
@@ -28,6 +33,7 @@ pub const CHUNK_SIDE: u16 = 256;
 pub const MAX_ENTRIES: usize = 20_000;
 pub const MAX_PACK_BYTES: usize = 2 * 1024 * 1024 * 1024;
 pub const MAX_MANIFEST_BYTES: u64 = 32 * 1024 * 1024;
+const CULTIVATION_GRID_CRS: &str = "EPSG:3035";
 const CELL_BYTES: usize = 5;
 pub const MAX_DECODED_CHUNK_BYTES: usize = 256 * 256 * CELL_BYTES;
 pub const CACHE_BYTES: usize = 32 * 1024 * 1024;
@@ -304,7 +310,9 @@ pub struct Entry {
     pub tile_height: u16,
     pub chunk_x: u16,
     pub chunk_y: u16,
+    /// Producer assertion for the encoded chunk's native-pixel width.
     pub width: u16,
+    /// Producer assertion for the encoded chunk's native-pixel height.
     pub height: u16,
     pub offset: u64,
     pub length: u32,
@@ -319,10 +327,15 @@ struct Cache {
     chunks: HashMap<usize, (u64, Arc<[Cell]>)>,
 }
 
+struct IndexedChunk {
+    range: Range<usize>,
+    geometry: ChunkGeometry,
+}
+
 pub struct TerrainPack {
     manifest: Manifest,
     file: Mutex<File>,
-    ranges: Vec<Range<usize>>,
+    chunks: Vec<IndexedChunk>,
     index: HashMap<(i16, i16, u16, u16), usize>,
     tiles: HashMap<(i16, i16), (u16, u16)>,
     cache: Mutex<Cache>,
@@ -393,10 +406,20 @@ impl TerrainPack {
                 ));
             }
         }
+        let chunks = ranges
+            .into_iter()
+            .zip(&manifest.entries)
+            .map(|(range, entry)| {
+                Ok(IndexedChunk {
+                    range,
+                    geometry: ChunkGeometry::admit(entry)?,
+                })
+            })
+            .collect::<Result<Vec<_>>>()?;
         Ok(Self {
             manifest,
             file: Mutex::new(file),
-            ranges,
+            chunks,
             index,
             tiles,
             cache: Mutex::new(Cache {
@@ -464,12 +487,13 @@ impl TerrainPack {
             .index
             .get(&(south, west, chunk_x, chunk_y))
             .ok_or_else(|| Error::Validation("manifest has a hole in a source tile".into()))?;
-        let entry = &self.manifest.entries[index];
         let cells = self.chunk(index)?;
         let local_x = x - chunk_x * CHUNK_SIDE;
         let local_y = y - chunk_y * CHUNK_SIDE;
-        Ok(cells
-            .get(local_y as usize * entry.width as usize + local_x as usize)
+        Ok(self.chunks[index]
+            .geometry
+            .cell_index(local_x, local_y)
+            .and_then(|position| cells.get(position))
             .copied())
     }
 
@@ -490,11 +514,11 @@ impl TerrainPack {
             }
         }
         let entry = &self.manifest.entries[index];
-        let expected = entry.width as usize * entry.height as usize * CELL_BYTES;
+        let expected = self.chunks[index].geometry.decoded_bytes();
         if expected > MAX_DECODED_CHUNK_BYTES {
             return Err(Error::Validation("decoded chunk exceeds bound".into()));
         }
-        let range = self.ranges[index].clone();
+        let range = self.chunks[index].range.clone();
         let mut compressed = vec![0_u8; range.len()];
         {
             let mut file = self
@@ -943,54 +967,6 @@ fn simplify_route(points: &mut Vec<RoutePoint>, cap: usize) {
         simplified.push(points.last().expect("route is nonempty").clone())
     }
     *points = simplified;
-}
-
-fn validate_manifest(manifest: &Manifest) -> Result<()> {
-    if manifest.schema != SCHEMA
-        || manifest.source_resolution_m != 30
-        || manifest.entries.is_empty()
-        || manifest.entries.len() > MAX_ENTRIES
-    {
-        return Err(Error::Validation(
-            "unsupported or unbounded manifest".into(),
-        ));
-    }
-    let [west, south, east, north] = manifest.bounds;
-    if ![west, south, east, north].into_iter().all(f64::is_finite) || west >= east || south >= north
-    {
-        return Err(Error::Validation("invalid geographic bounds".into()));
-    }
-    if !valid_digest(&manifest.content_sha256) || !valid_digest(&manifest.package_sha256) {
-        return Err(Error::Validation("invalid digest".into()));
-    }
-    if !valid_digest(&manifest.road_geometry_sha256)
-        || !valid_digest(&manifest.wetland_source_sha256)
-        || !valid_digest(&manifest.cultivation_source_sha256)
-        || manifest.wetland_cells > 100_000
-        || manifest.cultivation_grid_crs != "EPSG:3035"
-        || manifest.cultivation_grid_resolution_m != 1_000
-        || manifest.cultivation_rules_version == 0
-        || manifest.cultivated_square_count > 5_000_000
-        || manifest.cultivated_native_cells > 1_000_000_000
-    {
-        return Err(Error::Validation("invalid terrain feature identity".into()));
-    }
-    terrain_feature::validate(&manifest.terrain_features, [west, south, east, north])?;
-    for entry in &manifest.entries {
-        if ![1_800, 2_400, 3_600].contains(&entry.tile_width)
-            || entry.tile_height != 3_600
-            || entry.width == 0
-            || entry.height == 0
-            || entry.width > CHUNK_SIDE
-            || entry.height > CHUNK_SIDE
-            || !valid_digest(&entry.decoded_sha256)
-        {
-            return Err(Error::Validation(
-                "invalid native GLO-30 chunk metadata".into(),
-            ));
-        }
-    }
-    Ok(())
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -2010,7 +1986,8 @@ mod tests {
             std::process::id()
         ));
         std::fs::create_dir_all(&root).unwrap();
-        let decoded = [0, 0, 6, 0, 0];
+        let mut decoded = [0, 0, 1, 0, 0].repeat(usize::from(CHUNK_SIDE) * usize::from(CHUNK_SIDE));
+        decoded[2] = 6;
         let mut encoder = DeflateEncoder::new(Vec::new(), Compression::fast());
         encoder.write_all(&decoded).unwrap();
         let compressed = encoder.finish().unwrap();
@@ -2037,8 +2014,8 @@ mod tests {
                 tile_height: 3_600,
                 chunk_x: 0,
                 chunk_y: 0,
-                width: 1,
-                height: 1,
+                width: CHUNK_SIDE,
+                height: CHUNK_SIDE,
                 offset: 0,
                 length: compressed.len() as u32,
                 decoded_sha256: hex_sha(&decoded),
