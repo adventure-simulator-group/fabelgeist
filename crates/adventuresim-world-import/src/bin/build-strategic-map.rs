@@ -999,7 +999,7 @@ mod tests {
     }
 
     fn terrain_fixture(root: &Path, roads: &[Vec<[f64; 2]>]) -> adventuresim_terrain::TerrainPack {
-        use adventuresim_terrain::{Entry, Manifest, SCHEMA, TerrainPurpose};
+        use adventuresim_terrain::{CHUNK_SIDE, Entry, Manifest, SCHEMA, TerrainPurpose};
         let bytes = [0_u8];
         let mut manifest = Manifest {
             schema: SCHEMA,
@@ -1027,8 +1027,8 @@ mod tests {
                 tile_height: 3_600,
                 chunk_x: 0,
                 chunk_y: 0,
-                width: 1,
-                height: 1,
+                width: CHUNK_SIDE,
+                height: CHUNK_SIDE,
                 offset: 0,
                 length: 1,
                 decoded_sha256: "0".repeat(64),

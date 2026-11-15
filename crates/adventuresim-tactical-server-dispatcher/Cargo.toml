@@ -35,4 +35,6 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 workspace = true
 
 [dev-dependencies]
+adventuresim-terrain = { path = "../adventuresim-terrain", features = ["builder"] }
 flate2.workspace = true
+tiff.workspace = true

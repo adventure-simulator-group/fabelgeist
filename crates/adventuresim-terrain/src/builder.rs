@@ -184,7 +184,7 @@ pub fn build(
         road_geometry_sha256,
         wetland_source_sha256: features.wetland_source_sha256.clone(),
         wetland_cells,
-        cultivation_grid_crs: "EPSG:3035".into(),
+        cultivation_grid_crs: crate::CULTIVATION_GRID_CRS.into(),
         cultivation_grid_resolution_m: 1_000,
         cultivation_rules_version: features.cultivation_rules_version,
         cultivation_source_sha256: features.cultivation_source_sha256.clone(),
