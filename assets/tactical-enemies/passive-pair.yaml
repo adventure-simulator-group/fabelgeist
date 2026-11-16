@@ -1,0 +1,18 @@
+version: 1
+enemies:
+  - name: First Passive Bandit
+    behavior: passive
+    add_basic_clothing: true
+    loadout:
+      - { item_id: arming_cap, slot: head }
+      - { item_id: arming_doublet, slot: chest }
+      - { item_id: padded_chausses, slot: left_leg }
+      - { item_id: padded_chausses, slot: right_leg }
+  - name: Second Passive Bandit
+    behavior: passive
+    add_basic_clothing: true
+    loadout:
+      - { item_id: arming_cap, slot: head }
+      - { item_id: arming_doublet, slot: chest }
+      - { item_id: padded_chausses, slot: left_leg }
+      - { item_id: padded_chausses, slot: right_leg }

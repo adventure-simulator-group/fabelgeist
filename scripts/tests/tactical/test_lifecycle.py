@@ -27,7 +27,7 @@ LIFECYCLE_BASE_PORT = "23300"
 LIFECYCLE_MISSION_ID = "mission:lifecycle-test"
 LIFECYCLE_SERVER_BRP_PORT = 15704
 LIFECYCLE_CLIENT_BRP_PORT = 15705
-LIFECYCLE_ENEMY_COUNT = "2"
+LIFECYCLE_ENEMY_FIXTURE = "passive-pair"
 # Custody of any carried item (including the generated weapon-carry loadout)
 # requires a nonzero character identity - see `CustodyCharacterId`.
 LIFECYCLE_CHARACTER_ID = "1"
@@ -77,7 +77,7 @@ def test_character_count_reflects_bot_and_client_connect_disconnect_lifecycle(
             LIFECYCLE_MISSION_ID,
             "hills",
             LIFECYCLE_CHARACTER_ID,
-            LIFECYCLE_ENEMY_COUNT,
+            LIFECYCLE_ENEMY_FIXTURE,
         ],
         log_dir / "tactical-isolated.log",
     )
@@ -100,19 +100,13 @@ def test_character_count_reflects_bot_and_client_connect_disconnect_lifecycle(
         server_cmd = [
             "cargo", "run", "--package", "adventuresim-tactical-server", "--features", "debug", "--",
             "--addr", f"0.0.0.0:{env_values['TACTICAL_PORT']}",
-            "--mission-id", env_values["TACTICAL_MISSION_ID"],
+            "--instance-id", f"scene:mission:{env_values['TACTICAL_MISSION_ID']}",
             "--scene-key", env_values["TACTICAL_SCENE_KEY"],
             "--spacetimedb-url", env_values["TACTICAL_SPACETIMEDB_URL"],
             "--spacetimedb-module", env_values["TACTICAL_SPACETIMEDB_MODULE"],
             "--expected-party-members", "1",
-            "--required-enemy-kills", LIFECYCLE_ENEMY_COUNT,
-            # Skips inserting `OffensiveCombatAi` on the bots entirely (see
-            # `spawn_connected_player`), leaving them inert. Without that,
-            # both bots land a lethal hit on the joining party member within
-            # about half a second of connecting, ending the mission (defeat)
-            # and shutting the server down before this test's assertions
-            # can run.
-            "--enemy-combat-scale-bps", "0",
+            "--required-enemy-kills", "2",
+            "--enemy-fixture", LIFECYCLE_ENEMY_FIXTURE,
             "--no-timeout",
             "--brp-port", str(LIFECYCLE_SERVER_BRP_PORT),
         ]

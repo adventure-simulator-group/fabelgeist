@@ -6,12 +6,19 @@ use spacetimedb_sdk::{DbContext, Identity, Table};
 
 use crate::Args;
 
+mod scene_operations;
+pub(crate) use scene_operations::{
+    SceneAdmissions, SceneOperationResult, SceneReady, process_scene_operations,
+};
+
 /// Plugin for spacetimedb x bevy integration.
 pub struct SpacetimeDbPlugin;
 
 impl Plugin for SpacetimeDbPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, connect_spacetimedb)
+        app.init_resource::<SceneAdmissions>()
+            .add_systems(Update, process_scene_operations.after(update_spacetimedb))
+            .add_systems(Startup, connect_spacetimedb)
             .add_systems(
                 Update,
                 (
@@ -49,6 +56,7 @@ pub struct SpacetimeDb {
     conn: DbConnection,
     connected_players: Arc<Mutex<Vec<ConnectedPlayer>>>,
     terminal_results: Arc<Mutex<Vec<TerminalSubmissionResult>>>,
+    scene_operations: Arc<Mutex<Vec<SceneOperationResult>>>,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -160,6 +168,8 @@ fn disconnect_spacetimedb(mut exit: MessageReader<AppExit>, stdb: Res<SpacetimeD
 
 fn connect_spacetimedb(mut commands: Commands, args: Res<Args>) -> Result {
     info!("Connecting to SpacetimeDB: {}", args.spacetimedb_url);
+    let scene_operations = Arc::default();
+    let disconnect_mailbox = Arc::clone(&scene_operations);
     let conn = DbConnection::builder()
         .with_uri(&args.spacetimedb_url)
         .with_database_name(&args.spacetimedb_module)
@@ -172,7 +182,8 @@ fn connect_spacetimedb(mut commands: Commands, args: Res<Args>) -> Result {
             // die and let the orchestrator deal with it.
             std::process::exit(1);
         })
-        .on_disconnect(|_, err| {
+        .on_disconnect(move |_, err| {
+            scene_operations::connection_lost(&disconnect_mailbox, format!("{err:?}"));
             if let Some(err) = err {
                 warn!("SpacetimeDB disconnected: {err}")
             } else {
@@ -185,6 +196,7 @@ fn connect_spacetimedb(mut commands: Commands, args: Res<Args>) -> Result {
         conn,
         connected_players: default(),
         terminal_results: default(),
+        scene_operations,
     });
 
     Ok(())

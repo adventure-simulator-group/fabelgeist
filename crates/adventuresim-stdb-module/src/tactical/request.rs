@@ -1,4 +1,6 @@
-use spacetimedb::{ReducerContext, SpacetimeType};
+use super::{tactical_server_authority, tactical_server_request_authority};
+use crate::strategic::mission_authority;
+use spacetimedb::{ReducerContext, SpacetimeType, Table};
 
 use crate::{
     character::character,
@@ -7,7 +9,7 @@ use crate::{
     strategic::settlement,
 };
 
-/// Mission-lifetime display snapshot of the Character projection at capture.
+/// Scene-lifetime display snapshot of the Character projection at capture.
 /// Later requests recapture names; an active scene never observes a rename.
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
 pub struct TacticalBusinessOperator {
@@ -16,7 +18,7 @@ pub struct TacticalBusinessOperator {
     pub operator_name: String,
 }
 
-/// Immutable mission input, captured with the request and consumed by the
+/// Immutable scene input, captured with the request and consumed by the
 /// dispatcher. Scene validation checks derived shop brands against these
 /// operator names and building uses; no live settlement refresh occurs.
 #[derive(Clone, Debug, PartialEq, Eq, SpacetimeType)]
@@ -50,6 +52,14 @@ pub(crate) fn tactical_settlement_snapshot(
     if settlement.scene_key != case_site.scene_key {
         return Ok(None);
     }
+    settlement_snapshot(ctx, &settlement).map(Some)
+}
+
+pub(crate) fn settlement_snapshot(
+    ctx: &ReducerContext,
+    settlement: &crate::strategic::Settlement,
+) -> Result<TacticalSettlementSnapshot, String> {
+    let origin_settlement_id = &settlement.id;
     crate::settlement_population::ensure_settlement_population(ctx, origin_settlement_id)?;
     let mut operators = ctx
         .db
@@ -81,13 +91,13 @@ pub(crate) fn tactical_settlement_snapshot(
         })
         .collect::<Result<Vec<_>, String>>()?;
     operators.sort_by(|left, right| left.business_id.cmp(&right.business_id));
-    Ok(Some(TacticalSettlementSnapshot {
-        id: settlement.id,
+    Ok(TacticalSettlementSnapshot {
+        id: settlement.id.clone(),
         population_level: settlement.population_level,
         population_estimate: settlement.population_estimate,
-        economy: settlement.economy,
+        economy: settlement.economy.clone(),
         operators,
-    }))
+    })
 }
 
 pub(crate) fn tactical_party_roster(
@@ -100,6 +110,39 @@ pub(crate) fn tactical_party_roster(
     adventuresim_core::mission::TacticalPartyRoster::try_from(
         crate::strategic::living_party_member_ids(ctx, party_id),
     )
+}
+
+pub(super) fn hostile_group_has_tactical_scene(
+    ctx: &ReducerContext,
+    hostile_group_id: &str,
+) -> bool {
+    ctx.db
+        .tactical_server_request_authority()
+        .iter()
+        .any(|request| {
+            let Some(tactical) = request.session.mission() else {
+                return false;
+            };
+            ctx.db
+                .mission_authority()
+                .id()
+                .find(&tactical.mission_id)
+                .is_some_and(|mission| {
+                    mission.hostile_group_id.as_deref() == Some(hostile_group_id)
+                })
+        })
+        || ctx.db.tactical_server_authority().iter().any(|server| {
+            let Some(tactical) = server.session.mission() else {
+                return false;
+            };
+            ctx.db
+                .mission_authority()
+                .id()
+                .find(&tactical.mission_id)
+                .is_some_and(|mission| {
+                    mission.hostile_group_id.as_deref() == Some(hostile_group_id)
+                })
+        })
 }
 
 #[cfg(test)]

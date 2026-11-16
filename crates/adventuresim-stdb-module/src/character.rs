@@ -29,7 +29,7 @@ use crate::{
         character_illness_status, committed_cut, disease_notice, infection_episode,
         physiology_administration,
     },
-    enter_mission, inventory_item,
+    enter_tactical_scene, inventory_item,
     item::item,
     organization::{organization_membership, organization_presentation},
     personality::{
@@ -801,7 +801,11 @@ pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Res
     if ctx.sender() != server || tactical_server.is_none() {
         return Err("Only a registered tactical server can create its temporary characters".into());
     }
-    let tactical_server = tactical_server.expect("checked tactical server");
+    let tactical_server = tactical_server.ok_or("Tactical server not found")?;
+    let mission = tactical_server
+        .session
+        .mission()
+        .ok_or("Temporary combatants require a mission session")?;
 
     let names = petname::Petnames::default();
     let name_seed: Seed = ctx.random();
@@ -817,11 +821,11 @@ pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Res
     scale_temporary_enemy(
         ctx,
         id,
-        tactical_server.enemy_difficulty,
-        tactical_server.enemy_combat_scale_bps,
-        tactical_server.countermeasure_multiplier_bps,
+        mission.enemy_difficulty,
+        mission.enemy_combat_scale_bps,
+        mission.countermeasure_multiplier_bps,
     )?;
-    enter_mission(ctx, id, server)
+    enter_tactical_scene(ctx, id, server)
 }
 
 fn scale_temporary_enemy(

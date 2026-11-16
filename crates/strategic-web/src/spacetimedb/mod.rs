@@ -30,8 +30,8 @@ pub(crate) use queries::{
     party_journey_route_by_party_id, party_recruitment_role_by_id, settlement_by_id,
     settlement_resident_by_character_id, settlement_resident_presence_by_character_id,
     settlement_smith_by_settlement_id, social_address_by_id, sql_string_literal,
-    strategic_encounter_by_party_id, tactical_server_by_mission_id,
-    tactical_server_request_by_mission_id, weapon_holder_instance_by_physical_object_id,
+    strategic_encounter_by_party_id, tactical_server_by_instance_id,
+    tactical_server_request_by_instance_id, weapon_holder_instance_by_physical_object_id,
     weapon_instance_by_physical_object_id, world_clock_singleton,
 };
 pub use types::*;

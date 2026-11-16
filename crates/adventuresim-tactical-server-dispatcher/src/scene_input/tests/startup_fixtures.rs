@@ -12,6 +12,19 @@ use adventuresim_world_schema::{
 };
 
 #[test]
+#[ignore = "exports flat terrain for the isolated live-session acceptance test"]
+fn export_flat_acceptance_terrain() {
+    let output = PathBuf::from(std::env::var_os("SETTLEMENT_ACCEPTANCE_TERRAIN_DIR").unwrap());
+    fs::create_dir_all(&output).unwrap();
+    let (pack, temporary) = final_pack_with_cell([65, 1, 1, 0, 0]);
+    for name in ["terrain.manifest.json", "terrain.pack"] {
+        fs::copy(temporary.join(name), output.join(name)).unwrap();
+    }
+    drop(pack);
+    fs::remove_dir_all(temporary).unwrap();
+}
+
+#[test]
 #[ignore = "exports client fixtures to STRATEGIC_STARTUP_FIXTURE_DIR"]
 fn export_distinct_startup_destinations() {
     let output = PathBuf::from(std::env::var_os("STRATEGIC_STARTUP_FIXTURE_DIR").unwrap());

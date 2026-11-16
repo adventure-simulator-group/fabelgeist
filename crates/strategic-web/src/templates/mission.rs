@@ -2,7 +2,7 @@
 
 use maud::{Markup, html};
 
-use super::{StatusBadgeTone, mission_layout, panel, sidebar_section, status_badge};
+use super::{StatusBadgeTone, panel, scene_entry_layout, sidebar_section, status_badge};
 use crate::spacetimedb::{MissionServerView, MissionStatus};
 
 /// Mission status page updated by the shared strategic SSE stream.
@@ -67,7 +67,7 @@ pub fn mission_status_page(server: &MissionServerView, logged_in_as: Option<&str
         }
     };
 
-    mission_layout("Mission Status", content, logged_in_as)
+    scene_entry_layout("Mission Status", content, logged_in_as)
 }
 
 const fn mission_status_badge_tone(status: MissionStatus) -> StatusBadgeTone {

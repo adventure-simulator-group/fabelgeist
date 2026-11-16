@@ -67,18 +67,7 @@ pub fn settlement_overview_page(
 ) -> Markup {
     let alias_labels = settlement_alias_labels(settlement, aliases);
     let historical_description = preferred_settlement_description(descriptions);
-    let population_tooltip = if settlement.population_estimate == 0 {
-        format!(
-            "No imported headcount is available\nSettlement class: {}",
-            population_description(settlement.population_level)
-        )
-    } else {
-        format!(
-            "Imported estimate: {} people\nSettlement class: {}",
-            format_number(settlement.population_estimate),
-            population_description(settlement.population_level),
-        )
-    };
+    let population_tooltip = settlement_population_tooltip(settlement);
     let faith_labels = settlement
         .religious_status
         .represented_religions()
@@ -122,6 +111,7 @@ pub fn settlement_overview_page(
         main class="center-content settlement-main settlement-overview" {
             (party_portrait_overlay(party_members, active_character, &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None))
             (npc_portrait_strip(&settlement.id, "overview"))
+            (super::scene_entry::control(active_character, &settlement.id))
             @if !corpses.is_empty() {
                 nav class="scene-interactable-strip corpse-strip" aria-label="Bodies held in the settlement" {
                     @for corpse in corpses {
@@ -321,6 +311,21 @@ pub struct ChildPresentation {
     pub maturity_basis_points: u16,
     pub adult_playable: bool,
     pub alive: bool,
+}
+
+fn settlement_population_tooltip(settlement: &SettlementView) -> String {
+    if settlement.population_estimate == 0 {
+        format!(
+            "No imported headcount is available\nSettlement class: {}",
+            population_description(settlement.population_level)
+        )
+    } else {
+        format!(
+            "Imported estimate: {} people\nSettlement class: {}",
+            format_number(settlement.population_estimate),
+            population_description(settlement.population_level),
+        )
+    }
 }
 
 fn settlement_alias_labels(

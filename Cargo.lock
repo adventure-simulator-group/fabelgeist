@@ -391,9 +391,11 @@ dependencies = [
  "bevy",
  "bevy_enhanced_input",
  "bevy_replicon",
+ "ciborium",
  "fabelgeist-determinism",
  "serde",
  "serde_json",
+ "wasm-bindgen",
 ]
 
 [[package]]
@@ -432,6 +434,7 @@ dependencies = [
  "adventuresim-core",
  "adventuresim-stdb-client",
  "adventuresim-tactical-core",
+ "adventuresim-tactical-netcode",
  "adventuresim-terrain",
  "adventuresim-world-schema",
  "bevy",

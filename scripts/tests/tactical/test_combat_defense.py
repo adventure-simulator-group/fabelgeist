@@ -367,8 +367,7 @@ def _run_scripted_attack(
             for _attempt in range(ATTACK_ATTEMPTS):
                 # Re-aimed every attempt, not just once before the loop: the
                 # bot's own captured `OffensiveCombatAi` keeps it attacking
-                # autonomously throughout (`--enemy-combat-scale-bps` only
-                # gates freshly-spawned bots, not dump-loaded ones), and its
+                # autonomously throughout, including dump-loaded behavior, and its
                 # attacks impart balance/stagger physics on the party
                 # character even when they land for zero damage - enough to
                 # measurably drift the fixed initial facing off-target over

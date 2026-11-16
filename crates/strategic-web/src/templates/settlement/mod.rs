@@ -19,6 +19,7 @@ mod cooking;
 mod inspection_inventory;
 mod religion;
 mod rest;
+mod scene_entry;
 mod service;
 mod side_panels;
 mod social;

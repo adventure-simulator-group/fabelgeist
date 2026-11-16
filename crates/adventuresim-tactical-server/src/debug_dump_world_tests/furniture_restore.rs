@@ -1,5 +1,6 @@
 use super::*;
 use adventuresim_building_generator::furniture::{FurnitureKey, FurnitureKind, FurnitureVariant};
+use adventuresim_tactical_netcode::message::SceneVistaBundle;
 
 #[test]
 fn furniture_dump_restores_collision_and_the_same_activity_groups() {
@@ -34,8 +35,8 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
     };
     let transform = Transform::from_xyz(5.0, 0.0, 7.0);
     let mut app = App::new();
-    app.insert_resource(SceneVistaBundleResource(crate::scene_setup::vista_bundle(
-        &input,
+    app.insert_resource(SceneVistaBundleResource(Some(
+        SceneVistaBundle::try_from(&input).unwrap(),
     )))
     .add_observer(on_debug_dump_world_request)
     .add_observer(crate::furniture::on_furniture_added)
@@ -81,8 +82,8 @@ fn furniture_dump_restores_collision_and_the_same_activity_groups() {
     let mut restored = App::new();
     restored
         .insert_resource(test_args(Some(dump_path.clone())))
-        .insert_resource(SceneVistaBundleResource(crate::scene_setup::vista_bundle(
-            &input,
+        .insert_resource(SceneVistaBundleResource(Some(
+            SceneVistaBundle::try_from(&input).unwrap(),
         )))
         .add_observer(crate::furniture::on_furniture_added)
         .add_observer(crate::furniture::on_group_added)

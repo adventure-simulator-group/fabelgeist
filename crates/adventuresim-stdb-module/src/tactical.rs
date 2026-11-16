@@ -5,7 +5,12 @@ use spacetimedb::{
 };
 use std::collections::HashSet;
 
-mod request;
+use entry::leave_tactical_scene_for_server;
+pub use entry::{enter_tactical_scene, leave_tactical_scene};
+pub use provisioning::record_tactical_scene_provisioning_failure;
+pub use registration::create_tactical_server_for_request;
+pub use session::{TacticalMissionSession, TacticalProvisioningStatus, TacticalSession};
+pub use settlement::{request_settlement_scene, retire_settlement_scene};
 
 pub use request::{TacticalBusinessOperator, TacticalSettlementSnapshot};
 pub(crate) use request::{tactical_party_roster, tactical_settlement_snapshot};
@@ -28,6 +33,13 @@ use crate::{
         outcome_source_authority, strategic_gateway_authority__view,
     },
 };
+
+mod entry;
+mod provisioning;
+mod registration;
+mod request;
+mod session;
+mod settlement;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
 pub enum TacticalMissionResolution {
@@ -87,71 +99,42 @@ pub struct TacticalConsequenceReceipt {
     pub equipment_contacts: Vec<TacticalEquipmentContact>,
 }
 
-fn tactical_session_succeeded(reported: TacticalMissionResolution) -> bool {
-    match reported {
-        TacticalMissionResolution::Failed | TacticalMissionResolution::CaptureTargetKilled => false,
-        TacticalMissionResolution::Defeated
-        | TacticalMissionResolution::DrivenOff
-        | TacticalMissionResolution::Captured => true,
-    }
-}
-
-/// Request to start a new [`TacticalServer`]
+/// Captured scene preparation input and retryable provisioning status. Runtime
+/// positions and combat state remain on the transient server.
 #[derive(Clone, Debug)]
 #[table(accessor = tactical_server_request_authority)]
 pub struct TacticalServerRequest {
     #[primary_key]
     #[unique]
-    pub mission_id: String,
+    pub instance_id: String,
     #[index(btree)]
     pub gateway_bucket: u8,
     pub scene_key: String,
-    pub party_id: String,
     pub requested_by: u64,
-    /// Exact authoritative case-site position captured at request time.
     pub longitude_e7: i32,
     pub latitude_e7: i32,
-    /// Immutable settlement scale captured when entering a settlement scene.
-    pub settlement: Option<TacticalSettlementSnapshot>,
-    /// Requesting leader's absolute strategic minute captured atomically.
     pub absolute_minute: StrategicMinute,
-    /// Canonical minute used only for lunar phase. Wilderness time of day may
-    /// advance while this value remains fixed for the entire excursion.
     pub lunar_phase_minute: StrategicMinute,
-    /// Immutable participant authority captured with the mission request.
-    pub authorized_party_member_ids: Vec<u64>,
-    pub required_enemy_kills: u32,
-    pub enemy_difficulty: i32,
-    pub enemy_combat_scale_bps: u32,
-    pub countermeasure_multiplier_bps: u32,
-    pub normalized_combat_power: u32,
-    pub enemy_character_ids: Vec<u64>,
-    pub party_has_surprise: bool,
+    pub session: TacticalSession,
+    pub provisioning: TacticalProvisioningStatus,
 }
 
-/// Active tactical server instance
+/// One operational server for a scene slot, shared by its admitted characters.
 #[derive(Clone, Debug)]
 #[table(accessor = tactical_server_authority)]
 pub struct TacticalServer {
     #[primary_key]
     pub identity: Identity,
+    pub hosting_connection: spacetimedb::ConnectionId,
     #[index(btree)]
     pub gateway_bucket: u8,
     #[index(btree)]
     #[unique]
-    pub mission_id: String,
+    pub instance_id: String,
     pub scene_key: String,
-    pub party_id: String,
     pub addr: String,
     pub cert_digest: String,
-    pub authorized_party_member_ids: Vec<u64>,
-    pub required_enemy_kills: u32,
-    pub enemy_difficulty: i32,
-    pub enemy_combat_scale_bps: u32,
-    pub countermeasure_multiplier_bps: u32,
-    pub normalized_combat_power: u32,
-    pub enemy_character_ids: Vec<u64>,
-    pub party_has_surprise: bool,
+    pub session: TacticalSession,
 }
 
 #[view(accessor = tactical_server_request, public)]
@@ -203,14 +186,14 @@ pub fn tactical_server(ctx: &ViewContext) -> Vec<TacticalServer> {
 #[table(accessor = tactical_server_claim)]
 pub struct TacticalServerClaim {
     #[primary_key]
-    pub mission_id: String,
+    pub instance_id: String,
     pub claim_hash: Vec<u8>,
 }
 
 #[reducer]
 pub fn authorize_tactical_server_claim(
     ctx: &ReducerContext,
-    mission_id: String,
+    instance_id: String,
     claim_hash: Vec<u8>,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
@@ -220,8 +203,8 @@ pub fn authorize_tactical_server_claim(
     if ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
+        .instance_id()
+        .find(&instance_id)
         .is_none()
     {
         return Err("Tactical server request not found".into());
@@ -229,14 +212,14 @@ pub fn authorize_tactical_server_claim(
     if ctx
         .db
         .tactical_server_claim()
-        .mission_id()
-        .find(&mission_id)
+        .instance_id()
+        .find(&instance_id)
         .is_some()
     {
         return Err("Tactical server request is already claimed".into());
     }
     ctx.db.tactical_server_claim().insert(TacticalServerClaim {
-        mission_id,
+        instance_id,
         claim_hash,
     });
     Ok(())
@@ -247,30 +230,32 @@ pub fn authorize_tactical_server_claim(
 #[reducer]
 pub fn revoke_tactical_server_claim(
     ctx: &ReducerContext,
-    mission_id: String,
+    instance_id: String,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
+    instance_id
+        .parse::<adventuresim_core::tactical_session::TacticalInstanceId>()
+        .map_err(|error| error.to_string())?;
     if ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
+        .instance_id()
+        .find(&instance_id)
         .is_none()
     {
         return Err("Tactical server request is no longer pending".into());
     }
     ctx.db
         .tactical_server_claim()
-        .mission_id()
-        .delete(&mission_id);
+        .instance_id()
+        .delete(&instance_id);
     Ok(())
 }
 
 #[derive(SpacetimeType, Clone, Debug)]
 pub struct ConnectedPlayer {
     pub character: Character,
-    pub mission_side: TacticalMissionSide,
+    pub role: TacticalActorRole,
     pub items: Vec<ConnectedPlayerItem>,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
@@ -294,8 +279,8 @@ pub struct ConnectedPlayer {
 }
 
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
-pub enum TacticalMissionSide {
-    Party,
+pub enum TacticalActorRole {
+    Player,
     Enemy,
 }
 
@@ -362,30 +347,31 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
                 .tactical_server_authority()
                 .identity()
                 .find(ctx.sender());
-            let mission_side = server
-                .as_ref()
-                .filter(|server| server.enemy_character_ids.contains(&character.id))
-                .map_or(TacticalMissionSide::Party, |_| TacticalMissionSide::Enemy);
+            let mission = server.as_ref().and_then(|server| match &server.session {
+                TacticalSession::Mission(mission) => Some(mission),
+                TacticalSession::Settlement(_) => None,
+            });
+            let role = mission
+                .filter(|mission| mission.enemy_character_ids.contains(&character.id))
+                .map_or(TacticalActorRole::Player, |_| TacticalActorRole::Enemy);
             Some(ConnectedPlayer {
                 character,
-                mission_side,
+                role,
                 items,
                 skills,
                 limbs,
                 attrs,
                 stats,
-                enemy_difficulty: server.as_ref().map_or(1, |server| server.enemy_difficulty),
-                enemy_combat_scale_bps: server.as_ref().map_or(
+                enemy_difficulty: mission.map_or(1, |server| server.enemy_difficulty),
+                enemy_combat_scale_bps: mission.map_or(
                     u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
                     |server| server.enemy_combat_scale_bps,
                 ),
-                countermeasure_multiplier_bps: server.as_ref().map_or(
+                countermeasure_multiplier_bps: mission.map_or(
                     u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
                     |server| server.countermeasure_multiplier_bps,
                 ),
-                party_has_surprise: server
-                    .as_ref()
-                    .is_some_and(|server| server.party_has_surprise),
+                party_has_surprise: mission.is_some_and(|server| server.party_has_surprise),
                 body_weight_kg: condition.body_weight_kg,
                 current_blood_ml: condition.current_blood_ml,
                 maximum_blood_ml: condition.maximum_blood_ml,
@@ -489,121 +475,6 @@ fn connected_player_items(
         })
 }
 
-/// Put a character in an existing [`TacticalServer`].
-#[reducer]
-pub fn enter_mission(
-    ctx: &ReducerContext,
-    character_id: u64,
-    server: Identity,
-) -> Result<(), String> {
-    if ctx.sender() != server {
-        return Err("Only the owning tactical server can enroll characters".into());
-    }
-    crate::character::require_living_character(ctx, character_id)?;
-    // Check character exists
-    let mut character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or_else(|| format!("Character {character_id} not found"))?;
-    // An unassigned character may join. An assignment to this server is an
-    // idempotent retry, and a stale assignment whose server no longer exists
-    // may be reclaimed. Never steal a character from another active server.
-    if character.has_tactical_server_assignment()
-        && character.server != server
-        && ctx
-            .db
-            .tactical_server_authority()
-            .identity()
-            .find(character.server)
-            .is_some()
-    {
-        return Err("Character is already assigned to another active tactical server".into());
-    }
-
-    let server = ctx
-        .db
-        .tactical_server_authority()
-        .identity()
-        .find(server)
-        .ok_or_else(|| format!("Server {server} not found"))?;
-
-    if !character.temporary {
-        let enemy = server.enemy_character_ids.contains(&character_id);
-        let character_party = character.party_id.as_deref();
-        if !enemy {
-            if !server.authorized_party_member_ids.contains(&character_id) {
-                return Err(
-                    "Character was not authorized when this tactical mission was requested".into(),
-                );
-            }
-            if character_party != Some(server.party_id.as_str()) {
-                return Err("Character is not a member of this mission's party".into());
-            }
-        }
-        let party = ctx
-            .db
-            .party_authority()
-            .id()
-            .find(&server.party_id)
-            .ok_or("Mission party no longer exists")?;
-        let mission = ctx
-            .db
-            .mission_authority()
-            .id()
-            .find(&server.mission_id)
-            .ok_or("Mission authority no longer exists")?;
-        if mission.party_id != party.id {
-            return Err("Mission authority changed before enrollment".into());
-        }
-    }
-
-    character.server = server.identity;
-    ctx.db.character().id().update(character);
-
-    Ok(())
-}
-
-/// Take out character from an existing [`TacticalServer`].
-#[reducer]
-pub fn leave_mission(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    let server = ctx
-        .db
-        .tactical_server_authority()
-        .identity()
-        .find(ctx.sender())
-        .ok_or("Only a registered tactical server can remove characters")?;
-    let character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or_else(|| format!("Character {character_id} not found"))?;
-    leave_mission_for_server(ctx, character, server.identity)
-}
-
-fn leave_mission_for_server(
-    ctx: &ReducerContext,
-    mut character: Character,
-    server: Identity,
-) -> Result<(), String> {
-    if !character.has_tactical_server_assignment() || character.server != server {
-        return Err("Only the character's owning tactical server can remove it".into());
-    }
-    let character_id = character.id;
-    if character.temporary {
-        log::info!("Leaving mission for character #{character_id}: removing temporary character..");
-        crate::character::delete_temporary_character(ctx, character)?;
-    } else {
-        log::info!("Leaving mission for character #{character_id}: resetting server info..");
-        character.server = Identity::ZERO;
-        ctx.db.character().id().update(character);
-    }
-
-    Ok(())
-}
-
 /// Retire an interrupted standalone development session before its persistent
 /// profile is reused. The bootstrap capability is checked by the only caller;
 /// keeping the cleanup here lets it share the authoritative mission teardown
@@ -630,27 +501,34 @@ pub(crate) fn retire_interrupted_standalone_server_for_character(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
-    let servers: Vec<_> = ctx
-        .db
-        .tactical_server_authority()
-        .iter()
-        .filter(|server| server.authorized_party_member_ids.contains(&character_id))
-        .collect();
+    let servers: Vec<_> =
+        ctx.db
+            .tactical_server_authority()
+            .iter()
+            .filter(|server| {
+                server.session.mission().is_some_and(|mission| {
+                    mission.authorized_party_member_ids.contains(&character_id)
+                })
+            })
+            .collect();
     for server in servers {
+        let Some(tactical) = server.session.mission() else {
+            continue;
+        };
         let mission = ctx
             .db
             .mission_authority()
             .id()
-            .find(&server.mission_id)
+            .find(&tactical.mission_id)
             .ok_or("Interrupted tactical server has no mission authority")?;
         match MissionCaseIdentity::parse(&mission.case_id) {
             MissionCaseIdentity::Standalone { mission_id }
-                if mission_id == server.mission_id.as_str() => {}
+                if mission_id == tactical.mission_id.as_str() => {}
             MissionCaseIdentity::Standalone { .. } | MissionCaseIdentity::Other => {
                 return Err("Refusing to retire a non-standalone tactical server".into());
             }
         }
-        fail_bound_mission_attempt(ctx, &server.mission_id)?;
+        fail_bound_mission_attempt(ctx, &tactical.mission_id)?;
         let connected: Vec<_> = ctx
             .db
             .character()
@@ -658,7 +536,7 @@ pub(crate) fn retire_interrupted_standalone_server_for_character(
             .filter(server.identity)
             .collect();
         for character in connected {
-            leave_mission_for_server(ctx, character, server.identity)?;
+            leave_tactical_scene_for_server(ctx, character, server.identity)?;
         }
         ctx.db
             .tactical_server_authority()
@@ -666,7 +544,7 @@ pub(crate) fn retire_interrupted_standalone_server_for_character(
             .delete(server.identity);
         log::info!(
             "Retired interrupted standalone tactical server for mission '{}'",
-            server.mission_id
+            tactical.mission_id
         );
     }
     Ok(())
@@ -697,7 +575,8 @@ pub fn request_tactical_server(
     scene_key: String,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
+    let mission_identity =
+        adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
     let party_id = character.party_id.ok_or("Character has no party")?;
     let party = ctx
@@ -785,40 +664,16 @@ pub fn request_tactical_server(
     {
         return Err("Mission attempt already has a strategic resolution".into());
     }
-    if let Some(server) = ctx
-        .db
-        .tactical_server_authority()
-        .mission_id()
-        .find(&mission_id)
-    {
+    if let Some(server) = ctx.db.tactical_server_authority().instance_id().find(
+        adventuresim_core::tactical_session::TacticalInstanceId::for_mission(&mission_identity)
+            .into_string(),
+    ) {
         return Err(format!(
             "Server for mission '{mission_id}' already exist: {}",
             server.identity
         ));
     }
-    if ctx
-        .db
-        .tactical_server_request_authority()
-        .iter()
-        .any(|request| {
-            ctx.db
-                .mission_authority()
-                .id()
-                .find(&request.mission_id)
-                .is_some_and(|mission| {
-                    mission.hostile_group_id.as_deref() == Some(&hostile_group_id)
-                })
-        })
-        || ctx.db.tactical_server_authority().iter().any(|server| {
-            ctx.db
-                .mission_authority()
-                .id()
-                .find(&server.mission_id)
-                .is_some_and(|mission| {
-                    mission.hostile_group_id.as_deref() == Some(&hostile_group_id)
-                })
-        })
-    {
+    if request::hostile_group_has_tactical_scene(ctx, &hostile_group_id) {
         return Err("Party quest already has a pending or active tactical server".into());
     }
 
@@ -829,174 +684,34 @@ pub fn request_tactical_server(
     let authorized_party_member_ids = tactical_party_roster(ctx, &party_id)
         .map_err(|error| error.to_string())?
         .into_member_ids();
-    let settlement = tactical_settlement_snapshot(ctx, &case_site)?;
+    let session = TacticalSession::Mission(TacticalMissionSession {
+        mission_id,
+        party_id,
+        authorized_party_member_ids,
+        settlement: tactical_settlement_snapshot(ctx, &case_site)?,
+        required_enemy_kills: enemy_roster.enemy_count().get(),
+        enemy_difficulty: mission.enemy_difficulty,
+        enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
+        countermeasure_multiplier_bps: u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+        normalized_combat_power: mission.normalized_combat_power,
+        enemy_character_ids: enemy_roster.into_enemy_ids(),
+        party_has_surprise: !mission.contacted_before_combat,
+    });
     ctx.db
         .tactical_server_request_authority()
         .insert(TacticalServerRequest {
-            mission_id,
+            provisioning: crate::tactical::TacticalProvisioningStatus::Pending,
+            instance_id: session.instance_id()?.into_string(),
             gateway_bucket: 0,
             scene_key,
-            party_id,
             requested_by: character_id,
             longitude_e7: case_site.longitude_e7,
             latitude_e7: case_site.latitude_e7,
-            settlement,
             absolute_minute,
             lunar_phase_minute,
-            authorized_party_member_ids,
-            required_enemy_kills: enemy_roster.enemy_count().get(),
-            enemy_difficulty: mission.enemy_difficulty,
-            enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
-            countermeasure_multiplier_bps: u32::from(
-                adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
-            ),
-            normalized_combat_power: mission.normalized_combat_power,
-            enemy_character_ids: enemy_roster.into_enemy_ids(),
-            party_has_surprise: !mission.contacted_before_combat,
+            session,
         });
 
-    Ok(())
-}
-
-/// Creates a new [`TacticalServer`], fulfilling the associated [`TacticalServerRequest`].
-///
-/// It will fail if there is no request for the mission.
-///
-/// Should be called by a server instance, since its identity will be
-/// the identity of the [`TacticalServer`] in DB.
-#[reducer]
-pub fn create_tactical_server_for_request(
-    ctx: &ReducerContext,
-    mission_id: String,
-    claim: String,
-    addr: String,
-    cert_digest: String,
-) -> Result<(), String> {
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
-    let claim_row = ctx
-        .db
-        .tactical_server_claim()
-        .mission_id()
-        .find(&mission_id)
-        .ok_or("Tactical server request has no authorized claim")?;
-    let actual = Sha256::digest(claim.as_bytes());
-    if actual.len() != claim_row.claim_hash.len()
-        || actual
-            .iter()
-            .zip(&claim_row.claim_hash)
-            .fold(0u8, |difference, (left, right)| difference | (left ^ right))
-            != 0
-    {
-        return Err("Tactical server claim is invalid".into());
-    }
-    let Some(request) = ctx
-        .db
-        .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
-    else {
-        return Err(format!(
-            "Tactical server request for mission '{mission_id}' not found"
-        ));
-    };
-    ctx.db
-        .tactical_server_request_authority()
-        .mission_id()
-        .delete(&mission_id);
-    ctx.db
-        .tactical_server_claim()
-        .mission_id()
-        .delete(&mission_id);
-
-    insert_tactical_server(
-        ctx,
-        request.mission_id,
-        request.scene_key,
-        request.party_id,
-        request.authorized_party_member_ids,
-        request.required_enemy_kills,
-        request.enemy_difficulty,
-        request.enemy_combat_scale_bps,
-        request.countermeasure_multiplier_bps,
-        request.normalized_combat_power,
-        request.enemy_character_ids,
-        request.party_has_surprise,
-        addr,
-        cert_digest,
-    )
-}
-
-/// Creates a new [`TacticalServer`].
-///
-/// Should be called by a server instance, since its identity will be
-/// the identity of the [`TacticalServer`] in DB.
-#[expect(
-    clippy::too_many_arguments,
-    reason = "server registration persists each independently authenticated endpoint field"
-)]
-fn insert_tactical_server(
-    ctx: &ReducerContext,
-    mission_id: String,
-    scene_key: String,
-    party_id: String,
-    authorized_party_member_ids: Vec<u64>,
-    required_enemy_kills: u32,
-    enemy_difficulty: i32,
-    enemy_combat_scale_bps: u32,
-    countermeasure_multiplier_bps: u32,
-    normalized_combat_power: u32,
-    enemy_character_ids: Vec<u64>,
-    party_has_surprise: bool,
-    addr: String,
-    cert_digest: String,
-) -> Result<(), String> {
-    let authorized_party_member_ids =
-        adventuresim_core::mission::TacticalPartyRoster::try_from(authorized_party_member_ids)
-            .map_err(|error| error.to_string())?
-            .into_member_ids();
-    if let Some(_previous) = ctx
-        .db
-        .tactical_server_authority()
-        .identity()
-        .find(ctx.sender())
-    {
-        return Err(format!(
-            "{} already hosting a tactical server !",
-            ctx.sender()
-        ));
-    }
-    if ctx
-        .db
-        .tactical_server_authority()
-        .mission_id()
-        .find(&mission_id)
-        .is_some()
-    {
-        return Err(format!("Server for mission '{mission_id}' already exists"));
-    }
-
-    log::info!("Tactical server for mission '{mission_id}' is ready on {addr}");
-    let server = TacticalServer {
-        identity: ctx.sender(),
-        gateway_bucket: 0,
-        mission_id,
-        scene_key,
-        party_id,
-        addr,
-        cert_digest,
-        authorized_party_member_ids,
-        required_enemy_kills,
-        enemy_difficulty,
-        enemy_combat_scale_bps,
-        countermeasure_multiplier_bps,
-        normalized_combat_power,
-        enemy_character_ids: enemy_character_ids.clone(),
-        party_has_surprise,
-    };
-    ctx.db.tactical_server_authority().insert(server);
-    for enemy_id in enemy_character_ids {
-        enter_mission(ctx, enemy_id, ctx.sender())?;
-    }
     Ok(())
 }
 
@@ -1039,6 +754,10 @@ fn validate_tactical_receipt(
     server: &TacticalServer,
     receipt: &TacticalConsequenceReceipt,
 ) -> Result<(), String> {
+    let mission = server
+        .session
+        .mission()
+        .ok_or("Combat receipts require a mission session")?;
     validate_tactical_receipt_bounds(receipt)?;
     let characters: HashSet<_> = receipt.party.iter().map(|row| row.character_id).collect();
     for consequence in &receipt.party {
@@ -1058,10 +777,10 @@ fn validate_tactical_receipt(
                 .is_some();
         if !receipt_character_is_authorized(
             character.temporary,
-            server
+            mission
                 .authorized_party_member_ids
                 .contains(&consequence.character_id),
-            character.party_id.as_deref() == Some(server.party_id.as_str()),
+            character.party_id.as_deref() == Some(mission.party_id.as_str()),
             assigned_elsewhere_active,
         ) {
             return Err("Tactical receipt character is not an authorized Party participant".into());
@@ -1243,6 +962,10 @@ fn end_tactical_server_by_instance(
         ));
     }
 
+    let tactical = server
+        .session
+        .mission()
+        .ok_or("Only combat mission sessions can submit an outcome")?;
     validate_tactical_receipt(ctx, &server, &receipt)?;
     let connected: Vec<_> = ctx
         .db
@@ -1250,43 +973,43 @@ fn end_tactical_server_by_instance(
         .server()
         .filter(server.identity)
         .collect();
-    if tactical_session_succeeded(resolution) {
+    if resolution.succeeded() {
         let mission = ctx
             .db
             .mission_authority()
             .id()
-            .find(&server.mission_id)
+            .find(&tactical.mission_id)
             .ok_or("Mission authority no longer exists")?;
-        if mission.party_id != server.party_id {
+        if mission.party_id != tactical.party_id {
             return Err("Mission authority changed before completion".into());
         }
         if connected
             .iter()
-            .any(|character| character.party_id.as_deref() == Some(server.party_id.as_str()))
+            .any(|character| character.party_id.as_deref() == Some(tactical.party_id.as_str()))
         {
-            complete_bound_mission_success(ctx, &server.mission_id)?;
+            complete_bound_mission_success(ctx, &tactical.mission_id)?;
         } else {
-            fail_bound_mission_attempt(ctx, &server.mission_id)?;
+            fail_bound_mission_attempt(ctx, &tactical.mission_id)?;
         }
     } else {
-        fail_bound_mission_attempt(ctx, &server.mission_id)?;
+        fail_bound_mission_attempt(ctx, &tactical.mission_id)?;
     }
 
     apply_tactical_receipt(ctx, &receipt)?;
-    if !tactical_session_succeeded(resolution) {
+    if !resolution.succeeded() {
         for character in connected.iter().filter(|character| !character.temporary) {
             crate::condition::record_morale_event(
                 ctx,
                 character.id,
                 adventuresim_core::morale::MoraleEventKind::Defeat,
                 -5.0,
-                Some(server.mission_id.clone()),
+                Some(tactical.mission_id.clone()),
             )?;
         }
     }
     // Apply persistent character progression. Loot is handled by the battle result.
     for character in connected {
-        leave_mission_for_server(ctx, character, server.identity)?;
+        leave_tactical_scene_for_server(ctx, character, server.identity)?;
     }
 
     ctx.db
@@ -1296,7 +1019,7 @@ fn end_tactical_server_by_instance(
 
     log::info!(
         "Tactical server for mission '{}' ended: resolution={resolution:?}",
-        server.mission_id,
+        tactical.mission_id,
     );
     Ok(())
 }
@@ -1419,13 +1142,13 @@ mod authority_tests {
     #[test]
     fn tactical_result_variants_cannot_choose_the_strategic_outcome() {
         use super::TacticalMissionResolution as T;
-        assert!(!super::tactical_session_succeeded(T::Failed));
+        assert!(!T::Failed.succeeded());
         assert!(
-            !super::tactical_session_succeeded(T::CaptureTargetKilled),
+            !T::CaptureTargetKilled.succeeded(),
             "typed contradictory terminal evidence must fail without sampling"
         );
         for report in [T::Defeated, T::DrivenOff, T::Captured] {
-            assert!(super::tactical_session_succeeded(report));
+            assert!(report.succeeded());
         }
     }
 
@@ -1471,16 +1194,20 @@ mod authority_tests {
 
     #[test]
     fn claim_is_gateway_authorized_hashed_and_consumed_once() {
-        let source = crate::production_source(include_str!("tactical.rs"));
+        let source = format!(
+            "{}\n{}",
+            crate::production_source(include_str!("tactical.rs")),
+            include_str!("tactical/registration.rs")
+        );
         assert!(source.contains("require_strategic_gateway(ctx)?"));
         assert!(source.contains("Sha256::digest(claim.as_bytes())"));
         assert!(source.contains(".tactical_server_claim()"));
-        assert!(source.contains(".delete(&mission_id)"));
+        assert!(source.contains(".delete(&instance_id)"));
         assert!(!source.contains("pub claim:"));
     }
 
     #[test]
-    fn strategic_request_binds_captured_party_members_into_the_server() {
+    fn strategic_request_binds_captured_party_members_only_for_mission_sessions() {
         let source = crate::production_source(include_str!("tactical.rs"));
         for schema in ["TacticalServerRequest", "TacticalServer"] {
             let body = source
@@ -1489,14 +1216,13 @@ mod authority_tests {
                 .and_then(|tail| tail.split('}').next())
                 .expect("schema body");
             assert!(!body.contains("expected_party_members"));
-            assert!(body.contains("pub authorized_party_member_ids: Vec<u64>"));
+            assert!(body.contains("pub session: TacticalSession"));
         }
-        let create = source
-            .split("pub fn create_tactical_server_for_request")
-            .nth(1)
-            .and_then(|tail| tail.split("/// Creates a new").next())
-            .expect("create reducer");
-        assert!(create.contains("request.authorized_party_member_ids"));
+        let session = include_str!("tactical/session.rs");
+        assert!(session.contains("pub authorized_party_member_ids: Vec<u64>"));
+        assert!(session.contains("Settlement(TacticalSettlementSnapshot)"));
+        let create = include_str!("tactical/registration.rs");
+        assert!(create.contains("request.session.validate()?"));
     }
 
     #[test]

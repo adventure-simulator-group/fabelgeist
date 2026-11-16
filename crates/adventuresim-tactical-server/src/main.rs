@@ -2,9 +2,6 @@
 #[cfg(feature = "debug")]
 use debug_dump::on_debug_dump_world_request;
 
-use std::{net::SocketAddr, num::NonZeroU32, path::PathBuf, time::Duration};
-
-use adventuresim_stdb_client::*;
 use adventuresim_tactical_core::{physics::AdventureSimulatorPhysicsPlugin, prelude::*};
 use adventuresim_tactical_netcode::{
     aeronet::io::connection::LocalAddr,
@@ -20,7 +17,8 @@ use bevy::ecs::schedule::ApplyDeferred;
 use bevy::prelude::*;
 #[cfg(feature = "debug")]
 use bevy::world_serialization::DynamicWorldBuilder;
-use clap::{ArgAction, Parser};
+use clap::Parser;
+use cli::Args;
 
 #[cfg(feature = "debug")]
 use crate::player_projection::{
@@ -30,7 +28,7 @@ use crate::player_projection::{
 use crate::{
     combat::CombatSet,
     mission::{
-        MissionState, PARTY_RECONNECT_GRACE, check_mission_timeout, check_terminal_combat_outcome,
+        MissionState, check_mission_timeout, check_terminal_combat_outcome,
         fail_stalled_terminal_submission, finish_terminal_presentation,
         process_terminal_submission_results,
     },
@@ -46,6 +44,7 @@ use crate::{
 };
 
 mod bot;
+mod cli;
 mod combat;
 mod control;
 #[cfg(feature = "debug")]
@@ -59,6 +58,7 @@ mod player_projection;
 mod scene_obstacles;
 mod scene_setup;
 mod scene_spawn;
+mod settlement_session;
 mod startup;
 mod stdb;
 mod terrain_collision;
@@ -66,61 +66,6 @@ mod terrain_collision;
 #[cfg(test)]
 #[path = "navigation/scene_tests.rs"]
 mod navigation_scene_tests;
-
-const MISSION_TIMEOUT_SECS: f32 = 300.0;
-
-#[derive(Parser, Debug, Clone, Resource)]
-#[command(name = "adventuresim-tactical-server")]
-#[command(about = "Tactical mission server for Fabelgeist")]
-struct Args {
-    #[arg(long, default_value = "127.0.0.1:6000")]
-    addr: SocketAddr,
-    #[arg(long)]
-    mission_id: String,
-    #[arg(long, env = "ADVENTURESIM_TACTICAL_CLAIM", hide_env_values = true)]
-    tactical_claim: String,
-    #[arg(long, default_value = "woodland")]
-    scene_key: String,
-    /// Exact versioned scene input. Defaults to the committed dense woodland
-    /// fixture for standalone tactical development.
-    #[arg(long, value_parser = bot::resolve_scene_fixture)]
-    scene_input: Option<PathBuf>,
-    /// Versioned tactical combat tuning loaded once for this server process.
-    #[arg(long)]
-    combat_config: Option<PathBuf>,
-    /// Standalone enemy roster; selected independently from the scene input.
-    #[arg(long, value_parser = bot::load_enemy_fixture)]
-    enemy_fixture: Option<adventuresim_core::tactical_fixture::TacticalEnemyFixture>,
-    #[arg(long)]
-    required_enemy_kills: u32,
-    #[arg(long, value_parser = clap::value_parser!(u32).range(1..))]
-    expected_party_members: u32,
-    #[arg(long)]
-    enemy_combat_scale_bps: u32,
-    #[arg(long, default_value = "http://localhost:3000")]
-    spacetimedb_url: String,
-    #[arg(long, default_value = "adventuresim-stdb-module")]
-    spacetimedb_module: String,
-    #[arg(long, default_value_t = MISSION_TIMEOUT_SECS)]
-    timeout: f32,
-    #[arg(long, action = ArgAction::SetTrue, conflicts_with = "timeout")]
-    no_timeout: bool,
-    /// Seconds the mission tolerates an empty party (every member
-    /// disconnected) before abandoning it as a failure and shutting down.
-    /// Raise it so a client can reload/reconnect without killing the mission.
-    #[arg(long, default_value_t = PARTY_RECONNECT_GRACE.as_secs_f32())]
-    party_reconnect_grace: f32,
-    /// Port to expose the Bevy Remote Protocol (BRP) HTTP JSON-RPC endpoint
-    /// on for CLI-driven inspection/testing. Disabled unless set.
-    #[cfg(feature = "debug")]
-    #[arg(long)]
-    brp_port: Option<u16>,
-    /// Path to a `.scn.ron` world dump (see `DebugDumpWorldRequest`) to load
-    /// at startup in place of generating fresh procedural terrain.
-    #[cfg(feature = "debug")]
-    #[arg(long)]
-    world_dump: Option<std::path::PathBuf>,
-}
 
 fn main() {
     let args = bot::apply_enemy_fixture(Args::parse());
@@ -139,9 +84,13 @@ fn main() {
     let StartupInputs {
         scene: loaded_scene_input,
         combat: combat_config,
+        vista: scene_vista_bundle,
     } = inputs;
-    let scene_vista_bundle = scene_setup::vista_bundle(&loaded_scene_input);
     let mut app = App::new();
+    settlement_session::configure(&mut app, &args).unwrap_or_else(|error| {
+        eprintln!("refusing invalid scene session: {error}");
+        std::process::exit(2);
+    });
     app.insert_resource(combat_config);
     // Registered separately from Aeronet's session-despawn observer. The
     // reconnect snapshot is owned before either observer's commands apply, so
@@ -171,16 +120,7 @@ fn main() {
         equipment::TacticalEquipmentPlugin,
         (bot::BotPlugin, openings::BuildingOpeningsPlugin),
     ))
-    .insert_resource(MissionState::new(
-        (!args.no_timeout)
-            .then_some(args.timeout)
-            .map(|duration| Timer::from_seconds(duration, TimerMode::Once)),
-        args.required_enemy_kills,
-        NonZeroU32::new(args.expected_party_members)
-            .expect("clap validates at least one expected party member"),
-        Duration::from_secs_f32(args.party_reconnect_grace),
-    ))
-    .insert_resource(SceneVistaBundleResource(scene_vista_bundle))
+    .insert_resource(SceneVistaBundleResource(Some(scene_vista_bundle)))
     .insert_resource(LoadedSceneInput(loaded_scene_input))
     .insert_resource(args)
     .add_systems(
@@ -216,11 +156,18 @@ fn main() {
             .add_systems(
                 Update,
                 (
-                    (check_terminal_combat_outcome, check_mission_timeout)
+                    (
+                        check_terminal_combat_outcome.run_if(resource_exists::<MissionState>),
+                        check_mission_timeout.run_if(resource_exists::<MissionState>),
+                    )
                         .chain()
                         .after(CombatSet::Condition),
-                    fail_stalled_terminal_submission.before(check_terminal_combat_outcome),
-                    finish_terminal_presentation.after(check_mission_timeout),
+                    fail_stalled_terminal_submission
+                        .run_if(resource_exists::<MissionState>)
+                        .before(check_terminal_combat_outcome),
+                    finish_terminal_presentation
+                        .run_if(resource_exists::<MissionState>)
+                        .after(check_mission_timeout),
                     bind_dumped_character_on_join
                         .in_set(PlayerProjectionSet::Spawn)
                         .before(check_terminal_combat_outcome),
@@ -229,29 +176,7 @@ fn main() {
             .add_observer(on_join_request_standalone)
             .add_observer(on_client_disconnected_standalone);
     } else {
-        app.add_plugins(stdb::SpacetimeDbPlugin)
-            .add_systems(
-                Update,
-                (
-                    (check_terminal_combat_outcome, check_mission_timeout)
-                        .chain()
-                        .after(CombatSet::Condition)
-                        .after(spawn_connected_players)
-                        .after(process_terminal_submission_results),
-                    process_terminal_submission_results.after(stdb::update_spacetimedb),
-                    expire_disconnected_players,
-                    fail_stalled_terminal_submission
-                        .after(process_terminal_submission_results)
-                        .before(check_terminal_combat_outcome),
-                    finish_terminal_presentation.after(check_mission_timeout),
-                    (spawn_connected_players, ApplyDeferred)
-                        .chain()
-                        .in_set(PlayerProjectionSet::Spawn)
-                        .after(stdb::update_spacetimedb),
-                    (setup_server, setup_stdb_callbacks).run_if(resource_added::<SpacetimeDbReady>),
-                ),
-            )
-            .add_observer(on_join_request);
+        install_live_server(&mut app);
     }
 
     #[cfg(feature = "debug")]
@@ -271,6 +196,40 @@ fn main() {
         load_world_dump.after(on_server_started),
     );
     app.run();
+}
+
+fn install_live_server(app: &mut App) {
+    app.add_plugins(stdb::SpacetimeDbPlugin)
+        .add_systems(
+            Update,
+            (
+                (
+                    check_terminal_combat_outcome.run_if(resource_exists::<MissionState>),
+                    check_mission_timeout.run_if(resource_exists::<MissionState>),
+                )
+                    .chain()
+                    .after(CombatSet::Condition)
+                    .after(spawn_connected_players)
+                    .after(process_terminal_submission_results),
+                process_terminal_submission_results
+                    .run_if(resource_exists::<MissionState>)
+                    .after(stdb::update_spacetimedb),
+                expire_disconnected_players,
+                fail_stalled_terminal_submission
+                    .run_if(resource_exists::<MissionState>)
+                    .after(process_terminal_submission_results)
+                    .before(check_terminal_combat_outcome),
+                finish_terminal_presentation
+                    .run_if(resource_exists::<MissionState>)
+                    .after(check_mission_timeout),
+                (spawn_connected_players, ApplyDeferred)
+                    .chain()
+                    .in_set(PlayerProjectionSet::Spawn)
+                    .after(stdb::update_spacetimedb),
+                (setup_server, setup_stdb_callbacks).run_if(resource_added::<SpacetimeDbReady>),
+            ),
+        )
+        .add_observer(on_join_request);
 }
 
 #[derive(Resource)]
@@ -408,19 +367,18 @@ mod debug_dump_world_tests {
     fn test_args(world_dump: Option<PathBuf>) -> Args {
         Args {
             addr: "127.0.0.1:0".parse().unwrap(),
-            mission_id: "mission:test".into(),
+            instance_id: "scene:mission:mission:test".parse().unwrap(),
             tactical_claim: String::new(),
             scene_key: "woodland".into(),
             scene_input: None,
             enemy_fixture: None,
-            required_enemy_kills: 1,
-            expected_party_members: 1,
-            enemy_combat_scale_bps: 0,
+            required_enemy_kills: Some(1),
+            expected_party_members: std::num::NonZeroU32::new(1),
             spacetimedb_url: String::new(),
             spacetimedb_module: String::new(),
             timeout: 0.0,
             no_timeout: true,
-            party_reconnect_grace: PARTY_RECONNECT_GRACE.as_secs_f32(),
+            party_reconnect_grace: mission::PARTY_RECONNECT_GRACE.as_secs_f32(),
             brp_port: None,
             world_dump,
             combat_config: None,
@@ -627,17 +585,14 @@ mod debug_dump_world_tests {
 }
 
 fn setup_server(mut commands: Commands, args: Res<Args>) {
-    info!(
-        "Starting tactical server for mission '{}'...",
-        args.mission_id
-    );
+    info!("Starting tactical scene '{}'...", args.instance_id);
     info!("Scene: {}, Address: {}", args.scene_key, args.addr);
-    info!(
-        "Enemy objective: count={}, scale={} bps",
-        args.required_enemy_kills, args.enemy_combat_scale_bps
-    );
     commands.spawn(AdventureSimulatorServer { addr: args.addr });
-    if !args.no_timeout {
+    if matches!(
+        args.instance_id,
+        adventuresim_core::tactical_session::TacticalInstanceId::Mission(_)
+    ) && !args.no_timeout
+    {
         info!("Will timeout in {} seconds", args.timeout);
     }
 }
@@ -718,8 +673,8 @@ fn on_server_started(
     scene_setup::spawn_world_bounds(&mut commands, scene_width, scene_depth);
     if let Some(conn) = conn {
         info!("Creating tactical server in stdb...");
-        conn.reducers().create_tactical_server_for_request(
-            args.mission_id.clone(),
+        conn.register_scene(
+            args.instance_id.to_string(),
             args.tactical_claim.clone(),
             args.addr.to_string(),
             default(),

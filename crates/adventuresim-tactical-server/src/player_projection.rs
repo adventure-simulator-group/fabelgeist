@@ -45,8 +45,12 @@ use projection_equipment::{
 
 use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
 
+pub(crate) use join::on_join_request;
+#[cfg(feature = "debug")]
+pub(crate) use join::on_join_request_standalone;
 mod dive_launch;
 mod input_admission;
+mod join;
 mod posture_facing;
 mod projection_equipment;
 mod snapshot;
@@ -430,13 +434,12 @@ pub(crate) fn spawn_connected_players(
         &args,
         &combat_config,
     )?;
-    admitted.project(&args, &mut cmd, &combat_config);
+    admitted.project(&mut cmd, &combat_config);
     Ok(())
 }
 
 fn spawn_connected_player(
     admitted: AdmittedPlayer,
-    enemy_combat_scale_bps: u32,
     cmd: &mut Commands,
     combat_config: &TacticalCombatConfig,
 ) {
@@ -536,10 +539,10 @@ fn spawn_connected_player(
         left_leg_agility: player.attrs.left_leg_agility,
         right_leg_agility: player.attrs.right_leg_agility,
     });
-    if player.mission_side == TacticalMissionSide::Enemy {
+    if player.role == TacticalActorRole::Enemy {
         let scale = mission_enemy_scale(
             player.enemy_difficulty,
-            enemy_combat_scale_bps,
+            player.enemy_combat_scale_bps,
             player.countermeasure_multiplier_bps,
         );
         for hours in [
@@ -575,7 +578,7 @@ fn spawn_connected_player(
         ] {
             *attribute *= scale;
         }
-        let health_scale = mission_enemy_health_scale(enemy_combat_scale_bps, scale);
+        let health_scale = mission_enemy_health_scale(player.enemy_combat_scale_bps, scale);
         for health in [
             &mut limbs.left_arm,
             &mut limbs.right_arm,
@@ -634,7 +637,7 @@ fn spawn_connected_player(
     cmd.entity(entity).insert((
         MeleeAttackAuthority::default(),
         RangedAttackAuthority::default(),
-        if player.mission_side == TacticalMissionSide::Enemy {
+        if player.role == TacticalActorRole::Enemy {
             TacticalCombatSide::Enemy
         } else {
             TacticalCombatSide::Party
@@ -819,146 +822,6 @@ fn spawn_connected_player(
         temorary = player.character.temporary,
         "[startup] Player {entity:?} is fully loaded"
     );
-}
-
-#[expect(
-    clippy::too_many_arguments,
-    reason = "Bevy injects each connection resource and projection query as an independent observer parameter"
-)]
-pub(crate) fn on_join_request(
-    join: On<FromClient<JoinRequest>>,
-    mut commands: Commands,
-    mut state: ResMut<MissionState>,
-    loading_players: Query<(), With<LoadingPlayer>>,
-    players: Query<(), With<Player>>,
-    mut disconnected_players: Query<(Entity, &mut DisconnectedPlayer, &DisconnectedProjection)>,
-    inventory_items: Query<(Entity, &ItemOf)>,
-    mut pending_actions: ResMut<PendingEquipmentActions>,
-    mut action_sequences: ResMut<LastEquipmentSequence>,
-    conn: Res<SpacetimeDb>,
-    ready: Res<SpacetimeDbReady>,
-    vista: Res<SceneVistaBundleResource>,
-    combat_config: Res<TacticalCombatConfig>,
-) -> Result {
-    let Some(client) = join.client_id.entity() else {
-        return Ok(());
-    };
-    if loading_players.contains(client) || players.contains(client) {
-        return Ok(());
-    }
-    let reconnect =
-        disconnected_players
-            .iter_mut()
-            .find_map(|(entity, mut session, projection)| {
-                try_claim_reconnect(join.character_id, join.reconnect_token, &mut session)
-                    .then(|| (entity, projection.clone()))
-            });
-    if let Some((disconnected, projection)) = reconnect {
-        let token = fresh_reconnect_token();
-        let projected = projection.projected();
-        if projected {
-            queue_replication_rebind(&mut commands, client);
-        }
-        projection.insert(&mut commands, client);
-        commands.entity(client).insert(ReconnectSession {
-            character_id: join.character_id,
-            token,
-        });
-        send_reconnect_capability(&mut commands, join.client_id, join.character_id, token);
-        send_scene_vista(&mut commands, join.client_id, &vista);
-        send_combat_config(&mut commands, join.client_id, &combat_config);
-        reconnect_equipment_lifecycle(
-            disconnected,
-            client,
-            &mut pending_actions,
-            &mut action_sequences,
-        );
-        for (item, owner) in &inventory_items {
-            if owner.0 == disconnected {
-                commands.entity(item).insert(ItemOf(client));
-            }
-        }
-        if projected {
-            commands.queue(move |world: &mut World| rebuild_inventory_holding_cache(world, client));
-        }
-        commands.entity(disconnected).despawn();
-        info!(
-            character_id = join.character_id.0,
-            "Rebound reconnect to transient tactical state"
-        );
-        return Ok(());
-    }
-    if join.reconnect_token.is_some() {
-        warn!(
-            character_id = join.character_id.0,
-            "Rejected invalid or consumed reconnect capability"
-        );
-        return Ok(());
-    }
-    if !state.allows_party_join(join.character_id) {
-        warn!(
-            character_id = join.character_id.0,
-            "Rejected unseen Party join after enrollment sealed"
-        );
-        return Ok(());
-    }
-    conn.reducers()
-        .enter_mission(join.character_id.0, ready.identity())?;
-    state.begin_enrollment();
-    let token = fresh_reconnect_token();
-    commands.entity(client).insert((
-        LoadingPlayer {
-            requested_character: join.character_id,
-        },
-        ReconnectSession {
-            character_id: join.character_id,
-            token,
-        },
-    ));
-    send_reconnect_capability(&mut commands, join.client_id, join.character_id, token);
-    send_scene_vista(&mut commands, join.client_id, &vista);
-    send_combat_config(&mut commands, join.client_id, &combat_config);
-    info!(
-        "[startup] Character {} connected and entered mission, awaiting loading",
-        join.character_id.0
-    );
-    Ok(())
-}
-
-/// Standalone-mode counterpart to [`on_join_request`]: no SpacetimeDB
-/// authorization round-trip. [`bind_dumped_character_on_join`] is what turns
-/// the resulting [`LoadingPlayer`] into a real character, by matching it
-/// against an already-loaded world dump.
-#[cfg(feature = "debug")]
-pub(crate) fn on_join_request_standalone(
-    join: On<FromClient<JoinRequest>>,
-    mut commands: Commands,
-    mut state: ResMut<MissionState>,
-    loading_players: Query<(), With<LoadingPlayer>>,
-    players: Query<(), With<Player>>,
-) -> Result {
-    let Some(client) = join.client_id.entity() else {
-        return Ok(());
-    };
-    if loading_players.contains(client) || players.contains(client) {
-        return Ok(());
-    }
-    if !state.allows_party_join(join.character_id) {
-        warn!(
-            character_id = join.character_id.0,
-            "Rejected unseen Party join after enrollment sealed"
-        );
-        return Ok(());
-    }
-    state.begin_enrollment();
-    commands.entity(client).insert(LoadingPlayer {
-        requested_character: join.character_id,
-    });
-    info!(
-        "[startup] Character {} connected, awaiting binding to a dumped character",
-        join.character_id.0
-    );
-    Ok(())
 }
 
 pub(crate) fn apply_movement_action(
@@ -1816,7 +1679,7 @@ pub(crate) fn on_client_disconnected(
 }
 
 /// Standalone-mode counterpart to [`on_client_disconnected`]: no SpacetimeDB
-/// `leave_mission` call.
+/// `leave_tactical_scene` call.
 #[cfg(feature = "debug")]
 pub(crate) fn on_client_disconnected_standalone(
     disconnected: On<Disconnected>,
@@ -1937,7 +1800,7 @@ pub(crate) fn expire_disconnected_players(
         if grace.remaining_secs > 0.0 {
             continue;
         }
-        if let Err(error) = conn.reducers().leave_mission(grace.character_id.0) {
+        if let Err(error) = conn.reducers().leave_tactical_scene(grace.character_id.0) {
             warn!(
                 character_id = grace.character_id.0,
                 ?error,

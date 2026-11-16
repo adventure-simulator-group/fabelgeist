@@ -1,8 +1,8 @@
 use crate::DEFAULT_SERVER_URL;
 use crate::control::{ControlResponse, LocalControl};
 use crate::message::{
-    JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
-    ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
+    JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand, ReconnectCapability,
+    ReconnectToken, TacticalCombatConfigSnapshot,
 };
 use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationValueResult, PositiveAnimationDuration, UnitInterval,
@@ -15,8 +15,13 @@ use bevy::prelude::*;
 use bevy_replicon::prelude::*;
 
 use melee_preparation::AttackInputObservation;
+use reconnect::{
+    ReconnectCredential, announce_join, clear_disconnected_scene, clear_rejected_reconnect,
+    store_reconnect_capability,
+};
 
 mod melee_preparation;
+mod reconnect;
 
 #[cfg(test)]
 const SPRINT_HOLD_THRESHOLD_SECONDS: f32 = 0.25;
@@ -38,8 +43,10 @@ impl Plugin for AdventureSimulatorClientPlugin {
             .add_plugins((WebSocketClientPlugin, AeronetRepliconClientPlugin))
             .add_observer(on_client_added)
             .add_observer(store_reconnect_capability)
+            .add_observer(clear_rejected_reconnect)
             .add_observer(store_tactical_combat_config)
             .add_systems(OnEnter(ClientState::Connected), announce_join)
+            .add_systems(OnExit(ClientState::Connected), clear_disconnected_scene)
             .add_systems(
                 PreUpdate,
                 update_direct_control_input.after(bevy::input::InputSystems),
@@ -73,18 +80,6 @@ fn store_tactical_combat_config(
         return;
     }
     *config = snapshot.0.clone();
-}
-
-/// Kept in the running client application across transport reconnects. It is
-/// neither an ECS component nor replicated to peers.
-#[derive(Resource, Debug, Clone, Copy, Default)]
-struct ReconnectCredential(Option<(CharacterId, ReconnectToken)>);
-
-fn store_reconnect_capability(
-    capability: On<ReconnectCapability>,
-    mut credential: ResMut<ReconnectCredential>,
-) {
-    credential.0 = Some((capability.character_id, capability.token));
 }
 
 #[derive(Resource, Debug, Clone, Copy, Default, PartialEq, Eq)]
@@ -626,22 +621,6 @@ fn on_client_added(
     Ok(())
 }
 
-fn announce_join(
-    mut commands: Commands,
-    client: Single<&AdventureSimulatorClient>,
-    credential: Res<ReconnectCredential>,
-) {
-    info!("[startup] tactical network connected; announcing join");
-    let character_id = CharacterId(client.player_id);
-    commands.client_trigger(JoinRequest {
-        character_id,
-        reconnect_token: credential
-            .0
-            .filter(|(stored, _)| *stored == character_id)
-            .map(|(_, token)| token),
-    });
-}
-
 #[expect(
     clippy::too_many_arguments,
     reason = "Bevy supplies the sampled controls, authority, and input tick independently"
@@ -731,15 +710,6 @@ mod tests {
                 PositiveAnimationDuration::try_from(SPRINT_HOLD_THRESHOLD_SECONDS)?,
             )
         }
-    }
-
-    #[test]
-    fn reconnect_credential_is_process_owned_not_transport_owned() {
-        let credential = ReconnectCredential(Some((CharacterId(42), ReconnectToken([5; 32]))));
-        // A transport state transition does not recreate App resources; the
-        // same contract is compiled for native and wasm clients.
-        assert_eq!(credential.0.unwrap().0, CharacterId(42));
-        assert_eq!(credential.0.unwrap().1, ReconnectToken([5; 32]));
     }
 
     fn input_fixture() -> (World, Schedule) {

@@ -1997,15 +1997,16 @@ def sql_mission_row_exists(
         "tactical_server_request_authority",
     }:
         raise ValueError("unsupported tactical readiness table")
-    literal = mission_id.replace("'", "''")
+    instance_id = f"scene:mission:{mission_id}"
+    literal = instance_id.replace("'", "''")
     result = run_checked([
         "spacetime", "sql", "--server", server, database,
-        f"SELECT mission_id FROM {table} WHERE mission_id = '{literal}'",
+        f"SELECT instance_id FROM {table} WHERE instance_id = '{literal}'",
     ])
     if result.returncode:
         raise RuntimeError(f"database readiness query failed for {table}")
     return any(
-        line.strip().strip('"') == mission_id for line in result.stdout.splitlines()
+        line.strip().strip('"') == instance_id for line in result.stdout.splitlines()
     )
 
 
@@ -3007,10 +3008,10 @@ def tactical_play(
             server_metadata = run_dir / "server.identity.json"
             server_command = [
                 str(server_executable), "--addr", f"0.0.0.0:{values['tactical_port']}",
-                "--mission-id", mission_id, "--scene-key", "woodland",
+                "--instance-id", f"scene:mission:{mission_id}", "--scene-key", "woodland",
                 "--spacetimedb-url", server_url, "--spacetimedb-module", database,
                 "--expected-party-members", "1", "--required-enemy-kills", "1",
-                "--enemy-combat-scale-bps", str(combat_scale), "--no-timeout",
+                "--no-timeout",
                 "--enemy-fixture", enemy_fixture,
             ]
             if scene_input:

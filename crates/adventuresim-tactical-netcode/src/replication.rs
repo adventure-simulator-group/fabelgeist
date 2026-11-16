@@ -1,22 +1,15 @@
 use adventuresim_tactical_core::prelude::*;
 use bevy::prelude::*;
 use bevy::state::app::StatesPlugin;
-use bevy_replicon::{
-    bytes::Bytes,
-    postcard_utils,
-    prelude::*,
-    shared::replication::registry::{
-        ctx::{SerializeCtx, WriteCtx},
-        rule_fns::RuleFns,
-    },
-};
+use bevy_replicon::prelude::*;
 
 use crate::TACTICAL_TICK_HZ;
 use crate::message::{
     DebugDumpWorldRequest, DebugGameTimeScaleRequest, EquipmentActionRequest, JoinRequest,
-    PlayerInputRequest, ReconnectCapability, SceneVistaBundle, SuccessfulAttackResponse,
-    TacticalCombatConfigSnapshot, TacticalOutcomeResponse,
+    PlayerInputRequest, ReconnectCapability, SceneJoinRejected, SceneVistaBundle,
+    SuccessfulAttackResponse, TacticalCombatConfigSnapshot, TacticalOutcomeResponse,
 };
+use crate::scene_wire;
 
 #[derive(Default)]
 pub struct AdventureSimulatorReplicationPlugin;
@@ -28,6 +21,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
         }
 
         app.insert_resource(Time::<Fixed>::from_hz(f64::from(TACTICAL_TICK_HZ)))
+            .add_observer(crate::transport::configure_scene_transport)
             .add_plugins(RepliconPlugins)
             .replicate::<Player>()
             .replicate::<adventuresim_tactical_core::control::CharacterControl>()
@@ -60,16 +54,16 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .replicate::<EquipSlot>()
             .replicate::<ItemOf>()
             .replicate::<SceneId>()
-            .replicate::<SceneTerrain>()
-            .replicate::<SceneGround>()
+            .replicate_with(scene_wire::component_rules::<SceneTerrain>())
+            .replicate_with(scene_wire::component_rules::<SceneGround>())
             .replicate::<SceneEnvironment>()
             .replicate::<SceneObstacle>()
             .replicate_once::<SceneFurniture>()
-            .replicate_once::<TerrainLandformRecipe>()
-            .replicate_with(RuleFns::new(
-                serialize_scene_building,
-                deserialize_scene_building,
+            .replicate_with((
+                scene_wire::component_rules::<TerrainLandformRecipe>(),
+                ReplicationMode::Once,
             ))
+            .replicate_with(scene_wire::component_rules::<SceneBuilding>())
             .replicate_once::<SceneEstablishment>()
             .replicate_once::<SceneBoundary>()
             .replicate_once::<SceneGarden>()
@@ -77,7 +71,12 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .replicate::<SceneWindow>()
             .add_client_event::<JoinRequest>(Channel::Ordered)
             .add_server_event::<ReconnectCapability>(Channel::Ordered)
-            .add_server_event::<SceneVistaBundle>(Channel::Ordered)
+            .add_server_event::<SceneJoinRejected>(Channel::Ordered)
+            .add_server_event_with::<SceneVistaBundle>(
+                Channel::Ordered,
+                |_, value, message| scene_wire::serialize(value, message),
+                |_, message| scene_wire::deserialize(message),
+            )
             .add_server_event::<TacticalCombatConfigSnapshot>(Channel::Ordered)
             .add_client_event::<PlayerInputRequest>(Channel::Unreliable)
             .add_client_event::<DebugGameTimeScaleRequest>(Channel::Ordered)
@@ -114,24 +113,10 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
     }
 }
 
-fn serialize_scene_building(
-    _ctx: &mut SerializeCtx,
-    building: &SceneBuilding,
-    message: &mut Vec<u8>,
-) -> Result<()> {
-    let json = serde_json::to_vec(building)?;
-    postcard_utils::to_extend_mut(&json, message)?;
-    Ok(())
-}
-
-fn deserialize_scene_building(_ctx: &mut WriteCtx, message: &mut Bytes) -> Result<SceneBuilding> {
-    let json: Vec<u8> = postcard_utils::from_buf(message)?;
-    Ok(serde_json::from_slice(&json)?)
-}
-
 #[cfg(test)]
 mod tests {
     use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
+    use bevy_replicon::{bytes::Bytes, postcard_utils};
 
     use super::*;
 
@@ -180,13 +165,11 @@ mod tests {
     }
 
     #[test]
-    fn scene_building_json_payload_round_trips_through_postcard() {
+    fn scene_building_uses_the_structured_scene_replication_codec() {
         let building = building();
-        let json = serde_json::to_vec(&building).unwrap();
         let mut bytes = Vec::new();
-        postcard_utils::to_extend_mut(&json, &mut bytes).unwrap();
-        let decoded_json: Vec<u8> = bevy_replicon::postcard::from_bytes(&bytes).unwrap();
-        let decoded: SceneBuilding = serde_json::from_slice(&decoded_json).unwrap();
+        scene_wire::serialize(&building, &mut bytes).unwrap();
+        let decoded: SceneBuilding = scene_wire::deserialize(&mut Bytes::from(bytes)).unwrap();
 
         assert_eq!(decoded, building);
     }

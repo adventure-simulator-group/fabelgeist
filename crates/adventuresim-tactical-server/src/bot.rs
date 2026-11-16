@@ -50,7 +50,7 @@ pub(crate) fn load_enemy_fixture(selector: &str) -> Result<TacticalEnemyFixture,
 
 pub(crate) fn apply_enemy_fixture(mut args: Args) -> Args {
     if let Some(fixture) = &args.enemy_fixture {
-        args.required_enemy_kills = fixture.enemy_count();
+        args.required_enemy_kills = Some(fixture.enemy_count());
     }
     args
 }

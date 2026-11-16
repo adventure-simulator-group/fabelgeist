@@ -76,6 +76,7 @@ impl Plugin for LoadingScreenPlugin {
         app.init_resource::<LoadingScreen>()
             .add_observer(begin_load)
             .add_observer(fail_on_disconnect)
+            .add_observer(fail_on_join_rejection)
             .add_observer(retry_load)
             .add_systems(
                 Update,
@@ -153,6 +154,19 @@ fn fail_on_disconnect(
         DisconnectReason::ByError(error) => format!("{error:#}"),
     };
     screen.fail(LoadingFailure::ConnectionLost(reason));
+}
+
+fn fail_on_join_rejection(
+    rejection: On<adventuresim_tactical_netcode::message::SceneJoinRejected>,
+    mut screen: ResMut<LoadingScreen>,
+) {
+    if screen
+        .connection
+        .as_ref()
+        .is_some_and(|client| client.player_id == rejection.character_id.0)
+    {
+        screen.fail(LoadingFailure::Admission(rejection.reason.clone()));
+    }
 }
 
 fn fail_on_required_asset(

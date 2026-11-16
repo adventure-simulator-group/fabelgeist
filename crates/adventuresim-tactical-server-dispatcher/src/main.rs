@@ -9,27 +9,32 @@ use adventuresim_tactical_server_dispatcher::settlement_economy_adapter;
 use std::collections::HashSet;
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
-use std::process::Command;
 use std::sync::{Arc, Mutex};
 
 use adventuresim_stdb_client::spacetimedb_sdk::{DbContext, Table};
 use adventuresim_stdb_client::{
     DbConnection, TacticalServerRequest, TacticalServerRequestTableAccess,
-    authorize_tactical_server_claim, revoke_tactical_server_claim,
-    tactical_server_requestQueryTableAccess,
+    authorize_tactical_server_claim, record_tactical_scene_provisioning_failure,
+    revoke_tactical_server_claim, tactical_server_requestQueryTableAccess,
 };
 use adventuresim_tactical_server_dispatcher::scene_input;
 use adventuresim_tactical_server_dispatcher::settlement_buildings::{
     SettlementBusinessOperatorProfile, SettlementSceneProfile,
 };
 use adventuresim_terrain::{TerrainPack, TerrainPurpose};
+use child_launch::{ChildExitOutcome, ExitedLaunch};
 use clap::Parser;
 use sha2::{Digest, Sha256};
-use tracing::{error, info, warn};
+use tracing::{error, info};
+
+mod child_launch;
+mod requested_scene;
+
+const DISPATCH_POLL_INTERVAL: std::time::Duration = std::time::Duration::from_secs(1);
 
 #[derive(Parser, Debug)]
 #[command(name = "adventuresim-tactical-server-dispatcher")]
-#[command(about = "Spawns adventuresim-tactical-server processes for pending missions")]
+#[command(about = "Spawns adventuresim-tactical-server processes for pending tactical scenes")]
 struct Args {
     /// SpacetimeDB URL
     #[arg(long, default_value = "http://localhost:3000")]
@@ -63,7 +68,7 @@ struct Args {
     #[arg(long, default_value = "target/strategic-map/terrain-routing-v3.pack")]
     terrain_pack: PathBuf,
 
-    /// Worktree-local directory for immutable per-mission scene documents.
+    /// Worktree-local directory for immutable captured scene documents.
     #[arg(long, default_value = "target/tactical-scene-inputs")]
     scene_input_dir: PathBuf,
 }
@@ -83,21 +88,13 @@ fn main() {
         args.spacetimedb_url, args.spacetimedb_module
     );
     info!("Tactical server binary: {}", args.tactical_server_bin);
-    let terrain = TerrainPack::load(&args.terrain_manifest, &args.terrain_pack)
-        .unwrap_or_else(|error| panic!("failed to load final tactical terrain source: {error}"));
-    assert_eq!(
-        terrain.purpose(),
-        TerrainPurpose::Final,
-        "dispatcher requires the final terrain pack"
-    );
-    info!(
-        digest = terrain.digest(),
-        "Loaded final terrain pack once for tactical sampling"
-    );
-    let terrain = Arc::new(terrain);
+    let terrain = load_final_terrain(&args).unwrap_or_else(|error| {
+        error!(%error, "Invalid tactical terrain source");
+        std::process::exit(2);
+    });
     // Shared state for tracking spawned missions and port allocation
     let spawned: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
-    let next_port: Arc<Mutex<u16>> = Arc::new(Mutex::new(args.base_port));
+    let mut next_port = args.base_port;
 
     // Connect to SpacetimeDB
     let conn = DbConnection::builder()
@@ -113,218 +110,187 @@ fn main() {
         .build()
         .expect("Failed to connect to SpacetimeDB");
 
-    // Subscribe to tactical_server_request table
     conn.subscription_builder()
-        .on_applied(|ctx| {
-            info!("Subscription applied, checking existing pending requests...");
-            for request in ctx.db.tactical_server_request().iter() {
-                info!(
-                    "Found pending request: {} for scene {}",
-                    request.mission_id, request.scene_key
-                );
-            }
-        })
+        .on_applied(child_launch::reclaim_pending)
         .add_query(|query| query.from.tactical_server_request())
         .subscribe();
-
-    // Set up callback for new tactical server requests
-    let spawned_clone = spawned.clone();
-    let next_port_clone = next_port.clone();
+    let exited: Arc<Mutex<Vec<ExitedLaunch>>> = Arc::default();
     let bin = args.tactical_server_bin.clone();
     let stdb_url = args.spacetimedb_url.clone();
     let stdb_module = args.spacetimedb_module.clone();
     let host = args.host;
     let terrain_clone = terrain.clone();
     let scene_input_dir = args.scene_input_dir.clone();
-
-    conn.db
-        .tactical_server_request()
-        .on_insert(move |_ctx, request| {
-            if spawned_clone.lock().unwrap().contains(&request.mission_id) {
-                return;
-            }
-
-            let port = {
-                let mut p = next_port_clone.lock().unwrap();
-                let port = *p;
-                *p += 1;
-                port
+    loop {
+        if let Err(error) = conn.frame_tick() {
+            error!(%error, "Dispatcher connection failed");
+            break;
+        }
+        if let Err(error) = release_exited_launches(&conn, &spawned, &exited) {
+            error!(%error, "Failed to release an exited scene launch");
+            break;
+        }
+        for request in conn.db.tactical_server_request().iter() {
+            let spawned_clone = spawned.clone();
+            let admitted = match spawned_clone.lock() {
+                Ok(mut spawned) => spawned.insert(request.instance_id.clone()),
+                Err(error) => {
+                    error!(%error, "Launch registry poisoned");
+                    false
+                }
             };
-
+            if !admitted {
+                continue;
+            }
             let claim_bytes: [u8; 32] = rand::random();
             let claim = claim_bytes
                 .iter()
                 .map(|byte| format!("{byte:02x}"))
                 .collect::<String>();
             let claim_hash = Sha256::digest(claim.as_bytes()).to_vec();
-            let mission_id = request.mission_id.clone();
+            let instance_id = request.instance_id.clone();
             let scene_key = request.scene_key.clone();
-            let Some(launch) = launch_arguments(request) else {
-                return;
+            let Some(launch) = launch_arguments(&request) else {
+                if let Ok(mut spawned) = spawned_clone.lock() {
+                    spawned.remove(&instance_id);
+                }
+                continue;
             };
-            let scene_input =
-                match materialize_requested_scene(&terrain_clone, &scene_input_dir, request) {
-                    Ok(path) => path.to_string_lossy().into_owned(),
-                    Err(error) => {
-                        error!(%mission_id, %error, "Failed to provision tactical scene input");
-                        return;
+            let scene_input = match requested_scene::materialize_requested_scene(
+                &terrain_clone,
+                &scene_input_dir,
+                &request,
+            ) {
+                Ok(path) => path.to_string_lossy().into_owned(),
+                Err(error) => {
+                    error!(%instance_id, %error, "Failed to provision tactical scene input");
+                    if let Err(error) = conn
+                        .reducers
+                        .record_tactical_scene_provisioning_failure(instance_id.clone())
+                    {
+                        error!(%error, "Could not report scene provisioning failure");
                     }
-                };
+                    if let Ok(mut spawned) = spawned_clone.lock() {
+                        spawned.remove(&instance_id);
+                    }
+                    continue;
+                }
+            };
+            let port = next_port;
+            let Some(successor) = next_port.checked_add(1) else {
+                error!("Tactical scene port allocation exhausted");
+                break;
+            };
+            next_port = successor;
+
             let spawned = spawned_clone.clone();
-            let bin = bin.clone();
-            let stdb_url = stdb_url.clone();
-            let stdb_module = stdb_module.clone();
-            if let Err(error) = _ctx.reducers.authorize_tactical_server_claim_then(
-                mission_id.clone(),
+            let child_launch = child_launch::ChildLaunch {
+                instance_id: instance_id.clone(),
+                scene_key,
+                scene_input,
+                addr: SocketAddr::new(host, port),
+                bin: bin.clone(),
+                stdb_url: stdb_url.clone(),
+                stdb_module: stdb_module.clone(),
+                claim,
+                arguments: launch,
+            };
+            let exited_clone = exited.clone();
+            let failed_id = instance_id.clone();
+            if let Err(error) = conn.reducers.authorize_tactical_server_claim_then(
+                instance_id.clone(),
                 claim_hash,
                 move |_ctx, result| match result {
-                    Ok(Ok(())) => {
-                        info!(
-                            "Spawning tactical-server for mission {} (scene: {}) on port {}",
-                            mission_id, scene_key, port
-                        );
-                        match Command::new(&bin)
-                            .env_remove("SPACETIMEDB_TOKEN")
-                            .env("ADVENTURESIM_TACTICAL_CLAIM", &claim)
-                            .args([
-                                "--mission-id",
-                                &mission_id,
-                                "--scene-key",
-                                &scene_key,
-                                "--scene-input",
-                                &scene_input,
-                                "--expected-party-members",
-                                &launch.expected_party_members,
-                                "--required-enemy-kills",
-                                &launch.required_enemy_kills,
-                                "--enemy-combat-scale-bps",
-                                &launch.enemy_combat_scale_bps,
-                                "--addr",
-                                &SocketAddr::new(host, port).to_string(),
-                                "--spacetimedb-url",
-                                &stdb_url,
-                                "--spacetimedb-module",
-                                &stdb_module,
-                            ])
-                            .spawn()
-                        {
-                            Ok(child) => {
-                                info!("Spawned tactical-server (pid {})", child.id());
-                                spawned.lock().unwrap().insert(mission_id);
-                            }
-                            Err(error) => {
-                                error!("Failed to spawn tactical-server: {error}");
-                                if let Err(revoke_error) = _ctx
-                                    .reducers
-                                    .revoke_tactical_server_claim(mission_id.clone())
-                                {
-                                    error!(
-                                        "Failed to revoke unused tactical claim: {revoke_error}"
-                                    );
-                                }
-                            }
+                    Ok(Ok(())) => child_launch.start(_ctx, spawned.clone(), exited_clone),
+                    Ok(Err(error)) => {
+                        error!("Tactical claim rejected: {error}");
+                        if let Ok(mut spawned) = spawned.lock() {
+                            spawned.remove(&instance_id);
                         }
                     }
-                    Ok(Err(error)) => error!("Tactical claim rejected: {error}"),
-                    Err(error) => error!("Tactical claim reducer failed: {error}"),
+                    Err(error) => {
+                        error!("Tactical claim reducer failed: {error}");
+                        if let Ok(mut spawned) = spawned.lock() {
+                            spawned.remove(&instance_id);
+                        }
+                    }
                 },
             ) {
                 error!("Failed to authorize tactical claim: {error}");
-            }
-        });
-
-    info!("Listening for pending missions...");
-
-    // Run the connection loop, listening to WebSocket events
-    loop {
-        match conn.frame_tick() {
-            Ok(_) => {}
-            Err(e) => {
-                warn!("Connection error: {}", e);
-                break;
+                if let Ok(mut spawned) = spawned_clone.lock() {
+                    spawned.remove(&failed_id);
+                }
             }
         }
-        std::thread::sleep(std::time::Duration::from_millis(100));
+        std::thread::sleep(DISPATCH_POLL_INTERVAL);
     }
 }
 
-fn materialize_requested_scene(
-    terrain: &TerrainPack,
-    directory: &Path,
-    request: &TacticalServerRequest,
-) -> Result<PathBuf, String> {
-    let profile = request
-        .settlement
-        .as_ref()
-        .map(|settlement| -> Result<SettlementSceneProfile, String> {
-            Ok(SettlementSceneProfile {
-                id: settlement.id.clone(),
-                population_level: settlement.population_level,
-                population_estimate: settlement.population_estimate,
-                economy: settlement_economy_adapter::economy_profile(&settlement.economy),
-                operators: settlement
-                    .operators
-                    .iter()
-                    .map(|operator| {
-                        let operator_name =
-                            adventuresim_world_schema::person_names::RenderedPersonalName::try_from(
-                                operator.operator_name.clone(),
-                            )
-                            .map_err(|error| format!("invalid operator name: {error}"))?;
-                        Ok(SettlementBusinessOperatorProfile {
-                            business_id:
-                                adventuresim_world_schema::settlement_buildings::BusinessId::new(
-                                    &operator.business_id.settlement_id,
-                                    adventuresim_world_schema::settlement_buildings::BusinessKey {
-                                        usage: settlement_economy_adapter::building_use(
-                                            &operator.business_id.key.usage,
-                                        ),
-                                        ordinal: operator.business_id.key.ordinal,
-                                    },
-                                ),
-                            operator_character_id: adventuresim_tactical_core::player::CharacterId(
-                                operator.operator_character_id,
-                            ),
-                            operator_name,
-                        })
-                    })
-                    .collect::<Result<Vec<_>, String>>()?,
-            })
-        })
-        .transpose()?;
-    let input = scene_input::build_imported_scene(
-        terrain,
-        &request.mission_id,
-        &request.scene_key,
-        request.latitude_e_7,
-        request.longitude_e_7,
-        adventuresim_world_schema::calendar::StrategicMinute::new(request.absolute_minute.minutes),
-        adventuresim_world_schema::calendar::StrategicMinute::new(
-            request.lunar_phase_minute.minutes,
-        ),
-        profile.as_ref(),
-    )?;
-    scene_input::materialize_scene_input(directory, &request.mission_id, &input)
+fn release_exited_launches(
+    conn: &DbConnection,
+    spawned: &Mutex<HashSet<String>>,
+    exited: &Mutex<Vec<ExitedLaunch>>,
+) -> Result<(), String> {
+    let retired = std::mem::take(&mut *exited.lock().map_err(|error| error.to_string())?);
+    for retired_launch in retired {
+        let instance_id = retired_launch.instance_id;
+        spawned
+            .lock()
+            .map_err(|error| error.to_string())?
+            .remove(&instance_id);
+        // A failed child may leave an unused registration claim. A clean
+        // retirement can be followed immediately by a new request for the
+        // same shared slot; that request is not the old child's failure.
+        if retired_launch.outcome == ChildExitOutcome::Failed
+            && conn
+                .db
+                .tactical_server_request()
+                .iter()
+                .any(|row| row.instance_id == instance_id)
+        {
+            if let Err(error) = conn
+                .reducers
+                .record_tactical_scene_provisioning_failure(instance_id.clone())
+            {
+                error!(%error, "Failed to report interrupted scene launch");
+            }
+            if let Err(error) = conn.reducers.revoke_tactical_server_claim(instance_id) {
+                error!(%error, "Failed to release interrupted launch claim");
+            }
+        }
+    }
+    Ok(())
 }
 
-/// Scalar CLI arguments are projections of this captured request.
-struct TacticalLaunchArguments {
-    expected_party_members: String,
-    required_enemy_kills: String,
-    enemy_combat_scale_bps: String,
+fn load_final_terrain(args: &Args) -> Result<Arc<TerrainPack>, String> {
+    let terrain = TerrainPack::load(&args.terrain_manifest, &args.terrain_pack)
+        .map_err(|error| error.to_string())?;
+    if terrain.purpose() != TerrainPurpose::Final {
+        return Err("Dispatcher requires the final terrain pack".into());
+    }
+    info!(
+        digest = terrain.digest(),
+        "Loaded final tactical terrain source"
+    );
+    Ok(Arc::new(terrain))
 }
 
-fn launch_arguments(request: &TacticalServerRequest) -> Option<TacticalLaunchArguments> {
+/// Only missions project combat CLI arguments. Ordinary scenes have none.
+fn launch_arguments(request: &TacticalServerRequest) -> Option<Vec<String>> {
+    let adventuresim_stdb_client::TacticalSession::Mission(mission) = &request.session else {
+        return Some(Vec::new());
+    };
     match adventuresim_core::mission::TacticalPartyRoster::try_from(
-        request.authorized_party_member_ids.clone(),
+        mission.authorized_party_member_ids.clone(),
     ) {
-        Ok(roster) => Some(TacticalLaunchArguments {
-            expected_party_members: roster.expected_members().to_string(),
-            required_enemy_kills: request.required_enemy_kills.to_string(),
-            enemy_combat_scale_bps: request.enemy_combat_scale_bps.to_string(),
-        }),
+        Ok(roster) => Some(vec![
+            "--expected-party-members".into(),
+            roster.expected_members().to_string(),
+            "--required-enemy-kills".into(),
+            mission.required_enemy_kills.to_string(),
+        ]),
         Err(error) => {
-            error!(mission_id = %request.mission_id, %error, "Invalid tactical party roster");
+            error!(%error, "Invalid tactical party roster");
             None
         }
     }
@@ -335,12 +301,13 @@ mod tests {
     #[test]
     fn child_spawn_waits_for_claim_and_drops_gateway_token() {
         let source = include_str!("main.rs");
+        let launch = include_str!("child_launch.rs");
         let callback = source
             .split("authorize_tactical_server_claim_then")
             .nth(1)
             .expect("claim completion callback");
         assert!(callback.contains("Ok(Ok(()))"));
-        assert!(callback.contains(".env_remove(\"SPACETIMEDB_TOKEN\")"));
-        assert!(callback.contains(".env(\"ADVENTURESIM_TACTICAL_CLAIM\""));
+        assert!(launch.contains(".env_remove(\"SPACETIMEDB_TOKEN\")"));
+        assert!(launch.contains(".env(\"ADVENTURESIM_TACTICAL_CLAIM\""));
     }
 }

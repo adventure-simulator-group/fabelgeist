@@ -71,8 +71,8 @@ string_key_query!(
     "SELECT * FROM autoresolve_report WHERE battle_id = "
 );
 string_key_query!(
-    tactical_server_request_by_mission_id,
-    "SELECT * FROM tactical_server_request WHERE mission_id = "
+    tactical_server_request_by_instance_id,
+    "SELECT * FROM tactical_server_request WHERE instance_id = "
 );
 string_key_query!(
     settlement_smith_by_settlement_id,
@@ -117,8 +117,8 @@ pub(crate) fn case_site_pin_by_case_site_id_and_owner(
     ))
 }
 string_key_query!(
-    tactical_server_by_mission_id,
-    "SELECT * FROM tactical_server WHERE mission_id = "
+    tactical_server_by_instance_id,
+    "SELECT * FROM tactical_server WHERE instance_id = "
 );
 
 u64_key_query!(
@@ -269,12 +269,12 @@ mod tests {
                 "SELECT * FROM autoresolve_report WHERE battle_id = 'battle''oath'",
             ),
             (
-                tactical_server_request_by_mission_id("mission'oath"),
-                "SELECT * FROM tactical_server_request WHERE mission_id = 'mission''oath'",
+                tactical_server_request_by_instance_id("mission'oath"),
+                "SELECT * FROM tactical_server_request WHERE instance_id = 'mission''oath'",
             ),
             (
-                tactical_server_by_mission_id("mission'oath"),
-                "SELECT * FROM tactical_server WHERE mission_id = 'mission''oath'",
+                tactical_server_by_instance_id("mission'oath"),
+                "SELECT * FROM tactical_server WHERE instance_id = 'mission''oath'",
             ),
             (
                 settlement_smith_by_settlement_id("smith's town"),

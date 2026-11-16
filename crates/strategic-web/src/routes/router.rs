@@ -14,6 +14,9 @@ use axum::{
     routing::get,
 };
 
+#[path = "settlement_scene.rs"]
+mod settlement_scene;
+
 /// An Origin header identifies an authority, with no document path.
 const ORIGIN_ROOT_PATH: &str = "/";
 
@@ -40,6 +43,7 @@ pub fn build_router(state: AppState) -> Router {
                 .merge(parties::routes())
                 .merge(quests::routes())
                 .merge(missions::routes())
+                .merge(settlement_scene::routes())
                 .merge(weapon_icons::routes())
                 .merge(scene_equipment::routes())
                 .merge(scene_assets::routes())

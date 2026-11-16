@@ -1178,7 +1178,7 @@ class WorkflowTests(unittest.TestCase):
     def test_sql_readiness_accepts_cli_quoted_text_rows(self, run_checked):
         run_checked.return_value = mock.Mock(
             returncode=0,
-            stdout=' mission_id\n------------\n "mission:animation-123" \n',
+            stdout=' instance_id\n------------\n "scene:mission:mission:animation-123" \n',
         )
         self.assertTrue(dev_stack.sql_mission_row_exists(
             "http://127.0.0.1:24920",

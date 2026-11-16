@@ -4,6 +4,62 @@
 use super::*;
 use crate::tactical::tactical_server_request_authority;
 
+/// Align the isolated authored town with the final terrain fixture coverage.
+#[reducer]
+pub fn authority_test_settlement_location(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+    settlement_id: String,
+    longitude_e7: i32,
+    latitude_e7: i32,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    let position =
+        adventuresim_world_schema::coordinates::Wgs84CoordinateE7::new(latitude_e7, longitude_e7)
+            .ok_or("Invalid fixture coordinate")?;
+    let mut settlement = ctx
+        .db
+        .settlement()
+        .id()
+        .find(&settlement_id)
+        .ok_or("Fixture settlement missing")?;
+    settlement.coord_x = position.longitude().degrees();
+    settlement.coord_y = position.latitude().degrees();
+    settlement.source_node_id = None;
+    ctx.db.settlement().id().update(settlement);
+    Ok(())
+}
+
+/// Create ordinary admission subjects directly at an authored settlement.
+/// They need no case, quest or combat roster, with or without a solo party.
+#[reducer]
+pub fn authority_test_settlement_actor(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+    character_id: u64,
+    settlement_id: String,
+    solo_party: bool,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    insert_character_with_origin(
+        ctx,
+        format!("Town visitor {character_id}"),
+        character_id,
+        CharacterCreationOptions {
+            origin_settlement_id: Some(&settlement_id),
+            mode: CharacterCreationMode::Player,
+            create_solo_party: solo_party,
+            materialize_generated_carry: true,
+            stable_seed: fabelgeist_determinism::Seed::from_u64(character_id),
+            initial_time_minute: None,
+            field_actor: false,
+            npc_personality: None,
+        },
+        None,
+        None,
+    )
+}
+
 #[derive(Clone, Copy, SpacetimeType)]
 pub enum NameAuthorityFault {
     MalformedJson,
@@ -223,8 +279,14 @@ pub fn authority_test_request_roster(
     let mut request = ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(&source_mission)
+        .instance_id()
+        .find(
+            adventuresim_core::tactical_session::TacticalInstanceId::for_mission(
+                &adventuresim_core::mission::MissionId::new(source_mission.clone())
+                    .map_err(str::to_owned)?,
+            )
+            .into_string(),
+        )
         .ok_or("Test source request missing")?;
     let mut mission = ctx
         .db
@@ -232,12 +294,19 @@ pub fn authority_test_request_roster(
         .id()
         .find(&source_mission)
         .ok_or("Test source mission missing")?;
-    request.mission_id = mission_id.clone();
-    request.authorized_party_member_ids = member_ids;
+    request.instance_id = adventuresim_core::tactical_session::TacticalInstanceId::for_mission(
+        &adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_owned)?,
+    )
+    .into_string();
+    let crate::tactical::TacticalSession::Mission(tactical) = &mut request.session else {
+        return Err("Test source is not a mission".into());
+    };
+    tactical.mission_id = mission_id.clone();
+    tactical.authorized_party_member_ids = member_ids;
     // Enrollment-conflict fixtures share participant authority, but each server
     // must have its own opponents. These checks exercise party enrollment only.
-    request.enemy_character_ids.clear();
-    request.required_enemy_kills = 0;
+    tactical.enemy_character_ids.clear();
+    tactical.required_enemy_kills = 0;
     mission.id = mission_id;
     ctx.db.mission_authority().insert(mission);
     ctx.db.tactical_server_request_authority().insert(request);

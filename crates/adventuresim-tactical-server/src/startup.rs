@@ -4,14 +4,54 @@
 use std::path::{Path, PathBuf};
 
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_netcode::message::SceneVistaBundle;
 
 use crate::bot;
 
 const DEFAULT_SCENE_INPUT: &str = "dense-woodland";
 const DEFAULT_COMBAT_CONFIG: &str = "content/tactical/combat.yaml";
 
-pub(crate) fn default_scene_input_path() -> PathBuf {
-    bot::resolve_scene_fixture(DEFAULT_SCENE_INPUT).expect("fixture path resolution is infallible")
+/// Everything `main` needs loaded and validated before it builds the app.
+pub(crate) struct StartupInputs {
+    pub(crate) scene: TacticalSceneInput,
+    pub(crate) combat: TacticalCombatConfig,
+    pub(crate) vista: SceneVistaBundle,
+}
+
+impl StartupInputs {
+    /// Loads both inputs, falling back to the committed defaults, and installs
+    /// the combat runtime snapshot the simulation reads from. The error already
+    /// names which input was rejected.
+    pub(crate) fn load(scene: Option<&Path>, combat: Option<&Path>) -> Result<Self, String> {
+        let scene_path =
+            scene.map_or_else(default_scene_input_path, |path| Ok(path.to_path_buf()))?;
+        let scene = TacticalSceneInput::load(&scene_path)
+            .map_err(|error| format!("tactical scene input: {error}"))?;
+        let vista = SceneVistaBundle::try_from(&scene)
+            .map_err(|error| format!("tactical scene presentation: {error}"))?;
+        let combat_path = combat.map_or_else(default_combat_config_path, Path::to_path_buf);
+        let combat = load_combat_config(&combat_path)
+            .map_err(|error| format!("tactical combat config: {error}"))?;
+        combat
+            .install_runtime_snapshot()
+            .map_err(|error| format!("tactical combat config: {error}"))?;
+        let digest = combat
+            .digest()
+            .map_err(|error| format!("tactical combat config: {error}"))?;
+        eprintln!(
+            "[startup] tactical combat config path={} digest={digest}",
+            combat_path.display()
+        );
+        Ok(Self {
+            scene,
+            combat,
+            vista,
+        })
+    }
+}
+
+pub(crate) fn default_scene_input_path() -> Result<PathBuf, String> {
+    bot::resolve_scene_fixture(DEFAULT_SCENE_INPUT)
 }
 
 pub(crate) fn default_combat_config_path() -> PathBuf {
@@ -42,44 +82,13 @@ pub(crate) fn load_combat_config(path: &Path) -> Result<TacticalCombatConfig, St
     Ok(config)
 }
 
-/// Everything `main` needs loaded and validated before it builds the app.
-pub(crate) struct StartupInputs {
-    pub(crate) scene: TacticalSceneInput,
-    pub(crate) combat: TacticalCombatConfig,
-}
-
-impl StartupInputs {
-    /// Loads both inputs, falling back to the committed defaults, and installs
-    /// the combat runtime snapshot the simulation reads from. The error already
-    /// names which input was rejected.
-    pub(crate) fn load(scene: Option<&Path>, combat: Option<&Path>) -> Result<Self, String> {
-        let scene_path = scene.map_or_else(default_scene_input_path, Path::to_path_buf);
-        let scene = TacticalSceneInput::load(&scene_path)
-            .map_err(|error| format!("tactical scene input: {error}"))?;
-        let combat_path = combat.map_or_else(default_combat_config_path, Path::to_path_buf);
-        let combat = load_combat_config(&combat_path)
-            .map_err(|error| format!("tactical combat config: {error}"))?;
-        combat
-            .install_runtime_snapshot()
-            .expect("loaded tactical combat config was validated");
-        let digest = combat
-            .digest()
-            .expect("loaded tactical combat config was validated");
-        eprintln!(
-            "[startup] tactical combat config path={} digest={digest}",
-            combat_path.display()
-        );
-        Ok(Self { scene, combat })
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn standalone_default_is_the_dense_woodland_fixture() {
-        let input = TacticalSceneInput::load(&default_scene_input_path())
+        let input = TacticalSceneInput::load(&default_scene_input_path().unwrap())
             .expect("default tactical scene input should remain valid");
 
         assert_eq!(input.scene_key, "woodland");

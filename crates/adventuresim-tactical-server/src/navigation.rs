@@ -6,6 +6,7 @@ use bevy::prelude::*;
 
 pub(crate) use mesh::{TacticalNavigation, TacticalNavigationPlugin};
 
+mod bounds;
 mod geometry;
 mod mesh;
 

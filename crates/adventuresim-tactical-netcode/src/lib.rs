@@ -6,8 +6,10 @@ pub mod client;
 pub mod control;
 pub mod message;
 pub mod replication;
+mod scene_wire;
 #[cfg(feature = "server")]
 pub mod server;
+mod transport;
 
 pub use aeronet;
 pub use aeronet_replicon;
