@@ -1,0 +1,890 @@
+{
+  "schema": "726-reference-only-audit-ledger-v1",
+  "status": "At preparation, source-only; capture, restore and publication require separate recorded evidence.",
+  "predecessor": {
+    "schema": "726-predecessor-public-reference-draft-v1",
+    "status": "local-object observation; not remote verification or custody",
+    "commit": "adfdb0af139fffed56d66798b96b3217e6f9b2f6",
+    "tree": "1823e69242cd4b78111febbc83012872d256b005",
+    "parent_commit": "9ad5a52710bf2ddf2124a0ae907f4bf6fb20bcde",
+    "git_object_format": "sha1",
+    "public_prefix": "delegated/iterative/terrain-pack-20261114/terrain-plan-key-audit",
+    "verified_tree_chain": [
+      {
+        "path": "",
+        "git_object_id": "1823e69242cd4b78111febbc83012872d256b005"
+      },
+      {
+        "path": "delegated",
+        "git_object_id": "c300359900c12a2b4062520362bae5990c53538e"
+      },
+      {
+        "path": "delegated/iterative",
+        "git_object_id": "98a1ecacb6854f4896dd8ab8f8a79258a81f9450"
+      },
+      {
+        "path": "delegated/iterative/terrain-pack-20261114",
+        "git_object_id": "e5faf1c6074c020fffef165678a0434d4539d741"
+      },
+      {
+        "path": "delegated/iterative/terrain-pack-20261114/terrain-plan-key-audit",
+        "git_object_id": "71fd6798ec0cc62b82880f2680effd175c71b29e"
+      },
+      {
+        "path": "delegated/iterative/terrain-pack-20261114/terrain-plan-key-audit/custody",
+        "git_object_id": "431ca5907c775580b9e9b0371b4d80a1e03a463f"
+      }
+    ],
+    "public_objects": [
+      {
+        "relative_path": "INDEX.md",
+        "mode": "100644",
+        "git_object_id": "8cd397c9f090c624a7d04c39fc041045b84ee842",
+        "bytes": 2864
+      },
+      {
+        "relative_path": "LEDGER-v20.json",
+        "mode": "100644",
+        "git_object_id": "8c85069ecc6c390725f69c7103af28f11029c701",
+        "bytes": 347851
+      },
+      {
+        "relative_path": "custody/MANIFEST.json",
+        "mode": "100644",
+        "git_object_id": "46af423aeb7e0e8439e0df619ae46e02a0999237",
+        "bytes": 569
+      },
+      {
+        "relative_path": "custody/VERIFY.py",
+        "mode": "100644",
+        "git_object_id": "6134ead9d6512aff1d9054c30d6070bcffb4b620",
+        "bytes": 5206
+      },
+      {
+        "relative_path": "custody/evidence.aesgcm",
+        "mode": "100644",
+        "git_object_id": "fa762129817fb33f893326ed6ef17004d198bf5b",
+        "bytes": 2849673
+      }
+    ],
+    "dependencies": {
+      "prior_archives_required": true,
+      "separately_held_keys_required": true,
+      "product_and_evidence_git_objects_required": true,
+      "independent_backup_established": false
+    },
+    "qualification": "References whole published objects; it does not re-emit their contents or remediate any prior disclosure."
+  },
+  "baseline": {
+    "product_commit": "f31179dfe46e790f4c586b2303dcd18be7a03101",
+    "product_tree": "f79f8565aec9fa4733c5dcbd64455e084d4ddf5f",
+    "scope": "New selected source work, not current main or checkpoint 3821."
+  },
+  "frame_overlay": {
+    "collection_label": "terrain-plan-key-frame-overlay",
+    "path": "OVERLAY-DRAFT-v2.json",
+    "sha256": "c8983038c1da56ebee41ff7d5abf245845c3a78e3ab5f088cbf6afb6394b9e32",
+    "projection": {
+      "schema": "case-site-frame-continuation-draft-v2",
+      "record_kind": "newly assessed source work after the v20 cutoff",
+      "draft_time_status": {
+        "discovery": "incomplete",
+        "repair": "not started for this continuation",
+        "product_validation": "not started for this continuation",
+        "publication_and_custody": "not established by this draft"
+      },
+      "baseline": {
+        "product_commit": "f31179dfe46e790f4c586b2303dcd18be7a03101",
+        "product_tree": "f79f8565aec9fa4733c5dcbd64455e084d4ddf5f",
+        "predecessor_checkpoint": "adfdb0af139fffed56d66798b96b3217e6f9b2f6",
+        "predecessor_tree": "1823e69242cd4b78111febbc83012872d256b005"
+      },
+      "attribution_qualification": "The named readers are recorded by the cited reports. Related source reviews have disclosed authorship overlap; historical readers and revisions are not transferred to new assessments.",
+      "reconciliations": [
+        {
+          "id": "frame-v4",
+          "collection_label": "terrain-plan-key-frame-central-20261115-v1",
+          "path": "RECONCILIATION-v4.md",
+          "sha256": "1a3ae7ada4336c97e861e7802331fbc82f819e4cbb22df8258d4544b285609d2",
+          "text_parts": [
+            {
+              "text": "# Coordinate-frame continuation: central reconciliation v4\n\nThis is newly assessed, source-only work after the v20 capture cutoff. Its\nproduct baseline is commit `f31179dfe46e790f4c586b2303dcd18be7a03101`, tree\n`f79f8565aec9fa4733c5dcbd64455e084d4ddf5f`. It extends the selected\nTerrainPlanKey producer-to-consumer scope; it is neither a repository-wide\naudit nor a historical checkpoint 3821 record. No product repair, build,\ntest, runtime probe, new PR, actual route, cache hit, panic, weather result or\nplayer incident is claimed. This successor leaves the central draft, v2 and v3 intact.\n\n## Evidence and corrections\n\n- `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s caller trace is\n  `terrain-plan-key-caller-followup-20261115-dvC1gyRQ/REPORT.md`, SHA-256\n  `79746f80cc756502d0ea640ddcde9b02e8816b0f2484887ddd79f76c0f7b7756`.\n  Its 19 registered source copies matched f311 Git blobs in the separate peer.\n- `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "geographic_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s caller peer is\n  `terrain-plan-key-caller-peer-20261115-4fi5_ahe/REPORT.md`, SHA-256\n  `ed056ce59ff20fe728c70c1013821af1b8a27ba9fdcc5da7e99083c6448e67cd`.\n  It supplies exact pinned copies of `spacetimedb/types.rs` and the enclosing\n  `routes/settlements/mod.rs`, omitted from the first registration. They\n  supplement the sealed first registration; they do not change it. The peer's\n  citation census is bounded to that report and its stated include owner.\n- `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_canopy_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s six type/behavior lenses are in\n  `case-site-frame-types-20261115-yA9lRsOW/REPORT.md`, SHA-256\n  `16f4d5b89934434d1e6f95de739190ae8b7d95972b25c813e02e3bbffbb1d5f1`.\n  Read it with that reader's separately sealed\n  `case-site-frame-erratum-20261115-8tsaCwTl/ERRATUM.md`, SHA-256\n  `0c0b9dee8647e906cda8dee443b1530a604b2094b01f36228ac065a9727de845`.\n- `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s five further lenses are in\n  `terrain-plan-key-frame-five-lens-20261115-kyWa4EDr/REPORT.md`, SHA-256\n  `a2cd1e9286845b6d61584d2f2c4c325e68038d33ce47803fd52b422e80b55b3f`.\n  It continues that reader's caller trace, not an independent rereading. Its\n  literal navigation is a bounded line filter, not complete literal coverage.\n  Read its compressed historical-credit sentence with the separate author\n  erratum at this exact path:\n  `terrain-plan-key-five-lens-credit-erratum-20261115-KLzZ5AU4/REPORT.md`.\n  Its SHA-256 is\n  `63fb70f100f8a98d3d1332805e440b7d773920c4ac767df0b58a85a7918f768b`.\n- `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_canopy_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s bounded v2 reconciliation peer is\n  `terrain-plan-key-frame-reconciliation-peer-20261115-x4RCHR9z/REPORT.md`,\n  SHA-256 `d19c88e6663a18af44dfe6135f9fb5a3d6e77cc3bfafde786f3a9e570f99fabd`.\n  It found no additional factual blocker in its checked paths and requested\n  the exact erratum binding and explicit statuses supplied by this successor.\n  Its authorship overlaps the six-lens report and earlier related work.\n\nThe v20 published TerrainPlanKey overlay and ledger remain the predecessor\nassessment, including its thirteen selected lens dispositions. Its embedded\noverlay's publication and custody fields state draft-time status; v20 was\nsubsequently captured, authenticated-restored, published and remotely checked.\nThe later work here is not contained in that archive. The v20 restored wrapper\nreconstructed the original admission collection: 42 files, 28 directories\nincluding root, two predecessor Git blobs and 41 checksum-list entries; the\nchecksum file itself is separately inventoried. This was a point-in-time,\nsame-machine verification, not independent backup or complete object closure.\n\n## Connected repair ledger\n\nThe labels below identify new central dispositions for this continuation; they\nare not historical row IDs or a count of historical defects. The five open\nPRs remain the review stack. No repair has started for these dispositions.\n\n**Frame provenance at terrain and weather boundaries — open, next coherent\nrepair candidate.** The selected case-site projection carries E7 components\nand a geographic flag. Producer branches can create abstract coordinates. In\nquest preview, a false-flag site can be decoded as abstract units and the\nuntagged pair passed as geographic planner coordinates when exact projection,\ncharacter and party occupancy, selection among the five nearby settlements,\nand loaded terrain coexist. Settlement preview numerically converts selected\nsite E7 components without checking the flag; its candidate additionally\nrequires an active character at that settlement and an active party. Execution\ndoes the same for site origins and destinations, samples elevation, and derives\nweather before the planner call. Settlement endpoints carry separate source\nnode provenance and continuous `f64` values. Numeric WGS84 plausibility is\nnot proof of a geographic source frame. See the caller peer's source ranges and\nthe six-lens report's selected trace.\n\nThe independent map-marker adapter checks provenance, numeric bounds and\ncoverage; the server planned path checks package digest, weather, WGS84 route\npoints, endpoint tolerance and geometry. The server case-site reducer also\nbranches on endpoint flags. These are material counterevidence, but do not\nprove a numerically plausible abstract value is geographic or that any\nparticular path passes all checks. No specific visible site, in-pack pair,\naccepted planned route, bad cache hit or user impact has been observed.\n\nThis boundary is connected to, but is not established as identical to,\nq194/f2c's cache-before-native-admission issue or 95e observation 38's\nroute-to-marker association. Checking numeric bounds before a cache hit would\nnot prove the frame of plausible abstract coordinates; retaining the frame\nwould not by itself choose cache admission or valid-coordinate representative\npolicy. No exact historical alias is established. A future repair must choose\nhow both endpoints and mixed frames enter terrain and weather, including camp\nprovenance and error/fallback behavior. A tagged site position is an option,\nnot an adopted wire schema; blanket E7 conversion of settlement `f64` values\ncan change precision and E5 bins.\n\n**Cache admission and representative policy — remains open.** The v20\nsource-derived warm/cold coordinate-admission example and the structurally\npossible `None`/`Some` weather-key collision remain conditional, not observed\nincidents. The selected preview passes `None` and zero snow check; selected\nexecution produces `Some` weather with version 4 and bounded snow, so those\nselected producers do not supply the example's colliding option shapes. Valid\nsame-key endpoints can also have different cold representatives. Select\nadmission, option semantics, precision/error budget and retained representative\ndeliberately; frame preservation does not settle these decisions. The normal\nstartup creates a fresh cache per loaded pack, and bounded search found no pack\nreplacement. Mutating the crate-visible pack without invalidation remains a\nstructural possibility, not an observed stale plan.\n\n**Persisted camp route — separate conditional invariant question.** An\nunplanned abstract route can encode endpoints as E7 without retaining a frame\ntag in the stored points, while its weather conversion checks the origin\nnumerically as WGS84. The source-modeled pair `(lon, lat) = (0, 0)` to\n`(0, 100)` fits E7 `i32` storage but its destination is outside WGS84. If all\nother server and itinerary conditions succeed and that route persists, a\nlater terrain-enabled camp-origin reroute maps both points through a WGS84\nconversion followed by `expect` during segment-length construction. With\nterrain present at creation the selected web destination conversion rejects\nthis example before planner-error fallback; an authorized unplanned producer\nand a later terrain-enabled read are separate prerequisites, for example\nterrain absent at creation and available after a restart. The required active\nroute, character/party location and subsequent reroute also remain unobserved.\nThis is neither an observed panic nor a proven alias of the frame/cache item.\nInspect the five-lens report for exact source ranges and preserve this as a\nbounded follow-up rather than an assertion about all persisted routes.\n\n**Weather-coordinate rounding — separate policy question.** For the modeled\nlatitude `53.4999999`, conversion through E7 then integer division yields\n`53,499,999` microdegrees and weather cell 213, while direct rounded\nmicrodegrees yield `53,500,000` and cell 214. The unplanned case-route origin\nuses the first operation; web execution uses the second. The saved decimal\ncalculation is not a product run. Comparison needs the same valid origin and\ndeparture, relevant planned/unplanned branches and attention to server time\nand elevation. No different weather value or player effect is established.\n\n**Water spans — bounded counterevidence, not a new incident.** The selected\npack coarsener emits Water only as non-crossing and A* traverses passable\ncells. A generic grid can represent passable Water and the gateway filters\nWater spans, but this review did not show such a generic plan entering the\nselected pack facade. The v16 crossing-coarsening candidate concerns another\noperation; do not merge the two solely from that shared category.\n\n## Failure and acceptance boundaries\n\nNo terrain or an error returned by either planner call can select an unplanned\nexecution alternative. Earlier query, profile, coordinate, departure and\nweather-coordinate errors can propagate through the leader or approval caller;\na forage lookup error separately maps to zero elevation. Preview behavior is\ndifferent: missing terrain or planner failure leaves a marked straight-line\nestimate, while selected-site numeric conversion can skip terrain. An\nunplanned reducer has its own server checks, so choosing it does not prove\ntravel succeeds. Read the original caller report's broader fallback sentence\nwith these corrections and the peer's cited source lines.\n\nA future higher-level acceptance seam should exercise producer/projection and\nactual caller prerequisites, valid geographic controls, plausible and\nout-of-bounds abstract coordinates in both endpoint directions, mixed frames,\nsource-less settlement and relevant camp lifecycle, loaded-pack coverage,\nweather, round trip and the chosen error/fallback behavior. Cache admission,\nE5 representative policy and endpoint precision require their own controls.\nThese are unexecuted obligations, not test results or a chosen design.\n\n## Thirteen bounded lens dispositions\n\nEach disposition concerns only the selected source windows and relationships\nin the named reports; none clears the repository or all uses of the type.\n\n| Lens | Selected-scope disposition |\n| --- | --- |\n| Admission contracts | Native/cache admission and frame provenance are distinct open boundaries; selected producer restrictions narrow the weather example. |\n| Aggregate states | Endpoint, axis order and frame form a correlated state; individually representable numbers do not establish the relationship. |\n| Behavior preservation | Existing preview, execution, weather and server fallback/error distinctions are acceptance baselines; no implementation comparison was run. |\n| Derivability | Validated leaves already derive appropriate mechanical traits; no equivalent derive was established for the selected checked conversions. |\n| Enum shapes | A geographic/abstract position variant is a candidate for E7 site data, not a selected universal endpoint schema. |\n| Existing type owners | WGS84 and abstract E7 leaves own numeric admission; they do not prove provenance and do not losslessly replace continuous settlement coordinates. |\n| Invariant operations | Selected decoding drops frame; the persisted camp example is separately conditional. Other interpolation invariants remain open. |\n| Magic numbers | Selected coordinate scales, weather cells, cache and routing constants have distinct roles; the rounding difference is an open policy question. The navigation is incomplete. |\n| Magic strings | Selected reducer names, wire keys, paths and failure text have separate roles; no selected text establishes frame admission. The navigation is incomplete. |\n| Producer propagation | Selected producers and caller paths lose or fail to check frame; visibility, selection and loaded-terrain prerequisites remain unobserved together. |\n| Redundant authority | Frame, cached route, current pack and weather require compatible authority; startup and bounded pack-search counterevidence limit the stale-pack hypothesis. |\n| Type granularity | Geographic versus abstract semantics and axis order matter separately; E7 and microdegrees do not preserve every settlement `f64` value. |\n| Type ownership | Existing numeric owners and private server helpers are candidates or precedents; a shared owner and dependency boundary remain open. |\n\n## Status, acceptance and next unfinished cell\n\n**Discovery: incomplete.** The thirteen dispositions above cover selected\nwindows, not an exhaustive inventory of the chosen frame boundary. The\nliteral navigation is incomplete, indirect/generated callers and additional\nproducer and persistence paths remain open, and frame/fallback policies are\nunresolved. **Repair: not started** for this continuation. **Product\nvalidation: not started** for this continuation. Earlier PRs have their own\nseparately recorded work and validation; these statuses do not revise them.\n\nThe first unfinished discovery cell is producer propagation for the selected\ncase-site, settlement and camp endpoint frame: enumerate the pinned tracked\nowners and uses of frame flags, endpoint projections, persistence and\nterrain/weather interfaces; inspect and account for candidate paths as\nintentional, deferred or non-applicable with reasons. Include generated and\nindirect boundaries that the bounded reports identify. Search matches are\nnavigation, not proof of coverage. Reconcile any newly followed path with all\napplicable lens and ledger cells before selecting a repair. Keep additional\nunread paths and policy decisions incomplete.\n\nAcceptance remains unexecuted and depends on decisions: frame handling needs\ngeographic controls and abstract/mixed-frame producer-to-consumer cases with\nactual preview/execution prerequisites; cache changes need warm/cold admission\nand retained-representative controls; the conditional camp case needs a valid\nunplanned creation and later camp-origin lifecycle; and weather rounding needs\na chosen policy with same-input planned/unplanned controls. Preserve the\nexisting error/fallback distinctions or document an intentional change.\n\n## Recovery qualifications\n\nThe original checkpoint 3821 queue and ledger remain missing. Selected\nreconstructed q120 and q194 `pr-working` rows have null recorded revision,\nGit path and named reader. Six selected q194 source rows have zero queue-scope\ncredit; q194 itself has zero body/population credit. Their five distinct source\nIDs include one with two ranges; path-like ID text is not a recorded path.\nQ194 links the separately recovered Adler `READ-L11-386` receipt, retaining\nits own original role and range. The f2c\n`f2c6d28a48bfa72c0801e9f33387eb6e448f9a18` revision identifies the ledger\nbaseline; selected row 782 itself names no source revision or reader. The\nseparately retained 95e observations are at\n`95e63628f9d70b8dd6e6fede64334696c6995009`: observation 19 is attributed to\n`"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "hair_ops"
+                ]
+              }
+            },
+            {
+              "text": "`, observation 38 to `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "mhr_character"
+                ]
+              }
+            },
+            {
+              "text": "`. Their authorship\nand revision do not transfer to this assessment.\n\nSOURCE-004 proposal bytes were separately recovered; native qualification and\nreceipt obligations remain open. The 73 historical nontext/no-positive-EOF\nobligations remain open. Reconstructed 059 q603 has empty source and receipt\narrays and zero population credit; its exact alias is unproved. Preserve\nrecovered evidence, reconstructed records, historical summaries and newly\nassessed work as distinct. No earlier record or new work is promoted into\n3821, and no historical unique count is invented. Earlier archives,\nseparately held keys and prerequisite product and evidence Git objects remain\nrecovery dependencies; same-machine copies do not establish independent\nbackup or complete object closure.\n"
+            }
+          ]
+        },
+        {
+          "id": "expanded-v2",
+          "collection_label": "terrain-plan-key-frame-central-20261115-v1",
+          "path": "RECONCILIATION-EXPANDED-v2.md",
+          "sha256": "96336af68a9395c536b33ad6685fba2194be0234571a49b5f61bb886a2cb15f8",
+          "text_parts": [
+            {
+              "text": "# Coordinate-frame continuation: expanded producer cell v2\n\nThis is a central, post-v20 source-only addendum to the independently checked\n`RECONCILIATION-v4.md` (SHA-256\n`1a3ae7ada4336c97e861e7802331fbc82f819e4cbb22df8258d4544b285609d2`).\nProduct commit remains `f31179dfe46e790f4c586b2303dcd18be7a03101`, tree\n`f79f8565aec9fa4733c5dcbd64455e084d4ddf5f`. It neither revises prior reports\nnor asserts that this later work is in v20. No product code, build, test or\nruntime probe was run for it. At approximately 13:39 UTC on 2026-11-15,\nthe separate `PR-STATUS-20261115-1339UTC.md` observation reported five open\nPRs. That point observation also qualifies the present-tense stack wording in\nv4; no later PR state is asserted here. This successor leaves v1 intact.\n\n## Evidence and coverage\n\n`"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_contract"
+                ]
+              }
+            },
+            {
+              "text": "`'s producer-propagation cell is\n`terrain-case-frame-propagation-cell-20261115-Ov2krQDr/REPORT.md`, SHA-256\n`17eb96ad61735a876fd5458b78c86d0c7c769c7e3bf8f30800b662607e4399f3`.\nIts reproducible textual union contains 59 candidate files with bounded\ndispositions; it retains 101 distinct f311 blobs, seven selected support\nfiles, supplements, include owners and ten recorded searches. Thirty\nadditional E7-leaf files outside that union remain explicitly unclosed leads.\nThe union and its dispositions are not semantic or whole-file clearance.\nThe reader also authored the earlier caller and five-lens follow-ups.\n\n`"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "terrain_canopy_contract"
+                ]
+              }
+            },
+            {
+              "text": "` independently inspected selected consumer\npaths in `case-site-weather-vicinity-20261115-FpuvZXBs/REPORT.md`, SHA-256\n`ec5bc521eacab69fc129448107ccee40aff30b529623d08d9695494b698651bd`, and\nthe errantry producer and selected propagation claims in\n`terrain-order-errantry-peer-20261115-T6L4K8pR/REPORT.md`, SHA-256\n`9c25c91e49e07b0d3eb26c0e49d6df86a62c401de61a27a1fd514b44f99c4239`.\nThe latter reader authored the earlier weather/vicinity report and related\ntype reviews; comparisons to those are overlapping work, not independent\ncorroboration. The propagation report has the other reader. Each collection\nretains its own source registrations, conditions and original attribution.\n\n## Connected dispositions\n\n**Errantry site production — conditional frame-policy inconsistency.** The\nselected production dialogue reducer has gateway, session, issuer, presence,\nparty-leader and settlement requirements. Its materializer numerically checks\n`(origin x + 0.02, origin y + 0.02)` as WGS84 and writes the new site with a\ntrue geographic flag without checking the origin's source node. Other selected\nsite producers use source-node presence to choose their frame and offset.\nCapability-gated development bootstrap can create a numerically plausible\nsource-less chapter settlement, but an existing row, all dialogue conditions\nand successful materialization matter. Source-node absence alone does not\nprove what that fixture intended. No live site or action was observed.\n\nFor that conditional source-less origin and true site, the selected unplanned\nserver travel branch uses the conjunction of endpoint conditions and planar\ndistance; the illustrative 0.02/0.02 offset gives about 28 m, while the site\nalso records a distinct nominal 2,000 m. No requirement that the two fields\nmatch, completed journey or product defect is inferred from that comparison.\nThe public-simulation readiness entry, if separately invoked on the same\nqualifying pair, rejects unequal flags after numeric admission. These are\ndifferent paths; readiness is not shown to gate every server reducer.\n\n**Vicinity sampling — conditional frame loss; submission separately limited.**\nThe exact-pin projection checks gateway, knowledge, identity and matching\ncoordinate leaves. `vicinity` then numerically validates site E7 as WGS84\nwithout checking its frame. With a false-flag, numerically valid, exactly\nvisible site, a covering pack and remaining guards, the hydrated foraging\ndialog or scene-assets path can reach terrain sampling. The dispatcher and\nserver attestation add numeric, package, identity, context and other checks;\nthey do not establish original frame merely from equal numeric values. No\nactual site, sample, scene or accepted attestation was observed.\n\nThe propagation report's vicinity/foraging description must be read with the\npeer's entry-point qualification: the selected `POST /forage` loader converts\nthe character without hydrating `current_case_site_id`, so that POST cannot\nenter the case-site vicinity arm through that loader. Without a settlement or\ncamp it returns an unavailable-location error; camp or inconsistent state is\nseparate. The hydrated dialog does not prove submission or reducer acceptance.\nThe missing hydration is a connected producer-propagation question, distinct\nfrom frame provenance and not an observed failed request.\n\n**Abstract weather — explicit conversion, unresolved meaning.** The selected\ncondition and investigation consumers deliberately branch on a false flag,\nconvert abstract E7 components to millionths of a coordinate unit, and supply\nthe integers to the weather engine's geographic-microdegree interface. The\nsource supports this implemented behavior, but the bounded review found no\ncontract establishing whether the synthetic mapping is the intended climate\npolicy. Its branch-specific fallback, time, elevation and possible downstream\neffects differ. A modeled 100-unit latitude reaches weather cell 400 if its\nother prerequisites hold; no weather value, injury or player effect was\nobserved. This is separate from the prior E7-versus-direct rounding question.\n\n**Public survival and mixed endpoints — conditional paths, distinct gates.**\nSelected readiness and return functions construct WGS-bounded route points\nbefore checking endpoint-frame equality. An otherwise representable abstract\ncoordinate outside WGS bounds can cause the respective deferral or hold under\nthe required party, pin and readiness conditions. Selected stationary paths\nreturn false on their own failed admission and have additional guards; false\ndoes not mean one universal outcome. The server's selected travel calculations\ninstead combine endpoint flags. Its encounter fallback can decode each endpoint\nunder its own frame, interpolate untagged values, then encode with one flag.\nThat fallback requires a selected encounter and an absent or unusable route\nposition; the ordinary unplanned case-site route supplies two points, so the\nfallback is not assumed normal. No mixed journey or encounter was observed.\n\nMap production and tactical entry reject false-frame sites on their selected\npaths, and area containment rejects unequal flags. These are real counterguards,\nnot evidence that every terrain, weather or travel consumer receives frame\nprovenance. The new source findings are connected to the v4 ledger's frame\nboundary, not established aliases of q194 cache admission, f2c row 782 or\n95e marker/route association. No historical count or attribution transfers.\n\n## Status and next cell\n\nDiscovery remains **incomplete**; repair and product validation for this\ncontinuation remain **not started**. The first textual producer-propagation\nunion has now been dispositioned, but the 30 retained E7-leaf leads, aliases,\ngenerated or indirect paths outside the union and policy choices remain open.\nResume by inspecting and dispositioning those 30 leads for this frame boundary,\nthen reconcile affected consumers and all applicable lens cells. Search hits\nalone do not prove exhaustive coverage. Preserve selected source and feature\nguards and distinguish non-applicable or intentionally deferred candidates.\n\nAny future acceptance must distinguish geographic and abstract inputs, both\nendpoint orders, source-less origin policy, exact visibility, loaded-pack\ncoverage, hydrated dialog versus POST, simulation versus server entry, weather\nmapping and error/fallback behavior. Those are unexecuted obligations, not a\nchosen repair or a product-validation result.\n\n## Recovery qualifications\n\nThe original 3821 queue and ledger remain missing. Selected reconstructed\nq120/q194 `pr-working` rows have null recorded revision, Git path and named\nreader. Six selected q194 source rows have zero queue-scope credit; q194 has\nzero body/population credit. The separately recovered Adler `READ-L11-386`\nreceipt retains its own role/range. F2c\n`f2c6d28a48bfa72c0801e9f33387eb6e448f9a18` identifies the ledger baseline;\nrow 782 itself names no source revision or reader. At\n`95e63628f9d70b8dd6e6fede64334696c6995009`, observation 19 belongs to\n`"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "hair_ops"
+                ]
+              }
+            },
+            {
+              "text": "` and observation 38 to `"
+            },
+            {
+              "reader": {
+                "namespace": "root",
+                "segments": [
+                  "mhr_character"
+                ]
+              }
+            },
+            {
+              "text": "`.\n\nSOURCE-004 proposal bytes were separately recovered; native qualification\nand receipt obligations remain open. The 73 historical nontext/no-positive-\nEOF obligations remain open. Reconstructed q603 has empty source and receipt\narrays and zero population credit; its exact alias is unproved. Recovered\nevidence, reconstructed records, historical summaries and newly assessed work\nkeep their original status and attribution; none is promoted to 3821 and no\nhistorical unique count is invented. Earlier archives, separately held keys\nand prerequisite product/evidence Git objects remain dependencies. The v20\nsame-machine authenticated restoration and reconstructed wrapper are not\nindependent backup or proof of complete Git object closure.\n"
+            }
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "id": "caller",
+          "collection_label": "terrain-plan-key-caller-followup-20261115-dvC1gyRQ",
+          "path": "REPORT.md",
+          "sha256": "79746f80cc756502d0ea640ddcde9b02e8816b0f2484887ddd79f76c0f7b7756",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_contract"
+            ]
+          }
+        },
+        {
+          "id": "caller-peer",
+          "collection_label": "terrain-plan-key-caller-peer-20261115-4fi5_ahe",
+          "path": "REPORT.md",
+          "sha256": "ed056ce59ff20fe728c70c1013821af1b8a27ba9fdcc5da7e99083c6448e67cd",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "geographic_contract"
+            ]
+          }
+        },
+        {
+          "id": "types",
+          "collection_label": "case-site-frame-types-20261115-yA9lRsOW",
+          "path": "REPORT.md",
+          "sha256": "16f4d5b89934434d1e6f95de739190ae8b7d95972b25c813e02e3bbffbb1d5f1",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "types-erratum",
+          "collection_label": "case-site-frame-erratum-20261115-8tsaCwTl",
+          "path": "ERRATUM.md",
+          "sha256": "0c0b9dee8647e906cda8dee443b1530a604b2094b01f36228ac065a9727de845",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "five-lens",
+          "collection_label": "terrain-plan-key-frame-five-lens-20261115-kyWa4EDr",
+          "path": "REPORT.md",
+          "sha256": "a2cd1e9286845b6d61584d2f2c4c325e68038d33ce47803fd52b422e80b55b3f",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_contract"
+            ]
+          }
+        },
+        {
+          "id": "five-lens-erratum",
+          "collection_label": "terrain-plan-key-five-lens-credit-erratum-20261115-KLzZ5AU4",
+          "path": "REPORT.md",
+          "sha256": "63fb70f100f8a98d3d1332805e440b7d773920c4ac767df0b58a85a7918f768b",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_contract"
+            ]
+          }
+        },
+        {
+          "id": "v2-peer",
+          "collection_label": "terrain-plan-key-frame-reconciliation-peer-20261115-x4RCHR9z",
+          "path": "REPORT.md",
+          "sha256": "d19c88e6663a18af44dfe6135f9fb5a3d6e77cc3bfafde786f3a9e570f99fabd",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "v3-peer",
+          "collection_label": "terrain-plan-key-frame-reconciliation-peer-20261115-x4RCHR9z",
+          "path": "ADDENDUM-v3.md",
+          "sha256": "7ef8c67750e8e0d91fa4c2e49e83b1d23eb0a69535c33486663f00d781a38262",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "v4-peer",
+          "collection_label": "terrain-plan-key-frame-reconciliation-peer-20261115-x4RCHR9z",
+          "path": "ADDENDUM-v4.md",
+          "sha256": "7a351400e0be125fcaa7036c44d05ec42c94299b32d3ad18c655106b65c93ed2",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "propagation-cell",
+          "collection_label": "terrain-case-frame-propagation-cell-20261115-Ov2krQDr",
+          "path": "REPORT.md",
+          "sha256": "17eb96ad61735a876fd5458b78c86d0c7c769c7e3bf8f30800b662607e4399f3",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_contract"
+            ]
+          }
+        },
+        {
+          "id": "weather-vicinity",
+          "collection_label": "case-site-weather-vicinity-20261115-FpuvZXBs",
+          "path": "REPORT.md",
+          "sha256": "ec5bc521eacab69fc129448107ccee40aff30b529623d08d9695494b698651bd",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "errantry-peer",
+          "collection_label": "terrain-order-errantry-peer-20261115-T6L4K8pR",
+          "path": "REPORT.md",
+          "sha256": "9c25c91e49e07b0d3eb26c0e49d6df86a62c401de61a27a1fd514b44f99c4239",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "id": "expanded-peer",
+          "collection_label": "terrain-frame-expanded-reconciliation-peer-20261115-AwtnTCRg",
+          "path": "REPORT.md",
+          "sha256": "48f6598cb8beb1d6677ab041e8c94d328efc7e9155328498f400f87428db83f3",
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "terrain_contract"
+            ]
+          }
+        }
+      ],
+      "status_time_qualification": "The v4 reconciliation predates the expanded producer cell; the expanded v2 reconciliation supersedes its first-unfinished-cell and present-tense PR-status wording. Publication and custody fields describe this draft's creation time, not later checkpoint work.",
+      "recovery_dependencies": "Original checkpoint 3821 queue and ledger remain missing; the exact q120/q194, Adler, f2c, 95e, SOURCE-004, 73-obligation and q603 qualifications are retained in both reconciliations and inherited ledger. Prior archives, separately held keys and prerequisite product and evidence Git objects remain necessary; same-machine copies do not prove independent backup or complete object closure.",
+      "attribution_encoding": {
+        "schema": "726-frame-reader-parts-v1",
+        "reader": "Prefix a slash and join namespace and ordered segments with slashes.",
+        "reconciliation_text": "Concatenate ordered text and reconstructed reader parts.",
+        "qualification": "Exact original source bytes and recorded attributions remain in restricted evidence."
+      }
+    }
+  },
+  "post_cutoff_reconciliations": [
+    {
+      "id": "frame-residual-v2",
+      "collection_label": "terrain-plan-key-frame-central-20261115-v1",
+      "path": "RECONCILIATION-RESIDUAL-v2.md",
+      "sha256": "654c2fe9e530dd7ea91d7c448591f6754d0e00caccb6cb31c804b0204e91bdfb",
+      "reader_field_status": "not named in source",
+      "record_kind": "new central source reconciliation",
+      "text_parts": [
+        {
+          "text": "# Coordinate-frame continuation: residual source reconciliation v2\n\nThis central, source-only addendum follows `RECONCILIATION-EXPANDED-v2.md`\n(SHA-256 `96336af68a9395c536b33ad6685fba2194be0234571a49b5f61bb886a2cb15f8`).\nIts new work is pinned to product commit\n`f31179dfe46e790f4c586b2303dcd18be7a03101`, tree\n`f79f8565aec9fa4733c5dcbd64455e084d4ddf5f`. It is after the v21b capture\ncutoff and is not part of the published v20 checkpoint. Publication and\ncustody for this addendum are not yet established. No repair, build, product\ntest or runtime probe was performed for these findings. This v2 preserves v1\nand adds an independently attributed geometry peer and a zero-based indexing\nclarification for the historical 95e observations.\n\n## Evidence and scope\n\nThe preceding propagation cell explicitly left 30 E7-leaf paths as discovery\nleads. Three separately retained source reports now give those selected paths\nbounded dispositions, together with directly connected source references:\n\n- Positions 1–10: `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `terrain-case-frame-residual-first10-20261115-v1/REPORT.md`, SHA-256\n  `5ba5bb6c137e926c5aaed0739846e4118aaedc2d7c42b2d5d6831c284e4d28b1`.\n- Positions 11–20: `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "geographic_contract"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `terrain-case-frame-propagation-cell-11-20-20261115-lh12ftbn/REPORT.md`,\n  SHA-256 `2755e289d63da51ce15ea3015fdcf65550737b7de62c98a4ccc0037cab282964`.\n- Positions 21–30: `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `terrain-case-frame-residual-last10-20261115-v1/REPORT.md`, SHA-256\n  `0359c790802847874c2ee9394ba79799fd60d6885d4d953526dc38e26ada054c`.\n\nThe coordinator independently checked that the three selected sets are the\nnon-overlapping, sorted 10/10/10 partition of the earlier registration, and\nthat all 30 sizes, SHA-256 values and Git blob identities agree with both that\nregistration and the pinned product objects. The source and aggregate receipt\nare retained in the separate post-cutoff coordinator role. This is selection\nand byte verification, not independent semantic review, whole-file clearance,\nproof of all aliases, or a repository-wide propagation census. The first and\nlast reports share a reader and overlap that reader's earlier frame work.\n\n`"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "geographic_contract"
+            ]
+          }
+        },
+        {
+          "text": "` independently reviewed the conditional geometry\nadmission chain in\n`terrain-case-frame-geometry-peer-20261115-pj_urded/REPORT.md`\n(SHA-256 `6326cb5d58d5f762c860f504ce1efcd5c48ee4bd0804961a8a37cf8bafc71dfc`).\nThe peer found no blocker under the stated source prerequisites, retained\nshort-circuit and checked-producer counterevidence, and did not run product\ncode. The peer did not reopen the historical Adler receipt; its cited 059 and\n95e Git blobs remain separate predecessor dependencies.\n\n## Connected repair ledger\n\nThe labels below describe current dispositions; they are not historical row\nIDs or a count of historical defects. The previous frame, cache, camp-route,\nweather-rounding and water-span dispositions remain open as described in the\nearlier reconciliations. This addendum narrows or extends those dispositions:\n\n**Tactical request frame provenance — open, distinct producer paths.** The\nnormal case-site tactical reducer checks the site's geographic flag and WGS84\nnumeric bounds before inserting its request. A separately capability-gated\ndevelopment bootstrap can instead create or reuse a site and insert its raw\naxes in a request with no frame field. A source-authored source-less settlement\nat longitude -50 and latitude 75 and the zero-offset general standalone\nmission give a conditional, numerically in-range example. Selection of that\nrow, enabled authorization, mission, roster, snapshot, dispatcher, covering\npack and scene checks remain separate prerequisites. Dispatcher numeric\nadmission cannot recover the omitted frame. This qualifies any broad claim\nthat every tactical request producer applies the normal guard; it is not a\nshown production bypass, observed request, sampled scene or incident.\n\n**Exact lead admission — open policy and propagation question.** Exact staged\nlead admission checks WGS-sized numeric axes before matching the case site,\nwithout checking the site's frame. A separately gated successful action can\ncopy a matching site's raw axes into a lead without that particular range\ncheck. A false-frame site outside those numeric bounds and all actor, action,\ncase and authority prerequisites are conditional. The exact/non-exact\nsentinel contract, matching and receipt checks remain counterevidence to\nassuming either input is generally unchecked. A belief-oriented core value\nalso has raw leaves, but its semantics and bounded search do not establish\nthat it authorizes a server site or is the same historical record.\n\n**Persisted route and encounter frame — open, connected to camp.** Unplanned\nroute points and selected road-challenge and encounter rows retain E7 leaves\nwithout their frame. A server interpolation helper decodes raw leaves and\nuses geographic distance for segment weights. For the ordinary two-point path,\nthe weighting alone does not establish a different position. The selected web\ncamp consumer separately reconstructs WGS84 points with an `expect`; the prior\nout-of-range abstract-destination example still requires a successful\nunplanned route, subsequent applicable camp read and all intervening guards.\nPlanned terrain routes have separate WGS84 and geometry validation. These\ntraces do not establish an actual route, panic, incorrect encounter or weather\noutcome. Mixed endpoints and downstream consumers remain open.\n\n**Forage and scene — preserve the entry-point qualification.** Exact visible\nsite, package, numeric, identity, context and other checks remain material.\nThe hydrated dialog and scene-assets path can conditionally reach sampling\nwith a numerically in-range false-frame pin, but the selected forage POST's\ncharacter conversion does not hydrate the current case site. The dialog is\nnot proof of an accepted POST. Immutable authorized retry ordering is a\nseparate intentional contract; no revalidation change is inferred here.\n\n**Offline geometry admission — new, separate repair candidate.**\n`TravelGeometryPoint` has checked degree construction but public raw E7\nfields and derived deserialization; its degree getters use checked axes followed\nby `expect`. World inferred-edge validation and mapped-fault validation call\nthose getters while checking bounds. Subject to all preceding world, edge,\nfault and short-circuit checks, an otherwise admissible raw point with\nlatitude `900000001` can reach the getter assertion before the intended\nvalidation error. Terrain-pack manifest validation has a related mapped-fault\npath before manifest digest verification or pack access. The normal selected\nroad and fault producers use the checked constructor. These are source-derived\nconditional cases, not executed artifacts, observed panics or a proven alias\nof the case-frame or historical cache findings. The type's full consumer and\nthirteen-lens slice, desired error precedence and wire contract remain open.\n\n**Transport names and dialogue fingerprint — open questions.** Selected\ngenerated Rust fields and hand-built/server JSON spellings differ around\n`e7` and `e_7`. The retained locked framework source is relevant but does not\nclose the actual REST-to-module conversion; no failing request is established.\nA dialogue fingerprint omits site frame, so a frame-only change would compare\nequal if all retained fields stayed identical. No supported such transition or\nsuppressed dialogue is shown. Neither question selects a schema change.\n\n## Status and acceptance boundaries\n\nThe 30 named leads have bounded dispositions, but indirect or external\ncallers, additional type consumers, semantic aliases and actual populations\nremain open. The frame policy must distinguish geographic and abstract\npositions, both endpoints, development and ordinary request producers,\nhydrated and unhydrated consumers, weather and fallback behavior. The geometry\ncandidate separately needs valid and invalid raw-axis admission and both world\nand manifest consumers assessed without weakening the existing checked owners.\nThese are prospective acceptance questions, not tests or a chosen repair.\nThe five-PR stack was observed open and unmerged at the separately retained\n16:27 UTC connector observation; that status is point-in-time only.\n\n## Recovery qualifications\n\nThe original checkpoint 3821 queue and ledger remain missing. Selected\nreconstructed q120/q194 `pr-working` rows have null recorded revision, Git\npath and named reader. Six selected q194 source rows have zero queue-scope\ncredit; q194 itself has zero body/population credit. The separately recovered\nAdler `READ-L11-386` receipt retains its own role and range. F2c\n`f2c6d28a48bfa72c0801e9f33387eb6e448f9a18` identifies the ledger baseline;\nrow 782 itself names no source revision or reader. At\n`95e63628f9d70b8dd6e6fede64334696c6995009`, zero-based\n`delegated_observations` index 19 belongs to `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "hair_ops"
+            ]
+          }
+        },
+        {
+          "text": "` and index 38 to\n`"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "mhr_character"
+            ]
+          }
+        },
+        {
+          "text": "`. These indices are not the nineteenth and thirty-eighth\nentries under one-based counting. Their revision, attribution and conditional\nscope do not transfer to the new work.\n\nSOURCE-004 proposal bytes were separately recovered; native qualification\nand receipt obligations remain open. The 73 historical nontext/no-positive-\nEOF obligations remain open. Reconstructed 059 q603 has empty source and\nreceipt arrays and zero population credit; its exact alias remains unproved.\nRecovered evidence, reconstructed records, historical summaries and newly\nassessed work remain distinct. Nothing is promoted into 3821 and no historical\nunique count is invented. Prior archives, separately held keys and prerequisite\nproduct and evidence Git objects remain recovery dependencies. Same-machine\nrestoration is neither an independent backup nor proof of full object closure.\n"
+        }
+      ]
+    },
+    {
+      "id": "travel-geometry-v1",
+      "collection_label": "travel-geometry-central-20261115-v1",
+      "path": "RECONCILIATION-v1.md",
+      "sha256": "d3478b35fe46062fa244ba4d044dc0f18caa7702ffb176f0d3a5d512610df290",
+      "reader_field_status": "not named in source",
+      "record_kind": "new central source reconciliation",
+      "text_parts": [
+        {
+          "text": "# TravelGeometryPoint: bounded thirteen-lens reconciliation v1\n\nThis is a new, source-only slice at product commit\n`f31179dfe46e790f4c586b2303dcd18be7a03101`, tree\n`f79f8565aec9fa4733c5dcbd64455e084d4ddf5f`. It follows the coordinate-frame\ndiscovery without treating the two contracts as identical. It is after the\nv21b capture cutoff; custody and publication of this work are not yet\nestablished. No repair, product build, test or runtime probe was performed.\n\n## Evidence and bounded scope\n\nThe central inputs, with their original readers, are:\n\n- Four-lens point and producer inventory by `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "terrain_canopy_contract"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `travel-geometry-propagation-20261115-v1/REPORT.md`, SHA-256\n  `96130d57fc9ee7169dfa12951883a932cc4a2eb6cdadb198118431606b15eb8c`.\n- Five-lens review by `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "geographic_contract"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `travel-geometry-five-lens-20261115-w1ow57m0/REPORT.md`, SHA-256\n  `773ed644f0d724f88065615d782862442b05b968d4f84e62ab64970bf8d85f20`.\n- Four-lens review by `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "residual_ledger_peer"
+            ]
+          }
+        },
+        {
+          "text": "`,\n  `travel-geometry-four-lenses-20261115-ZEEw4MCW/REPORT.md`, SHA-256\n  `fdfdca81bc4e597582c87b701f4e0ea68ea4d8a970a8c44c25e3894e96924478`.\n- The independently attributed malformed-geometry peer,\n  `terrain-case-frame-geometry-peer-20261115-pj_urded/REPORT.md`, SHA-256\n  `6326cb5d58d5f762c860f504ce1efcd5c48ee4bd0804961a8a37cf8bafc71dfc`.\n\nThe selected type and directly coupled road/fault owners and consumers are the\nscope. The first inventory's exact tracked type-name search found 33 lines in\neight Rust files; selected retained-field and accessor searches add indirect\nconsumers. The primitive review covers 22 explicitly listed source slices, not\nwhole files or the repository. The first inventory calls its own four lenses\nincomplete. These source sets do not rule out external callers, generated\nbehavior, aliases, untracked files or every downstream consumer. A lens\ndisposition below is bounded evidence, not global clearance.\n\n## Connected repair ledger\n\nThe names below are new dispositions, not historical row IDs or a count of\nhistorical defects. A later focused repair may address an item only after its\ncontract and coupled acceptance boundary are selected. No patch is chosen.\n\n**Point admission and consumers — open repair candidate.** Public raw E7\nfields, mutation and derived Serde can bypass the checked longitude/latitude\nconstructor. A representable out-of-range raw axis can reach a getter's\nchecked-axis `expect`. Conditional inferred-edge world validation and mapped\nfault validation can reach that assertion before returning their intended\nbounds error, after their earlier gates and short-circuit conditions. Terrain\nmanifest admission has a distinct fault path before digest verification and\npack access. A feature-gated public builder can accept caller-supplied feature\ndata; a digest-consistent malformed output remains conditional on its other\nbuild prerequisites. The selected normal road and fault producers use checked\nconstruction, and no artifact, panic or incident was observed.\n\nThe optional native derive's locked framework source constructs product fields\nwithout the point constructor. That is a source interpretation, not a proven\ndeployed reducer or executed macro expansion; selected `TravelEdgeLoad` omits\ngeometry. Existing checked axis and WGS84 pair types are relevant owners, but\ntheir field order, JSON form and native derives differ from this point. No\ncompatibility path or replacement schema is selected.\n\n**Fault simplification — separate aggregate question.** Given an already\nclipped 4,097-point valid line ending `P, Q, P` with `P != Q`, the bounded\nsimplifier selects the first and last of those final three points and can\ncreate adjacent duplicates that later fault validation rejects. This is\nsource-derived arithmetic, not an observed input or product run. It is not the\nsame failure as an invalid point axis.\n\n**Fault identity — separate conditional question.** Two same-country source\nrows lacking source IDs, with equal part/fragment ordinals and distinct valid\nretained geometry, can receive equal fallback IDs while geometry-based\ndeduplication retains both; a later strict ID-order check can reject them.\nExternal source schema and data, clipping and other prerequisites remain\nunestablished. Unknown text mapped to false is a separate source-vocabulary\nquestion, not a demonstrated bad value.\n\n**Distance authority and lifecycle — maintenance and policy questions.** The\nselected road producer and validator duplicate the same spherical segment\ncalculation with matching current arithmetic; no numerical divergence is\nshown. Enrichment records a summary of newly accepted inferred edges while\nvalidation checks the full inferred collection. A repeated enrichment on an\nalready enriched world can conditionally differ, but the selected normal\nbuilder invokes it once and no ordinary-path failure is demonstrated.\nProvenance/payload combinations can be representable before world validation;\nthe selected validator supplies counterguards. Their lifecycle and ownership\nneed more evidence before design changes.\n\n**Wire and artifact identity — cross-cutting acceptance boundary.** The\npoint currently serializes named integer E7 fields. Road identity hashes\nserialized edge IDs and geometry; terrain manifest identity also depends on\nserialized features. A final schema or representation decision can change\nthose identities, optional native types, rounding or validation error timing.\nThe repository explicitly rejects compatibility shims; determine the clean\nfinal contract and artifact regeneration requirements instead of assuming\nunchanged bytes. The one-E7 endpoint and two-metre length tolerances have\ndifferent units and unestablished error budgets; equal repeated ID-size limits\ndo not alone prove identical semantic ownership.\n\n## Thirteen bounded lens dispositions\n\n1. **Admission contracts:** raw fields, mutation and decoding bypass checked\n   construction; the malformed consumer paths remain open.\n2. **Aggregate states:** fault simplification and edge/fault shape validation\n   add line-level contracts beyond individually valid points.\n3. **Behavior preservation:** no candidate patch exists; preserve or decide\n   valid rounding, error precedence, JSON/native form and both digest paths.\n4. **Derivability:** the selected review found no handwritten trait whose\n   removal is justified without revisiting checked admission.\n5. **Enum shapes:** provenance and optional payloads can disagree before\n   validation; selected world guards are counterevidence to unchecked use.\n6. **Existing type owners:** checked WGS84 axes and pair are relevant, with\n   distinct serialization, axis order and native-feature implications.\n7. **Invariant operations:** mutable public raw fields can invalidate a point;\n   degree getters assert, and line operations have separate aggregate rules.\n8. **Magic numbers:** repeated selected distance arithmetic is a maintenance\n   question; tolerances and size limits need contract evidence.\n9. **Magic strings:** the conditional fallback fault-ID collision and external\n   text vocabulary are open; the primitive sweep is limited to 22 slices.\n10. **Producer propagation:** normal inferred roads and faults use checked\n    construction; deserialized worlds and the public feature builder are\n    distinct boundaries, with untraced callers left open.\n11. **Redundant authority:** duplicated calculations and repeated-enrichment\n    summaries require lifecycle analysis; no current normal-path divergence\n    is established.\n12. **Type granularity:** longitude-first raw degree parameters can be swapped\n    while remaining in bounds; offline, abstract, projected and continuous\n    routing coordinates have distinct roles. No actual swap is shown.\n13. **Type ownership:** the shared point is used for both roads and faults;\n    its raw storage does not enforce the nearby checked owners' invariant.\n\n## Status and future acceptance\n\nThe selected thirteen categories have recorded dispositions, with open\ndiscovery and policy questions. A focused first decision should establish how\nall supported construction and decoding paths admit valid points and how\nmalformed worlds and manifests fail, then account for downstream consumers,\nfeature-gated native schema and artifact identities. Separate decisions are\nneeded for simplification, fallback IDs and enrichment lifecycle. These are\nacceptance questions, not tests already written or run. The five-PR stack was\nlast observed open and unmerged at the separately retained 17:19 UTC metadata\nobservation. No new geometry PR has begun.\n\n## Recovery qualifications\n\nThe original checkpoint 3821 queue and ledger remain missing. Selected\nreconstructed q120/q194 `pr-working` rows have null recorded revision, Git\npath and named reader. Six selected q194 source rows have zero queue-scope\ncredit; q194 itself has zero body/population credit. The separately recovered\nAdler `READ-L11-386` receipt retains its own role and range. F2c\n`f2c6d28a48bfa72c0801e9f33387eb6e448f9a18` identifies the ledger baseline;\nrow 782 itself names no source revision or reader. At\n`95e63628f9d70b8dd6e6fede64334696c6995009`, zero-based\n`delegated_observations` index 19 belongs to `"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "hair_ops"
+            ]
+          }
+        },
+        {
+          "text": "` and index 38 to\n`"
+        },
+        {
+          "reader": {
+            "namespace": "root",
+            "segments": [
+              "mhr_character"
+            ]
+          }
+        },
+        {
+          "text": "`; their attribution and conditional scope do not transfer.\n\nSOURCE-004 proposal bytes were separately recovered; native qualification\nand receipt obligations remain open. The 73 historical nontext/no-positive-\nEOF obligations remain open. Reconstructed 059 q603 has empty source and\nreceipt arrays and zero population credit; its exact alias remains unproved.\nRecovered evidence, reconstructed records, historical summaries and newly\nassessed work remain distinct. Nothing is promoted into 3821 and no historical\nunique count is invented. Prior archives, separately held keys and prerequisite\nproduct and evidence Git objects remain dependencies. Same-machine restoration\nis neither an independent backup nor proof of complete Git object closure.\n"
+        }
+      ]
+    }
+  ],
+  "selected_reports": [
+    {
+      "id": "frame-leads-first",
+      "collection_label": "terrain-case-frame-residual-first10-20261115-v1",
+      "path": "REPORT.md",
+      "sha256": "5ba5bb6c137e926c5aaed0739846e4118aaedc2d7c42b2d5d6831c284e4d28b1",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "terrain_canopy_contract"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "frame-leads-middle",
+      "collection_label": "terrain-case-frame-propagation-cell-11-20-20261115-lh12ftbn",
+      "path": "REPORT.md",
+      "sha256": "2755e289d63da51ce15ea3015fdcf65550737b7de62c98a4ccc0037cab282964",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "geographic_contract"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "frame-leads-last",
+      "collection_label": "terrain-case-frame-residual-last10-20261115-v1",
+      "path": "REPORT.md",
+      "sha256": "0359c790802847874c2ee9394ba79799fd60d6885d4d953526dc38e26ada054c",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "terrain_canopy_contract"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "geometry-admission-peer",
+      "collection_label": "terrain-case-frame-geometry-peer-20261115-pj_urded",
+      "path": "REPORT.md",
+      "sha256": "6326cb5d58d5f762c860f504ce1efcd5c48ee4bd0804961a8a37cf8bafc71dfc",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "geographic_contract"
+        ]
+      },
+      "record_kind": "bounded source peer with recorded overlaps"
+    },
+    {
+      "id": "frame-residual-peer",
+      "collection_label": "terrain-frame-residual-ledger-peer-20261115-G4oY4Tdt",
+      "path": "REPORT.md",
+      "sha256": "844cc72679a754f002a6cab24f05b1c66fd5b08a6b7878930174c25af88ca875",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "residual_ledger_peer"
+        ]
+      },
+      "record_kind": "bounded reconciliation peer"
+    },
+    {
+      "id": "geometry-propagation",
+      "collection_label": "travel-geometry-propagation-20261115-v1",
+      "path": "REPORT.md",
+      "sha256": "96130d57fc9ee7169dfa12951883a932cc4a2eb6cdadb198118431606b15eb8c",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "terrain_canopy_contract"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "geometry-five-lenses",
+      "collection_label": "travel-geometry-five-lens-20261115-w1ow57m0",
+      "path": "REPORT.md",
+      "sha256": "773ed644f0d724f88065615d782862442b05b968d4f84e62ab64970bf8d85f20",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "geographic_contract"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "geometry-four-lenses",
+      "collection_label": "travel-geometry-four-lenses-20261115-ZEEw4MCW",
+      "path": "REPORT.md",
+      "sha256": "fdfdca81bc4e597582c87b701f4e0ea68ea4d8a970a8c44c25e3894e96924478",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "residual_ledger_peer"
+        ]
+      },
+      "record_kind": "new bounded source report"
+    },
+    {
+      "id": "geometry-reconciliation-peer",
+      "collection_label": "travel-geometry-reconciliation-peer-20261115-xKciTVZ0",
+      "path": "REPORT.md",
+      "sha256": "7506b4398e04c2a63e68519154074d7cad28a7439996096be7b6ad903c682bb2",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "terrain_contract"
+        ]
+      },
+      "record_kind": "bounded reconciliation peer"
+    },
+    {
+      "id": "geometry-candidate-analysis",
+      "collection_label": "travel-geometry-candidate-analysis-20261115-O0ZeuhVr",
+      "path": "REPORT.md",
+      "sha256": "984dd9f51e1ae7d8d957128a1d4dacebe1af5d451968193917105e4ab6997bab",
+      "reader_as_recorded": {
+        "namespace": "root",
+        "segments": [
+          "terrain_contract"
+        ]
+      },
+      "record_kind": "new source-only candidate analysis"
+    }
+  ],
+  "historical_recovery": {
+    "checkpoint_3821": "Original queue and ledger missing; no earlier or new work promoted.",
+    "q120_q194": "Selected reconstructed pr-working rows record null revision, Git path and named reader; six selected q194 source rows have zero queue-scope credit, while q194 itself has zero body/population credit.",
+    "adler": {
+      "receipt": "adler/READ-L11-386.json",
+      "lens": 11,
+      "batch": 386,
+      "travel_original_role": 2383,
+      "travel_source_id_as_recorded": "pr-working:crates/strategic-web/src/routes/travel.rs",
+      "travel_scope_and_fresh_read": [
+        [
+          1,
+          696
+        ]
+      ],
+      "qualification": "Separately recovered historical receipt; its role and range do not supply the reconstructed row's null Git path, source revision or reader and do not add queue-scope credit."
+    },
+    "f2c": {
+      "ledger_baseline": "f2c6d28a48bfa72c0801e9f33387eb6e448f9a18",
+      "row": 782,
+      "row_source_revision_field": "not named in selected row",
+      "row_reader_field": "not named in selected row"
+    },
+    "separate_95e": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "indexing": "zero-based delegated_observations",
+      "observations": [
+        {
+          "index": 19,
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "hair_ops"
+            ]
+          }
+        },
+        {
+          "index": 38,
+          "reader_as_recorded": {
+            "namespace": "root",
+            "segments": [
+              "mhr_character"
+            ]
+          }
+        }
+      ],
+      "qualification": "Original conditional scopes and attributions do not transfer to newly assessed work."
+    },
+    "source_004": "Proposal bytes separately recovered; native qualification and receipt obligations remain open.",
+    "historical_nontext_or_no_positive_eof_obligations_open": 73,
+    "q603": "Reconstructed 059 q603 has empty source and receipt arrays and zero population credit; exact alias unproved.",
+    "qualification": "Distinguish recovered evidence, reconstructed records, historical summaries and newly assessed work; no historical unique count is inferred."
+  },
+  "custody_qualification": "Prior archives, separately held keys and prerequisite product and evidence Git objects remain required. Same-machine copies do not establish independent backup or complete object closure. This draft establishes no authenticated restore.",
+  "checkpoint": {
+    "evidence_registry_sha256": "68d885e01d3e5669d4221fc3ac3cd09561775de6a95e7cd6e1b39517656a645d",
+    "evidence_labels": [
+      "v21b-ledger-inputs",
+      "v21b-ledger-peer",
+      "v21b-protocol-peer",
+      "v20-control",
+      "v20-postcutoff",
+      "v20-inventory",
+      "v20-stage-wrapper",
+      "terrain-plan-key-frame-overlay",
+      "terrain-plan-key-v20-stage-wrapper-safe-report-20261115-923DU1EO",
+      "terrain-plan-key-v20-stage-wrapper-peer-20261115-9g1XL0nB",
+      "terrain-plan-key-caller-followup-20261115-dvC1gyRQ",
+      "terrain-plan-key-caller-peer-20261115-4fi5_ahe",
+      "case-site-frame-types-20261115-yA9lRsOW",
+      "case-site-frame-erratum-20261115-8tsaCwTl",
+      "terrain-plan-key-frame-five-lens-20261115-kyWa4EDr",
+      "terrain-plan-key-five-lens-credit-erratum-20261115-KLzZ5AU4",
+      "terrain-plan-key-frame-central-20261115-v1",
+      "terrain-plan-key-frame-reconciliation-peer-20261115-x4RCHR9z",
+      "terrain-case-frame-propagation-cell-20261115-Ov2krQDr",
+      "case-site-weather-vicinity-20261115-FpuvZXBs",
+      "terrain-order-errantry-peer-20261115-T6L4K8pR",
+      "terrain-frame-expanded-reconciliation-peer-20261115-AwtnTCRg",
+      "terrain-plan-key-frame-overlay-peer-20261115-qf0ixms2",
+      "terrain-plan-key-v21-custody-plan-20261115-84ldm4qp",
+      "terrain-plan-key-v21-count-erratum-20261115-65kkl9s3",
+      "terrain-plan-key-v21-control-draft-20261115-sl9c73kv",
+      "terrain-plan-key-v21-control-successor-20261115-92zsiaa_",
+      "terrain-plan-key-v21-control-successor2-20261115-lj1fhkhm",
+      "terrain-plan-key-v21-config-guide-20261115-q67fry6f",
+      "terrain-plan-key-v21-protocol-prepeer-20261115-J7w9C5aQ",
+      "terrain-plan-key-v21-binding-peer-20261115-QOJYOxM0",
+      "terrain-plan-key-v21-successor-binding-peer-20261115-IKfP2afo",
+      "terrain-plan-key-v21-successor-protocol-peer-20261115-W8df2p6B",
+      "terrain-plan-key-v21-successor2-binding-peer-20261115-Bi9Vy3xd",
+      "terrain-plan-key-v21-successor2-protocol-peer-20261115-mZ9p5HoL",
+      "terrain-plan-key-v21-census-peer-20261115-U5Kx8D2q",
+      "terrain-plan-key-v21-roots-peer-20261115-R6q3Lm9K",
+      "v21a-control",
+      "v21a-ledger-inputs",
+      "v21a-ledger-peer",
+      "v21a-protocol-peer",
+      "v21a-central-postcutoff",
+      "v21a-operator-note",
+      "terrain-plan-key-v21-reader-membership-peer-20261115-Kq6f3p7D",
+      "terrain-plan-key-v21-projection-control-20261115-ql5tjgqb",
+      "terrain-plan-key-v21b-central-20261115-v1",
+      "terrain-plan-key-v21-projection-binding-peer-20261115-Az5sPOz2",
+      "terrain-plan-key-v21-projection-peer-20261115-Q7uT4d2S",
+      "terrain-plan-key-v21-scan-wording-peer-20261115-ps1ycisy",
+      "terrain-plan-key-v21b-roots-peer-20261115-N3hD8m4R",
+      "terrain-plan-key-checkpoint-control-v21b20261115",
+      "terrain-plan-key-v21b-pin-receipt-20261115-7_is0hsi",
+      "terrain-plan-key-v21b-postcutoff-central-20261115-v1",
+      "terrain-plan-key-v21b-guarded-phase-peer-20261115-z8cyYyTl",
+      "terrain-plan-key-v21b-prepublic-failure-peer-20261115-m31eAMfB",
+      "terrain-plan-key-v21b-prepublic-recovery-plan-20261115-stmn7z99",
+      "terrain-plan-key-v21b-recovery-plan-peer-20261115-uu4O5rAI",
+      "terrain-plan-key-v21b-recovery-setup-20261115-c875fu6n",
+      "terrain-plan-key-v21b-recovery-setup-peer-20261115-UOyMqHku",
+      "terrain-plan-key-v21b-recovery-setup-v3-peer-20261115-rW3ENI8r",
+      "terrain-plan-key-v21b-operator-retry-20261115-v1",
+      "terrain-plan-key-v21b-capture-failure-archive-20261115-v1",
+      "terrain-plan-key-checkpoint-v21b20261115-postcutoff",
+      "terrain-plan-key-v21b-capture-recovery-candidate-20261115-hslstqv0",
+      "terrain-plan-key-v21b-capture-recovery-independent-peer-20261115-1wxqg_5_",
+      "terrain-plan-key-v21b-recovery-script-independent-peer-20261115-1kno204e",
+      "terrain-plan-key-v21b-recovery-v3-independent-peer-20261115-iamo8dus",
+      "terrain-plan-key-v21b-capture-retry-operator-20261115-v1",
+      "terrain-plan-key-v21b-inherited-identity-independent-peer-20261115-zu5voirj",
+      "terrain-case-frame-residual-first10-20261115-v1",
+      "terrain-case-frame-residual-last10-20261115-v1",
+      "terrain-case-frame-propagation-cell-11-20-20261115-lh12ftbn",
+      "terrain-case-frame-geometry-peer-20261115-pj_urded",
+      "terrain-frame-residual-ledger-peer-20261115-G4oY4Tdt",
+      "travel-geometry-propagation-20261115-v1",
+      "travel-geometry-five-lens-20261115-w1ow57m0",
+      "travel-geometry-four-lenses-20261115-ZEEw4MCW",
+      "travel-geometry-central-20261115-v1",
+      "travel-geometry-reconciliation-peer-20261115-xKciTVZ0",
+      "travel-geometry-candidate-analysis-20261115-O0ZeuhVr",
+      "terrain-plan-key-v22-reference-design-20261115-cx_odb1_",
+      "terrain-plan-key-v21b-replacement-inventory-20261115-M0dbyAMH",
+      "checkpoint-v21c-central-20261115-v1",
+      "checkpoint-reference-control-prototype-20261115-v1",
+      "terrain-plan-key-checkpoint-v21b20261115-inventory",
+      "refpost-review-control",
+      "refpost-review-ledger",
+      "refpost-review-ledger-peer",
+      "refpost-review-protocol-peer",
+      "refpost-cache-correction",
+      "refpost-ledger-check",
+      "refpost-three-blockers",
+      "refpost-control-correction-v1",
+      "refpost-control-correction-final",
+      "refpost-control-review",
+      "refpost-container-census",
+      "refpost-source-census",
+      "refpost-cut-inventory",
+      "refpost-cut-plan",
+      "refpost-terrain-plan",
+      "refpost-operational-prep",
+      "refpost-registration-plan",
+      "refpost-lineage-compare",
+      "refpost-blueprint-failed",
+      "refpost-blueprint-failed-2",
+      "refpost-layout-blueprint",
+      "refpost-blueprint-peer",
+      "refpost-bytecode-review",
+      "refpost-streaming-successor",
+      "refpost-streaming-peer",
+      "refpost-strict-successor",
+      "refpost-strict-peer",
+      "refpost-whole-tree-successor",
+      "refpost-whole-tree-peer",
+      "refpost-assembly-plan",
+      "refpost-central-preparation"
+    ],
+    "stage_review_addendum_path": "STAGE-REVIEW-ADDENDUM.md",
+    "stage_review_addendum_sha256": "63b26154ef9a332fe16aadec6016bfa90d55be97cb88a7f8ca6c176eaa51f0d8",
+    "historical_refs": [
+      {
+        "id": "historical-selection",
+        "collection_label": "checkpoint-v21c-central-20261115-v1",
+        "path": "RETAINED-HISTORICAL-SELECTION/HISTORY-SELECTED.json",
+        "sha256": "09c322e76ad69a02db132a4186d91454f8a540d7e59b12b0a878ba5e2d5a3454"
+      },
+      {
+        "id": "adler-receipt",
+        "collection_label": "checkpoint-v21c-central-20261115-v1",
+        "path": "RETAINED-HISTORICAL-SELECTION/READ-L11-386.json",
+        "sha256": "e50815edc0fbff59e61b3d609a404d3b8cdc022b914a76ad74a65acb62bc282c"
+      }
+    ],
+    "stage_wrapper_label": "v20-stage-wrapper",
+    "stage_wrapper_reconstruction_required": true
+  }
+}
