@@ -7,7 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct CreateTacticalServerForRequestArgs {
-    pub mission_id: String,
+    pub instance_id: String,
     pub claim: String,
     pub addr: String,
     pub cert_digest: String,
@@ -16,7 +16,7 @@ pub(super) struct CreateTacticalServerForRequestArgs {
 impl From<CreateTacticalServerForRequestArgs> for super::Reducer {
     fn from(args: CreateTacticalServerForRequestArgs) -> Self {
         Self::CreateTacticalServerForRequest {
-            mission_id: args.mission_id,
+            instance_id: args.instance_id,
             claim: args.claim,
             addr: args.addr,
             cert_digest: args.cert_digest,
@@ -41,13 +41,13 @@ pub trait create_tactical_server_for_request {
     /// /// Use [`create_tactical_server_for_request:create_tactical_server_for_request_then`] to run a callback after the reducer completes.
     fn create_tactical_server_for_request(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim: String,
         addr: String,
         cert_digest: String,
     ) -> __sdk::Result<()> {
         self.create_tactical_server_for_request_then(
-            mission_id,
+            instance_id,
             claim,
             addr,
             cert_digest,
@@ -63,7 +63,7 @@ pub trait create_tactical_server_for_request {
     ///  and its status can be observed with the `callback`.
     fn create_tactical_server_for_request_then(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim: String,
         addr: String,
         cert_digest: String,
@@ -79,7 +79,7 @@ pub trait create_tactical_server_for_request {
 impl create_tactical_server_for_request for super::RemoteReducers {
     fn create_tactical_server_for_request_then(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim: String,
         addr: String,
         cert_digest: String,
@@ -92,7 +92,7 @@ impl create_tactical_server_for_request for super::RemoteReducers {
     ) -> __sdk::Result<()> {
         self.imp.invoke_reducer_with_callback(
             CreateTacticalServerForRequestArgs {
-                mission_id,
+                instance_id,
                 claim,
                 addr,
                 cert_digest,

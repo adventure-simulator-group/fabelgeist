@@ -246,14 +246,15 @@ async fn get_mission_for_viewer(
     state: &AppState,
     mission_id: &str,
 ) -> crate::spacetimedb::Result<Option<MissionServerView>> {
-    if let Some(server) = get_ready_mission(state, mission_id).await? {
+    let instance_id = mission_instance_id(mission_id)?;
+    if let Some(server) = get_ready_mission(state, &instance_id).await? {
         return Ok(Some(server));
     }
 
     let requests: Vec<MissionServerRequestView> = state
         .db
         .query_sats_into::<adventuresim_stdb_client::TacticalServerRequest, MissionServerRequestView>(
-            &crate::spacetimedb::tactical_server_request_by_mission_id(mission_id),
+            &crate::spacetimedb::tactical_server_request_by_instance_id(&instance_id.to_string()),
         )
         .await?;
 
@@ -269,14 +270,24 @@ async fn get_mission_for_viewer(
 
 async fn get_ready_mission(
     state: &AppState,
-    mission_id: &str,
+    instance_id: &adventuresim_core::tactical_session::TacticalInstanceId,
 ) -> crate::spacetimedb::Result<Option<MissionServerView>> {
     state
         .db
         .query_one_sats_into::<adventuresim_stdb_client::TacticalServer, MissionServerView>(
-            &crate::spacetimedb::tactical_server_by_mission_id(mission_id),
+            &crate::spacetimedb::tactical_server_by_instance_id(&instance_id.to_string()),
         )
         .await
+}
+
+fn mission_instance_id(
+    value: &str,
+) -> crate::spacetimedb::Result<adventuresim_core::tactical_session::TacticalInstanceId> {
+    adventuresim_core::mission::MissionId::new(value)
+        .map(|mission| {
+            adventuresim_core::tactical_session::TacticalInstanceId::for_mission(&mission)
+        })
+        .map_err(|error| crate::spacetimedb::SpacetimeError::Spacetime(error.into()))
 }
 
 fn can_view_mission(viewer: &CharacterView, server: &MissionServerView) -> bool {

@@ -7,13 +7,13 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct RevokeTacticalServerClaimArgs {
-    pub mission_id: String,
+    pub instance_id: String,
 }
 
 impl From<RevokeTacticalServerClaimArgs> for super::Reducer {
     fn from(args: RevokeTacticalServerClaimArgs) -> Self {
         Self::RevokeTacticalServerClaim {
-            mission_id: args.mission_id,
+            instance_id: args.instance_id,
         }
     }
 }
@@ -33,8 +33,8 @@ pub trait revoke_tactical_server_claim {
     /// The reducer will run asynchronously in the future,
     ///  and this method provides no way to listen for its completion status.
     /// /// Use [`revoke_tactical_server_claim:revoke_tactical_server_claim_then`] to run a callback after the reducer completes.
-    fn revoke_tactical_server_claim(&self, mission_id: String) -> __sdk::Result<()> {
-        self.revoke_tactical_server_claim_then(mission_id, |_, _| {})
+    fn revoke_tactical_server_claim(&self, instance_id: String) -> __sdk::Result<()> {
+        self.revoke_tactical_server_claim_then(instance_id, |_, _| {})
     }
 
     /// Request that the remote module invoke the reducer `revoke_tactical_server_claim` to run as soon as possible,
@@ -45,7 +45,7 @@ pub trait revoke_tactical_server_claim {
     ///  and its status can be observed with the `callback`.
     fn revoke_tactical_server_claim_then(
         &self,
-        mission_id: String,
+        instance_id: String,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -58,7 +58,7 @@ pub trait revoke_tactical_server_claim {
 impl revoke_tactical_server_claim for super::RemoteReducers {
     fn revoke_tactical_server_claim_then(
         &self,
-        mission_id: String,
+        instance_id: String,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -67,6 +67,6 @@ impl revoke_tactical_server_claim for super::RemoteReducers {
         + 'static,
     ) -> __sdk::Result<()> {
         self.imp
-            .invoke_reducer_with_callback(RevokeTacticalServerClaimArgs { mission_id }, callback)
+            .invoke_reducer_with_callback(RevokeTacticalServerClaimArgs { instance_id }, callback)
     }
 }

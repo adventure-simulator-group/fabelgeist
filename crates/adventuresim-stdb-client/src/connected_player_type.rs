@@ -10,13 +10,13 @@ use super::character_skills_type::CharacterSkills;
 use super::character_stats_type::CharacterStats;
 use super::character_type::Character;
 use super::connected_player_item_type::ConnectedPlayerItem;
-use super::tactical_mission_side_type::TacticalMissionSide;
+use super::tactical_actor_role_type::TacticalActorRole;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ConnectedPlayer {
     pub character: Character,
-    pub mission_side: TacticalMissionSide,
+    pub role: TacticalActorRole,
     pub items: Vec<ConnectedPlayerItem>,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
@@ -48,7 +48,7 @@ impl __sdk::InModule for ConnectedPlayer {
 /// Provides typed access to columns for query building.
 pub struct ConnectedPlayerCols {
     pub character: __sdk::__query_builder::Col<ConnectedPlayer, Character>,
-    pub mission_side: __sdk::__query_builder::Col<ConnectedPlayer, TacticalMissionSide>,
+    pub role: __sdk::__query_builder::Col<ConnectedPlayer, TacticalActorRole>,
     pub items: __sdk::__query_builder::Col<ConnectedPlayer, Vec<ConnectedPlayerItem>>,
     pub skills: __sdk::__query_builder::Col<ConnectedPlayer, CharacterSkills>,
     pub stats: __sdk::__query_builder::Col<ConnectedPlayer, CharacterStats>,
@@ -76,7 +76,7 @@ impl __sdk::__query_builder::HasCols for ConnectedPlayer {
     fn cols(table_name: &'static str) -> Self::Cols {
         ConnectedPlayerCols {
             character: __sdk::__query_builder::Col::new(table_name, "character"),
-            mission_side: __sdk::__query_builder::Col::new(table_name, "mission_side"),
+            role: __sdk::__query_builder::Col::new(table_name, "role"),
             items: __sdk::__query_builder::Col::new(table_name, "items"),
             skills: __sdk::__query_builder::Col::new(table_name, "skills"),
             stats: __sdk::__query_builder::Col::new(table_name, "stats"),

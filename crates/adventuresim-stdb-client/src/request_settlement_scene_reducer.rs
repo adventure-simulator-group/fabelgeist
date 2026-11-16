@@ -6,49 +6,46 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
-pub(super) struct EnterMissionArgs {
+pub(super) struct RequestSettlementSceneArgs {
     pub character_id: u64,
-    pub server: __sdk::Identity,
 }
 
-impl From<EnterMissionArgs> for super::Reducer {
-    fn from(args: EnterMissionArgs) -> Self {
-        Self::EnterMission {
+impl From<RequestSettlementSceneArgs> for super::Reducer {
+    fn from(args: RequestSettlementSceneArgs) -> Self {
+        Self::RequestSettlementScene {
             character_id: args.character_id,
-            server: args.server,
         }
     }
 }
 
-impl __sdk::InModule for EnterMissionArgs {
+impl __sdk::InModule for RequestSettlementSceneArgs {
     type Module = super::RemoteModule;
 }
 
 #[allow(non_camel_case_types)]
-/// Extension trait for access to the reducer `enter_mission`.
+/// Extension trait for access to the reducer `request_settlement_scene`.
 ///
 /// Implemented for [`super::RemoteReducers`].
-pub trait enter_mission {
-    /// Request that the remote module invoke the reducer `enter_mission` to run as soon as possible.
+pub trait request_settlement_scene {
+    /// Request that the remote module invoke the reducer `request_settlement_scene` to run as soon as possible.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and this method provides no way to listen for its completion status.
-    /// /// Use [`enter_mission:enter_mission_then`] to run a callback after the reducer completes.
-    fn enter_mission(&self, character_id: u64, server: __sdk::Identity) -> __sdk::Result<()> {
-        self.enter_mission_then(character_id, server, |_, _| {})
+    /// /// Use [`request_settlement_scene:request_settlement_scene_then`] to run a callback after the reducer completes.
+    fn request_settlement_scene(&self, character_id: u64) -> __sdk::Result<()> {
+        self.request_settlement_scene_then(character_id, |_, _| {})
     }
 
-    /// Request that the remote module invoke the reducer `enter_mission` to run as soon as possible,
+    /// Request that the remote module invoke the reducer `request_settlement_scene` to run as soon as possible,
     /// registering `callback` to run when we are notified that the reducer completed.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and its status can be observed with the `callback`.
-    fn enter_mission_then(
+    fn request_settlement_scene_then(
         &self,
         character_id: u64,
-        server: __sdk::Identity,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -58,11 +55,10 @@ pub trait enter_mission {
     ) -> __sdk::Result<()>;
 }
 
-impl enter_mission for super::RemoteReducers {
-    fn enter_mission_then(
+impl request_settlement_scene for super::RemoteReducers {
+    fn request_settlement_scene_then(
         &self,
         character_id: u64,
-        server: __sdk::Identity,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -70,12 +66,7 @@ impl enter_mission for super::RemoteReducers {
         ) + Send
         + 'static,
     ) -> __sdk::Result<()> {
-        self.imp.invoke_reducer_with_callback(
-            EnterMissionArgs {
-                character_id,
-                server,
-            },
-            callback,
-        )
+        self.imp
+            .invoke_reducer_with_callback(RequestSettlementSceneArgs { character_id }, callback)
     }
 }

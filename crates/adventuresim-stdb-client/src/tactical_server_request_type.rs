@@ -5,29 +5,22 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::strategic_minute_type::StrategicMinute;
-use super::tactical_settlement_snapshot_type::TacticalSettlementSnapshot;
+use super::tactical_provisioning_status_type::TacticalProvisioningStatus;
+use super::tactical_session_type::TacticalSession;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct TacticalServerRequest {
-    pub mission_id: String,
+    pub instance_id: String,
     pub gateway_bucket: u8,
     pub scene_key: String,
-    pub party_id: String,
     pub requested_by: u64,
     pub longitude_e_7: i32,
     pub latitude_e_7: i32,
-    pub settlement: Option<TacticalSettlementSnapshot>,
     pub absolute_minute: StrategicMinute,
     pub lunar_phase_minute: StrategicMinute,
-    pub authorized_party_member_ids: Vec<u64>,
-    pub required_enemy_kills: u32,
-    pub enemy_difficulty: i32,
-    pub enemy_combat_scale_bps: u32,
-    pub countermeasure_multiplier_bps: u32,
-    pub normalized_combat_power: u32,
-    pub enemy_character_ids: Vec<u64>,
-    pub party_has_surprise: bool,
+    pub session: TacticalSession,
+    pub provisioning: TacticalProvisioningStatus,
 }
 
 impl __sdk::InModule for TacticalServerRequest {
@@ -38,67 +31,33 @@ impl __sdk::InModule for TacticalServerRequest {
 ///
 /// Provides typed access to columns for query building.
 pub struct TacticalServerRequestCols {
-    pub mission_id: __sdk::__query_builder::Col<TacticalServerRequest, String>,
+    pub instance_id: __sdk::__query_builder::Col<TacticalServerRequest, String>,
     pub gateway_bucket: __sdk::__query_builder::Col<TacticalServerRequest, u8>,
     pub scene_key: __sdk::__query_builder::Col<TacticalServerRequest, String>,
-    pub party_id: __sdk::__query_builder::Col<TacticalServerRequest, String>,
     pub requested_by: __sdk::__query_builder::Col<TacticalServerRequest, u64>,
     pub longitude_e_7: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
     pub latitude_e_7: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
-    pub settlement:
-        __sdk::__query_builder::Col<TacticalServerRequest, Option<TacticalSettlementSnapshot>>,
     pub absolute_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
     pub lunar_phase_minute: __sdk::__query_builder::Col<TacticalServerRequest, StrategicMinute>,
-    pub authorized_party_member_ids: __sdk::__query_builder::Col<TacticalServerRequest, Vec<u64>>,
-    pub required_enemy_kills: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
-    pub enemy_difficulty: __sdk::__query_builder::Col<TacticalServerRequest, i32>,
-    pub enemy_combat_scale_bps: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
-    pub countermeasure_multiplier_bps: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
-    pub normalized_combat_power: __sdk::__query_builder::Col<TacticalServerRequest, u32>,
-    pub enemy_character_ids: __sdk::__query_builder::Col<TacticalServerRequest, Vec<u64>>,
-    pub party_has_surprise: __sdk::__query_builder::Col<TacticalServerRequest, bool>,
+    pub session: __sdk::__query_builder::Col<TacticalServerRequest, TacticalSession>,
+    pub provisioning:
+        __sdk::__query_builder::Col<TacticalServerRequest, TacticalProvisioningStatus>,
 }
 
 impl __sdk::__query_builder::HasCols for TacticalServerRequest {
     type Cols = TacticalServerRequestCols;
     fn cols(table_name: &'static str) -> Self::Cols {
         TacticalServerRequestCols {
-            mission_id: __sdk::__query_builder::Col::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::Col::new(table_name, "instance_id"),
             gateway_bucket: __sdk::__query_builder::Col::new(table_name, "gateway_bucket"),
             scene_key: __sdk::__query_builder::Col::new(table_name, "scene_key"),
-            party_id: __sdk::__query_builder::Col::new(table_name, "party_id"),
             requested_by: __sdk::__query_builder::Col::new(table_name, "requested_by"),
             longitude_e_7: __sdk::__query_builder::Col::new(table_name, "longitude_e_7"),
             latitude_e_7: __sdk::__query_builder::Col::new(table_name, "latitude_e_7"),
-            settlement: __sdk::__query_builder::Col::new(table_name, "settlement"),
             absolute_minute: __sdk::__query_builder::Col::new(table_name, "absolute_minute"),
             lunar_phase_minute: __sdk::__query_builder::Col::new(table_name, "lunar_phase_minute"),
-            authorized_party_member_ids: __sdk::__query_builder::Col::new(
-                table_name,
-                "authorized_party_member_ids",
-            ),
-            required_enemy_kills: __sdk::__query_builder::Col::new(
-                table_name,
-                "required_enemy_kills",
-            ),
-            enemy_difficulty: __sdk::__query_builder::Col::new(table_name, "enemy_difficulty"),
-            enemy_combat_scale_bps: __sdk::__query_builder::Col::new(
-                table_name,
-                "enemy_combat_scale_bps",
-            ),
-            countermeasure_multiplier_bps: __sdk::__query_builder::Col::new(
-                table_name,
-                "countermeasure_multiplier_bps",
-            ),
-            normalized_combat_power: __sdk::__query_builder::Col::new(
-                table_name,
-                "normalized_combat_power",
-            ),
-            enemy_character_ids: __sdk::__query_builder::Col::new(
-                table_name,
-                "enemy_character_ids",
-            ),
-            party_has_surprise: __sdk::__query_builder::Col::new(table_name, "party_has_surprise"),
+            session: __sdk::__query_builder::Col::new(table_name, "session"),
+            provisioning: __sdk::__query_builder::Col::new(table_name, "provisioning"),
         }
     }
 }
@@ -108,7 +67,7 @@ impl __sdk::__query_builder::HasCols for TacticalServerRequest {
 /// Provides typed access to indexed columns for query building.
 pub struct TacticalServerRequestIxCols {
     pub gateway_bucket: __sdk::__query_builder::IxCol<TacticalServerRequest, u8>,
-    pub mission_id: __sdk::__query_builder::IxCol<TacticalServerRequest, String>,
+    pub instance_id: __sdk::__query_builder::IxCol<TacticalServerRequest, String>,
 }
 
 impl __sdk::__query_builder::HasIxCols for TacticalServerRequest {
@@ -116,7 +75,7 @@ impl __sdk::__query_builder::HasIxCols for TacticalServerRequest {
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         TacticalServerRequestIxCols {
             gateway_bucket: __sdk::__query_builder::IxCol::new(table_name, "gateway_bucket"),
-            mission_id: __sdk::__query_builder::IxCol::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::IxCol::new(table_name, "instance_id"),
         }
     }
 }

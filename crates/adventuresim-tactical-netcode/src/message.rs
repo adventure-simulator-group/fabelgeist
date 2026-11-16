@@ -2,6 +2,10 @@ use adventuresim_tactical_core::prelude::*;
 use bevy::{ecs::entity::MapEntities, prelude::*};
 use serde::{Deserialize, Serialize};
 
+pub use scene_vista::SceneVistaBundle;
+
+mod scene_vista;
+
 /// Sent by the client whenever the player dodges or rolls defensively.
 ///
 /// This is a simplified version of [`DefenderResponse`] that omits
@@ -12,12 +16,28 @@ pub enum DefendRequest {
     Roll,
 }
 
-/// Requests enrollment of a strategic character in the tactical mission.
+/// Requests enrollment of a durable character in the live scene.
 /// The sender remains the authoritative network identity.
 #[derive(Debug, Clone, Copy, Event, Serialize, Deserialize)]
 pub struct JoinRequest {
     pub character_id: CharacterId,
     pub reconnect_token: Option<ReconnectToken>,
+}
+
+/// Admission failed before a playable character was projected. The client can
+/// show the authoritative reason immediately and offer its loading retry.
+#[derive(Debug, Clone, Event, Serialize, Deserialize)]
+pub struct SceneJoinRejected {
+    pub character_id: CharacterId,
+    pub reason: String,
+    pub reconnect: ReconnectDisposition,
+}
+
+/// A valid capability must survive a retry while its old transport is closing.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ReconnectDisposition {
+    Retain,
+    Discard,
 }
 
 /// A server-generated bearer capability for resuming one transient tactical
@@ -29,33 +49,6 @@ pub struct ReconnectToken(pub [u8; 32]);
 pub struct ReconnectCapability {
     pub character_id: CharacterId,
     pub token: ReconnectToken,
-}
-
-/// One bounded, ordered scene asset delivered only to an enrolled client.
-/// Vista samples intentionally bypass ordinary ECS component replication.
-#[derive(Debug, Clone, Event, Serialize, Deserialize)]
-pub struct SceneVistaBundle {
-    pub properties: Option<adventuresim_core::settlement_property::GeneratedHomeCatalog>,
-    pub scene_digest: String,
-    /// Half-width and half-depth of the authoritative playable heightfield.
-    /// Presentation-only vista rings clip exactly to this rectangle.
-    pub playable_half_extent_metres: Vec2,
-    /// Presentation-only shell instances surrounding the tactical area.
-    pub distant_buildings: Vec<DistantBuildingPlacement>,
-    /// Operator-backed identity for playable and distant businesses.
-    pub establishments: Vec<SceneEstablishment>,
-    /// The same connected surface network used to classify playable ground.
-    pub streets: Vec<CityStreetPatch>,
-    /// Developed block interiors that replace blanket meadow ground cover.
-    pub yards: Vec<CityYardPatch>,
-    pub parishes: Vec<adventuresim_tactical_core::city_layout::CityParish>,
-    pub compounds: Vec<CityCompound>,
-    pub gardens: Vec<CityGarden>,
-    /// Accepted activity areas drive local ground wear around outdoor furniture.
-    pub furniture_groups: Vec<FurnitureGroup>,
-    /// Accepted visual furniture outside the tactical world bounds.
-    pub distant_furniture: Vec<GeneratedFurniture>,
-    pub lods: Vec<VistaLod>,
 }
 
 /// Canonical tuning selected by the tactical server for this process lifetime.

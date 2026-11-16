@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 
 import dev_stack as stack
+from settlement_scene_acceptance import settlement_scene_checks, live_settlement_scene_checks
 
 
 class AcceptanceClient:
@@ -131,40 +132,40 @@ def enrollment_checks(client: AcceptanceClient) -> None:
                          ("oversized", list(range(17))), ("conflict", [character_id])]:
         clone = f"mission:authority-{tag}"
         client.fixture("authority_test_request_roster", mission, clone, members)
-        client.call("authorize_tactical_server_claim", clone, list(hashlib.sha256(claim.encode()).digest()))
+        client.call("authorize_tactical_server_claim", f"scene:mission:{clone}", list(hashlib.sha256(claim.encode()).digest()))
     server_identity, server_token = client.identity()
     other_identity, other_token = client.identity()
     for tag, error in [("empty", "at least one"), ("duplicate", "duplicate members"),
                        ("oversized", "participant limit")]:
         clone = f"mission:authority-{tag}"
-        client.call("create_tactical_server_for_request", clone, claim, "127.0.0.1:1", "test",
+        client.call("create_tactical_server_for_request", f"scene:mission:{clone}", claim, "127.0.0.1:1", "test",
                     token=other_token, error=error)
         assert len(client.rows(
-            f"SELECT mission_id FROM tactical_server_request_authority WHERE mission_id = '{clone}'"
+            f"SELECT instance_id FROM tactical_server_request_authority WHERE instance_id = 'scene:mission:{clone}'"
         )) == 1
         assert len(client.rows(
-            f"SELECT mission_id FROM tactical_server_claim WHERE mission_id = '{clone}'"
+            f"SELECT instance_id FROM tactical_server_claim WHERE instance_id = 'scene:mission:{clone}'"
         )) == 1
-    client.call("create_tactical_server_for_request", mission, claim, "127.0.0.1:1", "test", token=server_token)
-    client.call("create_tactical_server_for_request", "mission:authority-conflict", claim,
+    client.call("create_tactical_server_for_request", f"scene:mission:{mission}", claim, "127.0.0.1:1", "test", token=server_token)
+    client.call("create_tactical_server_for_request", "scene:mission:mission:authority-conflict", claim,
                 "127.0.0.1:2", "test", token=other_token)
-    client.call("enter_mission", character_id, ["0x" + server_identity], token=server_token)
-    client.call("enter_mission", character_id, ["0x" + server_identity], token=server_token)
-    client.call("enter_mission", character_id, ["0x" + other_identity], token=other_token,
+    client.call("enter_tactical_scene", character_id, ["0x" + server_identity], token=server_token)
+    client.call("enter_tactical_scene", character_id, ["0x" + server_identity], token=server_token)
+    client.call("enter_tactical_scene", character_id, ["0x" + other_identity], token=other_token,
                 error="another active tactical server")
-    client.call("leave_mission", character_id, token=other_token, error="owning tactical server")
+    client.call("leave_tactical_scene", character_id, token=other_token, error="owning tactical server")
     client.call("start_poppy_tincture", character_id, 0, error="tactical")
-    client.call("leave_mission", character_id, token=server_token)
+    client.call("leave_tactical_scene", character_id, token=server_token)
     zero = ["0x0"]
     assignment = client.rows(f"SELECT server FROM character WHERE id = {character_id}")
     assert assignment == [[zero]], assignment
     stale_identity, _ = client.identity()
     client.fixture("authority_test_stale_assignment", character_id, ["0x" + stale_identity])
-    client.call("enter_mission", character_id, ["0x" + server_identity], token=server_token)
+    client.call("enter_tactical_scene", character_id, ["0x" + server_identity], token=server_token)
     client.call("end_tactical_server", {"failed": []}, [[], []], token=server_token)
     assignment = client.rows(f"SELECT server FROM character WHERE id = {character_id}")
     assert assignment == [[zero]], assignment
-    assert client.rows(f"SELECT mission_id FROM tactical_server_authority WHERE mission_id = '{mission}'") == []
+    assert client.rows(f"SELECT instance_id FROM tactical_server_authority WHERE instance_id = 'scene:mission:{mission}'") == []
     print("PASS roster rejection and rollback, enrollment conflicts, leave, stale reclamation, cleanup", flush=True)
 
 
@@ -177,7 +178,7 @@ def resident_checks(client: AcceptanceClient) -> None:
     print("PASS current resident identity/demographics, traversal key, historical provenance", flush=True)
 
 
-def run(profile: str, base_port: int) -> None:
+def run(profile: str, base_port: int, only: str | None = None) -> None:
     # The runner only uses a derived local profile and holds its ownership lock.
     os.environ["ADVENTURESIM_RUNTIME_ROOT"] = str(stack.ROOT / "target/authority-check/runtime")
     values = stack.profile_values(profile, base_port)
@@ -212,6 +213,22 @@ def run(profile: str, base_port: int) -> None:
                     os.environ["ADVENTURESIM_DEV_BOOTSTRAP_TOKEN"] = previous
             client = AcceptanceClient(server, database, token)
             client.fixture("dev_bootstrap_base")
+            if only in {"settlement-scenes", "settlement-scenes-live"}:
+                result = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server-dispatcher", "--example", "settlement-authority-peer"])
+                stack.write_console(result.stdout)
+                assert result.returncode == 0, "Could not build persistent acceptance peer"
+                client.call("register_strategic_gateway", None, 0)
+                if only == "settlement-scenes":
+                    settlement_scene_checks(client)
+                else:
+                    build = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server", "--features", "debug"])
+                    stack.write_console(build.stdout)
+                    assert build.returncode == 0
+                    build = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server-dispatcher", "--bin", "adventuresim-tactical-server-dispatcher", "--example", "live-scene-peer"])
+                    stack.write_console(build.stdout)
+                    assert build.returncode == 0
+                    live_settlement_scene_checks(client, base_port)
+                return
             identity_checks(client)
             enrollment_checks(client)
             resident_checks(client)
@@ -276,12 +293,13 @@ def run(profile: str, base_port: int) -> None:
         finally:
             if client is not None:
                 client.http.close()
-            stack.stop_recorded(metadata, config)
+            stack.stop_spacetime(metadata, config)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="authority-check")
     parser.add_argument("--base-port", type=int, default=25370)
+    parser.add_argument("--only", choices=["settlement-scenes", "settlement-scenes-live"])
     args = parser.parse_args()
-    run(args.profile, args.base_port)
+    run(args.profile, args.base_port, args.only)

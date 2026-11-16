@@ -32,6 +32,25 @@ player-identity-to-character ownership model.
 
 ## Tactical completion
 
+`TacticalServerRequest` and `TacticalServer` carry a purpose-specific
+`TacticalSession`. Mission sessions capture combat authority. Settlement
+sessions capture the canonical settlement area without a mission, party
+roster, enemy objective, or terminal combat result. Their serving slots use
+`TacticalInstanceId`, which distinguishes mission and settlement identities.
+
+The registered gateway requests ordinary entry with
+`request_settlement_scene(character_id)`. Admission requires a living
+character at that settlement, outside a case site. A settlement has one shared
+serving slot; repeated requests reuse its pending or active slot. Only its
+registered server may call `enter_tactical_scene` and `leave_tactical_scene`.
+`Character.server` remains the sole durable assignment.
+
+`retire_settlement_scene` releases assignments and the serving slot without
+committing a battle result, loot, or rewards. Losing the server's database
+connection performs the same release. Runtime positions, condition changes,
+and reconnect snapshots remain transient; ordinary-scene condition handoff
+is a subsequent step before the gameplay cutover.
+
 Mission requests bind a party, its captured living member IDs, a scene, a
 one-use tactical-server claim, and private strategic mission authority. The
 registered tactical child keeps live

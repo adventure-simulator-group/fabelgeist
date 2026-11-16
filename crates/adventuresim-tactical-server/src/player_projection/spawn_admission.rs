@@ -38,7 +38,7 @@ impl PreparedPlayerSpawns {
     ) -> SceneSpawnResult<Self> {
         let mut admitted = Vec::with_capacity(players.len());
         for player in players {
-            let recipient = if player.mission_side == TacticalMissionSide::Enemy {
+            let recipient = if player.role == TacticalActorRole::Enemy {
                 let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {
                     let enemy = fixture.enemy_named(&player.character.name).ok_or(
                         SceneSpawnError::MissingEnemyFixture {
@@ -46,7 +46,7 @@ impl PreparedPlayerSpawns {
                         },
                     )?;
                     CombatantBehaviorPackages::from_fixture(enemy.behavior, combat)
-                } else if args.enemy_combat_scale_bps > 0 {
+                } else if player.enemy_combat_scale_bps > 0 {
                     CombatantBehaviorPackages::standard_combat(combat)
                 } else {
                     CombatantBehaviorPackages::passive()
@@ -89,14 +89,9 @@ impl PreparedPlayerSpawns {
         Ok(Self(admitted))
     }
 
-    pub(super) fn project(
-        self,
-        args: &Args,
-        commands: &mut Commands,
-        combat: &TacticalCombatConfig,
-    ) {
+    pub(super) fn project(self, commands: &mut Commands, combat: &TacticalCombatConfig) {
         for admitted in self.0 {
-            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands, combat);
+            spawn_connected_player(admitted, commands, combat);
         }
     }
 }

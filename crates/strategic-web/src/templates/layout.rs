@@ -36,11 +36,11 @@ pub fn entry_layout(title: &str, content: Markup) -> Markup {
 }
 
 /// Transitional shell shown while a tactical server is being allocated.
-pub fn mission_layout(title: &str, content: Markup, logged_in_as: Option<&str>) -> Markup {
+pub fn scene_entry_layout(title: &str, content: Markup, logged_in_as: Option<&str>) -> Markup {
     let header = html! {
         header class="top-bar entry-top-bar" {
             div class="top-bar-left" { h1 class="logo" { "Fabelgeist" } }
-            div class="entry-message" { "Tactical mission" }
+            div class="entry-message" { (title) }
             div class="top-bar-right" {
                 @if let Some(name) = logged_in_as {
                     span class="player-name" { strong { (name) } }

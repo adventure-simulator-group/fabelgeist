@@ -4,24 +4,19 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::tactical_session_type::TacticalSession;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct TacticalServer {
     pub identity: __sdk::Identity,
+    pub hosting_connection: __sdk::ConnectionId,
     pub gateway_bucket: u8,
-    pub mission_id: String,
+    pub instance_id: String,
     pub scene_key: String,
-    pub party_id: String,
     pub addr: String,
     pub cert_digest: String,
-    pub authorized_party_member_ids: Vec<u64>,
-    pub required_enemy_kills: u32,
-    pub enemy_difficulty: i32,
-    pub enemy_combat_scale_bps: u32,
-    pub countermeasure_multiplier_bps: u32,
-    pub normalized_combat_power: u32,
-    pub enemy_character_ids: Vec<u64>,
-    pub party_has_surprise: bool,
+    pub session: TacticalSession,
 }
 
 impl __sdk::InModule for TacticalServer {
@@ -33,20 +28,13 @@ impl __sdk::InModule for TacticalServer {
 /// Provides typed access to columns for query building.
 pub struct TacticalServerCols {
     pub identity: __sdk::__query_builder::Col<TacticalServer, __sdk::Identity>,
+    pub hosting_connection: __sdk::__query_builder::Col<TacticalServer, __sdk::ConnectionId>,
     pub gateway_bucket: __sdk::__query_builder::Col<TacticalServer, u8>,
-    pub mission_id: __sdk::__query_builder::Col<TacticalServer, String>,
+    pub instance_id: __sdk::__query_builder::Col<TacticalServer, String>,
     pub scene_key: __sdk::__query_builder::Col<TacticalServer, String>,
-    pub party_id: __sdk::__query_builder::Col<TacticalServer, String>,
     pub addr: __sdk::__query_builder::Col<TacticalServer, String>,
     pub cert_digest: __sdk::__query_builder::Col<TacticalServer, String>,
-    pub authorized_party_member_ids: __sdk::__query_builder::Col<TacticalServer, Vec<u64>>,
-    pub required_enemy_kills: __sdk::__query_builder::Col<TacticalServer, u32>,
-    pub enemy_difficulty: __sdk::__query_builder::Col<TacticalServer, i32>,
-    pub enemy_combat_scale_bps: __sdk::__query_builder::Col<TacticalServer, u32>,
-    pub countermeasure_multiplier_bps: __sdk::__query_builder::Col<TacticalServer, u32>,
-    pub normalized_combat_power: __sdk::__query_builder::Col<TacticalServer, u32>,
-    pub enemy_character_ids: __sdk::__query_builder::Col<TacticalServer, Vec<u64>>,
-    pub party_has_surprise: __sdk::__query_builder::Col<TacticalServer, bool>,
+    pub session: __sdk::__query_builder::Col<TacticalServer, TacticalSession>,
 }
 
 impl __sdk::__query_builder::HasCols for TacticalServer {
@@ -54,38 +42,13 @@ impl __sdk::__query_builder::HasCols for TacticalServer {
     fn cols(table_name: &'static str) -> Self::Cols {
         TacticalServerCols {
             identity: __sdk::__query_builder::Col::new(table_name, "identity"),
+            hosting_connection: __sdk::__query_builder::Col::new(table_name, "hosting_connection"),
             gateway_bucket: __sdk::__query_builder::Col::new(table_name, "gateway_bucket"),
-            mission_id: __sdk::__query_builder::Col::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::Col::new(table_name, "instance_id"),
             scene_key: __sdk::__query_builder::Col::new(table_name, "scene_key"),
-            party_id: __sdk::__query_builder::Col::new(table_name, "party_id"),
             addr: __sdk::__query_builder::Col::new(table_name, "addr"),
             cert_digest: __sdk::__query_builder::Col::new(table_name, "cert_digest"),
-            authorized_party_member_ids: __sdk::__query_builder::Col::new(
-                table_name,
-                "authorized_party_member_ids",
-            ),
-            required_enemy_kills: __sdk::__query_builder::Col::new(
-                table_name,
-                "required_enemy_kills",
-            ),
-            enemy_difficulty: __sdk::__query_builder::Col::new(table_name, "enemy_difficulty"),
-            enemy_combat_scale_bps: __sdk::__query_builder::Col::new(
-                table_name,
-                "enemy_combat_scale_bps",
-            ),
-            countermeasure_multiplier_bps: __sdk::__query_builder::Col::new(
-                table_name,
-                "countermeasure_multiplier_bps",
-            ),
-            normalized_combat_power: __sdk::__query_builder::Col::new(
-                table_name,
-                "normalized_combat_power",
-            ),
-            enemy_character_ids: __sdk::__query_builder::Col::new(
-                table_name,
-                "enemy_character_ids",
-            ),
-            party_has_surprise: __sdk::__query_builder::Col::new(table_name, "party_has_surprise"),
+            session: __sdk::__query_builder::Col::new(table_name, "session"),
         }
     }
 }
@@ -96,7 +59,7 @@ impl __sdk::__query_builder::HasCols for TacticalServer {
 pub struct TacticalServerIxCols {
     pub gateway_bucket: __sdk::__query_builder::IxCol<TacticalServer, u8>,
     pub identity: __sdk::__query_builder::IxCol<TacticalServer, __sdk::Identity>,
-    pub mission_id: __sdk::__query_builder::IxCol<TacticalServer, String>,
+    pub instance_id: __sdk::__query_builder::IxCol<TacticalServer, String>,
 }
 
 impl __sdk::__query_builder::HasIxCols for TacticalServer {
@@ -105,7 +68,7 @@ impl __sdk::__query_builder::HasIxCols for TacticalServer {
         TacticalServerIxCols {
             gateway_bucket: __sdk::__query_builder::IxCol::new(table_name, "gateway_bucket"),
             identity: __sdk::__query_builder::IxCol::new(table_name, "identity"),
-            mission_id: __sdk::__query_builder::IxCol::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::IxCol::new(table_name, "instance_id"),
         }
     }
 }

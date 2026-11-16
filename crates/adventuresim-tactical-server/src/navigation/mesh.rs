@@ -1,11 +1,13 @@
 //! Server-owned navigation mesh, built from authoritative collision geometry.
 
 use super::{
+    bounds::NavigationScene,
     geometry::{ColliderSnapshot, NavigationGeometry},
     *,
 };
 use avian_rerecast::ColliderToTriMesh;
 use bevy::asset::AssetPlugin;
+use bevy::math::bounding::Aabb3d;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::{NavmeshPlugins, prelude::*, rerecast::TriMesh};
 use landmass_rerecast::{Island3dBundle, LandmassRerecastPlugin, NavMeshHandle3d};
@@ -98,12 +100,14 @@ fn initialize_mesh(
     config: Res<TacticalCombatConfig>,
     time: Res<Time>,
     geometry: NavigationGeometry,
+    scene: NavigationScene,
 ) {
     if navigation.mesh.is_some() || !geometry.has_static_surface() {
         return;
     }
+    let Some(bounds) = scene.bounds() else { return };
     let radius = adventuresim_core::combat::HUMANOID_COLLISION_RADIUS_METRES;
-    let settings = navmesh_settings(&config);
+    let settings = navmesh_settings(&config, bounds);
     // Rerecast's polygon and detail surfaces can each be one voxel above the
     // physical surface. Sample around the feet, not the body's centre.
     let vertical_tolerance = config.ai.control.support_tolerance_metres.metres()
@@ -132,12 +136,13 @@ fn initialize_mesh(
     navigation.geometry = geometry.snapshot();
 }
 
-fn navmesh_settings(config: &TacticalCombatConfig) -> NavmeshSettings {
+fn navmesh_settings(config: &TacticalCombatConfig, bounds: Aabb3d) -> NavmeshSettings {
     let radius = adventuresim_core::combat::HUMANOID_COLLISION_RADIUS_METRES
         + config.ai.control.clearance_margin_metres.metres();
     let mut settings =
         NavmeshSettings::from_agent_3d(radius, CharacterDimensions::default().body_height_metres);
     settings.walkable_climb = config.movement.motor.maximum_step_height_metres;
+    settings.aabb = Some(bounds);
     settings.walkable_slope_angle = config
         .movement
         .motor
@@ -152,6 +157,7 @@ fn refresh_mesh(
     config: Res<TacticalCombatConfig>,
     time: Res<Time>,
     geometry: NavigationGeometry,
+    scene: NavigationScene,
 ) {
     let Some(handle) = navigation.mesh.clone() else {
         return;
@@ -182,7 +188,8 @@ fn refresh_mesh(
     }) {
         return;
     }
-    if generator.regenerate(&handle, navmesh_settings(&config)) {
+    let Some(bounds) = scene.bounds() else { return };
+    if generator.regenerate(&handle, navmesh_settings(&config, bounds)) {
         navigation.geometry = current;
         navigation.last_request = Some(now);
         navigation.ready = false;

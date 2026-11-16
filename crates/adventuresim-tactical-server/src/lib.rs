@@ -30,23 +30,11 @@ pub mod player_projection;
 mod scene_spawn;
 pub mod stdb;
 
-/// Stand-in for `main.rs`'s real (clap-derived) `Args` - `player_projection`
-/// and `stdb` need *a* type named `Args` with these fields to compile (they
-/// take `Res<Args>`), but nothing in this library ever runs a system that
-/// reads it, so field *values* never matter. If one of those files starts
-/// reading a field this doesn't have, that's a compile error here, same as
-/// real `Args` drifting out from under them would be.
-#[derive(bevy::prelude::Resource, Default)]
-pub(crate) struct Args {
-    pub(crate) enemy_combat_scale_bps: u32,
-    pub(crate) enemy_fixture: Option<adventuresim_core::tactical_fixture::TacticalEnemyFixture>,
-    pub(crate) required_enemy_kills: u32,
-    pub(crate) spacetimedb_url: String,
-    pub(crate) spacetimedb_module: String,
-}
+mod cli;
+use cli::Args;
 
-/// Stand-in for `main.rs`'s real `SceneVistaBundleResource`, for the same
-/// reason as `Args` above.
+/// Reflection-only stand-in for the binary's scene-vista resource. This
+/// library target does not construct a running scene.
 #[derive(bevy::prelude::Resource, Default)]
 pub(crate) struct SceneVistaBundleResource(
     pub(crate) Option<adventuresim_tactical_netcode::prelude::SceneVistaBundle>,

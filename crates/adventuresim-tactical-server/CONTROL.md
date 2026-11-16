@@ -1,5 +1,8 @@
 # Tactical character control
 
+[Live tactical sessions](SESSIONS.md) describes ordinary settlement entry,
+server registration, reconnect ownership, and focused acceptance checks.
+
 Direct control supplies moment-to-moment actions. Indirect control supplies
 orders to the server's character behavior controller. Both use the same
 physical movement, posture, attack timing, equipment, defense, and combat

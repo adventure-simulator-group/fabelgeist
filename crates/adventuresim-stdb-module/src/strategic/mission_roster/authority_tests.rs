@@ -77,8 +77,8 @@ pub fn authority_test_mission_roster(
             || ctx
                 .db
                 .tactical_server_request_authority()
-                .mission_id()
-                .find(id.to_owned())
+                .instance_id()
+                .find(instance_id(id)?)
                 .is_some()
             || ctx
                 .db
@@ -95,9 +95,13 @@ pub fn authority_test_mission_roster(
     let request = ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(id.to_owned())
+        .instance_id()
+        .find(instance_id(id)?)
         .ok_or("Tactical projection missing")?;
+    let request = request
+        .session
+        .mission()
+        .ok_or("Expected mission session")?;
     if request.enemy_character_ids != mission.enemy_character_ids
         || request.required_enemy_kills != roster.enemy_count().get()
     {
@@ -105,8 +109,8 @@ pub fn authority_test_mission_roster(
     }
     ctx.db
         .tactical_server_request_authority()
-        .mission_id()
-        .delete(id.to_owned());
+        .instance_id()
+        .delete(instance_id(id)?);
     autoresolve_mission(ctx, actor, id.into())?;
     if ctx
         .db
@@ -139,9 +143,13 @@ pub fn authority_test_standalone_roster(
     let request = ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(id.to_owned())
+        .instance_id()
+        .find(instance_id(id)?)
         .ok_or("Standalone request missing")?;
+    let request = request
+        .session
+        .mission()
+        .ok_or("Expected mission session")?;
     if roster.enemy_count().get() != request.required_enemy_kills
         || roster.enemy_ids() != request.enemy_character_ids
     {
@@ -228,4 +236,12 @@ pub fn authority_test_finale_receipts(
         return Err("Finale execution, selection, or retry ownership disagrees".into());
     }
     Ok(())
+}
+
+fn instance_id(mission: &str) -> Result<String, String> {
+    let mission = adventuresim_core::mission::MissionId::new(mission).map_err(str::to_owned)?;
+    Ok(
+        adventuresim_core::tactical_session::TacticalInstanceId::for_mission(&mission)
+            .into_string(),
+    )
 }

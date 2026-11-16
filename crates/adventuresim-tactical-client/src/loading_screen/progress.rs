@@ -184,6 +184,7 @@ impl LoadingRun {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(super) enum LoadingFailure {
     ConnectionLost(String),
+    Admission(String),
     Asset(String),
     Stalled(LoadingStage),
 }
@@ -192,6 +193,7 @@ impl fmt::Display for LoadingFailure {
     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::ConnectionLost(reason) => write!(formatter, "Connection lost: {reason}"),
+            Self::Admission(reason) => write!(formatter, "Could not join the scene: {reason}"),
             Self::Asset(path) => write!(formatter, "Could not load {path}"),
             Self::Stalled(stage) => {
                 write!(formatter, "Loading stopped at: {}", stage.label())

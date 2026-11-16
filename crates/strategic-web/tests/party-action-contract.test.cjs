@@ -10,12 +10,11 @@ const web = fs.readFileSync(
 const moduleSource = readRustModuleSource(
   "crates/adventuresim-stdb-module/src/strategic/mod.rs",
 );
-const tacticalModule = fs.readFileSync(
+const tacticalModule = readRustModuleSource(
   "crates/adventuresim-stdb-module/src/tactical.rs",
-  "utf8",
 );
 const tacticalServer = fs.readFileSync(
-  "crates/adventuresim-tactical-server/src/player_projection.rs",
+  "crates/adventuresim-tactical-server/src/player_projection/join.rs",
   "utf8",
 );
 const characterModule = fs.readFileSync(
@@ -56,12 +55,15 @@ test("web and module retain the complete party-action variant/kind contract", ()
 });
 
 test("tactical enrollment and departure retain server authority without creating join rows", () => {
-  assert.match(tacticalModule, /character\.in_server[\s\S]*character\.server != server\.identity[\s\S]*tactical_server_authority\(\)/);
+  assert.match(tacticalModule, /character\.has_tactical_server_assignment\(\)[\s\S]*character\.server != server[\s\S]*tactical_server_authority\(\)/);
+  assert.match(tacticalModule, /ctx\.sender\(\) != server/);
   assert.match(tacticalModule, /Only a registered tactical server can remove characters/);
   const joinHandler = tacticalServer.match(/pub\(crate\) fn on_join_request[\s\S]*?\n}\n\n\/\/\/ Standalone-mode/)?.[0];
   assert.ok(joinHandler, "join handler source boundary");
   assert.doesNotMatch(joinHandler, /create_character/);
-  assert.match(joinHandler, /enter_mission/);
+  assert.match(joinHandler, /conn\.request_join/);
+  const operations = fs.readFileSync("crates/adventuresim-tactical-server/src/stdb/scene_operations.rs", "utf8");
+  assert.match(operations, /enter_tactical_scene_then/);
 });
 
 test("temporary-character cascade covers smith custody and death provenance", () => {

@@ -311,17 +311,19 @@ fn scarp_lod(
 
 pub fn materialize_scene_input(
     directory: &Path,
-    mission_id: &str,
+    instance_id: &str,
     input: &TacticalSceneInput,
 ) -> Result<PathBuf, String> {
     fs::create_dir_all(directory).map_err(|error| error.to_string())?;
-    let key = Sha256::digest(mission_id.as_bytes())
-        .iter()
-        .take(12)
-        .map(|byte| format!("{byte:02x}"))
-        .collect::<String>();
-    let path = directory.join(format!("scene-{key}.json"));
     let bytes = serde_json::to_vec(input).map_err(|error| error.to_string())?;
+    // A shared settlement slot can reopen at a later world minute. Each
+    // captured document remains immutable while the slot identity stays stable.
+    let mut digest = Sha256::new();
+    digest.update(instance_id.as_bytes());
+    digest.update([0]);
+    digest.update(&bytes);
+    let key = format!("{:x}", digest.finalize());
+    let path = directory.join(format!("scene-{key}.json"));
     if let Ok(existing) = fs::read(&path) {
         if existing == bytes {
             return Ok(path);
@@ -888,6 +890,10 @@ mod tests {
     }
 
     fn constant_final_pack() -> (TerrainPack, PathBuf) {
+        final_pack_with_cell([65, 1, 3, 0b1111, 77])
+    }
+
+    fn final_pack_with_cell(cell: [u8; 5]) -> (TerrainPack, PathBuf) {
         let nonce = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
             .expect("clock after epoch")
@@ -907,7 +913,6 @@ mod tests {
             for chunk_x in 0..tile_width.div_ceil(CHUNK_SIDE) {
                 let width = CHUNK_SIDE.min(tile_width - chunk_x * CHUNK_SIDE);
                 let height = CHUNK_SIDE.min(tile_height - chunk_y * CHUNK_SIDE);
-                let cell = [65, 1, 3, 0b1111, 77];
                 let decoded = cell.repeat(usize::from(width) * usize::from(height));
                 let mut encoder = DeflateEncoder::new(Vec::new(), Compression::fast());
                 encoder.write_all(&decoded).expect("encode fixture chunk");

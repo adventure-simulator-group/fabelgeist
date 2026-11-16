@@ -224,7 +224,7 @@ ceiling = 689
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 3037
+ceiling = 3020
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -408,7 +408,7 @@ ceiling = 847
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
-ceiling = 2366
+ceiling = 2350
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
@@ -424,7 +424,7 @@ ceiling = 1079
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/tactical.rs"
-ceiling = 1206
+ceiling = 962
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/advancement.rs"
@@ -588,7 +588,7 @@ ceiling = 940
 
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
-ceiling = 674
+ceiling = 642
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
@@ -596,7 +596,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 1993
+ceiling = 1790
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -788,11 +788,11 @@ ceiling = 573
 
 [[files]]
 path = "crates/strategic-web/src/spacetimedb/types.rs"
-ceiling = 1738
+ceiling = 1720
 
 [[files]]
 path = "crates/strategic-web/src/templates/layout.rs"
-ceiling = 534
+ceiling = 515
 
 [[files]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -1256,7 +1256,7 @@ ceiling = 296
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "equip_equipment_internal"
-ceiling = 283
+ceiling = 268
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -1876,7 +1876,7 @@ ceiling = 103
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "autoresolve_mission"
-ceiling = 157
+ceiling = 146
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
@@ -1901,7 +1901,7 @@ ceiling = 171
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
 item = "seed_standalone_tactical_mission"
-ceiling = 291
+ceiling = 283
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
@@ -1951,7 +1951,7 @@ ceiling = 276
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/tactical.rs"
 item = "request_tactical_server"
-ceiling = 166
+ceiling = 145
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/time/activities.rs"
@@ -2386,12 +2386,12 @@ ceiling = 398
 [[functions]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
 item = "update_direct_control_input"
-ceiling = 355
+ceiling = 305
 
 [[functions]]
 path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
 item = "main"
-ceiling = 165
+ceiling = 146
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/bot/offense.rs"
@@ -2421,17 +2421,12 @@ ceiling = 146
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
 item = "main"
-ceiling = 137
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-item = "on_join_request"
-ceiling = 103
+ceiling = 117
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
 item = "spawn_connected_player"
-ceiling = 407
+ceiling = 372
 
 [[functions]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -3091,7 +3086,7 @@ ceiling = 133
 [[functions]]
 path = "crates/strategic-web/src/templates/layout.rs"
 item = "settlement_top_bar"
-ceiling = 131
+ceiling = 115
 
 [[functions]]
 path = "crates/strategic-web/src/templates/quest.rs"
@@ -3161,7 +3156,7 @@ ceiling = 196
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/chrome.rs"
 item = "settlement_overview_page"
-ceiling = 124
+ceiling = 114
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/cooking.rs"
@@ -8824,83 +8819,6 @@ path = "crates/adventuresim-tactical-netcode/src/client.rs"
 item = 'websocket_config@cfg(not(target_family="wasm"))'
 fingerprint = "string:wss://"
 occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--addr"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--enemy-combat-scale-bps"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--expected-party-members"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--mission-id"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--required-enemy-kills"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--scene-input"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--scene-key"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--spacetimedb-module"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:--spacetimedb-url"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:ADVENTURESIM_TACTICAL_CLAIM"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-server-dispatcher/src/main.rs"
-item = "main"
-fingerprint = "string:SPACETIMEDB_TOKEN"
-occurrences = 2
 
 [[findings]]
 rule = "raw-string-branch"

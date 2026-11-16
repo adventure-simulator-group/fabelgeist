@@ -7,7 +7,7 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct TacticalServerClaim {
-    pub mission_id: String,
+    pub instance_id: String,
     pub claim_hash: Vec<u8>,
 }
 
@@ -19,7 +19,7 @@ impl __sdk::InModule for TacticalServerClaim {
 ///
 /// Provides typed access to columns for query building.
 pub struct TacticalServerClaimCols {
-    pub mission_id: __sdk::__query_builder::Col<TacticalServerClaim, String>,
+    pub instance_id: __sdk::__query_builder::Col<TacticalServerClaim, String>,
     pub claim_hash: __sdk::__query_builder::Col<TacticalServerClaim, Vec<u8>>,
 }
 
@@ -27,7 +27,7 @@ impl __sdk::__query_builder::HasCols for TacticalServerClaim {
     type Cols = TacticalServerClaimCols;
     fn cols(table_name: &'static str) -> Self::Cols {
         TacticalServerClaimCols {
-            mission_id: __sdk::__query_builder::Col::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::Col::new(table_name, "instance_id"),
             claim_hash: __sdk::__query_builder::Col::new(table_name, "claim_hash"),
         }
     }
@@ -37,14 +37,14 @@ impl __sdk::__query_builder::HasCols for TacticalServerClaim {
 ///
 /// Provides typed access to indexed columns for query building.
 pub struct TacticalServerClaimIxCols {
-    pub mission_id: __sdk::__query_builder::IxCol<TacticalServerClaim, String>,
+    pub instance_id: __sdk::__query_builder::IxCol<TacticalServerClaim, String>,
 }
 
 impl __sdk::__query_builder::HasIxCols for TacticalServerClaim {
     type IxCols = TacticalServerClaimIxCols;
     fn ix_cols(table_name: &'static str) -> Self::IxCols {
         TacticalServerClaimIxCols {
-            mission_id: __sdk::__query_builder::IxCol::new(table_name, "mission_id"),
+            instance_id: __sdk::__query_builder::IxCol::new(table_name, "instance_id"),
         }
     }
 }

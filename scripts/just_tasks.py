@@ -262,7 +262,7 @@ def build_strategic(module_dir: Path) -> int:
 def generate_bindings(module_dir: Path) -> int:
     print("Generating SpacetimeDB client bindings...")
     code = run([
-        executable("spacetime"), "generate", "--lang", "rust", "--out-dir",
+        executable("spacetime"), "generate", "--yes", "--lang", "rust", "--out-dir",
         "crates/adventuresim-stdb-client/src", "--module-path", str(module_dir),
         "--build-options=--debug",
     ])
@@ -534,7 +534,7 @@ def windows_tactical_commands(
     server = [
         str(stage / "adventuresim-tactical-server.exe"),
         "--addr", f"127.0.0.1:{values['TACTICAL_PORT']}",
-        "--mission-id", values["TACTICAL_MISSION_ID"],
+        "--instance-id", f"scene:mission:{values['TACTICAL_MISSION_ID']}",
         "--scene-key", values["TACTICAL_SCENE_KEY"],
         "--scene-input", values.get("TACTICAL_SCENE_INPUT", "dense-woodland"),
         "--enemy-fixture", values["TACTICAL_ENEMY_FIXTURE"],
@@ -542,7 +542,6 @@ def windows_tactical_commands(
         "--spacetimedb-module", values["TACTICAL_SPACETIMEDB_MODULE"],
         "--expected-party-members", "1",
         "--required-enemy-kills", "1",
-        "--enemy-combat-scale-bps", "10000",
         "--no-timeout",
     ]
     client = [

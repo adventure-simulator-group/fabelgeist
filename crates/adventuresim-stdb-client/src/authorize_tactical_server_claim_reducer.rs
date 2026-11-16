@@ -7,14 +7,14 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub(super) struct AuthorizeTacticalServerClaimArgs {
-    pub mission_id: String,
+    pub instance_id: String,
     pub claim_hash: Vec<u8>,
 }
 
 impl From<AuthorizeTacticalServerClaimArgs> for super::Reducer {
     fn from(args: AuthorizeTacticalServerClaimArgs) -> Self {
         Self::AuthorizeTacticalServerClaim {
-            mission_id: args.mission_id,
+            instance_id: args.instance_id,
             claim_hash: args.claim_hash,
         }
     }
@@ -37,10 +37,10 @@ pub trait authorize_tactical_server_claim {
     /// /// Use [`authorize_tactical_server_claim:authorize_tactical_server_claim_then`] to run a callback after the reducer completes.
     fn authorize_tactical_server_claim(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim_hash: Vec<u8>,
     ) -> __sdk::Result<()> {
-        self.authorize_tactical_server_claim_then(mission_id, claim_hash, |_, _| {})
+        self.authorize_tactical_server_claim_then(instance_id, claim_hash, |_, _| {})
     }
 
     /// Request that the remote module invoke the reducer `authorize_tactical_server_claim` to run as soon as possible,
@@ -51,7 +51,7 @@ pub trait authorize_tactical_server_claim {
     ///  and its status can be observed with the `callback`.
     fn authorize_tactical_server_claim_then(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim_hash: Vec<u8>,
 
         callback: impl FnOnce(
@@ -65,7 +65,7 @@ pub trait authorize_tactical_server_claim {
 impl authorize_tactical_server_claim for super::RemoteReducers {
     fn authorize_tactical_server_claim_then(
         &self,
-        mission_id: String,
+        instance_id: String,
         claim_hash: Vec<u8>,
 
         callback: impl FnOnce(
@@ -76,7 +76,7 @@ impl authorize_tactical_server_claim for super::RemoteReducers {
     ) -> __sdk::Result<()> {
         self.imp.invoke_reducer_with_callback(
             AuthorizeTacticalServerClaimArgs {
-                mission_id,
+                instance_id,
                 claim_hash,
             },
             callback,

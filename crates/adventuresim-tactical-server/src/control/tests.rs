@@ -21,6 +21,8 @@ fn app() -> App {
         Update,
         crate::bot::maintain_guard_stance.in_set(ControlSet::Execute),
     );
+    app.world_mut()
+        .spawn(SceneTerrain::from_heightmap(31, 31, 1.0, vec![0.0; 31 * 31]).unwrap());
     app.world_mut().spawn((
         RigidBody::Static,
         Collider::cuboid(30.0, 1.0, 30.0),

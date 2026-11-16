@@ -3,8 +3,9 @@
 
 #![allow(unused, clippy::all)]
 use super::strategic_minute_type::StrategicMinute;
+use super::tactical_provisioning_status_type::TacticalProvisioningStatus;
 use super::tactical_server_request_type::TacticalServerRequest;
-use super::tactical_settlement_snapshot_type::TacticalSettlementSnapshot;
+use super::tactical_session_type::TacticalSession;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `tactical_server_request`.

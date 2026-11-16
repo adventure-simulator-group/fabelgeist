@@ -757,58 +757,42 @@ impl MissionServerView {
     }
 }
 
-impl From<sats::TacticalServer> for MissionServerView {
-    fn from(row: sats::TacticalServer) -> Self {
-        let sats::TacticalServer {
-            identity,
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
-            addr,
-            cert_digest,
-            authorized_party_member_ids: _,
-            required_enemy_kills: _,
-            enemy_difficulty: _,
-            enemy_combat_scale_bps: _,
-            countermeasure_multiplier_bps: _,
-            normalized_combat_power: _,
-            enemy_character_ids: _,
-            party_has_surprise: _,
-        } = row;
-        Self {
-            identity: Some(identity.to_string()),
-            gateway_bucket,
-            mission_id,
-            scene_key,
-            party_id,
+impl TryFrom<sats::TacticalServer> for MissionServerView {
+    type Error = &'static str;
+
+    fn try_from(row: sats::TacticalServer) -> Result<Self, Self::Error> {
+        let sats::TacticalSession::Mission(mission) = row.session else {
+            return Err("Settlement scenes have no mission presentation");
+        };
+        Ok(Self {
+            identity: Some(row.identity.to_string()),
+            gateway_bucket: row.gateway_bucket,
+            mission_id: mission.mission_id,
+            scene_key: row.scene_key,
+            party_id: mission.party_id,
             status: MissionStatus::Ready,
-            addr,
-            cert_digest,
+            addr: row.addr,
+            cert_digest: row.cert_digest,
             character_id: None,
-        }
+        })
     }
 }
 
-impl From<sats::TacticalServerRequest> for MissionServerRequestView {
-    fn from(row: sats::TacticalServerRequest) -> Self {
-        let sats::TacticalServerRequest {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-            ..
-        } = row;
-        Self {
-            mission_id,
-            gateway_bucket,
-            scene_key,
-            party_id,
-            requested_by,
-            required_enemy_kills,
-        }
+impl TryFrom<sats::TacticalServerRequest> for MissionServerRequestView {
+    type Error = &'static str;
+
+    fn try_from(row: sats::TacticalServerRequest) -> Result<Self, Self::Error> {
+        let sats::TacticalSession::Mission(mission) = row.session else {
+            return Err("Settlement scene requests have no mission presentation");
+        };
+        Ok(Self {
+            mission_id: mission.mission_id,
+            gateway_bucket: row.gateway_bucket,
+            scene_key: row.scene_key,
+            party_id: mission.party_id,
+            requested_by: row.requested_by,
+            required_enemy_kills: mission.required_enemy_kills,
+        })
     }
 }
 
@@ -2358,49 +2342,60 @@ mod tests {
         assert_eq!(role.purpose, sats::RecruitmentRolePurpose::Specialized);
         assert_eq!(role.autoresolve_combat_power, 0);
 
-        let server = MissionServerView::from(sats::TacticalServer {
+        let server = MissionServerView::try_from(sats::TacticalServer {
             identity: sats::spacetimedb_sdk::Identity::ZERO,
+            hosting_connection: sats::spacetimedb_sdk::ConnectionId::ZERO,
             gateway_bucket: 2,
-            mission_id: "mission:1".into(),
             scene_key: "forest".into(),
-            party_id: "party:7".into(),
             addr: "127.0.0.1:3000".into(),
             cert_digest: "cert".into(),
-            authorized_party_member_ids: vec![7, 8],
-            required_enemy_kills: 3,
-            enemy_difficulty: 4,
-            enemy_combat_scale_bps: 5,
-            countermeasure_multiplier_bps: 6,
-            normalized_combat_power: 7,
-            enemy_character_ids: vec![9],
-            party_has_surprise: true,
-        });
+            instance_id: "scene:mission:mission:1".into(),
+            session: sats::TacticalSession::Mission(sats::TacticalMissionSession {
+                mission_id: "mission:1".into(),
+                party_id: "party:7".into(),
+                authorized_party_member_ids: vec![7, 8],
+                required_enemy_kills: 3,
+                enemy_difficulty: 4,
+                enemy_combat_scale_bps: 5,
+                countermeasure_multiplier_bps: 6,
+                normalized_combat_power: 7,
+                enemy_character_ids: vec![9],
+                party_has_surprise: true,
+                settlement: None,
+            }),
+        })
+        .unwrap();
         assert_eq!(
             (server.gateway_bucket, server.status),
             (2, MissionStatus::Ready)
         );
         assert_eq!(server.character_id, None);
 
-        let server_request = MissionServerRequestView::from(sats::TacticalServerRequest {
-            mission_id: "mission:2".into(),
+        let server_request = MissionServerRequestView::try_from(sats::TacticalServerRequest {
+            provisioning: sats::TacticalProvisioningStatus::Pending,
             gateway_bucket: 1,
             scene_key: "road".into(),
-            settlement: None,
-            party_id: "party:7".into(),
             requested_by: 7,
             longitude_e_7: 100,
             latitude_e_7: 200,
             absolute_minute: adventuresim_stdb_client::StrategicMinute { minutes: 300 },
             lunar_phase_minute: sats::StrategicMinute { minutes: 400 },
-            authorized_party_member_ids: vec![7, 8],
-            required_enemy_kills: 9,
-            enemy_difficulty: 10,
-            enemy_combat_scale_bps: 11,
-            countermeasure_multiplier_bps: 12,
-            normalized_combat_power: 13,
-            enemy_character_ids: vec![14],
-            party_has_surprise: false,
-        });
+            instance_id: "scene:mission:mission:2".into(),
+            session: sats::TacticalSession::Mission(sats::TacticalMissionSession {
+                mission_id: "mission:2".into(),
+                settlement: None,
+                party_id: "party:7".into(),
+                authorized_party_member_ids: vec![7, 8],
+                required_enemy_kills: 9,
+                enemy_difficulty: 10,
+                enemy_combat_scale_bps: 11,
+                countermeasure_multiplier_bps: 12,
+                normalized_combat_power: 13,
+                enemy_character_ids: vec![14],
+                party_has_surprise: false,
+            }),
+        })
+        .unwrap();
         assert_eq!(
             (
                 server_request.gateway_bucket,

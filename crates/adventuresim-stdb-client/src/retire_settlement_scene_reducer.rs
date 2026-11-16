@@ -6,46 +6,41 @@ use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
-pub(super) struct LeaveMissionArgs {
-    pub character_id: u64,
-}
+pub(super) struct RetireSettlementSceneArgs {}
 
-impl From<LeaveMissionArgs> for super::Reducer {
-    fn from(args: LeaveMissionArgs) -> Self {
-        Self::LeaveMission {
-            character_id: args.character_id,
-        }
+impl From<RetireSettlementSceneArgs> for super::Reducer {
+    fn from(args: RetireSettlementSceneArgs) -> Self {
+        Self::RetireSettlementScene
     }
 }
 
-impl __sdk::InModule for LeaveMissionArgs {
+impl __sdk::InModule for RetireSettlementSceneArgs {
     type Module = super::RemoteModule;
 }
 
 #[allow(non_camel_case_types)]
-/// Extension trait for access to the reducer `leave_mission`.
+/// Extension trait for access to the reducer `retire_settlement_scene`.
 ///
 /// Implemented for [`super::RemoteReducers`].
-pub trait leave_mission {
-    /// Request that the remote module invoke the reducer `leave_mission` to run as soon as possible.
+pub trait retire_settlement_scene {
+    /// Request that the remote module invoke the reducer `retire_settlement_scene` to run as soon as possible.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and this method provides no way to listen for its completion status.
-    /// /// Use [`leave_mission:leave_mission_then`] to run a callback after the reducer completes.
-    fn leave_mission(&self, character_id: u64) -> __sdk::Result<()> {
-        self.leave_mission_then(character_id, |_, _| {})
+    /// /// Use [`retire_settlement_scene:retire_settlement_scene_then`] to run a callback after the reducer completes.
+    fn retire_settlement_scene(&self) -> __sdk::Result<()> {
+        self.retire_settlement_scene_then(|_, _| {})
     }
 
-    /// Request that the remote module invoke the reducer `leave_mission` to run as soon as possible,
+    /// Request that the remote module invoke the reducer `retire_settlement_scene` to run as soon as possible,
     /// registering `callback` to run when we are notified that the reducer completed.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and its status can be observed with the `callback`.
-    fn leave_mission_then(
+    fn retire_settlement_scene_then(
         &self,
-        character_id: u64,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -55,10 +50,9 @@ pub trait leave_mission {
     ) -> __sdk::Result<()>;
 }
 
-impl leave_mission for super::RemoteReducers {
-    fn leave_mission_then(
+impl retire_settlement_scene for super::RemoteReducers {
+    fn retire_settlement_scene_then(
         &self,
-        character_id: u64,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -67,6 +61,6 @@ impl leave_mission for super::RemoteReducers {
         + 'static,
     ) -> __sdk::Result<()> {
         self.imp
-            .invoke_reducer_with_callback(LeaveMissionArgs { character_id }, callback)
+            .invoke_reducer_with_callback(RetireSettlementSceneArgs {}, callback)
     }
 }

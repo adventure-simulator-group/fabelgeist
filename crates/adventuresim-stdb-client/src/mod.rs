@@ -370,7 +370,7 @@ pub mod encounter_archetype_type;
 pub mod end_marriage_reducer;
 pub mod end_tactical_server_reducer;
 pub mod ensure_settlement_activity_reducer;
-pub mod enter_mission_reducer;
+pub mod enter_tactical_scene_reducer;
 pub mod equip_item_at_placement_reducer;
 pub mod equipment_anchor_kind_type;
 pub mod equipment_attachment_target_selection_type;
@@ -547,8 +547,8 @@ pub mod land_route_type;
 pub mod land_use_fraction_type;
 pub mod land_use_profile_type;
 pub mod land_water_crossing_type;
-pub mod leave_mission_reducer;
 pub mod leave_party_reducer;
+pub mod leave_tactical_scene_reducer;
 pub mod lifecycle_event_failure_type;
 pub mod lifecycle_event_kind_type;
 pub mod limb_injury_table;
@@ -720,6 +720,7 @@ pub mod quarrying_industry_type;
 pub mod quest_generation_authority_type;
 pub mod receive_investigation_claim_reducer;
 pub mod receive_local_problem_rumor_reducer;
+pub mod record_tactical_scene_provisioning_failure_reducer;
 pub mod recover_owned_residence_reducer;
 pub mod recruitment_offer_id_type;
 pub mod recruitment_offer_status_type;
@@ -750,6 +751,7 @@ pub mod report_contract_reducer;
 pub mod reputation_event_type;
 pub mod request_general_party_join_reducer;
 pub mod request_party_action_reducer;
+pub mod request_settlement_scene_reducer;
 pub mod request_tactical_server_for_scene_reducer;
 pub mod request_tactical_server_reducer;
 pub mod request_to_join_party_reducer;
@@ -770,6 +772,7 @@ pub mod rest_at_residence_hours_reducer;
 pub mod rest_at_settlement_hours_reducer;
 pub mod retained_projectile_table;
 pub mod retained_projectile_type;
+pub mod retire_settlement_scene_reducer;
 pub mod retrieve_fireplace_container_reducer;
 pub mod retrieve_fireplace_dish_reducer;
 pub mod retrieve_repaired_item_reducer;
@@ -920,6 +923,7 @@ pub mod surface_lithology_type;
 pub mod surgery_procedure_type;
 pub mod surrender_to_authority_reducer;
 pub mod synchronize_party_for_activity_reducer;
+pub mod tactical_actor_role_type;
 pub mod tactical_business_operator_type;
 pub mod tactical_character_consequence_type;
 pub mod tactical_consequence_receipt_type;
@@ -927,13 +931,15 @@ pub mod tactical_equipment_contact_role_type;
 pub mod tactical_equipment_contact_type;
 pub mod tactical_hit_injury_type;
 pub mod tactical_mission_resolution_type;
-pub mod tactical_mission_side_type;
+pub mod tactical_mission_session_type;
+pub mod tactical_provisioning_status_type;
 pub mod tactical_receipt_body_part_type;
 pub mod tactical_server_claim_type;
 pub mod tactical_server_request_table;
 pub mod tactical_server_request_type;
 pub mod tactical_server_table;
 pub mod tactical_server_type;
+pub mod tactical_session_type;
 pub mod tactical_settlement_snapshot_type;
 pub mod temperance_type;
 pub mod tincture_process_type;
@@ -1351,7 +1357,7 @@ pub use encounter_archetype_type::EncounterArchetype;
 pub use end_marriage_reducer::end_marriage;
 pub use end_tactical_server_reducer::end_tactical_server;
 pub use ensure_settlement_activity_reducer::ensure_settlement_activity;
-pub use enter_mission_reducer::enter_mission;
+pub use enter_tactical_scene_reducer::enter_tactical_scene;
 pub use equip_item_at_placement_reducer::equip_item_at_placement;
 pub use equipment_anchor_kind_type::EquipmentAnchorKind;
 pub use equipment_attachment_target_selection_type::EquipmentAttachmentTargetSelection;
@@ -1528,8 +1534,8 @@ pub use land_route_type::LandRoute;
 pub use land_use_fraction_type::LandUseFraction;
 pub use land_use_profile_type::LandUseProfile;
 pub use land_water_crossing_type::LandWaterCrossing;
-pub use leave_mission_reducer::leave_mission;
 pub use leave_party_reducer::leave_party;
+pub use leave_tactical_scene_reducer::leave_tactical_scene;
 pub use lifecycle_event_failure_type::LifecycleEventFailure;
 pub use lifecycle_event_kind_type::LifecycleEventKind;
 pub use limb_injury_table::*;
@@ -1701,6 +1707,7 @@ pub use quarrying_industry_type::QuarryingIndustry;
 pub use quest_generation_authority_type::QuestGenerationAuthority;
 pub use receive_investigation_claim_reducer::receive_investigation_claim;
 pub use receive_local_problem_rumor_reducer::receive_local_problem_rumor;
+pub use record_tactical_scene_provisioning_failure_reducer::record_tactical_scene_provisioning_failure;
 pub use recover_owned_residence_reducer::recover_owned_residence;
 pub use recruitment_offer_id_type::RecruitmentOfferId;
 pub use recruitment_offer_status_type::RecruitmentOfferStatus;
@@ -1731,6 +1738,7 @@ pub use report_contract_reducer::report_contract;
 pub use reputation_event_type::ReputationEvent;
 pub use request_general_party_join_reducer::request_general_party_join;
 pub use request_party_action_reducer::request_party_action;
+pub use request_settlement_scene_reducer::request_settlement_scene;
 pub use request_tactical_server_for_scene_reducer::request_tactical_server_for_scene;
 pub use request_tactical_server_reducer::request_tactical_server;
 pub use request_to_join_party_reducer::request_to_join_party;
@@ -1751,6 +1759,7 @@ pub use rest_at_residence_hours_reducer::rest_at_residence_hours;
 pub use rest_at_settlement_hours_reducer::rest_at_settlement_hours;
 pub use retained_projectile_table::*;
 pub use retained_projectile_type::RetainedProjectile;
+pub use retire_settlement_scene_reducer::retire_settlement_scene;
 pub use retrieve_fireplace_container_reducer::retrieve_fireplace_container;
 pub use retrieve_fireplace_dish_reducer::retrieve_fireplace_dish;
 pub use retrieve_repaired_item_reducer::retrieve_repaired_item;
@@ -1901,6 +1910,7 @@ pub use surface_lithology_type::SurfaceLithology;
 pub use surgery_procedure_type::SurgeryProcedure;
 pub use surrender_to_authority_reducer::surrender_to_authority;
 pub use synchronize_party_for_activity_reducer::synchronize_party_for_activity;
+pub use tactical_actor_role_type::TacticalActorRole;
 pub use tactical_business_operator_type::TacticalBusinessOperator;
 pub use tactical_character_consequence_type::TacticalCharacterConsequence;
 pub use tactical_consequence_receipt_type::TacticalConsequenceReceipt;
@@ -1908,13 +1918,15 @@ pub use tactical_equipment_contact_role_type::TacticalEquipmentContactRole;
 pub use tactical_equipment_contact_type::TacticalEquipmentContact;
 pub use tactical_hit_injury_type::TacticalHitInjury;
 pub use tactical_mission_resolution_type::TacticalMissionResolution;
-pub use tactical_mission_side_type::TacticalMissionSide;
+pub use tactical_mission_session_type::TacticalMissionSession;
+pub use tactical_provisioning_status_type::TacticalProvisioningStatus;
 pub use tactical_receipt_body_part_type::TacticalReceiptBodyPart;
 pub use tactical_server_claim_type::TacticalServerClaim;
 pub use tactical_server_request_table::*;
 pub use tactical_server_request_type::TacticalServerRequest;
 pub use tactical_server_table::*;
 pub use tactical_server_type::TacticalServer;
+pub use tactical_session_type::TacticalSession;
 pub use tactical_settlement_snapshot_type::TacticalSettlementSnapshot;
 pub use temperance_type::Temperance;
 pub use tincture_process_type::TinctureProcess;
@@ -2068,7 +2080,7 @@ pub enum Reducer {
         targets: Vec<EquipmentAttachmentTargetSelection>,
     },
     AuthorizeTacticalServerClaim {
-        mission_id: String,
+        instance_id: String,
         claim_hash: Vec<u8>,
     },
     AutoresolveMission {
@@ -2203,7 +2215,7 @@ pub enum Reducer {
         slot: u8,
     },
     CreateTacticalServerForRequest {
-        mission_id: String,
+        instance_id: String,
         claim: String,
         addr: String,
         cert_digest: String,
@@ -2292,7 +2304,7 @@ pub enum Reducer {
     EnsureSettlementActivity {
         settlement_id: String,
     },
-    EnterMission {
+    EnterTacticalScene {
         character_id: u64,
         server: __sdk::Identity,
     },
@@ -2402,10 +2414,10 @@ pub enum Reducer {
         nonce: String,
         character_id: u64,
     },
-    LeaveMission {
+    LeaveParty {
         character_id: u64,
     },
-    LeaveParty {
+    LeaveTacticalScene {
         character_id: u64,
     },
     LiquidatePartyInventory {
@@ -2520,6 +2532,9 @@ pub enum Reducer {
         receipt_id: String,
         action_id: String,
     },
+    RecordTacticalSceneProvisioningFailure {
+        instance_id: String,
+    },
     RecoverOwnedResidence {
         character_id: u64,
         holding_id: String,
@@ -2591,6 +2606,9 @@ pub enum Reducer {
         summary: String,
         payload: String,
     },
+    RequestSettlementScene {
+        character_id: u64,
+    },
     RequestTacticalServer {
         character_id: u64,
         mission_id: String,
@@ -2636,6 +2654,7 @@ pub enum Reducer {
         requested_minutes: u64,
         service: SettlementActionService,
     },
+    RetireSettlementScene,
     RetrieveFireplaceContainer {
         character_id: u64,
         fireplace_fixture_id: String,
@@ -2658,7 +2677,7 @@ pub enum Reducer {
         limit: u32,
     },
     RevokeTacticalServerClaim {
-        mission_id: String,
+        instance_id: String,
     },
     SaveRecruitmentRole {
         owner_id: u64,
@@ -2992,7 +3011,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::EndMarriage { .. } => "end_marriage",
             Reducer::EndTacticalServer { .. } => "end_tactical_server",
             Reducer::EnsureSettlementActivity { .. } => "ensure_settlement_activity",
-            Reducer::EnterMission { .. } => "enter_mission",
+            Reducer::EnterTacticalScene { .. } => "enter_tactical_scene",
             Reducer::EquipItemAtPlacement { .. } => "equip_item_at_placement",
             Reducer::ExamineCorpse { .. } => "examine_corpse",
             Reducer::ExhumeCorpse { .. } => "exhume_corpse",
@@ -3012,8 +3031,8 @@ impl __sdk::Reducer for Reducer {
             Reducer::JoinDialogueSession { .. } => "join_dialogue_session",
             Reducer::JoinOrganization { .. } => "join_organization",
             Reducer::KillSimulationCharacter { .. } => "kill_simulation_character",
-            Reducer::LeaveMission { .. } => "leave_mission",
             Reducer::LeaveParty { .. } => "leave_party",
+            Reducer::LeaveTacticalScene { .. } => "leave_tactical_scene",
             Reducer::LiquidatePartyInventory { .. } => "liquidate_party_inventory",
             Reducer::NegotiateHostileWithdrawal { .. } => "negotiate_hostile_withdrawal",
             Reducer::OpenCorpse { .. } => "open_corpse",
@@ -3036,6 +3055,9 @@ impl __sdk::Reducer for Reducer {
             Reducer::PutInventoryItemInContainer { .. } => "put_inventory_item_in_container",
             Reducer::ReceiveInvestigationClaim { .. } => "receive_investigation_claim",
             Reducer::ReceiveLocalProblemRumor { .. } => "receive_local_problem_rumor",
+            Reducer::RecordTacticalSceneProvisioningFailure { .. } => {
+                "record_tactical_scene_provisioning_failure"
+            }
             Reducer::RecoverOwnedResidence { .. } => "recover_owned_residence",
             Reducer::RefreshCapabilities { .. } => "refresh_capabilities",
             Reducer::RefreshStrategicCondition { .. } => "refresh_strategic_condition",
@@ -3055,6 +3077,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::ReportContract { .. } => "report_contract",
             Reducer::RequestGeneralPartyJoin { .. } => "request_general_party_join",
             Reducer::RequestPartyAction { .. } => "request_party_action",
+            Reducer::RequestSettlementScene { .. } => "request_settlement_scene",
             Reducer::RequestTacticalServer { .. } => "request_tactical_server",
             Reducer::RequestTacticalServerForScene { .. } => "request_tactical_server_for_scene",
             Reducer::RequestToJoinParty { .. } => "request_to_join_party",
@@ -3064,6 +3087,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::RestAtCamp { .. } => "rest_at_camp",
             Reducer::RestAtResidenceHours { .. } => "rest_at_residence_hours",
             Reducer::RestAtSettlementHours { .. } => "rest_at_settlement_hours",
+            Reducer::RetireSettlementScene => "retire_settlement_scene",
             Reducer::RetrieveFireplaceContainer { .. } => "retrieve_fireplace_container",
             Reducer::RetrieveFireplaceDish { .. } => "retrieve_fireplace_dish",
             Reducer::RetrieveRepairedItem { .. } => "retrieve_repaired_item",
@@ -3295,10 +3319,10 @@ impl __sdk::Reducer for Reducer {
                 targets: targets.clone(),
 }),
             Reducer::AuthorizeTacticalServerClaim{
-                mission_id,
+                instance_id,
                 claim_hash,
 }             => __sats::bsatn::to_vec(&authorize_tactical_server_claim_reducer::AuthorizeTacticalServerClaimArgs {
-                mission_id: mission_id.clone(),
+                instance_id: instance_id.clone(),
                 claim_hash: claim_hash.clone(),
 }),
             Reducer::AutoresolveMission{
@@ -3538,12 +3562,12 @@ impl __sdk::Reducer for Reducer {
                 slot: slot.clone(),
 }),
             Reducer::CreateTacticalServerForRequest{
-                mission_id,
+                instance_id,
                 claim,
                 addr,
                 cert_digest,
 }             => __sats::bsatn::to_vec(&create_tactical_server_for_request_reducer::CreateTacticalServerForRequestArgs {
-                mission_id: mission_id.clone(),
+                instance_id: instance_id.clone(),
                 claim: claim.clone(),
                 addr: addr.clone(),
                 cert_digest: cert_digest.clone(),
@@ -3696,10 +3720,10 @@ impl __sdk::Reducer for Reducer {
 }             => __sats::bsatn::to_vec(&ensure_settlement_activity_reducer::EnsureSettlementActivityArgs {
                 settlement_id: settlement_id.clone(),
 }),
-            Reducer::EnterMission{
+            Reducer::EnterTacticalScene{
                 character_id,
                 server,
-}             => __sats::bsatn::to_vec(&enter_mission_reducer::EnterMissionArgs {
+}             => __sats::bsatn::to_vec(&enter_tactical_scene_reducer::EnterTacticalSceneArgs {
                 character_id: character_id.clone(),
                 server: server.clone(),
 }),
@@ -3896,14 +3920,14 @@ impl __sdk::Reducer for Reducer {
                 nonce: nonce.clone(),
                 character_id: character_id.clone(),
 }),
-            Reducer::LeaveMission{
-                character_id,
-}             => __sats::bsatn::to_vec(&leave_mission_reducer::LeaveMissionArgs {
-                character_id: character_id.clone(),
-}),
             Reducer::LeaveParty{
                 character_id,
 }             => __sats::bsatn::to_vec(&leave_party_reducer::LeavePartyArgs {
+                character_id: character_id.clone(),
+}),
+            Reducer::LeaveTacticalScene{
+                character_id,
+}             => __sats::bsatn::to_vec(&leave_tactical_scene_reducer::LeaveTacticalSceneArgs {
                 character_id: character_id.clone(),
 }),
             Reducer::LiquidatePartyInventory{
@@ -4112,6 +4136,11 @@ impl __sdk::Reducer for Reducer {
                 receipt_id: receipt_id.clone(),
                 action_id: action_id.clone(),
 }),
+            Reducer::RecordTacticalSceneProvisioningFailure{
+                instance_id,
+}             => __sats::bsatn::to_vec(&record_tactical_scene_provisioning_failure_reducer::RecordTacticalSceneProvisioningFailureArgs {
+                instance_id: instance_id.clone(),
+}),
             Reducer::RecoverOwnedResidence{
                 character_id,
                 holding_id,
@@ -4237,6 +4266,11 @@ impl __sdk::Reducer for Reducer {
                 summary: summary.clone(),
                 payload: payload.clone(),
 }),
+            Reducer::RequestSettlementScene{
+                character_id,
+}             => __sats::bsatn::to_vec(&request_settlement_scene_reducer::RequestSettlementSceneArgs {
+                character_id: character_id.clone(),
+}),
             Reducer::RequestTacticalServer{
                 character_id,
                 mission_id,
@@ -4318,7 +4352,9 @@ impl __sdk::Reducer for Reducer {
                 requested_minutes: requested_minutes.clone(),
                 service: service.clone(),
 }),
-            Reducer::RetrieveFireplaceContainer{
+            Reducer::RetireSettlementScene => __sats::bsatn::to_vec(&retire_settlement_scene_reducer::RetireSettlementSceneArgs {
+                }),
+Reducer::RetrieveFireplaceContainer{
                 character_id,
                 fireplace_fixture_id,
                 container_object_id,
@@ -4357,9 +4393,9 @@ impl __sdk::Reducer for Reducer {
                 limit: limit.clone(),
 }),
             Reducer::RevokeTacticalServerClaim{
-                mission_id,
+                instance_id,
 }             => __sats::bsatn::to_vec(&revoke_tactical_server_claim_reducer::RevokeTacticalServerClaimArgs {
-                mission_id: mission_id.clone(),
+                instance_id: instance_id.clone(),
 }),
             Reducer::SaveRecruitmentRole{
                 owner_id,

@@ -174,19 +174,21 @@ pub fn autoresolve_mission(
         .tactical_server_request_authority()
         .iter()
         .any(|request| {
+            let Some(tactical) = request.session.mission() else { return false; };
             ctx.db
                 .mission_authority()
                 .id()
-                .find(&request.mission_id)
+                .find(&tactical.mission_id)
                 .is_some_and(|authority| {
                     authority.hostile_group_id.as_deref() == Some(hostile_group_id)
                 })
         })
         || ctx.db.tactical_server_authority().iter().any(|server| {
+            let Some(tactical) = server.session.mission() else { return false; };
             ctx.db
                 .mission_authority()
                 .id()
-                .find(&server.mission_id)
+                .find(&tactical.mission_id)
                 .is_some_and(|authority| {
                     authority.hostile_group_id.as_deref() == Some(hostile_group_id)
                 })
@@ -287,23 +289,26 @@ pub fn cancel_mission_request(
             return Err("Mission request is already terminal".into());
         }
     }
+    let instance_id = adventuresim_core::tactical_session::TacticalInstanceId::for_mission(
+        &adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_owned)?
+    ).into_string();
     let request = ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
+        .instance_id()
+        .find(&instance_id)
         .ok_or("Mission request not found")?;
-    if request.party_id != party_id {
+    if !request.session.mission().is_some_and(|mission| mission.party_id == party_id) {
         return Err("Mission request belongs to another party".into());
     }
     ctx.db
         .tactical_server_request_authority()
-        .mission_id()
-        .delete(&mission_id);
+        .instance_id()
+        .delete(&instance_id);
     ctx.db
         .tactical_server_claim()
-        .mission_id()
-        .delete(&mission_id);
+        .instance_id()
+        .delete(&instance_id);
     mission.status = MissionAttemptStatus::Cancelled;
     mission.parsed_state().map_err(|error| error.to_string())?;
     ctx.db.mission_authority().id().update(mission);
@@ -511,24 +516,26 @@ pub fn seed_standalone_tactical_mission(
     ) {
         return Err("Development bootstrap is disabled or unauthorized".into());
     }
+    let instance_id = adventuresim_core::tactical_session::TacticalInstanceId::for_mission(
+        &adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_owned)?
+    ).into_string();
     let enemy_fixture = parse_tactical_enemy_fixture(&enemy_fixture_yaml)?;
     let required_enemy_kills = enemy_fixture.enemy_count();
     if ctx
         .db
         .tactical_server_request_authority()
-        .mission_id()
-        .find(&mission_id)
+        .instance_id()
+        .find(&instance_id)
         .is_some()
         || ctx
             .db
             .tactical_server_authority()
-            .mission_id()
-            .find(&mission_id)
+            .instance_id()
+            .find(&instance_id)
             .is_some()
     {
         return Ok(());
     }
-    adventuresim_core::mission::MissionId::new(mission_id.clone()).map_err(str::to_string)?;
     let standalone_mission_family = StandaloneMissionFamily::from_mission_id(&mission_id)?;
 
     if !ctx
@@ -755,36 +762,26 @@ pub fn seed_standalone_tactical_mission(
         .into_member_ids();
     let settlement = crate::tactical::tactical_settlement_snapshot(ctx, &case_site)?;
     let environment_minutes = party_wilderness_environment_minutes(&party);
-    ctx.db
-        .tactical_server_request_authority()
-        .insert(crate::tactical::TacticalServerRequest {
-            mission_id: mission_id.clone(),
-            gateway_bucket: 0,
-            scene_key,
-            party_id,
-            requested_by: character_id,
-            longitude_e7: case_site.longitude_e7,
-            latitude_e7: case_site.latitude_e7,
-            settlement,
-            absolute_minute: environment_minutes
-                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
-            lunar_phase_minute: environment_minutes
-                .map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
-            authorized_party_member_ids,
-            required_enemy_kills: enemy_roster.enemy_count().get(),
-            enemy_difficulty: mission.enemy_difficulty,
-            enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
-            countermeasure_multiplier_bps: u32::from(
-                adventuresim_world_schema::BASIS_POINTS_PER_WHOLE,
-            ),
-            normalized_combat_power: mission.normalized_combat_power,
-            enemy_character_ids: enemy_roster.into_enemy_ids(),
-            party_has_surprise: !mission.contacted_before_combat,
-        });
+    let session = crate::tactical::TacticalSession::Mission(crate::tactical::TacticalMissionSession {
+        mission_id, party_id, settlement, authorized_party_member_ids,
+        required_enemy_kills: enemy_roster.enemy_count().get(),
+        enemy_difficulty: mission.enemy_difficulty, enemy_combat_scale_bps: mission.enemy_combat_scale_bps,
+        countermeasure_multiplier_bps: u32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),
+        normalized_combat_power: mission.normalized_combat_power,
+        enemy_character_ids: enemy_roster.into_enemy_ids(), party_has_surprise: !mission.contacted_before_combat,
+    });
+    ctx.db.tactical_server_request_authority().insert(crate::tactical::TacticalServerRequest {
+            provisioning: crate::tactical::TacticalProvisioningStatus::Pending,
+        instance_id: instance_id.clone(), gateway_bucket: 0, scene_key, requested_by: character_id,
+        longitude_e7: case_site.longitude_e7, latitude_e7: case_site.latitude_e7,
+        absolute_minute: environment_minutes.map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.0),
+        lunar_phase_minute: environment_minutes.map_or(adventuresim_world_schema::calendar::WORLD_START_MINUTE, |value| value.1),
+        session,
+    });
     ctx.db
         .tactical_server_claim()
         .insert(crate::tactical::TacticalServerClaim {
-            mission_id,
+            instance_id,
             claim_hash: Sha256::digest(tactical_claim.as_bytes()).to_vec(),
         });
     Ok(())
@@ -802,29 +799,29 @@ fn retire_interrupted_standalone_requests(
         .iter()
         .filter(|request| {
             request.requested_by == character_id
-                && request.party_id == party_id
-                && request.mission_id != next_mission_id
+                && request.session.mission().is_some_and(|mission| mission.party_id == party_id && mission.mission_id != next_mission_id)
         })
         .collect();
     for request in requests {
+        let Some(tactical) = request.session.mission() else { continue; };
         let mission = ctx
             .db
             .mission_authority()
             .id()
-            .find(&request.mission_id)
+            .find(&tactical.mission_id)
             .ok_or("Interrupted tactical request has no mission authority")?;
         if mission.case_id != standalone_case_id(&mission.id) {
             return Err("Refusing to retire a non-standalone tactical request".into());
         }
         ctx.db
             .tactical_server_request_authority()
-            .mission_id()
-            .delete(&request.mission_id);
+            .instance_id()
+            .delete(&request.instance_id);
         ctx.db
             .tactical_server_claim()
-            .mission_id()
-            .delete(&request.mission_id);
-        fail_bound_mission_attempt(ctx, &request.mission_id)?;
+            .instance_id()
+            .delete(&request.instance_id);
+        fail_bound_mission_attempt(ctx, &tactical.mission_id)?;
     }
     Ok(())
 }
