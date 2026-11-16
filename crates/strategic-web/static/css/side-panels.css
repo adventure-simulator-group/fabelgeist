@@ -51,6 +51,13 @@
   overflow: visible;
 }
 .side-panel-content > .inventory-owner-panel { height: 100%; }
+.side-panel-content > .inn-rest-panel {
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: none;
+  margin-top: 0;
+  overflow: visible;
+}
 .side-panel-content:has(.repair-custody-panel:not([hidden])) > .repair-context-status { display: none; }
 @media (min-width: 1101px) {
   #strategic-page[data-strategic-workspace] .main-grid:has([data-panel-pane]:not([hidden]) [data-inventory-browser]) {

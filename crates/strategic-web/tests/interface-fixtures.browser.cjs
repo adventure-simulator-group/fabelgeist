@@ -49,6 +49,10 @@ test("rendered interface fixtures fit desktop and narrow viewports", { skip: !di
               const controls = await tab.getAttribute("aria-controls");
               assert.equal(await page.locator(`[id='${controls}']`).isVisible(), true, `${name} ${side} ${kind} at ${width}px`);
               assert.equal(await root.locator("[data-panel-pane]:not([hidden])").count(), 1);
+              if (name === "inn-panels" && side === "left" && kind === "services") {
+                const rest = root.locator("[data-rest-submit]").first();
+                await rest.click({ trial: true, timeout: 5000 });
+              }
               await page.screenshot({ path: path.join(directory, `${name}-${side}-${kind}-${width}.png`), fullPage: true });
             }
           }
