@@ -4,6 +4,7 @@ mod config;
 mod float_epsilon;
 mod manifests;
 mod scan;
+mod source_year_contract;
 
 use std::{env, path::PathBuf, process::ExitCode};
 

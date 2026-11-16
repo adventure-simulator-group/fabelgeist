@@ -190,8 +190,6 @@ REQUIRED_SHARED_FIELDS = {
         "year: CalendarYear",
     Path("crates/adventuresim-world-import/src/draft.rs"):
         "pub(crate) year: CalendarYear",
-    Path("crates/adventuresim-world-import/src/sources/viabundus/chronology.rs"):
-        "from: Option<CalendarYear>",
     Path("crates/strategic-web/src/medical.rs"):
         "pub administered_at: StrategicMinute",
     Path("crates/adventuresim-stdb-module/src/time/clock.rs"):
