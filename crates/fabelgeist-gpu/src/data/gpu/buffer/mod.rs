@@ -5,11 +5,13 @@ use std::sync::Arc;
 mod definition;
 mod extent;
 mod label;
+mod read_error;
 mod readback;
 mod upload;
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
+pub use read_error::{BufferReadError, BufferReadResult};
 pub use upload::{BufferUpload, BufferUploadOccupancy};
 
 #[derive(Clone, Debug)]
@@ -37,13 +39,27 @@ impl Buffer {
         })
     }
 
-    pub async fn read<T: bytemuck::AnyBitPattern>(&self, context: &WgpuContext) -> Result<Vec<T>> {
+    /// Read logical bytes as whole, nonzero-sized host elements.
+    ///
+    /// Host admission precedes SDK work. Mapping and callback errors retain
+    /// their native causes; copy/submission and cleanup policies are unchanged.
+    ///
+    /// ```compile_fail
+    /// use fabelgeist_gpu::prelude::{Buffer, WgpuContext};
+    /// async fn erased(buffer: &Buffer, context: &WgpuContext) -> anyhow::Result<Vec<u32>> {
+    ///     buffer.read(context).await
+    /// }
+    /// ```
+    pub async fn read<T: bytemuck::AnyBitPattern>(
+        &self,
+        context: &WgpuContext,
+    ) -> BufferReadResult<Vec<T>> {
         let size = u64::from(self.size);
-        let readback = readback::Readback::<T>::new(size)?;
+        let readback = readback::Readback::<T>::new(self.size)?;
         let is_mappable = self.usage.contains(wgpu::BufferUsages::MAP_READ);
 
-        let (target_buffer, needs_unmap) = if is_mappable {
-            (self.buffer.clone(), false)
+        let target_buffer = if is_mappable {
+            self.buffer.clone()
         } else {
             // 1. Create staging buffer
             let staging_buffer = context.device.create_buffer(&wgpu::BufferDescriptor {
@@ -59,7 +75,7 @@ impl Buffer {
                 .create_command_encoder(&wgpu::CommandEncoderDescriptor { label: None });
             encoder.copy_buffer_to_buffer(&self.buffer, 0, &staging_buffer, 0, size);
             context.queue.submit(Some(encoder.finish()));
-            (Arc::new(staging_buffer), true)
+            Arc::new(staging_buffer)
         };
 
         #[allow(unused_mut)]
@@ -86,7 +102,7 @@ impl Buffer {
             loop {
                 match rx.try_recv() {
                     Ok(Some(res)) => {
-                        res.map_err(|e| anyhow!("GPU Mapping error: {:?}", e))?;
+                        res.map_err(BufferReadError::Mapping)?;
                         break;
                     }
                     // `Wait` covers submitted work, so this is reached only for
@@ -97,7 +113,7 @@ impl Buffer {
                         let _ = context.device.poll(wgpu::PollType::Poll);
                         std::thread::yield_now();
                     }
-                    Err(_) => return Err(anyhow!("Mapping channel closed")),
+                    Err(cause) => return Err(BufferReadError::CanceledChannel(cause)),
                 }
             }
         }
@@ -105,8 +121,8 @@ impl Buffer {
         // 3. Await result (only on wasm, since native loop already consumed rx)
         #[cfg(target_arch = "wasm32")]
         rx.await
-            .map_err(|_| anyhow!("Mapping channel closed"))?
-            .map_err(|_| anyhow!("GPU Mapping error"))?;
+            .map_err(BufferReadError::CanceledChannel)?
+            .map_err(BufferReadError::Mapping)?;
 
         // Allocate before obtaining the mapped view so WASM memory growth
         // cannot detach it; initialize typed values only after copying bytes.
@@ -115,12 +131,9 @@ impl Buffer {
         let result = readback.copy_from(&data);
         drop(data);
 
-        if needs_unmap {
-            target_buffer.unmap();
-        } else {
-            // If it's the original buffer, we still need to unmap it so it can be used by the GPU again
-            target_buffer.unmap();
-        }
+        // Release either the original mapped buffer or the temporary staging
+        // buffer after dropping the view, including a host copy rejection.
+        target_buffer.unmap();
 
         result
     }
