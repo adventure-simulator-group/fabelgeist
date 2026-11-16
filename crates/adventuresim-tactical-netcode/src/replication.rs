@@ -13,10 +13,9 @@ use bevy_replicon::{
 
 use crate::TACTICAL_TICK_HZ;
 use crate::message::{
-    DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentActionRequest,
-    JoinRequest, MeleeActionRequest, PlayerInputRequest, RangedActionRequest, ReconnectCapability,
-    SceneVistaBundle, SuccessfulAttackResponse, TacticalCombatConfigSnapshot,
-    TacticalOutcomeResponse,
+    DebugDumpWorldRequest, DebugGameTimeScaleRequest, EquipmentActionRequest, JoinRequest,
+    PlayerInputRequest, ReconnectCapability, SceneVistaBundle, SuccessfulAttackResponse,
+    TacticalCombatConfigSnapshot, TacticalOutcomeResponse,
 };
 
 #[derive(Default)]
@@ -31,6 +30,10 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
         app.insert_resource(Time::<Fixed>::from_hz(f64::from(TACTICAL_TICK_HZ)))
             .add_plugins(RepliconPlugins)
             .replicate::<Player>()
+            .replicate::<adventuresim_tactical_core::control::CharacterControl>()
+            .replicate::<adventuresim_tactical_core::control::CharacterOrder>()
+            .replicate::<adventuresim_tactical_core::control::WaypointQueue>()
+            .replicate::<adventuresim_tactical_core::control::BehaviorPolicy>()
             .replicate::<CharacterId>()
             .replicate::<CharacterDimensions>()
             .replicate::<Limbs>()
@@ -79,10 +82,10 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .add_client_event::<PlayerInputRequest>(Channel::Unreliable)
             .add_client_event::<DebugGameTimeScaleRequest>(Channel::Ordered)
             .add_client_event::<DebugDumpWorldRequest>(Channel::Ordered)
-            .add_client_event::<DefendRequest>(Channel::Ordered)
+            .add_mapped_client_event::<crate::control::ControlRequest>(Channel::Ordered)
+            .add_server_event::<crate::control::ControlResponse>(Channel::Ordered)
+            .add_mapped_client_event::<crate::control::DirectActionRequest>(Channel::Ordered)
             .add_mapped_client_event::<EquipmentActionRequest>(Channel::Ordered)
-            .add_mapped_client_event::<MeleeActionRequest>(Channel::Ordered)
-            .add_mapped_client_event::<RangedActionRequest>(Channel::Ordered)
             .add_mapped_server_event::<SuccessfulAttackResponse>(Channel::Ordered)
             .add_server_event::<TacticalOutcomeResponse>(Channel::Ordered);
 

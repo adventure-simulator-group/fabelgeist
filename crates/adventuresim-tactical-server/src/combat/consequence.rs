@@ -35,6 +35,12 @@ pub(super) fn apply_melee_attack_result(
         event.result,
         event.body_part,
     );
+    if applied.is_some() {
+        commands.trigger(crate::control::perception::ReceivedDamage {
+            attacker: event.attacker,
+            defender: event.target,
+        });
+    }
     if let Ok(mut velocity) = velocities.get_mut(event.impact_recipient) {
         velocity.0 += event.impact_velocity_change;
     }

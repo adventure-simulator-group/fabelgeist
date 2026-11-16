@@ -45,9 +45,11 @@ pub(crate) use ingress::apply_defend_intent;
 pub(crate) use ingress::{MeleeLungeRequest, melee_target_lunge_arrival};
 use ingress::{
     authoritative_line_of_sight, on_defender_response_request, on_melee_action_request,
-    on_ranged_action_request, on_ranged_attack_started,
+    on_ranged_action_request,
 };
-pub(crate) use ingress::{on_melee_attack_started, resolve_pending_melee_contacts};
+pub(crate) use ingress::{
+    on_melee_attack_started, on_ranged_attack_started, resolve_pending_melee_contacts,
+};
 use melee::resolve_melee_attack;
 pub(crate) use protocol::{
     DefendIntent, DefendIntentResolved, MeleeAttackIntent, MeleeAttackStartedIntent,
@@ -66,6 +68,8 @@ mod melee;
 mod protocol;
 mod ragdoll;
 mod ranged;
+mod ranged_commitment;
+pub(crate) use ranged_commitment::{PendingRangedContact, resolve_pending_ranged_contacts};
 
 fn authoritative_impact_effects(
     inventory: &InventoryViewer<'_, '_>,
@@ -505,6 +509,7 @@ impl Plugin for CombatPlugin {
                         .after(PlayerProjectionSet::Spawn),
                     update_authoritative_ragdoll_lifecycle.after(CombatSet::Condition),
                     resolve_pending_melee_contacts.after(CombatSet::Condition),
+                    resolve_pending_ranged_contacts.after(CombatSet::Condition),
                 ),
             );
         #[cfg(feature = "iteration")]
@@ -761,11 +766,18 @@ mod tests {
         let validation = resolver
             .find("validate_ranged_intent(facts)")
             .expect("cheap validation");
+        let permission = resolver
+            .find("authority.permits(now)")
+            .expect("windup permission");
         let authorization = resolver
             .find("authority.authorize_shot")
             .expect("one-shot authorization");
-        let ammo_scan = resolver.find("q_ammo.iter().find").expect("ammo scan");
-        assert!(validation < authorization && authorization < ammo_scan);
+        let ammo_scan = resolver.find("RangedAmmunition::find").expect("ammo scan");
+        let ammo_consumption = resolver
+            .find("ammunition.consume")
+            .expect("ammo consumption");
+        assert!(permission < validation && validation < ammo_scan);
+        assert!(ammo_scan < authorization && authorization < ammo_consumption);
     }
 
     #[test]
@@ -775,7 +787,7 @@ mod tests {
 
         assert!(
             !melee
-                .split("let Some(attack) = authorize_completion")
+                .split("completion.authorize(&mut authority")
                 .nth(1)
                 .unwrap()
                 .contains("event.")

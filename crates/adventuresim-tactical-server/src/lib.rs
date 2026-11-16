@@ -19,10 +19,12 @@
 
 pub mod bot;
 pub mod combat;
+pub mod control;
 pub mod equipment;
 #[cfg(feature = "iteration")]
 pub mod iteration;
 pub mod mission;
+mod navigation;
 pub mod openings;
 pub mod player_projection;
 mod scene_spawn;

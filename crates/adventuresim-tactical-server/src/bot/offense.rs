@@ -26,6 +26,7 @@ type OffensiveAiQuery<'world, 'state> = Query<
         &'static mut CharacterLook,
         &'static mut AuthoritativeMovementIntent,
         &'static mut OffensiveCombatAi,
+        &'static crate::control::AgentState,
         &'static TacticalCombatState,
         &'static SkeletonState,
         Option<&'static CombatantYielded>,
@@ -57,6 +58,7 @@ pub(super) struct OffensiveAiContext<'w, 's> {
 /// Enables server-owned offensive control, preferring ranged fire while a
 /// usable ranged weapon and arrows are available and otherwise using melee.
 #[derive(Component, Debug, Reflect, MapEntities)]
+#[require(crate::control::AgentState)]
 #[reflect(Component)]
 pub struct OffensiveCombatAi {
     #[entities]
@@ -104,29 +106,24 @@ pub(super) fn drive_offensive_combat_ai(
         combat_config,
     } = context;
     let config = &combat_config.ai.ordinary.offense;
-    for (entity, transform, side, mut look, mut input, mut controller, state, skeleton, yielded) in
-        &mut ai
+    for (
+        entity,
+        transform,
+        _side,
+        mut look,
+        mut input,
+        mut controller,
+        agent,
+        state,
+        skeleton,
+        yielded,
+    ) in &mut ai
     {
         if state.is_incapacitated() || yielded.is_some() {
             input.0 = None;
             continue;
         }
-        let target = candidates
-            .iter()
-            .filter(
-                |(candidate, _, candidate_side, candidate_state, _, candidate_yielded)| {
-                    *candidate != entity
-                        && **candidate_side != *side
-                        && !candidate_state.is_incapacitated()
-                        && candidate_yielded.is_none()
-                },
-            )
-            .min_by(
-                |(a, a_transform, _, _, _, _), (b, b_transform, _, _, _, _)| {
-                    compare_target(transform, a_transform, *a, b_transform, *b)
-                },
-            )
-            .map(|(target, _, _, _, _, _)| target);
+        let target = agent.target();
 
         if target != controller.target {
             let instinct = viewer.get(entity).map_or(3.0, |view| {

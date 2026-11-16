@@ -19,6 +19,8 @@
 pub mod animation;
 pub mod camera;
 pub mod debug;
+mod hud;
+mod indirect_control;
 pub mod player;
 pub mod presentation;
 mod targeting;

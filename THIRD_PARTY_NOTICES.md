@@ -1,5 +1,15 @@
 # Third-party notices
 
+## Rerecast navigation mesh generation
+
+`vendor/rerecast/` contains Rerecast 0.4.0 by Jan Hohenheim under MIT OR
+Apache-2.0, with upstream pull request 72 backported. Its contour repair is
+adapted from Recast Navigation under the zlib license; the attribution is
+retained in the patched source.
+
+- Source: <https://github.com/janhohenheim/rerecast>
+- Backport: <https://github.com/janhohenheim/rerecast/pull/72>
+
 ## bevy_ahoy character controller
 
 `vendor/bevy_ahoy/` retains Jan Hohenheim's bevy_ahoy 0.2.0 source under

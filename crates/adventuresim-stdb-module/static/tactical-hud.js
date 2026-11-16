@@ -51,6 +51,7 @@ export function installTacticalHud({ container, command }) {
   const texts = {
     "attack-timer": element("div", "hud-attack-timer", attackInfo),
     guard: element("div", "hud-guard", root),
+    control: element("div", "hud-control", root),
   };
   const attackResult = element("div", "hud-attack-result", attackInfo);
   element("div", "hud-controls", root, CONTROLS);

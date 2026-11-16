@@ -182,9 +182,9 @@ impl PredictedRangedAttack {
             return Ok(());
         }
         cmd.entity(entity).insert(attack_state);
-        cmd.client_trigger(RangedActionRequest::Start {
+        cmd.direct_action(DirectAction::Ranged(RangedActionRequest {
             target: target.map(|target| target.body),
-        });
+        }));
         Ok(())
     }
 }
@@ -269,11 +269,11 @@ impl ImmediateMeleeAttack {
         cmd.entity(entity)
             .insert(attack_state)
             .remove::<BufferedMeleeAttack>();
-        cmd.client_trigger(MeleeActionRequest {
+        cmd.direct_action(DirectAction::Melee(MeleeActionRequest {
             strike_family,
             hand,
             target: target.map(|target| target.body),
-        });
+        }));
         Ok(())
     }
 }
@@ -355,6 +355,7 @@ pub(super) fn try_start_attack(
 }
 
 pub(super) fn flush_buffered_melee_attacks(
+    local: Res<LocalControl>,
     mut cmd: Commands,
     mut characters: Query<
         (Entity, &BufferedMeleeAttack, &mut SkeletonState),
@@ -366,11 +367,12 @@ pub(super) fn flush_buffered_melee_attacks(
     targeting: CombatTargeting,
 ) {
     for (entity, buffered, mut skeleton) in &mut characters {
+        if !local.is_direct() {
+            cmd.entity(entity).remove::<BufferedMeleeAttack>();
+            continue;
+        }
         let attempt = (|| -> AnimationValueResult<()> {
-            let Some(spec) = (match buffered.hand {
-                AttackHand::Main => skeleton.select_main_attack(buffered.family),
-                AttackHand::Offhand => skeleton.select_offhand_attack(buffered.family),
-            }) else {
+            let Some(spec) = select_buffered_attack(&skeleton, buffered) else {
                 return Ok(());
             };
             let Ok((reach, melee, windup_secs, recovery_secs, curve)) = viewer
@@ -439,15 +441,25 @@ pub(super) fn flush_buffered_melee_attacks(
             cmd.entity(entity)
                 .insert(attack_state)
                 .remove::<BufferedMeleeAttack>();
-            cmd.client_trigger(MeleeActionRequest {
+            cmd.direct_action(DirectAction::Melee(MeleeActionRequest {
                 strike_family: buffered.family,
                 hand: buffered.hand,
                 target: target.map(|target| target.body),
-            });
+            }));
             Ok(())
         })();
         if let Err(error) = attempt {
             warn!(?entity, %error, "cannot schedule buffered melee attack");
         }
+    }
+}
+
+fn select_buffered_attack(
+    skeleton: &SkeletonState,
+    buffered: &BufferedMeleeAttack,
+) -> Option<AttackSpec> {
+    match buffered.hand {
+        AttackHand::Main => skeleton.select_main_attack(buffered.family),
+        AttackHand::Offhand => skeleton.select_offhand_attack(buffered.family),
     }
 }

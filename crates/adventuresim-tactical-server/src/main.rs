@@ -47,11 +47,13 @@ use crate::{
 
 mod bot;
 mod combat;
+mod control;
 #[cfg(feature = "debug")]
 mod debug_dump;
 mod equipment;
 mod furniture;
 mod mission;
+mod navigation;
 mod openings;
 mod player_projection;
 mod scene_obstacles;
@@ -60,6 +62,10 @@ mod scene_spawn;
 mod startup;
 mod stdb;
 mod terrain_collision;
+
+#[cfg(test)]
+#[path = "navigation/scene_tests.rs"]
+mod navigation_scene_tests;
 
 const MISSION_TIMEOUT_SECS: f32 = 300.0;
 

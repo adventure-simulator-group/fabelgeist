@@ -13,10 +13,7 @@ use adventuresim_core::{
     tactical_fixture::{TacticalEnemyBehavior, TacticalEnemyFixture},
 };
 use adventuresim_tactical_core::prelude::*;
-use adventuresim_tactical_netcode::{
-    bevy_replicon::prelude::FromClient,
-    message::{DefendRequest, MeleeActionRequest},
-};
+use adventuresim_tactical_netcode::message::DefendRequest;
 use bevy::prelude::*;
 use fabelgeist_determinism::DeterministicRng;
 use fabelgeist_determinism::Seed;
@@ -25,20 +22,17 @@ use std::{cmp::Ordering, path::PathBuf};
 use crate::{
     Args,
     combat::{
-        CombatDuration, CombatSet, DefendIntent, MeleeAttackStartedIntent, RangedAttackIntent,
+        CombatDuration, CombatSet, DefendIntent, MeleeAttackStartedIntent,
         RangedAttackStartedIntent, ReportedPrecision, TacticalCombatSide,
     },
     player_projection::{AuthoritativeMovementIntent, begin_get_up_transition_configured},
 };
 
 pub use defense::{DefenseChances, ReactiveDefenseAi};
-use defense::{
-    on_attack_started, on_targeted_attack_started, on_targeted_ranged_attack_started,
-    tick_bot_reactions,
-};
+use defense::{on_perceived_threat, tick_bot_reactions};
 pub use offense::OffensiveCombatAi;
 
-mod defense;
+pub(crate) mod defense;
 mod offense;
 
 pub(crate) fn resolve_scene_fixture(selector: &str) -> Result<PathBuf, String> {
@@ -90,6 +84,8 @@ impl CombatRandom {
         self.0.boolean()
     }
 }
+#[cfg(test)]
+use crate::combat::RangedAttackIntent;
 use offense::on_attack_committed_to_defense;
 #[cfg(test)]
 use offense::ranged_weapon_needs_ammo_lookup;
@@ -201,10 +197,30 @@ impl CombatantBehaviorPackages {
 
 fn materialize_behavior_packages(
     mut cmd: Commands,
-    packages: Query<(Entity, &CombatantBehaviorPackages), Added<CombatantBehaviorPackages>>,
+    packages: Query<
+        (Entity, &CombatantBehaviorPackages, Has<MissionEnemy>),
+        Changed<CombatantBehaviorPackages>,
+    >,
 ) {
-    for (entity, packages) in &packages {
-        let mut entity = cmd.entity(entity);
+    for (actor, packages, enemy) in &packages {
+        let mut entity = cmd.entity(actor);
+        entity.remove::<(
+            OffensiveCombatAi,
+            RaisedGuardAi,
+            AimAtNearestOpponentAi,
+            RecoverToUprightAi,
+            ReactiveDefenseAi,
+            DefenseChances,
+        )>();
+        if enemy {
+            entity.insert((
+                adventuresim_tactical_core::control::CharacterControl {
+                    mode: adventuresim_tactical_core::control::ControlMode::Indirect,
+                    ..default()
+                },
+                crate::control::EngagementPolicy::SeekOpponents,
+            ));
+        }
         for package in &packages.0 {
             match package {
                 CombatantBehaviorPackage::OffensiveCombat => {
@@ -250,14 +266,34 @@ pub struct AimAtNearestOpponentAi;
 #[reflect(Component)]
 pub struct RecoverToUprightAi;
 
-fn maintain_guard_stance(
-    mut guarded: Query<(&TacticalCombatState, &mut SkeletonState), With<RaisedGuardAi>>,
+#[expect(
+    clippy::type_complexity,
+    reason = "guard behavior depends on combat state, active decisions, and remembered threats"
+)]
+pub(crate) fn maintain_guard_stance(
+    mut guarded: Query<
+        (
+            &TacticalCombatState,
+            &mut SkeletonState,
+            Option<&crate::control::AgentState>,
+            Option<&crate::control::ThreatMemory>,
+            Has<OffensiveCombatAi>,
+        ),
+        With<RaisedGuardAi>,
+    >,
 ) {
-    for (state, mut skeleton) in &mut guarded {
-        let guard = if state.is_incapacitated() {
-            WeaponGuardState::Lowered
-        } else {
+    for (state, mut skeleton, agent, memory, offensive) in &mut guarded {
+        let engaged = !offensive
+            || agent.is_some_and(|agent| agent.target().is_some())
+            || memory.is_some_and(|memory| memory.threat.is_some())
+            || matches!(
+                skeleton.action_kind(),
+                SkeletonAction::Attack | SkeletonAction::Block
+            );
+        let guard = if !state.is_incapacitated() && engaged {
             WeaponGuardState::Raised
+        } else {
+            WeaponGuardState::Lowered
         };
         set_weapon_guard(&mut skeleton, guard);
     }
@@ -323,11 +359,10 @@ pub struct BotPlugin;
 
 impl Plugin for BotPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<TacticalCombatConfig>()
+        app.add_plugins(crate::control::CharacterControlPlugin)
+            .init_resource::<TacticalCombatConfig>()
             .init_resource::<CombatRandom>()
-            .add_observer(on_attack_started)
-            .add_observer(on_targeted_attack_started)
-            .add_observer(on_targeted_ranged_attack_started)
+            .add_observer(on_perceived_threat)
             .add_observer(on_attack_committed_to_defense)
             .add_systems(
                 Update,
@@ -340,7 +375,8 @@ impl Plugin for BotPlugin {
                     tick_bot_reactions,
                 )
                     .chain()
-                    .after(CombatSet::Condition),
+                    .after(CombatSet::Condition)
+                    .in_set(crate::control::ControlSet::Execute),
             );
         #[cfg(feature = "iteration")]
         app.add_observer(trace_continuation_decision);
@@ -436,6 +472,7 @@ mod tests {
                 CharacterDimensions::default(),
                 Collider::cylinder(0.4, 1.9),
                 MeleeAttackAuthority::default(),
+                crate::combat::RangedAttackAuthority::default(),
             ))
             .id();
         let weapon = world.spawn(ItemOf(actor)).id();
@@ -481,6 +518,7 @@ mod tests {
                 CharacterDimensions::default(),
                 Collider::cylinder(0.4, 1.9),
                 MeleeAttackAuthority::default(),
+                crate::combat::RangedAttackAuthority::default(),
             ))
             .id();
         let weapon = world.spawn(ItemOf(actor)).id();
@@ -527,6 +565,37 @@ mod tests {
             .id()
     }
 
+    fn assign_fixture_targets(
+        mut agents: Query<(
+            Entity,
+            &Transform,
+            &TacticalCombatSide,
+            &mut crate::control::AgentState,
+        )>,
+        candidates: Query<(
+            Entity,
+            &Transform,
+            &TacticalCombatSide,
+            &TacticalCombatState,
+        )>,
+    ) {
+        for (entity, origin, side, mut agent) in &mut agents {
+            agent.decision = candidates
+                .iter()
+                .filter(|(target, _, target_side, state)| {
+                    *target != entity && *target_side != side && !state.is_incapacitated()
+                })
+                .min_by(|left, right| compare_target(origin, left.1, left.0, right.1, right.0))
+                .map_or(
+                    crate::control::BehaviorDecision::Idle,
+                    |(target, _, _, _)| crate::control::BehaviorDecision::Engage {
+                        target,
+                        pursuit: crate::control::PursuitPolicy::Allowed,
+                    },
+                );
+        }
+    }
+
     fn test_app() -> App {
         let mut app = App::new();
         app.insert_resource(Time::<()>::default())
@@ -539,11 +608,14 @@ mod tests {
             .add_observer(record_attack)
             .add_observer(record_ranged_attack)
             .add_observer(crate::combat::on_melee_attack_started)
+            .add_observer(crate::combat::on_ranged_attack_started)
             .add_systems(
                 Update,
                 (
+                    assign_fixture_targets,
                     drive_offensive_combat_ai,
                     crate::combat::resolve_pending_melee_contacts,
+                    crate::combat::resolve_pending_ranged_contacts,
                 )
                     .chain(),
             );
@@ -626,38 +698,18 @@ mod tests {
     }
 
     #[test]
-    fn untargeted_windup_only_reacts_on_the_nearest_enemy() {
+    fn perceived_threat_reacts_on_its_observer_without_a_mission_enemy_marker() {
         let mut app = App::new();
         app.init_resource::<TacticalCombatConfig>()
             .insert_resource(CombatRandom::seeded(
                 fabelgeist_determinism::Seed::from_u64(1),
-            ));
-        app.add_observer(on_attack_started);
-        let attacker = app
-            .world_mut()
-            .spawn((
-                CharacterLook::default(),
-                Transform::default(),
-                TacticalCombatSide::Party,
             ))
-            .id();
-        let passive = app
+            .add_observer(on_perceived_threat);
+        let attacker = app.world_mut().spawn(CharacterLook::default()).id();
+        let defender = app
             .world_mut()
             .spawn((
-                MissionEnemy,
                 CharacterLook::default(),
-                Transform::from_xyz(0.0, 0.0, 1.0),
-                TacticalCombatSide::Enemy,
-                TacticalCombatState::default(),
-            ))
-            .id();
-        let blocker = app
-            .world_mut()
-            .spawn((
-                MissionEnemy,
-                CharacterLook::default(),
-                Transform::from_xyz(0.0, 0.0, 2.0),
-                TacticalCombatSide::Enemy,
                 TacticalCombatState::default(),
                 ReactiveDefenseAi {
                     requires_facing: false,
@@ -665,25 +717,18 @@ mod tests {
                 DefenseChances { dodge_chance: 1.0 },
             ))
             .id();
-        let start = FromClient {
-            client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId::Client(
+        app.world_mut()
+            .trigger(crate::control::perception::PerceivedThreat {
                 attacker,
-            ),
-            message: MeleeActionRequest {
-                strike_family: StrikeFamily::Swing,
-                hand: AttackHand::Main,
-                target: None,
-            },
-        };
-
-        app.world_mut().trigger(start);
+                defender,
+                windup: AnimationElapsed::from_seconds(0.5).unwrap(),
+            });
         app.world_mut().flush();
-        assert!(!app.world().entity(blocker).contains::<PendingBotReaction>());
-
-        app.world_mut().despawn(passive);
-        app.world_mut().trigger(start);
-        app.world_mut().flush();
-        assert!(app.world().entity(blocker).contains::<PendingBotReaction>());
+        assert!(
+            app.world()
+                .entity(defender)
+                .contains::<PendingBotReaction>()
+        );
     }
 
     #[test]
@@ -694,7 +739,7 @@ mod tests {
             .insert_resource(CombatRandom::seeded(
                 fabelgeist_determinism::Seed::from_u64(1),
             ))
-            .add_observer(on_attack_started)
+            .add_observer(on_perceived_threat)
             .add_observer(crate::combat::apply_defend_intent)
             .add_systems(Update, tick_bot_reactions);
         let attacker = app
@@ -722,16 +767,12 @@ mod tests {
                 DefenseChances { dodge_chance: 1.0 },
             ))
             .id();
-        app.world_mut().trigger(FromClient {
-            client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId::Client(
+        app.world_mut()
+            .trigger(crate::control::perception::PerceivedThreat {
                 attacker,
-            ),
-            message: MeleeActionRequest {
-                strike_family: StrikeFamily::Swing,
-                hand: AttackHand::Main,
-                target: None,
-            },
-        });
+                defender: blocker,
+                windup: AnimationElapsed::from_seconds(0.5).unwrap(),
+            });
         app.world_mut().flush();
         app.world_mut()
             .resource_mut::<Time<()>>()
@@ -841,6 +882,10 @@ mod tests {
         // Production consumes this through `resolve_ranged_attack`; removing
         // it here isolates deterministic controller selection from physics.
         app.world_mut().despawn(ammo);
+        // This controller-only fixture does not advance attack animations.
+        app.world_mut()
+            .entity_mut(actor)
+            .insert(SkeletonState::default());
         // Put the target just outside the hybrid weapon's preferred measure,
         // while remaining inside its absolute melee reach. In the
         // production schedule movement would create this separation while the
@@ -1138,12 +1183,15 @@ mod tests {
             .add_observer(record_attack)
             .add_observer(apply_deterministic_test_hit)
             .add_observer(crate::combat::on_melee_attack_started)
+            .add_observer(crate::combat::on_ranged_attack_started)
             .add_systems(
                 Update,
                 (
                     crate::combat::update_tactical_combat_state,
+                    assign_fixture_targets,
                     drive_offensive_combat_ai,
                     crate::combat::resolve_pending_melee_contacts,
+                    crate::combat::resolve_pending_ranged_contacts,
                 )
                     .chain(),
             );

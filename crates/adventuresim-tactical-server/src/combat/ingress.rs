@@ -359,71 +359,41 @@ pub(super) fn on_ranged_action_request(
         );
         return;
     };
-    match **event {
-        RangedActionRequest::Start { target } => {
-            // Same per-weapon windup + jitter-tolerance treatment as the
-            // melee path - see `on_melee_action_request`.
-            let Ok(view) = viewer.get(attacker) else {
-                debug!(
-                    ?attacker,
-                    "cannot start ranged attack without authored weapon timing"
-                );
-                return;
-            };
-            let windups = view
-                .weapon_ranged_windup_secs()
-                .and_then(CombatDuration::from_elapsed)
-                .and_then(|authored| {
-                    PlayerAttackWindups::admit(authored, &config.realtime_authority.melee)
-                });
-            let windups = match windups {
-                Ok(windups) => windups,
-                Err(error) => {
-                    warn!(?attacker, %error, "invalid authored ranged windup");
-                    return;
-                }
-            };
-            cmd.trigger(RangedAttackStartedIntent {
-                attacker,
-                target,
-                animation_windup: windups.animation,
-                minimum_windup: windups.minimum,
-            });
+    // Same per-weapon windup + jitter-tolerance treatment as the
+    // melee path - see `on_melee_action_request`.
+    let Ok(view) = viewer.get(attacker) else {
+        debug!(
+            ?attacker,
+            "cannot start ranged attack without authored weapon timing"
+        );
+        return;
+    };
+    let windups = view
+        .weapon_ranged_windup_secs()
+        .and_then(CombatDuration::from_elapsed)
+        .and_then(|authored| {
+            PlayerAttackWindups::admit(authored, &config.realtime_authority.melee)
+        });
+    let windups = match windups {
+        Ok(windups) => windups,
+        Err(error) => {
+            warn!(?attacker, %error, "invalid authored ranged windup");
+            return;
         }
-        RangedActionRequest::CompleteMiss => {
-            cmd.trigger(RangedAttackIntent {
-                attacker,
-                target: None,
-                body_part: BodyPart::Chest,
-                reported_precision: ReportedPrecision::new(0.0).expect("zero is finite"),
-            });
-        }
-        RangedActionRequest::CompleteHit {
-            target,
-            body_part,
-            reported_precision,
-        } => {
-            let Some(reported_precision) = ReportedPrecision::new(reported_precision) else {
-                debug!("Ignoring non-finite ranged precision from {attacker:?}");
-                return;
-            };
-            // Finite precision is deliberately trusted. Animation and
-            // secondary physics remain client-owned and non-deterministic.
-            cmd.trigger(RangedAttackIntent {
-                attacker,
-                target: Some(target),
-                body_part,
-                reported_precision,
-            });
-        }
-    }
+    };
+    cmd.trigger(RangedAttackStartedIntent {
+        attacker,
+        target: event.target,
+        animation_windup: windups.animation,
+        minimum_windup: windups.minimum,
+    });
 }
 
 #[expect(
     clippy::too_many_arguments,
     reason = "Bevy injects each observer resource and query as an independent system parameter"
 )]
-pub(super) fn on_ranged_attack_started(
+pub(crate) fn on_ranged_attack_started(
     event: On<RangedAttackStartedIntent>,
     mut commands: Commands,
     mut authorities: Query<&mut RangedAttackAuthority>,
@@ -494,6 +464,17 @@ pub(super) fn on_ranged_attack_started(
         event.minimum_windup,
         allowance,
     );
+    commands
+        .entity(event.attacker)
+        .insert(super::ranged_commitment::PendingRangedContact {
+            target: event.target,
+            resolve_at: CombatInstant::from_elapsed(&time) + event.minimum_windup,
+        });
+    commands.trigger(crate::control::AcceptedAttack {
+        attacker: event.attacker,
+        target: event.target,
+        windup: event.animation_windup.elapsed(),
+    });
 }
 
 pub(super) fn authoritative_line_of_sight(

@@ -1,4 +1,5 @@
 use crate::DEFAULT_SERVER_URL;
+use crate::control::{ControlResponse, LocalControl};
 use crate::message::{
     JoinRequest, JumpCommand, PlayerInputRequest, PostureActionRequest, PostureCommand,
     ReconnectCapability, ReconnectToken, TacticalCombatConfigSnapshot,
@@ -25,7 +26,9 @@ pub struct AdventureSimulatorClientPlugin;
 
 impl Plugin for AdventureSimulatorClientPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<WeaponGuardInputState>()
+        app.init_resource::<LocalControl>()
+            .init_resource::<WeaponGuardInputState>()
+            .add_observer(acknowledge_control)
             .init_resource::<TacticalCombatConfig>()
             .init_resource::<ReconnectCredential>()
             .init_resource::<DirectControlState>()
@@ -46,6 +49,15 @@ impl Plugin for AdventureSimulatorClientPlugin {
                 (send_player_input,).run_if(in_state(ClientState::Connected)),
             );
     }
+}
+
+fn acknowledge_control(event: On<ControlResponse>, mut local: ResMut<LocalControl>) {
+    if local.pending != Some(event.sequence) {
+        return;
+    }
+    local.acknowledged = event.control;
+    local.pending = None;
+    local.rejection = event.result.err();
 }
 
 fn store_tactical_combat_config(
@@ -225,6 +237,7 @@ struct DirectControlQueries<'w, 's> {
     gamepads: Query<'w, 's, &'static Gamepad>,
     controlled_players: Query<'w, 's, &'static SkeletonState, With<ControlledPlayer>>,
     combat_config: Res<'w, TacticalCombatConfig>,
+    local: Res<'w, LocalControl>,
 }
 
 #[derive(Resource, Debug, Clone, Copy, Default)]
@@ -243,7 +256,13 @@ fn update_direct_control_input(
         gamepads,
         controlled_players,
         combat_config,
+        local,
     } = queries;
+    if !local.is_direct() {
+        *controls = DirectControlState::default();
+        guard.desired = WeaponGuardState::Lowered;
+        return;
+    }
     let input_config = &combat_config.client_input;
     if keys.just_pressed(KeyCode::CapsLock) {
         controls.caps_jog = !controls.caps_jog;
@@ -623,6 +642,10 @@ fn announce_join(
     });
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy supplies the sampled controls, authority, and input tick independently"
+)]
 fn send_player_input(
     mut commands: Commands,
     mut input_tick: ResMut<LocalInputTick>,
@@ -631,12 +654,17 @@ fn send_player_input(
     guard: Res<WeaponGuardInputState>,
     controls: Res<DirectControlState>,
     scripted: Res<PlayerInputOverride>,
+    local: Res<LocalControl>,
 ) {
+    if !local.is_direct() {
+        return;
+    }
     let simulation_tick = input_tick.0;
     input_tick.0 = input_tick.0.wrapping_next();
     for (actions, look) in &players {
         if let Some(mut request) = scripted.0 {
             request.simulation_tick = simulation_tick;
+            request.generation = local.acknowledged.generation;
             commands.client_trigger(request);
             continue;
         }
@@ -645,6 +673,7 @@ fn send_player_input(
             .next()
             .map(|movement| **movement);
         commands.client_trigger(PlayerInputRequest {
+            generation: local.acknowledged.generation,
             simulation_tick,
             movement,
             look: Vec2::new(look.yaw, look.pitch),
@@ -720,6 +749,7 @@ mod tests {
         world.insert_resource(ButtonInput::<MouseButton>::default());
         world.insert_resource(WeaponGuardInputState::default());
         world.insert_resource(DirectControlState::default());
+        world.insert_resource(LocalControl::default());
         world.insert_resource(TacticalCombatConfig::default());
         world.insert_resource(DebugForceAttackTrigger::default());
         let mut schedule = Schedule::default();

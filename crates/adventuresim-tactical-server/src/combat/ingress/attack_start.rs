@@ -112,6 +112,11 @@ impl StartedMeleePublication {
             time,
             self.allowance,
         );
+        commands.trigger(crate::control::AcceptedAttack {
+            attacker: self.event.attacker,
+            target: self.event.target,
+            windup: self.event.windup.elapsed(),
+        });
     }
 }
 

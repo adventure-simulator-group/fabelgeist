@@ -1,5 +1,6 @@
 //! Follow and collision observation for the gameplay camera.
 use super::*;
+use adventuresim_tactical_core::combat_config::TacticalCombatConfig;
 use adventuresim_tactical_core::{
     animation::AnimationElapsed,
     prelude::{
@@ -17,6 +18,8 @@ mod observation;
     reason = "this domain boundary names each independent input explicitly"
 )]
 pub(super) fn update_camera_rig(
+    local: Res<adventuresim_tactical_netcode::control::LocalControl>,
+    combat: Res<TacticalCombatConfig>,
     time: Res<Time>,
     mode: Res<CameraMode>,
     guard: Res<WeaponGuardInputState>,
@@ -53,13 +56,20 @@ pub(super) fn update_camera_rig(
         else {
             continue;
         };
-        let profile = match state.advance_profile(guard.desired, &config, elapsed) {
+        let mut profile = match state.advance_profile(guard.desired, &config, elapsed) {
             Ok(profile) => profile,
             Err(error) => {
                 warn!(%error, "cannot blend camera profile");
                 continue;
             }
         };
+        if local.acknowledged.mode == adventuresim_tactical_core::control::ControlMode::Indirect
+            && let Ok(distance) = fabelgeist_geometry::SignedLength::from_metres(
+                combat.ai.control.orbit_distance_metres.metres(),
+            )
+        {
+            profile.distance = distance;
+        }
         let input = match CameraRigInput::observe(
             CameraSubjectObservation {
                 entity: camera_of.character_controller,
