@@ -15,6 +15,8 @@ pub(crate) type IterationResult<T> = Result<T, IterationError>;
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum IterationError {
     #[error(transparent)]
+    Tactical(#[from] adventuresim_tactical_server::iteration::TacticalIterationError),
+    #[error(transparent)]
     Resolution(#[from] BattleResolutionError),
     #[error(transparent)]
     Preparation(#[from] MeleeIterationError),

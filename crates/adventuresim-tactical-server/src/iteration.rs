@@ -12,9 +12,7 @@ use adventuresim_core::{
     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
 };
 use adventuresim_tactical_core::{
-    animation::{AnimationValueResult, NonnegativeLength},
-    physics::AdventureSimulatorPhysicsPlugin,
-    prelude::*,
+    animation::NonnegativeLength, physics::AdventureSimulatorPhysicsPlugin, prelude::*,
 };
 use adventuresim_tactical_netcode::{
     TACTICAL_TICK_HZ, replication::AdventureSimulatorReplicationPlugin,
@@ -23,11 +21,14 @@ use bevy::{prelude::*, time::TimeUpdateStrategy};
 
 pub use clock::TacticalElapsed;
 use equipment::spawn_equipment;
+pub use error::{TacticalIterationError, TacticalIterationResult};
 pub use logging::*;
 
 mod clock;
 mod equipment;
+mod error;
 mod logging;
+mod startup;
 
 use crate::{
     bot::{BotPlugin, CombatantBehaviorPackages, MissionEnemy},
@@ -48,8 +49,8 @@ pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
     seed: Seed,
-) -> AnimationValueResult<TacticalMeleeOutcome> {
-    let mut app = tactical_iteration_app(seed);
+) -> TacticalIterationResult<TacticalMeleeOutcome> {
+    let mut app = tactical_iteration_app(seed)?;
     let left_entity = spawn_combatant(
         app.world_mut(),
         left,
@@ -130,7 +131,9 @@ fn combatant_defeated(world: &World, entity: Entity) -> bool {
         || world.get::<crate::bot::CombatantYielded>(entity).is_some()
 }
 
-fn tactical_iteration_app(seed: Seed) -> App {
+fn tactical_iteration_app(seed: Seed) -> TacticalIterationResult<App> {
+    // A metre-spaced grid spans the same forty metres as the ground collider.
+    let terrain = SceneTerrain::new(40, 40, 1.0, |_| 0.0)?;
     let mut app = App::new();
     app.add_plugins((
         MinimalPlugins,
@@ -144,9 +147,7 @@ fn tactical_iteration_app(seed: Seed) -> App {
         TacticalEquipmentPlugin,
         BotPlugin,
     ))
-    .insert_resource(TimeUpdateStrategy::ManualDuration(Duration::from_secs_f32(
-        TACTICAL_TICK_SECONDS,
-    )))
+    .insert_resource(TimeUpdateStrategy::ManualDuration(Duration::ZERO))
     .insert_resource(Time::<()>::default())
     .insert_resource(IterationClock { tick: 0 })
     .insert_resource(IterationLog::default())
@@ -181,11 +182,16 @@ fn tactical_iteration_app(seed: Seed) -> App {
     app.cleanup();
     app.world_mut().spawn((
         Name::new("Melee iteration ground"),
+        terrain,
         RigidBody::Static,
         Collider::cuboid(40.0, 0.5, 40.0),
         Transform::from_xyz(0.0, -0.25, 0.0),
     ));
-    app
+    startup::prepare_navigation(&mut app)?;
+    app.insert_resource(TimeUpdateStrategy::ManualDuration(Duration::from_secs_f32(
+        TACTICAL_TICK_SECONDS,
+    )));
+    Ok(app)
 }
 
 fn spawn_combatant(
@@ -409,7 +415,7 @@ mod tests {
     #[test]
     fn fixed_step_advances_production_skeleton_projection() {
         let (john, opponents) = melee_iteration_roster().unwrap();
-        let mut app = tactical_iteration_app(fabelgeist_determinism::Seed::from_u64(1));
+        let mut app = tactical_iteration_app(fabelgeist_determinism::Seed::from_u64(1)).unwrap();
         let john_entity = spawn_combatant(
             app.world_mut(),
             &john,
