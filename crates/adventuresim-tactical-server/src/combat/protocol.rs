@@ -13,7 +13,7 @@ pub(crate) struct PendingDefenderResponse {
 }
 
 /// Authoritative defensive action requested by either an authenticated client
-/// or a server-owned behavior package. Source-specific code may choose the
+/// or a server-owned bot's behaviour tree. Source-specific code may choose the
 /// actor, but all validation, animation state, and combat timing happens after
 /// this seam.
 #[derive(Event, Clone, Copy, Debug)]

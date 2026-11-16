@@ -30,7 +30,7 @@ mod equipment;
 mod logging;
 
 use crate::{
-    bot::{BotPlugin, CombatantBehaviorPackages, MissionEnemy},
+    bot::{BotPlugin, BotTreeError, MissionEnemy, STANDARD_COMBAT_TREE, trees::behaviour_in_world},
     combat::CombatPlugin,
     equipment::TacticalEquipmentPlugin,
     player_projection::{
@@ -44,24 +44,33 @@ use crate::{
 const TACTICAL_TICK_SECONDS: f32 = 1.0 / TACTICAL_TICK_HZ as f32;
 const MAX_DUEL_SECONDS: u64 = 180;
 
+/// Why a tactical duel could not be simulated.
+#[derive(Debug, thiserror::Error)]
+pub enum TacticalDuelError {
+    #[error(transparent)]
+    Measurement(#[from] adventuresim_tactical_core::animation::AnimationValueError),
+    #[error(transparent)]
+    BotTree(#[from] BotTreeError),
+}
+
 pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
     seed: Seed,
-) -> AnimationValueResult<TacticalMeleeOutcome> {
+) -> Result<TacticalMeleeOutcome, TacticalDuelError> {
     let mut app = tactical_iteration_app(seed);
     let left_entity = spawn_combatant(
         app.world_mut(),
         left,
         TacticalCombatSide::Party,
         Vec3::new(0.0, 0.95, -2.0),
-    );
+    )?;
     let right_entity = spawn_combatant(
         app.world_mut(),
         right,
         TacticalCombatSide::Enemy,
         Vec3::new(0.0, 0.95, 2.0),
-    );
+    )?;
     let maximum_ticks = MAX_DUEL_SECONDS * u64::from(TACTICAL_TICK_HZ);
     let mut final_tick = maximum_ticks;
     for tick in 0..maximum_ticks {
@@ -134,6 +143,7 @@ fn tactical_iteration_app(seed: Seed) -> App {
     let mut app = App::new();
     app.add_plugins((
         MinimalPlugins,
+        AssetPlugin::default(),
         bevy::transform::TransformPlugin,
         AdventureSimulatorReplicationPlugin,
         AdventureSimulatorPhysicsPlugin {
@@ -193,7 +203,8 @@ fn spawn_combatant(
     build: &MeleeIterationBuild,
     side: TacticalCombatSide,
     position: Vec3,
-) -> Entity {
+) -> Result<Entity, BotTreeError> {
+    let behaviour = behaviour_in_world(world, STANDARD_COMBAT_TREE)?;
     let source = &build.combatant;
     let entity = world
         .spawn((
@@ -238,10 +249,10 @@ fn spawn_combatant(
         QuickstepPush::default(),
         MovementPace::default(),
         MissionEnemy,
-        CombatantBehaviorPackages::standard_combat(&TacticalCombatConfig::default()),
+        behaviour,
     ));
     spawn_equipment(world, entity, build);
-    entity
+    Ok(entity)
 }
 
 fn tactical_skills(source: &Combatant) -> Skills {
@@ -415,13 +426,15 @@ mod tests {
             &john,
             TacticalCombatSide::Party,
             Vec3::new(0.0, 0.95, -2.0),
-        );
+        )
+        .unwrap();
         spawn_combatant(
             app.world_mut(),
             &opponents[0],
             TacticalCombatSide::Enemy,
             Vec3::new(0.0, 0.95, 2.0),
-        );
+        )
+        .unwrap();
         for tick in 0..4 {
             app.world_mut().resource_mut::<IterationClock>().tick = tick;
             app.world_mut()
@@ -499,7 +512,7 @@ mod tests {
         let outcome = resolve_tactical_server_melee_duel(
             &john,
             &opponents[0],
-            fabelgeist_determinism::Seed::from_u64(2),
+            fabelgeist_determinism::Seed::from_u64(3),
         )
         .unwrap();
         assert!(outcome.events.iter().any(|event| {

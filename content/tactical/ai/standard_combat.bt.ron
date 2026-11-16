@@ -1,0 +1,79 @@
+// Ordinary combatant. Four capabilities run side by side: getting back up,
+// holding a raised guard, dodging attacks seen from the front, and fighting
+// the nearest opponent.
+//
+// Fighting re-checks its preconditions every frame. Losing the ability to
+// fight, or a nearer opponent appearing, interrupts the current engagement.
+// A committed defense costs the initiative, which sends the combatant back to
+// assessing before its next attack.
+(root: {
+    "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
+    "children": [
+        { "RecoverToUprightNode": () },
+        { "RaiseGuardNode": () },
+        { "ReactiveDefenseNode": (requires_facing: true, dodge: Configured) },
+        // Fight while able; otherwise (incapacitated or yielded) hold still.
+        { "LoopNode": (), "children": [{
+            "SequenceNode": (),
+            "children": [
+                { "WhileNode": (status: Success), "children": [
+                    { "IsAbleToFightNode": () },
+                    { "ConditionNode": (), "children": [
+                        { "AcquireNearestOpponentNode": () },
+                        { "WhileNode": (status: Success), "children": [
+                            { "IsTargetStillNearestNode": () },
+                            { "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict), "children": [
+                                { "FaceTargetNode": () },
+                                { "LoopNode": (), "children": [{
+                                    "SequenceNode": (),
+                                    "children": [
+                                        { "AssessNode": () },
+                                        { "WhileNode": (status: Success), "children": [
+                                            { "HoldsInitiativeNode": () },
+                                            // One attack decision per frame,
+                                            // in priority order.
+                                            { "FallbackNode": (), "children": [
+                                                { "SequenceNode": (), "children": [
+                                                    { "CanShootTargetNode": () },
+                                                    { "FallbackNode": (), "children": [
+                                                        { "SequenceNode": (), "children": [
+                                                            { "IsAtRangedStandoffNode": () },
+                                                            { "RangedShotNode": () },
+                                                        ] },
+                                                        { "StepToRangedStandoffNode": () },
+                                                    ] },
+                                                ] },
+                                                { "SequenceNode": (), "children": [
+                                                    { "RecognizesIncomingStrikeNode": () },
+                                                    { "GuardAgainstIncomingStrikeNode": () },
+                                                    { "AssessNode": () },
+                                                ] },
+                                                // In striking range: strike, or hold
+                                                // measure if the strike cannot start.
+                                                { "SequenceNode": (), "children": [
+                                                    { "CanStartMeleeStrikeNode": () },
+                                                    { "FallbackNode": (), "children": [
+                                                        { "MeleeStrikeNode": () },
+                                                        { "HoldStillNode": () },
+                                                    ] },
+                                                ] },
+                                                { "SequenceNode": (), "children": [
+                                                    { "MeleeStrikeUnavailableNode": () },
+                                                    { "WithdrawNode": (duration: (secs: 1, nanos: 0)) },
+                                                    { "YieldNode": () },
+                                                ] },
+                                                { "StepToMeleeMeasureNode": () },
+                                            ] },
+                                        ] },
+                                    ],
+                                }] },
+                            ] },
+                        ] },
+                        { "HoldStillNode": () },
+                    ] },
+                ] },
+                { "HoldStillNode": () },
+            ],
+        }] },
+    ],
+})

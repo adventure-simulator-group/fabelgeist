@@ -49,13 +49,9 @@ pub(super) fn on_debug_dump_world_request(
         .allow_component::<SceneFurnitureGroup>()
         .allow_component::<SceneVistaFurniture>()
         .allow_component::<crate::bot::MissionEnemy>()
-        .allow_component::<crate::bot::OffensiveCombatAi>()
-        .allow_component::<crate::bot::CombatantBehaviorPackages>()
-        .allow_component::<crate::bot::ReactiveDefenseAi>()
+        // Behaviour trees are not captured; restored bots restart a tree on
+        // load (see `start_restored_bots`).
         .allow_component::<crate::bot::DefenseChances>()
-        .allow_component::<crate::bot::RaisedGuardAi>()
-        .allow_component::<crate::bot::AimAtNearestOpponentAi>()
-        .allow_component::<crate::bot::RecoverToUprightAi>()
         // Inventory items are separate entities (linked back to their
         // owning character via `ItemOf`), not components on the character
         // itself - without these, a dumped/loaded character's equipment is

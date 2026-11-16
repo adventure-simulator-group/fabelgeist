@@ -3,7 +3,7 @@
 use super::{LoadingPlayer, player_collider, spawn_connected_player};
 use crate::{
     Args,
-    bot::CombatantBehaviorPackages,
+    bot::{BotTrees, PASSIVE_TREE, STANDARD_COMBAT_TREE},
     scene_spawn::{SceneSpawnError, SceneSpawnResult},
 };
 use adventuresim_building_generator::spatial_geometry::{Position, SignedLength};
@@ -25,7 +25,7 @@ pub(super) struct AdmittedPlayer {
 
 pub(super) enum SpawnRecipient {
     Loading(Entity),
-    Enemy(CombatantBehaviorPackages),
+    Enemy(kisya_edbt::prelude::Behaviour),
 }
 
 impl PreparedPlayerSpawns {
@@ -34,24 +34,24 @@ impl PreparedPlayerSpawns {
         loading: &Query<(Entity, &LoadingPlayer)>,
         terrain: &SceneTerrain,
         args: &Args,
-        combat: &TacticalCombatConfig,
+        trees: &BotTrees,
     ) -> SceneSpawnResult<Self> {
         let mut admitted = Vec::with_capacity(players.len());
         for player in players {
             let recipient = if player.mission_side == TacticalMissionSide::Enemy {
-                let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {
+                let tree = if let Some(fixture) = args.enemy_fixture.as_ref() {
                     let enemy = fixture.enemy_named(&player.character.name).ok_or(
                         SceneSpawnError::MissingEnemyFixture {
                             character: CharacterId(player.character.id),
                         },
                     )?;
-                    CombatantBehaviorPackages::from_fixture(enemy.behavior, combat)
+                    enemy.behavior_tree.as_str()
                 } else if args.enemy_combat_scale_bps > 0 {
-                    CombatantBehaviorPackages::standard_combat(combat)
+                    STANDARD_COMBAT_TREE
                 } else {
-                    CombatantBehaviorPackages::passive()
+                    PASSIVE_TREE
                 };
-                SpawnRecipient::Enemy(packages)
+                SpawnRecipient::Enemy(trees.behaviour(tree)?)
             } else {
                 let Some((entity, _)) = loading
                     .iter()

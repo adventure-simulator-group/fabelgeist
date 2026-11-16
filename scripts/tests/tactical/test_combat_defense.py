@@ -8,9 +8,9 @@ drives the actual input-processing pipeline, `apply_direct_combat_controls`
 and all, not a debug bypass of it), and checks whether the bot's
 `DefenseChances` (mutated via BRP) affects whether it takes damage.
 
-The fixture was captured from a real, normally-seeded mission: one bot given
-`OffensiveCombatAi`/`DefenseChances` and positioned at melee range facing the
-party-member template, which was itself positioned and faced via the same
+The fixture was captured from a real, normally-seeded mission: one bot (restored
+with the `standard_combat.bt.ron` behaviour tree) with `DefenseChances`,
+positioned at melee range facing the party-member template, which was itself positioned and faced via the same
 BRP techniques this test uses live (see the tactical-testing wiki page for
 how - `CharacterLook` is client-reported and won't survive a fresh client
 connecting, which is why this test re-applies a facing override below rather
@@ -47,8 +47,8 @@ COMBAT_PORTS = {
 # (0.8 for the katzbalger both characters spawn with) = 2.3, checked
 # server-side in `validate_melee_intent_cheap`) - repositioned here rather
 # than in the fixture so the fixture keeps representing a bot that's merely
-# *aware* of the party (its captured `OffensiveCombatAi.phase` is
-# `Pursuing`, not already attacking).
+# *aware* of the party (it starts its behaviour tree on load and assesses
+# before attacking).
 BOT_X_WITHIN_MELEE_RANGE = -4.5
 
 # Well above what any single hit can realistically deplete (limbs start at
@@ -230,17 +230,15 @@ def _disarm_bot(server_brp: tactical_brp.BrpClient, bot_entity: int) -> None:
     attack the party member back.
 
     Repositioning the bot within melee range (see `BOT_X_WITHIN_MELEE_RANGE`)
-    also puts it within its *own* `OffensiveCombatAi`'s engagement range, and
-    that AI re-acquires the party member as a target every tick regardless
-    of the dump's captured (and by-then-stale) target - it isn't gated on
-    `DefenseChances` at all, only on having a melee-capable weapon (see
-    `drive_offensive_combat_ai` in `bot/offense.rs`). Removing
-    `OffensiveCombatAi` entirely would've been simpler, but the defense
-    reactions this test is actually exercising are *also* gated on
-    `With<OffensiveCombatAi>` (see `on_targeted_attack_started` in
-    `bot/defense.rs`) - disarming leaves defense intact while making offense
-    impossible (`weapon_is_melee()`/`weapon_reach()` both come from the same
-    `equipped_weapon()` lookup `EquipSlot` drives).
+    also puts it within striking measure of its own `standard_combat.bt.ron`
+    behaviour tree, which targets the nearest party member every frame - it isn't gated on
+    `DefenseChances` at all, only on having a melee-capable weapon (see the
+    melee nodes in `bot/nodes/melee/`). A non-attacking tree would've been
+    simpler, but the defense reactions this test is actually exercising come
+    from the same tree's `ReactiveDefenseNode`
+    (see `bot/defense.rs`) - disarming leaves defense intact while making
+    offense impossible (`weapon_is_melee()`/`weapon_reach()` both come from
+    the same `equipped_weapon()` lookup `EquipSlot` drives).
     """
     weapon_items = server_brp.query(components=[tactical_brp.ItemOf], with_=[tactical_brp.WeaponItem, tactical_brp.EquipSlot])
     for entry in weapon_items:
@@ -366,7 +364,7 @@ def _run_scripted_attack(
             bot_after = bot_before
             for _attempt in range(ATTACK_ATTEMPTS):
                 # Re-aimed every attempt, not just once before the loop: the
-                # bot's own captured `OffensiveCombatAi` keeps it attacking
+                # bot's restored behaviour tree keeps it attacking
                 # autonomously throughout (`--enemy-combat-scale-bps` only
                 # gates freshly-spawned bots, not dump-loaded ones), and its
                 # attacks impart balance/stagger physics on the party

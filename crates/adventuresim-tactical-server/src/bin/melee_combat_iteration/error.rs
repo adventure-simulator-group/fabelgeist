@@ -21,6 +21,8 @@ pub(crate) enum IterationError {
     #[error(transparent)]
     Measurement(#[from] AnimationValueError),
     #[error(transparent)]
+    Duel(#[from] adventuresim_tactical_server::iteration::TacticalDuelError),
+    #[error(transparent)]
     Statistics(#[from] MeasurementError),
     #[error(transparent)]
     Timing(#[from] ElapsedError),

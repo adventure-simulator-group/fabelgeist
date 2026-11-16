@@ -1,6 +1,11 @@
 use super::*;
 
-pub(super) fn initiative_delay_seconds(
+/// Movement intent toward the bot's facing, which follows its target.
+pub(in crate::bot) const ADVANCE: Vec2 = Vec2::Y;
+/// Movement intent away from the bot's facing.
+pub(in crate::bot) const RETREAT: Vec2 = Vec2::NEG_Y;
+
+pub(in crate::bot) fn initiative_delay_seconds(
     random: &mut CombatRandom,
     instinct: f32,
     config: &AiOffenseConfig,
@@ -12,7 +17,7 @@ pub(super) fn initiative_delay_seconds(
     AnimationElapsed::from_seconds(sampled * (3.0 / instinct.max(0.5)).clamp(0.6, 2.0))
 }
 
-pub(super) fn committed_threat_recognition_probability(
+pub(in crate::bot) fn committed_threat_recognition_probability(
     attack_phase: adventuresim_tactical_core::animation::UnitInterval,
     instinct: f32,
 ) -> f32 {
@@ -20,7 +25,7 @@ pub(super) fn committed_threat_recognition_probability(
     (visible_windup * instinct.max(0.0) / 5.0).clamp(0.0, 1.0)
 }
 
-pub(super) fn below_preferred_long_weapon_measure(
+pub(in crate::bot) fn below_preferred_long_weapon_measure(
     reach_metres: f32,
     preferred_measure_metres: f32,
     center_distance_metres: f32,
@@ -32,7 +37,7 @@ pub(super) fn below_preferred_long_weapon_measure(
         && center_distance_metres < preferred_center_distance_metres
 }
 
-pub(super) fn long_weapon_windup_movement(
+pub(in crate::bot) fn long_weapon_windup_movement(
     reach_metres: f32,
     preferred_measure_metres: f32,
     center_distance_metres: f32,
@@ -44,5 +49,29 @@ pub(super) fn long_weapon_windup_movement(
         center_distance_metres,
         long_weapon_threshold_metres,
     )
-    .then_some(-Vec2::Y)
+    .then_some(RETREAT)
+}
+
+/// Movement that brings a ranged attacker into its standoff band, or `None`
+/// once it is in position to shoot.
+pub(in crate::bot) fn ranged_standoff_movement(
+    distance_metres: f32,
+    weapon_reach_metres: f32,
+    config: &AiOffenseConfig,
+) -> Option<Vec2> {
+    let standoff = (weapon_reach_metres * config.ranged_reach_fraction)
+        .clamp(
+            config.ranged_standoff_min_metres,
+            config.ranged_standoff_max_metres,
+        )
+        .min(weapon_reach_metres);
+    if distance_metres > weapon_reach_metres
+        || distance_metres > standoff + config.ranged_standoff_slop_metres
+    {
+        Some(ADVANCE)
+    } else if distance_metres + config.ranged_standoff_slop_metres < standoff {
+        Some(RETREAT)
+    } else {
+        None
+    }
 }

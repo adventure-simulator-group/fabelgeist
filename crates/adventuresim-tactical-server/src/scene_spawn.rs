@@ -19,6 +19,8 @@ pub(crate) enum SceneSpawnError {
     AmbiguousTerrain,
     #[error("seeded enemy {character:?} is absent from the loaded enemy fixture")]
     MissingEnemyFixture { character: CharacterId },
+    #[error(transparent)]
+    BotTree(#[from] crate::bot::BotTreeError),
 }
 
 pub(crate) fn authoritative_terrain<'a>(

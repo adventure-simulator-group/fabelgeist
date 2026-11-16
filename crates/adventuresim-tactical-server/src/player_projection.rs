@@ -541,6 +541,7 @@ pub(crate) fn spawn_connected_players(
     q_loading: Query<(Entity, &LoadingPlayer)>,
     q_scene: Query<&SceneTerrain>,
     combat_config: Res<TacticalCombatConfig>,
+    trees: Res<crate::bot::BotTrees>,
 ) -> Result {
     let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
         return Ok(());
@@ -550,7 +551,7 @@ pub(crate) fn spawn_connected_players(
         &q_loading,
         terrain,
         &args,
-        &combat_config,
+        &trees,
     )?;
     admitted.project(&args, &mut cmd, &combat_config);
     Ok(())
@@ -571,8 +572,8 @@ fn spawn_connected_player(
     let player = &player;
     let entity = match recipient {
         SpawnRecipient::Loading(entity) => entity,
-        SpawnRecipient::Enemy(packages) => cmd
-            .spawn((MissionEnemy, TacticalCombatSide::Enemy, packages))
+        SpawnRecipient::Enemy(behaviour) => cmd
+            .spawn((MissionEnemy, TacticalCombatSide::Enemy, behaviour))
             .id(),
     };
 
@@ -2188,7 +2189,6 @@ mod standalone_join_tests {
                 CharacterId(99),
                 MissionEnemy,
                 TacticalCombatSide::Enemy,
-                crate::bot::OffensiveCombatAi::default(),
             ))
             .id();
 
@@ -2291,7 +2291,6 @@ mod standalone_join_tests {
 
         let bot_entity = world.entity(bot);
         assert!(bot_entity.contains::<MissionEnemy>());
-        assert!(bot_entity.contains::<crate::bot::OffensiveCombatAi>());
         assert_eq!(bot_entity.get::<CharacterId>().unwrap().0, 99);
     }
 }

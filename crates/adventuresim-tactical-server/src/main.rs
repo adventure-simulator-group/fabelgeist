@@ -352,6 +352,14 @@ fn load_world_dump(world: &mut World) {
     // fully ready before anything else runs this frame.
     world.flush();
     mark_loaded_items_replicated(world, entity_map.values());
+    let restored_tree = if world.resource::<Args>().enemy_combat_scale_bps > 0 {
+        bot::STANDARD_COMBAT_TREE
+    } else {
+        bot::PASSIVE_TREE
+    };
+    if let Err(error) = bot::start_restored_bots(world, restored_tree) {
+        error!(%error, path = %path.display(), "Failed to start restored bots");
+    }
     match result {
         Ok(()) => info!(
             path = %path.display(),

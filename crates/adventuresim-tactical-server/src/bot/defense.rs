@@ -16,8 +16,8 @@ type DefensiveBotQuery<'world, 'state> = Query<
 >;
 
 /// Per-bot chance (out of 1.0) that a reflex defense (see
-/// `try_start_reaction`) resolves to a dodge. Inserted by a reactive
-/// defense behavior package with balance-tuned defaults; BRP tests
+/// `try_start_reaction`) resolves to a dodge. Inserted by the bot's
+/// `ReactiveDefenseNode` with balance-tuned defaults; BRP tests
 /// mutate it to force deterministic dodge outcomes (see
 /// `DefenseChances` in `scripts/adventuresim_brp_lib.py`, regenerated via
 /// `just generate-brp-types`).

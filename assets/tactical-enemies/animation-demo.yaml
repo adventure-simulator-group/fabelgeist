@@ -1,7 +1,7 @@
 version: 1
 enemies:
   - name: Passive Bandit
-    behavior: passive
+    behavior_tree: passive.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }
@@ -10,7 +10,7 @@ enemies:
       - { item_id: padded_chausses, slot: right_leg }
 
   - name: Shield Blocker
-    behavior: always_block_without_facing
+    behavior_tree: always_block_without_facing.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }
@@ -20,7 +20,7 @@ enemies:
       - { item_id: buckler, slot: left_hand }
 
   - name: Dodger
-    behavior: always_dodge
+    behavior_tree: always_dodge.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }
@@ -29,7 +29,7 @@ enemies:
       - { item_id: padded_chausses, slot: right_leg }
 
   - name: Munition Dodger
-    behavior: always_dodge
+    behavior_tree: always_dodge.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }
@@ -41,7 +41,7 @@ enemies:
       - { item_id: tassets, slot: stomach }
 
   - name: Demi-lancer
-    behavior: passive
+    behavior_tree: passive.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }

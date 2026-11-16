@@ -1,16 +1,16 @@
 use super::*;
 
-pub(super) struct OffensiveFacts {
-    pub(super) weapon_reach: f32,
-    pub(super) preferred_melee_measure: f32,
-    pub(super) weapon_is_melee: bool,
-    pub(super) use_ranged: bool,
-    pub(super) strike_family: StrikeFamily,
-    pub(super) melee_attack_available: bool,
-    pub(super) melee_recovery_seconds: Option<RecoveryTime>,
-    pub(super) dimensions: CharacterDimensions,
-    pub(super) melee_lunge_delay: Option<MeleeLungeArrival>,
-    pub(super) instinct: f32,
+pub(in crate::bot) struct OffensiveFacts {
+    pub(in crate::bot) weapon_reach: f32,
+    pub(in crate::bot) preferred_melee_measure: f32,
+    pub(in crate::bot) weapon_is_melee: bool,
+    pub(in crate::bot) use_ranged: bool,
+    pub(in crate::bot) strike_family: StrikeFamily,
+    pub(in crate::bot) melee_attack_available: bool,
+    pub(in crate::bot) melee_recovery_seconds: Option<RecoveryTime>,
+    pub(in crate::bot) dimensions: CharacterDimensions,
+    pub(in crate::bot) melee_lunge_delay: Option<MeleeLungeArrival>,
+    pub(in crate::bot) instinct: f32,
 }
 
 struct WeaponFacts {
@@ -54,7 +54,7 @@ pub(in crate::bot) fn compare_target(
     clippy::too_many_arguments,
     reason = "facts span both actors and authored movement"
 )]
-pub(super) fn offensive_facts(
+pub(in crate::bot) fn offensive_facts(
     entity: Entity,
     target: Entity,
     transform: &Transform,
