@@ -67,8 +67,8 @@ while retaining a finite per-connection bound. Asset delivery improvements
 remain separate work.
 
 Terrain, landforms, urban ground, building programs and vista initialization use
-Concise Binary Object Representation (CBOR), a self-describing document inside the
-transport frame. Their tagged recipes cannot be decoded by Postcard alone.
+Concise Binary Object Representation (CBOR), a self-describing document inside
+the transport frame. Their tagged recipes cannot be decoded by Postcard alone.
 Packed geometry retains its exact scalar bits, and decoding
 still runs the existing typed support validation. This replaces the former
 building-only JSON encoding; no older scene wire representation is accepted.
