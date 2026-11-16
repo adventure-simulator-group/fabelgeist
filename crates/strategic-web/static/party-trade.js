@@ -1,5 +1,6 @@
 const strategicTradeUi = window.strategicTradeUi ||= { state: {} };
 const fauxDialogOpeners = new WeakMap();
+const merchantCounterparties = new WeakMap();
 const fauxDialogIds = ["party-offer", "loot-transfer-offer", "pool-transfer-offer", "merchant-offer", "inventory-discard"];
 const fauxDialogSelector = fauxDialogIds.map((id) => `#${id}:not([hidden])`).join(", ");
 const fauxDialogFocusable = "button:not(:disabled), a[href], input:not([type='hidden']):not(:disabled), [tabindex]:not([tabindex='-1'])";
@@ -333,7 +334,11 @@ function selectMerchantInventoryScope(tab) {
   if (!tab) return false;
   const root = tab.closest("[data-inventory-tabs]");
   if (!root) return false;
-  root.querySelectorAll("[data-inventory-tab]").forEach((entry) => entry.classList.toggle("active", entry === tab));
+  root.querySelectorAll("[data-inventory-tab]").forEach((entry) => {
+    entry.classList.toggle("active", entry === tab);
+    entry.setAttribute("aria-selected", String(entry === tab));
+    entry.tabIndex = entry === tab ? 0 : -1;
+  });
   root.querySelectorAll("[data-inventory-pane]").forEach((pane) => { pane.hidden = pane.dataset.inventoryPane !== tab.dataset.inventoryTab; });
   const scope = document.querySelector("#merchant-offer [name='inventory_scope']");
   if (scope) scope.value = tab.dataset.inventoryTab;
@@ -341,6 +346,20 @@ function selectMerchantInventoryScope(tab) {
   refreshInventoryPanel(root.querySelector('[data-inventory-pane]:not([hidden])'));
   return true;
 }
+
+document.addEventListener("keydown", (event) => {
+  const tab = event.target.closest?.("[data-inventory-tab]");
+  if (!tab) return;
+  const tabs = [...tab.closest("[data-inventory-tabs]").querySelectorAll("[data-inventory-tab]")];
+  const index = tabs.indexOf(tab);
+  const next = event.key === "ArrowRight" ? tabs[(index + 1) % tabs.length]
+    : event.key === "ArrowLeft" ? tabs[(index + tabs.length - 1) % tabs.length]
+    : event.key === "Home" ? tabs[0] : event.key === "End" ? tabs.at(-1) : null;
+  if (!next) return;
+  event.preventDefault();
+  next.focus();
+  selectMerchantInventoryScope(next);
+});
 
 document.addEventListener("click", (event) => {
   const dynamicTransfer = event.target.closest?.("[data-dynamic-transfer]");
@@ -669,7 +688,18 @@ document.addEventListener("strategic-page-mounted", () => {
   mountInventoryBulkControls();
   refreshInventoryPanel(document);
 });
+document.addEventListener("strategic-character-selected", (event) => {
+  const form = document.querySelector("#merchant-offer");
+  if (!form || event.detail?.id == null) return;
+  const selected = String(event.detail.id);
+  const previous = merchantCounterparties.get(form);
+  if (previous !== undefined && previous !== selected) resetTradeDraft(form);
+  merchantCounterparties.set(form, selected);
+});
+
 document.addEventListener("strategic-page-unmounting", () => {
+  const offer = document.querySelector("#merchant-offer, #party-offer");
+  if (offer) resetTradeDraft(offer);
   document.body.classList.remove("faux-dialog-open");
   document.querySelectorAll(fauxDialogIds.map((id) => `#${id}`).join(", ")).forEach((dialog) => {
     fauxDialogOpeners.delete(dialog);

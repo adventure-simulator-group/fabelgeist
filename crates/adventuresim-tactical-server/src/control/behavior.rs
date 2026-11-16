@@ -474,7 +474,8 @@ fn drive_navigation(
         return Ok(RouteProgress::Travelling);
     }
     look.yaw = (-direction.x).atan2(-direction.y);
-    let forward = transform.rotation * Vec3::NEG_Z;
+    // Skeleton roots face +Z, independently of the controller's -Z look frame.
+    let forward = transform.rotation * Vec3::Z;
     let aligned = forward
         .xz()
         .normalize_or_zero()

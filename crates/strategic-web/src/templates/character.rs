@@ -279,13 +279,7 @@ pub fn character_candidates_page(
     let portraits = character_portrait_overlay("Candidate adventurers", None, &portraits);
     let center_before = html! { nav class="candidate-navigation" { a href="/characters/candidates" { "Change life stage" } span { "Select an adventurer to compare their details" } } span data-candidate-roster data-age-tier=(age_tier.as_str()) hidden {} };
     let center_after = html! {
-            @if show_inventory {
-                (candidate_inventory_view(spec))
-            } @else {
-                div class="candidate-background-summary" {
-                    p { strong { "Background: " } (&spec.background) }
-                }
-            }
+            (candidate_description(spec, show_inventory))
                 form action="/characters/candidates" method="post" class="candidate-play-action" data-candidate-confirm-form {
                     input type="hidden" name="version" value=(version);
                     input type="hidden" name="seed" value=(seed);
@@ -334,6 +328,7 @@ pub fn character_candidates_page(
         center_after,
         left_after: html! {},
         right_after: html! {},
+        inventory: None,
         after: html! {},
     });
 
@@ -382,6 +377,18 @@ fn starting_slot_label(slot: LoadoutSlot) -> &'static str {
         LoadoutSlot::Head => "head",
         LoadoutSlot::Chest => "chest",
         LoadoutSlot::Stomach => "stomach",
+    }
+}
+
+fn candidate_description(spec: &StartingCharacterSpec, show_inventory: bool) -> Markup {
+    html! {
+            @if show_inventory {
+                (candidate_inventory_view(spec))
+            } @else {
+                div class="candidate-background-summary" {
+                    p { strong { "Background: " } (&spec.background) }
+                }
+            }
     }
 }
 

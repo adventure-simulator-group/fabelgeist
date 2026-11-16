@@ -6,6 +6,7 @@ use bevy::prelude::*;
 
 pub(crate) use mesh::{TacticalNavigation, TacticalNavigationPlugin};
 
+mod geometry;
 mod mesh;
 
 #[cfg(test)]

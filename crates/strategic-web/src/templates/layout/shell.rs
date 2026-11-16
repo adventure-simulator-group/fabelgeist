@@ -71,6 +71,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
             link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
             link rel="stylesheet" href="/static/css/workspace.css?v=2";
+            link rel="stylesheet" href="/static/css/side-panels.css?v=1";
             link rel="stylesheet" href="/static/css/portraits.css?v=1";
             link rel="stylesheet" href="/static/css/chat-dock.css?v=1";
             link rel="stylesheet" href="/static/css/readability.css?v=1";
@@ -95,6 +96,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             script src="/static/chat-dock.js?v=1" defer {}
             script src="/static/portrait-navigation.js?v=1" defer {}
             script src="/static/stats-panels.js?v=1" defer {}
+            script src="/static/side-panels.js?v=1" defer {}
             script src="/static/action-previews.js?v=1" defer {}
             @if scripts != ScriptProfile::Entry {
                 script src="/static/live-state.js?v=location-urls-1" defer {}
@@ -104,6 +106,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
                 script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
                 // Before the renderer: the client calls window.sfx* from its first frame.
                 script src="/tactical/sfx.js?v=web-audio-1" {}
+                script src="/tactical/tactical-input.js?v=1" {}
                 script type="module" src="/static/strategic-renderer.js?v=tactical-hud-1" {}
                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}

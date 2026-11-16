@@ -1,0 +1,94 @@
+/* Panel tabs are fitted rails; their documents retain the place's surfaces. */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  direction: ltr;
+}
+.side-panel-tabs {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  gap: .25rem;
+  padding: .35rem;
+  background: var(--header-bg, #181713);
+  border-bottom: 1px solid var(--border-color, #97866a);
+}
+.side-panel-tab {
+  flex: 1 1 auto;
+  padding: .45rem .55rem;
+  border: 1px solid var(--border-color, #97866a);
+  border-radius: 0;
+  background: var(--panel-bg, #181713);
+  color: var(--text-primary, #f4ead5);
+  font: inherit;
+  font-size: .875rem;
+  cursor: pointer;
+}
+.side-panel-tab[aria-selected="true"] {
+  border-bottom: 3px solid var(--text-primary, #f4ead5);
+  font-weight: 700;
+}
+.side-panel :is(.side-panel-tab, .side-panel-content):focus-visible {
+  outline: 2px solid var(--text-primary, #f4ead5);
+  outline-offset: -3px;
+}
+.side-panel-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  background: var(--panel-bg, #181713);
+}
+.side-panel-content[hidden] { display: none !important; }
+/* Inventory rails already own their bounded scroll frames and action overhang.
+   Another clip here would cut off the center-facing quantity/action columns. */
+.side-panel-content:has([data-inventory-browser]) {
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+.side-panel-content > .inventory-owner-panel { height: 100%; }
+.side-panel-content > .inn-rest-panel {
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: none;
+  margin-top: 0;
+  overflow: visible;
+}
+.side-panel-content:has(.repair-custody-panel:not([hidden])) > .repair-context-status { display: none; }
+@media (min-width: 1101px) {
+  #strategic-page[data-strategic-workspace] .main-grid:has([data-panel-pane]:not([hidden]) [data-inventory-browser]) {
+    grid-template-columns: min(var(--inventory-left-width, 23%), 30%) minmax(20rem, 1fr) min(var(--inventory-right-width, 23%), 30%);
+  }
+}
+body[data-tactical-active] #strategic-page:has([data-side-panel]) {
+  position: fixed;
+  inset: 0;
+  z-index: 2010;
+  pointer-events: none;
+}
+body[data-tactical-active] :is(.left-sidebar, .right-sidebar):has([data-side-panel]) {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: min(22rem, 30vw);
+  height: 100dvh;
+  visibility: visible;
+  pointer-events: auto;
+  padding: 0;
+}
+body[data-tactical-active] .left-sidebar:has([data-side-panel]) { left: 0; }
+body[data-tactical-active] .right-sidebar:has([data-side-panel]) { right: 0; }
+@media (max-width: 700px) {
+  body[data-tactical-active] :is(.left-sidebar, .right-sidebar):has([data-side-panel]) {
+    top: auto;
+    width: 50vw;
+    height: min(45dvh, 24rem);
+  }
+}
+@media (forced-colors: active) {
+  .side-panel-tab[aria-selected="true"] { border-bottom-color: Highlight; }
+}

@@ -262,6 +262,6 @@ if (surface && canvas) {
     document.dispatchEvent(new Event("strategic-tactical-ended"));
   };
   window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") window.exitTactical();
+    if (event.key === "Escape" && !window.tacticalUiOwnsInput()) window.exitTactical();
   });
 }

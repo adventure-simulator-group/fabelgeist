@@ -1,9 +1,13 @@
 //! Merchant storefront policy, quoted stock, and trade presentation.
 
 use super::super::service::service_page;
+use super::super::side_panels::{
+    PanelKind, PanelSide, PanelSubject, PanelTab, SidePanel, character_identity,
+};
 use super::*;
 use super::{equipment::*, inventory::*, repairs::*};
 mod forge;
+mod stock;
 
 /// Web presentation and inventory-panel policy for canonical storefronts.
 pub trait StorefrontPresentation {
@@ -190,65 +194,54 @@ pub fn live_merchant_shop_page(
             "Sell everything",
         )
     };
-    let stocked_items = items
-        .iter()
-        .filter(|item| shop.stocks_at(settlement, item))
-        .collect::<Vec<_>>();
-    let content = html! {
-        aside class=(if matches!(shop, Storefront::Inn) { "left-sidebar smith-wares-column service-left-sidebar" } else { "left-sidebar smith-wares-column" }) {
-        div class=(if matches!(shop, Storefront::Inn) { "service-left-stack" } else { "merchant-stock-stack" }) {
-        div class=(if matches!(shop, Storefront::Inn) { "service-inventory-area" } else { "merchant-stock-area" }) {
-        @if matches!(shop, Storefront::Weapons) {
-            (forge::weapon_forge_controls(settlement))
+    let mut merchant_tabs = vec![PanelTab {
+        kind: PanelKind::Trade,
+        content: stock::MerchantStockView {
+            settlement,
+            items,
+            personal_targets,
+            shop,
+            trade_language,
+            problem_buy_bps,
+            problem_sell_penalty_bps,
         }
-        @if !matches!(shop, Storefront::Weapons) {
-        (sidebar_section(if matches!(shop, Storefront::Herbalist) { "Existing preparations and ingredients" } else if matches!(shop, Storefront::Inn) { "Cooking supplies" } else { "Merchant stock" }, html! {
-            div class="smith-wares-scroll" {
-            @if stocked_items.is_empty() {
-                (empty_state("No stock is available here.", None, None))
-            } @else {
-            (trade_inventory_table("merchant-left", if matches!(shop, Storefront::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, false, false, false, html! {
-                @for item in stocked_items.iter().copied() {
-                    @let is_currency = item.kind == crate::spacetimedb::CatalogItemKind::Currency;
-                    @let intervention = adventuresim_core::physiology::intervention_profile(&item.id, 1);
-                    @let buy_price = adventuresim_core::local_problem::adjust_price(adventuresim_core::strategic_economy::language_adjusted_buy_price(
-                        adventuresim_core::strategic_economy::merchant_buy_price(item.base_value.unwrap_or(1)),
-                        trade_language
-                    ), problem_buy_bps);
-                    @let sell_price = adventuresim_core::local_problem::adjust_price(adventuresim_core::strategic_economy::language_adjusted_sell_price((item.base_value.unwrap_or(1) as f32 / 1.25).floor().max(1.0) as u32, trade_language), -problem_sell_penalty_bps);
-                    @let target = target_quantity(personal_targets, &item.id);
-                    @let display_name = item_display_name(&item.id);
-                    tr class="trade-inventory-row trade-row-merchant" data-merchant-item=(&item.id) data-merchant-sell-price=(sell_price) data-group-summary="catalog" data-intervention-profile-version=[intervention.map(|profile| profile.version)] { td class="inventory-item-type" { (item_type_icon(&item.id)) } td class="inventory-item-name" { (item_name_with_display(&item.id, &display_name, Some(item))) @if !is_currency { (merchant_buy_controls(&item.id, buy_price, target, 999)) } } td class="inventory-count" hidden { "999" } td class="inventory-weight" { (weight_display(item.weight)) } td class="inventory-gold" { (buy_price) } }
-                }
-            }))
-            (inventory_footer_controls("buy", "Buy to targets", "Buy everything"))
-            @if matches!(shop, Storefront::Herbalist) {
-                p class="small-copy text-muted" { "Pre-existing preparations are sold into personal inventory for versioned administration. Physiology does not craft them; #214 owns preparation." }
-            }
-            }
-            }
-        }))
-        }
-        }
+        .render(),
+    }];
+    if matches!(
+        shop,
+        Storefront::Inn | Storefront::Weapons | Storefront::Armor | Storefront::Clothing
+    ) {
+        merchant_tabs.push(PanelTab { kind: PanelKind::Services, content: html! {
         @if matches!(shop, Storefront::Inn) {
             section class="inn-rest-panel" aria-label="Inn lodging and rest" {
                 (rest_service_menu("Inn", &settlement.id, RestServiceKind::Inn, rest_default_minutes, None, soap_preview))
             }
         }
-        }
         @if matches!(shop, Storefront::Weapons | Storefront::Armor | Storefront::Clothing) {
+            section class="sidebar-section repair-context-status" role="status" {
+                p { "Select a craftsperson to view repair orders." }
+            }
             (repair_custody_panel(settlement, shop, repair_orders, conditions, items, now_minutes, smith_skill))
         }
+
+        } });
+    }
+    let content = html! {
+        aside class="left-sidebar smith-wares-column" {
+            (SidePanel { side: PanelSide::Left, subject: PanelSubject::Storefront { settlement, shop }, tabs: merchant_tabs }.render())
         }
         main class="center-content settlement-main" { (party_portrait_overlay(party_members, Some(character), &crate::location_urls::patterns::SETTLEMENT.url([&settlement.id]), None)) (npc_portrait_strip(&settlement.id, npc_location_id(service_id))) @if matches!(shop, Storefront::Weapons) { (forge_description_stage(title, "Forge preview loading")) } @else { (npc_description_stage(title, "Merchant counter and attending craftsperson")) } (settlement_resident_chat_area(title, Some(character), &settlement.id, npc_location_id(service_id), Some(service_id))) form # "merchant-offer" class="party-offer" action=(if matches!(shop, Storefront::Herbalist) { crate::location_urls::patterns::PURCHASE_FROM_HERBALIST.url([&settlement.id]) } else { crate::location_urls::patterns::FINALIZE_MERCHANT_OFFER.url([&settlement.id, &(crate::location_urls::service_place(service_id).id())]) }) method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm merchant offer" tabindex="-1" { span class="party-offer-summary" { "Review and submit the staged trade." } input type="hidden" name="return_to" value=(crate::location_urls::service_path(&settlement.id, service_id)); input type="hidden" name="inventory_scope" value="player"; button type="button" class="party-offer-cancel" data-cancel-trade="merchant" { "Cancel" } button type="submit" disabled { "Offer" } } }
-        aside class="right-sidebar inventory-owner-panel" data-inventory-tabs {
-            nav class="inventory-owner-tabs" aria-label="Trading inventory" {
-                button type="button" class="inventory-owner-tab active" data-inventory-tab="player" { "Player" }
+        aside class="right-sidebar" {
+            (SidePanel { side: PanelSide::Right, subject: PanelSubject::Character(character), tabs: vec![
+                PanelTab { kind: PanelKind::Inventory, content: html! {
+                    div class="inventory-owner-panel" data-inventory-tabs {
+            nav class="inventory-owner-tabs" aria-label="Trading inventory" role="tablist" {
+                button type="button" class="inventory-owner-tab active" data-inventory-tab="player" role="tab" aria-selected="true" tabindex="0" id="merchant-inventory-player-tab" aria-controls="merchant-inventory-player-panel" { "Player" }
                 @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) {
-                    button type="button" class="inventory-owner-tab" data-inventory-tab="party" { "Party" }
+                    button type="button" class="inventory-owner-tab" data-inventory-tab="party" role="tab" aria-selected="false" tabindex="-1" id="merchant-inventory-party-tab" aria-controls="merchant-inventory-party-panel" { "Party" }
                 }
             }
-            div data-inventory-pane="player" {
+            div data-inventory-pane="player" role="tabpanel" id="merchant-inventory-player-panel" aria-labelledby="merchant-inventory-player-tab" {
             div class="sidebar-section" {
                 (encumbrance_inventory_rail(html! {
                 (trade_inventory_table("merchant-player-right", if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, !matches!(shop, Storefront::Weapons), matches!(shop, Storefront::Armor | Storefront::Clothing), html! {
@@ -295,7 +288,7 @@ pub fn live_merchant_shop_page(
                 }, player_footer, personal_encumbrance))
             }
             }
-            @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) { div data-inventory-pane="party" hidden {
+            @if !matches!(shop, Storefront::Herbalist | Storefront::Weapons) { div data-inventory-pane="party" hidden role="tabpanel" id="merchant-inventory-party-panel" aria-labelledby="merchant-inventory-party-tab" {
             div class="sidebar-section" {
                 (encumbrance_inventory_rail(html! {
                 (trade_inventory_table("merchant-party-right", if matches!(shop, Storefront::Weapons) { InventoryColumnSet::Weapons } else if matches!(shop, Storefront::Armor) { InventoryColumnSet::Armor } else { InventoryColumnSet::Basic }, true, false, false, html! {
@@ -342,6 +335,11 @@ pub fn live_merchant_shop_page(
             }
             }
             }
+
+                    }
+                } },
+                PanelTab { kind: PanelKind::Character, content: character_identity(character) },
+            ] }.render())
         }
     };
     settlement_layout_with_session(

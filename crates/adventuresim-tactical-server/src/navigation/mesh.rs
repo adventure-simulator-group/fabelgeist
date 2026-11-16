@@ -1,9 +1,11 @@
 //! Server-owned navigation mesh, built from authoritative collision geometry.
 
-use super::*;
+use super::{
+    geometry::{ColliderSnapshot, NavigationGeometry},
+    *,
+};
 use avian_rerecast::ColliderToTriMesh;
 use bevy::asset::AssetPlugin;
-use bevy::ecs::change_detection::Tick;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::{NavmeshPlugins, prelude::*, rerecast::TriMesh};
 use landmass_rerecast::{Island3dBundle, LandmassRerecastPlugin, NavMeshHandle3d};
@@ -12,13 +14,6 @@ use std::collections::BTreeMap;
 const GEOMETRY_POSITION_CHANGE_METRES: f32 = 0.05;
 const GEOMETRY_ROTATION_CHANGE_RADIANS: f32 = 5.0_f32.to_radians();
 const MESH_BUILD_TIMEOUT_SECONDS: f64 = 30.0;
-
-#[derive(Clone, Copy)]
-struct ColliderSnapshot {
-    position: Vec3,
-    rotation: Quat,
-    shape_revision: Tick,
-}
 
 /// The mesh handle and Landmass world belong to this transient tactical scene.
 #[derive(Resource, Default)]
@@ -102,14 +97,9 @@ fn initialize_mesh(
     mut generator: NavmeshGenerator,
     config: Res<TacticalCombatConfig>,
     time: Res<Time>,
-    static_colliders: Query<(&Collider, &ColliderOf)>,
-    bodies: Query<&RigidBody>,
+    geometry: NavigationGeometry,
 ) {
-    if navigation.mesh.is_some()
-        || !static_colliders
-            .iter()
-            .any(|(_, owner)| bodies.get(owner.body).is_ok_and(RigidBody::is_static))
-    {
+    if navigation.mesh.is_some() || !geometry.has_static_surface() {
         return;
     }
     let radius = adventuresim_core::combat::HUMANOID_COLLISION_RADIUS_METRES;
@@ -139,6 +129,7 @@ fn initialize_mesh(
     navigation.mesh = Some(handle);
     navigation.island = Some(island);
     navigation.last_request = Some(time.elapsed_secs_f64());
+    navigation.geometry = geometry.snapshot();
 }
 
 fn navmesh_settings(config: &TacticalCombatConfig) -> NavmeshSettings {
@@ -160,14 +151,7 @@ fn refresh_mesh(
     mut generator: NavmeshGenerator,
     config: Res<TacticalCombatConfig>,
     time: Res<Time>,
-    colliders: Query<(
-        Entity,
-        &ColliderOf,
-        Ref<Collider>,
-        &adventuresim_tactical_core::avian3d::prelude::Position,
-        &Rotation,
-    )>,
-    bodies: Query<(&RigidBody, Has<SceneDoor>, Has<SceneWindow>)>,
+    geometry: NavigationGeometry,
 ) {
     let Some(handle) = navigation.mesh.clone() else {
         return;
@@ -179,24 +163,7 @@ fn refresh_mesh(
     {
         navigation.failed = true;
     }
-    let current: BTreeMap<_, _> = colliders
-        .iter()
-        .filter_map(|(entity, owner, collider, position, rotation)| {
-            let (body, door, window) = bodies.get(owner.body).ok()?;
-            if door || window || body.is_static() {
-                Some((
-                    entity,
-                    ColliderSnapshot {
-                        position: position.0,
-                        rotation: rotation.0,
-                        shape_revision: collider.last_changed(),
-                    },
-                ))
-            } else {
-                None
-            }
-        })
-        .collect();
+    let current = geometry.snapshot();
     let changed = current.len() != navigation.geometry.len()
         || current.iter().any(|(entity, snapshot)| {
             navigation.geometry.get(entity).is_none_or(|old| {

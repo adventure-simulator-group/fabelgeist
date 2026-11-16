@@ -5,6 +5,7 @@
 //! Changing modes preserves the Wasm application, WebGPU device and assets.
 
 mod forge_view;
+mod ui_input;
 use std::{
     collections::VecDeque,
     sync::{Mutex, OnceLock},
@@ -137,6 +138,7 @@ impl BrowserRuntimePlugin {
 impl Plugin for BrowserRuntimePlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins((
+            ui_input::BrowserUiInputPlugin,
             crate::strategic_scene::StrategicScenePlugin,
             crate::presentation::regional_map::RegionalMapPlugin,
         ));

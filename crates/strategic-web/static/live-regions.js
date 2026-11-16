@@ -99,6 +99,8 @@
     document.querySelectorAll("[data-inventory-tabs]").forEach((root) => {
       root.querySelectorAll("[data-inventory-tab]").forEach((tab) => {
         tab.classList.toggle("active", tab.dataset.inventoryTab === name);
+        tab.setAttribute("aria-selected", String(tab.dataset.inventoryTab === name));
+        tab.tabIndex = tab.dataset.inventoryTab === name ? 0 : -1;
       });
       root.querySelectorAll("[data-inventory-pane]").forEach((pane) => {
         pane.hidden = pane.dataset.inventoryPane !== name;
