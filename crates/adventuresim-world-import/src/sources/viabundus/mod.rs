@@ -590,14 +590,16 @@ mod tests {
             DatedFeature::parse(path, "Bridge", SourceFlag(true), "1544", "1544").unwrap();
         assert_eq!(
             contradiction,
-            DatedFeature::ContradictoryEmptyRange { year: year(1544) }
+            DatedFeature::ContradictoryEmptyRange {
+                year: year(1544).into()
+            }
         );
         assert!(!contradiction.active_in(year(1544)));
         assert!(contradiction.is_contradictory());
     }
 
     #[test]
-    fn source_years_must_be_positive_calendar_years() {
+    fn population_years_must_be_positive_calendar_years() {
         let path = std::path::Path::new("nodes.csv");
         assert_eq!(optional_calendar_year(path, "from", "").unwrap(), None);
         assert!(optional_calendar_year(path, "from", "0").is_err());

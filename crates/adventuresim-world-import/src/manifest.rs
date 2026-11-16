@@ -1006,7 +1006,7 @@ mod tests {
                 &[fixture()]
             )
             .unwrap(),
-            "4db541327cea1a8692096e3bcba0afe9fdf842095db73cd46d0c251a05eb77f8"
+            "9321475590fdc6a7ca3f1ff0424d8d1b20093abd27898fa24c21122cb26fd28a"
         );
     }
 

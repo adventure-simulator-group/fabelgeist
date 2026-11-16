@@ -1,9 +1,54 @@
 use super::*;
 
+/// A nonzero Viabundus interval label, ordered numerically as a working
+/// assumption about the source.
+///
+/// Negative labels precede positive game years; no BCE conversion is implied.
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+pub(super) struct SourceYear {
+    year: i32,
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(super) struct ActiveInterval {
-    from: Option<CalendarYear>,
-    to: Option<CalendarYear>,
+    from: Option<SourceYear>,
+    to: Option<SourceYear>,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(super) enum DatedFeature {
+    Absent,
+    ContradictoryEmptyRange {
+        year: SourceYear,
+    },
+    Present {
+        from: Option<SourceYear>,
+        to: Option<SourceYear>,
+    },
+}
+
+impl From<CalendarYear> for SourceYear {
+    fn from(year: CalendarYear) -> Self {
+        Self { year: year.get() }
+    }
+}
+
+impl SourceYear {
+    fn parse_optional(path: &Path, field: &'static str, value: &str) -> Result<Option<Self>> {
+        optional_number::<i32>(path, field, value)?
+            .map(|year| {
+                if year == 0 {
+                    return Err(Error::InvalidField {
+                        path: path.into(),
+                        field,
+                        value: value.into(),
+                        message: "Viabundus source year zero is not supported".into(),
+                    });
+                }
+                Ok(Self { year })
+            })
+            .transpose()
+    }
 }
 
 impl ActiveInterval {
@@ -15,8 +60,8 @@ impl ActiveInterval {
         to: &str,
     ) -> Result<Self> {
         let interval = Self {
-            from: optional_calendar_year(path, from_field, from)?,
-            to: optional_calendar_year(path, to_field, to)?,
+            from: SourceYear::parse_optional(path, from_field, from)?,
+            to: SourceYear::parse_optional(path, to_field, to)?,
         };
         if interval
             .from
@@ -26,7 +71,7 @@ impl ActiveInterval {
             return Err(Error::InvalidField {
                 path: path.into(),
                 field: from_field,
-                value: format!("{:?}..{:?}", interval.from, interval.to),
+                value: format!("{from:?}..{to:?}"),
                 message: format!("{from_field} must not be later than {to_field}"),
             });
         }
@@ -34,20 +79,9 @@ impl ActiveInterval {
     }
 
     pub(super) fn contains(self, year: CalendarYear) -> bool {
+        let year = SourceYear::from(year);
         self.from.is_none_or(|from| from <= year) && self.to.is_none_or(|to| year < to)
     }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-pub(super) enum DatedFeature {
-    Absent,
-    ContradictoryEmptyRange {
-        year: CalendarYear,
-    },
-    Present {
-        from: Option<CalendarYear>,
-        to: Option<CalendarYear>,
-    },
 }
 
 impl DatedFeature {
@@ -58,8 +92,8 @@ impl DatedFeature {
         from: &str,
         to: &str,
     ) -> Result<Self> {
-        let from_year = optional_calendar_year(path, field, from)?;
-        let to_year = optional_calendar_year(path, field, to)?;
+        let from_year = SourceYear::parse_optional(path, field, from)?;
+        let to_year = SourceYear::parse_optional(path, field, to)?;
         if !present.is_set() {
             if from_year.is_some() || to_year.is_some() {
                 return Err(Error::InvalidField {

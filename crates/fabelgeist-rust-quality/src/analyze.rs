@@ -11,6 +11,7 @@ use crate::{
     config::{Baseline, Config, Debt, Exception, FindingBaseline},
     float_epsilon, manifests,
     scan::{Finding, FunctionSize, LiteralOccurrence, path_matches, scan},
+    source_year_contract,
 };
 
 #[derive(Clone, Debug)]
@@ -35,6 +36,7 @@ pub fn check_repository(
     let mut findings = Vec::new();
     let mut literals = Vec::new();
     let mut calendar_diagnostics = Vec::new();
+    let mut saw_source_year_contract = false;
     let mut epsilon_files = Vec::new();
     let mut seen_items: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
 
@@ -61,6 +63,10 @@ pub fn check_repository(
             continue;
         }
         calendar_diagnostics.extend(calendar_flow::check_file(&relative, &syntax));
+        if relative == source_year_contract::PATH {
+            saw_source_year_contract = true;
+            calendar_diagnostics.extend(source_year_contract::check_file(&syntax));
+        }
         let result = scan(&relative, &source, &syntax, config);
         files.insert(relative.clone(), result.production_lines);
         functions.extend(result.functions);
@@ -73,6 +79,12 @@ pub fn check_repository(
         });
     }
 
+    if root.join(source_year_contract::IMPORTER_CRATE).exists() && !saw_source_year_contract {
+        calendar_diagnostics.push(format!(
+            "{}: source-year contract file missing or excluded",
+            source_year_contract::PATH
+        ));
+    }
     findings.extend(float_epsilon::check_files(root, &epsilon_files)?);
     let grouped_findings = group_findings(&findings);
     let mut diagnostics = manifests::check(root)?;
@@ -472,6 +484,51 @@ mod tests {
             &config,
             "crates/example/target/debug/build/generated.rs"
         ));
+    }
+
+    #[test]
+    fn source_year_contract_file_must_be_checked_when_the_importer_exists() {
+        let root = std::env::temp_dir().join(format!(
+            "fabelgeist-source-year-check-{}",
+            std::process::id()
+        ));
+        if root.exists() {
+            fs::remove_dir_all(&root).unwrap();
+        }
+        let contract = root.join(source_year_contract::PATH);
+        fs::create_dir_all(contract.parent().unwrap()).unwrap();
+        fs::write(
+            root.join("Cargo.toml"),
+            "[workspace]\nmembers = []\n[workspace.lints.clippy]\nall = 'warn'\n",
+        )
+        .unwrap();
+        let mut config: Config =
+            toml::from_str("file_limit = 500\nfunction_limit = 100\n").unwrap();
+        let has_missing = |report: &Report| {
+            report.diagnostics.iter().any(|diagnostic| {
+                diagnostic.contains("source-year contract file missing or excluded")
+            })
+        };
+        let missing = check_repository(&root, &config, &Baseline::default()).unwrap();
+        assert!(has_missing(&missing));
+
+        fs::write(
+            &contract,
+            "struct SourceYear { year: i32 }\n\
+             struct ActiveInterval { from: Option<SourceYear>, to: Option<SourceYear> }\n\
+             enum DatedFeature { Absent, ContradictoryEmptyRange { year: SourceYear }, \
+             Present { from: Option<SourceYear>, to: Option<SourceYear> } }",
+        )
+        .unwrap();
+        let present = check_repository(&root, &config, &Baseline::default()).unwrap();
+        assert!(!has_missing(&present));
+        assert!(present.diagnostics.is_empty(), "{:?}", present.diagnostics);
+        config
+            .excluded_paths
+            .push(source_year_contract::PATH.into());
+        let excluded = check_repository(&root, &config, &Baseline::default()).unwrap();
+        fs::remove_dir_all(root).unwrap();
+        assert!(has_missing(&excluded));
     }
 
     #[test]
