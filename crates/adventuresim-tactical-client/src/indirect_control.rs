@@ -300,7 +300,7 @@ fn orbit_camera(
                 .ai
                 .control
                 .orbit_mouse_degrees_per_pixel
-                .degrees()
+                .degrees_per_pixel()
                 .to_radians();
             // The open hemisphere avoids an inverted orbit and the look-at pole.
             let pitch = (pitch - motion.delta.y * sensitivity).clamp(

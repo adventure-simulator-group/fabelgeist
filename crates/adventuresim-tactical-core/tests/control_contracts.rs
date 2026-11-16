@@ -41,6 +41,30 @@ fn control_configuration_rejects_invalid_lengths() {
 }
 
 #[test]
+fn control_configuration_rejects_nonpositive_timeouts_and_sensitivity() {
+    let config = TacticalCombatConfig::default();
+    for field in [
+        "no_progress_seconds",
+        "threat_memory_seconds",
+        "mesh_rebuild_interval_seconds",
+        "orbit_mouse_degrees_per_pixel",
+    ] {
+        for invalid in [0, -1] {
+            let mut value = serde_json::to_value(&config).unwrap();
+            value["ai"]["control"][field] = invalid.into();
+            assert!(
+                serde_json::from_value::<TacticalCombatConfig>(value).is_err(),
+                "{field} accepted {invalid}"
+            );
+        }
+    }
+    for invalid in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY] {
+        assert!(PositiveControlDuration::try_from(invalid).is_err());
+        assert!(OrbitSensitivity::try_from(invalid).is_err());
+    }
+}
+
+#[test]
 fn authored_configuration_round_trips_with_control_contracts() {
     let config = TacticalCombatConfig::default();
     config.validate().unwrap();

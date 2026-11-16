@@ -96,8 +96,8 @@ movement and local character avoidance. Agent positions come from the feet;
 their velocities come from the physical simulation. Steering requests movement
 through the existing character controller and never assigns actor positions.
 
-The server rebuilds the mesh when relevant collision geometry changes, with a
-minimum interval between rebuild requests. Rerecast rebuilds the whole mesh;
+The server rebuilds the mesh when relevant colliders change shape or move, with
+a minimum interval between rebuild requests. Rerecast rebuilds the whole mesh;
 it does not yet update individual tiles. Orders wait while the mesh rebuilds
 and report an unavailable mesh if generation does not finish. Unreachable
 destinations and lack of physical progress are reported separately. Closed

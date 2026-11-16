@@ -3,6 +3,7 @@
 use super::*;
 use avian_rerecast::ColliderToTriMesh;
 use bevy::asset::AssetPlugin;
+use bevy::ecs::change_detection::Tick;
 use bevy_landmass::prelude::*;
 use bevy_rerecast::{NavmeshPlugins, prelude::*, rerecast::TriMesh};
 use landmass_rerecast::{Island3dBundle, LandmassRerecastPlugin, NavMeshHandle3d};
@@ -11,6 +12,13 @@ use std::collections::BTreeMap;
 const GEOMETRY_POSITION_CHANGE_METRES: f32 = 0.05;
 const GEOMETRY_ROTATION_CHANGE_RADIANS: f32 = 5.0_f32.to_radians();
 const MESH_BUILD_TIMEOUT_SECONDS: f64 = 30.0;
+
+#[derive(Clone, Copy)]
+struct ColliderSnapshot {
+    position: Vec3,
+    rotation: Quat,
+    shape_revision: Tick,
+}
 
 /// The mesh handle and Landmass world belong to this transient tactical scene.
 #[derive(Resource, Default)]
@@ -21,7 +29,7 @@ pub(crate) struct TacticalNavigation {
     pub(crate) failed: bool,
     island: Option<Entity>,
     generated: bool,
-    geometry: BTreeMap<Entity, (Vec3, Quat)>,
+    geometry: BTreeMap<Entity, ColliderSnapshot>,
     last_request: Option<f64>,
 }
 
@@ -152,15 +160,13 @@ fn refresh_mesh(
     mut generator: NavmeshGenerator,
     config: Res<TacticalCombatConfig>,
     time: Res<Time>,
-    colliders: Query<
-        (
-            Entity,
-            &ColliderOf,
-            &adventuresim_tactical_core::avian3d::prelude::Position,
-            &Rotation,
-        ),
-        With<Collider>,
-    >,
+    colliders: Query<(
+        Entity,
+        &ColliderOf,
+        Ref<Collider>,
+        &adventuresim_tactical_core::avian3d::prelude::Position,
+        &Rotation,
+    )>,
     bodies: Query<(&RigidBody, Has<SceneDoor>, Has<SceneWindow>)>,
 ) {
     let Some(handle) = navigation.mesh.clone() else {
@@ -175,24 +181,30 @@ fn refresh_mesh(
     }
     let current: BTreeMap<_, _> = colliders
         .iter()
-        .filter_map(|(entity, owner, position, rotation)| {
+        .filter_map(|(entity, owner, collider, position, rotation)| {
             let (body, door, window) = bodies.get(owner.body).ok()?;
             if door || window || body.is_static() {
-                Some((entity, (position.0, rotation.0)))
+                Some((
+                    entity,
+                    ColliderSnapshot {
+                        position: position.0,
+                        rotation: rotation.0,
+                        shape_revision: collider.last_changed(),
+                    },
+                ))
             } else {
                 None
             }
         })
         .collect();
     let changed = current.len() != navigation.geometry.len()
-        || current.iter().any(|(entity, (position, rotation))| {
-            navigation
-                .geometry
-                .get(entity)
-                .is_none_or(|(old_position, old_rotation)| {
-                    old_position.distance(*position) >= GEOMETRY_POSITION_CHANGE_METRES
-                        || old_rotation.angle_between(*rotation) >= GEOMETRY_ROTATION_CHANGE_RADIANS
-                })
+        || current.iter().any(|(entity, snapshot)| {
+            navigation.geometry.get(entity).is_none_or(|old| {
+                old.position.distance(snapshot.position) >= GEOMETRY_POSITION_CHANGE_METRES
+                    || old.rotation.angle_between(snapshot.rotation)
+                        >= GEOMETRY_ROTATION_CHANGE_RADIANS
+                    || old.shape_revision != snapshot.shape_revision
+            })
         });
     if !changed {
         return;

@@ -148,6 +148,39 @@ fn combat_pursuit_turns_toward_the_route_before_advancing() {
     );
 }
 
+#[test]
+fn pursuit_uses_target_height_to_find_its_support() {
+    let mut app = app();
+    wait_for_navigation(&mut app);
+    let actor = character(
+        &mut app,
+        TacticalCombatSide::Party,
+        Vec3::new(0.0, 0.95, 0.0),
+    );
+    let target = character(
+        &mut app,
+        TacticalCombatSide::Enemy,
+        Vec3::new(4.0, 1.9, 0.0),
+    );
+    app.world_mut()
+        .get_mut::<CharacterDimensions>(target)
+        .unwrap()
+        .body_height_metres = 3.8;
+    app.update();
+    request(
+        &mut app,
+        actor,
+        ControlChange::Order(CharacterGoal::Attack { target }),
+    );
+    app.world_mut()
+        .get_mut::<AuthoritativeMovementIntent>(actor)
+        .unwrap()
+        .0 = Some(Vec2::Y);
+    app.update();
+    let look = app.world().get::<CharacterLook>(actor).unwrap();
+    assert!((Quat::from_rotation_y(look.yaw) * Vec3::NEG_Z).dot(Vec3::X) > 0.99);
+}
+
 fn character(app: &mut App, side: TacticalCombatSide, position: Vec3) -> Entity {
     app.world_mut()
         .spawn((

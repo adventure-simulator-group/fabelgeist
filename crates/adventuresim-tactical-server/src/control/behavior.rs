@@ -44,6 +44,11 @@ pub(super) struct BehaviorContext<'w, 's> {
     time: Res<'w, Time>,
 }
 
+enum RouteProgress {
+    Travelling,
+    Arrived,
+}
+
 pub(super) fn prepare_behavior(mut agents: BehaviorActors, context: BehaviorContext) {
     let filter = control_filter(&context.actors, &context.items);
     let config = &context.config.ai.control;
@@ -255,7 +260,7 @@ pub(super) fn follow_routes(
     spatial: SpatialQuery,
     actors: Query<Entity, With<Player>>,
     items: Query<Entity, With<TacticalSceneItem>>,
-    targets: Query<&Transform>,
+    targets: Query<(&Transform, &CharacterDimensions)>,
     navigation: Res<crate::navigation::TacticalNavigation>,
     navigation_agents: Query<(
         &bevy_landmass::AgentState,
@@ -343,7 +348,7 @@ pub(super) fn follow_routes(
 fn navigation_destination(
     decision: BehaviorDecision,
     world: &NavigationWorld,
-    targets: &Query<&Transform>,
+    targets: &Query<(&Transform, &CharacterDimensions)>,
     movement: &mut AuthoritativeMovementIntent,
 ) -> Result<Option<crate::navigation::SupportedPoint>, ControlRejection> {
     match decision {
@@ -362,7 +367,9 @@ fn navigation_destination(
         } if movement.0.is_some_and(|input| input.y > 0.0) => Ok(targets
             .get(target)
             .ok()
-            .and_then(|transform| feet(transform, world.dimensions))
+            .and_then(|(transform, dimensions)| {
+                super::navigation::target_feet(transform, dimensions)
+            })
             .and_then(|position| world.support_at(position))),
         _ => Ok(None),
     }
@@ -370,14 +377,14 @@ fn navigation_destination(
 
 fn apply_route_result(
     entity: Entity,
-    result: Result<bool, ControlRejection>,
+    result: Result<RouteProgress, ControlRejection>,
     agent: &mut AgentState,
     order: &mut CharacterOrder,
     waypoints: &mut WaypointQueue,
     movement: &mut AuthoritativeMovementIntent,
 ) {
     match result {
-        Ok(true)
+        Ok(RouteProgress::Arrived)
             if matches!(agent.decision, BehaviorDecision::Travel(_))
                 && matches!(order.goal, CharacterGoal::MoveTo(_)) =>
         {
@@ -424,7 +431,7 @@ fn drive_navigation(
     movement: &mut AuthoritativeMovementIntent,
     look: &mut CharacterLook,
     now: CombatInstant,
-) -> Result<bool, ControlRejection> {
+) -> Result<RouteProgress, ControlRejection> {
     let position = feet(transform, world.dimensions).ok_or(ControlRejection::InvalidDestination)?;
     let config = &world.config.ai.control;
     let offset = destination.position.metres() - position.metres();
@@ -432,7 +439,7 @@ fn drive_navigation(
         && offset.y.abs() <= config.support_tolerance_metres.metres()
     {
         movement.0 = None;
-        return Ok(true);
+        return Ok(RouteProgress::Arrived);
     }
     if navigation.failed {
         return Err(ControlRejection::NavigationUnavailable);
@@ -440,7 +447,7 @@ fn drive_navigation(
     let Some((state, desired)) = navigation_agent.filter(|_| navigation.ready) else {
         movement.0 = None;
         agent.last_progress = None;
-        return Ok(false);
+        return Ok(RouteProgress::Travelling);
     };
     if matches!(
         state,
@@ -464,7 +471,7 @@ fn drive_navigation(
     let direction = desired.velocity().xz();
     if direction.length_squared() == 0.0 {
         movement.0 = None;
-        return Ok(false);
+        return Ok(RouteProgress::Travelling);
     }
     look.yaw = (-direction.x).atan2(-direction.y);
     let forward = transform.rotation * Vec3::NEG_Z;
@@ -478,5 +485,5 @@ fn drive_navigation(
     } else {
         Some(Vec2::Y)
     };
-    Ok(false)
+    Ok(RouteProgress::Travelling)
 }

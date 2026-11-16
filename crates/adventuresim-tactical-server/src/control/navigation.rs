@@ -9,6 +9,14 @@ use bevy_landmass::{
 #[derive(Component)]
 pub(super) struct NavigationAgent(pub(super) Entity);
 
+pub(super) fn target_feet(
+    transform: &Transform,
+    dimensions: &CharacterDimensions,
+) -> Option<Position<Scene>> {
+    Position::from_metres(transform.translation - Vec3::Y * dimensions.body_height_metres * 0.5)
+        .ok()
+}
+
 #[expect(
     clippy::type_complexity,
     reason = "the Bevy query joins each actor's tactical goal and physical velocity"
@@ -41,11 +49,11 @@ pub(super) fn sync_navigation_agents(
                 BehaviorDecision::Engage {
                     target,
                     pursuit: PursuitPolicy::Allowed,
-                } if movement.0.is_some_and(|input| input.y > 0.0) => {
-                    targets.get(target).ok().map(|(transform, dimensions)| {
-                        transform.translation - Vec3::Y * dimensions.body_height_metres * 0.5
-                    })
-                }
+                } if movement.0.is_some_and(|input| input.y > 0.0) => targets
+                    .get(target)
+                    .ok()
+                    .and_then(|(transform, dimensions)| target_feet(transform, dimensions))
+                    .map(Position::metres),
                 _ => None,
             }
         };

@@ -7,7 +7,9 @@ use serde::{Deserialize, Serialize};
 
 use crate::scene_coordinates::Scene;
 
-pub use config::{ControlConfig, ControlConfigError};
+pub use config::{
+    ControlConfig, ControlConfigError, ControlValueError, OrbitSensitivity, PositiveControlDuration,
+};
 
 mod config;
 

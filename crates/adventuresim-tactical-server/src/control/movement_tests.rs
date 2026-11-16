@@ -198,6 +198,57 @@ fn newly_added_wall_rebuilds_the_mesh_before_travel() {
     walk_to(&mut app, actor, Vec3::new(6.0, 0.0, 0.0));
 }
 
+#[test]
+fn resized_wall_rebuilds_the_mesh_before_travel() {
+    let (mut app, actor) = movement_scene(false);
+    let wall = app
+        .world_mut()
+        .spawn((
+            RigidBody::Static,
+            Collider::cuboid(0.5, 3.0, 0.5),
+            Transform::from_xyz(3.0, 1.5, 0.0),
+        ))
+        .id();
+    wait_for_rebuild(&mut app);
+    app.world_mut()
+        .entity_mut(wall)
+        .insert(Collider::cuboid(0.5, 3.0, 2.0));
+    wait_for_rebuild(&mut app);
+    walk_to(&mut app, actor, Vec3::new(6.0, 0.0, 0.0));
+}
+
+#[test]
+fn unchanged_colliders_do_not_repeatedly_rebuild_the_mesh() {
+    let (mut app, _) = movement_scene(false);
+    // Physics may finish initializing the collider just after the first mesh
+    // becomes ready. Allow that first pending rebuild to settle.
+    for _ in 0..60 {
+        app.update();
+        let deadline = std::time::Instant::now() + Duration::from_secs(15);
+        while !app
+            .world()
+            .resource::<crate::navigation::TacticalNavigation>()
+            .ready
+        {
+            assert!(
+                std::time::Instant::now() < deadline,
+                "initial mesh did not settle"
+            );
+            app.update();
+            std::thread::yield_now();
+        }
+    }
+    for _ in 0..120 {
+        app.update();
+        assert!(
+            app.world()
+                .resource::<crate::navigation::TacticalNavigation>()
+                .ready,
+            "unchanged collision geometry triggered another rebuild"
+        );
+    }
+}
+
 fn wait_for_rebuild(app: &mut App) {
     let deadline = std::time::Instant::now() + Duration::from_secs(15);
     let mut rebuilding = false;
