@@ -1,14 +1,5 @@
 # Third-party notices
 
-## Landmass navigation
-
-`vendor/landmass/` contains Landmass 0.9.3 by Andriy Dev under MIT OR
-Apache-2.0. Its `geo` dependency is updated to 0.33.1 to match the workspace.
-The upstream license texts accompany the source.
-
-- Source: <https://github.com/andriyDev/landmass>
-- Published version: <https://crates.io/crates/landmass/0.9.3>
-
 ## Rerecast navigation mesh generation
 
 `vendor/rerecast/` contains Rerecast 0.4.0 by Jan Hohenheim under MIT OR

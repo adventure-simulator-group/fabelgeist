@@ -50,7 +50,6 @@ members = [
 ]
 exclude = [
   "vendor/bevy_ahoy",
-  "vendor/landmass",
   "vendor/rerecast",
   "wiki",
   "utils",
@@ -164,7 +163,8 @@ dbase = "0.8.0"
 html-escape = "0.2"
 image = { version = "0.25.10", default-features = false, features = ["avif"] }
 blake3 = "1"
-geo = "0.33.1"
+# Landmass 0.9's geo version conflicts with newer i_overlay requirements.
+geo = "0.31"
 spade = "2.15.1"
 geozero = { version = "0.14.0", features = ["with-geo", "with-wkb"] }
 proj4rs = { version = "0.1.10", default-features = false }
@@ -184,7 +184,6 @@ spacetimedb-sats = { version = "=2.6.1", features = ["serde"] }
 all = { level = "warn", priority = -1 }
 
 [patch.crates-io]
-landmass = { path = "vendor/landmass" }
 rerecast = { path = "vendor/rerecast" }
 adventuresim-tactical-netcode = { path = "crates/adventuresim-tactical-netcode" }
 adventuresim-tactical-core = { path = "crates/adventuresim-tactical-core" }
