@@ -63,6 +63,10 @@ mod startup;
 mod stdb;
 mod terrain_collision;
 
+#[cfg(test)]
+#[path = "navigation/scene_tests.rs"]
+mod navigation_scene_tests;
+
 const MISSION_TIMEOUT_SECS: f32 = 300.0;
 
 #[derive(Parser, Debug, Clone, Resource)]

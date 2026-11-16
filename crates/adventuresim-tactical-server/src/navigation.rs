@@ -9,8 +9,6 @@ pub(crate) use mesh::{TacticalNavigation, TacticalNavigationPlugin};
 mod mesh;
 
 #[cfg(test)]
-mod scene_tests;
-#[cfg(test)]
 mod tests;
 
 /// Only application-approved surfaces and traversals enter a route.

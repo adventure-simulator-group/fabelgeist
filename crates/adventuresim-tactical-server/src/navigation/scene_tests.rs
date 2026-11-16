@@ -1,7 +1,8 @@
 //! The default generated terrain must produce a usable server navigation mesh.
 
-use super::*;
-use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use crate::navigation::{TacticalNavigation, TacticalNavigationPlugin};
+use adventuresim_tactical_core::{prelude::*, scene_coordinates::ScenePlanPoint};
+use bevy::prelude::*;
 use std::time::{Duration, Instant};
 
 #[test]
