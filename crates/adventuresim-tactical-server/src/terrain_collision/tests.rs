@@ -1,59 +1,9 @@
 use super::*;
-use adventuresim_tactical_core::city_layout::grounding::*;
-use adventuresim_tactical_core::city_layout::{
-    CitySceneLayout, CompoundGradingPolicy, StreetApronDimensions,
-};
+use crate::compound_review_fixture::compound_review_terrain;
 
 #[test]
 fn scene_observer_restores_separate_static_support_bodies_at_the_scene_transform() {
-    let input: TacticalSceneInput = serde_json::from_str(include_str!(
-        "../../../../assets/tactical-scenes/compound-review.json"
-    ))
-    .unwrap();
-    let sampled = SceneTerrain::from_heightmap(101, 101, 1.0, vec![0.0; 101 * 101]).unwrap();
-    let source = sampled.sampled_geographic_surface().unwrap();
-    let layout = CitySceneLayout {
-        playable: input.buildings.clone(),
-        distant: input.distant_buildings.clone(),
-        compounds: input.compounds.clone(),
-        ..default()
-    };
-    let policy = CompoundGradingPolicy {
-        limits: SupportLimits::new(
-            adventuresim_tactical_core::city_layout::grounding::SupportGrade::from_ratio(0.65)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(6.0)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.001)
-                .unwrap(),
-        ),
-        stairs: CourtStairLimits::new(
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.19)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.25)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.0)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(1.05)
-                .unwrap(),
-            adventuresim_building_generator::spatial_geometry::PositiveLength::from_metres(0.5)
-                .unwrap(),
-        ),
-        embedment: FoundationEmbedment::from_metres(0.2).unwrap(),
-        street_apron: StreetApronDimensions::from_metres(Vec2::new(1.0, 4.0)).unwrap(),
-    };
-    let plans = layout.plan_compound_support(&source, policy).unwrap();
-    let terrain = sampled.with_property_surface(
-        BoundedSettlementTerrain::compile(
-            &plans
-                .iter()
-                .map(|plan| plan.support_surface().unwrap())
-                .collect::<Vec<_>>(),
-            &source,
-            policy.embedment,
-        )
-        .unwrap(),
-    );
+    let (terrain, plans) = compound_review_terrain(vec![0.0; 101 * 101]);
     let restored: SceneTerrain =
         serde_json::from_value(serde_json::to_value(&terrain).unwrap()).unwrap();
     let mut app = App::new();

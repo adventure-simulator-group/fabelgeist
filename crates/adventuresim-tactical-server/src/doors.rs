@@ -185,7 +185,7 @@ pub(super) fn spawn_door(
             // The frame is represented by several independent terrain-layer
             // colliders. Letting the leaf contact them turns a character push
             // into an over-constrained solver island and can launch the door.
-            CollisionLayers::new(TACTICAL_DOOR_LAYER, LayerMask::DEFAULT),
+            CollisionLayers::new(TACTICAL_DOOR_LAYER, TACTICAL_LEAF_FILTERS),
             ActiveCollisionHooks::FILTER_PAIRS,
             CollisionEventsEnabled,
             MaxAngularSpeed(DOOR_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND),
@@ -406,7 +406,7 @@ mod tests {
 
     #[test]
     fn door_collides_with_characters_but_not_its_multi_collider_frame() {
-        let door = CollisionLayers::new(TACTICAL_DOOR_LAYER, LayerMask::DEFAULT);
+        let door = CollisionLayers::new(TACTICAL_DOOR_LAYER, TACTICAL_LEAF_FILTERS);
         let character = CollisionLayers::DEFAULT;
         let frame = CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL);
 
@@ -609,7 +609,7 @@ mod tests {
                     &Cuboid::new(DOOR_WIDTH_METRES, DOOR_HEIGHT_METRES, DOOR_THICKNESS_METRES),
                     DOOR_DENSITY_KILOGRAMS_PER_CUBIC_METRE,
                 ),
-                CollisionLayers::new(TACTICAL_DOOR_LAYER, LayerMask::DEFAULT),
+                CollisionLayers::new(TACTICAL_DOOR_LAYER, TACTICAL_LEAF_FILTERS),
                 MaxAngularSpeed(DOOR_MAX_ANGULAR_SPEED_RADIANS_PER_SECOND),
                 MaxLinearSpeed(DOOR_MAX_LINEAR_SPEED_METRES_PER_SECOND),
                 SleepingDisabled,

@@ -78,6 +78,7 @@ mod roof_wall_opening;
 mod shed_dormers;
 pub(crate) mod small_church;
 mod timber_contacts;
+mod timber_floor_plan;
 mod timber_hall;
 mod timber_infill;
 mod timber_jetty;

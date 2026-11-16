@@ -116,7 +116,7 @@ fn spawn_window(
             window.size_metres.metres().y,
             window.size_metres.metres().z,
         ),
-        CollisionLayers::new(TACTICAL_WINDOW_LAYER, LayerMask::DEFAULT),
+        CollisionLayers::new(TACTICAL_WINDOW_LAYER, TACTICAL_LEAF_FILTERS),
         Transform::from_translation(closed_centre).with_rotation(closed_rotation),
         WindowController {
             hinge_centre,
