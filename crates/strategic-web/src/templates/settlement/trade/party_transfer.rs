@@ -1,5 +1,8 @@
 //! Direct party-member inventory transfer presentation.
 
+use super::super::side_panels::{
+    PanelKind, PanelSide, PanelSubject, PanelTab, SidePanel, character_identity,
+};
 use super::*;
 use super::{equipment::*, inventory::*};
 
@@ -26,7 +29,10 @@ pub fn party_inventory_page(
 ) -> Markup {
     let content = html! {
         aside class="left-sidebar" {
-            (party_trade_inventory_rail(selected, selected_inventory, items, food_lots, active_character.id, "right", selected_equip, active_targets, selected_encumbrance, false))
+            (SidePanel { side: PanelSide::Left, subject: PanelSubject::Character(selected), tabs: vec![
+                PanelTab { kind: PanelKind::Inventory, content: html! {             (party_trade_inventory_rail(selected, selected_inventory, items, food_lots, active_character.id, "right", selected_equip, active_targets, selected_encumbrance, false)) } },
+                PanelTab { kind: PanelKind::Character, content: character_identity(selected) },
+            ] }.render())
         }
         main class="center-content settlement-main party-member-stage" {
             (party_portrait_overlay(party_members, Some(active_character), &location.base_path(), Some(selected.id)))
@@ -40,7 +46,10 @@ pub fn party_inventory_page(
             }
         }
         aside class="right-sidebar" {
-            (party_trade_inventory_rail(active_character, active_inventory, items, food_lots, selected.id, "left", active_equip, selected_targets, active_encumbrance, true))
+            (SidePanel { side: PanelSide::Right, subject: PanelSubject::Character(active_character), tabs: vec![
+                PanelTab { kind: PanelKind::Inventory, content: html! {             (party_trade_inventory_rail(active_character, active_inventory, items, food_lots, selected.id, "left", active_equip, selected_targets, active_encumbrance, true)) } },
+                PanelTab { kind: PanelKind::Character, content: character_identity(active_character) },
+            ] }.render())
         }
     };
     location.render_layout("Party", content, Some(&active_character.name))

@@ -1,4 +1,4 @@
-mod summary;
+pub(crate) use sheet::character_sheet_markup;
 use summary::character_summary_rail;
 
 use adventuresim_core::{
@@ -31,6 +31,9 @@ use crate::spacetimedb::{
 use crate::templates::{
     decorative_game_icon, organization_charge, organization_colors, religion_icon, sidebar_section,
 };
+
+mod sheet;
+mod summary;
 
 #[expect(
     clippy::too_many_arguments,
@@ -105,73 +108,8 @@ pub(crate) struct CharacterSheetView<'a> {
     pub center_after: Markup,
     pub left_after: Markup,
     pub right_after: Markup,
+    pub inventory: Option<Markup>,
     pub after: Markup,
-}
-
-/// The single selected-character sheet used by live party members and
-/// preview-only starting candidates. Callers supply party-only controls in the
-/// extension slots; the attributes, limbs, bio, skills, and activities markup
-/// remains owned here.
-pub(crate) fn character_sheet_markup(view: CharacterSheetView<'_>) -> Markup {
-    html! {
-        aside class="left-sidebar" {
-            (party_attributes_rail(
-                view.attributes_title,
-                view.attributes,
-                view.limbs,
-                view.medical,
-                view.physiology_dialog_id,
-                view.surgery,
-                view.injuries,
-                view.projectiles,
-            ))
-            (view.left_after)
-        }
-        main class="center-content settlement-main party-member-stage" {
-            (view.center_before)
-            (view.portraits)
-            (visual_stage(VisualStageKind::Character, &view.character.name, view.description))
-            (view.center_after)
-        }
-        aside class="right-sidebar" {
-            (character_summary_rail(
-                view.capability,
-                view.attributes,
-                view.skills,
-                view.combat_profile,
-                view.training_religion_id.and_then(OfficialReligion::from_id),
-            ))
-            (character_bio_rail(
-                view.character,
-                view.religion_id,
-                view.fame,
-                view.infamy,
-                view.personality,
-                view.can_renounce,
-                view.location_path,
-                view.organization_memberships,
-                view.organization_presentation,
-                view.organization_minute,
-            ))
-            (party_skills_rail(
-                view.skills_title,
-                view.attributes,
-                view.skills,
-                view.limbs,
-                view.schedule,
-                view.schedule_action,
-                view.activity_preview,
-                view.activity_location,
-                view.professes_religion,
-                view.prayer_religion_check,
-                view.training_religion_id,
-                view.combat_profile,
-                view.skill_actions,
-            ))
-            (view.right_after)
-        }
-        (view.after)
-    }
 }
 
 pub(crate) fn character_visual_preview(character: &CharacterView) -> Markup {
@@ -215,10 +153,10 @@ pub fn party_personal_page(
     injuries: &[LimbInjury],
     projectiles: &[RetainedProjectile],
     filth: &[crate::spacetimedb::CharacterFilth],
-    _inventory: &[InventoryItem],
-    _inventory_amounts: &[InventoryItemAmount],
-    _food_lots: &[FoodLot],
-    _item_definitions: &[CatalogItemView],
+    inventory: &[InventoryItem],
+    inventory_amounts: &[InventoryItemAmount],
+    food_lots: &[FoodLot],
+    item_definitions: &[CatalogItemView],
     character_action_dialog: Option<Markup>,
     surgery_open: Option<&str>,
     social_open: bool,
@@ -227,7 +165,6 @@ pub fn party_personal_page(
     // Cooking is informational on the skill sheet. The environmental
     // fireplace portrait is the sole entry point to cooking.
     let cooking_href: Option<String> = None;
-    let cooking_open = false;
     let surgery_path_template = location.preserve_building(format!(
         "{}/party/{}/surgery/__limb__",
         location.base_path(),
@@ -262,12 +199,7 @@ pub fn party_personal_page(
     let center_after = character_action_dialog
         .unwrap_or_else(|| player_chat_area(location, active_character, active_character));
     let foraging_open = foraging_dialog.is_some();
-    let after = html! {
-        (physiology_dialog(medical, "physiology-chart-dialog", &active_character.name))
-        @if let Some(dialog) = foraging_dialog {
-            (dialog)
-        }
-    };
+    let after = sheet::personal_dialogs(medical, &active_character.name, foraging_dialog);
     let content = character_sheet_markup(CharacterSheetView {
         character: active_character,
         capability,
@@ -300,7 +232,7 @@ pub fn party_personal_page(
         prayer_religion_check,
         skill_actions: CharacterSheetActions {
             cooking_href: cooking_href.as_deref(),
-            cooking_open,
+            cooking_open: false,
             foraging_href: Some(&foraging_href),
             foraging_open,
         },
@@ -310,6 +242,12 @@ pub fn party_personal_page(
         center_after,
         left_after,
         right_after: profile_membership(active_character, party_members, &location_path),
+        inventory: Some(super::inspection_inventory::personal_inventory(
+            inventory,
+            inventory_amounts,
+            food_lots,
+            item_definitions,
+        )),
         after,
     });
     location.render_layout("Party", content, Some(&active_character.name))
@@ -366,35 +304,13 @@ pub fn party_stats_page(
     );
     let center_after = character_action_dialog
         .unwrap_or_else(|| player_chat_area(location, selected, active_character));
-    let right_after = html! {
-        @if selected.id != active_character.id {
-                @if active_character.party_id == selected.party_id {
-                    @if active_party.is_some_and(|party| party.leader_id == selected.id) {
-                        (sidebar_section("Party", html! {
-                            form method="post" action=(format!("{location_path}/party/{}/remove", active_character.id)) {
-                                button type="submit" class="btn btn-danger btn-block" { "Leave party" }
-                            }
-                        }))
-                    } @else {
-                        (sidebar_section("Party", html! {
-                            form method="post" action=(format!("{location_path}/party/{}/remove", selected.id)) {
-                                button type="submit" class="btn btn-danger btn-block" {
-                                    @if active_party.is_some_and(|party| party.leader_id == active_character.id) { "Kick from party" }
-                                    @else { "Request kick" }
-                                }
-                            }
-                        }))
-                    }
-                } @else if let Some(party) = selected_party {
-                    (sidebar_section("Party", html! {
-                        p { (&party.name) }
-                        form method="post" action=(format!("/parties/{}/join-general", party.id)) {
-                            button type="submit" class="btn btn-primary btn-block" { "Request to join party" }
-                        }
-                    }))
-                }
-            }
-    };
+    let right_after = sheet::membership_actions(
+        &location_path,
+        active_character,
+        selected,
+        active_party,
+        selected_party,
+    );
     let after = html! { (physiology_dialog(medical, "physiology-chart-dialog", &selected.name)) };
     let content = character_sheet_markup(CharacterSheetView {
         character: selected,
@@ -433,6 +349,7 @@ pub fn party_stats_page(
         center_after,
         left_after,
         right_after,
+        inventory: None,
         after,
     });
     location.render_layout("Party stats", content, Some(&active_character.name))

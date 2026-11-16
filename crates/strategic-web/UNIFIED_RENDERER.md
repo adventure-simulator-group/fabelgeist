@@ -8,6 +8,35 @@ venue reuses its scene document, roster and equipment.
 Forge teardown removes only the forge preview. The strategic scene bridge owns
 view visibility and retains the current view across ordinary page replacement.
 
+## Side panels and input ownership
+
+Merchant, party inventory and character documents compose independent left and
+right tab groups. `settlement::side_panels` renders only the projections supplied
+by the authorized route. Each group identifies its character or storefront;
+changing the selected tab does not select another person, navigate, request a
+scene or restart the renderer. Personal/party inventory remains a separate
+selector within the merchant inventory tab.
+
+`side-panels.js` retains each pane's DOM, scroll position and draft while another
+pane is selected. It remembers the current subject's selection on each side
+through live region replacement and restores tab focus. Changing subjects drops
+that side's remembered selection. Page teardown clears staged merchant/party
+offers so their quantities cannot be submitted against a new counterparty.
+Arrow keys, Home and End select tabs; Tab moves into the selected document.
+
+In tactical mode the tabbed sidebars overlay the retained canvas. On narrow
+screens they occupy the bottom portion of the viewport. HTML retains keyboard
+and pointer ownership while the user edits or points at a document; clicking the
+canvas returns ownership to gameplay. `tactical-input.js` supplies this predicate
+in both browser hosts. The browser runtime clears physical keyboard/mouse state
+after Bevy's input update and before enhanced input reads it, also suppressing
+raw indirect orders. Held keys cannot remain stuck after focus changes. This
+gates local input, while server simulation and existing orders continue.
+
+These tabs provide document composition and input routing. Live settlement
+admission and physical service authorization remain separate server contracts;
+showing a tab does not establish proximity or grant permission for an action.
+
 ## Client generation workers
 
 Cold preparation starts a bounded pool of up to four CPU workers, reserving a

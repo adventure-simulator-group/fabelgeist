@@ -333,7 +333,11 @@ function selectMerchantInventoryScope(tab) {
   if (!tab) return false;
   const root = tab.closest("[data-inventory-tabs]");
   if (!root) return false;
-  root.querySelectorAll("[data-inventory-tab]").forEach((entry) => entry.classList.toggle("active", entry === tab));
+  root.querySelectorAll("[data-inventory-tab]").forEach((entry) => {
+    entry.classList.toggle("active", entry === tab);
+    entry.setAttribute("aria-selected", String(entry === tab));
+    entry.tabIndex = entry === tab ? 0 : -1;
+  });
   root.querySelectorAll("[data-inventory-pane]").forEach((pane) => { pane.hidden = pane.dataset.inventoryPane !== tab.dataset.inventoryTab; });
   const scope = document.querySelector("#merchant-offer [name='inventory_scope']");
   if (scope) scope.value = tab.dataset.inventoryTab;
@@ -341,6 +345,20 @@ function selectMerchantInventoryScope(tab) {
   refreshInventoryPanel(root.querySelector('[data-inventory-pane]:not([hidden])'));
   return true;
 }
+
+document.addEventListener("keydown", (event) => {
+  const tab = event.target.closest?.("[data-inventory-tab]");
+  if (!tab) return;
+  const tabs = [...tab.closest("[data-inventory-tabs]").querySelectorAll("[data-inventory-tab]")];
+  const index = tabs.indexOf(tab);
+  const next = event.key === "ArrowRight" ? tabs[(index + 1) % tabs.length]
+    : event.key === "ArrowLeft" ? tabs[(index + tabs.length - 1) % tabs.length]
+    : event.key === "Home" ? tabs[0] : event.key === "End" ? tabs.at(-1) : null;
+  if (!next) return;
+  event.preventDefault();
+  next.focus();
+  selectMerchantInventoryScope(next);
+});
 
 document.addEventListener("click", (event) => {
   const dynamicTransfer = event.target.closest?.("[data-dynamic-transfer]");
@@ -670,6 +688,8 @@ document.addEventListener("strategic-page-mounted", () => {
   refreshInventoryPanel(document);
 });
 document.addEventListener("strategic-page-unmounting", () => {
+  const offer = document.querySelector("#merchant-offer, #party-offer");
+  if (offer) resetTradeDraft(offer);
   document.body.classList.remove("faux-dialog-open");
   document.querySelectorAll(fauxDialogIds.map((id) => `#${id}`).join(", ")).forEach((dialog) => {
     fauxDialogOpeners.delete(dialog);

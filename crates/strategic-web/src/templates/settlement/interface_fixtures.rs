@@ -69,6 +69,34 @@ fn inventory(location: &LocationView, characters: &[CharacterView]) -> Markup {
     )
 }
 
+fn merchant_panels(shop: Storefront, character: &CharacterView) -> Markup {
+    live_merchant_shop_page(
+        &test_support::settlement(),
+        character,
+        &[],
+        &[],
+        &[],
+        &[],
+        &[],
+        None,
+        &[],
+        &[],
+        &[],
+        shop,
+        1.0,
+        0,
+        0,
+        &[],
+        None,
+        &[],
+        adventuresim_world_schema::calendar::StrategicMinute::ZERO,
+        EncumbranceSummary::new(8.0, 60.0),
+        EncumbranceSummary::new(12.0, 60.0),
+        None,
+        SoapRestPreview::default(),
+    )
+}
+
 fn injured_stats(examined: bool) -> Markup {
     let attributes = crate::spacetimedb::CharacterAttributes {
         character_id: 7,
@@ -203,6 +231,8 @@ fn export_interface_review_fixtures() {
         },
     );
     let pages = [
+        ("merchant-panels", merchant_panels(Storefront::Armor, &characters[0])),
+        ("inn-panels", merchant_panels(Storefront::Inn, &characters[0])),
         ("injured-stats", injured_stats(false)),
         ("examined-stats", injured_stats(true)),
         ("recruitment", place.render_layout("Recruitment", html! { main class="center-content" { (recruitment) } }, Some(&characters[0].name))),

@@ -9,7 +9,7 @@ const staticRoot = path.join(__dirname, "../static");
 const scripts = new Set([
   "tooltips.js", "chat-dock.js", "chat-resize.js", "character-action-dialog.js", "portrait-navigation.js", "action-previews.js",
   "inventory-browser.js", "party-trade.js", "cooking.js", "physiology-dialog.js", "equipment-toggle.js",
-  "numeric-editor.js", "stats-panels.js",
+  "numeric-editor.js", "stats-panels.js", "side-panels.js",
 ]);
 
 test("rendered interface fixtures fit desktop and narrow viewports", { skip: !directory }, async () => {
@@ -33,13 +33,26 @@ test("rendered interface fixtures fit desktop and narrow viewports", { skip: !di
     });
     for (const width of [1280, 390]) {
       await page.setViewportSize({ width, height: width === 1280 ? 720 : 844 });
-      for (const name of ["life-stage", "candidates", "roster", "inventory", "surgery", "notebook", "cooking", "recruitment", "rest", "injured-stats", "examined-stats"]) {
+      for (const name of ["life-stage", "candidates", "roster", "inventory", "merchant-panels", "inn-panels", "surgery", "notebook", "cooking", "recruitment", "rest", "injured-stats", "examined-stats"]) {
         await page.goto(`http://review.test/${name === "inventory" ? "locations/settlement/goslar/party/8/inventory?building=inn" : name}`);
         await page.evaluate(() => document.fonts.ready);
         await page.mouse.move(0, 0);
         if (name === "notebook") await page.locator("#review-notebook").evaluate(dialog => dialog.showModal());
         if (name === "recruitment") await page.locator('[data-recruitment-dialog]').evaluate(dialog => dialog.showModal());
         await page.screenshot({ path: path.join(directory, `${name}-${width}.png`), fullPage: true });
+        if (name === "merchant-panels" || name === "inn-panels") {
+          for (const side of ["left", "right"]) {
+            const root = page.locator(`[data-side-panel='${side}']`);
+            for (const tab of await root.locator("[data-panel-tab]").all()) {
+              await tab.click();
+              const controls = await tab.getAttribute("aria-controls");
+              assert.equal(await page.locator(`[id='${controls}']`).isVisible(), true);
+              assert.equal(await root.locator("[data-panel-pane]:not([hidden])").count(), 1);
+              const kind = await tab.getAttribute("data-panel-tab");
+              await page.screenshot({ path: path.join(directory, `${name}-${side}-${kind}-${width}.png`), fullPage: true });
+            }
+          }
+        }
         if (name === "candidates") {
           assert.equal(await page.locator('.summary-rank-value, .skill-rank-value').count(), 0);
           const tooltip = page.locator('#strategic-tooltip');
