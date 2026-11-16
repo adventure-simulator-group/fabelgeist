@@ -18,19 +18,24 @@ async fn upload_preserves_native_words_and_checked_byte_offsets() {
         buffer.read::<u32>(&context).await.unwrap(),
         [words[0], 7, 8, words[3]]
     );
-    assert!(
-        buffer
-            .write_at(&context, 16u64.into(), BufferUpload::from_elements(&[1u32]))
-            .is_err()
+    assert_eq!(
+        buffer.write_at(&context, 16u64.into(), BufferUpload::from_elements(&[1u32])),
+        Err(BufferWriteError::OutOfBounds {
+            at: 16u64.into(),
+            bytes: 4u64.into(),
+            length: 16u64.into(),
+        })
     );
-    assert!(
-        buffer
-            .write_at(
-                &context,
-                u64::MAX.into(),
-                BufferUpload::from_elements(&[1u32])
-            )
-            .is_err()
+    assert_eq!(
+        buffer.write_at(
+            &context,
+            u64::MAX.into(),
+            BufferUpload::from_elements(&[1u32])
+        ),
+        Err(BufferWriteError::OffsetOverflow {
+            at: u64::MAX.into(),
+            bytes: 4u64.into(),
+        })
     );
     assert_eq!(
         buffer.read::<u32>(&context).await.unwrap(),

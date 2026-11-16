@@ -7,10 +7,12 @@ mod extent;
 mod label;
 mod readback;
 mod upload;
+mod write_error;
 pub use definition::{BufferDefinition, BufferUse};
 pub use extent::{BufferByteLength, BufferByteOffset};
 pub use label::BufferLabel;
 pub use upload::{BufferUpload, BufferUploadOccupancy};
+pub use write_error::{BufferWriteError, BufferWriteResult};
 
 #[derive(Clone, Debug)]
 pub struct Buffer {
@@ -135,16 +137,17 @@ impl Buffer {
         context: &WgpuContext,
         at: BufferByteOffset,
         data: BufferUpload<'_>,
-    ) -> Result<()> {
+    ) -> BufferWriteResult<()> {
+        let bytes = data.length();
         let end = at
-            .checked_after(data.length())
-            .ok_or_else(|| anyhow!("Buffer write overflows an offset"))?;
-        if u64::from(end) > u64::from(self.size) {
-            return Err(anyhow!(
-                "Writing {} bytes at {at} runs past the end of a {}-byte buffer",
-                data.length(),
-                self.size
-            ));
+            .checked_after(bytes)
+            .ok_or(BufferWriteError::OffsetOverflow { at, bytes })?;
+        if !end.is_end_within(self.size) {
+            return Err(BufferWriteError::OutOfBounds {
+                at,
+                bytes,
+                length: self.size,
+            });
         }
         data.write_to(context, &self.buffer, at);
         Ok(())

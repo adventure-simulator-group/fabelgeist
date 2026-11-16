@@ -14,6 +14,15 @@ impl BufferByteOffset {
     pub fn checked_after(self, length: BufferByteLength) -> Option<Self> {
         self.0.checked_add(length.0).map(Self)
     }
+
+    /// Whether this upload end is at or before the logical byte boundary.
+    ///
+    /// The end is inclusive for admission, so an empty upload can end exactly
+    /// at the logical length. Native allocation, usage and alignment remain
+    /// separate checks at the queue boundary.
+    pub fn is_end_within(self, length: BufferByteLength) -> bool {
+        self.0 <= length.0
+    }
 }
 
 impl From<u64> for BufferByteLength {
