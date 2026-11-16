@@ -2,8 +2,8 @@ use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationSampleSpan, AnimationSampleTick, AnimationValueResult,
 };
 use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_netcode::control::{DirectAction, DirectActionCommands, LocalControl};
 use adventuresim_tactical_netcode::{
-    bevy_replicon::prelude::ClientTriggerExt,
     client::{DirectControlState, WeaponGuardInputState},
     message::{DefendRequest, MeleeActionRequest, RangedActionRequest},
 };
@@ -196,7 +196,7 @@ struct CombatTargeting<'w, 's> {
 }
 
 #[derive(Component, Debug, Clone, Copy)]
-struct BufferedMeleeAttack {
+pub(crate) struct BufferedMeleeAttack {
     family: StrikeFamily,
     hand: AttackHand,
 }
@@ -521,6 +521,7 @@ fn on_new_player_added_hook(
     reason = "the Bevy query selects the complete local-facing state while excluding the gameplay camera from player transforms"
 )]
 fn predict_local_body_facing(
+    local: Res<LocalControl>,
     time: Res<Time>,
     guard: Res<WeaponGuardInputState>,
     combat_config: Res<TacticalCombatConfig>,
@@ -538,7 +539,8 @@ fn predict_local_body_facing(
 ) {
     let elapsed = AnimationElapsed::from(time.delta());
     for (camera, skeleton, attack, mut transform, mut facing) in &mut players {
-        if skeleton.body().is_downed() || skeleton.is_posture_transitioning() {
+        if !local.is_direct() || skeleton.body().is_downed() || skeleton.is_posture_transitioning()
+        {
             facing.rotation = None;
             continue;
         }
@@ -582,6 +584,7 @@ fn predict_local_body_facing(
 }
 
 fn update_attack_state_system(
+    local: Res<LocalControl>,
     mut cmd: Commands,
     spatial: SpatialQuery,
     time: Res<Time>,
@@ -594,10 +597,13 @@ fn update_attack_state_system(
     )>,
     q_collider: Query<(&GlobalTransform, &ColliderOf, &LimbHitbox)>,
     q_scene_items: Query<Entity, With<TacticalSceneItem>>,
-    combat_config: Res<TacticalCombatConfig>,
 ) {
     for (attacker, attacker_transform, attacker_collider, dimensions, mut state) in &mut q_attacker
     {
+        if !local.is_direct() {
+            cmd.entity(attacker).remove::<AttackState>();
+            continue;
+        }
         if let Some(target) = state.target
             && let Ok((transform, _, _)) = q_collider.get(target.hitbox)
         {
@@ -617,9 +623,6 @@ fn update_attack_state_system(
         };
         let origin = attack_origin(attacker_transform, attacker_collider, *dimensions);
         let Some(target) = state.target else {
-            if state.ranged {
-                cmd.client_trigger(RangedActionRequest::CompleteMiss);
-            }
             cmd.trigger(HitPerformed {
                 entity: attacker,
                 direction: state.aim_direction,
@@ -650,13 +653,6 @@ fn update_attack_state_system(
         });
 
         if unobstructed {
-            if state.ranged {
-                cmd.client_trigger(RangedActionRequest::CompleteHit {
-                    target: target.body,
-                    body_part: target.body_part,
-                    reported_precision: combat_config.targeting.reported_hit_precision,
-                });
-            }
             cmd.trigger(HitPerformed {
                 entity: attacker,
                 direction,
@@ -664,9 +660,6 @@ fn update_attack_state_system(
                 length: obstruction.map_or(delta.length(), |hit| hit.distance),
             });
         } else {
-            if state.ranged {
-                cmd.client_trigger(RangedActionRequest::CompleteMiss);
-            }
             cmd.trigger(HitPerformed {
                 entity: attacker,
                 direction,
@@ -698,6 +691,7 @@ fn attack_reach_is_usable(ranged: bool, melee: bool, weapon_reach: f32, arm_reac
 )]
 fn apply_direct_combat_controls(
     controls: Res<DirectControlState>,
+    local: Res<LocalControl>,
     mut cmd: Commands,
     players: Query<Entity, With<ControlledPlayer>>,
     mut q_character: Query<(Has<AttackState>, &mut SkeletonState)>,
@@ -706,6 +700,9 @@ fn apply_direct_combat_controls(
     combat_config: Res<TacticalCombatConfig>,
     targeting: CombatTargeting,
 ) {
+    if !local.is_direct() {
+        return;
+    }
     for entity in &players {
         if let Ok((_, mut skeleton)) = q_character.get_mut(entity)
             && let Ok(view) = viewer.get_for_attack(entity, AttackHand::Main)
@@ -763,7 +760,7 @@ fn apply_direct_combat_controls(
         // matching QuickstepPush, so an authoritative rejection would otherwise
         // animate a dodge over a stationary replicated transform.
         if controls.roll_just_pressed {
-            cmd.client_trigger(DefendRequest::Roll);
+            cmd.direct_action(DirectAction::Defend(DefendRequest::Roll));
         }
     }
 }

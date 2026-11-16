@@ -3,6 +3,7 @@ compile_error!("The `server` feature cannot be enabled when compiling for wasm32
 
 #[cfg(feature = "client")]
 pub mod client;
+pub mod control;
 pub mod message;
 pub mod replication;
 #[cfg(feature = "server")]

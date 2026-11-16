@@ -70,6 +70,7 @@ mod debug;
 mod diagnostics;
 mod equipment;
 mod hud;
+mod indirect_control;
 mod loading_screen;
 mod movement_audio;
 #[expect(
@@ -446,6 +447,7 @@ fn add_gameplay_plugins(app: &mut App, graphics_config: presentation::TacticalGr
     app.add_plugins((
         (ui::UiPlugin, combat_effects::CombatEffectsPlugin),
         player::PlayerPlugin,
+        indirect_control::IndirectControlPlugin,
         equipment::TacticalEquipmentPlugin,
         animation::TacticalAnimationPlugin,
         camera::TacticalCameraPlugin,
@@ -545,11 +547,12 @@ fn cursor_capture_requested() -> impl SystemCondition<()> {
 }
 
 fn capture_cursor(
+    control: Res<adventuresim_tactical_netcode::control::LocalControl>,
     mut commands: Commands,
     player: Single<Entity, With<CharacterController>>,
     mut cursor: Single<&mut CursorOptions>,
 ) {
-    if !cursor.visible {
+    if !control.is_direct() || !cursor.visible {
         return;
     }
 

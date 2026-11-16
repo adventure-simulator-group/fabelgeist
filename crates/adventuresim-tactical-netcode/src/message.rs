@@ -66,6 +66,7 @@ pub struct TacticalCombatConfigSnapshot(pub TacticalCombatConfig);
 #[derive(Debug, Clone, Copy, Default, Event, Serialize, Deserialize, Reflect)]
 #[reflect(Default)]
 pub struct PlayerInputRequest {
+    pub generation: adventuresim_tactical_core::control::ControlGeneration,
     /// Client fixed tick that sampled this complete input state. The server
     /// rejects older samples so reordering on the unreliable channel cannot
     /// restore stale movement or look intent. It is also the reconciliation
@@ -351,21 +352,11 @@ pub struct MeleeActionRequest {
     pub target: Option<Entity>,
 }
 
-/// Both ranged phases share one mapped ordered stream. A completion may omit
-/// a target when the client-fired shot missed, but it still consumes ammo.
+/// Start an attack; authoritative timing owns its completion across mode changes.
 #[derive(Debug, Clone, Copy, Event, Serialize, Deserialize, MapEntities)]
-pub enum RangedActionRequest {
-    Start {
-        #[entities]
-        target: Option<Entity>,
-    },
-    CompleteMiss,
-    CompleteHit {
-        #[entities]
-        target: Entity,
-        body_part: BodyPart,
-        reported_precision: f32,
-    },
+pub struct RangedActionRequest {
+    #[entities]
+    pub target: Option<Entity>,
 }
 
 #[cfg(test)]
@@ -384,7 +375,7 @@ mod combat_action_mapping_tests {
             hand: AttackHand::Main,
             target: Some(target),
         };
-        let mut ranged = RangedActionRequest::Start {
+        let mut ranged = RangedActionRequest {
             target: Some(target),
         };
 
@@ -400,7 +391,7 @@ mod combat_action_mapping_tests {
         ));
         assert!(matches!(
             ranged,
-            RangedActionRequest::Start {
+            RangedActionRequest {
                 target: Some(found)
             } if found == mapped
         ));

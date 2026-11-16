@@ -1,0 +1,31 @@
+[package]
+edition = "2024"
+name = "landmass"
+version = "0.9.3"
+
+description = "A navigation system for video game characters to walk around levels."
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/andriyDev/landmass"
+
+categories = ["game-development"]
+keywords = ["navigation", "system", "pathfinding", "avoidance"]
+
+[dependencies]
+dodgy_2d = "0.5.4"
+glam = "0.30.5"
+kdtree = "0.7.0"
+geo = "0.31.0"
+disjoint = "0.8.0"
+slotmap = "1.0.7"
+thiserror = "2.0"
+
+[dev-dependencies]
+# Pin to 0.14.2 due to regression: https://github.com/google/googletest-rust/issues/823.
+googletest = "=0.14.2"
+
+[features]
+# Allows you to access avoidance data for an agent when debugging.
+debug-avoidance = ["dodgy_2d/debug"]

@@ -26,6 +26,10 @@ pub type ControlledPlayer = Actions<Player>;
 #[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, PartialEq, Eq)]
 #[reflect(Component)]
 #[require(
+    crate::control::CharacterControl,
+    crate::control::CharacterOrder,
+    crate::control::WaypointQueue,
+    crate::control::BehaviorPolicy,
     CharacterId,
     CharacterDimensions,
     Limbs,

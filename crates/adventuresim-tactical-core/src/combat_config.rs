@@ -37,6 +37,7 @@ pub use procedural::{
 };
 
 mod ai_offense;
+mod ai_validation;
 mod defaults;
 mod incapacitation_forecast;
 mod landing;
@@ -49,7 +50,7 @@ mod ragdoll;
 mod runtime;
 mod state_transitions;
 
-pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 9;
+pub const TACTICAL_COMBAT_CONFIG_SCHEMA_VERSION: u16 = 10;
 
 #[derive(Clone, Debug, PartialEq, Resource, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -318,6 +319,7 @@ pub struct JumpHeightsConfig {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct TacticalAiConfig {
+    pub control: crate::control::ControlConfig,
     pub ordinary: OrdinaryAiConfig,
 }
 
@@ -394,6 +396,8 @@ pub struct AttackCurveConfig {
 
 #[derive(Debug, Error, PartialEq, Eq)]
 pub enum TacticalCombatConfigError {
+    #[error(transparent)]
+    Control(#[from] crate::control::ControlConfigError),
     #[error("incompatible tactical combat config schema version")]
     SchemaVersion,
     #[error("invalid tactical combat config: {0}")]
@@ -529,17 +533,7 @@ impl TacticalCombatConfig {
             ));
         }
 
-        let ai = &self.ai.ordinary;
-        if !ai.defense.dodge_chance.is_finite() || !(0.0..=1.0).contains(&ai.defense.dodge_chance) {
-            return Err(TacticalCombatConfigError::Validation(
-                "AI dodge probability must be between zero and one",
-            ));
-        }
-        if ai.defense.reaction_delay_max_seconds < ai.defense.reaction_delay_min_seconds
-            || !ai.offense.has_valid_intervals()
-        {
-            return Err(TacticalCombatConfigError::Validation("invalid AI interval"));
-        }
+        self.ai.validate()?;
 
         let input = &self.client_input;
         if ![

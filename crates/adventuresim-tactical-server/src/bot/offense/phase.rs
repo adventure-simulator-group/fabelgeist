@@ -301,7 +301,7 @@ fn continue_withdrawal(
 
 fn complete_windup(
     actor: MeleePursuit,
-    cmd: &mut Commands,
+    _cmd: &mut Commands,
     time: &Time<()>,
     controls: OffensiveControls<'_>,
     facts: &OffensiveFacts,
@@ -309,8 +309,8 @@ fn complete_windup(
     random: &mut CombatRandom,
 ) -> ElapsedResult<()> {
     let MeleePursuit {
-        entity,
-        target,
+        entity: _,
+        target: _,
         distance,
     } = actor;
     let OffensiveControls { input, controller } = controls;
@@ -351,13 +351,7 @@ fn complete_windup(
                     .cooldown_seconds
                     .checked_add(jitter)?
                     .native_duration()?;
-                cmd.trigger(RangedAttackIntent {
-                    attacker: entity,
-                    target: Some(target),
-                    body_part: config.target_body_part,
-                    reported_precision: ReportedPrecision::new(config.hit_precision)
-                        .expect("AI precision is finite"),
-                });
+
                 controller.phase =
                     OffensiveCombatPhase::Cooldown(Timer::new(cooldown, TimerMode::Once));
             } else {

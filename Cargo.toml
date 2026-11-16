@@ -50,6 +50,8 @@ members = [
 ]
 exclude = [
   "vendor/bevy_ahoy",
+  "vendor/landmass",
+  "vendor/rerecast",
   "wiki",
   "utils",
   "crates/adventuresim-character-creator",
@@ -182,6 +184,8 @@ spacetimedb-sats = { version = "=2.6.1", features = ["serde"] }
 all = { level = "warn", priority = -1 }
 
 [patch.crates-io]
+landmass = { path = "vendor/landmass" }
+rerecast = { path = "vendor/rerecast" }
 adventuresim-tactical-netcode = { path = "crates/adventuresim-tactical-netcode" }
 adventuresim-tactical-core = { path = "crates/adventuresim-tactical-core" }
 adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }

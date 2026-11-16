@@ -1,0 +1,590 @@
+use std::{collections::HashMap, sync::Arc};
+
+use glam::Vec2;
+use googletest::{expect_that, matchers::*};
+
+use crate::{
+  Archipelago, ArchipelagoOptions, FindPathError, FromAgentRadius, Island,
+  NavigationMesh, PathStep, SamplePointError, Transform,
+  agent::PermittedAnimationLinks,
+  coords::{CorePointSampleDistance, XY},
+  link::AnimationLink,
+};
+
+use super::{find_path, sample_point};
+
+#[test]
+fn error_on_dirty_nav_mesh() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ Vec2::new(0.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&1.0)
+    )
+    .map(|p| p.point()),
+    Err(SamplePointError::NavDataDirty)
+  );
+}
+
+#[test]
+fn error_on_out_of_range() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+  archipelago.update(1.0);
+
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ Vec2::new(-0.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.1)
+    )
+    .map(|p| p.point()),
+    Err(SamplePointError::OutOfRange)
+  );
+}
+
+#[test]
+fn samples_point_on_nav_mesh_or_near_nav_mesh() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  let offset = Vec2::new(10.0, 10.0);
+  let island_id = archipelago.add_island(Island::new(
+    Transform { translation: offset, rotation: 0.0 },
+    nav_mesh,
+  ));
+  archipelago.update(1.0);
+
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(-0.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.6)
+    )
+    .map(|p| (p.island(), p.point())),
+    Ok((island_id, offset + Vec2::new(0.0, 0.5)))
+  );
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(0.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.6)
+    )
+    .map(|p| (p.island(), p.point())),
+    Ok((island_id, offset + Vec2::new(0.5, 0.5)))
+  );
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(1.2, 1.2),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.6)
+    )
+    .map(|p| (p.island(), p.point())),
+    Ok((island_id, offset + Vec2::new(1.0, 1.0)))
+  );
+}
+
+#[test]
+fn samples_type_indices() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  archipelago.set_type_index_cost(1, 1.0).unwrap();
+  archipelago.set_type_index_cost(2, 2.0).unwrap();
+  archipelago.set_type_index_cost(3, 3.0).unwrap();
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+        Vec2::new(2.0, 0.0),
+        Vec2::new(2.0, 1.0),
+        Vec2::new(3.0, 0.0),
+        Vec2::new(3.0, 1.0),
+        Vec2::new(4.0, 0.0),
+        Vec2::new(4.0, 1.0),
+      ],
+      polygons: vec![
+        vec![0, 1, 2, 3],
+        vec![2, 1, 4, 5],
+        vec![5, 4, 6, 7],
+        vec![7, 6, 8, 9],
+      ],
+      polygon_type_indices: vec![0, 1, 2, 3],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  let offset = Vec2::new(10.0, 10.0);
+  archipelago.add_island(Island::new(
+    Transform { translation: offset, rotation: 0.0 },
+    nav_mesh,
+  ));
+  archipelago.update(1.0);
+
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(0.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.1)
+    )
+    .map(|p| p.type_index()),
+    Ok(0)
+  );
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(1.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.1)
+    )
+    .map(|p| p.type_index()),
+    Ok(1)
+  );
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(2.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.1)
+    )
+    .map(|p| p.type_index()),
+    Ok(2)
+  );
+  assert_eq!(
+    sample_point(
+      &archipelago,
+      /* point= */ offset + Vec2::new(3.5, 0.5),
+      /* distance_to_node= */ &CorePointSampleDistance::new(&0.1)
+    )
+    .map(|p| p.type_index()),
+    Ok(3)
+  );
+}
+
+#[test]
+fn no_path() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  let offset = Vec2::new(10.0, 10.0);
+  archipelago.add_island(Island::new(
+    Transform { translation: offset, rotation: 0.0 },
+    nav_mesh.clone(),
+  ));
+  archipelago.add_island(Island::new(
+    Transform { translation: offset + Vec2::new(2.0, 0.0), rotation: 0.0 },
+    nav_mesh,
+  ));
+  archipelago.update(1.0);
+
+  let start_point = archipelago
+    .sample_point(offset + Vec2::new(0.5, 0.5), &1e-5)
+    .expect("point is on nav mesh.");
+  let end_point = archipelago
+    .sample_point(offset + Vec2::new(2.5, 0.5), &1e-5)
+    .expect("point is on nav mesh.");
+  assert_eq!(
+    find_path(
+      &archipelago,
+      &start_point,
+      &end_point,
+      &HashMap::new(),
+      PermittedAnimationLinks::All
+    ),
+    Err(FindPathError::NoPathFound)
+  );
+}
+
+#[test]
+fn finds_path() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  let offset = Vec2::new(10.0, 10.0);
+  archipelago.add_island(Island::new(
+    Transform { translation: offset, rotation: 0.0 },
+    nav_mesh.clone(),
+  ));
+  archipelago.add_island(Island::new(
+    Transform { translation: offset + Vec2::new(1.0, 0.0), rotation: 0.0 },
+    nav_mesh.clone(),
+  ));
+  archipelago.add_island(Island::new(
+    Transform { translation: offset + Vec2::new(2.0, 0.5), rotation: 0.0 },
+    nav_mesh,
+  ));
+  archipelago.update(1.0);
+
+  let start_point = archipelago
+    .sample_point(offset + Vec2::new(0.5, 0.5), &1e-5)
+    .expect("point is on nav mesh.");
+  let end_point = archipelago
+    .sample_point(offset + Vec2::new(2.5, 1.25), &1e-5)
+    .expect("point is on nav mesh.");
+  assert_eq!(
+    find_path(
+      &archipelago,
+      &start_point,
+      &end_point,
+      &HashMap::new(),
+      PermittedAnimationLinks::All
+    ),
+    Ok(vec![
+      PathStep::Waypoint(offset + Vec2::new(0.5, 0.5)),
+      PathStep::Waypoint(offset + Vec2::new(2.0, 1.0)),
+      PathStep::Waypoint(offset + Vec2::new(2.5, 1.25))
+    ])
+  );
+}
+
+#[test]
+fn finds_path_with_override_type_index_costs() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+        //
+        Vec2::new(2.0, 0.0),
+        Vec2::new(2.0, 1.0),
+        //
+        Vec2::new(3.0, 0.0),
+        Vec2::new(3.0, 1.0),
+        //
+        Vec2::new(2.0, 11.0),
+        Vec2::new(3.0, 11.0),
+        //
+        Vec2::new(2.0, 12.0),
+        Vec2::new(3.0, 12.0),
+        //
+        Vec2::new(1.0, 12.0),
+        Vec2::new(1.0, 11.0),
+        //
+        Vec2::new(0.0, 12.0),
+        Vec2::new(0.0, 11.0),
+      ],
+      polygons: vec![
+        vec![0, 1, 2, 3],
+        vec![2, 1, 4, 5],
+        vec![5, 4, 6, 7],
+        //
+        vec![5, 7, 9, 8],
+        vec![8, 9, 11, 10],
+        //
+        vec![8, 10, 12, 13],
+        vec![13, 12, 14, 15],
+        //
+        vec![3, 2, 13, 15],
+      ],
+      polygon_type_indices: vec![0, 0, 0, 0, 0, 0, 0, 1],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+
+  archipelago.update(1.0);
+
+  let start_point = sample_point(
+    &archipelago,
+    Vec2::new(0.5, 0.5),
+    /* distance_to_node= */ &CorePointSampleDistance::new(&0.1),
+  )
+  .unwrap();
+  let end_point = sample_point(
+    &archipelago,
+    Vec2::new(0.5, 11.5),
+    /* distance_to_node= */ &CorePointSampleDistance::new(&0.1),
+  )
+  .unwrap();
+
+  let path = find_path(
+    &archipelago,
+    &start_point,
+    &end_point,
+    &HashMap::from([(1, 10.0)]),
+    PermittedAnimationLinks::All,
+  )
+  .expect("Path found");
+
+  assert_eq!(
+    path,
+    [
+      PathStep::Waypoint(Vec2::new(0.5, 0.5)),
+      PathStep::Waypoint(Vec2::new(2.0, 1.0)),
+      PathStep::Waypoint(Vec2::new(2.0, 11.0)),
+      PathStep::Waypoint(Vec2::new(0.5, 11.5))
+    ]
+  );
+}
+
+#[test]
+fn find_path_returns_error_on_invalid_node_cost() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+
+  archipelago.update(1.0);
+
+  let start_point = archipelago
+    .sample_point(Vec2::new(0.25, 0.25), /* distance_to_node= */ &0.1)
+    .unwrap();
+  let end_point = archipelago
+    .sample_point(Vec2::new(0.25, 0.25), /* distance_to_node= */ &0.1)
+    .unwrap();
+
+  assert_eq!(
+    find_path(
+      &archipelago,
+      &start_point,
+      &end_point,
+      &HashMap::from([(0, 0.0)]),
+      PermittedAnimationLinks::All,
+    ),
+    Err(FindPathError::NonPositiveTypeIndexCost(0, 0.0))
+  );
+  assert_eq!(
+    find_path(
+      &archipelago,
+      &start_point,
+      &end_point,
+      &HashMap::from([(0, -0.5)]),
+      PermittedAnimationLinks::All,
+    ),
+    Err(FindPathError::NonPositiveTypeIndexCost(0, -0.5))
+  );
+}
+
+#[test]
+fn start_and_end_in_same_node() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3]],
+      polygon_type_indices: vec![0],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+
+  archipelago.update(1.0);
+
+  let start_point = Vec2::new(0.25, 0.25);
+  let end_point = Vec2::new(0.75, 0.75);
+
+  let start_sampled_point =
+    archipelago.sample_point(start_point, &0.1).unwrap();
+  let end_sampled_point = archipelago.sample_point(end_point, &0.1).unwrap();
+  let path = archipelago
+    .find_path(
+      &start_sampled_point,
+      &end_sampled_point,
+      &HashMap::default(),
+      PermittedAnimationLinks::All,
+    )
+    .unwrap();
+
+  assert_eq!(
+    path,
+    &[PathStep::Waypoint(start_point), PathStep::Waypoint(end_point)]
+  );
+}
+
+#[googletest::test]
+fn one_animation_link_path() {
+  let mut archipelago =
+    Archipelago::<XY>::new(ArchipelagoOptions::from_agent_radius(0.5));
+
+  // +-+
+  // |E|
+  // +-+
+  //  L
+  // +-+
+  // |S|
+  // +-+
+  let nav_mesh = Arc::new(
+    NavigationMesh {
+      vertices: vec![
+        // Step 1
+        Vec2::new(0.0, 0.0),
+        Vec2::new(1.0, 0.0),
+        Vec2::new(1.0, 1.0),
+        Vec2::new(0.0, 1.0),
+        // Step 2
+        Vec2::new(0.0, 2.0),
+        Vec2::new(1.0, 2.0),
+        Vec2::new(1.0, 3.0),
+        Vec2::new(0.0, 3.0),
+      ],
+      polygons: vec![vec![0, 1, 2, 3], vec![4, 5, 6, 7]],
+      polygon_type_indices: vec![0; 2],
+      height_mesh: None,
+    }
+    .validate()
+    .expect("nav mesh is valid"),
+  );
+
+  archipelago.add_island(Island::new(Transform::default(), nav_mesh));
+  let link_id = archipelago.add_animation_link(AnimationLink {
+    start_edge: (Vec2::new(0.0, 1.0), Vec2::new(1.0, 1.0)),
+    end_edge: (Vec2::new(0.0, 2.0), Vec2::new(1.0, 2.0)),
+    cost: 1.0,
+    kind: 0,
+    bidirectional: false,
+  });
+
+  archipelago.update(1.0);
+
+  let start_point = Vec2::new(0.25, 0.25);
+  let end_point = Vec2::new(0.75, 2.75);
+
+  let start_sampled_point =
+    archipelago.sample_point(start_point, &0.1).unwrap();
+  let end_sampled_point = archipelago.sample_point(end_point, &0.1).unwrap();
+  let path = archipelago
+    .find_path(
+      &start_sampled_point,
+      &end_sampled_point,
+      &HashMap::default(),
+      PermittedAnimationLinks::All,
+    )
+    .unwrap();
+
+  expect_that!(
+    path,
+    elements_are!(
+      &PathStep::Waypoint(start_point),
+      &PathStep::AnimationLink {
+        start_point: Vec2::new(0.25, 1.0),
+        end_point: Vec2::new(0.25, 2.0),
+        link_id,
+      },
+      &PathStep::Waypoint(end_point)
+    )
+  );
+}

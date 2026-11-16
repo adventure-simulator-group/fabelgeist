@@ -47,11 +47,13 @@ use crate::{
 
 mod bot;
 mod combat;
+mod control;
 #[cfg(feature = "debug")]
 mod debug_dump;
 mod equipment;
 mod furniture;
 mod mission;
+mod navigation;
 mod openings;
 mod player_projection;
 mod scene_obstacles;

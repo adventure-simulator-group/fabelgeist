@@ -1,0 +1,125 @@
+# Tactical character control
+
+Direct control supplies moment-to-moment actions. Indirect control supplies
+orders to the server's character behavior controller. Both use the same
+physical movement, posture, attack timing, equipment, defense, and combat
+resolution. Tactical control state exists only in the transient Bevy server.
+
+## Playing with orders
+
+Press **F8** to switch between direct and indirect control. The client waits
+for the server to acknowledge the change before accepting more input.
+
+In indirect control:
+
+- Left-click a character to mark it for inspection. Orders still control your
+  own character; commanding other characters is not yet available.
+- Right-click or hold **Space** and left-click a supported surface to move.
+- Use the same order input on an opposing character to attack it.
+- Hold **Shift** with either order input to append a ground waypoint.
+- Press **X** to stop and clear the current pursuit and remembered aggression.
+- Press **H** to hold the current position.
+- Drag the middle mouse button or hold **Alt** and left-drag to orbit.
+- Use **WASD** to pan the camera and scroll to adjust its height.
+- Press **Escape** while holding Space to cancel that click command.
+
+The order marker identifies the destination, hold anchor, or attack target.
+Selected characters have a blue marker and queued waypoints have yellow
+markers.
+The client exposes `IndirectBindings` as a reflected runtime resource for
+debug tooling. Changes are not saved between sessions; there is no binding
+settings screen yet.
+The control status displays execution, self-defense, completion, and failures.
+An ordinary order replaces the previous order and its waypoints. Waypoints
+are visited in order; stop or a mode change clears them. Each character can
+queue up to 32 destinations. The queue survives reconnects.
+
+An idle character retaliates against perceived aggression. A moving character
+can stop to defend against an aggressor within counterattack distance, keeping
+its destination for resumption. A hold order permits nearby self-defense but
+does not authorize pursuit. An explicit attack retains its selected target
+instead of switching to whichever opponent is closest.
+Characters raise their guard while engaging or responding to a remembered
+attack and lower it after the engagement ends. During combat pursuit they turn
+toward the next path segment before advancing.
+
+## Authority and scheduling
+
+`CharacterControl` owns the mode and its generation. Each mode change advances
+the generation. Direct movement and combat messages from a previous generation
+are rejected, including delayed messages after switching away and back.
+
+`ControlRequest` carries an ordered sequence and a typed change. The receiving
+connection identifies the actor; the client cannot nominate a different actor.
+The server validates target allegiance, availability, perception, and physical
+destination support before changing the order. `ControlResponse` acknowledges
+the sequence and carries a structured rejection when admission fails.
+
+`CharacterOrder` stores the commanded goal independently of `ThreatMemory`.
+`BehaviorPolicy` supplies standing retaliation policy. `EngagementPolicy`
+allows authored hostile NPC packages to seek perceived opponents. Connectivity
+and mission-enemy membership do not grant additional physical capabilities.
+
+After condition derivation, `ControlSet::Decide` chooses a behavior,
+`ControlSet::Execute` runs the composable combat packages, and
+`ControlSet::Navigate` resolves permitted pursuit through navigation. Committed
+attacks, defensive movement, posture transitions, and incapacitation constrain
+ordinary movement. The shared fixed-step motor consumes the resulting intent.
+
+Accepted attack publication produces `AcceptedAttack`. Perception checks
+distance, facing, and scene occlusion before remembering aggression and
+publishing `PerceivedThreat` for reactive defense. Actual damage establishes
+awareness even when an attack was not seen. Rejected attack requests do not
+create threat observations.
+
+Mode changes clear uncommitted input, routes, reactions, and behavior decisions.
+They retain physical motion and accepted combat commitments. Melee and ranged
+contacts both complete on the authoritative server; a mode change does not
+depend on a client sending a completion packet.
+
+Reconnect projections retain mode, generation, order, policy, and pending
+combat contacts. Runtime behavior packages are restored from the active server
+configuration, and navigation is rebuilt against the current world.
+
+## Navigation contracts
+
+The client supplies a finite `Position<Scene>`, including elevation. It does
+not transmit a locally generated collision entity. The server admits the
+position to a `SupportedPoint` associated with an authoritative support
+collider. This distinguishes overlapping floors without assuming client and
+server collision-entity identities match.
+
+Rerecast builds a navigation mesh from the server's static colliders and the
+current door and window leaves. Its radius, height, climb, and slope settings
+follow the character motor. Landmass selects routes and provides desired
+movement and local character avoidance. Agent positions come from the feet;
+their velocities come from the physical simulation. Steering requests movement
+through the existing character controller and never assigns actor positions.
+
+The server rebuilds the mesh when relevant collision geometry changes, with a
+minimum interval between rebuild requests. Rerecast rebuilds the whole mesh;
+it does not yet update individual tiles. Orders wait while the mesh rebuilds
+and report an unavailable mesh if generation does not finish. Unreachable
+destinations and lack of physical progress are reported separately. Closed
+doors block traversal. Automatic interaction is a separate extension; door
+opening must use the same interaction execution as a directly controlled
+character.
+
+All navigation, perception, pursuit, reaction-memory, and indirect camera
+tuning lives in `content/tactical/combat.yaml` under `ai.control`, alongside
+the existing physical motor and combat parameters. The server transmits the
+same configuration snapshot to clients.
+
+## Validation
+
+Shared admission contracts live in
+`adventuresim-tactical-core/tests/control_contracts.rs`. The server's
+`control::tests` and `navigation::tests` exercise orders, mode generations,
+perception, resumption, blocked progress, collision avoidance, and distinct
+floors using the production controller and physics queries. The fixed-step
+movement tests drive characters through the actual motor, checking arrival,
+route deviation, mesh rebuilds, moved doors, and disconnected floors.
+
+Run the affected tactical checks and tests, the browser-client Wasm check,
+`just fmt-check`, and `just lint`. Existing direct movement, combat, and
+reconnect regressions remain relevant because the execution paths are shared.

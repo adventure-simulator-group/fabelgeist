@@ -33,7 +33,11 @@ serde_json.workspace = true
 thiserror.workspace = true
 
 # Bevy + shared Aeronet/Replicon netcode
-bevy = { workspace = true, features = ["multi_threaded"] }
+bevy = { workspace = true, features = ["multi_threaded", "bevy_asset"] }
+bevy_rerecast = { version = "0.5", default-features = false }
+avian_rerecast = "0.6"
+bevy_landmass = { version = "0.12", default-features = false }
+landmass_rerecast = "0.3"
 adventuresim-tactical-netcode = { workspace = true, features = ["server"] }
 adventuresim-tactical-core.workspace = true
 adventuresim-core.workspace = true
