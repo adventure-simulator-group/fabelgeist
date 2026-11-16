@@ -56,7 +56,7 @@ impl MerchantStockView<'_> {
                 }))
                 (inventory_footer_controls("buy", "Buy to targets", "Buy everything"))
                 @if matches!(shop, Storefront::Herbalist) {
-                    p class="small-copy text-muted" { "Pre-existing preparations are sold into personal inventory for versioned administration. Physiology does not craft them; #214 owns preparation." }
+                    p class="small-copy text-muted" { "Purchases go to your personal inventory." }
                 }
                 }
                 }

@@ -21,7 +21,8 @@ selector within the merchant inventory tab.
 pane is selected. It remembers the current subject's selection on each side
 through live region replacement and restores tab focus. Changing subjects drops
 that side's remembered selection. Page teardown clears staged merchant/party
-offers so their quantities cannot be submitted against a new counterparty.
+offers, and selecting a different conversation counterparty clears the merchant
+offer, so quantities cannot be submitted against a different target.
 Arrow keys, Home and End select tabs; Tab moves into the selected document.
 
 In tactical mode the tabbed sidebars overlay the retained canvas. On narrow

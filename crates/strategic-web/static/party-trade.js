@@ -1,5 +1,6 @@
 const strategicTradeUi = window.strategicTradeUi ||= { state: {} };
 const fauxDialogOpeners = new WeakMap();
+const merchantCounterparties = new WeakMap();
 const fauxDialogIds = ["party-offer", "loot-transfer-offer", "pool-transfer-offer", "merchant-offer", "inventory-discard"];
 const fauxDialogSelector = fauxDialogIds.map((id) => `#${id}:not([hidden])`).join(", ");
 const fauxDialogFocusable = "button:not(:disabled), a[href], input:not([type='hidden']):not(:disabled), [tabindex]:not([tabindex='-1'])";
@@ -687,6 +688,15 @@ document.addEventListener("strategic-page-mounted", () => {
   mountInventoryBulkControls();
   refreshInventoryPanel(document);
 });
+document.addEventListener("strategic-character-selected", (event) => {
+  const form = document.querySelector("#merchant-offer");
+  if (!form || event.detail?.id == null) return;
+  const selected = String(event.detail.id);
+  const previous = merchantCounterparties.get(form);
+  if (previous !== undefined && previous !== selected) resetTradeDraft(form);
+  merchantCounterparties.set(form, selected);
+});
+
 document.addEventListener("strategic-page-unmounting", () => {
   const offer = document.querySelector("#merchant-offer, #party-offer");
   if (offer) resetTradeDraft(offer);

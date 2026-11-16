@@ -45,10 +45,10 @@ test("rendered interface fixtures fit desktop and narrow viewports", { skip: !di
             const root = page.locator(`[data-side-panel='${side}']`);
             for (const tab of await root.locator("[data-panel-tab]").all()) {
               await tab.click();
-              const controls = await tab.getAttribute("aria-controls");
-              assert.equal(await page.locator(`[id='${controls}']`).isVisible(), true);
-              assert.equal(await root.locator("[data-panel-pane]:not([hidden])").count(), 1);
               const kind = await tab.getAttribute("data-panel-tab");
+              const controls = await tab.getAttribute("aria-controls");
+              assert.equal(await page.locator(`[id='${controls}']`).isVisible(), true, `${name} ${side} ${kind} at ${width}px`);
+              assert.equal(await root.locator("[data-panel-pane]:not([hidden])").count(), 1);
               await page.screenshot({ path: path.join(directory, `${name}-${side}-${kind}-${width}.png`), fullPage: true });
             }
           }

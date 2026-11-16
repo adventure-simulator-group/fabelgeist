@@ -51,6 +51,7 @@
   overflow: visible;
 }
 .side-panel-content > .inventory-owner-panel { height: 100%; }
+.side-panel-content:has(.repair-custody-panel:not([hidden])) > .repair-context-status { display: none; }
 @media (min-width: 1101px) {
   #strategic-page[data-strategic-workspace] .main-grid:has([data-panel-pane]:not([hidden]) [data-inventory-browser]) {
     grid-template-columns: min(var(--inventory-left-width, 23%), 30%) minmax(20rem, 1fr) min(var(--inventory-right-width, 23%), 30%);

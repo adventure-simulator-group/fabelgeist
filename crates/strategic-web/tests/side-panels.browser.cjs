@@ -119,6 +119,26 @@ test("subject changes clear staged trades and live refresh restores the selected
   } finally { await browser.close(); }
 });
 
+test("changing conversation counterparties clears the offer without navigating", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage();
+    const errors = await open(page);
+    const select = id => page.evaluate(id => document.dispatchEvent(new CustomEvent(
+      "strategic-character-selected", { detail: { id } },
+    )), id);
+    await select("npc-a");
+    await page.getByRole("button", { name: "Buy bandage" }).click();
+    await select("npc-a");
+    assert.equal(await page.locator("[name='buy_quantities']").inputValue(), "1");
+    await select("npc-b");
+    assert.equal(await page.locator("#merchant-offer").isVisible(), false);
+    assert.equal(await page.evaluate(() => strategicTradeUi.state.merchantDraft.size), 0);
+    assert.equal(await page.evaluate(() => originalCanvas === document.querySelector("canvas")), true);
+    assert.deepEqual(errors, []);
+  } finally { await browser.close(); }
+});
+
 test("HTML owns input during editing and panels remain usable at narrow widths", async () => {
   const browser = await chromium.launch({ headless: true });
   try {

@@ -218,6 +218,9 @@ pub fn live_merchant_shop_page(
             }
         }
         @if matches!(shop, Storefront::Weapons | Storefront::Armor | Storefront::Clothing) {
+            section class="sidebar-section repair-context-status" role="status" {
+                p { "Select a craftsperson to view repair orders." }
+            }
             (repair_custody_panel(settlement, shop, repair_orders, conditions, items, now_minutes, smith_skill))
         }
 
