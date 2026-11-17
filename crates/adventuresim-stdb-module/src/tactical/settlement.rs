@@ -4,14 +4,14 @@ use adventuresim_world_schema::coordinates::Wgs84CoordinateE7;
 use spacetimedb::{Identity, ReducerContext, Table, reducer};
 
 use super::{
-    TacticalServerRequest, TacticalSession, leave_tactical_scene_for_server,
-    request::settlement_snapshot, tactical_server_authority, tactical_server_request_authority,
+    TacticalServerRequest, TacticalSession, request::settlement_snapshot,
+    tactical_server_authority, tactical_server_request_authority,
 };
 use crate::{character::character, strategic::settlement};
 
 #[reducer]
 pub fn request_settlement_scene(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
-    crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+    crate::strategic::require_character_account_authority(ctx, character_id)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
     let settlement_id = character
         .current_settlement_id
@@ -98,9 +98,15 @@ pub fn retire_settlement_scene(ctx: &ReducerContext) -> Result<(), String> {
     if !matches!(server.session, TacticalSession::Settlement(_)) {
         return Err("Combat mission servers must submit a mission outcome".into());
     }
-    let assigned: Vec<_> = ctx.db.character().server().filter(ctx.sender()).collect();
-    for character in assigned {
-        leave_tactical_scene_for_server(ctx, character, server.identity)?;
+    if ctx
+        .db
+        .character()
+        .server()
+        .filter(ctx.sender())
+        .next()
+        .is_some()
+    {
+        return Err("Finish local actor visits before retiring their scene".into());
     }
     ctx.db
         .tactical_server_authority()
@@ -113,18 +119,31 @@ pub fn retire_settlement_scene(ctx: &ReducerContext) -> Result<(), String> {
 /// state is transient and a later admission creates a fresh ordinary scene.
 #[reducer(client_disconnected)]
 pub fn release_disconnected_settlement_scene(ctx: &ReducerContext) -> Result<(), String> {
-    if ctx
+    let Some(server) = ctx
         .db
         .tactical_server_authority()
         .identity()
         .find(ctx.sender())
-        .is_some_and(|server| {
+        .filter(|server| {
             Some(server.hosting_connection) == ctx.connection_id()
                 && matches!(server.session, TacticalSession::Settlement(_))
         })
-    {
-        retire_settlement_scene(ctx)?;
+    else {
+        return Ok(());
+    };
+    let assigned: Vec<_> = ctx
+        .db
+        .character()
+        .server()
+        .filter(server.identity)
+        .collect();
+    for character in assigned {
+        super::local_time::interrupt_visit(ctx, character.id, server.identity)?;
     }
+    ctx.db
+        .tactical_server_authority()
+        .identity()
+        .delete(server.identity);
     Ok(())
 }
 

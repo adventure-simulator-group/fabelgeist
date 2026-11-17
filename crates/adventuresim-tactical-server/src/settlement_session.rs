@@ -1,4 +1,4 @@
-//! Purpose-specific server resources. Ordinary scenes never own combat state.
+//! Purpose-specific resources. Ordinary scenes do not own mission objectives.
 
 use std::time::Duration;
 
@@ -74,10 +74,11 @@ pub(crate) fn configure(app: &mut App, args: &Args) -> Result<(), String> {
 
 fn retire_empty_scene(
     mut session: ResMut<SettlementSession>,
-    time: Res<Time>,
+    time: Res<Time<Real>>,
     players: Query<(), RetainedPlayerFilter>,
     mut admissions: ResMut<SceneAdmissions>,
     conn: Res<SpacetimeDb>,
+    visits: Res<crate::local_time::LocalVisits>,
     mut exit: MessageWriter<AppExit>,
 ) -> Result {
     if let SettlementLifecycle::Retiring(wait) = &mut session.lifecycle {
@@ -87,7 +88,7 @@ fn retire_empty_scene(
         }
         return Ok(());
     }
-    if !players.is_empty() {
+    if !players.is_empty() || !visits.is_empty() {
         session.lifecycle = SettlementLifecycle::Occupied;
         return Ok(());
     }

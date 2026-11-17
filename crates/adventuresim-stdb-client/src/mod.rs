@@ -407,6 +407,7 @@ pub mod finale_status_type;
 pub mod finalize_merchant_trade_reducer;
 pub mod finalize_party_offer_reducer;
 pub mod finalize_storefront_trade_reducer;
+pub mod finish_local_scene_visit_reducer;
 pub mod finish_world_data_import_reducer;
 pub mod fireplace_dish_type;
 pub mod fireplace_inventory_location_type;
@@ -566,6 +567,12 @@ pub mod local_problem_rumor_delivery_type;
 pub mod local_problem_rumor_preference_type;
 pub mod local_problem_symptom_table;
 pub mod local_problem_symptom_type;
+pub mod local_scene_visit_clock_type;
+pub mod local_scene_visit_closure_type;
+pub mod local_scene_visit_exit_type;
+pub mod local_scene_visit_receipt_type;
+pub mod local_scene_visit_state_type;
+pub mod local_scene_visit_type;
 pub mod located_route_landform_type;
 pub mod lutheran_reformed_church_type;
 pub mod mapped_surface_geology_type;
@@ -682,6 +689,7 @@ pub mod persisted_world_event_payload_ref_type;
 pub mod persisted_world_event_place_type;
 pub mod persisted_world_event_source_type;
 pub mod persisted_world_event_subject_type;
+pub mod personal_clock_type;
 pub mod personal_inventory_location_type;
 pub mod personality_axis_type;
 pub mod personality_development_event_type;
@@ -925,6 +933,7 @@ pub mod surgery_procedure_type;
 pub mod surrender_to_authority_reducer;
 pub mod synchronize_party_for_activity_reducer;
 pub mod tactical_actor_role_type;
+pub mod tactical_actor_time_type;
 pub mod tactical_business_operator_type;
 pub mod tactical_character_consequence_type;
 pub mod tactical_consequence_receipt_type;
@@ -1395,6 +1404,7 @@ pub use finale_status_type::FinaleStatus;
 pub use finalize_merchant_trade_reducer::finalize_merchant_trade;
 pub use finalize_party_offer_reducer::finalize_party_offer;
 pub use finalize_storefront_trade_reducer::finalize_storefront_trade;
+pub use finish_local_scene_visit_reducer::finish_local_scene_visit;
 pub use finish_world_data_import_reducer::finish_world_data_import;
 pub use fireplace_dish_type::FireplaceDish;
 pub use fireplace_inventory_location_type::FireplaceInventoryLocation;
@@ -1554,6 +1564,12 @@ pub use local_problem_rumor_delivery_type::LocalProblemRumorDelivery;
 pub use local_problem_rumor_preference_type::LocalProblemRumorPreference;
 pub use local_problem_symptom_table::*;
 pub use local_problem_symptom_type::LocalProblemSymptom;
+pub use local_scene_visit_clock_type::LocalSceneVisitClock;
+pub use local_scene_visit_closure_type::LocalSceneVisitClosure;
+pub use local_scene_visit_exit_type::LocalSceneVisitExit;
+pub use local_scene_visit_receipt_type::LocalSceneVisitReceipt;
+pub use local_scene_visit_state_type::LocalSceneVisitState;
+pub use local_scene_visit_type::LocalSceneVisit;
 pub use located_route_landform_type::LocatedRouteLandform;
 pub use lutheran_reformed_church_type::LutheranReformedChurch;
 pub use mapped_surface_geology_type::MappedSurfaceGeology;
@@ -1670,6 +1686,7 @@ pub use persisted_world_event_payload_ref_type::PersistedWorldEventPayloadRef;
 pub use persisted_world_event_place_type::PersistedWorldEventPlace;
 pub use persisted_world_event_source_type::PersistedWorldEventSource;
 pub use persisted_world_event_subject_type::PersistedWorldEventSubject;
+pub use personal_clock_type::PersonalClock;
 pub use personal_inventory_location_type::PersonalInventoryLocation;
 pub use personality_axis_type::PersonalityAxis;
 pub use personality_development_event_type::PersonalityDevelopmentEvent;
@@ -1913,6 +1930,7 @@ pub use surgery_procedure_type::SurgeryProcedure;
 pub use surrender_to_authority_reducer::surrender_to_authority;
 pub use synchronize_party_for_activity_reducer::synchronize_party_for_activity;
 pub use tactical_actor_role_type::TacticalActorRole;
+pub use tactical_actor_time_type::TacticalActorTime;
 pub use tactical_business_operator_type::TacticalBusinessOperator;
 pub use tactical_character_consequence_type::TacticalCharacterConsequence;
 pub use tactical_consequence_receipt_type::TacticalConsequenceReceipt;
@@ -2356,6 +2374,10 @@ pub enum Reducer {
         sell_inventory_ids: Vec<u64>,
         sell_quantities: Vec<u32>,
         party_scope: bool,
+    },
+    FinishLocalSceneVisit {
+        visit_id: u64,
+        exit: LocalSceneVisitExit,
     },
     FinishWorldDataImport {
         artifact_id: String,
@@ -3020,6 +3042,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::FinalizeMerchantTrade { .. } => "finalize_merchant_trade",
             Reducer::FinalizePartyOffer { .. } => "finalize_party_offer",
             Reducer::FinalizeStorefrontTrade { .. } => "finalize_storefront_trade",
+            Reducer::FinishLocalSceneVisit { .. } => "finish_local_scene_visit",
             Reducer::FinishWorldDataImport { .. } => "finish_world_data_import",
             Reducer::ForageCurrentVicinity { .. } => "forage_current_vicinity",
             Reducer::ForgeWeapon { .. } => "forge_weapon",
@@ -3816,6 +3839,13 @@ impl __sdk::Reducer for Reducer {
                 sell_inventory_ids: sell_inventory_ids.clone(),
                 sell_quantities: sell_quantities.clone(),
                 party_scope: party_scope.clone(),
+}),
+            Reducer::FinishLocalSceneVisit{
+                visit_id,
+                exit,
+}             => __sats::bsatn::to_vec(&finish_local_scene_visit_reducer::FinishLocalSceneVisitArgs {
+                visit_id: visit_id.clone(),
+                exit: exit.clone(),
 }),
             Reducer::FinishWorldDataImport{
                 artifact_id,

@@ -405,9 +405,6 @@ fn complete_settlement_arrival(
         traveler.current_settlement_id = Some(settlement_id.to_owned());
         crate::investigation::set_character_case_site(ctx, traveler.id, None)?;
         ctx.db.character().id().update(traveler);
-        if !crate::time::synchronize_to_settlement_time_of_day(ctx, traveler_id)? {
-            continue;
-        }
         crate::condition::replenish_needs_at_settlement(ctx, traveler_id)?;
         crate::condition::refresh_character_strategic_condition(ctx, traveler_id)?;
         crate::organization::reconcile_presentation(ctx, traveler_id)?;

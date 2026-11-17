@@ -99,6 +99,9 @@ fn advance_married_family_by(
         return Ok(());
     }
     for related_id in married_family_npc_ids(ctx, character_id) {
+        if crate::tactical::local_time::owns_character_time(ctx, related_id)? {
+            continue;
+        }
         if !ctx
             .db
             .character()

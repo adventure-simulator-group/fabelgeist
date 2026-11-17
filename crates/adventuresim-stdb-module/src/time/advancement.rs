@@ -9,13 +9,7 @@ pub fn advance_character_time(
     minutes: u64,
 ) -> Result<bool, String> {
     crate::character::require_living_character(ctx, character_id)?;
-    ensure_character_time(ctx, character_id)?;
-    let mut character_time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or_else(|| "Character time record not found".to_string())?;
+    let mut character_time = require_unleased_character_time(ctx, character_id)?;
     let starting_minute = character_time.minutes;
     if let Some(first) = first_lifecycle_segment(
         ctx,
@@ -79,13 +73,7 @@ fn advance_character_time_in_plan(
     plan: &crate::disease::PartyDiseaseIntervalPlan,
 ) -> Result<bool, String> {
     crate::character::require_living_character(ctx, character_id)?;
-    ensure_character_time(ctx, character_id)?;
-    let mut character_time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or_else(|| "Character time record not found".to_string())?;
+    let mut character_time = require_unleased_character_time(ctx, character_id)?;
     let starting_minute = character_time.minutes;
     if let Some(first) = first_lifecycle_segment(
         ctx,
@@ -420,13 +408,7 @@ pub fn advance_character_wait_time(
     minutes: u64,
 ) -> Result<bool, String> {
     crate::character::require_living_character(ctx, character_id)?;
-    ensure_character_time(ctx, character_id)?;
-    let mut time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character time record not found")?;
+    let mut time = require_unleased_character_time(ctx, character_id)?;
     let starting_minute = time.minutes;
     if let Some(first) = first_lifecycle_segment(
         ctx,
@@ -505,13 +487,7 @@ pub fn advance_character_wait_time_in_plan(
     plan: &crate::disease::PartyDiseaseIntervalPlan,
 ) -> Result<bool, String> {
     crate::character::require_living_character(ctx, character_id)?;
-    ensure_character_time(ctx, character_id)?;
-    let mut time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character time record not found")?;
+    let mut time = require_unleased_character_time(ctx, character_id)?;
     let starting_minute = time.minutes;
     if let Some(first) = first_lifecycle_segment(
         ctx,

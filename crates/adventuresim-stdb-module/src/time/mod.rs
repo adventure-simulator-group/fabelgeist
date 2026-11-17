@@ -40,6 +40,11 @@ use crate::{
 use adventuresim_world_schema::{OfficialReligion, OralLanguage, SettlementActionService};
 use std::collections::BTreeMap;
 
+pub(crate) use local::commit_local_chronology;
+use local::require_unleased_character_time;
+
+mod local;
+
 // Coordinates lifecycle settlement after authoritative writes and assembles
 // the ordered time-policy fragments in their existing SpacetimeDB module scope.
 include!("model.rs");
@@ -78,6 +83,7 @@ pub(crate) fn settle_lifecycle_after_character_time_write(
 pub(crate) const TIME_SOURCE: &str = concat!(
     include_str!("model.rs"),
     include_str!("clock.rs"),
+    include_str!("local.rs"),
     include_str!("advancement.rs"),
     include_str!("schedule.rs"),
     include_str!("activities.rs"),

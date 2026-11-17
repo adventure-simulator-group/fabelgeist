@@ -11,12 +11,14 @@ use super::character_stats_type::CharacterStats;
 use super::character_type::Character;
 use super::connected_player_item_type::ConnectedPlayerItem;
 use super::tactical_actor_role_type::TacticalActorRole;
+use super::tactical_actor_time_type::TacticalActorTime;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct ConnectedPlayer {
     pub character: Character,
     pub role: TacticalActorRole,
+    pub time: TacticalActorTime,
     pub items: Vec<ConnectedPlayerItem>,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
@@ -49,6 +51,7 @@ impl __sdk::InModule for ConnectedPlayer {
 pub struct ConnectedPlayerCols {
     pub character: __sdk::__query_builder::Col<ConnectedPlayer, Character>,
     pub role: __sdk::__query_builder::Col<ConnectedPlayer, TacticalActorRole>,
+    pub time: __sdk::__query_builder::Col<ConnectedPlayer, TacticalActorTime>,
     pub items: __sdk::__query_builder::Col<ConnectedPlayer, Vec<ConnectedPlayerItem>>,
     pub skills: __sdk::__query_builder::Col<ConnectedPlayer, CharacterSkills>,
     pub stats: __sdk::__query_builder::Col<ConnectedPlayer, CharacterStats>,
@@ -77,6 +80,7 @@ impl __sdk::__query_builder::HasCols for ConnectedPlayer {
         ConnectedPlayerCols {
             character: __sdk::__query_builder::Col::new(table_name, "character"),
             role: __sdk::__query_builder::Col::new(table_name, "role"),
+            time: __sdk::__query_builder::Col::new(table_name, "time"),
             items: __sdk::__query_builder::Col::new(table_name, "items"),
             skills: __sdk::__query_builder::Col::new(table_name, "skills"),
             stats: __sdk::__query_builder::Col::new(table_name, "stats"),

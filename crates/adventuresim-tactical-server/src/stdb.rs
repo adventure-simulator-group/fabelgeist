@@ -16,6 +16,7 @@ pub struct SpacetimeDbPlugin;
 
 impl Plugin for SpacetimeDbPlugin {
     fn build(&self, app: &mut App) {
+        crate::local_time::install(app);
         app.init_resource::<SceneAdmissions>()
             .add_systems(Update, process_scene_operations.after(update_spacetimedb))
             .add_systems(Startup, connect_spacetimedb)
@@ -93,12 +94,28 @@ impl SpacetimeDb {
                 );
             })
             .add_query(|query| query.from.connected_players())
+            .add_query(|query| query.from.world_clock())
             .subscribe()
     }
 
     /// Take every `connected_players` row inserted since the last call.
     pub fn take_connected_players(&self) -> Vec<ConnectedPlayer> {
         std::mem::take(&mut *self.connected_players.lock().unwrap())
+    }
+
+    pub(crate) fn connected_profile_is_current(&self, profile: &ConnectedPlayer) -> bool {
+        self.conn.db.connected_players().iter().any(|current| {
+            current.character.id == profile.character.id && current.time == profile.time
+        })
+    }
+
+    pub(crate) fn world_clock_epoch(&self) -> Option<i64> {
+        self.conn
+            .db
+            .world_clock()
+            .iter()
+            .next()
+            .map(|clock| clock.epoch_micros)
     }
 
     /// Queue a terminal reducer and mailbox its eventual nested callback

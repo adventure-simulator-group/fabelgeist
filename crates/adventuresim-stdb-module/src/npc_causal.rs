@@ -99,7 +99,7 @@ pub fn initialize_npc_causal_schedule(ctx: &ReducerContext) {
 fn stable_npc_cohort(
     ctx: &ReducerContext,
     target_minute: adventuresim_world_schema::calendar::StrategicMinute,
-) -> Vec<CharacterTime> {
+) -> Result<Vec<CharacterTime>, String> {
     let mut candidates: Vec<_> = ctx
         .db
         .npc_policy()
@@ -114,13 +114,20 @@ fn stable_npc_cohort(
             (person.alive && time.minutes < target_minute).then_some(time)
         })
         .collect();
+    let mut unleased = Vec::with_capacity(candidates.len());
+    for time in candidates {
+        if !crate::tactical::local_time::owns_character_time(ctx, time.character_id)? {
+            unleased.push(time);
+        }
+    }
+    candidates = unleased;
     candidates.sort_by_key(|time| (time.minutes, time.character_id));
     let Some(frontier) = candidates.first().map(|time| time.minutes) else {
-        return candidates;
+        return Ok(candidates);
     };
     candidates.retain(|time| time.minutes == frontier);
     candidates.truncate(MAX_NPCS_PER_CAUSAL_TICK);
-    candidates
+    Ok(candidates)
 }
 
 fn receipt_id(character_id: u64, day: u64, phase: NpcPolicyDecisionPhase) -> String {
@@ -494,7 +501,7 @@ pub fn run_npc_causal_tick(
         MAX_LIFECYCLE_EVENTS_PER_CAUSAL_TICK,
     )?;
 
-    let cohort = stable_npc_cohort(ctx, official_minute);
+    let cohort = stable_npc_cohort(ctx, official_minute)?;
     // The cohort observes one exact personal-time frontier. All durable policy
     // choices are resolved before any member advances, preventing a low id
     // from gaining an extra day of state that changes a peer's same-frontier

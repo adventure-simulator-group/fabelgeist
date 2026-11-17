@@ -2,6 +2,7 @@
 
 use std::collections::HashMap;
 
+use adventuresim_core::tactical_session::LocalSceneVisitId;
 use adventuresim_tactical_core::player::CharacterId;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::{ClientId, SendTargets, ServerTriggerExt, ToClients},
@@ -40,6 +41,10 @@ pub(crate) enum SceneOperation {
     },
     Retirement,
     ConnectionLost,
+    Departure {
+        character: CharacterId,
+        visit: LocalSceneVisitId,
+    },
 }
 
 impl SceneAdmissions {
@@ -89,12 +94,30 @@ impl SpacetimeDb {
                 record(&mailbox, SceneOperation::Retirement, result);
             })
     }
+
+    pub(crate) fn finish_local_visit(
+        &self,
+        character: CharacterId,
+        visit: LocalSceneVisitId,
+        exit: LocalSceneVisitExit,
+    ) -> spacetimedb_sdk::Result<()> {
+        let mailbox = self.scene_operations.clone();
+        self.reducers()
+            .finish_local_scene_visit_then(visit.get(), exit, move |_, result| {
+                record(
+                    &mailbox,
+                    SceneOperation::Departure { character, visit },
+                    result,
+                );
+            })
+    }
 }
 
 pub(crate) fn process_scene_operations(
     conn: Res<SpacetimeDb>,
     mut commands: Commands,
     mut admissions: ResMut<SceneAdmissions>,
+    mut visits: ResMut<crate::local_time::LocalVisits>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let results = match conn.scene_operations.lock() {
@@ -107,6 +130,9 @@ pub(crate) fn process_scene_operations(
     };
     for result in results {
         match (result.operation, result.result) {
+            (SceneOperation::Departure { character, visit }, result) => {
+                visits.acknowledge(character, visit, result);
+            }
             (SceneOperation::Registration, Ok(())) => {
                 commands.insert_resource(SceneReady);
             }

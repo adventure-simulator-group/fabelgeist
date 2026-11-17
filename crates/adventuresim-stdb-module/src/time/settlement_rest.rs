@@ -1,4 +1,4 @@
-// Owns settlement rest authorization, payment, recovery, and arrival synchronization.
+// Owns settlement rest authorization, payment, and recovery.
 pub(crate) fn health_recovered_per_day(physiology_check: f32) -> f32 {
     BASE_HEALTH_RECOVERED_PER_DAY
         + physiology_check.clamp(0.0, 5.0) * HEALTH_RECOVERED_PER_PHYSIOLOGY_CHECK_PER_DAY
@@ -235,14 +235,8 @@ fn rest_for_minutes(
     if character.current_settlement_id.is_none() {
         return Err("Settlement downtime requires the character to be at a settlement".into());
     }
-    ensure_character_time(ctx, character_id)?;
+    let mut character_time = require_unleased_character_time(ctx, character_id)?;
     let _ = refresh_clock(ctx)?;
-    let mut character_time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or_else(|| "Character time record not found".to_string())?;
     if requested_minutes == 0 {
         return Ok(0);
     }
@@ -514,57 +508,6 @@ pub(crate) fn spend_private_settlement_downtime(
     .map(|_| ())
 }
 
-/// Adopt a settlement's canonical time of day without adopting its date.
-/// Characters advance to the next matching minute within their own subjective
-/// day, so this forced reintegration is always shorter than 24 hours. An inn
-/// supplies paid full board when available and affordable; otherwise the
-/// character receives free church sanctuary.
-pub(crate) fn synchronize_to_settlement_time_of_day(
-    ctx: &ReducerContext,
-    character_id: u64,
-) -> Result<bool, String> {
-    let character = crate::character::require_living_character(ctx, character_id)?;
-    if character.current_settlement_id.is_none() {
-        return Err("Time-of-day synchronization requires a settlement".into());
-    }
-    ensure_character_time(ctx, character_id)?;
-    let official_minute = refresh_clock(ctx)?;
-    let character_minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or("Character time record not found")?
-        .minutes;
-    let elapsed = u64::from(
-        character_minute
-            .minutes_until_time_of_day(official_minute.minute_of_day())
-            .expect("official clock position is within a day"),
-    );
-    if elapsed == 0 {
-        return Ok(true);
-    }
-
-    let inn_available =
-        require_character_rest_service(ctx, character_id, SettlementActionService::Inn).is_ok();
-    let inn_affordable =
-        crate::item::personal_currency_total(ctx, character_id) >= inn_stay_cost(elapsed)?;
-    let provision = if inn_available && inn_affordable {
-        SettlementRestProvision::PublicService(SettlementActionService::Inn)
-    } else {
-        // Arrival sanctuary is a universal settlement fallback, not a
-        // player-selected service that can be unavailable.
-        SettlementRestProvision::PublicService(SettlementActionService::Temple)
-    };
-    rest_for_minutes(ctx, character_id, elapsed, provision, false, true, None)?;
-    Ok(ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .is_some_and(|character| character.alive))
-}
-
 /// Establish a journey-local clock without changing any participant's
 /// subjective age. The leader-selected time of day is placed on the canonical
 /// departure day; elapsed journey progress later wraps within that frozen day.
@@ -576,6 +519,7 @@ pub(crate) fn synchronize_party_departure_time(
         return Err("Party has no living members".into());
     }
     for member_id in member_ids {
+        crate::tactical::local_time::require_unleased_time(ctx, *member_id)?;
         ensure_character_time(ctx, *member_id)?;
     }
     let party_id = member_ids

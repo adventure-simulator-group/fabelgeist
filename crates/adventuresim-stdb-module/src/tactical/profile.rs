@@ -6,6 +6,7 @@ use super::*;
 pub struct ConnectedPlayer {
     pub character: Character,
     pub role: TacticalActorRole,
+    pub time: super::local_time::TacticalActorTime,
     pub items: Vec<ConnectedPlayerItem>,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
@@ -96,17 +97,19 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
                 .db
                 .tactical_server_authority()
                 .identity()
-                .find(ctx.sender());
-            let mission = server.as_ref().and_then(|server| match &server.session {
+                .find(ctx.sender())?;
+            let time = super::local_time::actor_time(ctx, character.id, &server)?;
+            let mission = match &server.session {
                 TacticalSession::Mission(mission) => Some(mission),
                 TacticalSession::Settlement(_) => None,
-            });
+            };
             let role = mission
                 .filter(|mission| mission.enemy_character_ids.contains(&character.id))
                 .map_or(TacticalActorRole::Player, |_| TacticalActorRole::Enemy);
             Some(ConnectedPlayer {
                 character,
                 role,
+                time,
                 items,
                 skills,
                 limbs,

@@ -5,6 +5,8 @@
 
 use serde::{Deserialize, Serialize};
 
+pub(crate) const FATIGUE_IMPAIRMENT_ONSET: f32 = 0.5;
+
 /// Closed vocabulary for durable morale events.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
@@ -347,7 +349,11 @@ pub fn fear_incapacitation(morale: f32) -> f32 {
 
 /// Fatigue begins contributing after half of the character's daily capacity.
 pub fn fatigue_incapacitation(fatigue_ratio: f32) -> f32 {
-    ((fatigue_ratio - 0.5).max(0.0) / 0.5).powi(2)
+    ((fatigue_ratio - FATIGUE_IMPAIRMENT_ONSET).max(0.0) / (1.0 - FATIGUE_IMPAIRMENT_ONSET)).powi(2)
+}
+
+pub(crate) fn fatigue_ratio_for_incapacitation(incapacitation: f32) -> f32 {
+    FATIGUE_IMPAIRMENT_ONSET + (1.0 - FATIGUE_IMPAIRMENT_ONSET) * incapacitation.sqrt()
 }
 
 /// Hunger begins only after the body's short-term energy reserve is exhausted

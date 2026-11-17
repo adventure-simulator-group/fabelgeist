@@ -8,7 +8,7 @@ pub(crate) fn advance_stationary_character_to(
     character_id: u64,
     target_minutes: StrategicMinute,
 ) -> Result<(), String> {
-    ensure_character_time(ctx, character_id)?;
+    let mut character_time = require_unleased_character_time(ctx, character_id)?;
     let character = ctx
         .db
         .character()
@@ -20,12 +20,6 @@ pub(crate) fn advance_stationary_character_to(
         // not train, recover, consume provisions, or advance it.
         return Ok(());
     }
-    let mut character_time = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .ok_or_else(|| "Character time record not found".to_string())?;
     let starting_minute = character_time.minutes;
     if target_minutes < starting_minute {
         return Err("Character time cannot be advanced retroactively".into());
