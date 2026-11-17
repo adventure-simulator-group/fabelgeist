@@ -1,5 +1,8 @@
 use super::*;
 use crate::player_projection::{AuthoritativeMovementIntent, AuthoritativePostureIntent};
+use adventuresim_tactical_core::control::{
+    CharacterControl, CharacterGoal, CharacterOrder, ControlMode, ControlRejection, OrderStatus,
+};
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::control::{ControlChange, ControlRequest};
 

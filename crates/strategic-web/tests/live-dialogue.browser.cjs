@@ -10,8 +10,9 @@ const tacticalRoot = path.resolve(__dirname, "../../adventuresim-stdb-module/sta
 const resident = "18446744073709551614";
 const session = "dialogue:1:scene:11:1";
 const panel = `<div class="side-panel" data-side-panel="left" data-panel-context="storefront-a">
-  <nav role="tablist" class="side-panel-tabs"><button type="button" role="tab" id="trade-tab" data-panel-tab="trade" aria-controls="trade-pane" aria-selected="true">Trade</button></nav>
-  <section id="trade-pane" data-panel-pane="trade">Old shop</section></div>`;
+  <nav role="tablist" class="side-panel-tabs"><button type="button" role="tab" id="trade-tab" data-panel-tab="trade" aria-controls="trade-pane" aria-selected="true">Trade</button>
+  <button type="button" role="tab" id="services-tab" data-panel-tab="services" aria-controls="services-pane" aria-selected="false">Services</button></nav>
+  <section id="trade-pane" data-panel-pane="trade">Old shop</section><section id="services-pane" data-panel-pane="services" hidden>Services</section></div>`;
 const chat = `<section class="settlement-chat" data-dialogue-chat data-dialogue-catalog-revision="catalog" data-local-chat-kind="npc" data-local-chat-subject="old-npc" data-local-chat-location="market">
   <div class="settlement-chat-layout"><div class="settlement-chat-conversation">
   <header class="conversation-dock-header"><label><input type="checkbox" checked data-chat-filter="local">Local</label></header>
@@ -223,6 +224,24 @@ test("a party social dock retains the shared conversation renderer for native co
     await page.getByRole('button', { name: 'End conversation' }).click();
     assert.equal(await page.locator('[data-chat-dock] [data-dialogue-chat]').isHidden(), true);
     assert.equal(await page.locator('[data-chat-dock] [data-social-conversation]').textContent(), 'Party conversation');
+    assert.deepEqual(errors, []);
+  } finally { await browser.close(); }
+});
+
+test("closing after sidebar replacement restores the tab selected before conversation", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage();
+    const { errors } = await open(page);
+    await page.getByRole('tab', { name: 'Services', exact: true }).click();
+    await begin(page);
+    await page.getByText('Resident revision 1.', { exact: false }).waitFor();
+    await page.evaluate(html => {
+      document.querySelector('.left-sidebar').innerHTML = html;
+      document.dispatchEvent(new CustomEvent('strategic-live-regions-refreshed', {detail:{regions:['left-sidebar']}}));
+    }, panel);
+    await page.getByRole('button', { name: 'End conversation' }).click();
+    assert.equal(await page.getByRole('tab', { name: 'Services', exact: true }).getAttribute('aria-selected'), 'true');
     assert.deepEqual(errors, []);
   } finally { await browser.close(); }
 });

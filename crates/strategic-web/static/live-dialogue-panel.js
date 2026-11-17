@@ -21,6 +21,10 @@ export function installLiveDialoguePanel() {
     if (mounted?.root.isConnected) return;
     // A refreshed sidebar may have removed the rail, but the dock outside it
     // still owns the same chat node and its event handlers.
+    const retainedTab = mounted && {
+      context: mounted.root.dataset.panelContext,
+      kind: mounted.previous?.dataset.panelTab,
+    };
     restore();
     const chat = document.querySelector("[data-dialogue-chat]") || window.strategicConversationChat?.();
     const sidebar = document.querySelector(".left-sidebar");
@@ -48,7 +52,9 @@ export function installLiveDialoguePanel() {
       nav.setAttribute("aria-label", "Left panel");
       root.append(nav); sidebar.append(root);
     }
-    const previous = root.querySelector('[data-panel-tab][aria-selected="true"]');
+    const previous = (retainedTab && retainedTab.context === root.dataset.panelContext
+      && [...root.querySelectorAll('[data-panel-tab]')].find(tab => tab.dataset.panelTab === retainedTab.kind))
+      || root.querySelector('[data-panel-tab][aria-selected="true"]');
     const hiddenTabs = [...root.querySelectorAll("[data-panel-tab]")].map(tab => ({ tab, hidden: tab.hidden }));
     for (const { tab } of hiddenTabs) tab.hidden = true;
     root.dataset.liveDialoguePanel = "";
