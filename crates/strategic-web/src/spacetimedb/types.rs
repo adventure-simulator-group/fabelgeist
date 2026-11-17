@@ -221,7 +221,7 @@ pub struct EquippedItemView {
         )
     )]
     pub character_id: u64,
-    pub placement_id: String,
+    pub placement: sats::EquippedPlacement,
     pub item_name: String,
 }
 
@@ -690,12 +690,12 @@ impl From<sats::CharacterEquippedItem> for EquippedItemView {
         let sats::CharacterEquippedItem {
             inventory_item_id,
             character_id,
-            placement_id,
+            placement,
         } = row;
         Self {
             inventory_item_id,
             character_id,
-            placement_id,
+            placement,
             item_name: String::new(),
         }
     }
@@ -2324,7 +2324,9 @@ mod tests {
         let equipped = EquippedItemView::from(sats::CharacterEquippedItem {
             inventory_item_id: 21,
             character_id: 7,
-            placement_id: "right_hand".into(),
+            placement: adventuresim_stdb_client::EquippedPlacement::Held(
+                adventuresim_stdb_client::EquipmentHand::Right,
+            ),
         });
         assert_eq!((equipped.inventory_item_id, equipped.character_id), (21, 7));
         assert!(equipped.item_name.is_empty());

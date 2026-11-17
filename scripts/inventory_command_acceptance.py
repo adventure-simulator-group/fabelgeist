@@ -7,13 +7,15 @@ import hashlib
 from typing import TYPE_CHECKING
 
 import dev_stack as stack
-from inventory_command_peer import InventoryPeer, durable_inventory, insert, item, place, transfer
+from inventory_command_peer import InventoryPeer, durable_inventory, equipment_change, insert, item, place, remove, transfer
 from inventory_command_effect_acceptance import (
     BOX, CONTAINER, COUNTED, PARENT, counted_transfer_checks,
     equipment_and_container_checks, recipe_and_condition_transfer_checks,
     reject_action, subtree_and_replay_checks, total_mass,
 )
 from settlement_scene_acceptance import persistent_scene_peer
+from inventory_equipment_exchange_acceptance import held_exchange_checks, attachment_exchange_checks
+from equipment_repair_acceptance import repair_equipment_checks
 
 if TYPE_CHECKING:
     from check_semantic_authorities import AcceptanceClient
@@ -37,6 +39,7 @@ def inventory_command_checks(client: AcceptanceClient) -> None:
     identity, token = client.identity()
     with persistent_scene_peer(client, instance, claim, token) as process:
         peer = InventoryPeer(process, client, token)
+        repair_equipment_checks(peer, settlement)
         for actor in (source, recipient, foreign):
             peer.control("enter", f"enter:{actor}", character_id=actor)
             client.call("authority_test_inventory_projection", client.bootstrap_token,
@@ -50,6 +53,8 @@ def inventory_command_checks(client: AcceptanceClient) -> None:
         ownership_checks(peer, source, recipient, foreign, absent)
         other_host_checks(client, peer, source, elsewhere_actor, elsewhere)
         equipment_and_container_checks(peer, source)
+        held_exchange_checks(peer, source)
+        attachment_exchange_checks(peer, source)
         counted_transfer_checks(peer, source, recipient)
         subtree_request = subtree_and_replay_checks(peer, source, recipient)
         recipe_and_condition_transfer_checks(peer, source, recipient)
@@ -120,8 +125,8 @@ def ownership_checks(peer: InventoryPeer, source: int, recipient: int,
     inactive["character_id"] = absent
     reject_action(peer, source, transfer(item(current, COUNTED)["id"], inactive))
     for reducer, arguments in (
-        ("equip_item_at_placement", (source, parent["id"], 0)),
-        ("unequip_item", (source, parent["id"])),
+        ("change_equipment", (source, peer.equipment_argument(place(parent["id"])))),
+        ("change_equipment", (source, peer.equipment_argument(remove(parent["id"])))),
         ("put_inventory_item_in_container", (source, "personal", parent["id"], "personal", box["id"])),
         ("remove_inventory_item_from_container", (source, parent["object"])),
         ("discard_container_water", (source, item(current, CONTAINER)["object"], 1)),
@@ -166,6 +171,10 @@ def other_host_checks(client: AcceptanceClient, source_peer: InventoryPeer,
 
 
 def lifecycle_checks(peer: InventoryPeer, source: int, recipient: int, replay: dict) -> None:
+    inventory = peer.snapshot(recipient)
+    holdings = {"Left": item(inventory, "linen_tunic"), "Right": item(inventory, "torch")}
+    for hand, row in holdings.items():
+        peer.apply_change(recipient, equipment_change(row["id"], {"Held": {hand: []}}, replace=True))
     peer.client.call("authority_test_inventory_command_material", peer.client.bootstrap_token,
                      recipient, {"revokeMembership": []}, token=peer.token)
     peer.reject_unchanged(replay)
@@ -182,9 +191,16 @@ def lifecycle_checks(peer: InventoryPeer, source: int, recipient: int, replay: d
     current = peer.snapshot(recipient, ready=lambda response: response["state"] is not None
                             and response["state"]["scope"] != previous["state"]["scope"])
     assert current["state"]["scope"] != previous["state"]["scope"]
+    restored = {row["id"]: row for row in current["items"]}
+    for hand, before_row in holdings.items():
+        row = restored[before_row["id"]]
+        assert row["placement"] == {"Held": hand}
+        assert row["quantity"] == before_row["quantity"] and row["object"] == before_row["object"]
+        assert not row["protection"]
     peer.reject_unchanged(replay)
     print("PASS canonical membership, closed admission and replaced visit "
-          "are checked before successful replay", flush=True)
+          "are checked before successful replay; generic held clothing and "
+          "simple items retain placement and identity after reentry", flush=True)
 
 
 def finish(peer: InventoryPeer, actor: int) -> None:

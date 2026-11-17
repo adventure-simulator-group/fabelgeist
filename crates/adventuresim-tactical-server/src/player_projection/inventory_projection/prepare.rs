@@ -4,8 +4,8 @@ use std::collections::BTreeSet;
 
 use adventuresim_core::{
     combat::WeaponContactParameters, equipment::ParametricWeaponCombatGeometry,
-    inventory_command::InventorySnapshotToken, inventory_measurement::InventoryMassKg,
-    physical_object::PhysicalObjectId,
+    equipment_placement::EquippedPlacement, inventory_command::InventorySnapshotToken,
+    inventory_measurement::InventoryMassKg, physical_object::PhysicalObjectId,
 };
 use adventuresim_stdb_client::{ConnectedInventory, ConnectedPlayerItem, EquipmentAnchorKind};
 use adventuresim_tactical_core::prelude::*;
@@ -35,6 +35,7 @@ pub(super) struct PreparedInventoryItem {
     pub(super) weapon: Option<WeaponItem>,
     pub(super) physical: Option<TacticalEquipmentPhysical>,
     pub(super) occupancies: Vec<PreparedOccupancy>,
+    pub(super) placement: Option<EquippedPlacement>,
 }
 
 pub(super) struct PreparedOccupancy {
@@ -144,6 +145,12 @@ impl PreparedInventoryItem {
             return Err(InventoryAdmissionError::InvalidObjectIdentity);
         }
         let geometry = projected_parametric_weapon(source, contact)?;
+        let placement = source
+            .selected_placement
+            .clone()
+            .map(EquippedPlacement::try_from)
+            .transpose()
+            .map_err(|_| InventoryAdmissionError::InvalidEquipment)?;
         let occupancies = source
             .occupancies
             .iter()
@@ -158,10 +165,11 @@ impl PreparedInventoryItem {
             object_id,
             weapon_appearance: projected_weapon_appearance(source)?,
             holder_appearance: projected_holder_appearance(source)?,
-            armor: projected_armor(source)?,
+            armor: projected_armor(source, placement.as_ref())?,
             weapon: weapon(source, geometry)?,
             physical: physical(source, geometry),
             occupancies,
+            placement,
         })
     }
 }

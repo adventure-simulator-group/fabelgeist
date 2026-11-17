@@ -41,7 +41,7 @@ test('authored placement alternatives remain atomic and ordered', () => {
 test('attachment placements preserve parent target identity', () => {
   assert.deepEqual(
     parsePlacementOptions(JSON.stringify([{
-      placementIndex: 2,
+      destination: 'authored', placementIndex: 2,
       label: 'contained',
       requirements: [{
         requirementIndex: 0,
@@ -54,7 +54,7 @@ test('attachment placements preserve parent target identity', () => {
     }])),
     [
       {
-        placementIndex: 2,
+        destination: 'authored', placementIndex: 2,
         label: 'contained',
         requirements: [{
           requirementIndex: 0,
@@ -72,7 +72,7 @@ test('attachment placements preserve parent target identity', () => {
 
 test('multi-point placements submit one selected target per requirement', () => {
   const placement = {
-    placementIndex: 4,
+    destination: 'authored', placementIndex: 4,
     requirements: [
       {
         requirementIndex: 0,
@@ -106,7 +106,7 @@ test('multi-point placements submit one selected target per requirement', () => 
 
 test('slot input chooses the outermost compatible attachment target', () => {
   const placements = [{
-    placementIndex: 2,
+    destination: 'authored', placementIndex: 2,
     inputRanks: {},
     requirements: [{
       requirementIndex: 0,
@@ -125,7 +125,7 @@ test('slot input chooses the outermost compatible attachment target', () => {
     }],
   }];
   assert.deepEqual(selectionForInput(placements, 'q'), {
-    placementIndex: 2,
+    destination: 'authored', placementIndex: 2,
     attachmentTargets: [{
       requirement_index: 0,
       parent_inventory_item_id: 12,
@@ -149,7 +149,7 @@ test('automatic target selection respects attachment-point capacity', () => {
     inputRanks: { q: 150000 },
   };
   const selection = selectionForInput([{
-    placementIndex: 3,
+    destination: 'authored', placementIndex: 3,
     requirements: [
       { requirementIndex: 0, targets: [shared, alternate] },
       { requirementIndex: 1, targets: [shared, alternate] },
@@ -163,8 +163,8 @@ test('automatic target selection respects attachment-point capacity', () => {
 
 test('root placements expose every applicable key and preserve authored alternatives', () => {
   const placements = [
-    { placementIndex: 0, inputRanks: { w: 40000, s: 40000 }, requirements: [] },
-    { placementIndex: 1, inputRanks: { v: 40000 }, requirements: [] },
+    { destination: 'authored', placementIndex: 0, inputRanks: { w: 40000, s: 40000 }, requirements: [] },
+    { destination: 'authored', placementIndex: 1, inputRanks: { v: 40000 }, requirements: [] },
   ];
   assert.equal(selectionForInput(placements, 'w').placementIndex, 0);
   assert.equal(selectionForInput(placements, 's').placementIndex, 0);
@@ -179,12 +179,12 @@ test('occupied eligible root slots remain selectable and expose their item icon'
     icon: '/static/icons/game/skirt.svg',
   };
   assert.deepEqual(selectionForInput([{
-    placementIndex: 3,
+    destination: 'authored', placementIndex: 3,
     inputRanks: { y: 20000 },
     inputOccupants: { y: occupant },
     requirements: [],
   }], 'y'), {
-    placementIndex: 3,
+    destination: 'authored', placementIndex: 3,
     attachmentTargets: [],
     occupant,
   });
@@ -197,7 +197,7 @@ test('a full compatible attachment point remains selectable as a swap', () => {
     icon: '/static/icons/game/broadsword.svg',
   };
   assert.deepEqual(selectionForInput([{
-    placementIndex: 1,
+    destination: 'authored', placementIndex: 1,
     inputRanks: {},
     requirements: [{
       requirementIndex: 0,
@@ -210,7 +210,7 @@ test('a full compatible attachment point remains selectable as a swap', () => {
       }],
     }],
   }], 'q'), {
-    placementIndex: 1,
+    destination: 'authored', placementIndex: 1,
     attachmentTargets: [{
       requirement_index: 0,
       parent_inventory_item_id: 12,
@@ -222,7 +222,7 @@ test('a full compatible attachment point remains selectable as a swap', () => {
 
 test('mixed body and attachment placements require the same valid key', () => {
   const placement = {
-    placementIndex: 4,
+    destination: 'authored', placementIndex: 4,
     hasBody: true,
     inputRanks: { w: 50000 },
     requirements: [{
@@ -267,7 +267,7 @@ test('slot chooser uses an icon cell, an X close control, and red invalid-key fe
     { input: 'y', label: 'Y', row: 1, column: 1, locations: ['Stomach'] },
   ]);
   control.dataset.equipmentPlacementOptions = JSON.stringify([{
-    placementIndex: 0,
+    destination: 'authored', placementIndex: 0,
     inputRanks: { y: 20000 },
     inputOccupants: {
       y: {
@@ -320,7 +320,7 @@ test('slot preview mirrors the keyboard map without creating a modal', () => {
     { input: 'g', label: 'G', row: 1, column: 1, locations: ['Chest'] },
   ]);
   control.dataset.equipmentPlacementOptions = JSON.stringify([{
-    placementIndex: 0,
+    destination: 'authored', placementIndex: 0,
     inputRanks: { g: 20000 },
     inputOccupants: {},
     requirements: [],
@@ -364,7 +364,7 @@ test('hover reassigns equipped or unequipped items while keyboard focus waits fo
     { input: 'g', label: 'G', row: 1, column: 1, locations: ['Chest'] },
   ]);
   control.dataset.equipmentPlacementOptions = JSON.stringify([{
-    placementIndex: 0,
+    destination: 'authored', placementIndex: 0,
     inputRanks: { g: 20000 },
     inputOccupants: {},
     requirements: [],
@@ -413,7 +413,7 @@ test('hover reassigns equipped or unequipped items while keyboard focus waits fo
   document.dispatchEvent(equippedHoverKey);
   await Promise.resolve();
   assert.equal(mutations.length, 2);
-  assert.equal(mutations[1].body.get('equipped'), 'true');
+  assert.equal(mutations[1].body.get('destination'), 'authored');
 
   control.disabled = false;
   control.focus();
@@ -425,6 +425,19 @@ test('hover reassigns equipped or unequipped items while keyboard focus waits fo
   control.dispatchEvent(space);
   assert.ok(document.querySelector('.equipment-slot-modal'));
   document.querySelector('.equipment-slot-close').click();
+
+  control.disabled = false;
+  control.dataset.equipmentPlacementOptions = JSON.stringify([{
+    destination: 'held_left', inputRanks: { g: 0 }, inputOccupants: {}, requirements: [],
+  }]);
+  control.dispatchEvent(hover);
+  document.dispatchEvent(equippedHoverKey);
+  await Promise.resolve();
+  assert.equal(mutations.length, 3);
+  assert.equal(mutations[2].body.get('destination'), 'held_left');
+  assert.equal(mutations[2].body.get('conflicts'), 'replace_occupied');
+  assert.equal(mutations[2].body.has('placement_index'), false);
+  assert.equal(mutations[2].body.has('attachment_targets'), false);
 
   delete require.cache[modulePath];
   delete global.document;
@@ -474,9 +487,4 @@ test('parameterized preparation form and browser route are absent', () => {
   assert.equal(routes.includes(removedRoute), false);
   assert.match(routes, /standard_medication_administration/);
   assert.doesNotMatch(routes, /"equip_item"/);
-  assert.match(routes, /"unequip_item"/);
-  assert.match(routes, /"equip_item_at_placement"/);
-  assert.match(routes, /"replace_item_at_placement"/);
-  assert.match(client, /replace_occupied: 'true'/);
-  assert.match(routes, /definition\.equipment_placements/);
 });

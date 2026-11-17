@@ -249,7 +249,10 @@ dependencies = [
 name = "adventuresim-stdb-client"
 version = "0.1.0"
 dependencies = [
+ "adventuresim-core",
  "fabelgeist-determinism",
+ "serde_json",
+ "spacetimedb-sats",
  "spacetimedb-sdk",
 ]
 

@@ -197,11 +197,13 @@ pub(super) fn armor_icons(
     scene_items
         .iter()
         .map(|(entity, item)| (entity, item, None))
-        .chain(
-            items.iter().map(|(entity, _, _, item, topology)| {
-                (entity, item, topology.placement_id.as_deref())
-            }),
-        )
+        .chain(items.iter().map(|(entity, _, _, item, topology)| {
+            (
+                entity,
+                item,
+                topology.authored_placement.as_ref().map(|id| id.as_str()),
+            )
+        }))
         .filter_map(|(entity, item, placement)| {
             let file = procedural_equipment_file(&item.id, placement)?;
             let stem = file.strip_suffix(".glb")?;

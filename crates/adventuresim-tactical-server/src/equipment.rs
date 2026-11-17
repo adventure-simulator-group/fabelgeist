@@ -4,7 +4,7 @@ use adventuresim_core::item_catalog;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::FromClient,
-    prelude::{EquipmentAction, EquipmentActionRequest, EquipmentHand},
+    prelude::{EquipmentAction, EquipmentActionRequest},
 };
 use bevy::prelude::*;
 use std::collections::{HashMap, HashSet, VecDeque};
@@ -272,7 +272,7 @@ fn hand_item(actor: Entity, hand: EquipmentHand, items: &Query<ItemView<'_>>) ->
         .find_map(|(entity, _, owner, _, slot, _, scene, _)| {
             (!scene
                 && owner.is_some_and(|owner| owner.0 == actor)
-                && slot.is_some_and(|slot| *slot == hand.slot()))
+                && slot.is_some_and(|slot| *slot == EquipSlot::from(hand)))
             .then_some(entity)
         })
 }
@@ -390,13 +390,7 @@ fn has_children(entity: Entity, items: &Query<ItemView<'_>>) -> bool {
 
 fn hand_topology(hand: EquipmentHand) -> EquipmentTopology {
     EquipmentTopology {
-        placement_id: Some(
-            match hand {
-                EquipmentHand::Left => "left_hand",
-                EquipmentHand::Right => "right_hand",
-            }
-            .into(),
-        ),
+        authored_placement: None,
         occupancies: vec![EquipmentTopologyOccupancy {
             occupancy_id: format!("tactical:{}:held", hand.id()),
             anchor: TacticalEquipmentAnchor::CharacterLocation(hand.location()),
@@ -418,11 +412,11 @@ fn placement_topology(item_id: &str, location: EquipmentLocation) -> Option<Equi
                 .iter()
                 .any(|requirement| requirement.location == location)
     })?;
-    if !root_placement_allowed(item_id, placement) {
+    if !authored_placement_allowed(item_id) {
         return None;
     }
     Some(EquipmentTopology {
-        placement_id: Some(placement.id.clone()),
+        authored_placement: Some(placement.id.clone().try_into().ok()?),
         occupancies: placement
             .occupancy
             .iter()
@@ -439,21 +433,7 @@ fn placement_topology(item_id: &str, location: EquipmentLocation) -> Option<Equi
     })
 }
 
-fn root_placement_allowed(item_id: &str, placement: &item_catalog::EquipmentPlacement) -> bool {
-    if item_catalog::weapon_carry(item_id) != Some(item_catalog::WeaponCarry::HandOnly) {
-        return true;
-    }
-    placement.parents.is_empty()
-        && placement.occupancy.len() == 1
-        && matches!(
-            placement.occupancy[0].location,
-            EquipmentLocation::LeftHand | EquipmentLocation::RightHand
-        )
-        && placement.occupancy[0].channel == EquipmentChannel::Held
-        && placement.occupancy[0].order == 0
-}
-
-fn parent_placement_allowed(item_id: &str) -> bool {
+fn authored_placement_allowed(item_id: &str) -> bool {
     item_catalog::weapon_carry(item_id) != Some(item_catalog::WeaponCarry::HandOnly)
 }
 
@@ -495,12 +475,12 @@ fn transfer_hand(
     if let Some(moving) = moving {
         commands
             .entity(moving)
-            .insert((hand_topology(destination), destination.slot()));
+            .insert((hand_topology(destination), EquipSlot::from(destination)));
     }
     if let Some(swapped) = swapped {
         commands
             .entity(swapped)
-            .insert((hand_topology(source), source.slot()));
+            .insert((hand_topology(source), EquipSlot::from(source)));
     }
     moving.is_some() || swapped.is_some()
 }
@@ -623,7 +603,7 @@ fn pickup(
         .insert((
             ItemOf(actor),
             hand_topology(hand),
-            hand.slot(),
+            EquipSlot::from(hand),
             Transform::default(),
         ));
     true
@@ -667,7 +647,7 @@ mod tests {
     #[test]
     fn hand_only_weapons_fail_closed_for_parent_placement() {
         for item_id in ["halberd", "hunting_spear", "military_pike", "spear"] {
-            assert!(!parent_placement_allowed(item_id), "{item_id}");
+            assert!(!authored_placement_allowed(item_id), "{item_id}");
             let equipment = item_catalog::definition(item_id)
                 .unwrap()
                 .equipment
@@ -680,35 +660,7 @@ mod tests {
                     .all(|placement| placement.parents.is_empty())
             );
         }
-        assert!(parent_placement_allowed("arming_sword"));
-    }
-
-    #[test]
-    fn hand_only_root_authority_accepts_only_one_held_hand() {
-        let authored = item_catalog::definition("halberd")
-            .unwrap()
-            .equipment
-            .as_ref()
-            .unwrap()
-            .placements[0]
-            .clone();
-        assert!(root_placement_allowed("halberd", &authored));
-        assert!(
-            placement_topology("halberd", authored.occupancy[0].location).is_some(),
-            "authored hand placement remains usable"
-        );
-
-        let mut wrong_location = authored.clone();
-        wrong_location.occupancy[0].location = EquipmentLocation::Chest;
-        assert!(!root_placement_allowed("halberd", &wrong_location));
-
-        let mut wrong_channel = authored.clone();
-        wrong_channel.occupancy[0].channel = EquipmentChannel::Accessory;
-        assert!(!root_placement_allowed("halberd", &wrong_channel));
-
-        let mut multiple = authored.clone();
-        multiple.occupancy.push(authored.occupancy[0]);
-        assert!(!root_placement_allowed("halberd", &multiple));
+        assert!(authored_placement_allowed("arming_sword"));
     }
 
     #[test]
@@ -839,7 +791,7 @@ mod tests {
             actor,
             "belt",
             EquipmentTopology {
-                placement_id: Some("worn".into()),
+                authored_placement: Some("worn".to_owned().try_into().unwrap()),
                 occupancies: [
                     EquipmentLocation::LeftBelt,
                     EquipmentLocation::RightBelt,
@@ -887,7 +839,7 @@ mod tests {
             actor,
             "belt",
             EquipmentTopology {
-                placement_id: Some("worn".into()),
+                authored_placement: Some("worn".to_owned().try_into().unwrap()),
                 occupancies: vec![EquipmentTopologyOccupancy {
                     occupancy_id: "belt".into(),
                     anchor: TacticalEquipmentAnchor::CharacterLocation(EquipmentLocation::LeftBelt),
@@ -920,7 +872,7 @@ mod tests {
                 actor,
                 "leather_satchel",
                 EquipmentTopology {
-                    placement_id: Some("occupied".into()),
+                    authored_placement: Some("occupied".to_owned().try_into().unwrap()),
                     occupancies: vec![EquipmentTopologyOccupancy {
                         occupancy_id: format!("occupied-{point}"),
                         anchor: TacticalEquipmentAnchor::ItemAttachment {
@@ -961,7 +913,7 @@ mod tests {
             actor,
             "leather_satchel",
             EquipmentTopology {
-                placement_id: Some("belt_left".into()),
+                authored_placement: Some("belt_left".to_owned().try_into().unwrap()),
                 occupancies: vec![EquipmentTopologyOccupancy {
                     occupancy_id: "edge".into(),
                     anchor: TacticalEquipmentAnchor::ItemAttachment {
@@ -1097,7 +1049,10 @@ mod tests {
                 })
                 .unwrap()
                 .expect("matching hose supports a knee panel");
-            assert_eq!(topology.placement_id.as_deref(), Some(placement));
+            assert_eq!(
+                topology.authored_placement.as_ref().map(|id| id.as_str()),
+                Some(placement)
+            );
             assert!(matches!(&topology.occupancies[0].anchor,
                 TacticalEquipmentAnchor::ItemAttachment { parent, .. } if *parent == hose));
             let knee = spawn_test_item(&mut world, actor, "mail_knee_voider", topology.clone());

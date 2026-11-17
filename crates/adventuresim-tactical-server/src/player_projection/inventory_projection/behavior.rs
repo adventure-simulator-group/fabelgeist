@@ -13,6 +13,8 @@ use bevy::{ecs::system::SystemState, prelude::*};
 use super::refresh::refresh_snapshots;
 use crate::stdb::ConnectedActorInventory;
 
+mod equipment;
+
 fn actor(world: &mut World, id: u64) -> Entity {
     world
         .spawn((
@@ -288,19 +290,22 @@ fn attachment_parent_resolves_after_child_and_survives_retained_owner_refresh() 
             .iter()
             .any(|tag| child.item.attachment_tags.contains(tag))
     );
-    child.selected_placement_id = Some(
-        weapon_equipment
-            .placements
-            .iter()
-            .find(|placement| {
-                placement.parents.iter().any(|parent| {
-                    parent.channel == adventuresim_core::item_catalog::EquipmentChannel::Containment
+    child.selected_placement = Some(adventuresim_stdb_client::EquippedPlacement::Authored(
+        adventuresim_stdb_client::AuthoredPlacementId {
+            value: weapon_equipment
+                .placements
+                .iter()
+                .find(|placement| {
+                    placement.parents.iter().any(|parent| {
+                        parent.channel
+                            == adventuresim_core::item_catalog::EquipmentChannel::Containment
+                    })
                 })
-            })
-            .unwrap()
-            .id
-            .clone(),
-    );
+                .unwrap()
+                .id
+                .clone(),
+        },
+    ));
     child.weapon_appearance = Some(adventuresim_stdb_client::ConnectedWeaponAppearance {
         generator_version: adventuresim_weapon_model::GENERATOR_VERSION,
         design_hash: adventuresim_weapon_model::design_hash(&design).0.to_vec(),
@@ -361,7 +366,7 @@ fn item(row: u64, quantity: u32, unit_mass: f32, carried_mass: f32) -> Connected
         physical_object_id: None,
         unit_mass_kg: unit_mass,
         carried_mass_kg: carried_mass,
-        selected_placement_id: None,
+        selected_placement: None,
         occupancies: vec![],
         protected_body_parts: vec![],
         condition: None,

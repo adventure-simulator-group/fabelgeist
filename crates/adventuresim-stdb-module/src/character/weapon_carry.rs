@@ -37,14 +37,15 @@ pub(super) fn provision_generated_weapon_carry(
     let belt =
         add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?;
     let belt_placement = authored_placement_index(ctx, BELT_ID, WORN_PLACEMENT_ID)?;
-    EquipmentPlacementChange {
+    EquipmentChangeSet::new(
         actor,
-        inventory: InventoryRowId::try_new(belt).map_err(|error| error.to_string())?,
-        placement: EquipmentPlacementIndex::new(belt_placement),
-        targets: Vec::new(),
-        policy: EquipmentEffectPolicy::LoadoutAssembly,
-        conflicts: EquipmentConflictPolicy::RejectOccupied,
-    }
+        EquipmentChanges::Single(EquipmentChange {
+            inventory: InventoryRowId::try_new(belt).map_err(|error| error.to_string())?,
+            destination: EquipmentDestination::authored(belt_placement, Vec::new())?,
+        }),
+        EquipmentEffectPolicy::LoadoutAssembly,
+        EquipmentConflictPolicy::RejectOccupied,
+    )
     .apply(ctx)?;
 
     for (weapon, hip) in sheathable.iter().zip(WEAPON_CARRY_HIP_PLACEMENTS) {
@@ -62,18 +63,22 @@ pub(super) fn provision_generated_weapon_carry(
             .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
         crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
         let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
-        EquipmentPlacementChange {
+        EquipmentChangeSet::new(
             actor,
-            inventory: InventoryRowId::try_new(holder).map_err(|error| error.to_string())?,
-            placement: EquipmentPlacementIndex::new(holder_placement),
-            targets: vec![EquipmentAttachmentTargetSelection {
-                requirement_index: 0,
-                parent_inventory_item_id: belt,
-                attachment_point_id: hip.into(),
-            }],
-            policy: EquipmentEffectPolicy::LoadoutAssembly,
-            conflicts: EquipmentConflictPolicy::RejectOccupied,
-        }
+            EquipmentChanges::Single(EquipmentChange {
+                inventory: InventoryRowId::try_new(holder).map_err(|error| error.to_string())?,
+                destination: EquipmentDestination::authored(
+                    holder_placement,
+                    vec![EquipmentAttachmentTargetSelection {
+                        requirement_index: 0,
+                        parent_inventory_item_id: belt,
+                        attachment_point_id: hip.into(),
+                    }],
+                )?,
+            }),
+            EquipmentEffectPolicy::LoadoutAssembly,
+            EquipmentConflictPolicy::RejectOccupied,
+        )
         .apply(ctx)?;
         place_unheld_weapon_in_sheath(ctx, actor, weapon, holder)?;
     }
@@ -82,7 +87,7 @@ pub(super) fn provision_generated_weapon_carry(
 
 pub(super) fn select_sheath_compatible_parent_placement(
     placements: &[crate::item::PersistedEquipmentPlacement],
-) -> Option<u16> {
+) -> Option<EquipmentPlacementIndex> {
     placements
         .iter()
         .position(|placement| {
@@ -91,6 +96,7 @@ pub(super) fn select_sheath_compatible_parent_placement(
                 && placement.parents[0].order == 0
         })
         .and_then(|index| u16::try_from(index).ok())
+        .map(EquipmentPlacementIndex::new)
 }
 
 fn place_unheld_weapon_in_sheath(
@@ -109,18 +115,22 @@ fn place_unheld_weapon_in_sheath(
         return Ok(());
     }
     let placement = sheath_compatible_parent_placement_index(ctx, &weapon.item_id)?;
-    EquipmentPlacementChange {
+    EquipmentChangeSet::new(
         actor,
-        inventory: InventoryRowId::try_new(weapon.id).map_err(|error| error.to_string())?,
-        placement: EquipmentPlacementIndex::new(placement),
-        targets: vec![EquipmentAttachmentTargetSelection {
-            requirement_index: 0,
-            parent_inventory_item_id: sheath,
-            attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into(),
-        }],
-        policy: EquipmentEffectPolicy::LoadoutAssembly,
-        conflicts: EquipmentConflictPolicy::RejectOccupied,
-    }
+        EquipmentChanges::Single(EquipmentChange {
+            inventory: InventoryRowId::try_new(weapon.id).map_err(|error| error.to_string())?,
+            destination: EquipmentDestination::authored(
+                placement,
+                vec![EquipmentAttachmentTargetSelection {
+                    requirement_index: 0,
+                    parent_inventory_item_id: sheath,
+                    attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into(),
+                }],
+            )?,
+        }),
+        EquipmentEffectPolicy::LoadoutAssembly,
+        EquipmentConflictPolicy::RejectOccupied,
+    )
     .apply(ctx)
 }
 
@@ -128,7 +138,7 @@ fn authored_placement_index(
     ctx: &ReducerContext,
     item_id: &str,
     placement_id: &str,
-) -> Result<u16, String> {
+) -> Result<EquipmentPlacementIndex, String> {
     let definition = ctx
         .db
         .item()
@@ -140,13 +150,14 @@ fn authored_placement_index(
         .iter()
         .position(|placement| placement.id == placement_id)
         .and_then(|index| u16::try_from(index).ok())
+        .map(EquipmentPlacementIndex::new)
         .ok_or_else(|| format!("{item_id} lacks authored placement {placement_id}"))
 }
 
 fn sheath_compatible_parent_placement_index(
     ctx: &ReducerContext,
     item_id: &str,
-) -> Result<u16, String> {
+) -> Result<EquipmentPlacementIndex, String> {
     let definition = ctx
         .db
         .item()
@@ -163,11 +174,9 @@ pub(super) fn require_weapon_carry_placement(
     placement: &crate::item::PersistedEquipmentPlacement,
 ) -> Result<(), String> {
     match adventuresim_core::item_catalog::weapon_carry(item_id) {
-        Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly)
-            if !hand_only_placement_is_held_root(placement) =>
-        {
+        Some(adventuresim_core::item_catalog::WeaponCarry::HandOnly) => {
             return Err(format!(
-                "Can't equip hand-only weapon {} anywhere except one held left/right hand root",
+                "Hand-only weapon {} requires a generic hand destination",
                 item_id
             ));
         }

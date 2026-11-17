@@ -51,7 +51,7 @@ pub(super) fn attachment_topology(
     actor: Entity,
     items: &Query<ItemView<'_>>,
 ) -> Option<EquipmentTopology> {
-    if !parent_placement_allowed(item_id) {
+    if !authored_placement_allowed(item_id) {
         return None;
     }
     let moving = item_catalog::definition(item_id)?.equipment.as_ref()?;
@@ -220,7 +220,7 @@ fn select_placement(
                 continue;
             }
             return Some(EquipmentTopology {
-                placement_id: Some(placement.id.clone()),
+                authored_placement: Some(placement.id.clone().try_into().ok()?),
                 occupancies: chosen
                     .into_iter()
                     .enumerate()

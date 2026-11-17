@@ -323,7 +323,7 @@ fn add_fireplace_ingredients_at(
                     .find(id)
                     .ok_or("Ingredient inventory row not found")?;
                 if row.character_id != character_id
-                    || crate::character::wearable_is_equipped(ctx, id)
+                    || crate::character::inventory_item_is_equipped(ctx, id)
                 {
                     return Err("Ingredient is equipped or not in this inventory".into());
                 }

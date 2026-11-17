@@ -1,4 +1,5 @@
 //! Read-only equipment appearance shared by strategic HTTP and Bevy rendering.
+use crate::equipment_placement::EquippedPlacement;
 use crate::item_catalog::{EquipmentChannel, EquipmentLocation};
 use serde::{Deserialize, Serialize};
 
@@ -10,7 +11,7 @@ pub struct PresentationId(pub String);
 pub struct EquipmentAppearance {
     pub id: PresentationId,
     pub item: String,
-    pub placement: String,
+    pub placement: EquippedPlacement,
     pub occupancies: Vec<AppearanceOccupancy>,
     pub weapon: Option<GeneratedAppearance>,
     pub holder: Option<GeneratedAppearance>,

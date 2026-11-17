@@ -3,8 +3,11 @@
 
 #[path = "src/mod.rs"]
 mod bindings;
+mod equipment;
+mod reducer_argument;
 
 pub use bindings::*;
+pub use reducer_argument::json_reducer_argument;
 pub use spacetimedb_sdk;
 
 // SDK records mirror the schema. This is the type-to-type projection into the

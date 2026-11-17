@@ -22,7 +22,7 @@ fn readiness_waits_for_requested_equipment_and_surfaces_fit_failures() {
             RuntimeEquipmentPresentation {
                 item,
                 item_id: "cuirass".into(),
-                placement_id: "worn".into(),
+                authored_placement: Some("worn".to_owned().try_into().unwrap()),
             },
         ))
         .id();
@@ -159,7 +159,7 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
     app.world_mut().entity_mut(item).insert((
         EquipSlot::HoldingLeft,
         EquipmentTopology {
-            placement_id: Some("left_hand".into()),
+            authored_placement: None,
             ..default()
         },
     ));
@@ -186,7 +186,7 @@ fn physical_fit_survives_hold_drop_and_placeholder_rebuild_then_refits_new_weare
             ItemOf(second),
             EquipSlot::HoldingRight,
             EquipmentTopology {
-                placement_id: Some("right_hand".into()),
+                authored_placement: None,
                 ..default()
             },
         ));
@@ -237,7 +237,7 @@ fn assert_invalid_outfit_recovers(app: &mut App) {
     app.world_mut()
         .get_mut::<RuntimeEquipmentPresentation>(root)
         .unwrap()
-        .placement_id = "invalid-placement".into();
+        .authored_placement = Some("invalid-placement".to_owned().try_into().unwrap());
     app.update();
     assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_some());
     assert_eq!(
@@ -247,7 +247,7 @@ fn assert_invalid_outfit_recovers(app: &mut App) {
     app.world_mut()
         .get_mut::<RuntimeEquipmentPresentation>(root)
         .unwrap()
-        .placement_id = "left".into();
+        .authored_placement = Some("left".to_owned().try_into().unwrap());
     app.update();
     assert!(app.world().get::<ProceduralEquipmentFailed>(root).is_none());
     assert_presentation(app.world_mut(), true, false);
@@ -303,7 +303,7 @@ fn actor(world: &mut World, id: u64) -> Entity {
 
 fn worn_topology() -> EquipmentTopology {
     EquipmentTopology {
-        placement_id: Some("left".into()),
+        authored_placement: Some("left".to_owned().try_into().unwrap()),
         occupancies: vec![EquipmentTopologyOccupancy {
             occupancy_id: "arm".into(),
             anchor: TacticalEquipmentAnchor::CharacterLocation(EquipmentLocation::LeftArm),

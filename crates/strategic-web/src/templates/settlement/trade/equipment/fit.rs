@@ -21,7 +21,7 @@ pub(super) fn reservation_conflicts(
                 .as_ref()?
                 .placements
                 .iter()
-                .find(|placement| placement.id == node.placement_id)
+                .find(|placement| matches!(&node.placement, adventuresim_stdb_client::EquippedPlacement::Authored(id) if id.value == placement.id))
         })
         .and_then(|placement| {
             placement

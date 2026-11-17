@@ -97,7 +97,7 @@ mod tests {
     > = std::sync::LazyLock::new(|| {
         adventuresim_core::item_catalog::definition("mitten_gauntlet").unwrap()
     });
-    use adventuresim_tactical_netcode::prelude::EquipmentHand;
+    use adventuresim_core::equipment_placement::EquipmentHand;
 
     #[test]
     fn fresh_gauntlet_grab_reaches_each_hand_through_keyboard_and_hud() {
@@ -181,7 +181,7 @@ mod tests {
                         weight: 1.0,
                     },
                     EquipmentTopology {
-                        placement_id: Some(placement.id.clone()),
+                        authored_placement: Some(placement.id.clone().try_into().unwrap()),
                         occupancies: placement
                             .occupancy
                             .iter()

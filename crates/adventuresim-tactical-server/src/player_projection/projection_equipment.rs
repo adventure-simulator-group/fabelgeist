@@ -88,6 +88,7 @@ pub(super) fn projected_holder_appearance(
 
 pub(super) fn projected_armor(
     item: &ConnectedPlayerItem,
+    selection: Option<&adventuresim_core::equipment_placement::EquippedPlacement>,
 ) -> InventoryAdmissionResult<Option<ArmorItem>> {
     let Some(part) = item.protected_body_parts.first() else {
         return Ok(None);
@@ -101,7 +102,12 @@ pub(super) fn projected_armor(
     let placement = authored
         .placements
         .iter()
-        .find(|placement| Some(placement.id.as_str()) == item.selected_placement_id.as_deref())
+        .find(|placement| {
+            Some(placement.id.as_str())
+                == selection
+                    .and_then(|selection| selection.authored_id())
+                    .map(|id| id.as_str())
+        })
         .ok_or(InventoryAdmissionError::InvalidEquipment)?;
     let slot = match part {
         EquipmentBodyPart::LeftArm => ArmorSlot::Arms(Some(ArmorSide::Left)),

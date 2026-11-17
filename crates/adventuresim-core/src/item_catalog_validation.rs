@@ -13,6 +13,8 @@ use numeric::{finite_in, positive_f32_in};
 mod numeric;
 #[path = "item_catalog_validation_occupancy.rs"]
 mod occupancy;
+#[path = "item_catalog_validation_physical.rs"]
+mod physical;
 #[path = "item_catalog_validation_surface.rs"]
 mod surface;
 use surface::validate_equipment_surface;
@@ -559,7 +561,7 @@ fn validate_weapon_carry(
     let Some(equipment) = item.get("equipment").and_then(Value::as_object) else {
         errors.push(
             format!("{path}.equipment"),
-            "weapon requires explicit hand placements",
+            "weapon requires authored physical equipment",
         );
         return;
     };
@@ -568,12 +570,6 @@ fn validate_weapon_carry(
         .and_then(Value::as_array)
         .map(Vec::as_slice)
         .unwrap_or_default();
-    let has_parent_placement = placements.iter().any(|placement| {
-        placement
-            .get("parents")
-            .and_then(Value::as_array)
-            .is_some_and(|parents| !parents.is_empty())
-    });
     let has_sheath_placement = placements.iter().any(|placement| {
         placement
             .get("parents")
@@ -586,26 +582,6 @@ fn validate_weapon_carry(
                         Some(order) => order.as_u64() == Some(0),
                     }
             })
-    });
-    let hand_only_placements_are_held_roots = placements.iter().all(|placement| {
-        let parents_are_empty = match placement.get("parents") {
-            None => true,
-            Some(parents) => parents.as_array().is_some_and(Vec::is_empty),
-        };
-        let Some(occupancy) = placement.get("occupancy").and_then(Value::as_array) else {
-            return false;
-        };
-        parents_are_empty
-            && occupancy.len() == 1
-            && occupancy[0]
-                .get("location")
-                .and_then(Value::as_str)
-                .is_some_and(|location| matches!(location, "left_hand" | "right_hand"))
-            && occupancy[0].get("channel").and_then(Value::as_str) == Some("held")
-            && match occupancy[0].get("order") {
-                None => true,
-                Some(order) => order.as_u64() == Some(0),
-            }
     });
     let has_sheathable_tag = equipment
         .get("attachment_tags")
@@ -623,10 +599,10 @@ fn validate_weapon_carry(
             }
         }
         "hand_only" => {
-            if has_parent_placement || has_sheathable_tag || !hand_only_placements_are_held_roots {
+            if !placements.is_empty() || has_sheathable_tag {
                 errors.push(
                     path,
-                    "hand_only weapon placements must each be exactly one left/right hand held root, with no parent placements or sheathable_weapon attachment tag",
+                    "hand_only weapons use generic hand destinations and have no authored placements or sheathable_weapon attachment tag",
                 );
             }
         }
@@ -679,53 +655,7 @@ fn validate_equipment(
             "striking material is valid only for weapons",
         );
     }
-    match equipment.get("physical").and_then(Value::as_object) {
-        Some(physical) => {
-            reject_unknown(
-                physical,
-                &["dimensions_m", "grip_to_tip_m", "anchor_offset_m"],
-                &format!("{path}.physical"),
-                errors,
-            );
-            match physical.get("dimensions_m").and_then(Value::as_array) {
-                Some(values)
-                    if values.len() == 3
-                        && values.iter().all(|value| {
-                            value
-                                .as_f64()
-                                .is_some_and(|value| value.is_finite() && value > 0.0)
-                        }) => {}
-                _ => errors.push(
-                    format!("{path}.physical.dimensions_m"),
-                    "expected three finite positive metres",
-                ),
-            }
-            let grip_to_tip = physical
-                .get("grip_to_tip_m")
-                .and_then(Value::as_f64)
-                .unwrap_or(0.0);
-            if !grip_to_tip.is_finite() || grip_to_tip < 0.0 {
-                errors.push(
-                    format!("{path}.physical.grip_to_tip_m"),
-                    "expected a finite non-negative distance",
-                );
-            }
-            if physical.get("anchor_offset_m").is_some_and(|offset| {
-                offset.as_array().is_none_or(|values| {
-                    values.len() != 3
-                        || values
-                            .iter()
-                            .any(|value| value.as_f64().is_none_or(|value| !value.is_finite()))
-                })
-            }) {
-                errors.push(
-                    format!("{path}.physical.anchor_offset_m"),
-                    "expected three finite metres",
-                );
-            }
-        }
-        None => errors.push(format!("{path}.physical"), "required object"),
-    }
+    physical::validate(equipment, &path, errors);
     let valid_locations: BTreeSet<_> = [
         "head",
         "face",
@@ -768,7 +698,9 @@ fn validate_equipment(
     .into_iter()
     .collect();
     match equipment.get("placements").and_then(Value::as_array) {
-        Some(placements) if !placements.is_empty() => {
+        Some(placements)
+            if !placements.is_empty() || !matches!(item_kind, "armor" | "clothing") =>
+        {
             let mut placement_ids = BTreeSet::new();
             for (index, placement) in placements.iter().enumerate() {
                 let Some(placement) = placement.as_object() else {
@@ -864,7 +796,10 @@ fn validate_equipment(
                 );
             }
         }
-        _ => errors.push(format!("{path}.placements"), "required non-empty array"),
+        _ => errors.push(
+            format!("{path}.placements"),
+            "required array; armor and clothing require authored placements",
+        ),
     }
     for field in ["attachment_tags"] {
         if let Some(tags) = equipment.get(field).and_then(Value::as_array) {
@@ -1983,11 +1918,10 @@ mod tests {
         let errors = collect_diagnostics(|errors| {
             validate_weapon_carry(weapon.as_object().unwrap(), "items.0", errors);
         });
-        assert!(
-            errors
-                .iter()
-                .any(|error| diagnostic_contains(error, "hand_only weapon placements must"))
-        );
+        assert!(errors.iter().any(|error| diagnostic_contains(
+            error,
+            "hand_only weapons use generic hand destinations"
+        )));
 
         weapon["carry"] = json!("sheathable");
         weapon["equipment"]["attachment_tags"] = json!(["weapon", "sheathable_weapon"]);
@@ -1998,8 +1932,9 @@ mod tests {
     }
 
     #[test]
-    fn weapon_carry_contract_rejects_non_hand_held_hand_only_roots() {
+    fn hand_only_weapons_reject_authored_roots() {
         for occupancy in [
+            json!([{"location": "left_hand", "channel": "held"}]),
             json!([{"location": "chest", "channel": "held"}]),
             json!([{"location": "left_hand", "channel": "accessory"}]),
             json!([
@@ -2020,7 +1955,7 @@ mod tests {
             assert!(
                 errors.iter().any(|error| diagnostic_contains(
                     error,
-                    "exactly one left/right hand held root"
+                    "hand_only weapons use generic hand destinations"
                 )),
                 "{errors:#?}"
             );

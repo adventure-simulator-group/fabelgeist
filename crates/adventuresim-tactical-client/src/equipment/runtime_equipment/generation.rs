@@ -72,7 +72,11 @@ impl FitKey {
         if fitted_to_owner {
             return layers::LayerSelection::admit(
                 &presentation.item_id,
-                &presentation.placement_id,
+                presentation
+                    .authored_placement
+                    .as_ref()
+                    .context("worn equipment has no authored placement")?
+                    .as_str(),
             );
         }
         // An unworn display uses the first authored anatomical fit placement.
@@ -81,16 +85,12 @@ impl FitKey {
             &presentation.item_id,
         )
         .with_context(|| format!("unknown equipment item {}", presentation.item_id))?;
-        let selection = item
-            .placements()
-            .next()
-            .or_else(|| item.placement(&presentation.placement_id))
-            .with_context(|| {
-                format!(
-                    "no equipment placement {} {}",
-                    presentation.item_id, presentation.placement_id
-                )
-            })?;
+        let selection = item.placements().next().with_context(|| {
+            format!(
+                "no authored equipment placement for {}",
+                presentation.item_id
+            )
+        })?;
         Ok(selection.into())
     }
 }
@@ -323,9 +323,10 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
     let outfits = layers::outfits(presentations.iter().filter_map(|(_, presentation, ..)| {
         let (owner, scene, _, slot) = items.get(presentation.item).ok()?;
         let owner = owner.filter(|_| !scene && holding_side(slot).is_none())?;
+        let placement = presentation.authored_placement.as_ref()?;
         Some((
             owner.0,
-            layers::LayerSelection::admit(&presentation.item_id, &presentation.placement_id),
+            layers::LayerSelection::admit(&presentation.item_id, placement.as_str()),
         ))
     }));
     for (entity, presentation, current, resolved, children) in &presentations {
@@ -344,7 +345,10 @@ pub(in crate::equipment) fn generate_runtime_equipment_models(
         let Ok((owner, scene, last_fit, slot)) = items.get(presentation.item) else {
             continue;
         };
-        let fitted_to_owner = !scene && holding_side(slot).is_none() && owner.is_some();
+        let fitted_to_owner = !scene
+            && holding_side(slot).is_none()
+            && presentation.authored_placement.is_some()
+            && owner.is_some();
         let previous = last_fit.map(|fit| &fit.0).or(current);
         let key = FitKey::for_presentation(
             canonical,

@@ -4,17 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::equipment_change_set_request_type::EquipmentChangeSetRequest;
 use super::tactical_inventory_container_insertion_type::TacticalInventoryContainerInsertion;
-use super::tactical_inventory_equipment_placement_type::TacticalInventoryEquipmentPlacement;
 use super::tactical_inventory_transfer_type::TacticalInventoryTransfer;
 use super::tactical_inventory_water_disposal_type::TacticalInventoryWaterDisposal;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub enum TacticalInventoryAction {
-    PlaceEquipment(TacticalInventoryEquipmentPlacement),
-
-    RemoveEquipment(u64),
+    ChangeEquipment(EquipmentChangeSetRequest),
 
     Transfer(TacticalInventoryTransfer),
 

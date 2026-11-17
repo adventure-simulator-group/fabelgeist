@@ -116,7 +116,7 @@ ceiling = 748
 
 [[files]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-ceiling = 1458
+ceiling = 1393
 
 [[files]]
 path = "crates/adventuresim-core/src/knowledge.rs"
@@ -224,7 +224,7 @@ ceiling = 590
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
-ceiling = 2755
+ceiling = 2521
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/condition.rs"
@@ -336,7 +336,7 @@ ceiling = 690
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/repair.rs"
-ceiling = 614
+ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/residence.rs"
@@ -484,7 +484,7 @@ ceiling = 1991
 
 [[files]]
 path = "crates/adventuresim-strategic-sim/src/live_core/survival.rs"
-ceiling = 2501
+ceiling = 2460
 
 [[files]]
 path = "crates/adventuresim-strategic-sim/src/live_core/travel.rs"
@@ -588,7 +588,7 @@ ceiling = 642
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/equipment.rs"
-ceiling = 593
+ceiling = 574
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -768,7 +768,7 @@ ceiling = 790
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
-ceiling = 818
+ceiling = 638
 
 [[files]]
 path = "crates/strategic-web/src/routes/settlements/party/social.rs"
@@ -816,7 +816,7 @@ ceiling = 779
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
-ceiling = 774
+ceiling = 702
 
 [[files]]
 path = "crates/strategic-web/src/templates/settlement/travel.rs"
@@ -1142,7 +1142,7 @@ ceiling = 237
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-ceiling = 420
+ceiling = 379
 
 [[functions]]
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
@@ -1252,7 +1252,7 @@ ceiling = 296
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
 item = "insert_character_with_origin"
-ceiling = 472
+ceiling = 449
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/character.rs"
@@ -1588,11 +1588,6 @@ ceiling = 169
 path = "crates/adventuresim-stdb-module/src/relationship/reproduction.rs"
 item = "settle_spouse_leisure_pair"
 ceiling = 144
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/repair.rs"
-item = "retrieve"
-ceiling = 103
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/repair.rs"
@@ -2975,11 +2970,6 @@ item = "render_party_stats"
 ceiling = 160
 
 [[functions]]
-path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
-item = "set_equipment"
-ceiling = 165
-
-[[functions]]
 path = "crates/strategic-web/src/routes/settlements/party/location_personal.rs"
 item = "render_party_personal"
 ceiling = 283
@@ -3142,7 +3132,7 @@ ceiling = 292
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/equipment.rs"
 item = "equipment_control"
-ceiling = 417
+ceiling = 343
 
 [[functions]]
 path = "crates/strategic-web/src/templates/settlement/trade/merchant.rs"
@@ -4284,13 +4274,6 @@ occurrences = 1
 rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-fingerprint = "string:anchor_offset_m"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment"
 fingerprint = "string:armor"
 occurrences = 2
 
@@ -4326,13 +4309,6 @@ occurrences = 1
 rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
-fingerprint = "string:dimensions_m"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment"
 fingerprint = "string:domain"
 occurrences = 2
 
@@ -4341,13 +4317,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_equipment"
 fingerprint = "string:locations"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_equipment"
-fingerprint = "string:physical"
 occurrences = 1
 
 [[findings]]
@@ -4516,13 +4485,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/item_catalog_validation.rs"
 item = "validate_weapon_carry"
 fingerprint = "string:order"
-occurrences = 2
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/item_catalog_validation.rs"
-item = "validate_weapon_carry"
-fingerprint = "string:parents"
 occurrences = 1
 
 [[findings]]
@@ -10662,20 +10624,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
 item = "liquidate_party_assets"
 fingerprint = "string:settlement"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
-item = "set_equipment"
-fingerprint = "string:administer_preparation"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs"
-item = "set_equipment"
-fingerprint = "string:unequip_item"
 occurrences = 1
 
 [[findings]]

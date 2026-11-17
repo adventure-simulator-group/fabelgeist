@@ -1,7 +1,7 @@
 //! Admit framework request values once, then dispatch the shared item effects.
 
 use crate::{
-    character::{EquipmentEffectPolicy, EquipmentPlacementChange, EquipmentRemoval},
+    character::{EquipmentChangeSet, EquipmentChanges, EquipmentEffectPolicy},
     inventory_container::{
         ContainedItemRemoval, ContainerInsertion, ContainerWaterDisposal, inventory_object,
     },
@@ -17,19 +17,17 @@ pub(super) struct InventoryCommand {
     pub(super) digest: PayloadDigest,
 }
 
+#[derive(Clone, Copy)]
 pub(super) struct ExpectedActor {
     pub(super) id: CustodyCharacterId,
     pub(super) token: InventorySnapshotToken,
 }
 
 pub(super) enum InventoryEffect {
-    PlaceEquipment {
-        inventory: InventoryRowId,
-        placement: EquipmentPlacementIndex,
-        targets: Vec<crate::character::EquipmentAttachmentTargetSelection>,
+    ChangeEquipment {
+        changes: EquipmentChanges,
         conflicts: EquipmentConflictPolicy,
     },
-    RemoveEquipment(InventoryRowId),
     Transfer {
         inventory: InventoryRowId,
         quantity: ItemQuantity,
@@ -89,16 +87,10 @@ impl TryFrom<TacticalInventoryAction> for InventoryEffect {
 
     fn try_from(value: TacticalInventoryAction) -> Result<Self, Self::Error> {
         Ok(match value {
-            TacticalInventoryAction::PlaceEquipment(selection) => Self::PlaceEquipment {
-                inventory: InventoryRowId::try_new(selection.inventory_item_id)
-                    .map_err(|error| error.to_string())?,
-                placement: EquipmentPlacementIndex::new(selection.placement_index),
-                targets: selection.targets,
-                conflicts: selection.conflicts,
+            TacticalInventoryAction::ChangeEquipment(request) => Self::ChangeEquipment {
+                changes: request.changes.try_into()?,
+                conflicts: request.conflicts,
             },
-            TacticalInventoryAction::RemoveEquipment(inventory_item_id) => Self::RemoveEquipment(
-                InventoryRowId::try_new(inventory_item_id).map_err(|error| error.to_string())?,
-            ),
             TacticalInventoryAction::Transfer(transfer) => Self::Transfer {
                 inventory: InventoryRowId::try_new(transfer.inventory_item_id)
                     .map_err(|error| error.to_string())?,
@@ -136,30 +128,15 @@ impl InventoryEffect {
     }
 
     pub(super) fn apply(
-        &self,
+        self,
         ctx: &ReducerContext,
         actor: CustodyCharacterId,
     ) -> CommandResult<()> {
         match self {
-            Self::PlaceEquipment {
-                inventory,
-                placement,
-                targets,
-                conflicts,
-            } => EquipmentPlacementChange {
-                actor,
-                inventory: *inventory,
-                placement: *placement,
-                targets: targets.clone(),
-                policy: EquipmentEffectPolicy::Gameplay,
-                conflicts: *conflicts,
+            Self::ChangeEquipment { changes, conflicts } => {
+                EquipmentChangeSet::new(actor, changes, EquipmentEffectPolicy::Gameplay, conflicts)
+                    .apply(ctx)
             }
-            .apply(ctx),
-            Self::RemoveEquipment(inventory) => EquipmentRemoval {
-                actor,
-                inventory: *inventory,
-            }
-            .apply(ctx),
             Self::Transfer {
                 inventory,
                 quantity,
@@ -181,34 +158,30 @@ impl InventoryEffect {
                 PersonalInventoryTransfer {
                     source,
                     recipient,
-                    quantity: *quantity,
+                    quantity,
                 }
                 .apply(ctx)
             }
             Self::InsertIntoContainer { child, parent } => {
-                require_personal_object(ctx, actor, *child)?;
-                require_personal_object(ctx, actor, *parent)?;
+                require_personal_object(ctx, actor, child)?;
+                require_personal_object(ctx, actor, parent)?;
                 ContainerInsertion {
                     actor,
-                    child: *child,
-                    parent: *parent,
+                    child,
+                    parent,
                 }
                 .apply(ctx)
             }
             Self::RemoveFromContainer(child) => {
-                require_personal_object(ctx, actor, *child)?;
-                ContainedItemRemoval {
-                    actor,
-                    child: *child,
-                }
-                .apply(ctx)
+                require_personal_object(ctx, actor, child)?;
+                ContainedItemRemoval { actor, child }.apply(ctx)
             }
             Self::DiscardWater { container, volume } => {
-                require_personal_object(ctx, actor, *container)?;
+                require_personal_object(ctx, actor, container)?;
                 ContainerWaterDisposal {
                     actor,
-                    container: *container,
-                    volume: *volume,
+                    container,
+                    volume,
                 }
                 .apply(ctx)
             }

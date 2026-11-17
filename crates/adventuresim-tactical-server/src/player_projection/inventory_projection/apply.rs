@@ -175,7 +175,11 @@ fn project_item(
     entities: &BTreeMap<TacticalInventoryItemId, Entity>,
 ) {
     let topology = EquipmentTopology {
-        placement_id: item.source.selected_placement_id.clone(),
+        authored_placement: item
+            .placement
+            .as_ref()
+            .and_then(|placement| placement.authored_id())
+            .cloned(),
         occupancies: item
             .occupancies
             .iter()

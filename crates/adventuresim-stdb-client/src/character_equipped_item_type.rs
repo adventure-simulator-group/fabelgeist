@@ -4,12 +4,14 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::equipped_placement_type::EquippedPlacement;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct CharacterEquippedItem {
     pub inventory_item_id: u64,
     pub character_id: u64,
-    pub placement_id: String,
+    pub placement: EquippedPlacement,
 }
 
 impl __sdk::InModule for CharacterEquippedItem {
@@ -22,7 +24,7 @@ impl __sdk::InModule for CharacterEquippedItem {
 pub struct CharacterEquippedItemCols {
     pub inventory_item_id: __sdk::__query_builder::Col<CharacterEquippedItem, u64>,
     pub character_id: __sdk::__query_builder::Col<CharacterEquippedItem, u64>,
-    pub placement_id: __sdk::__query_builder::Col<CharacterEquippedItem, String>,
+    pub placement: __sdk::__query_builder::Col<CharacterEquippedItem, EquippedPlacement>,
 }
 
 impl __sdk::__query_builder::HasCols for CharacterEquippedItem {
@@ -31,7 +33,7 @@ impl __sdk::__query_builder::HasCols for CharacterEquippedItem {
         CharacterEquippedItemCols {
             inventory_item_id: __sdk::__query_builder::Col::new(table_name, "inventory_item_id"),
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
-            placement_id: __sdk::__query_builder::Col::new(table_name, "placement_id"),
+            placement: __sdk::__query_builder::Col::new(table_name, "placement"),
         }
     }
 }

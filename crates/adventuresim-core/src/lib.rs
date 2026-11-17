@@ -26,6 +26,7 @@ pub mod elapsed;
 pub mod encounter;
 pub mod equipment;
 pub mod equipment_assets;
+pub mod equipment_placement;
 pub mod equipment_presentation;
 pub mod errantry;
 pub mod essential;
@@ -118,6 +119,7 @@ pub mod prelude {
     pub use crate::disease::*;
     pub use crate::durability::*;
     pub use crate::equipment::*;
+    pub use crate::equipment_placement::{AuthoredPlacementId, EquipmentHand, EquippedPlacement};
     pub use crate::essential::*;
     pub use crate::investigation::*;
     pub use crate::investigation_action::*;

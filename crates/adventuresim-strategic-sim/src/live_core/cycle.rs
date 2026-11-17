@@ -920,28 +920,27 @@ impl LiveRunner {
         } else {
             candidate.slot
         };
-        let placement_index = candidate
-            .equipment_placements
-            .iter()
-            .position(|placement| {
-                placement.parents.is_empty()
-                    && placement
-                        .occupancy
-                        .iter()
-                        .any(|requirement| root_requirement_matches_slot(requirement, destination))
-            })
-            .and_then(|index| u16::try_from(index).ok())
-            .ok_or("equipment upgrade lacks a compatible authored root placement")?;
-        let result = reducer_call!(self, ReducerOperation::ReplaceItemAtPlacement, |cb| self
-            .connection
-            .reducers
-            .replace_item_at_placement_then(
-                character_id,
-                inventory.id,
-                placement_index,
-                Vec::new(),
-                cb,
-            ));
+        let destination = match destination {
+            Slot::LeftHolding => adventuresim_stdb_client::EquipmentDestinationRequest::Held(adventuresim_stdb_client::EquipmentHand::Left),
+            Slot::RightHolding => adventuresim_stdb_client::EquipmentDestinationRequest::Held(adventuresim_stdb_client::EquipmentHand::Right),
+            _ => {
+                let placement_index = candidate.equipment_placements.iter().position(|placement| {
+                    placement.parents.is_empty() && placement.occupancy.iter().any(|requirement| root_requirement_matches_slot(requirement, destination))
+                }).and_then(|index| u16::try_from(index).ok())
+                    .ok_or("equipment upgrade lacks a compatible authored root placement")?;
+                adventuresim_stdb_client::EquipmentDestinationRequest::Authored(adventuresim_stdb_client::AuthoredEquipmentPlacementRequest {
+                    placement_index, targets: Vec::new(),
+                })
+            }
+        };
+        let request = adventuresim_stdb_client::EquipmentChangeSetRequest {
+            changes: adventuresim_stdb_client::EquipmentChangesRequest::Single(adventuresim_stdb_client::EquipmentChangeRequest {
+                inventory_item_id: inventory.id,
+                destination,
+            }),
+            conflicts: adventuresim_stdb_client::EquipmentConflictPolicy::ReplaceOccupied,
+        };
+        let result = reducer_call!(self, ReducerOperation::ChangeEquipment, |cb| self.connection.reducers.change_equipment_then(character_id, request, cb));
         self.call(result)?;
         let verified = self
             .connection

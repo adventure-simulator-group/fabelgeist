@@ -147,6 +147,7 @@ pub(super) fn held_item(
     items: &Query<(Entity, &ItemOf, Option<&EquipSlot>)>,
 ) -> Option<Entity> {
     items.iter().find_map(|(entity, owner, slot)| {
-        (owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())).then_some(entity)
+        (owner.0 == actor && slot.is_some_and(|slot| *slot == EquipSlot::from(hand)))
+            .then_some(entity)
     })
 }

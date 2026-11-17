@@ -1,8 +1,15 @@
 //! Anatomical equipment reservations are validated before reducer mutations.
 use super::character_equipped_item;
-use crate::item::{PersistedEquipmentPlacement, inventory_item, item};
+use super::equipment_state::ResolvedEquipmentPlacement;
+use crate::item::{inventory_item, item};
 use adventuresim_core::item_catalog::OccupancyRequirement;
+use adventuresim_core::{inventory_command::InventoryRowId, physical_object::CustodyCharacterId};
 use spacetimedb::ReducerContext;
+
+pub(super) struct EquipmentRootConflict {
+    pub(super) requirement: OccupancyRequirement,
+    pub(super) inventory: InventoryRowId,
+}
 
 pub(super) fn validate_attachment_requirement(
     ctx: &ReducerContext,
@@ -62,18 +69,18 @@ pub(super) fn character_occupancy_id(
 
 pub(super) fn conflicting_equipment_roots(
     ctx: &ReducerContext,
-    character_id: u64,
-    inventory_item_id: u64,
-    placement: &PersistedEquipmentPlacement,
-) -> Result<Vec<(OccupancyRequirement, u64)>, String> {
+    actor: CustodyCharacterId,
+    inventory_id: InventoryRowId,
+    placement: &ResolvedEquipmentPlacement,
+) -> Result<Vec<EquipmentRootConflict>, String> {
     let mut conflicts = Vec::new();
     for equipped in ctx
         .db
         .character_equipped_item()
         .character_id()
-        .filter(character_id)
+        .filter(actor.get())
     {
-        if equipped.inventory_item_id == inventory_item_id {
+        if equipped.inventory_item_id == inventory_id.get() {
             continue;
         }
         let inventory = ctx
@@ -88,42 +95,42 @@ pub(super) fn conflicting_equipment_roots(
             .id()
             .find(inventory.item_id)
             .ok_or("Equipped item has no catalog definition")?;
-        let current = definition
-            .equipment_placements
-            .iter()
-            .find(|current| current.id == equipped.placement_id)
-            .ok_or("Equipped item has no authored placement")?;
+        let current = ResolvedEquipmentPlacement::selected(&definition, &equipped.placement)?;
+        let current_inventory = InventoryRowId::try_new(equipped.inventory_item_id)
+            .map_err(|error| error.to_string())?;
         conflicts.extend(conflicting_requirements(
-            placement,
-            current,
-            equipped.inventory_item_id,
+            &placement.occupancy,
+            &current.occupancy,
+            current_inventory,
         ));
     }
     Ok(conflicts)
 }
 
 fn conflicting_requirements(
-    proposed: &PersistedEquipmentPlacement,
-    current: &PersistedEquipmentPlacement,
-    current_item_id: u64,
-) -> Vec<(OccupancyRequirement, u64)> {
+    proposed: &[OccupancyRequirement],
+    current: &[OccupancyRequirement],
+    current_inventory: InventoryRowId,
+) -> Vec<EquipmentRootConflict> {
     proposed
-        .occupancy
         .iter()
         .copied()
         .filter(|requirement| {
             current
-                .occupancy
                 .iter()
                 .any(|other| requirement.conflicts_with(*other))
         })
-        .map(|requirement| (requirement, current_item_id))
+        .map(|requirement| EquipmentRootConflict {
+            requirement,
+            inventory: current_inventory,
+        })
         .collect()
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::item::PersistedEquipmentPlacement;
     use adventuresim_core::item_catalog;
 
     #[test]
@@ -159,12 +166,24 @@ mod tests {
                 };
                 for other in &harness {
                     assert!(
-                        conflicting_requirements(&persisted, other, 1).is_empty(),
+                        conflicting_requirements(
+                            &persisted.occupancy,
+                            &other.occupancy,
+                            InventoryRowId::try_new(1).unwrap()
+                        )
+                        .is_empty(),
                         "{item}/{}",
                         placement.id
                     );
                 }
-                assert!(!conflicting_requirements(&persisted, &persisted, 1).is_empty());
+                assert!(
+                    !conflicting_requirements(
+                        &persisted.occupancy,
+                        &persisted.occupancy,
+                        InventoryRowId::try_new(1).unwrap()
+                    )
+                    .is_empty()
+                );
                 harness.push(persisted);
             }
         }
@@ -180,7 +199,13 @@ mod tests {
         let displaced = harness
             .iter()
             .enumerate()
-            .flat_map(|(id, current)| conflicting_requirements(&whole_arm, current, id as u64))
+            .flat_map(|(id, current)| {
+                conflicting_requirements(
+                    &whole_arm.occupancy,
+                    &current.occupancy,
+                    InventoryRowId::try_new(id as u64 + 1).unwrap(),
+                )
+            })
             .collect::<Vec<_>>();
         assert_eq!(
             displaced.len(),

@@ -2,8 +2,8 @@
 
 use adventuresim_core::{
     inventory_command::{
-        EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryCommandId, InventoryRevision,
-        InventoryRowId, InventoryScopeId, InventorySnapshotToken,
+        EquipmentConflictPolicy, InventoryCommandId, InventoryRevision, InventoryRowId,
+        InventoryScopeId, InventorySnapshotToken,
     },
     inventory_measurement::ItemQuantity,
     material::Milliliters,
@@ -36,20 +36,11 @@ pub struct TacticalInventoryCommand {
 
 #[derive(SpacetimeType, Clone, Debug)]
 pub enum TacticalInventoryAction {
-    PlaceEquipment(TacticalInventoryEquipmentPlacement),
-    RemoveEquipment(u64),
+    ChangeEquipment(crate::character::EquipmentChangeSetRequest),
     Transfer(TacticalInventoryTransfer),
     InsertIntoContainer(TacticalInventoryContainerInsertion),
     RemoveFromContainer(u64),
     DiscardWater(TacticalInventoryWaterDisposal),
-}
-
-#[derive(SpacetimeType, Clone, Debug)]
-pub struct TacticalInventoryEquipmentPlacement {
-    pub inventory_item_id: u64,
-    pub placement_index: u16,
-    pub targets: Vec<crate::character::EquipmentAttachmentTargetSelection>,
-    pub conflicts: EquipmentConflictPolicy,
 }
 
 #[derive(SpacetimeType, Clone, Debug)]
@@ -132,9 +123,10 @@ pub fn commit_tactical_inventory(
         return Ok(());
     }
     command.require_current(ctx)?;
+    let actors = command.actors().copied().collect::<Vec<_>>();
     command.effect.apply(ctx, command.actor.id)?;
-    let participants = command
-        .actors()
+    let participants = actors
+        .iter()
         .map(|actor| actor.result(ctx))
         .collect::<CommandResult<Vec<_>>>()?;
     ctx.db

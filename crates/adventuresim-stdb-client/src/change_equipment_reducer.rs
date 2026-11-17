@@ -4,64 +4,57 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::equipment_change_set_request_type::EquipmentChangeSetRequest;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
-pub(super) struct EquipItemAtPlacementArgs {
+pub(super) struct ChangeEquipmentArgs {
     pub character_id: u64,
-    pub inventory_item_id: u64,
-    pub placement_index: u16,
+    pub request: EquipmentChangeSetRequest,
 }
 
-impl From<EquipItemAtPlacementArgs> for super::Reducer {
-    fn from(args: EquipItemAtPlacementArgs) -> Self {
-        Self::EquipItemAtPlacement {
+impl From<ChangeEquipmentArgs> for super::Reducer {
+    fn from(args: ChangeEquipmentArgs) -> Self {
+        Self::ChangeEquipment {
             character_id: args.character_id,
-            inventory_item_id: args.inventory_item_id,
-            placement_index: args.placement_index,
+            request: args.request,
         }
     }
 }
 
-impl __sdk::InModule for EquipItemAtPlacementArgs {
+impl __sdk::InModule for ChangeEquipmentArgs {
     type Module = super::RemoteModule;
 }
 
 #[allow(non_camel_case_types)]
-/// Extension trait for access to the reducer `equip_item_at_placement`.
+/// Extension trait for access to the reducer `change_equipment`.
 ///
 /// Implemented for [`super::RemoteReducers`].
-pub trait equip_item_at_placement {
-    /// Request that the remote module invoke the reducer `equip_item_at_placement` to run as soon as possible.
+pub trait change_equipment {
+    /// Request that the remote module invoke the reducer `change_equipment` to run as soon as possible.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and this method provides no way to listen for its completion status.
-    /// /// Use [`equip_item_at_placement:equip_item_at_placement_then`] to run a callback after the reducer completes.
-    fn equip_item_at_placement(
+    /// /// Use [`change_equipment:change_equipment_then`] to run a callback after the reducer completes.
+    fn change_equipment(
         &self,
         character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
+        request: EquipmentChangeSetRequest,
     ) -> __sdk::Result<()> {
-        self.equip_item_at_placement_then(
-            character_id,
-            inventory_item_id,
-            placement_index,
-            |_, _| {},
-        )
+        self.change_equipment_then(character_id, request, |_, _| {})
     }
 
-    /// Request that the remote module invoke the reducer `equip_item_at_placement` to run as soon as possible,
+    /// Request that the remote module invoke the reducer `change_equipment` to run as soon as possible,
     /// registering `callback` to run when we are notified that the reducer completed.
     ///
     /// This method returns immediately, and errors only if we are unable to send the request.
     /// The reducer will run asynchronously in the future,
     ///  and its status can be observed with the `callback`.
-    fn equip_item_at_placement_then(
+    fn change_equipment_then(
         &self,
         character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
+        request: EquipmentChangeSetRequest,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -71,12 +64,11 @@ pub trait equip_item_at_placement {
     ) -> __sdk::Result<()>;
 }
 
-impl equip_item_at_placement for super::RemoteReducers {
-    fn equip_item_at_placement_then(
+impl change_equipment for super::RemoteReducers {
+    fn change_equipment_then(
         &self,
         character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
+        request: EquipmentChangeSetRequest,
 
         callback: impl FnOnce(
             &super::ReducerEventContext,
@@ -85,10 +77,9 @@ impl equip_item_at_placement for super::RemoteReducers {
         + 'static,
     ) -> __sdk::Result<()> {
         self.imp.invoke_reducer_with_callback(
-            EquipItemAtPlacementArgs {
+            ChangeEquipmentArgs {
                 character_id,
-                inventory_item_id,
-                placement_index,
+                request,
             },
             callback,
         )

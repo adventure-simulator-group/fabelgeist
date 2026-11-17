@@ -76,7 +76,7 @@ use adventuresim_stdb_client::{
     backend_road_challenges_table::BackendRoadChallengesTableAccess,
     backend_settlement_residents_table::BackendSettlementResidentsTableAccess,
     battle_loot_item_table::BattleLootItemTableAccess,
-    battle_result_table::BattleResultTableAccess,
+    battle_result_table::BattleResultTableAccess, change_equipment_reducer::change_equipment,
     character_equipped_item_table::CharacterEquippedItemTableAccess,
     character_illness_status_table::CharacterIllnessStatusTableAccess,
     choose_dialogue_topic_reducer::choose_dialogue_topic,
@@ -108,9 +108,7 @@ use adventuresim_stdb_client::{
     purchase_from_herbalist_reducer::purchase_from_herbalist,
     purchase_personal_storefront_with_party_stake_reducer::purchase_personal_storefront_with_party_stake,
     register_strategic_gateway_reducer::register_strategic_gateway,
-    repair_order_table::RepairOrderTableAccess,
-    replace_item_at_placement_reducer::replace_item_at_placement,
-    report_contract_reducer::report_contract,
+    repair_order_table::RepairOrderTableAccess, report_contract_reducer::report_contract,
     request_general_party_join_reducer::request_general_party_join,
     resolve_errantry_road_challenge_reducer::resolve_errantry_road_challenge,
     resolve_strategic_encounter_reducer::resolve_strategic_encounter,
@@ -206,6 +204,7 @@ pub use report::{CoreLoopMetrics, CoreLoopReport, FinalAgentState};
 include!("error.rs");
 include!("failure_projection.rs");
 include!("policy.rs");
+mod survival_equipment;
 include!("survival.rs");
 
 mod schema_types;

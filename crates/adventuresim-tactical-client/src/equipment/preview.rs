@@ -325,7 +325,7 @@ mod tests {
                     weight: 0.35,
                 },
                 EquipmentTopology {
-                    placement_id: Some("worn".into()),
+                    authored_placement: Some("worn".to_owned().try_into().unwrap()),
                     occupancies: [
                         EquipmentLocation::LeftBelt,
                         EquipmentLocation::RightBelt,
@@ -354,7 +354,7 @@ mod tests {
                     weight: 0.3,
                 },
                 EquipmentTopology {
-                    placement_id: Some("right".into()),
+                    authored_placement: Some("right".to_owned().try_into().unwrap()),
                     occupancies: vec![EquipmentTopologyOccupancy {
                         occupancy_id: "right-sheath".into(),
                         anchor: TacticalEquipmentAnchor::ItemAttachment {
@@ -377,7 +377,7 @@ mod tests {
                     weight: 0.3,
                 },
                 EquipmentTopology {
-                    placement_id: Some("attached".into()),
+                    authored_placement: Some("attached".to_owned().try_into().unwrap()),
                     occupancies: vec![EquipmentTopologyOccupancy {
                         occupancy_id: "sheath".into(),
                         anchor: TacticalEquipmentAnchor::ItemAttachment {

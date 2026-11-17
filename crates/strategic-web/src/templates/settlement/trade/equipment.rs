@@ -4,6 +4,8 @@ use super::*;
 
 mod attachment;
 mod fit;
+mod held;
+mod labels;
 
 pub(super) fn equipment_target_is_self_or_descendant(
     equip: &CharacterEquipmentGraph,
@@ -389,88 +391,9 @@ pub(in crate::templates::settlement) fn equipment_control(
     let medication = definition.is_some_and(|definition| {
         definition.kind == crate::spacetimedb::CatalogItemKind::Medication
     });
-    let equippable = definition.is_some_and(|definition| {
-        !definition.equipment_placements.is_empty() || (medication && medication_is_self)
-    });
+    let equippable = definition.is_some() && (!medication || medication_is_self);
     let placement_labels = definition
-        .map(|definition| {
-            definition
-                .equipment_placements
-                .iter()
-                .map(|placement| {
-                    let anchors = placement
-                        .occupancy
-                        .iter()
-                        .map(|requirement| {
-                            format!(
-                                "{} · {} · depth {}",
-                                equipment_location_wire_label(requirement.location),
-                                equipment_channel_label(requirement.channel),
-                                requirement.order
-                            )
-                        })
-                        .collect::<Vec<_>>()
-                        .join(", ");
-                    let parent = placement
-                        .parents
-                        .iter()
-                        .map(|parent| {
-                            format!(
-                                "attached via {} · depth {}",
-                                equipment_channel_label(parent.channel),
-                                parent.order
-                            )
-                        })
-                        .collect::<Vec<_>>()
-                        .join(", ");
-                    let protection = placement
-                        .protection
-                        .iter()
-                        .copied()
-                        .map(equipment_body_part_display)
-                        .collect::<Vec<_>>()
-                        .join(", ");
-                    let conflicts = equip
-                        .into_iter()
-                        .flat_map(|equip| {
-                            equip
-                                .equipment_occupancies
-                                .iter()
-                                .map(move |row| (equip, row))
-                        })
-                        .filter(|(_, occupied)| occupied.inventory_item_id != inventory.id)
-                        .filter(|(equip, occupied)| {
-                            placement.occupancy.iter().any(|requirement| {
-                                fit::reservation_conflicts(equip, occupied, *requirement)
-                            })
-                        })
-                        .map(|(_, occupied)| format!("#{}", occupied.inventory_item_id))
-                        .collect::<Vec<_>>();
-                    let anchor_or_parent = if parent.is_empty() { anchors } else { parent };
-                    format!(
-                        "{}: {}{}{}",
-                        placement.id,
-                        anchor_or_parent,
-                        if !protection.is_empty() {
-                            {
-                                format!(
-                                    "; protects {protection} ({:.0}% coverage)",
-                                    definition.coverage * 100.0
-                                )
-                            }
-                        } else {
-                            Default::default()
-                        },
-                        if !conflicts.is_empty() {
-                            format!("; conflict with {}", conflicts.join(", "))
-                        } else {
-                            Default::default()
-                        }
-                    )
-                })
-                .collect::<Vec<_>>()
-                .join("|")
-        })
+        .map(|definition| labels::placement_labels(inventory, definition, equip))
         .unwrap_or_default();
     let wear_layer = definition
         .and_then(|definition| {
@@ -605,6 +528,7 @@ pub(in crate::templates::settlement) fn equipment_control(
                             .collect(),
                     );
                     serde_json::json!({
+                        "destination": "authored",
                         "placementIndex": placement_index,
                         "label": placement_labels
                             .split('|')
@@ -619,6 +543,10 @@ pub(in crate::templates::settlement) fn equipment_control(
                 .collect::<Vec<_>>()
         })
         .unwrap_or_default();
+    let mut placement_options = placement_options;
+    if !medication && definition.is_some() {
+        placement_options.extend(held::placement_options(equip));
+    }
     let placement_options_json =
         serde_json::to_string(&placement_options).unwrap_or_else(|_| "[]".to_owned());
     let input_map_json = equipment_input_map_json();
@@ -669,7 +597,7 @@ pub(in crate::templates::settlement) fn equipment_control(
             definition
                 .equipment_placements
                 .iter()
-                .find(|placement| placement.id == node.placement_id)
+                .find(|placement| matches!(&node.placement, adventuresim_stdb_client::EquippedPlacement::Authored(id) if id.value == placement.id))
                 .filter(|placement| !placement.protection.is_empty())
                 .map(|placement| {
                     format!(
@@ -819,67 +747,29 @@ mod tests {
     }
 
     #[test]
-    fn equipment_slot_control_is_enabled_only_for_authored_placements() {
+    fn equipment_control_offers_generic_hands_without_authored_placements() {
         let inventory = InventoryItem {
             id: 7,
             character_id: 9,
-            item_id: "sword".into(),
+            item_id: "torch".into(),
             quantity: 1,
         };
-        let mut definition = crate::spacetimedb::CatalogItemView {
-            id: "sword".into(),
-            weight: 1.0,
-            slot: Slot::AnyHolding,
-            kind: crate::spacetimedb::CatalogItemKind::Weapon,
-            base_value: None,
-            nutrition_kcal: 0.0,
-            water_capacity_ml: 0,
-            quality: 3,
-            durability_yield: 0.0,
-            durability_fracture: 0.0,
-            durability_wear: 0.0,
-            durability_failure_share: 0.0,
-            edge_sensitivity: 0.0,
-            handling_sensitivity: 0.0,
-            equipment_placements: vec![CatalogEquipmentPlacement {
-                id: "left_hand".into(),
-                occupancy: vec![OccupancyRequirement {
-                    fit_zone: None,
-                    location: EquipmentLocation::LeftHand,
-                    channel: CoreEquipmentChannel::Held,
-                    order: 0,
-                }],
-                parents: Vec::new(),
-                protection: Vec::new(),
-            }],
+        let definition = crate::spacetimedb::CatalogItemView {
+            id: "torch".into(),
+            kind: crate::spacetimedb::CatalogItemKind::Simple,
             ..Default::default()
         };
         let enabled =
             equipment_control(&inventory, Some(&definition), false, true, None).into_string();
         assert!(enabled.contains("data-equipment-toggle"));
         assert!(enabled.contains("equipment-slot-control"));
-        assert!(enabled.contains("data-equipment-input-map"));
+        assert!(enabled.contains("held_left"));
+        assert!(enabled.contains("held_right"));
         assert!(!enabled.contains(" disabled"));
-        definition.equipment_placements.clear();
-        let disabled =
-            equipment_control(&inventory, Some(&definition), false, true, None).into_string();
+        let disabled = equipment_control(&inventory, None, false, true, None).into_string();
         assert!(disabled.contains("class=\"equipment-unavailable\""));
         assert!(disabled.contains("aria-label=\"Not equippable\""));
         assert!(!disabled.contains("equipment-slot-control"));
-
-        definition
-            .equipment_placements
-            .push(CatalogEquipmentPlacement {
-                id: "left_hand".into(),
-                occupancy: vec![OccupancyRequirement {
-                    fit_zone: None,
-                    location: EquipmentLocation::LeftHand,
-                    channel: CoreEquipmentChannel::Held,
-                    order: 0,
-                }],
-                parents: Vec::new(),
-                protection: Vec::new(),
-            });
         let unbound =
             equipment_control(&inventory, Some(&definition), true, true, None).into_string();
         assert!(unbound.contains("check-mark.svg"));
@@ -952,13 +842,21 @@ mod tests {
                 EquippedItemView {
                     inventory_item_id: outer.id,
                     character_id: 9,
-                    placement_id: "worn".into(),
+                    placement: adventuresim_stdb_client::EquippedPlacement::Authored(
+                        adventuresim_stdb_client::AuthoredPlacementId {
+                            value: "worn".into(),
+                        },
+                    ),
                     item_name: outer.item_id.clone(),
                 },
                 EquippedItemView {
                     inventory_item_id: inner.id,
                     character_id: 9,
-                    placement_id: "worn".into(),
+                    placement: adventuresim_stdb_client::EquippedPlacement::Authored(
+                        adventuresim_stdb_client::AuthoredPlacementId {
+                            value: "worn".into(),
+                        },
+                    ),
                     item_name: inner.item_id.clone(),
                 },
             ],
@@ -1036,13 +934,21 @@ mod tests {
                 EquippedItemView {
                     inventory_item_id: parent.id,
                     character_id: 9,
-                    placement_id: "worn".into(),
+                    placement: adventuresim_stdb_client::EquippedPlacement::Authored(
+                        adventuresim_stdb_client::AuthoredPlacementId {
+                            value: "worn".into(),
+                        },
+                    ),
                     item_name: parent.item_id.clone(),
                 },
                 EquippedItemView {
                     inventory_item_id: child.id,
                     character_id: 9,
-                    placement_id: "hung".into(),
+                    placement: adventuresim_stdb_client::EquippedPlacement::Authored(
+                        adventuresim_stdb_client::AuthoredPlacementId {
+                            value: "hung".into(),
+                        },
+                    ),
                     item_name: child.item_id.clone(),
                 },
             ],

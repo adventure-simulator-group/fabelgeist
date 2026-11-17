@@ -76,35 +76,6 @@ pub struct PlayerInputRequest {
     pub melee_preparation: MeleePreparationInput,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-pub enum EquipmentHand {
-    Left,
-    Right,
-}
-
-impl EquipmentHand {
-    pub const fn id(self) -> &'static str {
-        match self {
-            Self::Left => "Left",
-            Self::Right => "Right",
-        }
-    }
-
-    pub const fn slot(self) -> EquipSlot {
-        match self {
-            Self::Left => EquipSlot::HoldingLeft,
-            Self::Right => EquipSlot::HoldingRight,
-        }
-    }
-
-    pub const fn location(self) -> EquipmentLocation {
-        match self {
-            Self::Left => EquipmentLocation::LeftHand,
-            Self::Right => EquipmentLocation::RightHand,
-        }
-    }
-}
-
 /// One ordered, mapped command is committed when a grab button is released.
 /// Slot depth is a presentation selection; the server recomputes the ordered
 /// candidate list from its authoritative topology before mutating anything.

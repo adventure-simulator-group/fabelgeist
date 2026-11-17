@@ -91,6 +91,12 @@ class InventoryPeer:
     def receipts(self) -> list:
         return self.client.rows("SELECT * FROM tactical_inventory_receipt", token=self.token)
 
+    def equipment_argument(self, action: dict) -> object:
+        self.send("equipment_argument", request=action["ChangeEquipment"])
+        response = self.receive("equipment_argument")
+        assert response["status"] == "accepted", response
+        return response["argument"]
+
 
 def durable_inventory(client: AcceptanceClient) -> dict:
     return {table: sorted(json.dumps(row, sort_keys=True) for row in client.rows(f"SELECT * FROM {table}"))
@@ -104,9 +110,28 @@ def item(snapshot: dict, catalog: str) -> dict:
 def place(row: int, *, replace: bool = False, parent: int | None = None) -> dict:
     targets = [] if parent is None else [{"requirement_index": 0,
                 "parent_inventory_item_id": parent, "attachment_point_id": "hook"}]
-    return {"PlaceEquipment": {"inventory_item_id": row, "placement_index": 0,
-            "targets": targets, "conflicts": {
-                "ReplaceOccupied" if replace else "RejectOccupied": []}}}
+    return equipment_change(row, {"Authored": {"placement_index": 0, "targets": targets}},
+                            replace=replace)
+
+
+def equipment_change(row: int, destination: dict, *, replace: bool = False) -> dict:
+    return {"ChangeEquipment": {"changes": {"Single": {
+        "inventory_item_id": row, "destination": destination}}, "conflicts": {
+            "ReplaceOccupied" if replace else "RejectOccupied": []}}}
+
+
+def remove(row: int) -> dict:
+    return equipment_change(row, {"Inventory": []})
+
+
+def exchange(source: int, source_destination: dict, destination: int,
+             destination_destination: dict, *, replace: bool = False) -> dict:
+    return {"ChangeEquipment": {"changes": {"Exchange": {
+        "source": {"inventory_item_id": source, "destination": source_destination},
+        "destination": {"inventory_item_id": destination,
+                        "destination": destination_destination}}}, "conflicts": {
+            "ReplaceOccupied" if replace else "RejectOccupied": []}}}
+
 
 
 def insert(child: int, parent: int) -> dict:

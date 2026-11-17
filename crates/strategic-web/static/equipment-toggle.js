@@ -35,6 +35,7 @@
       if (requirements.length === 0) {
         const rank = inputRank(placement, input);
         return rank === null ? [] : [{
+          destination: placement.destination,
           placementIndex: placement.placementIndex,
           attachmentTargets: [],
           occupant: placement.inputOccupants?.[input] || null,
@@ -81,6 +82,7 @@
         });
       }
       return [{
+        destination: placement.destination,
         placementIndex: placement.placementIndex,
         attachmentTargets: selectedTargets,
         occupant: selectedOccupants[0] || placement.inputOccupants?.[input] || null,
@@ -88,11 +90,15 @@
       }];
     });
     candidates.sort((left, right) =>
-      right.rank - left.rank || left.placementIndex - right.placementIndex
+      right.rank - left.rank ||
+      left.destination.localeCompare(right.destination) ||
+      (left.placementIndex ?? 0) - (right.placementIndex ?? 0)
     );
     if (!candidates[0]) return null;
     const selection = {
-      placementIndex: candidates[0].placementIndex,
+      destination: candidates[0].destination,
+      ...(candidates[0].destination === 'authored'
+        ? { placementIndex: candidates[0].placementIndex } : {}),
       attachmentTargets: candidates[0].attachmentTargets,
     };
     if (candidates[0].occupant) selection.occupant = candidates[0].occupant;
@@ -273,11 +279,12 @@
     window.strategicSubmitMutation('/api/equipment', {
       body: new URLSearchParams({
         inventory_item_id: control.dataset.inventoryItemId,
-        equipped: String(equipped),
-        ...(selection === null ? {} : { placement_index: String(selection.placementIndex) }),
-        ...(selection ? {
+        destination: control.matches('[data-equipment-medication]')
+          ? 'administer_preparation' : equipped ? selection.destination : 'inventory',
+        conflicts: 'replace_occupied',
+        ...(selection?.destination === 'authored' ? {
+          placement_index: String(selection.placementIndex),
           attachment_targets: JSON.stringify(selection.attachmentTargets),
-          replace_occupied: 'true',
         } : {}),
       }),
       originPage: control.closest('#strategic-page'),
@@ -401,6 +408,11 @@
     const previous = !checkbox.checked;
     const status = statusFor(checkbox);
     clearStatus(status);
+    if (!checkbox.checked) {
+      checkbox.checked = true;
+      reportEquipmentError(checkbox, status, new Error('An administered preparation cannot be withdrawn'));
+      return;
+    }
     checkbox.disabled = true;
     try {
       await equipmentMutation(checkbox, checkbox.checked);

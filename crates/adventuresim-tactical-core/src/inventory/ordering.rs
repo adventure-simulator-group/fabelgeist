@@ -1,6 +1,7 @@
 //! Replication-stable ordering of body-root equipment. Entity allocation order
 //! is deliberately absent: a client remaps every server entity independently.
 use super::{EquipmentTopology, TacticalEquipmentAnchor};
+use adventuresim_core::equipment_placement::AuthoredPlacementId;
 use adventuresim_core::item_catalog::{self, EquipmentFitZone, EquipmentLocation};
 use std::cmp::Reverse;
 
@@ -10,7 +11,7 @@ pub struct EquipmentRootOrder<'a> {
     layer: Reverse<u16>,
     fit_zone: Option<EquipmentFitZone>,
     item_id: &'a str,
-    placement_id: Option<&'a str>,
+    placement: Option<&'a AuthoredPlacementId>,
 }
 
 impl EquipmentTopology {
@@ -25,10 +26,10 @@ impl EquipmentTopology {
         let placement = item_catalog::definition(item_id)
             .and_then(|definition| definition.equipment.as_ref())
             .and_then(|equipment| {
-                equipment
-                    .placements
-                    .iter()
-                    .find(|placement| Some(placement.id.as_str()) == self.placement_id.as_deref())
+                equipment.placements.iter().find(|placement| {
+                    Some(placement.id.as_str())
+                        == self.authored_placement.as_ref().map(|id| id.as_str())
+                })
             });
         self.occupancies
             .iter()
@@ -51,7 +52,7 @@ impl EquipmentTopology {
                     layer: Reverse(occupancy.order),
                     fit_zone,
                     item_id,
-                    placement_id: self.placement_id.as_deref(),
+                    placement: self.authored_placement.as_ref(),
                 })
             })
             .min()
@@ -75,7 +76,7 @@ mod tests {
                 .unwrap()
                 .placements[0];
             let topology = EquipmentTopology {
-                placement_id: Some(placement.id.clone()),
+                authored_placement: Some(placement.id.clone().try_into().unwrap()),
                 occupancies: placement
                     .occupancy
                     .iter()

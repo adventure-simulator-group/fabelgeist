@@ -1445,7 +1445,7 @@ pub fn deposit_party_inventory_item(
     if quantity == 0 || inventory.character_id != character_id || inventory.quantity < quantity {
         return Err("Invalid party inventory deposit".into());
     }
-    if crate::character::inventory_item_is_equipped(ctx, character_id, inventory_item_id) {
+    if crate::character::inventory_item_is_equipped(ctx, inventory_item_id) {
         return Err("Unequip an item before depositing it".into());
     }
     if let Some(object) = crate::inventory_container::object_for_row(
@@ -1964,7 +1964,7 @@ pub fn discard_inventory_items(
         if item.character_id != character_id || item.quantity < quantity {
             return Err("Character does not have the staged quantity".into());
         }
-        if crate::character::inventory_item_is_equipped(ctx, character_id, inventory_item_id) {
+        if crate::character::inventory_item_is_equipped(ctx, inventory_item_id) {
             return Err("Unequip an item before discarding it".into());
         }
         let object = crate::inventory_container::object_for_row(
@@ -2046,7 +2046,7 @@ pub fn finalize_party_offer(
         {
             return Err("Invalid party trade offer".into());
         }
-        if crate::character::inventory_item_is_equipped(ctx, from_id, item.id) {
+        if crate::character::inventory_item_is_equipped(ctx, item.id) {
             return Err("Unequip an item before offering it".into());
         }
     }
@@ -2609,7 +2609,7 @@ fn finalize_storefront_trade_impl(
             return Err("A physical object must be sold as one exact inventory row".into());
         }
         if !party_scope
-            && crate::character::inventory_item_is_equipped(ctx, character_id, *inventory_id)
+            && crate::character::inventory_item_is_equipped(ctx, *inventory_id)
         {
             return Err("Unequip an item before selling it".into());
         }
@@ -2803,7 +2803,7 @@ fn finalize_storefront_trade_impl(
                 .character_and_item_id()
                 .filter((character_id, item_id))
                 .find(|stack| {
-                    !crate::character::inventory_item_is_equipped(ctx, character_id, stack.id)
+                    !crate::character::inventory_item_is_equipped(ctx, stack.id)
                 })
         {
             if let Some(merged) = stack.quantity.checked_add(*quantity) {

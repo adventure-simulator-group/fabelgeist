@@ -48,7 +48,7 @@ pub enum ReducerOperation {
     PurchasePartyTent,
     PurchasePersonalStorefrontWithPartyStake,
     RegisterStrategicGateway,
-    ReplaceItemAtPlacement,
+    ChangeEquipment,
     ReplenishQuestsAfterAbandon,
     RequestGeneralPartyJoin,
     ResolveErrantryRoadChallenge,
@@ -139,7 +139,7 @@ impl ReducerOperation {
                 "purchase_personal_storefront_with_party_stake"
             }
             Self::RegisterStrategicGateway => "register_strategic_gateway",
-            Self::ReplaceItemAtPlacement => "replace_item_at_placement",
+            Self::ChangeEquipment => "change_equipment",
             Self::ReplenishQuestsAfterAbandon => "replenish_quests_after_abandon",
             Self::RequestGeneralPartyJoin => "request_general_party_join",
             Self::ResolveErrantryRoadChallenge => "resolve_errantry_road_challenge",

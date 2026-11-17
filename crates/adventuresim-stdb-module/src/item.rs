@@ -597,7 +597,7 @@ pub fn change_inventory_item(
                     .map(|item| {
                         (
                             item.id,
-                            crate::character::wearable_is_equipped(ctx, item.id),
+                            crate::character::inventory_item_is_equipped(ctx, item.id),
                         )
                     })
                     .collect(),
@@ -605,7 +605,7 @@ pub fn change_inventory_item(
             );
             let mut equipment_changed = false;
             for id in removal_ids {
-                if crate::character::wearable_is_equipped(ctx, id) {
+                if crate::character::inventory_item_is_equipped(ctx, id) {
                     crate::character::unequip_wearable(ctx, id);
                     equipment_changed = true;
                 }

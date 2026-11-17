@@ -1,10 +1,12 @@
 //! Persistent strategic equipment condition and settlement repair custody.
 
-mod smiths;
-use adventuresim_core::durability::DamageBins;
-use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
-use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
+use adventuresim_core::durability::{DamageBins, DurabilityProfile, damage_from_impact};
+use adventuresim_core::equipment_placement::EquippedPlacement;
+use adventuresim_core::physical_object::{
+    CarriedInventoryScope, CustodyCharacterId, InventoryLocation,
+};
 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+use equipment::saved_attachment_targets;
 pub(crate) use smiths::ensure_settlement_smith;
 use smiths::service_skill;
 use spacetimedb::{ReducerContext, Table, reducer, table};
@@ -14,6 +16,11 @@ use crate::item::{inventory_item, item};
 use crate::simulation::simulation_character;
 use crate::time::character_time;
 use crate::{CatalogItemKind, InventoryItem, inventory_object};
+
+#[cfg(feature = "authority-tests")]
+mod authority_tests;
+mod equipment;
+mod smiths;
 
 pub const REPAIR_MINUTES_PER_FULL_ITEM: u64 = 2 * MINUTES_PER_DAY;
 
@@ -80,10 +87,9 @@ pub struct RepairOrder {
     pub submitted_at_minutes: StrategicMinute,
     pub ready_at_minutes: StrategicMinute,
     pub target_condition: f32,
-    pub equipped_placement_id: Option<String>,
+    pub equipped_placement: Option<EquippedPlacement>,
     pub attachment_targets: Vec<crate::character::EquipmentAttachmentTargetSelection>,
     /// Stable quote charged when the completed job is retrieved.
-    #[default(0)]
     pub quoted_cost: u32,
 }
 
@@ -251,30 +257,13 @@ fn submit(
         submitted_at_minutes: now,
         ready_at_minutes: now.saturating_add_minutes(minutes.max(1)),
         target_condition,
-        equipped_placement_id: equipped.map(|row| row.placement_id),
+        equipped_placement: equipped.map(|row| row.placement),
         attachment_targets,
         quoted_cost,
     });
     crate::capability::refresh_character_capability(ctx, character_id)?;
     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
     Ok(order.id)
-}
-
-fn saved_attachment_targets(
-    rows: impl IntoIterator<Item = crate::character::EquipmentOccupancy>,
-) -> Vec<crate::character::EquipmentAttachmentTargetSelection> {
-    let mut targets = rows
-        .into_iter()
-        .filter_map(|row| {
-            Some(crate::character::EquipmentAttachmentTargetSelection {
-                requirement_index: row.requirement_index,
-                parent_inventory_item_id: row.parent_inventory_item_id?,
-                attachment_point_id: row.attachment_point_id?,
-            })
-        })
-        .collect::<Vec<_>>();
-    targets.sort_by_key(|target| target.requirement_index);
-    targets
 }
 
 #[reducer]
@@ -420,18 +409,10 @@ fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<()
         object.location = InventoryLocation::personal(character_id, order.inventory_item_id);
         ctx.db.inventory_object().id().update(object);
     }
-    if let Some(placement_id) = order.equipped_placement_id.as_deref() {
-        crate::character::restore_equipment_placement(
-            ctx,
-            character_id,
-            order.inventory_item_id,
-            placement_id,
-            order.attachment_targets.clone(),
-        )
-        .map_err(|error| {
-            format!("Repair is complete, but its saved equipment graph cannot be restored: {error}")
-        })?;
-    }
+    order.restore_equipment(
+        ctx,
+        CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?,
+    )?;
     ctx.db.repair_order().id().delete(order_id);
     crate::capability::refresh_character_capability(ctx, character_id)?;
     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
