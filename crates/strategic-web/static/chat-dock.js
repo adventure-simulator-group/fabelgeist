@@ -1,12 +1,18 @@
 (() => {
   let lifecycle;
   let layoutObserver;
+  let pageRoot;
+  let conversationChat;
+  window.strategicConversationChat = () => conversationChat;
   const unmount = () => { lifecycle?.abort(); layoutObserver?.disconnect(); };
   const mount = () => {
     unmount();
     const root = document.getElementById('strategic-page');
     const dock = root?.querySelector(':scope > [data-chat-dock]');
     if (!dock) return;
+    if (pageRoot !== root) conversationChat = undefined;
+    pageRoot = root;
+    conversationChat = root.querySelector('[data-dialogue-chat]') || conversationChat;
     lifecycle = new AbortController();
     const { signal } = lifecycle;
     // Contextual dialogue supplies the shared dock; menu replacement never owns it.
@@ -36,5 +42,9 @@
   };
   mount();
   document.addEventListener('strategic-page-mounted', mount);
-  document.addEventListener('strategic-page-unmounting', unmount);
+  document.addEventListener('strategic-page-unmounting', () => {
+    unmount();
+    pageRoot = undefined;
+    conversationChat = undefined;
+  });
 })();

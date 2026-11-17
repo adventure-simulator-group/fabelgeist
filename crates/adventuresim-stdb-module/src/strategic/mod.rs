@@ -19,13 +19,18 @@ pub(crate) use development_gallery::{
     materialize_development_scenario_gallery, materialize_gallery_item,
     validate_gallery_postcondition,
 };
+pub use dialogue_authority::{DialogueSessionAuthority, TacticalDialogueAuthority};
 use std::str::FromStr;
 mod approved_action;
 mod battle_combatants;
 mod challenge_state;
 mod combat_error;
 mod development_gallery;
+mod dialogue_authority;
+mod dialogue_knowledge;
 mod dialogue_policy;
+mod dialogue_scene;
+mod dialogue_start;
 mod mission_roster;
 #[cfg(feature = "authority-tests")]
 mod outcome_fact_authority_tests;
@@ -44,6 +49,15 @@ pub(crate) const STRATEGIC_SOURCE: &str = concat!(
     include_str!("approved_action.rs"),
     include_str!("dialogue_schema.rs"),
     include_str!("dialogue_sessions.rs"),
+    include_str!("dialogue_start.rs"),
+    include_str!("dialogue_authority.rs"),
+    include_str!("dialogue_knowledge.rs"),
+    include_str!("dialogue_authority/venue.rs"),
+    include_str!("dialogue_start/venue.rs"),
+    include_str!("dialogue_start/scene.rs"),
+    include_str!("dialogue_scene.rs"),
+    include_str!("dialogue_start/greeting.rs"),
+    include_str!("dialogue_start/referral.rs"),
     include_str!("dialogue_provenance.rs"),
     include_str!("dialogue_bindings.rs"),
     include_str!("dialogue_prompts.rs"),

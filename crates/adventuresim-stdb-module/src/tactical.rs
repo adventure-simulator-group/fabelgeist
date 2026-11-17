@@ -5,6 +5,11 @@ use spacetimedb::{
 };
 use std::collections::HashSet;
 
+pub use consequence::{
+    TacticalCharacterConsequence, TacticalConsequenceReceipt, TacticalEquipmentContact,
+    TacticalEquipmentContactRole, TacticalHitInjury, TacticalMissionResolution,
+    TacticalReceiptBodyPart,
+};
 use entry::leave_tactical_scene_for_server;
 pub use entry::{enter_tactical_scene, leave_tactical_scene};
 pub use hosting::{tactical_server, tactical_server_request};
@@ -39,6 +44,8 @@ use crate::{
     },
 };
 
+mod consequence;
+pub(crate) mod dialogue;
 mod entry;
 mod hosting;
 pub(crate) mod local_time;
@@ -49,64 +56,6 @@ mod request;
 mod residents;
 mod session;
 mod settlement;
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum TacticalMissionResolution {
-    Failed,
-    Defeated,
-    DrivenOff,
-    Captured,
-    CaptureTargetKilled,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum TacticalReceiptBodyPart {
-    LeftArm,
-    RightArm,
-    LeftLeg,
-    RightLeg,
-    Chest,
-    Stomach,
-    Head,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, SpacetimeType)]
-pub enum TacticalEquipmentContactRole {
-    AttackerWeapon,
-    DefenderEquipment,
-}
-
-#[derive(Clone, Debug, PartialEq, SpacetimeType)]
-pub struct TacticalHitInjury {
-    pub body_part: TacticalReceiptBodyPart,
-    pub cut_damage: f32,
-    pub blunt_damage: f32,
-    /// Largest individual blunt hit represented by this per-limb aggregate.
-    pub max_single_hit_blunt_damage: f32,
-}
-
-#[derive(Clone, Debug, PartialEq, SpacetimeType)]
-pub struct TacticalCharacterConsequence {
-    pub character_id: u64,
-    pub injuries: Vec<TacticalHitInjury>,
-    /// Incremental fraction of maximum blood lost during this session.
-    pub blood_loss_fraction: f32,
-    pub ammunition_used: u32,
-}
-
-#[derive(Clone, Debug, PartialEq, SpacetimeType)]
-pub struct TacticalEquipmentContact {
-    pub character_id: u64,
-    pub inventory_item_id: u64,
-    pub contact_stress: f32,
-    pub role: TacticalEquipmentContactRole,
-}
-
-#[derive(Clone, Debug, Default, PartialEq, SpacetimeType)]
-pub struct TacticalConsequenceReceipt {
-    pub party: Vec<TacticalCharacterConsequence>,
-    pub equipment_contacts: Vec<TacticalEquipmentContact>,
-}
 
 /// Captured scene preparation input and retryable provisioning status. Runtime
 /// positions and combat state remain on the transient server.

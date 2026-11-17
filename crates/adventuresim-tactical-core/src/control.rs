@@ -76,6 +76,10 @@ pub enum CharacterGoal {
     Hold {
         anchor: Position<Scene>,
     },
+    Talk {
+        #[entities]
+        target: Entity,
+    },
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize, Reflect)]

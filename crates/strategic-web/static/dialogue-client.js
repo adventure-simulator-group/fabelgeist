@@ -143,6 +143,7 @@
   if (typeof document === "undefined") return;
 
   let lifecycle;
+  const originalContexts = new WeakMap();
   const mount = () => {
   lifecycle?.abort();
   lifecycle = new AbortController();
@@ -161,7 +162,7 @@
       if (focus) tab.focus();
     };
     const activateRequested = async (tab, focus = false) => {
-        if (tab.dataset.dialogueCategory === "tidings" && dockChat?.dataset.partySocialHref) {
+        if (!document.body.hasAttribute("data-tactical-active") && tab.dataset.dialogueCategory === "tidings" && dockChat?.dataset.partySocialHref) {
           const response = await window.strategicFetch(dockChat.dataset.partySocialHref, { headers: { Accept: "text/html" } });
           if (!response.ok) { window.reportStrategicError(new Error(`Recent Tidings failed (${response.status})`), "open Recent Tidings"); return; }
           const page = new DOMParser().parseFromString(await response.text(), "text/html");
@@ -239,7 +240,7 @@
       exchange.append(question, answer); stream?.append(exchange);
     }, { signal }));
   });
-  const chat = document.querySelector("[data-local-chat-subject][data-dialogue-catalog-revision]");
+  const chat = document.querySelector("[data-dialogue-chat]");
   if (!chat) return;
   const messages = chat.querySelector(".settlement-chat-messages");
   const input = chat.querySelector(".settlement-chat-composer input");
@@ -253,6 +254,13 @@
   let startInFlight = null;
   let contextualMutation = null;
   let selectedNpc = null;
+  const live = () => document.body.hasAttribute("data-tactical-active");
+  if (!originalContexts.has(chat)) originalContexts.set(chat, {
+    subject: chat.dataset.localChatSubject,
+    kind: chat.dataset.localChatKind,
+    label: chat.getAttribute("aria-label"),
+  });
+  const original = originalContexts.get(chat);
 
   const syncConversationPanels = (npc) => {
     document.querySelectorAll("[data-repair-custody-service]").forEach((panel) => {
@@ -262,6 +270,8 @@
 
   const actionId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   const request = async (path, payload) => {
+    if (live()) return window.tacticalDialogue?.request(path, payload)
+      ?? Promise.reject(new Error("Conversation is not ready"));
     const response = await window.strategicFetch(path, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
     if (!response.ok) {
       const error = new Error(`Dialogue action failed (${response.status})`);
@@ -386,11 +396,12 @@
     messages.scrollTop = messages.scrollHeight;
   };
   const refreshSocialContext = async (generation = selectionGeneration) => {
+    if (live()) return null;
     const path = socialPath(); if (!path) return null;
     const response = await window.strategicBackgroundFetch(`dialogue-social:${path}`, path, { headers: { Accept: "application/json" } });
     if (!response.ok) return null;
     const social = await response.json();
-    if (generation !== selectionGeneration || social.resident_character_id !== chat.dataset.localChatSubject) return null;
+    if (live() || generation !== selectionGeneration || social.resident_character_id !== chat.dataset.localChatSubject) return null;
     currentSocial = social;
     if (currentView) renderCategoryTopics(currentView, { sessionId: currentView.session_id, revision: currentView.revision, selectionGeneration, npcId: chat.dataset.localChatSubject || "" });
     renderRelationshipVitals(); renderContextTopics(); return social;
@@ -579,7 +590,7 @@
           const edit = sourceLink(source); if (edit) row.append(edit);
         }
         else if (fragment.kind === "claim") {
-          row.append(claim ? claimControl({ ...claim, value: fragment.value }, binding, row) : document.createTextNode(fragment.value));
+          row.append(claim && !live() ? claimControl({ ...claim, value: fragment.value }, binding, row) : document.createTextNode(fragment.value));
           const edit = sourceLink(source); if (edit) row.append(edit);
         }
         else if (fragment.kind === "period_claim") { const claim = document.createElement("q"); claim.className = "dialogue-period-claim"; claim.textContent = fragment.value; row.append(claim); const edit = sourceLink(source); if (edit) row.append(edit); }
@@ -590,10 +601,10 @@
       const expanded = event.fragments
         .map((entry) => entry.fragment.kind === "claim" && entry.claim ? { ...entry.claim, value: entry.fragment.value } : null)
         .find((claim) => claim?.challenge_token === expandedClaimToken);
-      if (expanded) row.append(claimResponsePanel(expanded, binding));
+      if (expanded && !live()) row.append(claimResponsePanel(expanded, binding));
     });
     renderPrompt(view.open_prompt);
-    if (view.order_errantry_offer) {
+    if (view.order_errantry_offer && !live()) {
       const row = document.createElement("div");
       row.className = "chat-system-message";
       row.dataset.chatChannel = "info";
@@ -678,9 +689,15 @@
     });
   };
   const submitTypedAction = () => {
-    if (!currentView || !input) return false;
+    if (!input) return false;
+    const invalid = () => {
+      if (!live()) return false;
+      window.reportStrategicError(new Error("Choose a highlighted topic or a response from this conversation"), "answer dialogue");
+      return true;
+    };
+    if (!currentView) return invalid();
     const ids = dialogueSubmission(input.value, activeCandidates(), isMultiPrompt());
-    if (!ids) return false;
+    if (!ids) return invalid();
     input.value = "";
     refreshCompletion();
     if (currentView.open_prompt) answerPrompt(ids);
@@ -715,6 +732,7 @@
   document.addEventListener("click", (event) => { const topic = event.target.closest("[data-dialogue-topic]"); if (!topic || event.target.closest(".dialogue-source-link")) return; event.preventDefault(); chooseTopic({ sessionId: topic.dataset.dialogueSession, topicId: topic.dataset.dialogueTopic, revision: Number(topic.dataset.dialogueRevision), selectionGeneration: Number(topic.dataset.dialogueGeneration), npcId: topic.dataset.dialogueNpc }); }, { signal });
   document.addEventListener("submit", (event) => { const form = event.target.closest("[data-dialogue-prompt]"); if (!form) return; event.preventDefault(); const submitter = event.submitter; const choices = submitter?.name === "choice" ? [submitter.value] : Array.from(new FormData(form).getAll("choice"), String); answerPrompt(choices); }, { signal });
   const begin = () => {
+    if (live() || !chat.hasAttribute("data-dialogue-catalog-revision")) return;
     if (!chat.dataset.localChatSubject) return;
     const generation = selectionGeneration;
     const actor = chat.dataset.localChatSubject;
@@ -722,7 +740,7 @@
     const key = `${actor}:${location}:${generation}`;
     if (startInFlight?.key === key) return startInFlight.promise;
     const promise = request("/api/dialogue/start", { npc_actor_id: actor, location_id: location }).then((view) => {
-      if (generation === selectionGeneration && chat.dataset.localChatSubject === actor) {
+      if (!live() && generation === selectionGeneration && chat.dataset.localChatSubject === actor) {
         render(view);
         return refreshSocialContext(generation);
       }
@@ -732,6 +750,7 @@
     return promise;
   };
   const selectNpc = (npc, button) => {
+    if (live()) return;
     selectionGeneration += 1;
     contextualMutation = null;
     selectedNpc = npc;
@@ -768,10 +787,12 @@
     syncConversationPanels(selectedNpc);
   }, { signal });
   const loadPeople = async () => {
+    if (live()) return;
     if (!npcStrip) { begin(); return; }
     const path = `/api/locations/settlement/${window.strategicLocationUrls.encode(npcStrip.dataset.npcSettlement)}/places/${window.strategicLocationUrls.encode(npcStrip.dataset.npcPlace)}/npcs`;
     const { loadPeople: loadResidents } = await import("/static/strategic-scene.js?v=tactical-city-3");
     const people = await loadResidents(path);
+    if (signal.aborted || live()) return;
     const locationFixtures = [...npcStrip.querySelectorAll("[data-location-fixture]")];
     if (!people.length) {
       npcStrip.querySelector("[data-npc-loading]")?.remove();
@@ -817,9 +838,54 @@
     retry.addEventListener("click", () => { retry.remove(); retryPeople(); }, { once: true });
     npcStrip.append(retry);
   });
+  const clearConversation = () => {
+    selectionGeneration += 1;
+    currentView = null;
+    currentSocial = null;
+    selectedNpc = null;
+    contextualMutation = null;
+    expandedClaimToken = null;
+    chat.dataset.localChatSubject = "";
+    chat.querySelector("[data-npc-affinity-popover]")?.remove();
+    messages?.querySelectorAll("[data-chat-channel='local'], [data-dialogue-scripted], [data-dialogue-contextual], [data-dialogue-context-prompt], [data-dialogue-context-topics]").forEach(node => node.remove());
+    chat.querySelectorAll("[data-dialogue-category-panel]").forEach(panel => panel.replaceChildren());
+    if (input) input.value = "";
+    refreshCompletion();
+    syncConversationPanels(null);
+  };
+  const applyLiveConversation = () => {
+    if (!live()) return;
+    const context = window.tacticalDialogue?.current;
+    if (context?.session_id !== currentView?.session_id) clearConversation();
+    if (!context) return;
+    chat.dataset.localChatKind = "npc";
+    chat.dataset.localChatSubject = context.resident_id;
+    if (!window.tacticalDialogue.view) return;
+    const view = window.tacticalDialogue.view;
+    // Region refresh replays the retained snapshot. Keep an unfinished prompt
+    // selection when the transcript itself has not changed.
+    if (currentView === view) return;
+    const resident = view.participants.find(participant => participant.actor_id === context.resident_id);
+    chat.setAttribute("aria-label", resident ? `Conversation with ${resident.display_name}` : "Conversation");
+    render(view);
+  };
+  document.addEventListener("live-dialogue-changed", applyLiveConversation, { signal });
+  document.addEventListener("strategic-tactical-started", clearConversation, { signal });
+  document.addEventListener("strategic-tactical-ended", () => {
+    clearConversation();
+    if (original.subject === undefined) delete chat.dataset.localChatSubject;
+    else chat.dataset.localChatSubject = original.subject;
+    if (original.kind === undefined) delete chat.dataset.localChatKind;
+    else chat.dataset.localChatKind = original.kind;
+    chat.setAttribute("aria-label", original.label || "Settlement chat");
+    retryPeople();
+  }, { signal });
+  if (live()) clearConversation();
+  applyLiveConversation();
   retryPeople();
   };
   mount();
   document.addEventListener("strategic-page-mounted", mount);
+  document.addEventListener("live-dialogue-chat-mounted", mount);
   document.addEventListener("strategic-page-unmounting", () => lifecycle?.abort());
 })();

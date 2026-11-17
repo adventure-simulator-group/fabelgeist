@@ -641,12 +641,7 @@ fn dialogue_fact_context(
                     format!("Dialogue organization authority references unknown {organization_id}")
                 })?;
             let membership = crate::organization::membership(ctx, character_id, &organization_id);
-            let minute = ctx
-                .db
-                .character_time()
-                .character_id()
-                .find(character_id)
-                .map_or(StrategicMinute::ZERO, |t| t.minutes);
+            let minute = dialogue_authority::personal_minute(ctx, session, character_id)?;
             let membership_state = membership.as_ref().map_or("none", |row| {
                 if crate::organization::membership_is_current(row, minute) {
                     "current"
@@ -835,8 +830,9 @@ fn dialogue_fact_context(
     result
         .facts
         .insert(FactKey::SocialCheck, FactValue::Bool(false));
-    if let Some(time) = ctx.db.character_time().character_id().find(character_id) {
-        let period = match time.minutes.minute_of_day() {
+    {
+        let minute = dialogue_authority::personal_minute(ctx, session, character_id)?;
+        let period = match minute.minute_of_day() {
             300..720 => "morning",
             720..1020 => "afternoon",
             1020..1260 => "evening",
@@ -1000,12 +996,7 @@ fn bind_organization_business_terms(
     );
 
     let membership = crate::organization::membership(ctx, character_id, &organization_id);
-    let minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map_or(StrategicMinute::ZERO, |t| t.minutes);
+    let minute = dialogue_authority::personal_minute(ctx, session, character_id)?;
     let standing = membership.as_ref().map_or("not enrolled", |membership| {
         if crate::organization::membership_is_current(membership, minute) {
             "current"
@@ -1264,12 +1255,7 @@ fn dialogue_runtime_bindings(
     if !npc.organization_id.is_empty() {
         bind_organization_business_terms(ctx, session, character_id, &npc, &mut bindings)?;
     }
-    let minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map_or(StrategicMinute::new(720), |time| time.minutes);
+    let minute = dialogue_authority::personal_minute(ctx, session, character_id)?;
     bindings.bind(
         S::TimeWindow,
         match minute.minute_of_day() {

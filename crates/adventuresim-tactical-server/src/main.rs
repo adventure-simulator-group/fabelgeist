@@ -49,6 +49,7 @@ mod combat;
 mod control;
 #[cfg(feature = "debug")]
 mod debug_dump;
+mod dialogue;
 mod equipment;
 mod furniture;
 mod local_time;

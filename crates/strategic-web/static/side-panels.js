@@ -4,9 +4,9 @@
   const selection = new Map();
   let focusedTab;
   const roots = () => [...document.querySelectorAll("[data-side-panel]")];
-  const tabs = root => [...root.querySelectorAll("[data-panel-tab]")];
+  const tabs = root => [...root.querySelectorAll("[data-panel-tab]")].filter(tab => !tab.hidden);
   const select = (root, tab, focus = false) => {
-    if (!tab || tab.closest("[data-side-panel]") !== root) return;
+    if (!tab || tab.hidden || tab.closest("[data-side-panel]") !== root) return;
     const id = tab.dataset.panelTab;
     tabs(root).forEach(entry => {
       const active = entry === tab;

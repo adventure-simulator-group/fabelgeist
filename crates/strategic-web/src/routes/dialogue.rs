@@ -11,7 +11,10 @@ use crate::spacetimedb::{
 use crate::{session::Session, spacetimedb::sql_string_literal};
 use adventuresim_core::{
     courtship::{CourtshipRejectionCode, parse_courtship_rejection},
-    dialogue_boundary::{PublicDialogueStartError, PublicDialogueStartOutcome},
+    dialogue_boundary::{
+        DialoguePromptRowId, DialogueSessionId, PublicDialogueStartError,
+        PublicDialogueStartOutcome,
+    },
     reducer_error::ReducerErrorCode,
 };
 use adventuresim_world_schema::calendar::StrategicMinute;
@@ -1690,42 +1693,12 @@ struct AnswerRequest {
     expected_revision: u64,
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-struct DialogueSessionId<'a>(&'a str);
-
-impl<'a> DialogueSessionId<'a> {
-    fn parse(value: &'a str) -> Option<Self> {
-        value
-            .strip_prefix("dialogue:")
-            .filter(|identity| !identity.is_empty() && !identity.contains(":prompt:"))?;
-        Some(Self(value))
-    }
-}
-
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-struct DialoguePromptRowId<'a> {
-    session_id: DialogueSessionId<'a>,
-    prompt_id: &'a str,
-}
-
-impl<'a> DialoguePromptRowId<'a> {
-    fn parse(value: &'a str) -> Option<Self> {
-        let (session_id, prompt_id) = value.split_once(":prompt:")?;
-        if prompt_id.is_empty() || prompt_id.contains(":prompt:") {
-            return None;
-        }
-        Some(Self {
-            session_id: DialogueSessionId::parse(session_id)?,
-            prompt_id,
-        })
-    }
-}
-
 fn dialogue_prompt_row_belongs_to_session(prompt_row_id: &str, session_id: &str) -> bool {
-    let Some(prompt) = DialoguePromptRowId::parse(prompt_row_id) else {
+    let Some(prompt) = DialoguePromptRowId::try_from(prompt_row_id.to_owned()).ok() else {
         return false;
     };
-    DialogueSessionId::parse(session_id).is_some_and(|session| prompt.session_id == session)
+    DialogueSessionId::try_from(session_id.to_owned())
+        .is_ok_and(|session| prompt.session_id() == &session)
 }
 
 async fn answer(

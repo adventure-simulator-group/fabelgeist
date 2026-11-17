@@ -256,6 +256,7 @@ pub mod choose_dialogue_topic_reducer;
 pub mod claim_simulation_run_reducer;
 pub mod clear_browser_character_selection_reducer;
 pub mod clear_organization_presentation_reducer;
+pub mod close_tactical_dialogue_reducer;
 pub mod collect_fixture_water_into_container_reducer;
 pub mod commitment_event_type;
 pub mod commitment_kind_type;
@@ -342,6 +343,7 @@ pub mod dialogue_event_type;
 pub mod dialogue_investigation_binding_type;
 pub mod dialogue_participant_type;
 pub mod dialogue_prompt_type;
+pub mod dialogue_session_authority_type;
 pub mod dialogue_session_type;
 pub mod dialogue_topic_option_type;
 pub mod dialogue_witness_capability_type;
@@ -912,6 +914,7 @@ pub mod stage_investigation_lead_reducer;
 pub mod start_dialogue_reducer;
 pub mod start_fireplace_container_cooking_reducer;
 pub mod start_poppy_tincture_reducer;
+pub mod start_tactical_dialogue_reducer;
 pub mod starting_age_tier_type;
 pub mod starting_character_claim_type;
 pub mod stock_category_type;
@@ -943,6 +946,7 @@ pub mod tactical_actor_time_type;
 pub mod tactical_business_operator_type;
 pub mod tactical_character_consequence_type;
 pub mod tactical_consequence_receipt_type;
+pub mod tactical_dialogue_authority_type;
 pub mod tactical_equipment_contact_role_type;
 pub mod tactical_equipment_contact_type;
 pub mod tactical_hit_injury_type;
@@ -1261,6 +1265,7 @@ pub use choose_dialogue_topic_reducer::choose_dialogue_topic;
 pub use claim_simulation_run_reducer::claim_simulation_run;
 pub use clear_browser_character_selection_reducer::clear_browser_character_selection;
 pub use clear_organization_presentation_reducer::clear_organization_presentation;
+pub use close_tactical_dialogue_reducer::close_tactical_dialogue;
 pub use collect_fixture_water_into_container_reducer::collect_fixture_water_into_container;
 pub use commitment_event_type::CommitmentEvent;
 pub use commitment_kind_type::CommitmentKind;
@@ -1347,6 +1352,7 @@ pub use dialogue_event_type::DialogueEvent;
 pub use dialogue_investigation_binding_type::DialogueInvestigationBinding;
 pub use dialogue_participant_type::DialogueParticipant;
 pub use dialogue_prompt_type::DialoguePrompt;
+pub use dialogue_session_authority_type::DialogueSessionAuthority;
 pub use dialogue_session_type::DialogueSession;
 pub use dialogue_topic_option_type::DialogueTopicOption;
 pub use dialogue_witness_capability_type::DialogueWitnessCapability;
@@ -1917,6 +1923,7 @@ pub use stage_investigation_lead_reducer::stage_investigation_lead;
 pub use start_dialogue_reducer::start_dialogue;
 pub use start_fireplace_container_cooking_reducer::start_fireplace_container_cooking;
 pub use start_poppy_tincture_reducer::start_poppy_tincture;
+pub use start_tactical_dialogue_reducer::start_tactical_dialogue;
 pub use starting_age_tier_type::StartingAgeTier;
 pub use starting_character_claim_type::StartingCharacterClaim;
 pub use stock_category_type::StockCategory;
@@ -1948,6 +1955,7 @@ pub use tactical_actor_time_type::TacticalActorTime;
 pub use tactical_business_operator_type::TacticalBusinessOperator;
 pub use tactical_character_consequence_type::TacticalCharacterConsequence;
 pub use tactical_consequence_receipt_type::TacticalConsequenceReceipt;
+pub use tactical_dialogue_authority_type::TacticalDialogueAuthority;
 pub use tactical_equipment_contact_role_type::TacticalEquipmentContactRole;
 pub use tactical_equipment_contact_type::TacticalEquipmentContact;
 pub use tactical_hit_injury_type::TacticalHitInjury;
@@ -2194,6 +2202,9 @@ pub enum Reducer {
     },
     ClearOrganizationPresentation {
         character_id: u64,
+    },
+    CloseTacticalDialogue {
+        session_id: String,
     },
     CollectFixtureWaterIntoContainer {
         request_id: String,
@@ -2867,6 +2878,12 @@ pub enum Reducer {
         character_id: u64,
         object_id: u64,
     },
+    StartTacticalDialogue {
+        actor_visit_id: u64,
+        resident_visit_id: u64,
+        session_id: String,
+        catalog_revision: String,
+    },
     StopPreparation {
         actor_id: u64,
         administration_id: u64,
@@ -3024,6 +3041,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::ClaimSimulationRun { .. } => "claim_simulation_run",
             Reducer::ClearBrowserCharacterSelection { .. } => "clear_browser_character_selection",
             Reducer::ClearOrganizationPresentation { .. } => "clear_organization_presentation",
+            Reducer::CloseTacticalDialogue { .. } => "close_tactical_dialogue",
             Reducer::CollectFixtureWaterIntoContainer { .. } => {
                 "collect_fixture_water_into_container"
             }
@@ -3171,6 +3189,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::StartDialogue { .. } => "start_dialogue",
             Reducer::StartFireplaceContainerCooking { .. } => "start_fireplace_container_cooking",
             Reducer::StartPoppyTincture { .. } => "start_poppy_tincture",
+            Reducer::StartTacticalDialogue { .. } => "start_tactical_dialogue",
             Reducer::StopPreparation { .. } => "stop_preparation",
             Reducer::StoreBattleLoot { .. } => "store_battle_loot",
             Reducer::SubmitAllRepairableItems { .. } => "submit_all_repairable_items",
@@ -3509,6 +3528,11 @@ impl __sdk::Reducer for Reducer {
                 character_id,
 }             => __sats::bsatn::to_vec(&clear_organization_presentation_reducer::ClearOrganizationPresentationArgs {
                 character_id: character_id.clone(),
+}),
+            Reducer::CloseTacticalDialogue{
+                session_id,
+}             => __sats::bsatn::to_vec(&close_tactical_dialogue_reducer::CloseTacticalDialogueArgs {
+                session_id: session_id.clone(),
 }),
             Reducer::CollectFixtureWaterIntoContainer{
                 request_id,
@@ -4721,6 +4745,17 @@ Reducer::RetrieveFireplaceContainer{
 }             => __sats::bsatn::to_vec(&start_poppy_tincture_reducer::StartPoppyTinctureArgs {
                 character_id: character_id.clone(),
                 object_id: object_id.clone(),
+}),
+            Reducer::StartTacticalDialogue{
+                actor_visit_id,
+                resident_visit_id,
+                session_id,
+                catalog_revision,
+}             => __sats::bsatn::to_vec(&start_tactical_dialogue_reducer::StartTacticalDialogueArgs {
+                actor_visit_id: actor_visit_id.clone(),
+                resident_visit_id: resident_visit_id.clone(),
+                session_id: session_id.clone(),
+                catalog_revision: catalog_revision.clone(),
 }),
             Reducer::StopPreparation{
                 actor_id,

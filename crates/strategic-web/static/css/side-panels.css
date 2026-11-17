@@ -43,6 +43,49 @@
   background: var(--panel-bg, #181713);
 }
 .side-panel-content[hidden] { display: none !important; }
+.side-panel-tab[hidden] { display: none !important; }
+/* A physical conversation cannot expose the previous venue's service tabs. */
+[data-live-dialogue-panel] > [data-panel-pane]:not([data-panel-pane="dialogue"]) {
+  display: none !important;
+}
+body[data-tactical-active] .left-sidebar:has([data-live-dialogue-panel]) > :not(.side-panel) {
+  display: none !important;
+}
+[data-panel-pane="dialogue"] {
+  display: flex;
+  flex-direction: column;
+}
+[data-live-dialogue-close] { flex: 0 0 auto; margin: .35rem; }
+body:has([data-live-dialogue-panel]) [data-chat-dock] { visibility: hidden; pointer-events: none; }
+[data-chat-dock] > .settlement-chat[hidden] { display: none !important; }
+[data-panel-pane="dialogue"] > .settlement-chat {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  flex: 1;
+}
+[data-panel-pane="dialogue"] :is(.settlement-chat-layout, .settlement-chat-conversation) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+[data-panel-pane="dialogue"] :is(.settlement-chat-filters, .conversation-tabs) {
+  flex: none;
+  flex-wrap: wrap;
+}
+[data-panel-pane="dialogue"] .dialogue-category-panel {
+  flex: 0 1 auto;
+  max-height: 5rem;
+  overflow: auto;
+}
+[data-panel-pane="dialogue"] .settlement-chat-messages { flex: 1; min-height: 2rem; }
+[data-panel-pane="dialogue"] .settlement-chat-composer { flex: none; }
+[data-panel-pane="dialogue"] .settlement-chat-resize { display: none; }
+[data-panel-pane="dialogue"] [data-local-chat-placeholder] { display: none; }
 /* Inventory rails already own their bounded scroll frames and action overhang.
    Another clip here would cut off the center-facing quantity/action columns. */
 .side-panel-content:has([data-inventory-browser]) {

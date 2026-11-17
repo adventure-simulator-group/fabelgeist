@@ -13,16 +13,18 @@ use crate::{
 };
 
 use behavior::{follow_routes, prepare_behavior};
+pub(crate) use conversation::{ReachedTalkTarget, TalkContactWorld, TalkParticipants};
 use orders::{on_control_request, on_direct_action};
 pub(crate) use perception::{AcceptedAttack, ThreatMemory, observe_attack, observe_damage};
 
 mod behavior;
+mod conversation;
 mod navigation;
 mod orders;
 pub(crate) mod perception;
 
 #[cfg(test)]
-mod movement_tests;
+pub(crate) mod movement_tests;
 
 #[derive(SystemSet, Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub(crate) enum ControlSet {
@@ -71,37 +73,47 @@ pub(crate) struct CharacterControlPlugin;
 
 impl Plugin for CharacterControlPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugins(crate::navigation::TacticalNavigationPlugin)
-            .register_required_components::<Player, AgentState>()
-            .register_required_components::<Player, ThreatMemory>()
-            .register_required_components::<Player, EngagementPolicy>()
-            .configure_sets(
-                Update,
-                (
-                    ControlSet::Decide,
-                    ControlSet::Execute,
-                    ControlSet::Navigate,
-                )
-                    .chain()
-                    .after(CombatSet::Condition),
+        app.add_plugins((
+            crate::navigation::TacticalNavigationPlugin,
+            crate::dialogue::TacticalDialoguePlugin,
+        ))
+        .add_message::<conversation::ReachedTalkTarget>()
+        .register_required_components::<Player, AgentState>()
+        .register_required_components::<Player, ThreatMemory>()
+        .register_required_components::<Player, EngagementPolicy>()
+        .configure_sets(
+            Update,
+            (
+                ControlSet::Decide,
+                ControlSet::Execute,
+                ControlSet::Navigate,
             )
-            .add_observer(crate::player_projection::apply_movement_action)
-            .add_observer(on_control_request)
-            .add_observer(on_direct_action)
-            .add_observer(observe_attack)
-            .add_observer(observe_damage)
-            .add_systems(
-                Update,
-                navigation::sync_navigation_agents
-                    .after(ControlSet::Execute)
-                    .before(bevy_landmass::LandmassSystems::SyncExistence),
-            )
-            .configure_sets(
-                Update,
-                ControlSet::Navigate.after(bevy_landmass::LandmassSystems::Output),
-            )
-            .add_systems(Update, prepare_behavior.in_set(ControlSet::Decide))
-            .add_systems(Update, follow_routes.in_set(ControlSet::Navigate));
+                .chain()
+                .after(CombatSet::Condition),
+        )
+        .add_observer(crate::player_projection::apply_movement_action)
+        .add_observer(on_control_request)
+        .add_observer(on_direct_action)
+        .add_observer(observe_attack)
+        .add_observer(observe_damage)
+        .add_systems(
+            Update,
+            navigation::sync_navigation_agents
+                .after(ControlSet::Execute)
+                .before(bevy_landmass::LandmassSystems::SyncExistence),
+        )
+        .configure_sets(
+            Update,
+            ControlSet::Navigate.after(bevy_landmass::LandmassSystems::Output),
+        )
+        .add_systems(Update, prepare_behavior.in_set(ControlSet::Decide))
+        .add_systems(
+            Update,
+            conversation::prepare_approaches
+                .in_set(ControlSet::Decide)
+                .after(prepare_behavior),
+        )
+        .add_systems(Update, follow_routes.in_set(ControlSet::Navigate));
     }
 }
 

@@ -364,23 +364,23 @@ ceiling = 1532
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
-ceiling = 1060
+ceiling = 1055
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs"
-ceiling = 627
+ceiling = 614
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
-ceiling = 611
+ceiling = 610
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs"
-ceiling = 1290
+ceiling = 1276
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
-ceiling = 654
+ceiling = 535
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/encounters.rs"
@@ -424,7 +424,7 @@ ceiling = 1079
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/tactical.rs"
-ceiling = 713
+ceiling = 671
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/advancement.rs"
@@ -744,7 +744,7 @@ ceiling = 632
 
 [[files]]
 path = "crates/strategic-web/src/routes/dialogue.rs"
-ceiling = 1420
+ceiling = 1397
 
 [[files]]
 path = "crates/strategic-web/src/routes/foraging.rs"
@@ -1721,12 +1721,12 @@ ceiling = 255
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
 item = "refresh_dialogue_topic_options"
-ceiling = 156
+ceiling = 151
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs"
 item = "apply_dialogue_effect"
-ceiling = 217
+ceiling = 206
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs"
@@ -1736,7 +1736,7 @@ ceiling = 239
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
 item = "answer_dialogue_prompt"
-ceiling = 228
+ceiling = 227
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
@@ -1745,28 +1745,13 @@ ceiling = 254
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs"
-item = "bind_organization_business_terms"
-ceiling = 105
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs"
 item = "dialogue_fact_context"
-ceiling = 496
+ceiling = 492
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs"
 item = "dialogue_runtime_bindings"
-ceiling = 195
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
-item = "require_live_dialogue_presence"
-ceiling = 109
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs"
-item = "start_dialogue"
-ceiling = 346
+ceiling = 190
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/encounters.rs"
@@ -7886,34 +7871,6 @@ occurrences = 1
 
 [[findings]]
 rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
-item = "DialogueSessionState::parse"
-fingerprint = "string:active"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
-item = "ParsedDialogueSessionId<'a>::parse"
-fingerprint = "string:dialogue"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
-item = "require_live_dialogue_presence"
-fingerprint = "string:organization-representative"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs"
-item = "start_dialogue"
-fingerprint = "string:organization-representative"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
 path = "crates/adventuresim-stdb-module/src/strategic/encounters.rs"
 item = "build_strategic_encounter"
 fingerprint = "string:surrender"
@@ -10024,13 +9981,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/developer_quests.rs"
 item = "trigger_incident"
 fingerprint = "string:trigger_development_scenario_incident"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/dialogue.rs"
-item = "DialoguePromptRowId<'a>::parse"
-fingerprint = "string::prompt:"
 occurrences = 1
 
 [[findings]]

@@ -37,8 +37,31 @@ pub(super) struct OrderContext<'w, 's> {
         ),
     >,
     items: Query<'w, 's, Entity, With<TacticalSceneItem>>,
+    residents: Query<'w, 's, (), With<crate::residents::ResidentActor>>,
     spatial: SpatialQuery<'w, 's>,
     config: Res<'w, TacticalCombatConfig>,
+}
+
+impl OrderContext<'_, '_> {
+    fn admit_talk(&self, actor: Entity, target: Entity) -> Result<(), ControlRejection> {
+        let (side, state, _) = self
+            .targets
+            .get(actor)
+            .map_err(|_| ControlRejection::Unauthorized)?;
+        let (target_side, target_state, _) = self
+            .targets
+            .get(target)
+            .map_err(|_| ControlRejection::InvalidTarget)?;
+        if actor == target
+            || state.is_incapacitated()
+            || target_state.is_incapacitated()
+            || side.is_hostile_to(*target_side)
+            || !self.residents.contains(target)
+        {
+            return Err(ControlRejection::InvalidTarget);
+        }
+        Ok(())
+    }
 }
 
 pub(super) fn on_control_request(
@@ -189,6 +212,9 @@ fn validate_change(
         return Err(ControlRejection::WrongMode);
     }
     match request.change {
+        ControlChange::Order(CharacterGoal::Talk { target }) => {
+            context.admit_talk(actor, target)?;
+        }
         ControlChange::Order(CharacterGoal::Attack { target }) => {
             let Ok((side, _, _)) = context.targets.get(actor) else {
                 return Err(ControlRejection::Unauthorized);

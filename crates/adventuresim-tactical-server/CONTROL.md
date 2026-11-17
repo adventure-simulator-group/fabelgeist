@@ -19,6 +19,7 @@ In indirect control:
   own character; commanding other characters is not yet available.
 - Right-click or hold **Space** and left-click a supported surface to move.
 - Use the same order input on a hostile character to attack it.
+- Use it on a non-hostile resident to approach for conversation.
 - Hold **Shift** with either order input to append a ground waypoint.
 - Press **X** to stop and clear the current pursuit and remembered aggression.
 - Press **H** to hold the current position.
@@ -28,9 +29,9 @@ In indirect control:
 
 Attack admission and automatic target selection require an explicit hostile
 relationship. Neutral settlement residents cannot be attacked through these
-orders. Resident conversation is a separate interaction step.
+orders. Conversation requires a separate authority confirmation after arrival.
 
-The order marker identifies the destination, hold anchor, or attack target.
+The order marker identifies the destination, hold anchor, or selected target.
 Selected characters have a blue marker and queued waypoints have yellow
 markers.
 The client exposes `IndirectBindings` as a reflected runtime resource for
@@ -58,8 +59,9 @@ are rejected, including delayed messages after switching away and back.
 
 `ControlRequest` carries an ordered sequence and a typed change. The receiving
 connection identifies the actor; the client cannot nominate a different actor.
-The server validates target allegiance, availability, perception, and physical
-destination support before changing the order. `ControlResponse` acknowledges
+The server validates target allegiance and availability; attack admission also
+checks perception. Ground destinations require physical support.
+`ControlResponse` acknowledges
 the sequence and carries a structured rejection when admission fails.
 
 `CharacterOrder` stores the commanded goal independently of `ThreatMemory`.
@@ -86,7 +88,47 @@ depend on a client sending a completion packet.
 
 Reconnect projections retain mode, generation, order, policy, and pending
 combat contacts. Runtime behavior packages are restored from the active server
-configuration, and navigation is rebuilt against the current world.
+configuration, and navigation is rebuilt against the current world. The client
+continues numbering requests after the restored order without overwriting a
+newer pending request.
+
+## Conversation approaches
+
+`Talk` follows a resident through the same navigation and physical motor as a
+movement order. The configured conversation distance stops the approach. Access
+uses head-height points derived from the physical body dimensions, allowing a
+shop counter while rejecting a full-height wall. The target must remain alive,
+available and non-hostile. Moving beyond the pursuit radius from its selected
+position fails the order. These checks use current physics body centres;
+interpolated render transforms cannot grant contact.
+
+Arrival produces one internal `ReachedTalkTarget` message carrying the actor,
+target, control generation and order sequence. The native dialogue service
+binds the player's and resident's open visits and requests a durable session
+through the registered host. It rechecks the same physical contact before a
+start or choice reaches the database and before forwarding its acknowledgement.
+The message alone grants no browser authority. Stop, replacement orders and
+mode changes discard approach tracking; removal or hostility changes fail the
+order without selecting an attack.
+
+Each connection can act only on its current confirmed session. Topic selections
+retain their action ID and revision; answers must also carry a prompt belonging
+to that exact session. Duplicate pending requests share one database call.
+Losing contact closes the session. A late start result closes its original
+session instead of reopening a replaced conversation. Nearby aggression
+interrupts conversation through the shared self-defense controller; the talk
+goal can resume with a new session after the threat passes.
+
+The client rejects confirmations for another actor entity, character or
+superseded local order, including while a new request awaits acknowledgement.
+Confirmed dialogue
+and action receipts cross the browser HUD as `tactical-dialogue` document events.
+HTML supplies typed `dialogue` browser commands; the client supplies their
+control generation and sequence. NPC identities cross this browser boundary as
+decimal strings. Neither presentation layer acquires dialogue authority.
+Manually ending a conversation also sends the ordinary Stop order. This ends
+the retained Talk goal and advances the client sequence, while automatic
+invalidation preserves the player's replacement order.
 
 ## Navigation contracts
 

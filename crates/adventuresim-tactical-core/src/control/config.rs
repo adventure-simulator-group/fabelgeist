@@ -27,6 +27,7 @@ pub struct ControlConfig {
     pub pursuit_radius_metres: PositiveLength,
     pub hold_radius_metres: PositiveLength,
     pub counterattack_radius_metres: PositiveLength,
+    pub talk_distance_metres: PositiveLength,
     pub no_progress_seconds: PositiveControlDuration,
     pub threat_memory_seconds: PositiveControlDuration,
     pub mesh_rebuild_interval_seconds: PositiveControlDuration,
@@ -41,6 +42,8 @@ pub enum ControlConfigError {
     PerceptionRadius,
     #[error("hold radius exceeds pursuit radius")]
     HoldRadius,
+    #[error("talk distance exceeds perception distance")]
+    TalkDistance,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
@@ -116,6 +119,9 @@ impl ControlConfig {
         }
         if self.hold_radius_metres > self.pursuit_radius_metres {
             return Err(ControlConfigError::HoldRadius);
+        }
+        if self.talk_distance_metres > self.perception_radius_metres {
+            return Err(ControlConfigError::TalkDistance);
         }
         Ok(())
     }

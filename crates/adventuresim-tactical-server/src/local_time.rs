@@ -75,6 +75,11 @@ impl LocalVisits {
         Ok(())
     }
 
+    pub(crate) fn live_id(&self, character: CharacterId) -> Option<LocalSceneVisitId> {
+        let visit = self.actors.get(&character)?;
+        matches!(visit.departure, Departure::Live).then_some(visit.id)
+    }
+
     pub(crate) fn is_empty(&self) -> bool {
         self.actors.is_empty()
     }
@@ -235,9 +240,15 @@ fn project_live_time(
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, WORLD_START_MINUTE};
+
+    pub(crate) fn contact_visits(actor: CharacterId, resident: CharacterId) -> LocalVisits {
+        LocalVisits {
+            actors: HashMap::from([(actor, retained_visit(1)), (resident, retained_visit(2))]),
+        }
+    }
 
     fn retained_visit(id: u64) -> LiveVisit {
         LiveVisit {
