@@ -19,6 +19,9 @@ use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::{app::ScheduleRunnerPlugin, input::InputPlugin, prelude::*};
 use clap::Parser;
 
+#[path = "live_scene_peer/equipment.rs"]
+mod equipment;
+
 const ACCEPTANCE_TIMEOUT: Duration = Duration::from_secs(60);
 const RECONNECT_DELAY: Duration = Duration::from_millis(250);
 const STABLE_PRESENCE_HOLD: Duration = Duration::from_secs(8);
@@ -49,6 +52,8 @@ struct Args {
     expect_rejection: bool,
     #[arg(long)]
     hold_open: bool,
+    #[arg(long)]
+    equipment: bool,
 }
 
 #[derive(Resource)]
@@ -62,6 +67,7 @@ struct Acceptance {
     first_scene_minute: Option<StrategicMinute>,
     finished: Arc<AtomicBool>,
     resident_visibility: ResidentVisibility,
+    equipment_done: bool,
 }
 
 #[derive(Clone, Copy)]
@@ -73,6 +79,7 @@ enum ResidentVisibility {
 
 fn main() {
     let args = Args::parse();
+    let equipment_done = !args.equipment;
     let client = client(&args);
     let finished = Arc::new(AtomicBool::new(false));
     if args.hold_open {
@@ -102,9 +109,13 @@ fn main() {
         first_scene_minute: None,
         finished,
         resident_visibility: ResidentVisibility::Present,
+        equipment_done,
     })
     .add_observer(capability_received)
     .add_observer(join_rejected)
+    .init_resource::<equipment::EquipmentChecks>()
+    .add_observer(equipment::on_response)
+    .add_systems(Update, equipment::step)
     .add_systems(Update, observe_presence);
     app.world_mut().spawn(client);
     if !matches!(app.run(), AppExit::Success) {
@@ -216,6 +227,9 @@ fn observe_presence(
         return;
     }
     let since = *state.stable_since.get_or_insert(now);
+    if !state.equipment_done {
+        return;
+    }
     if now.duration_since(since) >= STABLE_PRESENCE_HOLD {
         if environment.absolute_minute == first_minute {
             eprintln!("Replicated scene calendar did not advance during live play");

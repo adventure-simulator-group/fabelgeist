@@ -90,6 +90,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .add_server_event::<crate::dialogue::DialogueEnded>(Channel::Ordered)
             .add_mapped_client_event::<crate::control::DirectActionRequest>(Channel::Ordered)
             .add_mapped_client_event::<EquipmentActionRequest>(Channel::Ordered)
+            .add_mapped_server_event::<crate::equipment::EquipmentActionResponse>(Channel::Ordered)
             .add_mapped_server_event::<SuccessfulAttackResponse>(Channel::Ordered)
             .add_server_event::<TacticalOutcomeResponse>(Channel::Ordered);
 

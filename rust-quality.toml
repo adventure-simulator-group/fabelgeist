@@ -9,6 +9,12 @@ excluded_paths = [
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-tactical-client/src/equipment/input.rs"
+item = "key_code"
+reason = "Admits authored keyboard tokens into Bevy KeyCode values at the input-framework boundary."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-core/src/item_catalog_validation_physical.rs"
 reason = "Validates physical dimension fields at the authored JSON catalog boundary; field names are external schema keys."
 

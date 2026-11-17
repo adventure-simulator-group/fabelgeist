@@ -23,7 +23,7 @@ fn attachment_target_accepts(
     }) {
         return false;
     }
-    let Ok((_, parent_properties, _, _, _, _, _, _)) = items.get(target.parent) else {
+    let Ok((_, parent_properties, _, _, _, _)) = items.get(target.parent) else {
         return false;
     };
     item_catalog::definition(&parent_properties.id)
@@ -73,7 +73,7 @@ pub(super) fn attachment_topology(
             });
         }
         ReachableTarget::Occupied(entity) => {
-            let (_, _, _, topology, _, _, _, _) = items.get(*entity).ok()?;
+            let (_, _, _, topology, _, _) = items.get(*entity).ok()?;
             available.extend(topology.occupancies.iter().filter_map(|occupancy| {
                 match &occupancy.anchor {
                     TacticalEquipmentAnchor::ItemAttachment {
@@ -133,7 +133,7 @@ fn append_empty_targets(
 ) {
     // Additional empty points are selected deterministically for multi-parent
     // placements. Existing occupied capacities are never silently displaced.
-    for (parent, parent_properties, owner, _, _, _, scene, _) in items.iter() {
+    for (parent, parent_properties, owner, _, _, scene) in items.iter() {
         if scene || owner.is_none_or(|owner| owner.0 != actor) {
             continue;
         }
@@ -144,7 +144,7 @@ fn append_empty_targets(
         };
         for point in &parent_equipment.attachment_points {
             for capacity_index in 0..point.capacity {
-                let occupied = items.iter().any(|(_, _, _, topology, _, _, _, _)| {
+                let occupied = items.iter().any(|(_, _, _, topology, _, _)| {
                     topology.occupancies.iter().any(|occupancy| {
                         matches!(
                             &occupancy.anchor,

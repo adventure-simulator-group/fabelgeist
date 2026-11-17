@@ -6,7 +6,9 @@ use spacetimedb_sdk::{DbContext, Identity, Table};
 
 use crate::Args;
 
+mod inventory_commands;
 mod residents;
+pub(crate) use inventory_commands::{InventorySubmissionOutcome, InventorySubmissionResult};
 mod scene_operations;
 pub(crate) use scene_operations::{
     SceneAdmissions, SceneOperationResult, SceneReady, process_scene_operations,
@@ -60,6 +62,7 @@ pub struct SpacetimeDb {
     connected_players: Arc<Mutex<Vec<ConnectedPlayer>>>,
     terminal_results: Arc<Mutex<Vec<TerminalSubmissionResult>>>,
     scene_operations: Arc<Mutex<Vec<SceneOperationResult>>>,
+    inventory_results: Arc<Mutex<Vec<InventorySubmissionResult>>>,
 }
 
 pub(crate) struct ConnectedActorInventory {
@@ -115,6 +118,7 @@ impl SpacetimeDb {
                 );
             })
             .add_query(|query| query.from.connected_players())
+            .add_query(|query| query.from.tactical_inventory_receipt())
             .add_query(|query| query.from.world_clock())
             .add_query(|query| query.from.scene_resident_candidates())
             .subscribe()
@@ -237,6 +241,7 @@ fn connect_spacetimedb(mut commands: Commands, args: Res<Args>) -> Result {
         conn,
         connected_players: default(),
         terminal_results: default(),
+        inventory_results: default(),
         scene_operations,
     });
 

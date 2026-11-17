@@ -80,8 +80,41 @@ admission. Rejections produce no receipt.
 The sender-scoped `tactical_inventory_receipt` view exposes successful results
 only to the current host connection's identity. Retired hosts see no receipts.
 Receipts confirm accepted intents and their post-commit tokens. Current
-inventory data continues to come from `connected_players`. Native hand and HTML
-dispatch adapters consume this authority separately from these durable effects.
+inventory data continues to come from `connected_players`.
+
+## Native equipment controls
+
+Hand transfers, drawing, wearing and attachment selection submit the shared
+equipment operation through the registered serving connection. Native selection
+rechecks the controlled actor, input sequence, equipment revision, expected items
+and current hand ability. Incapacitation uses the existing general value; a
+disabled arm cannot perform the selected action. Admission follows condition
+recomputation, including newly projected carried load. The command token describes
+the inventory actually applied to native entities, matching the current SDK view
+and live admission. A newer unvalidated view cannot authorize an older topology.
+
+Each admitted intent consumes its sequence, including rejected contents. One
+durable command may be pending per connection. Dispatch does not change equipment
+components, armor protection or carried mass. The SDK callback enters an owned
+mailbox. Successful feedback waits for the durable receipt in the same
+subscription as inventory and for the current snapshot to pass native projection.
+Receipt observation prevents a callback arriving before view updates from being
+mistaken for applied state. A transport failure releases host authority because
+it cannot prove whether the transaction committed.
+
+Pending and terminal feedback target only the originating connection. The client
+keeps equipment input pending until replication reaches the acknowledged
+revision. Results from old actors or input sequences cannot release a newer
+intent. Reconnect starts a fresh connection sequence; old requests and callbacks
+keep their old generational entity and admission scope. They cannot rebind to
+the replacement actor.
+
+Drop and pickup currently return an explicit unavailable result. They must use
+durable scene custody before being enabled; transient ownership edits would
+restore dropped objects on inventory refresh. Scene custody, discard and their
+disconnect/travel handoffs remain first-version requirements. Doors and windows
+continue to use their native environment authority. HTML inventory dispatch and
+shared party inventory access remain separate integration work.
 
 ## Carried mass
 
@@ -124,3 +157,15 @@ python -B scripts/check_semantic_authorities.py --only inventory-commands --prof
 This command resets and seeds only the guarded disposable profile it owns.
 The persistent SpacetimeDB client peer exercises the actual registered
 connection and reports database rejections separately from transport failures.
+
+Native hand-control acceptance starts the real dispatcher, settlement host and
+two transport clients. It checks committed hand changes, mapped acknowledgements,
+replay and stale rejection, reconnect and durable ownership after a round trip:
+
+```powershell
+python -B scripts/check_semantic_authorities.py --only native-equipment-live --profile native-equipment-live --base-port 26130
+```
+
+This scenario tests personal equipment independently of resident pathfinding.
+The separate `settlement-scenes-live` acceptance retains its resident admission,
+navigation and complete scene-lifecycle requirements.

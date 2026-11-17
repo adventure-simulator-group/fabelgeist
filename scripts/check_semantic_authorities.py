@@ -220,7 +220,7 @@ def run(profile: str, base_port: int, only: str | None = None) -> None:
                 client.call("register_strategic_gateway", None, 0)
                 empty_container_identity_checks(client)
                 return
-            if only in {"settlement-scenes", "settlement-scenes-live", "inventory-commands"}:
+            if only in {"settlement-scenes", "settlement-scenes-live", "inventory-commands", "native-equipment-live"}:
                 result = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server-dispatcher", "--example", "settlement-authority-peer"])
                 stack.write_console(result.stdout)
                 assert result.returncode == 0, "Could not build persistent acceptance peer"
@@ -237,7 +237,11 @@ def run(profile: str, base_port: int, only: str | None = None) -> None:
                     build = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server-dispatcher", "--bin", "adventuresim-tactical-server-dispatcher", "--example", "live-scene-peer"])
                     stack.write_console(build.stdout)
                     assert build.returncode == 0
-                    live_settlement_scene_checks(client, base_port)
+                    if only == "native-equipment-live":
+                        from native_equipment_live_acceptance import live_equipment_checks
+                        live_equipment_checks(client, base_port)
+                    else:
+                        live_settlement_scene_checks(client, base_port)
                 return
             identity_checks(client)
             enrollment_checks(client)
@@ -310,6 +314,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="authority-check")
     parser.add_argument("--base-port", type=int, default=25370)
-    parser.add_argument("--only", choices=["settlement-scenes", "settlement-scenes-live", "inventory-identity", "inventory-commands"])
+    parser.add_argument("--only", choices=["settlement-scenes", "settlement-scenes-live", "inventory-identity", "inventory-commands", "native-equipment-live"])
     args = parser.parse_args()
     run(args.profile, args.base_port, args.only)
