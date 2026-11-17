@@ -2,6 +2,10 @@
 
 use std::{convert::Infallible, fmt};
 
+pub use session_id::{DialogueSessionId, DialogueSessionIdentityError};
+
+mod session_id;
+
 /// Observer-safe result of attempting to start a public dialogue.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum PublicDialogueStartOutcome<Started> {

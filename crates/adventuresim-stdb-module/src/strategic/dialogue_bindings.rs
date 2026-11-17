@@ -945,16 +945,7 @@ fn refresh_dialogue_topic_options(
     let conversation = adventuresim_dialogue::find_conversation(&session.conversation_id)
         .ok_or("Unknown dialogue conversation")?;
     let facts = dialogue_fact_context(ctx, session, character_id)?;
-    let existing: Vec<_> = ctx
-        .db
-        .dialogue_topic_option()
-        .session_id()
-        .filter(&session.id)
-        .map(|row| row.id)
-        .collect();
-    for id in existing {
-        ctx.db.dialogue_topic_option().id().delete(&id);
-    }
+    dialogue_scene::clear_topic_options(ctx, session);
     for topic in &conversation.topics {
         let known = topic.initially_known
             || ctx
@@ -968,6 +959,9 @@ fn refresh_dialogue_topic_options(
         if known && facts.matches(&topic.conditions) {
             let response = adventuresim_dialogue::select_response(topic, &facts)
                 .map_err(|_| "No unambiguous eligible dialogue response")?;
+            if !dialogue_scene::allows_response(session, response) {
+                continue;
+            }
             let response_scope = format!("topic:{}:{}", topic.id, response.id);
             let response_is_bound = issue_dialogue_investigation_bindings(
                 ctx,
@@ -1065,7 +1059,8 @@ fn refresh_dialogue_topic_options(
             });
         }
     }
-    if let Some(resident_character_id) = ctx
+    if matches!(session.authority, DialogueSessionAuthority::Venue)
+        && let Some(resident_character_id) = ctx
         .db
         .dialogue_participant()
         .session_id()

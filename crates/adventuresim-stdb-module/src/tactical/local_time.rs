@@ -147,7 +147,7 @@ impl LocalSceneVisit {
         Ok(visit)
     }
 
-    fn active(ctx: &ReducerContext, character_id: u64) -> VisitResult<Option<Self>> {
+    pub(super) fn active(ctx: &ReducerContext, character_id: u64) -> VisitResult<Option<Self>> {
         let mut visits = ctx
             .db
             .local_scene_visit()
@@ -159,6 +159,15 @@ impl LocalSceneVisit {
             return Err("Character has multiple live time owners".into());
         }
         Ok(visit)
+    }
+
+    fn projected_clock(&self, now: Timestamp) -> VisitResult<PersonalClock> {
+        let elapsed = now
+            .duration_since(self.entered_at)
+            .ok_or("Scene visit wall clock moved backwards")?;
+        self.starting_clock
+            .advance_real_time(elapsed)
+            .map_err(|error| error.to_string())
     }
 
     fn complete(
@@ -183,14 +192,7 @@ impl LocalSceneVisit {
         if character.server != self.server {
             return Err("Scene visit no longer owns this character".into());
         }
-        let elapsed = ctx
-            .timestamp
-            .duration_since(self.entered_at)
-            .ok_or("Scene visit wall clock moved backwards")?;
-        let clock = self
-            .starting_clock
-            .advance_real_time(elapsed)
-            .map_err(|error| error.to_string())?;
+        let clock = self.projected_clock(ctx.timestamp)?;
         effects::apply(ctx, &self, clock, fatigue)?;
         self.state = LocalSceneVisitState::Closed(LocalSceneVisitClosure {
             closed_at: ctx.timestamp,
@@ -259,6 +261,15 @@ pub(crate) fn require_unleased_time(ctx: &ReducerContext, character_id: u64) -> 
         return Err("Character time is owned by a live settlement scene".into());
     }
     Ok(())
+}
+
+pub(crate) fn current_personal_clock(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> VisitResult<PersonalClock> {
+    LocalSceneVisit::active(ctx, character_id)?
+        .ok_or_else(|| "Character has no open local visit".to_owned())?
+        .projected_clock(ctx.timestamp)
 }
 
 pub(crate) fn owns_character_time(ctx: &ReducerContext, character_id: u64) -> VisitResult<bool> {

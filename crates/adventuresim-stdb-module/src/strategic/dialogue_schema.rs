@@ -83,7 +83,8 @@ fn project_local_chat_message(
                 owner_character_id,
                 "npc".into(),
                 String::new(),
-                row.resident_character_id.map_or_else(String::new, |id| id.to_string()),
+                row.resident_character_id
+                    .map_or_else(String::new, |id| id.to_string()),
             );
         }
     }
@@ -125,7 +126,8 @@ pub struct DialogueSession {
     pub settlement_id: String,
     pub location_id: String,
     pub owner_character_id: u64,
-    pub owner_party_id: String,
+    pub owner_party_id: Option<String>,
+    pub authority: DialogueSessionAuthority,
     pub state: String,
     pub revision: u64,
     pub created_micros: i64,
@@ -134,43 +136,22 @@ pub struct DialogueSession {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum DialogueSessionState {
     Active,
+    Closed,
 }
 
 impl DialogueSessionState {
     const fn stable_id(self) -> &'static str {
         match self {
             Self::Active => "active",
+            Self::Closed => "closed",
         }
     }
 
     fn parse(value: &str) -> Result<Self, String> {
         match value {
             "active" => Ok(Self::Active),
+            "closed" => Ok(Self::Closed),
             _ => Err("Dialogue session has an unknown state".into()),
-        }
-    }
-}
-
-struct ParsedDialogueSessionId<'a> {
-    owner_character_id: u64,
-    nonce: &'a str,
-}
-
-impl<'a> ParsedDialogueSessionId<'a> {
-    fn parse(value: &'a str) -> Result<Self, String> {
-        if value.len() > 160 || value.chars().any(char::is_control) {
-            return Err("Invalid dialogue session ID".into());
-        }
-        let mut parts = value.splitn(3, ':');
-        let domain = parts.next();
-        let owner_character_id = parts.next().and_then(|part| part.parse::<u64>().ok());
-        let nonce = parts.next().filter(|part| !part.is_empty());
-        match (domain, owner_character_id, nonce) {
-            (Some("dialogue"), Some(owner_character_id), Some(nonce)) => Ok(Self {
-                owner_character_id,
-                nonce,
-            }),
-            _ => Err("Invalid dialogue session ID".into()),
         }
     }
 }
@@ -546,115 +527,13 @@ fn require_dialogue_revision(revision: &str) -> Result<(), String> {
     }
 }
 
-/// Revalidates the complete physical authority boundary for every dialogue mutation.
+/// Every mutation follows the session's immutable authority, including retries.
 fn require_live_dialogue_presence(
     ctx: &ReducerContext,
     session: &DialogueSession,
     character_id: u64,
 ) -> Result<crate::settlement_population::SettlementResidentProfile, String> {
-    let exact_place =
-        require_navigable_npc_place(ctx, &session.settlement_id, &session.location_id)?;
-    let character = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
-    if character.party_id.as_deref() != Some(session.owner_party_id.as_str()) {
-        return Err("Dialogue joins are limited to the owning party".into());
-    }
-    if character.current_settlement_id.as_deref() != Some(session.settlement_id.as_str()) {
-        return Err("Dialogue participant has left the settlement".into());
-    }
-    let npc_participants: Vec<_> = ctx
-        .db
-        .dialogue_participant()
-        .session_id()
-        .filter(&session.id)
-        .filter(|participant| participant.character_id.is_none())
-        .collect();
-    if npc_participants.is_empty() {
-        return Err("Dialogue has no persistent NPC participant".into());
-    }
-    let minute = ctx
-        .db
-        .character_time()
-        .character_id()
-        .find(character_id)
-        .map(|time| time.minutes)
-        .ok_or("Dialogue participant has no personal time authority")?;
-    let actor_settlement_presence =
-        adventuresim_core::strategic_presence::StrategicPresence::settlement_membership(
-            character_id,
-            session.settlement_id.clone(),
-            adventuresim_core::strategic_presence::PresenceFrontier {
-                observer_character_id: character_id,
-                personal_minute: minute,
-            },
-        )
-        .map_err(|_| "Dialogue settlement identity is invalid")?;
-    let actor_presence =
-        adventuresim_core::strategic_presence::StrategicPresence::validated_venue_selection(
-            &actor_settlement_presence,
-            exact_place,
-        )
-        .map_err(|_| "Dialogue location is not in the actor's settlement")?;
-    let mut primary = None;
-    for participant in npc_participants {
-        let npc_character_id = participant
-            .actor_id
-            .parse::<u64>()
-            .map_err(|_| "Dialogue NPC identity is invalid")?;
-        let npc = ctx
-            .db
-            .settlement_resident_profile()
-            .character_id()
-            .find(npc_character_id)
-            .ok_or("Dialogue NPC is no longer authoritative")?;
-        let presence = ctx
-            .db
-            .settlement_resident_presence()
-            .character_id()
-            .find(npc.character_id)
-            .ok_or("Dialogue NPC has no authoritative presence")?;
-        let npc_presence = crate::settlement_population::npc_strategic_presence_at(
-            ctx,
-            &presence,
-            character_id,
-            minute,
-        )
-        .ok_or_else(|| {
-            adventuresim_core::reducer_error::coded_reducer_error(
-                adventuresim_core::reducer_error::ReducerErrorCode::DialogueContactUnavailable,
-                "Dialogue NPC is not present at the session location and time",
-            )
-        })?;
-        if npc.home_settlement_id != session.settlement_id
-            || !adventuresim_core::strategic_presence::are_co_present(
-                &actor_presence,
-                npc_presence.presence(),
-            )
-        {
-            return Err(adventuresim_core::reducer_error::coded_reducer_error(
-                adventuresim_core::reducer_error::ReducerErrorCode::DialogueContactUnavailable,
-                "Dialogue NPC is not present at the session location and time",
-            ));
-        }
-        if (npc.organization_id.is_empty() && npc.conversation_id == "organization-representative")
-            || (!npc.organization_id.is_empty()
-                && exact_organization_representative(
-                    ctx,
-                    &npc,
-                    &session.settlement_id,
-                    &session.location_id,
-                )
-                .is_none())
-        {
-            return Err("Dialogue NPC has no exact authority at the session location".into());
-        }
-        primary.get_or_insert(npc);
-    }
-    primary.ok_or_else(|| "Dialogue requires an NPC participant".into())
+    dialogue_authority::require_presence(ctx, session, character_id)
 }
 
 fn require_navigable_npc_location(
@@ -697,17 +576,19 @@ fn require_navigable_npc_place(
 #[cfg(test)]
 mod stable_dialogue_schema_tests {
     use super::{
-        CorpsePermissionTopicId, DialoguePromptState, DialogueSessionState,
-        ParsedDialogueSessionId, PromptMode, ResolutionPolicy,
+        CorpsePermissionTopicId, DialoguePromptState, DialogueSessionState, PromptMode,
+        ResolutionPolicy,
     };
+
+    use adventuresim_core::dialogue_boundary::DialogueSessionId;
 
     #[test]
     fn dialogue_session_id_and_state_are_exact_tagged_values() {
-        let parsed = ParsedDialogueSessionId::parse("dialogue:7:nonce:part").unwrap();
-        assert_eq!(parsed.owner_character_id, 7);
-        assert_eq!(parsed.nonce, "nonce:part");
-        assert!(ParsedDialogueSessionId::parse("dialogue:7:").is_err());
-        assert!(ParsedDialogueSessionId::parse("prefix-dialogue:7:nonce").is_err());
+        let parsed = DialogueSessionId::try_from("dialogue:7:nonce:part".to_owned()).unwrap();
+        assert_eq!(parsed.owner_character_id(), 7);
+        assert_eq!(parsed.as_str(), "dialogue:7:nonce:part");
+        assert!(DialogueSessionId::try_from("dialogue:7:".to_owned()).is_err());
+        assert!(DialogueSessionId::try_from("prefix-dialogue:7:nonce".to_owned()).is_err());
         assert_eq!(
             DialogueSessionState::parse("active").unwrap().stable_id(),
             "active"
@@ -739,9 +620,7 @@ mod stable_dialogue_schema_tests {
         }
         assert!(ResolutionPolicy::parse("FirstResponseWins").is_err());
         assert_eq!(
-            DialoguePromptState::parse("resolved")
-                .unwrap()
-                .stable_id(),
+            DialoguePromptState::parse("resolved").unwrap().stable_id(),
             "resolved"
         );
         assert!(DialoguePromptState::parse("unresolved").is_err());
@@ -760,15 +639,15 @@ mod stable_dialogue_schema_tests {
         );
         assert_eq!(parsed.approach, "request");
         assert_eq!(parsed.corpse_id, "corpse:character:7");
-        assert!(CorpsePermissionTopicId::parse("ordinary-topic")
-            .unwrap()
-            .is_none());
         assert!(
-            CorpsePermissionTopicId::parse(
-                "prefix-corpse-permission:examination:request:corpse:7"
-            )
-            .unwrap()
-            .is_none()
+            CorpsePermissionTopicId::parse("ordinary-topic")
+                .unwrap()
+                .is_none()
+        );
+        assert!(
+            CorpsePermissionTopicId::parse("prefix-corpse-permission:examination:request:corpse:7")
+                .unwrap()
+                .is_none()
         );
         for malformed in [
             "corpse-permission:unknown:request:corpse:7",

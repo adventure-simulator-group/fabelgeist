@@ -12,22 +12,11 @@ fn apply_dialogue_effect(
     effect: &adventuresim_dialogue::Effect,
     testimony_event_sequence: Option<u32>,
 ) -> Result<(), String> {
+    dialogue_scene::require_effect(session, effect)?;
     let live_npc = require_live_dialogue_presence(ctx, session, character_id)?;
     match effect {
         adventuresim_dialogue::Effect::LearnTopic { topic } => {
-            let id = format!("{character_id}:{}:{topic}", session.conversation_id);
-            if ctx.db.character_topic_knowledge().id().find(&id).is_none() {
-                ctx.db
-                    .character_topic_knowledge()
-                    .insert(CharacterTopicKnowledge {
-                        id,
-                        character_id,
-                        conversation_id: session.conversation_id.clone(),
-                        topic_id: topic.clone(),
-                        learned_micros: ctx.timestamp.to_micros_since_unix_epoch(),
-                    });
-            }
-            Ok(())
+            dialogue_knowledge::learn_topic(ctx, character_id, session, topic)
         }
         adventuresim_dialogue::Effect::AcceptContract { contract }
             if contract != "selected-service-contract" =>

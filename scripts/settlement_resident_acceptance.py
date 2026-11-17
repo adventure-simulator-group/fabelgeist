@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from settlement_dialogue_acceptance import scene_dialogue_checks
+
 if TYPE_CHECKING:
     from check_semantic_authorities import AcceptanceClient
 
@@ -66,6 +68,7 @@ def resident_roster_checks(client: AcceptanceClient, settlement: str,
     client.call("enter_settlement_resident", operator, token=server_token)
     client.call("enter_settlement_resident", operator, token=server_token)
     [[visit]] = client.rows(f"SELECT id FROM local_scene_visit WHERE character_id = {operator}")
+    scene_dialogue_checks(client, operator, settlement, server_identity, server_token, outsider)
     role_before = client.rows("SELECT role FROM connected_players", token=server_token)
     assert len(role_before) == 1
     client.fixture("authority_test_resident_admission", operator, {"transferToPlayer": []})

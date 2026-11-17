@@ -52,6 +52,23 @@ public schedules. Player admission cannot take over an open resident visit.
 Its participation role stays fixed until the acknowledged visit closes, even
 when control of that Character transfers to a player.
 
+Dialogue sessions retain their admission authority permanently. A live session
+binds the original host and the player's and resident's open visit IDs. Only
+that host can start it, select topics, answer prompts or close it. Every action
+rechecks the visits, participant identities, current resident roster, business
+assignment and schedule. Leaving and re-entering cannot reuse an old session,
+and a venue request cannot acquire authority over a live session after departure.
+The native caller must validate physical contact before each request; positions
+and proximity never enter this schema.
+
+Live dialogue reads elapsed personal chronology without committing it or
+aligning two characters' clocks. Authored greetings, ordinary topics and topic
+learning use the shared dialogue engine. Investigation referrals, testimony,
+corpse permissions, contracts and organization mutations remain unavailable in
+live sessions until their tactical interactions are implemented. Solo players
+can converse without creating a party; additional participants require a later
+group-contact implementation.
+
 `retire_settlement_scene` releases assignments and the serving slot without
 committing a battle result, loot, or rewards. Losing the server's database
 connection performs the same release. Runtime positions, condition changes,

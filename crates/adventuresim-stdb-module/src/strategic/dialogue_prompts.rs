@@ -122,7 +122,6 @@ pub fn choose_dialogue_topic(
     expected_revision: u64,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;
     let action_row_id = format!("{session_id}:{action_id}");
@@ -243,6 +242,7 @@ pub fn choose_dialogue_topic(
     }
     let response = adventuresim_dialogue::select_response(topic, &facts)
         .map_err(|_| "No unambiguous eligible dialogue response")?;
+    dialogue_scene::require_response(&session, response)?;
     let sequence = ctx
         .db
         .dialogue_event()
@@ -396,7 +396,6 @@ pub fn answer_dialogue_prompt(
     expected_revision: u64,
     catalog_revision: String,
 ) -> Result<(), String> {
-    require_strategic_gateway(ctx)?;
     require_dialogue_revision(&catalog_revision)?;
     validate_dialogue_action_id(&action_id)?;
     let prompt = ctx

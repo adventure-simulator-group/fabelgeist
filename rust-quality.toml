@@ -1032,3 +1032,21 @@ item = "CollarRows::new"
 fingerprint = "EPSILON"
 occurrences = 1
 reason = "Bounds generated collar-station arithmetic relative to the actual collar height before restoring exact authored tape and transition stations; this is numerical roundoff, not a physical minimum length."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-core/src/dialogue_boundary/session_id.rs"
+item = "DialogueSessionId::try_from"
+reason = "Decodes the existing tagged dialogue-session wire grammar into one validated identity before either boundary admits it."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
+item = "DialogueSessionState::parse"
+reason = "Decodes the closed persisted dialogue state vocabulary before admission or mutation; presentation prose is never state."
+
+[[scopes]]
+kind = "authored_catalog"
+path = "crates/adventuresim-stdb-module/src/strategic/dialogue_authority.rs"
+item = "require_representative"
+reason = "The authored organization-representative conversation requires exact chapter authority even when its resident profile omits an organization."

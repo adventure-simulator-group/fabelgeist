@@ -2,6 +2,8 @@
 
 use std::collections::BTreeSet;
 
+pub(super) use admission::require_current_resident;
+
 use adventuresim_core::{
     strategic_place::{SettlementVenueKind, StrategicPlaceId},
     tactical_session::MAX_LOCAL_SCENE_RESIDENTS,

@@ -18,33 +18,8 @@ pub fn enter_settlement_resident(ctx: &ReducerContext, character_id: u64) -> Res
     let TacticalSession::Settlement(settlement) = &server.session else {
         return Err("Ordinary residents cannot be admitted to a combat mission".into());
     };
-    let roster = ctx
-        .db
-        .scene_resident_roster()
-        .server()
-        .find(ctx.sender())
-        .ok_or("Configure the playable area's resident roster before admission")?;
-    if !roster.character_ids.contains(&character_id) || !has_npc_authority(ctx, character_id) {
-        return Err("Character is not a scene-owned resident in this area".into());
-    }
-    let business = ctx
-        .db
-        .settlement_business_operator()
-        .operator_character_id()
-        .find(character_id)
-        .map(|assignment| assignment.business_id);
-    if !resident_business_matches(settlement, &roster.area, character_id, business.as_ref()) {
-        return Err("Resident business ownership changed outside this captured area".into());
-    }
     let official = crate::time::refresh_clock(ctx)?;
-    require_present(
-        ctx,
-        character_id,
-        &roster.area,
-        settlement,
-        business.as_ref(),
-        official,
-    )?;
+    require_current_resident(ctx, character_id, &server, official)?;
     let character = crate::character::require_living_character(ctx, character_id)?;
     super::super::settlement::require_settlement_admission(
         ctx,
@@ -71,14 +46,7 @@ pub fn enter_settlement_resident(ctx: &ReducerContext, character_id: u64) -> Res
     if !has_npc_authority(ctx, character_id) {
         return Err("Resident authority transferred to a player during catch-up".into());
     }
-    require_present(
-        ctx,
-        character_id,
-        &roster.area,
-        settlement,
-        business.as_ref(),
-        official,
-    )?;
+    require_current_resident(ctx, character_id, &server, official)?;
     super::super::settlement::require_settlement_admission(
         ctx,
         &character,
@@ -93,6 +61,44 @@ pub fn enter_settlement_resident(ctx: &ReducerContext, character_id: u64) -> Res
     )?;
     character.server = server.identity;
     ctx.db.character().id().update(character);
+    Ok(())
+}
+
+pub(in crate::tactical) fn require_current_resident(
+    ctx: &ReducerContext,
+    character_id: u64,
+    server: &TacticalServer,
+    official: StrategicMinute,
+) -> ResidentResult<()> {
+    let TacticalSession::Settlement(settlement) = &server.session else {
+        return Err("Dialogue requires an ordinary settlement scene".into());
+    };
+    let roster = ctx
+        .db
+        .scene_resident_roster()
+        .server()
+        .find(server.identity)
+        .ok_or("Configure the playable area's resident roster before admission")?;
+    if !roster.character_ids.contains(&character_id) || !has_npc_authority(ctx, character_id) {
+        return Err("Character is not a scene-owned resident in this area".into());
+    }
+    let business = ctx
+        .db
+        .settlement_business_operator()
+        .operator_character_id()
+        .find(character_id)
+        .map(|assignment| assignment.business_id);
+    if !resident_business_matches(settlement, &roster.area, character_id, business.as_ref()) {
+        return Err("Resident business ownership changed outside this captured area".into());
+    }
+    require_present(
+        ctx,
+        character_id,
+        &roster.area,
+        settlement,
+        business.as_ref(),
+        official,
+    )?;
     Ok(())
 }
 

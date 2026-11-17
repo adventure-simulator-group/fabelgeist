@@ -4,6 +4,8 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::dialogue_session_authority_type::DialogueSessionAuthority;
+
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
 pub struct DialogueSession {
@@ -14,7 +16,8 @@ pub struct DialogueSession {
     pub settlement_id: String,
     pub location_id: String,
     pub owner_character_id: u64,
-    pub owner_party_id: String,
+    pub owner_party_id: Option<String>,
+    pub authority: DialogueSessionAuthority,
     pub state: String,
     pub revision: u64,
     pub created_micros: i64,
@@ -35,7 +38,8 @@ pub struct DialogueSessionCols {
     pub settlement_id: __sdk::__query_builder::Col<DialogueSession, String>,
     pub location_id: __sdk::__query_builder::Col<DialogueSession, String>,
     pub owner_character_id: __sdk::__query_builder::Col<DialogueSession, u64>,
-    pub owner_party_id: __sdk::__query_builder::Col<DialogueSession, String>,
+    pub owner_party_id: __sdk::__query_builder::Col<DialogueSession, Option<String>>,
+    pub authority: __sdk::__query_builder::Col<DialogueSession, DialogueSessionAuthority>,
     pub state: __sdk::__query_builder::Col<DialogueSession, String>,
     pub revision: __sdk::__query_builder::Col<DialogueSession, u64>,
     pub created_micros: __sdk::__query_builder::Col<DialogueSession, i64>,
@@ -53,6 +57,7 @@ impl __sdk::__query_builder::HasCols for DialogueSession {
             location_id: __sdk::__query_builder::Col::new(table_name, "location_id"),
             owner_character_id: __sdk::__query_builder::Col::new(table_name, "owner_character_id"),
             owner_party_id: __sdk::__query_builder::Col::new(table_name, "owner_party_id"),
+            authority: __sdk::__query_builder::Col::new(table_name, "authority"),
             state: __sdk::__query_builder::Col::new(table_name, "state"),
             revision: __sdk::__query_builder::Col::new(table_name, "revision"),
             created_micros: __sdk::__query_builder::Col::new(table_name, "created_micros"),
