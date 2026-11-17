@@ -74,10 +74,9 @@ pub(super) fn on_response(
 ) {
     if checks.pending.as_ref().is_some_and(|request| {
         request.sequence == response.sequence && checks.actor == Some(response.actor)
-    }) {
-        if !matches!(response.outcome, EquipmentActionOutcome::Pending) {
-            checks.acknowledgement = Some(response.outcome.clone());
-        }
+    }) && !matches!(response.outcome, EquipmentActionOutcome::Pending)
+    {
+        checks.acknowledgement = Some(response.outcome.clone());
     }
 }
 
