@@ -4,21 +4,18 @@
 //! falls between its 1500 and 1600 snapshots, so we linearly interpolate the
 //! source areas and divide them by HYDE's matching cell-area grid.
 
-mod fallback;
-use fallback::fallback_profile;
-use std::{
-    collections::HashMap,
-    fs::File,
-    io::{BufRead, BufReader, Read},
-    path::{Path, PathBuf},
-};
-
 use adventuresim_world_schema::{
     BASIS_POINTS_PER_WHOLE, LandUseFraction, LandUseProfile, SourceProvenance,
     calendar::CalendarYear,
 };
 use netcdf_reader::{NcFile, NcFormat, NcSliceInfo, NcSliceInfoElem, NcType};
 use sha2::{Digest, Sha256};
+use std::{
+    collections::HashMap,
+    fs::File,
+    io::{BufRead, BufReader, Read},
+    path::{Path, PathBuf},
+};
 use zip::ZipArchive;
 
 use crate::{
@@ -28,6 +25,12 @@ use crate::{
         push_source_note,
     },
 };
+
+use self::fallback::fallback_profile;
+use self::time::{TimeAxis, TimeSelection};
+
+mod fallback;
+mod time;
 
 const HYDE_COLUMNS: usize = 4_320;
 const HYDE_ROWS: usize = 2_160;
@@ -47,6 +50,11 @@ pub struct HydeCropCell {
 /// Read every HYDE source cell intersecting the playable bounds. This exposes
 /// raw interpolated cropland kmÂ² to the map allocator rather than reusing the
 /// rounded settlement profile.
+///
+/// Time coordinates must be unscaled 365-day offsets from HYDE's reference
+/// date, with distinct whole-year values in either physical order. Coordinates
+/// must be within declared bounds and cannot match declared missing markers.
+/// Component files must agree on their coordinate values and slice indices.
 pub fn crop_cells(
     directory: &Path,
     year: CalendarYear,
@@ -90,7 +98,7 @@ pub fn crop_cells(
             let crop_end = values
                 .crop_end
                 .ok_or_else(|| Error::Validation("HYDE crop cell has missing end value".into()))?;
-            let crop_km2 = interpolate(crop_start, crop_end, grid.interpolation);
+            let crop_km2 = interpolate(crop_start, crop_end, grid.selection.amount());
             if !crop_km2.is_finite() || crop_km2 < 0.0 {
                 return Err(Error::Validation("HYDE crop area is invalid".into()));
             }
@@ -163,7 +171,7 @@ pub(crate) fn enrich(
         .into_iter()
         .zip(grid.values)
         .map(|(mut elevated, values)| {
-            let (land_use, evidence, note) = match values.profile(grid.interpolation)? {
+            let (land_use, evidence, note) = match values.profile(grid.selection)? {
                 Some((profile, was_normalized)) => {
                     normalized += usize::from(was_normalized);
                     (
@@ -225,7 +233,7 @@ struct LandUseSourceValues {
 }
 
 impl LandUseSourceValues {
-    fn profile(self, interpolation: f64) -> Result<Option<(LandUseProfile, bool)>> {
+    fn profile(self, selection: TimeSelection) -> Result<Option<(LandUseProfile, bool)>> {
         let Some(area) = self.cell_area.filter(|area| *area > 0.0) else {
             if [
                 self.crop_start,
@@ -270,9 +278,9 @@ impl LandUseSourceValues {
             ));
         };
         profile_from_fractions(
-            interpolate(crop_start, crop_end, interpolation) / area,
-            interpolate(grazing_start, grazing_end, interpolation) / area,
-            interpolate(urban_start, urban_end, interpolation) / area,
+            interpolate(crop_start, crop_end, selection.amount()) / area,
+            interpolate(grazing_start, grazing_end, selection.amount()) / area,
+            interpolate(urban_start, urban_end, selection.amount()) / area,
         )
         .map(Some)
     }
@@ -339,7 +347,7 @@ fn profile_from_fractions(
 }
 
 struct HydeGrid {
-    interpolation: f64,
+    selection: TimeSelection,
     values: Vec<LandUseSourceValues>,
 }
 
@@ -347,7 +355,7 @@ impl HydeGrid {
     fn open(directory: &Path, year: CalendarYear, coordinates: &[(f64, f64)]) -> Result<Self> {
         let first_path = require(directory, COMPONENTS[0].filename)?;
         let reference = Schema::read(&first_path, COMPONENTS[0])?;
-        let selection = TimeSelection::for_year(&first_path, &reference.times, year)?;
+        let selection = reference.times.select(&first_path, year)?;
         let cells = coordinates
             .iter()
             .map(|&(latitude, longitude)| {
@@ -405,10 +413,7 @@ impl HydeGrid {
                 }
             }
         }
-        Ok(Self {
-            interpolation: selection.amount,
-            values,
-        })
+        Ok(Self { selection, values })
     }
 }
 
@@ -416,7 +421,7 @@ impl HydeGrid {
 struct Schema {
     longitudes: Vec<f64>,
     latitudes: Vec<f64>,
-    times: Vec<f64>,
+    times: TimeAxis,
     fill: Option<f64>,
 }
 
@@ -455,7 +460,7 @@ impl Schema {
         }
         let longitudes = read_axis(&file, path, "lon")?;
         let latitudes = read_axis(&file, path, "lat")?;
-        let times = read_axis(&file, path, "time")?;
+        let times = TimeAxis::read(&file, path)?;
         if longitudes.len() != HYDE_COLUMNS || latitudes.len() != HYDE_ROWS {
             return Err(invalid(
                 path,
@@ -476,8 +481,6 @@ impl Schema {
                 "variable dimensions do not match coordinate axes",
             ));
         }
-        let time = nc(path, file.variable("time"))?;
-        require_hyde_time_axis(path, time, &times)?;
         Ok(Self {
             longitudes,
             latitudes,
@@ -491,7 +494,7 @@ impl Schema {
     fn require_matches(&self, path: &Path, actual: &Self) -> Result<()> {
         require_same_axis(path, "longitude", &self.longitudes, &actual.longitudes)?;
         require_same_axis(path, "latitude", &self.latitudes, &actual.latitudes)?;
-        require_same_axis(path, "time", &self.times, &actual.times)
+        self.times.require_matches(path, &actual.times)
     }
 
     fn samples(
@@ -534,10 +537,8 @@ impl Schema {
             }
             Ok(raw)
         };
-        let lower = read(selection.start)?;
-        let upper = (selection.end != selection.start)
-            .then(|| read(selection.end))
-            .transpose()?;
+        let lower = read(selection.start_index())?;
+        let upper = selection.end_index().map(read).transpose()?;
         cells
             .iter()
             .map(|cell| {
@@ -565,113 +566,6 @@ impl Schema {
 struct CellIndex {
     latitude: usize,
     longitude: usize,
-}
-
-#[derive(Clone, Copy)]
-struct TimeSelection {
-    start: usize,
-    end: usize,
-    amount: f64,
-}
-
-impl TimeSelection {
-    fn for_year(path: &Path, times: &[f64], year: CalendarYear) -> Result<Self> {
-        let years = times
-            .iter()
-            .map(|time| hyde_calendar_year(path, *time))
-            .collect::<Result<Vec<_>>>()?;
-        if let Some(index) = years.iter().position(|candidate| *candidate == year) {
-            return Ok(Self {
-                start: index,
-                end: index,
-                amount: 0.0,
-            });
-        }
-        let end = years
-            .iter()
-            .position(|candidate| *candidate > year)
-            .ok_or_else(|| {
-                Error::Validation(format!(
-                    "{} does not cover HYDE year {year}",
-                    path.display()
-                ))
-            })?;
-        let start = end.checked_sub(1).ok_or_else(|| {
-            Error::Validation(format!(
-                "{} does not cover HYDE year {year}",
-                path.display()
-            ))
-        })?;
-        let first = years[start];
-        let last = years[end];
-        Ok(Self {
-            start,
-            end,
-            amount: year
-                .interpolation_fraction_between(first, last)
-                .expect("ordered HYDE years bracket the requested year"),
-        })
-    }
-}
-
-fn require_hyde_time_axis(
-    path: &Path,
-    time: &netcdf_reader::NcVariable,
-    values: &[f64],
-) -> Result<()> {
-    const HYDE_CALENDAR: &str = "365_day";
-
-    let units = time
-        .attribute("units")
-        .and_then(|attribute| attribute.value.as_string());
-    let calendar = time
-        .attribute("calendar")
-        .and_then(|attribute| attribute.value.as_string());
-    if units.as_deref() != Some("days since 1-5-1 00:00:00")
-        || calendar.as_deref() != Some(HYDE_CALENDAR)
-    {
-        return Err(invalid(
-            path,
-            "time",
-            format!("units={units:?}, calendar={calendar:?}"),
-            "expected HYDE 3.5's 365-day time axis",
-        ));
-    }
-    for value in values {
-        hyde_calendar_year(path, *value)?;
-    }
-    Ok(())
-}
-
-fn hyde_calendar_year(path: &Path, days: f64) -> Result<CalendarYear> {
-    const HYDE_DAYS_PER_YEAR: f64 = 365.0;
-
-    let years = days / HYDE_DAYS_PER_YEAR;
-    let rounded = years.round();
-    if !days.is_finite() || (years - rounded).abs() > AXIS_EPSILON {
-        return Err(invalid(
-            path,
-            "time",
-            days.to_string(),
-            "expected a whole HYDE 365-day year",
-        ));
-    }
-    let raw = i32::try_from(rounded as i64 + 1).map_err(|_| {
-        invalid(
-            path,
-            "time",
-            days.to_string(),
-            "HYDE calendar year is out of range",
-        )
-    })?;
-    CalendarYear::try_from(raw).map_err(|_| {
-        invalid(
-            path,
-            "time",
-            days.to_string(),
-            "HYDE calendar year must be positive",
-        )
-    })
 }
 
 fn source_value(
@@ -880,9 +774,14 @@ fn read_axis(file: &NcFile, path: &Path, name: &'static str) -> Result<Vec<f64>>
         .iter()
         .copied()
         .collect();
+    require_valid_axis_values(path, name, &values)?;
+    Ok(values)
+}
+
+fn require_valid_axis_values(path: &Path, name: &'static str, values: &[f64]) -> Result<()> {
     if values.len() < 2
         || values.iter().any(|value| !value.is_finite())
-        || !strictly_monotonic(&values)
+        || !strictly_monotonic(values)
     {
         return Err(invalid(
             path,
@@ -891,7 +790,7 @@ fn read_axis(file: &NcFile, path: &Path, name: &'static str) -> Result<Vec<f64>>
             "expected finite, strictly monotonic coordinates",
         ));
     }
-    Ok(values)
+    Ok(())
 }
 
 fn require_same_axis(
@@ -978,58 +877,12 @@ fn invalid(path: &Path, field: &'static str, value: String, message: &str) -> Er
 
 #[cfg(test)]
 mod tests {
-    use super::{LandUseSourceValues, TimeSelection, hyde_calendar_year, profile_from_fractions};
-
-    #[test]
-    fn hyde_time_axis_interpolates_1544_between_1500_and_1600() {
-        let selection = TimeSelection::for_year(
-            std::path::Path::new("hyde.nc"),
-            &[547_135.0, 583_635.0],
-            super::CalendarYear::new(1544).unwrap(),
-        )
-        .unwrap();
-        assert_eq!(selection.start, 0);
-        assert_eq!(selection.end, 1);
-        assert_eq!(selection.amount, 0.44);
-        assert_eq!(
-            hyde_calendar_year(std::path::Path::new("hyde.nc"), 547_135.0).unwrap(),
-            super::CalendarYear::new(1500).unwrap()
-        );
-    }
-
-    #[test]
-    fn source_areas_interpolate_into_an_exhaustive_profile() {
-        let values = LandUseSourceValues {
-            cell_area: Some(100.0),
-            crop_start: Some(10.0),
-            crop_end: Some(30.0),
-            grazing_start: Some(20.0),
-            grazing_end: Some(20.0),
-            urban_start: Some(1.0),
-            urban_end: Some(1.0),
-        };
-        let (profile, normalized) = values.profile(0.44).unwrap().unwrap();
-        assert!(!normalized);
-        assert_eq!(profile.cropland().basis_points(), 1_880);
-        assert_eq!(profile.grazing().basis_points(), 2_000);
-        assert_eq!(profile.built_up().basis_points(), 100);
-        assert_eq!(profile.natural().basis_points(), 6_020);
-    }
+    use super::profile_from_fractions;
 
     #[test]
     fn small_source_overlap_is_normalized() {
         let (profile, normalized) = profile_from_fractions(0.7, 0.3, 0.01).unwrap();
         assert!(normalized);
         assert_eq!(profile.natural().basis_points(), 0);
-    }
-
-    #[test]
-    fn partial_nodata_fails_closed() {
-        let values = LandUseSourceValues {
-            cell_area: Some(100.0),
-            crop_start: Some(1.0),
-            ..Default::default()
-        };
-        assert!(values.profile(0.44).is_err());
     }
 }
