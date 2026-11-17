@@ -2,9 +2,9 @@
 
 ## Database serialization boundary
 
-The `spacetimedb` feature derives database serialization through
-`spacetimedb-lib`, which owns the shared type representation without linking
-the module runtime. Host catalog build scripts can therefore enable the same
+The `spacetimedb` feature provides database serialization and type
+representations through `spacetimedb-lib` without linking the module runtime.
+Host catalog build scripts can therefore enable the same
 feature safely. The database module discovers these types through its tables
 and reducers; shared types do not export standalone runtime registration
 functions. `just verify-db-client` checks that this boundary produces the
@@ -14,7 +14,9 @@ committed client bindings.
 
 `calendar::CalendarYear` is a positive year in the strategic calendar. Construct
 it with `CalendarYear::new` or deserialize it; zero and negative years are
-rejected. Use `birth_year_for_age` for age-derived naming and record years.
+rejected, including at the database serialization boundary.
+`years_since_first` counts whole year intervals from year 1, which has ordinal
+zero. Use `birth_year_for_age` for age-derived naming and record years.
 
 `calendar::StrategicMinute` is an absolute minute since the start of calendar
 year 1544. `WORLD_START_MINUTE` identifies the game's August 20 starting date.

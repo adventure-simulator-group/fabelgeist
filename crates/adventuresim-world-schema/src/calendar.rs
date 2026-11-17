@@ -7,6 +7,10 @@
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
+#[cfg(feature = "spacetimedb")]
+#[path = "calendar/native.rs"]
+mod native;
+
 pub const MINUTES_PER_DAY: u64 = 24 * 60;
 pub const DAYS_PER_WEEK: u64 = 7;
 const SUNDAY_INDEX: u64 = 6;
@@ -27,7 +31,7 @@ pub const fn is_sunday_day_index(day_index: u64) -> bool {
 
 /// A positive calendar year. There is no year zero in this calendar.
 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::ser::Serialize))]
 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(try_from = "i32", into = "i32")]
 pub struct CalendarYear {
@@ -47,6 +51,11 @@ impl CalendarYear {
 
     pub const fn get(self) -> i32 {
         self.year
+    }
+
+    /// Whole year intervals from year 1; the first year has offset zero.
+    pub const fn years_since_first(self) -> i32 {
+        self.year - 1
     }
 
     /// Find the birth year implied by a whole-year age at this date.
