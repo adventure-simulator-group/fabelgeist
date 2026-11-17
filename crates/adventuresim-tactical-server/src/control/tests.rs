@@ -130,10 +130,11 @@ fn combat_pursuit_turns_toward_the_route_before_advancing() {
             .0,
         None
     );
+    // Body facing is the root's local +Z, unlike the look yaw.
     app.world_mut()
         .get_mut::<Transform>(actor)
         .unwrap()
-        .rotation = Quat::from_rotation_y(-std::f32::consts::FRAC_PI_2);
+        .rotation = Quat::from_rotation_y(std::f32::consts::FRAC_PI_2);
     app.world_mut()
         .get_mut::<AuthoritativeMovementIntent>(actor)
         .unwrap()

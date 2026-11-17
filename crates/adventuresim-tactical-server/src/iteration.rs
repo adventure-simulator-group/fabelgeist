@@ -44,12 +44,22 @@ use crate::{
 const TACTICAL_TICK_SECONDS: f32 = 1.0 / TACTICAL_TICK_HZ as f32;
 const MAX_DUEL_SECONDS: u64 = 180;
 
+/// Why a tactical duel could not be simulated.
+#[derive(Debug, thiserror::Error)]
+pub enum TacticalDuelError {
+    #[error(transparent)]
+    Measurement(#[from] adventuresim_tactical_core::animation::AnimationValueError),
+    #[error("the duel ground's navigation mesh was not generated")]
+    NavigationUnavailable,
+}
+
 pub fn resolve_tactical_server_melee_duel(
     left: &MeleeIterationBuild,
     right: &MeleeIterationBuild,
     seed: Seed,
-) -> AnimationValueResult<TacticalMeleeOutcome> {
+) -> Result<TacticalMeleeOutcome, TacticalDuelError> {
     let mut app = tactical_iteration_app(seed);
+    settle_navigation(&mut app)?;
     let left_entity = spawn_combatant(
         app.world_mut(),
         left,
@@ -103,6 +113,36 @@ pub fn resolve_tactical_server_melee_duel(
         condition_events: log.condition_events,
         wound_events: log.wound_events,
     })
+}
+
+/// Indirect bots pursue along the navigation mesh and stand still until it
+/// exists. The mesh is generated asynchronously from the ground collider, and
+/// the first build can be followed by one rebuild once physics settles the
+/// collider. The settle phase always runs the same number of updates, waiting
+/// on the wall clock while the mesh builds, so every duel starts at the same
+/// simulated time with a settled mesh and replays identically.
+fn settle_navigation(app: &mut App) -> Result<(), TacticalDuelError> {
+    const SETTLE_UPDATES: u32 = 4 * TACTICAL_TICK_HZ;
+    const STABLE_UPDATES: u32 = TACTICAL_TICK_HZ;
+    const BUILD_WAIT: Duration = Duration::from_millis(10);
+    let mut stable = 0;
+    for _ in 0..SETTLE_UPDATES {
+        app.update();
+        if app
+            .world()
+            .resource::<crate::navigation::TacticalNavigation>()
+            .ready
+        {
+            stable += 1;
+        } else {
+            stable = 0;
+            std::thread::sleep(BUILD_WAIT);
+        }
+    }
+    if stable < STABLE_UPDATES {
+        return Err(TacticalDuelError::NavigationUnavailable);
+    }
+    Ok(())
 }
 
 fn tactical_duel_resolution(
