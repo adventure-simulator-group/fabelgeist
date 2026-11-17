@@ -6,7 +6,7 @@ use adventuresim_core::strategic_schedule::{
 };
 use adventuresim_core::strategic_state::vocabulary::MarriageStatus;
 use adventuresim_core::strategic_time::{
-    MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes,
+    CalendarMinuteFraction, MAX_SETTLEMENT_REST_MINUTES, allocated_schedule_minutes,
     official_minute as calculate_official_minute,
 };
 use adventuresim_core::survival::{ExposureShelter, FieldShelter};
