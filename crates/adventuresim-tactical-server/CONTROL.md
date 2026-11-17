@@ -88,7 +88,9 @@ depend on a client sending a completion packet.
 
 Reconnect projections retain mode, generation, order, policy, and pending
 combat contacts. Runtime behavior packages are restored from the active server
-configuration, and navigation is rebuilt against the current world.
+configuration, and navigation is rebuilt against the current world. The client
+continues numbering requests after the restored order without overwriting a
+newer pending request.
 
 ## Conversation approaches
 
@@ -97,14 +99,36 @@ movement order. The configured conversation distance stops the approach. Access
 uses head-height points derived from the physical body dimensions, allowing a
 shop counter while rejecting a full-height wall. The target must remain alive,
 available and non-hostile. Moving beyond the pursuit radius from its selected
-position fails the order.
+position fails the order. These checks use current physics body centres;
+interpolated render transforms cannot grant contact.
 
 Arrival produces one internal `ReachedTalkTarget` message carrying the actor,
-target, control generation and order sequence. A dialogue authority consumer
-must revalidate that identity and physical contact before starting a session or
-committing a choice. The message alone grants no browser authority. Stop,
-replacement orders and mode changes discard approach tracking; removal or
-hostility changes fail the order without selecting an attack.
+target, control generation and order sequence. The native dialogue service
+binds the player's and resident's open visits and requests a durable session
+through the registered host. It rechecks the same physical contact before a
+start or choice reaches the database and before forwarding its acknowledgement.
+The message alone grants no browser authority. Stop, replacement orders and
+mode changes discard approach tracking; removal or hostility changes fail the
+order without selecting an attack.
+
+Each connection can act only on its current confirmed session. Topic selections
+retain their action ID and revision; answers must also carry a prompt belonging
+to that exact session. Duplicate pending requests share one database call.
+Losing contact closes the session. A late start result closes its original
+session instead of reopening a replaced conversation. Nearby aggression
+interrupts conversation through the shared self-defense controller; the talk
+goal can resume with a new session after the threat passes.
+
+The client rejects confirmations for another actor entity, character or
+superseded local order, including while a new request awaits acknowledgement.
+Confirmed dialogue
+and action receipts cross the browser HUD as `tactical-dialogue` document events.
+HTML supplies typed `dialogue` browser commands; the client supplies their
+control generation and sequence. NPC identities cross this browser boundary as
+decimal strings. Neither presentation layer acquires dialogue authority.
+Manually ending a conversation also sends the ordinary Stop order. This ends
+the retained Talk goal and advances the client sequence, while automatic
+invalidation preserves the player's replacement order.
 
 ## Navigation contracts
 

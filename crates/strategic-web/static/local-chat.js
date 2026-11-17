@@ -85,6 +85,21 @@
       : "",
   });
 
+  const mountFilters = (panel, signal) => {
+    const messages = panel.querySelector(".settlement-chat-messages");
+    const filters = [...panel.querySelectorAll("[data-chat-filter]")];
+    if (!messages || !filters.length) return;
+    const applyFilters = () => applyChannelVisibility(
+      [...messages.querySelectorAll("[data-chat-channel]")],
+      new Set(filters.filter(filter => filter.checked).map(filter => filter.dataset.chatFilter)),
+    );
+    filters.forEach(filter => filter.addEventListener("change", applyFilters, { signal }));
+    const observer = new MutationObserver(applyFilters);
+    observer.observe(messages, { childList: true, subtree: true });
+    signal.addEventListener("abort", () => observer.disconnect(), { once: true });
+    applyFilters();
+  };
+
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
       applyChannelVisibility,
@@ -100,31 +115,14 @@
   }
   if (typeof document === "undefined") return;
 
-  window.strategicChat = Object.freeze({ appendChannelRow, appendInfo, createChannelRow });
+  window.strategicChat = Object.freeze({ appendChannelRow, appendInfo, createChannelRow, mountFilters });
 
   let lifecycle;
   const mount = () => {
   lifecycle?.abort();
   lifecycle = new AbortController();
   const { signal } = lifecycle;
-  document.querySelectorAll(".settlement-chat").forEach((panel) => {
-    const messages = panel.querySelector(".settlement-chat-messages");
-    const filters = [...panel.querySelectorAll("[data-chat-filter]")];
-    if (!messages || !filters.length) return;
-
-    const applyFilters = () => {
-      const visibleChannels = new Set(filters
-        .filter((filter) => filter.checked)
-        .map((filter) => filter.dataset.chatFilter));
-      const rows = [...messages.querySelectorAll("[data-chat-channel]")];
-      applyChannelVisibility(rows, visibleChannels);
-    };
-    filters.forEach((filter) => filter.addEventListener("change", applyFilters, { signal }));
-    const observer = new MutationObserver(applyFilters);
-    observer.observe(messages, { childList: true, subtree: true });
-    signal.addEventListener("abort", () => observer.disconnect(), { once: true });
-    applyFilters();
-  });
+  document.querySelectorAll(".settlement-chat").forEach(panel => mountFilters(panel, signal));
 
   const incomingHost = document.createElement("div");
   incomingHost.className = "local-chat-incoming";
@@ -155,8 +153,11 @@
   const input = chat.querySelector(".settlement-chat-composer input");
   const send = chat.querySelector(".settlement-chat-composer button");
   let lastSignature = "";
+  const liveConversation = () => document.body.hasAttribute("data-tactical-active")
+    && chat.hasAttribute("data-dialogue-chat");
 
   const refresh = async () => {
+    if (liveConversation()) return;
     const endpoint = localChatEndpoint(chat);
     if (!endpoint) return;
     const response = await window.strategicBackgroundFetch(`local-chat:${endpoint}`, endpoint, {
@@ -164,6 +165,7 @@
     });
     if (!response.ok) return;
     const data = await response.json();
+    if (signal.aborted || liveConversation() || endpoint !== localChatEndpoint(chat)) return;
     const signature = data.messages.map((message) => message.id).join(",");
     if (signature === lastSignature) return;
     lastSignature = signature;
@@ -231,6 +233,7 @@
     messages.scrollTop = messages.scrollHeight;
   };
   const submit = async () => {
+    if (liveConversation()) return;
     const body = input.value.trim();
     if (!body) return;
     const form = localChatForm(chat, body);

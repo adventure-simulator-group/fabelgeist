@@ -80,8 +80,20 @@ fn approach_tracks_a_moving_resident_and_emits_one_fenced_arrival_without_combat
     let order = *app.world().get::<CharacterOrder>(actor).unwrap();
     assert_eq!(order.status, OrderStatus::Completed);
     assert_eq!(order.goal, CharacterGoal::Talk { target });
-    let position = app.world().get::<Transform>(actor).unwrap().translation;
-    let destination = app.world().get::<Transform>(target).unwrap().translation;
+    let position = app
+        .world()
+        .get::<adventuresim_tactical_core::avian3d::prelude::Position>(actor)
+        .unwrap()
+        .0;
+    let destination = app
+        .world()
+        .get::<adventuresim_tactical_core::avian3d::prelude::Position>(target)
+        .unwrap()
+        .0;
+    assert_eq!(
+        destination.z, 2.0,
+        "The resident's physical body must actually move"
+    );
     assert!(
         position.x > 1.0,
         "the physical motor must actually approach"

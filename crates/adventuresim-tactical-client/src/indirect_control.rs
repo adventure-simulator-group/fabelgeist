@@ -32,6 +32,9 @@ use crate::{
 
 pub(crate) struct IndirectControlPlugin;
 
+#[derive(SystemSet, Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub(crate) struct IndirectControlSet;
+
 #[derive(Default)]
 struct OrbitOrientation(Option<Quat>);
 
@@ -47,17 +50,23 @@ type ChangedLocalControl<'w, 's> = Query<
     (
         Entity,
         Ref<'static, CharacterControl>,
+        &'static CharacterOrder,
         Ref<'static, ClientPlayer>,
     ),
     (
         With<ClientPlayer>,
-        Or<(Changed<CharacterControl>, Added<ClientPlayer>)>,
+        Or<(
+            Changed<CharacterControl>,
+            Changed<CharacterOrder>,
+            Added<ClientPlayer>,
+        )>,
     ),
 >;
 
 impl Plugin for IndirectControlPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<LocalControl>()
+        app.add_plugins(crate::dialogue::ClientDialoguePlugin)
+            .init_resource::<LocalControl>()
             .init_resource::<IndirectBindings>()
             .register_type::<IndirectBindings>()
             .init_resource::<TerrainPicking>()
@@ -71,7 +80,8 @@ impl Plugin for IndirectControlPlugin {
                     issue_orders,
                     show_status,
                 )
-                    .chain(),
+                    .chain()
+                    .in_set(IndirectControlSet),
             )
             .add_systems(PostUpdate, orbit_camera.before(TacticalCameraSet::Offset))
             .add_systems(
@@ -97,10 +107,14 @@ fn synchronize_authority(
     mut local: ResMut<LocalControl>,
     players: ChangedLocalControl,
 ) {
-    for (entity, control, player) in &players {
+    for (entity, control, order, player) in &players {
+        if order.sequence > local.sequence {
+            local.sequence = order.sequence;
+        }
         if player.is_added() || local.acknowledged != *control {
             local.acknowledged = *control;
             local.pending = None;
+            local.rejection = None;
             commands
                 .entity(entity)
                 .remove::<(AttackState, BufferedMeleeAttack)>();
@@ -394,3 +408,6 @@ fn show_status(
         crate::hud::text(crate::hud::HudText::Control, label);
     }
 }
+
+#[cfg(test)]
+mod tests;

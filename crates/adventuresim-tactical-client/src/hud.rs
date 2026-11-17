@@ -4,9 +4,9 @@
 //! functions this module calls.
 //!
 //! On wasm each function here is one `#[wasm_bindgen]` call into the page.
-//! Callers push only when a value changed (they keep the last pushed value in
-//! a [`LastPushed`]), so an idle frame crosses nothing into JavaScript.
-//! Structured views cross as JSON, which the owning module serializes.
+//! State views use [`LastPushed`] to skip unchanged values. Dialogue notices
+//! deliver each acknowledgement, including repeated action receipts, so browser
+//! retries can finish. Structured views cross as JSON, serialized by their owner.
 //!
 //! The native client has no DOM and therefore no HUD: every function is a
 //! no-op there.
@@ -91,6 +91,8 @@ pub(crate) enum HudView {
     AttackResult,
     /// The tactical outcome banner; `null` hides it.
     Outcome,
+    /// Confirmed dialogue and per-action notices; repeated receipts are delivered.
+    Dialogue,
 }
 
 impl HudView {
@@ -105,6 +107,7 @@ impl HudView {
             Self::Loading => "loading",
             Self::AttackResult => "attack-result",
             Self::Outcome => "outcome",
+            Self::Dialogue => "dialogue",
         }
     }
 }

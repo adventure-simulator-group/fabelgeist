@@ -71,7 +71,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             link rel="stylesheet" href="/static/css/architecture.css?v=goslar-2";
             link rel="stylesheet" href="/static/css/utilities.css?v=roman-garamond-1";
             link rel="stylesheet" href="/static/css/workspace.css?v=2";
-            link rel="stylesheet" href="/static/css/side-panels.css?v=1";
+            link rel="stylesheet" href="/static/css/side-panels.css?v=live-dialogue-1";
             link rel="stylesheet" href="/static/css/portraits.css?v=1";
             link rel="stylesheet" href="/static/css/chat-dock.css?v=1";
             link rel="stylesheet" href="/static/css/readability.css?v=1";
@@ -93,10 +93,10 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             script src="/static/developer-mode.js?v=development-clock-2" defer {}
             script src="/static/tooltips.js?v=delegated-mouseover-1" defer {}
             script src="/static/character-action-dialog.js?v=character-actions-1" defer {}
-            script src="/static/chat-dock.js?v=1" defer {}
+            script src="/static/chat-dock.js?v=live-dialogue-1" defer {}
             script src="/static/portrait-navigation.js?v=1" defer {}
             script src="/static/stats-panels.js?v=1" defer {}
-            script src="/static/side-panels.js?v=1" defer {}
+            script src="/static/side-panels.js?v=live-dialogue-1" defer {}
             script src="/static/action-previews.js?v=1" defer {}
             @if scripts != ScriptProfile::Entry {
                 script src="/static/live-state.js?v=location-urls-1" defer {}
@@ -107,7 +107,7 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
                 // Before the renderer: the client calls window.sfx* from its first frame.
                 script src="/tactical/sfx.js?v=web-audio-1" {}
                 script src="/tactical/tactical-input.js?v=1" {}
-                script type="module" src="/static/strategic-renderer.js?v=tactical-hud-1" {}
+                script type="module" src="/static/strategic-renderer.js?v=live-dialogue-1" {}
                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
                 script src="/static/journal-tab.js?v=journal-tab-1" defer {}
@@ -121,11 +121,11 @@ fn page_head(title: &str, scripts: ScriptProfile) -> Markup {
             script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}
             script src="/static/physiology-dialog.js?v=visual-notebook-2" defer {}
                 script src="/static/service-quests.js?v=location-urls-1" defer {}
-                script src="/static/dialogue-client.js?v=scene-equipment-2" defer {}
+                script src="/static/dialogue-client.js?v=live-dialogue-1" defer {}
                 script src="/static/physical-evidence.js?v=location-urls-1" defer {}
                 script src="/static/developer-quest-editor.js?v=scenario-gallery-1" defer {}
                 script src="/static/chat-resize.js?v=counterparty-portraits-1" defer {}
-                script src="/static/local-chat.js?v=location-urls-1" defer {}
+                script src="/static/local-chat.js?v=live-dialogue-1" defer {}
                 script src="/static/strategic-condition.js?v=strategic-condition-4" defer {}
                 script src="/static/building-state.js?v=goslar-1" defer {}
                 script src="/static/travel-planner.js?v=travel-rails-2" defer {}

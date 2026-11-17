@@ -68,6 +68,7 @@ mod combat_effects;
 mod debug;
 #[cfg(not(target_family = "wasm"))]
 mod diagnostics;
+mod dialogue;
 mod equipment;
 mod hud;
 mod indirect_control;

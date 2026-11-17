@@ -38,6 +38,36 @@ These tabs provide document composition and input routing. Live settlement
 admission and physical service authorization remain separate server contracts;
 showing a tab does not establish proximity or grant permission for an action.
 
+## Live conversations
+
+Right-clicking a non-hostile resident in indirect control requests an approach.
+The native host starts dialogue only after the physical controller reaches
+conversation distance with a clear head-height path. The client accepts the
+result only for its current actor entity, control generation and latest order.
+Another order, lost contact or interrupted control closes the conversation.
+
+The confirmed session moves the shared HTML chat into a Conversation tab in the
+left panel. Previous venue tabs are hidden until that conversation ends. The
+same chat node returns to its dock on close; sidebar replacement reattaches it,
+and a whole-page replacement reads the current confirmed transcript snapshot.
+NPC identifiers remain decimal strings across the browser boundary.
+
+`live-dialogue.js` receives native notices through `tactical-hud.js`. Topic and
+prompt actions travel through typed native commands with their session,
+revision and action receipt identifier. The tactical client supplies the
+control fence, and the host rechecks contact before committing or acknowledging
+an action. HTTP only reads the owner-authorized transcript. A delayed read or
+receipt cannot replace a newer session or transcript revision.
+
+Unported timed social actions, witness pressure and quest acceptance are not
+offered in this live panel. The venue NPC loader and local-chat poller cannot
+start or replace a live conversation. End conversation or Escape closes the
+session and returns focus to the retained canvas without leaving the scene.
+It also sends the normal Stop order, ending the retained Talk goal and advancing
+the control sequence against late confirmations.
+HTML input ownership continues to suppress gameplay input without pausing
+simulation.
+
 ## Client generation workers
 
 Cold preparation starts a bounded pool of up to four CPU workers, reserving a

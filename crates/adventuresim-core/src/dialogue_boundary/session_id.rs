@@ -1,5 +1,6 @@
 //! Dialogue identity grammar shared by trusted scene and HTTP adapters.
 
+use super::prompt_id::DIALOGUE_PROMPT_SEPARATOR;
 use serde::{Deserialize, Serialize};
 
 const MAX_DIALOGUE_SESSION_ID_BYTES: usize = 160;
@@ -30,7 +31,10 @@ impl TryFrom<String> for DialogueSessionId {
     type Error = DialogueSessionIdentityError;
 
     fn try_from(encoded: String) -> Result<Self, Self::Error> {
-        if encoded.len() > MAX_DIALOGUE_SESSION_ID_BYTES || encoded.chars().any(char::is_control) {
+        if encoded.len() > MAX_DIALOGUE_SESSION_ID_BYTES
+            || encoded.chars().any(char::is_control)
+            || encoded.contains(DIALOGUE_PROMPT_SEPARATOR)
+        {
             return Err(DialogueSessionIdentityError);
         }
         let mut parts = encoded.splitn(3, ':');

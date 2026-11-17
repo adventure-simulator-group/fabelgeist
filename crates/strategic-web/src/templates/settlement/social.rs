@@ -659,7 +659,7 @@ fn chat_area(
             && active_character.is_some_and(|active| subject == &active.id.to_string())
     });
     html! {
-        section class="settlement-chat" aria-label="Settlement chat"
+        section class="settlement-chat" aria-label="Settlement chat" data-dialogue-chat
             data-service-quest-settlement=[service_context.map(|context| context.0)]
             data-service-quest-id=[service_context.map(|context| context.1)]
             data-dialogue-catalog-revision=[service_context.map(|_| adventuresim_dialogue::CATALOG_DIGEST)]
@@ -717,7 +717,7 @@ fn chat_area(
                       }
                     }
                     div class="settlement-chat-messages" aria-live="polite" {
-                        @if local_context.is_none() { div class="chat-system-message" data-chat-channel="info" {
+                        @if local_context.is_none() { div class="chat-system-message" data-chat-channel="info" data-local-chat-placeholder {
                             span class="chat-timestamp" { "[--:--] " }
                             " Select a local character or settlement service to begin talking."
                         } }

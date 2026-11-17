@@ -744,7 +744,7 @@ ceiling = 632
 
 [[files]]
 path = "crates/strategic-web/src/routes/dialogue.rs"
-ceiling = 1420
+ceiling = 1397
 
 [[files]]
 path = "crates/strategic-web/src/routes/foraging.rs"
@@ -9981,13 +9981,6 @@ rule = "raw-string-branch"
 path = "crates/strategic-web/src/routes/developer_quests.rs"
 item = "trigger_incident"
 fingerprint = "string:trigger_development_scenario_incident"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/strategic-web/src/routes/dialogue.rs"
-item = "DialoguePromptRowId<'a>::parse"
-fingerprint = "string::prompt:"
 occurrences = 1
 
 [[findings]]

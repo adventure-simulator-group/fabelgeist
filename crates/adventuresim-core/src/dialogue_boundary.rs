@@ -2,8 +2,10 @@
 
 use std::{convert::Infallible, fmt};
 
+pub use prompt_id::{DialoguePromptIdentityError, DialoguePromptRowId};
 pub use session_id::{DialogueSessionId, DialogueSessionIdentityError};
 
+mod prompt_id;
 mod session_id;
 
 /// Observer-safe result of attempting to start a public dialogue.

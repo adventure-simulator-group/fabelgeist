@@ -20,6 +20,7 @@
 pub mod bot;
 pub mod combat;
 pub mod control;
+mod dialogue;
 pub mod equipment;
 #[cfg(feature = "iteration")]
 pub mod iteration;

@@ -1,6 +1,6 @@
 // Tactical HUD and loading screen in DOM. The wasm client computes what they
-// show and calls the window.hud_* functions defined here, only when a value
-// changed (crates/adventuresim-tactical-client/src/hud.rs). A host page calls
+// show and calls the window.hud_* functions for state changes and action notices
+// (crates/adventuresim-tactical-client/src/hud.rs). A host page calls
 // installTacticalHud before it boots the client, because the client calls
 // these functions from its first frame.
 
@@ -109,6 +109,9 @@ export function installTacticalHud({ container, command }) {
     icons.set(key, canvas.toDataURL());
   };
   const views = {
+    dialogue(view) {
+      document.dispatchEvent(new CustomEvent("tactical-dialogue", { detail: view }));
+    },
     wheels(view) {
       following = drawWheels(wheels, view);
     },

@@ -1,5 +1,7 @@
 import { installStrategicScene } from "./strategic-scene.js?v=regional-map-1";
-import { installTacticalHud } from "/tactical/tactical-hud.js";
+import { installTacticalHud } from "/tactical/tactical-hud.js?v=live-dialogue-1";
+import { installLiveDialogue } from "./live-dialogue.js";
+import { installLiveDialoguePanel } from "./live-dialogue-panel.js";
 const surface = document.querySelector("#strategic-render-surface");
 const canvas = surface?.querySelector("#game-canvas");
 let runtimePromise;
@@ -166,6 +168,8 @@ const forgeHostContains = (event) => {
 if (surface && canvas) {
   // The HUD must exist before the client's first frame calls into it.
   installTacticalHud({ container: surface, command });
+  installLiveDialogue(command);
+  installLiveDialoguePanel();
   runtimePromise = import("/tactical/wasm/adventuresim-tactical-client.js")
     .then(async (runtime) => {
       const response = await fetch("/tactical/wasm/adventuresim-tactical-client_bg.wasm");

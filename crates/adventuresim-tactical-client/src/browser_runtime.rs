@@ -4,7 +4,10 @@
 //! character rigs and camera views alongside the tactical plugin graph.
 //! Changing modes preserves the Wasm application, WebGPU device and assets.
 
+use protocol::{BrowserCommand, StrategicScene};
+
 mod forge_view;
+mod protocol;
 mod ui_input;
 use std::{
     collections::VecDeque,
@@ -18,7 +21,6 @@ use bevy::{
     mesh::{Indices, PrimitiveTopology},
     prelude::*,
 };
-use serde::Deserialize;
 
 use crate::weapon_preview_material::preview_material;
 
@@ -31,58 +33,6 @@ pub(crate) enum BrowserMode {
     #[default]
     Strategic,
     Tactical,
-}
-
-#[derive(Debug, Deserialize)]
-#[serde(tag = "type", rename_all = "kebab-case")]
-enum BrowserCommand {
-    PrepareStrategicScene {
-        location: String,
-        input_json: String,
-        preparation: crate::presentation::generation::PreparationTicket,
-    },
-    SyncStrategicView {
-        view: crate::strategic_scene::protocol::StrategicView,
-    },
-    RegionalMap {
-        command: crate::presentation::regional_map::protocol::MapCommand,
-    },
-    ShowStrategicScene {
-        scene: StrategicScene,
-    },
-    OrbitForge {
-        delta_x: f32,
-        delta_y: f32,
-    },
-    ZoomForge {
-        delta: f32,
-    },
-    HideForgePreview,
-    EnterTactical {
-        server_addr: String,
-        character_id: u64,
-    },
-    ExitTactical,
-    /// The loading screen's Retry button.
-    RetryTacticalLoad,
-    /// A click on the equipment slot HUD.
-    PressSlotHud {
-        press: crate::equipment::SlotHudPress,
-    },
-}
-
-#[derive(Debug, Deserialize)]
-#[serde(tag = "type", rename_all = "kebab-case")]
-enum StrategicScene {
-    Forge {
-        #[serde(default = "default_catalog_id")]
-        catalog_id: String,
-        design_json: Option<String>,
-    },
-}
-
-fn default_catalog_id() -> String {
-    "longsword".into()
 }
 
 #[derive(Component)]
@@ -290,6 +240,7 @@ fn drain_browser_commands(
                 }
                 *mode = BrowserMode::Strategic;
             }
+            BrowserCommand::Dialogue { request } => commands.trigger(request),
             BrowserCommand::RetryTacticalLoad => commands.trigger(crate::loading_screen::RetryLoad),
             BrowserCommand::PressSlotHud { press } => commands.trigger(press),
         }

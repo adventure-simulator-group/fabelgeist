@@ -97,7 +97,12 @@ pub(super) fn prepare_behavior(mut agents: BehaviorActors, context: BehaviorCont
             })
         });
         match order.goal {
-            CharacterGoal::Talk { .. } => {}
+            CharacterGoal::Talk { .. } => {
+                if order.status == OrderStatus::Defending {
+                    order.status = OrderStatus::Executing;
+                }
+                select_counterattack(counterattacker, &mut agent, &mut order);
+            }
             CharacterGoal::Attack { target } => {
                 select_attack(
                     &context,
