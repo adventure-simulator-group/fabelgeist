@@ -245,3 +245,32 @@ test("closing after sidebar replacement restores the tab selected before convers
     assert.deepEqual(errors, []);
   } finally { await browser.close(); }
 });
+
+test("an open character dialog keeps Escape ownership ahead of conversation", async () => {
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage();
+    const { errors } = await open(page);
+    await begin(page);
+    await page.getByText('Resident revision 1.', { exact: false }).waitFor();
+    await page.evaluate(() => {
+      const modal = document.createElement('section');
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-label', 'Character inspection');
+      modal.innerHTML = '<button type="button">Close inspection</button>';
+      modal.style.cssText = 'position:fixed;top:0;right:0;z-index:5000;background:#181713';
+      document.body.append(modal);
+      modal.addEventListener('keydown', event => {
+        if (event.key === 'Escape') { event.preventDefault(); modal.remove(); }
+      });
+      modal.querySelector('button').focus();
+    });
+    await page.getByRole('button', { name: 'Close inspection' }).press('Escape');
+    assert.equal(await page.getByRole('dialog').count(), 0);
+    assert.equal(await page.getByRole('tab', { name: 'Conversation' }).isVisible(), true);
+    assert.equal(await page.evaluate(() => commands.some(command => command.request?.action === 'Close')), false);
+    await page.getByRole('tab', { name: 'Conversation' }).press('Escape');
+    assert.equal(await page.locator('[data-panel-tab="dialogue"]').count(), 0);
+    assert.deepEqual(errors, []);
+  } finally { await browser.close(); }
+});

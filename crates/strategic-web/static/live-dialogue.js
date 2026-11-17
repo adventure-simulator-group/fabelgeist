@@ -83,6 +83,7 @@ export function installLiveDialogue(command) {
   }
   window.addEventListener("keydown", event => {
     if (event.key !== "Escape" || !current) return;
+    if (event.target.closest?.("dialog, [role='dialog'], .character-action-overlay")) return;
     event.preventDefault();
     event.stopImmediatePropagation();
     close();
