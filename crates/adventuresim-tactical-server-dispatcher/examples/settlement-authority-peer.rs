@@ -10,9 +10,13 @@ use adventuresim_stdb_client::spacetimedb_sdk::DbContext;
 use adventuresim_stdb_client::{DbConnection, create_tactical_server_for_request};
 use clap::Parser;
 
+#[path = "settlement_authority_peer/protocol.rs"]
+mod protocol;
+
 const REGISTRATION_TIMEOUT: Duration = Duration::from_secs(15);
 const ACCEPTANCE_PEER_LIFETIME: Duration = Duration::from_secs(240);
 const ACCEPTANCE_SERVER_ADDRESS: &str = "127.0.0.1:1";
+const PEER_POLL_INTERVAL: Duration = Duration::from_millis(10);
 
 #[derive(Parser)]
 struct Args {
@@ -29,59 +33,87 @@ struct Args {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let args = Args::parse();
-    let (registration, registered) = mpsc::channel();
-    let conn = DbConnection::builder()
-        .with_uri(args.url)
-        .with_database_name(args.database)
-        .with_token(Some(args.token))
-        .on_connect(move |ctx, _, _| {
-            let failed = registration.clone();
-            let completed = registration.clone();
-            if let Err(error) = ctx.reducers.create_tactical_server_for_request_then(
-                args.instance_id.clone(),
-                args.claim.clone(),
-                ACCEPTANCE_SERVER_ADDRESS.into(),
-                String::new(),
-                move |_, result| {
-                    let result = result.unwrap_or_else(|error| Err(error.to_string()));
-                    let _ = completed.send(result);
-                },
-            ) {
-                let _ = failed.send(Err(error.to_string()));
+    let conn = Args::parse().connect()?;
+    println!("READY");
+    let requests = protocol::input();
+    let start = Instant::now();
+    while start.elapsed() < ACCEPTANCE_PEER_LIFETIME {
+        conn.frame_tick()?;
+        while let Ok(command) = requests.try_recv() {
+            if matches!(command.dispatch(&conn), protocol::PeerControl::Stop) {
+                conn.disconnect()?;
+                while conn.advance_one_message_blocking().is_ok() {}
+                return Ok(());
             }
-        })
-        .build()?;
+        }
+        std::thread::sleep(PEER_POLL_INTERVAL);
+    }
+    conn.disconnect()?;
+    while conn.advance_one_message_blocking().is_ok() {}
+    Ok(())
+}
+
+impl Args {
+    fn connect(self) -> Result<DbConnection, Box<dyn std::error::Error>> {
+        let (registration, registered) = mpsc::channel();
+        let conn = DbConnection::builder()
+            .with_uri(self.url)
+            .with_database_name(self.database)
+            .with_token(Some(self.token))
+            .on_connect(move |ctx, _, _| {
+                let failed = registration.clone();
+                let completed = registration.clone();
+                if let Err(error) = ctx.reducers.create_tactical_server_for_request_then(
+                    self.instance_id.clone(),
+                    self.claim.clone(),
+                    ACCEPTANCE_SERVER_ADDRESS.into(),
+                    String::new(),
+                    move |_, result| {
+                        let result = result.unwrap_or_else(|error| Err(error.to_string()));
+                        let _ = completed.send(result);
+                    },
+                ) {
+                    let _ = failed.send(Err(error.to_string()));
+                }
+            })
+            .build()?;
+        await_ready(&conn, registered)?;
+        let (applied, ready) = mpsc::channel();
+        let failed = applied.clone();
+        conn.subscription_builder()
+            .on_applied(move |_| {
+                let _ = applied.send(Ok(()));
+            })
+            .on_error(move |_, error| {
+                let _ = failed.send(Err(error.to_string()));
+            })
+            .subscribe(["SELECT * FROM connected_players"]);
+        await_ready(&conn, ready)?;
+        Ok(conn)
+    }
+}
+
+fn await_ready(
+    conn: &DbConnection,
+    ready: mpsc::Receiver<Result<(), String>>,
+) -> Result<(), Box<dyn std::error::Error>> {
     let start = Instant::now();
     loop {
         conn.frame_tick()?;
-        match registered.try_recv() {
+        match ready.try_recv() {
             Ok(result) => {
                 result.map_err(io::Error::other)?;
                 break;
             }
             Err(mpsc::TryRecvError::Disconnected) => {
-                return Err(io::Error::other("Registration callback disappeared").into());
+                return Err(io::Error::other("Peer readiness callback disappeared").into());
             }
             Err(mpsc::TryRecvError::Empty) => {}
         }
         if start.elapsed() >= REGISTRATION_TIMEOUT {
-            return Err(io::Error::other("Scene registration timed out").into());
+            return Err(io::Error::other("Scene peer readiness timed out").into());
         }
-        std::thread::sleep(Duration::from_millis(10));
+        std::thread::sleep(PEER_POLL_INTERVAL);
     }
-    println!("READY");
-    let (stop, stopped) = mpsc::channel();
-    std::thread::spawn(move || {
-        let mut line = String::new();
-        let _ = io::stdin().read_line(&mut line);
-        let _ = stop.send(());
-    });
-    while stopped.try_recv().is_err() && start.elapsed() < ACCEPTANCE_PEER_LIFETIME {
-        conn.frame_tick()?;
-        std::thread::sleep(Duration::from_millis(10));
-    }
-    conn.disconnect()?;
-    while conn.advance_one_message_blocking().is_ok() {}
     Ok(())
 }

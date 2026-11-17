@@ -31,19 +31,21 @@ pub(super) fn provision_generated_weapon_carry(
             sheathable.len()
         ));
     }
+    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+    let actor = CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?;
 
     let belt =
         add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?;
     let belt_placement = authored_placement_index(ctx, BELT_ID, WORN_PLACEMENT_ID)?;
-    equip_equipment_internal(
-        ctx,
-        character_id,
-        belt,
-        belt_placement,
-        Vec::new(),
-        false,
-        false,
-    )?;
+    EquipmentPlacementChange {
+        actor,
+        inventory: InventoryRowId::try_new(belt).map_err(|error| error.to_string())?,
+        placement: EquipmentPlacementIndex::new(belt_placement),
+        targets: Vec::new(),
+        policy: EquipmentEffectPolicy::LoadoutAssembly,
+        conflicts: EquipmentConflictPolicy::RejectOccupied,
+    }
+    .apply(ctx)?;
 
     for (weapon, hip) in sheathable.iter().zip(WEAPON_CARRY_HIP_PLACEMENTS) {
         let holder_id = match adventuresim_weapon_model::recommended_holder(&weapon.item_id) {
@@ -60,20 +62,20 @@ pub(super) fn provision_generated_weapon_carry(
             .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
         crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
         let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
-        equip_equipment_internal(
-            ctx,
-            character_id,
-            holder,
-            holder_placement,
-            vec![EquipmentAttachmentTargetSelection {
+        EquipmentPlacementChange {
+            actor,
+            inventory: InventoryRowId::try_new(holder).map_err(|error| error.to_string())?,
+            placement: EquipmentPlacementIndex::new(holder_placement),
+            targets: vec![EquipmentAttachmentTargetSelection {
                 requirement_index: 0,
                 parent_inventory_item_id: belt,
                 attachment_point_id: hip.into(),
             }],
-            false,
-            false,
-        )?;
-        place_unheld_weapon_in_sheath(ctx, character_id, weapon, holder)?;
+            policy: EquipmentEffectPolicy::LoadoutAssembly,
+            conflicts: EquipmentConflictPolicy::RejectOccupied,
+        }
+        .apply(ctx)?;
+        place_unheld_weapon_in_sheath(ctx, actor, weapon, holder)?;
     }
     Ok(())
 }
@@ -93,7 +95,7 @@ pub(super) fn select_sheath_compatible_parent_placement(
 
 fn place_unheld_weapon_in_sheath(
     ctx: &ReducerContext,
-    character_id: u64,
+    actor: CustodyCharacterId,
     weapon: &crate::item::InventoryItem,
     sheath: u64,
 ) -> Result<(), String> {
@@ -107,19 +109,19 @@ fn place_unheld_weapon_in_sheath(
         return Ok(());
     }
     let placement = sheath_compatible_parent_placement_index(ctx, &weapon.item_id)?;
-    equip_equipment_internal(
-        ctx,
-        character_id,
-        weapon.id,
-        placement,
-        vec![EquipmentAttachmentTargetSelection {
+    EquipmentPlacementChange {
+        actor,
+        inventory: InventoryRowId::try_new(weapon.id).map_err(|error| error.to_string())?,
+        placement: EquipmentPlacementIndex::new(placement),
+        targets: vec![EquipmentAttachmentTargetSelection {
             requirement_index: 0,
             parent_inventory_item_id: sheath,
             attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into(),
         }],
-        false,
-        false,
-    )
+        policy: EquipmentEffectPolicy::LoadoutAssembly,
+        conflicts: EquipmentConflictPolicy::RejectOccupied,
+    }
+    .apply(ctx)
 }
 
 fn authored_placement_index(

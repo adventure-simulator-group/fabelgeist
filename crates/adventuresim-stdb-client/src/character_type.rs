@@ -5,6 +5,7 @@
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 use super::contextual_decision_state_type::ContextualDecisionState;
+use super::tactical_admission_generation_type::TacticalAdmissionGeneration;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
@@ -17,6 +18,7 @@ pub struct Character {
     pub current_settlement_id: Option<String>,
     pub party_id: Option<String>,
     pub server: __sdk::Identity,
+    pub tactical_admission: TacticalAdmissionGeneration,
     pub temporary: bool,
     pub age_years: u16,
     pub alive: bool,
@@ -39,6 +41,7 @@ pub struct CharacterCols {
     pub current_settlement_id: __sdk::__query_builder::Col<Character, Option<String>>,
     pub party_id: __sdk::__query_builder::Col<Character, Option<String>>,
     pub server: __sdk::__query_builder::Col<Character, __sdk::Identity>,
+    pub tactical_admission: __sdk::__query_builder::Col<Character, TacticalAdmissionGeneration>,
     pub temporary: __sdk::__query_builder::Col<Character, bool>,
     pub age_years: __sdk::__query_builder::Col<Character, u16>,
     pub alive: __sdk::__query_builder::Col<Character, bool>,
@@ -60,6 +63,7 @@ impl __sdk::__query_builder::HasCols for Character {
             ),
             party_id: __sdk::__query_builder::Col::new(table_name, "party_id"),
             server: __sdk::__query_builder::Col::new(table_name, "server"),
+            tactical_admission: __sdk::__query_builder::Col::new(table_name, "tactical_admission"),
             temporary: __sdk::__query_builder::Col::new(table_name, "temporary"),
             age_years: __sdk::__query_builder::Col::new(table_name, "age_years"),
             alive: __sdk::__query_builder::Col::new(table_name, "alive"),

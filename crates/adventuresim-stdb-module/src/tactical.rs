@@ -13,7 +13,7 @@ pub use consequence::{
 use entry::leave_tactical_scene_for_server;
 pub use entry::{enter_tactical_scene, leave_tactical_scene};
 pub use hosting::{tactical_server, tactical_server_request};
-pub use inventory::{ConnectedEquipmentOccupancy, ConnectedInventory, ConnectedPlayerItem};
+pub use inventory::{ConnectedInventory, ConnectedPlayerItem};
 pub use profile::{ConnectedPlayer, TacticalActorRole, connected_players};
 pub use provisioning::record_tactical_scene_provisioning_failure;
 pub use registration::create_tactical_server_for_request;
@@ -47,6 +47,7 @@ pub(crate) mod dialogue;
 mod entry;
 mod hosting;
 mod inventory;
+mod inventory_commands;
 pub(crate) mod local_time;
 mod profile;
 mod provisioning;
@@ -426,18 +427,6 @@ pub fn end_tactical_server(
     end_tactical_server_by_instance(ctx, server, resolution, receipt)
 }
 
-fn receipt_limb(body_part: TacticalReceiptBodyPart) -> adventuresim_core::physiology::BodyRegion {
-    match body_part {
-        TacticalReceiptBodyPart::LeftArm => adventuresim_core::physiology::BodyRegion::LeftArm,
-        TacticalReceiptBodyPart::RightArm => adventuresim_core::physiology::BodyRegion::RightArm,
-        TacticalReceiptBodyPart::LeftLeg => adventuresim_core::physiology::BodyRegion::LeftLeg,
-        TacticalReceiptBodyPart::RightLeg => adventuresim_core::physiology::BodyRegion::RightLeg,
-        TacticalReceiptBodyPart::Chest => adventuresim_core::physiology::BodyRegion::Chest,
-        TacticalReceiptBodyPart::Stomach => adventuresim_core::physiology::BodyRegion::Abdomen,
-        TacticalReceiptBodyPart::Head => adventuresim_core::physiology::BodyRegion::Head,
-    }
-}
-
 fn validate_tactical_receipt(
     ctx: &ReducerContext,
     server: &TacticalServer,
@@ -599,7 +588,7 @@ fn apply_tactical_receipt(
             crate::surgery::commit_aggregated_hit_injury(
                 ctx,
                 consequence.character_id,
-                receipt_limb(injury.body_part),
+                injury.body_part.into(),
                 injury.cut_damage,
                 injury.blunt_damage,
                 injury.max_single_hit_blunt_damage,

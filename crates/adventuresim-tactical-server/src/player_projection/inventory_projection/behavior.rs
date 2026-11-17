@@ -1,7 +1,9 @@
 //! Inventory refresh exercises the owning ECS relationships and live bodies.
 
 use adventuresim_core::prelude::PlayerEquipment;
-use adventuresim_stdb_client::{ConnectedInventory, ConnectedPlayerItem, TacticalActorTime};
+use adventuresim_stdb_client::{
+    ConnectedInventory, ConnectedInventorySnapshot, ConnectedPlayerItem, TacticalActorTime,
+};
 use adventuresim_tactical_core::{
     inventory::{InventoryViewer, ItemProperties},
     prelude::*,
@@ -33,7 +35,11 @@ fn snapshot(character: u64, items: Vec<ConnectedPlayerItem>) -> ConnectedActorIn
     ConnectedActorInventory {
         character: CharacterId(character),
         time: TacticalActorTime::MissionSnapshot,
-        inventory: ConnectedInventory::Available(items),
+        inventory: ConnectedInventory::Available(ConnectedInventorySnapshot {
+            scope: vec![1; 32],
+            revision: vec![2; 32],
+            items,
+        }),
     }
 }
 
@@ -146,10 +152,51 @@ fn invalid_snapshot_cannot_partly_replace_an_existing_inventory() {
     bad.carried_mass_kg = 1.0;
     bad.quantity = 0;
     assert!(refresh_snapshots(&mut world, vec![snapshot(1, vec![bad])]).is_err());
+    for invalid_scope in [true, false] {
+        let mut malformed = snapshot(1, vec![item(11, 1, 2.0, 0.5)]);
+        let ConnectedInventory::Available(data) = &mut malformed.inventory else {
+            panic!("Fixture inventory must be available");
+        };
+        if invalid_scope {
+            data.scope.pop();
+        } else {
+            data.revision.clear();
+        }
+        assert!(refresh_snapshots(&mut world, vec![malformed]).is_err());
+        assert_eq!(row_entity(&mut world, 11), entity);
+    }
     assert_eq!(load(&mut world, owner), 2.0);
     assert_eq!(
         world.get::<EquipmentActionState>(owner).unwrap().revision,
         EquipmentRevision::INITIAL
+    );
+}
+
+#[test]
+fn material_token_change_invalidates_actions_without_replacing_inventory_or_body() {
+    let mut world = World::new();
+    world.insert_resource(TacticalCombatConfig::default());
+    let owner = actor(&mut world, 1);
+    refresh_snapshots(&mut world, vec![snapshot(1, vec![item(11, 1, 2.0, 2.0)])]).unwrap();
+    let entity = row_entity(&mut world, 11);
+    for _ in 0..2 {
+        let mut material = snapshot(1, vec![item(11, 1, 2.0, 2.0)]);
+        let ConnectedInventory::Available(data) = &mut material.inventory else {
+            panic!("Fixture inventory must be available");
+        };
+        // Material quality can change without changing the projected item rows.
+        data.revision[0] ^= 1;
+        refresh_snapshots(&mut world, vec![material]).unwrap();
+    }
+    assert_eq!(row_entity(&mut world, 11), entity);
+    assert_eq!(load(&mut world, owner), 2.0);
+    assert_eq!(
+        world.get::<EquipmentActionState>(owner).unwrap().revision,
+        EquipmentRevision::INITIAL.next()
+    );
+    assert_eq!(
+        world.get::<TacticalCombatState>(owner).unwrap().fatigue,
+        0.25
     );
 }
 

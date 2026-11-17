@@ -99,7 +99,7 @@ pub fn enter_tactical_scene(
         }
     }
 
-    character.server = server.identity;
+    character.assign_tactical_server(server.identity)?;
     ctx.db.character().id().update(character);
 
     Ok(())
@@ -141,7 +141,7 @@ pub(super) fn leave_tactical_scene_for_server(
         crate::character::delete_temporary_character(ctx, character)?;
     } else {
         log::info!("Leaving scene for character #{character_id}: resetting server info..");
-        character.server = Identity::ZERO;
+        character.clear_tactical_server();
         ctx.db.character().id().update(character);
     }
 

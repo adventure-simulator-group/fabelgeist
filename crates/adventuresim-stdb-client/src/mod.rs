@@ -258,6 +258,7 @@ pub mod clear_browser_character_selection_reducer;
 pub mod clear_organization_presentation_reducer;
 pub mod close_tactical_dialogue_reducer;
 pub mod collect_fixture_water_into_container_reducer;
+pub mod commit_tactical_inventory_reducer;
 pub mod commitment_event_type;
 pub mod commitment_kind_type;
 pub mod commitment_status_type;
@@ -267,6 +268,7 @@ pub mod conception_trial_receipt_type;
 pub mod configure_settlement_residents_reducer;
 pub mod configure_simulation_character_reducer;
 pub mod connected_equipment_occupancy_type;
+pub mod connected_inventory_snapshot_type;
 pub mod connected_inventory_type;
 pub mod connected_player_item_type;
 pub mod connected_player_type;
@@ -382,6 +384,7 @@ pub mod equipment_anchor_kind_type;
 pub mod equipment_attachment_target_selection_type;
 pub mod equipment_body_part_type;
 pub mod equipment_channel_type;
+pub mod equipment_conflict_policy_type;
 pub mod equipment_fit_zone_type;
 pub mod equipment_location_type;
 pub mod equipment_occupancy_table;
@@ -945,6 +948,7 @@ pub mod surrender_to_authority_reducer;
 pub mod synchronize_party_for_activity_reducer;
 pub mod tactical_actor_role_type;
 pub mod tactical_actor_time_type;
+pub mod tactical_admission_generation_type;
 pub mod tactical_business_operator_type;
 pub mod tactical_character_consequence_type;
 pub mod tactical_consequence_receipt_type;
@@ -952,6 +956,15 @@ pub mod tactical_dialogue_authority_type;
 pub mod tactical_equipment_contact_role_type;
 pub mod tactical_equipment_contact_type;
 pub mod tactical_hit_injury_type;
+pub mod tactical_inventory_action_type;
+pub mod tactical_inventory_actor_state_type;
+pub mod tactical_inventory_command_type;
+pub mod tactical_inventory_container_insertion_type;
+pub mod tactical_inventory_equipment_placement_type;
+pub mod tactical_inventory_receipt_table;
+pub mod tactical_inventory_receipt_type;
+pub mod tactical_inventory_transfer_type;
+pub mod tactical_inventory_water_disposal_type;
 pub mod tactical_mission_resolution_type;
 pub mod tactical_mission_session_type;
 pub mod tactical_provisioning_status_type;
@@ -1269,6 +1282,7 @@ pub use clear_browser_character_selection_reducer::clear_browser_character_selec
 pub use clear_organization_presentation_reducer::clear_organization_presentation;
 pub use close_tactical_dialogue_reducer::close_tactical_dialogue;
 pub use collect_fixture_water_into_container_reducer::collect_fixture_water_into_container;
+pub use commit_tactical_inventory_reducer::commit_tactical_inventory;
 pub use commitment_event_type::CommitmentEvent;
 pub use commitment_kind_type::CommitmentKind;
 pub use commitment_status_type::CommitmentStatus;
@@ -1278,6 +1292,7 @@ pub use conception_trial_receipt_type::ConceptionTrialReceipt;
 pub use configure_settlement_residents_reducer::configure_settlement_residents;
 pub use configure_simulation_character_reducer::configure_simulation_character;
 pub use connected_equipment_occupancy_type::ConnectedEquipmentOccupancy;
+pub use connected_inventory_snapshot_type::ConnectedInventorySnapshot;
 pub use connected_inventory_type::ConnectedInventory;
 pub use connected_player_item_type::ConnectedPlayerItem;
 pub use connected_player_type::ConnectedPlayer;
@@ -1393,6 +1408,7 @@ pub use equipment_anchor_kind_type::EquipmentAnchorKind;
 pub use equipment_attachment_target_selection_type::EquipmentAttachmentTargetSelection;
 pub use equipment_body_part_type::EquipmentBodyPart;
 pub use equipment_channel_type::EquipmentChannel;
+pub use equipment_conflict_policy_type::EquipmentConflictPolicy;
 pub use equipment_fit_zone_type::EquipmentFitZone;
 pub use equipment_location_type::EquipmentLocation;
 pub use equipment_occupancy_table::*;
@@ -1956,6 +1972,7 @@ pub use surrender_to_authority_reducer::surrender_to_authority;
 pub use synchronize_party_for_activity_reducer::synchronize_party_for_activity;
 pub use tactical_actor_role_type::TacticalActorRole;
 pub use tactical_actor_time_type::TacticalActorTime;
+pub use tactical_admission_generation_type::TacticalAdmissionGeneration;
 pub use tactical_business_operator_type::TacticalBusinessOperator;
 pub use tactical_character_consequence_type::TacticalCharacterConsequence;
 pub use tactical_consequence_receipt_type::TacticalConsequenceReceipt;
@@ -1963,6 +1980,15 @@ pub use tactical_dialogue_authority_type::TacticalDialogueAuthority;
 pub use tactical_equipment_contact_role_type::TacticalEquipmentContactRole;
 pub use tactical_equipment_contact_type::TacticalEquipmentContact;
 pub use tactical_hit_injury_type::TacticalHitInjury;
+pub use tactical_inventory_action_type::TacticalInventoryAction;
+pub use tactical_inventory_actor_state_type::TacticalInventoryActorState;
+pub use tactical_inventory_command_type::TacticalInventoryCommand;
+pub use tactical_inventory_container_insertion_type::TacticalInventoryContainerInsertion;
+pub use tactical_inventory_equipment_placement_type::TacticalInventoryEquipmentPlacement;
+pub use tactical_inventory_receipt_table::*;
+pub use tactical_inventory_receipt_type::TacticalInventoryReceipt;
+pub use tactical_inventory_transfer_type::TacticalInventoryTransfer;
+pub use tactical_inventory_water_disposal_type::TacticalInventoryWaterDisposal;
 pub use tactical_mission_resolution_type::TacticalMissionResolution;
 pub use tactical_mission_session_type::TacticalMissionSession;
 pub use tactical_provisioning_status_type::TacticalProvisioningStatus;
@@ -2217,6 +2243,9 @@ pub enum Reducer {
         expected_capability_version: u32,
         container_object_id: u64,
         requested_ml: u64,
+    },
+    CommitTacticalInventory {
+        request: TacticalInventoryCommand,
     },
     ConfigureSettlementResidents {
         area: TacticalResidentArea,
@@ -3049,6 +3078,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::CollectFixtureWaterIntoContainer { .. } => {
                 "collect_fixture_water_into_container"
             }
+            Reducer::CommitTacticalInventory { .. } => "commit_tactical_inventory",
             Reducer::ConfigureSettlementResidents { .. } => "configure_settlement_residents",
             Reducer::ConfigureSimulationCharacter { .. } => "configure_simulation_character",
             Reducer::ContactContextCharacter { .. } => "contact_context_character",
@@ -3552,6 +3582,11 @@ impl __sdk::Reducer for Reducer {
                 expected_capability_version: expected_capability_version.clone(),
                 container_object_id: container_object_id.clone(),
                 requested_ml: requested_ml.clone(),
+}),
+            Reducer::CommitTacticalInventory{
+                request,
+}             => __sats::bsatn::to_vec(&commit_tactical_inventory_reducer::CommitTacticalInventoryArgs {
+                request: request.clone(),
 }),
             Reducer::ConfigureSettlementResidents{
                 area,
@@ -5105,6 +5140,7 @@ pub struct DbUpdate {
     simulation_run: __sdk::TableUpdate<SimulationRun>,
     strategic_encounter: __sdk::TableUpdate<StrategicEncounter>,
     strategic_gateway_authority: __sdk::TableUpdate<StrategicGatewayAuthority>,
+    tactical_inventory_receipt: __sdk::TableUpdate<TacticalInventoryReceipt>,
     tactical_server: __sdk::TableUpdate<TacticalServer>,
     tactical_server_request: __sdk::TableUpdate<TacticalServerRequest>,
     travel_edge: __sdk::TableUpdate<TravelEdge>,
@@ -5582,6 +5618,9 @@ impl TryFrom<__ws::v2::TransactionUpdate> for DbUpdate {
                     .append(strategic_encounter_table::parse_table_update(table_update)?),
                 "strategic_gateway_authority" => db_update.strategic_gateway_authority.append(
                     strategic_gateway_authority_table::parse_table_update(table_update)?,
+                ),
+                "tactical_inventory_receipt" => db_update.tactical_inventory_receipt.append(
+                    tactical_inventory_receipt_table::parse_table_update(table_update)?,
                 ),
                 "tactical_server" => db_update
                     .tactical_server
@@ -6202,6 +6241,10 @@ impl __sdk::DbUpdate for DbUpdate {
             "simulation_quest_fixture",
             &self.simulation_quest_fixture,
         );
+        diff.tactical_inventory_receipt = cache.apply_diff_to_table::<TacticalInventoryReceipt>(
+            "tactical_inventory_receipt",
+            &self.tactical_inventory_receipt,
+        );
         diff.tactical_server =
             cache.apply_diff_to_table::<TacticalServer>("tactical_server", &self.tactical_server);
         diff.tactical_server_request = cache.apply_diff_to_table::<TacticalServerRequest>(
@@ -6604,6 +6647,9 @@ impl __sdk::DbUpdate for DbUpdate {
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "strategic_gateway_authority" => db_update
                     .strategic_gateway_authority
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "tactical_inventory_receipt" => db_update
+                    .tactical_inventory_receipt
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "tactical_server" => db_update
                     .tactical_server
@@ -7026,6 +7072,9 @@ impl __sdk::DbUpdate for DbUpdate {
                 "strategic_gateway_authority" => db_update
                     .strategic_gateway_authority
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "tactical_inventory_receipt" => db_update
+                    .tactical_inventory_receipt
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "tactical_server" => db_update
                     .tactical_server
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
@@ -7200,6 +7249,7 @@ pub struct AppliedDiff<'r> {
     simulation_run: __sdk::TableAppliedDiff<'r, SimulationRun>,
     strategic_encounter: __sdk::TableAppliedDiff<'r, StrategicEncounter>,
     strategic_gateway_authority: __sdk::TableAppliedDiff<'r, StrategicGatewayAuthority>,
+    tactical_inventory_receipt: __sdk::TableAppliedDiff<'r, TacticalInventoryReceipt>,
     tactical_server: __sdk::TableAppliedDiff<'r, TacticalServer>,
     tactical_server_request: __sdk::TableAppliedDiff<'r, TacticalServerRequest>,
     travel_edge: __sdk::TableAppliedDiff<'r, TravelEdge>,
@@ -7843,6 +7893,11 @@ impl<'r> __sdk::AppliedDiff<'r> for AppliedDiff<'r> {
         callbacks.invoke_table_row_callbacks::<StrategicGatewayAuthority>(
             "strategic_gateway_authority",
             &self.strategic_gateway_authority,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<TacticalInventoryReceipt>(
+            "tactical_inventory_receipt",
+            &self.tactical_inventory_receipt,
             event,
         );
         callbacks.invoke_table_row_callbacks::<TacticalServer>(
@@ -8653,6 +8708,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         simulation_run_table::register_table(client_cache);
         strategic_encounter_table::register_table(client_cache);
         strategic_gateway_authority_table::register_table(client_cache);
+        tactical_inventory_receipt_table::register_table(client_cache);
         tactical_server_table::register_table(client_cache);
         tactical_server_request_table::register_table(client_cache);
         travel_edge_table::register_table(client_cache);
@@ -8791,6 +8847,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         "simulation_run",
         "strategic_encounter",
         "strategic_gateway_authority",
+        "tactical_inventory_receipt",
         "tactical_server",
         "tactical_server_request",
         "travel_edge",

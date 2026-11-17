@@ -1,5 +1,6 @@
 //! Durable consequences submitted at the end of a tactical mission.
 
+use adventuresim_core::physiology::BodyRegion;
 use spacetimedb::SpacetimeType;
 
 #[derive(Clone, Debug, PartialEq, SpacetimeType)]
@@ -58,4 +59,18 @@ pub enum TacticalReceiptBodyPart {
 pub enum TacticalEquipmentContactRole {
     AttackerWeapon,
     DefenderEquipment,
+}
+
+impl From<TacticalReceiptBodyPart> for BodyRegion {
+    fn from(body_part: TacticalReceiptBodyPart) -> Self {
+        match body_part {
+            TacticalReceiptBodyPart::LeftArm => Self::LeftArm,
+            TacticalReceiptBodyPart::RightArm => Self::RightArm,
+            TacticalReceiptBodyPart::LeftLeg => Self::LeftLeg,
+            TacticalReceiptBodyPart::RightLeg => Self::RightLeg,
+            TacticalReceiptBodyPart::Chest => Self::Chest,
+            TacticalReceiptBodyPart::Stomach => Self::Abdomen,
+            TacticalReceiptBodyPart::Head => Self::Head,
+        }
+    }
 }

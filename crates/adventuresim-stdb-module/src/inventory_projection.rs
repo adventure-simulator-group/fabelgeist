@@ -6,9 +6,12 @@ use adventuresim_core::{
 use spacetimedb::SpacetimeType;
 
 pub(crate) use mass::personal_row_mass;
+pub(crate) use revision::{admission_scope, inventory_revision};
 
 mod custody;
+mod footprint;
 mod mass;
+mod revision;
 
 pub(crate) struct InventoryRowMass {
     pub object_id: Option<PhysicalObjectId>,
@@ -19,6 +22,10 @@ pub(crate) struct InventoryRowMass {
 
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
 pub enum InventoryProjectionError {
+    #[error("inventory actor is not currently admitted to this host")]
+    InvalidAuthority,
+    #[error("inventory snapshot cannot be encoded consistently")]
+    InvalidEncoding,
     #[error("inventory row has no catalog definition")]
     MissingDefinition,
     #[error("inventory row has an invalid quantity")]

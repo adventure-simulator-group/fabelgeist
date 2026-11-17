@@ -6,8 +6,10 @@ use thiserror::Error;
 
 use crate::{mission::MissionId, strategic_place::StrategicIdentityComponent};
 
+pub use admission::{TacticalAdmissionGeneration, TacticalAdmissionGenerationError};
 pub use visit_id::{LocalSceneVisitId, LocalSceneVisitIdentityError};
 
+mod admission;
 mod visit_id;
 
 const MISSION_INSTANCE_PREFIX: &str = "scene:mission:";

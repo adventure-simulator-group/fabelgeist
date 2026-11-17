@@ -7,9 +7,10 @@
 use adventuresim_core::{
     inventory_containers::{ContainmentGraph, Object},
     item_references::STANDARD_WATERSKIN_ID,
-    material::{Microliters, Milliliters},
+    material::Milliliters,
     physical_object::{
-        CarriedInventoryScope, InventoryLocation, OperationalCustody, PhysicalObjectId,
+        CarriedInventoryScope, CustodyCharacterId, InventoryLocation, OperationalCustody,
+        PhysicalObjectId,
     },
 };
 use spacetimedb::{ReducerContext, Table, reducer, table};
@@ -22,8 +23,10 @@ use crate::{
     party_item_amount,
 };
 
+mod effects;
 mod object_lookup;
 
+pub(crate) use effects::{ContainedItemRemoval, ContainerInsertion, ContainerWaterDisposal};
 pub(crate) use object_lookup::{
     ancestry_reaches_fireplace, object_for_row, row_is_fireplace_rooted,
 };
@@ -579,31 +582,6 @@ fn require_exact_carried_backing(
 #[cfg(test)]
 mod tests {
     #[test]
-    fn generic_solid_containers_are_authoring_driven() {
-        let source = include_str!("inventory_container.rs")
-            .rsplit_once("pub(crate) fn require_object")
-            .expect("post-test production section")
-            .1;
-        assert!(source.contains("parent_definition.container_capacity_ml == 0"));
-        assert!(!source.contains("GENERIC_CONTAINER_IDS"));
-    }
-
-    #[test]
-    fn direct_object_mutators_require_resolved_actor_custody() {
-        let source = include_str!("inventory_container.rs")
-            .rsplit_once("pub(crate) fn require_object")
-            .expect("post-test production section")
-            .1;
-        for reducer in [
-            "pub fn remove_inventory_item_from_container",
-            "pub fn discard_container_water",
-        ] {
-            let body = source.split(reducer).nth(1).expect("direct object reducer");
-            assert!(body.contains("require_actor_carried_object"));
-        }
-    }
-
-    #[test]
     fn subtree_alias_failure_is_preflighted_before_every_delete() {
         let deletion = include_str!("inventory_container.rs")
             .split("pub(crate) fn delete_subtree")
@@ -617,31 +595,6 @@ mod tests {
         let first_delete = deletion.find(".delete(").unwrap();
         assert!(descendant_validation < completed_preflight);
         assert!(completed_preflight < first_delete);
-    }
-
-    #[test]
-    fn water_exists_only_in_physical_containers() {
-        let source = include_str!("inventory_container.rs")
-            .rsplit_once("pub(crate) fn require_object")
-            .expect("post-test production section")
-            .1;
-        assert!(!source.contains("carried_water_ml"));
-        assert!(!source.contains("pooled_water_ml"));
-        assert!(!source.contains("pour_water_into_container"));
-        assert!(source.contains("take_container_water_contributions"));
-        let deletion = include_str!("inventory_container.rs")
-            .split("pub(crate) fn delete_subtree")
-            .nth(1)
-            .unwrap()
-            .split("fn require_exact_carried_backing")
-            .next()
-            .unwrap();
-        assert_eq!(
-            deletion
-                .matches("delete_container_water_contributions")
-                .count(),
-            1
-        );
     }
 }
 
@@ -972,69 +925,21 @@ pub fn put_inventory_item_in_container(
     parent_row_id: u64,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
-    crate::character::require_living_character(ctx, character_id)?;
-    let parent_scope = CarriedInventoryScope::try_from(parent_scope.as_str())
-        .map_err(|error| error.to_string())?;
+    crate::inventory_effects::require_non_live_actor(ctx, character_id)?;
     let child_scope =
         CarriedInventoryScope::try_from(child_scope.as_str()).map_err(|error| error.to_string())?;
-    let parent = require_object(ctx, character_id, parent_scope, parent_row_id)?;
-    let parent_definition = ctx
-        .db
-        .item()
-        .id()
-        .find(parent.item_id.clone())
-        .ok_or("Container definition not found")?;
-    if parent_definition.container_capacity_ml == 0 {
-        return Err("That item has no authored container capability".into());
+    let parent_scope = CarriedInventoryScope::try_from(parent_scope.as_str())
+        .map_err(|error| error.to_string())?;
+    let child = object_for_row(ctx, child_scope, child_row_id)?
+        .ok_or("Inventory row has no stable physical object identity")?;
+    let parent = object_for_row(ctx, parent_scope, parent_row_id)?
+        .ok_or("Inventory row has no stable physical object identity")?;
+    ContainerInsertion {
+        actor: CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?,
+        child: PhysicalObjectId::try_new(child.id).map_err(|error| error.to_string())?,
+        parent: PhysicalObjectId::try_new(parent.id).map_err(|error| error.to_string())?,
     }
-    let child = require_object(ctx, character_id, child_scope, child_row_id)?;
-    require_mutable(ctx, parent.id)?;
-    require_mutable(ctx, child.id)?;
-    if !parent.location.has_same_carried_custody(&child.location) {
-        return Err("Move the item to the container owner's inventory first".into());
-    }
-    if ctx
-        .db
-        .inventory_containment()
-        .child_object_id()
-        .find(child.id)
-        .is_some()
-    {
-        ctx.db
-            .inventory_containment()
-            .child_object_id()
-            .delete(child.id);
-    }
-    let mut model = graph(ctx)?;
-    model
-        .insert(
-            PhysicalObjectId::try_new(child.id).map_err(|error| error.to_string())?,
-            PhysicalObjectId::try_new(parent.id).map_err(|error| error.to_string())?,
-        )
-        .map_err(str::to_owned)?;
-    let definition = ctx
-        .db
-        .item()
-        .id()
-        .find(parent.item_id.clone())
-        .ok_or("Container definition not found")?;
-    let used = model
-        .used_volume(PhysicalObjectId::try_new(parent.id).map_err(|error| error.to_string())?)
-        .map_err(str::to_owned)?
-        .checked_add(Milliliters::new(liquid_used(ctx, parent.id)))
-        .ok_or("Container volume overflow")?;
-    if used > Milliliters::new(u64::from(definition.container_capacity_ml)) {
-        return Err(format!(
-            "Container capacity exceeded: {} ml used of {} ml",
-            used.get(),
-            definition.container_capacity_ml
-        ));
-    }
-    ctx.db.inventory_containment().insert(InventoryContainment {
-        child_object_id: child.id,
-        parent_object_id: parent.id,
-    });
-    Ok(())
+    .apply(ctx)
 }
 
 #[reducer]
@@ -1044,31 +949,12 @@ pub fn remove_inventory_item_from_container(
     child_object_id: u64,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
-    crate::character::require_living_character(ctx, character_id)?;
-    let child = ctx
-        .db
-        .inventory_object()
-        .id()
-        .find(child_object_id)
-        .ok_or("Contained object not found")?;
-    let actor = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
-    crate::object_custody::require_actor_carried_object(ctx, &actor, &child)?;
-    require_mutable(ctx, child_object_id)?;
-    ctx.db
-        .inventory_containment()
-        .child_object_id()
-        .find(child_object_id)
-        .ok_or("Object is not inside a container")?;
-    ctx.db
-        .inventory_containment()
-        .child_object_id()
-        .delete(child_object_id);
-    Ok(())
+    crate::inventory_effects::require_non_live_actor(ctx, character_id)?;
+    ContainedItemRemoval {
+        actor: CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?,
+        child: PhysicalObjectId::try_new(child_object_id).map_err(|error| error.to_string())?,
+    }
+    .apply(ctx)
 }
 
 #[reducer]
@@ -1079,54 +965,12 @@ pub fn discard_container_water(
     requested_ml: u64,
 ) -> Result<(), String> {
     crate::strategic::require_strategic_gateway(ctx)?;
-    if requested_ml == 0 {
-        return Err("Water amount must be positive".into());
+    crate::inventory_effects::require_non_live_actor(ctx, character_id)?;
+    ContainerWaterDisposal {
+        actor: CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?,
+        container: PhysicalObjectId::try_new(container_object_id)
+            .map_err(|error| error.to_string())?,
+        volume: Milliliters::new(requested_ml),
     }
-    let object = ctx
-        .db
-        .inventory_object()
-        .id()
-        .find(container_object_id)
-        .ok_or("Container object not found")?;
-    let actor = ctx
-        .db
-        .character()
-        .id()
-        .find(character_id)
-        .ok_or("Character not found")?;
-    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
-    require_mutable(ctx, container_object_id)?;
-    let mut liquid = ctx
-        .db
-        .container_liquid()
-        .container_object_id()
-        .find(container_object_id)
-        .ok_or("Container has no water")?;
-    if liquid.liquid_item_id != WATER_ITEM_ID {
-        return Err("Container does not hold water".into());
-    }
-    if liquid.water_ml < requested_ml {
-        return Err("Container does not hold that much water".into());
-    }
-    crate::outbreak::take_container_water_contributions(
-        ctx,
-        container_object_id,
-        Microliters::try_from_milliliters(Milliliters::new(liquid.water_ml))
-            .map_err(|_| "Container water volume is too large")?,
-        Microliters::try_from_milliliters(Milliliters::new(requested_ml))
-            .map_err(|_| "Requested water volume is too large")?,
-    )?;
-    liquid.water_ml -= requested_ml;
-    if liquid.water_ml == 0 {
-        ctx.db
-            .container_liquid()
-            .container_object_id()
-            .delete(container_object_id);
-    } else {
-        ctx.db
-            .container_liquid()
-            .container_object_id()
-            .update(liquid);
-    }
-    Ok(())
+    .apply(ctx)
 }
