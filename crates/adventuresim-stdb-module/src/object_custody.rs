@@ -114,23 +114,6 @@ pub(crate) fn carried_scope_custody(
     }
 }
 
-pub(crate) fn carried_location_custody(
-    location: &adventuresim_core::physical_object::InventoryLocation,
-) -> Result<OperationalCustody, String> {
-    match location {
-        adventuresim_core::physical_object::InventoryLocation::Personal(location) => {
-            OperationalCustody::character(location.character_id).map_err(|error| error.to_string())
-        }
-        adventuresim_core::physical_object::InventoryLocation::Party(location) => {
-            OperationalCustody::party(location.party_id.clone()).map_err(|error| error.to_string())
-        }
-        adventuresim_core::physical_object::InventoryLocation::Fireplace(_)
-        | adventuresim_core::physical_object::InventoryLocation::Repair(_) => {
-            Err("Custody is not a carried inventory".into())
-        }
-    }
-}
-
 pub(crate) fn carried_destination(
     custody: &PersistedOperationalCustody,
     expected_character_id: u64,

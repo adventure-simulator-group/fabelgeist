@@ -15,7 +15,9 @@ projection code. Preparation validates the whole batch before publishing items.
 
 Refresh updates existing item entities and their equipment components. Stable
 physical-object identity survives a change of backing inventory row during a
-transfer. Fungible stock retains its row identity. The host resolves all changed
+transfer. Empty containers keep their individual quantity-one rows and physical
+identities when their liquid or solid contents are removed. Fungible stock
+retains its row identity. The host resolves all changed
 owners together before removing obsolete rows, including when a destination
 snapshot precedes its source. Equipment attachment parents resolve after all
 item identities are available. Refresh rebuilds the derived hand caches and

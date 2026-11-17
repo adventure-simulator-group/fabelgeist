@@ -20,6 +20,7 @@ const COUNTED: &str = "authority-projection-counted";
 const LOT: &str = "authority-projection-lot";
 const STOCK: &str = "authority-projection-stock";
 const CONTAINER: &str = "authority-projection-container";
+const EMPTY_CONTAINER: &str = "authority-empty-container";
 
 #[derive(SpacetimeType, Clone, Copy)]
 pub enum InventoryProjectionStage {
@@ -33,6 +34,85 @@ pub enum InventoryProjectionStage {
     CorruptContainment,
     RepairContainment,
     Remove,
+}
+
+#[reducer]
+pub fn authority_test_empty_inventory_containers(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+    character_id: u64,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    crate::character::require_living_character(ctx, character_id)?;
+    crate::tactical::local_time::require_unleased_time(ctx, character_id)?;
+    if ctx
+        .db
+        .item()
+        .id()
+        .find(EMPTY_CONTAINER.to_owned())
+        .is_none()
+    {
+        ctx.db.item().insert(Item {
+            id: EMPTY_CONTAINER.into(),
+            weight: 1.0,
+            kind: CatalogItemKind::Container,
+            exterior_volume_ml: 100,
+            container_capacity_ml: 1000,
+            ..Item::default()
+        });
+    }
+    for index in 0..2 {
+        let row = ctx.db.inventory_item().insert(InventoryItem {
+            id: 0,
+            character_id,
+            item_id: EMPTY_CONTAINER.into(),
+            quantity: 1,
+        });
+        let object = insert_personal_object(ctx, &row)?;
+        if index == 0 {
+            ctx.db.container_liquid().insert(ContainerLiquid {
+                container_object_id: object.id,
+                liquid_item_id: crate::inventory_container::WATER_ITEM_ID.into(),
+                water_ml: 1,
+            });
+        }
+    }
+    Ok(())
+}
+
+#[reducer]
+pub fn authority_test_empty_inventory_mass(
+    ctx: &ReducerContext,
+    bootstrap_token: String,
+    character_id: u64,
+) -> Result<(), String> {
+    crate::strategic::require_dev_bootstrap_token(&bootstrap_token)?;
+    let definition = ctx
+        .db
+        .item()
+        .id()
+        .find(EMPTY_CONTAINER.to_owned())
+        .ok_or("Missing empty-container fixture definition")?;
+    let view = ctx.as_read_only();
+    let rows: Vec<_> = ctx
+        .db
+        .inventory_item()
+        .character_id()
+        .filter(character_id)
+        .filter(|row| row.item_id == EMPTY_CONTAINER)
+        .collect();
+    if rows.len() != 2 {
+        return Err("Empty containers lost their individual rows".into());
+    }
+    for row in rows {
+        let mass = super::personal_row_mass(&view, &row, &definition)
+            .map_err(|error| error.to_string())?
+            .ok_or("Empty container is not carried")?;
+        if row.quantity != 1 || mass.object_id.is_none() || mass.carried.kilograms() != 1.0 {
+            return Err("Empty container lost its identity or tare mass".into());
+        }
+    }
+    Ok(())
 }
 
 #[reducer]

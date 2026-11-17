@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 
 import dev_stack as stack
 from settlement_resident_acceptance import resident_roster_checks
-from settlement_inventory_acceptance import inventory_projection_checks
+from settlement_inventory_acceptance import empty_container_identity_checks, inventory_projection_checks
 
 if TYPE_CHECKING:
     from check_semantic_authorities import AcceptanceClient
@@ -54,6 +54,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
                                 (party_b, settlement, True), (absent, elsewhere, False)]:
         client.fixture("authority_test_settlement_actor", actor, place, party)
     assert client.rows(f"SELECT id FROM party_member WHERE character_id = {solo}") == []
+    empty_container_identity_checks(client, solo)
     parties = client.rows(f"SELECT party_id FROM character WHERE id = {party_a} OR id = {party_b}")
     assert len(parties) == 2 and parties[0] != parties[1]
     baseline = {table: client.rows(f"SELECT COUNT(*) AS count FROM {table}") for table in

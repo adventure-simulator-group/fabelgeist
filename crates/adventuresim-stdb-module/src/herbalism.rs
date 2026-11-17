@@ -569,7 +569,6 @@ pub fn administer_tincture_from_container(
             .container_liquid()
             .container_object_id()
             .delete(object_id);
-        crate::inventory_container::merge_empty_container(ctx, object_id)?;
     } else {
         ctx.db.medicinal_component().key().update(component);
         ctx.db
