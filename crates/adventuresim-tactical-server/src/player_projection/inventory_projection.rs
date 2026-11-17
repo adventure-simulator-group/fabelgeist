@@ -16,6 +16,8 @@ pub(super) type InventoryAdmissionResult<T> = Result<T, InventoryAdmissionError>
 
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum InventoryAdmissionError {
+    #[error("inventory snapshot has an invalid admission or state token")]
+    InvalidSnapshotToken,
     #[error("multiple tactical bodies claim the same inventory owner")]
     AmbiguousActor,
     #[error("durable inventory projection is unavailable: {0:?}")]

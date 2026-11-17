@@ -50,7 +50,7 @@ pub(super) fn refresh_snapshots(
             .get_resource::<AppliedInventories>()
             .and_then(|applied| applied.0.get(&snapshot.character))
             .is_some_and(|applied| {
-                applied.time == snapshot.time && applied.source == snapshot.inventory
+                applied.matches(&snapshot.time, &snapshot.inventory)
             })
         {
             continue;

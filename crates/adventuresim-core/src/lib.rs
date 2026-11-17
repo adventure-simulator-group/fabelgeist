@@ -35,6 +35,7 @@ pub mod food;
 pub mod foraging;
 pub mod herbalism;
 pub mod ingredient_preparation;
+pub mod inventory_command;
 pub mod inventory_containers;
 pub mod inventory_measurement;
 pub mod investigation;

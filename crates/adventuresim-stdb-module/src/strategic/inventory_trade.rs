@@ -4,7 +4,7 @@ use adventuresim_core::physical_object::{
 
 use crate::inventory_container::inventory_object as _;
 
-/// Transfer a stack of items between two members of the same party.
+/// Transfer personal inventory between party members outside a live scene.
 #[reducer]
 pub fn transfer_party_item(
     ctx: &ReducerContext,
@@ -13,153 +13,18 @@ pub fn transfer_party_item(
     inventory_item_id: u64,
     quantity: u32,
 ) -> Result<(), String> {
+    require_strategic_character_authority(ctx, from_character_id)?;
+    crate::tactical::local_time::require_unleased_time(ctx, to_character_id)?;
     require_character_no_unresolved_encounter(ctx, from_character_id)?;
-    crate::character::require_living_character(ctx, from_character_id)?;
-    crate::character::require_living_character(ctx, to_character_id)?;
-    if quantity == 0 || from_character_id == to_character_id {
-        return Err("Transfer quantity must be positive and between different characters".into());
-    }
-    let Some(from) = ctx.db.character().id().find(from_character_id) else {
-        return Err("Source character not found".into());
-    };
-    let Some(to) = ctx.db.character().id().find(to_character_id) else {
-        return Err("Recipient character not found".into());
-    };
-    if from.party_id.is_none() || from.party_id != to.party_id {
-        return Err("Characters must belong to the same party".into());
-    }
-    let Some(source_item) = ctx.db.inventory_item().id().find(inventory_item_id) else {
-        return Err("Inventory item not found".into());
-    };
-    if source_item.character_id != from_character_id || source_item.quantity < quantity {
-        return Err("Source character does not have that quantity".into());
-    }
-    if crate::character::inventory_item_is_equipped(ctx, from_character_id, inventory_item_id) {
-        return Err("Unequip an item before transferring it".into());
-    }
-
-    let container_object = crate::inventory_container::object_for_row(
-        ctx,
-        CarriedInventoryScope::Personal,
-        source_item.id,
-    )?;
-    if let Some(object) = container_object {
-        if !physical_object_row_is_atomic(true, quantity, source_item.quantity) {
-            return Err("A physical object must move as one exact inventory row".into());
-        }
-        crate::inventory_container::detach_if_nested(ctx, object.id)?;
-        let destination =
-            OperationalCustody::character(to_character_id).map_err(|error| error.to_string())?;
-        crate::inventory_container::rehome_subtree(ctx, object.id, &destination)?;
-        crate::capability::refresh_character_capability(ctx, from_character_id)?;
-        crate::capability::refresh_character_capability(ctx, to_character_id)?;
-        return Ok(());
-    }
-
-    let measured = crate::inventory_amount::personal_fraction(ctx, source_item.id).is_some();
-    if measured {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Measured items must be transferred as complete rows".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        crate::capability::refresh_character_capability(ctx, from_character_id)?;
-        crate::capability::refresh_character_capability(ctx, to_character_id)?;
-        return Ok(());
-    }
-
-    if item_is_medication(ctx, &source_item.item_id) {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Medication must be transferred as an individual course".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        return Ok(());
-    }
-
-    let durable = item_is_durable(ctx, &source_item.item_id);
-    if durable {
-        if quantity != 1 || source_item.quantity != 1 {
-            return Err("Equipment instances must be transferred individually".into());
-        }
-        let mut transferred = source_item;
-        transferred.character_id = to_character_id;
-        ctx.db.inventory_item().id().update(transferred);
-        return Ok(());
-    }
-
-    let food = ctx
-        .db
-        .item()
-        .id()
-        .find(&source_item.item_id)
-        .is_some_and(|row| row.kind == crate::CatalogItemKind::Food)
-        || adventuresim_core::food::definition(&source_item.item_id).is_some();
-    if food {
-        if source_item.quantity == quantity {
-            let mut moved = source_item;
-            moved.character_id = to_character_id;
-            ctx.db.inventory_item().id().update(moved);
-        } else {
-            let original_quantity = source_item.quantity;
-            let item_id = source_item.item_id.clone();
-            let mut remaining = source_item;
-            remaining.quantity -= quantity;
-            ctx.db.inventory_item().id().update(remaining);
-            let destination = ctx.db.inventory_item().insert(InventoryItem {
-                id: 0,
-                character_id: to_character_id,
-                item_id,
-                quantity,
-            });
-            crate::food::split_lot(
-                ctx,
-                inventory_item_id,
-                destination.id,
-                quantity,
-                original_quantity,
-            )?;
-        }
-        crate::capability::refresh_character_capability(ctx, from_character_id)?;
-        crate::capability::refresh_character_capability(ctx, to_character_id)?;
-        return Ok(());
-    }
-
-    let destination_item = ctx
-        .db
-        .inventory_item()
-        .character_and_item_id()
-        .filter((to_character_id, &source_item.item_id))
-        .next();
-    let merged_quantity = destination_item
-        .as_ref()
-        .and_then(|destination| destination.quantity.checked_add(quantity));
-
-    if source_item.quantity == quantity {
-        ctx.db.inventory_item().id().delete(inventory_item_id);
-    } else {
-        let mut updated = source_item.clone();
-        updated.quantity -= quantity;
-        ctx.db.inventory_item().id().update(updated);
-    }
-    if let (Some(mut destination_item), Some(merged_quantity)) = (destination_item, merged_quantity)
-    {
-        destination_item.quantity = merged_quantity;
-        ctx.db.inventory_item().id().update(destination_item);
-    } else {
-        ctx.db.inventory_item().insert(InventoryItem {
-            id: 0,
-            character_id: to_character_id,
-            item_id: source_item.item_id,
-            quantity,
-        });
-    }
-    Ok(())
+    let source = ctx.db.inventory_item().character_and_id()
+        .filter((from_character_id, inventory_item_id)).next()
+        .ok_or("Source inventory item not found")?;
+    let recipient = crate::character::require_living_character(ctx, to_character_id)?;
+    let quantity = adventuresim_core::inventory_measurement::ItemQuantity::new(quantity)
+        .ok_or("Transfer quantity must be positive")?;
+    crate::inventory_effects::PersonalInventoryTransfer { source, recipient, quantity }.apply(ctx)
 }
 
-/// Permanently removes staged quantities from a character's unequipped inventory.
 fn objective_item_value(ctx: &ReducerContext, item_id: &str) -> Result<u64, String> {
     ctx.db
         .item()

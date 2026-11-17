@@ -334,9 +334,10 @@ fn verify(
             ),
         };
     }
-    let ConnectedInventory::Available(items) = profile.inventory else {
+    let ConnectedInventory::Available(snapshot) = profile.inventory else {
         return Err("Fixture inventory is unavailable".into());
     };
+    let items = snapshot.items;
     let expected = match stage {
         InventoryProjectionStage::Seed => {
             [(COUNTED, 6.0), (LOT, 1.5), (STOCK, 4.0), (CONTAINER, 2.5)]

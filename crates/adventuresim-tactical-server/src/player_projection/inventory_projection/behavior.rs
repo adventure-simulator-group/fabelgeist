@@ -1,7 +1,7 @@
 //! Inventory refresh exercises the owning ECS relationships and live bodies.
 
 use adventuresim_core::prelude::PlayerEquipment;
-use adventuresim_stdb_client::{ConnectedInventory, ConnectedPlayerItem, TacticalActorTime};
+use adventuresim_stdb_client::{ConnectedInventory, ConnectedInventorySnapshot, ConnectedPlayerItem, TacticalActorTime};
 use adventuresim_tactical_core::{
     inventory::{InventoryViewer, ItemProperties},
     prelude::*,
@@ -33,7 +33,9 @@ fn snapshot(character: u64, items: Vec<ConnectedPlayerItem>) -> ConnectedActorIn
     ConnectedActorInventory {
         character: CharacterId(character),
         time: TacticalActorTime::MissionSnapshot,
-        inventory: ConnectedInventory::Available(items),
+        inventory: ConnectedInventory::Available(ConnectedInventorySnapshot {
+            scope: vec![1; 32], revision: vec![2; 32], items,
+        }),
     }
 }
 

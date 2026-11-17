@@ -2,8 +2,8 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 
-use adventuresim_core::physical_object::PhysicalObjectId;
-use adventuresim_stdb_client::{CatalogItemKind, ConnectedInventory, TacticalActorTime};
+use adventuresim_core::{inventory_command::InventorySnapshotToken, physical_object::PhysicalObjectId};
+use adventuresim_stdb_client::{CatalogItemKind, ConnectedInventory, ConnectedPlayerItem, TacticalActorTime};
 use adventuresim_tactical_core::{inventory::ItemProperties, prelude::*};
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::prelude::*;
@@ -19,7 +19,8 @@ pub(super) struct AppliedInventories(pub(super) BTreeMap<CharacterId, AppliedInv
 
 pub(super) struct AppliedInventory {
     pub(super) time: TacticalActorTime,
-    pub(super) source: ConnectedInventory,
+    pub(super) token: InventorySnapshotToken,
+    items: Vec<ConnectedPlayerItem>,
 }
 
 pub(super) struct ActorInventory {
@@ -41,6 +42,16 @@ impl PreparedInventoryItem {
             InventoryEntityIdentity::Row(self.row_id),
             InventoryEntityIdentity::Physical,
         )
+    }
+}
+
+impl AppliedInventory {
+    pub(super) fn matches(&self, time: &TacticalActorTime, inventory: &ConnectedInventory) -> bool {
+        let ConnectedInventory::Available(snapshot) = inventory else { return false; };
+        self.time == *time
+            && self.token.scope.bytes().as_slice() == snapshot.scope
+            && self.token.revision.bytes().as_slice() == snapshot.revision
+            && self.items == snapshot.items
     }
 }
 
@@ -99,14 +110,12 @@ pub(super) fn apply_batch(
             .or_insert_with(|| world.spawn(Transform::default()).id());
     }
     for actor in actors {
-        let source = ConnectedInventory::Available(
-            actor
+        let items = actor
                 .prepared
                 .items
                 .iter()
                 .map(|item| item.source.clone())
-                .collect(),
-        );
+                .collect();
         let item_entities: BTreeMap<_, _> = actor
             .prepared
             .items
@@ -122,7 +131,8 @@ pub(super) fn apply_batch(
             actor.character,
             AppliedInventory {
                 time: actor.time,
-                source,
+                token: actor.prepared.token,
+                items,
             },
         );
     }

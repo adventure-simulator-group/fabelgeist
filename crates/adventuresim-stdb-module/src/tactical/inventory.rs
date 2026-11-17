@@ -2,6 +2,19 @@
 
 use super::*;
 use crate::inventory_projection::InventoryProjectionError;
+use adventuresim_core::inventory_command::InventorySnapshotToken;
+
+pub(crate) struct InventorySnapshot {
+    pub(crate) token: InventorySnapshotToken,
+    pub(crate) items: Vec<ConnectedPlayerItem>,
+}
+
+#[derive(SpacetimeType, Clone, Debug)]
+pub struct ConnectedInventorySnapshot {
+    pub scope: Vec<u8>,
+    pub revision: Vec<u8>,
+    pub items: Vec<ConnectedPlayerItem>,
+}
 
 #[derive(SpacetimeType, Clone, Debug)]
 pub struct ConnectedPlayerItem {
@@ -34,8 +47,35 @@ pub struct ConnectedEquipmentOccupancy {
 
 #[derive(SpacetimeType, Clone, Debug)]
 pub enum ConnectedInventory {
-    Available(Vec<ConnectedPlayerItem>),
+    Available(ConnectedInventorySnapshot),
     Unavailable(InventoryProjectionError),
+}
+
+impl InventorySnapshot {
+    pub(crate) fn for_actor(ctx: &ViewContext, character_id: u64) -> Result<Self, InventoryProjectionError> {
+        let server = ctx.db.tactical_server_authority().identity().find(ctx.sender())
+            .ok_or(InventoryProjectionError::InvalidAuthority)?;
+        let character = ctx.db.character().id().find(character_id)
+            .ok_or(InventoryProjectionError::InvalidAuthority)?;
+        if character.server != server.identity {
+            return Err(InventoryProjectionError::InvalidAuthority);
+        }
+        let actor = super::local_time::actor_projection(ctx, character_id, &server)
+            .ok_or(InventoryProjectionError::InvalidAuthority)?;
+        let items = connected_player_items(ctx, character_id)?;
+        let token = crate::inventory_projection::snapshot_token(ctx, &server, character_id, &actor.time, &items)?;
+        Ok(Self { token, items })
+    }
+}
+
+impl From<InventorySnapshot> for ConnectedInventorySnapshot {
+    fn from(snapshot: InventorySnapshot) -> Self {
+        Self {
+            scope: snapshot.token.scope.bytes().to_vec(),
+            revision: snapshot.token.revision.bytes().to_vec(),
+            items: snapshot.items,
+        }
+    }
 }
 
 impl ConnectedPlayerItem {
@@ -136,8 +176,8 @@ impl ConnectedPlayerItem {
 }
 
 pub(super) fn connected_inventory(ctx: &ViewContext, character_id: u64) -> ConnectedInventory {
-    match connected_player_items(ctx, character_id) {
-        Ok(items) => ConnectedInventory::Available(items),
+    match InventorySnapshot::for_actor(ctx, character_id) {
+        Ok(snapshot) => ConnectedInventory::Available(snapshot.into()),
         Err(error) => ConnectedInventory::Unavailable(error),
     }
 }

@@ -4,6 +4,7 @@ use std::collections::BTreeSet;
 
 use adventuresim_core::{
     combat::WeaponContactParameters, equipment::ParametricWeaponCombatGeometry,
+    inventory_command::InventorySnapshotToken,
     inventory_measurement::InventoryMassKg, physical_object::PhysicalObjectId,
 };
 use adventuresim_stdb_client::{ConnectedInventory, ConnectedPlayerItem, EquipmentAnchorKind};
@@ -17,6 +18,7 @@ use super::super::projection_equipment::{
 use super::{InventoryAdmissionError, InventoryAdmissionResult};
 
 pub(in super::super) struct PreparedInventory {
+    pub(super) token: InventorySnapshotToken,
     pub(super) items: Vec<PreparedInventoryItem>,
 }
 
@@ -53,12 +55,17 @@ impl PreparedInventory {
         inventory: &ConnectedInventory,
         contact: WeaponContactParameters,
     ) -> InventoryAdmissionResult<Self> {
-        let items = match inventory {
-            ConnectedInventory::Available(items) => items,
+        let snapshot = match inventory {
+            ConnectedInventory::Available(snapshot) => snapshot,
             ConnectedInventory::Unavailable(reason) => {
                 return Err(InventoryAdmissionError::Unavailable(*reason));
             }
         };
+        let token = InventorySnapshotToken {
+            scope: snapshot.scope.clone().try_into().map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
+            revision: snapshot.revision.clone().try_into().map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
+        };
+        let items = &snapshot.items;
         let mut rows = BTreeSet::new();
         let mut objects = BTreeSet::new();
         for item in items {
@@ -85,7 +92,7 @@ impl PreparedInventory {
                 InventoryMassKg::try_from(total.kilograms() + item.carried_mass.kilograms())
                     .map_err(|_| InventoryAdmissionError::InvalidMass)
             })?;
-        Ok(Self { items })
+        Ok(Self { token, items })
     }
 
     pub(in super::super) fn validate_disjoint<'a>(
