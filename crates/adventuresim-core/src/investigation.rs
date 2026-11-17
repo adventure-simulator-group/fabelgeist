@@ -985,6 +985,15 @@ mod tests {
             TransmissionCondition::Clear,
         );
         assert_eq!(dark.0.confidence.get(), 4_500);
+        let mut observation_json = serde_json::to_value(&dark.0).unwrap();
+        assert_eq!(observation_json["confidence"], 4_500);
+        assert_eq!(
+            serde_json::from_value::<Observation>(observation_json.clone()).unwrap(),
+            dark.0
+        );
+        observation_json["confidence"] = serde_json::json!(BASIS_POINTS_PER_WHOLE + 1);
+        assert!(serde_json::from_value::<Observation>(observation_json).is_err());
+
         let poor = pipeline(
             DisclosureMode::Disclose,
             PerceptionCondition::PoorPerception,

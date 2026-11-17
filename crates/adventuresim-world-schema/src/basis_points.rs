@@ -1,14 +1,15 @@
 //! Bounded fractions and their conversion to game quantities.
 use serde::{Deserialize, Serialize};
 
+#[cfg(feature = "spacetimedb")]
+mod native;
+
 /// The basis-point representation of one whole (100%).
 pub const BASIS_POINTS_PER_WHOLE: u16 = 10_000;
 
 /// A validated fraction of one whole, represented in basis points.
-#[derive(
-    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
-)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::ser::Serialize))]
 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(transparent)]
 pub struct UnitBasisPoints {
@@ -92,10 +93,8 @@ impl UnitBasisPoints {
 }
 
 /// A validated signed fraction of one whole, represented in basis points.
-#[derive(
-    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
-)]
-#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+#[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::ser::Serialize))]
 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
 #[serde(transparent)]
 pub struct SignedUnitBasisPoints {
@@ -127,6 +126,20 @@ impl SignedUnitBasisPoints {
 
     pub fn as_unit_f32(self) -> f32 {
         f32::from(self.basis_points) / f32::from(BASIS_POINTS_PER_WHOLE)
+    }
+}
+
+impl<'de> Deserialize<'de> for UnitBasisPoints {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::new(u16::deserialize(deserializer)?)
+            .ok_or_else(|| serde::de::Error::custom("unit basis points are out of range"))
+    }
+}
+
+impl<'de> Deserialize<'de> for SignedUnitBasisPoints {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Self::new(i16::deserialize(deserializer)?)
+            .ok_or_else(|| serde::de::Error::custom("signed unit basis points are out of range"))
     }
 }
 
