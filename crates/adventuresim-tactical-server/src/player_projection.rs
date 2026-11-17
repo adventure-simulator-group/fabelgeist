@@ -53,7 +53,7 @@ mod disconnection;
 mod dive_launch;
 pub(crate) use disconnection::{expire_disconnected_players, on_client_disconnected};
 mod input_admission;
-mod inventory_projection;
+pub(crate) mod inventory_projection;
 mod join;
 mod posture_facing;
 mod projection_equipment;

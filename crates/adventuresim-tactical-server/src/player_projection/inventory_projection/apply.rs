@@ -19,7 +19,7 @@ use super::{InventoryAdmissionError, InventoryAdmissionResult, PreparedInventory
 pub(super) struct DurableInventoryObject(PhysicalObjectId);
 
 #[derive(Resource, Default)]
-pub(super) struct AppliedInventories(pub(super) BTreeMap<CharacterId, AppliedInventory>);
+pub(crate) struct AppliedInventories(pub(super) BTreeMap<CharacterId, AppliedInventory>);
 
 pub(super) struct AppliedInventory {
     pub(super) time: TacticalActorTime,
@@ -58,6 +58,24 @@ impl AppliedInventory {
             && self.token.scope.bytes().as_slice() == snapshot.scope
             && self.token.revision.bytes().as_slice() == snapshot.revision
             && self.items == snapshot.items
+    }
+}
+
+impl AppliedInventories {
+    /// A command must describe the snapshot actually published to native entities,
+    /// not a newer SDK view which has not passed projection validation yet.
+    pub(crate) fn command_actor(
+        &self,
+        snapshot: &crate::stdb::ConnectedActorInventory,
+    ) -> Option<adventuresim_stdb_client::TacticalInventoryActorState> {
+        let applied = self.0.get(&snapshot.character)?;
+        applied
+            .matches(&snapshot.time, &snapshot.inventory)
+            .then(|| adventuresim_stdb_client::TacticalInventoryActorState {
+                character_id: snapshot.character.0,
+                scope: applied.token.scope.bytes().to_vec(),
+                revision: applied.token.revision.bytes().to_vec(),
+            })
     }
 }
 

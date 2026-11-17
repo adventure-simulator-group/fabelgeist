@@ -14,9 +14,9 @@ pub(crate) fn reconnect_equipment_lifecycle(
         .0
         .retain(|(actor, _)| *actor != old && *actor != new);
     sequences.0.remove(&new);
-    if let Some(sequence) = sequences.0.remove(&old) {
-        sequences.0.insert(new, sequence);
-    }
+    // A replacement connection starts its own client sequence. Old requests and
+    // callbacks retain the old generational entity and cannot address the new one.
+    sequences.0.remove(&old);
 }
 
 pub(crate) fn purge_equipment_lifecycle(

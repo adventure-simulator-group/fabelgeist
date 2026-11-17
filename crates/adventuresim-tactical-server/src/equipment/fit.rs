@@ -68,7 +68,7 @@ pub(super) fn topology_conflicts(
 ) -> bool {
     items
         .iter()
-        .any(|(entity, properties, owner, topology, _, _, scene, _)| {
+        .any(|(entity, properties, owner, topology, _, scene)| {
             !scene
                 && !ignored.contains(&entity)
                 && owner.is_some_and(|owner| owner.0 == actor)
@@ -100,7 +100,7 @@ pub(super) fn target_conflicts(
     };
     items
         .get(*entity)
-        .is_ok_and(|(_, properties, _, topology, _, _, _, _)| {
+        .is_ok_and(|(_, properties, _, topology, _, _)| {
             proposed.occupancies.iter().any(|candidate| {
                 topology.occupancies.iter().any(|current| {
                     occupancies_conflict(
@@ -179,8 +179,9 @@ mod tests {
     }
     #[test]
     fn slot_transfers_build_a_harness_without_swapping_neighbors_and_can_wear_gauntlets() {
-        use super::super::{hand_topology, placement_topology, transfer_slot};
+        use super::super::{hand_topology, placement_topology, plan_slot};
         use adventuresim_core::equipment_placement::EquipmentHand;
+        use adventuresim_stdb_client::{EquipmentChangesRequest, EquipmentDestinationRequest};
         use bevy::ecs::system::RunSystemOnce;
         let mut world = World::new();
         let actor = world.spawn_empty().id();
@@ -213,6 +214,7 @@ mod tests {
         }) {
             let entity = world
                 .spawn((
+                    TacticalInventoryItemId((equipped.len() + 1) as u64),
                     ItemOf(actor),
                     ItemProperties {
                         id: item.into(),
@@ -222,23 +224,50 @@ mod tests {
                     EquipSlot::from(EquipmentHand::Right),
                 ))
                 .id();
-            let transferred = world
-                .run_system_once(move |mut commands: Commands, items: Query<ItemView<'_>>| {
-                    transfer_slot(
-                        &mut commands,
-                        actor,
-                        EquipmentHand::Right,
-                        location,
-                        0,
-                        &items,
-                    )
-                })
+            let planned = world
+                .run_system_once(
+                    move |items: Query<ItemView<'_>>, rows: Query<&TacticalInventoryItemId>| {
+                        plan_slot(actor, EquipmentHand::Right, location, 0, &items, &rows)
+                    },
+                )
+                .unwrap()
                 .unwrap();
-            assert!(transferred, "{item}");
+            let EquipmentChangesRequest::Single(change) = planned.changes else {
+                panic!("a neighboring harness plate must not be exchanged");
+            };
+            assert_eq!(change.inventory_item_id, (equipped.len() + 1) as u64);
+            let EquipmentDestinationRequest::Authored(selection) = change.destination else {
+                panic!("the selected harness plate must use an authored placement");
+            };
+            let expected = placement_topology(item, location).unwrap();
+            let placements = &item_catalog::definition(item)
+                .unwrap()
+                .equipment
+                .as_ref()
+                .unwrap()
+                .placements;
+            assert_eq!(
+                Some(
+                    placements[usize::from(selection.placement_index)]
+                        .id
+                        .as_str()
+                ),
+                expected
+                    .authored_placement
+                    .as_ref()
+                    .map(|placement| placement.as_str())
+            );
             assert_eq!(
                 world.get::<EquipmentTopology>(entity),
-                placement_topology(item, location).as_ref()
+                Some(&hand_topology(EquipmentHand::Right)),
+                "planning must preserve the held state until a committed projection arrives"
             );
+            // Publish the separately committed placement before planning the next
+            // neighboring harness component; the planner itself never writes it.
+            world
+                .entity_mut(entity)
+                .insert(expected)
+                .remove::<EquipSlot>();
             equipped.push(entity);
             for worn in &equipped {
                 assert!(

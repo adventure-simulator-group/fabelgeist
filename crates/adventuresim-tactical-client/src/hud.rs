@@ -61,6 +61,8 @@ pub(crate) enum HudText {
     Guard,
     /// Seconds left before a committed attack lands, at the screen centre.
     AttackTimer,
+    /// Pending or terminal feedback for the player's equipment intent.
+    Equipment,
 }
 
 impl HudText {
@@ -73,6 +75,7 @@ impl HudText {
             Self::Guard => "guard",
             Self::Control => "control",
             Self::AttackTimer => "attack-timer",
+            Self::Equipment => "equipment",
         }
     }
 }

@@ -73,4 +73,10 @@ impl EquipmentRevision {
     pub const fn next(self) -> Self {
         Self(self.0.wrapping_add(1))
     }
+
+    /// An acknowledgement may precede replication or be overtaken by another
+    /// committed refresh. Compare within the same wrapping chronology as input.
+    pub const fn has_reached(self, acknowledged: Self) -> bool {
+        self.0.wrapping_sub(acknowledged.0) <= MAX_FORWARD_SEQUENCE_DISTANCE
+    }
 }

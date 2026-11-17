@@ -5,6 +5,7 @@ use adventuresim_stdb_client::TacticalActorTime;
 use adventuresim_tactical_core::prelude::CharacterId;
 use bevy::prelude::*;
 
+pub(crate) use apply::AppliedInventories;
 pub(super) use prepare::PreparedInventory;
 pub(crate) use refresh::refresh_connected_inventory;
 

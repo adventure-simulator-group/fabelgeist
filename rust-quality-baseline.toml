@@ -532,7 +532,7 @@ ceiling = 711
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/equipment.rs"
-ceiling = 639
+ceiling = 529
 
 [[files]]
 path = "crates/adventuresim-tactical-client/src/player.rs"
@@ -585,10 +585,6 @@ ceiling = 940
 [[files]]
 path = "crates/adventuresim-tactical-netcode/src/client.rs"
 ceiling = 642
-
-[[files]]
-path = "crates/adventuresim-tactical-server/src/equipment.rs"
-ceiling = 574
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
@@ -2368,11 +2364,6 @@ ceiling = 239
 path = "crates/adventuresim-tactical-server/src/combat/ranged.rs"
 item = "resolve_ranged_attack"
 ceiling = 204
-
-[[functions]]
-path = "crates/adventuresim-tactical-server/src/equipment.rs"
-item = "process_equipment_actions"
-ceiling = 146
 
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/main.rs"
@@ -8419,146 +8410,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-tactical-client/src/diagnostics.rs"
 item = "diagnostic_command_pace"
 fingerprint = "string:slide"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:1"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:2"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:3"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:4"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:5"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:`"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:b"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:c"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:e"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:f"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:g"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:h"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:q"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:r"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:t"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:tab"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:v"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:x"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:y"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-tactical-client/src/equipment.rs"
-item = "key_code"
-fingerprint = "string:z"
 occurrences = 1
 
 [[findings]]
