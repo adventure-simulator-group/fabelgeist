@@ -11,16 +11,14 @@ fn app() -> App {
         TransformPlugin,
         PhysicsPlugins::default(),
         AdventureSimulatorReplicationPlugin,
+        bevy::asset::AssetPlugin::default(),
+        crate::bot::BotPlugin,
         CharacterControlPlugin,
     ));
     app.init_resource::<TacticalCombatConfig>();
     app.insert_resource(bevy::time::TimeUpdateStrategy::ManualDuration(
         Duration::from_secs_f64(1.0 / 60.0),
     ));
-    app.add_systems(
-        Update,
-        crate::bot::maintain_guard_stance.in_set(ControlSet::Execute),
-    );
     app.world_mut().spawn((
         RigidBody::Static,
         Collider::cuboid(30.0, 1.0, 30.0),
@@ -60,10 +58,7 @@ fn indirect_guard_tracks_engagement_and_returns_to_travel() {
         TacticalCombatSide::Enemy,
         Vec3::new(0.0, 0.95, -3.0),
     );
-    app.world_mut().entity_mut(actor).insert((
-        crate::bot::RaisedGuardAi,
-        crate::bot::OffensiveCombatAi::default(),
-    ));
+    run_standard_combat(&mut app, actor);
     app.update();
     assert_eq!(
         app.world()
@@ -200,6 +195,12 @@ fn character(app: &mut App, side: TacticalCombatSide, position: Vec3) -> Entity 
         .id()
 }
 
+fn run_standard_combat(app: &mut App, actor: Entity) {
+    let behaviour =
+        crate::bot::trees::behaviour_in_world(app.world_mut(), STANDARD_COMBAT_TREE).unwrap();
+    app.world_mut().entity_mut(actor).insert(behaviour);
+}
+
 fn request(app: &mut App, actor: Entity, change: ControlChange) {
     let control = *app.world().get::<CharacterControl>(actor).unwrap();
     let sequence = app
@@ -298,10 +299,7 @@ fn perceived_aggression_temporarily_interrupts_but_retains_move_order() {
         TacticalCombatSide::Enemy,
         Vec3::new(0.0, 0.95, -1.0),
     );
-    app.world_mut().entity_mut(actor).insert((
-        crate::bot::RaisedGuardAi,
-        crate::bot::OffensiveCombatAi::default(),
-    ));
+    run_standard_combat(&mut app, actor);
     let destination = NavigationDestination {
         position: Position::from_metres(Vec3::new(4.0, 0.0, 0.0)).unwrap(),
     };

@@ -106,8 +106,8 @@ def test_character_count_reflects_bot_and_client_connect_disconnect_lifecycle(
             "--spacetimedb-module", env_values["TACTICAL_SPACETIMEDB_MODULE"],
             "--expected-party-members", "1",
             "--required-enemy-kills", LIFECYCLE_ENEMY_COUNT,
-            # Skips inserting `OffensiveCombatAi` on the bots entirely (see
-            # `spawn_connected_player`), leaving them inert. Without that,
+            # Spawns the bots with the `passive.bt.ron` behaviour tree (see
+            # `PreparedPlayerSpawns::prepare`), leaving them inert. Without that,
             # both bots land a lethal hit on the joining party member within
             # about half a second of connecting, ending the mission (defeat)
             # and shutting the server down before this test's assertions

@@ -10,6 +10,7 @@ const ENEMY_FIXTURE_VERSION: u32 = 1;
 const MAX_ENEMY_FIXTURE_BYTES: u64 = 16 * 1024;
 const MAX_ENEMY_NAME_BYTES: usize = 64;
 const MAX_LOADOUT_ITEMS: usize = 64;
+const BEHAVIOR_TREE_EXTENSION: &str = ".bt.ron";
 
 /// A versioned standalone tactical roster. Environment inputs are intentionally
 /// absent: callers choose terrain and enemies through independent files.
@@ -24,18 +25,9 @@ pub struct TacticalEnemyFixture {
 #[serde(deny_unknown_fields)]
 pub struct TacticalEnemySpec {
     pub name: String,
-    pub behavior: TacticalEnemyBehavior,
+    pub behavior_tree: BehaviorTreeFile,
     pub add_basic_clothing: bool,
     pub loadout: Vec<TacticalEnemyItem>,
-}
-
-#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
-#[serde(rename_all = "snake_case")]
-pub enum TacticalEnemyBehavior {
-    Passive,
-    StandardCombat,
-    AlwaysBlockWithoutFacing,
-    AlwaysDodge,
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Eq)]
@@ -43,6 +35,43 @@ pub enum TacticalEnemyBehavior {
 pub struct TacticalEnemyItem {
     pub item_id: String,
     pub slot: LoadoutSlot,
+}
+
+/// File name of a behaviour tree in `content/tactical/ai/`, such as
+/// `always_dodge.bt.ron`. Only lowercase ASCII letters, digits, and
+/// underscores may precede the `.bt.ron` extension, so the name can never
+/// leave that directory.
+#[derive(Clone, Debug, Deserialize, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[serde(try_from = "String")]
+pub struct BehaviorTreeFile(String);
+
+impl BehaviorTreeFile {
+    #[must_use]
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+
+impl TryFrom<String> for BehaviorTreeFile {
+    type Error = String;
+
+    fn try_from(name: String) -> Result<Self, Self::Error> {
+        let valid = name
+            .strip_suffix(BEHAVIOR_TREE_EXTENSION)
+            .is_some_and(|stem| {
+                !stem.is_empty()
+                    && stem.bytes().all(|byte| {
+                        byte.is_ascii_lowercase() || byte.is_ascii_digit() || byte == b'_'
+                    })
+            });
+        if valid {
+            Ok(Self(name))
+        } else {
+            Err(format!(
+                "behavior tree '{name}' must be a lowercase snake_case file name ending in {BEHAVIOR_TREE_EXTENSION}"
+            ))
+        }
+    }
 }
 
 impl TacticalEnemyFixture {
@@ -146,7 +175,7 @@ mod tests {
 version: 1
 enemies:
   - name: Dodger
-    behavior: always_dodge
+    behavior_tree: always_dodge.bt.ron
     add_basic_clothing: true
     loadout:
       - item_id: morion
@@ -157,8 +186,12 @@ enemies:
 
         assert_eq!(fixture.enemies().len(), 1);
         assert_eq!(
-            fixture.enemy_named("Dodger").unwrap().behavior,
-            TacticalEnemyBehavior::AlwaysDodge
+            fixture
+                .enemy_named("Dodger")
+                .unwrap()
+                .behavior_tree
+                .as_str(),
+            "always_dodge.bt.ron"
         );
         assert_eq!(fixture.enemies()[0].loadout[0].slot, LoadoutSlot::Head);
     }
@@ -170,7 +203,7 @@ version: 1
 enemies:
   - &enemy
     name: Duplicate
-    behavior: passive
+    behavior_tree: passive.bt.ron
     add_basic_clothing: false
     loadout: []
   - *enemy
@@ -183,6 +216,16 @@ environment: dense-woodland
 enemies: []
 "#;
         assert!(TacticalEnemyFixture::parse(unknown).is_err());
+
+        let escaping = r#"
+version: 1
+enemies:
+  - name: Escapee
+    behavior_tree: ../passive.bt.ron
+    add_basic_clothing: false
+    loadout: []
+"#;
+        assert!(TacticalEnemyFixture::parse(escaping).is_err());
     }
 
     #[test]
@@ -195,8 +238,12 @@ enemies: []
         let animation = TacticalEnemyFixture::load(&root.join("animation-demo.yaml")).unwrap();
         assert_eq!(animation.enemies().len(), 5);
         assert_eq!(
-            animation.enemy_named("Munition Dodger").unwrap().behavior,
-            TacticalEnemyBehavior::AlwaysDodge
+            animation
+                .enemy_named("Munition Dodger")
+                .unwrap()
+                .behavior_tree
+                .as_str(),
+            "always_dodge.bt.ron"
         );
     }
 }

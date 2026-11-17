@@ -1,0 +1,11 @@
+// Test dodger: faces the nearest opponent and dodges every attack it sees
+// coming. It never attacks.
+(root: {
+    "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
+    "children": [
+        { "RecoverToUprightNode": () },
+        { "RaiseGuardNode": (stance: Always) },
+        { "FaceNearestOpponentNode": () },
+        { "ReactiveDefenseNode": (requires_facing: true, dodge: Always) },
+    ],
+})

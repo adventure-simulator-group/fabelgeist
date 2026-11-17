@@ -18,6 +18,7 @@ fn movement_scene(wall: bool) -> (App, Entity) {
         AdventureSimulatorReplicationPlugin,
         CharacterControlPlugin,
     ));
+    app.init_resource::<crate::bot::BotTrees>();
     app.insert_resource(bevy::time::TimeUpdateStrategy::ManualDuration(tick));
     app.insert_resource(Time::<Fixed>::from_duration(tick));
     app.add_systems(

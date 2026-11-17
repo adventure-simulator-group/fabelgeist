@@ -2,9 +2,7 @@
 
 use super::*;
 
-use crate::bot::{
-    AimAtNearestOpponentAi, OffensiveCombatAi, RaisedGuardAi, ReactiveDefenseAi, RecoverToUprightAi,
-};
+use crate::bot::{BotTrees, restart_bot, stop_bot};
 
 type ControlActors<'w, 's> = Query<
     'w,
@@ -39,6 +37,7 @@ pub(super) struct OrderContext<'w, 's> {
     items: Query<'w, 's, Entity, With<TacticalSceneItem>>,
     spatial: SpatialQuery<'w, 's>,
     config: Res<'w, TacticalCombatConfig>,
+    trees: Res<'w, BotTrees>,
 }
 
 pub(super) fn on_control_request(
@@ -89,7 +88,7 @@ pub(super) fn on_control_request(
                 accumulated.last_movement = None;
                 accumulated.jumped = None;
                 posture.release_control();
-                install_control_packages(&mut commands, actor, mode, &context.config);
+                install_control_behaviour(&mut commands, actor, mode, &context.trees);
             }
             ControlChange::Order(goal) => {
                 waypoints.clear();
@@ -97,7 +96,7 @@ pub(super) fn on_control_request(
                 order.status = OrderStatus::Executing;
                 *agent = AgentState::default();
                 movement.0 = None;
-                commands.entity(actor).insert(OffensiveCombatAi::default());
+                restart_bot(&mut commands, actor);
             }
             ControlChange::AppendWaypoint(destination) => {
                 if matches!(order.goal, CharacterGoal::MoveTo(_)) {
@@ -117,7 +116,7 @@ pub(super) fn on_control_request(
                 *agent = AgentState::default();
                 *threats = ThreatMemory::default();
                 movement.0 = None;
-                commands.entity(actor).insert(OffensiveCombatAi::default());
+                restart_bot(&mut commands, actor);
                 commands
                     .entity(actor)
                     .remove::<crate::bot::defense::PendingBotReaction>();
@@ -140,25 +139,21 @@ pub(super) fn on_control_request(
     });
 }
 
-fn install_control_packages(
+fn install_control_behaviour(
     commands: &mut Commands,
     actor: Entity,
     mode: ControlMode,
-    config: &TacticalCombatConfig,
+    trees: &BotTrees,
 ) {
-    commands
-        .entity(actor)
-        .remove::<crate::bot::defense::PendingBotReaction>();
-    commands.entity(actor).remove::<OffensiveCombatAi>();
-    commands.entity(actor).remove::<(
-        ReactiveDefenseAi,
-        RaisedGuardAi,
-        AimAtNearestOpponentAi,
-        RecoverToUprightAi,
-        CombatantBehaviorPackages,
-    )>();
-    if mode == ControlMode::Indirect {
-        commands.entity(actor).insert(indirect_packages(config));
+    stop_bot(commands, actor);
+    if mode != ControlMode::Indirect {
+        return;
+    }
+    match indirect_behaviour(trees) {
+        Ok(behaviour) => {
+            commands.entity(actor).insert(behaviour);
+        }
+        Err(error) => warn!(?actor, %error, "cannot start indirect control behaviour"),
     }
 }
 

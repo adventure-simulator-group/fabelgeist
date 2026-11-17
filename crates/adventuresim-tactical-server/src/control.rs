@@ -6,7 +6,7 @@ use adventuresim_tactical_netcode::{bevy_replicon::prelude::*, control::*};
 use bevy::prelude::*;
 
 use crate::{
-    bot::CombatantBehaviorPackages,
+    bot::{BotTreeError, BotTrees, STANDARD_COMBAT_TREE},
     combat::{CombatInstant, CombatSet},
     navigation::NavigationWorld,
     player_projection::{AuthoritativeMovementIntent, AuthoritativePostureIntent},
@@ -59,7 +59,7 @@ pub(crate) enum PursuitPolicy {
     Forbidden,
 }
 
-/// Authored NPC packages can initiate combat; player defaults only retaliate.
+/// Mission enemies can initiate combat; player defaults only retaliate.
 #[derive(Component, Clone, Copy, Default)]
 pub(crate) enum EngagementPolicy {
     #[default]
@@ -114,8 +114,11 @@ impl AgentState {
     }
 }
 
-pub(crate) fn indirect_packages(config: &TacticalCombatConfig) -> CombatantBehaviorPackages {
-    CombatantBehaviorPackages::standard_combat(config)
+/// The tree that drives a character under indirect control.
+pub(crate) fn indirect_behaviour(
+    trees: &BotTrees,
+) -> Result<kisya_edbt::prelude::Behaviour, BotTreeError> {
+    trees.behaviour(STANDARD_COMBAT_TREE)
 }
 
 pub(crate) fn control_filter(

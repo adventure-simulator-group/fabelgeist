@@ -1,7 +1,7 @@
 version: 1
 enemies:
   - name: Passive Bandit
-    behavior: passive
+    behavior_tree: passive.bt.ron
     add_basic_clothing: true
     loadout:
       - { item_id: arming_cap, slot: head }

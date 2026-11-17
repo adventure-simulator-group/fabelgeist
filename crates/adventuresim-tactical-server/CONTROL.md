@@ -57,14 +57,21 @@ the sequence and carries a structured rejection when admission fails.
 
 `CharacterOrder` stores the commanded goal independently of `ThreatMemory`.
 `BehaviorPolicy` supplies standing retaliation policy. `EngagementPolicy`
-allows authored hostile NPC packages to seek perceived opponents. Connectivity
-and mission-enemy membership do not grant additional physical capabilities.
+allows mission enemies to seek perceived opponents. Connectivity and
+mission-enemy membership do not grant additional physical capabilities.
+
+Under indirect control a character runs the `standard_combat.bt.ron` behaviour
+tree from `content/tactical/ai/`, the same tree ordinary mission enemies run.
+The decision chooses whom to engage; the tree decides how to fight that target.
+An order or stop restarts the tree, and switching to direct control stops it.
 
 After condition derivation, `ControlSet::Decide` chooses a behavior,
-`ControlSet::Execute` runs the composable combat packages, and
-`ControlSet::Navigate` resolves permitted pursuit through navigation. Committed
-attacks, defensive movement, posture transitions, and incapacitation constrain
-ordinary movement. The shared fixed-step motor consumes the resulting intent.
+`ControlSet::Execute` applies the movement, facing, and guard the behaviour
+tree requested, and `ControlSet::Navigate` resolves permitted pursuit through
+navigation. The tree itself runs in `Update` outside these sets, so a request
+can take effect one frame later. Committed attacks, defensive movement,
+posture transitions, and incapacitation constrain ordinary movement. The shared
+fixed-step motor consumes the resulting intent.
 
 Accepted attack publication produces `AcceptedAttack`. Perception checks
 distance, facing, and scene occlusion before remembering aggression and
@@ -78,8 +85,8 @@ contacts both complete on the authoritative server; a mode change does not
 depend on a client sending a completion packet.
 
 Reconnect projections retain mode, generation, order, policy, and pending
-combat contacts. Runtime behavior packages are restored from the active server
-configuration, and navigation is rebuilt against the current world.
+combat contacts. The behaviour tree restarts from the server's loaded trees,
+and navigation is rebuilt against the current world.
 
 ## Navigation contracts
 

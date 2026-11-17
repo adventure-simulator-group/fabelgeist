@@ -414,9 +414,10 @@ dependencies = [
  "clap",
  "fabelgeist-determinism",
  "fabelgeist-geometry",
+ "kisya_edbt",
  "landmass_rerecast",
  "rand 0.9.5",
- "ron",
+ "ron 0.12.2",
  "serde",
  "serde-saphyr",
  "serde_json",
@@ -1509,7 +1510,7 @@ dependencies = [
  "downcast-rs 2.0.2",
  "either",
  "petgraph 0.8.3",
- "ron",
+ "ron 0.12.2",
  "serde",
  "smallvec",
  "thiserror 2.0.20",
@@ -1607,7 +1608,7 @@ dependencies = [
  "futures-util",
  "js-sys",
  "notify-debouncer-full",
- "ron",
+ "ron 0.12.2",
  "serde",
  "stackfuture",
  "thiserror 2.0.20",
@@ -1775,7 +1776,7 @@ dependencies = [
  "bevy_ui_render",
  "bevy_utils",
  "bevy_window",
- "ron",
+ "ron 0.12.2",
  "serde",
  "thiserror 2.0.20",
  "tracing",
@@ -3130,7 +3131,7 @@ dependencies = [
  "bevy_transform",
  "bevy_utils",
  "derive_more 2.1.1",
- "ron",
+ "ron 0.12.2",
  "serde",
  "thiserror 2.0.20",
  "uuid",
@@ -6377,6 +6378,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "indextree"
+version = "4.9.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3662f57019121dcb767b3d68df6868daf61c8e2ec8205709aea7e75b301a4ecc"
+
+[[package]]
 name = "inflections"
 version = "1.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6696,6 +6703,22 @@ name = "khronos_api"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2db585e1d738fc771bf08a151420d3ed193d9d895a36df7f6f8a9456b911ddc"
+
+[[package]]
+name = "kisya_edbt"
+version = "0.1.0"
+source = "git+https://github.com/kisya-games/kisya_edbt?branch=main#826019764c9ad87a81acd554761e55f5d1ea1132"
+dependencies = [
+ "anyhow",
+ "bevy",
+ "indextree",
+ "itertools 0.14.0",
+ "ron 0.11.0",
+ "serde",
+ "smallvec",
+ "strum 0.28.0",
+ "thiserror 2.0.20",
+]
 
 [[package]]
 name = "kqueue"
@@ -9215,6 +9238,19 @@ dependencies = [
  "num-rational",
  "thiserror 2.0.20",
  "tracing",
+]
+
+[[package]]
+name = "ron"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "db09040cc89e461f1a265139777a2bde7f8d8c67c4936f700c63ce3e2904d468"
+dependencies = [
+ "base64 0.22.1",
+ "bitflags 2.13.1",
+ "serde",
+ "serde_derive",
+ "unicode-ident",
 ]
 
 [[package]]

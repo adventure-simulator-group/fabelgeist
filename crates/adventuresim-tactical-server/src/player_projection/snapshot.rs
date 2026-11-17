@@ -131,12 +131,18 @@ impl DisconnectedProjection {
                 if snapshot.control.mode
                     == adventuresim_tactical_core::control::ControlMode::Indirect
                 {
-                    commands.queue(move |world: &mut World| {
-                        let packages = crate::control::indirect_packages(
-                            world.resource::<TacticalCombatConfig>(),
-                        );
-                        world.entity_mut(target).insert(packages);
-                    });
+                    commands.queue(
+                        move |world: &mut World| match crate::control::indirect_behaviour(
+                            world.resource::<crate::bot::BotTrees>(),
+                        ) {
+                            Ok(behaviour) => {
+                                world.entity_mut(target).insert(behaviour);
+                            }
+                            Err(error) => {
+                                warn!(?target, %error, "cannot restore indirect control behaviour");
+                            }
+                        },
+                    );
                 }
                 if let Some(pending) = snapshot.ranged_contact {
                     commands.entity(target).insert(pending);

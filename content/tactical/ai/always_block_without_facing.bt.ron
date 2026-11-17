@@ -1,0 +1,9 @@
+// Test blocker: keeps its weapon guard raised so passive weapon interception
+// can catch attacks from any direction. It never attacks.
+(root: {
+    "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
+    "children": [
+        { "RecoverToUprightNode": () },
+        { "RaiseGuardNode": (stance: Always) },
+    ],
+})

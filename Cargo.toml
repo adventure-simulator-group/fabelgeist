@@ -149,6 +149,7 @@ async-compat = "0.2.5"
 cfg-if = "1.0"
 clap = { version = "4.5.60", features = ["derive", "env"] }
 tracing = "0.1.44"
+kisya_edbt = { version = "0.1.0", default-features = false }
 rand = "=0.9.5"
 rand_xoshiro = "=0.7.0"
 rayon = "1.12"
@@ -185,6 +186,8 @@ all = { level = "warn", priority = -1 }
 
 [patch.crates-io]
 rerecast = { path = "vendor/rerecast" }
+# Unreleased spawn_task abort fix; drop once it is published.
+kisya_edbt = { git = "https://github.com/kisya-games/kisya_edbt", branch = "main" }
 adventuresim-tactical-netcode = { path = "crates/adventuresim-tactical-netcode" }
 adventuresim-tactical-core = { path = "crates/adventuresim-tactical-core" }
 adventuresim-stdb-client = { path = "crates/adventuresim-stdb-client" }
