@@ -45,11 +45,23 @@ independently.
 
 `commit_tactical_inventory` accepts an opaque command identity, the actor's
 expected state, and one action. Transfers also supply the recipient's expected
-state. Actions cover authored equipment placement and removal, personal
-inventory transfers, container insertion and removal, and water disposal.
+state. Equipment changes select inventory, a generic left or right hand, or an
+authored catalog placement. A request contains one change or an atomic two-item
+exchange. Both sources vacate within the same transaction, so occupied hands
+and worn/held items can exchange without an intermediate inventory mutation.
+Held clothing provides no worn protection. Authored placements never reserve a
+hand through the held channel; native hand topology has no authored placement
+identity. Other actions cover personal inventory transfers, container insertion
+and removal, and water disposal.
 Transfers require current canonical party membership and active player
 admissions on the same host. Live container actions address personal objects.
 Shared party-pool access requires its own physical custody policy.
+
+Raw HTTP callers encode generated requests with the SDK facade's
+`json_reducer_argument`. It derives product positions and sum tags from the
+generated type, avoiding differences between Rust variant spelling and the
+HTTP schema's names. Serving SDK connections call the generated reducers
+directly.
 
 The registered serving connection owns database commits. The native host owns
 the controlling connection, physical reach and ability checks when admitting

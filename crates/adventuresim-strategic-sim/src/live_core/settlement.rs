@@ -2007,7 +2007,7 @@ impl LiveRunner {
                     order.item_id, order.id, order.quoted_cost
                 ),
             );
-            if let Some(placement_id) = order.equipped_placement_id.as_deref() {
+            if let Some(placement) = order.equipped_placement.as_ref() {
                 let verified = self
                     .connection
                     .db
@@ -2016,7 +2016,7 @@ impl LiveRunner {
                     .any(|row| {
                         row.character_id == character_id
                             && row.inventory_item_id == order.inventory_item_id
-                            && row.placement_id == placement_id
+                            && &row.placement == placement
                     })
                     && order.attachment_targets.iter().all(|target| {
                         self.connection.db.equipment_occupancy().iter().any(|row| {

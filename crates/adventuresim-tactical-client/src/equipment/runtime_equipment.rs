@@ -3,7 +3,8 @@ use super::*;
 pub(crate) struct RuntimeEquipmentPresentation {
     pub(super) item: Entity,
     pub(super) item_id: String,
-    pub(super) placement_id: String,
+    pub(super) authored_placement:
+        Option<adventuresim_core::equipment_placement::AuthoredPlacementId>,
 }
 
 mod body;
@@ -136,8 +137,6 @@ pub(super) fn presentation(
     Some(RuntimeEquipmentPresentation {
         item,
         item_id: properties.id.clone(),
-        placement_id: topology
-            .and_then(|topology| topology.placement_id.clone())
-            .unwrap_or_else(|| "worn".into()),
+        authored_placement: topology.and_then(|topology| topology.authored_placement.clone()),
     })
 }

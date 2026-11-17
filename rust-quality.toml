@@ -9,6 +9,17 @@ excluded_paths = [
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-core/src/item_catalog_validation_physical.rs"
+reason = "Validates physical dimension fields at the authored JSON catalog boundary; field names are external schema keys."
+
+[[scopes]]
+kind = "boundary_adapter"
+path = "crates/strategic-web/src/routes/settlements/party/equipment.rs"
+item = "set_equipment"
+reason = "Serializes the admitted equipment or preparation request for named SpacetimeDB reducer endpoints at the HTTP boundary."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-core/src/strategic_place/venue.rs"
 item = "SettlementVenueKind::from_id"
 reason = "Admits canonical settlement location identifiers into the closed physical venue enum before scheduling or service policy."

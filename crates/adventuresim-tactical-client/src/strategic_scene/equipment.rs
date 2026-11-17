@@ -85,7 +85,7 @@ fn spawn_item(
             anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
         },
         EquipmentTopology {
-            placement_id: Some(item.placement.clone()),
+            authored_placement: item.placement.authored_id().cloned(),
             occupancies: item
                 .occupancies
                 .iter()
@@ -133,18 +133,5 @@ fn spawn_item(
 }
 
 fn held_slot(item: &EquipmentAppearance) -> Option<EquipSlot> {
-    use adventuresim_core::item_catalog::{EquipmentChannel, EquipmentLocation};
-    item.occupancies.iter().find_map(|row| match row.anchor {
-        AppearanceAnchor::Character(EquipmentLocation::LeftHand)
-            if row.channel == EquipmentChannel::Held =>
-        {
-            Some(EquipSlot::HoldingLeft)
-        }
-        AppearanceAnchor::Character(EquipmentLocation::RightHand)
-            if row.channel == EquipmentChannel::Held =>
-        {
-            Some(EquipSlot::HoldingRight)
-        }
-        _ => None,
-    })
+    item.placement.hand().map(EquipSlot::from)
 }

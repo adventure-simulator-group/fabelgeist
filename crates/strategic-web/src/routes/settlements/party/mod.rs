@@ -16,5 +16,8 @@ include!("inventory_medical.rs");
 include!("social.rs");
 include!("transfers.rs");
 
+mod equipment;
+pub(super) use equipment::set_equipment;
+
 mod schedule_preview;
 pub(super) use schedule_preview::preview_training_schedule;

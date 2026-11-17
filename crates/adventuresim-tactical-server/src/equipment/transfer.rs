@@ -23,7 +23,7 @@ pub(super) fn transfer_slot(
             }
             commands
                 .entity(item)
-                .insert((hand_topology(hand), hand.slot()));
+                .insert((hand_topology(hand), EquipSlot::from(hand)));
             true
         }
         Some(moving) => {
@@ -87,7 +87,7 @@ pub(super) fn transfer_slot(
             if let Some(ReachableTarget::Occupied(swapped)) = destination {
                 commands
                     .entity(swapped)
-                    .insert((hand_topology(hand), hand.slot()));
+                    .insert((hand_topology(hand), EquipSlot::from(hand)));
             }
             true
         }

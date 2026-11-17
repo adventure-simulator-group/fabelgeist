@@ -4,18 +4,15 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
-use super::equipment_attachment_target_selection_type::EquipmentAttachmentTargetSelection;
-use super::equipment_conflict_policy_type::EquipmentConflictPolicy;
+use super::equipment_destination_request_type::EquipmentDestinationRequest;
 
 #[derive(__lib::ser::Serialize, __lib::de::Deserialize, Clone, PartialEq, Debug)]
 #[sats(crate = __lib)]
-pub struct TacticalInventoryEquipmentPlacement {
+pub struct EquipmentChangeRequest {
     pub inventory_item_id: u64,
-    pub placement_index: u16,
-    pub targets: Vec<EquipmentAttachmentTargetSelection>,
-    pub conflicts: EquipmentConflictPolicy,
+    pub destination: EquipmentDestinationRequest,
 }
 
-impl __sdk::InModule for TacticalInventoryEquipmentPlacement {
+impl __sdk::InModule for EquipmentChangeRequest {
     type Module = super::RemoteModule;
 }

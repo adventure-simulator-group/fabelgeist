@@ -16,10 +16,11 @@ pub(super) fn wearable_protection_for_part(
                 .id()
                 .find(equipped.inventory_item_id)?;
             let item = effective_item_definition(ctx, Some(inventory.id))?;
+            let placement_id = equipped.placement.authored_id()?;
             let placement = item
                 .equipment_placements
                 .iter()
-                .find(|placement| placement.id == equipped.placement_id)?;
+                .find(|placement| placement.id == placement_id.as_str())?;
             if !placement
                 .protection
                 .iter()
@@ -95,9 +96,10 @@ pub(super) fn equipped_armor_coverage(
         .find(inventory_item_id)?;
     let definition = adventuresim_core::item_catalog::definition(&inventory.item_id)?;
     let equipment = definition.equipment.as_ref()?;
+    let placement_id = equipped.placement.authored_id()?;
     let placement = equipment
         .placements
         .iter()
-        .find(|placement| placement.id == equipped.placement_id)?;
+        .find(|placement| placement.id == placement_id.as_str())?;
     Some(adventuresim_core::combat::AuthoredArmorCoverage::from_placement(placement, part))
 }

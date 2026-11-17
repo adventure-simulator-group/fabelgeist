@@ -1,5 +1,6 @@
 use adventuresim_core::{
     body::BodyPart,
+    equipment_placement::AuthoredPlacementId,
     item_catalog::{EquipmentChannel, EquipmentLocation},
     item_catalog_schema::EquipmentMaterial,
 };
@@ -20,6 +21,7 @@ use crate::inventory_armor::fold_armor_layers;
 mod armor;
 mod chronology;
 mod equipment_view;
+mod hand;
 mod mass;
 mod ordering;
 mod quantity;
@@ -108,8 +110,9 @@ pub struct ItemProperties {
 }
 
 #[derive(Component, Serialize, Deserialize, Default, Clone, Debug, PartialEq, Eq, MapEntities)]
+#[serde(deny_unknown_fields)]
 pub struct EquipmentTopology {
-    pub placement_id: Option<String>,
+    pub authored_placement: Option<AuthoredPlacementId>,
     #[entities]
     pub occupancies: Vec<EquipmentTopologyOccupancy>,
 }
@@ -574,7 +577,7 @@ mod tests {
     #[test]
     fn topology_retains_stable_placement_and_attachment_edge_identity() {
         let topology = EquipmentTopology {
-            placement_id: Some("double_strap".into()),
+            authored_placement: Some("double_strap".to_owned().try_into().unwrap()),
             occupancies: vec![
                 EquipmentTopologyOccupancy {
                     occupancy_id: "character:1:Chest:60:0".into(),
@@ -608,7 +611,10 @@ mod tests {
                 },
             ],
         };
-        assert_eq!(topology.placement_id.as_deref(), Some("double_strap"));
+        assert_eq!(
+            topology.authored_placement.as_ref().map(|id| id.as_str()),
+            Some("double_strap")
+        );
         assert_eq!(topology.occupancies.len(), 3);
         assert!(matches!(
             topology.occupancies[1].anchor,
@@ -622,7 +628,7 @@ mod tests {
         let parent = Entity::from_bits(41);
         let mapped_parent = Entity::from_bits(141);
         let mut topology = EquipmentTopology {
-            placement_id: Some("attached".into()),
+            authored_placement: Some("attached".to_owned().try_into().unwrap()),
             occupancies: vec![EquipmentTopologyOccupancy {
                 occupancy_id: "item:41:left:0".into(),
                 anchor: TacticalEquipmentAnchor::ItemAttachment {

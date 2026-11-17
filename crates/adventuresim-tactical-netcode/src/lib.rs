@@ -23,10 +23,10 @@ pub mod prelude {
     pub use crate::client::{AdventureSimulatorClient, PlayerInputOverride};
     pub use crate::message::{
         DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentAction,
-        EquipmentActionRequest, EquipmentHand, JoinRequest, JumpCommand, MeleeActionRequest,
-        PlayerInputRequest, PostureActionRequest, PostureCommand, RangedActionRequest,
-        ReconnectCapability, ReconnectToken, SceneVistaBundle, TacticalCombatConfigSnapshot,
-        TacticalOutcome, TacticalOutcomeResponse,
+        EquipmentActionRequest, JoinRequest, JumpCommand, MeleeActionRequest, PlayerInputRequest,
+        PostureActionRequest, PostureCommand, RangedActionRequest, ReconnectCapability,
+        ReconnectToken, SceneVistaBundle, TacticalCombatConfigSnapshot, TacticalOutcome,
+        TacticalOutcomeResponse,
     };
     #[cfg(feature = "server")]
     pub use crate::server::AdventureSimulatorServer;

@@ -56,7 +56,7 @@ impl PersonalInventoryTransfer {
         if self.source.quantity < self.quantity.get() {
             return Err("Source character does not have that quantity".into());
         }
-        if crate::character::inventory_item_is_equipped(ctx, from.id, self.source.id) {
+        if crate::character::inventory_item_is_equipped(ctx, self.source.id) {
             return Err("Unequip an item before transferring it".into());
         }
         let definition = ctx
@@ -114,7 +114,7 @@ impl PersonalInventoryTransfer {
             .character_and_item_id()
             .filter((recipient.id, &self.source.item_id))
         {
-            if !crate::character::inventory_item_is_equipped(ctx, recipient.id, row.id)
+            if !crate::character::inventory_item_is_equipped(ctx, row.id)
                 && crate::inventory_container::object_for_row(
                     ctx,
                     CarriedInventoryScope::Personal,

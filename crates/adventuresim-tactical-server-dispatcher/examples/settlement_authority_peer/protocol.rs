@@ -21,6 +21,9 @@ pub(super) enum PeerCommand {
     Inventory {
         request: SerdeWrapper<TacticalInventoryCommand>,
     },
+    EquipmentArgument {
+        request: SerdeWrapper<adventuresim_stdb_client::EquipmentChangeSetRequest>,
+    },
     Enter {
         character_id: u64,
     },
@@ -55,6 +58,19 @@ pub(super) enum PeerControl {
 impl PeerCommand {
     pub(super) fn dispatch(self, conn: &DbConnection) -> PeerControl {
         match self {
+            Self::EquipmentArgument {
+                request: SerdeWrapper(request),
+            } => match adventuresim_stdb_client::json_reducer_argument(&request) {
+                Ok(argument) => println!(
+                    "{}",
+                    json!({"key": "equipment_argument", "status": PeerStatus::Accepted, "argument": argument})
+                ),
+                Err(error) => reply(
+                    "equipment_argument",
+                    PeerStatus::TransportError,
+                    Some(error.to_string()),
+                ),
+            },
             Self::Inventory {
                 request: SerdeWrapper(request),
             } => invoke_inventory(conn, request),
@@ -166,11 +182,21 @@ fn snapshot(conn: &DbConnection, character: u64) {
     };
     match player.inventory {
         ConnectedInventory::Available(snapshot) => {
-            let items: Vec<_> = snapshot.items.iter().map(|row| json!({
+            let items: Result<Vec<_>, adventuresim_core::equipment_placement::AuthoredPlacementIdentityError> = snapshot.items.iter().map(|row| {
+                let placement = row.selected_placement.clone().map(adventuresim_core::equipment_placement::EquippedPlacement::try_from).transpose()?;
+                Ok(json!({
                 "id": row.inventory_item_id, "catalog": row.item.id, "quantity": row.quantity,
                 "object": row.physical_object_id, "mass_kg": row.carried_mass_kg,
-                "placement": row.selected_placement_id,
-            })).collect();
+                "placement": placement,
+                "protection": row.protected_body_parts.iter().map(|part| format!("{part:?}")).collect::<Vec<_>>(),
+            }))}).collect();
+            let items = match items {
+                Ok(items) => items,
+                Err(error) => {
+                    reply(&key, PeerStatus::ProjectionError, Some(error.to_string()));
+                    return;
+                }
+            };
             println!(
                 "{}",
                 json!({"key": key, "status": PeerStatus::Snapshot, "state": {

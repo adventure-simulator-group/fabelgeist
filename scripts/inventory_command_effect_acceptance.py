@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import copy
 
-from inventory_command_peer import InventoryPeer, durable_inventory, insert, item, place, transfer
+from inventory_command_peer import InventoryPeer, durable_inventory, insert, item, place, remove, transfer
 
 PARENT = "authority-command-parent"
 CHILD = "authority-command-child"
@@ -37,15 +37,15 @@ def equipment_and_container_checks(peer: InventoryPeer, actor: int) -> None:
     reject_action(peer, actor, place(parent["id"]))
     peer.apply_change(actor, place(parent["id"], replace=True))
     equipped = peer.snapshot(actor)
-    assert item(equipped, PARENT)["placement"] == "held"
+    assert item(equipped, PARENT)["placement"] == {"Authored": "mounted"}
     assert item(equipped, BLOCKER)["placement"] is None
     peer.apply_change(actor, place(first["id"], parent=parent["id"]))
     peer.apply_change(actor, insert(second["object"], box["object"]))
     reject_action(peer, actor, place(second["id"], parent=parent["id"]))
     peer.apply_change(actor, place(second["id"], parent=parent["id"], replace=True))
-    reject_action(peer, actor, {"RemoveEquipment": parent["id"]})
-    peer.apply_change(actor, {"RemoveEquipment": second["id"]})
-    peer.apply_change(actor, {"RemoveEquipment": parent["id"]})
+    reject_action(peer, actor, remove(parent["id"]))
+    peer.apply_change(actor, remove(second["id"]))
+    peer.apply_change(actor, remove(parent["id"]))
     peer.apply_change(actor, place(parent["id"]))
 
     combined = item(peer.snapshot(actor), "authority-command-combined")
@@ -155,7 +155,7 @@ def subtree_and_replay_checks(peer: InventoryPeer, source: int, destination: int
 def recipe_and_condition_transfer_checks(peer: InventoryPeer, source: int, destination: int) -> None:
     current = peer.snapshot(source)
     parent = item(current, PARENT)
-    peer.apply_change(source, {"RemoveEquipment": parent["id"]})
+    peer.apply_change(source, remove(parent["id"]))
     condition_before = peer.client.rows(
         "SELECT tier_1, tier_2, tier_3, tier_4, tier_5 FROM item_condition "
         f"WHERE inventory_item_id = {parent['id']}"

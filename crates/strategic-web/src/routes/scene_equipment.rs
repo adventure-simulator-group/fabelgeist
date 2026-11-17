@@ -140,7 +140,11 @@ async fn appearances(
             let mut appearance = EquipmentAppearance {
                 id: PresentationId(item.id.to_string()),
                 item: item.item_id.clone(),
-                placement: node.placement_id.clone(),
+                placement: node
+                    .placement
+                    .clone()
+                    .try_into()
+                    .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?,
                 occupancies: occupancies
                     .iter()
                     .filter(|row| row.inventory_item_id == item.id && row.character_id == id)

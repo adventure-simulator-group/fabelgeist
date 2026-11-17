@@ -30,7 +30,8 @@ pub mod answer_hostile_surrender_offer_reducer;
 pub mod approach_dialogue_witness_reducer;
 pub mod approve_party_action_request_planned_reducer;
 pub mod approve_party_action_request_reducer;
-pub mod attach_item_at_placement_reducer;
+pub mod authored_equipment_placement_request_type;
+pub mod authored_placement_id_type;
 pub mod authority_arrest_charge_type;
 pub mod authorize_tactical_server_claim_reducer;
 pub mod automatic_social_chat_type;
@@ -208,6 +209,7 @@ pub mod cation_exchange_capacity_type;
 pub mod challenge_attempt_receipt_type;
 pub mod challenge_authority_type;
 pub mod challenge_presenter_catalog_id_type;
+pub mod change_equipment_reducer;
 pub mod change_inventory_item_reducer;
 pub mod character_affinity_type;
 pub mod character_attributes_type;
@@ -379,16 +381,22 @@ pub mod end_tactical_server_reducer;
 pub mod ensure_settlement_activity_reducer;
 pub mod enter_settlement_resident_reducer;
 pub mod enter_tactical_scene_reducer;
-pub mod equip_item_at_placement_reducer;
 pub mod equipment_anchor_kind_type;
 pub mod equipment_attachment_target_selection_type;
 pub mod equipment_body_part_type;
+pub mod equipment_change_request_type;
+pub mod equipment_change_set_request_type;
+pub mod equipment_changes_request_type;
 pub mod equipment_channel_type;
 pub mod equipment_conflict_policy_type;
+pub mod equipment_destination_request_type;
+pub mod equipment_exchange_request_type;
 pub mod equipment_fit_zone_type;
+pub mod equipment_hand_type;
 pub mod equipment_location_type;
 pub mod equipment_occupancy_table;
 pub mod equipment_occupancy_type;
+pub mod equipped_placement_type;
 pub mod errantry_authority_type;
 pub mod estate_disposition_status_type;
 pub mod estate_disposition_type;
@@ -765,7 +773,6 @@ pub mod rent_residence_reducer;
 pub mod repair_inventory_location_type;
 pub mod repair_order_table;
 pub mod repair_order_type;
-pub mod replace_item_at_placement_reducer;
 pub mod report_contract_reducer;
 pub mod reputation_event_type;
 pub mod request_general_party_join_reducer;
@@ -960,7 +967,6 @@ pub mod tactical_inventory_action_type;
 pub mod tactical_inventory_actor_state_type;
 pub mod tactical_inventory_command_type;
 pub mod tactical_inventory_container_insertion_type;
-pub mod tactical_inventory_equipment_placement_type;
 pub mod tactical_inventory_receipt_table;
 pub mod tactical_inventory_receipt_type;
 pub mod tactical_inventory_transfer_type;
@@ -1000,7 +1006,6 @@ pub mod tree_species_id_type;
 pub mod tree_species_profile_type;
 pub mod trigger_development_scenario_incident_reducer;
 pub mod unconsolidated_deposit_type;
-pub mod unequip_item_reducer;
 pub mod update_character_reducer;
 pub mod update_party_check_targets_reducer;
 pub mod update_recruitment_role_reducer;
@@ -1054,7 +1059,8 @@ pub use answer_hostile_surrender_offer_reducer::answer_hostile_surrender_offer;
 pub use approach_dialogue_witness_reducer::approach_dialogue_witness;
 pub use approve_party_action_request_planned_reducer::approve_party_action_request_planned;
 pub use approve_party_action_request_reducer::approve_party_action_request;
-pub use attach_item_at_placement_reducer::attach_item_at_placement;
+pub use authored_equipment_placement_request_type::AuthoredEquipmentPlacementRequest;
+pub use authored_placement_id_type::AuthoredPlacementId;
 pub use authority_arrest_charge_type::AuthorityArrestCharge;
 pub use authorize_tactical_server_claim_reducer::authorize_tactical_server_claim;
 pub use automatic_social_chat_type::AutomaticSocialChat;
@@ -1232,6 +1238,7 @@ pub use cation_exchange_capacity_type::CationExchangeCapacity;
 pub use challenge_attempt_receipt_type::ChallengeAttemptReceipt;
 pub use challenge_authority_type::ChallengeAuthority;
 pub use challenge_presenter_catalog_id_type::ChallengePresenterCatalogId;
+pub use change_equipment_reducer::change_equipment;
 pub use change_inventory_item_reducer::change_inventory_item;
 pub use character_affinity_type::CharacterAffinity;
 pub use character_attributes_type::CharacterAttributes;
@@ -1403,16 +1410,22 @@ pub use end_tactical_server_reducer::end_tactical_server;
 pub use ensure_settlement_activity_reducer::ensure_settlement_activity;
 pub use enter_settlement_resident_reducer::enter_settlement_resident;
 pub use enter_tactical_scene_reducer::enter_tactical_scene;
-pub use equip_item_at_placement_reducer::equip_item_at_placement;
 pub use equipment_anchor_kind_type::EquipmentAnchorKind;
 pub use equipment_attachment_target_selection_type::EquipmentAttachmentTargetSelection;
 pub use equipment_body_part_type::EquipmentBodyPart;
+pub use equipment_change_request_type::EquipmentChangeRequest;
+pub use equipment_change_set_request_type::EquipmentChangeSetRequest;
+pub use equipment_changes_request_type::EquipmentChangesRequest;
 pub use equipment_channel_type::EquipmentChannel;
 pub use equipment_conflict_policy_type::EquipmentConflictPolicy;
+pub use equipment_destination_request_type::EquipmentDestinationRequest;
+pub use equipment_exchange_request_type::EquipmentExchangeRequest;
 pub use equipment_fit_zone_type::EquipmentFitZone;
+pub use equipment_hand_type::EquipmentHand;
 pub use equipment_location_type::EquipmentLocation;
 pub use equipment_occupancy_table::*;
 pub use equipment_occupancy_type::EquipmentOccupancy;
+pub use equipped_placement_type::EquippedPlacement;
 pub use errantry_authority_type::ErrantryAuthority;
 pub use estate_disposition_status_type::EstateDispositionStatus;
 pub use estate_disposition_type::EstateDisposition;
@@ -1789,7 +1802,6 @@ pub use rent_residence_reducer::rent_residence;
 pub use repair_inventory_location_type::RepairInventoryLocation;
 pub use repair_order_table::*;
 pub use repair_order_type::RepairOrder;
-pub use replace_item_at_placement_reducer::replace_item_at_placement;
 pub use report_contract_reducer::report_contract;
 pub use reputation_event_type::ReputationEvent;
 pub use request_general_party_join_reducer::request_general_party_join;
@@ -1984,7 +1996,6 @@ pub use tactical_inventory_action_type::TacticalInventoryAction;
 pub use tactical_inventory_actor_state_type::TacticalInventoryActorState;
 pub use tactical_inventory_command_type::TacticalInventoryCommand;
 pub use tactical_inventory_container_insertion_type::TacticalInventoryContainerInsertion;
-pub use tactical_inventory_equipment_placement_type::TacticalInventoryEquipmentPlacement;
 pub use tactical_inventory_receipt_table::*;
 pub use tactical_inventory_receipt_type::TacticalInventoryReceipt;
 pub use tactical_inventory_transfer_type::TacticalInventoryTransfer;
@@ -2024,7 +2035,6 @@ pub use tree_species_id_type::TreeSpeciesId;
 pub use tree_species_profile_type::TreeSpeciesProfile;
 pub use trigger_development_scenario_incident_reducer::trigger_development_scenario_incident;
 pub use unconsolidated_deposit_type::UnconsolidatedDeposit;
-pub use unequip_item_reducer::unequip_item;
 pub use update_character_reducer::update_character;
 pub use update_party_check_targets_reducer::update_party_check_targets;
 pub use update_recruitment_role_reducer::update_recruitment_role;
@@ -2147,12 +2157,6 @@ pub enum Reducer {
         request_id: u64,
         route: JourneyRoutePlan,
     },
-    AttachItemAtPlacement {
-        character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
-        targets: Vec<EquipmentAttachmentTargetSelection>,
-    },
     AuthorizeTacticalServerClaim {
         instance_id: String,
         claim_hash: Vec<u8>,
@@ -2202,6 +2206,10 @@ pub enum Reducer {
     CancelWedding {
         actor_id: u64,
         commitment_id: String,
+    },
+    ChangeEquipment {
+        character_id: u64,
+        request: EquipmentChangeSetRequest,
     },
     ChangeInventoryItem {
         character_id: u64,
@@ -2393,11 +2401,6 @@ pub enum Reducer {
     EnterTacticalScene {
         character_id: u64,
         server: __sdk::Identity,
-    },
-    EquipItemAtPlacement {
-        character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
     },
     ExamineCorpse {
         actor_id: u64,
@@ -2675,12 +2678,6 @@ pub enum Reducer {
     RentResidence {
         character_id: u64,
         property_id: String,
-    },
-    ReplaceItemAtPlacement {
-        character_id: u64,
-        inventory_item_id: u64,
-        placement_index: u16,
-        targets: Vec<EquipmentAttachmentTargetSelection>,
     },
     ReportContract {
         character_id: u64,
@@ -2996,10 +2993,6 @@ pub enum Reducer {
         problem_id: String,
         request_id: String,
     },
-    UnequipItem {
-        character_id: u64,
-        inventory_item_id: u64,
-    },
     UpdateCharacter {
         id: u64,
         name: String,
@@ -3056,7 +3049,6 @@ impl __sdk::Reducer for Reducer {
             Reducer::ApprovePartyActionRequestPlanned { .. } => {
                 "approve_party_action_request_planned"
             }
-            Reducer::AttachItemAtPlacement { .. } => "attach_item_at_placement",
             Reducer::AuthorizeTacticalServerClaim { .. } => "authorize_tactical_server_claim",
             Reducer::AutoresolveMission { .. } => "autoresolve_mission",
             Reducer::BeginFormalCourtship { .. } => "begin_formal_courtship",
@@ -3068,6 +3060,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::BuyResidence { .. } => "buy_residence",
             Reducer::CancelMissionRequest { .. } => "cancel_mission_request",
             Reducer::CancelWedding { .. } => "cancel_wedding",
+            Reducer::ChangeEquipment { .. } => "change_equipment",
             Reducer::ChangeInventoryItem { .. } => "change_inventory_item",
             Reducer::ChatWithPartyMember { .. } => "chat_with_party_member",
             Reducer::ChooseDialogueTopic { .. } => "choose_dialogue_topic",
@@ -3112,7 +3105,6 @@ impl __sdk::Reducer for Reducer {
             Reducer::EnsureSettlementActivity { .. } => "ensure_settlement_activity",
             Reducer::EnterSettlementResident { .. } => "enter_settlement_resident",
             Reducer::EnterTacticalScene { .. } => "enter_tactical_scene",
-            Reducer::EquipItemAtPlacement { .. } => "equip_item_at_placement",
             Reducer::ExamineCorpse { .. } => "examine_corpse",
             Reducer::ExhumeCorpse { .. } => "exhume_corpse",
             Reducer::FinalizeMerchantTrade { .. } => "finalize_merchant_trade",
@@ -3174,7 +3166,6 @@ impl __sdk::Reducer for Reducer {
             Reducer::RemovePartyMember { .. } => "remove_party_member",
             Reducer::RenameSavedRecruitmentRole { .. } => "rename_saved_recruitment_role",
             Reducer::RentResidence { .. } => "rent_residence",
-            Reducer::ReplaceItemAtPlacement { .. } => "replace_item_at_placement",
             Reducer::ReportContract { .. } => "report_contract",
             Reducer::RequestGeneralPartyJoin { .. } => "request_general_party_join",
             Reducer::RequestPartyAction { .. } => "request_party_action",
@@ -3241,7 +3232,6 @@ impl __sdk::Reducer for Reducer {
             Reducer::TriggerDevelopmentScenarioIncident { .. } => {
                 "trigger_development_scenario_incident"
             }
-            Reducer::UnequipItem { .. } => "unequip_item",
             Reducer::UpdateCharacter { .. } => "update_character",
             Reducer::UpdatePartyCheckTargets { .. } => "update_party_check_targets",
             Reducer::UpdateRecruitmentRole { .. } => "update_recruitment_role",
@@ -3409,17 +3399,6 @@ impl __sdk::Reducer for Reducer {
                 request_id: request_id.clone(),
                 route: route.clone(),
 }),
-            Reducer::AttachItemAtPlacement{
-                character_id,
-                inventory_item_id,
-                placement_index,
-                targets,
-}             => __sats::bsatn::to_vec(&attach_item_at_placement_reducer::AttachItemAtPlacementArgs {
-                character_id: character_id.clone(),
-                inventory_item_id: inventory_item_id.clone(),
-                placement_index: placement_index.clone(),
-                targets: targets.clone(),
-}),
             Reducer::AuthorizeTacticalServerClaim{
                 instance_id,
                 claim_hash,
@@ -3508,6 +3487,13 @@ impl __sdk::Reducer for Reducer {
 }             => __sats::bsatn::to_vec(&cancel_wedding_reducer::CancelWeddingArgs {
                 actor_id: actor_id.clone(),
                 commitment_id: commitment_id.clone(),
+}),
+            Reducer::ChangeEquipment{
+                character_id,
+                request,
+}             => __sats::bsatn::to_vec(&change_equipment_reducer::ChangeEquipmentArgs {
+                character_id: character_id.clone(),
+                request: request.clone(),
 }),
             Reducer::ChangeInventoryItem{
                 character_id,
@@ -3848,15 +3834,6 @@ impl __sdk::Reducer for Reducer {
 }             => __sats::bsatn::to_vec(&enter_tactical_scene_reducer::EnterTacticalSceneArgs {
                 character_id: character_id.clone(),
                 server: server.clone(),
-}),
-            Reducer::EquipItemAtPlacement{
-                character_id,
-                inventory_item_id,
-                placement_index,
-}             => __sats::bsatn::to_vec(&equip_item_at_placement_reducer::EquipItemAtPlacementArgs {
-                character_id: character_id.clone(),
-                inventory_item_id: inventory_item_id.clone(),
-                placement_index: placement_index.clone(),
 }),
             Reducer::ExamineCorpse{
                 actor_id,
@@ -4358,17 +4335,6 @@ impl __sdk::Reducer for Reducer {
 }             => __sats::bsatn::to_vec(&rent_residence_reducer::RentResidenceArgs {
                 character_id: character_id.clone(),
                 property_id: property_id.clone(),
-}),
-            Reducer::ReplaceItemAtPlacement{
-                character_id,
-                inventory_item_id,
-                placement_index,
-                targets,
-}             => __sats::bsatn::to_vec(&replace_item_at_placement_reducer::ReplaceItemAtPlacementArgs {
-                character_id: character_id.clone(),
-                inventory_item_id: inventory_item_id.clone(),
-                placement_index: placement_index.clone(),
-                targets: targets.clone(),
 }),
             Reducer::ReportContract{
                 character_id,
@@ -4938,13 +4904,6 @@ Reducer::RetrieveFireplaceContainer{
                 scenario_slug: scenario_slug.clone(),
                 problem_id: problem_id.clone(),
                 request_id: request_id.clone(),
-}),
-            Reducer::UnequipItem{
-                character_id,
-                inventory_item_id,
-}             => __sats::bsatn::to_vec(&unequip_item_reducer::UnequipItemArgs {
-                character_id: character_id.clone(),
-                inventory_item_id: inventory_item_id.clone(),
 }),
             Reducer::UpdateCharacter{
                 id,

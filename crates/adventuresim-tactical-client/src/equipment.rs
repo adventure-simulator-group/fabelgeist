@@ -12,7 +12,7 @@ use adventuresim_core::equipment_assets::EquipmentAssets;
 use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     bevy_replicon::prelude::ClientTriggerExt,
-    prelude::{EquipmentAction, EquipmentActionRequest, EquipmentHand},
+    prelude::{EquipmentAction, EquipmentActionRequest},
 };
 use adventuresim_weapon_model::{
     ICON_RENDERER_VERSION, Material as WeaponMaterial, WeaponIconSpec, decode, generate,
@@ -790,7 +790,7 @@ mod tests {
             .spawn((
                 valid_physical(),
                 EquipmentTopology {
-                    placement_id: Some("worn".into()),
+                    authored_placement: Some("worn".to_owned().try_into().unwrap()),
                     ..default()
                 },
                 ItemProperties {
@@ -810,7 +810,13 @@ mod tests {
             .unwrap();
         assert_eq!(presentation.item, item);
         assert_eq!(presentation.item_id, "arming_doublet");
-        assert_eq!(presentation.placement_id, "worn");
+        assert_eq!(
+            presentation
+                .authored_placement
+                .as_ref()
+                .map(|id| id.as_str()),
+            Some("worn")
+        );
         assert!(world.query::<&ItemFallback>().iter(&world).next().is_none());
     }
 
@@ -824,7 +830,7 @@ mod tests {
             .spawn((
                 valid_physical(),
                 EquipmentTopology {
-                    placement_id: Some("worn".into()),
+                    authored_placement: Some("worn".to_owned().try_into().unwrap()),
                     ..default()
                 },
                 ItemProperties {
@@ -844,7 +850,13 @@ mod tests {
             .unwrap();
         assert_eq!(presentation.item, item);
         assert_eq!(presentation.item_id, "linen_tunic");
-        assert_eq!(presentation.placement_id, "worn");
+        assert_eq!(
+            presentation
+                .authored_placement
+                .as_ref()
+                .map(|id| id.as_str()),
+            Some("worn")
+        );
     }
 
     #[test]
@@ -1280,7 +1292,7 @@ mod tests {
         let belt = world
             .spawn((
                 EquipmentTopology {
-                    placement_id: Some("worn".into()),
+                    authored_placement: Some("worn".to_owned().try_into().unwrap()),
                     occupancies: vec![occupancy(TacticalEquipmentAnchor::CharacterLocation(
                         EquipmentLocation::LeftBelt,
                     ))],
@@ -1290,7 +1302,7 @@ mod tests {
             .id();
         let sheath = world
             .spawn(EquipmentTopology {
-                placement_id: Some("attached".into()),
+                authored_placement: Some("attached".to_owned().try_into().unwrap()),
                 occupancies: vec![occupancy(TacticalEquipmentAnchor::ItemAttachment {
                     parent: belt,
                     attachment_point_id: "mount".into(),
@@ -1299,7 +1311,7 @@ mod tests {
             .id();
         let weapon = world
             .spawn(EquipmentTopology {
-                placement_id: Some("contained".into()),
+                authored_placement: Some("contained".to_owned().try_into().unwrap()),
                 occupancies: vec![occupancy(TacticalEquipmentAnchor::ItemAttachment {
                     parent: sheath,
                     attachment_point_id: "blade".into(),

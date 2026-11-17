@@ -33,7 +33,7 @@ pub struct ConnectedPlayerItem {
     pub unit_mass_kg: f32,
     pub carried_mass_kg: f32,
     pub item: Item,
-    pub selected_placement_id: Option<String>,
+    pub selected_placement: Option<adventuresim_core::equipment_placement::EquippedPlacement>,
     pub occupancies: Vec<ConnectedEquipmentOccupancy>,
     pub protected_body_parts: Vec<adventuresim_core::item_catalog::EquipmentBodyPart>,
     pub condition: Option<ItemCondition>,
@@ -188,9 +188,10 @@ impl ConnectedPlayerItem {
             .inventory_item_id()
             .find(inventory_item.id);
         let placement = worn.as_ref().and_then(|worn| {
+            let id = worn.placement.authored_id()?;
             item.equipment_placements
                 .iter()
-                .find(|placement| placement.id == worn.placement_id)
+                .find(|placement| placement.id == id.as_str())
         });
         let mut occupancies: Vec<_> = ctx
             .db
@@ -220,7 +221,7 @@ impl ConnectedPlayerItem {
             unit_mass_kg: mass.unit.kilograms(),
             carried_mass_kg: mass.carried.kilograms(),
             item,
-            selected_placement_id: worn.map(|row| row.placement_id),
+            selected_placement: worn.map(|row| row.placement),
             condition,
             occupancies,
             protected_body_parts,

@@ -76,7 +76,17 @@ pub fn authority_test_inventory_command_seed(
         }
     }
     for id in [
-        PARENT, CHILD, CHILD, BLOCKER, COMBINED, BOX, TIGHT_BOX, SOLID,
+        PARENT,
+        CHILD,
+        CHILD,
+        BLOCKER,
+        COMBINED,
+        BOX,
+        TIGHT_BOX,
+        SOLID,
+        "linen_tunic",
+        "linen_tunic",
+        "torch",
     ] {
         let row = ctx.db.inventory_item().insert(InventoryItem {
             id: 0,
@@ -278,11 +288,11 @@ fn replace_equal_mass_recipe(ctx: &ReducerContext, actor: u64) -> CommandResult<
 
 fn definitions() -> Vec<Item> {
     use crate::item::{PersistedEquipmentAttachmentPoint, PersistedEquipmentPlacement};
-    let hand = PersistedEquipmentPlacement {
-        id: "held".into(),
+    let mounted = PersistedEquipmentPlacement {
+        id: "mounted".into(),
         occupancy: vec![OccupancyRequirement {
-            location: EquipmentLocation::LeftHand,
-            channel: EquipmentChannel::Held,
+            location: EquipmentLocation::LeftBelt,
+            channel: EquipmentChannel::Accessory,
             order: 0,
             fit_zone: None,
         }],
@@ -301,7 +311,7 @@ fn definitions() -> Vec<Item> {
     };
     let combined = PersistedEquipmentPlacement {
         id: "combined".into(),
-        occupancy: hand.occupancy.clone(),
+        occupancy: mounted.occupancy.clone(),
         parents: attached.parents.clone(),
         protection: Vec::new(),
     };
@@ -312,7 +322,7 @@ fn definitions() -> Vec<Item> {
             weight: 1.0,
             exterior_volume_ml: 100,
             repairable: true,
-            equipment_placements: vec![hand.clone()],
+            equipment_placements: vec![mounted.clone()],
             attachment_points: vec![PersistedEquipmentAttachmentPoint {
                 id: "hook".into(),
                 channel: EquipmentChannel::Mount,
@@ -336,7 +346,7 @@ fn definitions() -> Vec<Item> {
             kind: CatalogItemKind::Simple,
             weight: 1.0,
             exterior_volume_ml: 100,
-            equipment_placements: vec![hand],
+            equipment_placements: vec![mounted],
             ..Item::default()
         },
         Item {

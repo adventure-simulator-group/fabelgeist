@@ -101,6 +101,14 @@ pub(super) fn validate_occupancy(
             Value::Object(requirement.clone()),
         )
         .ok();
+        if typed.is_some_and(|requirement| {
+            requirement.channel == crate::item_catalog_schema::EquipmentChannel::Held
+        }) {
+            errors.push(
+                format!("{placement_path}.occupancy.{occupancy_index}.channel"),
+                "held anchors use generic hand destinations, not authored placements",
+            );
+        }
         if typed.is_some_and(|typed| {
             typed
                 .fit_zone

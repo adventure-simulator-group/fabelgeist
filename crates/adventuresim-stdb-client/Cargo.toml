@@ -7,7 +7,10 @@ edition.workspace = true
 path = "facade.rs"
 
 [dependencies]
+adventuresim-core.workspace = true
 fabelgeist-determinism.workspace = true
+serde_json.workspace = true
+spacetimedb-sats.workspace = true
 spacetimedb-sdk.workspace = true
 
 [lints]

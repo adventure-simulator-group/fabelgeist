@@ -224,6 +224,10 @@ impl ArmorCapture {
         let Some(harness) = self.harness else { return };
         let mut previous = Vec::new();
         for (item, placement) in harness.placements() {
+            let Ok(authored_placement) = placement.id.clone().try_into() else {
+                error!("invalid authored placement identity: {}", placement.id);
+                continue;
+            };
             let physical = &item.equipment.as_ref().expect("harness equipment").physical;
             let occupancies = topology::occupancies(item, placement, &previous);
             let entity = commands
@@ -236,7 +240,7 @@ impl ArmorCapture {
                         weight: item.weight_kg,
                     },
                     EquipmentTopology {
-                        placement_id: Some(placement.id.clone()),
+                        authored_placement: Some(authored_placement),
                         occupancies,
                     },
                     TacticalEquipmentPhysical {
@@ -383,7 +387,10 @@ mod tests {
                 let parent_item = world.get::<ItemProperties>(parent).unwrap();
                 let parent_topology = world.get::<EquipmentTopology>(parent).unwrap();
                 assert_eq!(parent_item.id, "padded_chausses");
-                assert_eq!(topology.placement_id, parent_topology.placement_id);
+                assert_eq!(
+                    topology.authored_placement,
+                    parent_topology.authored_placement
+                );
                 knees += 1;
             }
             assert_eq!(knees, 2);

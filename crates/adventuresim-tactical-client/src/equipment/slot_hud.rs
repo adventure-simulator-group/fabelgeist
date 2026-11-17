@@ -120,7 +120,7 @@ impl SlotHudView {
             items
                 .iter()
                 .find(|(_, owner, slot, _, _)| {
-                    owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())
+                    owner.0 == actor && slot.is_some_and(|slot| *slot == EquipSlot::from(hand))
                 })
                 .map(|(entity, _, _, properties, _)| (entity, properties))
         };
@@ -264,7 +264,7 @@ pub(super) fn apply_slot_hud_press(
             let held = items
                 .iter()
                 .find(|(_, owner, slot, _, _)| {
-                    owner.0 == actor && slot.is_some_and(|slot| *slot == hand.slot())
+                    owner.0 == actor && slot.is_some_and(|slot| *slot == EquipSlot::from(hand))
                 })
                 .map(|(_, _, _, properties, _)| properties);
             let slot = slot_selection::hud_slot(

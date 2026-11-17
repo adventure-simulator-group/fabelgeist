@@ -3,6 +3,7 @@
 
 #![allow(unused, clippy::all)]
 use super::character_equipped_item_type::CharacterEquippedItem;
+use super::equipped_placement_type::EquippedPlacement;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `character_equipped_item`.

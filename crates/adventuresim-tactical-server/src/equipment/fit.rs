@@ -14,10 +14,10 @@ fn authored_requirement(
     let fit_zone = item_catalog::definition(item_id)
         .and_then(|definition| definition.equipment.as_ref())
         .and_then(|equipment| {
-            equipment
-                .placements
-                .iter()
-                .find(|placement| Some(&placement.id) == topology.placement_id.as_ref())
+            equipment.placements.iter().find(|placement| {
+                Some(placement.id.as_str())
+                    == topology.authored_placement.as_ref().map(|id| id.as_str())
+            })
         })
         .and_then(|placement| {
             placement
@@ -180,7 +180,7 @@ mod tests {
     #[test]
     fn slot_transfers_build_a_harness_without_swapping_neighbors_and_can_wear_gauntlets() {
         use super::super::{hand_topology, placement_topology, transfer_slot};
-        use adventuresim_tactical_netcode::prelude::EquipmentHand;
+        use adventuresim_core::equipment_placement::EquipmentHand;
         use bevy::ecs::system::RunSystemOnce;
         let mut world = World::new();
         let actor = world.spawn_empty().id();
@@ -219,7 +219,7 @@ mod tests {
                         weight: 1.0,
                     },
                     hand_topology(EquipmentHand::Right),
-                    EquipmentHand::Right.slot(),
+                    EquipSlot::from(EquipmentHand::Right),
                 ))
                 .id();
             let transferred = world
