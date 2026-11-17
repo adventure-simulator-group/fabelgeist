@@ -2,9 +2,9 @@
 
 use super::*;
 
-/// Draws for the configured windup, shoots the target, then waits out the
-/// configured cooldown. Fails if the bot can no longer shoot or the target
-/// leaves weapon reach during the draw.
+/// Starts a shot at the target, waits out the configured draw while the
+/// server completes the committed shot, then waits out the configured
+/// cooldown. Fails if no shot can start.
 #[derive(Debug, Default, Reflect, Clone, Copy)]
 pub struct RangedShotNode;
 
@@ -43,13 +43,13 @@ fn begin_draw(
     mut tasks: Query<TaskMut<RangedShotNode>>,
     senses: BotSenses,
     mut random: ResMut<CombatRandom>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(mut task) = tasks.get_mut(event.entity) else {
         return;
     };
     let actor = task.actor();
-    steer(&mut movement, actor, None);
+    steer(&mut steering, actor, None);
     let Some(engagement) = senses.engagement(actor) else {
         cmd.entity(event.entity).insert(TaskStatus::Failure);
         return;
@@ -75,41 +75,18 @@ fn shoot(
     mut cmd: Commands,
     time: Res<Time<()>>,
     mut tasks: Query<TaskMut<RangedShotNode>>,
-    senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
-    let config = senses.offense_config();
     for mut task in &mut tasks {
         let actor = task.actor();
         let entity = task.entity();
-        steer(&mut movement, actor, None);
+        steer(&mut steering, actor, None);
         let next = match &mut *task {
             RangedShotTask::Starting => None,
             RangedShotTask::Drawing { draw, cooldown } => {
-                let Some(target) = senses.engagement(actor).and_then(|engagement| {
-                    (engagement.facts.use_ranged
-                        && engagement.distance_metres <= engagement.facts.weapon_reach)
-                        .then_some(engagement.target)
-                }) else {
-                    cmd.entity(entity).insert(TaskStatus::Failure);
-                    continue;
-                };
                 draw.tick(time.delta());
-                if !draw.is_finished() {
-                    continue;
-                }
-                let Some(precision) = ReportedPrecision::new(config.hit_precision) else {
-                    warn!(?actor, "bot hit precision is not finite");
-                    cmd.entity(entity).insert(TaskStatus::Failure);
-                    continue;
-                };
-                cmd.trigger(RangedAttackIntent {
-                    attacker: actor,
-                    target: Some(target),
-                    body_part: config.target_body_part,
-                    reported_precision: precision,
-                });
-                Some(RangedShotTask::Cooling(timer_after(*cooldown)))
+                draw.is_finished()
+                    .then(|| RangedShotTask::Cooling(timer_after(*cooldown)))
             }
             RangedShotTask::Cooling(cooldown) => {
                 cooldown.tick(time.delta());

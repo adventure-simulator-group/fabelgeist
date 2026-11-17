@@ -4,7 +4,7 @@
     "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
     "children": [
         { "RecoverToUprightNode": () },
-        { "RaiseGuardNode": () },
+        { "RaiseGuardNode": (stance: Always) },
         { "FaceNearestOpponentNode": () },
         { "ReactiveDefenseNode": (requires_facing: true, dodge: Always) },
     ],

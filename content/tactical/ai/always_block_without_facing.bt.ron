@@ -4,6 +4,6 @@
     "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
     "children": [
         { "RecoverToUprightNode": () },
-        { "RaiseGuardNode": () },
+        { "RaiseGuardNode": (stance: Always) },
     ],
 })

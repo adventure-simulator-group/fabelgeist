@@ -25,7 +25,7 @@ fn step_to_measure(
     mut cmd: Commands,
     tasks: Query<TaskRef<StepToMeleeMeasureNode>>,
     senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(task) = tasks.get(event.entity) else {
         return;
@@ -43,6 +43,6 @@ fn step_to_measure(
             senses.offense_config().long_weapon_measure_threshold_metres,
         );
     let intent = if too_close { RETREAT } else { ADVANCE };
-    steer(&mut movement, actor, Some(intent));
+    steer(&mut steering, actor, Some(intent));
     cmd.entity(event.entity).insert(TaskStatus::Success);
 }

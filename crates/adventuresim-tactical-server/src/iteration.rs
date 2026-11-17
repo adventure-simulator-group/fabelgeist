@@ -153,6 +153,7 @@ fn tactical_iteration_app(seed: Seed) -> App {
         CombatPlugin,
         TacticalEquipmentPlugin,
         BotPlugin,
+        crate::control::CharacterControlPlugin,
     ))
     .insert_resource(TimeUpdateStrategy::ManualDuration(Duration::from_secs_f32(
         TACTICAL_TICK_SECONDS,
@@ -249,6 +250,7 @@ fn spawn_combatant(
         QuickstepPush::default(),
         MovementPace::default(),
         MissionEnemy,
+        crate::bot::mission_enemy_control(),
         behaviour,
     ));
     spawn_equipment(world, entity, build);

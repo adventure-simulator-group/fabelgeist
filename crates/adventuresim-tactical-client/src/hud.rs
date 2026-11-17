@@ -56,6 +56,7 @@ impl Reticle {
 /// A short line of HUD text the page shows in a fixed place.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(crate) enum HudText {
+    Control,
     /// "Guard: Lowered", bottom centre above the controls.
     Guard,
     /// Seconds left before a committed attack lands, at the screen centre.
@@ -70,6 +71,7 @@ impl HudText {
     fn id(self) -> &'static str {
         match self {
             Self::Guard => "guard",
+            Self::Control => "control",
             Self::AttackTimer => "attack-timer",
         }
     }

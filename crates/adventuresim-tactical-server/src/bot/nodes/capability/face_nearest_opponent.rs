@@ -23,7 +23,7 @@ pub(super) fn register(app: &mut App) {
 fn face_nearest_opponent(
     tasks: Query<TaskRef<FaceNearestOpponentNode>>,
     senses: BotSenses,
-    mut looks: Query<&mut CharacterLook>,
+    mut steering: SteeringQuery,
 ) {
     for task in &tasks {
         let actor = task.actor();
@@ -36,6 +36,6 @@ fn face_nearest_opponent(
         else {
             continue;
         };
-        face(&mut looks, actor, yaw);
+        face(&mut steering, actor, yaw);
     }
 }

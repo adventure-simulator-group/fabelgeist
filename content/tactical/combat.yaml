@@ -1,4 +1,4 @@
-schema_version: 9
+schema_version: 10
 
 resolution:
   contact:
@@ -110,6 +110,20 @@ movement:
     quickstep_duration_seconds: 0.50
 
 ai:
+  control:
+    arrival_radius_metres: 0.3
+    support_tolerance_metres: 0.15
+    clearance_margin_metres: 0.04
+    perception_radius_metres: 24.0
+    pursuit_radius_metres: 12.0
+    hold_radius_metres: 1.5
+    counterattack_radius_metres: 1.5
+    no_progress_seconds: 4.0
+    threat_memory_seconds: 8.0
+    mesh_rebuild_interval_seconds: 0.5
+    click_distance_metres: 100.0
+    orbit_distance_metres: 8.0
+    orbit_mouse_degrees_per_pixel: 0.15
   ordinary:
     offense:
       hit_precision: 1.0

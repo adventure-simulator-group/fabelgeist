@@ -8,6 +8,7 @@ pub mod animation;
 pub mod city_layout;
 pub mod combat;
 pub mod combat_config;
+pub mod control;
 pub mod doors;
 mod erosional_terrain;
 pub mod geometry_transport;

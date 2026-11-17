@@ -45,13 +45,13 @@ fn begin_withdrawal(
     event: On<TaskAdded, TaskWorker<WithdrawNode>>,
     mut cmd: Commands,
     tasks: Query<TaskRef<WithdrawNode>>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(task) = tasks.get(event.entity) else {
         return;
     };
     let actor = task.actor();
-    steer(&mut movement, actor, Some(RETREAT));
+    steer(&mut steering, actor, Some(RETREAT));
     cmd.trigger(BotContinuationDecisionEvent {
         combatant: actor,
         decision: BotContinuationDecision::Withdraw,
@@ -63,7 +63,7 @@ fn withdraw(
     time: Res<Time<()>>,
     mut tasks: Query<TaskMut<WithdrawNode>>,
     senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     for mut task in &mut tasks {
         let actor = task.actor();
@@ -77,10 +77,10 @@ fn withdraw(
         }
         task.remaining.tick(time.delta());
         if task.remaining.is_finished() {
-            steer(&mut movement, actor, None);
+            steer(&mut steering, actor, None);
             cmd.entity(entity).insert(TaskStatus::Success);
         } else {
-            steer(&mut movement, actor, Some(RETREAT));
+            steer(&mut steering, actor, Some(RETREAT));
         }
     }
 }

@@ -24,13 +24,13 @@ fn yield_combat(
     event: On<TaskAdded, TaskWorker<YieldNode>>,
     mut cmd: Commands,
     tasks: Query<TaskRef<YieldNode>>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(task) = tasks.get(event.entity) else {
         return;
     };
     let actor = task.actor();
-    steer(&mut movement, actor, None);
+    steer(&mut steering, actor, None);
     cmd.entity(actor).insert(CombatantYielded);
     cmd.trigger(BotContinuationDecisionEvent {
         combatant: actor,

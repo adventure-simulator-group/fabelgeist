@@ -23,7 +23,7 @@ pub(super) fn register(app: &mut App) {
 fn face_target(
     tasks: Query<TaskRef<FaceTargetNode>>,
     senses: BotSenses,
-    mut looks: Query<&mut CharacterLook>,
+    mut steering: SteeringQuery,
 ) {
     for task in &tasks {
         let actor = task.actor();
@@ -33,6 +33,6 @@ fn face_target(
         else {
             continue;
         };
-        face(&mut looks, actor, yaw);
+        face(&mut steering, actor, yaw);
     }
 }

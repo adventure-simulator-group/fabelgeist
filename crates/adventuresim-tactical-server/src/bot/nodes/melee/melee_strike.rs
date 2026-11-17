@@ -50,7 +50,7 @@ fn begin_strike(
     mut tasks: Query<TaskMut<MeleeStrikeNode>>,
     senses: BotSenses,
     mut random: ResMut<CombatRandom>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(mut task) = tasks.get_mut(event.entity) else {
         return;
@@ -70,7 +70,7 @@ fn begin_strike(
         cmd.entity(event.entity).insert(TaskStatus::Failure);
         return;
     };
-    steer(&mut movement, actor, engagement.windup_movement(config));
+    steer(&mut steering, actor, engagement.windup_movement(config));
     match schedule_strike(&plan, config, &mut random) {
         Ok(scheduled) => {
             cmd.trigger(MeleeAttackStartedIntent {
@@ -95,7 +95,7 @@ fn strike(
     time: Res<Time<()>>,
     mut tasks: Query<TaskMut<MeleeStrikeNode>>,
     senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let config = senses.offense_config();
     for mut task in &mut tasks {
@@ -111,14 +111,14 @@ fn strike(
                     cmd.entity(entity).insert(TaskStatus::Failure);
                     continue;
                 };
-                steer(&mut movement, actor, engagement.windup_movement(config));
+                steer(&mut steering, actor, engagement.windup_movement(config));
                 windup.tick(time.delta());
                 windup
                     .is_finished()
                     .then(|| MeleeStrikeTask::Recovering(timer_after(*recovery)))
             }
             MeleeStrikeTask::Recovering(recovery) => {
-                steer(&mut movement, actor, None);
+                steer(&mut steering, actor, None);
                 recovery.tick(time.delta());
                 if recovery.is_finished() {
                     cmd.entity(entity).insert(TaskStatus::Success);

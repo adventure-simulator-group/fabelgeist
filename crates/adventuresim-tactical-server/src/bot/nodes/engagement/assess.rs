@@ -37,13 +37,13 @@ fn begin_assessment(
     mut tasks: Query<TaskMut<AssessNode>>,
     senses: BotSenses,
     mut random: ResMut<CombatRandom>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(mut task) = tasks.get_mut(event.entity) else {
         return;
     };
     let actor = task.actor();
-    steer(&mut movement, actor, None);
+    steer(&mut steering, actor, None);
     if !restart_delay(&mut cmd, &mut task, &senses, &mut random) {
         cmd.entity(event.entity).insert(TaskStatus::Failure);
     }
@@ -58,12 +58,12 @@ fn assess(
     lost: Query<(), With<InitiativeLost>>,
     senses: BotSenses,
     mut random: ResMut<CombatRandom>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     for mut task in &mut tasks {
         let actor = task.actor();
         let entity = task.entity();
-        steer(&mut movement, actor, None);
+        steer(&mut steering, actor, None);
         if lost.contains(actor) {
             if !restart_delay(&mut cmd, &mut task, &senses, &mut random) {
                 cmd.entity(entity).insert(TaskStatus::Failure);

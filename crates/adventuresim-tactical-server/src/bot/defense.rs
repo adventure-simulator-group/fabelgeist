@@ -1,20 +1,5 @@
 use super::*;
 
-type DefensiveBotQuery<'world, 'state> = Query<
-    'world,
-    'state,
-    (
-        Entity,
-        &'static CharacterLook,
-        &'static Transform,
-        &'static TacticalCombatSide,
-        &'static TacticalCombatState,
-        Option<&'static ReactiveDefenseAi>,
-        Option<&'static DefenseChances>,
-    ),
-    With<MissionEnemy>,
->;
-
 /// Per-bot chance (out of 1.0) that a reflex defense (see
 /// `try_start_reaction`) resolves to a dodge. Inserted by the bot's
 /// `ReactiveDefenseNode` with balance-tuned defaults; BRP tests
@@ -48,7 +33,7 @@ impl Default for ReactiveDefenseAi {
 }
 
 #[derive(Component)]
-pub(super) struct PendingBotReaction {
+pub(crate) struct PendingBotReaction {
     timer: Timer,
     choice: DefendRequest,
 }
@@ -62,152 +47,43 @@ struct BotReactionAttempt<'a> {
     windup_seconds: AnimationElapsed,
 }
 
-/// Predicts whether the nearest opposing AI facing a client attacker notices
-/// the untargeted client windup and decides to dodge it.
-///
-/// A bot has no real reflexes: its package controls whether facing is required
-/// and how often it reads the attack correctly. A decision to react is
-/// committed only after a random delay.
-pub(super) fn on_attack_started(
-    event: On<FromClient<MeleeActionRequest>>,
+/// Every source reaches defense only after an accepted, perceived attack.
+pub(super) fn on_perceived_threat(
+    event: On<crate::control::perception::PerceivedThreat>,
     mut cmd: Commands,
-    q_character: Query<(&CharacterLook, &Transform, &TacticalCombatSide)>,
-    viewer: TacticalPlayerViewer,
-    q_bots: DefensiveBotQuery<'_, '_>,
+    q_character: Query<&CharacterLook>,
+    q_ai: Query<(
+        &CharacterLook,
+        &TacticalCombatState,
+        &ReactiveDefenseAi,
+        Option<&DefenseChances>,
+    )>,
     combat_config: Res<TacticalCombatConfig>,
     mut random: ResMut<CombatRandom>,
 ) {
-    let MeleeActionRequest {
-        strike_family,
-        hand,
-        target,
-    } = **event;
-    if target.is_some() {
-        // Targeted player starts enter the shared server start intent and are
-        // handled by `on_targeted_attack_started` alongside AI attacks.
+    let Ok(attacker_look) = q_character.get(event.attacker) else {
+        return;
+    };
+    let Ok((defender_look, state, defense, chances)) = q_ai.get(event.defender) else {
+        return;
+    };
+    if state.is_incapacitated() {
         return;
     }
-    let Some(attacker) = event.client_id.entity() else {
-        return;
-    };
-    let Ok((attacker_look, attacker_transform, attacker_side)) = q_character.get(attacker) else {
-        return;
-    };
-    let nearest = q_bots
-        .iter()
-        .filter(|(_, _, _, side, state, _, _)| {
-            **side != *attacker_side && !state.is_incapacitated()
-        })
-        .min_by(
-            |(a, _, a_transform, _, _, _, _), (b, _, b_transform, _, _, _, _)| {
-                compare_target(attacker_transform, a_transform, *a, b_transform, *b)
-            },
-        );
-    let Some((bot, bot_look, _, _, _, Some(defense), chances)) = nearest else {
-        return;
-    };
-    let Ok(view) = viewer.get_for_attack(attacker, hand) else {
-        return;
-    };
-    let windup = match attack_preparation_secs(&view, strike_family.melee_style()) {
-        Ok(windup) => windup,
-        Err(error) => {
-            warn!(?attacker, %error, "cannot admit observed attack windup");
-            return;
-        }
-    };
     if let Err(error) = try_start_reaction(
         &mut cmd,
         BotReactionAttempt {
-            defender: bot,
+            defender: event.defender,
             attacker_look,
-            defender_look: bot_look,
+            defender_look,
             defense: *defense,
             chances: chances.copied().unwrap_or_default(),
-            windup_seconds: windup,
+            windup_seconds: event.windup,
         },
         &combat_config.ai.ordinary.defense,
         &mut random,
     ) {
-        warn!(%error, "cannot schedule bot reaction");
-    }
-}
-
-pub(super) fn on_targeted_attack_started(
-    event: On<MeleeAttackStartedIntent>,
-    mut cmd: Commands,
-    q_character: Query<&CharacterLook>,
-    q_ai: Query<(
-        &CharacterLook,
-        &TacticalCombatState,
-        &ReactiveDefenseAi,
-        Option<&DefenseChances>,
-    )>,
-    combat_config: Res<TacticalCombatConfig>,
-    mut random: ResMut<CombatRandom>,
-) {
-    let Some(target) = event.target else {
-        return;
-    };
-    let Ok([attacker_look, defender_look]) = q_character.get_many([event.attacker, target]) else {
-        return;
-    };
-    if let Ok((_, state, defense, chances)) = q_ai.get(target)
-        && !state.is_incapacitated()
-        && let Err(error) = try_start_reaction(
-            &mut cmd,
-            BotReactionAttempt {
-                defender: target,
-                attacker_look,
-                defender_look,
-                defense: *defense,
-                chances: chances.copied().unwrap_or_default(),
-                windup_seconds: event.windup.elapsed(),
-            },
-            &combat_config.ai.ordinary.defense,
-            &mut random,
-        )
-    {
-        warn!(%error, "cannot schedule bot reaction");
-    }
-}
-
-pub(super) fn on_targeted_ranged_attack_started(
-    event: On<RangedAttackStartedIntent>,
-    mut cmd: Commands,
-    q_character: Query<&CharacterLook>,
-    q_ai: Query<(
-        &CharacterLook,
-        &TacticalCombatState,
-        &ReactiveDefenseAi,
-        Option<&DefenseChances>,
-    )>,
-    combat_config: Res<TacticalCombatConfig>,
-    mut random: ResMut<CombatRandom>,
-) {
-    let Some(target) = event.target else {
-        return;
-    };
-    let Ok([attacker_look, defender_look]) = q_character.get_many([event.attacker, target]) else {
-        return;
-    };
-    if let Ok((_, state, defense, chances)) = q_ai.get(target)
-        && !state.is_incapacitated()
-        && let Err(error) = try_start_reaction(
-            &mut cmd,
-            BotReactionAttempt {
-                defender: target,
-                attacker_look,
-                defender_look,
-                defense: *defense,
-                chances: chances.copied().unwrap_or_default(),
-                windup_seconds: event.animation_windup.elapsed(),
-            },
-            &combat_config.ai.ordinary.defense,
-            &mut random,
-        )
-    {
-        warn!(%error, "cannot schedule bot reaction");
+        warn!(%error, "cannot schedule perceived defense");
     }
 }
 

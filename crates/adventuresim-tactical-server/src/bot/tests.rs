@@ -31,7 +31,10 @@ fn record_attack(event: On<MeleeAttackIntent>, mut attacks: ResMut<RecordedAttac
     attacks.0.push((event.attacker, event.target));
 }
 
-fn record_ranged_attack(event: On<RangedAttackIntent>, mut attacks: ResMut<RecordedRangedAttacks>) {
+fn record_ranged_attack(
+    event: On<crate::combat::RangedAttackIntent>,
+    mut attacks: ResMut<RecordedRangedAttacks>,
+) {
     if let Some(target) = event.target {
         attacks.0.push((event.attacker, target));
     }
@@ -128,6 +131,7 @@ fn spawn_test_ranged_ai(
             CharacterDimensions::default(),
             Collider::cylinder(0.4, 1.9),
             MeleeAttackAuthority::default(),
+            crate::combat::RangedAttackAuthority::default(),
         ))
         .id();
     let weapon = world.spawn(ItemOf(actor)).id();
@@ -183,8 +187,43 @@ fn bot_app() -> App {
         .insert_resource(CombatRandom::seeded(
             fabelgeist_determinism::Seed::from_u64(1),
         ))
-        .add_plugins(BotPlugin);
+        .add_plugins(BotPlugin)
+        .register_required_components::<Player, crate::control::AgentState>()
+        .add_systems(Update, assign_fixture_targets);
     app
+}
+
+/// Stands in for `CharacterControlPlugin`'s behaviour decision, which needs
+/// physics: every bot engages the nearest opponent that can fight.
+fn assign_fixture_targets(
+    mut agents: Query<(
+        Entity,
+        &Transform,
+        &TacticalCombatSide,
+        &mut crate::control::AgentState,
+    )>,
+    candidates: Query<(
+        Entity,
+        &Transform,
+        &TacticalCombatSide,
+        &TacticalCombatState,
+    )>,
+) {
+    for (entity, origin, side, mut agent) in &mut agents {
+        agent.decision = candidates
+            .iter()
+            .filter(|(target, _, target_side, state)| {
+                *target != entity && *target_side != side && !state.is_incapacitated()
+            })
+            .min_by(|left, right| compare_target(origin, left.1, left.0, right.1, right.0))
+            .map_or(
+                crate::control::BehaviorDecision::Idle,
+                |(target, _, _, _)| crate::control::BehaviorDecision::Engage {
+                    target,
+                    pursuit: crate::control::PursuitPolicy::Allowed,
+                },
+            );
+    }
 }
 
 fn advance_frame(app: &mut App) {
@@ -201,7 +240,14 @@ fn test_app() -> App {
         .add_observer(record_attack)
         .add_observer(record_ranged_attack)
         .add_observer(crate::combat::on_melee_attack_started)
-        .add_systems(Update, crate::combat::resolve_pending_melee_contacts);
+        .add_observer(crate::combat::on_ranged_attack_started)
+        .add_systems(
+            Update,
+            (
+                crate::combat::resolve_pending_melee_contacts,
+                crate::combat::resolve_pending_ranged_contacts,
+            ),
+        );
     app
 }
 
@@ -234,6 +280,9 @@ fn trees_grant_their_capabilities() {
     let standard = spawn_bot(world, "standard_combat.bt.ron", TacticalCombatSide::Enemy);
     let dodger = spawn_bot(world, "always_dodge.bt.ron", TacticalCombatSide::Enemy);
 
+    // Requested guards apply in `ControlSet::Execute`, which can run before
+    // the trees within a frame.
+    app.update();
     app.update();
 
     let world = app.world();
@@ -243,7 +292,8 @@ fn trees_grant_their_capabilities() {
     let raised = |bot| world.get::<SkeletonState>(bot).unwrap().weapon_guard();
     assert_eq!(raised(passive), WeaponGuardState::default());
     assert_eq!(raised(blocker), WeaponGuardState::Raised);
-    assert_eq!(raised(standard), WeaponGuardState::Raised);
+    // Nobody to fight: the standard tree only raises its guard while engaged.
+    assert_eq!(raised(standard), WeaponGuardState::Lowered);
     assert_eq!(raised(dodger), WeaponGuardState::Raised);
 
     assert!(!world.entity(blocker).contains::<ReactiveDefenseAi>());
@@ -271,38 +321,18 @@ fn trees_grant_their_capabilities() {
 }
 
 #[test]
-fn untargeted_windup_only_reacts_on_the_nearest_enemy() {
+fn perceived_threat_reacts_on_its_observer_without_a_mission_enemy_marker() {
     let mut app = App::new();
     app.init_resource::<TacticalCombatConfig>()
         .insert_resource(CombatRandom::seeded(
             fabelgeist_determinism::Seed::from_u64(1),
-        ));
-    app.add_observer(on_attack_started);
-    let attacker = app
-        .world_mut()
-        .spawn((
-            CharacterLook::default(),
-            Transform::default(),
-            TacticalCombatSide::Party,
         ))
-        .id();
-    let passive = app
+        .add_observer(on_perceived_threat);
+    let attacker = app.world_mut().spawn(CharacterLook::default()).id();
+    let defender = app
         .world_mut()
         .spawn((
-            MissionEnemy,
             CharacterLook::default(),
-            Transform::from_xyz(0.0, 0.0, 1.0),
-            TacticalCombatSide::Enemy,
-            TacticalCombatState::default(),
-        ))
-        .id();
-    let blocker = app
-        .world_mut()
-        .spawn((
-            MissionEnemy,
-            CharacterLook::default(),
-            Transform::from_xyz(0.0, 0.0, 2.0),
-            TacticalCombatSide::Enemy,
             TacticalCombatState::default(),
             ReactiveDefenseAi {
                 requires_facing: false,
@@ -310,25 +340,18 @@ fn untargeted_windup_only_reacts_on_the_nearest_enemy() {
             DefenseChances { dodge_chance: 1.0 },
         ))
         .id();
-    let start = FromClient {
-        client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId::Client(
+    app.world_mut()
+        .trigger(crate::control::perception::PerceivedThreat {
             attacker,
-        ),
-        message: MeleeActionRequest {
-            strike_family: StrikeFamily::Swing,
-            hand: AttackHand::Main,
-            target: None,
-        },
-    };
-
-    app.world_mut().trigger(start);
+            defender,
+            windup: AnimationElapsed::from_seconds(0.5).unwrap(),
+        });
     app.world_mut().flush();
-    assert!(!app.world().entity(blocker).contains::<PendingBotReaction>());
-
-    app.world_mut().despawn(passive);
-    app.world_mut().trigger(start);
-    app.world_mut().flush();
-    assert!(app.world().entity(blocker).contains::<PendingBotReaction>());
+    assert!(
+        app.world()
+            .entity(defender)
+            .contains::<PendingBotReaction>()
+    );
 }
 
 #[test]
@@ -339,7 +362,7 @@ fn completed_bot_reaction_enters_the_shared_dodge_animation() {
         .insert_resource(CombatRandom::seeded(
             fabelgeist_determinism::Seed::from_u64(1),
         ))
-        .add_observer(on_attack_started)
+        .add_observer(on_perceived_threat)
         .add_observer(crate::combat::apply_defend_intent)
         .add_systems(Update, tick_bot_reactions);
     let attacker = app
@@ -367,16 +390,12 @@ fn completed_bot_reaction_enters_the_shared_dodge_animation() {
             DefenseChances { dodge_chance: 1.0 },
         ))
         .id();
-    app.world_mut().trigger(FromClient {
-        client_id: adventuresim_tactical_netcode::bevy_replicon::prelude::ClientId::Client(
+    app.world_mut()
+        .trigger(crate::control::perception::PerceivedThreat {
             attacker,
-        ),
-        message: MeleeActionRequest {
-            strike_family: StrikeFamily::Swing,
-            hand: AttackHand::Main,
-            target: None,
-        },
-    });
+            defender: blocker,
+            windup: AnimationElapsed::from_seconds(0.5).unwrap(),
+        });
     app.world_mut().flush();
     app.world_mut()
         .resource_mut::<Time<()>>()
@@ -415,6 +434,9 @@ fn dodger_faces_the_nearest_opponent() {
         SkeletonState::default(),
     ));
 
+    // Requested facing applies in `ControlSet::Execute`, which can run before
+    // the tree within a frame.
+    app.update();
     app.update();
 
     let look = app.world().get::<CharacterLook>(dodger).unwrap();
@@ -474,6 +496,10 @@ fn ranged_ai_fires_then_falls_back_to_melee_when_ammo_is_exhausted() {
     // Production consumes this through `resolve_ranged_attack`; removing
     // it here isolates deterministic controller selection from physics.
     app.world_mut().despawn(ammo);
+    // This controller-only fixture does not advance attack animations.
+    app.world_mut()
+        .entity_mut(actor)
+        .insert(SkeletonState::default());
     // Put the target just outside the hybrid weapon's preferred measure,
     // while remaining inside its absolute melee reach. In the
     // production schedule movement would create this separation while the
@@ -519,11 +545,13 @@ fn opposing_ai_approach_face_stop_and_both_attack() {
 
     // Simulate only the small, deterministic movement seam driven by the
     // existing controller input. No physics, wall clock, spawn randomness,
-    // or global RNG is involved in this headless behavior test.
-    for _ in 0..20 {
+    // or global RNG is involved in this headless behavior test. Steps stay
+    // short (5 m/s at 50 Hz) because a requested stop can reach the intent
+    // one frame late (see `bot::steering`).
+    for _ in 0..100 {
         app.world_mut()
             .resource_mut::<Time<()>>()
-            .advance_by(Duration::from_millis(100));
+            .advance_by(Duration::from_millis(20));
         app.update();
 
         let snapshots: Vec<_> = [party, enemy]
@@ -544,7 +572,7 @@ fn opposing_ai_approach_face_stop_and_both_attack() {
                     .entity_mut(actor)
                     .get_mut::<Transform>()
                     .unwrap()
-                    .translation += forward * 0.5;
+                    .translation += forward * 0.1;
             }
         }
     }

@@ -24,11 +24,11 @@ fn guard_against_incoming_strike(
     mut cmd: Commands,
     tasks: Query<TaskRef<GuardAgainstIncomingStrikeNode>>,
     senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     for task in &tasks {
         let actor = task.actor();
-        steer(&mut movement, actor, None);
+        steer(&mut steering, actor, None);
         let still_incoming = senses
             .target(actor)
             .and_then(|target| senses.skeleton(target))

@@ -25,7 +25,7 @@ fn step_to_standoff(
     mut cmd: Commands,
     tasks: Query<TaskRef<StepToRangedStandoffNode>>,
     senses: BotSenses,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(task) = tasks.get(event.entity) else {
         return;
@@ -40,6 +40,6 @@ fn step_to_standoff(
         engagement.facts.weapon_reach,
         senses.offense_config(),
     );
-    steer(&mut movement, actor, intent);
+    steer(&mut steering, actor, intent);
     cmd.entity(event.entity).insert(TaskStatus::Success);
 }

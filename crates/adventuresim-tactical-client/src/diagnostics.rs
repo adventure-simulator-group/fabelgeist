@@ -719,7 +719,6 @@ fn drive_scripted_input(
             force_attack.0 = true;
         }
         let request = PlayerInputRequest {
-            simulation_tick: PlayerInputTick::ZERO,
             movement,
             look: script.look,
             jump,
@@ -729,6 +728,7 @@ fn drive_scripted_input(
             pace: diagnostic_command_pace(kind, script.pace),
             weapon_guard: script.weapon_guard,
             melee_preparation: MeleePreparationInput::Preferred,
+            ..default()
         };
         input_override.0 = Some(request);
         let next_status = DiagnosticInputStatus {

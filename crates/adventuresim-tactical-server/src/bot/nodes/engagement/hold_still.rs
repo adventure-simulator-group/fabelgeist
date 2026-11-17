@@ -23,11 +23,11 @@ fn hold_still(
     event: On<TaskAdded, TaskWorker<HoldStillNode>>,
     mut cmd: Commands,
     tasks: Query<TaskRef<HoldStillNode>>,
-    mut movement: MovementQuery,
+    mut steering: SteeringQuery,
 ) {
     let Ok(task) = tasks.get(event.entity) else {
         return;
     };
-    steer(&mut movement, task.actor(), None);
+    steer(&mut steering, task.actor(), None);
     cmd.entity(event.entity).insert(TaskStatus::Success);
 }

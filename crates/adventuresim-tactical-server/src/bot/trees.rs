@@ -117,9 +117,10 @@ pub(crate) fn start_restored_bots(world: &mut World, file: &str) -> Result<(), B
     }
     let tree = behaviour_in_world(world, file)?.tree;
     for bot in restored {
-        world
-            .entity_mut(bot)
-            .insert(Behaviour { tree: tree.clone() });
+        world.entity_mut(bot).insert((
+            super::mission_enemy_control(),
+            Behaviour { tree: tree.clone() },
+        ));
     }
     Ok(())
 }

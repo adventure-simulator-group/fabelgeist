@@ -33,8 +33,8 @@ type OpponentQuery<'w, 's> = Query<
     With<Player>,
 >;
 
-/// The opponent a bot is currently engaging. It is chosen by the
-/// `AcquireNearestOpponentNode` and dropped when no opponent remains.
+/// The opponent a bot is currently engaging. The `AcquireTargetNode` takes it
+/// from the bot's behaviour decision and drops it when no opponent remains.
 #[derive(Component, Reflect, Debug, Clone, Copy, PartialEq, Eq, MapEntities)]
 #[reflect(Component)]
 pub struct BotTarget(#[entities] pub Entity);
@@ -62,6 +62,7 @@ pub(super) struct BotSenses<'w, 's> {
     bodies: BodyQuery<'w, 's>,
     opponents: OpponentQuery<'w, 's>,
     targets: Query<'w, 's, &'static BotTarget>,
+    decisions: Query<'w, 's, &'static crate::control::AgentState>,
     dimensions: Query<'w, 's, &'static CharacterDimensions>,
     colliders: Query<'w, 's, &'static Collider>,
     config: Res<'w, TacticalCombatConfig>,
@@ -101,6 +102,12 @@ impl BotSenses<'_, '_> {
                 compare_target(transform, a_transform, *a, b_transform, *b)
             })
             .map(|(candidate, ..)| candidate)
+    }
+
+    /// The opponent the bot's behaviour decision (`ControlSet::Decide`)
+    /// chose to engage.
+    pub(super) fn chosen_target(&self, actor: Entity) -> Option<Entity> {
+        self.decisions.get(actor).ok()?.target()
     }
 
     pub(super) fn target(&self, actor: Entity) -> Option<Entity> {

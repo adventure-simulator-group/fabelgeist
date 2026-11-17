@@ -88,7 +88,8 @@ pub(crate) struct CameraDebugEnabled(pub(crate) bool);
 
 impl Plugin for TacticalCameraPlugin {
     fn build(&self, app: &mut App) {
-        app.init_resource::<CameraMode>()
+        app.init_resource::<adventuresim_tactical_netcode::control::LocalControl>()
+            .init_resource::<CameraMode>()
             .init_resource::<CameraRigConfig>()
             .init_resource::<CameraRigState>()
             .init_resource::<CameraRigDebugState>()

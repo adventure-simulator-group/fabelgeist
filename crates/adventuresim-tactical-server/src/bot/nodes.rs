@@ -16,6 +16,7 @@ use super::offense::{
     committed_threat_recognition_probability, initiative_delay_seconds, ranged_standoff_movement,
 };
 use super::senses::{BotSenses, StrikePlan, strike_is_incoming};
+use super::steering::{BotSteering, GuardStance};
 use super::*;
 
 mod capability;
@@ -24,7 +25,7 @@ mod fallback;
 mod melee;
 mod ranged;
 
-type MovementQuery<'w, 's> = Query<'w, 's, &'static mut AuthoritativeMovementIntent>;
+type SteeringQuery<'w, 's> = Query<'w, 's, &'static mut BotSteering>;
 
 pub(super) struct BotNodesPlugin;
 
@@ -47,17 +48,17 @@ fn status_for(holds: bool) -> TaskStatus {
     }
 }
 
-/// Sets the bot's movement intent, relative to its facing.
-fn steer(movement: &mut MovementQuery, actor: Entity, intent: Option<Vec2>) {
-    if let Ok(mut current) = movement.get_mut(actor) {
-        current.0 = intent;
+/// Requests a movement intent, relative to the bot's facing.
+fn steer(steering: &mut SteeringQuery, actor: Entity, intent: Option<Vec2>) {
+    if let Ok(mut steering) = steering.get_mut(actor) {
+        steering.movement = intent;
     }
 }
 
-/// Turns the bot to `yaw`.
-fn face(looks: &mut Query<&mut CharacterLook>, actor: Entity, yaw: f32) {
-    if let Ok(mut look) = looks.get_mut(actor) {
-        look.yaw = yaw;
+/// Requests a turn to `yaw`.
+fn face(steering: &mut SteeringQuery, actor: Entity, yaw: f32) {
+    if let Ok(mut steering) = steering.get_mut(actor) {
+        steering.yaw = Some(yaw);
     }
 }
 

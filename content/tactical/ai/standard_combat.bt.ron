@@ -1,16 +1,18 @@
 // Ordinary combatant. Four capabilities run side by side: getting back up,
-// holding a raised guard, dodging attacks seen from the front, and fighting
-// the nearest opponent.
+// raising its guard while engaged, dodging attacks seen from the front, and
+// fighting the opponent its behaviour decision chose (the nearest perceived
+// opponent, a remembered attacker, or an ordered target).
 //
 // Fighting re-checks its preconditions every frame. Losing the ability to
-// fight, or a nearer opponent appearing, interrupts the current engagement.
+// fight, or a different opponent being chosen, interrupts the current
+// engagement.
 // A committed defense costs the initiative, which sends the combatant back to
 // assessing before its next attack.
 (root: {
     "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict),
     "children": [
         { "RecoverToUprightNode": () },
-        { "RaiseGuardNode": () },
+        { "RaiseGuardNode": (stance: WhileEngaged) },
         { "ReactiveDefenseNode": (requires_facing: true, dodge: Configured) },
         // Fight while able; otherwise (incapacitated or yielded) hold still.
         { "LoopNode": (), "children": [{
@@ -19,9 +21,9 @@
                 { "WhileNode": (status: Success), "children": [
                     { "IsAbleToFightNode": () },
                     { "ConditionNode": (), "children": [
-                        { "AcquireNearestOpponentNode": () },
+                        { "AcquireTargetNode": () },
                         { "WhileNode": (status: Success), "children": [
-                            { "IsTargetStillNearestNode": () },
+                            { "IsTargetStillChosenNode": () },
                             { "ParallelNode": (success: All, failure: Fixed(0), evaluation: Strict), "children": [
                                 { "FaceTargetNode": () },
                                 { "LoopNode": (), "children": [{
