@@ -36,8 +36,10 @@ class AcceptanceClient:
     def fixture(self, reducer: str, *args: object, error: str | None = None) -> None:
         self.call(reducer, self.bootstrap_token, *args, error=error)
 
-    def rows(self, query: str) -> list[list[object]]:
+    def rows(self, query: str, *, token: str | None = None) -> list[list[object]]:
         headers = dict(self.http._headers)
+        if token is not None:
+            headers["Authorization"] = f"Bearer {token}"
         headers["Content-Type"] = "text/plain"
         status, body = self.http._request(
             f"/v1/database/{self.database}/sql", query, headers

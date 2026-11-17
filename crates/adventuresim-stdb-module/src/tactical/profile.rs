@@ -59,6 +59,7 @@ pub struct ConnectedEquipmentOccupancy {
 pub enum TacticalActorRole {
     Player,
     Enemy,
+    Resident,
 }
 
 /// View of [`ConnectedPlayer`] for this [`TacticalServer`].
@@ -98,18 +99,15 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
                 .tactical_server_authority()
                 .identity()
                 .find(ctx.sender())?;
-            let time = super::local_time::actor_time(ctx, character.id, &server)?;
+            let projection = super::local_time::actor_projection(ctx, character.id, &server)?;
             let mission = match &server.session {
                 TacticalSession::Mission(mission) => Some(mission),
                 TacticalSession::Settlement(_) => None,
             };
-            let role = mission
-                .filter(|mission| mission.enemy_character_ids.contains(&character.id))
-                .map_or(TacticalActorRole::Player, |_| TacticalActorRole::Enemy);
             Some(ConnectedPlayer {
                 character,
-                role,
-                time,
+                role: projection.role,
+                time: projection.time,
                 items,
                 skills,
                 limbs,

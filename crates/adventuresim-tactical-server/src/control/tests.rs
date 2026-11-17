@@ -50,6 +50,51 @@ fn wait_for_navigation(app: &mut App) {
 }
 
 #[test]
+fn neutral_residents_are_neither_pursued_nor_allowed_to_start_combat() {
+    let mut app = app();
+    let player = character(
+        &mut app,
+        TacticalCombatSide::Party,
+        Vec3::new(0.0, 0.95, 0.0),
+    );
+    let resident = character(
+        &mut app,
+        TacticalCombatSide::Neutral,
+        Vec3::new(0.0, 0.95, -1.0),
+    );
+    let enemy = character(
+        &mut app,
+        TacticalCombatSide::Enemy,
+        Vec3::new(0.0, 0.95, -3.0),
+    );
+    for actor in [resident, enemy] {
+        app.world_mut()
+            .entity_mut(actor)
+            .insert(EngagementPolicy::SeekOpponents);
+    }
+    app.update();
+    assert_eq!(
+        app.world().get::<AgentState>(enemy).unwrap().target(),
+        Some(player)
+    );
+    assert_eq!(
+        app.world().get::<AgentState>(resident).unwrap().target(),
+        None
+    );
+    for (actor, target) in [(player, resident), (enemy, resident), (resident, player)] {
+        request(
+            &mut app,
+            actor,
+            ControlChange::Order(CharacterGoal::Attack { target }),
+        );
+        assert_eq!(
+            app.world().get::<CharacterOrder>(actor).unwrap().goal,
+            CharacterGoal::Idle
+        );
+    }
+}
+
+#[test]
 fn indirect_guard_tracks_engagement_and_returns_to_travel() {
     let mut app = app();
     let actor = character(

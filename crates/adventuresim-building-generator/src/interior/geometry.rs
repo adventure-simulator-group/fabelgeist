@@ -197,31 +197,54 @@ impl InteriorPlacement {
     /// identity if no floor qualifies. Invalid storey ordinals and geometry
     /// propagate their admission errors.
     pub fn floor_height(&self, plan: &BuildingPlan) -> InteriorResult<Elevation<Architectural>> {
-        let nominal = floor_height(plan, self.storey)?;
-        let mut elevation: Option<f32> = None;
-        for solid in plan
-            .resolved_geometry
-            .solids
-            .iter()
-            .filter(|s| super::architecture::is_floor(plan, s))
-        {
-            if !FloorFootprint::from_solid(solid)?.contains(self.centre_metres) {
-                continue;
-            }
-            let y = solid.centre.metres().y + solid.size.metres().y * 0.5;
-            if (y - nominal.metres()).abs() <= PERSON_RADIUS
-                && elevation.is_none_or(|old| y.total_cmp(&old).is_gt())
-            {
-                elevation = Some(y);
-            }
-        }
-        Ok(Elevation::from_metres(elevation.ok_or(
+        supported_floor_height(plan, self.centre_metres, self.storey)?.ok_or(
             super::InteriorLayoutError::MissingFloor {
                 storey: self.storey,
                 room: self.room_id,
             },
-        )?)?)
+        )
     }
+}
+
+impl super::InteriorWaypoint {
+    /// Resolve a proven access waypoint against the actual floor slabs. The
+    /// nominal storey datum alone can place an actor below the physical surface.
+    pub fn floor_height(&self, plan: &BuildingPlan) -> InteriorResult<Elevation<Architectural>> {
+        supported_floor_height(plan, self.position_metres, self.storey)?.ok_or(
+            super::InteriorLayoutError::MissingStandingFloor {
+                storey: self.storey,
+            },
+        )
+    }
+}
+
+fn supported_floor_height(
+    plan: &BuildingPlan,
+    point: ArchitecturalPlanPoint,
+    storey: StoreyIndex,
+) -> InteriorResult<Option<Elevation<Architectural>>> {
+    let nominal = floor_height(plan, storey)?;
+    let mut elevation: Option<f32> = None;
+    for solid in plan
+        .resolved_geometry
+        .solids
+        .iter()
+        .filter(|s| super::architecture::is_floor(plan, s))
+    {
+        if !FloorFootprint::from_solid(solid)?.contains(point) {
+            continue;
+        }
+        let y = solid.centre.metres().y + solid.size.metres().y * 0.5;
+        if (y - nominal.metres()).abs() <= PERSON_RADIUS
+            && elevation.is_none_or(|old| y.total_cmp(&old).is_gt())
+        {
+            elevation = Some(y);
+        }
+    }
+    elevation
+        .map(Elevation::from_metres)
+        .transpose()
+        .map_err(Into::into)
 }
 
 #[derive(Clone, Copy)]

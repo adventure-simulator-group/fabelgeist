@@ -28,7 +28,9 @@ pub mod mission;
 mod navigation;
 pub mod openings;
 pub mod player_projection;
+mod residents;
 mod scene_spawn;
+mod settlement_session;
 pub mod stdb;
 
 mod cli;

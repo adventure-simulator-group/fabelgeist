@@ -45,11 +45,19 @@ serving slot; repeated requests reuse its pending or active slot. Only its
 registered server may call `enter_tactical_scene` and `leave_tactical_scene`.
 `Character.server` remains the sole durable assignment.
 
+Settlement hosts configure an immutable selected-area resident roster, then use
+`enter_settlement_resident` for its existing non-player characters. The private
+roster and host-scoped candidate view bind actual residents, businesses and
+public schedules. Player admission cannot take over an open resident visit.
+Its participation role stays fixed until the acknowledged visit closes, even
+when control of that Character transfers to a player.
+
 `retire_settlement_scene` releases assignments and the serving slot without
 committing a battle result, loot, or rewards. Losing the server's database
 connection performs the same release. Runtime positions, condition changes,
-and reconnect snapshots remain transient; ordinary-scene condition handoff
-is a subsequent step before the gameplay cutover.
+and reconnect snapshots remain transient. Ordinary visits commit elapsed
+chronology, basic needs and an acknowledged final fatigue receipt. Passive
+wound and illness progression remains a prerequisite for the gameplay cutover.
 
 Mission requests bind a party, its captured living member IDs, a scene, a
 one-use tactical-server claim, and private strategic mission authority. The

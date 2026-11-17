@@ -159,7 +159,7 @@ pub(super) fn canonical_service(
     })
 }
 
-fn business_location(usage: BuildingUse, ordinal: u32) -> &'static str {
+pub(crate) fn business_location(usage: BuildingUse, ordinal: u32) -> &'static str {
     canonical_service(usage, ordinal)
         .map(|(_, location)| location)
         .unwrap_or(match usage.definition().district {

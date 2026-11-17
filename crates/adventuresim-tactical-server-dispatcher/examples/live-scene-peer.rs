@@ -8,7 +8,9 @@ use std::{
     time::{Duration, Instant},
 };
 
-use adventuresim_tactical_core::prelude::{CharacterId, Player, SceneEnvironment};
+use adventuresim_tactical_core::prelude::{
+    CharacterId, Player, SceneEnvironment, TacticalCombatSide,
+};
 use adventuresim_tactical_netcode::{
     message::{ReconnectCapability, SceneJoinRejected},
     prelude::{AdventureSimulatorClient, AdventureSimulatorNetPlugins},
@@ -21,6 +23,16 @@ const ACCEPTANCE_TIMEOUT: Duration = Duration::from_secs(60);
 const RECONNECT_DELAY: Duration = Duration::from_millis(250);
 const STABLE_PRESENCE_HOLD: Duration = Duration::from_secs(8);
 
+type SceneActors<'w, 's> = Query<
+    'w,
+    's,
+    (
+        &'static CharacterId,
+        &'static TacticalCombatSide,
+        &'static Player,
+    ),
+>;
+
 #[derive(Parser, Resource, Clone)]
 struct Args {
     #[arg(long)]
@@ -29,6 +41,8 @@ struct Args {
     server: String,
     #[arg(long, default_value_t = 1)]
     expected_players: usize,
+    #[arg(long)]
+    expected_resident: Option<u64>,
     #[arg(long)]
     reconnect: bool,
     #[arg(long)]
@@ -47,6 +61,14 @@ struct Acceptance {
     accepted: bool,
     first_scene_minute: Option<StrategicMinute>,
     finished: Arc<AtomicBool>,
+    resident_visibility: ResidentVisibility,
+}
+
+#[derive(Clone, Copy)]
+enum ResidentVisibility {
+    Present,
+    Departed,
+    Returned,
 }
 
 fn main() {
@@ -79,6 +101,7 @@ fn main() {
         accepted: false,
         first_scene_minute: None,
         finished,
+        resident_visibility: ResidentVisibility::Present,
     })
     .add_observer(capability_received)
     .add_observer(join_rejected)
@@ -119,12 +142,17 @@ fn observe_presence(
     mut state: ResMut<Acceptance>,
     mut commands: Commands,
     clients: Query<Entity, With<AdventureSimulatorClient>>,
-    players: Query<&CharacterId, With<Player>>,
+    players: SceneActors,
     environments: Query<&SceneEnvironment>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let now = Instant::now();
+    let party_count = players
+        .iter()
+        .filter(|(_, side, _)| **side == TacticalCombatSide::Party)
+        .count();
     if state.accepted {
+        observe_resident_visibility(&args, &players, &mut state.resident_visibility);
         if !args.hold_open || state.finished.load(Ordering::Acquire) {
             exit.write(AppExit::Success);
         }
@@ -133,8 +161,11 @@ fn observe_presence(
     if now.duration_since(state.started) >= ACCEPTANCE_TIMEOUT {
         eprintln!(
             "Timed out waiting for scene acceptance: players={} own={} capabilities={}",
-            players.iter().count(),
-            players.iter().filter(|id| id.0 == args.character).count(),
+            party_count,
+            players
+                .iter()
+                .filter(|(id, _, _)| id.0 == args.character)
+                .count(),
             state.capabilities,
         );
         exit.write(AppExit::error());
@@ -147,13 +178,16 @@ fn observe_presence(
         }
         return;
     }
-    let own = players.iter().filter(|id| id.0 == args.character).count();
+    let own = players
+        .iter()
+        .filter(|(id, _, _)| id.0 == args.character)
+        .count();
     if own > 1 {
         eprintln!("The scene projected the same character twice");
         exit.write(AppExit::error());
         return;
     }
-    if own != 1 || players.iter().count() < args.expected_players {
+    if own != 1 || party_count < args.expected_players || !resident_present(&args, &players) {
         state.stable_since = None;
         return;
     }
@@ -188,16 +222,67 @@ fn observe_presence(
             exit.write(AppExit::error());
             return;
         }
-        println!(
-            "ACCEPTED players={} reconnects={}",
-            players.iter().count(),
-            state.capabilities
-        );
-        println!(
-            "CALENDAR first={} latest={}",
-            first_minute.get(),
-            environment.absolute_minute.get()
+        report_acceptance(
+            &players,
+            party_count,
+            state.capabilities,
+            first_minute,
+            environment,
         );
         state.accepted = true;
+    }
+}
+
+fn resident_present(args: &Args, actors: &SceneActors) -> bool {
+    let Some(expected) = args.expected_resident else {
+        return true;
+    };
+    let mut matches = actors
+        .iter()
+        .filter(|(character, _, _)| character.0 == expected);
+    let Some((_, side, player)) = matches.next() else {
+        return false;
+    };
+    *side == TacticalCombatSide::Neutral && !player.name.is_empty() && matches.next().is_none()
+}
+
+fn observe_resident_visibility(
+    args: &Args,
+    actors: &SceneActors,
+    visibility: &mut ResidentVisibility,
+) {
+    let Some(character) = args.expected_resident else {
+        return;
+    };
+    match (*visibility, resident_present(args, actors)) {
+        (ResidentVisibility::Present, false) => {
+            println!("RESIDENT_DEPARTED id={character}");
+            *visibility = ResidentVisibility::Departed;
+        }
+        (ResidentVisibility::Departed, true) => {
+            println!("RESIDENT_RETURNED id={character}");
+            *visibility = ResidentVisibility::Returned;
+        }
+        _ => {}
+    }
+}
+
+fn report_acceptance(
+    actors: &SceneActors,
+    party_count: usize,
+    capabilities: u32,
+    first_minute: StrategicMinute,
+    environment: &SceneEnvironment,
+) {
+    println!("ACCEPTED players={party_count} reconnects={capabilities}");
+    println!(
+        "CALENDAR first={} latest={}",
+        first_minute.get(),
+        environment.absolute_minute.get()
+    );
+    for (character, side, player) in actors {
+        if *side == TacticalCombatSide::Neutral {
+            println!("RESIDENT id={} name={}", character.0, player.name);
+        }
     }
 }

@@ -56,6 +56,7 @@ mod mission;
 mod navigation;
 mod openings;
 mod player_projection;
+mod residents;
 mod scene_obstacles;
 mod scene_setup;
 mod scene_spawn;
@@ -627,6 +628,15 @@ fn on_server_started(
     if generate_terrain {
         info!("Creating a game scene for {}", args.scene_key);
         let generated = input.generate()?;
+        commands.insert_resource(residents::OperatorStations::prepare(
+            &generated.buildings,
+            &generated.furniture.interiors,
+            &input.establishments,
+        )?);
+        commands.insert_resource(residents::CommonResidentStations::prepare(
+            &input.streets,
+            &generated.terrain,
+        ));
         info!(
             scene_digest = %generated.digest,
             schema_version = input.schema_version,

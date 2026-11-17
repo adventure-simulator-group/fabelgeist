@@ -263,6 +263,7 @@ pub mod commitment_status_type;
 pub mod commitment_terminal_reason_type;
 pub mod committed_cut_type;
 pub mod conception_trial_receipt_type;
+pub mod configure_settlement_residents_reducer;
 pub mod configure_simulation_character_reducer;
 pub mod connected_equipment_occupancy_type;
 pub mod connected_player_item_type;
@@ -371,6 +372,7 @@ pub mod encounter_archetype_type;
 pub mod end_marriage_reducer;
 pub mod end_tactical_server_reducer;
 pub mod ensure_settlement_activity_reducer;
+pub mod enter_settlement_resident_reducer;
 pub mod enter_tactical_scene_reducer;
 pub mod equip_item_at_placement_reducer;
 pub mod equipment_anchor_kind_type;
@@ -567,6 +569,7 @@ pub mod local_problem_rumor_delivery_type;
 pub mod local_problem_rumor_preference_type;
 pub mod local_problem_symptom_table;
 pub mod local_problem_symptom_type;
+pub mod local_scene_time_owner_type;
 pub mod local_scene_visit_clock_type;
 pub mod local_scene_visit_closure_type;
 pub mod local_scene_visit_exit_type;
@@ -815,6 +818,8 @@ pub mod saltmaking_industry_type;
 pub mod save_recruitment_role_reducer;
 pub mod saved_recruitment_role_table;
 pub mod saved_recruitment_role_type;
+pub mod scene_resident_candidates_table;
+pub mod scene_resident_roster_type;
 pub mod schedule_allocation_type;
 pub mod schedule_wedding_reducer;
 pub mod sedimentary_rock_type;
@@ -865,6 +870,7 @@ pub mod settlement_smith_type;
 pub mod settlement_stock_type;
 pub mod settlement_table;
 pub mod settlement_type;
+pub mod settlement_venue_kind_type;
 pub mod sex_type;
 pub mod share_investigation_belief_reducer;
 pub mod share_investigation_lead_reducer;
@@ -944,6 +950,8 @@ pub mod tactical_mission_resolution_type;
 pub mod tactical_mission_session_type;
 pub mod tactical_provisioning_status_type;
 pub mod tactical_receipt_body_part_type;
+pub mod tactical_resident_area_type;
+pub mod tactical_resident_candidate_type;
 pub mod tactical_server_claim_type;
 pub mod tactical_server_request_table;
 pub mod tactical_server_request_type;
@@ -1260,6 +1268,7 @@ pub use commitment_status_type::CommitmentStatus;
 pub use commitment_terminal_reason_type::CommitmentTerminalReason;
 pub use committed_cut_type::CommittedCut;
 pub use conception_trial_receipt_type::ConceptionTrialReceipt;
+pub use configure_settlement_residents_reducer::configure_settlement_residents;
 pub use configure_simulation_character_reducer::configure_simulation_character;
 pub use connected_equipment_occupancy_type::ConnectedEquipmentOccupancy;
 pub use connected_player_item_type::ConnectedPlayerItem;
@@ -1368,6 +1377,7 @@ pub use encounter_archetype_type::EncounterArchetype;
 pub use end_marriage_reducer::end_marriage;
 pub use end_tactical_server_reducer::end_tactical_server;
 pub use ensure_settlement_activity_reducer::ensure_settlement_activity;
+pub use enter_settlement_resident_reducer::enter_settlement_resident;
 pub use enter_tactical_scene_reducer::enter_tactical_scene;
 pub use equip_item_at_placement_reducer::equip_item_at_placement;
 pub use equipment_anchor_kind_type::EquipmentAnchorKind;
@@ -1564,6 +1574,7 @@ pub use local_problem_rumor_delivery_type::LocalProblemRumorDelivery;
 pub use local_problem_rumor_preference_type::LocalProblemRumorPreference;
 pub use local_problem_symptom_table::*;
 pub use local_problem_symptom_type::LocalProblemSymptom;
+pub use local_scene_time_owner_type::LocalSceneTimeOwner;
 pub use local_scene_visit_clock_type::LocalSceneVisitClock;
 pub use local_scene_visit_closure_type::LocalSceneVisitClosure;
 pub use local_scene_visit_exit_type::LocalSceneVisitExit;
@@ -1812,6 +1823,8 @@ pub use saltmaking_industry_type::SaltmakingIndustry;
 pub use save_recruitment_role_reducer::save_recruitment_role;
 pub use saved_recruitment_role_table::*;
 pub use saved_recruitment_role_type::SavedRecruitmentRole;
+pub use scene_resident_candidates_table::*;
+pub use scene_resident_roster_type::SceneResidentRoster;
 pub use schedule_allocation_type::ScheduleAllocation;
 pub use schedule_wedding_reducer::schedule_wedding;
 pub use sedimentary_rock_type::SedimentaryRock;
@@ -1862,6 +1875,7 @@ pub use settlement_smith_type::SettlementSmith;
 pub use settlement_stock_type::SettlementStock;
 pub use settlement_table::*;
 pub use settlement_type::Settlement;
+pub use settlement_venue_kind_type::SettlementVenueKind;
 pub use sex_type::Sex;
 pub use share_investigation_belief_reducer::share_investigation_belief;
 pub use share_investigation_lead_reducer::share_investigation_lead;
@@ -1941,6 +1955,8 @@ pub use tactical_mission_resolution_type::TacticalMissionResolution;
 pub use tactical_mission_session_type::TacticalMissionSession;
 pub use tactical_provisioning_status_type::TacticalProvisioningStatus;
 pub use tactical_receipt_body_part_type::TacticalReceiptBodyPart;
+pub use tactical_resident_area_type::TacticalResidentArea;
+pub use tactical_resident_candidate_type::TacticalResidentCandidate;
 pub use tactical_server_claim_type::TacticalServerClaim;
 pub use tactical_server_request_table::*;
 pub use tactical_server_request_type::TacticalServerRequest;
@@ -2187,6 +2203,9 @@ pub enum Reducer {
         container_object_id: u64,
         requested_ml: u64,
     },
+    ConfigureSettlementResidents {
+        area: TacticalResidentArea,
+    },
     ConfigureSimulationCharacter {
         nonce: String,
         character_id: u64,
@@ -2323,6 +2342,9 @@ pub enum Reducer {
     },
     EnsureSettlementActivity {
         settlement_id: String,
+    },
+    EnterSettlementResident {
+        character_id: u64,
     },
     EnterTacticalScene {
         character_id: u64,
@@ -3005,6 +3027,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::CollectFixtureWaterIntoContainer { .. } => {
                 "collect_fixture_water_into_container"
             }
+            Reducer::ConfigureSettlementResidents { .. } => "configure_settlement_residents",
             Reducer::ConfigureSimulationCharacter { .. } => "configure_simulation_character",
             Reducer::ContactContextCharacter { .. } => "contact_context_character",
             Reducer::ContinueCampTravel { .. } => "continue_camp_travel",
@@ -3035,6 +3058,7 @@ impl __sdk::Reducer for Reducer {
             Reducer::EndMarriage { .. } => "end_marriage",
             Reducer::EndTacticalServer { .. } => "end_tactical_server",
             Reducer::EnsureSettlementActivity { .. } => "ensure_settlement_activity",
+            Reducer::EnterSettlementResident { .. } => "enter_settlement_resident",
             Reducer::EnterTacticalScene { .. } => "enter_tactical_scene",
             Reducer::EquipItemAtPlacement { .. } => "equip_item_at_placement",
             Reducer::ExamineCorpse { .. } => "examine_corpse",
@@ -3501,6 +3525,11 @@ impl __sdk::Reducer for Reducer {
                 container_object_id: container_object_id.clone(),
                 requested_ml: requested_ml.clone(),
 }),
+            Reducer::ConfigureSettlementResidents{
+                area,
+}             => __sats::bsatn::to_vec(&configure_settlement_residents_reducer::ConfigureSettlementResidentsArgs {
+                area: area.clone(),
+}),
             Reducer::ConfigureSimulationCharacter{
                 nonce,
                 character_id,
@@ -3744,6 +3773,11 @@ impl __sdk::Reducer for Reducer {
                 settlement_id,
 }             => __sats::bsatn::to_vec(&ensure_settlement_activity_reducer::EnsureSettlementActivityArgs {
                 settlement_id: settlement_id.clone(),
+}),
+            Reducer::EnterSettlementResident{
+                character_id,
+}             => __sats::bsatn::to_vec(&enter_settlement_resident_reducer::EnterSettlementResidentArgs {
+                character_id: character_id.clone(),
 }),
             Reducer::EnterTacticalScene{
                 character_id,
@@ -5017,6 +5051,7 @@ pub struct DbUpdate {
     repair_order: __sdk::TableUpdate<RepairOrder>,
     retained_projectile: __sdk::TableUpdate<RetainedProjectile>,
     saved_recruitment_role: __sdk::TableUpdate<SavedRecruitmentRole>,
+    scene_resident_candidates: __sdk::TableUpdate<TacticalResidentCandidate>,
     settlement: __sdk::TableUpdate<Settlement>,
     settlement_alias: __sdk::TableUpdate<SettlementAlias>,
     settlement_description: __sdk::TableUpdate<SettlementDescription>,
@@ -5463,6 +5498,9 @@ impl TryFrom<__ws::v2::TransactionUpdate> for DbUpdate {
                     .append(retained_projectile_table::parse_table_update(table_update)?),
                 "saved_recruitment_role" => db_update.saved_recruitment_role.append(
                     saved_recruitment_role_table::parse_table_update(table_update)?,
+                ),
+                "scene_resident_candidates" => db_update.scene_resident_candidates.append(
+                    scene_resident_candidates_table::parse_table_update(table_update)?,
                 ),
                 "settlement" => db_update
                     .settlement
@@ -6117,6 +6155,10 @@ impl __sdk::DbUpdate for DbUpdate {
             "party_journey_route",
             &self.party_journey_route,
         );
+        diff.scene_resident_candidates = cache.apply_diff_to_table::<TacticalResidentCandidate>(
+            "scene_resident_candidates",
+            &self.scene_resident_candidates,
+        );
         diff.simulation_quest_fixture = cache.apply_diff_to_table::<SimulationQuestFixture>(
             "simulation_quest_fixture",
             &self.simulation_quest_fixture,
@@ -6478,6 +6520,9 @@ impl __sdk::DbUpdate for DbUpdate {
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "saved_recruitment_role" => db_update
                     .saved_recruitment_role
+                    .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
+                "scene_resident_candidates" => db_update
+                    .scene_resident_candidates
                     .append(__sdk::parse_row_list_as_inserts(table_rows.rows)?),
                 "settlement" => db_update
                     .settlement
@@ -6897,6 +6942,9 @@ impl __sdk::DbUpdate for DbUpdate {
                 "saved_recruitment_role" => db_update
                     .saved_recruitment_role
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
+                "scene_resident_candidates" => db_update
+                    .scene_resident_candidates
+                    .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
                 "settlement" => db_update
                     .settlement
                     .append(__sdk::parse_row_list_as_deletes(table_rows.rows)?),
@@ -7098,6 +7146,7 @@ pub struct AppliedDiff<'r> {
     repair_order: __sdk::TableAppliedDiff<'r, RepairOrder>,
     retained_projectile: __sdk::TableAppliedDiff<'r, RetainedProjectile>,
     saved_recruitment_role: __sdk::TableAppliedDiff<'r, SavedRecruitmentRole>,
+    scene_resident_candidates: __sdk::TableAppliedDiff<'r, TacticalResidentCandidate>,
     settlement: __sdk::TableAppliedDiff<'r, Settlement>,
     settlement_alias: __sdk::TableAppliedDiff<'r, SettlementAlias>,
     settlement_description: __sdk::TableAppliedDiff<'r, SettlementDescription>,
@@ -7684,6 +7733,11 @@ impl<'r> __sdk::AppliedDiff<'r> for AppliedDiff<'r> {
         callbacks.invoke_table_row_callbacks::<SavedRecruitmentRole>(
             "saved_recruitment_role",
             &self.saved_recruitment_role,
+            event,
+        );
+        callbacks.invoke_table_row_callbacks::<TacticalResidentCandidate>(
+            "scene_resident_candidates",
+            &self.scene_resident_candidates,
             event,
         );
         callbacks.invoke_table_row_callbacks::<Settlement>("settlement", &self.settlement, event);
@@ -8545,6 +8599,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         repair_order_table::register_table(client_cache);
         retained_projectile_table::register_table(client_cache);
         saved_recruitment_role_table::register_table(client_cache);
+        scene_resident_candidates_table::register_table(client_cache);
         settlement_table::register_table(client_cache);
         settlement_alias_table::register_table(client_cache);
         settlement_description_table::register_table(client_cache);
@@ -8682,6 +8737,7 @@ impl __sdk::SpacetimeModule for RemoteModule {
         "repair_order",
         "retained_projectile",
         "saved_recruitment_role",
+        "scene_resident_candidates",
         "settlement",
         "settlement_alias",
         "settlement_description",

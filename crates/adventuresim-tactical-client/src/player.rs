@@ -280,7 +280,7 @@ impl CombatTargeting<'_, '_> {
                     else {
                         return Ok(None);
                     };
-                    if target_side == attacker_side || target_state.is_incapacitated() {
+                    if !attacker_side.is_hostile_to(*target_side) || target_state.is_incapacitated() {
                         return Ok(None);
                     }
                     let position = target_transform.translation();

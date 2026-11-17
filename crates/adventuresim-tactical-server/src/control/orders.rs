@@ -197,7 +197,7 @@ fn validate_change(
             else {
                 return Err(ControlRejection::InvalidTarget);
             };
-            if side == target_side
+            if !side.is_hostile_to(*target_side)
                 || target_state.is_incapacitated()
                 || actor == target
                 || transform.translation.distance(target_transform.translation)

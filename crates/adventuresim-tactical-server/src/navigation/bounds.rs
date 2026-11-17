@@ -1,6 +1,7 @@
 //! The playable terrain window bounds navigation, even when accepted support
 //! topology includes distant geographic rings for presentation.
 
+use super::is_navigation_surface;
 use adventuresim_tactical_core::prelude::*;
 use bevy::{ecs::system::SystemParam, math::bounding::Aabb3d, prelude::*};
 
@@ -34,7 +35,7 @@ impl NavigationScene<'_, '_> {
             };
             // Invisible boundary half-spaces constrain physics but have no
             // triangulated navigation surface or finite vertical extent.
-            if (!body.is_static() && !door && !window)
+            if !is_navigation_surface(body, door, window)
                 || collider.shape_scaled().as_halfspace().is_some()
                 || bounds.min.x > half_width
                 || bounds.max.x < -half_width

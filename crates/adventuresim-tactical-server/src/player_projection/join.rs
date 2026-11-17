@@ -22,6 +22,7 @@ pub(crate) fn on_join_request(
     ready: Res<SpacetimeDbReady>,
     scene_ready: Option<Res<SceneReady>>,
     mut admissions: ResMut<SceneAdmissions>,
+    residents: Res<crate::residents::ResidentActors>,
     entities: Query<(Entity, Option<&ReconnectSession>)>,
     vista: Res<SceneVistaBundleResource>,
     combat_config: Res<TacticalCombatConfig>,
@@ -69,6 +70,7 @@ pub(crate) fn on_join_request(
         scene_ready.is_some(),
         retained,
         active_capability_valid(&join, &admissions, &entities),
+        residents.contains(join.character_id),
     ) {
         reject(&mut commands, join.client_id, reason);
         return Ok(());
@@ -198,6 +200,7 @@ fn fresh_join_rejection(
     scene_ready: bool,
     retained: bool,
     capability_valid: bool,
+    resident_reserved: bool,
 ) -> Option<SceneJoinRejected> {
     let rejection = |reason: &str, reconnect| {
         Some(SceneJoinRejected {
@@ -206,6 +209,12 @@ fn fresh_join_rejection(
             reconnect,
         })
     };
+    if resident_reserved {
+        return rejection(
+            "This resident is still releasing its scene visit. Try again shortly.",
+            ReconnectDisposition::Retain,
+        );
+    }
     if !scene_ready || admissions.is_closing() {
         return rejection(
             "The scene is still preparing. Try again shortly.",

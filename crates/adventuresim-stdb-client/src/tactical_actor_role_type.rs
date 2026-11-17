@@ -11,6 +11,8 @@ pub enum TacticalActorRole {
     Player,
 
     Enemy,
+
+    Resident,
 }
 
 impl __sdk::InModule for TacticalActorRole {

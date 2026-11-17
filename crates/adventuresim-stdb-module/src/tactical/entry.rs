@@ -79,13 +79,23 @@ pub fn enter_tactical_scene(
             }
         }
         TacticalSession::Settlement(settlement) => {
+            if crate::tactical::residents::has_npc_authority(ctx, character_id) {
+                return Err(
+                    "Settlement residents use scene-owned admission, not player connections".into(),
+                );
+            }
             super::settlement::require_settlement_admission(
                 ctx,
                 &character,
                 settlement,
                 server.identity,
             )?;
-            super::local_time::LocalSceneVisit::begin(ctx, character_id, server.identity)?;
+            super::local_time::LocalSceneVisit::begin(
+                ctx,
+                character_id,
+                server.identity,
+                super::local_time::LocalSceneTimeOwner::Player,
+            )?;
         }
     }
 

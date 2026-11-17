@@ -105,6 +105,8 @@ pub enum InteriorLayoutError {
         storey: crate::StoreyIndex,
         room: crate::RoomIndex,
     },
+    #[error("standing waypoint on storey {storey} has no physical supporting floor")]
+    MissingStandingFloor { storey: crate::StoreyIndex },
     #[error(transparent)]
     Furniture(#[from] crate::furniture::FurnitureRecipeError),
     #[error("invalid architectural collision: {0}")]

@@ -261,7 +261,7 @@ struct PersistedGenerationExplanation {
     profile: population::GeneratedPopulationProfile,
 }
 
-mod resident_drafts;
+pub(crate) mod resident_drafts;
 const RESIDENT_BRIDGES: [PresenceBridge; 3] = [
     PresenceBridge::NearbyHome,
     PresenceBridge::HouseholdErrand,

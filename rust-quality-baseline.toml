@@ -188,7 +188,7 @@ ceiling = 627
 
 [[files]]
 path = "crates/adventuresim-core/src/strategic_place.rs"
-ceiling = 628
+ceiling = 556
 
 [[files]]
 path = "crates/adventuresim-core/src/strategic_schedule.rs"
@@ -320,7 +320,7 @@ ceiling = 561
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
-ceiling = 1878
+ceiling = 1869
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/personality.rs"
@@ -424,7 +424,7 @@ ceiling = 1079
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/tactical.rs"
-ceiling = 753
+ceiling = 713
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/advancement.rs"
@@ -596,7 +596,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 1664
+ceiling = 1656
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -1561,7 +1561,7 @@ ceiling = 344
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
 item = "materialize_generated_outbreak"
-ceiling = 393
+ceiling = 383
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/outbreak.rs"
@@ -2421,7 +2421,7 @@ ceiling = 117
 [[functions]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
 item = "spawn_connected_player"
-ceiling = 372
+ceiling = 363
 
 [[functions]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -6440,83 +6440,6 @@ rule = "raw-string-branch"
 path = "crates/adventuresim-core/src/strategic_inventory.rs"
 item = "MerchantStorefrontRoute::try_from"
 fingerprint = "string:weapons"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:armoury"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:bookstore"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:church"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:forge"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:herbalist"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:inn"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:keep"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:market"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:public-square"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:residences"
-occurrences = 1
-
-[[findings]]
-rule = "raw-string-branch"
-path = "crates/adventuresim-core/src/strategic_place.rs"
-item = "SettlementVenueKind::from_id"
-fingerprint = "string:tailor"
 occurrences = 1
 
 [[findings]]

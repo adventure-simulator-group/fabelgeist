@@ -30,7 +30,10 @@ use crate::player_projection::{
 pub(crate) use authority::{
     CombatDuration, CombatInstant, MeleeAttackAuthority, RangedAttackAuthority, ReportedPrecision,
 };
-use authority::{ValidatedRangedImpact, validate_melee_intent_cheap, validate_ranged_intent};
+use authority::{
+    ValidatedRangedImpact, ranged_target_in_aim_cone, validate_melee_intent_cheap,
+    validate_ranged_intent,
+};
 pub(crate) use condition::update_tactical_combat_state;
 #[cfg(test)]
 pub(crate) use consequence::apply_transient_attack_result;
@@ -392,13 +395,14 @@ enum RangedIntentRejection {
     SelfTarget,
     MissingSide,
     MissingCombatState,
-    FriendlyTarget,
+    NonHostileTarget,
     Incapacitated,
     NotRanged,
     OutOfRange,
     OutsideAimCone,
     Windup,
     BlockedLineOfSight,
+    MissingTargetTransform,
 }
 
 #[derive(Clone, Copy)]
@@ -423,26 +427,12 @@ struct RangedIntentFacts {
     target_yaw: Option<f32>,
 }
 
-fn ranged_target_in_aim_cone(
-    yaw: f32,
-    attacker: Vec3,
-    target: Vec3,
-    half_angle_degrees: f32,
-) -> bool {
-    let offset = target.xz() - attacker.xz();
-    let Some(direction) = offset.try_normalize() else {
-        return false;
-    };
-    let forward = Vec2::new(-yaw.sin(), -yaw.cos());
-    direction.dot(forward) >= half_angle_degrees.to_radians().cos()
-}
-
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum MeleeIntentRejection {
     SelfTarget,
     MissingSide,
     MissingCombatState,
-    FriendlyTarget,
+    NonHostileTarget,
     Incapacitated,
     DisabledWeaponArm,
     Unarmed,
@@ -576,6 +566,61 @@ mod tests {
     }
 
     #[test]
+    fn neutral_residents_are_rejected_by_melee_and_ranged_authority() {
+        let mut world = World::new();
+        for (attacker, target) in [
+            (TacticalCombatSide::Party, TacticalCombatSide::Neutral),
+            (TacticalCombatSide::Enemy, TacticalCombatSide::Neutral),
+            (TacticalCombatSide::Neutral, TacticalCombatSide::Party),
+            (TacticalCombatSide::Neutral, TacticalCombatSide::Enemy),
+            (TacticalCombatSide::Neutral, TacticalCombatSide::Neutral),
+        ] {
+            let melee = MeleeIntentFacts {
+                attacker_side: Some(attacker),
+                target_side: Some(target),
+                ..valid_facts(&mut world)
+            };
+            assert_eq!(
+                validate_melee_intent_cheap(melee).unwrap_err(),
+                MeleeIntentRejection::NonHostileTarget
+            );
+            let ranged = RangedIntentFacts {
+                attacker_side: Some(attacker),
+                target_side: Some(target),
+                ..valid_ranged_facts(&mut world)
+            };
+            assert_eq!(
+                validate_ranged_intent(ranged).unwrap_err(),
+                RangedIntentRejection::NonHostileTarget
+            );
+        }
+        assert!(validate_melee_intent_cheap(valid_facts(&mut world)).is_ok());
+        assert!(validate_ranged_intent(valid_ranged_facts(&mut world)).is_ok());
+    }
+
+    #[test]
+    fn a_missing_ranged_target_transform_is_rejected_without_authorizing_a_hit() {
+        let mut world = World::new();
+        let valid = valid_ranged_facts(&mut world);
+        assert_eq!(
+            validate_ranged_intent(RangedIntentFacts {
+                target_position: None,
+                ..valid
+            })
+            .unwrap_err(),
+            RangedIntentRejection::MissingTargetTransform
+        );
+        assert_eq!(
+            validate_ranged_intent(RangedIntentFacts {
+                target_yaw: None,
+                ..valid
+            })
+            .unwrap_err(),
+            RangedIntentRejection::MissingTargetTransform
+        );
+    }
+
+    #[test]
     fn authoritative_gate_rejects_invalid_relationship_state_and_geometry() {
         let mut world = World::new();
         let valid = valid_facts(&mut world);
@@ -623,7 +668,7 @@ mod tests {
                     target_side: valid.attacker_side,
                     ..valid
                 },
-                MeleeIntentRejection::FriendlyTarget,
+                MeleeIntentRejection::NonHostileTarget,
             ),
             (
                 MeleeIntentFacts {
@@ -693,7 +738,7 @@ mod tests {
                     target_side: valid.attacker_side,
                     ..valid
                 },
-                RangedIntentRejection::FriendlyTarget,
+                RangedIntentRejection::NonHostileTarget,
             ),
             (
                 RangedIntentFacts {

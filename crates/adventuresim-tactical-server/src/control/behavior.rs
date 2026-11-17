@@ -67,7 +67,7 @@ pub(super) fn prepare_behavior(mut agents: BehaviorActors, context: BehaviorCont
         let valid_target = |target| {
             context.candidates.get(target).ok().filter(
                 |(_, transform, target_side, target_state, yielded, _)| {
-                    *target_side != side
+                    side.is_hostile_to(**target_side)
                         && !target_state.is_incapacitated()
                         && yielded.is_none()
                         && perceive(&context.spatial, &filter, origin, transform, config)
@@ -211,7 +211,7 @@ fn nearest_opponent(
         .candidates
         .iter()
         .filter(|(_, transform, target_side, state, yielded, _)| {
-            *target_side != side
+            side.is_hostile_to(**target_side)
                 && !state.is_incapacitated()
                 && yielded.is_none()
                 && perceive(

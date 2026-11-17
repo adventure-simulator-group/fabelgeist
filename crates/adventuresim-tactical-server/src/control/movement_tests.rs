@@ -314,7 +314,7 @@ fn disconnected_upper_floor_is_not_selected_as_a_route() {
 }
 
 #[test]
-fn moved_door_rebuilds_the_mesh_and_routes_around_its_new_position() {
+fn physical_door_blocks_travel_until_moved_without_rebuilding_the_mesh() {
     use adventuresim_building_generator::{
         OpeningAssemblyId,
         spatial_geometry::{LeafDimensions, SpatialDirection},
@@ -337,12 +337,62 @@ fn moved_door_rebuilds_the_mesh_and_routes_around_its_new_position() {
             Transform::from_xyz(3.0, 1.5, 4.0),
         ))
         .id();
-    wait_for_rebuild(&mut app);
+    for _ in 0..30 {
+        app.update();
+    }
     app.world_mut()
         .get_mut::<adventuresim_tactical_core::avian3d::prelude::Position>(door)
         .unwrap()
         .0
         .z = 0.0;
-    wait_for_rebuild(&mut app);
+    let control = *app.world().get::<CharacterControl>(actor).unwrap();
+    let sequence = app
+        .world()
+        .get::<CharacterOrder>(actor)
+        .unwrap()
+        .sequence
+        .next();
+    app.world_mut().trigger(FromClient {
+        client_id: ClientId::Client(actor),
+        message: ControlRequest {
+            generation: control.generation,
+            sequence,
+            change: ControlChange::Order(CharacterGoal::MoveTo(NavigationDestination {
+                position: Position::from_metres(Vec3::new(6.0, 0.0, 0.0)).unwrap(),
+            })),
+        },
+    });
+    for _ in 0..300 {
+        app.update();
+        assert!(
+            app.world()
+                .resource::<crate::navigation::TacticalNavigation>()
+                .ready
+        );
+        if matches!(
+            app.world().get::<CharacterOrder>(actor).unwrap().status,
+            OrderStatus::Failed(_)
+        ) {
+            break;
+        }
+    }
+    assert!(matches!(
+        app.world().get::<CharacterOrder>(actor).unwrap().status,
+        OrderStatus::Failed(ControlRejection::NoProgress)
+    ));
+    assert!(app.world().get::<Transform>(actor).unwrap().translation.x < 3.0);
+    app.world_mut()
+        .get_mut::<adventuresim_tactical_core::avian3d::prelude::Position>(door)
+        .unwrap()
+        .0
+        .z = 4.0;
+    for _ in 0..30 {
+        app.update();
+        assert!(
+            app.world()
+                .resource::<crate::navigation::TacticalNavigation>()
+                .ready
+        );
+    }
     walk_to(&mut app, actor, Vec3::new(6.0, 0.0, 0.0));
 }

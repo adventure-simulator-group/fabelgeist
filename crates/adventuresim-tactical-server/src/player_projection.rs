@@ -24,7 +24,6 @@ use bevy::time::Stopwatch;
 
 use crate::{
     Args, SceneVistaBundleResource,
-    bot::MissionEnemy,
     combat::{
         MeleeAttackAuthority, PendingMeleeContact, RangedAttackAuthority, TacticalCombatSide,
     },
@@ -43,8 +42,10 @@ use projection_equipment::{
     projected_weapon_appearance,
 };
 
+#[cfg(test)]
+use crate::bot::MissionEnemy;
+use spawn_admission::AdmittedPlayer;
 pub(crate) use spawn_admission::spawn_connected_players;
-use spawn_admission::{AdmittedPlayer, SpawnRecipient};
 
 pub(crate) use join::on_join_request;
 #[cfg(feature = "debug")]
@@ -431,12 +432,7 @@ fn spawn_connected_player(
         collider: player_collider,
     } = admitted;
     let player = &player;
-    let entity = match recipient {
-        SpawnRecipient::Loading(entity) => entity,
-        SpawnRecipient::Enemy(packages) => cmd
-            .spawn((MissionEnemy, TacticalCombatSide::Enemy, packages))
-            .id(),
-    };
+    let entity = recipient.entity(cmd);
 
     let mut skills = Skills {
         polearm_hours: player.skills.polearm_hours,
@@ -618,11 +614,7 @@ fn spawn_connected_player(
     cmd.entity(entity).insert((
         MeleeAttackAuthority::default(),
         RangedAttackAuthority::default(),
-        if player.role == TacticalActorRole::Enemy {
-            TacticalCombatSide::Enemy
-        } else {
-            TacticalCombatSide::Party
-        },
+        spawn_admission::combat_side(&player.role),
         Transform::from_translation(position.metres())
             .with_rotation(Quat::from_rotation_y(std::f32::consts::PI)),
         (
@@ -1835,7 +1827,7 @@ pub(crate) fn bind_dumped_character_on_join(world: &mut World) {
     }
 }
 
-fn player_collider() -> Collider {
+pub(crate) fn player_collider() -> Collider {
     Collider::cylinder(HUMANOID_COLLISION_RADIUS_METRES, 1.9)
 }
 

@@ -83,3 +83,9 @@ impl NavigationWorld<'_, '_, '_> {
         Ok(support)
     }
 }
+
+/// Operable closures retain physical collision and passage control, but their
+/// changing poses do not define the architectural navigation surface.
+fn is_navigation_surface(body: &RigidBody, door: bool, window: bool) -> bool {
+    body.is_static() && !door && !window
+}

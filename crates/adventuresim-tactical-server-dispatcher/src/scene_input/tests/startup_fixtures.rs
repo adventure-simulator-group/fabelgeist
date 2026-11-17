@@ -16,7 +16,11 @@ use adventuresim_world_schema::{
 fn export_flat_acceptance_terrain() {
     let output = PathBuf::from(std::env::var_os("SETTLEMENT_ACCEPTANCE_TERRAIN_DIR").unwrap());
     fs::create_dir_all(&output).unwrap();
-    let (pack, temporary) = final_pack_with_cell([65, 1, 1, 0, 0]);
+    let (pack, temporary) = final_pack_with_features([65, 1, 1, 0, 0], Vec::new());
+    assert!(
+        pack.terrain_features().is_empty(),
+        "flat transport fixture must have no mapped scarps"
+    );
     for name in ["terrain.manifest.json", "terrain.pack"] {
         fs::copy(temporary.join(name), output.join(name)).unwrap();
     }

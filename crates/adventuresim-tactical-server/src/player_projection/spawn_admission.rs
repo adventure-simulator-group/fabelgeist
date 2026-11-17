@@ -27,6 +27,48 @@ pub(super) struct AdmittedPlayer {
 pub(super) enum SpawnRecipient {
     Loading(Entity),
     Enemy(CombatantBehaviorPackages),
+    Resident(Entity),
+}
+
+impl SpawnRecipient {
+    pub(super) fn entity(self, commands: &mut Commands) -> Entity {
+        match self {
+            Self::Loading(entity) => entity,
+            Self::Enemy(packages) => commands
+                .spawn((
+                    crate::bot::MissionEnemy,
+                    TacticalCombatSide::Enemy,
+                    packages,
+                ))
+                .id(),
+            Self::Resident(entity) => {
+                commands.entity(entity).insert((
+                    crate::residents::ResidentActor,
+                    TacticalCombatSide::Neutral,
+                    CombatantBehaviorPackages::passive(),
+                ));
+                entity
+            }
+        }
+    }
+}
+
+impl AdmittedPlayer {
+    fn resident(
+        player: ConnectedPlayer,
+        projection: crate::residents::ResidentProjection,
+    ) -> SceneSpawnResult<Self> {
+        let collider = player_collider();
+        let offset = player_spawn_offset(&collider)?;
+        let position =
+            Position::from_metres(projection.position.metres() + Vec3::Y * offset.metres())?;
+        Ok(Self {
+            player,
+            recipient: SpawnRecipient::Resident(projection.entity),
+            position,
+            collider,
+        })
+    }
 }
 
 impl PreparedPlayerSpawns {
@@ -36,9 +78,16 @@ impl PreparedPlayerSpawns {
         terrain: &SceneTerrain,
         args: &Args,
         combat: &TacticalCombatConfig,
+        residents: &mut crate::residents::ResidentActors,
     ) -> SceneSpawnResult<Self> {
         let mut admitted = Vec::with_capacity(players.len());
         for player in players {
+            if player.role == TacticalActorRole::Resident {
+                if let Some(projection) = residents.projection(CharacterId(player.character.id)) {
+                    admitted.push(AdmittedPlayer::resident(player, projection)?);
+                }
+                continue;
+            }
             let recipient = if player.role == TacticalActorRole::Enemy {
                 let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {
                     let enemy = fixture.enemy_named(&player.character.name).ok_or(
@@ -109,6 +158,7 @@ pub(crate) fn spawn_connected_players(
     q_scene: Query<&SceneTerrain>,
     combat_config: Res<TacticalCombatConfig>,
     mut visits: ResMut<crate::local_time::LocalVisits>,
+    mut residents: ResMut<crate::residents::ResidentActors>,
     mut pending: Local<std::collections::HashMap<CharacterId, ConnectedPlayer>>,
 ) -> Result {
     let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
@@ -125,6 +175,7 @@ pub(crate) fn spawn_connected_players(
         .iter()
         .filter_map(|(character, profile)| {
             (profile.role == TacticalActorRole::Enemy
+                || (profile.role == TacticalActorRole::Resident && residents.contains(*character))
                 || q_loading
                     .iter()
                     .any(|(_, loading)| loading.requested_character == *character))
@@ -136,10 +187,24 @@ pub(crate) fn spawn_connected_players(
         .into_iter()
         .filter_map(|character| pending.remove(&character))
         .collect();
-    let admitted =
-        PreparedPlayerSpawns::prepare(players, &q_loading, terrain, &args, &combat_config)?;
+    let admitted = PreparedPlayerSpawns::prepare(
+        players,
+        &q_loading,
+        terrain,
+        &args,
+        &combat_config,
+        &mut residents,
+    )?;
     admitted.project(&mut cmd, &combat_config);
     Ok(())
+}
+
+pub(super) fn combat_side(role: &TacticalActorRole) -> TacticalCombatSide {
+    match role {
+        TacticalActorRole::Player => TacticalCombatSide::Party,
+        TacticalActorRole::Enemy => TacticalCombatSide::Enemy,
+        TacticalActorRole::Resident => TacticalCombatSide::Neutral,
+    }
 }
 
 fn player_spawn_offset(collider: &Collider) -> SceneSpawnResult<SignedLength> {

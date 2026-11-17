@@ -70,7 +70,12 @@ fn collision_geometry(
         &ColliderOf,
     )>,
     bodies: Query<(&RigidBody, Has<SceneDoor>, Has<SceneWindow>)>,
+    geometry: NavigationGeometry,
+    mut navigation: ResMut<TacticalNavigation>,
 ) -> TriMesh {
+    // Rerecast consumes collision input in PostUpdate, after transforms settle.
+    // Track that input's revision, rather than the earlier request's snapshot.
+    navigation.geometry = geometry.snapshot();
     colliders
         .iter()
         .filter_map(|(entity, collider, position, rotation, owner)| {
@@ -82,7 +87,7 @@ fn collision_geometry(
                 return None;
             }
             let (body, door, window) = bodies.get(owner.body).ok()?;
-            if !body.is_static() && !door && !window {
+            if !is_navigation_surface(body, door, window) {
                 return None;
             }
             collider.to_trimesh(*position, *rotation, 10)
@@ -133,7 +138,7 @@ fn initialize_mesh(
     navigation.mesh = Some(handle);
     navigation.island = Some(island);
     navigation.last_request = Some(time.elapsed_secs_f64());
-    navigation.geometry = geometry.snapshot();
+    info!(?bounds, "Requested initial architectural navigation mesh");
 }
 
 fn navmesh_settings(config: &TacticalCombatConfig, bounds: Aabb3d) -> NavmeshSettings {
@@ -141,6 +146,11 @@ fn navmesh_settings(config: &TacticalCombatConfig, bounds: Aabb3d) -> NavmeshSet
         + config.ai.control.clearance_margin_metres.metres();
     let mut settings =
         NavmeshSettings::from_agent_3d(radius, CharacterDimensions::default().body_height_metres);
+    // Recast's native adapter expresses metre-sized voxels as radius ratios.
+    // Keep the full physical actor and clearance while resolving indoor gaps.
+    settings.cell_size_fraction = radius / config.ai.control.navigation_cell_size_metres.metres();
+    settings.cell_height_fraction =
+        radius / config.ai.control.navigation_cell_height_metres.metres();
     settings.walkable_climb = config.movement.motor.maximum_step_height_metres;
     settings.aabb = Some(bounds);
     settings.walkable_slope_angle = config
@@ -170,15 +180,14 @@ fn refresh_mesh(
         navigation.failed = true;
     }
     let current = geometry.snapshot();
-    let changed = current.len() != navigation.geometry.len()
-        || current.iter().any(|(entity, snapshot)| {
-            navigation.geometry.get(entity).is_none_or(|old| {
-                old.position.distance(snapshot.position) >= GEOMETRY_POSITION_CHANGE_METRES
-                    || old.rotation.angle_between(snapshot.rotation)
-                        >= GEOMETRY_ROTATION_CHANGE_RADIANS
-                    || old.shape_revision != snapshot.shape_revision
-            })
-        });
+    let changed_collider = current.iter().find(|&(entity, snapshot)| {
+        navigation.geometry.get(entity).is_none_or(|old| {
+            old.position.distance(snapshot.position) >= GEOMETRY_POSITION_CHANGE_METRES
+                || old.rotation.angle_between(snapshot.rotation) >= GEOMETRY_ROTATION_CHANGE_RADIANS
+                || old.shape_revision != snapshot.shape_revision
+        })
+    });
+    let changed = current.len() != navigation.geometry.len() || changed_collider.is_some();
     if !changed {
         return;
     }
@@ -190,7 +199,13 @@ fn refresh_mesh(
     }
     let Some(bounds) = scene.bounds() else { return };
     if generator.regenerate(&handle, navmesh_settings(&config, bounds)) {
-        navigation.geometry = current;
+        info!(
+            colliders = current.len(),
+            ?bounds,
+            changed = ?changed_collider,
+            previous = ?changed_collider.and_then(|(entity, _)| navigation.geometry.get(entity)),
+            "Requested architectural navigation mesh rebuild"
+        );
         navigation.last_request = Some(now);
         navigation.ready = false;
         navigation.failed = false;
@@ -206,6 +221,7 @@ fn mesh_ready(event: On<NavmeshReady>, mut navigation: ResMut<TacticalNavigation
     {
         navigation.generated = true;
         navigation.failed = false;
+        info!("Architectural navigation mesh generation completed");
     }
 }
 
@@ -223,5 +239,7 @@ fn activate_mesh(
         .is_some_and(|handle| meshes.get(&handle.0).is_some())
     {
         navigation.ready = true;
+        navigation.failed = false;
+        info!("Architectural navigation mesh activated");
     }
 }

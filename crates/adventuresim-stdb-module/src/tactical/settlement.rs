@@ -3,6 +3,7 @@
 use adventuresim_world_schema::coordinates::Wgs84CoordinateE7;
 use spacetimedb::{Identity, ReducerContext, Table, reducer};
 
+use super::residents::scene_resident_roster;
 use super::{
     TacticalServerRequest, TacticalSession, request::settlement_snapshot,
     tactical_server_authority, tactical_server_request_authority,
@@ -109,6 +110,10 @@ pub fn retire_settlement_scene(ctx: &ReducerContext) -> Result<(), String> {
         return Err("Finish local actor visits before retiring their scene".into());
     }
     ctx.db
+        .scene_resident_roster()
+        .server()
+        .delete(server.identity);
+    ctx.db
         .tactical_server_authority()
         .identity()
         .delete(server.identity);
@@ -140,6 +145,10 @@ pub fn release_disconnected_settlement_scene(ctx: &ReducerContext) -> Result<(),
     for character in assigned {
         super::local_time::interrupt_visit(ctx, character.id, server.identity)?;
     }
+    ctx.db
+        .scene_resident_roster()
+        .server()
+        .delete(server.identity);
     ctx.db
         .tactical_server_authority()
         .identity()
