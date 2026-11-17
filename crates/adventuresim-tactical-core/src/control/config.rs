@@ -19,6 +19,10 @@ pub struct ControlConfig {
     pub arrival_radius_metres: PositiveLength,
     pub support_tolerance_metres: PositiveLength,
     pub clearance_margin_metres: PositiveLength,
+    /// Horizontal voxel width resolves physically clear interior doorways.
+    pub navigation_cell_size_metres: PositiveLength,
+    /// Vertical voxel height preserves floor and doorway headroom.
+    pub navigation_cell_height_metres: PositiveLength,
     pub perception_radius_metres: PositiveLength,
     pub pursuit_radius_metres: PositiveLength,
     pub hold_radius_metres: PositiveLength,

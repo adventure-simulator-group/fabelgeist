@@ -1,0 +1,119 @@
+{
+  "id": 6,
+  "program": {
+    "archetype": "town-house",
+    "usage": "general_shop",
+    "service_size": null,
+    "seed": {
+      "word": 47
+    },
+    "footprint": {
+      "rectangle": {
+        "width": 6,
+        "depth": 10
+      }
+    },
+    "storey_height_metres": 2.8834767,
+    "storeys": [
+      {
+        "rooms": [
+          {
+            "kind": "shop",
+            "preferred_cells": 18,
+            "needs_exterior": true,
+            "preferred_neighbours": [
+              "workshop"
+            ]
+          },
+          {
+            "kind": "entrance_hall",
+            "preferred_cells": 8,
+            "needs_exterior": true,
+            "preferred_neighbours": [
+              "stair_hall"
+            ]
+          },
+          {
+            "kind": "workshop",
+            "preferred_cells": 15,
+            "needs_exterior": false,
+            "preferred_neighbours": [
+              "storage"
+            ]
+          },
+          {
+            "kind": "storage",
+            "preferred_cells": 8,
+            "needs_exterior": false,
+            "preferred_neighbours": []
+          },
+          {
+            "kind": "stair_hall",
+            "preferred_cells": 8,
+            "needs_exterior": false,
+            "preferred_neighbours": []
+          }
+        ]
+      },
+      {
+        "rooms": [
+          {
+            "kind": "common_room",
+            "preferred_cells": 22,
+            "needs_exterior": true,
+            "preferred_neighbours": [
+              "kitchen"
+            ]
+          },
+          {
+            "kind": "kitchen",
+            "preferred_cells": 12,
+            "needs_exterior": true,
+            "preferred_neighbours": [
+              "pantry"
+            ]
+          },
+          {
+            "kind": "pantry",
+            "preferred_cells": 6,
+            "needs_exterior": false,
+            "preferred_neighbours": []
+          },
+          {
+            "kind": "bedchamber",
+            "preferred_cells": 13,
+            "needs_exterior": true,
+            "preferred_neighbours": []
+          },
+          {
+            "kind": "stair_hall",
+            "preferred_cells": 7,
+            "needs_exterior": false,
+            "preferred_neighbours": []
+          }
+        ]
+      }
+    ],
+    "vertical_connections": [
+      {
+        "kind": "straight_stair",
+        "lowest_storey": 0,
+        "highest_storey": 1,
+        "landing_room": "stair_hall"
+      }
+    ],
+    "wall_style": "timber_frame",
+    "timber_frame_style": "late_medieval",
+    "upper_storey_projection_metres": 0.22,
+    "roof_pitch_degrees": 54.612198,
+    "roof_demonstrator": null,
+    "church_program": null,
+    "domestic_heating": null
+  },
+  "centre_metres": [
+    35.713745,
+    17.229755
+  ],
+  "base_elevation_metres": -0.010600296,
+  "orientation": -0.08865588
+}

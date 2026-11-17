@@ -15,9 +15,9 @@ can join the same area as they arrive.
 
 The dispatcher captures the settlement economy and operator identities and
 uses the existing city generator's central playable partition. Distant city
-geometry remains presentation outside the physical bounds. Resident actors,
-conversation, local inventory mutations, and boundary-triggered travel are
-separate steps in the live-settlement overhaul.
+geometry remains presentation outside the physical bounds. Conversation, local
+inventory mutations, and boundary-triggered travel remain separate steps in the
+live-settlement overhaul.
 
 Navigation generation and rebuilding use the playable terrain window as their
 horizontal bounds. Accepted geographic support may include the distant horizon;
@@ -29,6 +29,46 @@ do not run in an ordinary scene. The server retires after its last retained
 player expires. An area that never receives a player has a two-minute initial
 entry grace. Retirement and database disconnection release the serving slot
 and character assignments without submitting a combat result.
+
+## Settlement residents
+
+The serving host selects operators from physically generated businesses and
+ordinary residents from the playable market square. The database resolves
+existing Character identities and schedules into an immutable area roster.
+Operators take priority within the bounded roster; remaining residents are
+selected by stable Character identity. Distant establishments supply no actors.
+The host's projection exposes names, public presence and business bindings,
+without personality records, investigation truth or historical generation seeds.
+
+Residents enter through a dedicated host-authorized reducer. Their visit owner
+remains Resident until closure, even if player control transfers in the
+meantime. Player admission cannot take over that open visit. The native host
+retains the Character reservation until the old projection has been removed.
+
+Daily availability uses the existing schedule against the shared official
+calendar. Current presence must remain in the selected common venue or the
+business's existing duty location. Absent, dead, suppressed or reassigned
+residents lose their live presence. Operators use rebuilt occupied-furniture
+access paths, actual floor support, the full actor collider and the server's
+humanoid navigation mesh.
+Ordinary residents use separated supported stations inside the actual market
+patch. A blocked or unreachable station supplies no live actor.
+
+Navigation voxel width and height come from the authored control configuration
+in `content/tactical/combat.yaml`. Indoor doorway resolution preserves the
+full actor cylinder and clearance margin. A resident station also rejects an
+existing character occupying its standing volume.
+
+Residents carry Neutral allegiance and passive behavior. Neutral relationships
+cannot authorize attacks or automatic hostile targeting. Character picking
+retains each actual Character identity for subsequent interaction work.
+
+Resident visits begin while a real player is present or retained for reconnect.
+When the last player leaves, residents close their own visits using the same
+acknowledged departure protocol. They never keep an empty settlement alive.
+Positions, ongoing condition and navigation remain transient Bevy state.
+This does not provide whole-city crowd simulation, tactical wound progression,
+dialogue or business transactions.
 
 ## Registration and reconnect
 
@@ -150,9 +190,14 @@ python -B scripts/check_semantic_authorities.py --only settlement-scenes-live
 ```
 
 This check exports a flat terrain pack in the accepted final-pack format to
-isolate session admission from geographic grading. It provisions the canonical
-town area, verifies shared presence and a rotating reconnect capability,
-rejects a duplicate actor connection, and waits for retirement after the last
-retained player expires. Reopening the same slot captures a fresh immutable
-scene document. This fixture does not validate grading on real geography.
+isolate session admission from geographic grading. A guarded fixture supplies
+a small settlement and general-store service; normal scene preparation creates
+its actual buildings, operators and schedules. The check verifies shared
+presence and a rotating reconnect
+capability, rejects a duplicate actor connection, and observes the same real
+merchant on both clients. It removes an unavailable merchant, checks closure
+and re-entry without duplicate projections, and waits for retirement after the
+last retained player expires. Reopening the same slot captures a fresh
+immutable scene document. This fixture does not validate grading on real
+geography.
 Logs remain in `target/authority-check/live-settlement`.

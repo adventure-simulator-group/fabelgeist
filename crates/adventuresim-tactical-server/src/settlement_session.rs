@@ -17,7 +17,7 @@ use crate::{
 const INITIAL_ENTRY_GRACE: Duration = Duration::from_secs(120);
 const RETIREMENT_ACK_TIMEOUT: Duration = Duration::from_secs(10);
 
-type RetainedPlayerFilter = Or<(With<ReconnectSession>, With<DisconnectedPlayer>)>;
+pub(crate) type RetainedPlayerFilter = Or<(With<ReconnectSession>, With<DisconnectedPlayer>)>;
 
 #[derive(Resource)]
 pub(crate) struct SettlementSession {
@@ -72,6 +72,10 @@ pub(crate) fn configure(app: &mut App, args: &Args) -> Result<(), String> {
     Ok(())
 }
 
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects scene lifetime, retained actors and durable visit closure resources separately"
+)]
 fn retire_empty_scene(
     mut session: ResMut<SettlementSession>,
     time: Res<Time<Real>>,
@@ -79,6 +83,7 @@ fn retire_empty_scene(
     mut admissions: ResMut<SceneAdmissions>,
     conn: Res<SpacetimeDb>,
     visits: Res<crate::local_time::LocalVisits>,
+    residents: Res<crate::residents::ResidentActors>,
     mut exit: MessageWriter<AppExit>,
 ) -> Result {
     if let SettlementLifecycle::Retiring(wait) = &mut session.lifecycle {
@@ -88,7 +93,7 @@ fn retire_empty_scene(
         }
         return Ok(());
     }
-    if !players.is_empty() || !visits.is_empty() {
+    if !players.is_empty() || !visits.is_empty() || !residents.is_empty() {
         session.lifecycle = SettlementLifecycle::Occupied;
         return Ok(());
     }

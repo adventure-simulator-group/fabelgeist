@@ -18,13 +18,17 @@ In indirect control:
 - Left-click a character to mark it for inspection. Orders still control your
   own character; commanding other characters is not yet available.
 - Right-click or hold **Space** and left-click a supported surface to move.
-- Use the same order input on an opposing character to attack it.
+- Use the same order input on a hostile character to attack it.
 - Hold **Shift** with either order input to append a ground waypoint.
 - Press **X** to stop and clear the current pursuit and remembered aggression.
 - Press **H** to hold the current position.
 - Drag the middle mouse button or hold **Alt** and left-drag to orbit.
 - Use **WASD** to pan the camera and scroll to adjust its height.
 - Press **Escape** while holding Space to cancel that click command.
+
+Attack admission and automatic target selection require an explicit hostile
+relationship. Neutral settlement residents cannot be attacked through these
+orders. Resident conversation is a separate interaction step.
 
 The order marker identifies the destination, hold anchor, or attack target.
 Selected characters have a blue marker and queued waypoints have yellow
@@ -92,15 +96,20 @@ position to a `SupportedPoint` associated with an authoritative support
 collider. This distinguishes overlapping floors without assuming client and
 server collision-entity identities match.
 
-Rerecast builds a navigation mesh from the server's static colliders and the
-current door and window leaves. Its radius, height, climb, and slope settings
+Rerecast builds a navigation mesh from the server's static architecture and
+furniture. Operable door and window leaves retain physical collision and
+passage control, but their motion does not invalidate the architectural mesh.
+Its radius, height, climb, and slope settings
 follow the character motor. Landmass selects routes and provides desired
 movement and local character avoidance. Agent positions come from the feet;
 their velocities come from the physical simulation. Steering requests movement
 through the existing character controller and never assigns actor positions.
 
 The server rebuilds the mesh when relevant colliders change shape or move, with
-a minimum interval between rebuild requests. Rerecast rebuilds the whole mesh;
+a minimum interval between rebuild requests. It captures geometry revisions
+when the backend collects collision input, after transforms settle. Changes
+already included in that build do not invalidate its result.
+Rerecast rebuilds the whole mesh;
 it does not yet update individual tiles. Orders wait while the mesh rebuilds
 and report an unavailable mesh if generation does not finish. Unreachable
 destinations and lack of physical progress are reported separately. Closed
@@ -121,7 +130,9 @@ Shared admission contracts live in
 perception, resumption, blocked progress, collision avoidance, and distinct
 floors using the production controller and physics queries. The fixed-step
 movement tests drive characters through the actual motor, checking arrival,
-route deviation, mesh rebuilds, moved doors, and disconnected floors.
+route deviation, mesh rebuilds, physical doors, and disconnected floors. The
+resident placement fixture includes real generated doors and verifies that
+their motion leaves navigation available.
 
 Run the affected tactical checks and tests, the browser-client Wasm check,
 `just fmt-check`, and `just lint`. Existing direct movement, combat, and

@@ -894,6 +894,29 @@ mod tests {
     }
 
     fn final_pack_with_cell(cell: [u8; 5]) -> (TerrainPack, PathBuf) {
+        final_pack_with_features(
+            cell,
+            vec![
+                TerrainFeature::MappedFault(MappedFault {
+                    id: "DE:pack-fixture".into(),
+                    local_name: Some("pack fixture".into()),
+                    classification: None,
+                    mapped_active: false,
+                    mapped_capable: false,
+                    trace: vec![
+                        TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
+                        TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
+                    ],
+                }),
+                mapped_sandstone_window(10.5, 50.5),
+            ],
+        )
+    }
+
+    fn final_pack_with_features(
+        cell: [u8; 5],
+        terrain_features: Vec<TerrainFeature>,
+    ) -> (TerrainPack, PathBuf) {
         let nonce = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
             .expect("clock after epoch")
@@ -950,20 +973,7 @@ mod tests {
             cultivation_source_sha256: "3".repeat(64),
             cultivated_square_count: 1,
             cultivated_native_cells: 1,
-            terrain_features: vec![
-                TerrainFeature::MappedFault(MappedFault {
-                    id: "DE:pack-fixture".into(),
-                    local_name: Some("pack fixture".into()),
-                    classification: None,
-                    mapped_active: false,
-                    mapped_capable: false,
-                    trace: vec![
-                        TravelGeometryPoint::new(10.49, 50.5001).unwrap(),
-                        TravelGeometryPoint::new(10.51, 50.5001).unwrap(),
-                    ],
-                }),
-                mapped_sandstone_window(10.5, 50.5),
-            ],
+            terrain_features,
             entries,
             package_sha256: "0".repeat(64),
         };

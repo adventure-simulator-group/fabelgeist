@@ -249,7 +249,7 @@ impl OrderPicking<'_, '_> {
             if self
                 .targets
                 .get(target)
-                .is_ok_and(|target_side| *target_side != side)
+                .is_ok_and(|target_side| side.is_hostile_to(*target_side))
             {
                 return Some(ControlChange::Order(CharacterGoal::Attack { target }));
             }

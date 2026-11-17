@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
+use super::local_scene_time_owner_type::LocalSceneTimeOwner;
 use super::local_scene_visit_state_type::LocalSceneVisitState;
 use super::personal_clock_type::PersonalClock;
 
@@ -13,6 +14,7 @@ pub struct LocalSceneVisit {
     pub id: u64,
     pub character_id: u64,
     pub server: __sdk::Identity,
+    pub owner: LocalSceneTimeOwner,
     pub entered_at: __sdk::Timestamp,
     pub starting_clock: PersonalClock,
     pub food_balance_kcal: f32,
@@ -31,6 +33,7 @@ pub struct LocalSceneVisitCols {
     pub id: __sdk::__query_builder::Col<LocalSceneVisit, u64>,
     pub character_id: __sdk::__query_builder::Col<LocalSceneVisit, u64>,
     pub server: __sdk::__query_builder::Col<LocalSceneVisit, __sdk::Identity>,
+    pub owner: __sdk::__query_builder::Col<LocalSceneVisit, LocalSceneTimeOwner>,
     pub entered_at: __sdk::__query_builder::Col<LocalSceneVisit, __sdk::Timestamp>,
     pub starting_clock: __sdk::__query_builder::Col<LocalSceneVisit, PersonalClock>,
     pub food_balance_kcal: __sdk::__query_builder::Col<LocalSceneVisit, f32>,
@@ -45,6 +48,7 @@ impl __sdk::__query_builder::HasCols for LocalSceneVisit {
             id: __sdk::__query_builder::Col::new(table_name, "id"),
             character_id: __sdk::__query_builder::Col::new(table_name, "character_id"),
             server: __sdk::__query_builder::Col::new(table_name, "server"),
+            owner: __sdk::__query_builder::Col::new(table_name, "owner"),
             entered_at: __sdk::__query_builder::Col::new(table_name, "entered_at"),
             starting_clock: __sdk::__query_builder::Col::new(table_name, "starting_clock"),
             food_balance_kcal: __sdk::__query_builder::Col::new(table_name, "food_balance_kcal"),

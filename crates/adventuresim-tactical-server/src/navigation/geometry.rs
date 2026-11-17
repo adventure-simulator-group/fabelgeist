@@ -16,7 +16,7 @@ type NavigableColliders<'w, 's> = Query<
     ),
 >;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub(super) struct ColliderSnapshot {
     pub(super) position: Vec3,
     pub(super) rotation: Quat,
@@ -34,7 +34,7 @@ impl NavigationGeometry<'_, '_> {
         self.colliders.iter().any(|(_, owner, _, _, _)| {
             self.bodies
                 .get(owner.body)
-                .is_ok_and(|(body, _, _)| body.is_static())
+                .is_ok_and(|(body, door, window)| is_navigation_surface(body, door, window))
         })
     }
 
@@ -43,7 +43,7 @@ impl NavigationGeometry<'_, '_> {
             .iter()
             .filter_map(|(entity, owner, collider, position, rotation)| {
                 let (body, door, window) = self.bodies.get(owner.body).ok()?;
-                (body.is_static() || door || window).then_some((
+                is_navigation_surface(body, door, window).then_some((
                     entity,
                     ColliderSnapshot {
                         position: position.0,

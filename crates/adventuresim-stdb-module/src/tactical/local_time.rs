@@ -28,6 +28,7 @@ pub struct LocalSceneVisit {
     pub character_id: u64,
     #[index(btree)]
     pub server: Identity,
+    pub owner: LocalSceneTimeOwner,
     pub entered_at: Timestamp,
     pub starting_clock: PersonalClock,
     pub food_balance_kcal: f32,
@@ -49,6 +50,19 @@ pub struct LocalSceneVisitClosure {
     pub closed_at: Timestamp,
     pub personal_clock: PersonalClock,
     pub receipt: LocalSceneVisitReceipt,
+}
+
+pub(super) struct ActorSceneProjection {
+    pub(super) role: TacticalActorRole,
+    pub(super) time: TacticalActorTime,
+}
+
+/// Participation remains fixed for a visit even if NPC authority transfers to
+/// a player. The old resident visit must close before a player can claim it.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, SpacetimeType)]
+pub enum LocalSceneTimeOwner {
+    Player,
+    Resident,
 }
 
 #[derive(Clone, Debug, SpacetimeType)]
@@ -88,10 +102,16 @@ impl LocalSceneVisit {
         ctx: &ReducerContext,
         character_id: u64,
         server: Identity,
+        owner: LocalSceneTimeOwner,
     ) -> VisitResult<Self> {
         if let Some(visit) = Self::active(ctx, character_id)? {
             if visit.server != server {
                 return Err("Character time belongs to another live scene".into());
+            }
+            if visit.owner != owner {
+                return Err(
+                    "Character is already admitted with another scene participation role".into(),
+                );
             }
             return Ok(visit);
         }
@@ -116,6 +136,7 @@ impl LocalSceneVisit {
             id: 0, // SpacetimeDB assigns the positive storage key.
             character_id,
             server,
+            owner,
             entered_at: ctx.timestamp,
             starting_clock: PersonalClock::new(clock.minutes, clock.fraction),
             food_balance_kcal: needs.food_balance_kcal,
@@ -261,13 +282,21 @@ pub(super) fn interrupt_visit(
     )
 }
 
-pub(super) fn actor_time(
+pub(super) fn actor_projection(
     ctx: &ViewContext,
     character_id: u64,
     server: &TacticalServer,
-) -> Option<TacticalActorTime> {
-    if matches!(server.session, TacticalSession::Mission(_)) {
-        return Some(TacticalActorTime::MissionSnapshot);
+) -> Option<ActorSceneProjection> {
+    if let TacticalSession::Mission(mission) = &server.session {
+        let role = if mission.enemy_character_ids.contains(&character_id) {
+            TacticalActorRole::Enemy
+        } else {
+            TacticalActorRole::Player
+        };
+        return Some(ActorSceneProjection {
+            role,
+            time: TacticalActorTime::MissionSnapshot,
+        });
     }
     let mut visits = ctx
         .db
@@ -279,11 +308,18 @@ pub(super) fn actor_time(
     if visits.next().is_some() || visit.server != server.identity {
         return None;
     }
-    Some(TacticalActorTime::LocalVisit(LocalSceneVisitClock {
-        visit_id: visit.id,
-        entered_at: visit.entered_at,
-        personal_clock: visit.starting_clock,
-        food_balance_kcal: visit.food_balance_kcal,
-        water_balance_ml: visit.water_balance_ml,
-    }))
+    let role = match visit.owner {
+        LocalSceneTimeOwner::Player => TacticalActorRole::Player,
+        LocalSceneTimeOwner::Resident => TacticalActorRole::Resident,
+    };
+    Some(ActorSceneProjection {
+        role,
+        time: TacticalActorTime::LocalVisit(LocalSceneVisitClock {
+            visit_id: visit.id,
+            entered_at: visit.entered_at,
+            personal_clock: visit.starting_clock,
+            food_balance_kcal: visit.food_balance_kcal,
+            water_balance_ml: visit.water_balance_ml,
+        }),
+    })
 }

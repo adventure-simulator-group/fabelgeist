@@ -328,7 +328,7 @@ fn aim_at_nearest_opponent(
             .iter()
             .filter(|(candidate, _, candidate_side, candidate_state)| {
                 *candidate != entity
-                    && **candidate_side != *side
+                    && side.is_hostile_to(**candidate_side)
                     && !candidate_state.is_incapacitated()
             })
             .min_by(|(a, a_transform, _, _), (b, b_transform, _, _)| {
@@ -583,7 +583,9 @@ mod tests {
             agent.decision = candidates
                 .iter()
                 .filter(|(target, _, target_side, state)| {
-                    *target != entity && *target_side != side && !state.is_incapacitated()
+                    *target != entity
+                        && side.is_hostile_to(**target_side)
+                        && !state.is_incapacitated()
                 })
                 .min_by(|left, right| compare_target(origin, left.1, left.0, right.1, right.0))
                 .map_or(

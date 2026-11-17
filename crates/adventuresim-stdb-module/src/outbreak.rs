@@ -5,6 +5,7 @@
 #[cfg(feature = "authority-tests")]
 mod authority_tests;
 mod patient_chronology;
+mod patient_time;
 mod water_time;
 use patient_chronology::resolve_patient_death;
 use water_time::concentration_at_collection;
@@ -1221,21 +1222,11 @@ pub(crate) fn materialize_generated_outbreak(
         if npc.home_settlement_id != settlement_id {
             return Err("Outbreak presentation NPC is not local to its patient".into());
         }
-        let mut patient_time = ctx
-            .db
-            .character_time()
-            .character_id()
-            .find(exposure.patient_character_id)
-            .ok_or("Outbreak patient Character has no ordinary clock")?;
-        if patient_time.minutes < now_minute {
-            patient_time.minutes = now_minute;
-            ctx.db.character_time().character_id().update(patient_time);
-            crate::time::settle_lifecycle_after_character_time_write(
-                ctx,
-                exposure.patient_character_id,
-                now_minute,
-            )?;
-        }
+        patient_time::advance_unleased_patient_time(
+            ctx,
+            exposure.patient_character_id,
+            now_minute,
+        )?;
         let episode = adventuresim_core::disease::InfectionEpisode {
             id: exposure.episode_id,
             character_id: exposure.patient_character_id,

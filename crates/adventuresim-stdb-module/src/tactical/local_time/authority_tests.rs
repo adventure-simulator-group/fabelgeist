@@ -18,7 +18,8 @@ pub fn authority_test_local_visit_handoff(
     if visit.server != ctx.sender() {
         return Err("Fixture requires the owning scene identity".into());
     }
-    let duplicate = LocalSceneVisit::begin(ctx, character_id, ctx.sender())?;
+    let duplicate =
+        LocalSceneVisit::begin(ctx, character_id, ctx.sender(), LocalSceneTimeOwner::Player)?;
     if duplicate.id != visit.id {
         return Err("Repeated admission changed the visit".into());
     }

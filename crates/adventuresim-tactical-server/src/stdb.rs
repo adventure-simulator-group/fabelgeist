@@ -6,6 +6,7 @@ use spacetimedb_sdk::{DbContext, Identity, Table};
 
 use crate::Args;
 
+mod residents;
 mod scene_operations;
 pub(crate) use scene_operations::{
     SceneAdmissions, SceneOperationResult, SceneReady, process_scene_operations,
@@ -17,6 +18,7 @@ pub struct SpacetimeDbPlugin;
 impl Plugin for SpacetimeDbPlugin {
     fn build(&self, app: &mut App) {
         crate::local_time::install(app);
+        crate::residents::install(app);
         app.init_resource::<SceneAdmissions>()
             .add_systems(Update, process_scene_operations.after(update_spacetimedb))
             .add_systems(Startup, connect_spacetimedb)
@@ -95,6 +97,7 @@ impl SpacetimeDb {
             })
             .add_query(|query| query.from.connected_players())
             .add_query(|query| query.from.world_clock())
+            .add_query(|query| query.from.scene_resident_candidates())
             .subscribe()
     }
 

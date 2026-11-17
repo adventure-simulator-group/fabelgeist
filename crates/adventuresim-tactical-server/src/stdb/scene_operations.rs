@@ -35,6 +35,10 @@ enum AdmissionGate {
 
 pub(crate) enum SceneOperation {
     Registration,
+    ResidentConfiguration,
+    ResidentAdmission {
+        character: CharacterId,
+    },
     Join {
         client: Entity,
         character: CharacterId,
@@ -118,6 +122,7 @@ pub(crate) fn process_scene_operations(
     mut commands: Commands,
     mut admissions: ResMut<SceneAdmissions>,
     mut visits: ResMut<crate::local_time::LocalVisits>,
+    mut residents: ResMut<crate::residents::ResidentActors>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let results = match conn.scene_operations.lock() {
@@ -130,6 +135,16 @@ pub(crate) fn process_scene_operations(
     };
     for result in results {
         match (result.operation, result.result) {
+            (SceneOperation::ResidentConfiguration, Ok(())) => residents.configured(),
+            (SceneOperation::ResidentConfiguration, Err(error)) => {
+                error!(%error, "Resident area configuration rejected");
+                exit.write(AppExit::error());
+            }
+            (SceneOperation::ResidentAdmission { character }, Err(error)) => {
+                warn!(%error, ?character, "Resident admission rejected");
+                residents.rejected(character, &mut commands);
+            }
+            (SceneOperation::ResidentAdmission { .. }, Ok(())) => {}
             (SceneOperation::Departure { character, visit }, result) => {
                 visits.acknowledge(character, visit, result);
             }
@@ -182,12 +197,30 @@ pub(super) fn connection_lost(mailbox: &Mutex<Vec<SceneOperationResult>>, reason
     }
 }
 
-fn record(
+pub(super) fn record(
     mailbox: &Mutex<Vec<SceneOperationResult>>,
     operation: SceneOperation,
     result: Result<Result<(), String>, spacetimedb_sdk::error::InternalError>,
 ) {
-    let result = result.unwrap_or_else(|error| Err(format!("Reducer callback failed: {error}")));
+    // A transport error does not prove that an admission failed. Release the
+    // serving connection rather than dropping the resident's reservation.
+    let (operation, result) = match result {
+        Err(error)
+            if matches!(
+                operation,
+                SceneOperation::ResidentAdmission { .. } | SceneOperation::ResidentConfiguration
+            ) =>
+        {
+            (
+                SceneOperation::ConnectionLost,
+                Err(format!("Resident authority callback failed: {error}")),
+            )
+        }
+        result => (
+            operation,
+            result.unwrap_or_else(|error| Err(format!("Reducer callback failed: {error}"))),
+        ),
+    };
     match mailbox.lock() {
         Ok(mut mailbox) => mailbox.push(SceneOperationResult { operation, result }),
         Err(error) => error!(%error, "Could not record scene acknowledgement"),

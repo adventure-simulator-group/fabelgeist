@@ -13,6 +13,10 @@ mod visit_id;
 const MISSION_INSTANCE_PREFIX: &str = "scene:mission:";
 const SETTLEMENT_INSTANCE_PREFIX: &str = "scene:settlement:";
 
+/// Protocol work limit for a scene's explicit resident roster. This bounds
+/// admission and subscription work; it does not describe a city's population.
+pub const MAX_LOCAL_SCENE_RESIDENTS: usize = 128;
+
 /// The unique serving slot for one mission or a settlement's central area.
 /// A server identity distinguishes successive runtime instances of this slot.
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 import hashlib
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -11,6 +12,7 @@ import time
 from typing import TYPE_CHECKING
 
 import dev_stack as stack
+from settlement_resident_acceptance import resident_roster_checks
 
 if TYPE_CHECKING:
     from check_semantic_authorities import AcceptanceClient
@@ -32,7 +34,7 @@ def persistent_scene_peer(client: AcceptanceClient, instance: str, claim: str, t
             text=True, env=environment)
         try:
             assert peer.stdout is not None
-            assert peer.stdout.readline().strip() == "READY", peer_log.read_text()
+            assert peer.stdout.readline().strip() == "READY", peer_log.read_text(encoding="utf-8")
             yield peer
         finally:
             if peer.poll() is None:
@@ -76,6 +78,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
     client.call("authorize_tactical_server_claim", instance, list(hashlib.sha256(claim.encode()).digest()))
     server_identity, server_token = client.identity()
     with persistent_scene_peer(client, instance, claim, server_token):
+        resident_roster_checks(client, settlement, server_identity, server_token, outsider, solo)
         client.call("create_tactical_server_for_request", instance, claim, "127.0.0.1:1", "", token=server_token,
                     error="no authorized claim")
         assert client.rows(f"SELECT id FROM character WHERE server = 0x{server_identity}") == []
@@ -90,7 +93,10 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
         client.call("leave_tactical_scene", solo, token=outsider, error="registered tactical server")
         client.call("leave_tactical_scene", solo, token=server_token, error="visit receipt")
         client.call("retire_settlement_scene", token=server_token, error="Finish local actor visits")
-        visits = client.rows("SELECT id, character_id FROM local_scene_visit")
+        visits = client.rows(
+            "SELECT id, character_id FROM local_scene_visit "
+            f"WHERE character_id = {solo} OR character_id = {party_a} OR character_id = {party_b}"
+        )
         assert len(visits) == 3, "Duplicate enrollment created another time owner"
         solo_visit = next(visit for visit, actor in visits if actor == solo)
         client.call("finish_local_scene_visit", solo_visit, {"unprojected": []},
@@ -106,6 +112,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
         client.call("retire_settlement_scene", token=server_token)
         client.call("retire_settlement_scene", token=server_token)
         assert client.rows(f"SELECT instance_id FROM tactical_server_authority WHERE instance_id = '{literal}'") == []
+        assert client.rows("SELECT server FROM scene_resident_roster") == []
         for actor in (solo, party_a, party_b):
             assert client.rows(f"SELECT server FROM character WHERE id = {actor}") == [[["0x0"]]]
         for table, before in baseline.items():
@@ -138,7 +145,10 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
 
 def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> None:
     """Exercise the real dispatcher, Bevy server and two headless game clients."""
-    [[settlement], *_] = client.rows("SELECT id FROM settlement")
+    [[settlement]] = client.rows("SELECT id FROM settlement WHERE id = 'riverdale'")
+    client.fixture("authority_test_merchant_area", settlement)
+    [[population]] = client.rows(f"SELECT population_estimate FROM settlement WHERE id = '{settlement}'")
+    print(f"Live merchant fixture settlement={settlement} population={population}", flush=True)
     # Use a flat source fixture to isolate session lifecycle from terrain grading.
     # The canonical town generator, dispatcher, server and transports remain real.
     client.fixture("authority_test_settlement_location", settlement, 105_000_000, 505_000_000)
@@ -196,10 +206,28 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
             port = int(address.rsplit(":", 1)[1])
             serving_process = stack.listener_process_snapshot(port)
             assert serving_process and Path(serving_process["executable"]).resolve() == server_binary.resolve()
+            documents = list((output / "scenes").glob("scene-*.json"))
+            assert documents, "Dispatcher did not capture its playable scene document"
+            scene = json.loads(max(documents, key=lambda path: path.stat().st_mtime_ns).read_text(encoding="utf-8"))
+            assert scene["landform"] is None, "Flat transport fixture must not import geological landforms"
+            physical = {building["id"] for building in scene["buildings"]}
+            operators = [business for business in scene["establishments"]
+                         if business["building_id"] in physical]
+            merchants = [business for business in operators
+                         if business["business_id"]["key"]["usage"] == "general_shop"
+                         and business["business_id"]["key"]["ordinal"] == 0]
+            assert merchants, "Small playable settlement must include its canonical general merchant"
+            merchant = min(merchants, key=lambda business: business["operator_character_id"])
+            operator = merchant["operator_character_id"]
+            [[operator_name]] = client.rows(f"SELECT name FROM character WHERE id = {operator}")
+            assert operator_name == merchant["operator_name"]
+            assert client.rows(f"SELECT service_id FROM settlement_resident_profile WHERE character_id = {operator}") == [["merchants"]]
+            for business in operators:
+                client.fixture("authority_test_resident_admission", business["operator_character_id"], {"available": []})
             for index, actor in enumerate(actors):
                 peer_log = (output / f"peer-{index}.log").open("w", encoding="utf-8")
                 command = [str(peer_binary), "--character", str(actor), "--server", address,
-                           "--expected-players", "2", "--hold-open"]
+                           "--expected-players", "2", "--expected-resident", str(operator), "--hold-open"]
                 if index == 0:
                     command.append("--reconnect")
                 peer = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=peer_log, stderr=subprocess.STDOUT, text=True)
@@ -214,24 +242,55 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
             ], capture_output=True, text=True, timeout=65)
             assert duplicate.returncode == 0 and "REJECTED" in duplicate.stdout, duplicate.stdout + duplicate.stderr
             deadline = time.monotonic() + 65
-            while not all("ACCEPTED" in (output / f"peer-{index}.log").read_text() for index in range(2)):
+            while not all("ACCEPTED" in (output / f"peer-{index}.log").read_text(encoding="utf-8") for index in range(2)):
                 exited = [(index, peer.returncode) for index, (peer, _) in enumerate(peers)
                           if peer.poll() is not None]
+                if exited:
+                    snapshot = {
+                        "expected_operator": operator,
+                        "rosters": client.rows("SELECT character_ids FROM scene_resident_roster"),
+                        "operator": client.rows(f"SELECT id, alive, server FROM character WHERE id = {operator}"),
+                        "presence": client.rows(f"SELECT location_id, start_minute, end_minute, context_suppressed, health_suppressed FROM settlement_resident_presence WHERE character_id = {operator}"),
+                        "npc_authority": client.rows(f"SELECT character_id FROM npc_policy WHERE character_id = {operator}"),
+                        "visits": client.rows(f"SELECT id, state FROM local_scene_visit WHERE character_id = {operator}"),
+                    }
+                    (output / "resident-state.json").write_text(json.dumps(snapshot, indent=2), encoding="utf-8")
                 assert not exited, f"Headless peer exited before co-presence acceptance: {exited}; inspect peer logs"
                 assert time.monotonic() < deadline, "Headless scene peers did not accept co-presence"
                 time.sleep(0.1)
-            assert len(client.rows("SELECT id FROM local_scene_visit")) == 2
+            assert len(client.rows(f"SELECT id FROM local_scene_visit WHERE character_id = {actors[0]} OR character_id = {actors[1]}")) == 2
+            operator_visits = client.rows(f"SELECT id, state FROM local_scene_visit WHERE character_id = {operator}")
+            assert len(operator_visits) == 1, "Merchant must retain one visit across player reconnects"
             for actor in actors:
                 assert client.rows(f"SELECT minutes, fraction FROM character_time WHERE character_id = {actor}") == clocks_before[actor]
                 assert client.rows(f"SELECT food_balance_kcal, water_balance_ml FROM character_needs WHERE character_id = {actor}") == needs_before[actor]
             for index in range(2):
-                assert "CALENDAR first=" in (output / f"peer-{index}.log").read_text()
+                assert "CALENDAR first=" in (output / f"peer-{index}.log").read_text(encoding="utf-8")
+                assert f"RESIDENT id={operator} name={operator_name}" in (output / f"peer-{index}.log").read_text(encoding="utf-8")
+            client.fixture("authority_test_resident_admission", operator, {"healthUnavailable": []})
+            deadline = time.monotonic() + 20
+            while not all(f"RESIDENT_DEPARTED id={operator}" in (output / f"peer-{index}.log").read_text(encoding="utf-8")
+                          for index in range(2)):
+                assert time.monotonic() < deadline, "Unavailable merchant remained projected to a client"
+                assert all(peer.poll() is None for peer, _ in peers), "Client exited during merchant departure"
+                time.sleep(0.1)
+            assert client.rows(f"SELECT server FROM character WHERE id = {operator}") == [[["0x0"]]]
+            assert client.rows(f"SELECT id, state FROM local_scene_visit WHERE character_id = {operator}") != operator_visits
+            client.fixture("authority_test_resident_admission", operator, {"available": []})
+            deadline = time.monotonic() + 20
+            while not all(f"RESIDENT_RETURNED id={operator}" in (output / f"peer-{index}.log").read_text(encoding="utf-8")
+                          for index in range(2)):
+                assert time.monotonic() < deadline, "Available merchant did not re-enter exactly once on both clients"
+                assert all(peer.poll() is None for peer, _ in peers), "Client exited during merchant re-entry"
+                time.sleep(0.1)
+            operator_visits = client.rows(f"SELECT id, state FROM local_scene_visit WHERE character_id = {operator}")
+            assert len(operator_visits) == 2, "Merchant re-entry must start one fresh visit"
             for peer, peer_log in peers:
                 peer.communicate(input="stop\n", timeout=10)
                 assert peer.returncode == 0, "Headless scene peer failed; inspect peer log"
                 peer_log.flush()
-            assert "ACCEPTED players=2 reconnects=2" in (output / "peer-0.log").read_text()
-            assert "ACCEPTED players=2 reconnects=1" in (output / "peer-1.log").read_text()
+            assert "ACCEPTED players=2 reconnects=2" in (output / "peer-0.log").read_text(encoding="utf-8")
+            assert "ACCEPTED players=2 reconnects=1" in (output / "peer-1.log").read_text(encoding="utf-8")
             deadline = time.monotonic() + 60
             while client.rows(f"SELECT instance_id FROM tactical_server_authority WHERE instance_id = '{literal}'"):
                 assert time.monotonic() < deadline, "Last-disconnect retirement did not release town scene"
@@ -240,6 +299,9 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
                 assert client.rows(f"SELECT server FROM character WHERE id = {actor}") == [[["0x0"]]]
                 assert client.rows(f"SELECT minutes, fraction FROM character_time WHERE character_id = {actor}") != clocks_before[actor]
                 assert client.rows(f"SELECT food_balance_kcal, water_balance_ml FROM character_needs WHERE character_id = {actor}") != needs_before[actor]
+            assert client.rows(f"SELECT server FROM character WHERE id = {operator}") == [[["0x0"]]]
+            assert client.rows(f"SELECT id, state FROM local_scene_visit WHERE character_id = {operator}") != operator_visits
+            assert client.rows("SELECT server FROM scene_resident_roster") == []
             for table, before in baseline.items():
                 assert client.rows(f"SELECT COUNT(*) AS count FROM {table}") == before
             documents = {path: path.read_bytes() for path in (output / "scenes").glob("scene-*.json")}
@@ -257,6 +319,7 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
             for table, before in baseline.items():
                 assert client.rows(f"SELECT COUNT(*) AS count FROM {table}") == before
             print("PASS live canonical town on flat terrain: cross-party co-presence, duplicate-actor rejection, reconnect rotation, retirement and reopening with fresh immutable input without battle outcomes", flush=True)
+            print("PASS live merchant identity on both clients, unavailable removal, duplicate-free re-entry, visit closure and roster retirement", flush=True)
         finally:
             for peer, peer_log in peers:
                 if peer.poll() is None:

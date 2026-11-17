@@ -10,10 +10,12 @@ use crate::{
     inventory::{InventoryView, InventoryViewer},
 };
 
+pub use allegiance::TacticalRelationship;
 pub use attack_timing::{attack_preparation_secs, attack_recovery_secs};
 pub use combat_state::*;
 pub use input_tick::PlayerInputTick;
 
+mod allegiance;
 mod attack_timing;
 mod combat_state;
 mod input_tick;
@@ -77,6 +79,7 @@ impl Default for CharacterDimensions {
 pub enum TacticalCombatSide {
     Party,
     Enemy,
+    Neutral,
 }
 
 pub fn default_tactical_character_id() -> u64 {

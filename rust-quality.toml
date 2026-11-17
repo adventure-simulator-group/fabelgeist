@@ -9,6 +9,12 @@ excluded_paths = [
 
 [[scopes]]
 kind = "boundary_adapter"
+path = "crates/adventuresim-core/src/strategic_place/venue.rs"
+item = "SettlementVenueKind::from_id"
+reason = "Admits canonical settlement location identifiers into the closed physical venue enum before scheduling or service policy."
+
+[[scopes]]
+kind = "boundary_adapter"
 path = "crates/adventuresim-character-creator/src/textile_controls.rs"
 item = "show"
 reason = "Egui layer buttons dispatch typed edit actions through widget responses; their labels are not compared as state."

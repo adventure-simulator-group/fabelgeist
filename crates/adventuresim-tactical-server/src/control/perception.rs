@@ -92,7 +92,7 @@ pub(crate) fn observe_attack(
         let Ok((observer, look, observer_side)) = characters.get(entity) else {
             continue;
         };
-        if side == observer_side {
+        if !observer_side.is_hostile_to(*side) {
             continue;
         }
         if event.target != Some(entity)

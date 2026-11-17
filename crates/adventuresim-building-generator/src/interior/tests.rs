@@ -325,6 +325,51 @@ fn interior_jetty_beams_bear_below_the_finished_floor() {
 }
 
 #[test]
+fn merchant_access_destinations_use_real_floor_support_and_reject_voids() {
+    let (program, plan) = building(BuildingUse::GeneralShop);
+    let layout = furnish(&plan, &program).unwrap();
+    let paths = validate_layout(&plan, &layout).unwrap();
+    let counter_paths: Vec<_> = paths
+        .iter()
+        .filter(|path| {
+            layout.placements[path.placement_index].key.kind() == FurnitureKind::DisplayCounter
+        })
+        .collect();
+    assert!(
+        !counter_paths.is_empty(),
+        "counter paths missing: placements={:?}, path placements={:?}",
+        layout
+            .placements
+            .iter()
+            .map(|placement| placement.key.kind())
+            .collect::<Vec<_>>(),
+        paths
+            .iter()
+            .map(|path| path.placement_index)
+            .collect::<Vec<_>>()
+    );
+    for path in counter_paths {
+        let placement = &layout.placements[path.placement_index];
+        let destination = path.points.last().unwrap();
+        assert_eq!(
+            destination.floor_height(&plan).unwrap(),
+            placement.floor_height(&plan).unwrap()
+        );
+        let unsupported = InteriorWaypoint {
+            storey: destination.storey,
+            position_metres: crate::plan_geometry::ArchitecturalPlanPoint::from_metres(
+                bevy::math::Vec2::splat(1_000_000.0),
+            )
+            .unwrap(),
+        };
+        assert!(matches!(
+            unsupported.floor_height(&plan),
+            Err(InteriorLayoutError::MissingStandingFloor { .. })
+        ));
+    }
+}
+
+#[test]
 fn interior_counter_modules_are_contiguous_with_two_sided_access() {
     let (program, plan) = building(BuildingUse::GeneralShop);
     let layout = furnish(&plan, &program).unwrap();
