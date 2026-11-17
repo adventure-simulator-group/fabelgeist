@@ -952,7 +952,7 @@ pub(crate) fn require_strategic_gateway(
     Ok(authority)
 }
 
-pub(crate) fn require_strategic_character_authority(
+pub(crate) fn require_character_account_authority(
     ctx: &ReducerContext,
     character_id: u64,
 ) -> Result<(), String> {
@@ -963,6 +963,14 @@ pub(crate) fn require_strategic_character_authority(
     } else {
         Err("Character-mutating strategic reducers may only be called by the strategic gateway or the owner of the target disposable simulation character".into())
     }
+}
+
+pub(crate) fn require_strategic_character_authority(
+    ctx: &ReducerContext,
+    character_id: u64,
+) -> Result<(), String> {
+    require_character_account_authority(ctx, character_id)?;
+    crate::tactical::local_time::require_unleased_time(ctx, character_id)
 }
 
 #[derive(Clone, Debug)]

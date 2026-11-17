@@ -88,6 +88,21 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
                     error="mission")
         assert len(client.rows(f"SELECT id FROM character WHERE server = 0x{server_identity}")) == 3
         client.call("leave_tactical_scene", solo, token=outsider, error="registered tactical server")
+        client.call("leave_tactical_scene", solo, token=server_token, error="visit receipt")
+        client.call("retire_settlement_scene", token=server_token, error="Finish local actor visits")
+        visits = client.rows("SELECT id, character_id FROM local_scene_visit")
+        assert len(visits) == 3, "Duplicate enrollment created another time owner"
+        solo_visit = next(visit for visit, actor in visits if actor == solo)
+        client.call("finish_local_scene_visit", solo_visit, {"unprojected": []},
+                    token=outsider, error="owning tactical server")
+        client.call("rest_at_settlement_hours", solo, 60, {"inn": []},
+                    error="owned by a live settlement")
+        client.call("authority_test_local_visit_handoff", client.bootstrap_token, solo,
+                    token=server_token)
+        for visit, actor in visits:
+            if actor != solo:
+                client.call("finish_local_scene_visit", visit, {"unprojected": []}, token=server_token)
+                client.call("finish_local_scene_visit", visit, {"unprojected": []}, token=server_token)
         client.call("retire_settlement_scene", token=server_token)
         client.call("retire_settlement_scene", token=server_token)
         assert client.rows(f"SELECT instance_id FROM tactical_server_authority WHERE instance_id = '{literal}'") == []
@@ -101,6 +116,10 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
     lost_identity, lost_token = client.identity()
     with persistent_scene_peer(client, instance, claim, lost_token) as peer:
         client.call("enter_tactical_scene", solo, ["0x" + lost_identity], token=lost_token)
+        clock_before = client.rows(f"SELECT minutes FROM character_time WHERE character_id = {solo}")
+        fatigue_before = client.rows(f"SELECT calories_used FROM character_stats WHERE character_id = {solo}")
+        # The actor remains time-owned during retained/disconnected play.
+        time.sleep(1.25)
         # An abrupt serving-transport loss releases the same slot without a result.
         peer.kill()
         peer.wait(timeout=5)
@@ -109,9 +128,12 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
         assert time.monotonic() < deadline, "Lost serving connection retained its settlement slot"
         time.sleep(0.05)
     assert client.rows(f"SELECT server FROM character WHERE id = {solo}") == [[["0x0"]]]
+    assert client.rows(f"SELECT minutes FROM character_time WHERE character_id = {solo}") != clock_before
+    assert client.rows(f"SELECT calories_used FROM character_stats WHERE character_id = {solo}") == fatigue_before
     for table, before in baseline.items():
         assert client.rows(f"SELECT COUNT(*) AS count FROM {table}") == before
     print("PASS ordinary solo/cross-party shared admission, duplicate requests/joins, foreign presence rejection, no combat outcome, retirement and fresh request", flush=True)
+    print("PASS exact local clock/needs closure, replay/conflict/foreign rejection, local-journey-local fractional carry, and server-loss time without fabricated fatigue recovery", flush=True)
 
 
 def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> None:
@@ -123,6 +145,12 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
     actors = (734010, 734011)
     for actor in actors:
         client.fixture("authority_test_settlement_actor", actor, settlement, True)
+    clocks_before = {actor: client.rows(
+        f"SELECT minutes, fraction FROM character_time WHERE character_id = {actor}"
+    ) for actor in actors}
+    needs_before = {actor: client.rows(
+        f"SELECT food_balance_kcal, water_balance_ml FROM character_needs WHERE character_id = {actor}"
+    ) for actor in actors}
     baseline = {table: client.rows(f"SELECT COUNT(*) AS count FROM {table}") for table in
                 ("mission_authority", "autoresolve_report", "outcome_source_authority")}
     client.call("request_settlement_scene", actors[0])
@@ -192,6 +220,12 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
                 assert not exited, f"Headless peer exited before co-presence acceptance: {exited}; inspect peer logs"
                 assert time.monotonic() < deadline, "Headless scene peers did not accept co-presence"
                 time.sleep(0.1)
+            assert len(client.rows("SELECT id FROM local_scene_visit")) == 2
+            for actor in actors:
+                assert client.rows(f"SELECT minutes, fraction FROM character_time WHERE character_id = {actor}") == clocks_before[actor]
+                assert client.rows(f"SELECT food_balance_kcal, water_balance_ml FROM character_needs WHERE character_id = {actor}") == needs_before[actor]
+            for index in range(2):
+                assert "CALENDAR first=" in (output / f"peer-{index}.log").read_text()
             for peer, peer_log in peers:
                 peer.communicate(input="stop\n", timeout=10)
                 assert peer.returncode == 0, "Headless scene peer failed; inspect peer log"
@@ -204,6 +238,8 @@ def live_settlement_scene_checks(client: AcceptanceClient, base_port: int) -> No
                 time.sleep(0.1)
             for actor in actors:
                 assert client.rows(f"SELECT server FROM character WHERE id = {actor}") == [[["0x0"]]]
+                assert client.rows(f"SELECT minutes, fraction FROM character_time WHERE character_id = {actor}") != clocks_before[actor]
+                assert client.rows(f"SELECT food_balance_kcal, water_balance_ml FROM character_needs WHERE character_id = {actor}") != needs_before[actor]
             for table, before in baseline.items():
                 assert client.rows(f"SELECT COUNT(*) AS count FROM {table}") == before
             documents = {path: path.read_bytes() for path in (output / "scenes").glob("scene-*.json")}

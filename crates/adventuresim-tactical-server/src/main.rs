@@ -51,6 +51,7 @@ mod control;
 mod debug_dump;
 mod equipment;
 mod furniture;
+mod local_time;
 mod mission;
 mod navigation;
 mod openings;

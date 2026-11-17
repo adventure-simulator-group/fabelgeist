@@ -109,6 +109,7 @@ fn ensure_character_time(ctx: &ReducerContext, character_id: u64) -> Result<(), 
             character_id,
             scan_id: character_id,
             minutes: official_minutes,
+            fraction: CalendarMinuteFraction::ZERO,
         });
     }
     if ctx

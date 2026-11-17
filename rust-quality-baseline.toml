@@ -412,7 +412,7 @@ ceiling = 2350
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
-ceiling = 993
+ceiling = 990
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/strategic/world_import.rs"
@@ -424,11 +424,11 @@ ceiling = 1079
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/tactical.rs"
-ceiling = 962
+ceiling = 753
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/advancement.rs"
-ceiling = 549
+ceiling = 525
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/schedule.rs"
@@ -436,7 +436,7 @@ ceiling = 740
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/time/settlement_rest.rs"
-ceiling = 597
+ceiling = 549
 
 [[files]]
 path = "crates/adventuresim-stdb-module/src/world_actor.rs"
@@ -596,7 +596,7 @@ ceiling = 593
 
 [[files]]
 path = "crates/adventuresim-tactical-server/src/player_projection.rs"
-ceiling = 1790
+ceiling = 1664
 
 [[files]]
 path = "crates/adventuresim-terrain/src/builder.rs"
@@ -1915,11 +1915,6 @@ ceiling = 102
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
-item = "complete_settlement_arrival"
-ceiling = 103
-
-[[functions]]
-path = "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
 item = "continue_camp_travel"
 ceiling = 167
 
@@ -1981,12 +1976,12 @@ ceiling = 188
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/time/settlement_rest.rs"
 item = "rest_for_minutes"
-ceiling = 251
+ceiling = 245
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/time/stationary.rs"
 item = "advance_stationary_character_to"
-ceiling = 184
+ceiling = 178
 
 [[functions]]
 path = "crates/adventuresim-stdb-module/src/world_actor.rs"

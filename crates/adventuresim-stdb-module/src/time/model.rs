@@ -24,6 +24,8 @@ pub struct WorldClock {
 /// Personal chronology, advanced by the actor's activity and family lifecycle.
 /// Official world time initializes this clock; subsequent personal advancement
 /// is a separate timeline rather than a second copy of the official minute.
+/// The fraction preserves elapsed local play across visits and whole-minute
+/// journeys without crediting time spent offline.
 #[derive(Clone, Debug)]
 #[table(accessor = character_time)]
 pub struct CharacterTime {
@@ -33,6 +35,7 @@ pub struct CharacterTime {
     #[index(btree)]
     pub scan_id: u64,
     pub minutes: StrategicMinute,
+    pub fraction: CalendarMinuteFraction,
 }
 
 /// One 24-hour daily budget. Leisure is always the unallocated remainder.

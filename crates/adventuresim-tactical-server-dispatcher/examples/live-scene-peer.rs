@@ -8,11 +8,12 @@ use std::{
     time::{Duration, Instant},
 };
 
-use adventuresim_tactical_core::prelude::{CharacterId, Player};
+use adventuresim_tactical_core::prelude::{CharacterId, Player, SceneEnvironment};
 use adventuresim_tactical_netcode::{
     message::{ReconnectCapability, SceneJoinRejected},
     prelude::{AdventureSimulatorClient, AdventureSimulatorNetPlugins},
 };
+use adventuresim_world_schema::calendar::StrategicMinute;
 use bevy::{app::ScheduleRunnerPlugin, input::InputPlugin, prelude::*};
 use clap::Parser;
 
@@ -44,6 +45,7 @@ struct Acceptance {
     reconnect_started: bool,
     reconnect_due: Option<Instant>,
     accepted: bool,
+    first_scene_minute: Option<StrategicMinute>,
     finished: Arc<AtomicBool>,
 }
 
@@ -75,6 +77,7 @@ fn main() {
         reconnect_started: false,
         reconnect_due: None,
         accepted: false,
+        first_scene_minute: None,
         finished,
     })
     .add_observer(capability_received)
@@ -117,6 +120,7 @@ fn observe_presence(
     mut commands: Commands,
     clients: Query<Entity, With<AdventureSimulatorClient>>,
     players: Query<&CharacterId, With<Player>>,
+    environments: Query<&SceneEnvironment>,
     mut exit: MessageWriter<AppExit>,
 ) {
     let now = Instant::now();
@@ -153,6 +157,19 @@ fn observe_presence(
         state.stable_since = None;
         return;
     }
+    let Ok(environment) = environments.single() else {
+        return;
+    };
+    let first_minute = *state
+        .first_scene_minute
+        .get_or_insert(environment.absolute_minute);
+    if environment.absolute_minute < first_minute
+        || environment.lunar_phase_minute != environment.absolute_minute
+    {
+        eprintln!("Replicated scene calendar diverged or moved backwards");
+        exit.write(AppExit::error());
+        return;
+    }
     if args.reconnect && !state.reconnect_started && state.capabilities > 0 {
         for entity in &clients {
             commands.entity(entity).despawn();
@@ -166,10 +183,20 @@ fn observe_presence(
     }
     let since = *state.stable_since.get_or_insert(now);
     if now.duration_since(since) >= STABLE_PRESENCE_HOLD {
+        if environment.absolute_minute == first_minute {
+            eprintln!("Replicated scene calendar did not advance during live play");
+            exit.write(AppExit::error());
+            return;
+        }
         println!(
             "ACCEPTED players={} reconnects={}",
             players.iter().count(),
             state.capabilities
+        );
+        println!(
+            "CALENDAR first={} latest={}",
+            first_minute.get(),
+            environment.absolute_minute.get()
         );
         state.accepted = true;
     }

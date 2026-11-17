@@ -85,6 +85,13 @@ pub(crate) struct ProjectedPlayerSnapshot {
 }
 
 impl DisconnectedProjection {
+    pub(crate) fn combat_state_mut(&mut self) -> Option<&mut TacticalCombatState> {
+        match self {
+            Self::Loading(_) => None,
+            Self::Projected(snapshot) => Some(&mut snapshot.combat_state),
+        }
+    }
+
     pub(super) fn projected(&self) -> bool {
         matches!(self, Self::Projected(_))
     }

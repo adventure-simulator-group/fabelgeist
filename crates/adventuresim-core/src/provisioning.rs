@@ -1,5 +1,9 @@
 //! Shared strategic travel-provision calculations.
 
+pub use local::{LocalNeeds, LocalNeedsError};
+
+mod local;
+
 pub const STRATEGIC_TRAVEL_KCAL_PER_DAY: f32 = 6_000.0;
 pub const STRATEGIC_TRAVEL_WATER_ML_PER_DAY: f32 = 4_000.0;
 

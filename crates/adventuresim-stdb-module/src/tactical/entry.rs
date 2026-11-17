@@ -78,12 +78,15 @@ pub fn enter_tactical_scene(
                 }
             }
         }
-        TacticalSession::Settlement(settlement) => super::settlement::require_settlement_admission(
-            ctx,
-            &character,
-            settlement,
-            server.identity,
-        )?,
+        TacticalSession::Settlement(settlement) => {
+            super::settlement::require_settlement_admission(
+                ctx,
+                &character,
+                settlement,
+                server.identity,
+            )?;
+            super::local_time::LocalSceneVisit::begin(ctx, character_id, server.identity)?;
+        }
     }
 
     character.server = server.identity;
@@ -101,6 +104,9 @@ pub fn leave_tactical_scene(ctx: &ReducerContext, character_id: u64) -> Result<(
         .identity()
         .find(ctx.sender())
         .ok_or("Only a registered tactical server can remove characters")?;
+    if matches!(server.session, TacticalSession::Settlement(_)) {
+        return Err("Ordinary scene departure requires its visit receipt".into());
+    }
     let character = ctx
         .db
         .character()
@@ -119,6 +125,7 @@ pub(super) fn leave_tactical_scene_for_server(
         return Err("Only the character's owning tactical server can remove it".into());
     }
     let character_id = character.id;
+    super::local_time::require_unleased_time(ctx, character_id)?;
     if character.temporary {
         log::info!("Leaving scene for character #{character_id}: removing temporary character..");
         crate::character::delete_temporary_character(ctx, character)?;

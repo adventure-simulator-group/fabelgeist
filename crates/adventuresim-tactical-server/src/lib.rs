@@ -23,6 +23,7 @@ pub mod control;
 pub mod equipment;
 #[cfg(feature = "iteration")]
 pub mod iteration;
+mod local_time;
 pub mod mission;
 mod navigation;
 pub mod openings;

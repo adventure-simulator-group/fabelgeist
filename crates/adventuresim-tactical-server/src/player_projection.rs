@@ -43,12 +43,15 @@ use projection_equipment::{
     projected_weapon_appearance,
 };
 
-use spawn_admission::{AdmittedPlayer, PreparedPlayerSpawns, SpawnRecipient};
+pub(crate) use spawn_admission::spawn_connected_players;
+use spawn_admission::{AdmittedPlayer, SpawnRecipient};
 
 pub(crate) use join::on_join_request;
 #[cfg(feature = "debug")]
 pub(crate) use join::on_join_request_standalone;
+mod disconnection;
 mod dive_launch;
+pub(crate) use disconnection::{expire_disconnected_players, on_client_disconnected};
 mod input_admission;
 mod join;
 mod posture_facing;
@@ -347,7 +350,7 @@ fn tactical_covered_parts(parts: &[EquipmentBodyPart]) -> [bool; 7] {
 
 #[derive(Component, Debug, Clone, Copy)]
 pub(crate) struct DisconnectedPlayer {
-    character_id: CharacterId,
+    pub(crate) character_id: CharacterId,
     reconnect_token: ReconnectToken,
     remaining_secs: f32,
     claimed: bool,
@@ -414,28 +417,6 @@ fn tactical_equipment_channel(
         Durable::Mount => Core::Mount,
         Durable::Containment => Core::Containment,
     }
-}
-
-pub(crate) fn spawn_connected_players(
-    conn: Res<SpacetimeDb>,
-    args: Res<Args>,
-    mut cmd: Commands,
-    q_loading: Query<(Entity, &LoadingPlayer)>,
-    q_scene: Query<&SceneTerrain>,
-    combat_config: Res<TacticalCombatConfig>,
-) -> Result {
-    let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
-        return Ok(());
-    };
-    let admitted = PreparedPlayerSpawns::prepare(
-        conn.take_connected_players(),
-        &q_loading,
-        terrain,
-        &args,
-        &combat_config,
-    )?;
-    admitted.project(&mut cmd, &combat_config);
-    Ok(())
 }
 
 fn spawn_connected_player(
@@ -1595,89 +1576,6 @@ pub(crate) fn update_character_motion_snapshots(mut players: CharacterMotionSnap
     }
 }
 
-/// `aeronet_io`'s own `ConnectionPlugin` (part of `AdventureSimulatorNetPlugins`)
-/// registers an observer on this exact same `Disconnected` trigger that
-/// unconditionally despawns `entity` right afterward - see its doc comment:
-/// "Immediately after this, the session will be despawned". Bevy documents
-/// same-event observer ordering as unspecified. Snapshot every reconnect-owned
-/// component while the source is still queryable, then queue only operations
-/// whose inputs are owned values. Aeronet may therefore apply its source
-/// despawn before or after these commands without invalidating them.
-#[expect(
-    clippy::too_many_arguments,
-    reason = "Bevy injects each observer resource and query as an independent system parameter"
-)]
-pub(crate) fn on_client_disconnected(
-    disconnected: On<Disconnected>,
-    query: Query<&ReconnectSession>,
-    projected_core: ProjectedPlayerCoreQuery<'_, '_>,
-    projected_motion: ProjectedPlayerMotionQuery<'_, '_>,
-    projected_physics: Query<(
-        &Collider,
-        &CollisionMargin,
-        &CharacterController,
-        &AccumulatedInput,
-    )>,
-    loading_players: Query<&LoadingPlayer>,
-    inventory_items: Query<(Entity, &ItemOf)>,
-    mut commands: Commands,
-) -> Result {
-    let entity = disconnected.event_target();
-    let Ok(session) = query.get(entity) else {
-        return Ok(());
-    };
-    let projection = if let (Ok(core), Ok(motion), Ok(physics)) = (
-        projected_core.get(entity),
-        projected_motion.get(entity),
-        projected_physics.get(entity),
-    ) {
-        DisconnectedProjection::Projected(Box::new(ProjectedPlayerSnapshot::new(
-            core, motion, physics,
-        )))
-    } else if let Ok(loading) = loading_players.get(entity) {
-        DisconnectedProjection::Loading(*loading)
-    } else {
-        warn!(
-            ?entity,
-            "Disconnected reconnect session had no player projection to retain"
-        );
-        return Ok(());
-    };
-    let projected = projection.projected();
-    let orphan = commands
-        .spawn((
-            projection,
-            DisconnectedPlayer {
-                character_id: session.character_id,
-                reconnect_token: session.token,
-                remaining_secs: RECONNECT_GRACE_SECS,
-                claimed: false,
-            },
-        ))
-        .id();
-    for (item, owner) in &inventory_items {
-        if owner.0 == entity {
-            commands.entity(item).insert(ItemOf(orphan));
-        }
-    }
-    if projected {
-        commands.queue(move |world: &mut World| rebuild_inventory_holding_cache(world, orphan));
-    }
-    let character_id = session.character_id.0;
-    match &disconnected.reason {
-        DisconnectReason::ByUser(reason) => {
-            info!("Character {character_id} disconnected by server request: {reason}")
-        }
-        DisconnectReason::ByPeer(reason) => {
-            info!("Character {character_id} disconnected by peer: {reason}")
-        }
-        DisconnectReason::ByError(error) => {
-            warn!("Character {character_id} disconnected due to error: {error:#}")
-        }
-    }
-    Ok(())
-}
-
 /// Standalone-mode counterpart to [`on_client_disconnected`]: no SpacetimeDB
 /// `leave_tactical_scene` call.
 #[cfg(feature = "debug")]
@@ -1779,43 +1677,6 @@ fn send_combat_config(
 
 fn queue_replication_rebind(commands: &mut Commands, client: Entity) {
     commands.entity(client).insert(Replicated);
-}
-
-pub(crate) fn expire_disconnected_players(
-    time: Res<Time>,
-    mut commands: Commands,
-    mut disconnected: Query<(Entity, &mut DisconnectedPlayer)>,
-    items: Query<(Entity, &ItemOf)>,
-    mut pending_actions: ResMut<PendingEquipmentActions>,
-    mut action_sequences: ResMut<LastEquipmentSequence>,
-    conn: Res<SpacetimeDb>,
-) {
-    for (entity, mut grace) in &mut disconnected {
-        // A successful reconnect synchronously owns this root. Its deferred
-        // moves must complete before any expiry teardown can touch it.
-        if grace.claimed {
-            continue;
-        }
-        grace.remaining_secs -= time.delta_secs();
-        if grace.remaining_secs > 0.0 {
-            continue;
-        }
-        if let Err(error) = conn.reducers().leave_tactical_scene(grace.character_id.0) {
-            warn!(
-                character_id = grace.character_id.0,
-                ?error,
-                "Failed to expire disconnected mission member"
-            );
-            continue;
-        }
-        for (item, owner) in &items {
-            if owner.0 == entity {
-                commands.entity(item).despawn();
-            }
-        }
-        purge_equipment_lifecycle(entity, &mut pending_actions, &mut action_sequences);
-        commands.entity(entity).despawn();
-    }
 }
 
 /// Fires whenever `Player` lands on any entity - via the normal

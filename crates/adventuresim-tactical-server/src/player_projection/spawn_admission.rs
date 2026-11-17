@@ -5,6 +5,7 @@ use crate::{
     Args,
     bot::CombatantBehaviorPackages,
     scene_spawn::{SceneSpawnError, SceneSpawnResult},
+    stdb::SpacetimeDb,
 };
 use adventuresim_building_generator::spatial_geometry::{Position, SignedLength};
 use adventuresim_stdb_client::*;
@@ -14,7 +15,7 @@ use adventuresim_tactical_core::{
 };
 use bevy::prelude::*;
 
-pub(super) struct PreparedPlayerSpawns(Vec<AdmittedPlayer>);
+struct PreparedPlayerSpawns(Vec<AdmittedPlayer>);
 
 pub(super) struct AdmittedPlayer {
     pub(super) player: ConnectedPlayer,
@@ -29,7 +30,7 @@ pub(super) enum SpawnRecipient {
 }
 
 impl PreparedPlayerSpawns {
-    pub(super) fn prepare(
+    fn prepare(
         players: Vec<ConnectedPlayer>,
         loading: &Query<(Entity, &LoadingPlayer)>,
         terrain: &SceneTerrain,
@@ -89,11 +90,56 @@ impl PreparedPlayerSpawns {
         Ok(Self(admitted))
     }
 
-    pub(super) fn project(self, commands: &mut Commands, combat: &TacticalCombatConfig) {
+    fn project(self, commands: &mut Commands, combat: &TacticalCombatConfig) {
         for admitted in self.0 {
             spawn_connected_player(admitted, commands, combat);
         }
     }
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects scene admission, pending profile delivery, and projection inputs separately"
+)]
+pub(crate) fn spawn_connected_players(
+    conn: Res<SpacetimeDb>,
+    args: Res<Args>,
+    mut cmd: Commands,
+    q_loading: Query<(Entity, &LoadingPlayer)>,
+    q_scene: Query<&SceneTerrain>,
+    combat_config: Res<TacticalCombatConfig>,
+    mut visits: ResMut<crate::local_time::LocalVisits>,
+    mut pending: Local<std::collections::HashMap<CharacterId, ConnectedPlayer>>,
+) -> Result {
+    let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
+        return Ok(());
+    };
+    for player in conn.take_connected_players() {
+        visits.capture(&player)?;
+        pending.insert(CharacterId(player.character.id), player);
+    }
+    // A profile may arrive while its loading client is retained for reconnect.
+    // Keep it until a recipient exists, but never replay an already closed visit.
+    pending.retain(|_, profile| conn.connected_profile_is_current(profile));
+    let mut ready: Vec<_> = pending
+        .iter()
+        .filter_map(|(character, profile)| {
+            (profile.role == TacticalActorRole::Enemy
+                || q_loading
+                    .iter()
+                    .any(|(_, loading)| loading.requested_character == *character))
+            .then_some(*character)
+        })
+        .collect();
+    ready.sort_by_key(|character| character.0);
+    let players = ready
+        .into_iter()
+        .filter_map(|character| pending.remove(&character))
+        .collect();
+    let admitted =
+        PreparedPlayerSpawns::prepare(players, &q_loading, terrain, &args, &combat_config)?;
+    admitted.project(&mut cmd, &combat_config);
+    Ok(())
 }
 
 fn player_spawn_offset(collider: &Collider) -> SceneSpawnResult<SignedLength> {

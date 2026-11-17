@@ -140,6 +140,7 @@ pub fn advance_npc_personal_time(
     character_id: u64,
     target_minute: StrategicMinute,
 ) -> Result<(), String> {
+    crate::tactical::local_time::require_unleased_time(ctx, character_id)?;
     if ctx
         .db
         .npc_policy()

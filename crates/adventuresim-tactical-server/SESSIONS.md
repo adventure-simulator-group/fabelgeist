@@ -75,8 +75,58 @@ building-only JSON encoding; no older scene wire representation is accepted.
 
 The development transport still uses its existing local character-selection
 model. This change does not supply production player authentication.
-Ordinary-scene durable condition reconciliation is not implemented here and
-must precede replacing strategic gameplay.
+Passive wound and illness progression remains a prerequisite for replacing
+strategic gameplay. The clock handoff preserves its interval metadata without
+persisting ongoing tactical health.
+
+## Live settlement time
+
+The shared settlement calendar advances at one in-game year per real week.
+Its epoch comes from `WorldClock`; every player in the scene receives the same
+absolute and lunar minute. Calendar updates replace the replicated environment
+component while preserving its terrain provenance. Physics, combat and fatigue
+use their existing simulation time. Debug simulation-speed controls do not
+change the calendar rate or ordinary reconnect grace.
+
+Each admitted character starts a `LocalSceneVisit` with its existing personal
+minute and fractional remainder. Its personal clock advances at the same rate
+as the shared calendar, preserving any offset earned by earlier journeys.
+Panels, movement and standing all consume the same elapsed wall interval.
+Menu actions cannot advance an admitted character through strategic rest,
+training, travel or another strategic mutation. Background NPC advancement and
+family catch-up also respect the live time owner.
+
+The server projects hunger and thirst from the captured food and water
+balances. Repeated frames replace their existing wheel contributions rather
+than adding another penalty. Projection does not consume carried supplies or
+grant inn board, schedule rewards or medical recovery. The one general fatigue
+value remains the black incapacitation-wheel segment.
+
+Disconnected characters keep their visit during the 30-second reconnect grace.
+Their calendar and basic needs continue; their retained combat state does not
+receive fabricated fatigue recovery. A successful reconnect resumes that same
+visit. After grace expires, the server freezes its final fatigue receipt and
+retains the actor until the database acknowledges departure. Ambiguous callbacks
+retry the identical receipt. An acknowledgement for an older visit cannot
+close a later admission. An actor disconnected before projection submits an
+explicit unprojected departure, preserving its stored fatigue.
+
+The database commits elapsed chronology and needs once at closure. It converts
+final visible fatigue through the existing calorie curve; an unchanged value
+preserves the exact starting reserves, including reserves below the visible
+fatigue threshold. It stores neither ongoing HP nor tactical positions. Scene
+retirement requires every actor's visit to be closed first.
+
+If the serving database connection disappears, the database closes its open
+visits at that disconnection timestamp. It commits elapsed chronology and basic
+needs while preserving stored fatigue because transient combat state is lost.
+Offline time after closure does not advance a player's personal clock. A later
+admission starts a fresh interval from the committed personal time.
+
+Journey durations keep their existing whole-minute accounting and retain the
+fraction earned during local play. Arrival preserves the personal clock's
+offset from the shared calendar; it no longer advances to the next matching
+time of day or grants an automatic inn or sanctuary rest interval.
 
 ## Focused authority acceptance
 
@@ -87,8 +137,10 @@ python -B scripts/check_semantic_authorities.py --only settlement-scenes
 ```
 
 The runner verifies solo and cross-party entry, shared request identity,
-duplicate joins, foreign-settlement rejection, retirement, and absence of
-mission outcomes. Its profile lock and recorded listener identity constrain
+duplicate joins, foreign-settlement rejection, visit receipt replay and
+conflicts, fractional time across journeys, server-loss closure, retirement,
+and absence of mission outcomes. Its profile lock and recorded listener
+identity constrain
 reset and cleanup to that isolated development database.
 
 Run the dispatcher, server, and two headless transport clients together with:
