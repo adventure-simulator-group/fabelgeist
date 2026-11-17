@@ -6,7 +6,7 @@ use adventuresim_tactical_core::scene_input::SceneBuildingId;
 use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
 use std::time::Duration;
 
-fn movement_scene(wall: bool) -> (App, Entity) {
+pub(super) fn movement_scene(wall: bool) -> (App, Entity) {
     let mut app = App::new();
     let tick = Duration::from_secs_f64(1.0 / 30.0);
     app.add_plugins((

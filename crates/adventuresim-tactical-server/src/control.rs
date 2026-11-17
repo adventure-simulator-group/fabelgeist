@@ -17,6 +17,7 @@ use orders::{on_control_request, on_direct_action};
 pub(crate) use perception::{AcceptedAttack, ThreatMemory, observe_attack, observe_damage};
 
 mod behavior;
+mod conversation;
 mod navigation;
 mod orders;
 pub(crate) mod perception;
@@ -72,6 +73,7 @@ pub(crate) struct CharacterControlPlugin;
 impl Plugin for CharacterControlPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(crate::navigation::TacticalNavigationPlugin)
+            .add_message::<conversation::ReachedTalkTarget>()
             .register_required_components::<Player, AgentState>()
             .register_required_components::<Player, ThreatMemory>()
             .register_required_components::<Player, EngagementPolicy>()
@@ -101,6 +103,12 @@ impl Plugin for CharacterControlPlugin {
                 ControlSet::Navigate.after(bevy_landmass::LandmassSystems::Output),
             )
             .add_systems(Update, prepare_behavior.in_set(ControlSet::Decide))
+            .add_systems(
+                Update,
+                conversation::prepare_approaches
+                    .in_set(ControlSet::Decide)
+                    .after(prepare_behavior),
+            )
             .add_systems(Update, follow_routes.in_set(ControlSet::Navigate));
     }
 }

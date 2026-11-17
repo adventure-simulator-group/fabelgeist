@@ -123,7 +123,12 @@ pub(super) fn update_marker(
             commands.entity(entity).despawn();
         }
         *last = order;
-    } else if !order.is_some_and(|order| matches!(order.goal, CharacterGoal::Attack { .. })) {
+    } else if !order.is_some_and(|order| {
+        matches!(
+            order.goal,
+            CharacterGoal::Attack { .. } | CharacterGoal::Talk { .. }
+        )
+    }) {
         return;
     }
     let Some(order) = order else {
@@ -132,7 +137,7 @@ pub(super) fn update_marker(
     let point = match order.goal {
         CharacterGoal::MoveTo(destination) => destination.position.metres(),
         CharacterGoal::Hold { anchor } => anchor.metres(),
-        CharacterGoal::Attack { target } => {
+        CharacterGoal::Attack { target } | CharacterGoal::Talk { target } => {
             let Ok(target) = targets.get(target) else {
                 return;
             };

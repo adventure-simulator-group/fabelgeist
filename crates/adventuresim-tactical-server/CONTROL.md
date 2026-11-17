@@ -19,6 +19,7 @@ In indirect control:
   own character; commanding other characters is not yet available.
 - Right-click or hold **Space** and left-click a supported surface to move.
 - Use the same order input on a hostile character to attack it.
+- Use it on a non-hostile resident to approach for conversation.
 - Hold **Shift** with either order input to append a ground waypoint.
 - Press **X** to stop and clear the current pursuit and remembered aggression.
 - Press **H** to hold the current position.
@@ -28,9 +29,9 @@ In indirect control:
 
 Attack admission and automatic target selection require an explicit hostile
 relationship. Neutral settlement residents cannot be attacked through these
-orders. Resident conversation is a separate interaction step.
+orders. Conversation requires a separate authority confirmation after arrival.
 
-The order marker identifies the destination, hold anchor, or attack target.
+The order marker identifies the destination, hold anchor, or selected target.
 Selected characters have a blue marker and queued waypoints have yellow
 markers.
 The client exposes `IndirectBindings` as a reflected runtime resource for
@@ -58,8 +59,9 @@ are rejected, including delayed messages after switching away and back.
 
 `ControlRequest` carries an ordered sequence and a typed change. The receiving
 connection identifies the actor; the client cannot nominate a different actor.
-The server validates target allegiance, availability, perception, and physical
-destination support before changing the order. `ControlResponse` acknowledges
+The server validates target allegiance and availability; attack admission also
+checks perception. Ground destinations require physical support.
+`ControlResponse` acknowledges
 the sequence and carries a structured rejection when admission fails.
 
 `CharacterOrder` stores the commanded goal independently of `ThreatMemory`.
@@ -87,6 +89,22 @@ depend on a client sending a completion packet.
 Reconnect projections retain mode, generation, order, policy, and pending
 combat contacts. Runtime behavior packages are restored from the active server
 configuration, and navigation is rebuilt against the current world.
+
+## Conversation approaches
+
+`Talk` follows a resident through the same navigation and physical motor as a
+movement order. The configured conversation distance stops the approach. Access
+uses head-height points derived from the physical body dimensions, allowing a
+shop counter while rejecting a full-height wall. The target must remain alive,
+available and non-hostile. Moving beyond the pursuit radius from its selected
+position fails the order.
+
+Arrival produces one internal `ReachedTalkTarget` message carrying the actor,
+target, control generation and order sequence. A dialogue authority consumer
+must revalidate that identity and physical contact before starting a session or
+committing a choice. The message alone grants no browser authority. Stop,
+replacement orders and mode changes discard approach tracking; removal or
+hostility changes fail the order without selecting an attack.
 
 ## Navigation contracts
 

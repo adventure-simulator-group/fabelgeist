@@ -246,12 +246,13 @@ impl OrderPicking<'_, '_> {
                 .owners
                 .get(hit.entity)
                 .map_or(hit.entity, |owner| owner.body);
-            if self
-                .targets
-                .get(target)
-                .is_ok_and(|target_side| side.is_hostile_to(*target_side))
-            {
-                return Some(ControlChange::Order(CharacterGoal::Attack { target }));
+            if let Ok(target_side) = self.targets.get(target) {
+                let goal = if side.is_hostile_to(*target_side) {
+                    CharacterGoal::Attack { target }
+                } else {
+                    CharacterGoal::Talk { target }
+                };
+                return Some(ControlChange::Order(goal));
             }
         }
         let distance = terrain?;
@@ -370,6 +371,9 @@ fn show_status(
             .next()
             .map(|order| match order.status {
                 OrderStatus::Idle => "Idle".to_owned(),
+                OrderStatus::Executing if matches!(order.goal, CharacterGoal::Talk { .. }) => {
+                    "Approaching to talk".to_owned()
+                }
                 OrderStatus::Executing => "Following order".to_owned(),
                 OrderStatus::Defending => "Defending".to_owned(),
                 OrderStatus::Completed => "Arrived".to_owned(),

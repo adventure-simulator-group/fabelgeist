@@ -97,6 +97,7 @@ pub(super) fn prepare_behavior(mut agents: BehaviorActors, context: BehaviorCont
             })
         });
         match order.goal {
+            CharacterGoal::Talk { .. } => {}
             CharacterGoal::Attack { target } => {
                 select_attack(
                     &context,
