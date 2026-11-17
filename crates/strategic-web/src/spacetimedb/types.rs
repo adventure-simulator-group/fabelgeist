@@ -468,17 +468,15 @@ impl From<sats::Character> for CharacterView {
     fn from(row: sats::Character) -> Self {
         let sats::Character {
             id,
-            scan_id: _,
             name,
             xp,
             level,
             current_settlement_id,
             party_id,
-            server: _,
             temporary,
             age_years,
             alive,
-            party_treatment_decision: _,
+            ..
         } = row;
         Self {
             id,
@@ -2206,6 +2204,7 @@ mod tests {
             current_settlement_id: Some("lubeck".into()),
             party_id: Some("party:7".into()),
             server: sats::spacetimedb_sdk::Identity::ZERO,
+            tactical_admission: sats::TacticalAdmissionGeneration { value: 0 },
             temporary: false,
             age_years: 24,
             alive: true,
