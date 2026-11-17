@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import copy
+
 from inventory_command_peer import (
     InventoryPeer, durable_inventory, equipment_change, exchange, item, remove,
 )
@@ -57,8 +59,21 @@ def held_exchange_checks(peer: InventoryPeer, actor: int) -> None:
     committed, receipts = durable_inventory(peer.client), peer.receipts()
     peer.invoke(request)
     assert durable_inventory(peer.client) == committed and peer.receipts() == receipts
+    conflicting = copy.deepcopy(request)
+    conflicting["action"]["ChangeEquipment"]["changes"]["Exchange"]["source"]["destination"] = held("Right")
+    peer.reject_unchanged(conflicting)
 
-    peer.apply_change(actor, exchange(first["id"], held("Right"), torch["id"], held("Left")))
+    hand_swap = exchange(first["id"], held("Right"), torch["id"], held("Left"))
+    peer.reject_unchanged(peer.prepare(equipped["state"], hand_swap))
+    requests = [peer.prepare(swapped["state"], hand_swap) for _ in range(2)]
+    receipt_count = len(peer.receipts())
+    for intent in requests:
+        peer.send("inventory", request=intent)
+    replies = [peer.receive(), peer.receive()]
+    assert {reply["key"] for reply in replies} == {intent["command_id"] for intent in requests}
+    assert sorted(reply["status"] for reply in replies) == ["accepted", "rejected"], replies
+    peer.changed(actor, swapped)
+    assert len(peer.receipts()) == receipt_count + 1
     swapped = peer.snapshot(actor)
     rows = {row["id"]: row for row in swapped["items"]}
     assert rows[first["id"]]["placement"] == {"Held": "Right"}
@@ -80,24 +95,35 @@ def held_exchange_checks(peer: InventoryPeer, actor: int) -> None:
     unchanged_material(before, durable_inventory(peer.client))
     assert total_mass(peer.snapshot(actor)) == total_mass(initial)
     print("PASS generic held clothing/simple items, worn protection, two-hand and "
-          "worn/held exchanges, exact replay, material preservation and full "
+          "worn/held exchanges, exact replay, conflicting reuse, competing/stale "
+          "exchange rejection, material preservation and full "
           "rollback after conflicting or invalid second destinations", flush=True)
 
 
 def attachment_exchange_checks(peer: InventoryPeer, actor: int) -> None:
     current = peer.snapshot(actor)
-    parent, child = item(current, PARENT), item(current, CHILD)
-    peer.apply_change(actor, equipment_change(child["id"], authored(parent=parent["id"])))
+    parent = item(current, PARENT)
+    previous_child, child = sorted((row for row in current["items"] if row["catalog"] == CHILD),
+                                   key=lambda row: row["id"])
+    peer.apply_change(actor, equipment_change(previous_child["id"], authored(parent=parent["id"])))
+    peer.apply_change(actor, equipment_change(child["id"], held("Left")))
     before = durable_inventory(peer.client)
+    peer.apply_change(actor, exchange(child["id"], authored(parent=parent["id"]),
+                                     previous_child["id"], held("Left")))
+    swapped = {row["id"]: row for row in peer.snapshot(actor)["items"]}
+    assert swapped[child["id"]]["placement"] == {"Authored": "attached"}
+    assert swapped[previous_child["id"]]["placement"] == {"Held": "Left"}
+    unchanged_material(before, durable_inventory(peer.client))
+    peer.apply_change(actor, remove(previous_child["id"]))
     peer.apply_change(actor, exchange(parent["id"], held("Right"),
                                      child["id"], authored(parent=parent["id"])))
     moved = peer.snapshot(actor)
     assert item(moved, PARENT)["placement"] == {"Held": "Right"}
-    assert item(moved, CHILD)["placement"] == {"Authored": "attached"}
+    assert next(row for row in moved["items"] if row["id"] == child["id"])["placement"] == {"Authored": "attached"}
     unchanged_material(before, durable_inventory(peer.client))
     reject_action(peer, actor, equipment_change(parent["id"], held("Left")))
     peer.apply_change(actor, exchange(child["id"], {"Inventory": []},
                                      parent["id"], authored()))
     assert item(peer.snapshot(actor), PARENT)["placement"] == {"Authored": "mounted"}
-    print("PASS selected attachment parent/child rebuild in dependency order, "
+    print("PASS held/attached exchange, selected attachment parent/child rebuild in dependency order, "
           "unselected-child rejection and explicit child removal", flush=True)

@@ -7,7 +7,7 @@ import hashlib
 from typing import TYPE_CHECKING
 
 import dev_stack as stack
-from inventory_command_peer import InventoryPeer, durable_inventory, insert, item, place, remove, transfer
+from inventory_command_peer import InventoryPeer, durable_inventory, equipment_change, insert, item, place, remove, transfer
 from inventory_command_effect_acceptance import (
     BOX, CONTAINER, COUNTED, PARENT, counted_transfer_checks,
     equipment_and_container_checks, recipe_and_condition_transfer_checks,
@@ -171,6 +171,10 @@ def other_host_checks(client: AcceptanceClient, source_peer: InventoryPeer,
 
 
 def lifecycle_checks(peer: InventoryPeer, source: int, recipient: int, replay: dict) -> None:
+    inventory = peer.snapshot(recipient)
+    holdings = {"Left": item(inventory, "linen_tunic"), "Right": item(inventory, "torch")}
+    for hand, row in holdings.items():
+        peer.apply_change(recipient, equipment_change(row["id"], {"Held": {hand: []}}, replace=True))
     peer.client.call("authority_test_inventory_command_material", peer.client.bootstrap_token,
                      recipient, {"revokeMembership": []}, token=peer.token)
     peer.reject_unchanged(replay)
@@ -187,9 +191,16 @@ def lifecycle_checks(peer: InventoryPeer, source: int, recipient: int, replay: d
     current = peer.snapshot(recipient, ready=lambda response: response["state"] is not None
                             and response["state"]["scope"] != previous["state"]["scope"])
     assert current["state"]["scope"] != previous["state"]["scope"]
+    restored = {row["id"]: row for row in current["items"]}
+    for hand, before_row in holdings.items():
+        row = restored[before_row["id"]]
+        assert row["placement"] == {"Held": hand}
+        assert row["quantity"] == before_row["quantity"] and row["object"] == before_row["object"]
+        assert not row["protection"]
     peer.reject_unchanged(replay)
     print("PASS canonical membership, closed admission and replaced visit "
-          "are checked before successful replay", flush=True)
+          "are checked before successful replay; generic held clothing and "
+          "simple items retain placement and identity after reentry", flush=True)
 
 
 def finish(peer: InventoryPeer, actor: int) -> None:
