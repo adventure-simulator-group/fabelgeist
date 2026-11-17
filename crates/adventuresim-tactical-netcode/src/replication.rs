@@ -44,6 +44,7 @@ impl Plugin for AdventureSimulatorReplicationPlugin {
             .replicate::<ShieldItem>()
             .replicate::<ArmorItem>()
             .replicate::<TacticalItemQuantity>()
+            .replicate::<TacticalInventoryMass>()
             .replicate::<ItemProperties>()
             .replicate::<EquipmentTopology>()
             .replicate::<TacticalEquipmentPhysical>()

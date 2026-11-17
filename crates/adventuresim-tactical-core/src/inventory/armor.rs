@@ -22,7 +22,20 @@ pub struct ArmorItem {
 
 /// Stable strategic inventory identity retained on the transient tactical
 /// projection so contact consequences can name the exact engaged item.
-#[derive(Component, Reflect, Serialize, Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(
+    Component,
+    Reflect,
+    Serialize,
+    Deserialize,
+    Clone,
+    Copy,
+    Debug,
+    PartialEq,
+    Eq,
+    PartialOrd,
+    Ord,
+    Hash,
+)]
 #[reflect(Component)]
 pub struct TacticalInventoryItemId(pub u64);
 

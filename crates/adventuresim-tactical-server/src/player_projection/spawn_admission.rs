@@ -1,5 +1,6 @@
 //! Admit the complete applicable connected-player batch before any entity commands.
 
+use super::inventory_projection::PreparedInventory;
 use super::{LoadingPlayer, player_collider, spawn_connected_player};
 use crate::{
     Args,
@@ -22,6 +23,7 @@ pub(super) struct AdmittedPlayer {
     pub(super) recipient: SpawnRecipient,
     pub(super) position: Position<Scene>,
     pub(super) collider: Collider,
+    pub(super) inventory: PreparedInventory,
 }
 
 pub(super) enum SpawnRecipient {
@@ -57,6 +59,7 @@ impl AdmittedPlayer {
     fn resident(
         player: ConnectedPlayer,
         projection: crate::residents::ResidentProjection,
+        inventory: PreparedInventory,
     ) -> SceneSpawnResult<Self> {
         let collider = player_collider();
         let offset = player_spawn_offset(&collider)?;
@@ -67,6 +70,7 @@ impl AdmittedPlayer {
             recipient: SpawnRecipient::Resident(projection.entity),
             position,
             collider,
+            inventory,
         })
     }
 }
@@ -82,9 +86,10 @@ impl PreparedPlayerSpawns {
     ) -> SceneSpawnResult<Self> {
         let mut admitted = Vec::with_capacity(players.len());
         for player in players {
+            let inventory = PreparedInventory::new(&player.inventory, combat.resolution.contact)?;
             if player.role == TacticalActorRole::Resident {
                 if let Some(projection) = residents.projection(CharacterId(player.character.id)) {
-                    admitted.push(AdmittedPlayer::resident(player, projection)?);
+                    admitted.push(AdmittedPlayer::resident(player, projection, inventory)?);
                 }
                 continue;
             }
@@ -134,14 +139,16 @@ impl PreparedPlayerSpawns {
                 recipient,
                 position,
                 collider,
+                inventory,
             });
         }
+        PreparedInventory::validate_disjoint(admitted.iter().map(|actor| &actor.inventory))?;
         Ok(Self(admitted))
     }
 
-    fn project(self, commands: &mut Commands, combat: &TacticalCombatConfig) {
+    fn project(self, commands: &mut Commands) {
         for admitted in self.0 {
-            spawn_connected_player(admitted, commands, combat);
+            spawn_connected_player(admitted, commands);
         }
     }
 }
@@ -155,6 +162,8 @@ pub(crate) fn spawn_connected_players(
     args: Res<Args>,
     mut cmd: Commands,
     q_loading: Query<(Entity, &LoadingPlayer)>,
+    q_projected: Query<&CharacterId, With<Player>>,
+    q_disconnected: Query<&super::DisconnectedPlayer>,
     q_scene: Query<&SceneTerrain>,
     combat_config: Res<TacticalCombatConfig>,
     mut visits: ResMut<crate::local_time::LocalVisits>,
@@ -170,7 +179,13 @@ pub(crate) fn spawn_connected_players(
     }
     // A profile may arrive while its loading client is retained for reconnect.
     // Keep it until a recipient exists, but never replay an already closed visit.
-    pending.retain(|_, profile| conn.connected_profile_is_current(profile));
+    pending.retain(|character, profile| {
+        !q_projected.iter().any(|projected| projected == character)
+            && !q_disconnected
+                .iter()
+                .any(|retained| retained.character_id == *character)
+            && conn.connected_profile_is_current(profile)
+    });
     let mut ready: Vec<_> = pending
         .iter()
         .filter_map(|(character, profile)| {
@@ -195,7 +210,7 @@ pub(crate) fn spawn_connected_players(
         &combat_config,
         &mut residents,
     )?;
-    admitted.project(&mut cmd, &combat_config);
+    admitted.project(&mut cmd);
     Ok(())
 }
 

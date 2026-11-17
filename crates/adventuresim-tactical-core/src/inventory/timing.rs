@@ -1,6 +1,8 @@
 //! Physical weapon cadence observed by the tactical inventory view.
 
-use super::*;
+use adventuresim_core::{combat_style::MeleeAttackStyle, elapsed::ElapsedResult};
+
+use super::InventoryView;
 
 impl InventoryView<'_, '_, '_> {
     pub(super) fn melee_timing_for(

@@ -12,6 +12,8 @@ pub(crate) type SceneSpawnResult<T> = Result<T, SceneSpawnError>;
 #[derive(Debug, thiserror::Error)]
 pub(crate) enum SceneSpawnError {
     #[error(transparent)]
+    Inventory(#[from] crate::player_projection::InventoryAdmissionError),
+    #[error(transparent)]
     Geometry(#[from] GeometryError),
     #[error(transparent)]
     Support(#[from] TerrainSupportError),

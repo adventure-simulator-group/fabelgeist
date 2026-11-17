@@ -15,6 +15,9 @@ use super::item_type::Item;
 pub struct ConnectedPlayerItem {
     pub inventory_item_id: u64,
     pub quantity: u32,
+    pub physical_object_id: Option<u64>,
+    pub unit_mass_kg: f32,
+    pub carried_mass_kg: f32,
     pub item: Item,
     pub selected_placement_id: Option<String>,
     pub occupancies: Vec<ConnectedEquipmentOccupancy>,

@@ -1,17 +1,16 @@
 use adventuresim_core::item_catalog::{EquipmentBodyPart, EquipmentChannel, EquipmentLocation};
-use adventuresim_core::physical_object::{CarriedInventoryScope, OperationalCustody};
+use adventuresim_core::physical_object::CarriedInventoryScope;
 use adventuresim_core::prelude::*;
 use adventuresim_core::projectile::ProjectileKind;
 use spacetimedb::{ReducerContext, Table, reducer, table};
 
 use crate::character::{character_equipped_item as _, equipment_occupancy as _};
 use crate::condition::character_condition as _;
-use crate::food::food_lot as _;
 use crate::item::item as _;
 use crate::repair::item_condition as _;
 use crate::{
-    CatalogItemKind, CharacterAttributes, CharacterLimbs, CharacterSkills, CharacterStats,
-    InventoryItem, Item, character_attributes, character_limbs, character_skills, character_stats,
+    CatalogItemKind, CharacterAttributes, CharacterLimbs, CharacterSkills, CharacterStats, Item,
+    character_attributes, character_limbs, character_skills, character_stats,
     character_strategic_condition, inventory_item,
 };
 
@@ -415,12 +414,7 @@ impl StrategicEquipment {
             armor[body_part_index(part)] =
                 adventuresim_core::equipment::aggregate_layered_armor(part, pieces);
         }
-        let dry_inventory_weight = mass::dry_inventory_weight(ctx, character_id);
-        let personal_custody = OperationalCustody::character(character_id)
-            .expect("persisted character identities must be nonzero");
-        let contained_water_weight =
-            crate::inventory_container::contained_water_ml(ctx, &personal_custody)
-                .map_or(f32::INFINITY, |water_ml| water_ml as f32 / 1_000.0);
+        let inventory_weight = mass::inventory_weight(ctx, character_id);
         Self {
             hands,
             weapon,
@@ -451,7 +445,7 @@ impl StrategicEquipment {
                     as u16,
                 peripheral_protection_bps,
             },
-            inventory_weight: dry_inventory_weight + contained_water_weight,
+            inventory_weight,
         }
     }
 
@@ -683,12 +677,5 @@ mod tests {
         assert!(long.moment_of_inertia_kg_m2 > short.moment_of_inertia_kg_m2);
         assert!(long.attack_interval_seconds > short.attack_interval_seconds);
         assert_eq!(long.striking_head_length_m, short.striking_head_length_m);
-    }
-
-    #[test]
-    fn water_burden_comes_only_from_physical_containers() {
-        let source = crate::production_source(include_str!("capability.rs"));
-        assert!(source.contains("contained_water_ml"));
-        assert!(!source.contains("carried_water_ml"));
     }
 }

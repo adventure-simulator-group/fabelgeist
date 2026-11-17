@@ -651,6 +651,5 @@ pub fn retrieve_fireplace_container(
     ctx.db.inventory_object().id().update(object);
     crate::inventory_container::rehome_subtree(ctx, container_object_id, &destination)?;
     ctx.db.fireplace_station().key().delete(key);
-    crate::inventory_container::merge_empty_container(ctx, container_object_id)?;
     Ok(())
 }

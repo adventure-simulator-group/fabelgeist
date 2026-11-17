@@ -9,7 +9,7 @@ use super::character_limbs_type::CharacterLimbs;
 use super::character_skills_type::CharacterSkills;
 use super::character_stats_type::CharacterStats;
 use super::character_type::Character;
-use super::connected_player_item_type::ConnectedPlayerItem;
+use super::connected_inventory_type::ConnectedInventory;
 use super::tactical_actor_role_type::TacticalActorRole;
 use super::tactical_actor_time_type::TacticalActorTime;
 
@@ -19,7 +19,7 @@ pub struct ConnectedPlayer {
     pub character: Character,
     pub role: TacticalActorRole,
     pub time: TacticalActorTime,
-    pub items: Vec<ConnectedPlayerItem>,
+    pub inventory: ConnectedInventory,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
     pub attrs: CharacterAttributes,
@@ -52,7 +52,7 @@ pub struct ConnectedPlayerCols {
     pub character: __sdk::__query_builder::Col<ConnectedPlayer, Character>,
     pub role: __sdk::__query_builder::Col<ConnectedPlayer, TacticalActorRole>,
     pub time: __sdk::__query_builder::Col<ConnectedPlayer, TacticalActorTime>,
-    pub items: __sdk::__query_builder::Col<ConnectedPlayer, Vec<ConnectedPlayerItem>>,
+    pub inventory: __sdk::__query_builder::Col<ConnectedPlayer, ConnectedInventory>,
     pub skills: __sdk::__query_builder::Col<ConnectedPlayer, CharacterSkills>,
     pub stats: __sdk::__query_builder::Col<ConnectedPlayer, CharacterStats>,
     pub attrs: __sdk::__query_builder::Col<ConnectedPlayer, CharacterAttributes>,
@@ -81,7 +81,7 @@ impl __sdk::__query_builder::HasCols for ConnectedPlayer {
             character: __sdk::__query_builder::Col::new(table_name, "character"),
             role: __sdk::__query_builder::Col::new(table_name, "role"),
             time: __sdk::__query_builder::Col::new(table_name, "time"),
-            items: __sdk::__query_builder::Col::new(table_name, "items"),
+            inventory: __sdk::__query_builder::Col::new(table_name, "inventory"),
             skills: __sdk::__query_builder::Col::new(table_name, "skills"),
             stats: __sdk::__query_builder::Col::new(table_name, "stats"),
             attrs: __sdk::__query_builder::Col::new(table_name, "attrs"),

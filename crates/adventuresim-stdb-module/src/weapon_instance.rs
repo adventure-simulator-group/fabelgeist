@@ -5,7 +5,7 @@ use adventuresim_weapon_model::{
     GENERATOR_VERSION, HOLDER_GENERATOR_VERSION, WeaponDesign, WeaponHolderDesign, default_design,
     default_holder_design, design_hash, holder_design_hash,
 };
-use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, table, view};
+use spacetimedb::{DbContext, ReducerContext, SpacetimeType, Table, ViewContext, table, view};
 
 use crate::inventory_container::inventory_object__view;
 use crate::item::item;
@@ -326,7 +326,7 @@ pub(crate) fn replace_design(
 }
 
 pub(crate) fn combat_geometry(
-    ctx: &ReducerContext,
+    ctx: &impl DbContext,
     inventory_row_id: u64,
     item_id: &str,
 ) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
@@ -338,7 +338,7 @@ pub(crate) fn combat_geometry(
     .ok()?
     .filter(|object| object.item_id == item_id)?;
     let instance = ctx
-        .db
+        .db_read_only()
         .weapon_instance()
         .physical_object_id()
         .find(object.id)?;
@@ -362,7 +362,7 @@ pub(crate) fn combat_geometry(
 /// Unfitted holders use their catalog construction; fitted instances use their
 /// authenticated material shells and must never silently fall back on corruption.
 pub(crate) fn fitted_holder_mass(
-    ctx: &ReducerContext,
+    ctx: &impl DbContext,
     inventory_row_id: u64,
     item_id: &str,
 ) -> Result<Option<f32>, String> {
@@ -375,7 +375,7 @@ pub(crate) fn fitted_holder_mass(
         return Ok(None);
     };
     let Some(instance) = ctx
-        .db
+        .db_read_only()
         .weapon_holder_instance()
         .physical_object_id()
         .find(object.id)

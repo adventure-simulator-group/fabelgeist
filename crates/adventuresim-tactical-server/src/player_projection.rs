@@ -2,14 +2,15 @@ use adventuresim_building_generator::spatial_geometry::Radians;
 use adventuresim_tactical_core::animation::{
     AnimationElapsed, AnimationSampleSpan, AnimationSampleTick,
 };
-use std::collections::BTreeMap;
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues, combat::HUMANOID_COLLISION_RADIUS_METRES,
 };
 use adventuresim_stdb_client::*;
 use adventuresim_tactical_core::animation::dive_launch_root_rotation;
-use adventuresim_tactical_core::{inventory::ItemProperties, prelude::*};
+#[cfg(all(test, feature = "debug"))]
+use adventuresim_tactical_core::inventory::ItemProperties;
+use adventuresim_tactical_core::prelude::*;
 use adventuresim_tactical_netcode::{
     aeronet::io::connection::{DisconnectReason, Disconnected},
     bevy_replicon::prelude::{FromClient, Replicated, SendTargets, ServerTriggerExt, ToClients},
@@ -36,13 +37,11 @@ use crate::{
 };
 use dive_launch::{DiveLaunch, apply_dive_launch_velocity};
 use input::AccumulatedInput;
+pub(crate) use inventory_projection::InventoryAdmissionError;
+pub(crate) use inventory_projection::refresh_connected_inventory;
 use posture_facing::advance_projected_posture;
-use projection_equipment::{
-    projected_armor, projected_holder_appearance, projected_parametric_weapon,
-    projected_weapon_appearance,
-};
 
-#[cfg(test)]
+#[cfg(all(test, feature = "debug"))]
 use crate::bot::MissionEnemy;
 use spawn_admission::AdmittedPlayer;
 pub(crate) use spawn_admission::spawn_connected_players;
@@ -54,6 +53,7 @@ mod disconnection;
 mod dive_launch;
 pub(crate) use disconnection::{expire_disconnected_players, on_client_disconnected};
 mod input_admission;
+mod inventory_projection;
 mod join;
 mod posture_facing;
 mod projection_equipment;
@@ -420,16 +420,13 @@ fn tactical_equipment_channel(
     }
 }
 
-fn spawn_connected_player(
-    admitted: AdmittedPlayer,
-    cmd: &mut Commands,
-    combat_config: &TacticalCombatConfig,
-) {
+fn spawn_connected_player(admitted: AdmittedPlayer, cmd: &mut Commands) {
     let AdmittedPlayer {
         player,
         recipient,
         position,
         collider: player_collider,
+        inventory,
     } = admitted;
     let player = &player;
     let entity = recipient.entity(cmd);
@@ -628,169 +625,11 @@ fn spawn_connected_player(
         ),
     ));
 
-    // Reserve every tactical entity before projecting topology so attachment
-    // edges map to replicated ECS identities even when their parent appears
-    // later in the durable snapshot. Durable row IDs remain server-only.
-    let tactical_items: BTreeMap<u64, Entity> = player
-        .items
-        .iter()
-        .map(|item| (item.inventory_item_id, cmd.spawn_empty().id()))
-        .collect();
-    for item in &player.items {
-        let Some(quantity) = TacticalItemQuantity::new(item.quantity) else {
-            warn!(
-                "Got item '{}' with zero quantity for Player#{}; skipped",
-                item.item.id, player.character.id
-            );
-            continue;
-        };
-        let item_entity = tactical_items[&item.inventory_item_id];
-        let mut item_cmd = cmd.entity(item_entity);
-        let instance_geometry = projected_parametric_weapon(item, combat_config.resolution.contact);
-        let weapon_appearance = projected_weapon_appearance(item);
-        let weapon_holder_appearance = projected_holder_appearance(item);
-        item_cmd.insert((
-            Replicated,
-            TacticalInventoryItemId(item.inventory_item_id),
-            ItemOf(entity),
-            quantity,
-            ItemProperties {
-                weight: instance_geometry
-                    .map(|value| value.mass_kg)
-                    .or_else(|| projection_equipment::projected_holder_mass(item))
-                    .unwrap_or(item.item.weight),
-                id: item.item.id.clone(),
-            },
-            Transform::default(),
-        ));
-        if let Some(definition) = adventuresim_core::item_catalog::definition(&item.item.id)
-            && let Some(equipment) = &definition.equipment
-        {
-            let mut physical = equipment.physical;
-            if let Some(instance) = instance_geometry {
-                physical.dimensions_m[1] = instance.total_length_m;
-                physical.grip_to_tip_m = instance.grip_to_tip_m;
-                physical.anchor_offset_m[1] = -(instance.total_length_m - instance.grip_to_tip_m);
-            }
-            item_cmd.insert(TacticalEquipmentPhysical {
-                dimensions_m: Vec3::from_array(physical.dimensions_m),
-                grip_to_tip_m: physical.grip_to_tip_m,
-                striking_head_length_m: instance_geometry.map_or(
-                    physical.dimensions_m[0].max(physical.dimensions_m[2]),
-                    |value| value.striking_head_length_m,
-                ),
-                anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
-            });
-        }
-        if let Some(appearance) = weapon_appearance {
-            item_cmd.insert(appearance);
-        }
-        if let Some(appearance) = weapon_holder_appearance {
-            item_cmd.insert(appearance);
-        }
-        item_cmd.insert(EquipmentTopology {
-            placement_id: item.selected_placement_id.clone(),
-            occupancies: item
-                .occupancies
-                .iter()
-                .enumerate()
-                .map(|(occupancy_index, occupancy)| EquipmentTopologyOccupancy {
-                    occupancy_id: format!("tactical:{}:{occupancy_index}", item_entity.to_bits()),
-                    anchor: match occupancy.anchor_kind {
-                        EquipmentAnchorKind::CharacterLocation => {
-                            TacticalEquipmentAnchor::CharacterLocation(tactical_equipment_location(
-                                occupancy.location.expect("validated character location"),
-                            ))
-                        }
-                        EquipmentAnchorKind::ItemAttachment => {
-                            TacticalEquipmentAnchor::ItemAttachment {
-                                parent: tactical_items[&occupancy
-                                    .parent_inventory_item_id
-                                    .expect("validated attachment parent")],
-                                attachment_point_id: occupancy
-                                    .attachment_point_id
-                                    .clone()
-                                    .expect("validated attachment point"),
-                            }
-                        }
-                    },
-                    channel: tactical_equipment_channel(occupancy.channel),
-                    order: occupancy.order,
-                    requirement_index: occupancy.requirement_index,
-                    capacity_index: occupancy.capacity_index,
-                })
-                .collect(),
-        });
-        match item.item.kind {
-            CatalogItemKind::Simple
-            | CatalogItemKind::Container
-            | CatalogItemKind::Currency
-            | CatalogItemKind::Ingredient
-            | CatalogItemKind::Medication
-            | CatalogItemKind::Food => {}
-            CatalogItemKind::Weapon => {
-                let equipment = adventuresim_core::item_catalog::definition(&item.item.id)
-                    .and_then(|definition| definition.equipment.as_ref())
-                    .expect("validated tactical weapon has equipment metadata");
-                item_cmd.insert(WeaponItem {
-                    striking_material: equipment
-                        .striking_material
-                        .expect("validated weapon has a striking material"),
-                    skill_weights: [
-                        item.item.weapon_skills.polearm,
-                        item.item.weapon_skills.axe,
-                        item.item.weapon_skills.bludgeon,
-                        item.item.weapon_skills.sword,
-                        item.item.weapon_skills.knife,
-                        item.item.weapon_skills.bow,
-                        item.item.weapon_skills.crossbow,
-                        item.item.weapon_skills.firearm,
-                        item.item.weapon_skills.throw,
-                    ],
-                    prefers_stab: matches!(
-                        item.item.preferred_melee_style,
-                        adventuresim_stdb_client::MeleeAttackStyle::Stab
-                    ),
-                    precision: instance_geometry.map_or(item.item.precision, |value| {
-                        value.conditioned_precision(&item.item.id, item.item.precision)
-                    }),
-                    reach: instance_geometry.map_or(item.item.reach, |value| value.melee_reach_m()),
-                    grip_to_tip_m: instance_geometry
-                        .map_or(equipment.physical.grip_to_tip_m, |value| {
-                            value.grip_to_tip_m
-                        }),
-                    moment_of_inertia_kg_m2: instance_geometry
-                        .map_or(item.item.moment_of_inertia_kg_m_2, |value| {
-                            value.moment_of_inertia_kg_m2
-                        }),
-                    melee: item.item.melee,
-                    ranged: item.item.ranged,
-                });
-            }
-            CatalogItemKind::Armor | CatalogItemKind::Clothing => {}
-            CatalogItemKind::Shield => {
-                item_cmd.insert(ShieldItem {
-                    block: item.item.block,
-                });
-            }
-        }
-        if let Some(armor) = projected_armor(item) {
-            item_cmd.insert(armor);
-        }
-
-        if item.occupancies.iter().any(|occupancy| {
-            occupancy.channel == adventuresim_stdb_client::EquipmentChannel::Held
-                && occupancy.location == Some(adventuresim_stdb_client::EquipmentLocation::LeftHand)
-        }) {
-            item_cmd.insert(EquipSlot::HoldingLeft);
-        } else if item.occupancies.iter().any(|occupancy| {
-            occupancy.channel == adventuresim_stdb_client::EquipmentChannel::Held
-                && occupancy.location
-                    == Some(adventuresim_stdb_client::EquipmentLocation::RightHand)
-        }) {
-            item_cmd.insert(EquipSlot::HoldingRight);
-        }
-    }
+    let character = CharacterId(player.character.id);
+    let time = player.time.clone();
+    cmd.queue(move |world: &mut World| {
+        inventory_projection::apply_initial(world, entity, character, time, inventory)
+    });
     info!(
         temorary = player.character.temporary,
         "[startup] Player {entity:?} is fully loaded"

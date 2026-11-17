@@ -3,20 +3,23 @@ use adventuresim_tactical_core::prelude::{
     ArmorItem, ArmorSide, ArmorSlot, WeaponAppearance, WeaponHolderAppearance,
 };
 
+use super::inventory_projection::{InventoryAdmissionError, InventoryAdmissionResult};
 use super::tactical_covered_parts;
 
 pub(super) fn projected_parametric_weapon(
     item: &ConnectedPlayerItem,
     parameters: adventuresim_core::combat::WeaponContactParameters,
-) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
+) -> InventoryAdmissionResult<Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>>
+{
     let Some(appearance) = item.weapon_appearance.as_ref() else {
-        assert!(
-            adventuresim_weapon_model::default_design(&item.item.id).is_none(),
-            "strategic authority omitted a parametric weapon recipe"
-        );
-        return None;
+        if adventuresim_weapon_model::default_design(&item.item.id).is_some() {
+            return Err(InventoryAdmissionError::InvalidRecipe);
+        }
+        return Ok(None);
     };
     parametric_combat_geometry(&item.item.id, appearance, parameters)
+        .map(Some)
+        .ok_or(InventoryAdmissionError::InvalidRecipe)
 }
 
 pub(super) fn parametric_combat_geometry(
@@ -25,11 +28,14 @@ pub(super) fn parametric_combat_geometry(
     parameters: adventuresim_core::combat::WeaponContactParameters,
 ) -> Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry> {
     use adventuresim_weapon_model::{GENERATOR_VERSION, decode, derive_properties, design_hash};
-    assert_eq!(appearance.generator_version, GENERATOR_VERSION);
-    let design = decode(&appearance.recipe).expect("strategic authority sent a decodable recipe");
-    assert_eq!(design.catalog_id, item_id);
-    assert_eq!(design_hash(&design).0.as_slice(), appearance.design_hash);
-    let derived = derive_properties(&design).expect("strategic authority sent a valid recipe");
+    if appearance.generator_version != GENERATOR_VERSION {
+        return None;
+    }
+    let design = decode(&appearance.recipe).ok()?;
+    if design.catalog_id != item_id || design_hash(&design).0.as_slice() != appearance.design_hash {
+        return None;
+    }
+    let derived = derive_properties(&design).ok()?;
     adventuresim_core::equipment::ParametricWeaponCombatGeometry::new(
         derived.mass_kg,
         derived.length_m,
@@ -41,69 +47,62 @@ pub(super) fn parametric_combat_geometry(
     )
 }
 
-pub(super) fn projected_weapon_appearance(item: &ConnectedPlayerItem) -> Option<WeaponAppearance> {
+pub(super) fn projected_weapon_appearance(
+    item: &ConnectedPlayerItem,
+) -> InventoryAdmissionResult<Option<WeaponAppearance>> {
     item.weapon_appearance
         .as_ref()
-        .map(|appearance| WeaponAppearance {
-            generator_version: appearance.generator_version,
-            design_hash: appearance
-                .design_hash
-                .as_slice()
-                .try_into()
-                .expect("validated weapon design hash"),
-            recipe: appearance.recipe.clone(),
+        .map(|appearance| {
+            Ok(WeaponAppearance {
+                generator_version: appearance.generator_version,
+                design_hash: appearance
+                    .design_hash
+                    .as_slice()
+                    .try_into()
+                    .map_err(|_| InventoryAdmissionError::InvalidRecipe)?,
+                recipe: appearance.recipe.clone(),
+            })
         })
+        .transpose()
 }
 
 pub(super) fn projected_holder_appearance(
     item: &ConnectedPlayerItem,
-) -> Option<WeaponHolderAppearance> {
+) -> InventoryAdmissionResult<Option<WeaponHolderAppearance>> {
+    validate_holder(item)?;
     item.weapon_holder_appearance
         .as_ref()
-        .map(|appearance| WeaponHolderAppearance {
-            generator_version: appearance.generator_version,
-            design_hash: appearance
-                .design_hash
-                .as_slice()
-                .try_into()
-                .expect("validated holder design hash"),
-            recipe: appearance.recipe.clone(),
+        .map(|appearance| {
+            Ok(WeaponHolderAppearance {
+                generator_version: appearance.generator_version,
+                design_hash: appearance
+                    .design_hash
+                    .as_slice()
+                    .try_into()
+                    .map_err(|_| InventoryAdmissionError::InvalidRecipe)?,
+                recipe: appearance.recipe.clone(),
+            })
         })
+        .transpose()
 }
 
-pub(super) fn projected_holder_mass(item: &ConnectedPlayerItem) -> Option<f32> {
-    use adventuresim_weapon_model::{
-        HOLDER_GENERATOR_VERSION, decode_holder, derive_holder_properties, holder_design_hash,
+pub(super) fn projected_armor(
+    item: &ConnectedPlayerItem,
+) -> InventoryAdmissionResult<Option<ArmorItem>> {
+    let Some(part) = item.protected_body_parts.first() else {
+        return Ok(None);
     };
-    let appearance = item.weapon_holder_appearance.as_ref()?;
-    assert_eq!(appearance.generator_version, HOLDER_GENERATOR_VERSION);
-    let design = decode_holder(&appearance.recipe)
-        .expect("strategic authority sent a decodable holder recipe");
-    assert_eq!(design.catalog_id, item.item.id);
-    assert_eq!(
-        holder_design_hash(&design).0.as_slice(),
-        appearance.design_hash
-    );
-    Some(
-        derive_holder_properties(&design)
-            .expect("strategic authority sent a valid holder recipe")
-            .mass_kg,
-    )
-}
-
-pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
-    let part = item.protected_body_parts.first()?;
     let definition = adventuresim_core::item_catalog::definition(&item.item.id)
-        .expect("validated armor exists in authored catalog");
+        .ok_or(InventoryAdmissionError::InvalidEquipment)?;
     let authored = definition
         .equipment
         .as_ref()
-        .expect("validated armor has equipment metadata");
+        .ok_or(InventoryAdmissionError::InvalidEquipment)?;
     let placement = authored
         .placements
         .iter()
         .find(|placement| Some(placement.id.as_str()) == item.selected_placement_id.as_deref())
-        .expect("validated armor retains its authored placement");
+        .ok_or(InventoryAdmissionError::InvalidEquipment)?;
     let slot = match part {
         EquipmentBodyPart::LeftArm => ArmorSlot::Arms(Some(ArmorSide::Left)),
         EquipmentBodyPart::RightArm => ArmorSlot::Arms(Some(ArmorSide::Right)),
@@ -121,8 +120,10 @@ pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
         let index = adventuresim_core::autoresolve::body_part_index(body_part);
         coverage_geometry[index] = Some(geometry);
     }
-    Some(ArmorItem {
-        material: authored.material.expect("validated armor has a material"),
+    Ok(Some(ArmorItem {
+        material: authored
+            .material
+            .ok_or(InventoryAdmissionError::InvalidEquipment)?,
         range_of_motion: item.item.range_of_motion,
         coverage: item.item.coverage,
         slot,
@@ -135,5 +136,26 @@ pub(super) fn projected_armor(item: &ConnectedPlayerItem) -> Option<ArmorItem> {
             .outermost_channel()
             .map(|channel| channel.order())
             .unwrap_or_default(),
-    })
+    }))
+}
+
+fn validate_holder(item: &ConnectedPlayerItem) -> InventoryAdmissionResult<()> {
+    use adventuresim_weapon_model::{
+        HOLDER_GENERATOR_VERSION, decode_holder, derive_holder_properties, holder_design_hash,
+    };
+    let Some(appearance) = item.weapon_holder_appearance.as_ref() else {
+        return Ok(());
+    };
+    if appearance.generator_version != HOLDER_GENERATOR_VERSION {
+        return Err(InventoryAdmissionError::InvalidRecipe);
+    }
+    let design =
+        decode_holder(&appearance.recipe).map_err(|_| InventoryAdmissionError::InvalidRecipe)?;
+    if design.catalog_id != item.item.id
+        || holder_design_hash(&design).0.as_slice() != appearance.design_hash
+    {
+        return Err(InventoryAdmissionError::InvalidRecipe);
+    }
+    derive_holder_properties(&design).map_err(|_| InventoryAdmissionError::InvalidRecipe)?;
+    Ok(())
 }

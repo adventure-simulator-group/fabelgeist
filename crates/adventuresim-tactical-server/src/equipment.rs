@@ -30,7 +30,11 @@ impl Plugin for TacticalEquipmentPlugin {
         app.init_resource::<PendingEquipmentActions>()
             .init_resource::<LastEquipmentSequence>()
             .add_observer(queue_equipment_action)
-            .add_systems(Update, process_equipment_actions);
+            .add_systems(
+                Update,
+                process_equipment_actions
+                    .after(crate::player_projection::PlayerProjectionSet::Spawn),
+            );
     }
 }
 

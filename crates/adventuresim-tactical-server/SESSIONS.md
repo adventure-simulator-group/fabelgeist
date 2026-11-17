@@ -170,6 +170,11 @@ time of day or grants an automatic inn or sanctuary rest interval.
 
 ## Focused authority acceptance
 
+Personal inventory uses the shared admission and refresh projection described
+in [Durable inventory projection](INVENTORY.md). Committed inventory changes
+update the existing actor and retained reconnect inventory without replacing
+live body state.
+
 Run the ordinary-admission checks in a separately owned disposable profile:
 
 ```powershell

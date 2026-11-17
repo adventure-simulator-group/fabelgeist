@@ -12,6 +12,7 @@ from pathlib import Path
 
 import dev_stack as stack
 from settlement_scene_acceptance import settlement_scene_checks, live_settlement_scene_checks
+from settlement_inventory_acceptance import empty_container_identity_checks
 
 
 class AcceptanceClient:
@@ -215,6 +216,10 @@ def run(profile: str, base_port: int, only: str | None = None) -> None:
                     os.environ["ADVENTURESIM_DEV_BOOTSTRAP_TOKEN"] = previous
             client = AcceptanceClient(server, database, token)
             client.fixture("dev_bootstrap_base")
+            if only == "inventory-identity":
+                client.call("register_strategic_gateway", None, 0)
+                empty_container_identity_checks(client)
+                return
             if only in {"settlement-scenes", "settlement-scenes-live"}:
                 result = stack.run_checked(["cargo", "build", "-p", "adventuresim-tactical-server-dispatcher", "--example", "settlement-authority-peer"])
                 stack.write_console(result.stdout)
@@ -302,6 +307,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", default="authority-check")
     parser.add_argument("--base-port", type=int, default=25370)
-    parser.add_argument("--only", choices=["settlement-scenes", "settlement-scenes-live"])
+    parser.add_argument("--only", choices=["settlement-scenes", "settlement-scenes-live", "inventory-identity"])
     args = parser.parse_args()
     run(args.profile, args.base_port, args.only)

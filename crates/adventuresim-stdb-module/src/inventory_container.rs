@@ -24,12 +24,11 @@ use crate::{
 
 mod object_lookup;
 
-pub(crate) use object_lookup::object_for_row;
+pub(crate) use object_lookup::{
+    ancestry_reaches_fireplace, object_for_row, row_is_fireplace_rooted,
+};
 
 pub const WATER_ITEM_ID: &str = "water";
-fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
-    !has_contents && !is_nested && !has_condition
-}
 
 #[derive(Clone, Debug)]
 #[table(accessor = inventory_object, public)]
@@ -121,54 +120,15 @@ pub(crate) fn object_is_nonempty(ctx: &ReducerContext, object_id: u64) -> bool {
         || liquid_used(ctx, object_id) > 0
 }
 
-pub(crate) fn ancestry_reaches_fireplace(ctx: &ReducerContext, object_id: u64) -> bool {
-    let mut cursor = Some(object_id);
-    for _ in 0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH {
-        let Some(id) = cursor else { return false };
-        let Some(object) = ctx.db.inventory_object().id().find(id) else {
-            return false;
-        };
-        if object.location.is_fireplace() {
-            return true;
-        }
-        cursor = ctx
-            .db
-            .inventory_containment()
-            .child_object_id()
-            .find(id)
-            .map(|edge| edge.parent_object_id);
-    }
-    true
-}
-
-pub(crate) fn row_is_fireplace_rooted(
-    ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
-) -> bool {
-    object_for_row(ctx, scope, row_id)
-        .map(|object| object.is_some_and(|object| ancestry_reaches_fireplace(ctx, object.id)))
-        .unwrap_or(true)
-}
-
 pub(crate) fn detach_if_nested(ctx: &ReducerContext, object_id: u64) -> Result<bool, String> {
     if ancestry_reaches_fireplace(ctx, object_id) {
         return Err("Retrieve the container from its fireplace before moving its contents".into());
     }
-    let parent = ctx
-        .db
-        .inventory_containment()
-        .child_object_id()
-        .find(object_id)
-        .map(|edge| edge.parent_object_id);
     let removed = ctx
         .db
         .inventory_containment()
         .child_object_id()
         .delete(object_id);
-    if let Some(parent_id) = parent {
-        merge_empty_container(ctx, parent_id)?;
-    }
     Ok(removed)
 }
 
@@ -241,21 +201,12 @@ pub(crate) fn reconcile_consumed_row(
         return Err("Retrieve the container from its fireplace before using its contents".into());
     }
     if fully_consumed {
-        let parent = ctx
-            .db
-            .inventory_containment()
-            .child_object_id()
-            .find(object.id)
-            .map(|edge| edge.parent_object_id);
         ctx.db
             .inventory_containment()
             .child_object_id()
             .delete(object.id);
         crate::weapon_instance::delete_for_object(ctx, object.id);
         ctx.db.inventory_object().id().delete(object.id);
-        if let Some(parent_id) = parent {
-            merge_empty_container(ctx, parent_id)?;
-        }
     }
     Ok(())
 }
@@ -625,159 +576,8 @@ fn require_exact_carried_backing(
     Ok(())
 }
 
-pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Result<(), String> {
-    let Some(emptied) = ctx.db.inventory_object().id().find(emptied_id) else {
-        return Ok(());
-    };
-    let expected = crate::object_custody::carried_location_custody(&emptied.location)?;
-    require_exact_carried_backing(ctx, &emptied, &expected)?;
-    if !empty_container_can_stack(
-        object_is_nonempty(ctx, emptied_id),
-        object_is_nested(ctx, emptied_id),
-        false,
-    ) {
-        return Ok(());
-    }
-    let scope = emptied
-        .location
-        .scope()
-        .ok_or("Only carried containers can merge into inventory stacks")?;
-    let mergeable_object = |row_id| -> Result<bool, String> {
-        match object_for_row(ctx, scope, row_id)? {
-            Some(object) => {
-                require_exact_carried_backing(ctx, &object, &expected)?;
-                Ok(!object_is_nonempty(ctx, object.id) && !object_is_nested(ctx, object.id))
-            }
-            None => Ok(true),
-        }
-    };
-    let merged_object_id;
-    match &emptied.location {
-        InventoryLocation::Personal(location) => {
-            let source = ctx
-                .db
-                .inventory_item()
-                .id()
-                .find(location.row_id)
-                .ok_or("Emptied container row is missing")?;
-            let mut targets = ctx
-                .db
-                .inventory_item()
-                .iter()
-                .filter(|row| {
-                    row.id != source.id
-                        && row.character_id == source.character_id
-                        && row.item_id == source.item_id
-                })
-                .collect::<Vec<_>>();
-            targets.sort_by_key(|row| row.id);
-            let mut target = None;
-            for row in targets {
-                if mergeable_object(row.id)? {
-                    target = Some(row);
-                    break;
-                }
-            }
-            let Some(mut target) = target else {
-                return Ok(());
-            };
-            if ctx
-                .db
-                .item_condition()
-                .inventory_item_id()
-                .find(target.id)
-                .is_some()
-                || ctx
-                    .db
-                    .item_condition()
-                    .inventory_item_id()
-                    .find(source.id)
-                    .is_some()
-            {
-                return Ok(());
-            }
-            merged_object_id =
-                object_for_row(ctx, CarriedInventoryScope::Personal, target.id)?.map(|row| row.id);
-            target.quantity = target
-                .quantity
-                .checked_add(source.quantity)
-                .ok_or("Container stack quantity overflow")?;
-            ctx.db.inventory_item().id().update(target);
-            ctx.db.inventory_item().id().delete(source.id);
-        }
-        InventoryLocation::Party(location) => {
-            let source = ctx
-                .db
-                .party_inventory_item()
-                .id()
-                .find(location.row_id)
-                .ok_or("Emptied party container row is missing")?;
-            let mut targets = ctx
-                .db
-                .party_inventory_item()
-                .iter()
-                .filter(|row| {
-                    row.id != source.id
-                        && row.party_id == source.party_id
-                        && row.item_id == source.item_id
-                })
-                .collect::<Vec<_>>();
-            targets.sort_by_key(|row| row.id);
-            let mut target = None;
-            for row in targets {
-                if mergeable_object(row.id)? {
-                    target = Some(row);
-                    break;
-                }
-            }
-            let Some(mut target) = target else {
-                return Ok(());
-            };
-            if ctx
-                .db
-                .party_item_condition()
-                .party_inventory_item_id()
-                .find(target.id)
-                .is_some()
-                || ctx
-                    .db
-                    .party_item_condition()
-                    .party_inventory_item_id()
-                    .find(source.id)
-                    .is_some()
-            {
-                return Ok(());
-            }
-            merged_object_id =
-                object_for_row(ctx, CarriedInventoryScope::Party, target.id)?.map(|row| row.id);
-            target.quantity = target
-                .quantity
-                .checked_add(source.quantity)
-                .ok_or("Container stack quantity overflow")?;
-            ctx.db.party_inventory_item().id().update(target);
-            ctx.db.party_inventory_item().id().delete(source.id);
-        }
-        _ => return Ok(()),
-    }
-    if let Some(other_id) = merged_object_id {
-        ctx.db.inventory_object().id().delete(other_id);
-    }
-    ctx.db.inventory_object().id().delete(emptied.id);
-    Ok(())
-}
-
 #[cfg(test)]
 mod tests {
-    use super::empty_container_can_stack;
-
-    #[test]
-    fn only_empty_root_containers_without_instance_condition_stack() {
-        assert!(empty_container_can_stack(false, false, false));
-        assert!(!empty_container_can_stack(true, false, false));
-        assert!(!empty_container_can_stack(false, true, false));
-        assert!(!empty_container_can_stack(false, false, true));
-    }
-
     #[test]
     fn generic_solid_containers_are_authoring_driven() {
         let source = include_str!("inventory_container.rs")
@@ -786,46 +586,6 @@ mod tests {
             .1;
         assert!(source.contains("parent_definition.container_capacity_ml == 0"));
         assert!(!source.contains("GENERIC_CONTAINER_IDS"));
-    }
-
-    #[test]
-    fn physical_object_row_lookup_matches_the_bespoke_location() {
-        let lookup = include_str!("inventory_container.rs")
-            .split("pub(crate) fn object_for_row")
-            .nth(1)
-            .and_then(|tail| tail.split("pub(crate) fn object_is_nonempty").next())
-            .expect("physical object row lookup");
-        assert!(lookup.contains("InventoryLocation::Personal"));
-        assert!(lookup.contains("InventoryLocation::Party"));
-        assert!(!lookup.contains("location_kind"));
-        assert!(!lookup.contains("location_owner"));
-    }
-
-    #[test]
-    fn empty_container_reconciliation_covers_removal_and_automatic_drain() {
-        let source = include_str!("inventory_container.rs")
-            .rsplit_once("pub(crate) fn require_object")
-            .expect("post-test production section")
-            .1;
-        let remove = source
-            .split("pub fn remove_inventory_item_from_container")
-            .nth(1)
-            .unwrap()
-            .split("pub fn discard_container_water")
-            .next()
-            .unwrap();
-        assert!(remove.contains("merge_empty_container(ctx, child_object_id)"));
-        assert!(remove.contains("merge_empty_container(ctx, former_parent)"));
-        let drain = source
-            .split("pub(crate) fn consume_contained_water")
-            .nth(1)
-            .unwrap()
-            .split("fn require_mutable")
-            .next()
-            .unwrap();
-        assert!(drain.contains("resolve_object_custody"));
-        assert!(drain.contains("resolved.root == *expected_custody"));
-        assert!(drain.contains("merge_empty_container(ctx, liquid.container_object_id)"));
     }
 
     #[test]
@@ -841,32 +601,6 @@ mod tests {
             let body = source.split(reducer).nth(1).expect("direct object reducer");
             assert!(body.contains("require_actor_carried_object"));
         }
-        let lookup = include_str!("inventory_container.rs")
-            .split("pub(crate) fn object_for_row")
-            .nth(1)
-            .and_then(|tail| tail.split("fn insert_carried_object").next())
-            .expect("physical object lookup");
-        assert!(lookup.contains("if matches.next().is_some()"));
-        assert!(lookup.contains("duplicate physical object identities"));
-    }
-
-    #[test]
-    fn empty_container_merge_authenticates_exact_root_before_mutation() {
-        let source = crate::production_source(include_str!("inventory_container.rs"));
-        let merge = source
-            .split("pub(crate) fn merge_empty_container")
-            .nth(1)
-            .and_then(|tail| tail.split("#[cfg(test)]").next())
-            .expect("empty-container merge");
-        let source_validation = merge
-            .find("require_exact_carried_backing(ctx, &emptied, &expected)?")
-            .unwrap();
-        let target_validation = merge
-            .find("require_exact_carried_backing(ctx, &object, &expected)?")
-            .unwrap();
-        let first_delete = merge.find(".delete(source.id)").unwrap();
-        assert!(source_validation < first_delete);
-        assert!(target_validation < first_delete);
     }
 
     #[test]
@@ -1010,32 +744,6 @@ fn liquid_used(ctx: &ReducerContext, container_object_id: u64) -> u64 {
         .map_or(0, |row| row.water_ml)
 }
 
-pub(crate) fn contained_water_ml(
-    ctx: &ReducerContext,
-    expected_custody: &OperationalCustody,
-) -> Result<u64, String> {
-    let mut total = 0_u64;
-    for liquid in ctx
-        .db
-        .container_liquid()
-        .iter()
-        .filter(|liquid| liquid.liquid_item_id == WATER_ITEM_ID)
-    {
-        let object = ctx
-            .db
-            .inventory_object()
-            .id()
-            .find(liquid.container_object_id)
-            .ok_or("Contained water has no physical container object")?;
-        if crate::object_custody::resolve_object_custody(ctx, &object)?.root == *expected_custody {
-            total = total
-                .checked_add(liquid.water_ml)
-                .ok_or("Contained water volume overflow")?;
-        }
-    }
-    Ok(total)
-}
-
 fn remaining_container_capacity_ml(
     ctx: &ReducerContext,
     container_object_id: u64,
@@ -1159,7 +867,6 @@ pub(crate) fn consume_contained_water(
                 .container_liquid()
                 .container_object_id()
                 .delete(liquid.container_object_id);
-            merge_empty_container(ctx, liquid.container_object_id)?;
         } else {
             ctx.db
                 .container_liquid()
@@ -1352,19 +1059,15 @@ pub fn remove_inventory_item_from_container(
         .ok_or("Character not found")?;
     crate::object_custody::require_actor_carried_object(ctx, &actor, &child)?;
     require_mutable(ctx, child_object_id)?;
-    let former_parent = ctx
-        .db
+    ctx.db
         .inventory_containment()
         .child_object_id()
         .find(child_object_id)
-        .ok_or("Object is not inside a container")?
-        .parent_object_id;
+        .ok_or("Object is not inside a container")?;
     ctx.db
         .inventory_containment()
         .child_object_id()
         .delete(child_object_id);
-    merge_empty_container(ctx, child_object_id)?;
-    merge_empty_container(ctx, former_parent)?;
     Ok(())
 }
 
@@ -1419,7 +1122,6 @@ pub fn discard_container_water(
             .container_liquid()
             .container_object_id()
             .delete(container_object_id);
-        merge_empty_container(ctx, container_object_id)?;
     } else {
         ctx.db
             .container_liquid()

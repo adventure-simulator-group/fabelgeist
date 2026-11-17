@@ -225,7 +225,11 @@ fn install_live_server(app: &mut App) {
                 finish_terminal_presentation
                     .run_if(resource_exists::<MissionState>)
                     .after(check_mission_timeout),
-                (spawn_connected_players, ApplyDeferred)
+                (
+                    spawn_connected_players,
+                    ApplyDeferred,
+                    player_projection::refresh_connected_inventory,
+                )
                     .chain()
                     .in_set(PlayerProjectionSet::Spawn)
                     .after(stdb::update_spacetimedb),

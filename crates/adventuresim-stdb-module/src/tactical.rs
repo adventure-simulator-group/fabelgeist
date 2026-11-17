@@ -13,10 +13,8 @@ pub use consequence::{
 use entry::leave_tactical_scene_for_server;
 pub use entry::{enter_tactical_scene, leave_tactical_scene};
 pub use hosting::{tactical_server, tactical_server_request};
-pub use profile::{
-    ConnectedEquipmentOccupancy, ConnectedPlayer, ConnectedPlayerItem, TacticalActorRole,
-    connected_players,
-};
+pub use inventory::{ConnectedEquipmentOccupancy, ConnectedInventory, ConnectedPlayerItem};
+pub use profile::{ConnectedPlayer, TacticalActorRole, connected_players};
 pub use provisioning::record_tactical_scene_provisioning_failure;
 pub use registration::create_tactical_server_for_request;
 pub use session::{TacticalMissionSession, TacticalProvisioningStatus, TacticalSession};
@@ -48,6 +46,7 @@ mod consequence;
 pub(crate) mod dialogue;
 mod entry;
 mod hosting;
+mod inventory;
 pub(crate) mod local_time;
 mod profile;
 mod provisioning;

@@ -13,6 +13,7 @@ from typing import TYPE_CHECKING
 
 import dev_stack as stack
 from settlement_resident_acceptance import resident_roster_checks
+from settlement_inventory_acceptance import empty_container_identity_checks, inventory_projection_checks
 
 if TYPE_CHECKING:
     from check_semantic_authorities import AcceptanceClient
@@ -53,6 +54,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
                                 (party_b, settlement, True), (absent, elsewhere, False)]:
         client.fixture("authority_test_settlement_actor", actor, place, party)
     assert client.rows(f"SELECT id FROM party_member WHERE character_id = {solo}") == []
+    empty_container_identity_checks(client, solo)
     parties = client.rows(f"SELECT party_id FROM character WHERE id = {party_a} OR id = {party_b}")
     assert len(parties) == 2 and parties[0] != parties[1]
     baseline = {table: client.rows(f"SELECT COUNT(*) AS count FROM {table}") for table in
@@ -99,6 +101,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
         )
         assert len(visits) == 3, "Duplicate enrollment created another time owner"
         solo_visit = next(visit for visit, actor in visits if actor == solo)
+        inventory_projection_checks(client, solo, server_token, outsider)
         client.call("finish_local_scene_visit", solo_visit, {"unprojected": []},
                     token=outsider, error="owning tactical server")
         client.call("rest_at_settlement_hours", solo, 60, {"inn": []},
@@ -113,6 +116,7 @@ def settlement_scene_checks(client: AcceptanceClient) -> None:
         client.call("retire_settlement_scene", token=server_token)
         assert client.rows(f"SELECT instance_id FROM tactical_server_authority WHERE instance_id = '{literal}'") == []
         assert client.rows("SELECT server FROM scene_resident_roster") == []
+        assert client.rows("SELECT inventory FROM connected_players", token=server_token) == []
         for actor in (solo, party_a, party_b):
             assert client.rows(f"SELECT server FROM character WHERE id = {actor}") == [[["0x0"]]]
         for table, before in baseline.items():
