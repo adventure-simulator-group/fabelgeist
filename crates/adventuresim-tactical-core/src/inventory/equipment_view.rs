@@ -160,10 +160,8 @@ impl PlayerEquipment for InventoryView<'_, '_, '_> {
     }
 
     fn inventory_weight(&self) -> f32 {
-        // Catalog weight is per unit. Counts enter the kilogram-based combat
-        // calculations as floating-point values at this numerical boundary.
         self.iter()
-            .map(|item| item.properties.weight * item.quantity.get() as f32)
+            .map(|item| item.mass.carried_kilograms(item.properties, *item.quantity))
             .sum()
     }
 

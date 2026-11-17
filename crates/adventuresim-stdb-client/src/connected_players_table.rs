@@ -7,7 +7,7 @@ use super::character_limbs_type::CharacterLimbs;
 use super::character_skills_type::CharacterSkills;
 use super::character_stats_type::CharacterStats;
 use super::character_type::Character;
-use super::connected_player_item_type::ConnectedPlayerItem;
+use super::connected_inventory_type::ConnectedInventory;
 use super::connected_player_type::ConnectedPlayer;
 use super::tactical_actor_role_type::TacticalActorRole;
 use super::tactical_actor_time_type::TacticalActorTime;

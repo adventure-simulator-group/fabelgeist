@@ -7,7 +7,7 @@ pub struct ConnectedPlayer {
     pub character: Character,
     pub role: TacticalActorRole,
     pub time: super::local_time::TacticalActorTime,
-    pub items: Vec<ConnectedPlayerItem>,
+    pub inventory: super::inventory::ConnectedInventory,
     pub skills: CharacterSkills,
     pub stats: CharacterStats,
     pub attrs: CharacterAttributes,
@@ -27,32 +27,6 @@ pub struct ConnectedPlayer {
     pub strategic_hunger: f32,
     pub strategic_thirst: f32,
     pub strategic_thermal: f32,
-}
-
-#[derive(SpacetimeType, Clone, Debug)]
-pub struct ConnectedPlayerItem {
-    pub inventory_item_id: u64,
-    pub quantity: u32,
-    pub item: Item,
-    pub selected_placement_id: Option<String>,
-    pub occupancies: Vec<ConnectedEquipmentOccupancy>,
-    pub protected_body_parts: Vec<adventuresim_core::item_catalog::EquipmentBodyPart>,
-    pub condition: Option<ItemCondition>,
-    pub weapon_appearance: Option<crate::weapon_instance::ConnectedWeaponAppearance>,
-    pub weapon_holder_appearance: Option<crate::weapon_instance::ConnectedWeaponAppearance>,
-}
-
-#[derive(SpacetimeType, Clone, Debug)]
-pub struct ConnectedEquipmentOccupancy {
-    pub id: String,
-    pub anchor_kind: crate::character::EquipmentAnchorKind,
-    pub location: Option<adventuresim_core::item_catalog::EquipmentLocation>,
-    pub parent_inventory_item_id: Option<u64>,
-    pub attachment_point_id: Option<String>,
-    pub channel: adventuresim_core::item_catalog::EquipmentChannel,
-    pub order: u16,
-    pub requirement_index: u16,
-    pub capacity_index: u16,
 }
 
 #[derive(SpacetimeType, Clone, Copy, Debug, PartialEq, Eq)]
@@ -92,14 +66,13 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
                 .character_strategic_condition()
                 .character_id()
                 .find(character.id)?;
-            let items = connected_player_items(ctx, character.id).collect();
-
             let server = ctx
                 .db
                 .tactical_server_authority()
                 .identity()
                 .find(ctx.sender())?;
             let projection = super::local_time::actor_projection(ctx, character.id, &server)?;
+            let inventory = super::inventory::connected_inventory(ctx, character.id);
             let mission = match &server.session {
                 TacticalSession::Mission(mission) => Some(mission),
                 TacticalSession::Settlement(_) => None,
@@ -108,7 +81,7 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
                 character,
                 role: projection.role,
                 time: projection.time,
-                items,
+                inventory,
                 skills,
                 limbs,
                 attrs,
@@ -137,91 +110,4 @@ pub fn connected_players(ctx: &ViewContext) -> Vec<ConnectedPlayer> {
             })
         })
         .collect()
-}
-
-fn connected_player_items(
-    ctx: &ViewContext,
-    character_id: u64,
-) -> impl Iterator<Item = ConnectedPlayerItem> + use<'_> {
-    ctx.db
-        .inventory_item()
-        .character_id()
-        .filter(character_id)
-        .filter_map(move |inventory_item| {
-            let mut item = ctx.db.item().id().find(&inventory_item.item_id)?;
-            let weapon_appearance = crate::weapon_instance::connected_appearance(
-                ctx,
-                inventory_item.id,
-                &inventory_item.item_id,
-            );
-            let weapon_holder_appearance = crate::weapon_instance::connected_holder_appearance(
-                ctx,
-                inventory_item.id,
-                &inventory_item.item_id,
-            );
-            let condition = ctx
-                .db
-                .item_condition()
-                .inventory_item_id()
-                .find(inventory_item.id);
-            if let Some(condition) = &condition {
-                let damage = condition.bins();
-                item.precision = adventuresim_core::durability::effective_weapon_stat(
-                    item.precision,
-                    damage,
-                    item.edge_sensitivity,
-                );
-                item.block = adventuresim_core::durability::effective_weapon_stat(
-                    item.block,
-                    damage,
-                    item.handling_sensitivity,
-                );
-                item.range_of_motion = adventuresim_core::durability::effective_handling(
-                    item.range_of_motion,
-                    damage,
-                    item.handling_sensitivity,
-                );
-            }
-            let worn = ctx
-                .db
-                .character_equipped_item()
-                .inventory_item_id()
-                .find(inventory_item.id);
-            let placement = worn.as_ref().and_then(|worn| {
-                item.equipment_placements
-                    .iter()
-                    .find(|placement| placement.id == worn.placement_id)
-            });
-            let occupancies = ctx
-                .db
-                .equipment_occupancy()
-                .inventory_item_id()
-                .filter(inventory_item.id)
-                .map(|row| ConnectedEquipmentOccupancy {
-                    id: row.id,
-                    anchor_kind: row.anchor_kind,
-                    location: row.location,
-                    parent_inventory_item_id: row.parent_inventory_item_id,
-                    attachment_point_id: row.attachment_point_id,
-                    channel: row.channel,
-                    order: row.order,
-                    requirement_index: row.requirement_index,
-                    capacity_index: row.capacity_index,
-                })
-                .collect();
-            let protected_body_parts = placement
-                .map(|placement| placement.protection.clone())
-                .unwrap_or_default();
-            Some(ConnectedPlayerItem {
-                inventory_item_id: inventory_item.id,
-                quantity: inventory_item.quantity,
-                item,
-                selected_placement_id: worn.map(|row| row.placement_id),
-                condition,
-                occupancies,
-                protected_body_parts,
-                weapon_appearance,
-                weapon_holder_appearance,
-            })
-        })
 }

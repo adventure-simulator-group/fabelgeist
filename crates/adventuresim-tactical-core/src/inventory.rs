@@ -20,6 +20,7 @@ use crate::inventory_armor::fold_armor_layers;
 mod armor;
 mod chronology;
 mod equipment_view;
+mod mass;
 mod ordering;
 mod quantity;
 mod query;
@@ -27,6 +28,7 @@ mod timing;
 
 pub use armor::*;
 pub use chronology::{EquipmentRevision, EquipmentSequence};
+pub use mass::TacticalInventoryMass;
 pub use ordering::EquipmentRootOrder;
 pub use quantity::*;
 
@@ -98,6 +100,7 @@ pub struct ShieldItem {
 
 #[derive(Component, Reflect, Serialize, Deserialize, Default, Clone, Debug, PartialEq)]
 #[reflect(Component)]
+#[require(TacticalInventoryMass)]
 pub struct ItemProperties {
     pub id: String,
     /// Mass of one unit in kilograms; carried load also includes row quantity.
@@ -273,6 +276,7 @@ pub struct ItemQuery {
     pub entity: Entity,
     pub quantity: &'static TacticalItemQuantity,
     pub properties: &'static ItemProperties,
+    pub mass: &'static TacticalInventoryMass,
     pub item_of: Option<&'static ItemOf>,
     pub slot: Option<&'static EquipSlot>,
     pub armor: Option<&'static ArmorItem>,

@@ -162,6 +162,16 @@ request/emergency affordances also remain distinct policy stages.
 
 ## Transport and caches
 
+Personal inventory load has one read-only producer in `inventory_projection`.
+It authenticates physical construction, resolves carried ancestry, and combines
+counted stock, actual food-lot mass, remaining fractions and contained liquid.
+Strategic capability evaluation and the registered tactical host's inventory
+view consume that producer. A malformed row makes the host projection explicitly
+unavailable; it cannot masquerade as a missing item. Stored fireplace contents
+are excluded from the character's burden, and solid children contribute through
+their own rows once. The native refresh contract is documented in
+[Durable inventory projection](../adventuresim-tactical-server/INVENTORY.md).
+
 | Representation | Owner and purpose | Lifetime and update path | Invariant coverage |
 |---|---|---|---|
 | Generated SDK bindings, browser models, connected tactical views | Database schema owns wire shapes; consumers adapt to domain types at trust boundaries. Public demographic projections intentionally restrict information. | Regenerate bindings with `just generate-db-client`. Subscription updates and boundary conversions refresh views. Transient tactical positions, HP, enemies, and damage remain in Bevy. | `verify-db-client`, gateway authorization tests, transport conversion tests, and existing tactical projection tests. |

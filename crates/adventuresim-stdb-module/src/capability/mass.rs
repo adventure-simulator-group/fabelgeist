@@ -1,41 +1,41 @@
-//! Authenticated carried construction mass, including food and fractional stock.
-use super::*;
-pub(super) fn dry_inventory_weight(ctx: &ReducerContext, character_id: u64) -> f32 {
-    ctx.db
+//! Strategic calculations use the same checked load as the live projection.
+
+use adventuresim_core::inventory_measurement::InventoryMassKg;
+use spacetimedb::ReducerContext;
+
+use crate::{
+    inventory_item,
+    inventory_projection::{InventoryProjectionError, personal_row_mass},
+    item::item,
+};
+
+pub(super) fn inventory_weight(ctx: &ReducerContext, character_id: u64) -> f32 {
+    let view = ctx.as_read_only();
+    let mass: Result<InventoryMassKg, InventoryProjectionError> = ctx
+        .db
         .inventory_item()
         .character_id()
         .filter(character_id)
-        .filter_map(|inventory: InventoryItem| {
-            if crate::inventory_container::row_is_fireplace_rooted(
-                ctx,
-                CarriedInventoryScope::Personal,
-                inventory.id,
-            ) {
-                return None;
-            }
-            if let Some(lot) = ctx
+        .try_fold(InventoryMassKg::ZERO, |total, row| {
+            let definition = ctx
                 .db
-                .food_lot()
-                .iter()
-                .find(|lot| lot.inventory_item_id == Some(inventory.id))
-            {
-                return Some(lot.mass_kg.max(0.0));
-            }
-            ctx.db.item().id().find(&inventory.item_id).map(|item| {
-                let effective_quantity =
-                    crate::inventory_amount::personal_fraction(ctx, inventory.id)
-                        .map_or(inventory.quantity as f32, |fraction| fraction.as_unit_f32());
-                let unit_mass = if adventuresim_weapon_model::default_design(&item.id).is_some() {
-                    crate::weapon_instance::combat_geometry(ctx, inventory.id, &item.id)
-                        .expect("parametric inventory weapon has valid physical recipe")
-                        .mass_kg
-                } else {
-                    crate::weapon_instance::fitted_holder_mass(ctx, inventory.id, &item.id)
-                        .expect("fitted inventory holder has valid physical recipe")
-                        .unwrap_or(item.weight)
-                };
-                unit_mass * effective_quantity
-            })
-        })
-        .sum()
+                .item()
+                .id()
+                .find(&row.item_id)
+                .ok_or(InventoryProjectionError::MissingDefinition)?;
+            let Some(mass) = personal_row_mass(&view, &row, &definition)? else {
+                return Ok(total);
+            };
+            InventoryMassKg::try_from(total.kilograms() + mass.carried.kilograms())
+                .map_err(|_| InventoryProjectionError::InvalidMass)
+        });
+    // The strategic numerical kernel already treats an unavailable load as
+    // infinite burden. Native admission receives the explicit projection error.
+    mass.map_or_else(
+        |error| {
+            log::error!("Cannot evaluate character {character_id} inventory: {error}");
+            f32::INFINITY
+        },
+        |mass| mass.kilograms(),
+    )
 }

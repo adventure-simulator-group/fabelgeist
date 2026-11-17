@@ -1,14 +1,52 @@
 //! Carried load follows live quantities and actual ownership relationships.
 
+use adventuresim_core::inventory_measurement::InventoryMassKg;
 use adventuresim_core::prelude::PlayerEquipment;
 use adventuresim_tactical_core::inventory::{
-    InventoryViewer, ItemOf, ItemProperties, TacticalItemQuantity,
+    InventoryViewer, ItemOf, ItemProperties, TacticalInventoryMass, TacticalItemQuantity,
 };
 use bevy::{ecs::system::SystemState, prelude::*};
 
 fn carried_kilograms(world: &mut World, actor: Entity) -> f32 {
     let mut viewer = SystemState::<InventoryViewer>::new(world);
     viewer.get(world).unwrap().get(actor).inventory_weight()
+}
+
+#[test]
+fn exact_remaining_load_is_not_multiplied_by_stack_count_or_used_as_weapon_unit_mass() {
+    let mut world = World::new();
+    let owner = world.spawn_empty().id();
+    let lot = world
+        .spawn((
+            ItemOf(owner),
+            ItemProperties {
+                id: "food-lot".into(),
+                weight: 2.0,
+            },
+            TacticalItemQuantity::new(3).unwrap(),
+            TacticalInventoryMass::Measured(InventoryMassKg::try_from(1.5).unwrap()),
+        ))
+        .id();
+    let container = world
+        .spawn((
+            ItemOf(owner),
+            ItemProperties {
+                id: "filled-container".into(),
+                weight: 1.0,
+            },
+            TacticalInventoryMass::Measured(InventoryMassKg::try_from(4.0).unwrap()),
+        ))
+        .id();
+    assert_eq!(carried_kilograms(&mut world, owner), 5.5);
+    world
+        .entity_mut(lot)
+        .insert(TacticalInventoryMass::Measured(
+            InventoryMassKg::try_from(0.5).unwrap(),
+        ));
+    assert_eq!(carried_kilograms(&mut world, owner), 4.5);
+    assert_eq!(world.get::<ItemProperties>(container).unwrap().weight, 1.0);
+    world.entity_mut(container).remove::<ItemOf>();
+    assert_eq!(carried_kilograms(&mut world, owner), 0.5);
 }
 
 #[test]

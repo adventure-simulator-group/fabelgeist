@@ -1,9 +1,13 @@
-//! Framework-independent arithmetic for measured inventory definitions.
+//! Framework-independent arithmetic for counted and measured inventory.
 //!
-//! The persistent inventory schema is not implemented yet. This module is the
-//! small arithmetic boundary reducers can adopt if that work is revived.
+//! Checked quantities, remaining fractions and mass are shared by durable
+//! inventory and tactical presentation without introducing another item store.
 
 use std::num::NonZeroU32;
+
+pub use mass::{InventoryMassError, InventoryMassKg};
+
+mod mass;
 
 /// A non-zero count of fungible inventory items.
 #[derive(

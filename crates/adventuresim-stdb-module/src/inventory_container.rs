@@ -24,7 +24,9 @@ use crate::{
 
 mod object_lookup;
 
-pub(crate) use object_lookup::object_for_row;
+pub(crate) use object_lookup::{
+    ancestry_reaches_fireplace, object_for_row, row_is_fireplace_rooted,
+};
 
 pub const WATER_ITEM_ID: &str = "water";
 fn empty_container_can_stack(has_contents: bool, is_nested: bool, has_condition: bool) -> bool {
@@ -119,36 +121,6 @@ pub(crate) fn object_is_nonempty(ctx: &ReducerContext, object_id: u64) -> bool {
         .next()
         .is_some()
         || liquid_used(ctx, object_id) > 0
-}
-
-pub(crate) fn ancestry_reaches_fireplace(ctx: &ReducerContext, object_id: u64) -> bool {
-    let mut cursor = Some(object_id);
-    for _ in 0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH {
-        let Some(id) = cursor else { return false };
-        let Some(object) = ctx.db.inventory_object().id().find(id) else {
-            return false;
-        };
-        if object.location.is_fireplace() {
-            return true;
-        }
-        cursor = ctx
-            .db
-            .inventory_containment()
-            .child_object_id()
-            .find(id)
-            .map(|edge| edge.parent_object_id);
-    }
-    true
-}
-
-pub(crate) fn row_is_fireplace_rooted(
-    ctx: &ReducerContext,
-    scope: CarriedInventoryScope,
-    row_id: u64,
-) -> bool {
-    object_for_row(ctx, scope, row_id)
-        .map(|object| object.is_some_and(|object| ancestry_reaches_fireplace(ctx, object.id)))
-        .unwrap_or(true)
 }
 
 pub(crate) fn detach_if_nested(ctx: &ReducerContext, object_id: u64) -> Result<bool, String> {
@@ -1008,32 +980,6 @@ fn liquid_used(ctx: &ReducerContext, container_object_id: u64) -> u64 {
         .container_object_id()
         .find(container_object_id)
         .map_or(0, |row| row.water_ml)
-}
-
-pub(crate) fn contained_water_ml(
-    ctx: &ReducerContext,
-    expected_custody: &OperationalCustody,
-) -> Result<u64, String> {
-    let mut total = 0_u64;
-    for liquid in ctx
-        .db
-        .container_liquid()
-        .iter()
-        .filter(|liquid| liquid.liquid_item_id == WATER_ITEM_ID)
-    {
-        let object = ctx
-            .db
-            .inventory_object()
-            .id()
-            .find(liquid.container_object_id)
-            .ok_or("Contained water has no physical container object")?;
-        if crate::object_custody::resolve_object_custody(ctx, &object)?.root == *expected_custody {
-            total = total
-                .checked_add(liquid.water_ml)
-                .ok_or("Contained water volume overflow")?;
-        }
-    }
-    Ok(total)
 }
 
 fn remaining_container_capacity_ml(

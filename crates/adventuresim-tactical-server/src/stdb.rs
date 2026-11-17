@@ -62,6 +62,12 @@ pub struct SpacetimeDb {
     scene_operations: Arc<Mutex<Vec<SceneOperationResult>>>,
 }
 
+pub(crate) struct ConnectedActorInventory {
+    pub(crate) character: adventuresim_tactical_core::prelude::CharacterId,
+    pub(crate) time: TacticalActorTime,
+    pub(crate) inventory: ConnectedInventory,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub(crate) enum TerminalSubmissionResult {
     Accepted,
@@ -69,6 +75,19 @@ pub(crate) enum TerminalSubmissionResult {
 }
 
 impl SpacetimeDb {
+    pub(crate) fn inventory_snapshots(&self) -> Vec<ConnectedActorInventory> {
+        self.conn
+            .db
+            .connected_players()
+            .iter()
+            .map(|profile| ConnectedActorInventory {
+                character: adventuresim_tactical_core::prelude::CharacterId(profile.character.id),
+                time: profile.time,
+                inventory: profile.inventory,
+            })
+            .collect()
+    }
+
     /// Access spacetime db reducers.
     pub fn reducers(&self) -> &RemoteReducers {
         &self.conn.reducers
@@ -108,7 +127,9 @@ impl SpacetimeDb {
 
     pub(crate) fn connected_profile_is_current(&self, profile: &ConnectedPlayer) -> bool {
         self.conn.db.connected_players().iter().any(|current| {
-            current.character.id == profile.character.id && current.time == profile.time
+            current.character.id == profile.character.id
+                && current.time == profile.time
+                && current.inventory == profile.inventory
         })
     }
 

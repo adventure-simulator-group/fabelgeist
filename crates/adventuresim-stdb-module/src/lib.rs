@@ -13,6 +13,7 @@ pub mod foraging;
 pub mod herbalism;
 pub mod inventory_amount;
 pub mod inventory_container;
+pub mod inventory_projection;
 pub mod investigation;
 pub mod item;
 pub mod local_problem;
