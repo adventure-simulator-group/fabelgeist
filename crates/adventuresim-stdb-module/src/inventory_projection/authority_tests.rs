@@ -16,6 +16,8 @@ use crate::{
     tactical::{ConnectedInventory, ConnectedPlayer, connected_players},
 };
 
+mod construction;
+
 const COUNTED: &str = "authority-projection-counted";
 const LOT: &str = "authority-projection-lot";
 const STOCK: &str = "authority-projection-stock";

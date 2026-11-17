@@ -59,7 +59,7 @@ pub fn enter_settlement_resident(ctx: &ReducerContext, character_id: u64) -> Res
         server.identity,
         LocalSceneTimeOwner::Resident,
     )?;
-    character.server = server.identity;
+    character.assign_tactical_server(server.identity)?;
     ctx.db.character().id().update(character);
     Ok(())
 }

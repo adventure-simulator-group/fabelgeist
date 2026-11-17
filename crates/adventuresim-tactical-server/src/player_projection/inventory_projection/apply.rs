@@ -2,8 +2,12 @@
 
 use std::collections::{BTreeMap, BTreeSet};
 
-use adventuresim_core::{inventory_command::InventorySnapshotToken, physical_object::PhysicalObjectId};
-use adventuresim_stdb_client::{CatalogItemKind, ConnectedInventory, ConnectedPlayerItem, TacticalActorTime};
+use adventuresim_core::{
+    inventory_command::InventorySnapshotToken, physical_object::PhysicalObjectId,
+};
+use adventuresim_stdb_client::{
+    CatalogItemKind, ConnectedInventory, ConnectedPlayerItem, TacticalActorTime,
+};
 use adventuresim_tactical_core::{inventory::ItemProperties, prelude::*};
 use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
 use bevy::prelude::*;
@@ -47,7 +51,9 @@ impl PreparedInventoryItem {
 
 impl AppliedInventory {
     pub(super) fn matches(&self, time: &TacticalActorTime, inventory: &ConnectedInventory) -> bool {
-        let ConnectedInventory::Available(snapshot) = inventory else { return false; };
+        let ConnectedInventory::Available(snapshot) = inventory else {
+            return false;
+        };
         self.time == *time
             && self.token.scope.bytes().as_slice() == snapshot.scope
             && self.token.revision.bytes().as_slice() == snapshot.revision
@@ -111,11 +117,11 @@ pub(super) fn apply_batch(
     }
     for actor in actors {
         let items = actor
-                .prepared
-                .items
-                .iter()
-                .map(|item| item.source.clone())
-                .collect();
+            .prepared
+            .items
+            .iter()
+            .map(|item| item.source.clone())
+            .collect();
         let item_entities: BTreeMap<_, _> = actor
             .prepared
             .items

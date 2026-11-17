@@ -2,20 +2,32 @@
 
 use std::collections::BTreeSet;
 
-use adventuresim_core::inventory_command::{InventoryRevision, InventoryScopeId, InventorySnapshotToken};
+use adventuresim_core::{
+    inventory_command::{InventoryRevision, InventoryScopeId},
+    physical_object::CustodyCharacterId,
+    tactical_session::TacticalAdmissionGeneration,
+};
 use sha2::{Digest, Sha256};
-use spacetimedb::{SpacetimeType, ViewContext, sats::{bsatn, ser::Serialize}};
+use spacetimedb::{
+    SpacetimeType, ViewContext,
+    sats::{bsatn, ser::Serialize},
+};
 
 use super::{InventoryProjectionError, footprint::InventoryFootprint};
 use crate::{
     InventoryItem,
-    character::{CharacterEquippedItem, EquipmentOccupancy, character_equipped_item__view, equipment_occupancy__view},
+    character::{
+        CharacterEquippedItem, EquipmentOccupancy, character_equipped_item__view,
+        equipment_occupancy__view,
+    },
     food::{FoodLot, food_lot__view},
     inventory_amount::{InventoryItemAmount, inventory_item_amount__view},
     item::inventory_item__view,
     repair::{ItemCondition, item_condition__view},
     tactical::{ConnectedPlayerItem, TacticalServer, local_time::TacticalActorTime},
-    weapon_instance::{WeaponHolderInstance, WeaponInstance, weapon_holder_instance__view, weapon_instance__view},
+    weapon_instance::{
+        WeaponHolderInstance, WeaponInstance, weapon_holder_instance__view, weapon_instance__view,
+    },
 };
 
 #[derive(SpacetimeType)]
@@ -24,6 +36,7 @@ struct InventoryScopeInput {
     connection: spacetimedb::ConnectionId,
     instance_id: String,
     character_id: u64,
+    admission: TacticalAdmissionGeneration,
     time: TacticalActorTime,
 }
 
@@ -44,61 +57,128 @@ struct InventoryRevisionInput {
 type ProjectionResult<T> = std::result::Result<T, InventoryProjectionError>;
 
 impl InventoryRevisionInput {
-    fn capture(ctx: &ViewContext, character_id: u64, items: &[ConnectedPlayerItem]) -> ProjectionResult<Self> {
-        let mut rows: Vec<_> = ctx.db.inventory_item().character_id().filter(character_id).collect();
+    fn capture(
+        ctx: &ViewContext,
+        character_id: u64,
+        items: &[ConnectedPlayerItem],
+    ) -> ProjectionResult<Self> {
+        let mut rows: Vec<_> = ctx
+            .db
+            .inventory_item()
+            .character_id()
+            .filter(character_id)
+            .collect();
         rows.sort_by_key(|row| row.id);
         let footprint = InventoryFootprint::capture(ctx, character_id, &rows)?;
         let ids: BTreeSet<_> = rows.iter().map(|row| row.id).collect();
-        let amounts = rows.iter().filter_map(|row| {
-            ctx.db.inventory_item_amount().inventory_item_id().find(row.id)
-        }).collect();
-        let mut food: Vec<_> = ctx.db.food_lot().material_revision().filter(0u64..)
-            .filter(|lot| lot.inventory_item_id.is_some_and(|id| ids.contains(&id))).collect();
+        let amounts = rows
+            .iter()
+            .filter_map(|row| {
+                ctx.db
+                    .inventory_item_amount()
+                    .inventory_item_id()
+                    .find(row.id)
+            })
+            .collect();
+        let mut food: Vec<_> = ctx
+            .db
+            .food_lot()
+            .material_revision()
+            .filter(0u64..)
+            .filter(|lot| lot.inventory_item_id.is_some_and(|id| ids.contains(&id)))
+            .collect();
         food.sort_by_key(|lot| lot.id);
-        let equipment: Vec<_> = rows.iter().filter_map(|row| {
-            ctx.db.character_equipped_item().inventory_item_id().find(row.id)
-        }).collect();
-        let mut occupancies: Vec<_> = rows.iter().flat_map(|row| {
-            ctx.db.equipment_occupancy().inventory_item_id().filter(row.id)
-        }).collect();
+        let equipment: Vec<_> = rows
+            .iter()
+            .filter_map(|row| {
+                ctx.db
+                    .character_equipped_item()
+                    .inventory_item_id()
+                    .find(row.id)
+            })
+            .collect();
+        let mut occupancies: Vec<_> = rows
+            .iter()
+            .flat_map(|row| {
+                ctx.db
+                    .equipment_occupancy()
+                    .inventory_item_id()
+                    .filter(row.id)
+            })
+            .collect();
         occupancies.sort_by(|first, second| first.id.cmp(&second.id));
-        if equipment.iter().any(|worn| worn.character_id != character_id)
-            || occupancies.iter().any(|occupancy| occupancy.character_id != character_id)
+        if equipment
+            .iter()
+            .any(|worn| worn.character_id != character_id)
+            || occupancies
+                .iter()
+                .any(|occupancy| occupancy.character_id != character_id)
         {
             return Err(InventoryProjectionError::InvalidIdentity);
         }
-        let condition = rows.iter().filter_map(|row| {
-            ctx.db.item_condition().inventory_item_id().find(row.id)
-        }).collect();
-        let weapons = footprint.objects.iter().filter_map(|object| {
-            ctx.db.weapon_instance().physical_object_id().find(object.id)
-        }).collect();
-        let holders = footprint.objects.iter().filter_map(|object| {
-            ctx.db.weapon_holder_instance().physical_object_id().find(object.id)
-        }).collect();
-        Ok(Self { rows, items: items.to_vec(), footprint, amounts, food, equipment, occupancies, condition, weapons, holders })
+        let condition = rows
+            .iter()
+            .filter_map(|row| ctx.db.item_condition().inventory_item_id().find(row.id))
+            .collect();
+        let weapons = footprint
+            .objects
+            .iter()
+            .filter_map(|object| {
+                ctx.db
+                    .weapon_instance()
+                    .physical_object_id()
+                    .find(object.id)
+            })
+            .collect();
+        let holders = footprint
+            .objects
+            .iter()
+            .filter_map(|object| {
+                ctx.db
+                    .weapon_holder_instance()
+                    .physical_object_id()
+                    .find(object.id)
+            })
+            .collect();
+        Ok(Self {
+            rows,
+            items: items.to_vec(),
+            footprint,
+            amounts,
+            food,
+            equipment,
+            occupancies,
+            condition,
+            weapons,
+            holders,
+        })
     }
 }
 
-pub(crate) fn snapshot_token(
-    ctx: &ViewContext,
+pub(crate) fn admission_scope(
     server: &TacticalServer,
-    character_id: u64,
+    actor: CustodyCharacterId,
+    admission: TacticalAdmissionGeneration,
     time: &TacticalActorTime,
-    items: &[ConnectedPlayerItem],
-) -> ProjectionResult<InventorySnapshotToken> {
+) -> ProjectionResult<InventoryScopeId> {
     let scope = InventoryScopeInput {
         server: server.identity,
         connection: server.hosting_connection,
         instance_id: server.instance_id.clone(),
-        character_id,
+        character_id: actor.get(),
+        admission,
         time: time.clone(),
     };
-    let state = InventoryRevisionInput::capture(ctx, character_id, items)?;
-    Ok(InventorySnapshotToken {
-        scope: InventoryScopeId::from_sha256(hash(&scope)?),
-        revision: InventoryRevision::from_sha256(hash(&state)?),
-    })
+    Ok(InventoryScopeId::from_sha256(hash(&scope)?))
+}
+
+pub(crate) fn inventory_revision(
+    ctx: &ViewContext,
+    actor: CustodyCharacterId,
+    items: &[ConnectedPlayerItem],
+) -> ProjectionResult<InventoryRevision> {
+    let state = InventoryRevisionInput::capture(ctx, actor.get(), items)?;
+    Ok(InventoryRevision::from_sha256(hash(&state)?))
 }
 
 fn hash(value: &impl Serialize) -> ProjectionResult<[u8; 32]> {

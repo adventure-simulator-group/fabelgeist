@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import subprocess
 import time
+import uuid
 from typing import TYPE_CHECKING
 
 import dev_stack as stack
@@ -25,7 +26,7 @@ def persistent_scene_peer(client: AcceptanceClient, instance: str, claim: str, t
         executable = executable.with_suffix(".exe")
     environment = {**os.environ, "SPACETIMEDB_TOKEN": token,
                    "ADVENTURESIM_TACTICAL_CLAIM": claim}
-    peer_log = stack.ROOT / "target/authority-check/peer.log"
+    peer_log = stack.ROOT / "target/authority-check" / f"peer-{uuid.uuid4().hex}.log"
     peer_log.parent.mkdir(parents=True, exist_ok=True)
     with peer_log.open("w", encoding="utf-8") as errors:
         peer = subprocess.Popen([
@@ -40,7 +41,7 @@ def persistent_scene_peer(client: AcceptanceClient, instance: str, claim: str, t
         finally:
             if peer.poll() is None:
                 try:
-                    peer.communicate(input="stop\n", timeout=5)
+                    peer.communicate(input=json.dumps({"operation": "stop"}) + "\n", timeout=5)
                 except subprocess.TimeoutExpired:
                     peer.kill()
                     peer.wait(timeout=5)

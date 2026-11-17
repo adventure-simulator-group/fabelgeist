@@ -2,11 +2,20 @@
 
 use super::*;
 use crate::inventory_projection::InventoryProjectionError;
-use adventuresim_core::inventory_command::InventorySnapshotToken;
+use adventuresim_core::{
+    inventory_command::{InventoryScopeId, InventorySnapshotToken},
+    physical_object::CustodyCharacterId,
+};
 
 pub(crate) struct InventorySnapshot {
     pub(crate) token: InventorySnapshotToken,
     pub(crate) items: Vec<ConnectedPlayerItem>,
+}
+
+pub(super) struct InventoryAdmission {
+    pub(super) character: Character,
+    pub(super) role: TacticalActorRole,
+    pub(super) scope: InventoryScopeId,
 }
 
 #[derive(SpacetimeType, Clone, Debug)]
@@ -52,19 +61,65 @@ pub enum ConnectedInventory {
 }
 
 impl InventorySnapshot {
-    pub(crate) fn for_actor(ctx: &ViewContext, character_id: u64) -> Result<Self, InventoryProjectionError> {
-        let server = ctx.db.tactical_server_authority().identity().find(ctx.sender())
+    pub(crate) fn for_actor(
+        ctx: &ViewContext,
+        character_id: u64,
+    ) -> Result<Self, InventoryProjectionError> {
+        let actor = CustodyCharacterId::try_new(character_id)
+            .map_err(|_| InventoryProjectionError::InvalidAuthority)?;
+        Self::current(ctx, actor)
+    }
+
+    pub(super) fn current(
+        ctx: &ViewContext,
+        actor: CustodyCharacterId,
+    ) -> Result<Self, InventoryProjectionError> {
+        let admission = InventoryAdmission::for_actor(ctx, actor)?;
+        let items = connected_player_items(ctx, actor.get())?;
+        let revision = crate::inventory_projection::inventory_revision(ctx, actor, &items)?;
+        Ok(Self {
+            token: InventorySnapshotToken {
+                scope: admission.scope,
+                revision,
+            },
+            items,
+        })
+    }
+}
+
+impl InventoryAdmission {
+    pub(super) fn for_actor(
+        ctx: &ViewContext,
+        actor: CustodyCharacterId,
+    ) -> Result<Self, InventoryProjectionError> {
+        let server = ctx
+            .db
+            .tactical_server_authority()
+            .identity()
+            .find(ctx.sender())
             .ok_or(InventoryProjectionError::InvalidAuthority)?;
-        let character = ctx.db.character().id().find(character_id)
+        let character = ctx
+            .db
+            .character()
+            .id()
+            .find(actor.get())
             .ok_or(InventoryProjectionError::InvalidAuthority)?;
-        if character.server != server.identity {
+        if character.server != server.identity || character.tactical_admission.is_initial() {
             return Err(InventoryProjectionError::InvalidAuthority);
         }
-        let actor = super::local_time::actor_projection(ctx, character_id, &server)
+        let participation = super::local_time::actor_projection(ctx, actor.get(), &server)
             .ok_or(InventoryProjectionError::InvalidAuthority)?;
-        let items = connected_player_items(ctx, character_id)?;
-        let token = crate::inventory_projection::snapshot_token(ctx, &server, character_id, &actor.time, &items)?;
-        Ok(Self { token, items })
+        let scope = crate::inventory_projection::admission_scope(
+            &server,
+            actor,
+            character.tactical_admission,
+            &participation.time,
+        )?;
+        Ok(Self {
+            character,
+            role: participation.role,
+            scope,
+        })
     }
 }
 

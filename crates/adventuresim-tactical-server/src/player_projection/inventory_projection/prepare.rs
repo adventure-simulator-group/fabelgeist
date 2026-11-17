@@ -4,8 +4,8 @@ use std::collections::BTreeSet;
 
 use adventuresim_core::{
     combat::WeaponContactParameters, equipment::ParametricWeaponCombatGeometry,
-    inventory_command::InventorySnapshotToken,
-    inventory_measurement::InventoryMassKg, physical_object::PhysicalObjectId,
+    inventory_command::InventorySnapshotToken, inventory_measurement::InventoryMassKg,
+    physical_object::PhysicalObjectId,
 };
 use adventuresim_stdb_client::{ConnectedInventory, ConnectedPlayerItem, EquipmentAnchorKind};
 use adventuresim_tactical_core::prelude::*;
@@ -62,8 +62,16 @@ impl PreparedInventory {
             }
         };
         let token = InventorySnapshotToken {
-            scope: snapshot.scope.clone().try_into().map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
-            revision: snapshot.revision.clone().try_into().map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
+            scope: snapshot
+                .scope
+                .clone()
+                .try_into()
+                .map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
+            revision: snapshot
+                .revision
+                .clone()
+                .try_into()
+                .map_err(|_| InventoryAdmissionError::InvalidSnapshotToken)?,
         };
         let items = &snapshot.items;
         let mut rows = BTreeSet::new();

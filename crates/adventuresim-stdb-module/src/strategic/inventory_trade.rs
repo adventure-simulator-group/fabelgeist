@@ -13,9 +13,8 @@ pub fn transfer_party_item(
     inventory_item_id: u64,
     quantity: u32,
 ) -> Result<(), String> {
-    require_strategic_character_authority(ctx, from_character_id)?;
-    crate::tactical::local_time::require_unleased_time(ctx, to_character_id)?;
-    require_character_no_unresolved_encounter(ctx, from_character_id)?;
+    crate::inventory_effects::require_non_live_actor(ctx, from_character_id)?;
+    crate::inventory_effects::require_non_live_actor(ctx, to_character_id)?;
     let source = ctx.db.inventory_item().character_and_id()
         .filter((from_character_id, inventory_item_id)).next()
         .ok_or("Source inventory item not found")?;

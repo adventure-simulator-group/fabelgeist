@@ -1,5 +1,7 @@
 //! Inventory request identity and optimistic state shared across live adapters.
 
+use std::num::NonZeroU64;
+
 use serde::{Deserialize, Serialize};
 
 use crate::strategic_place::StrategicIdentityComponent;
@@ -23,6 +25,16 @@ pub struct InventorySnapshotToken {
     pub revision: InventoryRevision,
 }
 
+/// Existing durable inventory-row identity, distinct from physical identity.
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct InventoryRowId(NonZeroU64);
+
+/// Authored placement ordinal; the selected catalog validates its upper bound.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct EquipmentPlacementIndex(u16);
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]
 #[error("inventory command identity is not a canonical opaque component")]
 pub struct InventoryCommandIdentityError;
@@ -30,6 +42,39 @@ pub struct InventoryCommandIdentityError;
 #[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]
 #[error("inventory scope and revision must contain a complete SHA-256 digest")]
 pub struct InventoryDigestError;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]
+#[error("inventory row identity must be positive")]
+pub struct InventoryRowIdentityError;
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+pub enum EquipmentConflictPolicy {
+    RejectOccupied,
+    ReplaceOccupied,
+}
+
+impl InventoryRowId {
+    pub fn try_new(value: u64) -> Result<Self, InventoryRowIdentityError> {
+        NonZeroU64::new(value)
+            .map(Self)
+            .ok_or(InventoryRowIdentityError)
+    }
+
+    pub const fn get(self) -> u64 {
+        self.0.get()
+    }
+}
+
+impl EquipmentPlacementIndex {
+    pub const fn new(index: u16) -> Self {
+        Self(index)
+    }
+
+    pub const fn get(self) -> u16 {
+        self.0
+    }
+}
 
 impl InventoryCommandId {
     pub fn try_new(value: impl Into<String>) -> Result<Self, InventoryCommandIdentityError> {

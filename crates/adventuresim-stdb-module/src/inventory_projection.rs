@@ -6,7 +6,7 @@ use adventuresim_core::{
 use spacetimedb::SpacetimeType;
 
 pub(crate) use mass::personal_row_mass;
-pub(crate) use revision::snapshot_token;
+pub(crate) use revision::{admission_scope, inventory_revision};
 
 mod custody;
 mod footprint;

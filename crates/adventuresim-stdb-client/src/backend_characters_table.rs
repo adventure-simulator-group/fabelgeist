@@ -4,6 +4,7 @@
 #![allow(unused, clippy::all)]
 use super::character_type::Character;
 use super::contextual_decision_state_type::ContextualDecisionState;
+use super::tactical_admission_generation_type::TacticalAdmissionGeneration;
 use spacetimedb_sdk::__codegen::{self as __sdk, __lib, __sats, __ws};
 
 /// Table handle for the table `backend_characters`.
