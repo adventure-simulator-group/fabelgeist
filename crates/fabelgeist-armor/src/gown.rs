@@ -21,6 +21,8 @@ pub struct GownDesign {
     pub body_fit: GownBodyFit,
     pub sleeves: Option<FittedSleeves>,
     pub lacing: Option<crate::ClothLacing>,
+    /// A raised band on the face cloth along a closed neckline.
+    pub neckline_trim: Option<crate::GownNecklineTrim>,
 }
 
 /// A fitted upper sheet or loose cloth released from a bound neckline.
@@ -107,6 +109,13 @@ impl GownDesign {
             if matches!(self.bodice.opening, crate::BodiceOpening::Closed)
                 || !matches!(self.body_fit, GownBodyFit::Fitted)
             {
+                return Err(DesignError::ParametricParameters.into());
+            }
+        }
+        if let Some(trim) = &self.neckline_trim {
+            trim.validate()?;
+            // An opened bodice joins its neck and waist edges into one boundary.
+            if !matches!(self.bodice.opening, crate::BodiceOpening::Closed) {
                 return Err(DesignError::ParametricParameters.into());
             }
         }

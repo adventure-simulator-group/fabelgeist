@@ -127,6 +127,54 @@ fn puff_and_slash(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlash
     );
     changed |= number(ui, &mut design.clearance.0, 1..=15, "Body clearance (mm)");
     changed |= number(ui, &mut design.thickness.0, 1..=6, "Cloth thickness (mm)");
+    if design.kind == fabelgeist_armor::PuffAndSlashKind::Sleeve {
+        changed |= number(
+            ui,
+            &mut design.proximal_inset.0,
+            fabelgeist_armor::PuffAndSlashDesign::PROXIMAL_INSET_RANGE,
+            "Head inset below shoulder",
+        );
+        changed |= number(
+            ui,
+            &mut design.underarm_drop.0,
+            fabelgeist_armor::PuffAndSlashDesign::UNDERARM_DROP_RANGE,
+            "Head drop under the arm",
+        );
+        changed |= sleeve_cuff(ui, design);
+    }
+    changed
+}
+
+fn sleeve_cuff(ui: &mut egui::Ui, design: &mut fabelgeist_armor::PuffAndSlashDesign) -> bool {
+    use fabelgeist_armor::{Millimeters, SleeveCuff};
+    let mut cuffed = design.cuff.is_some();
+    let mut changed = ui.checkbox(&mut cuffed, "Cuff over the hand").changed();
+    if changed {
+        design.cuff = cuffed.then(|| {
+            Box::new(SleeveCuff {
+                length: Millimeters(60),
+                flare: Millimeters(15),
+                fabric: design.pattern.band_fabric.clone(),
+            })
+        });
+    }
+    if let Some(cuff) = &mut design.cuff {
+        changed |= number(
+            ui,
+            &mut cuff.length.0,
+            SleeveCuff::LENGTH_RANGE,
+            "Cuff length (mm)",
+        );
+        changed |= number(
+            ui,
+            &mut cuff.flare.0,
+            SleeveCuff::FLARE_RANGE,
+            "Cuff flare (mm)",
+        );
+        ui.collapsing("Cuff fabric", |ui| {
+            changed |= textile::show(ui, &mut cuff.fabric);
+        });
+    }
     changed
 }
 

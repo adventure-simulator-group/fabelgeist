@@ -3,11 +3,11 @@ const PLEAT_COUNT: u32 = 6u;
 const PLEAT_DEPTH: u32 = 7u;
 const PLEAT_STYLE: u32 = 8u;
 const PLEAT_ROTATION: u32 = 9u;
-const PLEAT_FRONT_DEPTH: u32 = 16u;
-const PLEAT_FRONT_PANEL: u32 = 17u;
+const PLEAT_FRONT_DEPTH: u32 = 37u;
+const PLEAT_FRONT_PANEL: u32 = 38u;
 
-const PLEAT_FRONT_STYLE_WIDTH: u32 = 24u;
-const PLEAT_FRONT_STYLE: u32 = 25u;
+const PLEAT_FRONT_STYLE_WIDTH: u32 = 45u;
+const PLEAT_FRONT_STYLE: u32 = 46u;
 
 fn fold_profile(phase: f32, style: f32) -> f32 {
     if (style > 1.5) {

@@ -47,6 +47,9 @@ pub struct TextileLayer {
     pub region: TextileRegion,
     pub fill: TextileFill,
     pub color: TextileColor,
+    /// What the layer's yarn is, where it differs from the ground: a band
+    /// of gold cloth on velvet takes the light as gold cloth.
+    pub finish: TextileFinish,
 }
 
 /// Translation in repeat-tile units, before alternating-row staggering.
@@ -136,6 +139,17 @@ pub enum TextileFill {
         stagger: Permille,
         offset: TextileOffset,
     },
+    /// One ink of a stored repeat of a figured weave, tiled edge to edge.
+    /// The layer's color and finish are that ink's, so a second layer with the
+    /// other tone gives the weave its second color.
+    Woven {
+        space: TextilePatternSpace,
+        pattern: crate::WovenPattern,
+        tone: crate::WovenTone,
+        across: TextileRepeatCount,
+        along: TextileRepeatCount,
+        offset: TextileOffset,
+    },
 }
 
 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
@@ -220,18 +234,9 @@ impl TextileAppearance {
     pub fn material(&self) -> crate::ArmorComponentMaterial {
         let mut material = self.color.material();
         material.base_color[3] = self.opacity.unit();
-        material.roughness = match self.finish {
-            TextileFinish::Linen => 0.88,
-            TextileFinish::Wool => 0.92,
-            TextileFinish::Silk => 0.46,
-            TextileFinish::Velvet => 0.78,
-            TextileFinish::MetallicThread => 0.65,
-        };
-        material.metallic = if self.finish == TextileFinish::MetallicThread {
-            0.8
-        } else {
-            0.0
-        };
+        let surface = self.finish.surface();
+        material.roughness = surface.roughness;
+        material.metallic = surface.metallic;
         material
     }
 }
@@ -244,6 +249,37 @@ impl TextileFinish {
         match self {
             Self::Velvet => 0.0,
             Self::Linen | Self::Wool | Self::Silk | Self::MetallicThread => 1.0,
+        }
+    }
+}
+
+impl TextileRegion {
+    /// Where the region begins and ends along the chart, as shares of it.
+    pub fn along_interval(&self) -> [f32; 2] {
+        match *self {
+            Self::Band {
+                axis: TextileAxis::Along,
+                start,
+                end,
+            } => [start.unit(), end.unit()],
+            Self::Whole | Self::Band { .. } => [0., 1.],
+            Self::Panel { along, .. } => [along.start.unit(), along.end.unit()],
+        }
+    }
+
+    /// Share of the chart that the region spans across and along.
+    pub(crate) fn span(&self) -> [f32; 2] {
+        match *self {
+            Self::Whole => [1., 1.],
+            Self::Band { axis, start, end } => {
+                let mut span = [1., 1.];
+                span[usize::from(axis == TextileAxis::Along)] = end.unit() - start.unit();
+                span
+            }
+            Self::Panel { across, along } => [
+                across.end.unit() - across.start.unit(),
+                along.end.unit() - along.start.unit(),
+            ],
         }
     }
 }
@@ -319,6 +355,12 @@ impl TextileFill {
                     && share(offset.across)
                     && share(offset.along)
             }
+            Self::Woven {
+                across,
+                along,
+                offset,
+                ..
+            } => repeat(*across) && repeat(*along) && share(offset.across) && share(offset.along),
         };
         if !valid {
             return Err(DesignError::ParametricParameters.into());

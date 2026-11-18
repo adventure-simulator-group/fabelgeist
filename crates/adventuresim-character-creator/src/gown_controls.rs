@@ -1,7 +1,8 @@
 //! Construction controls for a continuous sewn gown.
 use bevy_egui::egui;
 use fabelgeist_armor::{
-    DressBodice, FittedSleeves, GownBodyFit, GownDesign, Millimeters, Permille, SkirtDesign,
+    BodiceOpening, DressBodice, FittedSleeves, GownBodyFit, GownDesign, GownNecklineTrim,
+    Millimeters, Permille, SkirtDesign,
 };
 
 pub(super) fn show(ui: &mut egui::Ui, design: &mut GownDesign) -> bool {
@@ -65,6 +66,48 @@ pub(super) fn show(ui: &mut egui::Ui, design: &mut GownDesign) -> bool {
     changed |= super::waist_support::show(ui, design);
     changed |= super::cloth_lacing::show(ui, design);
     changed |= sleeve_controls(ui, design);
+    changed |= neckline_trim_controls(ui, design);
+    changed
+}
+
+fn neckline_trim_controls(ui: &mut egui::Ui, gown: &mut GownDesign) -> bool {
+    // An opened bodice has no closed neckline for the band to follow.
+    let closed = matches!(gown.bodice.opening, BodiceOpening::Closed);
+    let mut enabled = gown.neckline_trim.is_some() && closed;
+    let response = ui.add_enabled(closed, egui::Checkbox::new(&mut enabled, "Neckline trim"));
+    let mut changed = response.changed() || (gown.neckline_trim.is_some() && !closed);
+    if changed {
+        gown.neckline_trim = enabled.then(|| GownNecklineTrim {
+            shoulder_width: Millimeters(20),
+            front_width: Millimeters(40),
+            relief: Millimeters(3),
+            fabric: gown.bodice.fabric.clone(),
+        });
+    }
+    if let Some(trim) = &mut gown.neckline_trim {
+        changed |= super::number(
+            ui,
+            &mut trim.shoulder_width.0,
+            GownNecklineTrim::WIDTH_RANGE,
+            "Trim width over shoulders (mm)",
+        );
+        changed |= super::number(
+            ui,
+            &mut trim.front_width.0,
+            GownNecklineTrim::WIDTH_RANGE,
+            "Trim width along front (mm)",
+        );
+        trim.front_width.0 = trim.front_width.0.max(trim.shoulder_width.0);
+        changed |= super::number(
+            ui,
+            &mut trim.relief.0,
+            GownNecklineTrim::RELIEF_RANGE,
+            "Trim relief (mm)",
+        );
+        ui.collapsing("Trim fabric", |ui| {
+            changed |= super::textile::show(ui, &mut trim.fabric);
+        });
+    }
     changed
 }
 

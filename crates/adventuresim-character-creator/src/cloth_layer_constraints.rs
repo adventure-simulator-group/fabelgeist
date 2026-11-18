@@ -265,6 +265,8 @@ fn torso_support_role(role: fabelgeist_armor::ArmorComponentRole) -> bool {
             | ArmorComponentRole::OuterFabric
             | ArmorComponentRole::BodiceFabric
             | ArmorComponentRole::Undercloth
+            | ArmorComponentRole::ConstrictionBand
+            | ArmorComponentRole::Cuff
             | ArmorComponentRole::Lining
             | ArmorComponentRole::Interlining
             | ArmorComponentRole::WaistSupportBand

@@ -296,6 +296,21 @@ pub(super) fn selected<'a>(
         let fitted = fit(model, generated, piece, morphs, &supports)?;
         results[index] = Some(SelectedArmor::new(piece, finish(piece, fitted)?));
     }
+    // Vertex seating leaves edges that pass through the article beneath.
+    let mut fitted = results
+        .iter_mut()
+        .map(|piece| piece.as_mut().map(|piece| &mut piece.generated))
+        .collect::<Vec<_>>();
+    let mut ordered = plan
+        .order()
+        .iter()
+        .map(|&index| {
+            fitted[index]
+                .take()
+                .context("equipment selection was not fitted")
+        })
+        .collect::<Result<Vec<_>>>()?;
+    adventuresim_character_creator::layer_settle::settle_layers(&mut ordered)?;
     results
         .into_iter()
         .map(|piece| piece.context("equipment selection was not fitted"))

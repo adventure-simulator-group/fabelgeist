@@ -3,6 +3,7 @@ use fabelgeist_rig::RigJointName;
 
 fn maps() -> SurfaceTextures {
     SurfaceTextures {
+        metal_roughness_png: None,
         base_color_png: Some(
             include_bytes!("../../../../../assets_src/equipment/materials/mail-base-color.png")
                 .to_vec(),

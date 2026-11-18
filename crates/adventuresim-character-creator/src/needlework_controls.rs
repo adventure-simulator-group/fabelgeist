@@ -2,8 +2,8 @@
 use bevy_egui::egui;
 use fabelgeist_armor::{
     Micrometers, Millimeters, Permille, TextileAppearance, TextileChartSize, TextileColor,
-    TextileNeedlework, TextilePathClosure, TextilePathPoint, TextileRegion, TextileRepeatCount,
-    TextileStroke, TextileStrokeStyle,
+    TextileNeedlework, TextilePathClosure, TextilePathCourse, TextilePathPoint, TextileRegion,
+    TextileRepeatCount, TextileRepeatVariation, TextileStroke, TextileStrokeStyle, TextileThread,
 };
 
 #[path = "needlework_style_controls.rs"]
@@ -25,6 +25,7 @@ pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
                     |r| r.chart,
                 ),
                 strokes: vec![default_stroke()],
+                regions: Vec::new(),
             })
         });
     }
@@ -68,16 +69,21 @@ fn default_stroke() -> TextileStroke {
             TextilePathPoint {
                 across: Permille(20),
                 along: Permille(50),
+                lift: Micrometers(0),
             },
             TextilePathPoint {
                 across: Permille(980),
                 along: Permille(50),
+                lift: Micrometers(0),
             },
         ],
         closure: TextilePathClosure::Open,
+        course: TextilePathCourse::Straight,
+        variation: None,
         style: TextileStrokeStyle::Cord {
             diameter: Micrometers(500),
             color: TextileColor([190, 145, 55]),
+            thread: TextileThread::MetalThread,
         },
     }
 }
@@ -105,13 +111,40 @@ fn edit(ui: &mut egui::Ui, stroke: &mut TextileStroke) -> bool {
         };
         changed = true;
     }
+    let mut curved = stroke.course == TextilePathCourse::Curved;
+    let curved_response = ui.checkbox(&mut curved, "Curved path");
+    if curved_response.changed() {
+        stroke.course = if curved {
+            TextilePathCourse::Curved
+        } else {
+            TextilePathCourse::Straight
+        };
+        changed = true;
+    }
+    changed |= variation_controls(ui, &mut stroke.variation);
     let mut remove = None;
     let count = stroke.points.len();
     for (i, point) in stroke.points.iter_mut().enumerate() {
         ui.push_id(i, |ui| {
             ui.horizontal(|ui| {
-                changed |= super::number(ui, &mut point.across.0, 0..=1000, "Across");
-                changed |= super::number(ui, &mut point.along.0, 0..=1000, "Along");
+                changed |= super::number(
+                    ui,
+                    &mut point.across.0,
+                    0..=TextileStroke::POINT_REACH.0,
+                    "Across",
+                );
+                changed |= super::number(
+                    ui,
+                    &mut point.along.0,
+                    0..=TextileStroke::POINT_REACH.0,
+                    "Along",
+                );
+                changed |= super::number(
+                    ui,
+                    &mut point.lift.0,
+                    0..=TextileStroke::MAXIMUM_LIFT.0,
+                    "Lift (micrometres)",
+                );
                 let remove_point = ui.add_enabled(count > 2, egui::Button::new("Remove point"));
                 if remove_point.clicked() {
                     remove = Some(i);
@@ -131,8 +164,40 @@ fn edit(ui: &mut egui::Ui, stroke: &mut TextileStroke) -> bool {
         stroke.points.push(TextilePathPoint {
             across: Permille(500),
             along: Permille(500),
+            lift: Micrometers(0),
         });
         changed = true;
     }
     changed | style_controls::show(ui, &mut stroke.style)
+}
+
+fn variation_controls(ui: &mut egui::Ui, variation: &mut Option<TextileRepeatVariation>) -> bool {
+    let mut varied = variation.is_some();
+    let mut changed = ui.checkbox(&mut varied, "Vary each repeat").changed();
+    if changed {
+        *variation = varied.then_some(TextileRepeatVariation {
+            turn: Permille(100),
+            shift: Permille(50),
+            seed: 0,
+        });
+    }
+    let Some(variation) = variation else {
+        return changed;
+    };
+    changed |= ui
+        .add(egui::Slider::new(&mut variation.turn.0, 0..=Permille::ONE.0).text("Largest turn"))
+        .changed();
+    changed |= ui
+        .add(
+            egui::Slider::new(
+                &mut variation.shift.0,
+                0..=TextileRepeatVariation::MAXIMUM_SHIFT.0,
+            )
+            .text("Largest shift"),
+        )
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut variation.seed, 0..=u8::MAX).text("Variation seed"))
+        .changed();
+    changed
 }

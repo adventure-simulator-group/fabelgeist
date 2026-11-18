@@ -47,17 +47,27 @@
         "kind": "Hose",
         "length": 350,
         "proximal_position": 1000,
+        "proximal_inset": 1500,
+        "underarm_drop": 0,
         "clearance": 4,
         "thickness": 2,
         "pattern": {
-          "puff_count": 1,
-          "puff_fullness": 20,
-          "distal_fullness": 800,
+          "courses": [
+            {
+              "length": 1000,
+              "fullness": 20,
+              "slashes": {
+                "count": 10,
+                "width": 300,
+                "length": 700,
+                "widest": 500,
+                "slant": 0
+              },
+              "constriction_width": 80
+            }
+          ],
           "puff_roundness": 1000,
-          "slash_count": 10,
-          "slash_width": 300,
-          "slash_length": 700,
-          "constriction_width": 80,
+          "proximal_edge": "Band",
           "rotation": 50,
           "outer_fabric": {
             "color": [
@@ -70,38 +80,7 @@
             "layers": [],
             "chart_boundary": "CyclicAcross"
           },
-          "undercloth_fabric": {
-            "color": [
-              150,
-              33,
-              29
-            ],
-            "finish": "Silk",
-            "opacity": 1000,
-            "layers": [],
-            "chart_boundary": "CyclicAcross"
-          }
-        }
-      }
-    },
-    "puffed_sleeve": {
-      "PuffAndSlash": {
-        "kind": "Sleeve",
-        "length": 900,
-        "proximal_position": 1000,
-        "clearance": 4,
-        "thickness": 2,
-        "pattern": {
-          "puff_count": 4,
-          "puff_fullness": 30,
-          "distal_fullness": 480,
-          "puff_roundness": 720,
-          "slash_count": 8,
-          "slash_width": 350,
-          "slash_length": 700,
-          "constriction_width": 80,
-          "rotation": 0,
-          "outer_fabric": {
+          "band_fabric": {
             "color": [
               48,
               78,
@@ -122,7 +101,108 @@
             "opacity": 1000,
             "layers": [],
             "chart_boundary": "CyclicAcross"
-          }
+          },
+          "lining_fullness": 1000
+        }
+      }
+    },
+    "puffed_sleeve": {
+      "PuffAndSlash": {
+        "kind": "Sleeve",
+        "length": 900,
+        "proximal_position": 1000,
+        "proximal_inset": 1500,
+        "underarm_drop": 0,
+        "clearance": 4,
+        "thickness": 2,
+        "pattern": {
+          "courses": [
+            {
+              "length": 1000,
+              "fullness": 14,
+              "slashes": {
+                "count": 8,
+                "width": 350,
+                "length": 700,
+                "widest": 500,
+                "slant": 0
+              },
+              "constriction_width": 80
+            },
+            {
+              "length": 1000,
+              "fullness": 20,
+              "slashes": {
+                "count": 8,
+                "width": 350,
+                "length": 700,
+                "widest": 500,
+                "slant": 0
+              },
+              "constriction_width": 80
+            },
+            {
+              "length": 1000,
+              "fullness": 25,
+              "slashes": {
+                "count": 8,
+                "width": 350,
+                "length": 700,
+                "widest": 500,
+                "slant": 0
+              },
+              "constriction_width": 80
+            },
+            {
+              "length": 1000,
+              "fullness": 30,
+              "slashes": {
+                "count": 8,
+                "width": 350,
+                "length": 700,
+                "widest": 500,
+                "slant": 0
+              },
+              "constriction_width": 80
+            }
+          ],
+          "puff_roundness": 720,
+          "proximal_edge": "Band",
+          "rotation": 0,
+          "outer_fabric": {
+            "color": [
+              48,
+              78,
+              35
+            ],
+            "finish": "Wool",
+            "opacity": 1000,
+            "layers": [],
+            "chart_boundary": "CyclicAcross"
+          },
+          "band_fabric": {
+            "color": [
+              48,
+              78,
+              35
+            ],
+            "finish": "Wool",
+            "opacity": 1000,
+            "layers": [],
+            "chart_boundary": "CyclicAcross"
+          },
+          "undercloth_fabric": {
+            "color": [
+              150,
+              33,
+              29
+            ],
+            "finish": "Silk",
+            "opacity": 1000,
+            "layers": [],
+            "chart_boundary": "CyclicAcross"
+          },
+          "lining_fullness": 1000
         }
       }
     },
@@ -169,19 +249,34 @@
         "kind": "Hose",
         "length": 1000,
         "proximal_position": 0,
+        "proximal_inset": 1500,
+        "underarm_drop": 0,
         "clearance": 2,
         "thickness": 1,
         "pattern": {
-          "puff_count": 1,
-          "puff_fullness": 5,
-          "distal_fullness": 1000,
+          "courses": [
+            {
+              "length": 1000,
+              "fullness": 5,
+              "slashes": null,
+              "constriction_width": 40
+            }
+          ],
           "puff_roundness": 1000,
-          "slash_count": 0,
-          "slash_width": 300,
-          "slash_length": 700,
-          "constriction_width": 40,
+          "proximal_edge": "Band",
           "rotation": 0,
           "outer_fabric": {
+            "color": [
+              48,
+              78,
+              35
+            ],
+            "finish": "Wool",
+            "opacity": 1000,
+            "layers": [],
+            "chart_boundary": "CyclicAcross"
+          },
+          "band_fabric": {
             "color": [
               48,
               78,
@@ -202,7 +297,8 @@
             "opacity": 1000,
             "layers": [],
             "chart_boundary": "CyclicAcross"
-          }
+          },
+          "lining_fullness": 1000
         }
       }
     },
@@ -255,19 +351,34 @@
           "kind": "Hose",
           "length": 1000,
           "proximal_position": 0,
+          "proximal_inset": 1500,
+          "underarm_drop": 0,
           "clearance": 2,
           "thickness": 1,
           "pattern": {
-            "puff_count": 1,
-            "puff_fullness": 5,
-            "distal_fullness": 1000,
+            "courses": [
+              {
+                "length": 1000,
+                "fullness": 5,
+                "slashes": null,
+                "constriction_width": 40
+              }
+            ],
             "puff_roundness": 1000,
-            "slash_count": 0,
-            "slash_width": 300,
-            "slash_length": 700,
-            "constriction_width": 40,
+            "proximal_edge": "Band",
             "rotation": 0,
             "outer_fabric": {
+              "color": [
+                150,
+                33,
+                29
+              ],
+              "finish": "Wool",
+              "opacity": 1000,
+              "layers": [],
+              "chart_boundary": "CyclicAcross"
+            },
+            "band_fabric": {
               "color": [
                 150,
                 33,
@@ -288,7 +399,8 @@
               "opacity": 1000,
               "layers": [],
               "chart_boundary": "CyclicAcross"
-            }
+            },
+            "lining_fullness": 1000
           }
         }
       },
@@ -297,19 +409,34 @@
           "kind": "Hose",
           "length": 1000,
           "proximal_position": 0,
+          "proximal_inset": 1500,
+          "underarm_drop": 0,
           "clearance": 2,
           "thickness": 1,
           "pattern": {
-            "puff_count": 1,
-            "puff_fullness": 5,
-            "distal_fullness": 1000,
+            "courses": [
+              {
+                "length": 1000,
+                "fullness": 5,
+                "slashes": null,
+                "constriction_width": 40
+              }
+            ],
             "puff_roundness": 1000,
-            "slash_count": 0,
-            "slash_width": 300,
-            "slash_length": 700,
-            "constriction_width": 40,
+            "proximal_edge": "Band",
             "rotation": 0,
             "outer_fabric": {
+              "color": [
+                48,
+                78,
+                35
+              ],
+              "finish": "Wool",
+              "opacity": 1000,
+              "layers": [],
+              "chart_boundary": "CyclicAcross"
+            },
+            "band_fabric": {
               "color": [
                 48,
                 78,
@@ -330,7 +457,8 @@
               "opacity": 1000,
               "layers": [],
               "chart_boundary": "CyclicAcross"
-            }
+            },
+            "lining_fullness": 1000
           }
         }
       }

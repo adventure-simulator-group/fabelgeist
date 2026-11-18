@@ -95,7 +95,9 @@ fn write_textile_maps(
             std::fs::write(output.join(&name), textures.base_color_png)?;
             let normal = format!("{article_name}-textile-{index}-normal.png");
             std::fs::write(output.join(&normal), textures.normal_png)?;
-            maps.push(serde_json::json!({"component":index,"base_color":name,"normal":normal, "chart_boundary":fabric.chart_boundary}));
+            let surface = format!("{article_name}-textile-{index}-surface.png");
+            std::fs::write(output.join(&surface), textures.metal_roughness_png)?;
+            maps.push(serde_json::json!({"component":index,"base_color":name,"normal":normal,"metal_roughness":surface,"chart_boundary":fabric.chart_boundary}));
         }
     }
     Ok(maps)

@@ -110,6 +110,7 @@ mod tests {
         let normals = [[0.0, 0.0, 1.0]; 4];
         let texcoords = [[0.0, 0.0], [0.2, 0.3], [0.4, 0.6], [0.8, 0.9]];
         let maps = SurfaceTextures {
+            metal_roughness_png: None,
             base_color_png: Some(
                 include_bytes!("../../../../assets_src/equipment/materials/mail-base-color.png")
                     .to_vec(),

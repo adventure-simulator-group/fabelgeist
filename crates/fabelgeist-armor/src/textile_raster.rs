@@ -2,6 +2,7 @@
 use crate::textile_botanical::BotanicalTile;
 use crate::textile_sampling::TextileRasterSize;
 use crate::textile_weave::{composite_yarn, weave_coverage};
+use crate::textile_woven::WovenTile;
 use crate::{
     GenerateError, Permille, TextileAppearance, TextileAxis, TextileFill, TextileMotif,
     TextileRegion, TextileRepeatCount, TextileSpan,
@@ -13,8 +14,26 @@ pub struct TextilePixels {
     pub height: u32,
     /// Straight-alpha sRGB RGBA8; row zero is the proximal fabric-chart edge.
     pub color: Vec<u8>,
+    /// Linear glTF metallic-roughness RGBA8, texel for texel with `color`:
+    /// roughness in green, metalness in blue. Each texel is the surface of
+    /// what shows there: the ground, a layer's yarn, a thread or a bead.
+    pub surface: Vec<u8>,
     pub(crate) needlework_heights: Vec<f32>,
     pub(crate) chart_boundary: crate::TextileChartBoundary,
+}
+
+/// Size of one texel, as a share of the garment's chart and of the chart of
+/// the region a layer fills.
+#[derive(Clone, Copy)]
+struct ChartFootprint {
+    garment: [f32; 2],
+    region: [f32; 2],
+}
+
+/// What a layer's fill prepares once and then samples at every texel.
+enum FillTile {
+    Botanical(BotanicalTile),
+    Woven(WovenTile),
 }
 
 impl TextileAppearance {
@@ -28,14 +47,23 @@ impl TextileAppearance {
                 TextileFill::Motifs {
                     motif: TextileMotif::Scrollwork { branches, curl },
                     ..
-                } => Some(BotanicalTile::new(branches.0, curl.unit())),
+                } => Ok(Some(FillTile::Botanical(BotanicalTile::new(
+                    branches.0,
+                    curl.unit(),
+                )))),
                 TextileFill::Motifs {
                     motif: TextileMotif::Damask { leaf_pairs, spread },
                     ..
-                } => Some(BotanicalTile::damask(leaf_pairs.0, spread.unit())),
-                _ => None,
+                } => Ok(Some(FillTile::Botanical(BotanicalTile::damask(
+                    leaf_pairs.0,
+                    spread.unit(),
+                )))),
+                TextileFill::Woven { pattern, .. } => {
+                    WovenTile::new(*pattern).map(|tile| Some(FillTile::Woven(tile)))
+                }
+                _ => Ok(None),
             })
-            .collect::<Vec<_>>();
+            .collect::<Result<Vec<_>, GenerateError>>()?;
         let size = TextileRasterSize::for_appearance(self);
         let needlework = self
             .needlework
@@ -43,13 +71,14 @@ impl TextileAppearance {
             .map(|n| crate::textile_stroke_raster::NeedleworkTile::new(n));
         let mut needlework_heights = Vec::new();
         let mut color = Vec::with_capacity((size.width * size.height * 4) as usize);
+        let mut surface = Vec::with_capacity((size.width * size.height * 4) as usize);
         for row in 0..size.height {
             for column in 0..size.width {
                 let uv = [
                     (column as f32 + 0.5) / size.width as f32,
                     (row as f32 + 0.5) / size.height as f32,
                 ];
-                let mut pixel = self.color_at(
+                let (mut pixel, mut shown) = self.cloth_at(
                     uv,
                     [1. / size.width as f32, 1. / size.height as f32],
                     &tiles,
@@ -66,15 +95,20 @@ impl TextileAppearance {
                     if let Some(thread) = sample.color {
                         pixel = composite_yarn(pixel, thread, sample.coverage);
                     }
+                    if let Some(thread) = sample.surface {
+                        shown = shown.covered(thread, sample.coverage);
+                    }
                     needlework_heights.push(sample.height);
                 }
                 color.extend(pixel);
+                surface.extend(shown.texel());
             }
         }
         Ok(TextilePixels {
             width: size.width,
             height: size.height,
             color,
+            surface,
             needlework_heights,
             chart_boundary: self.chart_boundary,
         })
@@ -82,12 +116,14 @@ impl TextileAppearance {
 
     /// Native normalized material-chart boundary. This samples appearance,
     /// never body positions or skin correspondence; callers freeze the chart.
-    fn color_at(
+    /// The cloth's color and surface before any needlework is laid on it.
+    fn cloth_at(
         &self,
         chart: [f32; 2],
         footprint: [f32; 2],
-        tiles: &[Option<BotanicalTile>],
-    ) -> [u8; 4] {
+        tiles: &[Option<FillTile>],
+    ) -> ([u8; 4], crate::TextileSurface) {
+        let mut surface = self.finish.surface();
         let mut color = [
             self.color.0[0],
             self.color.0[1],
@@ -96,11 +132,21 @@ impl TextileAppearance {
         ];
         for (layer, tile) in self.layers.0.iter().zip(tiles) {
             if let Some(local) = layer.region.chart(chart) {
-                let coverage = layer.fill.coverage(local, chart, footprint, tile.as_ref());
+                let span = layer.region.span();
+                let coverage = layer.fill.coverage(
+                    local,
+                    chart,
+                    ChartFootprint {
+                        garment: footprint,
+                        region: [footprint[0] / span[0], footprint[1] / span[1]],
+                    },
+                    tile.as_ref(),
+                );
                 color = composite_yarn(color, layer.color, coverage);
+                surface = surface.covered(layer.finish.surface(), coverage);
             }
         }
-        color
+        (color, surface)
     }
 }
 
@@ -147,13 +193,13 @@ impl TextileFill {
         &self,
         point: [f32; 2],
         garment: [f32; 2],
-        footprint: [f32; 2],
-        tile: Option<&BotanicalTile>,
+        footprint: ChartFootprint,
+        tile: Option<&FillTile>,
     ) -> f32 {
         let covered = match self {
             Self::Solid => true,
             Self::Weave { warp, weft, width } => {
-                return weave_coverage(garment, footprint, *warp, *weft, *width);
+                return weave_coverage(garment, footprint.garment, *warp, *weft, *width);
             }
             Self::Stripes {
                 axis,
@@ -186,7 +232,36 @@ impl TextileFill {
                     (x.rem_euclid(1.0) - 0.5) / scale.unit(),
                     (row.rem_euclid(1.0) - 0.5) / scale.unit(),
                 ];
+                let tile = match tile {
+                    Some(FillTile::Botanical(tile)) => Some(tile),
+                    _ => None,
+                };
                 motif.covers(rotate(local, rotation.unit() * TAU), tile)
+            }
+            Self::Woven {
+                space,
+                tone,
+                across,
+                along,
+                offset,
+                ..
+            } => {
+                let Some(FillTile::Woven(tile)) = tile else {
+                    return 0.;
+                };
+                let (point, footprint) = match space {
+                    crate::TextilePatternSpace::Region => (point, footprint.region),
+                    crate::TextilePatternSpace::Garment => (garment, footprint.garment),
+                };
+                let repeats = [f32::from(across.0), f32::from(along.0)];
+                return tile.coverage(
+                    *tone,
+                    [
+                        point[0] * repeats[0] + offset.across.unit(),
+                        point[1] * repeats[1] + offset.along.unit(),
+                    ],
+                    [footprint[0] * repeats[0], footprint[1] * repeats[1]],
+                );
             }
         };
         if covered { 1. } else { 0. }

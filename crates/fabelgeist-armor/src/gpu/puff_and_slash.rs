@@ -29,6 +29,9 @@ pub fn record_puff_and_slash(
     )?;
     recipe.component(ArmorComponentRole::Undercloth, None);
     super::textile_pattern::append_outer(&mut recipe, &kernel, &design.pattern, design.thickness)?;
+    if let Some(cuff) = &design.cuff {
+        super::textile_pattern::append_cuff(&mut recipe, &kernel, cuff, design.thickness)?;
+    }
     let mut words = design.pattern.shader_words().to_vec();
     words.extend([
         design.length.unit(),
@@ -36,5 +39,12 @@ pub fn record_puff_and_slash(
         design.clearance.metres(),
         design.thickness.metres(),
     ]);
+    words.extend(
+        design
+            .cuff
+            .as_ref()
+            .map_or([0.; 2], |cuff| [cuff.length.metres(), cuff.flare.metres()]),
+    );
+    words.push(design.head_taper());
     recipe.record(gpu, batch, &words, &[frame])
 }

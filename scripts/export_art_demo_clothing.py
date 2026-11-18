@@ -105,8 +105,8 @@ def main():
     for article_index, _ in enumerate(outfit):
         article = json.loads(source(args.review/f'article-{article_index}.json'))
         triangles = len(article['indices']) // 3
-        if triangles > 10_000:
-            raise ValueError(f'article {article_index} exceeds the 10,000-triangle budget')
+        if triangles > 15_000:
+            raise ValueError(f'article {article_index} exceeds the 15,000-triangle budget')
         maps = {row['component']: row for row in article['textile_maps']}
         for component_index, component in enumerate(article['components']):
             begin, end = component['vertices']['start'], component['vertices']['end']

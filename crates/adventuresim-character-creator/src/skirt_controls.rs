@@ -105,7 +105,7 @@ pub(super) fn hanging(ui: &mut egui::Ui, design: &mut SkirtDesign) -> bool {
 
 fn treatment(
     ui: &mut egui::Ui,
-    pattern: &mut Option<fabelgeist_armor::PuffAndSlashPattern>,
+    pattern: &mut Option<Box<fabelgeist_armor::PuffAndSlashPattern>>,
 ) -> bool {
     let mut enabled = pattern.is_some();
     let mut changed = ui

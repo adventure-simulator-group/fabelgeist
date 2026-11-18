@@ -37,25 +37,14 @@ pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
         TextileAppearance::OPACITY_RANGE,
         "Cloth opacity",
     );
-    ui.horizontal(|ui| {
-        for (finish, label) in [
-            (TextileFinish::Linen, "Linen"),
-            (TextileFinish::Wool, "Wool"),
-            (TextileFinish::Silk, "Silk"),
-            (TextileFinish::Velvet, "Velvet"),
-            (TextileFinish::MetallicThread, "Metal thread"),
-        ] {
-            changed |= ui
-                .selectable_value(&mut fabric.finish, finish, label)
-                .changed();
-        }
-    });
+    changed |= finish_controls(ui, &mut fabric.finish);
     let mut action = None;
     let count = fabric.layers.0.len();
     for (index, layer) in fabric.layers.0.iter_mut().enumerate() {
         ui.push_id(index, |ui| {
             ui.collapsing(format!("Fabric layer {}", index + 1), |ui| {
                 changed |= layer_controls(ui, layer);
+                changed |= finish_controls(ui, &mut layer.finish);
                 ui.horizontal(|ui| {
                     if ui
                         .add_enabled(index > 0, egui::Button::new("Earlier"))
@@ -101,6 +90,7 @@ pub(super) fn show(ui: &mut egui::Ui, fabric: &mut TextileAppearance) -> bool {
             },
             fill: TextileFill::Solid,
             color: TextileColor([177, 140, 60]),
+            finish: fabric.finish,
         });
         changed = true;
     }
@@ -181,7 +171,66 @@ fn layer_controls(ui: &mut egui::Ui, layer: &mut TextileLayer) -> bool {
             changed |= proportion(ui, &mut offset.across, 0..=1000, "Pattern offset across");
             changed |= proportion(ui, &mut offset.along, 0..=1000, "Pattern offset along");
         }
+        TextileFill::Woven {
+            space,
+            pattern,
+            tone,
+            across,
+            along,
+            offset,
+        } => changed |= woven_controls(ui, space, pattern, tone, [across, along], offset),
     }
+    changed
+}
+
+fn woven_controls(
+    ui: &mut egui::Ui,
+    space: &mut fabelgeist_armor::TextilePatternSpace,
+    pattern: &mut fabelgeist_armor::WovenPattern,
+    tone: &mut fabelgeist_armor::WovenTone,
+    [across, along]: [&mut TextileRepeatCount; 2],
+    offset: &mut fabelgeist_armor::TextileOffset,
+) -> bool {
+    let mut changed = false;
+    ui.horizontal(|ui| {
+        changed |= ui
+            .selectable_value(
+                space,
+                fabelgeist_armor::TextilePatternSpace::Region,
+                "Pattern fills region",
+            )
+            .changed();
+        changed |= ui
+            .selectable_value(
+                space,
+                fabelgeist_armor::TextilePatternSpace::Garment,
+                "Continuous garment pattern",
+            )
+            .changed();
+    });
+    ui.horizontal(|ui| {
+        for candidate in fabelgeist_armor::WovenPattern::ALL {
+            changed |= ui
+                .selectable_value(pattern, candidate, candidate.label())
+                .changed();
+        }
+    });
+    ui.horizontal(|ui| {
+        changed |= ui
+            .selectable_value(tone, fabelgeist_armor::WovenTone::Figure, "Main figure")
+            .changed();
+        changed |= ui
+            .selectable_value(tone, fabelgeist_armor::WovenTone::Accent, "Accent")
+            .changed();
+    });
+    changed |= ui
+        .add(egui::Slider::new(&mut across.0, 1..=64).text("Repeats across"))
+        .changed();
+    changed |= ui
+        .add(egui::Slider::new(&mut along.0, 1..=64).text("Repeats along"))
+        .changed();
+    changed |= proportion(ui, &mut offset.across, 0..=1000, "Pattern offset across");
+    changed |= proportion(ui, &mut offset.along, 0..=1000, "Pattern offset along");
     changed
 }
 
@@ -325,6 +374,17 @@ fn fill_selection(ui: &mut egui::Ui, fill: &mut TextileFill) -> bool {
                     offset: Default::default(),
                 },
             ),
+            (
+                "Woven pattern",
+                TextileFill::Woven {
+                    space: fabelgeist_armor::TextilePatternSpace::Garment,
+                    pattern: fabelgeist_armor::WovenPattern::ItalianPomegranate,
+                    tone: fabelgeist_armor::WovenTone::Figure,
+                    across: TextileRepeatCount(6),
+                    along: TextileRepeatCount(4),
+                    offset: Default::default(),
+                },
+            ),
         ] {
             let selected = std::mem::discriminant(fill) == std::mem::discriminant(&candidate);
             if ui.selectable_label(selected, label).clicked() && !selected {
@@ -389,5 +449,23 @@ pub(super) fn region_controls(ui: &mut egui::Ui, region: &mut TextileRegion) -> 
 fn span_controls(ui: &mut egui::Ui, start: &mut Permille, end: &mut Permille) -> bool {
     let mut changed = proportion(ui, start, 0..=end.0 - 1, "Start");
     changed |= proportion(ui, end, start.0 + 1..=1000, "End");
+    changed
+}
+
+/// What a cloth or a layer of it is woven of, which sets how it takes the
+/// light.
+fn finish_controls(ui: &mut egui::Ui, chosen: &mut TextileFinish) -> bool {
+    let mut changed = false;
+    ui.horizontal(|ui| {
+        for (finish, label) in [
+            (TextileFinish::Linen, "Linen"),
+            (TextileFinish::Wool, "Wool"),
+            (TextileFinish::Silk, "Silk"),
+            (TextileFinish::Velvet, "Velvet"),
+            (TextileFinish::MetallicThread, "Metal thread"),
+        ] {
+            changed |= ui.selectable_value(chosen, finish, label).changed();
+        }
+    });
     changed
 }

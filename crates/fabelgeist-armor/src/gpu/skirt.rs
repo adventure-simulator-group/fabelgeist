@@ -85,7 +85,9 @@ pub fn record_skirt(
         design
             .puff_and_slash
             .as_ref()
-            .map_or([0.0; 5], |pattern| pattern.shader_words()),
+            .map_or([0.0; crate::PuffAndSlashPattern::SHADER_WORDS], |pattern| {
+                pattern.shader_words()
+            }),
     );
     words.push(design.thickness.metres());
     words.push(
@@ -106,10 +108,12 @@ pub fn record_skirt(
             .and_then(|p| p.dressing_opening.as_ref())
             .map_or([0.; 5], |o| o.shader_words()),
     );
-    let front = design.pleats.as_ref().and_then(|p| p.front_style.as_ref());
-    words.extend(front.map_or([0.; 2], |front| {
-        [front.width.unit(), front.style as u32 as f32]
-    }));
+    words.extend(
+        design
+            .pleats
+            .as_ref()
+            .map_or([0.; 2], crate::SkirtPleats::fold_words),
+    );
     recipe.record(gpu, batch, &words, &[fit])
 }
 

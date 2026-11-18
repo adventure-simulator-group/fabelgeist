@@ -354,10 +354,16 @@ fn puffed_garment_extremes_are_closed_finite_shells() -> Result<()> {
         device: &body.device,
     };
     for (puff_count, slash_count) in [(1, 0), (8, 16)] {
+        let course = fabelgeist_armor::PuffCourse {
+            slashes: (slash_count != 0).then(|| fabelgeist_armor::PuffSlashes {
+                count: slash_count,
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
         let design = ParametricDesign::PuffAndSlash(PuffAndSlashDesign {
             pattern: fabelgeist_armor::PuffAndSlashPattern {
-                puff_count,
-                slash_count,
+                courses: vec![course; puff_count],
                 ..Default::default()
             },
             length: Permille(1000),

@@ -5,6 +5,8 @@ use crate::{
 use serde::{Deserialize, Serialize};
 
 const MILLIMETRES_PER_METRE: f64 = 1000.;
+/// Share of the chart, from its start, that measures the width at that end.
+const CHART_START_BAND: f32 = 0.1;
 
 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -43,6 +45,10 @@ pub enum TextilePleatLayout {
         falloff: Permille,
         retention: Permille,
         release: Permille,
+        /// Width of the cloth at the waist as a share of its mean width. The
+        /// cloth narrows to the waist, so the gathers there are narrower and
+        /// steeper than the same depth is lower down.
+        waist_width: Permille,
     },
 }
 
@@ -68,6 +74,64 @@ impl TextileChartSize {
         coordinates: &[[f32; 2]],
         indices: &[u32],
     ) -> Result<Self, GenerateError> {
+        let dimensions = Self::measure(positions, coordinates, indices, |_| true)?;
+        Ok(Self {
+            across: Millimeters(dimensions[0].round() as u16),
+            along: Millimeters(dimensions[1].round() as u16),
+        })
+    }
+
+    /// Size on the same surface of one region of its chart, from the
+    /// triangles whose middles lie in the region. `None` when no triangle
+    /// does, or the region is too small to measure.
+    pub fn of_region(
+        positions: &[[f32; 3]],
+        coordinates: &[[f32; 2]],
+        indices: &[u32],
+        region: &crate::TextileRegion,
+    ) -> Option<Self> {
+        let within = |corners: &[[f64; 2]; 3]| {
+            let middle = [0, 1]
+                .map(|axis| (corners.iter().map(|corner| corner[axis]).sum::<f64>() / 3.) as f32);
+            region.chart(middle).is_some()
+        };
+        let per_unit = Self::measure(positions, coordinates, indices, within).ok()?;
+        let span = region.span();
+        let size = [
+            per_unit[0] * f64::from(span[0]),
+            per_unit[1] * f64::from(span[1]),
+        ];
+        size.iter().all(|&side| side >= 1.).then(|| Self {
+            across: Millimeters(size[0].round() as u16),
+            along: Millimeters(size[1].round() as u16),
+        })
+    }
+
+    /// Width of the same surface at the start of its chart, as a share of its
+    /// mean width and at most the whole of it.
+    pub fn start_width(
+        positions: &[[f32; 3]],
+        coordinates: &[[f32; 2]],
+        indices: &[u32],
+    ) -> Result<Permille, GenerateError> {
+        let whole = Self::measure(positions, coordinates, indices, |_| true)?;
+        let start = Self::measure(positions, coordinates, indices, |corners| {
+            corners
+                .iter()
+                .all(|corner| corner[1] <= f64::from(CHART_START_BAND))
+        })?;
+        let share = (start[0] / whole[0]).min(1.) * f64::from(Permille::ONE.0);
+        Ok(Permille(share.round().max(1.) as u16))
+    }
+
+    /// Mean millimetres per unit of each chart axis over the triangles that
+    /// `counts` admits by their chart corners.
+    fn measure(
+        positions: &[[f32; 3]],
+        coordinates: &[[f32; 2]],
+        indices: &[u32],
+        counts: impl Fn(&[[f64; 2]; 3]) -> bool,
+    ) -> Result<[f64; 2], GenerateError> {
         if positions.len() != coordinates.len()
             || indices.is_empty()
             || !indices.len().is_multiple_of(3)
@@ -87,6 +151,9 @@ impl TextileChartSize {
         for triangle in indices.as_chunks::<3>().0 {
             let p = triangle.map(|i| positions[i as usize].map(f64::from));
             let uv = triangle.map(|i| coordinates[i as usize].map(f64::from));
+            if !counts(&uv) {
+                continue;
+            }
             let a: [f64; 3] = std::array::from_fn(|axis| p[1][axis] - p[0][axis]);
             let b: [f64; 3] = std::array::from_fn(|axis| p[2][axis] - p[0][axis]);
             let u = [uv[1][0] - uv[0][0], uv[1][1] - uv[0][1]];
@@ -115,10 +182,7 @@ impl TextileChartSize {
         {
             return Err(GenerateError::InvalidSurface);
         }
-        Ok(Self {
-            across: Millimeters(dimensions[0].round() as u16),
-            along: Millimeters(dimensions[1].round() as u16),
-        })
+        Ok(dimensions)
     }
 }
 
@@ -157,8 +221,11 @@ impl TextilePleatRelief {
             falloff,
             retention,
             release,
+            waist_width,
         } = self.layout
             && (front_panel.0 > 500
+                || waist_width.0 == 0
+                || waist_width.0 > 1000
                 || front_depth.0 > 1000
                 || rotation.0 > 1000
                 || falloff.0 == 0
@@ -170,6 +237,18 @@ impl TextilePleatRelief {
             return Err(DesignError::ParametricParameters.into());
         }
         Ok(())
+    }
+
+    /// Metres across the chart at one point along it. A waist layout widens
+    /// evenly from the waist and keeps the chart's mean width.
+    pub(crate) fn across_metres(&self, along: f32) -> f32 {
+        let share = match self.layout {
+            TextilePleatLayout::Waist { waist_width, .. } => {
+                waist_width.unit() + 2. * (1. - waist_width.unit()) * along
+            }
+            _ => 1.,
+        };
+        self.chart.across.metres() * share
     }
 
     /// Height in metres. V runs from free edge to sewn base; U repeats evenly.
@@ -185,6 +264,7 @@ impl TextilePleatRelief {
                 falloff,
                 retention,
                 release,
+                ..
             } => {
                 let around = (uv[0] + 0.5).rem_euclid(1.);
                 let half = front_panel.unit() * 0.5;

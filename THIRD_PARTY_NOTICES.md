@@ -50,6 +50,18 @@ Museum of Art. Each image's museum and object record are recorded in
 See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
 object list and source licensing policies.
 
+## Woven pattern tiles
+
+`crates/fabelgeist-armor/patterns/` contains repeat tiles derived from plates
+of Friedrich Fischbach's *Die wichtigsten Webe-Ornamente bis zum 19.
+Jahrhundert* (1902), which is in the public domain. The scans are by the Getty
+Research Institute, through the Internet Archive. The needlework scroll in
+`crates/fabelgeist-armor/review/textiles/pomegranate-outfit.json` is traced
+from the same book.
+
+[Pattern tile record](crates/fabelgeist-armor/patterns/README.md) gives each
+tile's plate, scan and derivation.
+
 ## Heraldic source artwork
 
 `assets/heraldry/` retains unmodified Wikimedia Commons SVGs of a German lion

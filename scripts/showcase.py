@@ -70,7 +70,7 @@ LANDING_PAGE = """<!doctype html>
     <h1>Fabelgeist<span>Showcase</span></h1>
     <p class="lede">Procedural work from the Fabelgeist project, running in the browser. Each page needs a browser with WebGPU, such as current Chrome or Edge.</p>
     <ul>
-      <li><a href="/art-demo"><strong>Procedural art</strong><small>Museum armor, a German wool gown, weapons, a 30,000-resident city, and an oak with terrain.</small></a></li>
+      <li><a href="/art-demo"><strong>Procedural art</strong><small>Museum armor, period gowns, weapons, a 30,000-resident city, and an oak with terrain.</small></a></li>
       <li><a href="/texture-studio/"><strong>Texture Studio</strong><small>Material editor for the procedural texture catalogue.</small></a></li>
     </ul>
     <footer>No account, database, or game server is involved on these pages.</footer>

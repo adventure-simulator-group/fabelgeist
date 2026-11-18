@@ -21,6 +21,8 @@ use super::{
 pub(super) enum ExhibitId {
     Henry,
     Nuremberg,
+    SaxonCourtDress,
+    PomegranateDress,
     GermanDress,
     Longsword,
     ArmingSword,

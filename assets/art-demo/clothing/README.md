@@ -1,5 +1,16 @@
 # Museum clothing displays
 
+The Clothing category opens on the Saxon court gown, which has puff-and-slash
+sleeves. The Italian pomegranate gown and the German wool gown follow. The
+first two are fitted to `assets_src/characters/jane_fabelgeist.json` and
+`german1544.glb` to its own canonical wearer; each GLB carries the body it was
+fitted on. `saxon-court.glb` and `pomegranate.glb` are regenerated like the
+German gown below, from their own recipes in
+[`crates/fabelgeist-armor/review/textiles/`](../../../crates/fabelgeist-armor/review/textiles/)
+(`saxon-court-outfit.json`, `pomegranate-outfit.json`); see
+[the Saxon guide](../../../crates/fabelgeist-armor/review/textiles/saxon-court.md)
+and [the pomegranate guide](../../../crates/fabelgeist-armor/review/textiles/pomegranate.md).
+
 `german1544.glb` displays the shipped German wool gown on its canonical wearer.
 The article has 7,956 triangles, including hidden construction; the wearer adds
 4,918 triangles. The saved generated pose is static. The display does not
@@ -29,7 +40,7 @@ The packager requires NumPy, as do the other equipment GLB tools. It preserves
 positions, normals, triangles, native fabric coordinates and both embedded PNGs.
 It converts scalar sRGB colors to glTF linear factors, retains fabric wrapping,
 and omits animation, skin and morph data from this static display. It rejects
-articles above 10,000 triangles. The adjacent `.sources.json` records the full
+articles above 15,000 triangles. The adjacent `.sources.json` records the full
 recipe, generator version, input hashes, source revision and output hash.
 
 The exhibit is available at `/art-demo#german-dress`, under **Clothing**. Its

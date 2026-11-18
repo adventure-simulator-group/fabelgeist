@@ -15,6 +15,7 @@ pub const SKIRT_AXIAL_SEGMENTS: usize = 32;
 /// Coarse hanging intervals preserve silhouette without tessellating the weave.
 pub const SKIRT_MESH_AXIAL_SEGMENTS: usize = 16;
 const COARSE_RENDER_COLUMNS: usize = 96;
+const MIDDLE_RENDER_COLUMNS: usize = 128;
 const DENSE_RENDER_COLUMNS: usize = 192;
 const COARSE_SAMPLES_PER_BROAD_FOLD: usize = 8;
 
@@ -27,7 +28,7 @@ pub struct SkirtDesign {
     pub bodice: Option<DressBodice>,
     pub pleats: Option<crate::SkirtPleats>,
     pub support: Option<crate::SkirtSupport>,
-    pub puff_and_slash: Option<crate::PuffAndSlashPattern>,
+    pub puff_and_slash: Option<Box<crate::PuffAndSlashPattern>>,
     /// Height above the pelvis landmark in the canonical fitting frame.
     pub waist_rise: Millimeters,
     /// Hip-to-ankle reach: 1000 ends at the ankle; larger values extend the hem.
@@ -131,7 +132,9 @@ impl SkirtDesign {
 
     /// Native render-grid count, frozen with the design across every refit.
     /// The coarse tier leaves at least eight samples per broad fold in the
-    /// folded arc. Denser or compressed folds keep the 192-column tier. Fine
+    /// folded arc, and the middle tier does the same for up to a third as
+    /// many folds again. Each tier divides the fitting ring evenly. Denser or
+    /// compressed folds keep the 192-column tier. Fine
     /// waist gathers are a normal map and do not increase carrier density.
     pub fn mesh_ring_segments(&self) -> usize {
         let Some(pleats) = &self.pleats else {
@@ -141,12 +144,10 @@ impl SkirtDesign {
             * COARSE_SAMPLES_PER_BROAD_FOLD
             * usize::from(Permille::ONE.0);
         let folded = Permille::ONE.0.saturating_sub(pleats.front_panel.0);
-        let available = COARSE_RENDER_COLUMNS * usize::from(folded);
-        if required <= available {
-            COARSE_RENDER_COLUMNS
-        } else {
-            DENSE_RENDER_COLUMNS
-        }
+        [COARSE_RENDER_COLUMNS, MIDDLE_RENDER_COLUMNS]
+            .into_iter()
+            .find(|columns| required <= columns * usize::from(folded))
+            .unwrap_or(DENSE_RENDER_COLUMNS)
     }
 
     pub fn validate(&self) -> Result<(), GenerateError> {

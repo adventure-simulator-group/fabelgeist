@@ -17,12 +17,14 @@ mod cloth_ties;
 pub use cloth_tape::ClothTape;
 mod gown;
 mod gown_dressing_slit;
+mod gown_neckline_trim;
 mod gown_waist_support;
 mod partlet;
 mod waist_band_fasteners;
 pub use cloth_ties::ClothTies;
 pub use gown::{FittedSleeves, GownBodyFit, GownDesign};
 pub use gown_dressing_slit::{DressingOpeningSide, GownDressingSlit};
+pub use gown_neckline_trim::GownNecklineTrim;
 pub use gown_waist_support::GownWaistSupport;
 pub use partlet::{
     ClothBinding, ClothNeckCurve, CollarBand, CollarSection, PartletDesign, StandingClothCollar,
@@ -30,7 +32,7 @@ pub use partlet::{
 pub use waist_band_fasteners::WaistBandFasteners;
 mod construction;
 pub use bodice::{
-    BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
+    ArmholeEdge, BodiceDesign, BodiceInterlining, BodiceLining, BodiceNeckline, BodiceOpening,
     InterliningCoverage, NecklineShape,
 };
 pub mod engraving;
@@ -43,10 +45,13 @@ mod skirt_structure;
 mod textile_botanical;
 mod textile_needlework;
 mod textile_pattern;
+mod textile_stroke_path;
+mod textile_thread;
+pub use textile_thread::{TextileSurface, TextileThread};
 mod textile_stroke_raster;
 pub use textile_needlework::{
-    TextileFoldProfile, TextileNeedlework, TextilePathClosure, TextilePathPoint, TextileStroke,
-    TextileStrokeStyle,
+    TextileFoldProfile, TextileNeedlework, TextilePathClosure, TextilePathCourse, TextilePathPoint,
+    TextileRegionSize, TextileRepeatVariation, TextileStroke, TextileStrokeStyle,
 };
 mod textile_pleat_relief;
 mod textile_pleat_zone;
@@ -59,6 +64,7 @@ pub use textile_pleat_relief::{
 mod textile_sampling;
 mod textile_seams;
 mod textile_weave;
+mod textile_woven;
 pub use skirt::{
     DressBodice, SKIRT_AXIAL_SEGMENTS, SKIRT_MESH_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
     SkirtProfile,
@@ -73,6 +79,7 @@ pub use textile_pattern::{
     TextileRegion, TextileRepeatCount, TextileSpan, TextileThreadCount,
 };
 pub use textile_raster::TextilePixels;
+pub use textile_woven::{WovenPattern, WovenTone};
 mod tiling;
 pub use construction::{Construction, ConstructionError, Lacing, Plate, Tiling};
 pub use tiling::{Constructed, MAX_TILES};
@@ -121,6 +128,8 @@ mod helmets;
 mod limb_armor;
 mod pauldron;
 mod puff_and_slash;
+mod puff_course;
+mod sleeve_cuff;
 mod textile;
 pub use textile::TextileColor;
 mod radial_fluting;
@@ -138,7 +147,9 @@ pub use garment_armor::{
 pub use helmets::*;
 pub use limb_armor::*;
 pub use pauldron::{PauldronDesign, PauldronOutline};
-pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, PuffAndSlashPattern};
+pub use puff_and_slash::{PuffAndSlashDesign, PuffAndSlashKind, PuffAndSlashPattern, PuffEdge};
+pub use puff_course::{PuffCourse, PuffSlashes};
+pub use sleeve_cuff::SleeveCuff;
 pub use trunk_hose::TrunkHoseDesign;
 pub use visor_bellows::VisorBellows;
 pub use wrapped_tassets::{TassetSide, WrappedTassetDesign};
@@ -153,7 +164,7 @@ pub use error::{GenerateError, PlateShellFailure};
 
 pub const SCHEMA_VERSION: u16 = 1;
 /// Identifies mesh-generation behavior in review and equipment manifests.
-pub const GENERATOR_VERSION: u16 = 33;
+pub const GENERATOR_VERSION: u16 = 34;
 
 /// Hash a serialized typed parametric recipe for exported asset provenance.
 pub fn parametric_design_hash(encoded: &[u8]) -> [u8; 32] {

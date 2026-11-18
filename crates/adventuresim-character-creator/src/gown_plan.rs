@@ -18,6 +18,7 @@ pub(crate) struct GownPlan {
     carrier_role: ArmorComponentRole,
     lacing: Option<Box<crate::bodice_lacing_plan::BodiceLacingPlan>>,
     waist_support: Option<Box<crate::waist_support_plan::WaistSupportPlan>>,
+    neckline_trim: Option<Box<crate::gown_neckline_trim::NecklineTrimPlan>>,
 }
 
 impl GownPlan {
@@ -98,8 +99,18 @@ impl GownPlan {
         let lacing =
             crate::bodice_lacing_plan::BodiceLacingPlan::new(&inner.surface, body, head, design)
                 .context("planning bodice lacing")?;
+        let neckline_trim = design
+            .neckline_trim
+            .as_ref()
+            .map(|trim| {
+                crate::gown_neckline_trim::NecklineTrimPlan::new(trim, &inner.surface, body)
+                    .context("planning neckline trim")
+            })
+            .transpose()?
+            .map(Box::new);
         Self::share_body_source(&mut join, &mut inner)?;
         Ok(Self {
+            neckline_trim,
             lacing: lacing.map(Box::new),
             join,
             dressing_source,
@@ -156,6 +167,9 @@ impl GownPlan {
         // material partitioning duplicates and reorders those vertices.
         if let Some(support) = &self.waist_support {
             support.attach(piece, &self.join)?;
+        }
+        if let Some(trim) = &self.neckline_trim {
+            trim.attach(piece, self.join.patch.carrier_point_count())?;
         }
         if !self.inner.layers.is_empty() {
             let mut lining = fit_piece_async(gpu, body, wearer, morphs, |device, batch, target| {

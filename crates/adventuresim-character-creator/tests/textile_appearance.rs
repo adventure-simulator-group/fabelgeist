@@ -48,6 +48,7 @@ fn curved_ornament_parameters_change_the_shared_baked_surface() -> Result<()> {
     fabric.layers.0.push(TextileLayer {
         region: TextileRegion::Whole,
         color: TextileColor([145, 110, 55]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
         fill: TextileFill::Motifs {
             space: fabelgeist_armor::TextilePatternSpace::Region,
             motif: TextileMotif::Scrollwork {
@@ -108,6 +109,7 @@ fn continuous_fabric_keeps_its_repeat_scale_when_clipped_into_bands() -> Result<
     whole.layers.0.push(TextileLayer {
         region: TextileRegion::Whole,
         color: TextileColor([145, 110, 55]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
         fill: TextileFill::Motifs {
             space: TextilePatternSpace::Garment,
             motif: TextileMotif::Damask {
@@ -311,6 +313,7 @@ fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<
                 },
                 fill: TextileFill::Solid,
                 color: TextileColor([90, 80, 70]),
+                finish: fabelgeist_armor::TextileFinish::Linen,
             },
             TextileLayer {
                 region: TextileRegion::Panel {
@@ -325,6 +328,7 @@ fn bounded_layers_composite_into_the_same_preview_and_export_pixels() -> Result<
                 },
                 fill: TextileFill::Solid,
                 color: TextileColor([150, 120, 50]),
+                finish: fabelgeist_armor::TextileFinish::Linen,
             },
         ]),
     };
@@ -363,6 +367,7 @@ fn sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels() -> 
         },
         fill: TextileFill::Solid,
         color: TextileColor([190, 150, 55]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
     });
     let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
     let pixels = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
@@ -408,6 +413,7 @@ fn sheer_cloth_keeps_opaque_ornament_in_shared_preview_and_portable_pixels() -> 
             width: Permille(200),
         },
         color: TextileColor([248, 246, 238]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
     });
     let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
     let yarns = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
@@ -485,6 +491,7 @@ fn portable_raster_keeps_narrow_regions_and_small_stripe_duties() -> Result<()> 
             region,
             fill,
             color: ink,
+            finish: fabelgeist_armor::TextileFinish::Linen,
         });
         let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?.unwrap();
         let image = image::load_from_memory(&maps.base_color_png)?.to_rgba8();
@@ -503,6 +510,7 @@ fn narrow_medallion_trim_retains_detail_through_isotropic_mip_reduction() -> Res
     fabric.layers.0.push(TextileLayer {
         region: TextileRegion::Whole,
         color: TextileColor([222, 184, 87]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
         fill: TextileFill::Motifs {
             space: TextilePatternSpace::Garment,
             motif: TextileMotif::Medallion {
@@ -632,6 +640,7 @@ fn fine_gathers_reach_preview_and_export_without_tessellation() -> Result<()> {
         falloff: Permille(400),
         retention: Permille::ONE,
         release: Permille(100),
+        waist_width: Permille::ONE,
     };
     let quiet = fabric.pixels()?.surface_normals(&fabric)?;
     let pixels = fabric.pixels()?;

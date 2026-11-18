@@ -89,12 +89,12 @@ fn skirt_source_vertex(coord:vec4<f32>)->ShellVertex {
     return skirt_edge_vertex(coord);
 }
 // Native cut tags preserve original evaluation payload and split lip ownership.
-const SLIT_AXIS:u32=19u;
-const SLIT_GAP:u32=20u;
-const SLIT_END_ROW:u32=21u;
-const SLIT_TOP_ROW:u32=22u;
-const SLIT_OVERLAP:u32=23u;
-const SLIT_CLOTH_GAUGE:u32=15u;
+const SLIT_AXIS:u32=40u;
+const SLIT_GAP:u32=41u;
+const SLIT_END_ROW:u32=42u;
+const SLIT_TOP_ROW:u32=43u;
+const SLIT_OVERLAP:u32=44u;
+const SLIT_CLOTH_GAUGE:u32=36u;
 fn shell_vertex(index:u32,coord:vec4<f32>)->ShellVertex {
     if (coord.w<SLIT_COORD_VARIANTS) {return skirt_source_vertex(coord);}
     let right=coord.w>=2.0*SLIT_COORD_VARIANTS;

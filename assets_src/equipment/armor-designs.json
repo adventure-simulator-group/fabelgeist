@@ -401,7 +401,9 @@
         "front_drop": 180,
         "back_drop": 100
       },
-      "armhole_width": 50,
+      "armhole_edge": {
+        "Inside": 50
+      },
       "armhole_depth": 110,
       "hem_rise": 100,
       "opening": {
@@ -639,19 +641,76 @@
       "kind": "Hose",
       "length": 960,
       "proximal_position": 750,
+      "proximal_inset": 1500,
+      "underarm_drop": 0,
       "clearance": 4,
       "thickness": 2,
       "pattern": {
-        "puff_count": 4,
-        "puff_fullness": 55,
-        "distal_fullness": 600,
+        "courses": [
+          {
+            "length": 1000,
+            "fullness": 33,
+            "slashes": {
+              "count": 10,
+              "width": 320,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 110
+          },
+          {
+            "length": 1000,
+            "fullness": 40,
+            "slashes": {
+              "count": 10,
+              "width": 320,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 110
+          },
+          {
+            "length": 1000,
+            "fullness": 48,
+            "slashes": {
+              "count": 10,
+              "width": 320,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 110
+          },
+          {
+            "length": 1000,
+            "fullness": 55,
+            "slashes": {
+              "count": 10,
+              "width": 320,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 110
+          }
+        ],
         "puff_roundness": 750,
-        "slash_count": 10,
-        "slash_width": 320,
-        "slash_length": 700,
-        "constriction_width": 110,
+        "proximal_edge": "Band",
         "rotation": 50,
         "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "band_fabric": {
           "color": [
             145,
             30,
@@ -672,7 +731,8 @@
           "opacity": 1000,
           "layers": [],
           "chart_boundary": "CyclicAcross"
-        }
+        },
+        "lining_fullness": 1000
       }
     }
   },
@@ -699,19 +759,34 @@
       "kind": "Hose",
       "length": 1000,
       "proximal_position": 0,
+      "proximal_inset": 1500,
+      "underarm_drop": 0,
       "clearance": 2,
       "thickness": 1,
       "pattern": {
-        "puff_count": 1,
-        "puff_fullness": 5,
-        "distal_fullness": 1000,
+        "courses": [
+          {
+            "length": 1000,
+            "fullness": 5,
+            "slashes": null,
+            "constriction_width": 40
+          }
+        ],
         "puff_roundness": 1000,
-        "slash_count": 0,
-        "slash_width": 300,
-        "slash_length": 700,
-        "constriction_width": 40,
+        "proximal_edge": "Band",
         "rotation": 0,
         "outer_fabric": {
+          "color": [
+            150,
+            33,
+            29
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "band_fabric": {
           "color": [
             150,
             33,
@@ -732,7 +807,8 @@
           "opacity": 1000,
           "layers": [],
           "chart_boundary": "CyclicAcross"
-        }
+        },
+        "lining_fullness": 1000
       }
     }
   },
@@ -741,19 +817,64 @@
       "kind": "Sleeve",
       "length": 940,
       "proximal_position": 800,
+      "proximal_inset": 1500,
+      "underarm_drop": 0,
       "clearance": 4,
       "thickness": 2,
       "pattern": {
-        "puff_count": 3,
-        "puff_fullness": 48,
-        "distal_fullness": 550,
+        "courses": [
+          {
+            "length": 1000,
+            "fullness": 26,
+            "slashes": {
+              "count": 8,
+              "width": 300,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 120
+          },
+          {
+            "length": 1000,
+            "fullness": 37,
+            "slashes": {
+              "count": 8,
+              "width": 300,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 120
+          },
+          {
+            "length": 1000,
+            "fullness": 48,
+            "slashes": {
+              "count": 8,
+              "width": 300,
+              "length": 700,
+              "widest": 500,
+              "slant": 0
+            },
+            "constriction_width": 120
+          }
+        ],
         "puff_roundness": 700,
-        "slash_count": 8,
-        "slash_width": 300,
-        "slash_length": 700,
-        "constriction_width": 120,
+        "proximal_edge": "Band",
         "rotation": 0,
         "outer_fabric": {
+          "color": [
+            145,
+            30,
+            24
+          ],
+          "finish": "Wool",
+          "opacity": 1000,
+          "layers": [],
+          "chart_boundary": "CyclicAcross"
+        },
+        "band_fabric": {
           "color": [
             145,
             30,
@@ -774,7 +895,8 @@
           "opacity": 1000,
           "layers": [],
           "chart_boundary": "CyclicAcross"
-        }
+        },
+        "lining_fullness": 1000
       }
     }
   },
@@ -1106,12 +1228,18 @@
     "Gown": {
       "bodice": {
         "neckline": {
-          "shape": "SoftSquare",
+          "shape": {
+            "Rounded": {
+              "squareness": 1000
+            }
+          },
           "width": 850,
           "front_drop": 110,
           "back_drop": 70
         },
-        "armhole_width": 50,
+        "armhole_edge": {
+          "Inside": 50
+        },
         "armhole_depth": 110,
         "hem_rise": 200,
         "opening": "Closed",
