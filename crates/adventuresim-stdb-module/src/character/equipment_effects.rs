@@ -3,6 +3,9 @@
 use std::collections::BTreeSet;
 
 use adventuresim_core::{
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, ParentSelections,
+    },
     equipment_placement::EquippedPlacement,
     inventory_command::{EquipmentConflictPolicy, InventoryRowId},
     item_catalog::OccupancyRequirement,
@@ -11,11 +14,8 @@ use adventuresim_core::{
 
 use super::equipment_state::ResolvedEquipmentPlacement;
 use super::*;
-use attachments::{ParentSelections, SelectedAttachments};
-pub(crate) use changes::{
-    EquipmentChange, EquipmentChangeSet, EquipmentChanges, EquipmentDestination,
-    EquipmentEffectPolicy, EquipmentExchange,
-};
+use attachments::SelectedAttachments;
+pub(crate) use changes::{EquipmentChangeSet, EquipmentEffectPolicy};
 
 mod attachments;
 mod changes;

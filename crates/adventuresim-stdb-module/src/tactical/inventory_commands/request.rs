@@ -1,7 +1,9 @@
 //! Admit framework request values once, then dispatch the shared item effects.
 
+use adventuresim_core::equipment_command::EquipmentChanges;
+
 use crate::{
-    character::{EquipmentChangeSet, EquipmentChanges, EquipmentEffectPolicy},
+    character::{EquipmentChangeSet, EquipmentEffectPolicy},
     inventory_container::{
         ContainedItemRemoval, ContainerInsertion, ContainerWaterDisposal, inventory_object,
     },

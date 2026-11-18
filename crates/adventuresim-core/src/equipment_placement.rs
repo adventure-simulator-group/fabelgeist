@@ -17,13 +17,15 @@ pub struct AuthoredPlacementId {
 pub struct AuthoredPlacementIdentityError;
 
 /// A named attachment point within its owning item's authored catalog.
-#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(try_from = "String", into = "String")]
 pub struct EquipmentAttachmentPointId {
     value: String,
 }
 
 /// Authored parent requirement ordinal; its selected placement checks the bound.
-#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+#[serde(transparent)]
 pub struct EquipmentParentRequirementIndex(u16);
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, thiserror::Error)]

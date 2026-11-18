@@ -1,10 +1,12 @@
 //! Translate an authoritative selection into one atomic durable change set.
 
-use adventuresim_core::inventory_command::InventoryRowId;
-use adventuresim_stdb_client::{
-    AuthoredEquipmentPlacementRequest, EquipmentAttachmentTargetSelection, EquipmentChangeRequest,
-    EquipmentChangeSetRequest, EquipmentChangesRequest, EquipmentConflictPolicy,
-    EquipmentDestinationRequest, EquipmentExchangeRequest,
+use adventuresim_core::{
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, EquipmentExchange,
+        EquipmentIntent, ParentSelection,
+    },
+    equipment_placement::{EquipmentAttachmentPointId, EquipmentParentRequirementIndex},
+    inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
 };
 
 use super::*;
@@ -18,7 +20,7 @@ pub(super) fn plan_slot(
     depth: u16,
     items: &Query<ItemView<'_>>,
     rows: &Query<&TacticalInventoryItemId>,
-) -> PlanResult<EquipmentChangeSetRequest> {
+) -> PlanResult<EquipmentIntent> {
     let destination = ordered_at_location(actor, location, items)
         .get(usize::from(depth))
         .cloned();
@@ -69,7 +71,7 @@ pub(super) fn plan_hand(
     destination: EquipmentHand,
     items: &Query<ItemView<'_>>,
     rows: &Query<&TacticalInventoryItemId>,
-) -> PlanResult<EquipmentChangeSetRequest> {
+) -> PlanResult<EquipmentIntent> {
     if source == destination {
         return Err(EquipmentRejection::InvalidPlacement);
     }
@@ -124,7 +126,7 @@ fn authored(
     item_id: &str,
     topology: EquipmentTopology,
     rows: &Query<&TacticalInventoryItemId>,
-) -> PlanResult<EquipmentDestinationRequest> {
+) -> PlanResult<EquipmentDestination> {
     let placement_id = topology
         .authored_placement
         .ok_or(EquipmentRejection::InvalidPlacement)?;
@@ -145,50 +147,48 @@ fn authored(
             TacticalEquipmentAnchor::ItemAttachment {
                 parent,
                 attachment_point_id,
-            } => Some(
-                row_id(parent, rows).map(|parent| EquipmentAttachmentTargetSelection {
-                    requirement_index: occupancy.requirement_index,
-                    parent_inventory_item_id: parent.get(),
-                    attachment_point_id,
-                }),
-            ),
+            } => Some(row_id(parent, rows).and_then(|parent| {
+                Ok(ParentSelection {
+                    requirement: EquipmentParentRequirementIndex::new(occupancy.requirement_index),
+                    parent,
+                    point: EquipmentAttachmentPointId::try_from(attachment_point_id)
+                        .map_err(|_| EquipmentRejection::InvalidPlacement)?,
+                })
+            })),
             TacticalEquipmentAnchor::CharacterLocation(_) => None,
         })
         .collect::<PlanResult<Vec<_>>>()?;
-    Ok(EquipmentDestinationRequest::Authored(
-        AuthoredEquipmentPlacementRequest {
-            placement_index,
-            targets,
-        },
+    Ok(EquipmentDestination::authored(
+        EquipmentPlacementIndex::new(placement_index),
+        targets
+            .try_into()
+            .map_err(|_| EquipmentRejection::InvalidPlacement)?,
     ))
 }
 
-fn held(hand: EquipmentHand) -> EquipmentDestinationRequest {
-    EquipmentDestinationRequest::Held(hand.into())
+fn held(hand: EquipmentHand) -> EquipmentDestination {
+    EquipmentDestination::Held(hand)
 }
 
 fn change(
     item: Entity,
-    destination: EquipmentDestinationRequest,
+    destination: EquipmentDestination,
     rows: &Query<&TacticalInventoryItemId>,
-) -> PlanResult<EquipmentChangeRequest> {
-    Ok(EquipmentChangeRequest {
-        inventory_item_id: row_id(item, rows)?.get(),
+) -> PlanResult<EquipmentChange> {
+    Ok(EquipmentChange {
+        inventory: row_id(item, rows)?,
         destination,
     })
 }
 
-fn change_set(
-    first: EquipmentChangeRequest,
-    second: Option<EquipmentChangeRequest>,
-) -> EquipmentChangeSetRequest {
-    EquipmentChangeSetRequest {
+fn change_set(first: EquipmentChange, second: Option<EquipmentChange>) -> EquipmentIntent {
+    EquipmentIntent {
         changes: match second {
-            Some(second) => EquipmentChangesRequest::Exchange(EquipmentExchangeRequest {
+            Some(second) => EquipmentChanges::Exchange(EquipmentExchange {
                 source: first,
                 destination: second,
             }),
-            None => EquipmentChangesRequest::Single(first),
+            None => EquipmentChanges::Single(first),
         },
         conflicts: EquipmentConflictPolicy::RejectOccupied,
     }

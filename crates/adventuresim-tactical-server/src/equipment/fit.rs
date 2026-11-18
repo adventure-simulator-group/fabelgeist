@@ -180,8 +180,8 @@ mod tests {
     #[test]
     fn slot_transfers_build_a_harness_without_swapping_neighbors_and_can_wear_gauntlets() {
         use super::super::{hand_topology, placement_topology, plan_slot};
+        use adventuresim_core::equipment_command::{EquipmentChanges, EquipmentDestination};
         use adventuresim_core::equipment_placement::EquipmentHand;
-        use adventuresim_stdb_client::{EquipmentChangesRequest, EquipmentDestinationRequest};
         use bevy::ecs::system::RunSystemOnce;
         let mut world = World::new();
         let actor = world.spawn_empty().id();
@@ -232,11 +232,11 @@ mod tests {
                 )
                 .unwrap()
                 .unwrap();
-            let EquipmentChangesRequest::Single(change) = planned.changes else {
+            let EquipmentChanges::Single(change) = planned.changes else {
                 panic!("a neighboring harness plate must not be exchanged");
             };
-            assert_eq!(change.inventory_item_id, (equipped.len() + 1) as u64);
-            let EquipmentDestinationRequest::Authored(selection) = change.destination else {
+            assert_eq!(change.inventory.get(), (equipped.len() + 1) as u64);
+            let EquipmentDestination::Authored(selection) = change.destination else {
                 panic!("the selected harness plate must use an authored placement");
             };
             let expected = placement_topology(item, location).unwrap();
@@ -248,7 +248,7 @@ mod tests {
                 .placements;
             assert_eq!(
                 Some(
-                    placements[usize::from(selection.placement_index)]
+                    placements[usize::from(selection.placement.get())]
                         .id
                         .as_str()
                 ),

@@ -1,10 +1,15 @@
 //! Equipment form admission and canonical durable command serialization.
 
 use super::*;
-use adventuresim_stdb_client::{
-    AuthoredEquipmentPlacementRequest, EquipmentAttachmentTargetSelection,
-    EquipmentChangeRequest, EquipmentChangeSetRequest, EquipmentChangesRequest,
-    EquipmentConflictPolicy, EquipmentDestinationRequest, EquipmentHand,
+use adventuresim_core::{
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, EquipmentIntent, ParentSelection,
+        ParentSelections,
+    },
+    equipment_placement::{
+        EquipmentAttachmentPointId, EquipmentHand, EquipmentParentRequirementIndex,
+    },
+    inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
 };
 
 #[derive(Deserialize)]
@@ -43,35 +48,55 @@ enum EquipmentConflictForm {
 }
 
 impl EquipmentForm {
-    fn request(self) -> Result<EquipmentChangeSetRequest, String> {
+    fn request(self) -> Result<EquipmentIntent, String> {
         if self.destination != EquipmentDestinationForm::Authored
             && (self.placement_index.is_some() || self.attachment_targets.is_some())
         {
             return Err("Only authored placements accept attachment selections".into());
         }
         let destination = match self.destination {
-            EquipmentDestinationForm::Inventory => EquipmentDestinationRequest::Inventory,
-            EquipmentDestinationForm::HeldLeft => EquipmentDestinationRequest::Held(EquipmentHand::Left),
-            EquipmentDestinationForm::HeldRight => EquipmentDestinationRequest::Held(EquipmentHand::Right),
+            EquipmentDestinationForm::Inventory => EquipmentDestination::Inventory,
+            EquipmentDestinationForm::HeldLeft => EquipmentDestination::Held(EquipmentHand::Left),
+            EquipmentDestinationForm::HeldRight => EquipmentDestination::Held(EquipmentHand::Right),
             EquipmentDestinationForm::Authored => {
-                let placement_index = self.placement_index.ok_or("Choose a complete placement for this item")?;
+                let placement_index = self
+                    .placement_index
+                    .ok_or("Choose a complete placement for this item")?;
                 let targets: Vec<EquipmentAttachmentTargetForm> = serde_json::from_str(
-                    self.attachment_targets.as_deref().ok_or("Choose attachment targets")?
-                ).map_err(|_| "Invalid attachment target selection")?;
-                EquipmentDestinationRequest::Authored(AuthoredEquipmentPlacementRequest {
-                    placement_index,
-                    targets: targets.into_iter().map(|target| EquipmentAttachmentTargetSelection {
-                        requirement_index: target.requirement_index,
-                        parent_inventory_item_id: target.parent_inventory_item_id,
-                        attachment_point_id: target.attachment_point_id,
-                    }).collect(),
-                })
+                    self.attachment_targets
+                        .as_deref()
+                        .ok_or("Choose attachment targets")?,
+                )
+                .map_err(|_| "Invalid attachment target selection")?;
+                let targets = targets
+                    .into_iter()
+                    .map(|target| {
+                        Ok(ParentSelection {
+                            requirement: EquipmentParentRequirementIndex::new(
+                                target.requirement_index,
+                            ),
+                            parent: InventoryRowId::try_new(target.parent_inventory_item_id)
+                                .map_err(|error| error.to_string())?,
+                            point: EquipmentAttachmentPointId::try_from(target.attachment_point_id)
+                                .map_err(|error| error.to_string())?,
+                        })
+                    })
+                    .collect::<Result<Vec<_>, String>>()?;
+                let targets =
+                    ParentSelections::try_from(targets).map_err(|error| error.to_string())?;
+                EquipmentDestination::authored(
+                    EquipmentPlacementIndex::new(placement_index),
+                    targets,
+                )
             }
-            EquipmentDestinationForm::AdministerPreparation => return Err("Choose an equipment destination".into()),
+            EquipmentDestinationForm::AdministerPreparation => {
+                return Err("Choose an equipment destination".into());
+            }
         };
-        Ok(EquipmentChangeSetRequest {
-            changes: EquipmentChangesRequest::Single(EquipmentChangeRequest {
-                inventory_item_id: self.inventory_item_id,
+        Ok(EquipmentIntent {
+            changes: EquipmentChanges::Single(EquipmentChange {
+                inventory: InventoryRowId::try_new(self.inventory_item_id)
+                    .map_err(|error| error.to_string())?,
                 destination,
             }),
             conflicts: match self.conflicts {
@@ -81,7 +106,6 @@ impl EquipmentForm {
         })
     }
 }
-
 
 pub(in super::super) async fn set_equipment(
     State(state): State<AppState>,
@@ -158,14 +182,23 @@ pub(in super::super) async fn set_equipment(
         Ok(request) => request,
         Err(error) => return (StatusCode::BAD_REQUEST, error).into_response(),
     };
+    let request = adventuresim_stdb_client::EquipmentChangeSetRequest::from(request);
     let request = match adventuresim_stdb_client::json_reducer_argument(&request) {
         Ok(request) => request,
         Err(error) => {
             tracing::error!(%error, "failed to serialize equipment request");
-            return (StatusCode::INTERNAL_SERVER_ERROR, "Equipment is unavailable").into_response();
+            return (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Equipment is unavailable",
+            )
+                .into_response();
         }
     };
-    if let Err(error) = state.db.call("change_equipment", &[json!(character_id), request]).await {
+    if let Err(error) = state
+        .db
+        .call("change_equipment", &[json!(character_id), request])
+        .await
+    {
         tracing::warn!(%error, character_id, "failed to update equipment");
         return (StatusCode::BAD_REQUEST, error.to_string()).into_response();
     }

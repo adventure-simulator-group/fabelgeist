@@ -57,6 +57,19 @@ Transfers require current canonical party membership and active player
 admissions on the same host. Live container actions address personal objects.
 Shared party-pool access requires its own physical custody policy.
 
+The shared `adventuresim_core::equipment_command::EquipmentIntent` owns checked
+equipment changes, exchanges and destinations. Native planning and HTML form
+admission carry positive inventory-row identities, authored placement ordinals
+and checked attachment-point identities. Each parent requirement may be selected
+once. Database effects consume these same values; generated request records
+exist only at the database boundary. The handwritten SDK facade converts the
+shared intent before reducer submission.
+
+The intent's Serde representation can cross a browser/native boundary without
+the database SDK. It carries no authority: a live panel must separately supply
+the token for the inventory it actually rendered. The panel command bridge and
+its rendered-snapshot admission remain separate integration work.
+
 Raw HTTP callers encode generated requests with the SDK facade's
 `json_reducer_argument`. It derives product positions and sum tags from the
 generated type, avoiding differences between Rust variant spelling and the

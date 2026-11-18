@@ -1,9 +1,8 @@
 //! Dispatch once and acknowledge only the current connection and admission.
 
+use adventuresim_core::equipment_command::EquipmentIntent;
 use adventuresim_core::inventory_command::{InventoryCommandId, InventoryScopeId};
-use adventuresim_stdb_client::{
-    ConnectedInventory, EquipmentChangeSetRequest, TacticalActorTime, TacticalInventoryAction,
-};
+use adventuresim_stdb_client::{ConnectedInventory, TacticalActorTime, TacticalInventoryAction};
 use bevy::ecs::system::SystemParam;
 
 use super::*;
@@ -51,7 +50,7 @@ impl EquipmentCommandHost<'_> {
         client: Entity,
         character: CharacterId,
         sequence: EquipmentSequence,
-        changes: EquipmentChangeSetRequest,
+        changes: EquipmentIntent,
     ) -> Result<(), EquipmentRejection> {
         let connection = self
             .connection
@@ -74,7 +73,7 @@ impl EquipmentCommandHost<'_> {
         if let Err(error) = connection.submit_inventory(
             command.clone(),
             actor,
-            TacticalInventoryAction::ChangeEquipment(changes),
+            TacticalInventoryAction::ChangeEquipment(changes.into()),
         ) {
             self.lose_authority(format!("Could not dispatch inventory command: {error}"));
             return Err(EquipmentRejection::Unavailable);

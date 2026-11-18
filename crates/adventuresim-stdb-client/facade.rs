@@ -4,6 +4,7 @@
 #[path = "src/mod.rs"]
 mod bindings;
 mod equipment;
+mod equipment_command;
 mod reducer_argument;
 
 pub use bindings::*;

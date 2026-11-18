@@ -12,14 +12,6 @@ pub(super) struct SelectedAttachments {
     pub(super) displaced: BTreeSet<InventoryRowId>,
 }
 
-pub(super) struct ParentSelections(Vec<ParentSelection>);
-
-pub(super) struct ParentSelection {
-    pub(super) requirement: EquipmentParentRequirementIndex,
-    pub(super) parent: InventoryRowId,
-    pub(super) point: EquipmentAttachmentPointId,
-}
-
 pub(super) struct ParentOccupancy {
     pub(super) parent: InventoryRowId,
     pub(super) point_id: EquipmentAttachmentPointId,
@@ -33,43 +25,6 @@ struct AttachmentCell {
     parent: InventoryRowId,
     point_id: EquipmentAttachmentPointId,
     capacity_index: u16,
-}
-
-impl ParentSelections {
-    pub(super) fn empty() -> Self {
-        Self(Vec::new())
-    }
-
-    pub(super) fn len(&self) -> usize {
-        self.0.len()
-    }
-
-    pub(super) fn iter(&self) -> impl Iterator<Item = &ParentSelection> {
-        self.0.iter()
-    }
-}
-
-impl TryFrom<Vec<EquipmentAttachmentTargetSelection>> for ParentSelections {
-    type Error = String;
-
-    fn try_from(targets: Vec<EquipmentAttachmentTargetSelection>) -> Result<Self> {
-        let mut requirements = BTreeSet::new();
-        let mut admitted = Vec::with_capacity(targets.len());
-        for target in targets {
-            let requirement = EquipmentParentRequirementIndex::new(target.requirement_index);
-            if !requirements.insert(requirement) {
-                return Err("Attachment parent requirement was selected more than once".into());
-            }
-            admitted.push(ParentSelection {
-                requirement,
-                parent: InventoryRowId::try_new(target.parent_inventory_item_id)
-                    .map_err(|error| error.to_string())?,
-                point: EquipmentAttachmentPointId::try_from(target.attachment_point_id)
-                    .map_err(|error| error.to_string())?,
-            });
-        }
-        Ok(Self(admitted))
-    }
 }
 
 impl SelectedAttachments {
