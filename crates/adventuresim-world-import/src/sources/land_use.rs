@@ -26,9 +26,11 @@ use crate::{
     },
 };
 
+use self::component::{COMPONENTS, HydeComponent};
 use self::fallback::fallback_profile;
 use self::time::{TimeAxis, TimeSelection};
 
+mod component;
 mod fallback;
 mod time;
 
@@ -117,7 +119,7 @@ pub fn crop_cells(
         .collect::<Result<Vec<_>>>()?;
     let mut hasher = Sha256::new();
     hasher.update(b"hyde-3.5-c9-cropland-1544-grid-v1");
-    for name in ["cropland.nc", "general_files.zip"] {
+    for name in [HydeComponent::Cropland.filename(), "general_files.zip"] {
         let path = require(directory, name)?;
         let mut reader = BufReader::new(File::open(path)?);
         let mut buffer = vec![0_u8; 1024 * 1024];
@@ -130,24 +132,6 @@ pub fn crop_cells(
         }
     }
     Ok((cells, format!("{:x}", hasher.finalize())))
-}
-
-const COMPONENTS: [HydeComponent; 3] = [
-    HydeComponent::new("cropland.nc", "cropland"),
-    HydeComponent::new("grazing_land.nc", "grazing_land"),
-    HydeComponent::new("urban_area.nc", "urban_area"),
-];
-
-#[derive(Clone, Copy)]
-struct HydeComponent {
-    filename: &'static str,
-    variable: &'static str,
-}
-
-impl HydeComponent {
-    const fn new(filename: &'static str, variable: &'static str) -> Self {
-        Self { filename, variable }
-    }
 }
 
 pub(crate) fn enrich(
@@ -353,8 +337,9 @@ struct HydeGrid {
 
 impl HydeGrid {
     fn open(directory: &Path, year: CalendarYear, coordinates: &[(f64, f64)]) -> Result<Self> {
-        let first_path = require(directory, COMPONENTS[0].filename)?;
-        let reference = Schema::read(&first_path, COMPONENTS[0])?;
+        let reference_component = HydeComponent::Cropland;
+        let first_path = require(directory, reference_component.filename())?;
+        let reference = Schema::read(&first_path, reference_component)?;
         let selection = reference.times.select(&first_path, year)?;
         let cells = coordinates
             .iter()
@@ -385,9 +370,9 @@ impl HydeGrid {
             })
             .collect::<Vec<_>>();
 
-        for (component_index, component) in COMPONENTS.into_iter().enumerate() {
-            let path = require(directory, component.filename)?;
-            let schema = if component_index == 0 {
+        for component in COMPONENTS {
+            let path = require(directory, component.filename())?;
+            let schema = if component == reference_component {
                 reference.clone()
             } else {
                 let schema = Schema::read(&path, component)?;
@@ -396,20 +381,19 @@ impl HydeGrid {
             };
             let samples = schema.samples(&path, component, selection, &cells)?;
             for (target, (start, end)) in values.iter_mut().zip(samples) {
-                match component_index {
-                    0 => {
+                match component {
+                    HydeComponent::Cropland => {
                         target.crop_start = start;
                         target.crop_end = end;
                     }
-                    1 => {
+                    HydeComponent::Grazing => {
                         target.grazing_start = start;
                         target.grazing_end = end;
                     }
-                    2 => {
+                    HydeComponent::Urban => {
                         target.urban_start = start;
                         target.urban_end = end;
                     }
-                    _ => unreachable!("three HYDE components"),
                 }
             }
         }
@@ -436,11 +420,11 @@ impl Schema {
                 "expected a NetCDF-4 HYDE file",
             ));
         }
-        let variable = nc(path, file.variable(component.variable))?;
+        let variable = nc(path, file.variable(component.variable()))?;
         if !matches!(variable.dtype, NcType::Float | NcType::Double) {
             return Err(invalid(
                 path,
-                component.variable,
+                component.variable(),
                 format!("{:?}", variable.dtype),
                 "expected a floating-point HYDE area variable",
             ));
@@ -453,7 +437,7 @@ impl Schema {
         if dimensions != ["time", "lat", "lon"] {
             return Err(invalid(
                 path,
-                component.variable,
+                component.variable(),
                 format!("{dimensions:?}"),
                 "expected time, lat, lon dimensions in that order",
             ));
@@ -464,7 +448,7 @@ impl Schema {
         if longitudes.len() != HYDE_COLUMNS || latitudes.len() != HYDE_ROWS {
             return Err(invalid(
                 path,
-                component.variable,
+                component.variable(),
                 format!("{} x {}", longitudes.len(), latitudes.len()),
                 "expected the global HYDE 3.5 5-arcminute grid",
             ));
@@ -476,7 +460,7 @@ impl Schema {
         {
             return Err(invalid(
                 path,
-                component.variable,
+                component.variable(),
                 format!("{dimensions:?}"),
                 "variable dimensions do not match coordinate axes",
             ));
@@ -509,7 +493,7 @@ impl Schema {
             let raw = nc(
                 path,
                 file.read_variable_slice_as_f64(
-                    component.variable,
+                    component.variable(),
                     &NcSliceInfo {
                         selections: vec![
                             NcSliceInfoElem::Index(time as u64),
@@ -530,7 +514,7 @@ impl Schema {
             if raw.shape() != [self.latitudes.len(), self.longitudes.len()] {
                 return Err(invalid(
                     path,
-                    component.variable,
+                    component.variable(),
                     format!("{:?}", raw.shape()),
                     "unexpected HYDE time-slice shape",
                 ));
@@ -580,7 +564,7 @@ fn source_value(
     if !value.is_finite() || value < 0.0 {
         return Err(invalid(
             path,
-            component.variable,
+            component.variable(),
             value.to_string(),
             "expected a non-negative finite HYDE area or nodata",
         ));
@@ -886,3 +870,6 @@ mod tests {
         assert_eq!(profile.natural().basis_points(), 0);
     }
 }
+
+#[cfg(test)]
+mod settlement_stage_test;
