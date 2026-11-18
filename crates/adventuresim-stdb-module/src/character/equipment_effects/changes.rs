@@ -1,26 +1,8 @@
 //! An explicit single change or two-item exchange commits as one transaction.
 
-use adventuresim_core::{
-    equipment_placement::EquipmentHand, inventory_command::EquipmentPlacementIndex,
-    physical_object::CarriedInventoryScope,
-};
+use adventuresim_core::physical_object::CarriedInventoryScope;
 
 use super::*;
-
-pub(crate) struct EquipmentChange {
-    pub(crate) inventory: InventoryRowId,
-    pub(crate) destination: EquipmentDestination,
-}
-
-pub(crate) struct EquipmentExchange {
-    pub(crate) source: EquipmentChange,
-    pub(crate) destination: EquipmentChange,
-}
-
-pub(crate) struct AuthoredEquipmentDestination {
-    placement: EquipmentPlacementIndex,
-    targets: ParentSelections,
-}
 
 pub(crate) struct EquipmentChangeSet {
     actor: CustodyCharacterId,
@@ -40,17 +22,6 @@ struct DestinationPlan {
     targets: ParentSelections,
 }
 
-pub(crate) enum EquipmentChanges {
-    Single(EquipmentChange),
-    Exchange(EquipmentExchange),
-}
-
-pub(crate) enum EquipmentDestination {
-    Inventory,
-    Held(EquipmentHand),
-    Authored(AuthoredEquipmentDestination),
-}
-
 #[derive(Clone, Copy)]
 pub(crate) enum EquipmentEffectPolicy {
     Gameplay,
@@ -61,19 +32,6 @@ pub(crate) enum EquipmentEffectPolicy {
 enum PreparedDestination {
     Inventory,
     Placement(ResolvedEquipmentPlacement),
-}
-
-impl EquipmentDestination {
-    /// Admit the framework's attachment selections before shared effect logic.
-    pub(crate) fn authored(
-        placement: EquipmentPlacementIndex,
-        targets: Vec<EquipmentAttachmentTargetSelection>,
-    ) -> Result<Self> {
-        Ok(Self::Authored(AuthoredEquipmentDestination {
-            placement,
-            targets: ParentSelections::try_from(targets)?,
-        }))
-    }
 }
 
 impl EquipmentChangeSet {
@@ -149,15 +107,6 @@ impl EquipmentChangeSet {
         match self.policy {
             EquipmentEffectPolicy::Gameplay => refresh_equipment_dependents(ctx, self.actor.get()),
             EquipmentEffectPolicy::LoadoutAssembly => Ok(()),
-        }
-    }
-}
-
-impl EquipmentChanges {
-    fn into_changes(self) -> Vec<EquipmentChange> {
-        match self {
-            Self::Single(change) => vec![change],
-            Self::Exchange(exchange) => vec![exchange.source, exchange.destination],
         }
     }
 }

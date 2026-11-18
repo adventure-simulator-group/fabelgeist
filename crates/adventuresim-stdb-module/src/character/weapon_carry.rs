@@ -1,5 +1,13 @@
 //! Physical carry-kit assembly for a generated character loadout.
 
+use adventuresim_core::{
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, ParentSelection, ParentSelections,
+    },
+    equipment_placement::{EquipmentAttachmentPointId, EquipmentParentRequirementIndex},
+    inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
+};
+
 use super::*;
 use adventuresim_core::item_references::{
     BELT_ID, BLADE_ATTACHMENT_POINT_ID, BLADE_SHEATH_ID, HAFT_LOOP_ID, WEAPON_CARRY_HIP_PLACEMENTS,
@@ -34,14 +42,16 @@ pub(super) fn provision_generated_weapon_carry(
     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
     let actor = CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?;
 
-    let belt =
-        add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?;
+    let belt = InventoryRowId::try_new(
+        add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?,
+    )
+    .map_err(|error| error.to_string())?;
     let belt_placement = authored_placement_index(ctx, BELT_ID, WORN_PLACEMENT_ID)?;
     EquipmentChangeSet::new(
         actor,
         EquipmentChanges::Single(EquipmentChange {
-            inventory: InventoryRowId::try_new(belt).map_err(|error| error.to_string())?,
-            destination: EquipmentDestination::authored(belt_placement, Vec::new())?,
+            inventory: belt,
+            destination: EquipmentDestination::authored(belt_placement, ParentSelections::empty()),
         }),
         EquipmentEffectPolicy::LoadoutAssembly,
         EquipmentConflictPolicy::RejectOccupied,
@@ -59,22 +69,27 @@ pub(super) fn provision_generated_weapon_carry(
                 ));
             }
         };
-        let holder = add_inventory_item(ctx, character_id, holder_id, 1)
-            .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
-        crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
+        let holder = InventoryRowId::try_new(
+            add_inventory_item(ctx, character_id, holder_id, 1)
+                .ok_or_else(|| format!("Could not add generated {holder_id}"))?,
+        )
+        .map_err(|error| error.to_string())?;
+        crate::weapon_instance::fit_personal_holder(ctx, character_id, holder.get(), weapon.id)?;
         let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
         EquipmentChangeSet::new(
             actor,
             EquipmentChanges::Single(EquipmentChange {
-                inventory: InventoryRowId::try_new(holder).map_err(|error| error.to_string())?,
+                inventory: holder,
                 destination: EquipmentDestination::authored(
                     holder_placement,
-                    vec![EquipmentAttachmentTargetSelection {
-                        requirement_index: 0,
-                        parent_inventory_item_id: belt,
-                        attachment_point_id: hip.into(),
-                    }],
-                )?,
+                    ParentSelection {
+                        requirement: EquipmentParentRequirementIndex::new(0),
+                        parent: belt,
+                        point: EquipmentAttachmentPointId::try_from(hip.to_owned())
+                            .map_err(|error| error.to_string())?,
+                    }
+                    .into(),
+                ),
             }),
             EquipmentEffectPolicy::LoadoutAssembly,
             EquipmentConflictPolicy::RejectOccupied,
@@ -103,7 +118,7 @@ fn place_unheld_weapon_in_sheath(
     ctx: &ReducerContext,
     actor: CustodyCharacterId,
     weapon: &crate::item::InventoryItem,
-    sheath: u64,
+    sheath: InventoryRowId,
 ) -> Result<(), String> {
     if ctx
         .db
@@ -121,12 +136,16 @@ fn place_unheld_weapon_in_sheath(
             inventory: InventoryRowId::try_new(weapon.id).map_err(|error| error.to_string())?,
             destination: EquipmentDestination::authored(
                 placement,
-                vec![EquipmentAttachmentTargetSelection {
-                    requirement_index: 0,
-                    parent_inventory_item_id: sheath,
-                    attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into(),
-                }],
-            )?,
+                ParentSelection {
+                    requirement: EquipmentParentRequirementIndex::new(0),
+                    parent: sheath,
+                    point: EquipmentAttachmentPointId::try_from(
+                        BLADE_ATTACHMENT_POINT_ID.to_owned(),
+                    )
+                    .map_err(|error| error.to_string())?,
+                }
+                .into(),
+            ),
         }),
         EquipmentEffectPolicy::LoadoutAssembly,
         EquipmentConflictPolicy::RejectOccupied,

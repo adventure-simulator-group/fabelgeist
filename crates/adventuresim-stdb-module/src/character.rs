@@ -6,8 +6,6 @@ use weapon_carry::{provision_generated_weapon_carry, require_weapon_carry_placem
 
 use adventuresim_core::{
     attribute::PlayerAttributeValues,
-    equipment_placement::EquippedPlacement,
-    inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
     item_catalog::{EquipmentChannel, ParentRequirement},
     organization::OrganizationMembershipStatus,
     physical_object::CustodyCharacterId,
@@ -54,11 +52,9 @@ use crate::{
     },
 };
 
-pub(crate) use equipment_effects::{
-    EquipmentChange, EquipmentChangeSet, EquipmentChanges, EquipmentDestination,
-    EquipmentEffectPolicy, EquipmentExchange,
-};
+pub(crate) use equipment_effects::{EquipmentChangeSet, EquipmentEffectPolicy};
 pub use equipment_requests::*;
+pub(crate) use equipment_restore::restore_equipment_placement;
 pub use equipment_state::*;
 pub(crate) use starting_equipment::{add_and_equip_basic_clothing, replace_development_loadout};
 
@@ -67,6 +63,7 @@ mod attachment_capacity;
 mod authority_tests;
 mod equipment_effects;
 mod equipment_requests;
+mod equipment_restore;
 mod equipment_state;
 mod occupancy;
 mod origin;
@@ -711,55 +708,6 @@ pub(crate) fn require_no_equipped_children(
     } else {
         Ok(())
     }
-}
-
-pub(crate) fn restore_equipment_placement(
-    ctx: &ReducerContext,
-    actor: CustodyCharacterId,
-    inventory_id: InventoryRowId,
-    placement: &EquippedPlacement,
-    targets: Vec<EquipmentAttachmentTargetSelection>,
-) -> Result<(), String> {
-    crate::strategic::require_character_no_unresolved_encounter(ctx, actor.get())?;
-    let inventory = ctx
-        .db
-        .inventory_item()
-        .id()
-        .find(inventory_id.get())
-        .ok_or("Inventory item not found while restoring equipment")?;
-    let definition = ctx
-        .db
-        .item()
-        .id()
-        .find(&inventory.item_id)
-        .ok_or("Item definition not found while restoring equipment")?;
-    let destination = match placement {
-        EquippedPlacement::Authored(id) => {
-            let index = definition
-                .equipment_placements
-                .iter()
-                .position(|placement| placement.id == id.as_str())
-                .and_then(|index| u16::try_from(index).ok())
-                .ok_or("Saved equipment placement is no longer authored")?;
-            EquipmentDestination::authored(EquipmentPlacementIndex::new(index), targets)?
-        }
-        EquippedPlacement::Held(hand) => {
-            if !targets.is_empty() {
-                return Err("A held item cannot have saved attachment targets".into());
-            }
-            EquipmentDestination::Held(*hand)
-        }
-    };
-    EquipmentChangeSet::new(
-        actor,
-        EquipmentChanges::Single(EquipmentChange {
-            inventory: inventory_id,
-            destination,
-        }),
-        EquipmentEffectPolicy::Gameplay,
-        EquipmentConflictPolicy::RejectOccupied,
-    )
-    .apply(ctx)
 }
 
 fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {

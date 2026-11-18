@@ -26,6 +26,7 @@ pub mod elapsed;
 pub mod encounter;
 pub mod equipment;
 pub mod equipment_assets;
+pub mod equipment_command;
 pub mod equipment_placement;
 pub mod equipment_presentation;
 pub mod errantry;

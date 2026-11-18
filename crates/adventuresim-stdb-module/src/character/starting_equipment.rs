@@ -2,6 +2,9 @@
 
 use adventuresim_core::{
     equipment::LoadoutSlot,
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, ParentSelections,
+    },
     equipment_placement::EquipmentHand,
     inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
     physical_object::CustodyCharacterId,
@@ -10,8 +13,8 @@ use adventuresim_core::{
 use spacetimedb::ReducerContext;
 
 use super::{
-    EquipmentChange, EquipmentChangeSet, EquipmentChanges, EquipmentDestination,
-    EquipmentEffectPolicy, equipped_wearable_ids, refresh_equipment_dependents, unequip_wearable,
+    EquipmentChangeSet, EquipmentEffectPolicy, equipped_wearable_ids, refresh_equipment_dependents,
+    unequip_wearable,
 };
 use crate::{add_inventory_item, inventory_item, item::item};
 
@@ -127,7 +130,10 @@ fn starting_item_destination(
         })
         .and_then(|index| u16::try_from(index).ok())
         .ok_or_else(|| format!("Starting item {item} lacks a root placement for {slot:?}"))?;
-    EquipmentDestination::authored(EquipmentPlacementIndex::new(index), Vec::new())
+    Ok(EquipmentDestination::authored(
+        EquipmentPlacementIndex::new(index),
+        ParentSelections::empty(),
+    ))
 }
 
 fn add_and_equip_starting_item(

@@ -1,16 +1,19 @@
 //! Framework equipment requests share one checked effect across authorities.
 
 use adventuresim_core::{
-    equipment_placement::EquipmentHand,
+    equipment_command::{
+        EquipmentChange, EquipmentChanges, EquipmentDestination, EquipmentExchange,
+        ParentSelection, ParentSelections,
+    },
+    equipment_placement::{
+        EquipmentAttachmentPointId, EquipmentHand, EquipmentParentRequirementIndex,
+    },
     inventory_command::{EquipmentConflictPolicy, EquipmentPlacementIndex, InventoryRowId},
     physical_object::CustodyCharacterId,
 };
 use spacetimedb::{ReducerContext, SpacetimeType, reducer};
 
-use super::{
-    EquipmentAttachmentTargetSelection, EquipmentChange, EquipmentChangeSet, EquipmentChanges,
-    EquipmentDestination, EquipmentEffectPolicy, EquipmentExchange,
-};
+use super::{EquipmentAttachmentTargetSelection, EquipmentChangeSet, EquipmentEffectPolicy};
 
 #[derive(SpacetimeType, Clone, Debug)]
 pub struct EquipmentChangeSetRequest {
@@ -82,11 +85,32 @@ impl TryFrom<EquipmentDestinationRequest> for EquipmentDestination {
         match request {
             EquipmentDestinationRequest::Inventory => Ok(Self::Inventory),
             EquipmentDestinationRequest::Held(hand) => Ok(Self::Held(hand)),
-            EquipmentDestinationRequest::Authored(authored) => Self::authored(
+            EquipmentDestinationRequest::Authored(authored) => Ok(Self::authored(
                 EquipmentPlacementIndex::new(authored.placement_index),
-                authored.targets,
-            ),
+                ParentSelections::try_from(
+                    authored
+                        .targets
+                        .into_iter()
+                        .map(ParentSelection::try_from)
+                        .collect::<Result<Vec<_>, _>>()?,
+                )
+                .map_err(|error| error.to_string())?,
+            )),
         }
+    }
+}
+
+impl TryFrom<EquipmentAttachmentTargetSelection> for ParentSelection {
+    type Error = String;
+
+    fn try_from(target: EquipmentAttachmentTargetSelection) -> Result<Self, Self::Error> {
+        Ok(Self {
+            requirement: EquipmentParentRequirementIndex::new(target.requirement_index),
+            parent: InventoryRowId::try_new(target.parent_inventory_item_id)
+                .map_err(|error| error.to_string())?,
+            point: EquipmentAttachmentPointId::try_from(target.attachment_point_id)
+                .map_err(|error| error.to_string())?,
+        })
     }
 }
 
