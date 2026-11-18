@@ -50,7 +50,8 @@
           141,
           76
         ],
-        "fill": "Solid"
+        "fill": "Solid",
+        "finish": "Velvet"
       },
       {
         "region": {
@@ -84,7 +85,8 @@
             },
             "space": "Garment"
           }
-        }
+        },
+        "finish": "Velvet"
       },
       {
         "region": {
@@ -118,7 +120,8 @@
             },
             "space": "Garment"
           }
-        }
+        },
+        "finish": "Velvet"
       },
       {
         "region": {
@@ -133,7 +136,8 @@
           141,
           76
         ],
-        "fill": "Solid"
+        "fill": "Solid",
+        "finish": "Velvet"
       },
       {
         "region": {
@@ -167,7 +171,8 @@
             },
             "space": "Garment"
           }
-        }
+        },
+        "finish": "Velvet"
       },
       {
         "region": {
@@ -201,7 +206,8 @@
             },
             "space": "Garment"
           }
-        }
+        },
+        "finish": "Velvet"
       }
     ],
     "opacity": 1000,
@@ -219,14 +225,18 @@
           "points": [
             {
               "across": 0,
-              "along": 996
+              "along": 996,
+              "lift": 0
             },
             {
               "across": 1000,
-              "along": 996
+              "along": 996,
+              "lift": 0
             }
           ],
           "closure": "Open",
+          "course": "Straight",
+          "variation": null,
           "style": {
             "Fold": {
               "width": 6,
@@ -235,7 +245,8 @@
             }
           }
         }
-      ]
+      ],
+      "regions": []
     }
   }
 }

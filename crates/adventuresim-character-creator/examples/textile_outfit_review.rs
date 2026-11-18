@@ -6,6 +6,7 @@ use adventuresim_character_creator::{
     armor_recipes::ParametricDesign,
     device_body::DeviceBody,
     device_fit::{self, Fitted},
+    layer_settle,
 };
 use anyhow::Result;
 use clap::Parser;
@@ -57,8 +58,7 @@ fn main() -> Result<()> {
     let fit = body.fit_body();
     let wearer = body.realization(&device);
     let mut garments = Vec::new();
-    for (index, article) in articles.iter().enumerate() {
-        let placement = article.placement.as_str();
+    for article in &articles {
         let fitting_placement = match article.placement {
             ArmorPlacement::Left => FittingPlacement::Lateral(Side::Left),
             ArmorPlacement::Right => FittingPlacement::Lateral(Side::Right),
@@ -85,14 +85,18 @@ fn main() -> Result<()> {
                 joints: &body.joints,
             },
         )?;
+        garments.push(generated);
+    }
+    let residue = layer_settle::settle_layers(&mut garments.iter_mut().collect::<Vec<_>>())?;
+    println!("crossings left between articles: {}", residue.crossings);
+    for (index, (article, generated)) in articles.iter().zip(&garments).enumerate() {
         review::write_generated(
             &args.output,
             &format!("article-{index}"),
-            placement,
+            article.placement.as_str(),
             &article.design,
-            &generated,
+            generated,
         )?;
-        garments.push(generated);
     }
     Ok(())
 }

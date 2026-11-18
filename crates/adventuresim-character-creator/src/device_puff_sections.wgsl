@@ -5,7 +5,9 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
     let section = id.x;
     let f = frame_at(0u);
     let extent = span(f, params.inset);
-    let y = mix(extent.x, extent.y, f32(section) / f32(SECTIONS - 1u));
+    // The station after the limb sections sits at a cuff's free edge.
+    var y = mix(extent.x, extent.y, f32(section) / f32(SECTIONS - 1u));
+    if (section == SECTIONS) { y = extent.x - params.cuff; }
     let bounds = vec2<f32>(y - HALF_WIDTH, y + HALF_WIDTH);
     let first = section * params.capacity;
     var count = 0u;
@@ -19,7 +21,7 @@ fn main(@builtin(global_invocation_id) id: vec3<u32>) {
             var nearby = false;
             for (var corner = 0u; corner < 3u; corner++) {
                 let p = host_local(f, positions_at(faces[face * 3u + corner]));
-                nearby = nearby || (p.y >= extent.x - HALF_WIDTH && p.y <= extent.y + HALF_WIDTH && length(p.xz) <= radial_limit);
+                nearby = nearby || (p.y >= extent.x - params.cuff - HALF_WIDTH && p.y <= extent.y + HALF_WIDTH && length(p.xz) <= radial_limit);
             }
             if (!nearby) { continue; }
         }

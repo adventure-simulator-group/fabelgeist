@@ -2,6 +2,8 @@
 use crate::{DesignError, GenerateError, TextileAppearance, TextileFinish, TextilePixels};
 
 const THREAD_EDGE_SLOPE: f32 = 0.65;
+/// Brocaded weft stands only slightly above its ground.
+const BROCADE_EDGE_SLOPE: f32 = 0.2;
 
 impl TextilePixels {
     /// Height-field central differences, in metres per material-chart metre.
@@ -19,6 +21,13 @@ impl TextilePixels {
         }
         let mut result = if fabric.finish == TextileFinish::MetallicThread {
             self.thread_normals()?
+        } else if fabric
+            .layers
+            .0
+            .iter()
+            .any(|layer| layer.finish == TextileFinish::MetallicThread)
+        {
+            self.metal_normals()?
         } else {
             [128, 128, 255, 255].repeat((self.width * self.height) as usize)
         };
@@ -49,10 +58,15 @@ impl TextilePixels {
             .collect::<Vec<_>>();
         let sample = |x: u32, y: u32| heights[(y * self.width + x) as usize];
         for y in 0..self.height {
+            let along = (y as f32 + 0.5) / self.height as f32;
+            let across = fabric
+                .relief
+                .as_ref()
+                .map_or(chart.across.metres(), |relief| relief.across_metres(along));
             for x in 0..self.width {
                 let [left, right] = self.chart_boundary.neighbors(x, self.width);
-                let slope_x = (sample(right, y) - sample(left, y)) * self.width as f32
-                    / (2. * chart.across.metres());
+                let slope_x =
+                    (sample(right, y) - sample(left, y)) * self.width as f32 / (2. * across);
                 let slope_y = (sample(x, (y + 1).min(self.height - 1))
                     - sample(x, y.saturating_sub(1)))
                     * self.height as f32
@@ -83,6 +97,21 @@ impl TextilePixels {
         self.draw_thread_normals()
     }
 
+    /// Native RGBA8 normal image for cloth whose layers, not its ground, are
+    /// metallic thread: wherever metal shows it stands a little above the
+    /// ground, so a gold figure on silk is raised like brocading weft.
+    fn metal_normals(&self) -> Result<Vec<u8>, GenerateError> {
+        self.validate_dimensions()?;
+        let heights = self
+            .surface
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|texel| f32::from(texel[2]))
+            .collect::<Vec<_>>();
+        self.normals_from_heights(&heights, BROCADE_EDGE_SLOPE)
+    }
+
     fn validate_dimensions(&self) -> Result<(), GenerateError> {
         let expected = (self.width as usize)
             .checked_mul(self.height as usize)
@@ -101,6 +130,15 @@ impl TextilePixels {
             .iter()
             .map(|pixel| pixel[..3].iter().map(|v| f32::from(*v)).sum::<f32>())
             .collect::<Vec<_>>();
+        self.normals_from_heights(&heights, THREAD_EDGE_SLOPE)
+    }
+
+    /// Edge slopes of a height image whose full range rises at `edge_slope`.
+    fn normals_from_heights(
+        &self,
+        heights: &[f32],
+        edge_slope: f32,
+    ) -> Result<Vec<u8>, GenerateError> {
         let low = heights.iter().copied().fold(f32::INFINITY, f32::min);
         let high = heights.iter().copied().fold(f32::NEG_INFINITY, f32::max);
         if high <= low {
@@ -111,11 +149,10 @@ impl TextilePixels {
         for y in 0..self.height {
             for x in 0..self.width {
                 let [left, right] = self.chart_boundary.neighbors(x, self.width);
-                let slope_x =
-                    (sample(right, y) - sample(left, y)) * THREAD_EDGE_SLOPE / (high - low);
+                let slope_x = (sample(right, y) - sample(left, y)) * edge_slope / (high - low);
                 let slope_y = (sample(x, (y + 1).min(self.height - 1))
                     - sample(x, y.saturating_sub(1)))
-                    * THREAD_EDGE_SLOPE
+                    * edge_slope
                     / (high - low);
                 let length = (slope_x * slope_x + slope_y * slope_y + 1.).sqrt();
                 for value in [-slope_x / length, -slope_y / length, 1. / length] {

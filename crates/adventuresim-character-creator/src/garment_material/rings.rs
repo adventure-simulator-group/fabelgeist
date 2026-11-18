@@ -69,6 +69,7 @@ impl MailMaps {
     /// Color and alpha are sRGB; normal and occlusion are linear data.
     pub fn textures(&self) -> SurfaceTextures {
         SurfaceTextures {
+            metal_roughness_png: None,
             base_color_png: Some(self.color_png.clone()),
             normal_png: self.normal_png.clone(),
             occlusion_png: Some(self.occlusion_png.clone()),

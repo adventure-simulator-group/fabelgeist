@@ -41,8 +41,8 @@ chart. Extend chart ownership before claiming general cuff-band alignment.
 
 Keep broad silhouette folds regular. Future cloth simulation may produce
 irregular drape. Fine ornament belongs in parametric color and height-derived
-normal maps. Count both sides, edge walls and hidden sheets against the normal
-10,000-triangle article budget. Generated-pose clipping remains a defect;
+normal maps. Count both sides, edge walls and hidden sheets against the
+15,000-triangle article ceiling. Generated-pose clipping remains a defect;
 provisional animation skinning does not waive it.
 
 ## Deliberately deferred features
@@ -54,6 +54,11 @@ expanded cuffs, cuff binding and backing, slit and frilled sleeve treatments;
 turned gown collars and their supporting sheets; independent torso inserts;
 and geometric gown neckline binding. Their constructors and controls are
 removed, rather than exposed as unaccepted alternatives.
+
+A later layered outfit builds segmented sleeves, a hand cuff and a raised
+neckline band as separate constructions on a sleeveless gown; see the
+[Saxon court gown guide](saxon-court.md). It does not restore the features
+listed above on this fitted-sleeve gown.
 
 The earlier multilayer Cranach outfit is not a supported shipped reconstruction.
 The general skirt puff-and-slash system, reusable textile patterns and separate

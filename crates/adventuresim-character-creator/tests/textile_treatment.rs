@@ -6,8 +6,8 @@ use fabelgeist_armor::gpu::{
     record_skirt,
 };
 use fabelgeist_armor::{
-    ArmorComponentRole, ArmorGpu, BuiltPart, PuffAndSlashDesign, PuffAndSlashPattern,
-    SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
+    ArmorComponentRole, ArmorGpu, BuiltPart, Permille, PuffAndSlashDesign, PuffAndSlashPattern,
+    PuffCourse, PuffSlashes, SKIRT_AXIAL_SEGMENTS, SKIRT_RING_SEGMENTS, SkirtDesign,
 };
 use fabelgeist_gpu::prelude::BufferUpload;
 
@@ -27,7 +27,7 @@ fn finished(gpu: &ArmorGpu, pattern: &PuffAndSlashPattern) -> Result<[BuiltPart;
         gpu,
         &mut batch,
         &SkirtDesign {
-            puff_and_slash: Some(pattern.clone()),
+            puff_and_slash: Some(Box::new(pattern.clone())),
             ..Default::default()
         },
         &fit,
@@ -68,7 +68,8 @@ fn assert_closed(part: &BuiltPart) {
         part.components.iter().map(|c| c.role).collect::<Vec<_>>(),
         [
             ArmorComponentRole::Undercloth,
-            ArmorComponentRole::OuterFabric
+            ArmorComponentRole::OuterFabric,
+            ArmorComponentRole::ConstrictionBand
         ]
     );
     let mut edges = std::collections::BTreeMap::<[u32; 2], Vec<[u32; 2]>>::new();
@@ -87,13 +88,22 @@ fn assert_closed(part: &BuiltPart) {
 #[test]
 fn open_and_closed_treatments_keep_valid_shells_on_both_carriers() -> Result<()> {
     let gpu = ArmorGpu::open()?;
-    for (puff_count, slash_count, slash_width) in
-        [(1, 0, 300), (3, 8, 300), (3, 3, 50), (8, 16, 300)]
-    {
+    for (puff_count, slashes) in [
+        (1, None),
+        (3, Some((8, 300))),
+        (3, Some((3, 50))),
+        (8, Some((16, 300))),
+    ] {
+        let course = PuffCourse {
+            slashes: slashes.map(|(count, width)| PuffSlashes {
+                count,
+                width: Permille(width),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
         let pattern = PuffAndSlashPattern {
-            puff_count,
-            slash_count,
-            slash_width: fabelgeist_armor::Permille(slash_width),
+            courses: vec![course; puff_count],
             ..Default::default()
         };
         let [skirt, limb] = finished(&gpu, &pattern)?;
@@ -114,10 +124,16 @@ fn open_and_closed_treatments_keep_valid_shells_on_both_carriers() -> Result<()>
         assert_eq!(skirt.positions, repeated[0].positions);
     }
     let invalid = SkirtDesign {
-        puff_and_slash: Some(PuffAndSlashPattern {
-            slash_count: 2,
+        puff_and_slash: Some(Box::new(PuffAndSlashPattern {
+            courses: vec![PuffCourse {
+                slashes: Some(PuffSlashes {
+                    count: 2,
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }],
             ..Default::default()
-        }),
+        })),
         ..Default::default()
     };
     assert!(invalid.validate().is_err());

@@ -25,7 +25,18 @@ a dark divider, a smaller patterned band and a broad dark hem.
 
 - [Maker's photographs and construction account](https://annevonwiese.com/16th-c-cranach-style-gown-of-2024/)
 
-Both files contain `SkirtDesign` recipes. Given a saved native review body,
+`saxon-court-outfit.json` is a layered court gown in the manner of Cranach's
+Saxon portraits of the 1520s: a partlet, a sleeveless gown with a raised
+neckline band, and two segmented puff-and-slash sleeves with cuffs. Its
+[guide](saxon-court.md) records the sources, construction and known limits.
+
+`pomegranate-outfit.json` is an Italian gown of crimson silk figured with
+gold pomegranates. Its pattern is a stored tile cut from a public-domain plate
+of a fifteenth-century silk, and the scroll on its guards is traced from the
+same plate. Its [guide](pomegranate.md) records the design and limits; the
+[pattern tile record](../../patterns/README.md) records the source and tools.
+
+`pisa.json` and `cranach.json` contain `SkirtDesign` recipes. Given a saved native review body,
 export one through the same fitter used by the creator and runtime:
 
 ```sh

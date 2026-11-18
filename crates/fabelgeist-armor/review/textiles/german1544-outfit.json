@@ -5,12 +5,18 @@
       "Gown": {
         "bodice": {
           "neckline": {
-            "shape": "SoftSquare",
+            "shape": {
+              "Rounded": {
+                "squareness": 1000
+              }
+            },
             "width": 850,
             "front_drop": 110,
             "back_drop": 70
           },
-          "armhole_width": 50,
+          "armhole_edge": {
+            "Inside": 50
+          },
           "armhole_depth": 110,
           "hem_rise": 200,
           "opening": "Closed",

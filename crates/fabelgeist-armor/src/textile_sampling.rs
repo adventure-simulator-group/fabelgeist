@@ -34,56 +34,7 @@ impl TextileRasterSize {
                     along.end.unit() - along.start.unit(),
                 ],
             };
-            let density = match layer.fill {
-                TextileFill::Solid => [1., 1.],
-                TextileFill::Weave { warp, weft, width } => {
-                    let detail = (MIN_FEATURE_PIXELS / (width.unit() * PIXELS_PER_REPEAT)).max(1.);
-                    [f32::from(warp.0) * detail, f32::from(weft.0) * detail]
-                }
-                TextileFill::Stripes {
-                    axis,
-                    repeats,
-                    width,
-                    ..
-                } => {
-                    let mut density = [1., 1.];
-                    let index = axis_index(axis);
-                    if width.0 < 1000 {
-                        let feature = width.unit().min(1. - width.unit());
-                        density[index] = f32::from(repeats.0) / span[index]
-                            * (MIN_FEATURE_PIXELS / (feature * PIXELS_PER_REPEAT)).max(1.);
-                    }
-                    density
-                }
-                TextileFill::Motifs {
-                    space,
-                    ref motif,
-                    across,
-                    along,
-                    scale,
-                    ..
-                } => {
-                    let span = if space == TextilePatternSpace::Region {
-                        span
-                    } else {
-                        [1., 1.]
-                    };
-                    let detail = match motif {
-                        TextileMotif::Medallion {
-                            threads, stroke, ..
-                        } => {
-                            (f32::from(threads.0) * SAMPLES_PER_THREAD_PERIOD)
-                                .max(MIN_FEATURE_PIXELS / stroke.unit())
-                                / PIXELS_PER_REPEAT
-                        }
-                        _ => 1.,
-                    };
-                    [
-                        f32::from(across.0) * detail / (span[0] * scale.unit()),
-                        f32::from(along.0) * detail / (span[1] * scale.unit()),
-                    ]
-                }
-            };
+            let density = layer.fill.density(span);
             for axis in 0..2 {
                 repeats[axis] = repeats[axis]
                     .max(density[axis])
@@ -112,6 +63,82 @@ impl TextileRasterSize {
         Self {
             width: sides[0],
             height: sides[1],
+        }
+    }
+}
+
+impl TextileFill {
+    /// Repeats of the raster's base detail that the fill asks for across and
+    /// along the whole chart, when its layer spans `span` of it.
+    fn density(&self, span: [f32; 2]) -> [f32; 2] {
+        match *self {
+            Self::Solid => [1., 1.],
+            Self::Weave { warp, weft, width } => {
+                let detail = (MIN_FEATURE_PIXELS / (width.unit() * PIXELS_PER_REPEAT)).max(1.);
+                [f32::from(warp.0) * detail, f32::from(weft.0) * detail]
+            }
+            Self::Stripes {
+                axis,
+                repeats,
+                width,
+                ..
+            } => {
+                let mut density = [1., 1.];
+                let index = axis_index(axis);
+                if width.0 < 1000 {
+                    let feature = width.unit().min(1. - width.unit());
+                    density[index] = f32::from(repeats.0) / span[index]
+                        * (MIN_FEATURE_PIXELS / (feature * PIXELS_PER_REPEAT)).max(1.);
+                }
+                density
+            }
+            Self::Motifs {
+                space,
+                ref motif,
+                across,
+                along,
+                scale,
+                ..
+            } => {
+                let span = if space == TextilePatternSpace::Region {
+                    span
+                } else {
+                    [1., 1.]
+                };
+                let detail = match motif {
+                    TextileMotif::Medallion {
+                        threads, stroke, ..
+                    } => {
+                        (f32::from(threads.0) * SAMPLES_PER_THREAD_PERIOD)
+                            .max(MIN_FEATURE_PIXELS / stroke.unit())
+                            / PIXELS_PER_REPEAT
+                    }
+                    _ => 1.,
+                };
+                [
+                    f32::from(across.0) * detail / (span[0] * scale.unit()),
+                    f32::from(along.0) * detail / (span[1] * scale.unit()),
+                ]
+            }
+            Self::Woven {
+                space,
+                pattern,
+                across,
+                along,
+                ..
+            } => {
+                let span = if space == TextilePatternSpace::Region {
+                    span
+                } else {
+                    [1., 1.]
+                };
+                // One raster sample for each sample of the stored repeat.
+                let [wide, high] = pattern.samples();
+                [
+                    f32::from(across.0) * wide as f32 / (span[0] * PIXELS_PER_REPEAT),
+                    f32::from(along.0) * high as f32 / (span[1] * PIXELS_PER_REPEAT),
+                ]
+            }
         }
     }
 }

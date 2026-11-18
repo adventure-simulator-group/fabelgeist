@@ -8,6 +8,10 @@ use anyhow::{Context, Result};
 use bevy::math::{DVec3, Vec3};
 use fabelgeist_bvh::{Aabb, TriangleBvh};
 
+/// Least cosine between a carrier facet's normal and the area-weighted normal
+/// of the surface at its corners for the facet to own contacts.
+const MINIMUM_FACET_FACING_COSINE: f32 = 0.25;
+
 /// Finite contact ownership for torso layers and retained anatomical carriers.
 #[derive(Clone, Copy)]
 pub(super) enum ContactScope<'a> {
@@ -53,6 +57,7 @@ pub(super) fn collect(
         layer.positions.iter().copied().map(bvh).collect(),
         layer.faces.to_vec(),
     );
+    let surface_normals = super::referenced_normals(&domain.positions, domain.faces)?;
     let mut contacts = Vec::new();
     for (source, &face) in domain.faces.iter().enumerate() {
         let outer = face.map(|v| Vec3::from_array(domain.positions[v as usize]));
@@ -61,6 +66,9 @@ pub(super) fn collect(
             .try_normalize()
             .context("overlap carrier has a degenerate facet")?;
         let directions = face.map(|v| Vec3::from_array(domain.directions[v as usize]));
+        if !faces_its_surface(normal, face, &surface_normals) {
+            continue;
+        }
         let bounds = Aabb::from_points(outer.map(|p| bvh(p.to_array())))
             .expand(super::support::CARRIER_LAYER_NEIGHBORHOOD_M);
         let mut candidates = Vec::new();
@@ -135,6 +143,19 @@ pub(super) fn collect(
         }
     }
     Ok(contacts)
+}
+
+/// A sliver along a cut boundary can stand edge-on to the cloth around it.
+/// Its normal then points across the surface, at cloth it does not cover, so
+/// it owns no overlap.
+fn faces_its_surface(normal: Vec3, face: [u32; 3], surface: &[Option<[f32; 3]>]) -> bool {
+    let around = face
+        .into_iter()
+        .filter_map(|v| surface[v as usize])
+        .map(Vec3::from_array)
+        .sum::<Vec3>()
+        .normalize_or_zero();
+    normal.dot(around) >= MINIMUM_FACET_FACING_COSINE
 }
 
 /// Project onto the finite outer triangle's barycentric chart, then clip the

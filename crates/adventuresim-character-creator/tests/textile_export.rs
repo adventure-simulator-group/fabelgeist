@@ -23,6 +23,7 @@ fn portable_sheer_cloth_blends_once_and_retains_opaque_pattern_pixels() -> Resul
         },
         fill: TextileFill::Solid,
         color: TextileColor([190, 150, 55]),
+        finish: fabelgeist_armor::TextileFinish::Linen,
     });
     let maps = adventuresim_character_creator::textile_surface::textures(&fabric)?
         .context("missing sheer maps")?;

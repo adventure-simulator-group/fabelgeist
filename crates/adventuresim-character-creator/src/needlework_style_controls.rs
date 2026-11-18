@@ -1,7 +1,8 @@
 //! Stroke material and physical dimensions share the schema's owning bounds.
 use bevy_egui::egui;
 use fabelgeist_armor::{
-    Micrometers, Millimeters, TextileColor, TextileFoldProfile, TextileStrokeStyle,
+    Micrometers, Millimeters, Permille, TextileColor, TextileFoldProfile, TextileRepeatCount,
+    TextileStrokeStyle, TextileThread,
 };
 struct StyleChoice {
     label: &'static str,
@@ -20,11 +21,13 @@ pub(super) fn show(ui: &mut egui::Ui, style: &mut TextileStrokeStyle) -> bool {
         }
     });
     changed |= match style {
-        TextileStrokeStyle::Cord { diameter, color } => {
+        TextileStrokeStyle::Cord {
+            diameter, color, ..
+        } => {
             let mut changed = super::super::number(
                 ui,
                 &mut diameter.0,
-                TextileStrokeStyle::THREAD_RANGE,
+                TextileStrokeStyle::CORD_RANGE,
                 "Thread diameter (micrometres)",
             );
             changed |= ui.color_edit_button_srgb(&mut color.0).changed();
@@ -36,13 +39,28 @@ pub(super) fn show(ui: &mut egui::Ui, style: &mut TextileStrokeStyle) -> bool {
             gap,
             relief,
             color,
+            ..
         } => stitches(ui, width, length, gap, relief, color),
         TextileStrokeStyle::Braid {
+            strands,
+            cover,
             width,
             pitch,
             relief,
             color,
-        } => braid(ui, width, pitch, relief, color),
+            ..
+        } => {
+            let slider = egui::Slider::new(&mut strands.0, TextileStrokeStyle::STRAND_RANGE)
+                .text("Braid strands");
+            let mut changed = ui.add(slider).changed();
+            changed |= super::super::number(
+                ui,
+                &mut cover.0,
+                TextileStrokeStyle::COVER_RANGE,
+                "Strand cover (permille)",
+            );
+            changed | braid(ui, width, pitch, relief, color)
+        }
         TextileStrokeStyle::Pearls {
             diameter,
             spacing,
@@ -54,6 +72,29 @@ pub(super) fn show(ui: &mut egui::Ui, style: &mut TextileStrokeStyle) -> bool {
             profile,
         } => fold(ui, width, relief, profile),
     };
+    if let TextileStrokeStyle::Cord { thread, .. }
+    | TextileStrokeStyle::Stitches { thread, .. }
+    | TextileStrokeStyle::Braid { thread, .. } = style
+    {
+        changed |= thread_controls(ui, thread);
+    }
+    changed
+}
+
+/// What a thread is made of, which sets how it takes the light.
+pub(super) fn thread_controls(ui: &mut egui::Ui, chosen: &mut TextileThread) -> bool {
+    let mut changed = false;
+    ui.horizontal_wrapped(|ui| {
+        for (thread, label) in [
+            (TextileThread::Linen, "Linen thread"),
+            (TextileThread::Wool, "Wool thread"),
+            (TextileThread::Silk, "Silk thread"),
+            (TextileThread::MetalThread, "Metal thread"),
+            (TextileThread::MetalWire, "Drawn wire"),
+        ] {
+            changed |= ui.selectable_value(chosen, thread, label).changed();
+        }
+    });
     changed
 }
 fn choices() -> [StyleChoice; 5] {
@@ -64,6 +105,7 @@ fn choices() -> [StyleChoice; 5] {
             style: TextileStrokeStyle::Cord {
                 diameter: Micrometers(500),
                 color: gold,
+                thread: TextileThread::MetalThread,
             },
         },
         StyleChoice {
@@ -74,15 +116,19 @@ fn choices() -> [StyleChoice; 5] {
                 gap: Millimeters(2),
                 relief: Micrometers(150),
                 color: gold,
+                thread: TextileThread::MetalThread,
             },
         },
         StyleChoice {
             label: "Braid",
             style: TextileStrokeStyle::Braid {
+                strands: TextileRepeatCount(3),
+                cover: Permille::ONE,
                 width: Millimeters(3),
                 pitch: Millimeters(4),
                 relief: Micrometers(300),
                 color: gold,
+                thread: TextileThread::MetalThread,
             },
         },
         StyleChoice {
@@ -147,13 +193,13 @@ fn braid(
     let mut changed = super::super::number(
         ui,
         &mut width.0,
-        TextileStrokeStyle::WIDTH_RANGE,
+        TextileStrokeStyle::BRAID_WIDTH_RANGE,
         "Braid width (mm)",
     );
     changed |= super::super::number(
         ui,
         &mut pitch.0,
-        TextileStrokeStyle::PITCH_RANGE,
+        TextileStrokeStyle::BRAID_PITCH_RANGE,
         "Braid pitch (mm)",
     );
     changed |= super::super::number(

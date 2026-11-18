@@ -56,6 +56,7 @@ impl ExportedHair {
         Ok(Self {
             morphs: morphs.hair(model, &hair, &cards, &placement)?,
             textures: SurfaceTextures {
+                metal_roughness_png: None,
                 base_color_png: Some(tinted_atlas(&placed, design)?),
                 normal_png: encode(&FLAT_NORMAL, 1, 1)?,
                 occlusion_png: None,

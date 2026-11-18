@@ -1,8 +1,8 @@
 //! Construction controls shared by fitted upper garments.
 use bevy_egui::egui;
 use fabelgeist_armor::{
-    BodiceDesign, BodiceInterlining, BodiceLining, BodiceOpening, InterliningCoverage, Millimeters,
-    NecklineShape, TextileAppearance, TextileColor, TextileFinish,
+    ArmholeEdge, BodiceDesign, BodiceInterlining, BodiceLining, BodiceOpening, InterliningCoverage,
+    Millimeters, NecklineShape, Permille, TextileAppearance, TextileColor, TextileFinish,
 };
 
 use super::{number, textile};
@@ -13,29 +13,21 @@ pub(super) fn show(
     hem_range: std::ops::RangeInclusive<u16>,
 ) -> bool {
     let mut changed = false;
-    ui.horizontal(|ui| {
-        changed |= ui
-            .selectable_value(
-                &mut design.neckline.shape,
-                NecklineShape::SoftSquare,
-                "Soft square neckline",
-            )
-            .changed();
-        changed |= ui
-            .selectable_value(
-                &mut design.neckline.shape,
-                NecklineShape::Square,
-                "Square neckline",
-            )
-            .changed();
-        changed |= ui
-            .selectable_value(
-                &mut design.neckline.shape,
-                NecklineShape::Round,
-                "Round neckline",
-            )
-            .changed();
-    });
+    let mut rounded = design.neckline.shape != NecklineShape::Square;
+    let rounded_response = ui.checkbox(&mut rounded, "Rounded neckline");
+    if rounded_response.changed() {
+        design.neckline.shape = if rounded {
+            NecklineShape::Rounded {
+                squareness: Permille::ONE,
+            }
+        } else {
+            NecklineShape::Square
+        };
+        changed = true;
+    }
+    if let NecklineShape::Rounded { squareness } = &mut design.neckline.shape {
+        changed |= number(ui, &mut squareness.0, 0..=Permille::ONE.0, "Squareness");
+    }
     changed |= number(
         ui,
         &mut design.neckline.width.0,
@@ -54,12 +46,30 @@ pub(super) fn show(
         BodiceDesign::BACK_DROP_RANGE,
         "Back neckline drop (mm)",
     );
-    changed |= number(
-        ui,
-        &mut design.armhole_width.0,
-        BodiceDesign::ARMHOLE_WIDTH_RANGE,
-        "Armhole medial reach (mm)",
-    );
+    let mut capped = matches!(design.armhole_edge, ArmholeEdge::Beyond(_));
+    let capped_response = ui.checkbox(&mut capped, "Cloth caps the shoulder");
+    if capped_response.changed() {
+        design.armhole_edge = if capped {
+            ArmholeEdge::Beyond(Millimeters(*BodiceDesign::ARMHOLE_BEYOND_RANGE.start()))
+        } else {
+            ArmholeEdge::Inside(Millimeters(*BodiceDesign::ARMHOLE_INSIDE_RANGE.start()))
+        };
+        changed = true;
+    }
+    changed |= match &mut design.armhole_edge {
+        ArmholeEdge::Inside(distance) => number(
+            ui,
+            &mut distance.0,
+            BodiceDesign::ARMHOLE_INSIDE_RANGE,
+            "Armhole edge inside the shoulder joint (mm)",
+        ),
+        ArmholeEdge::Beyond(distance) => number(
+            ui,
+            &mut distance.0,
+            BodiceDesign::ARMHOLE_BEYOND_RANGE,
+            "Armhole edge beyond the shoulder joint (mm)",
+        ),
+    };
     changed |= number(
         ui,
         &mut design.armhole_depth.0,

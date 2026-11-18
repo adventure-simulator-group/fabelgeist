@@ -27,6 +27,9 @@ impl<'a> GlbOutput<'a> {
 pub struct SurfaceTextures {
     pub base_color_png: Option<Vec<u8>>,
     pub normal_png: Vec<u8>,
+    /// Linear roughness in green and metalness in blue, as glTF reads them.
+    /// With it the material's own two factors are one.
+    pub metal_roughness_png: Option<Vec<u8>>,
     /// Linear ambient visibility, read from the red channel by glTF and Bevy.
     pub occlusion_png: Option<Vec<u8>>,
     pub alpha: SurfaceAlpha,
@@ -178,6 +181,12 @@ impl TextureImages {
         }
         let normal = self.image(&maps.normal_png, buffer, maps.sampling);
         material["normalTexture"] = json!({"index":normal});
+        if let Some(bytes) = maps.metal_roughness_png {
+            let surface = self.image(&bytes, buffer, maps.sampling);
+            material["pbrMetallicRoughness"]["metallicFactor"] = 1.0.into();
+            material["pbrMetallicRoughness"]["roughnessFactor"] = 1.0.into();
+            material["pbrMetallicRoughness"]["metallicRoughnessTexture"] = json!({"index":surface});
+        }
         if let Some(bytes) = maps.occlusion_png {
             let occlusion = self.image(&bytes, buffer, maps.sampling);
             material["occlusionTexture"] = json!({"index":occlusion,"strength":1.0});

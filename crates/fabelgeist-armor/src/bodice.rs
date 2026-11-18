@@ -35,8 +35,7 @@ pub struct BodiceInterlining {
 #[serde(deny_unknown_fields)]
 pub struct BodiceDesign {
     pub neckline: BodiceNeckline,
-    /// Distance from each shoulder joint to the medial armhole edge.
-    pub armhole_width: Millimeters,
+    pub armhole_edge: ArmholeEdge,
     /// Distance below each shoulder joint at the lower armhole edge.
     pub armhole_depth: Millimeters,
     /// Hem height above the pelvis root in the canonical unposed body frame.
@@ -49,12 +48,27 @@ pub struct BodiceDesign {
     pub interlining: Option<BodiceInterlining>,
 }
 
+/// Where the upper edge of each armhole lies, measured from the shoulder
+/// joint along the shoulder line.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum ArmholeEdge {
+    /// Toward the neck. The shoulder joint and the arm stay uncovered, as
+    /// under a set-in sleeve or a strap.
+    Inside(Millimeters),
+    /// Out over the arm. The cloth caps the shoulder, so a separate sleeve
+    /// can begin below it.
+    Beyond(Millimeters),
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub enum NecklineShape {
     Square,
-    Round,
-    /// A fourth-power rounded rectangle: broad bottom and softened corners.
-    SoftSquare,
+    /// A curved opening. No squareness is an ellipse; full squareness is a
+    /// fourth-power rounded rectangle with a broad bottom and softened
+    /// corners. Between them the corners round out and the bottom rises.
+    Rounded {
+        squareness: Permille,
+    },
 }
 
 /// An opening traverses the complete bodice, including its lining. The two
@@ -81,11 +95,29 @@ pub enum InterliningCoverage {
     },
 }
 
+impl ArmholeEdge {
+    /// Signed metres from the shoulder joint, positive out over the arm.
+    pub fn lateral_metres(self) -> f32 {
+        match self {
+            Self::Inside(distance) => -distance.metres(),
+            Self::Beyond(distance) => distance.metres(),
+        }
+    }
+
+    fn is_valid(self) -> bool {
+        match self {
+            Self::Inside(distance) => BodiceDesign::ARMHOLE_INSIDE_RANGE.contains(&distance.0),
+            Self::Beyond(distance) => BodiceDesign::ARMHOLE_BEYOND_RANGE.contains(&distance.0),
+        }
+    }
+}
+
 impl BodiceDesign {
     pub const NECK_WIDTH_RANGE: RangeInclusive<u16> = 100..=850;
     pub const FRONT_DROP_RANGE: RangeInclusive<u16> = 1..=350;
     pub const BACK_DROP_RANGE: RangeInclusive<u16> = 1..=200;
-    pub const ARMHOLE_WIDTH_RANGE: RangeInclusive<u16> = 20..=100;
+    pub const ARMHOLE_INSIDE_RANGE: RangeInclusive<u16> = 20..=100;
+    pub const ARMHOLE_BEYOND_RANGE: RangeInclusive<u16> = 0..=80;
     pub const ARMHOLE_DEPTH_RANGE: RangeInclusive<u16> = 40..=200;
     pub const HEM_RISE_RANGE: RangeInclusive<u16> = 0..=300;
     pub const CLEARANCE_RANGE: RangeInclusive<u16> = 1..=50;
@@ -105,9 +137,13 @@ impl BodiceDesign {
         };
         if !widths_valid
             || !Self::NECK_WIDTH_RANGE.contains(&self.neckline.width.0)
+            || matches!(
+                self.neckline.shape,
+                NecklineShape::Rounded { squareness } if squareness.0 > Permille::ONE.0
+            )
             || !Self::FRONT_DROP_RANGE.contains(&self.neckline.front_drop.0)
             || !Self::BACK_DROP_RANGE.contains(&self.neckline.back_drop.0)
-            || !Self::ARMHOLE_WIDTH_RANGE.contains(&self.armhole_width.0)
+            || !self.armhole_edge.is_valid()
             || !Self::ARMHOLE_DEPTH_RANGE.contains(&self.armhole_depth.0)
             || !Self::HEM_RISE_RANGE.contains(&self.hem_rise.0)
             || !Self::CLEARANCE_RANGE.contains(&self.clearance.0)

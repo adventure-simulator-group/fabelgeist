@@ -5,6 +5,7 @@ pub fn textures(design: Option<&ParametricDesign>) -> Option<SurfaceTextures> {
     match design {
         Some(ParametricDesign::Underlayer(design)) if design.kind.is_mail() => {
             Some(SurfaceTextures {
+                metal_roughness_png: None,
                 base_color_png: Some(
                     include_bytes!("../../../assets_src/equipment/materials/mail-base-color.png")
                         .to_vec(),

@@ -12,6 +12,9 @@ use image::ImageEncoder;
 pub struct TextileMaps {
     pub base_color_png: Vec<u8>,
     pub normal_png: Vec<u8>,
+    /// Roughness in green and metalness in blue, texel for texel with the
+    /// color: each thread, bead and layer takes the light as what it is.
+    pub metal_roughness_png: Vec<u8>,
     pub alpha: SurfaceAlpha,
     pub chart_boundary: TextileChartBoundary,
 }
@@ -52,6 +55,16 @@ pub fn material(
                 fabric.chart_boundary,
             )));
         }
+        // The map holds each texel's roughness and metalness outright.
+        material.metallic = 1.;
+        material.perceptual_roughness = 1.;
+        material.metallic_roughness_texture = Some(images.add(texture_image(
+            pixels.width,
+            pixels.height,
+            pixels.surface,
+            TextureFormat::Rgba8Unorm,
+            fabric.chart_boundary,
+        )));
         let image = texture_image(
             pixels.width,
             pixels.height,
@@ -89,6 +102,7 @@ pub fn textures(fabric: &TextileAppearance) -> Result<Option<TextileMaps>> {
         } else {
             encode(&[128, 128, 255, 255], 1, 1)?
         },
+        metal_roughness_png: encode(&pixels.surface, pixels.width, pixels.height)?,
         alpha: alpha_mode(fabric),
         chart_boundary: fabric.chart_boundary,
     }))
@@ -100,6 +114,7 @@ impl From<TextileMaps> for crate::export::SurfaceTextures {
         Self {
             base_color_png: Some(maps.base_color_png),
             normal_png: maps.normal_png,
+            metal_roughness_png: Some(maps.metal_roughness_png),
             occlusion_png: None,
             alpha: maps.alpha,
             sides: crate::export::SurfaceSides::Front,

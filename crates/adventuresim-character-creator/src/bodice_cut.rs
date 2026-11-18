@@ -383,14 +383,20 @@ impl OpeningCut {
     }
 }
 
+/// Largest amount by which squareness raises the unit tangent's exponent:
+/// one for an ellipse, half as much again for a fourth-power rectangle.
+const SQUARE_TANGENT_EXPONENT_GAIN: f32 = 0.5;
+
 pub(super) fn neckline_tangent(shape: NecklineShape, angle: f32) -> [f32; 2] {
-    if shape == NecklineShape::SoftSquare {
-        let x = angle.cos();
-        let y = angle.sin();
-        [x.signum() * x.abs().powf(1.5), y.powf(1.5)]
-    } else {
-        [angle.cos(), angle.sin()]
-    }
+    let NecklineShape::Rounded { squareness } = shape else {
+        return [angle.cos(), angle.sin()];
+    };
+    let exponent = 1. + SQUARE_TANGENT_EXPONENT_GAIN * squareness.unit();
+    let x = angle.cos();
+    [
+        x.signum() * x.abs().powf(exponent),
+        angle.sin().powf(exponent),
+    ]
 }
 
 pub(super) fn cut_positions(body: &Wearer<'_>, cut: &SurfaceCut) -> Vec<[f32; 3]> {

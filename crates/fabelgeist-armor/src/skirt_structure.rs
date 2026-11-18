@@ -127,6 +127,13 @@ impl SkirtPleats {
         Ok(())
     }
 
+    /// Native GPU design words: the width and profile of the front folds.
+    pub(crate) fn fold_words(&self) -> [f32; 2] {
+        self.front_style.as_ref().map_or([0.; 2], |front| {
+            [front.width.unit(), front.style as u32 as f32]
+        })
+    }
+
     /// Native GPU design words: repeats, depth in metres, profile and phase.
     pub(crate) fn shader_words(&self) -> [f32; 4] {
         [

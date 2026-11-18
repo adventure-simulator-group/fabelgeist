@@ -526,9 +526,9 @@ waist boundary joins it to the skirt before thickening, so it is one continuous
 surface. The catalog's **Linen dress** starts from this construction. Detailed
 necklines, sleeves and corsetry are outside this construction stage.
 
-Pleats have independent repeat count, depth, rotation and rounded or accordion
-folds. Front depth can be reduced to leave a quieter center front while keeping
-fuller side and rear folds. A quiet front panel reserves part of the
+Pleats have independent repeat count, depth, rotation and rounded, accordion
+or knife folds. Front depth can be reduced to leave a quieter center front
+while keeping fuller side and rear folds. A quiet front panel reserves part of the
 circumference and distributes the folds over the remaining cloth. Fine waist
 gathers have their own count, depth and falloff distance, independent of the
 broader lower folds, with an adjustable share retained toward the hem.
@@ -544,11 +544,18 @@ retain construction identity and rigid pelvis attachment. They express the
 reference construction; they do not simulate forces or constrain fabric yet.
 Enable puff-and-slash treatment to add puffed courses over a continuous lining.
 Skirts, dresses, sleeves and hose share the same pattern controls, panel
-construction and fullness profile. Edit course count, fullness and taper,
-roundness, constriction bands, slash count, opening dimensions, rotation and
-both textile appearances. Turn off open slashes for closed puffed cloth; turn
-off the treatment for plain cloth. Treatment can accompany either pleats or
-supports.
+construction and fullness profile. Courses are listed from the distal end.
+Each has its own length share, fullness, constriction band width and optional
+slashes; zero fullness keeps a fitted section. A course's slashes also set
+where each opening gapes widest and how far it slants around the limb. Edit
+the course list, roundness, rotation, lining fullness and the outer, band and
+undercloth textiles. Lining fullness below 1000 sets the lining back under
+the pane edges. Turn off open slashes
+for closed puffed cloth; turn off the treatment for plain cloth. Treatment can
+accompany either pleats or supports.
+Sleeves also set how far the head sits below the shoulder joint and may add a
+flared cuff over the hand. The cuff encloses the unposed hand section; it is
+not fitted to the fingers.
 On dresses it covers the hanging section; the fitted upper section and waist
 transition remain continuous lining. These controls describe construction, not
 forces, cloth dynamics or collision response. Skinning and movement clipping
@@ -558,9 +565,12 @@ forms. The controls permit this stylization; finite topology does not establish
 plausible fabric construction across every combination.
 
 The catalog's **Fitted linen bodice** uses a separate `BodiceDesign`. Choose a
-square or round neckline, front and back drop, and independent armhole width
-and depth. Front or back openings have separate waist and neckline widths.
-The upper width must fit within the neckline. A round neckline rejects an
+square or rounded neckline, front and back drop, and independent armhole edge
+and depth. The armhole's upper edge lies inside the shoulder joint, or beyond
+it so that the cloth caps the shoulder and a separate sleeve can begin below. A rounded neckline has a squareness: none is an ellipse, and full
+squareness is a rounded rectangle with a broad bottom and softened corners.
+Front or back openings have separate waist and neckline widths.
+The upper width must fit within the neckline. A rounded neckline rejects an
 opening flare that would meet it below the requested upper endpoint.
 
 Face cloth, lining and interlining remain separate mesh components. The
@@ -580,7 +590,8 @@ The bodice hem and skirt waist must have the same rise and cloth thickness.
 The editor keeps those values together. An uncut waist band beneath a front or
 back opening keeps the sewn waist continuous. The skirt cannot also supply its
 minimal upper band or a puff-and-slash treatment. Lacing, waist supports and a
-dressing slit are separate controls.
+dressing slit are separate controls. A closed bodice may carry a raised
+neckline trim, deeper along the front edge than over the shoulders.
 
 Optional fitted sleeves extend the same anatomical surface from the shoulders
 towards the wrists. They share the bodice fabric and clearance. Their reach is
@@ -588,6 +599,27 @@ towards the wrists. They share the bodice fabric and clearance. Their reach is
 fitted torso and no lower equipment layers; loose bodies remain sleeveless.
 It does not offer a separate free-volume cap, expanded cuff or frill. The
 retained body chart is not an independent cylindrical sleeve pattern chart.
+Cloth, its layers, threads and beads are each named for what they are made
+of: a layer has its own finish, and a cord, stitches or braid has a thread
+(linen, wool, silk, metal thread or drawn wire). The name sets how the thing
+takes the light, and a roughness and metalness map is baked beside the colour
+and relief maps and written to exported glTF.
+
+Each point of an ornament path has a lift, its height above the cloth. Where
+paths cross, the higher one shows, so a path that rises and falls passes over
+and under its neighbours.
+
+A sleeve's "Head drop under the arm" ends its head lower under the arm than
+over the shoulder, so a head set high on the shoulder does not run into the
+body. A sleeve head that ends in a seam is drawn onto the cloth beneath it
+over its last 50 mm, so it does not stand off the bodice. A sleeve's lining
+ends above its last slashed course. After an outfit is fitted, each article's
+cloth is settled clear of the articles under it wherever their surfaces still
+pass through one another.
+
+A sleeveless gown accepts lower layers and separate puff-and-slash sleeves;
+the [Saxon court gown guide](../fabelgeist-armor/review/textiles/saxon-court.md)
+describes that layered construction and its limits.
 
 The authored gown represents a restrained German design around 1544, rather
 than the earlier ornate reconstruction. See the
@@ -610,6 +642,15 @@ continuous garment pattern clipped through several bands and panels. The latter
 keeps ornament scale and alignment across separate pieces of the same fabric.
 These are stylized parametric ornaments, not certified reconstructions of
 historical textiles.
+
+A layer can instead be filled with a woven pattern: one stored repeat of a
+figured weave, tiled edge to edge with its own repeat counts and offsets. The
+layer's color and finish are the figure's, and the cloth beneath is the
+ground. Tiles are cut offline from pictures of historic textiles; the
+[pattern tile record](../fabelgeist-armor/patterns/README.md) lists each
+tile's source and explains how to add one. The
+[pomegranate gown](../fabelgeist-armor/review/textiles/pomegranate.md) shows
+the fill on a whole outfit.
 
 Across runs around the garment, with a rear seam; along runs from its proximal
 edge to the hem or cuff. A joined dress charts the bodice and hanging skirt separately.

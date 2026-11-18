@@ -32,6 +32,8 @@ pub(crate) fn apply(design: &ParametricDesign, armor: &mut GeneratedArmor) -> Re
             ParametricDesign::PuffAndSlash(puff) => match component.role {
                 ArmorComponentRole::Undercloth => Some(&puff.pattern.undercloth_fabric),
                 ArmorComponentRole::OuterFabric => Some(&puff.pattern.outer_fabric),
+                ArmorComponentRole::ConstrictionBand => Some(&puff.pattern.band_fabric),
+                ArmorComponentRole::Cuff => puff.cuff.as_ref().map(|cuff| &cuff.fabric),
                 _ => None,
             },
             _ => None,
@@ -82,6 +84,13 @@ pub(crate) fn skirt_fabric<'a>(
                 .as_ref()
                 .context("undercloth without a textile construction")?
                 .undercloth_fabric,
+        ),
+        ArmorComponentRole::ConstrictionBand => Some(
+            &skirt
+                .puff_and_slash
+                .as_ref()
+                .context("constriction band without a textile construction")?
+                .band_fabric,
         ),
         ArmorComponentRole::OuterFabric => Some(
             skirt

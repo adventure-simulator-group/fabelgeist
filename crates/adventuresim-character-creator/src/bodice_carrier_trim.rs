@@ -88,7 +88,7 @@ impl ClothTorsoFrame {
             origin += anterior * ((front + back) * 0.5 - origin).dot(anterior);
             let bank = cast(origin,lateral*sign).with_context(|| format!("carrier armscye has no lateral torso support: side={sign} origin={origin:?} front={front:?} back={back:?} bottom={bottom}"))?;
             let lower = sign * bank.dot(lateral);
-            let medial = sign * dot(*shoulder, self.lateral) - design.armhole_width.metres();
+            let medial = sign * dot(*shoulder, self.lateral) + design.armhole_edge.lateral_metres();
             let top = support
                 .iter()
                 .map(|&v| body.positions[v][1])

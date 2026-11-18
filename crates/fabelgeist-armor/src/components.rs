@@ -28,6 +28,8 @@ pub enum ArmorComponentRole {
     ClothTies,
     ClothFasteners,
     Undercloth,
+    ConstrictionBand,
+    Cuff,
     Lining,
     Interlining,
     Boning,
@@ -59,11 +61,18 @@ impl ArmorComponentRole {
             Self::ClothTies => "cloth_ties",
             Self::ClothFasteners => "cloth_fasteners",
             Self::Undercloth => "undercloth",
+            Self::ConstrictionBand => "constriction_band",
+            Self::Cuff => "cuff",
             Self::Lining => "lining",
             Self::Interlining => "interlining",
             Self::Boning => "boning",
             Self::Hoops => "hoops",
         }
+    }
+
+    /// Whether the component is cloth worn inside its article's face cloth.
+    pub const fn lies_under_face(self) -> bool {
+        matches!(self, Self::Undercloth | Self::Lining | Self::Interlining)
     }
 
     /// The name of the component's trim band.
@@ -91,6 +100,8 @@ impl ArmorComponentRole {
             Self::ClothTies => "cloth_ties.trim",
             Self::ClothFasteners => "cloth_fasteners.trim",
             Self::Undercloth => "undercloth.trim",
+            Self::ConstrictionBand => "constriction_band.trim",
+            Self::Cuff => "cuff.trim",
             Self::Lining => "lining.trim",
             Self::Interlining => "interlining.trim",
             Self::Boning => "boning.trim",
