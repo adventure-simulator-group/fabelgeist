@@ -12,6 +12,12 @@ use zip::ZipArchive;
 
 const BOUNDS: [f64; 4] = [0.02, -0.06, 0.06, -0.02];
 const COMPONENTS: [&str; 3] = ["cropland.nc", "grazing_land.nc", "urban_area.nc"];
+// Fixture interpolation uses areas up to 30 km²; this allows over 200 binary64
+// representable steps at that scale for the few arithmetic operations.
+const CROP_AREA_TOLERANCE_KM2: f64 = 1e-12;
+// Grid bounds subtract coordinates near 180 degrees; this allows over 30
+// binary64 representable steps at that scale for the coordinate calculation.
+const CROP_BOUNDS_TOLERANCE_DEGREES: f64 = 1e-12;
 
 struct Fixtures {
     root: PathBuf,
@@ -75,13 +81,25 @@ impl Fixtures {
             | "urban_descending_order"
             | "grazing_descending_later"
             | "urban_descending_later"
-            | "rounding_inside" => &COMPONENTS,
+            | "rounding_inside"
+            | "role_ascending"
+            | "role_descending" => &COMPONENTS,
             "component_mismatch"
             | "later_missing_marker"
             | "near_equal_component"
-            | "opposite_component" => &["grazing_land.nc"],
-            "later_invalid_minimum" => &["urban_area.nc"],
+            | "opposite_component"
+            | "role_grazing_missing"
+            | "role_grazing_wrong_marker"
+            | "role_grazing_nan" => &["grazing_land.nc"],
+            "later_invalid_minimum" | "role_urban_missing" | "role_urban_wrong_marker" => {
+                &["urban_area.nc"]
+            }
             _ => &["cropland.nc"],
+        };
+        let baseline = if name.starts_with("role_") {
+            "role_ascending"
+        } else {
+            "negative"
         };
         for filename in COMPONENTS {
             let variant = variants.join(filename);
@@ -93,7 +111,7 @@ impl Fixtures {
             let source = if variant.is_file() {
                 variant
             } else {
-                inputs.join("negative").join(filename)
+                inputs.join(baseline).join(filename)
             };
             fs::copy(source, destination.join(filename)).unwrap();
         }
@@ -154,6 +172,176 @@ impl Case {
             },
         }
     }
+}
+
+#[test]
+fn hyde_component_roles_keep_crop_output_and_per_file_fill() {
+    let fixtures = Fixtures::new();
+    let ascending_digest = "62c044cfcd2329a0a75915aa9743a09aaec243c09f99f26bbf4cd722b7cde158";
+    let descending_digest = "f5f42d85aa645e78de6e3cc4b16933e0cdcf664a65e628c4da9df66352ddf865";
+    for (scenario, year, expected, expected_digest) in [
+        ("role_ascending", 1500, 10.0, Some(ascending_digest)),
+        ("role_ascending", 1544, 18.8, Some(ascending_digest)),
+        ("role_ascending", 1600, 30.0, Some(ascending_digest)),
+        ("role_descending", 1500, 10.0, Some(descending_digest)),
+        ("role_descending", 1544, 18.8, Some(descending_digest)),
+        ("role_descending", 1600, 30.0, Some(descending_digest)),
+        ("role_grazing_missing", 1544, 18.8, Some(ascending_digest)),
+        ("role_urban_missing", 1544, 18.8, Some(ascending_digest)),
+        ("role_grazing_nan", 1544, 18.8, Some(ascending_digest)),
+        ("role_crop_missing_end", 1500, 10.0, None),
+    ] {
+        let directory = fixtures.scenario(scenario);
+        let (cells, digest) =
+            hyde_crop_cells(&directory, CalendarYear::new(year).unwrap(), BOUNDS).unwrap();
+        assert_eq!(cells.len(), 1, "{scenario} {year}");
+        let cell = &cells[0];
+        assert_eq!((cell.row, cell.column), (1080, 2160), "{scenario}");
+        assert!(
+            (cell.crop_km2 - expected).abs() <= CROP_AREA_TOLERANCE_KM2,
+            "{scenario} {year}"
+        );
+        for (actual, expected) in cell
+            .bounds
+            .into_iter()
+            .zip([0.0, -1.0 / 12.0, 1.0 / 12.0, 0.0])
+        {
+            assert!(
+                (actual - expected).abs() <= CROP_BOUNDS_TOLERANCE_DEGREES,
+                "{scenario} {year}"
+            );
+        }
+        if let Some(expected_digest) = expected_digest {
+            assert_eq!(digest, expected_digest, "{scenario} {year}");
+        }
+    }
+
+    for (scenario, year, expected) in [
+        ("role_crop_missing_start", 1500, "missing start value"),
+        ("role_crop_missing_start", 1544, "missing start value"),
+        ("role_crop_missing_end", 1544, "missing end value"),
+    ] {
+        let directory = fixtures.scenario(scenario);
+        let error =
+            hyde_crop_cells(&directory, CalendarYear::new(year).unwrap(), BOUNDS).unwrap_err();
+        let Error::Validation(message) = error else {
+            panic!("{scenario} {year}: {error:?}");
+        };
+        assert!(message.contains(expected), "{scenario} {year}: {message}");
+    }
+
+    for (scenario, filename, field, value) in [
+        ("role_crop_wrong_marker", "cropland.nc", "cropland", "-202"),
+        (
+            "role_grazing_wrong_marker",
+            "grazing_land.nc",
+            "grazing_land",
+            "-101",
+        ),
+        (
+            "role_urban_wrong_marker",
+            "urban_area.nc",
+            "urban_area",
+            "-202",
+        ),
+    ] {
+        let directory = fixtures.scenario(scenario);
+        let error =
+            hyde_crop_cells(&directory, CalendarYear::new(1544).unwrap(), BOUNDS).unwrap_err();
+        let Error::InvalidField {
+            path,
+            field: actual_field,
+            value: actual_value,
+            ..
+        } = error
+        else {
+            panic!("{scenario}: {error:?}");
+        };
+        assert_eq!(
+            path.file_name(),
+            Some(std::ffi::OsStr::new(filename)),
+            "{scenario}"
+        );
+        assert_eq!(actual_field, field, "{scenario}");
+        assert_eq!(actual_value, value, "{scenario}");
+    }
+}
+
+#[test]
+fn hyde_component_roles_preserve_first_error_order() {
+    let fixtures = Fixtures::new();
+    let year = CalendarYear::new(1544).unwrap();
+
+    let directory = fixtures.scenario("duplicate");
+    fs::remove_file(directory.join("general_files.zip")).unwrap();
+    let Error::InvalidField { path, field, .. } =
+        hyde_crop_cells(&directory, year, BOUNDS).unwrap_err()
+    else {
+        panic!("invalid reference should precede missing area");
+    };
+    assert_eq!(path.file_name(), Some(std::ffi::OsStr::new("cropland.nc")));
+    assert_eq!(field, "time");
+
+    let directory = fixtures.scenario("role_ascending");
+    fs::remove_file(directory.join("general_files.zip")).unwrap();
+    fs::remove_file(directory.join("grazing_land.nc")).unwrap();
+    let Error::MissingSource(path) = hyde_crop_cells(&directory, year, BOUNDS).unwrap_err() else {
+        panic!("missing area should precede missing grazing");
+    };
+    assert_eq!(
+        path.file_name(),
+        Some(std::ffi::OsStr::new("general_files.zip"))
+    );
+
+    for (scenario, remove, expected_file, expected_field, expected_value) in [
+        (
+            "role_crop_wrong_marker",
+            "grazing_land.nc",
+            "cropland.nc",
+            "cropland",
+            "-202",
+        ),
+        (
+            "role_grazing_wrong_marker",
+            "urban_area.nc",
+            "grazing_land.nc",
+            "grazing_land",
+            "-101",
+        ),
+    ] {
+        let directory = fixtures.scenario(scenario);
+        fs::remove_file(directory.join(remove)).unwrap();
+        let Error::InvalidField {
+            path, field, value, ..
+        } = hyde_crop_cells(&directory, year, BOUNDS).unwrap_err()
+        else {
+            panic!("invalid {expected_field} should precede missing {remove}");
+        };
+        assert_eq!(path.file_name(), Some(std::ffi::OsStr::new(expected_file)));
+        assert_eq!(field, expected_field);
+        assert_eq!(value, expected_value);
+    }
+
+    let directory = fixtures.scenario("role_crop_missing_start");
+    fs::copy(
+        fixtures
+            .root
+            .join("inputs/role_grazing_wrong_marker/grazing_land.nc"),
+        directory.join("grazing_land.nc"),
+    )
+    .unwrap();
+    let Error::InvalidField {
+        path, field, value, ..
+    } = hyde_crop_cells(&directory, year, BOUNDS).unwrap_err()
+    else {
+        panic!("invalid grazing should precede crop nodata output");
+    };
+    assert_eq!(
+        path.file_name(),
+        Some(std::ffi::OsStr::new("grazing_land.nc"))
+    );
+    assert_eq!(field, "grazing_land");
+    assert_eq!(value, "-101");
 }
 
 #[test]
@@ -377,7 +565,7 @@ fn hyde_crop_cells_selects_checked_time_axes_and_rejects_invalid_metadata() {
                 let cell = &cells[0];
                 assert_eq!((cell.row, cell.column), (1080, 2160), "{}", case.scenario);
                 assert!(
-                    (cell.crop_km2 - expected).abs() <= 1e-12,
+                    (cell.crop_km2 - expected).abs() <= CROP_AREA_TOLERANCE_KM2,
                     "{} year {}: expected {expected}, got {}",
                     case.scenario,
                     case.year,

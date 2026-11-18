@@ -10,6 +10,7 @@ parser.add_argument("--base", type=Path, required=True)
 parser.add_argument("--extra", type=Path, required=True)
 parser.add_argument("--boundary", type=Path, required=True)
 parser.add_argument("--later", type=Path, required=True)
+parser.add_argument("--roles", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
 args = parser.parse_args()
 
@@ -59,6 +60,20 @@ for scenario in ("offset_above_i32", "offset_below_i32", "rounding_outside"):
 for scenario in ("grazing_descending_later", "urban_descending_later"):
     for filename in components:
         files[f"{scenario}/{filename}"] = args.later / scenario / filename
+for scenario in ("role_ascending", "role_descending"):
+    for filename in components:
+        files[f"{scenario}/{filename}"] = args.roles / scenario / filename
+for scenario, filename in (
+    ("role_crop_missing_start", "cropland.nc"),
+    ("role_crop_missing_end", "cropland.nc"),
+    ("role_grazing_missing", "grazing_land.nc"),
+    ("role_urban_missing", "urban_area.nc"),
+    ("role_crop_wrong_marker", "cropland.nc"),
+    ("role_grazing_wrong_marker", "grazing_land.nc"),
+    ("role_urban_wrong_marker", "urban_area.nc"),
+    ("role_grazing_nan", "grazing_land.nc"),
+):
+    files[f"{scenario}/{filename}"] = args.roles / scenario / filename
 
 if args.output.exists():
     raise SystemExit("output already exists; no files changed")
