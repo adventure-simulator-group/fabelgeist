@@ -8,7 +8,7 @@ use std::{
 };
 
 use adventuresim_world_schema::{
-    BASIS_POINTS_PER_WHOLE, CanopyDensity, DominantLeafType, ForestCover, Woodland,
+    BASIS_POINTS_PER_WHOLE, CanopyDensity, DominantLeafType, ForestCover, LandUseFraction, Woodland,
 };
 use serde::Deserialize;
 use tiff::{
@@ -79,7 +79,7 @@ pub(crate) fn enrich(
             let (cover, fallback) = forest_cover(
                 density_value,
                 leaf_value,
-                settlement.land_use.natural().basis_points(),
+                settlement.land_use.natural(),
                 settlement.elevated.elevation.get(),
             );
             fallbacks += usize::from(fallback);
@@ -150,10 +150,11 @@ pub fn validate_prepared_forest_manifest(bytes: &[u8], path: &Path) -> Result<&'
 fn forest_cover(
     density: Option<u8>,
     leaf: Option<u8>,
-    natural_basis_points: u16,
+    natural: LandUseFraction,
     elevation_meters: i16,
 ) -> (ForestCover, bool) {
     let Some(density) = density.filter(|value| *value <= 100) else {
+        let natural_basis_points = natural.basis_points();
         if natural_basis_points < 500 {
             return (ForestCover::Open, true);
         }
@@ -415,7 +416,7 @@ fn geo_key(keys: &[u16], requested: u16) -> Option<u16> {
 mod tests {
     use std::io::Cursor;
 
-    use adventuresim_world_schema::{DominantLeafType, ForestCover, Woodland};
+    use adventuresim_world_schema::{DominantLeafType, ForestCover, LandUseFraction, Woodland};
     use tiff::{
         encoder::{TiffEncoder, colortype::Gray8},
         tags::Tag,
@@ -535,12 +536,13 @@ mod tests {
 
     #[test]
     fn source_values_parse_into_valid_forest_variants() {
+        let natural = |basis_points| LandUseFraction::new(basis_points).unwrap();
         assert_eq!(
-            forest_cover(Some(0), Some(1), 8_000, 100),
+            forest_cover(Some(0), Some(1), natural(8_000), 100),
             (ForestCover::Open, false)
         );
         assert_eq!(
-            forest_cover(Some(40), Some(2), 8_000, 100),
+            forest_cover(Some(40), Some(2), natural(8_000), 100),
             (
                 ForestCover::Wooded(Woodland {
                     density: adventuresim_world_schema::CanopyDensity::new(40).unwrap(),
@@ -550,18 +552,18 @@ mod tests {
             )
         );
         assert_eq!(
-            forest_cover(None, None, 100, 100),
+            forest_cover(None, None, natural(100), 100),
             (ForestCover::Open, true)
         );
         assert!(matches!(
-            forest_cover(None, None, 8_000, 900).0,
+            forest_cover(None, None, natural(8_000), 900).0,
             ForestCover::Wooded(Woodland {
                 dominant: DominantLeafType::Coniferous,
                 ..
             })
         ));
         assert!(matches!(
-            forest_cover(None, Some(2), 8_000, 100).0,
+            forest_cover(None, Some(2), natural(8_000), 100).0,
             ForestCover::Wooded(Woodland {
                 dominant: DominantLeafType::Coniferous,
                 ..
